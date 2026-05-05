@@ -78,6 +78,19 @@ Then stop. Do not guess.
 
 When a script/GUI pattern causes a bug: verify and replace with correct syntax. Do NOT remove the feature. Removal is only allowed if Steps 2 and 3 both fail to find any reference, and the user is explicitly told.
 
+## Early Development: Ask-First Policy
+
+This mod is in early development (v0.1.0). When in doubt about design intent, **ask the user before implementing**.
+
+Ask before proceeding whenever:
+- A design document leaves a specific threshold, weight, or value unspecified
+- Two or more valid EU5 approaches could implement the same mechanic and the choice has gameplay consequences
+- A design decision requires assumptions about player interaction not covered by `docs/design/Towards_Victory_Design.md`
+- The scope of a requested change could be interpreted narrowly or broadly
+- Any requirement in the design document is ambiguous or contradictory
+
+Do NOT resolve ambiguity by picking the "most reasonable" interpretation and proceeding silently.
+
 ## Python Script Requirements
 
 Every new Python script in `scripts/` **must** include the following block immediately after the stdlib imports, before any module-level code:

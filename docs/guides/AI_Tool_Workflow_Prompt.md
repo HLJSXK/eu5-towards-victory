@@ -48,6 +48,19 @@ Then stop and ask the user for guidance. Do NOT guess.
 - NEVER hallucinate or guess Paradox script syntax.
 - If you cannot verify a command using the steps above, explicitly tell the user: "I cannot verify this syntax, please check the official wiki or logs."
 - If a syntax pattern causes bugs, do NOT remove the feature as a first response. You MUST follow the 3-step rule in order (Direct Edit -> reference_official_defines/ -> reference_game_files/) and replace it with a verified working syntax.
+
+### Early Development: Ask-First Policy
+
+This mod is in early development (v0.1.0). The design is still being refined. **When in doubt, ask the user before implementing.**
+
+Ask the user before proceeding whenever:
+- A design document leaves a specific threshold, weight, or value unspecified (e.g. "composite threshold 1" with no number given)
+- Two or more valid EU5 approaches could implement the same mechanic and the choice has gameplay consequences
+- A design decision requires assumptions about how the player interacts with the system (e.g. what happens if two victory paths reach Short-term Victory simultaneously)
+- The scope of a requested change could be interpreted narrowly or broadly
+- Any requirement in `docs/design/Towards_Victory_Design.md` is ambiguous or contradictory
+
+Do NOT resolve ambiguity by picking the "most reasonable" interpretation and proceeding silently. The cost of asking once is always lower than implementing the wrong thing and rewriting it.
 ```
 
 ## Path Mapping In This Repository
