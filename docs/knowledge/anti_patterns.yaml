@@ -1,0 +1,154 @@
+# EU5 Known Anti-Patterns
+# ========================
+# Machine-readable knowledge store. Feed into:
+#   - scripts/validate.py  (static pre-flight checks)
+#   - scripts/gen_brief.py (generates docs/knowledge/BRIEF.md)
+#
+# Fields:
+#   id        : unique slug (no spaces)
+#   pattern   : Python regex to detect the bad form in source files
+#   bad       : human-readable description of the bad form
+#   correction: what to do instead
+#   category  : modifier | enum | encoding | gui | scope | event | localization
+#   scope     : country | location | character | global | any
+#   source    : reference file that verifies the correction (path:line if known)
+#   notes     : one-line explanation of why the bad form fails
+#
+# To add a new entry: append a YAML dict with all fields, then run:
+#   python scripts/gen_brief.py
+
+- id: location_auto_modifier_nonfunctional
+  pattern: 'category\s*=\s*location'
+  only_in_paths: ['auto_modifiers']
+  bad: "auto_modifier with category = location (inside auto_modifiers/ file)"
+  correction: "TRY_REPLACE entry in main_menu/common/static_modifiers/ with game_data.category = location"
+  category: modifier
+  scope: location
+  source: "reference_game_files/game/main_menu/common/static_modifiers/"
+  notes: "Location auto_modifiers are NON-FUNCTIONAL in EU5; bake effects into static_modifier values instead"
+
+- id: location_rank_invalid_village
+  pattern: 'location_rank\s*[=?]=\s*location_rank:village'
+  bad: "location_rank:village"
+  correction: "location_rank:rural_settlement"
+  category: enum
+  scope: location
+  source: "reference_game_files/game/in_game/common/diseases/bubonic_plague.txt"
+  notes: "EU4 rank name; EU5 valid values are rural_settlement, town, city"
+
+- id: location_rank_invalid_hamlet
+  pattern: 'location_rank\s*[=?]=\s*location_rank:hamlet'
+  bad: "location_rank:hamlet"
+  correction: "location_rank:rural_settlement"
+  category: enum
+  scope: location
+  source: "reference_game_files/game/in_game/common/diseases/bubonic_plague.txt"
+  notes: "EU4 rank name; EU5 valid values are rural_settlement, town, city"
+
+- id: location_rank_invalid_metropolis
+  pattern: 'location_rank\s*[=?]=\s*location_rank:metropolis'
+  bad: "location_rank:metropolis"
+  correction: "location_rank:city"
+  category: enum
+  scope: location
+  source: "reference_game_files/game/in_game/common/building_types/unique_buildings.txt"
+  notes: "EU4 rank name; EU5 valid values are rural_settlement, town, city"
+
+- id: custom_tooltip_do_not_remove
+  pattern: ''
+  bad: "Removing custom_tooltip from event options (wrong fix for dotted key confusion)"
+  correction: "Keep custom_tooltip; verify key format via Step 2/3 — dotted suffix IS valid in event options"
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/common/character_interactions/ali_qushji_settles.txt"
+  notes: "AI wrongly removed custom_tooltip thinking dotted key format was invalid. Never remove; only verify format."
+
+- id: blockoverride_widget_child_invalid
+  pattern: 'blockoverride\s+"common_header_text"\s*\{[^}]*text_single'
+  bad: "text_single widget inside blockoverride \"common_header_text\""
+  correction: "blockoverride overrides a 'text' property value, not a widget container; do not add child widgets"
+  category: gui
+  scope: any
+  source: "reference_game_files/game/main_menu/common/cards.gui:1084"
+  notes: "Guessing block structure causes silent failures; always read cards.gui before using blockoverride"
+
+- id: yaml_localization_non_ascii_quotes
+  pattern: '[""'']'
+  bad: "Smart/curly quotes (“”‘’) in localization YAML"
+  correction: "Use straight ASCII double-quotes (\") only; escape with \\\" inside values"
+  category: localization
+  scope: any
+  source: "reference_official_defines/docs/data_types_gui.txt"
+  notes: "PDX parser rejects non-ASCII quote characters; the failure is silent"
+
+- id: eu4_province_modifier_scope
+  pattern: 'add_province_modifier'
+  bad: "add_province_modifier (EU4 effect)"
+  correction: "add_location_modifier or add_static_modifier with location scope"
+  category: scope
+  scope: location
+  source: "reference_game_files/game/in_game/common/"
+  notes: "EU4 province scope effects do not exist in EU5; use location-scoped equivalents"
+
+- id: eu4_has_province_modifier
+  pattern: 'has_province_modifier'
+  bad: "has_province_modifier (EU4 trigger)"
+  correction: "has_location_modifier"
+  category: scope
+  scope: location
+  source: "reference_game_files/game/in_game/common/"
+  notes: "EU4 province scope triggers do not exist in EU5"
+
+- id: float_precision_exceeds_5dp
+  pattern: '\d\.\d{6,}'
+  bad: "float literal with 6+ decimal places (e.g. value = 0.123456789)"
+  correction: "Round to at most 5 decimal places: value = 0.12346; EU5 engine reads no further"
+  category: precision
+  scope: any
+  source: "user-reported engine behavior (2026-04)"
+  notes: "EU5 engine truncates all float literals at 5 decimal places; digits beyond the 5th are silently ignored"
+
+- id: gui_no_getgoods_from_string
+  pattern: "GetGoods\\('|GetGoodsFromKey|MakeGoods\\("
+  bad: "GetGoods('key'), GetGoodsFromKey, or MakeGoods('key') in GUI expressions to construct a Goods object from a string literal"
+  correction: "Goods datacontext must come from a data model accessor chain (e.g. GoodsMarketEntry.GetGoods, Trade.GetGoods, GoodsItem.GetGoods in a foreach); there is no string-to-Goods lookup function in EU5 GUI"
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/shared/market_tooltips.gui:435"
+  notes: "Exhaustive search of all reference_game_files *.gui files found zero occurrences of any string-to-Goods constructor; all goods access is typed accessor chains only"
+
+- id: gui_goodsview_inaccessible_in_tooltip
+  pattern: 'GoodsView\.GetGoods'
+  bad: "datamodel = \"[GoodsView.GetGoods]\" inside a ContextualTooltipType or tooltipwidget template to iterate all goods and filter by key"
+  correction: "GoodsView is a view-model object only available in goods_overview.gui panel scope; it is not accessible from tooltip/ContextualTooltipType contexts. No equivalent all-goods datamodel exists for tooltip scope."
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/goods_overview.gui:77"
+  notes: "Exhaustive search of reference_game_files found GoodsView only in the goods_overview panel; tooltip templates have no equivalent all-goods iteration datamodel"
+
+- id: multiply_global_variable_nonexistent
+  pattern: 'multiply_global_variable'
+  bad: "multiply_global_variable = { name = X  value = 0.95 } to scale a global variable in-place"
+  correction: "Use set_global_variable with hardcoded per-case values: set_global_variable = { name = X  value = computed_literal }. For era-decay patterns, hardcode the result per age (idempotent, no dedup guard needed). If truly dynamic, compute in a local_variable then use set_global_variable = { name = X  value = local_var:tmp }."
+  category: scope
+  scope: any
+  source: "reference_game_files/game/in_game/common/scripted_effects/global_effects.txt"
+  notes: "Exhaustive search of reference_game_files/ and reference_mods/ found no multiply_global_variable effect. Only set_global_variable and change_global_variable exist for global-scope numeric variables."
+
+- id: positive_sign_in_float_literal
+  pattern: 'value = \+\d'
+  bad: "Writing a leading + sign on positive float literals, e.g. value = +0.025 or change_variable = { ... value = +0.003 }"
+  correction: "Omit the + sign entirely: value = 0.025. The EU5/Jomini parser does not accept a leading + on numeric literals and will misread the value."
+  category: scripted_values
+  scope: any
+  source: "runtime observation"
+  notes: "Triggered by Python f-string format spec +:  e.g. f'{delta:+.5f}' emits +0.00357 for positive deltas. Fix: use f'{delta:.5f}' so no leading sign is emitted for positive values."
+
+- id: icon_widget_before_texticon_check
+  pattern: ''
+  bad: "Using an icon widget or designing custom icon syntax without first checking if @icon_name! inline texticon syntax already covers the case"
+  correction: "Check font_icons.gui for existing texticon definitions first; use @icon_name! in raw_text/text/localization if available; fall back to icon widget; only design from scratch as last resort"
+  category: gui
+  scope: any
+  source: "reference_game_files/game/main_menu/gui/shared/font_icons.gui"
+  notes: "EU5 has 180+ pre-defined inline icons via the @xxx! texticon system; skipping this check causes unnecessary widget complexity and misses the preferred engine-native approach"

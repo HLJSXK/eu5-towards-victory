@@ -1,0 +1,50 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# EU5 specific
+error.log
+*.bin
+*.cache
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+*_backup/
+
+# Build artifacts
+build/
+bin/
+dist/
+*.zip
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Go specific
+*.test
+*.out
+go.work
+
+# Python (legacy)
+__pycache__/
+*.py[cod]
+.Python
+env/
+venv/
+
+# Personal notes
+notes/
+TODO_personal.md
+*_draft.md
