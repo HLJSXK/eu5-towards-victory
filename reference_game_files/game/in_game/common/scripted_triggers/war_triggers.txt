@@ -1,0 +1,24 @@
+﻿is_religious_war = {
+	custom_description = {
+		text = is_religious_war_text
+		is_no_cb_war = no
+		has_casus_belli = yes
+		casus_belli ?= {
+			has_tag = religious_casus_belli
+		}
+	}
+}
+
+casus_belli_forbids_location_conquest = {
+	custom_tooltip = {
+		text = casus_belli_forbids_location_conquest_tt
+		always = no
+	}
+}
+
+casus_belli_forbids_normal_subjugation_tributary = {
+	custom_tooltip = {
+		text = casus_belli_forbids_normal_subjugation_tributary_tt
+		always = no
+	}
+}

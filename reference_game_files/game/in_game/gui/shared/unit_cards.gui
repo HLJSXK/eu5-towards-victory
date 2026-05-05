@@ -1,0 +1,1298 @@
+template UnitCardContents {
+	widget = {
+		# block "CardSize" {
+			size = { 44 60 }
+		# }
+		using = bg_card
+
+		tooltipwidget ={
+			SimpleContextualTooltipType = {
+				textcontext = "[TransferUnitType.GetAmountTooltip]"
+				blockoverride "title_icon" {
+					icon = {
+						using = tooltip_title_icon_size
+						texture = "[TransferUnitType.GetIcon]"
+					}
+				}
+				blockoverride "concept_link" {
+					text = "[unit|e]"
+				}
+			}
+		}
+
+		vbox = {
+			margin = { 0 10 }
+			icon = {
+				size = { 25 25 }
+				texture = "[TransferUnitType.GetIcon]"
+			}
+	
+			text_single = {
+				size = { 30 15 }
+				text = "[TransferUnitType.GetAmount]"
+				align = center
+				autoresize = no
+				alwaystransparent = yes
+			}
+		}
+	}
+}
+
+# template UnitCards
+# {
+# 	size = { 434 120 }
+# 	item = {
+
+# 		container = {
+# 			alwaystransparent = no
+# 			filter_mouse = all
+# 			tooltip = "[SubUnitCounts.GetTooltip]"
+# 			position = { 20 0 }
+
+# 			using = UnitCardContents
+# 		}
+# 	}
+# }
+
+# template UnitCardsSmall {
+# 	size = { -1 120 }
+# 	ignoreinvisible = yes
+
+# 	item = {
+# 		container = {
+# 			alwaystransparent = no
+# 			filter_mouse = all
+
+# 			block "itemvisible" {}
+
+# 			using = UnitCardContents
+# 			blockoverride "CardSize" {
+# 				size = { 50 80 }
+# 			}
+# 		}
+# 	}
+# }
+
+template mercenary_item_action {
+	# datacontext = "[MercenaryItem.GetMercenary]"
+	# title = "[MERCENARY.GetName]"
+	enabled = "[Or3(And3(MercenaryItem.IsLeftClickEnabled, Not(MercenaryItem.IsLeftClickAndConfirmVisible), MercenaryItem.IsLeftClickVisible), 
+	And(MercenaryItem.IsLeftClickAndConfirmEnabled, MercenaryItem.IsLeftClickAndConfirmVisible),
+	And(MercenaryItem.IsRightClickAndConfirmEnabled, MercenaryItem.IsRightClickAndConfirmVisible))]"
+	visible = "[Or3(MercenaryItem.IsLeftClickVisible, MercenaryItem.IsLeftClickAndConfirmVisible, MercenaryItem.IsRightClickAndConfirmVisible)]"
+	tagtooltip_enabled = yes
+	tooltip = "[MercenaryItem.GetMercenary.GetName]"
+
+	action_tooltip = {
+		click_type = left
+		click_mode = single
+		visible = "[And(Not(MercenaryItem.IsLeftClickAndConfirmVisible), MercenaryItem.IsLeftClickVisible)]"
+		enabled = "[MercenaryItem.IsLeftClickEnabled]"
+		title = "[MercenaryItem.GetLeftClickTitle]"
+		cost = "[MercenaryItem.GetLeftClickCost]"
+		description = "[MercenaryItem.GetLeftClickDescription]"
+		conditions = "[MercenaryItem.GetLeftClickConditions]"
+		on_action_with_params = "[MercenaryItem.OnLeftClick]"
+	}
+
+	action_tooltip = {
+		click_type = left
+		click_mode = confirm
+		visible = "[MercenaryItem.IsLeftClickAndConfirmVisible]"
+		enabled = "[MercenaryItem.IsLeftClickAndConfirmEnabled]"
+		title = "[MercenaryItem.GetLeftClickAndConfirmTitle]"
+		cost = "[MercenaryItem.GetLeftClickAndConfirmCost]"
+		description = "[MercenaryItem.GetLeftClickAndConfirmDescription]"
+		conditions = "[MercenaryItem.GetLeftClickAndConfirmConditions]"
+		on_action = "[MercenaryItem.OnLeftClickAndConfirm]"
+	}
+
+	action_tooltip = {
+		click_type = right
+		click_mode = confirm
+		visible = "[MercenaryItem.IsRightClickAndConfirmVisible]"
+		enabled = "[MercenaryItem.IsRightClickAndConfirmEnabled]"
+		title = "[MercenaryItem.GetRightClickAndConfirmTitle]"
+		cost = "[MercenaryItem.GetRightClickAndConfirmCost]"
+		description = "[MercenaryItem.GetRightClickAndConfirmDescription]"
+		conditions = "[MercenaryItem.GetRightClickAndConfirmConditions]"
+		on_action = "[MercenaryItem.OnRightClickAndConfirm]"
+	}
+}
+template header_button_background_pattern {
+	modify_texture = {
+		texture = "[GetGraphicalCultureTexture('header_pattern')]"
+		texture_density = 2
+		spriteType = corneredtiled
+		blend_mode = overlay
+	}
+	modify_texture = {
+		texture = "gfx/interface/component_overlay/cloth_texture.dds"
+		texture_density = 2
+		spriteType = Corneredtiled
+		spriteborder = { 0 0 }
+		blend_mode = overlay
+		alpha = 0.2
+	}
+}
+template mercenary_background {
+	background = {
+		texture = "gfx/interface/colors/black.dds"
+		margin = { 1 1 }
+		margin_bottom = 2
+		texture_density = 2
+		alpha = 0.4
+	}
+	background = {
+		visible = "[Or(And(MercenaryItem.GetMercenary.GetCustomer.Exists, ObjectsEqual(MercenaryItem.GetMercenary.GetCustomer, Player.Self)),
+		 And(Not(MercenaryItem.GetMercenary.GetCustomer.Exists), ObjectsEqual(MercenaryItem.GetMercenary.GetOwner, Player.Self)))]"
+		using = color_society_texture
+		alpha = 0.8
+		using = header_button_background_pattern
+	}
+	background = {
+		visible = "[Or(And(MercenaryItem.GetMercenary.GetCustomer.Exists, MercenaryItem.GetMercenary.GetCustomer.IsAllied),
+		 And(Not(MercenaryItem.GetMercenary.GetCustomer.Exists), MercenaryItem.GetMercenary.GetOwner.IsAllied))]"
+		using = color_diplomacy_texture
+		alpha = 0.8
+		using = header_button_background_pattern
+	}
+	background = {
+		visible = "[Or(And(MercenaryItem.GetMercenary.GetCustomer.Exists, GetPlayer.IsEnemy(MercenaryItem.GetMercenary.GetCustomer)),
+		 And(Not(MercenaryItem.GetMercenary.GetCustomer.Exists), GetPlayer.IsEnemy(MercenaryItem.GetMercenary.GetOwner)))]"
+		using = color_military_texture
+		alpha = 0.8
+		using = header_button_background_pattern
+	}
+	background = {
+		visible = "[Not(Or3(
+					Or(And(MercenaryItem.GetMercenary.GetCustomer.Exists, ObjectsEqual(MercenaryItem.GetMercenary.GetCustomer, Player.Self)),
+					And(Not(MercenaryItem.GetMercenary.GetCustomer.Exists), ObjectsEqual(MercenaryItem.GetMercenary.GetOwner, Player.Self))),
+					Or(And(MercenaryItem.GetMercenary.GetCustomer.Exists, MercenaryItem.GetMercenary.GetCustomer.IsAllied),
+					And(Not(MercenaryItem.GetMercenary.GetCustomer.Exists), MercenaryItem.GetMercenary.GetOwner.IsAllied)),
+					Or(And(MercenaryItem.GetMercenary.GetCustomer.Exists, GetPlayer.IsEnemy(MercenaryItem.GetMercenary.GetCustomer)),
+					And(Not(MercenaryItem.GetMercenary.GetCustomer.Exists), GetPlayer.IsEnemy(MercenaryItem.GetMercenary.GetOwner))))
+				)]"
+		using = color_bg_brown_texture
+		alpha = 0.8
+		using = header_button_background_pattern
+	}
+}
+
+template mercenary_card {
+	hbox = {
+		using = layoutpolicy_expanding
+		margin = {3 3}
+
+		# Commander
+		widget = {
+			size = { 67 72 }
+			enabled = "[MercenaryItem.GetMercenary.HasLeader]"
+
+			character_frame_small = {
+				blockoverride "portrait_datacontext" {
+					datacontext = "[MercenaryItem.GetMercenary.GetLeader]"
+				}
+				blockoverride "character_frame_size" {
+					size = { 67 72 }
+				}
+				blockoverride "character_frame_texture" {
+					texture = "gfx/interface/component_decoration/character_frames/character_non_stretchable_frame_2.dds"
+				}
+				blockoverride "character_portrait_visible" {
+					visible = yes
+				}
+				blockoverride "character_portrait_ani_visible" {
+					visible = no
+				}
+				blockoverride "character_frame_estate_visible" {
+					visible = no
+				}
+			}
+		}
+
+		vbox = {
+			using = layoutpolicy_expanding
+
+			# TOP CONTENT
+			hbox = {
+				using = layoutpolicy_expanding
+
+				# UNIT BUTTON
+				card_header_button_01 = {
+					datacontext = "[MercenaryItem.GetMercenary]"
+					using = mercenary_item_action
+					using = bg_paper_card
+					using = mercenary_background
+					layoutpolicy_horizontal = expanding
+					size = {-1 35}
+					
+					# BUTTON CONTENT
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						margin = {10 0}
+						spacing = 5
+
+						country_flag_small = {
+							datacontext = "[MercenaryItem.GetMercenary.GetOwner]"
+							visible = "[Country.Exists]"
+							enabled = "[Country.Exists]"
+							tooltipwidget = {
+								using = Mercenary_owner_tooltip
+							}
+							
+							block "country_owner_sort_highlight" {}
+						}
+
+						icon = {
+							visible = "[Not(MercenaryItem.GetMercenary.GetOwner.Exists)]"
+							size = { 22 22 }
+							texture = "gfx/interface/icons/character_roles/mercenary.dds"
+							texture_density = 2
+						}
+						
+						text_single = {
+							using = layoutpolicy_expanding
+							autoresize = no
+							text = "[MercenaryItem.GetMercenary.GetNameWithNoTooltip]"
+							default_format = "#yellow_titles"
+							align = left|nobaseline
+							
+							block "name_sort_highlight" {}
+						}
+
+						offerMercenaryIcon = {
+							blockoverride "mercenary_icon_army_visible" { visible = "[ArmyBuilderLateralView.Vars.NotExistOrHasValue('unit_type', 'army')]" }
+							blockoverride "mercenary_icon_navy_visible" { visible = "[ArmyBuilderLateralView.Vars.NotExistOrHasValue('unit_type', 'navy')]" }
+							size = {25 25}
+							visible = "[ObjectsEqual(Player.Self, MercenaryItem.GetMercenary.GetOwner)]"
+							tooltipwidget = {
+								using = unit_is_player_mercenary_tooltip
+							}
+						}
+
+						country_flag_small = {
+							datacontext = "[MercenaryItem.GetMercenary.GetCustomer]"
+							visible = "[And(MercenaryItem.GetMercenary.GetCustomer.Exists, Not(ObjectsEqual(MercenaryItem.GetMercenary.GetCustomer, MercenaryItem.GetMercenary.GetOwner)))]"
+							enabled = "[Country.Exists]"
+
+							tooltipwidget = {
+								using = Mercenary_customer_tooltip
+							}
+							
+							block "country_sort_highlight" {}
+						}
+
+						#MAINTENANCE COST
+						hbox = {
+							spacing = 5
+							margin = {8 0}
+
+							widget = {
+								size = {70 25}
+								text_single = {
+									visible = "[Not(Or(And(MercenaryItem.GetMercenary.GetCustomer.Exists, ObjectsEqual(MercenaryItem.GetMercenary.GetCustomer, Player.Self)),
+			 And(Not(MercenaryItem.GetMercenary.GetCustomer.Exists), ObjectsEqual(MercenaryItem.GetMercenary.GetOwner, Player.Self))))]"
+									size = {70 25}
+									autoresize = no
+									align = left
+									text = "[MercenaryItem.GetMercenary.GetHireCost(Player.Self)]"
+								}
+		
+							}
+
+							block "cost_sort_highlight" {}
+						}
+					}
+				}
+			}
+
+			# BOTTOM CONTENT
+			hbox = {
+				using = layoutpolicy_expanding
+
+				hbox = {
+					margin_left = 5
+					using = layoutpolicy_expanding
+
+					text_single = {
+						visible = "[MercenaryItem.GetMercenary.IsShip]"
+						size = {50 20}
+						autoresize = no
+						align = right|nobaseline
+						text = "MERCENARY_STRENGTH_SHIP_SIZE"
+						datacontext = "[MercenaryItem.GetMercenary]"
+						tooltipwidget = {
+							using = mercenary_card_strength_tooltip
+						}
+
+						block "mercenary_size_sort_highlight_01" {}
+					}
+
+					text_single = {
+						visible = "[Not(MercenaryItem.GetMercenary.IsShip)]"
+						datacontext = "[MercenaryItem.GetMercenary]"
+						size = {60 20}
+						autoresize = no
+						align = right|nobaseline
+						text = "MERCENARY_STRENGTH_ARMY_SIZE"
+						
+						tooltipwidget = {
+							using = mercenary_card_strength_tooltip
+						}
+
+						block "mercenary_size_sort_highlight_02" {}
+					}
+
+					divider_flavor_01 = { 
+						blockoverride "divider_margin" {}
+						size = {14 -1}
+					}
+
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						hbox = {
+							datamodel = "[MercenaryItem.GetMercenary.GetSubUnitCounts]"
+							datacontext = "[MercenaryItem.GetMercenary]"
+							spacing = 2
+							tooltipwidget = {
+								using = Mercenary_tooltip
+							}
+							item = {
+								widget = {
+									visible = "[Or(And(MercenaryItem.GetMercenary.IsShip, Not(SubUnitCounts.GetCategory.IsArmy)), 
+									And(Not(MercenaryItem.GetMercenary.IsShip), SubUnitCounts.GetCategory.IsArmy))]"
+									size = { 50 20 }
+									hbox = {
+										icon = {
+											size = { 20 20 }
+											texture = "[GetSubUnitCategoryIcon(SubUnitCounts.GetCategory)]"
+										}
+				
+										text_single = {
+											size = { 30 20 }
+											autoresize = no
+											align = left|nobaseline
+											text = "[SubUnitCounts.GetCount]"
+										}
+									}
+								}
+							}
+						}
+					}
+
+					divider_flavor_01 = { 
+						blockoverride "divider_margin" {}
+						size = {14 -1}
+					}
+
+					text_single = {
+						visible = "[MercenaryItem.GetMercenary.IsAvailable]"
+						size = {60 20}
+						autoresize = no
+						align = center
+
+						raw_text = "[MercenaryItem.GetMercenary.GetContractLengthInMonths|2] @mercenary_contract_expiring!"
+
+						block "mercenary_length_sort_highlight_02" {}
+
+						tooltipwidget = {
+							SimpleContextualTooltipType = {
+								blockoverride "title_icon" {
+									icon = {
+										using = tooltip_title_icon_size
+										texture = "gfx/interface/icons/alerts_icons/mercenary_contract_expiring.dds"											
+									}
+								}
+	
+								blockoverride "concept_link" {
+									text = "[mercenary|e]"
+								}
+								textcontext =  "MERCENARY_TIME_REMAINING_NONE"
+							}
+						}
+					}
+
+					text_single = {
+						visible = "[MercenaryItem.GetMercenary.IsEmployed]"
+						size = {60 20}
+						autoresize = no
+						align = center
+						raw_text = "[MercenaryItem.GetMercenary.GetMonthsLeftOnContract|2] @mercenary_contract_expiring!"
+
+						block "mercenary_length_sort_highlight_01" {}
+
+						tooltipwidget = {
+							SimpleContextualTooltipType = {
+								blockoverride "title_icon" {
+									icon = {
+										using = tooltip_title_icon_size
+										texture = "gfx/interface/icons/alerts_icons/mercenary_contract_expiring.dds"
+									}
+								}
+	
+								blockoverride "concept_link" {
+									text = "[mercenary|e]"
+								}
+								textcontext =  "MERCENARY_TIME_REMAINING"
+							}
+						}
+					}
+
+					divider_flavor_01 = { 
+						blockoverride "divider_margin" {}
+						size = {14 -1}
+					}
+					
+					hbox = {
+						spacing = 0
+						margin = {2 0}
+
+						text_single = {
+							visible = "[MercenaryItem.GetMercenary.IsEmployed]"
+							size = { 60 20 }
+							autoresize = no
+							raw_text = "#R -[MercenaryItem.GetMercenary.GetMonthlyMaintenanceCost(MercenaryItem.GetMercenary.GetCustomer)|2]#!@expense!"
+							align = nobaseline
+
+							tooltipwidget = {
+								SimpleContextualStringPairTooltipType = {
+									blockoverride "title_icon" {
+										icon = {
+											using = tooltip_title_icon_size
+											texture = "[GetConceptTexture('mercenary_monthly_fee')]"
+										}
+									}
+									blockoverride "concept_link" {
+										text = "[mercenary_monthly_fee|e]"
+									}
+									blockoverride "tooltip_title_text" {
+										text = "SORT_CHARTER_MAINTENANCE"
+									}
+									lowpriotextcontext = "[MercenaryItem.GetMercenary.GetMonthlyMaintenanceCostInfo(MercenaryItem.GetMercenary.GetCustomer)]"
+								}
+							}
+						}
+
+						text_single = {
+							visible = "[Not(MercenaryItem.GetMercenary.IsEmployed)]"
+							size = { 60 20 }
+							autoresize = no
+							raw_text = "#R -[MercenaryItem.GetMercenary.GetMonthlyMaintenanceCost(Player.Self)|2]#!@expense!"
+							align = nobaseline
+
+							tooltipwidget = {
+								SimpleContextualStringPairTooltipType = {
+									blockoverride "title_icon" {
+										icon = {
+											using = tooltip_title_icon_size
+											texture = "[GetConceptTexture('mercenary_monthly_fee')]"
+										}
+									}
+									blockoverride "concept_link" {
+										text = "[mercenary_monthly_fee|e]"
+									}
+									blockoverride "tooltip_title_text" {
+										text = "SORT_CHARTER_MAINTENANCE"
+									}
+									lowpriotextcontext = "[MercenaryItem.GetMercenary.GetMonthlyMaintenanceCostInfo(Player.Self)]"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+template Detach_From_Unit_Template {
+	ContextualTooltipType = {
+		blockoverride "title_icon" {
+			icon = {
+				using = tooltip_title_icon_size
+				texture = "[GetSubUnitCategoryIcon(SubUnitCategory.Self)]"
+
+				glow = {
+					name = "drop_shadow"
+					glow_radius = 2
+					color = {0.0 0.0 0.0 1.0}
+					alpha = 0.3
+				}
+			}
+		}
+	
+		blockoverride "title_text" {
+			block "detach_title_text" {
+				text = "DETACH_SUBUNIT_FROM"
+			}
+		}
+		blockoverride "concept_link" {
+			text = [unit|e]
+		}
+		
+		blockoverride "tooltip_content" {
+			TooltipColumnList = {
+				visible = "[GreaterThan_int32(SubUnitCategory.GetCount(Unit.Self), '(int32)0')]"
+				textcontext = "[GetDetachCategoryInfo(Unit.Self,SubUnitCategory.Self,'(bool)yes')]"
+			}	
+			TooltipTextBlock = {
+				visible = "[EqualTo_int32(SubUnitCategory.GetCount(Unit.Self), '(int32)0')]"
+				blockoverride "text" {
+					text = "[GetDetachCategoryInfo(Unit.Self,SubUnitCategory.Self,'(bool)yes')]"
+				}
+			}	
+			
+			# TooltipTextBlock = {
+			# 	blockoverride "text" {
+			# 		text = "[GetDetachCategoryInfoPossible(Unit.Self,SubUnitCategory.Self,'(bool)yes')]"
+			# 	}
+			# }
+
+			# TooltipFunctionalBlock = {
+			# 	using = tooltip_left_click_template
+
+			# 	blockoverride "action_left_text" {
+			# 		text = "DETACH_SUBUNIT_FROM"
+			# 	}
+			# }
+		}
+	}
+}
+
+types UnitCardTypes
+{
+	# type SubUnitCategoryButton = button {
+	# 	size = { 20 20 }
+	# 	texture = "[GetSubUnitCategoryIcon(SubUnitCategory.Self)]"
+	# 	onclick = "[DetachCategory(UnitItem.GetUnit.Self,SubUnitCategory.Self)]"
+	# 	block "subunitcategory_tooltip" {
+	# 		tooltip = "[GetDetachCategoryInfo(UnitItem.GetUnit.Self,SubUnitCategory.Self,'(bool)yes')]"
+	# 	}
+	# 	enabled = "[CanDetachCategory(UnitItem.GetUnit.Self,SubUnitCategory.Self)]"
+	# 	visible = "[GreaterThan_int32(SubUnitCategory.GetCount(UnitItem.GetUnit.Self), '(int32)0')]"
+	# 	texture_density = 2
+	# }
+
+	type SubUnitCategoryCard = widget
+	{
+		size = { 60 90 }
+		using = bg_card
+
+		tooltipwidget = {
+			using = SubUnitCategory_tooltip
+		}
+
+		vbox = {
+			margin = { 0 10 }
+			spacing = 5
+			icon = {
+				size = { 40 40}
+				texture = "[GetSubUnitCategoryIcon(SubUnitCategory.Self)]"
+			}
+			text_single = {
+				layoutpolicy_horizontal = expanding
+				size = { -1 20 }
+				autoresize = no
+				align = center
+				block "unit_template_subunit_category_amount" {
+					text = "[UnitTemplate.GetSubUnitCategoryAmount(SubUnitCategory.Self)]"
+				}
+			}
+		}
+	}
+
+	type SmallSubUnitCategoryCard = hbox {
+		spacing = 1
+		icon = {
+			size = { 20 20}
+			texture = "[GetSubUnitCategoryIcon(SubUnitCategory.Self)]"
+		}
+		text_single = {
+			size = {25 20 }
+			autoresize = no
+			align = center
+			block "unit_template_subunit_category_amount" {
+				text = "[UnitTemplate.GetSubUnitCategoryAmount(SubUnitCategory.Self)]"
+			}
+		}
+	}
+
+	type SubUnitCategoryStrengthCard = widget {
+		size = {56 20}
+		tooltipwidget = {
+			using = Detach_From_Unit_Template
+			blockoverride "detach_title_text" {
+				text = "[SubUnitCategory.GetNameWithNoTooltip]"
+			}
+		}
+		hbox = {
+			spacing = 3
+			expand = {}
+			text_single = {
+				visible = "[Unit.IsArmy]"
+				maximumsize = {33 20}
+				align = nobaseline
+				text = "[SubUnitCategory.GetTotalStrength(Unit.Self)]"
+			}
+			text_single = {
+				visible = "[Not(Unit.IsArmy)]"
+				maximumsize = {33 20}
+				align = nobaseline
+				text = "[SubUnitCategory.GetCount(Unit.Self)]"
+			}
+			icon = {
+				size = {20 20}
+				texture = "[GetSubUnitCategoryIcon(SubUnitCategory.Self)]"
+
+				glow = {
+					name = "drop_shadow"
+					glow_radius = 3
+					color = {0.0 0.0 0.0 1.0}
+					alpha = 0.5
+				}
+			}
+			expand = {}
+		}
+	}
+
+	type SubUnitCategoryCardButton = button_regular {
+		using = layoutpolicy_expanding
+		enabled = "[CanDetachCategory(Unit.Self,SubUnitCategory.Self)]"
+		action_tooltip = {
+			click_type = right
+			title = "DETACH_SUBUNIT_FROM"
+			enabled = "[CanDetachCategory(Unit.Self,SubUnitCategory.Self)]"
+			conditions = "[GetDetachCategoryInfoPossible(Unit.Self,SubUnitCategory.Self,'(bool)yes')]"
+			on_action = "[DetachCategory(Unit.Self,SubUnitCategory.Self)]"
+		}
+		
+		action_tooltip = {
+			click_modifier = shift
+			click_type = right
+			title = "DETACH_HALF_SUBUNIT_FROM"
+			enabled = "[CanDetachCategory(Unit.Self,SubUnitCategory.Self)]"
+			conditions = "[GetDetachCategoryInfoPossible(Unit.Self,SubUnitCategory.Self,'(bool)yes')]"
+			on_action = "[DetachHalfCategory(Unit.Self,SubUnitCategory.Self)]"
+		}
+
+		action_tooltip = {
+			click_type = left
+			title = "DETACH_SUBUNIT_FROM_AND_SELECT"
+			enabled = "[CanDetachCategory(Unit.Self,SubUnitCategory.Self)]"
+			conditions = "[GetDetachCategoryInfoPossible(Unit.Self,SubUnitCategory.Self,'(bool)yes')]"
+			on_action = "[DetachCategoryAndSelect(Unit.Self,SubUnitCategory.Self)]"
+		}
+
+		action_tooltip = {
+			click_modifier = shift
+			click_type = left
+			title = "DETACH_HALF_SUBUNIT_FROM_AND_SELECT"
+			enabled = "[CanDetachCategory(Unit.Self,SubUnitCategory.Self)]"
+			conditions = "[GetDetachCategoryInfoPossible(Unit.Self,SubUnitCategory.Self,'(bool)yes')]"
+			on_action = "[DetachHalfCategoryAndSelect(Unit.Self,SubUnitCategory.Self)]"
+		}
+
+		tooltipwidget = {
+			using = Detach_From_Unit_Template
+		}
+
+		hbox = {
+			spacing = 3
+			expand = {}
+			text_single = {
+				visible = "[Unit.IsArmy]"
+				maximumsize = {33 20}
+				align = nobaseline
+				text = "[SubUnitCategory.GetTotalStrength(Unit.Self)]"
+			}
+			text_single = {
+				visible = "[Not(Unit.IsArmy)]"
+				maximumsize = {33 20}
+				align = nobaseline
+				text = "[SubUnitCategory.GetCount(Unit.Self)]"
+			}
+			icon = {
+				size = {20 20}
+				texture = "[GetSubUnitCategoryIcon(SubUnitCategory.Self)]"
+
+				glow = {
+					name = "drop_shadow"
+					glow_radius = 3
+					color = {0.0 0.0 0.0 1.0}
+					alpha = 0.5
+				}
+			}
+			expand = {}
+		}
+	}
+
+	# type UnitOverviewEntry = clickable_header_card
+	# {
+	# 	blockoverride "header_color" {
+	# 		using = color_mid_red_texture
+	# 	}
+
+	# 	blockoverride "header_content" {
+	# 		# block "unit_actions" {
+	# 			datacontext = "[UnitItem.GetUnit]"
+	# 			tooltipwidget = {
+	# 				using = Unit_tooltip
+	# 			}
+		
+	# 			action_tooltip = {
+	# 				click_type = left
+	# 				click_mode = single
+	# 				title = "SELECT_UNIT_TT"
+	# 				on_action = "[SelectUnit(Unit.Self)]"
+	# 				on_action = "[PanToLocation(Unit.GetLocation)]"
+	# 			}
+		
+	# 			contextmenu_widget = {
+	# 				UnitContextMenu = {}
+	# 			}
+		
+	# 			action_tooltip = {
+	# 				click_type = right
+	# 				click_mode = single
+		
+	# 				cursor = "unit_menu"
+	# 				title = "UNIT_CLICK_TOOLTIP_RIGHT_CLICK"
+	# 				on_action = "[PdxGuiWidget.ToggleContextMenu]"
+	# 			}
+	# 		# }
+			
+	# 		hbox = {
+	# 			spacing = 10
+
+	# 			widget = {
+	# 				#portrait padding
+	# 				size = { 80 1 }
+	# 			}
+
+	# 			button_checkbox = {
+	# 				size = { 25 25 }
+	# 				checked = "[IsUnitSelected(UnitItem.GetUnit)]"
+	# 				onclick = "[ToggleSelectUnit(UnitItem.GetUnit)]"
+	# 				tooltipwidget = {
+	# 					LeftClickButtonTooltip = {
+	# 						blockoverride "onclick_text" {
+	# 							text = "TOGGLE_UNIT_SELECTION_TT"
+	# 						}
+	# 					}
+	# 				}
+	# 			}
+
+	# 			country_flag_very_small = {
+	# 				datacontext = "[UnitItem.GetUnit.GetCountry]"
+	# 			}
+
+	# 			text_single = {
+	# 				visible = "[Not(UnitItem.IsBeingEdited)]"
+	# 				using = layoutpolicy_expanding
+	# 				autoresize = no
+	# 				align = nobaseline
+	# 				default_format = "#yellow_titles"
+	# 				text = "[UnitItem.GetUnit.GetNameWithNoTooltip]"
+
+	# 				sort_by_small_highlight = {
+	# 					size = { 110% 100% }
+	# 					name = "name"
+	# 				}
+	# 			}
+
+	# 			editbox = {
+	# 				using = layoutpolicy_expanding
+	# 				default_format = "#high"
+	# 				using = Font_Size_Medium
+	# 				fontsize_min = 10
+	# 				align = center|nobaseline
+
+	# 				text = "[UnitItem.GetUnit.GetNameWithNoTooltip]"
+
+	# 				ontextedited = "[UnitItem.OnUnitNameEdited(PdxGuiWidget.AccessSelf)]"
+	# 				oneditingfinished = "[UnitItem.RenameUnit(PdxGuiWidget.Self)]"
+	# 				oneditingfinished = "[UnitItem.StopEditing]"
+	# 				onfocusout = "[UnitItem.StopEditing]"
+
+	# 				focus_on_visible = yes
+	# 				focuspolicy = all
+	# 				alwaystransparent = no
+
+	# 				maxcharacters = 25
+
+	# 				visible = "[UnitItem.IsBeingEdited]"
+	# 				multiline = no
+	# 			}
+
+	# 			expand = {}
+
+	# 			hbox = {
+	# 				spacing = 5
+	# 				text_single = {
+	# 					text = "[GetDataModelSize(UnitItem.GetUnit.GetSubUnits)]"
+	# 					align = nobaseline
+
+	# 					sort_by_highlight = {
+	# 						size = { 120% 200% }
+	# 						name = "strength"
+	# 					}
+	# 				}
+
+	# 				icon = {
+	# 					size = {20 20}
+	# 					using = unit_formation_texture
+
+	# 					glow = {
+	# 						name = "drop_shadow"
+	# 						glow_radius = 3
+	# 						color = {0.0 0.0 0.0 1.0}
+	# 						alpha = 0.3
+	# 					}
+	# 				}
+	# 			}
+
+	# 			widget = {
+	# 				#morale padding
+	# 				size = { 60 1 }
+	# 			}
+	# 		}
+	# 	}
+
+	# 	blockoverride "bottom_content" {
+	# 		hbox = {
+	# 			margin_left = 80
+	# 			margin_right = 70
+
+	# 			hbox = {
+	# 				visible = "[UnitItem.GetUnit.IsArmy]"
+
+	# 				SubUnitCategoryButton = {
+	# 					datacontext = "[GetSubUnitCategory('army_infantry')]"
+	# 					blockoverride "subunitcategory_tooltip" {
+	# 						tooltipwidget = {
+	# 							using = Detatch_From_Unit_Template
+	# 						}
+	# 					}
+	# 				}
+
+	# 				SubUnitCategoryButton = {
+	# 					datacontext = "[GetSubUnitCategory('army_cavalry')]"
+	# 					blockoverride "subunitcategory_tooltip" {
+	# 						tooltipwidget = {
+	# 							using = Detatch_From_Unit_Template
+	# 						}
+	# 					}
+	# 				}
+
+	# 				SubUnitCategoryButton = {
+	# 					datacontext = "[GetSubUnitCategory('army_artillery')]"
+	# 					blockoverride "subunitcategory_tooltip" {
+	# 						tooltipwidget = {
+	# 							using = Detatch_From_Unit_Template
+	# 						}
+	# 					}
+	# 				}
+
+	# 				SubUnitCategoryButton = {
+	# 					datacontext = "[GetSubUnitCategory('army_auxiliary')]"
+	# 					blockoverride "subunitcategory_tooltip" {
+	# 						tooltipwidget = {
+	# 							using = Detatch_From_Unit_Template
+	# 						}
+	# 					}
+	# 				}
+	# 			}
+
+	# 			hbox = {
+	# 				visible = "[UnitItem.GetUnit.IsNavy]"
+
+	# 				SubUnitCategoryButton = {
+	# 					datacontext = "[GetSubUnitCategory('navy_transport')]"
+	# 					blockoverride "subunitcategory_tooltip" {
+	# 						tooltipwidget = {
+	# 							using = Detatch_From_Unit_Template
+	# 						}
+	# 					}
+	# 				}
+
+	# 				SubUnitCategoryButton = {
+	# 					datacontext = "[GetSubUnitCategory('navy_galley')]"
+	# 					blockoverride "subunitcategory_tooltip" {
+	# 						tooltipwidget = {
+	# 							using = Detatch_From_Unit_Template
+	# 						}
+	# 					}
+	# 				}
+
+	# 				SubUnitCategoryButton = {
+	# 					datacontext = "[GetSubUnitCategory('navy_light_ship')]"
+	# 					blockoverride "subunitcategory_tooltip" {
+	# 						tooltipwidget = {
+	# 							using = Detatch_From_Unit_Template
+	# 						}
+	# 					}
+	# 				}
+
+	# 				SubUnitCategoryButton = {
+	# 					datacontext = "[GetSubUnitCategory('navy_heavy_ship')]"
+	# 					blockoverride "subunitcategory_tooltip" {
+	# 						tooltipwidget = {
+	# 							using = Detatch_From_Unit_Template
+	# 						}
+	# 					}
+	# 				}
+	# 			}
+
+	# 			expand = {}
+				
+	# 			hbox = {
+	# 				spacing = 2
+	# 				visible = "[UnitItem.GetUnit.IsArmy]"
+	# 				tooltipwidget = {
+	# 					SimpleContextualStringPairTooltipType = {
+	# 						blockoverride "title_icon" {
+	# 							icon = {
+	# 								using = tooltip_title_icon_size
+	# 								using = army_strength_texture
+	# 								texture_density = 2
+	# 								alpha = 1
+	# 							}
+	# 						}
+
+	# 						blockoverride "concept_link" {
+	# 							text = "[units|e]"
+	# 						}
+	# 						datacontext = "[UnitItem.GetUnit]"
+	# 						textcontext =  "[UnitItem.GetUnit.GetStrengthTooltip]"
+	# 					}
+	# 				}
+
+	# 				text_single = {
+	# 					raw_text = "[Unit.GetVisualStrength]@army_strength!"
+	# 					minimumsize = { 25 -1 }
+	# 					align = right|nobaseline
+	# 					default_format = "#important_number"
+	# 					fontsize = 13
+	# 					autoresize = yes
+
+	# 					sort_by_highlight = {
+	# 						size = { 120% 200% }
+	# 						name = "size"
+	# 					}
+	# 				}
+	# 			}
+	# 		}
+
+	# 		#SIEGES AND BATTLES
+	# 		hbox = {
+	# 			hbox = {
+	# 				margin = {0 2}
+	# 				spacing = 10
+
+	# 				widget = { # siege
+	# 					size = { 36 36 }
+	# 					visible = "[UnitItem.GetUnit.InSiege]"
+
+	# 					datacontext = "[UnitItem.GetUnit]"
+	# 					using = marker_bg_circle
+	# 					blockoverride "marker_bg_circle_extra_modifiers" {
+	# 						using = marker_unit_side_color
+	# 					}
+
+	# 					piechart = {
+	# 						parentanchor = center
+	# 						size = { 90% 90% }
+	# 						using = piechart_angles
+	# 						datacontext = "[Unit.GetSiege]"
+	# 						tooltipwidget = {
+	# 							using = SiegePhase_tooltip
+	# 						}
+
+	# 						pieslice_no_highlight = {
+	# 							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+	# 							value = "[Unit.GetSiege.GetSiegePhaseProgress]"
+	# 							color = { 0.01 0.6 0.9 1 }
+	# 							alpha = 1
+	# 						}
+
+	# 						pieslice_no_highlight = {
+	# 							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+	# 							value = "[Subtract_float('(float)100.0', Unit.GetSiege.GetSiegePhaseProgress)]"
+	# 							color = { 0.0 0.1 0.1 1 }
+	# 							alpha = 1
+	# 						}
+
+	# 						button = {
+	# 							size = { 70% 70% }
+	# 							parentanchor = center
+
+	# 							datacontext = "[Unit.GetSiege]"
+	# 							tooltipwidget = {
+	# 								using = SiegeOutcome_tooltip
+	# 							}
+	# 							onclick = "[SelectLocation(Unit.GetSiege.GetLocation)]"
+					
+	# 							texture = "gfx/interface/mapitems/unit_siege_2.dds"
+	# 							texture_density = 2
+	# 							alpha = 1
+					
+	# 							icon = {
+	# 								size = {100% 100%}
+	# 								visible = "[Unit.GetSiege.IsTooFewMen]"
+	# 								texture = "gfx/interface/icons/flat_icons/disable_icon.dds"
+	# 								using = color_red
+	# 								datacontext = "[Unit.GetSiege]"
+	# 								tooltipwidget = {
+	# 									using = SiegePhase_tooltip
+	# 								}
+	# 							}
+	# 						}
+	# 					}
+	# 				}
+
+	# 				widget = { # combat
+	# 					size = { 36 36 }
+	# 					visible = "[UnitItem.GetUnit.InCombat]"
+
+	# 					datacontext = "[UnitItem.GetUnit]"
+	# 					using = marker_bg_circle
+
+	# 					piechart = {
+	# 						parentanchor = center
+	# 						size = { 90% 90% }
+	# 						using = piechart_angles
+			
+	# 						datacontext = "[Unit.GetCombat]"
+	# 						tooltipwidget = {
+	# 							using = Combat_tooltip
+	# 						}
+			
+	# 						pieslice_no_highlight = {
+	# 							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+	# 							value = "[Subtract_float('(float)100.0', Unit.GetCombat.GetDefender.GetMoralePercent)]"
+	# 							color = { 0.3 0.35 0.4 1 }
+	# 						}
+			
+	# 						pieslice_no_highlight = {
+	# 							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+	# 							value = "[Unit.GetCombat.GetDefender.GetMoralePercent]"
+	# 							color = { 0.2 0.5 0.9 1 }
+	# 							alpha = 1
+	# 						}
+			
+	# 						pieslice_no_highlight = {
+	# 							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+	# 							value = "[Unit.GetCombat.GetAttacker.GetMoralePercent]"
+	# 							color = { 0.8 0.3 0.3 1 }
+	# 						}
+			
+	# 						pieslice_no_highlight = {
+	# 							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+	# 							value = "[Subtract_float('(float)100.0', Unit.GetCombat.GetAttacker.GetMoralePercent)]"
+	# 							color = { 0.45 0.35 0.35 1 }
+	# 						}
+
+	# 						button = {
+	# 							size = { 60% 60% }
+	# 							parentanchor = center
+
+	# 							onclick = "[SelectLocation(Unit.GetCombat.GetLocation)]"
+								
+	# 							texture = "gfx/interface/icons/flat_icons/military.dds"
+	# 							using = color_gold
+				
+	# 							modify_texture = {
+	# 								using = overlay_window_texture
+	# 								blend_mode = overlay
+	# 								alpha = 0.7
+	# 							}
+				
+	# 							glow = {
+	# 								name = "drop_shadow"
+	# 								glow_radius = 3
+	# 								color = {0.0 0.0 0.0 1.0}
+	# 								alpha = 0.8
+	# 							}
+	# 						}
+	# 					}
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+
+	# 	widget = { #COMMANDER
+	# 		parentanchor = vcenter
+	# 		size = { 70 70 }
+	# 		allow_outside = yes
+
+	# 		portrait_standard_head_button = { # Without Commander
+	# 			blockoverride "character_tooltip" {}
+
+	# 			parentanchor = center
+	# 			size = { 75 90 }
+	# 			datacontext = "[UnitItem.GetUnit.GetCommander]"
+	# 			datacontext = "[UnitItem.GetUICommanderAction]"
+	# 			tooltipwidget = { BasicFunctionalTooltip = {} }
+	# 			using = button_action_provider
+	# 		}
+
+	# 		portrait_standard_head_button = { # With Commander
+	# 			visible = "[UnitItem.GetUnit.GetCommander.IsValid]"
+	# 			parentanchor = center
+	# 			size = { 75 90 }
+	# 			datacontext = "[UnitItem.GetUnit.GetCommander]"
+	# 			datacontext = "[UnitItem.GetUICommanderAction]"
+	# 		}
+
+	# 		ui_direction_button = {
+	# 			parentanchor = bottom|right
+	# 			size = { 17 17 }
+	# 			texture = "gfx/interface/buttons/flats/change.dds"
+
+	# 			using = bg_circle
+
+	# 			enabled = "[UnitItem.GetUnit.CanReplaceLeader]"
+
+	# 			visible = "[UnitItem.GetUnit.HasLeader]"
+	# 			datacontext = "[UnitItem.GetUICommanderAction]"
+
+	# 			tooltipwidget = { BasicFunctionalTooltip = {} }
+	# 			action_tooltip = {
+	# 				visible = "[UnitItem.GetUnit.IsArmy]"
+	# 				click_type = left
+	# 				click_mode = single
+	# 				title = "CLICK_TO_REPLACE" 
+	# 				enabled = "[UnitItem.GetUnit.CanReplaceLeader]"
+	# 				description = "[UnitItem.GetUnit.CanReplaceLeaderInfo]"
+	# 				on_action = "[SetupSelectCommanderLeft(UnitItem.GetUnit)]"
+	# 			}
+
+	# 			action_tooltip = {
+	# 				visible = "[Not(UnitItem.GetUnit.IsArmy)]"
+	# 				click_type = left
+	# 				click_mode = single
+	# 				title = "CLICK_TO_REPLACE_ADMIRAL" 
+	# 				enabled = "[UnitItem.GetUnit.CanReplaceLeader]"
+	# 				description = "[UnitItem.GetUnit.CanReplaceLeaderInfo]"
+	# 				on_action = "[SetupSelectCommanderLeft(UnitItem.GetUnit)]"
+	# 			}
+
+	# 			datacontext = "[UnitItem.GetUnit]"
+	# 			action_tooltip = {
+	# 				click_type = right
+	# 				click_mode = confirm
+	# 				title = "REMOVE_COMMANDER_TT" 
+	# 				enabled = "[UnitItem.GetUnit.CanReplaceLeader]"
+	# 				description = "[UnitItem.GetUnit.CanReplaceLeaderInfo]"
+	# 				on_action = "[Unit.RemoveCommander]"
+	# 			}
+	# 			action_tooltip = {
+	# 				visible = "[Not(UnitItem.GetUnit.IsArmy)]"
+	# 				click_type = right
+	# 				click_mode = confirm
+	# 				title = "REMOVE_ALMIRANT_TT" 
+	# 				enabled = "[UnitItem.GetUnit.CanReplaceLeader]"
+	# 				description = "[UnitItem.GetUnit.CanReplaceLeaderInfo]"
+	# 				on_action = "[Unit.RemoveCommander]"
+	# 			}
+	# 		}
+	# 	}
+
+	# 	#MORALE
+	# 	piechart = {
+	# 		size = { 45 45 }
+	# 		position = { -12 1 }
+	# 		parentanchor = right|vcenter
+	# 		using = piechart_angles
+			
+	# 		datacontext = "[UnitItem.GetUnit]"
+	# 		tooltipwidget = {
+	# 			using = UnitMorale_tooltip
+	# 		}
+
+	# 		icon = {
+	# 			texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+	# 			size = { 95% 95% }
+	# 			parentanchor = center
+	# 			color = { 0 0 0 1 }
+	# 		}
+
+	# 		pieslice = {
+	# 			texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+	# 			value = "[UnitItem.GetUnit.GetMorale]"
+	# 			color = { 0.3 0.8 0.3 1 }
+	# 			alpha = 0.8
+	# 		}
+
+	# 		pieslice = {
+	# 			texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+	# 			value = "[Subtract_float(UnitItem.GetUnit.GetMaxMoraleFloat, UnitItem.GetUnit.GetMoraleFloat)]"
+	# 			color = { 0.3 0.3 0.3 1 }
+	# 			alpha = 0.8
+	# 		}
+
+	# 		icon = {
+	# 			parentanchor = center
+	# 			size = { 55% 55% }
+	# 			texture = "gfx/interface/icons/unit_view/morale.dds"
+	# 			texture_density = 2
+				
+	# 			alpha = 1
+	# 		}
+
+	# 		sort_by_highlight = {
+	# 			name = "morale"
+	# 		}
+
+	# 		background = {
+	# 			texture = "gfx/interface/buttons/round_button_alt.dds"
+	# 			texture_density = 2
+	# 			margin = {4 4}
+	# 			margin_bottom = 5
+	# 			modify_texture = {
+	# 				using = color_dark_blue_texture
+	# 				blend_mode = multiply
+	# 			}
+	# 		}
+	# 		background = {
+	# 			texture = "gfx/interface/buttons/round_button_alt.dds"
+	# 			texture_density = 2
+	# 			margin = {4 4}
+	# 			modify_texture = {
+	# 				using = color_gold_texture
+	# 				blend_mode = multiply
+	# 			}
+	# 			modify_texture = {
+	# 				using = color_gold_texture
+	# 				#blend_mode = multiply
+	# 				alpha = 0.3
+	# 			}
+	# 		}
+
+	# 		background = {
+	# 			texture = "gfx/interface/buttons/bg_button.dds"
+	# 			texture_density = 2
+	# 			margin = {3 3}
+	# 			modify_texture = {
+	# 				using = color_bg_blue_texture
+	# 				blend_mode = multiply
+	# 			}
+		
+	# 			modify_texture = {
+	# 				using = overlay_paper_03
+	# 			}
+	# 		}
+	# 		background = {
+	# 			texture = "gfx/interface/buttons/bg_button.dds"
+	# 			texture_density = 2
+	# 			margin = {-4 -4}
+	# 			modify_texture = {
+	# 				using = color_bg_blue_texture
+	# 				blend_mode = multiply
+	# 			}
+	# 		}
+	# 	}
+	# }
+}
+
