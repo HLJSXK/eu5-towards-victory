@@ -11,34 +11,38 @@
 # CONQUEST VICTORY MODIFIERS
 # ──────────────────────────────────────────────────────────────────────
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:3662, Quote: "global_manpower_modifier={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:3809, Quote: "land_morale={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:4868, Quote: "global_supply_limit_modifier={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:3943, Quote: "land_unit_attrition={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:6150, Quote: "stability_cost={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:5087, Quote: "discipline={"
+
 tv_conquest_m1_bonus = {
-	# TODO: Conquest Victory — Milestone 1 reward (~1 Advance equivalent)
-	# Design intent: combat capability (manpower_recovery_speed, land_morale)
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_manpower_modifier = 0.05
+	land_morale_modifier = 0.03
 }
 
 tv_conquest_m2_bonus = {
-	# TODO: Conquest Victory — Milestone 2 reward (~1 Advance equivalent)
-	# Design intent: logistics (supply, attrition reduction)
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_supply_limit_modifier = 0.1
+	land_unit_attrition = -0.1
 }
 
 tv_conquest_m3_bonus = {
-	# TODO: Conquest Victory — Short-term Victory reward (~2 Advance equivalent)
-	# Design intent: governance (admin efficiency, unrest reduction)
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	stability_cost = -0.1
+	discipline = 0.03
 }
 
 tv_conquest_m4_bonus = {
-	# TODO: Conquest Victory — Milestone 4 reward (~1 Advance equivalent)
-	# Design intent: administration at scale (autonomy reduction, corruption)
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_manpower_modifier = 0.05
+	land_morale_modifier = 0.05
+	global_supply_limit_modifier = 0.1
 }
 
 tv_conquest_m5_bonus = {
-	# TODO: Conquest Victory — Long-term Victory reward (~2 Advance equivalent)
-	# Design intent: grand legacy (prestige cap, manpower cap)
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_manpower_modifier = 0.1
+	discipline = 0.05
+	land_morale_modifier = 0.05
 }
 
 

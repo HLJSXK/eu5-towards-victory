@@ -15,12 +15,32 @@ tv_check_all_milestones_effect = {
 }
 
 # ═══════════════════════════════════════════════════════════════════════════
+# SECTION 1.5: CONQUEST SCORE UPDATER
+# Computes tv_conquest_score = num_locations + 0.5 * subject_or_below locations.
+# Verification — Step 3, Reference: country_effects.txt:2519, Quote: "root = { remove_reform = prev }"
+# Verification — Step 3, Reference: qa_debug.txt:2351, Quote: "change_variable = { name = qa_counter add = var:qa_amount_of_special_units }"
+# ═══════════════════════════════════════════════════════════════════════════
+
+tv_update_conquest_score_effect = {
+	set_variable = { name = tv_conquest_score value = num_locations }
+	set_variable = { name = tv_conquest_subj_temp value = 0 }
+	every_subject_or_below = {
+		root = {
+			change_variable = { name = tv_conquest_subj_temp add = prev.num_locations }
+		}
+	}
+	change_variable = { name = tv_conquest_subj_temp divide = 2 }
+	change_variable = { name = tv_conquest_score add = var:tv_conquest_subj_temp }
+}
+
+# ═══════════════════════════════════════════════════════════════════════════
 # SECTION 2: PER-PATH MILESTONE CHECKERS
 # Guards via var:tv_*_milestone < N prevent re-triggering after grant.
 # ═══════════════════════════════════════════════════════════════════════════
 
 # ── Conquest Victory ──────────────────────────────────────────────────────
 tv_check_conquest_milestones_effect = {
+	tv_update_conquest_score_effect = yes
 	# Initialise on first call (guards against missing variable)
 	if = {
 		limit = { NOT = { has_variable = tv_conquest_milestone } }
@@ -321,13 +341,12 @@ tv_check_science_milestones_effect = {
 
 tv_update_all_progress_pct_effect = {
 	# ── Conquest Victory ────────────────────────────────────────────────────
-	# TODO: compute 0.0-1.0 progress fraction for conquest path
-	# Formula: tv_conquest_progress_pct = raw_metric / v2_threshold
-	# V2 threshold hint: ~1600 owned locations
-	# Pattern:
-	#   set_variable = { name = tv_conquest_progress_pct value = <raw_metric_accessor> }
-	#   change_variable = { name = tv_conquest_progress_pct divide = <v2_threshold_literal> }
-	#   if = { limit = { var:tv_conquest_progress_pct > 1 } set_variable = { name = tv_conquest_progress_pct value = 1 } }
+	if = {
+		limit = { has_variable = tv_conquest_score }
+		set_variable = { name = tv_conquest_progress_pct value = var:tv_conquest_score }
+		change_variable = { name = tv_conquest_progress_pct divide = 1600 }
+		if = { limit = { var:tv_conquest_progress_pct > 1 } set_variable = { name = tv_conquest_progress_pct value = 1 } }
+	}
 
 	# ── Prosperity Victory ────────────────────────────────────────────────────
 	# TODO: compute 0.0-1.0 progress fraction for prosperity path
@@ -384,33 +403,23 @@ tv_update_all_progress_pct_effect = {
 
 # Conquest Victory
 tv_grant_conquest_milestone_1 = {
-	# TODO: Conquest Victory — Milestone 1 reward
-	# Design intent: combat capability (manpower_recovery_speed, land_morale)
-	# add_country_modifier = { name = tv_conquest_m1_bonus }
+	add_country_modifier = { modifier = tv_conquest_m1_bonus days = -1 }
 }
 
 tv_grant_conquest_milestone_2 = {
-	# TODO: Conquest Victory — Milestone 2 reward
-	# Design intent: logistics (supply, attrition reduction)
-	# add_country_modifier = { name = tv_conquest_m2_bonus }
+	add_country_modifier = { modifier = tv_conquest_m2_bonus days = -1 }
 }
 
 tv_grant_conquest_milestone_3 = {
-	# TODO: Conquest Victory — Short-term Victory reward
-	# Design intent: governance (admin efficiency, unrest reduction)
-	# add_country_modifier = { name = tv_conquest_m3_bonus }
+	add_country_modifier = { modifier = tv_conquest_m3_bonus days = -1 }
 }
 
 tv_grant_conquest_milestone_4 = {
-	# TODO: Conquest Victory — Milestone 4 reward
-	# Design intent: administration at scale (autonomy reduction, corruption)
-	# add_country_modifier = { name = tv_conquest_m4_bonus }
+	add_country_modifier = { modifier = tv_conquest_m4_bonus days = -1 }
 }
 
 tv_grant_conquest_milestone_5 = {
-	# TODO: Conquest Victory — Long-term Victory reward
-	# Design intent: grand legacy (prestige cap, manpower cap)
-	# add_country_modifier = { name = tv_conquest_m5_bonus }
+	add_country_modifier = { modifier = tv_conquest_m5_bonus days = -1 }
 }
 
 

@@ -1,6 +1,58 @@
 ﻿namespace = tv
 
 # Towards Victory — Milestone notification events
-# Event IDs: tv.conquest.1-4, tv.prosperity.1-4, tv.trade.1-4,
-#            tv.diplomatic.1-4, tv.cultural.1-4, tv.science.1-4
-# TODO: implement milestone events
+# Conquest: tv.conquest.1-5  |  Other paths: TODO
+
+# ──────────────────────────────────────────────────────────────────────────
+# CONQUEST VICTORY EVENTS
+# ──────────────────────────────────────────────────────────────────────────
+
+tv.conquest.1 = {
+	type = country_event
+	title = tv.conquest.1.t
+	desc = tv.conquest.1.d
+	option = {
+		name = tv.conquest.1.a
+		tv_grant_conquest_milestone_1 = yes
+	}
+}
+
+tv.conquest.2 = {
+	type = country_event
+	title = tv.conquest.2.t
+	desc = tv.conquest.2.d
+	option = {
+		name = tv.conquest.2.a
+		tv_grant_conquest_milestone_2 = yes
+	}
+}
+
+tv.conquest.3 = {
+	type = country_event
+	title = tv.conquest.3.t
+	desc = tv.conquest.3.d
+	option = {
+		name = tv.conquest.3.a
+		tv_grant_conquest_milestone_3 = yes
+	}
+}
+
+tv.conquest.4 = {
+	type = country_event
+	title = tv.conquest.4.t
+	desc = tv.conquest.4.d
+	option = {
+		name = tv.conquest.4.a
+		tv_grant_conquest_milestone_4 = yes
+	}
+}
+
+tv.conquest.5 = {
+	type = country_event
+	title = tv.conquest.5.t
+	desc = tv.conquest.5.d
+	option = {
+		name = tv.conquest.5.a
+		tv_grant_conquest_milestone_5 = yes
+	}
+}

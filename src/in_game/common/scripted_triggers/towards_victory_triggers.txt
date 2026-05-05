@@ -8,39 +8,33 @@
 # CONQUEST VICTORY MILESTONES
 # ──────────────────────────────────────────────────────────────────────
 
+# Verification — Step 3, Reference: rise_of_the_ottomans.txt:2801, Quote: "num_locations > 100"
+# Verification — Step 3, Reference: country_triggers.txt:227, Quote: "has_variable = unlocked_advance_$type$"
+# Score = num_locations + 0.5 * subject_or_below locations (computed monthly by tv_update_conquest_score_effect)
+
 tv_conquest_milestone_1 = {
-	# TODO: Conquest Victory — Milestone 1
-	# Threshold hint: ~150 owned locations
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_conquest_score
+	var:tv_conquest_score >= 150
 }
 
 tv_conquest_milestone_2 = {
-	# TODO: Conquest Victory — Milestone 2
-	# Threshold hint: ~350 owned locations
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_conquest_score
+	var:tv_conquest_score >= 350
 }
 
 tv_conquest_milestone_3 = {
-	# TODO: Conquest Victory — Short-term Victory
-	# Threshold hint: ~600 owned locations
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_conquest_score
+	var:tv_conquest_score >= 600
 }
 
 tv_conquest_milestone_4 = {
-	# TODO: Conquest Victory — Milestone 4
-	# Threshold hint: ~1100 owned locations
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_conquest_score
+	var:tv_conquest_score >= 1100
 }
 
 tv_conquest_milestone_5 = {
-	# TODO: Conquest Victory — Long-term Victory
-	# Threshold hint: ~1600 owned locations
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_conquest_score
+	var:tv_conquest_score >= 1600
 }
 
 
