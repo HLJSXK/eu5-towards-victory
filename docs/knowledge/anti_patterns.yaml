@@ -73,7 +73,7 @@
   notes: "Guessing block structure causes silent failures; always read cards.gui before using blockoverride"
 
 - id: yaml_localization_non_ascii_quotes
-  pattern: '[""'']'
+  pattern: "[“”‘’]"
   bad: "Smart/curly quotes (“”‘’) in localization YAML"
   correction: "Use straight ASCII double-quotes (\") only; escape with \\\" inside values"
   category: localization
@@ -143,6 +143,24 @@
   scope: any
   source: "runtime observation"
   notes: "Triggered by Python f-string format spec +:  e.g. f'{delta:+.5f}' emits +0.00357 for positive deltas. Fix: use f'{delta:.5f}' so no leading sign is emitted for positive values."
+
+- id: gui_situation_get_player_country_nonexistent
+  pattern: 'GetPlayerCountry'
+  bad: "GetPlayerCountry.MakeScope.GetVariable(...) or GetPlayerCountry in situation panel GUI expressions"
+  correction: "Use Country.MakeScope.GetVariable('name').GetValue — Country is the implicit player country datacontext in situation panels. For situation-scope variables use SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('name')"
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/panels/situation/western_schism.gui:43"
+  notes: "Exhaustive search of all situation panel .gui files found zero occurrences of GetPlayerCountry; western_schism.gui:43 confirms Country.MakeScope as the correct chain for per-country variables"
+
+- id: gui_variable_comparison_no_operators
+  pattern: ''
+  bad: "Using > >= < <= == operators directly in GUI visible expressions to compare variable values (e.g. visible = \"[Country.MakeScope.GetVariable('x').GetValue >= 3]\")"
+  correction: "Use typed comparison functions: GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('name').GetValue, '(CFixedPoint)N.0') for integer milestone variables; EqualTo_float(FixedPointToFloat(...GetValue), '(float)N.0') for float comparisons"
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/panels/situation/treaty_of_tordesillas.gui:138"
+  notes: "EU5 GUI expression language has no inline comparison operators; all comparisons require named typed functions (GreaterThanOrEqualTo_CFixedPoint, LessThan_float, EqualTo_int32, etc.) with explicit type-cast literals"
 
 - id: icon_widget_before_texticon_check
   pattern: ''
