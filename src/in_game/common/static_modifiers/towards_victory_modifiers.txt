@@ -159,33 +159,28 @@ tv_diplomatic_m5_bonus = {
 # ──────────────────────────────────────────────────────────────────────
 
 tv_cultural_m1_bonus = {
-	# TODO: Cultural Victory — Milestone 1 reward (~1 Advance equivalent)
-	# Design intent: court attraction, ideas cost reduction
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	skill_of_new_artists = 0.10
+	hire_artist_cost_modifier = -0.10
 }
 
 tv_cultural_m2_bonus = {
-	# TODO: Cultural Victory — Milestone 2 reward (~1 Advance equivalent)
-	# Design intent: diplomat effectiveness, cultural prestige
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	diplomatic_reputation = 1
+	monthly_prestige = 0.10
 }
 
 tv_cultural_m3_bonus = {
-	# TODO: Cultural Victory — Short-term Victory reward (~2 Advance equivalent)
-	# Design intent: artifact find chance, court income
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	monthly_prestige = 0.15
+	cultural_tradition_modifier = 0.10
 }
 
 tv_cultural_m4_bonus = {
-	# TODO: Cultural Victory — Milestone 4 reward (~1 Advance equivalent)
-	# Design intent: cultural spread multiplier, missionary strength
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	cultural_influence_modifier = 0.15
+	building_missionary_effort_modifier = 0.10
 }
 
 tv_cultural_m5_bonus = {
-	# TODO: Cultural Victory — Long-term Victory reward (~2 Advance equivalent)
-	# Design intent: permanent cultural spread multiplier, prestige cap
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	cultural_influence_modifier = 0.20
+	prestige_decay = -0.10
 }
 
 

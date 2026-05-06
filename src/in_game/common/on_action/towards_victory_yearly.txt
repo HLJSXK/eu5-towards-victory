@@ -41,13 +41,32 @@ on_winning_war = {
 }
 #
 # ── CULTURAL INFLUENCE POINTS (tv_cultural_influence_points) ──────────────────
-# Sources:
-#   +10 CIP per artifact owned (checked monthly, once per artifact per month)
-#   +3  CIP per cultural spread event where this country is the origin
-#   +5  CIP per era with court spending above threshold
-#
-# TODO: add monthly artifact CIP check via monthly_country_pulse or equivalent.
-# Step 2/3: verify on_action name and artifact ownership trigger before implementing.
+# +10 CIP when a work of art is created (root.owner = commissioning country)
+# Scope chain verified: _hardcoded.txt:4300 — root.owner accesses owning country
+
+on_work_of_art_created = {
+	effect = {
+		root.owner ?= {
+			if = {
+				limit = { NOT = { has_variable = tv_cultural_influence_points } }
+				set_variable = { name = tv_cultural_influence_points value = 0 }
+			}
+			change_variable = { name = tv_cultural_influence_points add = 10 }
+		}
+	}
+}
+
+# +1 CIP/month for all countries (baseline cultural investment proxy)
+
+monthly_country_pulse = {
+	effect = {
+		if = {
+			limit = { NOT = { has_variable = tv_cultural_influence_points } }
+			set_variable = { name = tv_cultural_influence_points value = 0 }
+		}
+		change_variable = { name = tv_cultural_influence_points add = 1 }
+	}
+}
 #
 # ── SCIENTIFIC SCORE (tv_science_score) ──────────────────────────────────────
 # Weighted technology count (recomputed in tv_update_all_progress_pct_effect):

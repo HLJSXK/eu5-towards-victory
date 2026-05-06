@@ -408,13 +408,12 @@ tv_update_all_progress_pct_effect = {
 	}
 
 	# ── Cultural Victory ────────────────────────────────────────────────────
-	# TODO: compute 0.0-1.0 progress fraction for cultural path
-	# Formula: tv_cultural_progress_pct = raw_metric / v2_threshold
-	# V2 threshold hint: tv_cultural_influence_points >= 580
-	# Pattern:
-	#   set_variable = { name = tv_cultural_progress_pct value = <raw_metric_accessor> }
-	#   change_variable = { name = tv_cultural_progress_pct divide = <v2_threshold_literal> }
-	#   if = { limit = { var:tv_cultural_progress_pct > 1 } set_variable = { name = tv_cultural_progress_pct value = 1 } }
+	if = {
+		limit = { has_variable = tv_cultural_influence_points }
+		set_variable    = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
+		change_variable = { name = tv_cultural_progress_pct divide = 580 }
+		if = { limit = { var:tv_cultural_progress_pct > 1 } set_variable = { name = tv_cultural_progress_pct value = 1 } }
+	}
 
 	# ── Scientific Victory ────────────────────────────────────────────────────
 	# TODO: compute 0.0-1.0 progress fraction for science path
@@ -523,33 +522,23 @@ tv_grant_diplomatic_milestone_5 = {
 
 # Cultural Victory
 tv_grant_cultural_milestone_1 = {
-	# TODO: Cultural Victory — Milestone 1 reward
-	# Design intent: court attraction, ideas cost reduction
-	# add_country_modifier = { name = tv_cultural_m1_bonus }
+	add_country_modifier = { modifier = tv_cultural_m1_bonus days = -1 }
 }
 
 tv_grant_cultural_milestone_2 = {
-	# TODO: Cultural Victory — Milestone 2 reward
-	# Design intent: diplomat effectiveness, cultural prestige
-	# add_country_modifier = { name = tv_cultural_m2_bonus }
+	add_country_modifier = { modifier = tv_cultural_m2_bonus days = -1 }
 }
 
 tv_grant_cultural_milestone_3 = {
-	# TODO: Cultural Victory — Short-term Victory reward
-	# Design intent: artifact find chance, court income
-	# add_country_modifier = { name = tv_cultural_m3_bonus }
+	add_country_modifier = { modifier = tv_cultural_m3_bonus days = -1 }
 }
 
 tv_grant_cultural_milestone_4 = {
-	# TODO: Cultural Victory — Milestone 4 reward
-	# Design intent: cultural spread multiplier, missionary strength
-	# add_country_modifier = { name = tv_cultural_m4_bonus }
+	add_country_modifier = { modifier = tv_cultural_m4_bonus days = -1 }
 }
 
 tv_grant_cultural_milestone_5 = {
-	# TODO: Cultural Victory — Long-term Victory reward
-	# Design intent: permanent cultural spread multiplier, prestige cap
-	# add_country_modifier = { name = tv_cultural_m5_bonus }
+	add_country_modifier = { modifier = tv_cultural_m5_bonus days = -1 }
 }
 
 
