@@ -1,0 +1,54 @@
+﻿# Towards Victory — Conquest milestone events
+# Auto-split from towards_victory_events.txt — namespace must be exactly tv_conquest
+
+namespace = tv_conquest
+
+tv_conquest.1 = {
+	type = country_event
+	title = tv_conquest.1.t
+	desc = tv_conquest.1.d
+	option = {
+		name = tv_conquest.1.a
+		tv_grant_conquest_milestone_1 = yes
+	}
+}
+
+tv_conquest.2 = {
+	type = country_event
+	title = tv_conquest.2.t
+	desc = tv_conquest.2.d
+	option = {
+		name = tv_conquest.2.a
+		tv_grant_conquest_milestone_2 = yes
+	}
+}
+
+tv_conquest.3 = {
+	type = country_event
+	title = tv_conquest.3.t
+	desc = tv_conquest.3.d
+	option = {
+		name = tv_conquest.3.a
+		tv_grant_conquest_milestone_3 = yes
+	}
+}
+
+tv_conquest.4 = {
+	type = country_event
+	title = tv_conquest.4.t
+	desc = tv_conquest.4.d
+	option = {
+		name = tv_conquest.4.a
+		tv_grant_conquest_milestone_4 = yes
+	}
+}
+
+tv_conquest.5 = {
+	type = country_event
+	title = tv_conquest.5.t
+	desc = tv_conquest.5.d
+	option = {
+		name = tv_conquest.5.a
+		tv_grant_conquest_milestone_5 = yes
+	}
+}

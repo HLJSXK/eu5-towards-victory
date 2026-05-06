@@ -52,7 +52,7 @@ src/
 │   │   ├── scripted_effects/              towards_victory_effects.txt
 │   │   ├── static_modifiers/              towards_victory_modifiers.txt
 │   │   └── on_action/                     towards_victory_yearly.txt
-│   ├── events/                            towards_victory_events.txt
+│   ├── events/                            towards_victory_{conquest,prosperity,trade,diplomatic,cultural,science}_events.txt (one namespace per category — EU5 event IDs must be `<ns>.<int>` with exactly one dot)
 │   └── gui/panels/situation/              towards_victory_situation.gui
 └── main_menu/localization/
     ├── english/                           towards_victory_l_english.yml
@@ -89,6 +89,9 @@ src/
 | gui | any | GetPlayerCountry.MakeScope.GetVariable(...) or GetPlayerCountry in situation panel GUI expressions | Use Country.MakeScope.GetVariable('name').GetValue — Country is the implicit player country datacontext in situation panels. For situation-scope variables use SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('name') | Exhaustive search of all situation panel .gui files found zero occurrences of GetPlayerCountry; western_schism.gui:43 confirms Country.MakeScope as the correct chain for per-country variables |
 | gui | any | Using > >= < <= == operators directly in GUI visible expressions to compare variable values (e.g. visible = "[Country.MakeScope.GetVariable('x').GetValue >= 3]") | Use typed comparison functions: GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('name').GetValue, '(CFixedPoint)N.0') for integer milestone variables; EqualTo_float(FixedPointToFloat(...GetValue), '(float)N.0') for float comparisons | EU5 GUI expression language has no inline comparison operators; all comparisons require named typed functions (GreaterThanOrEqualTo_CFixedPoint, LessThan_float, EqualTo_int32, etc.) with explicit type-cast literals |
 | gui | any | Using an icon widget or designing custom icon syntax without first checking if @icon_name! inline texticon syntax already covers the case | Check font_icons.gui for existing texticon definitions first; use @icon_name! in raw_text/text/localization if available; fall back to icon widget; only design from scratch as last resort | EU5 has 180+ pre-defined inline icons via the @xxx! texticon system; skipping this check causes unnecessary widget complexity and misses the preferred engine-native approach |
+| event | any | Event ID with more than one dot, e.g. tv.conquest.1 = { type = country_event ... } | Event ID must be exactly <namespace>.<integer> with one dot. Use one namespace per category (e.g. namespace = tv_conquest, IDs tv_conquest.1..5), or flatten to sequential integers under one namespace. Localization keys for title/desc/option name CAN still use dotted suffixes (tv_conquest.1.t). | EU5 jomini_eventmanager splits the event ID on the FIRST dot. tv.conquest.1 becomes namespace 'tv' + integer 'conquest.1' which fails to parse, the event is dropped, and surviving entries collide as duplicates. Engine error: 'Failed to split namespaced event ID, needs to be in the form of namespace.integer'. |
+| gui | any | Setting parentanchor on a widget that is a direct child of an hbox or vbox (e.g. inside hbox = { widget = { parentanchor = vcenter ... } }) | Remove parentanchor from hbox/vbox children — the layout box arranges them automatically on the cross-axis. parentanchor remains valid on children of plain widget/window/container parents. | Pattern is empty because static detection requires parsing GUI parent structure. Audit any widget nested inside hbox = { ... } or vbox = { ... } and strip parentanchor. Children of progressbar/widget/window are unaffected. |
+| encoding | any | Saving common/ scripts (static_modifiers, situations, scripted_effects, on_action, etc.) as plain UTF-8 without a byte-order mark | Save with UTF-8 BOM (first 3 bytes EF BB BF). In Python: write_bytes(b'\xef\xbb\xbf' + text.encode('utf-8')) or open(..., encoding='utf-8-sig'). Verify with `head -c 3 <file> | xxd` -> expect ef bb bf. | Engine retries without BOM but emits a warning per file per load. Localization YAMLs already require BOM; this rule extends the same requirement to common/ .txt scripts. Auto-generated files via scripts/gen_scaffold.py should always emit the BOM. |
 
 ## Valid Enum Values
 
@@ -116,7 +119,7 @@ src/
 | Scripted Triggers | 481 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 482 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2089 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 148 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 118 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

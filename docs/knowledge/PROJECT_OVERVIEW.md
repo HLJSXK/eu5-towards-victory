@@ -48,7 +48,7 @@ src/
 │   │   ├── scripted_effects/              towards_victory_effects.txt
 │   │   ├── static_modifiers/              towards_victory_modifiers.txt
 │   │   └── on_action/                     towards_victory_yearly.txt
-│   ├── events/                            towards_victory_events.txt
+│   ├── events/                            towards_victory_{conquest,prosperity,trade,diplomatic,cultural,science}_events.txt (one namespace per category — EU5 event IDs must be `<ns>.<int>` with exactly one dot)
 │   └── gui/panels/situation/              towards_victory_situation.gui
 └── main_menu/localization/
     ├── english/                           towards_victory_l_english.yml

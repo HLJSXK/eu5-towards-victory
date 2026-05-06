@@ -92,7 +92,7 @@ tv_check_conquest_milestones_effect = {
 			tv_conquest_milestone_1 = yes
 		}
 		set_variable = { name = tv_conquest_milestone value = 1 }
-		trigger_event_non_silently = tv.conquest.1
+		trigger_event_non_silently = tv_conquest.1
 	}
 	if = {
 		limit = {
@@ -100,7 +100,7 @@ tv_check_conquest_milestones_effect = {
 			tv_conquest_milestone_2 = yes
 		}
 		set_variable = { name = tv_conquest_milestone value = 2 }
-		trigger_event_non_silently = tv.conquest.2
+		trigger_event_non_silently = tv_conquest.2
 	}
 	if = {
 		limit = {
@@ -108,7 +108,7 @@ tv_check_conquest_milestones_effect = {
 			tv_conquest_milestone_3 = yes
 		}
 		set_variable = { name = tv_conquest_milestone value = 3 }
-		trigger_event_non_silently = tv.conquest.3
+		trigger_event_non_silently = tv_conquest.3
 	}
 	if = {
 		limit = {
@@ -116,7 +116,7 @@ tv_check_conquest_milestones_effect = {
 			tv_conquest_milestone_4 = yes
 		}
 		set_variable = { name = tv_conquest_milestone value = 4 }
-		trigger_event_non_silently = tv.conquest.4
+		trigger_event_non_silently = tv_conquest.4
 	}
 	if = {
 		limit = {
@@ -124,7 +124,7 @@ tv_check_conquest_milestones_effect = {
 			tv_conquest_milestone_5 = yes
 		}
 		set_variable = { name = tv_conquest_milestone value = 5 }
-		trigger_event_non_silently = tv.conquest.5
+		trigger_event_non_silently = tv_conquest.5
 	}
 }
 
@@ -141,7 +141,7 @@ tv_check_prosperity_milestones_effect = {
 			tv_prosperity_milestone_1 = yes
 		}
 		set_variable = { name = tv_prosperity_milestone value = 1 }
-		trigger_event_non_silently = tv.prosperity.1
+		trigger_event_non_silently = tv_prosperity.1
 	}
 	if = {
 		limit = {
@@ -149,7 +149,7 @@ tv_check_prosperity_milestones_effect = {
 			tv_prosperity_milestone_2 = yes
 		}
 		set_variable = { name = tv_prosperity_milestone value = 2 }
-		trigger_event_non_silently = tv.prosperity.2
+		trigger_event_non_silently = tv_prosperity.2
 	}
 	if = {
 		limit = {
@@ -157,7 +157,7 @@ tv_check_prosperity_milestones_effect = {
 			tv_prosperity_milestone_3 = yes
 		}
 		set_variable = { name = tv_prosperity_milestone value = 3 }
-		trigger_event_non_silently = tv.prosperity.3
+		trigger_event_non_silently = tv_prosperity.3
 	}
 	if = {
 		limit = {
@@ -165,7 +165,7 @@ tv_check_prosperity_milestones_effect = {
 			tv_prosperity_milestone_4 = yes
 		}
 		set_variable = { name = tv_prosperity_milestone value = 4 }
-		trigger_event_non_silently = tv.prosperity.4
+		trigger_event_non_silently = tv_prosperity.4
 	}
 	if = {
 		limit = {
@@ -173,7 +173,7 @@ tv_check_prosperity_milestones_effect = {
 			tv_prosperity_milestone_5 = yes
 		}
 		set_variable = { name = tv_prosperity_milestone value = 5 }
-		trigger_event_non_silently = tv.prosperity.5
+		trigger_event_non_silently = tv_prosperity.5
 	}
 }
 
@@ -191,7 +191,7 @@ tv_check_trade_milestones_effect = {
 			tv_trade_milestone_1 = yes
 		}
 		set_variable = { name = tv_trade_milestone value = 1 }
-		trigger_event_non_silently = tv.trade.1
+		trigger_event_non_silently = tv_trade.1
 	}
 	if = {
 		limit = {
@@ -199,7 +199,7 @@ tv_check_trade_milestones_effect = {
 			tv_trade_milestone_2 = yes
 		}
 		set_variable = { name = tv_trade_milestone value = 2 }
-		trigger_event_non_silently = tv.trade.2
+		trigger_event_non_silently = tv_trade.2
 	}
 	if = {
 		limit = {
@@ -207,7 +207,7 @@ tv_check_trade_milestones_effect = {
 			tv_trade_milestone_3 = yes
 		}
 		set_variable = { name = tv_trade_milestone value = 3 }
-		trigger_event_non_silently = tv.trade.3
+		trigger_event_non_silently = tv_trade.3
 	}
 	if = {
 		limit = {
@@ -215,7 +215,7 @@ tv_check_trade_milestones_effect = {
 			tv_trade_milestone_4 = yes
 		}
 		set_variable = { name = tv_trade_milestone value = 4 }
-		trigger_event_non_silently = tv.trade.4
+		trigger_event_non_silently = tv_trade.4
 	}
 	if = {
 		limit = {
@@ -223,7 +223,7 @@ tv_check_trade_milestones_effect = {
 			tv_trade_milestone_5 = yes
 		}
 		set_variable = { name = tv_trade_milestone value = 5 }
-		trigger_event_non_silently = tv.trade.5
+		trigger_event_non_silently = tv_trade.5
 	}
 }
 
@@ -244,7 +244,7 @@ tv_check_diplomatic_milestones_effect = {
 			tv_diplomatic_milestone_1 = yes
 		}
 		set_variable = { name = tv_diplomatic_milestone value = 1 }
-		trigger_event_non_silently = tv.diplomatic.1
+		trigger_event_non_silently = tv_diplomatic.1
 	}
 	if = {
 		limit = {
@@ -252,7 +252,7 @@ tv_check_diplomatic_milestones_effect = {
 			tv_diplomatic_milestone_2 = yes
 		}
 		set_variable = { name = tv_diplomatic_milestone value = 2 }
-		trigger_event_non_silently = tv.diplomatic.2
+		trigger_event_non_silently = tv_diplomatic.2
 	}
 	if = {
 		limit = {
@@ -260,7 +260,7 @@ tv_check_diplomatic_milestones_effect = {
 			tv_diplomatic_milestone_3 = yes
 		}
 		set_variable = { name = tv_diplomatic_milestone value = 3 }
-		trigger_event_non_silently = tv.diplomatic.3
+		trigger_event_non_silently = tv_diplomatic.3
 	}
 	if = {
 		limit = {
@@ -268,7 +268,7 @@ tv_check_diplomatic_milestones_effect = {
 			tv_diplomatic_milestone_4 = yes
 		}
 		set_variable = { name = tv_diplomatic_milestone value = 4 }
-		trigger_event_non_silently = tv.diplomatic.4
+		trigger_event_non_silently = tv_diplomatic.4
 	}
 	if = {
 		limit = {
@@ -276,7 +276,7 @@ tv_check_diplomatic_milestones_effect = {
 			tv_diplomatic_milestone_5 = yes
 		}
 		set_variable = { name = tv_diplomatic_milestone value = 5 }
-		trigger_event_non_silently = tv.diplomatic.5
+		trigger_event_non_silently = tv_diplomatic.5
 	}
 }
 
@@ -293,7 +293,7 @@ tv_check_cultural_milestones_effect = {
 			tv_cultural_milestone_1 = yes
 		}
 		set_variable = { name = tv_cultural_milestone value = 1 }
-		trigger_event_non_silently = tv.cultural.1
+		trigger_event_non_silently = tv_cultural.1
 	}
 	if = {
 		limit = {
@@ -301,7 +301,7 @@ tv_check_cultural_milestones_effect = {
 			tv_cultural_milestone_2 = yes
 		}
 		set_variable = { name = tv_cultural_milestone value = 2 }
-		trigger_event_non_silently = tv.cultural.2
+		trigger_event_non_silently = tv_cultural.2
 	}
 	if = {
 		limit = {
@@ -309,7 +309,7 @@ tv_check_cultural_milestones_effect = {
 			tv_cultural_milestone_3 = yes
 		}
 		set_variable = { name = tv_cultural_milestone value = 3 }
-		trigger_event_non_silently = tv.cultural.3
+		trigger_event_non_silently = tv_cultural.3
 	}
 	if = {
 		limit = {
@@ -317,7 +317,7 @@ tv_check_cultural_milestones_effect = {
 			tv_cultural_milestone_4 = yes
 		}
 		set_variable = { name = tv_cultural_milestone value = 4 }
-		trigger_event_non_silently = tv.cultural.4
+		trigger_event_non_silently = tv_cultural.4
 	}
 	if = {
 		limit = {
@@ -325,7 +325,7 @@ tv_check_cultural_milestones_effect = {
 			tv_cultural_milestone_5 = yes
 		}
 		set_variable = { name = tv_cultural_milestone value = 5 }
-		trigger_event_non_silently = tv.cultural.5
+		trigger_event_non_silently = tv_cultural.5
 	}
 }
 
@@ -343,7 +343,7 @@ tv_check_science_milestones_effect = {
 			tv_science_milestone_1 = yes
 		}
 		set_variable = { name = tv_science_milestone value = 1 }
-		trigger_event_non_silently = tv.science.1
+		trigger_event_non_silently = tv_science.1
 	}
 	if = {
 		limit = {
@@ -351,7 +351,7 @@ tv_check_science_milestones_effect = {
 			tv_science_milestone_2 = yes
 		}
 		set_variable = { name = tv_science_milestone value = 2 }
-		trigger_event_non_silently = tv.science.2
+		trigger_event_non_silently = tv_science.2
 	}
 	if = {
 		limit = {
@@ -359,7 +359,7 @@ tv_check_science_milestones_effect = {
 			tv_science_milestone_3 = yes
 		}
 		set_variable = { name = tv_science_milestone value = 3 }
-		trigger_event_non_silently = tv.science.3
+		trigger_event_non_silently = tv_science.3
 	}
 	if = {
 		limit = {
@@ -367,7 +367,7 @@ tv_check_science_milestones_effect = {
 			tv_science_milestone_4 = yes
 		}
 		set_variable = { name = tv_science_milestone value = 4 }
-		trigger_event_non_silently = tv.science.4
+		trigger_event_non_silently = tv_science.4
 	}
 	if = {
 		limit = {
@@ -375,7 +375,7 @@ tv_check_science_milestones_effect = {
 			tv_science_milestone_5 = yes
 		}
 		set_variable = { name = tv_science_milestone value = 5 }
-		trigger_event_non_silently = tv.science.5
+		trigger_event_non_silently = tv_science.5
 	}
 }
 
