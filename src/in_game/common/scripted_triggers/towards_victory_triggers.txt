@@ -76,39 +76,32 @@ tv_prosperity_milestone_5 = {
 # TRADE VICTORY MILESTONES
 # ──────────────────────────────────────────────────────────────────────
 
+# Verification — Step 3, Reference: events/economy/trade.txt:185, Quote: "monthly_trade_income > { value = monthly_income_trade_and_tax multiply = 0.33 }"
+# Score = monthly_trade_income (computed monthly by tv_update_trade_score_effect; thresholds require in-game tuning)
+
 tv_trade_milestone_1 = {
-	# TODO: Trade Victory — Milestone 1
-	# Threshold hint: Trade income share threshold 1
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_trade_score
+	var:tv_trade_score >= 10
 }
 
 tv_trade_milestone_2 = {
-	# TODO: Trade Victory — Milestone 2
-	# Threshold hint: Dominating multiple trade nodes
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_trade_score
+	var:tv_trade_score >= 25
 }
 
 tv_trade_milestone_3 = {
-	# TODO: Trade Victory — Short-term Victory
-	# Threshold hint: Major trade empire threshold
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_trade_score
+	var:tv_trade_score >= 50
 }
 
 tv_trade_milestone_4 = {
-	# TODO: Trade Victory — Milestone 4
-	# Threshold hint: Near-monopoly on key nodes
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_trade_score
+	var:tv_trade_score >= 80
 }
 
 tv_trade_milestone_5 = {
-	# TODO: Trade Victory — Long-term Victory
-	# Threshold hint: Trade hegemon threshold
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_trade_score
+	var:tv_trade_score >= 120
 }
 
 

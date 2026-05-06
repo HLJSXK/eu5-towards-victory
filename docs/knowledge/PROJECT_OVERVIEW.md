@@ -6,7 +6,7 @@
 - **Mod ID:** `eu5mp.towards_victory`
 - **Version:** 0.1.0
 - **Target:** EU5 `1.*.*`
-- **Status:** In Development — Conquest and Prosperity Victory paths fully implemented; other 4 paths are skeleton/stub
+- **Status:** In Development — Conquest, Prosperity, and Trade Victory paths fully implemented; other 3 paths are skeleton/stub
 - **Language:** English + Simplified Chinese
 
 ## Summary
@@ -17,15 +17,17 @@ The **Conquest Victory** path (征服胜利) is fully implemented: 5 triggers, 5
 
 The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = total_population + Σ(prosperity per owned location); updated yearly via every_owned_location iteration; thresholds at 5,000 / 8,000 / 12,000 / 18,000 / 25,000 (provisional, calibrate after playtesting).
 
-The other 4 paths (Trade, Diplomatic, Cultural, Scientific) remain as stubs.
+The **Trade Victory** path (贸易胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = monthly_trade_income (snapshot taken monthly by tv_update_trade_score_effect); thresholds at 10 / 25 / 50 / 80 / 120 (provisional, calibrate after playtesting).
+
+The other 3 paths (Diplomatic, Cultural, Scientific) remain as stubs.
 
 The mod is additive-only and uses the `tv_` namespace prefix throughout.
 
 ## Core Features
 
 1. **6 Victory Situations** — One situation per victory type, showing milestone progress and current rewards earned.
-2. **Milestone Events** — Popup country events per milestone. **Conquest** (`tv.conquest.1`–`tv.conquest.5`) and **Prosperity** (`tv.prosperity.1`–`tv.prosperity.5`) fully implemented; other paths are stubs.
-3. **Permanent Rewards** — All milestone rewards are permanent static modifiers (`days = -1`); no time-limited buffs. **Conquest** (`tv_conquest_m1_bonus`–`tv_conquest_m5_bonus`) and **Prosperity** (`tv_prosperity_m1_bonus`–`tv_prosperity_m5_bonus`) rewards implemented.
+2. **Milestone Events** — Popup country events per milestone. **Conquest** (`tv.conquest.1`–`tv.conquest.5`), **Prosperity** (`tv.prosperity.1`–`tv.prosperity.5`), and **Trade** (`tv.trade.1`–`tv.trade.5`) fully implemented; other paths are stubs.
+3. **Permanent Rewards** — All milestone rewards are permanent static modifiers (`days = -1`); no time-limited buffs. **Conquest** (`tv_conquest_m1_bonus`–`tv_conquest_m5_bonus`), **Prosperity** (`tv_prosperity_m1_bonus`–`tv_prosperity_m5_bonus`), and **Trade** (`tv_trade_m1_bonus`–`tv_trade_m5_bonus`) rewards implemented.
 4. **Diplomatic Victory Points** (`tv_diplomatic_victory_points`) — Country variable accumulated via diplomacy-related on_actions.
 5. **Cultural Influence Points** (`tv_cultural_influence_points`) — Country variable accumulated via artifact ownership and cultural spread.
 6. **Scientific Technology Score** (`tv_science_score`) — Weighted technology count with Age 5 steam-era emphasis.

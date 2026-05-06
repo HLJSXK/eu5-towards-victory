@@ -54,6 +54,16 @@ tv_update_prosperity_score_effect = {
 }
 
 # ═══════════════════════════════════════════════════════════════════════════
+# SECTION 1.7: TRADE SCORE UPDATER
+# Computes tv_trade_score = monthly_trade_income.
+# Verification — Step 3, Reference: events/economy/trade.txt:185, Quote: "monthly_trade_income > { value = monthly_income_trade_and_tax multiply = 0.33 }"
+# ═══════════════════════════════════════════════════════════════════════════
+
+tv_update_trade_score_effect = {
+	set_variable = { name = tv_trade_score value = monthly_trade_income }
+}
+
+# ═══════════════════════════════════════════════════════════════════════════
 # SECTION 2: PER-PATH MILESTONE CHECKERS
 # Guards via var:tv_*_milestone < N prevent re-triggering after grant.
 # ═══════════════════════════════════════════════════════════════════════════
@@ -159,6 +169,7 @@ tv_check_prosperity_milestones_effect = {
 
 # ── Trade Victory ──────────────────────────────────────────────────────
 tv_check_trade_milestones_effect = {
+	tv_update_trade_score_effect = yes
 	# Initialise on first call (guards against missing variable)
 	if = {
 		limit = { NOT = { has_variable = tv_trade_milestone } }
@@ -377,13 +388,12 @@ tv_update_all_progress_pct_effect = {
 	}
 
 	# ── Trade Victory ────────────────────────────────────────────────────
-	# TODO: compute 0.0-1.0 progress fraction for trade path
-	# Formula: tv_trade_progress_pct = raw_metric / v2_threshold
-	# V2 threshold hint: Trade hegemon threshold
-	# Pattern:
-	#   set_variable = { name = tv_trade_progress_pct value = <raw_metric_accessor> }
-	#   change_variable = { name = tv_trade_progress_pct divide = <v2_threshold_literal> }
-	#   if = { limit = { var:tv_trade_progress_pct > 1 } set_variable = { name = tv_trade_progress_pct value = 1 } }
+	if = {
+		limit = { has_variable = tv_trade_score }
+		set_variable = { name = tv_trade_progress_pct value = var:tv_trade_score }
+		change_variable = { name = tv_trade_progress_pct divide = 120 }
+		if = { limit = { var:tv_trade_progress_pct > 1 } set_variable = { name = tv_trade_progress_pct value = 1 } }
+	}
 
 	# ── Diplomatic Victory ────────────────────────────────────────────────────
 	# TODO: compute 0.0-1.0 progress fraction for diplomatic path
@@ -466,33 +476,23 @@ tv_grant_prosperity_milestone_5 = {
 
 # Trade Victory
 tv_grant_trade_milestone_1 = {
-	# TODO: Trade Victory — Milestone 1 reward
-	# Design intent: merchant power, trade node influence
-	# add_country_modifier = { name = tv_trade_m1_bonus }
+	add_country_modifier = { modifier = tv_trade_m1_bonus days = -1 }
 }
 
 tv_grant_trade_milestone_2 = {
-	# TODO: Trade Victory — Milestone 2 reward
-	# Design intent: light ships, merchant count
-	# add_country_modifier = { name = tv_trade_m2_bonus }
+	add_country_modifier = { modifier = tv_trade_m2_bonus days = -1 }
 }
 
 tv_grant_trade_milestone_3 = {
-	# TODO: Trade Victory — Short-term Victory reward
-	# Design intent: trade efficiency
-	# add_country_modifier = { name = tv_trade_m3_bonus }
+	add_country_modifier = { modifier = tv_trade_m3_bonus days = -1 }
 }
 
 tv_grant_trade_milestone_4 = {
-	# TODO: Trade Victory — Milestone 4 reward
-	# Design intent: trade steering bonus
-	# add_country_modifier = { name = tv_trade_m4_bonus }
+	add_country_modifier = { modifier = tv_trade_m4_bonus days = -1 }
 }
 
 tv_grant_trade_milestone_5 = {
-	# TODO: Trade Victory — Long-term Victory reward
-	# Design intent: permanent trade income multiplier, merchant count
-	# add_country_modifier = { name = tv_trade_m5_bonus }
+	add_country_modifier = { modifier = tv_trade_m5_bonus days = -1 }
 }
 
 

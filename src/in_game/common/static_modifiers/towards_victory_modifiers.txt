@@ -90,34 +90,37 @@ tv_prosperity_m5_bonus = {
 # TRADE VICTORY MODIFIERS
 # ──────────────────────────────────────────────────────────────────────
 
+# Verification — Step 3, Reference: 00_modifier_types.txt:5446, Quote: "global_merchant_power={"
+# Verification — Step 3, Reference: 00_modifier_types.txt:6113, Quote: "global_trade_center_power={"
+# Verification — Step 3, Reference: 00_modifier_types.txt:4920, Quote: "global_merchant_capacity_modifier={"
+# Verification — Step 3, Reference: 00_modifier_types.txt:6127, Quote: "global_trade_protection_factor={"
+# Verification — Step 3, Reference: 00_modifier_types.txt:5990, Quote: "trade_efficiency={"
+# Verification — Step 3, Reference: 00_modifier_types.txt:6006, Quote: "trade_income={"
+# Verification — Step 3, Reference: 00_modifier_types.txt:9464, Quote: "trade_range_modifier={"
+
 tv_trade_m1_bonus = {
-	# TODO: Trade Victory — Milestone 1 reward (~1 Advance equivalent)
-	# Design intent: merchant power, trade node influence
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_merchant_power = 0.05
+	global_trade_center_power = 0.05
 }
 
 tv_trade_m2_bonus = {
-	# TODO: Trade Victory — Milestone 2 reward (~1 Advance equivalent)
-	# Design intent: light ships, merchant count
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_merchant_capacity_modifier = 0.10
+	global_trade_protection_factor = 0.05
 }
 
 tv_trade_m3_bonus = {
-	# TODO: Trade Victory — Short-term Victory reward (~2 Advance equivalent)
-	# Design intent: trade efficiency
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	trade_efficiency = 0.05
+	trade_income = 0.05
 }
 
 tv_trade_m4_bonus = {
-	# TODO: Trade Victory — Milestone 4 reward (~1 Advance equivalent)
-	# Design intent: trade steering bonus
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	trade_range_modifier = 0.15
+	global_trade_center_power = 0.05
 }
 
 tv_trade_m5_bonus = {
-	# TODO: Trade Victory — Long-term Victory reward (~2 Advance equivalent)
-	# Design intent: permanent trade income multiplier, merchant count
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	trade_income = 0.10
+	global_merchant_capacity_modifier = 0.15
 }
 
 
