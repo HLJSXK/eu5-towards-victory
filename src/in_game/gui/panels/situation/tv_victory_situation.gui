@@ -216,11 +216,9 @@ template tv_conquest_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_conquest_m1_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_CONQUEST_M1_REWARDS"
+				textcontext = "[GetModifier('tv_conquest_m1_bonus').GetDesc]"
 			}
 
 		}
@@ -253,11 +251,9 @@ template tv_conquest_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_conquest_m2_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_CONQUEST_M2_REWARDS"
+				textcontext = "[GetModifier('tv_conquest_m2_bonus').GetDesc]"
 			}
 
 		}
@@ -290,11 +286,9 @@ template tv_conquest_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_conquest_m3_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_CONQUEST_M3_REWARDS"
+				textcontext = "[GetModifier('tv_conquest_m3_bonus').GetDesc]"
 			}
 
 		}
@@ -327,11 +321,9 @@ template tv_conquest_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_conquest_m4_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_CONQUEST_M4_REWARDS"
+				textcontext = "[GetModifier('tv_conquest_m4_bonus').GetDesc]"
 			}
 
 		}
@@ -364,11 +356,9 @@ template tv_conquest_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_conquest_m5_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_CONQUEST_M5_REWARDS"
+				textcontext = "[GetModifier('tv_conquest_m5_bonus').GetDesc]"
 			}
 
 		}
@@ -403,11 +393,9 @@ template tv_prosperity_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_prosperity_m1_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_PROSPERITY_M1_REWARDS"
+				textcontext = "[GetModifier('tv_prosperity_m1_bonus').GetDesc]"
 			}
 
 		}
@@ -440,11 +428,9 @@ template tv_prosperity_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_prosperity_m2_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_PROSPERITY_M2_REWARDS"
+				textcontext = "[GetModifier('tv_prosperity_m2_bonus').GetDesc]"
 			}
 
 		}
@@ -477,11 +463,9 @@ template tv_prosperity_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_prosperity_m3_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_PROSPERITY_M3_REWARDS"
+				textcontext = "[GetModifier('tv_prosperity_m3_bonus').GetDesc]"
 			}
 
 		}
@@ -514,11 +498,9 @@ template tv_prosperity_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_prosperity_m4_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_PROSPERITY_M4_REWARDS"
+				textcontext = "[GetModifier('tv_prosperity_m4_bonus').GetDesc]"
 			}
 
 		}
@@ -551,11 +533,9 @@ template tv_prosperity_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_prosperity_m5_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_PROSPERITY_M5_REWARDS"
+				textcontext = "[GetModifier('tv_prosperity_m5_bonus').GetDesc]"
 			}
 
 		}
@@ -590,11 +570,9 @@ template tv_trade_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_trade_m1_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_TRADE_M1_REWARDS"
+				textcontext = "[GetModifier('tv_trade_m1_bonus').GetDesc]"
 			}
 
 		}
@@ -627,11 +605,9 @@ template tv_trade_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_trade_m2_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_TRADE_M2_REWARDS"
+				textcontext = "[GetModifier('tv_trade_m2_bonus').GetDesc]"
 			}
 
 		}
@@ -664,11 +640,9 @@ template tv_trade_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_trade_m3_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_TRADE_M3_REWARDS"
+				textcontext = "[GetModifier('tv_trade_m3_bonus').GetDesc]"
 			}
 
 		}
@@ -701,11 +675,9 @@ template tv_trade_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_trade_m4_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_TRADE_M4_REWARDS"
+				textcontext = "[GetModifier('tv_trade_m4_bonus').GetDesc]"
 			}
 
 		}
@@ -738,11 +710,9 @@ template tv_trade_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_trade_m5_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_TRADE_M5_REWARDS"
+				textcontext = "[GetModifier('tv_trade_m5_bonus').GetDesc]"
 			}
 
 		}
@@ -777,11 +747,9 @@ template tv_diplomatic_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_diplomatic_m1_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M1_REWARDS"
+				textcontext = "[GetModifier('tv_diplomatic_m1_bonus').GetDesc]"
 			}
 
 		}
@@ -814,11 +782,9 @@ template tv_diplomatic_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_diplomatic_m2_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M2_REWARDS"
+				textcontext = "[GetModifier('tv_diplomatic_m2_bonus').GetDesc]"
 			}
 
 		}
@@ -851,11 +817,9 @@ template tv_diplomatic_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_diplomatic_m3_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M3_REWARDS"
+				textcontext = "[GetModifier('tv_diplomatic_m3_bonus').GetDesc]"
 			}
 
 		}
@@ -888,11 +852,9 @@ template tv_diplomatic_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_diplomatic_m4_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M4_REWARDS"
+				textcontext = "[GetModifier('tv_diplomatic_m4_bonus').GetDesc]"
 			}
 
 		}
@@ -925,11 +887,9 @@ template tv_diplomatic_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_diplomatic_m5_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M5_REWARDS"
+				textcontext = "[GetModifier('tv_diplomatic_m5_bonus').GetDesc]"
 			}
 
 		}
@@ -964,11 +924,9 @@ template tv_cultural_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_cultural_m1_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_CULTURAL_M1_REWARDS"
+				textcontext = "[GetModifier('tv_cultural_m1_bonus').GetDesc]"
 			}
 
 		}
@@ -1001,11 +959,9 @@ template tv_cultural_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_cultural_m2_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_CULTURAL_M2_REWARDS"
+				textcontext = "[GetModifier('tv_cultural_m2_bonus').GetDesc]"
 			}
 
 		}
@@ -1038,11 +994,9 @@ template tv_cultural_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_cultural_m3_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_CULTURAL_M3_REWARDS"
+				textcontext = "[GetModifier('tv_cultural_m3_bonus').GetDesc]"
 			}
 
 		}
@@ -1075,11 +1029,9 @@ template tv_cultural_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_cultural_m4_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_CULTURAL_M4_REWARDS"
+				textcontext = "[GetModifier('tv_cultural_m4_bonus').GetDesc]"
 			}
 
 		}
@@ -1112,11 +1064,9 @@ template tv_cultural_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_cultural_m5_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_CULTURAL_M5_REWARDS"
+				textcontext = "[GetModifier('tv_cultural_m5_bonus').GetDesc]"
 			}
 
 		}
@@ -1151,11 +1101,9 @@ template tv_science_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_science_m1_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_SCIENCE_M1_REWARDS"
+				textcontext = "[GetModifier('tv_science_m1_bonus').GetDesc]"
 			}
 
 		}
@@ -1188,11 +1136,9 @@ template tv_science_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_science_m2_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_SCIENCE_M2_REWARDS"
+				textcontext = "[GetModifier('tv_science_m2_bonus').GetDesc]"
 			}
 
 		}
@@ -1225,11 +1171,9 @@ template tv_science_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_science_m3_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_SCIENCE_M3_REWARDS"
+				textcontext = "[GetModifier('tv_science_m3_bonus').GetDesc]"
 			}
 
 		}
@@ -1262,11 +1206,9 @@ template tv_science_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_science_m4_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_SCIENCE_M4_REWARDS"
+				textcontext = "[GetModifier('tv_science_m4_bonus').GetDesc]"
 			}
 
 		}
@@ -1299,11 +1241,9 @@ template tv_science_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 3: rewards upon reaching this milestone ──────────────────
-			# Standard modifier pair list.
-			# Update textcontext once tv_science_m5_bonus modifier is defined.
-			TooltipStringPairList = {
+			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "TV_SCIENCE_M5_REWARDS"
+				textcontext = "[GetModifier('tv_science_m5_bonus').GetDesc]"
 			}
 
 		}
