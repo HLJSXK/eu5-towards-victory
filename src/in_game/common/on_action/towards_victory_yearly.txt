@@ -69,10 +69,6 @@ monthly_country_pulse = {
 }
 #
 # ── SCIENTIFIC SCORE (tv_science_score) ──────────────────────────────────────
-# Weighted technology count (recomputed in tv_update_all_progress_pct_effect):
-#   Age 1-2 technologies: weight x1
-#   Age 3 technologies:   weight x2
-#   Age 4 technologies:   weight x3
-#   Age 5 technologies (steam/industrial): weight x5
-#
-# TODO: implement scoring formula inside tv_update_all_progress_pct_effect.
+# Score = num_of_advances_researched (monthly snapshot via tv_update_science_score_effect).
+# No on_action hook needed — score is recomputed inside tv_check_science_milestones_effect
+# which is called monthly for players and yearly for AI by the situation pulse.

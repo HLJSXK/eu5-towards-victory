@@ -64,6 +64,16 @@ tv_update_trade_score_effect = {
 }
 
 # ═══════════════════════════════════════════════════════════════════════════
+# SECTION 1.8: SCIENCE SCORE UPDATER
+# Computes tv_science_score = num_of_advances_researched (monthly snapshot).
+# Verification — Step 3, Reference: standard_achievements.txt:492, Quote: "num_of_advances_researched >= 450"
+# ═══════════════════════════════════════════════════════════════════════════
+
+tv_update_science_score_effect = {
+	set_variable = { name = tv_science_score value = num_of_advances_researched }
+}
+
+# ═══════════════════════════════════════════════════════════════════════════
 # SECTION 2: PER-PATH MILESTONE CHECKERS
 # Guards via var:tv_*_milestone < N prevent re-triggering after grant.
 # ═══════════════════════════════════════════════════════════════════════════
@@ -321,6 +331,7 @@ tv_check_cultural_milestones_effect = {
 
 # ── Scientific Victory ──────────────────────────────────────────────────────
 tv_check_science_milestones_effect = {
+	tv_update_science_score_effect = yes
 	# Initialise on first call (guards against missing variable)
 	if = {
 		limit = { NOT = { has_variable = tv_science_milestone } }
@@ -416,13 +427,12 @@ tv_update_all_progress_pct_effect = {
 	}
 
 	# ── Scientific Victory ────────────────────────────────────────────────────
-	# TODO: compute 0.0-1.0 progress fraction for science path
-	# Formula: tv_science_progress_pct = raw_metric / v2_threshold
-	# V2 threshold hint: tv_science_score — Age 5 (steam/industrial) threshold
-	# Pattern:
-	#   set_variable = { name = tv_science_progress_pct value = <raw_metric_accessor> }
-	#   change_variable = { name = tv_science_progress_pct divide = <v2_threshold_literal> }
-	#   if = { limit = { var:tv_science_progress_pct > 1 } set_variable = { name = tv_science_progress_pct value = 1 } }
+	if = {
+		limit = { has_variable = tv_science_score }
+		set_variable = { name = tv_science_progress_pct value = var:tv_science_score }
+		change_variable = { name = tv_science_progress_pct divide = 270 }
+		if = { limit = { var:tv_science_progress_pct > 1 } set_variable = { name = tv_science_progress_pct value = 1 } }
+	}
 
 }
 
@@ -544,32 +554,22 @@ tv_grant_cultural_milestone_5 = {
 
 # Scientific Victory
 tv_grant_science_milestone_1 = {
-	# TODO: Scientific Victory — Milestone 1 reward
-	# Design intent: research speed bonus
-	# add_country_modifier = { name = tv_science_m1_bonus }
+	add_country_modifier = { modifier = tv_science_m1_bonus days = -1 }
 }
 
 tv_grant_science_milestone_2 = {
-	# TODO: Scientific Victory — Milestone 2 reward
-	# Design intent: technology spread, military effectiveness
-	# add_country_modifier = { name = tv_science_m2_bonus }
+	add_country_modifier = { modifier = tv_science_m2_bonus days = -1 }
 }
 
 tv_grant_science_milestone_3 = {
-	# TODO: Scientific Victory — Short-term Victory reward
-	# Design intent: institution spread speed, educated pop growth
-	# add_country_modifier = { name = tv_science_m3_bonus }
+	add_country_modifier = { modifier = tv_science_m3_bonus days = -1 }
 }
 
 tv_grant_science_milestone_4 = {
-	# TODO: Scientific Victory — Milestone 4 reward
-	# Design intent: scientific institution bonus, production bonus
-	# add_country_modifier = { name = tv_science_m4_bonus }
+	add_country_modifier = { modifier = tv_science_m4_bonus days = -1 }
 }
 
 tv_grant_science_milestone_5 = {
-	# TODO: Scientific Victory — Long-term Victory reward
-	# Design intent: permanent production bonus, army modernization
-	# add_country_modifier = { name = tv_science_m5_bonus }
+	add_country_modifier = { modifier = tv_science_m5_bonus days = -1 }
 }
 

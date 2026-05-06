@@ -169,38 +169,31 @@ tv_cultural_milestone_5 = {
 # SCIENTIFIC VICTORY MILESTONES
 # ──────────────────────────────────────────────────────────────────────
 
+# Verification — Step 3, Reference: standard_achievements.txt:492, Quote: "num_of_advances_researched >= 450"
+# Score = num_of_advances_researched (snapshot taken monthly by tv_update_science_score_effect)
+
 tv_science_milestone_1 = {
-	# TODO: Scientific Victory — Milestone 1
-	# Threshold hint: tv_science_score — Age 1-2 era threshold
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_science_score
+	var:tv_science_score >= 30
 }
 
 tv_science_milestone_2 = {
-	# TODO: Scientific Victory — Milestone 2
-	# Threshold hint: tv_science_score — Age 3 era threshold
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_science_score
+	var:tv_science_score >= 80
 }
 
 tv_science_milestone_3 = {
-	# TODO: Scientific Victory — Short-term Victory
-	# Threshold hint: tv_science_score — Age 4 era threshold
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_science_score
+	var:tv_science_score >= 140
 }
 
 tv_science_milestone_4 = {
-	# TODO: Scientific Victory — Milestone 4
-	# Threshold hint: tv_science_score — High Age 4 threshold
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_science_score
+	var:tv_science_score >= 200
 }
 
 tv_science_milestone_5 = {
-	# TODO: Scientific Victory — Long-term Victory
-	# Threshold hint: tv_science_score — Age 5 (steam/industrial) threshold
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_science_score
+	var:tv_science_score >= 270
 }
 

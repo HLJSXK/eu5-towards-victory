@@ -6,7 +6,7 @@
 - **Mod ID:** `eu5mp.towards_victory`
 - **Version:** 0.1.0
 - **Target:** EU5 `1.*.*`
-- **Status:** In Development — Conquest, Prosperity, Trade, Diplomatic, and Cultural Victory paths fully implemented; Scientific remains a stub
+- **Status:** In Development — All 6 Victory paths fully implemented: Conquest, Prosperity, Trade, Diplomatic, Cultural, and Scientific
 - **Language:** English + Simplified Chinese
 
 ## Summary
@@ -23,18 +23,18 @@ The **Diplomatic Victory** path (外交胜利) is fully implemented: 5 triggers,
 
 The **Cultural Victory** path (文化胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `tv_cultural_influence_points` (CIP) accumulated via `on_work_of_art_created` (+10 CIP, scope `root.owner`) and `monthly_country_pulse` (+1 CIP per month); thresholds at 50 / 120 / 220 / 380 / 580. Rewards: M1 artist skill/cost, M2 diplomacy/prestige, M3 prestige/tradition, M4 cultural influence/missionary, M5 cultural influence/prestige decay.
 
-The **Scientific Victory** path (科技胜利) remains as a stub.
+The **Scientific Victory** path (科技胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `num_of_advances_researched` (snapshot taken monthly by tv_update_science_score_effect); thresholds at 30 / 80 / 140 / 200 / 270 (provisional, calibrate after playtesting). Rewards: M1 research speed, M2 institution spread/discipline, M3 institution spread/pop growth, M4 institution embrace cost/production, M5 production/discipline.
 
 The mod is additive-only and uses the `tv_` namespace prefix throughout.
 
 ## Core Features
 
 1. **6 Victory Situations** — One situation per victory type, showing milestone progress and current rewards earned.
-2. **Milestone Events** — Popup country events per milestone. Conquest (`tv.conquest.1`–`5`), Prosperity (`tv.prosperity.1`–`5`), Trade (`tv.trade.1`–`5`), Diplomatic (`tv.diplomatic.1`–`5`), and Cultural (`tv.cultural.1`–`5`) fully implemented; Scientific stub.
-3. **Permanent Rewards** — All milestone rewards are permanent static modifiers (`days = -1`); no time-limited buffs. Conquest, Prosperity, Trade, Diplomatic, and Cultural rewards all implemented.
+2. **Milestone Events** — Popup country events per milestone. All 30 events implemented across 6 paths: Conquest (`tv.conquest.1`–`5`), Prosperity (`tv.prosperity.1`–`5`), Trade (`tv.trade.1`–`5`), Diplomatic (`tv.diplomatic.1`–`5`), Cultural (`tv.cultural.1`–`5`), and Scientific (`tv.science.1`–`5`).
+3. **Permanent Rewards** — All 30 milestone rewards are permanent static modifiers (`days = -1`); no time-limited buffs. All 6 paths fully implemented.
 4. **Diplomatic Victory Points** (`tv_diplomatic_victory_points`) — Permanently accumulated via `on_royal_marriage` (+3 DVP each party) and `on_winning_war` (+5 DVP to winner).
 5. **Cultural Influence Points** (`tv_cultural_influence_points`) — Accumulated via `on_work_of_art_created` (+10 CIP to `root.owner`) and `monthly_country_pulse` (+1 CIP/month).
-6. **Scientific Technology Score** (`tv_science_score`) — Weighted technology count with Age 5 steam-era emphasis.
+6. **Scientific Technology Score** (`tv_science_score`) — Monthly snapshot of `num_of_advances_researched`; thresholds 30 / 80 / 140 / 200 / 270.
 
 ## Directory Structure
 

@@ -188,33 +188,34 @@ tv_cultural_m5_bonus = {
 # SCIENTIFIC VICTORY MODIFIERS
 # ──────────────────────────────────────────────────────────────────────
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:5246, Quote: "research_speed_modifier={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:5294, Quote: "global_institution_growth_modifier={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:5087, Quote: "discipline={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:4715, Quote: "global_population_growth={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:2333, Quote: "embrace_institution_cost_modifier={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:6011, Quote: "global_production_efficiency={"
+
 tv_science_m1_bonus = {
-	# TODO: Scientific Victory — Milestone 1 reward (~1 Advance equivalent)
-	# Design intent: research speed bonus
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	research_speed_modifier = 0.10
 }
 
 tv_science_m2_bonus = {
-	# TODO: Scientific Victory — Milestone 2 reward (~1 Advance equivalent)
-	# Design intent: technology spread, military effectiveness
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_institution_growth_modifier = 0.10
+	discipline = 0.02
 }
 
 tv_science_m3_bonus = {
-	# TODO: Scientific Victory — Short-term Victory reward (~2 Advance equivalent)
-	# Design intent: institution spread speed, educated pop growth
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_institution_growth_modifier = 0.15
+	global_population_growth = 0.05
 }
 
 tv_science_m4_bonus = {
-	# TODO: Scientific Victory — Milestone 4 reward (~1 Advance equivalent)
-	# Design intent: scientific institution bonus, production bonus
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	embrace_institution_cost_modifier = -0.10
+	global_production_efficiency = 0.05
 }
 
 tv_science_m5_bonus = {
-	# TODO: Scientific Victory — Long-term Victory reward (~2 Advance equivalent)
-	# Design intent: permanent production bonus, army modernization
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_production_efficiency = 0.10
+	discipline = 0.05
 }
 
