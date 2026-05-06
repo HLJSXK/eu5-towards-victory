@@ -24,6 +24,7 @@ types TVVictoryTypes {
 	#   milestone_v2_circle  : V2 Long-term Victory circle (38x38, special)
 	type tv_victory_row = widget {
 		size = { -1 52 }
+		layoutpolicy_horizontal = expanding
 
 		# Subtle row background for visual separation between paths
 		background = {
