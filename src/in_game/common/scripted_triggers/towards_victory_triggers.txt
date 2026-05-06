@@ -42,39 +42,33 @@ tv_conquest_milestone_5 = {
 # PROSPERITY VICTORY MILESTONES
 # ──────────────────────────────────────────────────────────────────────
 
+# Verification — Step 3, Reference: country_effects.txt:1809, Quote: "value = total_population"
+# Verification — Step 3, Reference: country_effects.txt:2519, Quote: "root = { change_variable = { add = prev..."
+# Score = total_population + Σ(prosperity per owned location); computed yearly by tv_update_prosperity_score_effect
+
 tv_prosperity_milestone_1 = {
-	# TODO: Prosperity Victory — Milestone 1
-	# Threshold hint: Composite development score threshold 1
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_prosperity_score
+	var:tv_prosperity_score >= 5000
 }
 
 tv_prosperity_milestone_2 = {
-	# TODO: Prosperity Victory — Milestone 2
-	# Threshold hint: Composite development score threshold 2
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_prosperity_score
+	var:tv_prosperity_score >= 8000
 }
 
 tv_prosperity_milestone_3 = {
-	# TODO: Prosperity Victory — Short-term Victory
-	# Threshold hint: Composite development score threshold 3
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_prosperity_score
+	var:tv_prosperity_score >= 12000
 }
 
 tv_prosperity_milestone_4 = {
-	# TODO: Prosperity Victory — Milestone 4
-	# Threshold hint: Composite development score threshold 4 (high)
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_prosperity_score
+	var:tv_prosperity_score >= 18000
 }
 
 tv_prosperity_milestone_5 = {
-	# TODO: Prosperity Victory — Long-term Victory
-	# Threshold hint: Composite development score threshold 5 (very high)
-	# Step 2/3 verification required before implementing
-	always = no
+	has_variable = tv_prosperity_score
+	var:tv_prosperity_score >= 25000
 }
 
 

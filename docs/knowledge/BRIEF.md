@@ -10,22 +10,26 @@
 - **Mod ID:** `eu5mp.towards_victory`
 - **Version:** 0.1.0
 - **Target:** EU5 `1.*.*`
-- **Status:** In Development — Conquest Victory path fully implemented; other 5 paths are skeleton/stub
+- **Status:** In Development — Conquest and Prosperity Victory paths fully implemented; other 4 paths are skeleton/stub
 - **Language:** English + Simplified Chinese
 
 ## Summary
 
 Towards Victory adds 6 generalized victory paths to EU5: Conquest, Prosperity, Trade, Diplomatic, Cultural, and Scientific. Each path has 5 milestone nodes that grant permanent buffs when reached. Progress is displayed via situation panels; milestones trigger popup events that notify the player and deliver the reward.
 
-The **Conquest Victory** path (征服胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = direct locations + 0.5 × subject-or-below locations; thresholds at 150 / 350 / 600 / 1100 / 1600. The other 5 paths remain as stubs.
+The **Conquest Victory** path (征服胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = direct locations + 0.5 × subject-or-below locations; thresholds at 150 / 350 / 600 / 1100 / 1600.
+
+The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = total_population + Σ(prosperity per owned location); updated yearly via every_owned_location iteration; thresholds at 5,000 / 8,000 / 12,000 / 18,000 / 25,000 (provisional, calibrate after playtesting).
+
+The other 4 paths (Trade, Diplomatic, Cultural, Scientific) remain as stubs.
 
 The mod is additive-only and uses the `tv_` namespace prefix throughout.
 
 ## Core Features
 
 1. **6 Victory Situations** — One situation per victory type, showing milestone progress and current rewards earned.
-2. **Milestone Events** — Popup country events per milestone. **Conquest** fully implemented (`tv.conquest.1`–`tv.conquest.5`); other paths are stubs.
-3. **Permanent Rewards** — All milestone rewards are permanent static modifiers (`days = -1`); no time-limited buffs. **Conquest** rewards implemented (`tv_conquest_m1_bonus`–`tv_conquest_m5_bonus`).
+2. **Milestone Events** — Popup country events per milestone. **Conquest** (`tv.conquest.1`–`tv.conquest.5`) and **Prosperity** (`tv.prosperity.1`–`tv.prosperity.5`) fully implemented; other paths are stubs.
+3. **Permanent Rewards** — All milestone rewards are permanent static modifiers (`days = -1`); no time-limited buffs. **Conquest** (`tv_conquest_m1_bonus`–`tv_conquest_m5_bonus`) and **Prosperity** (`tv_prosperity_m1_bonus`–`tv_prosperity_m5_bonus`) rewards implemented.
 4. **Diplomatic Victory Points** (`tv_diplomatic_victory_points`) — Country variable accumulated via diplomacy-related on_actions.
 5. **Cultural Influence Points** (`tv_cultural_influence_points`) — Country variable accumulated via artifact ownership and cultural spread.
 6. **Scientific Technology Score** (`tv_science_score`) — Weighted technology count with Age 5 steam-era emphasis.
@@ -104,7 +108,7 @@ src/
 | --- | --- | --- | --- |
 | GUI Icons (`@xxx!`) | 321 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
 | Scripted Triggers | 481 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
-| Scripted Effects | 479 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
+| Scripted Effects | 480 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2089 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
 | English Loc Keys | 148 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 

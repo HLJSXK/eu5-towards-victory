@@ -34,6 +34,26 @@ tv_update_conquest_score_effect = {
 }
 
 # ═══════════════════════════════════════════════════════════════════════════
+# SECTION 1.6: PROSPERITY SCORE UPDATER
+# Computes tv_prosperity_score = total_population + Σ(prosperity per owned location).
+# Called YEARLY only (expensive every_owned_location iteration).
+# Milestone checker reads the cached tv_prosperity_score — never calls this directly.
+# Verification — Step 3, Reference: country_effects.txt:1809, Quote: "value = total_population"
+# Verification — Step 3, Reference: country_effects.txt:2519, Quote: "root = { change_variable = { add = prev"
+# ═══════════════════════════════════════════════════════════════════════════
+
+tv_update_prosperity_score_effect = {
+	set_variable = { name = tv_prosperity_score value = total_population }
+	set_variable = { name = tv_prosperity_temp value = 0 }
+	every_owned_location = {
+		root = {
+			change_variable = { name = tv_prosperity_temp add = prev.prosperity }
+		}
+	}
+	change_variable = { name = tv_prosperity_score add = var:tv_prosperity_temp }
+}
+
+# ═══════════════════════════════════════════════════════════════════════════
 # SECTION 2: PER-PATH MILESTONE CHECKERS
 # Guards via var:tv_*_milestone < N prevent re-triggering after grant.
 # ═══════════════════════════════════════════════════════════════════════════
@@ -349,13 +369,12 @@ tv_update_all_progress_pct_effect = {
 	}
 
 	# ── Prosperity Victory ────────────────────────────────────────────────────
-	# TODO: compute 0.0-1.0 progress fraction for prosperity path
-	# Formula: tv_prosperity_progress_pct = raw_metric / v2_threshold
-	# V2 threshold hint: Composite development score threshold 5 (very high)
-	# Pattern:
-	#   set_variable = { name = tv_prosperity_progress_pct value = <raw_metric_accessor> }
-	#   change_variable = { name = tv_prosperity_progress_pct divide = <v2_threshold_literal> }
-	#   if = { limit = { var:tv_prosperity_progress_pct > 1 } set_variable = { name = tv_prosperity_progress_pct value = 1 } }
+	if = {
+		limit = { has_variable = tv_prosperity_score }
+		set_variable = { name = tv_prosperity_progress_pct value = var:tv_prosperity_score }
+		change_variable = { name = tv_prosperity_progress_pct divide = 25000 }
+		if = { limit = { var:tv_prosperity_progress_pct > 1 } set_variable = { name = tv_prosperity_progress_pct value = 1 } }
+	}
 
 	# ── Trade Victory ────────────────────────────────────────────────────
 	# TODO: compute 0.0-1.0 progress fraction for trade path
@@ -425,33 +444,23 @@ tv_grant_conquest_milestone_5 = {
 
 # Prosperity Victory
 tv_grant_prosperity_milestone_1 = {
-	# TODO: Prosperity Victory — Milestone 1 reward
-	# Design intent: domestic production bonus, tax income
-	# add_country_modifier = { name = tv_prosperity_m1_bonus }
+	add_country_modifier = { modifier = tv_prosperity_m1_bonus days = -1 }
 }
 
 tv_grant_prosperity_milestone_2 = {
-	# TODO: Prosperity Victory — Milestone 2 reward
-	# Design intent: pop growth, building cost reduction
-	# add_country_modifier = { name = tv_prosperity_m2_bonus }
+	add_country_modifier = { modifier = tv_prosperity_m2_bonus days = -1 }
 }
 
 tv_grant_prosperity_milestone_3 = {
-	# TODO: Prosperity Victory — Short-term Victory reward
-	# Design intent: development cost reduction
-	# add_country_modifier = { name = tv_prosperity_m3_bonus }
+	add_country_modifier = { modifier = tv_prosperity_m3_bonus days = -1 }
 }
 
 tv_grant_prosperity_milestone_4 = {
-	# TODO: Prosperity Victory — Milestone 4 reward
-	# Design intent: construction speed, educated pop bonus
-	# add_country_modifier = { name = tv_prosperity_m4_bonus }
+	add_country_modifier = { modifier = tv_prosperity_m4_bonus days = -1 }
 }
 
 tv_grant_prosperity_milestone_5 = {
-	# TODO: Prosperity Victory — Long-term Victory reward
-	# Design intent: permanent construction speed, population cap bonus
-	# add_country_modifier = { name = tv_prosperity_m5_bonus }
+	add_country_modifier = { modifier = tv_prosperity_m5_bonus days = -1 }
 }
 
 

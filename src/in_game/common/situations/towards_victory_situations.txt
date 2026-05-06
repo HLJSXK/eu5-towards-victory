@@ -42,6 +42,10 @@ tv_victory_situation = {
 			if = {
 				limit = { var:tv_ai_pulse_counter >= 12 }
 				set_variable = { name = tv_ai_pulse_counter value = 0 }
+				# Yearly prosperity score update for ALL countries (expensive every_owned_location iteration)
+				every_country = {
+					tv_update_prosperity_score_effect = yes
+				}
 				every_country = {
 					limit = {
 						is_ai = yes

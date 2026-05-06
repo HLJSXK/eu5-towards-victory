@@ -50,34 +50,39 @@ tv_conquest_m5_bonus = {
 # PROSPERITY VICTORY MODIFIERS
 # ──────────────────────────────────────────────────────────────────────
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:6011, Quote: "global_production_efficiency={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:3648, Quote: "tax_income_efficiency={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:4715, Quote: "global_population_growth={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:3690, Quote: "global_build_buildings_cost={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:4316, Quote: "global_monthly_development={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:4309, Quote: "global_monthly_prosperity={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:11898, Quote: "global_construction_speed={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:8287, Quote: "global_goods_gold_output_modifier={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:4737, Quote: "global_population_capacity_modifier={"
+
 tv_prosperity_m1_bonus = {
-	# TODO: Prosperity Victory — Milestone 1 reward (~1 Advance equivalent)
-	# Design intent: domestic production bonus, tax income
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_production_efficiency = 0.05
+	tax_income_efficiency = 0.05
 }
 
 tv_prosperity_m2_bonus = {
-	# TODO: Prosperity Victory — Milestone 2 reward (~1 Advance equivalent)
-	# Design intent: pop growth, building cost reduction
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_population_growth = 0.05
+	global_build_buildings_cost = -0.1
 }
 
 tv_prosperity_m3_bonus = {
-	# TODO: Prosperity Victory — Short-term Victory reward (~2 Advance equivalent)
-	# Design intent: development cost reduction
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_monthly_development = 0.01
+	global_monthly_prosperity = 0.01
 }
 
 tv_prosperity_m4_bonus = {
-	# TODO: Prosperity Victory — Milestone 4 reward (~1 Advance equivalent)
-	# Design intent: construction speed, educated pop bonus
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_construction_speed = 0.1
+	global_goods_gold_output_modifier = 0.05
 }
 
 tv_prosperity_m5_bonus = {
-	# TODO: Prosperity Victory — Long-term Victory reward (~2 Advance equivalent)
-	# Design intent: permanent construction speed, population cap bonus
-	# Verify modifier key names in modifier_type_definitions/ before adding values
+	global_construction_speed = 0.1
+	global_population_capacity_modifier = 0.1
 }
 
 
