@@ -23,7 +23,7 @@ The **Diplomatic Victory** path (外交胜利) is fully implemented: 5 triggers,
 
 The **Cultural Victory** path (文化胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `tv_cultural_influence_points` (CIP) accumulated via `on_work_of_art_created` (+10 CIP, scope `root.owner`) and `monthly_country_pulse` (+1 CIP per month); thresholds at 50 / 120 / 220 / 380 / 580. Rewards: M1 artist skill/cost, M2 diplomacy/prestige, M3 prestige/tradition, M4 cultural influence/missionary, M5 cultural influence/prestige decay.
 
-The **Scientific Victory** path (科技胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `num_of_advances_researched` (snapshot taken monthly by tv_update_science_score_effect); thresholds at 100 / 150 / 200 / 300 / 400 (provisional, calibrate after playtesting). Rewards: M1 research speed, M2 institution spread/discipline, M3 institution spread/pop growth, M4 institution embrace cost/production, M5 production/discipline.
+The **Scientific Victory** path (科技胜利) is fully implemented with a unique building gate: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `num_of_advances_researched` (snapshot taken monthly by tv_update_science_score_effect); thresholds at 100 / 150 / 200 / 300 / 400 (provisional, calibrate after playtesting). Rewards: M1 research speed, M2 institution spread/discipline, M3 institution spread/pop growth, M4 institution embrace cost/production, M5 production/discipline. **Unique mechanic:** Each milestone only fires after the corresponding **Academy of Sciences** building phase is manually constructed in the capital. The building chain (Phases I–V) is visible from game start; each phase requires the previous phase plus the corresponding score threshold (`tv_academy_of_sciences_level` variable). Construction conditions use `custom_tooltip` (score variable is not auto-parseable).
 
 The mod is additive-only and uses the `tv_` namespace prefix throughout.
 
@@ -35,6 +35,7 @@ The mod is additive-only and uses the `tv_` namespace prefix throughout.
 4. **Diplomatic Victory Points** (`tv_diplomatic_victory_points`) — Permanently accumulated via `on_royal_marriage` (+3 DVP each party) and `on_winning_war` (+5 DVP to winner).
 5. **Cultural Influence Points** (`tv_cultural_influence_points`) — Accumulated via `on_work_of_art_created` (+10 CIP to `root.owner`) and `monthly_country_pulse` (+1 CIP/month).
 6. **Scientific Technology Score** (`tv_science_score`) — Monthly snapshot of `num_of_advances_researched`; thresholds 100 / 150 / 200 / 300 / 400.
+7. **Academy of Sciences Building Chain** — Five capital buildings (`tv_academy_of_sciences_1`–`5`) gate Scientific Victory milestones. Each requires the previous phase built and the corresponding score threshold; `on_built` immediately triggers `tv_check_science_milestones_effect`. Building category: `cultural_category`; visible in all capitals from game start.
 
 ## Directory Structure
 
@@ -47,6 +48,7 @@ src/
 │   │   ├── scripted_triggers/             towards_victory_triggers.txt
 │   │   ├── scripted_effects/              towards_victory_effects.txt
 │   │   ├── static_modifiers/              towards_victory_modifiers.txt
+│   │   ├── building_types/                towards_victory_buildings.txt (Academy of Sciences chain)
 │   │   └── on_action/                     towards_victory_yearly.txt
 │   ├── events/                            towards_victory_{conquest,prosperity,trade,diplomatic,cultural,science}_events.txt (one namespace per category — EU5 event IDs must be `<ns>.<int>` with exactly one dot)
 │   └── gui/panels/situation/              towards_victory_situation.gui

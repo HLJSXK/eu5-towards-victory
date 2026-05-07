@@ -276,3 +276,28 @@
  STATIC_MODIFIER_NAME_tv_science_m3_bonus: "Scientific Vanguard"
  STATIC_MODIFIER_NAME_tv_science_m4_bonus: "Preeminent Science"
  STATIC_MODIFIER_NAME_tv_science_m5_bonus: "Industrial Vanguard"
+
+ # ── Academy of Sciences Building Chain ────────────────────────────────────
+ tv_academy_of_sciences_1: "Academy of Sciences, Phase I"
+ tv_academy_of_sciences_1_desc: "The founding of a national academy dedicated to the systematic advancement of learning and natural philosophy."
+ tv_academy_of_sciences_2: "Academy of Sciences, Phase II"
+ tv_academy_of_sciences_2_desc: "Expansion of the Academy's research faculties and the establishment of dedicated natural philosophy laboratories."
+ tv_academy_of_sciences_3: "Academy of Sciences, Phase III"
+ tv_academy_of_sciences_3_desc: "International recognition of the Academy as a preeminent seat of scholarship, drawing scholars from across the known world."
+ tv_academy_of_sciences_4: "Academy of Sciences, Phase IV"
+ tv_academy_of_sciences_4_desc: "The Academy becomes the nexus of the natural philosophy revolution, pioneering advances that redefine the limits of human knowledge."
+ tv_academy_of_sciences_5: "Academy of Sciences, Phase V"
+ tv_academy_of_sciences_5_desc: "The Academy drives the nation into the age of industry and reason, its discoveries forging the foundations of a new world."
+
+ # Allow-block custom tooltips (score requirements — not auto-parseable)
+ TV_ACADEMY_SCORE_1_TT: "Requires Science Score of at least 100 (total advances researched >= 100)"
+ TV_ACADEMY_SCORE_2_TT: "Requires Science Score of at least 150 (total advances researched >= 150)"
+ TV_ACADEMY_SCORE_3_TT: "Requires Science Score of at least 200 (total advances researched >= 200)"
+ TV_ACADEMY_SCORE_4_TT: "Requires Science Score of at least 300 (total advances researched >= 300)"
+ TV_ACADEMY_SCORE_5_TT: "Requires Science Score of at least 400 (total advances researched >= 400)"
+
+ # Allow-block custom tooltips (prerequisite building requirements)
+ TV_ACADEMY_HAS_PREV_2_TT: "Phase I Academy of Sciences must be constructed first"
+ TV_ACADEMY_HAS_PREV_3_TT: "Phase II Academy of Sciences must be constructed first"
+ TV_ACADEMY_HAS_PREV_4_TT: "Phase III Academy of Sciences must be constructed first"
+ TV_ACADEMY_HAS_PREV_5_TT: "Phase IV Academy of Sciences must be constructed first"

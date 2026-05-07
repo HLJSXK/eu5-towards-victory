@@ -216,6 +216,16 @@
   source: "EU5 engine validation (pdx_gui_validation.cpp:62: 'Unsupported property: parentanchor on widgets that are a child of a hbox/vbox. Hboxes/vboxes arrange their children automatically.')"
   notes: "Pattern is empty because static detection requires parsing GUI parent structure. Audit any widget nested inside hbox = { ... } or vbox = { ... } and strip parentanchor. Children of progressbar/widget/window are unaffected."
 
+- id: building_eu4_price_field
+  pattern: '^\s*price\s*=\s*\w+'
+  only_in_paths: ['building_types']
+  bad: "price = <name> in an EU5 building definition (EU4 carry-over)"
+  correction: "Use construction_demand = <name> for build costs and build_time = <name> for build duration"
+  category: modifier
+  scope: location
+  source: "reference_game_files/game/in_game/common/building_types/culture_buildings.txt:48, capital_buildings.txt:56"
+  notes: "EU5 buildings do not use the EU4 price field; construction_demand sets the goods required to build, build_time sets the duration. price = X is silently ignored."
+
 - id: utf8_bom_mandatory_on_common_scripts
   pattern: ''
   bad: "Saving common/ scripts (static_modifiers, situations, scripted_effects, on_action, etc.) as plain UTF-8 without a byte-order mark"

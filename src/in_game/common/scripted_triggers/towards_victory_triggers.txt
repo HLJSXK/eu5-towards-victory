@@ -190,25 +190,35 @@ tv_cultural_milestone_5 = {
 tv_science_milestone_1 = {
 	has_variable = tv_science_score
 	var:tv_science_score >= 100
+	has_variable = tv_academy_of_sciences_level
+	var:tv_academy_of_sciences_level >= 1
 }
 
 tv_science_milestone_2 = {
 	has_variable = tv_science_score
 	var:tv_science_score >= 150
+	has_variable = tv_academy_of_sciences_level
+	var:tv_academy_of_sciences_level >= 2
 }
 
 tv_science_milestone_3 = {
 	has_variable = tv_science_score
 	var:tv_science_score >= 200
+	has_variable = tv_academy_of_sciences_level
+	var:tv_academy_of_sciences_level >= 3
 }
 
 tv_science_milestone_4 = {
 	has_variable = tv_science_score
 	var:tv_science_score >= 300
+	has_variable = tv_academy_of_sciences_level
+	var:tv_academy_of_sciences_level >= 4
 }
 
 tv_science_milestone_5 = {
 	has_variable = tv_science_score
 	var:tv_science_score >= 400
+	has_variable = tv_academy_of_sciences_level
+	var:tv_academy_of_sciences_level >= 5
 }
 

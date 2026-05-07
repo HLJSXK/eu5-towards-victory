@@ -213,7 +213,97 @@ Flags in EU5 are generated dynamically through a scripted coat of arms system, a
 
 The modding architecture of European Universalis 5 represents a significant evolution from previous Paradox titles. With the power of the updated Clausewitz Engine and the flexible Jomini scripting layer, modders have an unprecedented ability to create new content and transform the game. While the learning curve can be steep, the extensive documentation and active community provide a strong foundation for success.
 
-## 10. References
+## 10. Building Types
+
+### 10.1 Definition Structure
+
+Buildings live in `in_game/common/building_types/`. Key fields verified against vanilla files (2026-05):
+
+```
+building_id = {
+    is_foreign = no               # prevent foreign construction
+    pop_type = clergy             # employment pop type
+    max_levels = 1                # integer or scripted_int
+    category = cultural_category  # see §10.2 for valid values
+    expensive = yes               # UI flag only
+    town = yes                    # location rank eligibility
+    city = yes
+    megalopolis = yes
+    rural_settlement = no
+    location_potential = { is_capital = yes }   # visibility filter; root = location
+    country_potential = { ... }                 # country-level visibility; root = country
+    allow = { ... }                             # construction conditions; root = location, scope:actor = building country
+    build_time = large_capital_build_time       # time reference (NOT price = X)
+    construction_demand = university_construction  # cost reference (NOT price = X)
+    on_built = { ... }            # fires when construction completes; root = location
+    on_destroyed = { ... }        # fires when building is removed
+    remove_if = { ... }           # auto-destroy trigger; root = building
+}
+```
+
+**Critical: EU5 uses `construction_demand = X`, NOT `price = X` (EU4 style).** Using `price =` is silently ignored.
+
+### 10.2 Valid Category Values
+
+Confirmed from vanilla building definitions: `basic_industry_category`, `colonial_category`, `consumer_goods_category`, `cultural_category`, `defense_category`, `estate_category`, `government_category`, `infrastructure_category`, `military_category`, `naval_category`, `religious_category`, `rgo_building_category`, `trade_category`, `village_category`, `weapons_industry_category`.
+
+For educational / scientific buildings: `cultural_category` (used by `university`, `library`, `art_school`).
+
+### 10.3 Allow Block with custom_tooltip
+
+The `allow` block uses `root = location`, `scope:actor = building country`. Custom tooltips wrap real triggers and display localized text when conditions pass (green) or fail (red):
+
+```
+allow = {
+    custom_tooltip = {
+        text = MY_TOOLTIP_KEY     # localization key
+        scope:actor = {
+            has_variable = my_score_var
+            var:my_score_var >= 100
+        }
+    }
+    custom_tooltip = {
+        text = MY_SECOND_TOOLTIP_KEY
+        scope:actor = { has_variable = my_prereq; var:my_prereq >= 1 }
+    }
+}
+```
+
+Multiple `custom_tooltip` blocks in `allow` are AND-combined. Each evaluates independently and shows its own green/red state. Source: `estate_buildings.txt`, `capital_buildings.txt`.
+
+### 10.4 on_built Scope
+
+`on_built` fires with root = location. Access the owning country via `location.owner = { ... }`. Source confirmed at `unique_buildings.txt:516-524` and `religion_buildings.txt:32-51`:
+
+```
+on_built = {
+    hidden_effect = {
+        location.owner = {
+            set_variable = { name = my_var value = 1 }
+            my_scripted_effect = yes
+        }
+    }
+}
+```
+
+### 10.5 build_time References (verified)
+
+| Reference | Context | Source |
+|---|---|---|
+| `large_capital_build_time` | Large government/capital buildings (royal court) | `capital_buildings.txt:15` |
+| `guild_build_time` | Craft guilds | `common_buildings.txt:126` |
+| `infrastructure_build_time` | Roads, irrigation | `common_buildings.txt:23` |
+| `rural_build_time` | Rural production | `common_buildings.txt:218` |
+
+### 10.6 construction_demand References (verified)
+
+| Reference | Context | Source |
+|---|---|---|
+| `university_construction` | Universities, academies | `culture_buildings.txt:48` |
+| `early_capital_building_construction` | Royal court, capital buildings | `capital_buildings.txt:56` |
+| `village_construction` | Irrigation systems | `common_buildings.txt:32` |
+
+## 11. References
 
 [1] [Europa Universalis V - PC performance graphics benchmarks](https://en.gamegpu.com/test-gpu/rts-strategii/europa-universalis-v-test-gpu-cpu)
 [2] [Grand Jomini Modding Information Manuscript](https://forum.paradoxplaza.com/forum/threads/grand-jomini-modding-information-manuscript.1170261/)

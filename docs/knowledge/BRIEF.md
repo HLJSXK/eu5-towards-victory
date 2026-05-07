@@ -27,7 +27,7 @@ The **Diplomatic Victory** path (外交胜利) is fully implemented: 5 triggers,
 
 The **Cultural Victory** path (文化胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `tv_cultural_influence_points` (CIP) accumulated via `on_work_of_art_created` (+10 CIP, scope `root.owner`) and `monthly_country_pulse` (+1 CIP per month); thresholds at 50 / 120 / 220 / 380 / 580. Rewards: M1 artist skill/cost, M2 diplomacy/prestige, M3 prestige/tradition, M4 cultural influence/missionary, M5 cultural influence/prestige decay.
 
-The **Scientific Victory** path (科技胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `num_of_advances_researched` (snapshot taken monthly by tv_update_science_score_effect); thresholds at 100 / 150 / 200 / 300 / 400 (provisional, calibrate after playtesting). Rewards: M1 research speed, M2 institution spread/discipline, M3 institution spread/pop growth, M4 institution embrace cost/production, M5 production/discipline.
+The **Scientific Victory** path (科技胜利) is fully implemented with a unique building gate: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `num_of_advances_researched` (snapshot taken monthly by tv_update_science_score_effect); thresholds at 100 / 150 / 200 / 300 / 400 (provisional, calibrate after playtesting). Rewards: M1 research speed, M2 institution spread/discipline, M3 institution spread/pop growth, M4 institution embrace cost/production, M5 production/discipline. **Unique mechanic:** Each milestone only fires after the corresponding **Academy of Sciences** building phase is manually constructed in the capital. The building chain (Phases I–V) is visible from game start; each phase requires the previous phase plus the corresponding score threshold (`tv_academy_of_sciences_level` variable). Construction conditions use `custom_tooltip` (score variable is not auto-parseable).
 
 The mod is additive-only and uses the `tv_` namespace prefix throughout.
 
@@ -39,6 +39,7 @@ The mod is additive-only and uses the `tv_` namespace prefix throughout.
 4. **Diplomatic Victory Points** (`tv_diplomatic_victory_points`) — Permanently accumulated via `on_royal_marriage` (+3 DVP each party) and `on_winning_war` (+5 DVP to winner).
 5. **Cultural Influence Points** (`tv_cultural_influence_points`) — Accumulated via `on_work_of_art_created` (+10 CIP to `root.owner`) and `monthly_country_pulse` (+1 CIP/month).
 6. **Scientific Technology Score** (`tv_science_score`) — Monthly snapshot of `num_of_advances_researched`; thresholds 100 / 150 / 200 / 300 / 400.
+7. **Academy of Sciences Building Chain** — Five capital buildings (`tv_academy_of_sciences_1`–`5`) gate Scientific Victory milestones. Each requires the previous phase built and the corresponding score threshold; `on_built` immediately triggers `tv_check_science_milestones_effect`. Building category: `cultural_category`; visible in all capitals from game start.
 
 ## Directory Structure
 
@@ -51,6 +52,7 @@ src/
 │   │   ├── scripted_triggers/             towards_victory_triggers.txt
 │   │   ├── scripted_effects/              towards_victory_effects.txt
 │   │   ├── static_modifiers/              towards_victory_modifiers.txt
+│   │   ├── building_types/                towards_victory_buildings.txt (Academy of Sciences chain)
 │   │   └── on_action/                     towards_victory_yearly.txt
 │   ├── events/                            towards_victory_{conquest,prosperity,trade,diplomatic,cultural,science}_events.txt (one namespace per category — EU5 event IDs must be `<ns>.<int>` with exactly one dot)
 │   └── gui/panels/situation/              towards_victory_situation.gui
@@ -94,6 +96,7 @@ src/
 | gui | any | Using an icon widget or designing custom icon syntax without first checking if @icon_name! inline texticon syntax already covers the case | Check font_icons.gui for existing texticon definitions first; use @icon_name! in raw_text/text/localization if available; fall back to icon widget; only design from scratch as last resort | EU5 has 180+ pre-defined inline icons via the @xxx! texticon system; skipping this check causes unnecessary widget complexity and misses the preferred engine-native approach |
 | event | any | Event ID with more than one dot, e.g. tv.conquest.1 = { type = country_event ... } | Event ID must be exactly <namespace>.<integer> with one dot. Use one namespace per category (e.g. namespace = tv_conquest, IDs tv_conquest.1..5), or flatten to sequential integers under one namespace. Localization keys for title/desc/option name CAN still use dotted suffixes (tv_conquest.1.t). | EU5 jomini_eventmanager splits the event ID on the FIRST dot. tv.conquest.1 becomes namespace 'tv' + integer 'conquest.1' which fails to parse, the event is dropped, and surviving entries collide as duplicates. Engine error: 'Failed to split namespaced event ID, needs to be in the form of namespace.integer'. |
 | gui | any | Setting parentanchor on a widget that is a direct child of an hbox or vbox (e.g. inside hbox = { widget = { parentanchor = vcenter ... } }) | Remove parentanchor from hbox/vbox children — the layout box arranges them automatically on the cross-axis. parentanchor remains valid on children of plain widget/window/container parents. | Pattern is empty because static detection requires parsing GUI parent structure. Audit any widget nested inside hbox = { ... } or vbox = { ... } and strip parentanchor. Children of progressbar/widget/window are unaffected. |
+| modifier | location | price = <name> in an EU5 building definition (EU4 carry-over) | Use construction_demand = <name> for build costs and build_time = <name> for build duration | EU5 buildings do not use the EU4 price field; construction_demand sets the goods required to build, build_time sets the duration. price = X is silently ignored. |
 | encoding | any | Saving common/ scripts (static_modifiers, situations, scripted_effects, on_action, etc.) as plain UTF-8 without a byte-order mark | Save with UTF-8 BOM (first 3 bytes EF BB BF). In Python: write_bytes(b'\xef\xbb\xbf' + text.encode('utf-8')) or open(..., encoding='utf-8-sig'). Verify with `head -c 3 <file> | xxd` -> expect ef bb bf. | Engine retries without BOM but emits a warning per file per load. Localization YAMLs already require BOM; this rule extends the same requirement to common/ .txt scripts. Auto-generated files via scripts/gen_scaffold.py should always emit the BOM. |
 
 ## Valid Enum Values
@@ -122,7 +125,7 @@ src/
 | Scripted Triggers | 507 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 504 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 148 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 169 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 
