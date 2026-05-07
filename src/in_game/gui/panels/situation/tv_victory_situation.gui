@@ -66,6 +66,8 @@ types TVVictoryTypes {
 			# V2 Long-term Victory (38x38, ~100%, special gold frame)
 			block "milestone_v2_circle" { }
 		}
+
+		block "row_progress_tooltip" { }
 	}
 }
 
@@ -177,6 +179,97 @@ template tv_science_icon_tooltip {
 			}
 			TooltipFlavorTextBlock = {
 				blockoverride "text" { text = "TV_SCIENCE_FLAVOR" }
+			}
+		}
+	}
+}
+
+# ══════════════════════════════════════════════════════════════════════════
+# PROGRESS BAR TOOLTIPS (6 total — one per victory path)
+# Shows current score value vs. final victory threshold.
+# Attaches to the row_progress_tooltip block on the outer tv_victory_row widget.
+# Syntax verified: Step 3, ref situations_l_english.yml:198 (GetValue|0 = integer)
+# ══════════════════════════════════════════════════════════════════════════
+
+template tv_conquest_progress_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_text" { text = "TV_CONQUEST_TITLE" }
+		blockoverride "title_icon_texture" {
+			texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+		}
+		blockoverride "tooltip_content" {
+			TooltipTextBlock = {
+				blockoverride "text" { text = "TV_CONQUEST_PROGRESS_DISPLAY" }
+			}
+		}
+	}
+}
+
+template tv_prosperity_progress_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_text" { text = "TV_PROSPERITY_TITLE" }
+		blockoverride "title_icon_texture" {
+			texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+		}
+		blockoverride "tooltip_content" {
+			TooltipTextBlock = {
+				blockoverride "text" { text = "TV_PROSPERITY_PROGRESS_DISPLAY" }
+			}
+		}
+	}
+}
+
+template tv_trade_progress_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_text" { text = "TV_TRADE_TITLE" }
+		blockoverride "title_icon_texture" {
+			texture = "gfx/interface/icons/flat_icons/trade.dds"
+		}
+		blockoverride "tooltip_content" {
+			TooltipTextBlock = {
+				blockoverride "text" { text = "TV_TRADE_PROGRESS_DISPLAY" }
+			}
+		}
+	}
+}
+
+template tv_diplomatic_progress_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_text" { text = "TV_DIPLOMATIC_TITLE" }
+		blockoverride "title_icon_texture" {
+			texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds"
+		}
+		blockoverride "tooltip_content" {
+			TooltipTextBlock = {
+				blockoverride "text" { text = "TV_DIPLOMATIC_PROGRESS_DISPLAY" }
+			}
+		}
+	}
+}
+
+template tv_cultural_progress_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_text" { text = "TV_CULTURAL_TITLE" }
+		blockoverride "title_icon_texture" {
+			texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+		}
+		blockoverride "tooltip_content" {
+			TooltipTextBlock = {
+				blockoverride "text" { text = "TV_CULTURAL_PROGRESS_DISPLAY" }
+			}
+		}
+	}
+}
+
+template tv_science_progress_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_text" { text = "TV_SCIENCE_TITLE" }
+		blockoverride "title_icon_texture" {
+			texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+		}
+		blockoverride "tooltip_content" {
+			TooltipTextBlock = {
+				blockoverride "text" { text = "TV_SCIENCE_PROGRESS_DISPLAY" }
 			}
 		}
 	}
@@ -1402,6 +1495,9 @@ situation_panel = {
 						tooltipwidget = { using = tv_conquest_milestone_5_tooltip }
 					}
 				}
+				blockoverride "row_progress_tooltip" {
+					tooltipwidget = { using = tv_conquest_progress_tooltip }
+				}
 			}
 
 			# ── Prosperity Victory row ────────────────────────────────────────────────────
@@ -1538,6 +1634,9 @@ situation_panel = {
 						}
 						tooltipwidget = { using = tv_prosperity_milestone_5_tooltip }
 					}
+				}
+				blockoverride "row_progress_tooltip" {
+					tooltipwidget = { using = tv_prosperity_progress_tooltip }
 				}
 			}
 
@@ -1676,6 +1775,9 @@ situation_panel = {
 						tooltipwidget = { using = tv_trade_milestone_5_tooltip }
 					}
 				}
+				blockoverride "row_progress_tooltip" {
+					tooltipwidget = { using = tv_trade_progress_tooltip }
+				}
 			}
 
 			# ── Diplomatic Victory row ────────────────────────────────────────────────────
@@ -1812,6 +1914,9 @@ situation_panel = {
 						}
 						tooltipwidget = { using = tv_diplomatic_milestone_5_tooltip }
 					}
+				}
+				blockoverride "row_progress_tooltip" {
+					tooltipwidget = { using = tv_diplomatic_progress_tooltip }
 				}
 			}
 
@@ -1950,6 +2055,9 @@ situation_panel = {
 						tooltipwidget = { using = tv_cultural_milestone_5_tooltip }
 					}
 				}
+				blockoverride "row_progress_tooltip" {
+					tooltipwidget = { using = tv_cultural_progress_tooltip }
+				}
 			}
 
 			# ── Scientific Victory row ────────────────────────────────────────────────────
@@ -2086,6 +2194,9 @@ situation_panel = {
 						}
 						tooltipwidget = { using = tv_science_milestone_5_tooltip }
 					}
+				}
+				blockoverride "row_progress_tooltip" {
+					tooltipwidget = { using = tv_science_progress_tooltip }
 				}
 			}
 
