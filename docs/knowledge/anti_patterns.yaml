@@ -72,6 +72,15 @@
   source: "reference_game_files/game/main_menu/common/cards.gui:1084"
   notes: "Guessing block structure causes silent failures; always read cards.gui before using blockoverride"
 
+- id: trade_efficiency_nonexistent
+  pattern: '\btrade_efficiency\s*='
+  bad: "trade_efficiency = <value>"
+  correction: "Use trade_land_efficiency and trade_sea_efficiency separately (both category=country, percent)"
+  category: modifier
+  scope: country
+  source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:10044"
+  notes: "trade_efficiency does not exist in EU5; split into trade_land_efficiency + trade_sea_efficiency"
+
 - id: yaml_localization_non_ascii_quotes
   pattern: "[“”‘’]"
   bad: "Smart/curly quotes (“”‘’) in localization YAML"

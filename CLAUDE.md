@@ -102,7 +102,7 @@ if hasattr(sys.stdout, "reconfigure"):
 
 `import sys` must also be present (add it if not already there).
 
-Also, always run scripts via `conda run -n eu5 python scripts/...` — never bare `python`.
+Also, always run scripts via `conda run --no-capture-output -n eu5 python scripts/...` — never bare `python`.
 
 ## Victory Condition Design Workflow
 
@@ -131,14 +131,14 @@ Add matching keys to `src/main_menu/localization/simp_chinese/towards_victory_l_
 
 ### Step 5: Validate
 ```
-conda run -n eu5 python scripts/validate.py --changed
+conda run --no-capture-output -n eu5 python scripts/validate.py --changed
 ```
 Expected: 0 errors, 0 warnings.
 
 ### Step 6: Knowledge capture + docs update
 If any new EU5 pattern was discovered during this session, execute the standard Knowledge Capture protocol (see below). Then:
 ```
-conda run -n eu5 python scripts/gen_brief.py
+conda run --no-capture-output -n eu5 python scripts/gen_brief.py
 ```
 
 ---
@@ -172,7 +172,7 @@ When triggered, do ALL of:
 1. Add an entry to `docs/knowledge/anti_patterns.yaml` (copy the format of existing entries).
 2. Add a row to the "Documented Violations" table in `docs/guides/AI_Tool_Workflow_Prompt.md`.
 3. Update `docs/technical/EU5_Modding_Knowledge_Base.md` if the pattern is broadly applicable.
-4. Run `python scripts/gen_brief.py` to regenerate `docs/knowledge/BRIEF.md`.
+4. Run `conda run --no-capture-output -n eu5 python scripts/gen_brief.py` to regenerate `docs/knowledge/BRIEF.md`.
 
 For minor discoveries (single modifier name, single typo fix), steps 1 and 4 only.
 
@@ -203,4 +203,4 @@ Do NOT update for:
 
 ### After updating
 
-Run `conda run -n eu5 python scripts/gen_brief.py` to regenerate `docs/knowledge/BRIEF.md`.
+Run `conda run --no-capture-output -n eu5 python scripts/gen_brief.py` to regenerate `docs/knowledge/BRIEF.md`.

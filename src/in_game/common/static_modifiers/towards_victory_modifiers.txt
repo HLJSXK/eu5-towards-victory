@@ -94,7 +94,8 @@ tv_prosperity_m5_bonus = {
 # Verification — Step 3, Reference: 00_modifier_types.txt:6113, Quote: "global_trade_center_power={"
 # Verification — Step 3, Reference: 00_modifier_types.txt:4920, Quote: "global_merchant_capacity_modifier={"
 # Verification — Step 3, Reference: 00_modifier_types.txt:6127, Quote: "global_trade_protection_factor={"
-# Verification — Step 3, Reference: 00_modifier_types.txt:5990, Quote: "trade_efficiency={"
+# Verification — Step 3, Reference: 00_modifier_types.txt:10044, Quote: "trade_land_efficiency={"
+# Verification — Step 3, Reference: 00_modifier_types.txt:10052, Quote: "trade_sea_efficiency={"
 # Verification — Step 3, Reference: 00_modifier_types.txt:6006, Quote: "trade_income={"
 # Verification — Step 3, Reference: 00_modifier_types.txt:9464, Quote: "trade_range_modifier={"
 
@@ -109,7 +110,8 @@ tv_trade_m2_bonus = {
 }
 
 tv_trade_m3_bonus = {
-	trade_efficiency = 0.05
+	trade_land_efficiency = 0.05
+	trade_sea_efficiency = 0.05
 	trade_income = 0.05
 }
 

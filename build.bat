@@ -10,8 +10,12 @@ set "MOD_DIR=C:\Program Files (x86)\Steam\steamapps\common\Europa Universalis V\
 set "DEST=%MOD_DIR%\tv"
 
 echo === [1/2] Validating mod source ===
-call conda run --no-capture-output -n eu5 python "%ROOT%scripts\validate.py"
-if errorlevel 1 (
+set "VALIDATE_OUT=%TEMP%\tv_validate_out.txt"
+call conda run --no-capture-output -n eu5 python "%ROOT%scripts\validate.py" > "!VALIDATE_OUT!" 2>&1
+set "VALIDATE_RC=!errorlevel!"
+type "!VALIDATE_OUT!"
+del "!VALIDATE_OUT!" 2>nul
+if !VALIDATE_RC! neq 0 (
     echo.
     echo [ERROR] Validation failed. Deployment aborted.
     pause

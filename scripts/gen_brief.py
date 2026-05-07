@@ -63,7 +63,7 @@ def _run_gen_index() -> None:
         [sys.executable, str(REPO_ROOT / "scripts" / "gen_index.py")],
         capture_output=True,
         encoding="utf-8",
-        errors="replace",
+        errors="ignore",
     )
     if result.returncode != 0:
         stderr = (result.stderr or "").strip()
