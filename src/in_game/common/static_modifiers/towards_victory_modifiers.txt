@@ -11,38 +11,39 @@
 # CONQUEST VICTORY MODIFIERS
 # ──────────────────────────────────────────────────────────────────────
 
-# Verification — Step 2, Reference: 00_modifier_types.txt:3662, Quote: "global_manpower_modifier={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:3809, Quote: "land_morale={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:4868, Quote: "global_supply_limit_modifier={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:3943, Quote: "land_unit_attrition={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:6150, Quote: "stability_cost={"
 # Verification — Step 2, Reference: 00_modifier_types.txt:5087, Quote: "discipline={"
-
 tv_conquest_m1_bonus = {
-	global_manpower_modifier = 0.05
-	land_morale_modifier = 0.03
-}
-
-tv_conquest_m2_bonus = {
-	global_supply_limit_modifier = 0.1
-	land_unit_attrition = -0.1
-}
-
-tv_conquest_m3_bonus = {
-	stability_cost = -0.1
-	discipline = 0.03
-}
-
-tv_conquest_m4_bonus = {
-	global_manpower_modifier = 0.05
-	land_morale_modifier = 0.05
-	global_supply_limit_modifier = 0.1
-}
-
-tv_conquest_m5_bonus = {
-	global_manpower_modifier = 0.1
 	discipline = 0.05
-	land_morale_modifier = 0.05
+}
+
+# Verification — Step 2, Reference: 00_modifier_types.txt:3662, Quote: "global_manpower_modifier={"
+tv_conquest_m2_bonus = {
+	global_manpower_modifier = 0.25
+}
+
+# Verification — Step 2, Reference: 00_modifier_types.txt:6888, Quote: "pop_join_rebel_threshold={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:5894, Quote: "monthly_legitimacy={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:5900, Quote: "monthly_republican_tradition={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:5906, Quote: "monthly_devotion={"
+tv_conquest_m3_bonus = {
+	pop_join_rebel_threshold = -0.05
+	monthly_legitimacy = 0.10
+	monthly_republican_tradition = 0.10
+	monthly_devotion = 0.10
+}
+
+# Verification — Step 2, Reference: 00_modifier_types.txt:5773, Quote: "global_integration_speed_modifier={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:5747, Quote: "annexation_speed_modifier={"
+tv_conquest_m4_bonus = {
+	global_integration_speed_modifier = 0.25
+	annexation_speed_modifier = 0.25
+}
+
+# Verification — Step 2, Reference: 00_modifier_types.txt:6117, Quote: "global_war_score_efficiency={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:5472, Quote: "siege_ability={"
+tv_conquest_m5_bonus = {
+	global_war_score_efficiency = 0.5
+	siege_ability = 0.5
 }
 
 
@@ -50,39 +51,39 @@ tv_conquest_m5_bonus = {
 # PROSPERITY VICTORY MODIFIERS
 # ──────────────────────────────────────────────────────────────────────
 
-# Verification — Step 2, Reference: 00_modifier_types.txt:6011, Quote: "global_production_efficiency={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:3648, Quote: "tax_income_efficiency={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:4715, Quote: "global_population_growth={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:3690, Quote: "global_build_buildings_cost={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:4316, Quote: "global_monthly_development={"
 # Verification — Step 2, Reference: 00_modifier_types.txt:4309, Quote: "global_monthly_prosperity={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:11898, Quote: "global_construction_speed={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:8287, Quote: "global_goods_gold_output_modifier={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:4737, Quote: "global_population_capacity_modifier={"
-
 tv_prosperity_m1_bonus = {
-	global_production_efficiency = 0.05
-	tax_income_efficiency = 0.05
+	global_monthly_prosperity = 0.001
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:4715, Quote: "global_population_growth={"
 tv_prosperity_m2_bonus = {
-	global_population_growth = 0.05
-	global_build_buildings_cost = -0.1
+	global_population_growth = 0.001
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:3690, Quote: "global_build_buildings_cost={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:3065, Quote: "city_upgrade_cost_modifier={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:3073, Quote: "town_upgrade_cost_modifier={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:3081, Quote: "rural_settlement_upgrade_cost_modifier={"
 tv_prosperity_m3_bonus = {
-	global_monthly_development = 0.01
-	global_monthly_prosperity = 0.01
+	global_build_buildings_cost = -0.25
+	city_upgrade_cost_modifier = -0.25
+	town_upgrade_cost_modifier = -0.25
+	rural_settlement_upgrade_cost_modifier = -0.25
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:11898, Quote: "global_construction_speed={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:5036, Quote: "global_distance_from_capital_speed_propagation={"
 tv_prosperity_m4_bonus = {
-	global_construction_speed = 0.1
-	global_goods_gold_output_modifier = 0.05
+	global_construction_speed = 0.5
+	global_distance_from_capital_speed_propagation = 0.20
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:1970, Quote: "global_estate_max_tax={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:3648, Quote: "tax_income_efficiency={"
 tv_prosperity_m5_bonus = {
-	global_construction_speed = 0.1
-	global_population_capacity_modifier = 0.1
+	global_estate_max_tax = 0.5
+	tax_income_efficiency = 0.1
 }
 
 
@@ -90,39 +91,39 @@ tv_prosperity_m5_bonus = {
 # TRADE VICTORY MODIFIERS
 # ──────────────────────────────────────────────────────────────────────
 
-# Verification — Step 3, Reference: 00_modifier_types.txt:5446, Quote: "global_merchant_power={"
-# Verification — Step 3, Reference: 00_modifier_types.txt:6113, Quote: "global_trade_center_power={"
-# Verification — Step 3, Reference: 00_modifier_types.txt:4920, Quote: "global_merchant_capacity_modifier={"
-# Verification — Step 3, Reference: 00_modifier_types.txt:6127, Quote: "global_trade_protection_factor={"
-# Verification — Step 3, Reference: 00_modifier_types.txt:10044, Quote: "trade_land_efficiency={"
-# Verification — Step 3, Reference: 00_modifier_types.txt:10052, Quote: "trade_sea_efficiency={"
-# Verification — Step 3, Reference: 00_modifier_types.txt:6006, Quote: "trade_income={"
-# Verification — Step 3, Reference: 00_modifier_types.txt:9464, Quote: "trade_range_modifier={"
-
+# Verification — Step 2, Reference: 00_modifier_types.txt:3751, Quote: "merchant_maintenance_efficiency={"
 tv_trade_m1_bonus = {
-	global_merchant_power = 0.05
-	global_trade_center_power = 0.05
+	merchant_maintenance_efficiency = 0.10
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:3115, Quote: "global_foreign_build_buildings_cost={"
 tv_trade_m2_bonus = {
-	global_merchant_capacity_modifier = 0.10
-	global_trade_protection_factor = 0.05
+	global_foreign_build_buildings_cost = -0.20
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:6242, Quote: "naval_range={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:10000, Quote: "trade_range={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:6256, Quote: "colonial_range={"
 tv_trade_m3_bonus = {
-	trade_land_efficiency = 0.05
-	trade_sea_efficiency = 0.05
-	trade_income = 0.05
+	naval_range = 500
+	trade_range = 500
+	colonial_range = 500
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:6113, Quote: "global_trade_center_power={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:4920, Quote: "global_merchant_capacity_modifier={"
 tv_trade_m4_bonus = {
-	trade_range_modifier = 0.15
-	global_trade_center_power = 0.05
+	global_trade_center_power = 0.50
+	global_merchant_capacity_modifier = 0.25
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:10044, Quote: "trade_land_efficiency={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:10052, Quote: "trade_sea_efficiency={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:6006, Quote: "trade_income={"
 tv_trade_m5_bonus = {
-	trade_income = 0.10
-	global_merchant_capacity_modifier = 0.15
+	trade_land_efficiency = 0.10
+	trade_sea_efficiency = 0.10
+	trade_income = 0.25
 }
 
 
@@ -130,29 +131,29 @@ tv_trade_m5_bonus = {
 # DIPLOMATIC VICTORY MODIFIERS
 # ──────────────────────────────────────────────────────────────────────
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:6222, Quote: "monthly_diplomats={"
 tv_diplomatic_m1_bonus = {
-	diplomatic_reputation = 1
-	diplomatic_capacity = 1
+	monthly_diplomats = 0.10
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:6209, Quote: "diplomatic_capacity_modifier={"
 tv_diplomatic_m2_bonus = {
-	honoring_alliance_call_cost_modifier = -0.10
-	subject_opinions = 5
+	diplomatic_capacity_modifier = 0.50
 }
 
 tv_diplomatic_m3_bonus = {
-	diplomatic_range_modifier = 0.20
-	diplomatic_reputation = 1
+	diplomatic_reputation = 5
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:5973, Quote: "diplomatic_range={"
+# Verification — Step 2, Reference: 00_modifier_types.txt:6608, Quote: "diplomatic_spending_cost={"
 tv_diplomatic_m4_bonus = {
-	subject_loyalty = 5
-	diplomatic_capacity = 2
+	diplomatic_range = 500
+	diplomatic_spending_cost = -0.05
 }
 
 tv_diplomatic_m5_bonus = {
-	monthly_prestige = 0.25
-	diplomatic_reputation = 1
+	diplomatic_reputation = 10
 }
 
 
@@ -161,28 +162,26 @@ tv_diplomatic_m5_bonus = {
 # ──────────────────────────────────────────────────────────────────────
 
 tv_cultural_m1_bonus = {
-	skill_of_new_artists = 0.10
-	hire_artist_cost_modifier = -0.10
+	hire_artist_cost_modifier = -0.50
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:3714, Quote: "cultures_capacity={"
 tv_cultural_m2_bonus = {
-	diplomatic_reputation = 1
-	monthly_prestige = 0.10
+	cultures_capacity = 2
 }
 
+# Verification — Step 2, Reference: 00_modifier_types.txt:5815, Quote: "num_possible_artists={"
 tv_cultural_m3_bonus = {
-	monthly_prestige = 0.15
-	cultural_tradition_modifier = 0.10
+	num_possible_artists = 5
 }
 
 tv_cultural_m4_bonus = {
-	cultural_influence_modifier = 0.15
-	building_missionary_effort_modifier = 0.10
+	cultural_influence_modifier = 0.50
+	cultural_tradition_modifier = 0.50
 }
 
 tv_cultural_m5_bonus = {
-	cultural_influence_modifier = 0.20
-	prestige_decay = -0.10
+	num_possible_artists = 10
 }
 
 
@@ -190,34 +189,27 @@ tv_cultural_m5_bonus = {
 # SCIENTIFIC VICTORY MODIFIERS
 # ──────────────────────────────────────────────────────────────────────
 
-# Verification — Step 2, Reference: 00_modifier_types.txt:5246, Quote: "research_speed_modifier={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:5294, Quote: "global_institution_growth_modifier={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:5087, Quote: "discipline={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:4715, Quote: "global_population_growth={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:2333, Quote: "embrace_institution_cost_modifier={"
-# Verification — Step 2, Reference: 00_modifier_types.txt:6011, Quote: "global_production_efficiency={"
-
+# Verification — Step 2, Reference: 00_modifier_types.txt:5694, Quote: "global_max_literacy={"
 tv_science_m1_bonus = {
+	global_max_literacy = 0.05
+}
+
+# Verification — Step 2, Reference: 00_modifier_types.txt:2100, Quote: "clergy_estate_target_satisfaction={"
+tv_science_m2_bonus = {
+	clergy_estate_target_satisfaction = 0.10
+}
+
+# Verification — Step 2, Reference: 00_modifier_types.txt:5294, Quote: "global_institution_growth_modifier={"
+tv_science_m3_bonus = {
+	global_institution_growth_modifier = 1.0
+}
+
+# Verification — Step 2, Reference: 00_modifier_types.txt:5246, Quote: "research_speed_modifier={"
+tv_science_m4_bonus = {
 	research_speed_modifier = 0.10
 }
 
-tv_science_m2_bonus = {
-	global_institution_growth_modifier = 0.10
-	discipline = 0.02
-}
-
-tv_science_m3_bonus = {
-	global_institution_growth_modifier = 0.15
-	global_population_growth = 0.05
-}
-
-tv_science_m4_bonus = {
-	embrace_institution_cost_modifier = -0.10
-	global_production_efficiency = 0.05
-}
-
 tv_science_m5_bonus = {
-	global_production_efficiency = 0.10
-	discipline = 0.05
+	global_institution_growth_modifier = 2.0
+	global_max_literacy = 0.20
 }
-
