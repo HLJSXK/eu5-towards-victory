@@ -1257,9 +1257,9 @@ template tv_science_milestone_5_tooltip {
 # Header title is automatically sourced from tv_victory_situation loc key.
 # ══════════════════════════════════════════════════════════════════════════
 
-situation_card_common = {
+situation_panel = {
 
-	blockoverride "common_bottom_content" {
+	blockoverride "situation_panel_main_content" {
 		vbox = {
 			layoutpolicy_horizontal = expanding
 			spacing = 6
