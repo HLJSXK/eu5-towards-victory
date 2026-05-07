@@ -271,7 +271,7 @@ PATHS = [
         "progress_var": "tv_science_progress_pct",
         "milestone_var": "tv_science_milestone",
         "icon": "tv_science",
-        "bar_style": "progress_bar_blue_green_alt",
+        "bar_style": "progress_bar_blue_alt",
         "milestones": [
             {
                 "n": 1, "label": "1", "short": False, "long": False,

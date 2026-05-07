@@ -1958,7 +1958,7 @@ situation_panel = {
 					value = "[Country.MakeScope.GetVariable('tv_science_progress_pct').GetValue]"
 				}
 				blockoverride "row_progress_style" {
-					using = progress_bar_blue_green_alt
+					using = progress_bar_blue_alt
 				}
 				blockoverride "path_icon_circle" {
 					widget = {
