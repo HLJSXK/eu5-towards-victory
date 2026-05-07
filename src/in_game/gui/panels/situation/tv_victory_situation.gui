@@ -1264,6 +1264,7 @@ situation_panel = {
 			layoutpolicy_horizontal = expanding
 			spacing = 6
 			margin = { 8 8 }
+			datacontext = "[SituationView.GetPlayer]"
 
 			# ── Conquest Victory row ────────────────────────────────────────────────────
 			tv_victory_row = {
