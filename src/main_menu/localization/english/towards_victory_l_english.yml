@@ -303,7 +303,6 @@
  TV_ACADEMY_HAS_PREV_5_TT: "Phase IV Academy of Sciences must be constructed first"
 
  # Progress bar tooltips — current score display (Verified: Step 3, situations_l_english.yml:198)
- # Note: #Y[var]#! fails — digits after #Y extend the tag name. Use plain text for inline variable values.
  TV_CONQUEST_PROGRESS_DISPLAY:0 "Conquest Score: [Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,000"
  TV_PROSPERITY_PROGRESS_DISPLAY:0 "Prosperity Score: [Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 25,000"
  TV_TRADE_PROGRESS_DISPLAY:0 "Trade Score: [Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
