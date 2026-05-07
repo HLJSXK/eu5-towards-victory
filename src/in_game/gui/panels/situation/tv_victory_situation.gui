@@ -299,12 +299,9 @@ template tv_conquest_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_conquest_milestone_1')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CONQUEST_M1_CONDITIONS"
+				textcontext = "tv_conquest_milestone_1"
 			}
 
 			# Visual separator between panels
@@ -334,12 +331,9 @@ template tv_conquest_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_conquest_milestone_2')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CONQUEST_M2_CONDITIONS"
+				textcontext = "tv_conquest_milestone_2"
 			}
 
 			# Visual separator between panels
@@ -369,12 +363,9 @@ template tv_conquest_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_conquest_milestone_3')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CONQUEST_M3_CONDITIONS"
+				textcontext = "tv_conquest_milestone_3"
 			}
 
 			# Visual separator between panels
@@ -404,12 +395,9 @@ template tv_conquest_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_conquest_milestone_4')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CONQUEST_M4_CONDITIONS"
+				textcontext = "tv_conquest_milestone_4"
 			}
 
 			# Visual separator between panels
@@ -439,12 +427,9 @@ template tv_conquest_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_conquest_milestone_5')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CONQUEST_M5_CONDITIONS"
+				textcontext = "tv_conquest_milestone_5"
 			}
 
 			# Visual separator between panels
@@ -476,12 +461,9 @@ template tv_prosperity_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_prosperity_milestone_1')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_PROSPERITY_M1_CONDITIONS"
+				textcontext = "tv_prosperity_milestone_1"
 			}
 
 			# Visual separator between panels
@@ -511,12 +493,9 @@ template tv_prosperity_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_prosperity_milestone_2')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_PROSPERITY_M2_CONDITIONS"
+				textcontext = "tv_prosperity_milestone_2"
 			}
 
 			# Visual separator between panels
@@ -546,12 +525,9 @@ template tv_prosperity_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_prosperity_milestone_3')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_PROSPERITY_M3_CONDITIONS"
+				textcontext = "tv_prosperity_milestone_3"
 			}
 
 			# Visual separator between panels
@@ -581,12 +557,9 @@ template tv_prosperity_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_prosperity_milestone_4')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_PROSPERITY_M4_CONDITIONS"
+				textcontext = "tv_prosperity_milestone_4"
 			}
 
 			# Visual separator between panels
@@ -616,12 +589,9 @@ template tv_prosperity_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_prosperity_milestone_5')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_PROSPERITY_M5_CONDITIONS"
+				textcontext = "tv_prosperity_milestone_5"
 			}
 
 			# Visual separator between panels
@@ -653,12 +623,9 @@ template tv_trade_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_trade_milestone_1')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_TRADE_M1_CONDITIONS"
+				textcontext = "tv_trade_milestone_1"
 			}
 
 			# Visual separator between panels
@@ -688,12 +655,9 @@ template tv_trade_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_trade_milestone_2')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_TRADE_M2_CONDITIONS"
+				textcontext = "tv_trade_milestone_2"
 			}
 
 			# Visual separator between panels
@@ -723,12 +687,9 @@ template tv_trade_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_trade_milestone_3')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_TRADE_M3_CONDITIONS"
+				textcontext = "tv_trade_milestone_3"
 			}
 
 			# Visual separator between panels
@@ -758,12 +719,9 @@ template tv_trade_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_trade_milestone_4')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_TRADE_M4_CONDITIONS"
+				textcontext = "tv_trade_milestone_4"
 			}
 
 			# Visual separator between panels
@@ -793,12 +751,9 @@ template tv_trade_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_trade_milestone_5')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_TRADE_M5_CONDITIONS"
+				textcontext = "tv_trade_milestone_5"
 			}
 
 			# Visual separator between panels
@@ -830,12 +785,9 @@ template tv_diplomatic_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_diplomatic_milestone_1')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M1_CONDITIONS"
+				textcontext = "tv_diplomatic_milestone_1"
 			}
 
 			# Visual separator between panels
@@ -865,12 +817,9 @@ template tv_diplomatic_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_diplomatic_milestone_2')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M2_CONDITIONS"
+				textcontext = "tv_diplomatic_milestone_2"
 			}
 
 			# Visual separator between panels
@@ -900,12 +849,9 @@ template tv_diplomatic_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_diplomatic_milestone_3')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M3_CONDITIONS"
+				textcontext = "tv_diplomatic_milestone_3"
 			}
 
 			# Visual separator between panels
@@ -935,12 +881,9 @@ template tv_diplomatic_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_diplomatic_milestone_4')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M4_CONDITIONS"
+				textcontext = "tv_diplomatic_milestone_4"
 			}
 
 			# Visual separator between panels
@@ -970,12 +913,9 @@ template tv_diplomatic_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_diplomatic_milestone_5')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M5_CONDITIONS"
+				textcontext = "tv_diplomatic_milestone_5"
 			}
 
 			# Visual separator between panels
@@ -1007,12 +947,9 @@ template tv_cultural_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_cultural_milestone_1')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CULTURAL_M1_CONDITIONS"
+				textcontext = "tv_cultural_milestone_1"
 			}
 
 			# Visual separator between panels
@@ -1042,12 +979,9 @@ template tv_cultural_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_cultural_milestone_2')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CULTURAL_M2_CONDITIONS"
+				textcontext = "tv_cultural_milestone_2"
 			}
 
 			# Visual separator between panels
@@ -1077,12 +1011,9 @@ template tv_cultural_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_cultural_milestone_3')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CULTURAL_M3_CONDITIONS"
+				textcontext = "tv_cultural_milestone_3"
 			}
 
 			# Visual separator between panels
@@ -1112,12 +1043,9 @@ template tv_cultural_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_cultural_milestone_4')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CULTURAL_M4_CONDITIONS"
+				textcontext = "tv_cultural_milestone_4"
 			}
 
 			# Visual separator between panels
@@ -1147,12 +1075,9 @@ template tv_cultural_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_cultural_milestone_5')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CULTURAL_M5_CONDITIONS"
+				textcontext = "tv_cultural_milestone_5"
 			}
 
 			# Visual separator between panels
@@ -1184,12 +1109,9 @@ template tv_science_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_science_milestone_1')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_SCIENCE_M1_CONDITIONS"
+				textcontext = "tv_science_milestone_1"
 			}
 
 			# Visual separator between panels
@@ -1219,12 +1141,9 @@ template tv_science_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_science_milestone_2')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_SCIENCE_M2_CONDITIONS"
+				textcontext = "tv_science_milestone_2"
 			}
 
 			# Visual separator between panels
@@ -1254,12 +1173,9 @@ template tv_science_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_science_milestone_3')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_SCIENCE_M3_CONDITIONS"
+				textcontext = "tv_science_milestone_3"
 			}
 
 			# Visual separator between panels
@@ -1289,12 +1205,9 @@ template tv_science_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_science_milestone_4')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_SCIENCE_M4_CONDITIONS"
+				textcontext = "tv_science_milestone_4"
 			}
 
 			# Visual separator between panels
@@ -1324,12 +1237,9 @@ template tv_science_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 
 			# ── Panel 2: conditions to reach this milestone ────────────────────
-			# Standard requirements list — green/red coloring from engine evaluation.
-			# textcontext expression requires Step 2/3 verification once trigger is defined.
-			# Candidate (Country.MakeScope verified; Step 3 ref: western_schism.gui:43): "[Country.MakeScope.GetScript('tv_science_milestone_5')]"
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_SCIENCE_M5_CONDITIONS"
+				textcontext = "tv_science_milestone_5"
 			}
 
 			# Visual separator between panels
