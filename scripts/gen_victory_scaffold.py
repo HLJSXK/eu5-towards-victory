@@ -380,6 +380,7 @@ def _milestone_circle_block(path: dict, m: dict, indent: str) -> list[str]:
         f'{i}\t\t}}',
         f'{i}\t\ttext_single = {{',
         f'{i}\t\t\tparentanchor = center',
+        f'{i}\t\t\tsize = {{ 100% 100% }}',
         f'{i}\t\t\tautoresize = no',
         f'{i}\t\t\talign = center|nobaseline',
         f'{i}\t\t\ttext = "{loc_key}"',
