@@ -234,3 +234,13 @@
   scope: any
   source: "EU5 engine warning (lexer.cpp:501: 'File X should be in utf8-bom encoding (will try to use it anyways)')"
   notes: "Engine retries without BOM but emits a warning per file per load. Localization YAMLs already require BOM; this rule extends the same requirement to common/ .txt scripts. Auto-generated files via scripts/gen_scaffold.py should always emit the BOM."
+
+- id: loc_color_tag_adjacent_variable
+  pattern: '#[A-Z]\['
+  only_in_paths: ['localization']
+  bad: "#Y[variable_expression]#! — color tag immediately followed by [ with no separator"
+  correction: "Either omit the color tag and write [variable_expression] as plain text, OR add a space: #Y [variable_expression]#! — the space terminates the tag name so the parser reads #Y (tag) then ' value' (content). Note the leading space will be visible in the rendered string."
+  category: localization
+  scope: any
+  source: "EU5 engine error log: pdx_text_formatter.cpp:807: Unknown formatting tag 'y64!'"
+  notes: "In EU5 Jomini localization, the color tag name is read from # until the first non-alphanumeric. When a [var] resolves to a number (e.g. 64) and is placed directly after #Y, the parser reads #Y64 as the tag name (unknown). The leading space in '#Y [var]' terminates the tag name at Y."

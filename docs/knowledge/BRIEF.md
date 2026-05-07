@@ -98,6 +98,7 @@ src/
 | gui | any | Setting parentanchor on a widget that is a direct child of an hbox or vbox (e.g. inside hbox = { widget = { parentanchor = vcenter ... } }) | Remove parentanchor from hbox/vbox children — the layout box arranges them automatically on the cross-axis. parentanchor remains valid on children of plain widget/window/container parents. | Pattern is empty because static detection requires parsing GUI parent structure. Audit any widget nested inside hbox = { ... } or vbox = { ... } and strip parentanchor. Children of progressbar/widget/window are unaffected. |
 | modifier | location | price = <name> in an EU5 building definition (EU4 carry-over) | Use construction_demand = <name> for build costs and build_time = <name> for build duration | EU5 buildings do not use the EU4 price field; construction_demand sets the goods required to build, build_time sets the duration. price = X is silently ignored. |
 | encoding | any | Saving common/ scripts (static_modifiers, situations, scripted_effects, on_action, etc.) as plain UTF-8 without a byte-order mark | Save with UTF-8 BOM (first 3 bytes EF BB BF). In Python: write_bytes(b'\xef\xbb\xbf' + text.encode('utf-8')) or open(..., encoding='utf-8-sig'). Verify with `head -c 3 <file> | xxd` -> expect ef bb bf. | Engine retries without BOM but emits a warning per file per load. Localization YAMLs already require BOM; this rule extends the same requirement to common/ .txt scripts. Auto-generated files via scripts/gen_scaffold.py should always emit the BOM. |
+| localization | any | #Y[variable_expression]#! — color tag immediately followed by [ with no separator | Either omit the color tag and write [variable_expression] as plain text, OR add a space: #Y [variable_expression]#! — the space terminates the tag name so the parser reads #Y (tag) then ' value' (content). Note the leading space will be visible in the rendered string. | In EU5 Jomini localization, the color tag name is read from # until the first non-alphanumeric. When a [var] resolves to a number (e.g. 64) and is placed directly after #Y, the parser reads #Y64 as the tag name (unknown). The leading space in '#Y [var]' terminates the tag name at Y. |
 
 ## Valid Enum Values
 
@@ -125,7 +126,7 @@ src/
 | Scripted Triggers | 507 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 504 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 169 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 175 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 
