@@ -121,13 +121,15 @@
  TV_TRADE_M2_CONDITIONS: "Trade score >= 200 (monthly trade income)."
  TV_TRADE_M3_TITLE: "Trade Victory — Short-term Victory"
  TV_TRADE_M3_MEANING: "A major trade empire. Short-term Victory. Monthly trade income ~400."
- TV_TRADE_M3_CONDITIONS: "Trade score >= 400 (monthly trade income)."
+ TV_TRADE_M3_CONDITIONS: "Trade score >= 400 (monthly trade income) and leading merchant in at least 5 markets."
  TV_TRADE_M4_TITLE: "Trade Victory — Milestone 4"
  TV_TRADE_M4_MEANING: "Near-monopoly control of key trade arteries. Monthly trade income ~1,000."
  TV_TRADE_M4_CONDITIONS: "Trade score >= 1,000 (monthly trade income)."
  TV_TRADE_M5_TITLE: "Trade Victory — Long-term Victory"
  TV_TRADE_M5_MEANING: "Undisputed trade hegemon. Long-term Victory. Monthly trade income ~2,000."
- TV_TRADE_M5_CONDITIONS: "Trade score >= 2,000 (monthly trade income)."
+ TV_TRADE_M5_CONDITIONS: "Trade score >= 2,000 (monthly trade income) and leading merchant in at least 10 markets."
+ tv_trade_market_dominance_5_tt:0 "Leading merchant in at least 5 markets"
+ tv_trade_market_dominance_10_tt:0 "Leading merchant in at least 10 markets"
 
  # ── Diplomatic Victory ─────────────────────────────────────────────────────────
  TV_DIPLOMATIC_TITLE: "Diplomatic Victory"

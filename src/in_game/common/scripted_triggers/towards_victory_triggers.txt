@@ -92,6 +92,14 @@ tv_trade_milestone_2 = {
 tv_trade_milestone_3 = {
 	has_variable = tv_trade_score
 	var:tv_trade_score >= 400
+	# Verification — Step 3, Reference: events/economy/trade.txt:129, Quote: "any_market_with_merchants = { most_powerful_merchant = root"
+	custom_tooltip = {
+		text = tv_trade_market_dominance_5_tt
+		any_market_with_merchants = {
+			most_powerful_merchant = root
+			count >= 5
+		}
+	}
 }
 
 tv_trade_milestone_4 = {
@@ -102,6 +110,13 @@ tv_trade_milestone_4 = {
 tv_trade_milestone_5 = {
 	has_variable = tv_trade_score
 	var:tv_trade_score >= 2000
+	custom_tooltip = {
+		text = tv_trade_market_dominance_10_tt
+		any_market_with_merchants = {
+			most_powerful_merchant = root
+			count >= 10
+		}
+	}
 }
 
 
