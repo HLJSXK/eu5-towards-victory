@@ -17,17 +17,17 @@
 
 Towards Victory adds 6 generalized victory paths to EU5: Conquest, Prosperity, Trade, Diplomatic, Cultural, and Scientific. Each path has 5 milestone nodes that grant permanent buffs when reached. Progress is displayed via situation panels; milestones trigger popup events that notify the player and deliver the reward.
 
-The **Conquest Victory** path (征服胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = direct locations + 0.5 × subject-or-below locations; thresholds at 150 / 350 / 600 / 1100 / 1600.
+The **Conquest Victory** path (征服胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = direct locations + 0.5 × subject-or-below locations; thresholds at 150 / 300 / 500 / 1000 / 2000.
 
-The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = total_population + Σ(prosperity per owned location); updated yearly via every_owned_location iteration; thresholds at 5,000 / 8,000 / 12,000 / 18,000 / 25,000 (provisional, calibrate after playtesting).
+The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = total_population + Σ(development per owned location) + country_tax_base; updated yearly via every_owned_location iteration; thresholds at 5,000 / 8,000 / 12,000 / 18,000 / 25,000 (provisional, calibrate after playtesting).
 
-The **Trade Victory** path (贸易胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = monthly_trade_income (snapshot taken monthly by tv_update_trade_score_effect); thresholds at 10 / 25 / 50 / 80 / 120 (provisional, calibrate after playtesting).
+The **Trade Victory** path (贸易胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = monthly_trade_income (snapshot taken monthly by tv_update_trade_score_effect); thresholds at 100 / 200 / 400 / 1000 / 2000 (provisional, calibrate after playtesting).
 
 The **Diplomatic Victory** path (外交胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `tv_diplomatic_victory_points` accumulated permanently via `on_royal_marriage` (+3 DVP per party) and `on_winning_war` (+5 DVP to winner); thresholds at 50 / 120 / 220 / 380 / 580 (provisional, calibrate after playtesting).
 
 The **Cultural Victory** path (文化胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `tv_cultural_influence_points` (CIP) accumulated via `on_work_of_art_created` (+10 CIP, scope `root.owner`) and `monthly_country_pulse` (+1 CIP per month); thresholds at 50 / 120 / 220 / 380 / 580. Rewards: M1 artist skill/cost, M2 diplomacy/prestige, M3 prestige/tradition, M4 cultural influence/missionary, M5 cultural influence/prestige decay.
 
-The **Scientific Victory** path (科技胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `num_of_advances_researched` (snapshot taken monthly by tv_update_science_score_effect); thresholds at 30 / 80 / 140 / 200 / 270 (provisional, calibrate after playtesting). Rewards: M1 research speed, M2 institution spread/discipline, M3 institution spread/pop growth, M4 institution embrace cost/production, M5 production/discipline.
+The **Scientific Victory** path (科技胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `num_of_advances_researched` (snapshot taken monthly by tv_update_science_score_effect); thresholds at 100 / 150 / 200 / 300 / 400 (provisional, calibrate after playtesting). Rewards: M1 research speed, M2 institution spread/discipline, M3 institution spread/pop growth, M4 institution embrace cost/production, M5 production/discipline.
 
 The mod is additive-only and uses the `tv_` namespace prefix throughout.
 
@@ -38,7 +38,7 @@ The mod is additive-only and uses the `tv_` namespace prefix throughout.
 3. **Permanent Rewards** — All 30 milestone rewards are permanent static modifiers (`days = -1`); no time-limited buffs. All 6 paths fully implemented.
 4. **Diplomatic Victory Points** (`tv_diplomatic_victory_points`) — Permanently accumulated via `on_royal_marriage` (+3 DVP each party) and `on_winning_war` (+5 DVP to winner).
 5. **Cultural Influence Points** (`tv_cultural_influence_points`) — Accumulated via `on_work_of_art_created` (+10 CIP to `root.owner`) and `monthly_country_pulse` (+1 CIP/month).
-6. **Scientific Technology Score** (`tv_science_score`) — Monthly snapshot of `num_of_advances_researched`; thresholds 30 / 80 / 140 / 200 / 270.
+6. **Scientific Technology Score** (`tv_science_score`) — Monthly snapshot of `num_of_advances_researched`; thresholds 100 / 150 / 200 / 300 / 400.
 
 ## Directory Structure
 
@@ -83,6 +83,8 @@ src/
 | scope | location | add_province_modifier (EU4 effect) | add_location_modifier or add_static_modifier with location scope | EU4 province scope effects do not exist in EU5; use location-scoped equivalents |
 | scope | location | has_province_modifier (EU4 trigger) | has_location_modifier | EU4 province scope triggers do not exist in EU5 |
 | precision | any | float literal with 6+ decimal places (e.g. value = 0.123456789) | Round to at most 5 decimal places: value = 0.12346; EU5 engine reads no further | EU5 engine truncates all float literals at 5 decimal places; digits beyond the 5th are silently ignored |
+| script | any | change_variable { divide = N } expecting float result when input < N (e.g. score ÷ large_threshold to get [0,1]) | Multiply by 100 (or desired precision) BEFORE dividing, then compare/cap at 100 instead of 1. For thresholds divisible by 100, use divide = (threshold÷100) in one step. | EU5 change_variable { divide } performs FLOOR integer division. E.g. 160÷2000=0, not 0.1. Use integer scale [0,100] with max=100 on GUI progressbar. Pattern left empty (no auto-detect) — all divide uses cannot be classified as bad without context. |
+| gui | any | progressbar with dynamic GetVariable value binding and no explicit max | Always set max = 100 on the progressbar widget. Store values as integer [0,100] in scripted variables using integer-scale arithmetic. | Default progressbar max appears to be 1; GetVariable returning an integer 0-100 without matching max produces 0% for all values except 1 (which shows 100%). Pattern left empty — regex cannot reliably detect the missing-max + variable-value combination. |
 | gui | any | GetGoods('key'), GetGoodsFromKey, or MakeGoods('key') in GUI expressions to construct a Goods object from a string literal | Goods datacontext must come from a data model accessor chain (e.g. GoodsMarketEntry.GetGoods, Trade.GetGoods, GoodsItem.GetGoods in a foreach); there is no string-to-Goods lookup function in EU5 GUI | Exhaustive search of all reference_game_files *.gui files found zero occurrences of any string-to-Goods constructor; all goods access is typed accessor chains only |
 | gui | any | datamodel = "[GoodsView.GetGoods]" inside a ContextualTooltipType or tooltipwidget template to iterate all goods and filter by key | GoodsView is a view-model object only available in goods_overview.gui panel scope; it is not accessible from tooltip/ContextualTooltipType contexts. No equivalent all-goods datamodel exists for tooltip scope. | Exhaustive search of reference_game_files found GoodsView only in the goods_overview panel; tooltip templates have no equivalent all-goods iteration datamodel |
 | scope | any | multiply_global_variable = { name = X  value = 0.95 } to scale a global variable in-place | Use set_global_variable with hardcoded per-case values: set_global_variable = { name = X  value = computed_literal }. For era-decay patterns, hardcode the result per age (idempotent, no dedup guard needed). If truly dynamic, compute in a local_variable then use set_global_variable = { name = X  value = local_var:tmp }. | Exhaustive search of reference_game_files/ and reference_mods/ found no multiply_global_variable effect. Only set_global_variable and change_global_variable exist for global-scope numeric variables. |
@@ -120,7 +122,7 @@ src/
 | Scripted Triggers | 507 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 504 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 118 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 148 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

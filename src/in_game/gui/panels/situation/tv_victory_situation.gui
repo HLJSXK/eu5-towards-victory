@@ -38,6 +38,7 @@ types TVVictoryTypes {
 		progressbar = {
 			parentanchor = vcenter
 			size = { 100% 14 }
+			max = 100
 			block "row_progress_value" { value = 0 }
 			block "row_progress_style" { using = progress_bar_blue_alt }
 		}

@@ -117,6 +117,24 @@
   source: "user-reported engine behavior (2026-04)"
   notes: "EU5 engine truncates all float literals at 5 decimal places; digits beyond the 5th are silently ignored"
 
+- id: change_variable_divide_is_integer
+  pattern: ''
+  bad: "change_variable { divide = N } expecting float result when input < N (e.g. score ÷ large_threshold to get [0,1])"
+  correction: "Multiply by 100 (or desired precision) BEFORE dividing, then compare/cap at 100 instead of 1. For thresholds divisible by 100, use divide = (threshold÷100) in one step."
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/common/scripted_effects/global_effects.txt:137"
+  notes: "EU5 change_variable { divide } performs FLOOR integer division. E.g. 160÷2000=0, not 0.1. Use integer scale [0,100] with max=100 on GUI progressbar. Pattern left empty (no auto-detect) — all divide uses cannot be classified as bad without context."
+
+- id: progressbar_default_max_is_one
+  pattern: ''
+  bad: "progressbar with dynamic GetVariable value binding and no explicit max"
+  correction: "Always set max = 100 on the progressbar widget. Store values as integer [0,100] in scripted variables using integer-scale arithmetic."
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/panels/situation/the_revolution.gui:112"
+  notes: "Default progressbar max appears to be 1; GetVariable returning an integer 0-100 without matching max produces 0% for all values except 1 (which shows 100%). Pattern left empty — regex cannot reliably detect the missing-max + variable-value combination."
+
 - id: gui_no_getgoods_from_string
   pattern: "GetGoods\\('|GetGoodsFromKey|MakeGoods\\("
   bad: "GetGoods('key'), GetGoodsFromKey, or MakeGoods('key') in GUI expressions to construct a Goods object from a string literal"

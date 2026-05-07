@@ -35,11 +35,13 @@ tv_update_conquest_score_effect = {
 
 # ═══════════════════════════════════════════════════════════════════════════
 # SECTION 1.6: PROSPERITY SCORE UPDATER
-# Computes tv_prosperity_score = total_population + Σ(prosperity per owned location).
+# Computes tv_prosperity_score = total_population + Σ(development per owned location) + country_tax_base.
 # Called YEARLY only (expensive every_owned_location iteration).
 # Milestone checker reads the cached tv_prosperity_score — never calls this directly.
 # Verification — Step 3, Reference: country_effects.txt:1809, Quote: "value = total_population"
 # Verification — Step 3, Reference: country_effects.txt:2519, Quote: "root = { change_variable = { add = prev"
+# Verification — Step 3, Reference: DHE/flavor_chi.txt:2767, Quote: "value = prev.development"
+# Verification — Step 3, Reference: institution_events.txt:898, Quote: "value = country_tax_base"
 # ═══════════════════════════════════════════════════════════════════════════
 
 tv_update_prosperity_score_effect = {
@@ -47,10 +49,11 @@ tv_update_prosperity_score_effect = {
 	set_variable = { name = tv_prosperity_temp value = 0 }
 	every_owned_location = {
 		root = {
-			change_variable = { name = tv_prosperity_temp add = prev.prosperity }
+			change_variable = { name = tv_prosperity_temp add = prev.development }
 		}
 	}
 	change_variable = { name = tv_prosperity_score add = var:tv_prosperity_temp }
+	change_variable = { name = tv_prosperity_score add = country_tax_base }
 }
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -386,52 +389,65 @@ tv_check_science_milestones_effect = {
 # ═══════════════════════════════════════════════════════════════════════════
 
 tv_update_all_progress_pct_effect = {
-	# ── Conquest Victory ────────────────────────────────────────────────────
+	# Stores integer [0, 100] for each path — required because change_variable { divide }
+	# performs integer (floor) division; dividing by threshold directly yields 0 for
+	# most real-world scores. Use threshold/100 as the divisor (exact where possible),
+	# or multiply × 100 first when the threshold is not divisible by 100.
+
+	# ── Conquest Victory ─────────────────────────────────────────────────────
+	# threshold = 2000; divisor = 20 (2000 ÷ 100 = 20, exact)
 	if = {
 		limit = { has_variable = tv_conquest_score }
 		set_variable = { name = tv_conquest_progress_pct value = var:tv_conquest_score }
-		change_variable = { name = tv_conquest_progress_pct divide = 1600 }
-		if = { limit = { var:tv_conquest_progress_pct > 1 } set_variable = { name = tv_conquest_progress_pct value = 1 } }
+		change_variable = { name = tv_conquest_progress_pct divide = 20 }
+		if = { limit = { var:tv_conquest_progress_pct > 100 } set_variable = { name = tv_conquest_progress_pct value = 100 } }
 	}
 
 	# ── Prosperity Victory ────────────────────────────────────────────────────
+	# threshold = 25000; divisor = 250 (25000 ÷ 100 = 250, exact; avoids overflow)
 	if = {
 		limit = { has_variable = tv_prosperity_score }
 		set_variable = { name = tv_prosperity_progress_pct value = var:tv_prosperity_score }
-		change_variable = { name = tv_prosperity_progress_pct divide = 25000 }
-		if = { limit = { var:tv_prosperity_progress_pct > 1 } set_variable = { name = tv_prosperity_progress_pct value = 1 } }
+		change_variable = { name = tv_prosperity_progress_pct divide = 250 }
+		if = { limit = { var:tv_prosperity_progress_pct > 100 } set_variable = { name = tv_prosperity_progress_pct value = 100 } }
 	}
 
-	# ── Trade Victory ────────────────────────────────────────────────────
+	# ── Trade Victory ─────────────────────────────────────────────────────────
+	# threshold = 2000; divisor = 20 (2000 ÷ 100 = 20, exact)
 	if = {
 		limit = { has_variable = tv_trade_score }
 		set_variable = { name = tv_trade_progress_pct value = var:tv_trade_score }
-		change_variable = { name = tv_trade_progress_pct divide = 120 }
-		if = { limit = { var:tv_trade_progress_pct > 1 } set_variable = { name = tv_trade_progress_pct value = 1 } }
+		change_variable = { name = tv_trade_progress_pct divide = 20 }
+		if = { limit = { var:tv_trade_progress_pct > 100 } set_variable = { name = tv_trade_progress_pct value = 100 } }
 	}
 
 	# ── Diplomatic Victory ────────────────────────────────────────────────────
+	# threshold = 580 (not divisible by 100); multiply × 100 first (max 58 000 — no overflow)
 	if = {
 		limit = { has_variable = tv_diplomatic_victory_points }
 		set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
+		change_variable = { name = tv_diplomatic_progress_pct multiply = 100 }
 		change_variable = { name = tv_diplomatic_progress_pct divide = 580 }
-		if = { limit = { var:tv_diplomatic_progress_pct > 1 } set_variable = { name = tv_diplomatic_progress_pct value = 1 } }
+		if = { limit = { var:tv_diplomatic_progress_pct > 100 } set_variable = { name = tv_diplomatic_progress_pct value = 100 } }
 	}
 
-	# ── Cultural Victory ────────────────────────────────────────────────────
+	# ── Cultural Victory ──────────────────────────────────────────────────────
+	# threshold = 580 (not divisible by 100); multiply × 100 first (max 58 000 — no overflow)
 	if = {
 		limit = { has_variable = tv_cultural_influence_points }
 		set_variable    = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
+		change_variable = { name = tv_cultural_progress_pct multiply = 100 }
 		change_variable = { name = tv_cultural_progress_pct divide = 580 }
-		if = { limit = { var:tv_cultural_progress_pct > 1 } set_variable = { name = tv_cultural_progress_pct value = 1 } }
+		if = { limit = { var:tv_cultural_progress_pct > 100 } set_variable = { name = tv_cultural_progress_pct value = 100 } }
 	}
 
 	# ── Scientific Victory ────────────────────────────────────────────────────
+	# threshold = 400; divisor = 4 (400 ÷ 100 = 4, exact)
 	if = {
 		limit = { has_variable = tv_science_score }
 		set_variable = { name = tv_science_progress_pct value = var:tv_science_score }
-		change_variable = { name = tv_science_progress_pct divide = 270 }
-		if = { limit = { var:tv_science_progress_pct > 1 } set_variable = { name = tv_science_progress_pct value = 1 } }
+		change_variable = { name = tv_science_progress_pct divide = 4 }
+		if = { limit = { var:tv_science_progress_pct > 100 } set_variable = { name = tv_science_progress_pct value = 100 } }
 	}
 
 }

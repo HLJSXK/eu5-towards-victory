@@ -858,6 +858,7 @@ def gen_gui() -> None:  # noqa: PLR0912 (acceptable complexity for a generator)
         "\t\tprogressbar = {",
         "\t\t\tparentanchor = vcenter",
         "\t\t\tsize = { 100% 14 }",
+        "\t\t\tmax = 100",
         '\t\t\tblock "row_progress_value" { value = 0 }',
         '\t\t\tblock "row_progress_style" { using = progress_bar_blue_alt }',
         "\t\t}",
