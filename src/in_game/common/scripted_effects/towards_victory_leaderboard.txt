@@ -84,9 +84,10 @@ tv_update_best_path_effect = {
 # Each pass stores the winning country reference in tv_rank_N_country on this
 # situation scope; the GUI reads path/milestone/score directly from that country.
 tv_update_leaderboard_effect = {
-	# Rebuild the sortable pool from all alive countries
+	# Rebuild the sortable pool — only countries already initialised with progress data
 	clear_global_variable_list = tv_country_pool
 	every_country = {
+		limit = { has_variable = tv_best_progress_pct }
 		add_to_global_variable_list = { name = tv_country_pool  target = this }
 	}
 
