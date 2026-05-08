@@ -329,6 +329,15 @@
   source: "reference_game_files/game/in_game/common/scripted_effects/on_action_effects.txt:39, reference_game_files/game/in_game/common/on_action/character_death_pulses.txt:57"
   notes: "EU5 does not have a bare trigger_event effect. In scripted_effects and on_action files, the engine reports 'Unknown effect trigger_event'. The two valid variants are trigger_event_non_silently (shows popup) and trigger_event_silently (hidden/background). This distinction does not apply inside event option = { } blocks, which may use a different syntax."
 
+- id: add_treasury_nonexistent
+  pattern: '\badd_treasury\b'
+  bad: "add_treasury = X to add or subtract gold from a country"
+  correction: "Use add_gold = X (simple literal: add_gold = -200) or add_gold = { value = script_value multiply = N } (computed form). Trigger side: gold >= 200 (literal integer) is valid."
+  category: script
+  scope: country
+  source: "reference_game_files/game/in_game/common/scripted_effects/country_effects.txt:2161 (add_gold = 5000), reference_game_files/game/in_game/common/generic_actions/fall_of_delhi.txt:44 (add_gold = { value = ... })"
+  notes: "add_treasury does not exist in EU5. The effect is add_gold; it accepts a bare literal integer (positive or negative) or a block with value/multiply. Error: 'Unknown effect add_treasury'."
+
 - id: on_action_effect_block_singleton
   pattern: ''
   bad: "Defining monthly_country_pulse = { effect = { ... } } in more than one on_action file within the same mod"

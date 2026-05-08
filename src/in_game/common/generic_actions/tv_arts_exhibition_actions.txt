@@ -89,7 +89,7 @@ tv_send_artist_abroad = {
 
 	effect = {
 		scope:actor = {
-			add_treasury = -200
+			add_gold = -200
 		}
 		scope:selected_artist = {
 			# Record exhibition state on the artist
@@ -152,7 +152,7 @@ tv_host_domestic_exhibition = {
 
 	effect = {
 		scope:actor = {
-			add_treasury = -1000
+			add_gold = -1000
 			trigger_event_non_silently = tv_arts_exhibition.1
 		}
 	}

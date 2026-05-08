@@ -113,6 +113,7 @@ src/
 | enum | country | government = monarchy (EU4 trigger style) | government_type = government_type:monarchy  (and similarly for republic, theocracy, tribe, steppe_horde) | EU5 government type trigger is government_type = government_type:X; the EU4 'government = X' form does not exist |
 | script | any | multiply_variable = { name = X value = Y } or divide_variable = { name = X value = Y } | change_variable = { name = X multiply = Y } or change_variable = { name = X divide = Y }. Both accept var:Z references: multiply = var:Z, divide = var:Z | multiply_variable and divide_variable do not exist in EU5; all variable math uses change_variable with multiply/divide parameters |
 | script | any | trigger_event = { id = X } or trigger_event = X inside scripted_effects or on_action | Use trigger_event_non_silently = { id = X } for popup events shown to the player, or trigger_event_silently = X for background events. Both accept simple form (= event_id) and object form (= { id = X days = Y }). | EU5 does not have a bare trigger_event effect. In scripted_effects and on_action files, the engine reports 'Unknown effect trigger_event'. The two valid variants are trigger_event_non_silently (shows popup) and trigger_event_silently (hidden/background). This distinction does not apply inside event option = { } blocks, which may use a different syntax. |
+| script | country | add_treasury = X to add or subtract gold from a country | Use add_gold = X (simple literal: add_gold = -200) or add_gold = { value = script_value multiply = N } (computed form). Trigger side: gold >= 200 (literal integer) is valid. | add_treasury does not exist in EU5. The effect is add_gold; it accepts a bare literal integer (positive or negative) or a block with value/multiply. Error: 'Unknown effect add_treasury'. |
 | script | any | Defining monthly_country_pulse = { effect = { ... } } in more than one on_action file within the same mod | Consolidate all effect = { } content for the same on_action key into a single file. Alternatively, use on_actions = { sub_action_name } dispatch from each file and define each sub_action separately. | EU5 on_action loading is singleton per on_action key for effect = { } blocks: only the last file loaded alphabetically wins. Two mod files each defining monthly_country_pulse = { effect = { ... } } means only one effect block ever runs. Confirmed: _yearly.txt (y) overrides _leaderboard.txt (l), silently discarding the leaderboard update. |
 
 ## Valid Enum Values
@@ -142,7 +143,7 @@ src/
 | Scripted Triggers | 507 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 507 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 233 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 238 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 
