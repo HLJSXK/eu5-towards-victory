@@ -1271,7 +1271,7 @@ situation_panel = {
 			datacontext = "[SituationView.GetPlayer]"
 
 			# ── SECTION 1: Flavor Introduction ──────────────────────────────────────────
-			widget = {
+			vbox = {
 				layoutpolicy_horizontal = expanding
 				background = {
 					texture = "gfx/interface/component_tiles/square_tile.dds"
@@ -1280,7 +1280,7 @@ situation_panel = {
 					spriteborder = { 4 4 }
 				}
 				text_multi = {
-					size = { 100% -1 }
+					layoutpolicy_horizontal = expanding
 					autoresize = yes
 					max_width = 100%
 					text = "TV_SECTION1_FLAVOR"
