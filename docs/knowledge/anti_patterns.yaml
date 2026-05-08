@@ -338,6 +338,15 @@
   source: "reference_game_files/game/in_game/common/scripted_effects/country_effects.txt:2161 (add_gold = 5000), reference_game_files/game/in_game/common/generic_actions/fall_of_delhi.txt:44 (add_gold = { value = ... })"
   notes: "add_treasury does not exist in EU5. The effect is add_gold; it accepts a bare literal integer (positive or negative) or a block with value/multiply. Error: 'Unknown effect add_treasury'."
 
+- id: price_requires_cost_modifier_type
+  pattern: ''
+  bad: "Defining a price in common/prices/ without a corresponding modifier_type in common/modifier_type_definitions/"
+  correction: "For every price named {name} in common/prices/, a modifier type named {name}_cost_modifier MUST exist in common/modifier_type_definitions/. EU5's price_database.cpp validates this at startup and logs 'Missing modifier type for price. {name}_cost_modifier'. The modifier type allows future modifiers/events to discount the price."
+  category: script
+  scope: any
+  source: "price_database.cpp:116 (runtime error log)"
+  notes: "This is an engine-enforced convention, not optional. Even if no modifier currently applies the discount, the modifier_type definition must be present. The naming is exact: price 'tv_academy_1_price' requires modifier type 'tv_academy_1_price_cost_modifier'. These appear unused but are implicitly consumed by the price loading system."
+
 - id: on_action_effect_block_singleton
   pattern: ''
   bad: "Defining monthly_country_pulse = { effect = { ... } } in more than one on_action file within the same mod"
