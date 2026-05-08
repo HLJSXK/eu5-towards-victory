@@ -301,7 +301,7 @@ template tv_conquest_milestone_1_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CONQUEST_M1_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_conquest_milestone_1', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -333,7 +333,7 @@ template tv_conquest_milestone_2_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CONQUEST_M2_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_conquest_milestone_2', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -365,7 +365,7 @@ template tv_conquest_milestone_3_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CONQUEST_M3_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_conquest_milestone_3', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -397,7 +397,7 @@ template tv_conquest_milestone_4_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CONQUEST_M4_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_conquest_milestone_4', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -429,7 +429,7 @@ template tv_conquest_milestone_5_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CONQUEST_M5_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_conquest_milestone_5', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -463,7 +463,7 @@ template tv_prosperity_milestone_1_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_PROSPERITY_M1_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_prosperity_milestone_1', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -495,7 +495,7 @@ template tv_prosperity_milestone_2_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_PROSPERITY_M2_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_prosperity_milestone_2', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -527,7 +527,7 @@ template tv_prosperity_milestone_3_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_PROSPERITY_M3_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_prosperity_milestone_3', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -559,7 +559,7 @@ template tv_prosperity_milestone_4_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_PROSPERITY_M4_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_prosperity_milestone_4', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -591,7 +591,7 @@ template tv_prosperity_milestone_5_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_PROSPERITY_M5_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_prosperity_milestone_5', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -625,7 +625,7 @@ template tv_trade_milestone_1_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_TRADE_M1_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_trade_milestone_1', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -657,7 +657,7 @@ template tv_trade_milestone_2_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_TRADE_M2_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_trade_milestone_2', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -689,7 +689,7 @@ template tv_trade_milestone_3_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_TRADE_M3_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_trade_milestone_3', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -721,7 +721,7 @@ template tv_trade_milestone_4_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_TRADE_M4_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_trade_milestone_4', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -753,7 +753,7 @@ template tv_trade_milestone_5_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_TRADE_M5_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_trade_milestone_5', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -787,7 +787,7 @@ template tv_diplomatic_milestone_1_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M1_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_diplomatic_milestone_1', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -819,7 +819,7 @@ template tv_diplomatic_milestone_2_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M2_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_diplomatic_milestone_2', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -851,7 +851,7 @@ template tv_diplomatic_milestone_3_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M3_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_diplomatic_milestone_3', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -883,7 +883,7 @@ template tv_diplomatic_milestone_4_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M4_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_diplomatic_milestone_4', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -915,7 +915,7 @@ template tv_diplomatic_milestone_5_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_DIPLOMATIC_M5_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_diplomatic_milestone_5', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -949,7 +949,7 @@ template tv_cultural_milestone_1_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CULTURAL_M1_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_cultural_milestone_1', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -981,7 +981,7 @@ template tv_cultural_milestone_2_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CULTURAL_M2_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_cultural_milestone_2', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -1013,7 +1013,7 @@ template tv_cultural_milestone_3_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CULTURAL_M3_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_cultural_milestone_3', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -1045,7 +1045,7 @@ template tv_cultural_milestone_4_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CULTURAL_M4_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_cultural_milestone_4', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -1077,7 +1077,7 @@ template tv_cultural_milestone_5_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_CULTURAL_M5_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_cultural_milestone_5', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -1111,7 +1111,7 @@ template tv_science_milestone_1_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_SCIENCE_M1_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_science_milestone_1', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -1143,7 +1143,7 @@ template tv_science_milestone_2_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_SCIENCE_M2_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_science_milestone_2', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -1175,7 +1175,7 @@ template tv_science_milestone_3_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_SCIENCE_M3_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_science_milestone_3', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -1207,7 +1207,7 @@ template tv_science_milestone_4_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_SCIENCE_M4_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_science_milestone_4', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
@@ -1239,7 +1239,7 @@ template tv_science_milestone_5_tooltip {
 			# ── Panel 2: conditions to reach this milestone ────────────────────
 			TooltipScrolledRequirementsList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_CONDITIONS_HEADER" }
-				textcontext = "TV_SCIENCE_M5_TRIGGER_DESC"
+				textcontext = "[ShowTriggerConditions('tv_science_milestone_5', PlayerScope.Self)]"
 			}
 
 			# Visual separator between panels
