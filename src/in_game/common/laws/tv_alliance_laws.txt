@@ -1,0 +1,1025 @@
+﻿# ══════════════════════════════════════════════════════════════════════════════
+# TOWARDS VICTORY — DIPLOMATIC ALLIANCE LAWS
+# 5 law categories × 4 policy levels each
+# Cohesion thresholds: L1=0, L2=25, L3=50, L4=75
+# Each upgrade from L1 increments tv_alliance_tier by 1
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ──────────────────────────────────────────────────────────────────────────────
+# LAW 1: Court Protocol & Legitimacy (宫廷礼仪与法理认同)
+# ──────────────────────────────────────────────────────────────────────────────
+tv_court_protocol = {
+	type = international_organization
+	law_category = diplomacy
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	custom_tags = { forbids_no_policy }
+
+	# Level 1 — Ad-hoc Envoys (initial, no effect)
+	tv_adhoc_envoys_policy = {
+		level = 1
+		wants_propose_policy = {
+			subtract = {
+				desc = "TV_ALREADY_HAVE_BETTER"
+				value = 100
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_DEFAULT_POLICY"
+				value = 10
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 20
+			}
+		}
+	}
+
+	# Level 2 — Resident Ambassadors (cohesion ≥ 25)
+	tv_resident_ambassadors_policy = {
+		level = 2
+		allow = {
+			international_organization_has_policy = policy:tv_adhoc_envoys_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 25
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -25 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				# Sync tier to leader country
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			diplomatic_reputation = 1
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 25
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 30
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+
+	# Level 3 — Refusal of Pretenders (cohesion ≥ 50)
+	tv_refuse_pretenders_policy = {
+		level = 3
+		allow = {
+			international_organization_has_policy = policy:tv_resident_ambassadors_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 50
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -50 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			monthly_legitimacy = 0.5
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 50
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 20
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+
+	# Level 4 — Divine Right Registry (cohesion ≥ 75)
+	tv_divine_right_policy = {
+		level = 4
+		allow = {
+			international_organization_has_policy = policy:tv_refuse_pretenders_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 75
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -75 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			monthly_legitimacy = 1
+			monthly_prestige = 0.5
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 75
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 10
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+}
+
+# ──────────────────────────────────────────────────────────────────────────────
+# LAW 2: Information & Cartography Network (跨国信息与制图学交流)
+# ──────────────────────────────────────────────────────────────────────────────
+tv_information_network = {
+	type = international_organization
+	law_category = diplomacy
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	custom_tags = { forbids_no_policy }
+
+	# Level 1 — Royal Couriers Only (initial)
+	tv_royal_couriers_policy = {
+		level = 1
+		wants_propose_policy = {
+			subtract = {
+				desc = "TV_ALREADY_HAVE_BETTER"
+				value = 100
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_DEFAULT_POLICY"
+				value = 10
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 20
+			}
+		}
+	}
+
+	# Level 2 — Transnational Postal System (cohesion ≥ 25)
+	tv_postal_system_policy = {
+		level = 2
+		allow = {
+			international_organization_has_policy = policy:tv_royal_couriers_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 25
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -25 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			diplomatic_range_modifier = 0.10
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 25
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 30
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+
+	# Level 3 — Cartographic Exchange (cohesion ≥ 50)
+	tv_cartographic_exchange_policy = {
+		level = 3
+		allow = {
+			international_organization_has_policy = policy:tv_postal_system_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 50
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -50 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			exploration_mission_speed_modifier = 0.10
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 50
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 20
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+
+	# Level 4 — Centralized Intelligence Bureau (cohesion ≥ 75)
+	tv_intelligence_bureau_policy = {
+		level = 4
+		allow = {
+			international_organization_has_policy = policy:tv_cartographic_exchange_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 75
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -75 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			spy_network_construction = 0.10
+			counter_espionage = 0.10
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 75
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 10
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+}
+
+# ──────────────────────────────────────────────────────────────────────────────
+# LAW 3: Commercial & Navigational Consensus (商业航海与关税共识)
+# ──────────────────────────────────────────────────────────────────────────────
+tv_commerce_consensus = {
+	type = international_organization
+	law_category = socioeconomic
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	custom_tags = { forbids_no_policy }
+
+	# Level 1 — Non-Piracy Pacts (initial)
+	tv_non_piracy_policy = {
+		level = 1
+		wants_propose_policy = {
+			subtract = {
+				desc = "TV_ALREADY_HAVE_BETTER"
+				value = 100
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_DEFAULT_POLICY"
+				value = 10
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 20
+			}
+		}
+	}
+
+	# Level 2 — Most-Favored-Nation Ports (cohesion ≥ 25)
+	tv_mfn_ports_policy = {
+		level = 2
+		allow = {
+			international_organization_has_policy = policy:tv_non_piracy_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 25
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -25 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			naval_range = 50
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 25
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 30
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+
+	# Level 3 — Unified Measures & Maritime Law (cohesion ≥ 50)
+	tv_unified_measures_policy = {
+		level = 3
+		allow = {
+			international_organization_has_policy = policy:tv_mfn_ports_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 50
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -50 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			trade_land_efficiency = 0.05
+			trade_sea_efficiency = 0.05
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 50
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 20
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+
+	# Level 4 — Syndicated Trade Monopolies (cohesion ≥ 75)
+	tv_trade_monopoly_policy = {
+		level = 4
+		allow = {
+			international_organization_has_policy = policy:tv_unified_measures_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 75
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -75 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			global_trade_center_power = 0.10
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 75
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 10
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+}
+
+# ──────────────────────────────────────────────────────────────────────────────
+# LAW 4: Faith & Ideological Harmony (信仰与意识形态调和)
+# ──────────────────────────────────────────────────────────────────────────────
+tv_faith_harmony = {
+	type = international_organization
+	law_category = religious
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	custom_tags = { forbids_no_policy }
+
+	# Level 1 — Cuius Regio, Eius Religio (initial)
+	tv_cuius_regio_policy = {
+		level = 1
+		wants_propose_policy = {
+			subtract = {
+				desc = "TV_ALREADY_HAVE_BETTER"
+				value = 100
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_DEFAULT_POLICY"
+				value = 10
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 20
+			}
+		}
+	}
+
+	# Level 2 — Protection of Pilgrims & Minorities (cohesion ≥ 25)
+	tv_pilgrim_protection_policy = {
+		level = 2
+		allow = {
+			international_organization_has_policy = policy:tv_cuius_regio_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 25
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -25 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			tolerance_heretic = 1
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 25
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 30
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+
+	# Level 3 — Joint Denunciation (cohesion ≥ 50)
+	tv_joint_denunciation_policy = {
+		level = 3
+		allow = {
+			international_organization_has_policy = policy:tv_pilgrim_protection_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 50
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -50 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			building_missionary_effort_modifier = 0.10
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 50
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 20
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+
+	# Level 4 — Universal Spiritual Council (cohesion ≥ 75)
+	tv_universal_council_policy = {
+		level = 4
+		allow = {
+			international_organization_has_policy = policy:tv_joint_denunciation_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 75
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -75 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			monthly_prestige = 1
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 75
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 10
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+}
+
+# ──────────────────────────────────────────────────────────────────────────────
+# LAW 5: Colonization & Sphere of Influence (拓殖与势力范围划界)
+# ──────────────────────────────────────────────────────────────────────────────
+tv_colonization_sphere = {
+	type = international_organization
+	law_category = socioeconomic
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	custom_tags = { forbids_no_policy }
+
+	# Level 1 — Free-for-All Colonization (initial)
+	tv_free_colonization_policy = {
+		level = 1
+		wants_propose_policy = {
+			subtract = {
+				desc = "TV_ALREADY_HAVE_BETTER"
+				value = 100
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_DEFAULT_POLICY"
+				value = 10
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 20
+			}
+		}
+	}
+
+	# Level 2 — Doctrine of Discovery (cohesion ≥ 25)
+	tv_doctrine_discovery_policy = {
+		level = 2
+		allow = {
+			international_organization_has_policy = policy:tv_free_colonization_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 25
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -25 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			colonial_migration_size = 50
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 25
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 30
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+
+	# Level 3 — Demarcation Treaties (cohesion ≥ 50)
+	tv_demarcation_policy = {
+		level = 3
+		allow = {
+			international_organization_has_policy = policy:tv_doctrine_discovery_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 50
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -50 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			colonial_range_modifier = 0.10
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 50
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 20
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+
+	# Level 4 — Condominium & Joint Ventures (cohesion ≥ 75)
+	tv_joint_ventures_policy = {
+		level = 4
+		allow = {
+			international_organization_has_policy = policy:tv_demarcation_policy
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 75
+		}
+		on_activate = {
+			scope:recipient = {
+				change_variable = { name = tv_alliance_cohesion add = -75 }
+				change_variable = { name = tv_alliance_tier add = 1 }
+				leader_country ?= {
+					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
+				}
+			}
+		}
+		country_modifier = {
+			colonial_migration_size_modifier = 0.15
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						OR = {
+							NOT = { has_variable = tv_alliance_cohesion }
+							var:tv_alliance_cohesion < 75
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_UPGRADE_DESIRE"
+				value = 10
+			}
+		}
+		wants_keep_policy = {
+			add = {
+				desc = "TV_STATUS_QUO"
+				value = 30
+			}
+		}
+	}
+}

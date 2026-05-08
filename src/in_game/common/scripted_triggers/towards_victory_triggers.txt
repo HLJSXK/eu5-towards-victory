@@ -161,6 +161,12 @@ tv_diplomatic_milestone_1 = {
 		text = TV_DIPLOMATIC_M1_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
 		var:tv_diplomatic_victory_points >= 50
+		has_variable = tv_diplomatic_support_count
+		var:tv_diplomatic_support_count >= 10
+		OR = {
+		    NOT = { exists = international_organization:tv_diplomatic_alliance }
+		    is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
+		}
 	}
 }
 
@@ -169,6 +175,8 @@ tv_diplomatic_milestone_2 = {
 		text = TV_DIPLOMATIC_M2_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
 		var:tv_diplomatic_victory_points >= 120
+		has_variable = tv_alliance_tier
+		var:tv_alliance_tier >= 3
 	}
 }
 
@@ -177,6 +185,8 @@ tv_diplomatic_milestone_3 = {
 		text = TV_DIPLOMATIC_M3_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
 		var:tv_diplomatic_victory_points >= 220
+		has_variable = tv_alliance_tier
+		var:tv_alliance_tier >= 6
 	}
 }
 
@@ -185,6 +195,8 @@ tv_diplomatic_milestone_4 = {
 		text = TV_DIPLOMATIC_M4_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
 		var:tv_diplomatic_victory_points >= 380
+		has_variable = tv_alliance_tier
+		var:tv_alliance_tier >= 9
 	}
 }
 
@@ -193,6 +205,8 @@ tv_diplomatic_milestone_5 = {
 		text = TV_DIPLOMATIC_M5_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
 		var:tv_diplomatic_victory_points >= 580
+		has_variable = tv_alliance_tier
+		var:tv_alliance_tier >= 12
 	}
 }
 

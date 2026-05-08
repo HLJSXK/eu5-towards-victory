@@ -1,0 +1,93 @@
+﻿l_simp_chinese:
+ # ══════════════════════════════════════════════════════════════════════════
+ # TOWARDS VICTORY — 外交联盟本地化（简体中文）
+ # ══════════════════════════════════════════════════════════════════════════
+
+ # ── 国际组织 ───────────────────────────────────────────────────────────
+ tv_diplomatic_alliance: "外交联盟"
+ TV_ALLIANCE_ADVOCATOR: "倡导者"
+ tv_alliance_advocator: "倡导者"
+ TV_ALLIANCE_COHESION_FORMAT: "联盟凝聚力：$VALUE|1$"
+ TV_ALLIANCE_TIER_FORMAT: "联盟等级：$VALUE|0$"
+
+ # ── 国家互动 ───────────────────────────────────────────────────────────
+ tv_seek_diplomatic_support: "寻求外交支持"
+ tv_seek_diplomatic_support_desc: "请求该国对我们事业的外交支持。一旦获得，其支持将永久存在，除非该国灭亡。"
+ TV_SAME_RELIGION: "相同宗教"
+ TV_DIPLOMATIC_REPUTATION: "外交声誉"
+
+ # ── 通知事件 ───────────────────────────────────────────────────────────
+ tv_diplo_alliance.1.t: "外交之路开启"
+ tv_diplo_alliance.1.d: "我们已积累足够的外交声望，可以开始寻求其他国家的正式支持。通过向友好宫廷派遣使节，我们可以建立一个愿意支持我们外交雄心的国家联盟。"
+ tv_diplo_alliance.1.a: "派出我们的使节。"
+ tv_diplo_alliance_support_unlocked_tt: "现在可以对友好国家使用「寻求外交支持」行动。"
+
+ tv_diplo_alliance.2.t: "联盟雏形初现"
+ tv_diplo_alliance.2.d: "十个国家已承诺对我们的事业给予外交支持。当我们同时达到所需的外交胜利点数时，便可将这一联盟正式化为伟大的外交联盟。"
+ tv_diplo_alliance.2.a: "联盟近在咫尺。"
+ tv_diplo_alliance_support_met_tt: "你已获得10个外交支持国。达到50外交胜利点即可创立外交联盟。"
+
+ # ── 法律类别名称 ───────────────────────────────────────────────────────
+ tv_court_protocol: "宫廷礼仪与法理认同"
+ tv_information_network: "跨国信息与制图学交流"
+ tv_commerce_consensus: "商业航海与关税共识"
+ tv_faith_harmony: "信仰与意识形态调和"
+ tv_colonization_sphere: "拓殖与势力范围划界"
+
+ # ── 法律1：宫廷礼仪 — 政策 ────────────────────────────────────────────
+ tv_adhoc_envoys_policy: "临时使节互访"
+ tv_adhoc_envoys_policy_desc: "成员国仅在有具体事务时派遣临时使者。联盟内部没有正式的外交框架。"
+ tv_resident_ambassadors_policy: "常驻公使制度"
+ tv_resident_ambassadors_policy_desc: "成员国在彼此首都设立常驻使馆，同意基本的外交豁免权并优先通过谈判解决法理冲突。"
+ tv_refuse_pretenders_policy: "拒绝庇护宣称者"
+ tv_refuse_pretenders_policy_desc: "成员国承诺绝不庇护、资助或支持任何针对其他成员国正统君主的王位宣称者。高度政治共识。"
+ tv_divine_right_policy: "神圣法理背书"
+ tv_divine_right_policy_desc: "联盟建立统一的合法统治者登记册。质疑任何成员国的正统性将被视为对整个联盟的挑衅。"
+
+ # ── 法律2：信息网络 — 政策 ─────────────────────────────────────────────
+ tv_royal_couriers_policy: "皇家信使"
+ tv_royal_couriers_policy_desc: "各国仅依赖自己的武装信使。海图绝对保密。信息交流极少。"
+ tv_postal_system_policy: "跨国驿站网络"
+ tv_postal_system_policy_desc: "共享的驿站网络跨越成员国边界，大幅提升官方通信速度。"
+ tv_cartographic_exchange_policy: "制图学共享"
+ tv_cartographic_exchange_policy_desc: "成员国同意分享新发现的海岸线和皇家档案馆中的地理知识。"
+ tv_intelligence_bureau_policy: "联合隐秘局"
+ tv_intelligence_bureau_policy_desc: "成员国间谍网络相互交织，共享针对外部威胁的情报并联合进行反间谍活动。"
+
+ # ── 法律3：商业航海 — 政策 ─────────────────────────────────────────────
+ tv_non_piracy_policy: "互不劫掠协定"
+ tv_non_piracy_policy_desc: "成员国承诺不向针对其他成员国商船的海盗发放私掠许可证。贸易竞争依然激烈。"
+ tv_mfn_ports_policy: "最惠国开放港口"
+ tv_mfn_ports_policy_desc: "成员国船只在紧急情况下可自由进入对方港口，免除停泊税。"
+ tv_unified_measures_policy: "统一度量衡与海事法"
+ tv_unified_measures_policy_desc: "标准化的度量衡、货币兑换比率和海商法大幅降低内部贸易摩擦。"
+ tv_trade_monopoly_policy: "联合贸易垄断"
+ tv_trade_monopoly_policy_desc: "成员国在关键节点上整合贸易力量，共同对抗外部商业竞争者。"
+
+ # ── 法律4：信仰调和 — 政策 ─────────────────────────────────────────────
+ tv_cuius_regio_policy: "教随国定"
+ tv_cuius_regio_policy_desc: "各统治者决定其领地信仰。联盟对宗教事务不发表意见。"
+ tv_pilgrim_protection_policy: "朝圣者与少数派保护"
+ tv_pilgrim_protection_policy_desc: "成员国保证朝圣者的安全通行并给予对方商人和少数派基本的宗教宽容权。"
+ tv_joint_denunciation_policy: "异端联合谴责"
+ tv_joint_denunciation_policy_desc: "联盟集体谴责某种特定的激进信仰或运动，在外交上集体孤立其支持者。"
+ tv_universal_council_policy: "普世精神会议"
+ tv_universal_council_policy_desc: "超越世俗边界的会议使所有成员国在宗教决议和文化思潮上实现完全同步。"
+
+ # ── 法律5：拓殖划界 — 政策 ─────────────────────────────────────────────
+ tv_free_colonization_policy: "自由拓殖原则"
+ tv_free_colonization_policy_desc: "丛林法则。成员国在海外的扩张全凭实力。"
+ tv_doctrine_discovery_policy: "先占原则尊重"
+ tv_doctrine_discovery_policy_desc: "成员国同意尊重首先建立定居点的国家。一旦某成员国拥有核心存在，其他成员国不再对该区域提出宣称。"
+ tv_demarcation_policy: "势力范围划界条约"
+ tv_demarcation_policy_desc: "明确的界线划分势力范围。成员国被禁止在另一成员国的指定区域内殖民。"
+ tv_joint_ventures_policy: "共管与联合开发"
+ tv_joint_ventures_policy_desc: "最高级别的信任。成员国共享未开发领地的殖民红利，共同投资伟大的跨洋工程。"
+
+ # ── AI投票原因 ─────────────────────────────────────────────────────────
+ TV_ALREADY_HAVE_BETTER: "已处于更高等级"
+ TV_DEFAULT_POLICY: "默认初始政策"
+ TV_STATUS_QUO: "维持现有政策"
+ TV_COHESION_REQUIREMENT: "联盟凝聚力支持升级"
+ TV_INSUFFICIENT_COHESION: "联盟凝聚力不足"
+ TV_UPGRADE_DESIRE: "渴望更强大的联盟"

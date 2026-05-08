@@ -1,0 +1,93 @@
+﻿l_english:
+ # ══════════════════════════════════════════════════════════════════════════
+ # TOWARDS VICTORY — Diplomatic Alliance Localization (English)
+ # ══════════════════════════════════════════════════════════════════════════
+
+ # ── International Organization ─────────────────────────────────────────
+ tv_diplomatic_alliance: "Diplomatic Alliance"
+ TV_ALLIANCE_ADVOCATOR: "Advocator"
+ tv_alliance_advocator: "Advocator"
+ TV_ALLIANCE_COHESION_FORMAT: "Alliance Cohesion: $VALUE|1$"
+ TV_ALLIANCE_TIER_FORMAT: "Alliance Tier: $VALUE|0$"
+
+ # ── Country Interaction ────────────────────────────────────────────────
+ tv_seek_diplomatic_support: "Seek Diplomatic Support"
+ tv_seek_diplomatic_support_desc: "Request this nation's diplomatic support for our cause. Once granted, their support is permanent unless they cease to exist."
+ TV_SAME_RELIGION: "Same Religion"
+ TV_DIPLOMATIC_REPUTATION: "Diplomatic Reputation"
+
+ # ── Notification Events ────────────────────────────────────────────────
+ tv_diplo_alliance.1.t: "The Path of Diplomacy Opens"
+ tv_diplo_alliance.1.d: "We have accumulated sufficient diplomatic prestige to begin seeking formal support from other nations. By sending envoys to friendly courts, we can build a coalition of nations willing to back our diplomatic ambitions."
+ tv_diplo_alliance.1.a: "Send forth our envoys."
+ tv_diplo_alliance_support_unlocked_tt: "You may now use the 'Seek Diplomatic Support' action on friendly nations."
+
+ tv_diplo_alliance.2.t: "A Coalition Takes Shape"
+ tv_diplo_alliance.2.d: "Ten nations have now pledged their diplomatic support to our cause. When we also reach the required diplomatic victory points, we shall be able to formalize this coalition into a grand Diplomatic Alliance."
+ tv_diplo_alliance.2.a: "The alliance draws near."
+ tv_diplo_alliance_support_met_tt: "You have gathered 10 diplomatic supporters. Reach 50 DVP to found the Diplomatic Alliance."
+
+ # ── Law Category Names ─────────────────────────────────────────────────
+ tv_court_protocol: "Court Protocol & Legitimacy"
+ tv_information_network: "Information & Cartography Network"
+ tv_commerce_consensus: "Commercial & Navigational Consensus"
+ tv_faith_harmony: "Faith & Ideological Harmony"
+ tv_colonization_sphere: "Colonization & Sphere of Influence"
+
+ # ── Law 1: Court Protocol — Policies ──────────────────────────────────
+ tv_adhoc_envoys_policy: "Ad-hoc Envoys"
+ tv_adhoc_envoys_policy_desc: "Members only send temporary envoys for specific matters. No formal diplomatic framework exists within the alliance."
+ tv_resident_ambassadors_policy: "Resident Ambassadors"
+ tv_resident_ambassadors_policy_desc: "Members establish permanent embassies in each other's capitals, agreeing to basic diplomatic immunity and negotiation-first conflict resolution."
+ tv_refuse_pretenders_policy: "Refusal of Pretenders"
+ tv_refuse_pretenders_policy_desc: "Members pledge never to harbor, fund, or support pretenders to each other's thrones. A high degree of political consensus."
+ tv_divine_right_policy: "Divine Right Registry"
+ tv_divine_right_policy_desc: "The alliance maintains a unified registry of legitimate rulers. Challenging any member's legitimacy is considered an affront to the entire alliance."
+
+ # ── Law 2: Information Network — Policies ─────────────────────────────
+ tv_royal_couriers_policy: "Royal Couriers Only"
+ tv_royal_couriers_policy_desc: "Each nation relies solely on its own armed couriers. Sea charts are absolute secrets. Information exchange is minimal."
+ tv_postal_system_policy: "Transnational Postal System"
+ tv_postal_system_policy_desc: "A shared postal network spans member borders, dramatically improving official communication speed."
+ tv_cartographic_exchange_policy: "Cartographic Exchange"
+ tv_cartographic_exchange_policy_desc: "Members agree to share newly discovered coastlines and geographical knowledge from their royal archives."
+ tv_intelligence_bureau_policy: "Centralized Intelligence Bureau"
+ tv_intelligence_bureau_policy_desc: "Member spy networks interweave, sharing intelligence against external threats and jointly conducting counter-espionage."
+
+ # ── Law 3: Commerce — Policies ────────────────────────────────────────
+ tv_non_piracy_policy: "Non-Piracy Pacts"
+ tv_non_piracy_policy_desc: "Members agree not to issue Letters of Marque against each other's shipping. Trade competition remains fierce."
+ tv_mfn_ports_policy: "Most-Favored-Nation Ports"
+ tv_mfn_ports_policy_desc: "Member ships may enter each other's ports freely during emergencies, exempt from docking taxes."
+ tv_unified_measures_policy: "Unified Measures & Maritime Law"
+ tv_unified_measures_policy_desc: "Standardized weights, currency exchange rates, and maritime law reduce internal trade friction dramatically."
+ tv_trade_monopoly_policy: "Syndicated Trade Monopolies"
+ tv_trade_monopoly_policy_desc: "Members pool their trade power at key nodes, presenting a united commercial front against outside competition."
+
+ # ── Law 4: Faith — Policies ───────────────────────────────────────────
+ tv_cuius_regio_policy: "Cuius Regio, Eius Religio"
+ tv_cuius_regio_policy_desc: "Each ruler determines their realm's faith. The alliance takes no position on religious matters."
+ tv_pilgrim_protection_policy: "Protection of Pilgrims & Minorities"
+ tv_pilgrim_protection_policy_desc: "Members guarantee safe passage for pilgrims and basic religious tolerance for each other's merchants and minorities."
+ tv_joint_denunciation_policy: "Joint Denunciation"
+ tv_joint_denunciation_policy_desc: "The alliance collectively denounces a specific radical faith or movement, diplomatically isolating its supporters."
+ tv_universal_council_policy: "Universal Spiritual Council"
+ tv_universal_council_policy_desc: "A council transcending secular borders synchronizes religious decisions and cultural movements across all members."
+
+ # ── Law 5: Colonization — Policies ───────────────────────────────────
+ tv_free_colonization_policy: "Free-for-All Colonization"
+ tv_free_colonization_policy_desc: "The law of the jungle prevails overseas. Members compete freely for colonial territories."
+ tv_doctrine_discovery_policy: "Doctrine of Discovery"
+ tv_doctrine_discovery_policy_desc: "Members respect first-established settlements. Once a member has a core presence, others will not press claims on that area."
+ tv_demarcation_policy: "Demarcation Treaties"
+ tv_demarcation_policy_desc: "Clear lines divide spheres of influence. Members are forbidden from colonizing within another member's designated zone."
+ tv_joint_ventures_policy: "Condominium & Joint Ventures"
+ tv_joint_ventures_policy_desc: "The highest trust. Members share colonial dividends in undeveloped territories and jointly invest in great overseas enterprises."
+
+ # ── AI Voting Reasons ──────────────────────────────────────────────────
+ TV_ALREADY_HAVE_BETTER: "Already at a higher level"
+ TV_DEFAULT_POLICY: "Default starting policy"
+ TV_STATUS_QUO: "Maintain current policy"
+ TV_COHESION_REQUIREMENT: "Alliance cohesion supports upgrade"
+ TV_INSUFFICIENT_COHESION: "Insufficient alliance cohesion"
+ TV_UPGRADE_DESIRE: "Desire for stronger alliance"

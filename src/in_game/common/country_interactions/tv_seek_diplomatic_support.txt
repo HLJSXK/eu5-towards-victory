@@ -1,0 +1,115 @@
+﻿tv_seek_diplomatic_support = {
+	type = diplomacy
+	category = CATEGORY_FRIENDLY_ACTIONS
+
+	potential = {
+		scope:actor = {
+			has_variable = tv_diplomatic_victory_points
+			var:tv_diplomatic_victory_points >= 50
+			OR = {
+				NOT = { exists = international_organization:tv_diplomatic_alliance }
+				is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
+			}
+		}
+	}
+
+	cooldown = {
+		type = tv_seek_diplomatic_support
+		years = 1
+	}
+
+	ai_tick = monthly
+	ai_tick_frequency = 60
+
+	allow = {
+	}
+
+	select_trigger = {
+		looking_for_a = country
+		target_flag = recipient
+		name = "choose_country"
+		column = {
+			data = name
+		}
+		ai_interaction_source_list = {
+			scope:actor = {
+				every_friendly_or_high_opinion_country = {
+					add_to_list = source
+				}
+			}
+		}
+		visible = {
+			# Cannot already be a supporter of any country
+			NOT = { has_variable = tv_diplomatic_supporter_of }
+			is_subject = no
+		}
+		enabled = {
+		}
+	}
+
+	effect = {
+		# Mark recipient as a diplomatic supporter of actor
+		scope:recipient = {
+			set_variable = { name = tv_diplomatic_supporter_of value = scope:actor }
+		}
+		# Increment actor's support count
+		scope:actor = {
+			if = {
+				limit = { NOT = { has_variable = tv_diplomatic_support_count } }
+				set_variable = { name = tv_diplomatic_support_count value = 0 }
+			}
+			change_variable = { name = tv_diplomatic_support_count add = 1 }
+		}
+		# If our Diplomatic Alliance already exists, add supporter to it
+		if = {
+			limit = {
+				exists = international_organization:tv_diplomatic_alliance
+				scope:actor = {
+					is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
+				}
+			}
+			international_organization:tv_diplomatic_alliance = {
+				add_country_to_international_organization = scope:recipient
+			}
+		}
+	}
+
+	ai_will_do = {
+		if = {
+			limit = {
+				scope:actor = {
+					NOT = { var:tv_diplomatic_support_count >= 15 }
+				}
+			}
+			add = 5
+		}
+	}
+
+	diplo_chance = {
+		base = -200
+		opinion = 0.5
+		same_culture = 50
+		different_religion = -50
+	}
+
+	accept = {
+		# Same religion bonus (+50)
+		if = {
+			limit = {
+				scope:recipient = {
+					religion = scope:actor.religion
+				}
+			}
+			add = {
+				desc = "TV_SAME_RELIGION"
+				value = 50
+			}
+		}
+		# Diplomatic reputation bonus: +5 per point
+		add = {
+			desc = "TV_DIPLOMATIC_REPUTATION"
+			value = scope:actor.modifier:diplomatic_reputation
+			multiply = 5
+		}
+	}
+}

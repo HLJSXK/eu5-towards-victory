@@ -734,6 +734,32 @@ tv_grant_trade_milestone_5 = {
 # Diplomatic Victory
 tv_grant_diplomatic_milestone_1 = {
 	add_country_modifier = { modifier = tv_diplomatic_m1_bonus days = -1 }
+	# Create the Diplomatic Alliance international organization
+	if = {
+	    limit = { NOT = { exists = international_organization:tv_diplomatic_alliance } }
+	    create_international_organization = {
+	        type = international_organization_type:tv_diplomatic_alliance
+	        add_country_to_international_organization = root
+	        set_leader_country = root
+	    }
+	    # Add all existing supporters to the organization
+	    every_country = {
+	        limit = {
+	            has_variable = tv_diplomatic_supporter_of
+	            var:tv_diplomatic_supporter_of = root
+	        }
+	        international_organization:tv_diplomatic_alliance = {
+	            add_country_to_international_organization = prev
+	        }
+	    }
+	    # Initialize cohesion and alliance tier on the newly created IO
+	    international_organization:tv_diplomatic_alliance = {
+	        set_variable = { name = tv_alliance_cohesion value = 0 }
+	        set_variable = { name = tv_alliance_tier value = 0 }
+	    }
+	    # Store alliance tier on the country for trigger access
+	    set_variable = { name = tv_alliance_tier value = 0 }
+	}
 }
 
 tv_grant_diplomatic_milestone_2 = {

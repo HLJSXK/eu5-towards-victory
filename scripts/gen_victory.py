@@ -190,7 +190,10 @@ def gen_effects(data: dict) -> str:
         for m in p["milestones"]:
             n = m["n"]
             lines.append(f"tv_grant_{pid}_milestone_{n} = {{")
-            lines.append(f"\tadd_country_modifier = {{ modifier = tv_{pid}_m{n}_bonus days = -1 }}")
+            if m.get("custom_grant_body"):
+                lines.append(indent(m["custom_grant_body"].rstrip()))
+            else:
+                lines.append(f"\tadd_country_modifier = {{ modifier = tv_{pid}_m{n}_bonus days = -1 }}")
             lines.append(f"}}")
             lines.append("")
         lines.append("")

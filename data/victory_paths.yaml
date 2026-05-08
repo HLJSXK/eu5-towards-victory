@@ -845,7 +845,41 @@ paths:
         is_short_term: false
         is_long_term: false
         threshold: 50
-        extra_trigger_block: null
+        extra_trigger_block: |
+          has_variable = tv_diplomatic_support_count
+          var:tv_diplomatic_support_count >= 10
+          OR = {
+              NOT = { exists = international_organization:tv_diplomatic_alliance }
+              is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
+          }
+        custom_grant_body: |
+          add_country_modifier = { modifier = tv_diplomatic_m1_bonus days = -1 }
+          # Create the Diplomatic Alliance international organization
+          if = {
+              limit = { NOT = { exists = international_organization:tv_diplomatic_alliance } }
+              create_international_organization = {
+                  type = international_organization_type:tv_diplomatic_alliance
+                  add_country_to_international_organization = root
+                  set_leader_country = root
+              }
+              # Add all existing supporters to the organization
+              every_country = {
+                  limit = {
+                      has_variable = tv_diplomatic_supporter_of
+                      var:tv_diplomatic_supporter_of = root
+                  }
+                  international_organization:tv_diplomatic_alliance = {
+                      add_country_to_international_organization = prev
+                  }
+              }
+              # Initialize cohesion and alliance tier on the newly created IO
+              international_organization:tv_diplomatic_alliance = {
+                  set_variable = { name = tv_alliance_cohesion value = 0 }
+                  set_variable = { name = tv_alliance_tier value = 0 }
+              }
+              # Store alliance tier on the country for trigger access
+              set_variable = { name = tv_alliance_tier value = 0 }
+          }
         modifier:
           monthly_diplomats: 0.10
         modifier_name:
@@ -856,17 +890,17 @@ paths:
             en: "Diplomatic Victory — Milestone 1"
             zh: "外交胜利 — 里程碑一"
           meaning:
-            en: "50 Diplomatic Victory Points. A respected voice in affairs."
-            zh: "50 外交胜利点。在国际事务中占有一席之地。"
+            en: "50 DVP and 10 nations support our cause. The Alliance is born."
+            zh: "50 外交胜利点且10国支持我们的事业。联盟诞生。"
           trigger_desc:
-            en: "Diplomatic Victory Points ≥ 50"
-            zh: "外交胜利点 ≥ 50"
+            en: "Diplomatic Victory Points ≥ 50 AND Diplomatic Supporters ≥ 10"
+            zh: "外交胜利点 ≥ 50 且外交支持国 ≥ 10"
           event_title:
             en: "A Voice Among Nations"
             zh: "外交展露头角"
           event_desc:
-            en: "Our patient diplomacy has begun to bear fruit. Through alliances and royal bonds, our nation is earning a place at the table of great powers."
-            zh: "我们耐心的外交已开始结果。通过同盟与联姻，我国正在赢得一席之地。"
+            en: "Our patient diplomacy has begun to bear fruit. Through alliances and royal bonds, our nation is earning a place at the table of great powers. Ten nations have pledged their diplomatic support — together, we shall form a grand alliance."
+            zh: "我们耐心的外交已开始结果。通过同盟与联姻，我国正在赢得一席之地。十个国家已承诺外交支持——我们将共同组建一个伟大的联盟。"
           event_option:
             en: "Let our word carry weight."
             zh: "让我们的话语具有分量。"
@@ -875,7 +909,9 @@ paths:
         is_short_term: false
         is_long_term: false
         threshold: 120
-        extra_trigger_block: null
+        extra_trigger_block: |
+          has_variable = tv_alliance_tier
+          var:tv_alliance_tier >= 3
         modifier:
           diplomatic_capacity_modifier: 0.50
         modifier_name:
@@ -886,11 +922,11 @@ paths:
             en: "Diplomatic Victory — Milestone 2"
             zh: "外交胜利 — 里程碑二"
           meaning:
-            en: "120 DVP. A reliable ally and guarantor of peace."
-            zh: "120 DVP。可靠的盟友与和平居间人。"
+            en: "120 DVP and Alliance Tier ≥ 3. A reliable ally and guarantor of peace."
+            zh: "120 DVP 且联盟等级 ≥ 3。可靠的盟友与和平居间人。"
           trigger_desc:
-            en: "Diplomatic Victory Points ≥ 120"
-            zh: "外交胜利点 ≥ 120"
+            en: "Diplomatic Victory Points ≥ 120 AND Alliance Tier ≥ 3"
+            zh: "外交胜利点 ≥ 120 且联盟等级 ≥ 3"
           event_title:
             en: "A Reliable Ally"
             zh: "可靠的盟友"
@@ -905,7 +941,9 @@ paths:
         is_short_term: true
         is_long_term: false
         threshold: 220
-        extra_trigger_block: null
+        extra_trigger_block: |
+          has_variable = tv_alliance_tier
+          var:tv_alliance_tier >= 6
         modifier:
           diplomatic_reputation: 5
         modifier_name:
@@ -916,11 +954,11 @@ paths:
             en: "Diplomatic Victory — Short-term Victory"
             zh: "外交胜利 — 短期胜利"
           meaning:
-            en: "220 DVP. A power of first diplomatic rank. Short-term Victory."
-            zh: "220 DVP。一流外交大国。短期胜利。"
+            en: "220 DVP and Alliance Tier ≥ 6. A power of first diplomatic rank. Short-term Victory."
+            zh: "220 DVP 且联盟等级 ≥ 6。一流外交大国。短期胜利。"
           trigger_desc:
-            en: "Diplomatic Victory Points ≥ 220"
-            zh: "外交胜利点 ≥ 220"
+            en: "Diplomatic Victory Points ≥ 220 AND Alliance Tier ≥ 6"
+            zh: "外交胜利点 ≥ 220 且联盟等级 ≥ 6"
           event_title:
             en: "A Power of the First Rank — Short-term Victory"
             zh: "一流外交大国 — 短期胜利"
@@ -935,7 +973,9 @@ paths:
         is_short_term: false
         is_long_term: false
         threshold: 380
-        extra_trigger_block: null
+        extra_trigger_block: |
+          has_variable = tv_alliance_tier
+          var:tv_alliance_tier >= 9
         modifier:
           diplomatic_range: 500
           diplomatic_spending_cost: -0.05
@@ -947,11 +987,11 @@ paths:
             en: "Diplomatic Victory — Milestone 4"
             zh: "外交胜利 — 里程碑四"
           meaning:
-            en: "380 DVP. The arbiter of international order."
-            zh: "380 DVP。国际秩序的仲裁人。"
+            en: "380 DVP and Alliance Tier ≥ 9. The arbiter of international order."
+            zh: "380 DVP 且联盟等级 ≥ 9。国际秩序的仲裁人。"
           trigger_desc:
-            en: "Diplomatic Victory Points ≥ 380"
-            zh: "外交胜利点 ≥ 380"
+            en: "Diplomatic Victory Points ≥ 380 AND Alliance Tier ≥ 9"
+            zh: "外交胜利点 ≥ 380 且联盟等级 ≥ 9"
           event_title:
             en: "Arbiter of Nations"
             zh: "万国仲裁人"
@@ -966,7 +1006,9 @@ paths:
         is_short_term: false
         is_long_term: true
         threshold: 580
-        extra_trigger_block: null
+        extra_trigger_block: |
+          has_variable = tv_alliance_tier
+          var:tv_alliance_tier >= 12
         modifier:
           diplomatic_reputation: 10
         modifier_name:
@@ -977,11 +1019,11 @@ paths:
             en: "Diplomatic Victory — Long-term Victory"
             zh: "外交胜利 — 长期胜利"
           meaning:
-            en: "580 DVP. Undisputed diplomatic hegemon. Long-term Victory."
-            zh: "580 DVP。无可争议的外交霸主。长期胜利。"
+            en: "580 DVP and Alliance Tier ≥ 12. Undisputed diplomatic hegemon. Long-term Victory."
+            zh: "580 DVP 且联盟等级 ≥ 12。无可争议的外交霸主。长期胜利。"
           trigger_desc:
-            en: "Diplomatic Victory Points ≥ 580"
-            zh: "外交胜利点 ≥ 580"
+            en: "Diplomatic Victory Points ≥ 580 AND Alliance Tier ≥ 12"
+            zh: "外交胜利点 ≥ 580 且联盟等级 ≥ 12"
           event_title:
             en: "Long-term Victory — Diplomatic Hegemon"
             zh: "长期胜利 — 外交霸主"

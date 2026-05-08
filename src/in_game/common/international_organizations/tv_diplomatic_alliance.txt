@@ -1,0 +1,59 @@
+﻿tv_diplomatic_alliance = {
+	has_target = no
+	unique = yes
+	expel_members_who_are_targets_of_other_members = no
+	has_buildings = no
+	show_leave_message = yes
+	use_laws_as_join_reason = no
+
+	has_leader_country = yes
+	leader_title_key = "TV_ALLIANCE_ADVOCATOR"
+	use_regnal_number = no
+	leader_type = character
+	leader = {
+		leader_country ?= {
+			if = {
+				limit = {
+					has_ruler = yes
+					ruler ?= { is_alive = yes }
+				}
+				ruler ?= {
+					add_to_list = leaders
+				}
+			}
+		}
+	}
+	leader_change_trigger_type = rulerchange
+	leader_change_method = hereditary
+	disband_if_no_leader = no
+
+	has_parliament = no
+
+	can_initiate_policy_votes = {
+		is_leader_of_international_organization = scope:recipient
+	}
+
+	show_on_diplomatic_map = yes
+
+	can_join_trigger = {
+		is_subject = no
+		is_rebel_country = no
+		has_variable = tv_diplomatic_supporter_of
+		# Must be a supporter of the alliance leader specifically
+		scope:recipient = {
+			international_organization_has_leader = yes
+		}
+		var:tv_diplomatic_supporter_of = scope:recipient.leader_country
+	}
+
+	create_visible_trigger = {
+		always = no
+	}
+
+	invite_visible_trigger = {
+		always = no
+	}
+
+	modifier = {
+	}
+}

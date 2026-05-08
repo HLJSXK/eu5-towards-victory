@@ -1,0 +1,85 @@
+﻿# Towards Victory — Diplomatic Alliance on_action hooks (MANUAL)
+# Handles: on_annex cleanup, monthly cohesion growth, informational event triggers
+
+on_annex = {
+	effect = {
+		# When a supporter is annexed, decrement the support count on the country they supported
+		scope:target = {
+			if = {
+				limit = { has_variable = tv_diplomatic_supporter_of }
+				var:tv_diplomatic_supporter_of = {
+					if = {
+						limit = { has_variable = tv_diplomatic_support_count }
+						change_variable = { name = tv_diplomatic_support_count add = -1 }
+					}
+				}
+			}
+		}
+	}
+}
+
+monthly_country_pulse = {
+	effect = {
+		# ── Diplomatic Alliance Cohesion Growth ──────────────────────────────
+		# Only the alliance leader runs this logic
+		if = {
+			limit = {
+				exists = international_organization:tv_diplomatic_alliance
+				is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
+			}
+			international_organization:tv_diplomatic_alliance = {
+				# Initialize cohesion if needed
+				if = {
+					limit = { NOT = { has_variable = tv_alliance_cohesion } }
+					set_variable = { name = tv_alliance_cohesion value = 0 }
+				}
+				# Base growth: +0.1 per month
+				change_variable = { name = tv_alliance_cohesion add = 0.1 }
+			}
+			# Additional growth from diplomatic reputation: +0.05 per point per month
+			# Store the temporary value on the leader so the IO scope can read it via prev.var.
+			set_variable = { name = tv_rep_bonus value = modifier:diplomatic_reputation }
+			change_variable = { name = tv_rep_bonus multiply = 0.05 }
+			if = {
+				limit = { var:tv_rep_bonus > 0 }
+				international_organization:tv_diplomatic_alliance = {
+					change_variable = { name = tv_alliance_cohesion add = prev.var:tv_rep_bonus }
+				}
+			}
+			remove_variable = tv_rep_bonus
+		}
+
+		# ── Diplomatic Unlock Notification Events ────────────────────────────
+		# Fire informational event when DVP reaches 50 (support system unlocked)
+		if = {
+			limit = {
+				has_variable = tv_diplomatic_victory_points
+				var:tv_diplomatic_victory_points >= 50
+				NOT = { has_variable = tv_diplo_unlock_notified }
+				# Only fire if M1 hasn't been reached yet (support count < 10)
+				OR = {
+					NOT = { has_variable = tv_diplomatic_support_count }
+					var:tv_diplomatic_support_count < 10
+				}
+			}
+			set_variable = { name = tv_diplo_unlock_notified value = 1 }
+			trigger_event_non_silently = tv_diplo_alliance.1
+		}
+
+		# Fire informational event when support count reaches 10
+		if = {
+			limit = {
+				has_variable = tv_diplomatic_support_count
+				var:tv_diplomatic_support_count >= 10
+				NOT = { has_variable = tv_diplo_support_notified }
+				# Only fire if M1 hasn't been reached yet
+				OR = {
+					NOT = { has_variable = tv_diplomatic_milestone }
+					var:tv_diplomatic_milestone < 1
+				}
+			}
+			set_variable = { name = tv_diplo_support_notified value = 1 }
+			trigger_event_non_silently = tv_diplo_alliance.2
+		}
+	}
+}
