@@ -272,3 +272,12 @@
   scope: any
   source: "reference_game_files/game/main_menu/gui/shared/geopolitics_tooltips.gui:198, building_tooltips.gui:1043"
   notes: "EqualTo_CFixedPoint and related typed comparison functions are confirmed to exist in EU5 GUI. The inline == operator does not work in visible expressions. The _scripted_widgets.info file also documents EqualTo_CFixedPoint as the canonical equality check."
+
+- id: on_action_effect_block_singleton
+  pattern: ''
+  bad: "Defining monthly_country_pulse = { effect = { ... } } in more than one on_action file within the same mod"
+  correction: "Consolidate all effect = { } content for the same on_action key into a single file. Alternatively, use on_actions = { sub_action_name } dispatch from each file and define each sub_action separately."
+  category: script
+  scope: any
+  source: "reference_mods/3686272563/in_game/common/on_action/country_monthly.txt:3 (singleton comment)"
+  notes: "EU5 on_action loading is singleton per on_action key for effect = { } blocks: only the last file loaded alphabetically wins. Two mod files each defining monthly_country_pulse = { effect = { ... } } means only one effect block ever runs. Confirmed: _yearly.txt (y) overrides _leaderboard.txt (l), silently discarding the leaderboard update."

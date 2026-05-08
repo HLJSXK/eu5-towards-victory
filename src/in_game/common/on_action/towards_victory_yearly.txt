@@ -47,13 +47,3 @@ on_work_of_art_created = {
 		}
 	}
 }
-
-monthly_country_pulse = {
-	effect = {
-		if = {
-			limit = { NOT = { has_variable = tv_cultural_influence_points } }
-			set_variable = { name = tv_cultural_influence_points value = 0 }
-		}
-		change_variable = { name = tv_cultural_influence_points add = 1 }
-	}
-}

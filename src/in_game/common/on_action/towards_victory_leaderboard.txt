@@ -8,6 +8,13 @@
 
 monthly_country_pulse = {
 	effect = {
+		# ── Cultural Victory: CIP +1 per country per month ──────────────────────────
+		if = {
+			limit = { NOT = { has_variable = tv_cultural_influence_points } }
+			set_variable = { name = tv_cultural_influence_points value = 0 }
+		}
+		change_variable = { name = tv_cultural_influence_points add = 1 }
+
 		# Update this country's leading path / milestone / score for leaderboard display
 		tv_update_best_path_effect = yes
 
