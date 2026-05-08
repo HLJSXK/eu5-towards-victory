@@ -4,12 +4,7 @@
 
 	potential = {
 		scope:actor = {
-			has_variable = tv_diplomatic_victory_points
-			var:tv_diplomatic_victory_points >= 50
-			OR = {
-				NOT = { exists = international_organization:tv_diplomatic_alliance }
-				is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
-			}
+			NOT = { exists = international_organization:tv_diplomatic_alliance }
 		}
 	}
 
