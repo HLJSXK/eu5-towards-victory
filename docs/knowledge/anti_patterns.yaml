@@ -244,3 +244,13 @@
   scope: any
   source: "EU5 engine error log: pdx_text_formatter.cpp:807: Unknown formatting tag 'y64!'"
   notes: "In EU5 Jomini localization, the color tag name is read from # until the first non-alphanumeric. When a [var] resolves to a number (e.g. 64) and is placed directly after #Y, the parser reads #Y64 as the tag name (unknown). The leading space in '#Y [var]' terminates the tag name at Y."
+
+- id: custom_description_needs_trigger_loc
+  pattern: ''
+  only_in_paths: ['scripted_triggers']
+  bad: "custom_description { text = MY_LOC_KEY } where MY_LOC_KEY exists only in a localization YAML but not in common/trigger_localization/"
+  correction: "Create a trigger localization entry in src/in_game/common/trigger_localization/your_file.txt: MY_LOC_KEY = { global = MY_LOC_KEY }. The YAML key is still needed as the display text; the trigger_localization file is the bridge the engine uses at validation time."
+  category: localization
+  scope: any
+  source: "reference_game_files/game/in_game/common/trigger_localization/_trigger_localization.info, reference_game_files/game/in_game/common/trigger_localization/scripted_triggers.txt:275"
+  notes: "EU5 engine validates custom_description text keys against common/trigger_localization/ at load. A YAML-only key passes validate.py but produces 'PostValidate of trigger custom_description returned false' and 'No trigger loc KEY' at game startup."

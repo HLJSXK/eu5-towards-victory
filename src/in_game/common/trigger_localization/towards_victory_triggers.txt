@@ -1,0 +1,51 @@
+﻿# Towards Victory — trigger localization for custom_description text keys.
+# Each entry here maps the scripted trigger text key to its YAML loc key.
+# Positive loc keys (TV_*_TRIGGER_DESC) are in towards_victory_l_english.yml (generated).
+# Negative loc keys (NOT_TV_*) are in towards_victory_trigger_conditions_l_english.yml.
+# Ref: reference_game_files/game/in_game/common/trigger_localization/_trigger_localization.info
+
+# ── Conquest Victory ─────────────────────────────────────────────────────────
+TV_CONQUEST_M1_TRIGGER_DESC = { global = TV_CONQUEST_M1_TRIGGER_DESC }
+TV_CONQUEST_M2_TRIGGER_DESC = { global = TV_CONQUEST_M2_TRIGGER_DESC }
+TV_CONQUEST_M3_TRIGGER_DESC = { global = TV_CONQUEST_M3_TRIGGER_DESC }
+TV_CONQUEST_M4_TRIGGER_DESC = { global = TV_CONQUEST_M4_TRIGGER_DESC }
+TV_CONQUEST_M5_TRIGGER_DESC = { global = TV_CONQUEST_M5_TRIGGER_DESC }
+
+# ── Prosperity Victory ────────────────────────────────────────────────────────
+TV_PROSPERITY_M1_TRIGGER_DESC = { global = TV_PROSPERITY_M1_TRIGGER_DESC }
+TV_PROSPERITY_M2_TRIGGER_DESC = { global = TV_PROSPERITY_M2_TRIGGER_DESC }
+TV_PROSPERITY_M3_TRIGGER_DESC = { global = TV_PROSPERITY_M3_TRIGGER_DESC }
+TV_PROSPERITY_M4_TRIGGER_DESC = { global = TV_PROSPERITY_M4_TRIGGER_DESC }
+TV_PROSPERITY_M5_TRIGGER_DESC = { global = TV_PROSPERITY_M5_TRIGGER_DESC }
+
+# ── Trade Victory ─────────────────────────────────────────────────────────────
+TV_TRADE_M1_TRIGGER_DESC = { global = TV_TRADE_M1_TRIGGER_DESC }
+TV_TRADE_M2_TRIGGER_DESC = { global = TV_TRADE_M2_TRIGGER_DESC }
+TV_TRADE_M3_TRIGGER_DESC = { global = TV_TRADE_M3_TRIGGER_DESC }
+TV_TRADE_M4_TRIGGER_DESC = { global = TV_TRADE_M4_TRIGGER_DESC }
+TV_TRADE_M5_TRIGGER_DESC = { global = TV_TRADE_M5_TRIGGER_DESC }
+
+# ── Diplomatic Victory ────────────────────────────────────────────────────────
+TV_DIPLOMATIC_M1_TRIGGER_DESC = { global = TV_DIPLOMATIC_M1_TRIGGER_DESC }
+TV_DIPLOMATIC_M2_TRIGGER_DESC = { global = TV_DIPLOMATIC_M2_TRIGGER_DESC }
+TV_DIPLOMATIC_M3_TRIGGER_DESC = { global = TV_DIPLOMATIC_M3_TRIGGER_DESC }
+TV_DIPLOMATIC_M4_TRIGGER_DESC = { global = TV_DIPLOMATIC_M4_TRIGGER_DESC }
+TV_DIPLOMATIC_M5_TRIGGER_DESC = { global = TV_DIPLOMATIC_M5_TRIGGER_DESC }
+
+# ── Cultural Victory ──────────────────────────────────────────────────────────
+TV_CULTURAL_M1_TRIGGER_DESC = { global = TV_CULTURAL_M1_TRIGGER_DESC }
+TV_CULTURAL_M2_TRIGGER_DESC = { global = TV_CULTURAL_M2_TRIGGER_DESC }
+TV_CULTURAL_M3_TRIGGER_DESC = { global = TV_CULTURAL_M3_TRIGGER_DESC }
+TV_CULTURAL_M4_TRIGGER_DESC = { global = TV_CULTURAL_M4_TRIGGER_DESC }
+TV_CULTURAL_M5_TRIGGER_DESC = { global = TV_CULTURAL_M5_TRIGGER_DESC }
+
+# ── Scientific Victory ────────────────────────────────────────────────────────
+TV_SCIENCE_M1_TRIGGER_DESC = { global = TV_SCIENCE_M1_TRIGGER_DESC }
+TV_SCIENCE_M2_TRIGGER_DESC = { global = TV_SCIENCE_M2_TRIGGER_DESC }
+TV_SCIENCE_M3_TRIGGER_DESC = { global = TV_SCIENCE_M3_TRIGGER_DESC }
+TV_SCIENCE_M4_TRIGGER_DESC = { global = TV_SCIENCE_M4_TRIGGER_DESC }
+TV_SCIENCE_M5_TRIGGER_DESC = { global = TV_SCIENCE_M5_TRIGGER_DESC }
+
+# ── Trade market dominance custom_tooltip keys ───────────────────────────────
+tv_trade_market_dominance_5_tt = { global = tv_trade_market_dominance_5_tt }
+tv_trade_market_dominance_10_tt = { global = tv_trade_market_dominance_10_tt }

@@ -99,6 +99,7 @@ src/
 | modifier | location | Direct numeric price in EU5 building definition, e.g. price = 200 (EU4 carry-over) | Use price = <named_constant> referencing a definition in common/prices/ (e.g. price = tv_academy_1_price with gold = 600). Capital buildings that scale with age use expensive = yes instead. | EU5 building gold cost uses named price constants from common/prices/ (e.g. price = expensive_estate_building at line 416 of estate_buildings.txt). Direct numeric literals like price = 200 are silently ignored. Named constants ARE valid. |
 | encoding | any | Saving common/ scripts (static_modifiers, situations, scripted_effects, on_action, etc.) as plain UTF-8 without a byte-order mark | Save with UTF-8 BOM (first 3 bytes EF BB BF). In Python: write_bytes(b'\xef\xbb\xbf' + text.encode('utf-8')) or open(..., encoding='utf-8-sig'). Verify with `head -c 3 <file> | xxd` -> expect ef bb bf. | Engine retries without BOM but emits a warning per file per load. Localization YAMLs already require BOM; this rule extends the same requirement to common/ .txt scripts. Auto-generated files via scripts/gen_scaffold.py should always emit the BOM. |
 | localization | any | #Y[variable_expression]#! — color tag immediately followed by [ with no separator | Either omit the color tag and write [variable_expression] as plain text, OR add a space: #Y [variable_expression]#! — the space terminates the tag name so the parser reads #Y (tag) then ' value' (content). Note the leading space will be visible in the rendered string. | In EU5 Jomini localization, the color tag name is read from # until the first non-alphanumeric. When a [var] resolves to a number (e.g. 64) and is placed directly after #Y, the parser reads #Y64 as the tag name (unknown). The leading space in '#Y [var]' terminates the tag name at Y. |
+| localization | any | custom_description { text = MY_LOC_KEY } where MY_LOC_KEY exists only in a localization YAML but not in common/trigger_localization/ | Create a trigger localization entry in src/in_game/common/trigger_localization/your_file.txt: MY_LOC_KEY = { global = MY_LOC_KEY }. The YAML key is still needed as the display text; the trigger_localization file is the bridge the engine uses at validation time. | EU5 engine validates custom_description text keys against common/trigger_localization/ at load. A YAML-only key passes validate.py but produces 'PostValidate of trigger custom_description returned false' and 'No trigger loc KEY' at game startup. |
 
 ## Valid Enum Values
 
@@ -126,7 +127,7 @@ src/
 | Scripted Triggers | 507 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 504 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 175 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 196 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 
