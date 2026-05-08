@@ -14,6 +14,16 @@ location_rank:
   source: "reference_game_files/game/in_game/common/building_types/unique_buildings.txt"
   notes: "Only 3 valid ranks in EU5. EU4 names (village, hamlet, metropolis) cause silent failures."
 
+government_type:
+  values:
+    - monarchy
+    - republic
+    - theocracy
+    - tribe
+    - steppe_horde
+  source: "reference_game_files/game/in_game/common/government_types/00_default.txt"
+  notes: "Government type IDs for trigger: government_type = government_type:X. Use exact IDs — not pluralized (monarchies/republics). steppe_horde is the horde subtype."
+
 # Add new enums here as they are discovered and verified.
 # Format:
 #   enum_name:

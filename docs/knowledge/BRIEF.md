@@ -19,7 +19,7 @@ Towards Victory adds 6 generalized victory paths to EU5: Conquest, Prosperity, T
 
 The **Conquest Victory** path (征服胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = direct locations + 0.5 × subject-or-below locations; thresholds at 150 / 300 / 500 / 1000 / 2000.
 
-The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = total_population + Σ(development per owned location) + country_tax_base; updated yearly via every_owned_location iteration; thresholds at 5,000 / 8,000 / 12,000 / 18,000 / 25,000 (provisional, calibrate after playtesting).
+The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = (total_population + Σdev + country_tax_base) × 100 / (N + 100) × (1 + stability/100) × (gov_power/100), where N = num_owned_locations and gov_power = legitimacy/republican_tradition/devotion/tribal_cohesion/horde_unity by government type. The N/(N+100) term provides diminishing returns on scale. Updated yearly; thresholds at 5,000 / 8,000 / 12,000 / 18,000 / 25,000 (provisional, calibrate after playtesting).
 
 The **Trade Victory** path (贸易胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = monthly_trade_income (snapshot taken monthly by tv_update_trade_score_effect); thresholds at 100 / 200 / 400 / 1000 / 2000 (provisional, calibrate after playtesting).
 
@@ -110,6 +110,8 @@ src/
 | script | any | limit = { var:some_var >= var:other_var } when some_var may not be set on the scope | Add has_variable = some_var to the limit block before the var: comparison: limit = { has_variable = some_var  var:some_var >= var:other_var } | EU5 does NOT default unset variables to 0 in trigger comparisons; var:X on the left side of >= throws a script error and aborts the if-block. set_variable = { value = var:X } with an unset var appears to be silent (no error), so only limit comparisons need the has_variable guard. |
 | localization | any | MY_KEY = { global = MY_KEY } when the trigger using MY_KEY has custom_tooltip nested inside custom_description | Declare all four perspectives: MY_KEY = { none = MY_KEY  global = MY_KEY  first = MY_KEY  third = MY_KEY }. Use this form for every trigger_localization entry as a safe default. | EU5 engine requires the 'first' perspective when custom_description wraps a nested custom_tooltip. A global-only entry causes '(BUG: KEY missing perspective. Could not find parameters for PROMOUN first Negative required false)' at runtime. Adding all four perspectives is zero-cost and prevents this for any trigger regardless of nesting. |
 | modifier | character | static_modifier or character_modifier using artist_skill_modifier = X | Use artist_skill_level_gain = X instead (already_percent = yes, category = character) | artist_skill_modifier does not exist. The correct modifier type for boosting artist skill development is artist_skill_level_gain (declared as already_percent in modifier_type_definitions). |
+| enum | country | government = monarchy (EU4 trigger style) | government_type = government_type:monarchy  (and similarly for republic, theocracy, tribe, steppe_horde) | EU5 government type trigger is government_type = government_type:X; the EU4 'government = X' form does not exist |
+| script | any | multiply_variable = { name = X value = Y } or divide_variable = { name = X value = Y } | change_variable = { name = X multiply = Y } or change_variable = { name = X divide = Y }. Both accept var:Z references: multiply = var:Z, divide = var:Z | multiply_variable and divide_variable do not exist in EU5; all variable math uses change_variable with multiply/divide parameters |
 | script | any | Defining monthly_country_pulse = { effect = { ... } } in more than one on_action file within the same mod | Consolidate all effect = { } content for the same on_action key into a single file. Alternatively, use on_actions = { sub_action_name } dispatch from each file and define each sub_action separately. | EU5 on_action loading is singleton per on_action key for effect = { } blocks: only the last file loaded alphabetically wins. Two mod files each defining monthly_country_pulse = { effect = { ... } } means only one effect block ever runs. Confirmed: _yearly.txt (y) overrides _leaderboard.txt (l), silently discarding the leaderboard update. |
 
 ## Valid Enum Values
@@ -117,6 +119,7 @@ src/
 | Enum | Valid Values | Notes |
 | --- | --- | --- |
 | location_rank | rural_settlement, town, city | Only 3 valid ranks in EU5. EU4 names (village, hamlet, metropolis) cause silent failures. |
+| government_type | monarchy, republic, theocracy, tribe, steppe_horde | Government type IDs for trigger: government_type = government_type:X. Use exact IDs — not pluralized (monarchies/republics). steppe_horde is the horde subtype. |
 
 ## Quick Reference Rules
 

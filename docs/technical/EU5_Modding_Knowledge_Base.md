@@ -149,6 +149,47 @@ Script values always execute in the scope they are *called from*, not from the s
   ```
   Engine error: `Event target link 'location' did not get a matching scope type. Expected 'character, pop, …', but got 'location'`
 
+### 5.4. Variable Arithmetic (`change_variable`)
+
+EU5 does **not** have `multiply_variable` or `divide_variable` commands. All in-place variable arithmetic uses `change_variable` with a named operator:
+
+```pdx
+change_variable = { name = my_var multiply = 100 }        # literal number
+change_variable = { name = my_var divide = var:other_var } # variable reference
+change_variable = { name = my_var multiply = var:factor }  # variable reference
+change_variable = { name = my_var add = country_tax_base } # country scope property
+```
+
+Confirmed: `multiply = var:X` and `divide = var:X` are both valid (verified `cmm_core_slider_setting_effects.txt:223`).
+
+### 5.5. Government Type Trigger
+
+EU5 does **not** have the EU4 `government = monarchy` trigger. Use:
+
+```pdx
+government_type = government_type:monarchy       # in a trigger block
+```
+
+Valid government type IDs (source: `00_default.txt`):
+
+| ID | Description |
+|---|---|
+| `monarchy` | All monarchy forms |
+| `republic` | All republic forms |
+| `theocracy` | All theocracy forms |
+| `tribe` | Tribal nations |
+| `steppe_horde` | Steppe horde nations |
+
+Monthly government power variables (for use in `set_variable = { name = X value = legitimacy }` etc.):
+
+| Government | Variable |
+|---|---|
+| monarchy | `legitimacy` |
+| republic | `republican_tradition` |
+| theocracy | `devotion` |
+| tribe | `tribal_cohesion` |
+| steppe_horde | `horde_unity` |
+
 ## 6. Game Content Modding
 
 This section covers the modding of specific game content types.

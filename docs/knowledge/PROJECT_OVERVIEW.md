@@ -15,7 +15,7 @@ Towards Victory adds 6 generalized victory paths to EU5: Conquest, Prosperity, T
 
 The **Conquest Victory** path (征服胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = direct locations + 0.5 × subject-or-below locations; thresholds at 150 / 300 / 500 / 1000 / 2000.
 
-The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = total_population + Σ(development per owned location) + country_tax_base; updated yearly via every_owned_location iteration; thresholds at 5,000 / 8,000 / 12,000 / 18,000 / 25,000 (provisional, calibrate after playtesting).
+The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = (total_population + Σdev + country_tax_base) × 100 / (N + 100) × (1 + stability/100) × (gov_power/100), where N = num_owned_locations and gov_power = legitimacy/republican_tradition/devotion/tribal_cohesion/horde_unity by government type. The N/(N+100) term provides diminishing returns on scale. Updated yearly; thresholds at 5,000 / 8,000 / 12,000 / 18,000 / 25,000 (provisional, calibrate after playtesting).
 
 The **Trade Victory** path (贸易胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = monthly_trade_income (snapshot taken monthly by tv_update_trade_score_effect); thresholds at 100 / 200 / 400 / 1000 / 2000 (provisional, calibrate after playtesting).
 

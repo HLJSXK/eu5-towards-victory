@@ -301,6 +301,24 @@
   source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt, reference_game_files/game/in_game/common/traits/03_artist.txt"
   notes: "artist_skill_modifier does not exist. The correct modifier type for boosting artist skill development is artist_skill_level_gain (declared as already_percent in modifier_type_definitions)."
 
+- id: government_trigger_eu4_style
+  pattern: '\bgovernment\s*=\s*(monarchy|republic|theocracy|tribal|tribe|horde|steppe_horde)\b'
+  bad: "government = monarchy (EU4 trigger style)"
+  correction: "government_type = government_type:monarchy  (and similarly for republic, theocracy, tribe, steppe_horde)"
+  category: enum
+  scope: country
+  source: "reference_game_files/game/in_game/common/government_types/00_default.txt"
+  notes: "EU5 government type trigger is government_type = government_type:X; the EU4 'government = X' form does not exist"
+
+- id: multiply_divide_variable_nonexistent
+  pattern: '\b(multiply_variable|divide_variable)\s*='
+  bad: "multiply_variable = { name = X value = Y } or divide_variable = { name = X value = Y }"
+  correction: "change_variable = { name = X multiply = Y } or change_variable = { name = X divide = Y }. Both accept var:Z references: multiply = var:Z, divide = var:Z"
+  category: script
+  scope: any
+  source: "reference_mods/3692202776/in_game/common/scripted_effects/cmm_core_slider_setting_effects.txt:223"
+  notes: "multiply_variable and divide_variable do not exist in EU5; all variable math uses change_variable with multiply/divide parameters"
+
 - id: on_action_effect_block_singleton
   pattern: ''
   bad: "Defining monthly_country_pulse = { effect = { ... } } in more than one on_action file within the same mod"
