@@ -1,0 +1,125 @@
+﻿# Towards Victory — Arts Exhibition events
+
+namespace = tv_arts_exhibition
+
+# ── Domestic Exhibition ───────────────────────────────────────────────────────
+# Fired by the "Host Domestic Exhibition" action (costs 1000 ducats).
+# Counts every work of art owned by this country and grants 0.1 International
+# Influence per piece.
+tv_arts_exhibition.1 = {
+	type = country_event
+	title = tv_arts_exhibition.1.t
+	desc = tv_arts_exhibition.1.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.1.a
+		custom_tooltip = tv_arts_exhibition.1.tt
+		every_work_of_art_in_country = {
+			root = {
+				change_variable = { name = tv_arts_intl_influence add = 0.1 }
+			}
+		}
+	}
+}
+
+# ── Artist Returned Home ──────────────────────────────────────────────────────
+# Fired on the home country when a touring artist's exhibition ends naturally.
+# scope:finished_artist = the returning artist character.
+tv_arts_exhibition.5 = {
+	type = country_event
+	title = tv_arts_exhibition.5.t
+	desc = tv_arts_exhibition.5.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.5.a
+	}
+}
+
+# ── Artist Died on Tour ───────────────────────────────────────────────────────
+# Fired on the home country when a touring artist dies abroad.
+# scope:target = the dead artist character (from on_character_death hook).
+tv_arts_exhibition.6 = {
+	type = country_event
+	title = tv_arts_exhibition.6.t
+	desc = tv_arts_exhibition.6.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.6.a
+	}
+}
+
+# ── Touring Event: Exhibition Unremarkable ────────────────────────────────────
+# Fired on the home country. Grants +0.1 International Influence.
+# scope:touring_artist = the touring artist character.
+tv_arts_exhibition.101 = {
+	type = country_event
+	title = tv_arts_exhibition.101.t
+	desc = tv_arts_exhibition.101.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.101.a
+	}
+}
+
+# ── Touring Event: Exhibition Great Success ───────────────────────────────────
+# Fired on the home country. Grants +0.5 International Influence.
+# scope:touring_artist = the touring artist character.
+tv_arts_exhibition.102 = {
+	type = country_event
+	title = tv_arts_exhibition.102.t
+	desc = tv_arts_exhibition.102.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.102.a
+	}
+}
+
+# ── Touring Event: Exhibition Terrible ───────────────────────────────────────
+# Fired on the home country. Loses -0.1 International Influence (floor 0).
+# scope:touring_artist = the touring artist character.
+tv_arts_exhibition.103 = {
+	type = country_event
+	title = tv_arts_exhibition.103.t
+	desc = tv_arts_exhibition.103.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.103.a
+	}
+}
+
+# ── Touring Event: Artist Hired ───────────────────────────────────────────────
+# Fired on the home country. Grants +1.0 International Influence.
+# The artist remains permanently in the foreign court (tracking variables already
+# cleared by the time this event is processed).
+# scope:touring_artist = the hired artist character.
+tv_arts_exhibition.104 = {
+	type = country_event
+	title = tv_arts_exhibition.104.t
+	desc = tv_arts_exhibition.104.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.104.a
+	}
+}
+
+# ── Touring Event: Artistic Inspiration ──────────────────────────────────────
+# Fired on the home country. Grants artist_skill_level_gain +10% to the touring
+# artist for 10 years.
+# scope:touring_artist = the inspired artist character.
+tv_arts_exhibition.105 = {
+	type = country_event
+	title = tv_arts_exhibition.105.t
+	desc = tv_arts_exhibition.105.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.105.a
+	}
+}

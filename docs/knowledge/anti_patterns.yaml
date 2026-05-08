@@ -282,6 +282,25 @@
   source: "error.log: 'Failed to fetch variable for tv_science_progress_pct due to not being set', towards_victory_leaderboard.txt:47"
   notes: "EU5 does NOT default unset variables to 0 in trigger comparisons; var:X on the left side of >= throws a script error and aborts the if-block. set_variable = { value = var:X } with an unset var appears to be silent (no error), so only limit comparisons need the has_variable guard."
 
+- id: trigger_loc_missing_first_perspective
+  pattern: ''
+  only_in_paths: ['trigger_localization']
+  bad: "MY_KEY = { global = MY_KEY } when the trigger using MY_KEY has custom_tooltip nested inside custom_description"
+  correction: "Declare all four perspectives: MY_KEY = { none = MY_KEY  global = MY_KEY  first = MY_KEY  third = MY_KEY }. Use this form for every trigger_localization entry as a safe default."
+  category: localization
+  scope: any
+  source: "reference_game_files/game/in_game/common/trigger_localization/scripted_triggers.txt (ironman block)"
+  notes: "EU5 engine requires the 'first' perspective when custom_description wraps a nested custom_tooltip. A global-only entry causes '(BUG: KEY missing perspective. Could not find parameters for PROMOUN first Negative required false)' at runtime. Adding all four perspectives is zero-cost and prevents this for any trigger regardless of nesting."
+
+- id: artist_skill_modifier_invalid
+  pattern: 'artist_skill_modifier'
+  bad: "static_modifier or character_modifier using artist_skill_modifier = X"
+  correction: "Use artist_skill_level_gain = X instead (already_percent = yes, category = character)"
+  category: modifier
+  scope: character
+  source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt, reference_game_files/game/in_game/common/traits/03_artist.txt"
+  notes: "artist_skill_modifier does not exist. The correct modifier type for boosting artist skill development is artist_skill_level_gain (declared as already_percent in modifier_type_definitions)."
+
 - id: on_action_effect_block_singleton
   pattern: ''
   bad: "Defining monthly_country_pulse = { effect = { ... } } in more than one on_action file within the same mod"

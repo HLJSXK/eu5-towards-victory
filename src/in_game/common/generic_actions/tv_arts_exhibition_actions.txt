@@ -1,0 +1,163 @@
+﻿# Towards Victory — Arts Exhibition generic actions
+# Both actions appear in the Arts Exhibition (tv_arts_exhibition) IO panel.
+# scope:actor = the country performing the action
+# scope:recipient = the Arts Exhibition IO (for type = internationalorganization)
+
+# ── Send Artist Abroad ────────────────────────────────────────────────────────
+# Costs 200 ducats. Selects an artist from own court, a target country, and a
+# location in that country. The artist moves to the target court and begins an
+# exhibition of 1–10 years duration.
+tv_send_artist_abroad = {
+	type = internationalorganization
+
+	sound = UI_action_culture_generic
+
+	ai_tick = monthly
+	ai_tick_frequency = 12
+
+	potential = {
+		scope:recipient = {
+			international_organization_type = international_organization_type:tv_arts_exhibition
+		}
+		scope:actor = {
+			has_variable = tv_arts_exhibition_member
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			custom_tooltip = {
+				text = tv_send_artist_abroad_cost_tt
+				gold >= 200
+			}
+			custom_tooltip = {
+				text = tv_send_artist_abroad_requires_artist_tt
+				any_character = {
+					is_courtier = yes
+					is_artist = yes
+					NOT = { has_variable = tv_on_exhibition }
+				}
+			}
+		}
+	}
+
+	# Step 1: select an artist from own court
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = selected_artist
+		name = "tv_select_touring_artist"
+		none_available_msg_key = "tv_no_touring_artist_available"
+		column = {
+			data = character_artist
+		}
+		visible = {
+			is_artist = yes
+			is_courtier = yes
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+			NOT = { has_variable = tv_on_exhibition }
+		}
+	}
+
+	# Step 2: select a target country (overwrites scope:recipient to the chosen country)
+	select_trigger = {
+		looking_for_a = country
+		target_flag = recipient
+		name = "tv_select_touring_country"
+		none_available_msg_key = "tv_no_touring_country_available"
+		column = {
+			data = name
+		}
+		visible = {
+			this != scope:actor
+		}
+	}
+
+	# Step 3: select a location in the target country
+	select_trigger = {
+		looking_for_a = location
+		source = recipient
+		target_flag = selected_location
+		name = "tv_select_touring_location"
+		none_available_msg_key = "tv_no_touring_location_available"
+		column = {
+			data = name
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			add_treasury = -200
+		}
+		scope:selected_artist = {
+			# Record exhibition state on the artist
+			set_variable = { name = tv_on_exhibition value = 1 }
+			set_variable = { name = tv_exhibition_home_country value = scope:actor }
+			set_variable = { name = tv_exhibition_target_country value = scope:recipient }
+			set_variable = { name = tv_exhibition_location value = scope:selected_location }
+			set_variable = { name = tv_exhibition_elapsed value = 0 }
+			# Random duration: 1–10 years (uniform distribution)
+			random_list = {
+				1 = { set_variable = { name = tv_exhibition_duration value = 1 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 2 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 3 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 4 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 5 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 6 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 7 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 8 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 9 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 10 } }
+			}
+			# Move the artist to the target country's court
+			move_country = scope:recipient
+		}
+	}
+
+	ai_will_do = {
+		add = -100
+	}
+}
+
+# ── Host Domestic Exhibition ──────────────────────────────────────────────────
+# Costs 1000 ducats. Fires an event that counts all works of art owned by this
+# country and grants 0.1 International Influence per piece (one-time).
+tv_host_domestic_exhibition = {
+	type = internationalorganization
+
+	sound = UI_action_culture_generic
+
+	ai_tick = monthly
+	ai_tick_frequency = 60
+
+	potential = {
+		scope:recipient = {
+			international_organization_type = international_organization_type:tv_arts_exhibition
+		}
+		scope:actor = {
+			has_variable = tv_arts_exhibition_member
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			custom_tooltip = {
+				text = tv_host_domestic_exhibition_cost_tt
+				gold >= 1000
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			add_treasury = -1000
+			trigger_event = tv_arts_exhibition.1
+		}
+	}
+
+	ai_will_do = {
+		add = -50
+	}
+}

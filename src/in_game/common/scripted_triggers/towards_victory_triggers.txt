@@ -228,6 +228,8 @@ tv_cultural_milestone_2 = {
 		text = TV_CULTURAL_M2_TRIGGER_DESC
 		has_variable = tv_cultural_influence_points
 		var:tv_cultural_influence_points >= 120
+		has_variable = tv_arts_exhibition_member
+		var:tv_arts_intl_influence >= 25
 	}
 }
 
@@ -236,6 +238,8 @@ tv_cultural_milestone_3 = {
 		text = TV_CULTURAL_M3_TRIGGER_DESC
 		has_variable = tv_cultural_influence_points
 		var:tv_cultural_influence_points >= 220
+		has_variable = tv_arts_exhibition_member
+		var:tv_arts_intl_influence >= 50
 	}
 }
 
@@ -244,6 +248,8 @@ tv_cultural_milestone_4 = {
 		text = TV_CULTURAL_M4_TRIGGER_DESC
 		has_variable = tv_cultural_influence_points
 		var:tv_cultural_influence_points >= 380
+		has_variable = tv_arts_exhibition_member
+		var:tv_arts_intl_influence >= 75
 	}
 }
 
@@ -252,6 +258,8 @@ tv_cultural_milestone_5 = {
 		text = TV_CULTURAL_M5_TRIGGER_DESC
 		has_variable = tv_cultural_influence_points
 		var:tv_cultural_influence_points >= 580
+		has_variable = tv_arts_exhibition_member
+		var:tv_arts_intl_influence >= 100
 	}
 }
 

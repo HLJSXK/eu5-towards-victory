@@ -1,0 +1,42 @@
+﻿# Towards Victory — Arts Exhibition on_action hooks
+
+# When a touring artist dies: notify home country and clean up exhibition state.
+# root = country the artist belonged to at death, scope:target = dead character.
+on_character_death = {
+	effect = {
+		scope:target = {
+			if = {
+				limit = { has_variable = tv_on_exhibition }
+				save_scope_as = dead_touring_artist
+				var:tv_exhibition_home_country ?= {
+					trigger_event = { id = tv_arts_exhibition.6 }
+				}
+				remove_variable = tv_on_exhibition
+				remove_variable = tv_exhibition_home_country
+				remove_variable = tv_exhibition_target_country
+				remove_variable = tv_exhibition_location
+				remove_variable = tv_exhibition_elapsed
+				remove_variable = tv_exhibition_duration
+			}
+		}
+	}
+}
+
+# Yearly tick: advance elapsed counter for touring artists currently in this country's court.
+# When an artist's elapsed time reaches their duration, return them home via the scripted effect.
+yearly_country_pulse = {
+	effect = {
+		every_character = {
+			limit = {
+				is_courtier = yes
+				is_artist = yes
+				has_variable = tv_on_exhibition
+			}
+			change_variable = { name = tv_exhibition_elapsed add = 1 }
+			if = {
+				limit = { var:tv_exhibition_elapsed >= var:tv_exhibition_duration }
+				tv_end_artist_exhibition_effect = yes
+			}
+		}
+	}
+}

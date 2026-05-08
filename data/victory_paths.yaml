@@ -1141,7 +1141,9 @@ paths:
         is_short_term: false
         is_long_term: false
         threshold: 120
-        extra_trigger_block: null
+        extra_trigger_block: |
+          has_variable = tv_arts_exhibition_member
+          var:tv_arts_intl_influence >= 25
         modifier:
           cultures_capacity: 2
         modifier_name:
@@ -1155,8 +1157,8 @@ paths:
             en: "120 CIP. A celebrated cultural power."
             zh: "120 CIP。享誉盛名的文化强国。"
           trigger_desc:
-            en: "Cultural Influence Points ≥ 120"
-            zh: "文化影响力点 ≥ 120"
+            en: "Cultural Influence Points ≥ 120  •  International Influence ≥ 25"
+            zh: "文化影响力点 ≥ 120  •  国际影响力 ≥ 25"
           event_title:
             en: "The Renaissance Court"
             zh: "文艺复兴宫廷"
@@ -1171,7 +1173,9 @@ paths:
         is_short_term: true
         is_long_term: false
         threshold: 220
-        extra_trigger_block: null
+        extra_trigger_block: |
+          has_variable = tv_arts_exhibition_member
+          var:tv_arts_intl_influence >= 50
         modifier:
           num_possible_artists: 5
         modifier_name:
@@ -1185,8 +1189,8 @@ paths:
             en: "220 CIP. A centre of Renaissance brilliance. Short-term Victory."
             zh: "220 CIP。文艺复兴的璀璨中心。短期胜利。"
           trigger_desc:
-            en: "Cultural Influence Points ≥ 220"
-            zh: "文化影响力点 ≥ 220"
+            en: "Cultural Influence Points ≥ 220  •  International Influence ≥ 50"
+            zh: "文化影响力点 ≥ 220  •  国际影响力 ≥ 50"
           event_title:
             en: "A Centre of Civilisation — Short-term Victory"
             zh: "文明中心 — 短期胜利"
@@ -1201,7 +1205,9 @@ paths:
         is_short_term: false
         is_long_term: false
         threshold: 380
-        extra_trigger_block: null
+        extra_trigger_block: |
+          has_variable = tv_arts_exhibition_member
+          var:tv_arts_intl_influence >= 75
         modifier:
           cultural_influence_modifier: 0.50
           cultural_tradition_modifier: 0.50
@@ -1216,8 +1222,8 @@ paths:
             en: "380 CIP. Culture radiates from your court across the world."
             zh: "380 CIP。文化从您的宫廷辐射至全世界。"
           trigger_desc:
-            en: "Cultural Influence Points ≥ 380"
-            zh: "文化影响力点 ≥ 380"
+            en: "Cultural Influence Points ≥ 380  •  International Influence ≥ 75"
+            zh: "文化影响力点 ≥ 380  •  国际影响力 ≥ 75"
           event_title:
             en: "Light of the World"
             zh: "世界之光"
@@ -1232,7 +1238,9 @@ paths:
         is_short_term: false
         is_long_term: true
         threshold: 580
-        extra_trigger_block: null
+        extra_trigger_block: |
+          has_variable = tv_arts_exhibition_member
+          var:tv_arts_intl_influence >= 100
         modifier:
           num_possible_artists: 10
         modifier_name:
@@ -1246,8 +1254,8 @@ paths:
             en: "580 CIP. The greatest cultural legacy in history. Long-term Victory."
             zh: "580 CIP。历史上最伟大的文化遗产。长期胜利。"
           trigger_desc:
-            en: "Cultural Influence Points ≥ 580"
-            zh: "文化影响力点 ≥ 580"
+            en: "Cultural Influence Points ≥ 580  •  International Influence ≥ 100"
+            zh: "文化影响力点 ≥ 580  •  国际影响力 ≥ 100"
           event_title:
             en: "Long-term Victory — Cultural Hegemon"
             zh: "长期胜利 — 文化霸主"

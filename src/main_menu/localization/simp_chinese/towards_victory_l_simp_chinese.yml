@@ -183,16 +183,16 @@
  TV_CULTURAL_M1_TRIGGER_DESC: "文化影响力点 ≥ 50"
  TV_CULTURAL_M2_TITLE: "文化胜利 — 里程碑2"
  TV_CULTURAL_M2_MEANING: "120 CIP。享誉盛名的文化强国。"
- TV_CULTURAL_M2_TRIGGER_DESC: "文化影响力点 ≥ 120"
+ TV_CULTURAL_M2_TRIGGER_DESC: "文化影响力点 ≥ 120  •  国际影响力 ≥ 25"
  TV_CULTURAL_M3_TITLE: "文化胜利 — 短期胜利"
  TV_CULTURAL_M3_MEANING: "220 CIP。文艺复兴的璀璨中心。短期胜利。"
- TV_CULTURAL_M3_TRIGGER_DESC: "文化影响力点 ≥ 220"
+ TV_CULTURAL_M3_TRIGGER_DESC: "文化影响力点 ≥ 220  •  国际影响力 ≥ 50"
  TV_CULTURAL_M4_TITLE: "文化胜利 — 里程碑4"
  TV_CULTURAL_M4_MEANING: "380 CIP。文化从您的宫廷辐射至全世界。"
- TV_CULTURAL_M4_TRIGGER_DESC: "文化影响力点 ≥ 380"
+ TV_CULTURAL_M4_TRIGGER_DESC: "文化影响力点 ≥ 380  •  国际影响力 ≥ 75"
  TV_CULTURAL_M5_TITLE: "文化胜利 — 长期胜利"
  TV_CULTURAL_M5_MEANING: "580 CIP。历史上最伟大的文化遗产。长期胜利。"
- TV_CULTURAL_M5_TRIGGER_DESC: "文化影响力点 ≥ 580"
+ TV_CULTURAL_M5_TRIGGER_DESC: "文化影响力点 ≥ 580  •  国际影响力 ≥ 100"
 
  # ── Cultural Victory Events ───────────────────────────────────────────────
  tv_cultural.1.t: "艺术赞助人"
@@ -330,3 +330,60 @@
  STATIC_MODIFIER_NAME_tv_science_m3_bonus: "启蒙时代"
  STATIC_MODIFIER_NAME_tv_science_m4_bonus: "科学巅峰"
  STATIC_MODIFIER_NAME_tv_science_m5_bonus: "工业先驱"
+
+ # ── 文艺展演 ───────────────────────────────────────────────────────────────────
+ tv_arts_exhibition_name: "文艺展演"
+ STATIC_MODIFIER_NAME_tv_artistic_inspiration_modifier: "艺术灵感"
+
+ # 通用动作名称及说明
+ tv_send_artist_abroad: "派出艺术家"
+ tv_send_artist_abroad_desc: "派遣一位宫廷艺术家前往异国城市进行艺术展览。巡演持续一至十年，或将为本国带来国际声望。"
+ tv_host_domestic_exhibition: "举办本国展出"
+ tv_host_domestic_exhibition_desc: "将本国收藏的艺术品公开展出。每件展出的作品均可提升本国的国际影响力。"
+
+ # 动作提示
+ tv_send_artist_abroad_cost_tt: "花费200杜卡特（路费）。"
+ tv_send_artist_abroad_requires_artist_tt: "需要宫廷中至少有一位可用的艺术家。"
+ tv_host_domestic_exhibition_cost_tt: "花费1000杜卡特（展出费）。"
+
+ # 选择触发器标签
+ tv_select_touring_artist: "选择艺术家"
+ tv_select_touring_country: "选择目标国"
+ tv_select_touring_location: "选择展演地点"
+ tv_no_touring_artist_available: "没有可用于巡演的艺术家。"
+ tv_no_touring_country_available: "没有可选择的国家。"
+ tv_no_touring_location_available: "该国没有可用的地点。"
+
+ # 文艺展演事件
+ tv_arts_exhibition.1.t: "盛大国内展出"
+ tv_arts_exhibition.1.d: "我们打开了最宏伟殿堂的大门，展出了本国艺术家的旷世杰作。贵族、商人与神职人员纷纷聚集，亲睹我国艺术的辉煌成就。"
+ tv_arts_exhibition.1.a: "让世界见识我们的文化荣光。"
+ tv_arts_exhibition.1.tt: "本国每件艺术品贡献+0.1国际影响力。"
+
+ tv_arts_exhibition.5.t: "艺术家载誉归来"
+ tv_arts_exhibition.5.d: "我们的艺术家已结束在海外的展演，满载新体验与开阔的视野，从异国宫廷回归故土。"
+ tv_arts_exhibition.5.a: "欢迎归来。"
+
+ tv_arts_exhibition.6.t: "艺术家客死他乡"
+ tv_arts_exhibition.6.d: "噩耗从远方传来：我们派往异国展演的艺术家，在归国之前不幸离世。"
+ tv_arts_exhibition.6.a: "这是艺术界的巨大损失。"
+
+ tv_arts_exhibition.101.t: "展演：反响平平"
+ tv_arts_exhibition.101.d: "消息传来，我们的巡演艺术家所到之处受到了礼貌而平淡的接待——既非大获成功，亦非糟糕透顶。但仍赢得了些许国际关注。"
+ tv_arts_exhibition.101.a: "至少引起了注意。"
+
+ tv_arts_exhibition.102.t: "展演：大获成功！"
+ tv_arts_exhibition.102.d: "捷报传来！我们的巡演艺术家令异国宫廷为之倾倒，本国艺术才华的美名正在边境之外广为流传。"
+ tv_arts_exhibition.102.a: "我们的名声在遥远的殿堂中回响。"
+
+ tv_arts_exhibition.103.t: "展演：糟糕透顶"
+ tv_arts_exhibition.103.d: "令人汗颜的消息传来：我们的巡演艺术家遭到了嘲讽与鄙视。这场丢脸的展演对我们的海外声誉造成了一定损害。"
+ tv_arts_exhibition.103.a: "此事不必再提。"
+
+ tv_arts_exhibition.104.t: "艺术家被异国聘用！"
+ tv_arts_exhibition.104.d: "惊人消息传来：我们的巡演艺术家深深打动了东道主，对方已邀请其长期留任。尽管我们就此失去了一位才俊，但此等殊荣所带来的声望已远播四方。"
+ tv_arts_exhibition.104.a: "苦乐参半的荣誉。"
+
+ tv_arts_exhibition.105.t: "艺术家灵感爆发！"
+ tv_arts_exhibition.105.d: "异域文化的熏陶在我们的巡演艺术家身上激发出了非凡的创造力。其技艺的升华是在本国永远无法实现的，他们将以焕然一新的热忱继续创作。"
+ tv_arts_exhibition.105.a: "艺术超越国界。"
