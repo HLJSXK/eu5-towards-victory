@@ -1,14 +1,13 @@
 ﻿# Towards Victory — Arts Exhibition generic actions
-# Both actions appear in the Arts Exhibition (tv_arts_exhibition) IO panel.
+# Both actions are type = owncountry, gated on tv_arts_exhibition_member.
 # scope:actor = the country performing the action
-# scope:recipient = the Arts Exhibition IO (for type = internationalorganization)
 
 # ── Send Artist Abroad ────────────────────────────────────────────────────────
-# Costs 200 ducats. Selects an artist from own court, a target country, and a
+# Costs 200 ducats. 3-step: pick an artist → pick a target country → pick a
 # location in that country. The artist moves to the target court and begins an
 # exhibition of 1–10 years duration.
 tv_send_artist_abroad = {
-	type = internationalorganization
+	type = owncountry
 
 	sound = UI_action_culture_generic
 
@@ -16,9 +15,6 @@ tv_send_artist_abroad = {
 	ai_tick_frequency = 12
 
 	potential = {
-		scope:recipient = {
-			international_organization_type = international_organization_type:tv_arts_exhibition
-		}
 		scope:actor = {
 			has_variable = tv_arts_exhibition_member
 		}
@@ -61,10 +57,10 @@ tv_send_artist_abroad = {
 		}
 	}
 
-	# Step 2: select a target country (overwrites scope:recipient to the chosen country)
+	# Step 2: select a target country (stored in scope:target)
 	select_trigger = {
 		looking_for_a = country
-		target_flag = recipient
+		target_flag = target
 		name = "tv_select_touring_country"
 		none_available_msg_key = "tv_no_touring_country_available"
 		column = {
@@ -75,10 +71,10 @@ tv_send_artist_abroad = {
 		}
 	}
 
-	# Step 3: select a location in the target country
+	# Step 3: select a location in the target country (source = target)
 	select_trigger = {
 		looking_for_a = location
-		source = recipient
+		source = target
 		target_flag = selected_location
 		name = "tv_select_touring_location"
 		none_available_msg_key = "tv_no_touring_location_available"
@@ -95,7 +91,7 @@ tv_send_artist_abroad = {
 			# Record exhibition state on the artist
 			set_variable = { name = tv_on_exhibition value = 1 }
 			set_variable = { name = tv_exhibition_home_country value = scope:actor }
-			set_variable = { name = tv_exhibition_target_country value = scope:recipient }
+			set_variable = { name = tv_exhibition_target_country value = scope:target }
 			set_variable = { name = tv_exhibition_location value = scope:selected_location }
 			set_variable = { name = tv_exhibition_elapsed value = 0 }
 			# Random duration: 1–10 years (uniform distribution)
@@ -112,7 +108,7 @@ tv_send_artist_abroad = {
 				1 = { set_variable = { name = tv_exhibition_duration value = 10 } }
 			}
 			# Move the artist to the target country's court
-			move_country = scope:recipient
+			move_country = scope:target
 		}
 	}
 
@@ -125,7 +121,7 @@ tv_send_artist_abroad = {
 # Costs 1000 ducats. Fires an event that counts all works of art owned by this
 # country and grants 0.1 International Influence per piece (one-time).
 tv_host_domestic_exhibition = {
-	type = internationalorganization
+	type = owncountry
 
 	sound = UI_action_culture_generic
 
@@ -133,9 +129,6 @@ tv_host_domestic_exhibition = {
 	ai_tick_frequency = 60
 
 	potential = {
-		scope:recipient = {
-			international_organization_type = international_organization_type:tv_arts_exhibition
-		}
 		scope:actor = {
 			has_variable = tv_arts_exhibition_member
 		}
