@@ -42,6 +42,10 @@ tv_academy_of_sciences_1 = {
 	build_time = large_capital_build_time
 	construction_demand = tv_academy_1_construction
 
+	possible_production_methods = {
+		tv_academy_maintenance
+	}
+
 	on_built = {
 		hidden_effect = {
 			location.owner = {
@@ -91,6 +95,10 @@ tv_academy_of_sciences_2 = {
 
 	build_time = large_capital_build_time
 	construction_demand = tv_academy_2_construction
+
+	possible_production_methods = {
+		tv_academy_maintenance
+	}
 
 	on_built = {
 		hidden_effect = {
@@ -142,6 +150,10 @@ tv_academy_of_sciences_3 = {
 	build_time = large_capital_build_time
 	construction_demand = tv_academy_3_construction
 
+	possible_production_methods = {
+		tv_academy_maintenance
+	}
+
 	on_built = {
 		hidden_effect = {
 			location.owner = {
@@ -192,6 +204,10 @@ tv_academy_of_sciences_4 = {
 	build_time = large_capital_build_time
 	construction_demand = tv_academy_4_construction
 
+	possible_production_methods = {
+		tv_academy_maintenance
+	}
+
 	on_built = {
 		hidden_effect = {
 			location.owner = {
@@ -241,6 +257,10 @@ tv_academy_of_sciences_5 = {
 
 	build_time = large_capital_build_time
 	construction_demand = tv_academy_5_construction
+
+	possible_production_methods = {
+		tv_academy_maintenance
+	}
 
 	on_built = {
 		hidden_effect = {
