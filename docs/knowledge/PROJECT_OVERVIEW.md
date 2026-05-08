@@ -29,13 +29,14 @@ The mod is additive-only and uses the `tv_` namespace prefix throughout.
 
 ## Core Features
 
-1. **6 Victory Situations** — One situation per victory type, showing milestone progress and current rewards earned.
+1. **6 Victory Situations** — One situation (`tv_victory_situation`) displays all 6 victory paths in a single panel with a flavor text introduction (Section 1), per-path progress bars and milestone circles (Section 2), and a global leaderboard (Section 3).
 2. **Milestone Events** — Popup country events per milestone. All 30 events implemented across 6 paths: Conquest (`tv.conquest.1`–`5`), Prosperity (`tv.prosperity.1`–`5`), Trade (`tv.trade.1`–`5`), Diplomatic (`tv.diplomatic.1`–`5`), Cultural (`tv.cultural.1`–`5`), and Scientific (`tv.science.1`–`5`).
 3. **Permanent Rewards** — All 30 milestone rewards are permanent static modifiers (`days = -1`); no time-limited buffs. All 6 paths fully implemented.
 4. **Diplomatic Victory Points** (`tv_diplomatic_victory_points`) — Permanently accumulated via `on_royal_marriage` (+3 DVP each party) and `on_winning_war` (+5 DVP to winner).
 5. **Cultural Influence Points** (`tv_cultural_influence_points`) — Accumulated via `on_work_of_art_created` (+10 CIP to `root.owner`) and `monthly_country_pulse` (+1 CIP/month).
 6. **Scientific Technology Score** (`tv_science_score`) — Monthly snapshot of `num_of_advances_researched`; thresholds 100 / 150 / 200 / 300 / 400.
 7. **Academy of Sciences Building Chain** — Five capital buildings (`tv_academy_of_sciences_1`–`5`) gate Scientific Victory milestones. Each requires the previous phase built and the corresponding score threshold; `on_built` immediately triggers `tv_check_science_milestones_effect`. Building category: `cultural_category`; visible in all capitals from game start.
+8. **Global Victory Leaderboard** — Monthly ranking of the top 5 countries by their best single-path progress (0–100 bar value). Per-country: `tv_best_path` (0–5), `tv_best_progress_pct`, `tv_best_milestone`, `tv_best_score` computed via `tv_update_best_path_effect` in `monthly_country_pulse`. Situation stores rank-1..5 country references (`tv_rank_1_country`–`tv_rank_5_country`) via `ordered_in_global_list` cascading-exclusion pattern. Displayed in Section 3 with flag, country name, leading-path circle icon, milestone count, and score text.
 
 ## Directory Structure
 
@@ -44,17 +45,21 @@ src/
 ├── .metadata/metadata.json                mod ID, version, target game version
 ├── in_game/
 │   ├── common/
-│   │   ├── situations/                    towards_victory_situations.txt
-│   │   ├── scripted_triggers/             towards_victory_triggers.txt
-│   │   ├── scripted_effects/              towards_victory_effects.txt
-│   │   ├── static_modifiers/              towards_victory_modifiers.txt
+│   │   ├── situations/                    towards_victory_situations.txt  [GENERATED]
+│   │   ├── scripted_triggers/             towards_victory_triggers.txt  [GENERATED]
+│   │   ├── scripted_effects/              towards_victory_effects.txt  [GENERATED]
+│   │   │                                  towards_victory_leaderboard.txt  [MANUAL — leaderboard effects]
+│   │   ├── static_modifiers/              towards_victory_modifiers.txt  [GENERATED]
 │   │   ├── building_types/                towards_victory_buildings.txt (Academy of Sciences chain)
-│   │   └── on_action/                     towards_victory_yearly.txt
+│   │   └── on_action/                     towards_victory_yearly.txt  [GENERATED]
+│   │                                      towards_victory_leaderboard.txt  [MANUAL — monthly_country_pulse hooks]
 │   ├── events/                            towards_victory_{conquest,prosperity,trade,diplomatic,cultural,science}_events.txt (one namespace per category — EU5 event IDs must be `<ns>.<int>` with exactly one dot)
-│   └── gui/panels/situation/              towards_victory_situation.gui
+│   └── gui/panels/situation/              tv_victory_situation.gui  [MANUAL]
 └── main_menu/localization/
-    ├── english/                           towards_victory_l_english.yml
-    └── simp_chinese/                      towards_victory_l_simp_chinese.yml
+    ├── english/                           towards_victory_l_english.yml  [GENERATED]
+    │                                      towards_victory_leaderboard_l_english.yml  [MANUAL]
+    └── simp_chinese/                      towards_victory_l_simp_chinese.yml  [GENERATED]
+                                           towards_victory_leaderboard_l_simp_chinese.yml  [MANUAL]
 ```
 
 ## Script Reference

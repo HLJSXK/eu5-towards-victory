@@ -1270,6 +1270,28 @@ situation_panel = {
 			margin = { 8 8 }
 			datacontext = "[SituationView.GetPlayer]"
 
+			# ── SECTION 1: Flavor Introduction ──────────────────────────────────────────
+			widget = {
+				layoutpolicy_horizontal = expanding
+				background = {
+					texture = "gfx/interface/component_tiles/square_tile.dds"
+					alpha = 0.10
+					spriteType = CorneredStretched
+					spriteborder = { 4 4 }
+				}
+				text_multi = {
+					size = { 100% -1 }
+					autoresize = yes
+					max_width = 100%
+					text = "TV_SECTION1_FLAVOR"
+					align = center
+					margin = { 8 6 }
+					fontsize = 14
+				}
+			}
+			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
+
+			# ── SECTION 2: Victory Progress Rows ─────────────────────────────────────────
 			# ── Conquest Victory row ────────────────────────────────────────────────────
 			tv_victory_row = {
 				blockoverride "row_progress_value" {
@@ -2107,6 +2129,309 @@ situation_panel = {
 				}
 				blockoverride "row_progress_tooltip" {
 					tooltipwidget = { using = tv_science_progress_tooltip }
+				}
+			}
+
+			# ── SECTION 3: Global Rankings ────────────────────────────────────────────────
+			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
+			text_single = {
+				layoutpolicy_horizontal = expanding
+				text = "TV_SECTION3_HEADER"
+				align = center
+				fontsize = 14
+				margin = { 0 4 }
+			}
+
+			# Rank row macro: repeated 5 times (rank 1 through rank 5).
+			# Each reads from tv_rank_N_country stored on the situation scope.
+			# Row hidden via .IsSet if the slot was not filled this month.
+			#
+			# Verification — Step 3, Reference: council_of_trent.gui:232
+			#   Quote: visible = "[SituationView...GetVariable('name').IsSet]"
+			# Verification — Step 3, Reference: geopolitics_tooltips.gui:198
+			#   Quote: visible = "[EqualTo_CFixedPoint(Country.GetTotalColonialCharters, '(CFixedPoint)0')]"
+
+			# ── Rank 1 ──────────────────────────────────────────────────────────────────
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				size = { -1 42 }
+				spacing = 6
+				margin = { 4 2 }
+				visible = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_1_country').IsSet]"
+
+				# Flag + country name (left)
+				hbox = {
+					spacing = 4
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_1_country').GetCountry]"
+					country_flag_small_plus = { size = { 36 22 } }
+					text_single = {
+						minimumsize = { 100 -1 }
+						maximumsize = { 100 -1 }
+						autoresize = no
+						align = nobaseline
+						text = "[Country.GetName]"
+					}
+				}
+				expand = {}
+				# Victory-type circle icon — same style as Section 2 path icons (34×34)
+				widget = {
+					size = { 34 34 }
+					using = bg_circle_piechart_big
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_1_country').GetCountry]"
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/tabicons/military.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)1.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/location_icons/new/prosperity.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)2.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/trade.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)3.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)4.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/cultural_influence.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)5.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds" }
+				}
+				# Milestone node count (small circle, 0 if none)
+				widget = {
+					size = { 26 26 }
+					using = bg_circle_piechart
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_1_country').GetCountry]"
+					text_single = {
+						parentanchor = center
+						size = { 100% 100% }
+						autoresize = no
+						align = center|nobaseline
+						text = "[Country.MakeScope.GetVariable('tv_best_milestone').GetValue|0]"
+					}
+				}
+				# Victory type + score (right)
+				widget = {
+					size = { 130 -1 }
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_1_country').GetCountry]"
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]"  text = "TV_S3_CONQUEST_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)1.0')]"  text = "TV_S3_PROSPERITY_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)2.0')]"  text = "TV_S3_TRADE_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)3.0')]"  text = "TV_S3_DIPLOMATIC_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)4.0')]"  text = "TV_S3_CULTURAL_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)5.0')]"  text = "TV_S3_SCIENCE_SCORE" }
+				}
+			}
+
+			# ── Rank 2 ──────────────────────────────────────────────────────────────────
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				size = { -1 42 }
+				spacing = 6
+				margin = { 4 2 }
+				visible = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_2_country').IsSet]"
+
+				hbox = {
+					spacing = 4
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_2_country').GetCountry]"
+					country_flag_small_plus = { size = { 36 22 } }
+					text_single = {
+						minimumsize = { 100 -1 }
+						maximumsize = { 100 -1 }
+						autoresize = no
+						align = nobaseline
+						text = "[Country.GetName]"
+					}
+				}
+				expand = {}
+				widget = {
+					size = { 34 34 }
+					using = bg_circle_piechart_big
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_2_country').GetCountry]"
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/tabicons/military.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)1.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/location_icons/new/prosperity.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)2.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/trade.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)3.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)4.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/cultural_influence.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)5.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds" }
+				}
+				widget = {
+					size = { 26 26 }
+					using = bg_circle_piechart
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_2_country').GetCountry]"
+					text_single = {
+						parentanchor = center
+						size = { 100% 100% }
+						autoresize = no
+						align = center|nobaseline
+						text = "[Country.MakeScope.GetVariable('tv_best_milestone').GetValue|0]"
+					}
+				}
+				widget = {
+					size = { 130 -1 }
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_2_country').GetCountry]"
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]"  text = "TV_S3_CONQUEST_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)1.0')]"  text = "TV_S3_PROSPERITY_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)2.0')]"  text = "TV_S3_TRADE_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)3.0')]"  text = "TV_S3_DIPLOMATIC_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)4.0')]"  text = "TV_S3_CULTURAL_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)5.0')]"  text = "TV_S3_SCIENCE_SCORE" }
+				}
+			}
+
+			# ── Rank 3 ──────────────────────────────────────────────────────────────────
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				size = { -1 42 }
+				spacing = 6
+				margin = { 4 2 }
+				visible = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_3_country').IsSet]"
+
+				hbox = {
+					spacing = 4
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_3_country').GetCountry]"
+					country_flag_small_plus = { size = { 36 22 } }
+					text_single = {
+						minimumsize = { 100 -1 }
+						maximumsize = { 100 -1 }
+						autoresize = no
+						align = nobaseline
+						text = "[Country.GetName]"
+					}
+				}
+				expand = {}
+				widget = {
+					size = { 34 34 }
+					using = bg_circle_piechart_big
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_3_country').GetCountry]"
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/tabicons/military.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)1.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/location_icons/new/prosperity.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)2.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/trade.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)3.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)4.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/cultural_influence.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)5.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds" }
+				}
+				widget = {
+					size = { 26 26 }
+					using = bg_circle_piechart
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_3_country').GetCountry]"
+					text_single = {
+						parentanchor = center
+						size = { 100% 100% }
+						autoresize = no
+						align = center|nobaseline
+						text = "[Country.MakeScope.GetVariable('tv_best_milestone').GetValue|0]"
+					}
+				}
+				widget = {
+					size = { 130 -1 }
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_3_country').GetCountry]"
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]"  text = "TV_S3_CONQUEST_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)1.0')]"  text = "TV_S3_PROSPERITY_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)2.0')]"  text = "TV_S3_TRADE_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)3.0')]"  text = "TV_S3_DIPLOMATIC_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)4.0')]"  text = "TV_S3_CULTURAL_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)5.0')]"  text = "TV_S3_SCIENCE_SCORE" }
+				}
+			}
+
+			# ── Rank 4 ──────────────────────────────────────────────────────────────────
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				size = { -1 42 }
+				spacing = 6
+				margin = { 4 2 }
+				visible = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_4_country').IsSet]"
+
+				hbox = {
+					spacing = 4
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_4_country').GetCountry]"
+					country_flag_small_plus = { size = { 36 22 } }
+					text_single = {
+						minimumsize = { 100 -1 }
+						maximumsize = { 100 -1 }
+						autoresize = no
+						align = nobaseline
+						text = "[Country.GetName]"
+					}
+				}
+				expand = {}
+				widget = {
+					size = { 34 34 }
+					using = bg_circle_piechart_big
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_4_country').GetCountry]"
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/tabicons/military.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)1.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/location_icons/new/prosperity.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)2.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/trade.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)3.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)4.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/cultural_influence.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)5.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds" }
+				}
+				widget = {
+					size = { 26 26 }
+					using = bg_circle_piechart
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_4_country').GetCountry]"
+					text_single = {
+						parentanchor = center
+						size = { 100% 100% }
+						autoresize = no
+						align = center|nobaseline
+						text = "[Country.MakeScope.GetVariable('tv_best_milestone').GetValue|0]"
+					}
+				}
+				widget = {
+					size = { 130 -1 }
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_4_country').GetCountry]"
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]"  text = "TV_S3_CONQUEST_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)1.0')]"  text = "TV_S3_PROSPERITY_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)2.0')]"  text = "TV_S3_TRADE_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)3.0')]"  text = "TV_S3_DIPLOMATIC_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)4.0')]"  text = "TV_S3_CULTURAL_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)5.0')]"  text = "TV_S3_SCIENCE_SCORE" }
+				}
+			}
+
+			# ── Rank 5 ──────────────────────────────────────────────────────────────────
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				size = { -1 42 }
+				spacing = 6
+				margin = { 4 2 }
+				visible = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_5_country').IsSet]"
+
+				hbox = {
+					spacing = 4
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_5_country').GetCountry]"
+					country_flag_small_plus = { size = { 36 22 } }
+					text_single = {
+						minimumsize = { 100 -1 }
+						maximumsize = { 100 -1 }
+						autoresize = no
+						align = nobaseline
+						text = "[Country.GetName]"
+					}
+				}
+				expand = {}
+				widget = {
+					size = { 34 34 }
+					using = bg_circle_piechart_big
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_5_country').GetCountry]"
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/tabicons/military.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)1.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/location_icons/new/prosperity.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)2.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/trade.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)3.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)4.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/cultural_influence.dds" }
+					icon = { visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)5.0')]"  parentanchor = center  size = { 70% 70% }  texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds" }
+				}
+				widget = {
+					size = { 26 26 }
+					using = bg_circle_piechart
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_5_country').GetCountry]"
+					text_single = {
+						parentanchor = center
+						size = { 100% 100% }
+						autoresize = no
+						align = center|nobaseline
+						text = "[Country.MakeScope.GetVariable('tv_best_milestone').GetValue|0]"
+					}
+				}
+				widget = {
+					size = { 130 -1 }
+					datacontext = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('tv_rank_5_country').GetCountry]"
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]"  text = "TV_S3_CONQUEST_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)1.0')]"  text = "TV_S3_PROSPERITY_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)2.0')]"  text = "TV_S3_TRADE_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)3.0')]"  text = "TV_S3_DIPLOMATIC_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)4.0')]"  text = "TV_S3_CULTURAL_SCORE" }
+					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)5.0')]"  text = "TV_S3_SCIENCE_SCORE" }
 				}
 			}
 

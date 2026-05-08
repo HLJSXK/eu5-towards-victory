@@ -1,0 +1,12 @@
+﻿l_simp_chinese:
+ # ── Section 1: 风味文本 ────────────────────────────────────────────────────
+ TV_SECTION1_FLAVOR:0 "已知世界中的列强相互竞争，所争者不仅是战场上的荣耀，更涵盖商业、外交、文化与知识的方方面面。是征服者以铁蹄踏遍大地，是商人以货物渗透四海，还是智者以新知照亮未来？谁将主宰这个时代——胜利的角逐，就此开始。"
+
+ # ── Section 3: 全球排名 ────────────────────────────────────────────────────
+ TV_SECTION3_HEADER:0 "全球排名"
+ TV_S3_CONQUEST_SCORE:0 "征服: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"
+ TV_S3_PROSPERITY_SCORE:0 "繁荣: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"
+ TV_S3_TRADE_SCORE:0 "贸易: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"
+ TV_S3_DIPLOMATIC_SCORE:0 "外交: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"
+ TV_S3_CULTURAL_SCORE:0 "文化: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"
+ TV_S3_SCIENCE_SCORE:0 "科技: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"

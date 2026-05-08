@@ -254,3 +254,21 @@
   scope: any
   source: "reference_game_files/game/in_game/common/trigger_localization/_trigger_localization.info, reference_game_files/game/in_game/common/trigger_localization/scripted_triggers.txt:275"
   notes: "EU5 engine validates custom_description text keys against common/trigger_localization/ at load. A YAML-only key passes validate.py but produces 'PostValidate of trigger custom_description returned false' and 'No trigger loc KEY' at game startup."
+
+- id: gui_variable_isset_check
+  pattern: ''
+  bad: "Using HasVariable or is_set (script trigger syntax) inside a GUI visible expression to check whether a situation-scope variable exists"
+  correction: "Use GetVariable('name').IsSet as the final accessor in a GUI visible expression: visible = \"[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('name').IsSet]\""
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/panels/situation/council_of_trent.gui:232, golden_age_of_piracy.gui:139"
+  notes: "HasVariable is a script-side trigger and does not exist in the GUI expression language. GetVariable('name').IsSet is the GUI-native null guard for optional variables stored on situation/country scopes."
+
+- id: gui_equality_comparison_cfixedpoint
+  pattern: ''
+  bad: "Attempting to check equality of a CFixedPoint variable in a GUI visible expression without a typed function (e.g. assuming == works, or forgetting EqualTo_CFixedPoint exists)"
+  correction: "Use EqualTo_CFixedPoint(expr, '(CFixedPoint)N.0') for equality; also available: LessThan_CFixedPoint, GreaterThan_CFixedPoint, LessThanOrEqualTo_CFixedPoint. Example: visible = \"[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]\""
+  category: gui
+  scope: any
+  source: "reference_game_files/game/main_menu/gui/shared/geopolitics_tooltips.gui:198, building_tooltips.gui:1043"
+  notes: "EqualTo_CFixedPoint and related typed comparison functions are confirmed to exist in EU5 GUI. The inline == operator does not work in visible expressions. The _scripted_widgets.info file also documents EqualTo_CFixedPoint as the canonical equality check."

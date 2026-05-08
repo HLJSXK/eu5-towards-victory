@@ -33,13 +33,14 @@ The mod is additive-only and uses the `tv_` namespace prefix throughout.
 
 ## Core Features
 
-1. **6 Victory Situations** — One situation per victory type, showing milestone progress and current rewards earned.
+1. **6 Victory Situations** — One situation (`tv_victory_situation`) displays all 6 victory paths in a single panel with a flavor text introduction (Section 1), per-path progress bars and milestone circles (Section 2), and a global leaderboard (Section 3).
 2. **Milestone Events** — Popup country events per milestone. All 30 events implemented across 6 paths: Conquest (`tv.conquest.1`–`5`), Prosperity (`tv.prosperity.1`–`5`), Trade (`tv.trade.1`–`5`), Diplomatic (`tv.diplomatic.1`–`5`), Cultural (`tv.cultural.1`–`5`), and Scientific (`tv.science.1`–`5`).
 3. **Permanent Rewards** — All 30 milestone rewards are permanent static modifiers (`days = -1`); no time-limited buffs. All 6 paths fully implemented.
 4. **Diplomatic Victory Points** (`tv_diplomatic_victory_points`) — Permanently accumulated via `on_royal_marriage` (+3 DVP each party) and `on_winning_war` (+5 DVP to winner).
 5. **Cultural Influence Points** (`tv_cultural_influence_points`) — Accumulated via `on_work_of_art_created` (+10 CIP to `root.owner`) and `monthly_country_pulse` (+1 CIP/month).
 6. **Scientific Technology Score** (`tv_science_score`) — Monthly snapshot of `num_of_advances_researched`; thresholds 100 / 150 / 200 / 300 / 400.
 7. **Academy of Sciences Building Chain** — Five capital buildings (`tv_academy_of_sciences_1`–`5`) gate Scientific Victory milestones. Each requires the previous phase built and the corresponding score threshold; `on_built` immediately triggers `tv_check_science_milestones_effect`. Building category: `cultural_category`; visible in all capitals from game start.
+8. **Global Victory Leaderboard** — Monthly ranking of the top 5 countries by their best single-path progress (0–100 bar value). Per-country: `tv_best_path` (0–5), `tv_best_progress_pct`, `tv_best_milestone`, `tv_best_score` computed via `tv_update_best_path_effect` in `monthly_country_pulse`. Situation stores rank-1..5 country references (`tv_rank_1_country`–`tv_rank_5_country`) via `ordered_in_global_list` cascading-exclusion pattern. Displayed in Section 3 with flag, country name, leading-path circle icon, milestone count, and score text.
 
 ## Directory Structure
 
@@ -48,17 +49,21 @@ src/
 ├── .metadata/metadata.json                mod ID, version, target game version
 ├── in_game/
 │   ├── common/
-│   │   ├── situations/                    towards_victory_situations.txt
-│   │   ├── scripted_triggers/             towards_victory_triggers.txt
-│   │   ├── scripted_effects/              towards_victory_effects.txt
-│   │   ├── static_modifiers/              towards_victory_modifiers.txt
+│   │   ├── situations/                    towards_victory_situations.txt  [GENERATED]
+│   │   ├── scripted_triggers/             towards_victory_triggers.txt  [GENERATED]
+│   │   ├── scripted_effects/              towards_victory_effects.txt  [GENERATED]
+│   │   │                                  towards_victory_leaderboard.txt  [MANUAL — leaderboard effects]
+│   │   ├── static_modifiers/              towards_victory_modifiers.txt  [GENERATED]
 │   │   ├── building_types/                towards_victory_buildings.txt (Academy of Sciences chain)
-│   │   └── on_action/                     towards_victory_yearly.txt
+│   │   └── on_action/                     towards_victory_yearly.txt  [GENERATED]
+│   │                                      towards_victory_leaderboard.txt  [MANUAL — monthly_country_pulse hooks]
 │   ├── events/                            towards_victory_{conquest,prosperity,trade,diplomatic,cultural,science}_events.txt (one namespace per category — EU5 event IDs must be `<ns>.<int>` with exactly one dot)
-│   └── gui/panels/situation/              towards_victory_situation.gui
+│   └── gui/panels/situation/              tv_victory_situation.gui  [MANUAL]
 └── main_menu/localization/
-    ├── english/                           towards_victory_l_english.yml
-    └── simp_chinese/                      towards_victory_l_simp_chinese.yml
+    ├── english/                           towards_victory_l_english.yml  [GENERATED]
+    │                                      towards_victory_leaderboard_l_english.yml  [MANUAL]
+    └── simp_chinese/                      towards_victory_l_simp_chinese.yml  [GENERATED]
+                                           towards_victory_leaderboard_l_simp_chinese.yml  [MANUAL]
 ```
 
 ## Script Reference
@@ -100,6 +105,8 @@ src/
 | encoding | any | Saving common/ scripts (static_modifiers, situations, scripted_effects, on_action, etc.) as plain UTF-8 without a byte-order mark | Save with UTF-8 BOM (first 3 bytes EF BB BF). In Python: write_bytes(b'\xef\xbb\xbf' + text.encode('utf-8')) or open(..., encoding='utf-8-sig'). Verify with `head -c 3 <file> | xxd` -> expect ef bb bf. | Engine retries without BOM but emits a warning per file per load. Localization YAMLs already require BOM; this rule extends the same requirement to common/ .txt scripts. Auto-generated files via scripts/gen_scaffold.py should always emit the BOM. |
 | localization | any | #Y[variable_expression]#! — color tag immediately followed by [ with no separator | Either omit the color tag and write [variable_expression] as plain text, OR add a space: #Y [variable_expression]#! — the space terminates the tag name so the parser reads #Y (tag) then ' value' (content). Note the leading space will be visible in the rendered string. | In EU5 Jomini localization, the color tag name is read from # until the first non-alphanumeric. When a [var] resolves to a number (e.g. 64) and is placed directly after #Y, the parser reads #Y64 as the tag name (unknown). The leading space in '#Y [var]' terminates the tag name at Y. |
 | localization | any | custom_description { text = MY_LOC_KEY } where MY_LOC_KEY exists only in a localization YAML but not in common/trigger_localization/ | Create a trigger localization entry in src/in_game/common/trigger_localization/your_file.txt: MY_LOC_KEY = { global = MY_LOC_KEY }. The YAML key is still needed as the display text; the trigger_localization file is the bridge the engine uses at validation time. | EU5 engine validates custom_description text keys against common/trigger_localization/ at load. A YAML-only key passes validate.py but produces 'PostValidate of trigger custom_description returned false' and 'No trigger loc KEY' at game startup. |
+| gui | any | Using HasVariable or is_set (script trigger syntax) inside a GUI visible expression to check whether a situation-scope variable exists | Use GetVariable('name').IsSet as the final accessor in a GUI visible expression: visible = "[SituationView.GetActiveSituation.GetSituation.MakeScope.GetVariable('name').IsSet]" | HasVariable is a script-side trigger and does not exist in the GUI expression language. GetVariable('name').IsSet is the GUI-native null guard for optional variables stored on situation/country scopes. |
+| gui | any | Attempting to check equality of a CFixedPoint variable in a GUI visible expression without a typed function (e.g. assuming == works, or forgetting EqualTo_CFixedPoint exists) | Use EqualTo_CFixedPoint(expr, '(CFixedPoint)N.0') for equality; also available: LessThan_CFixedPoint, GreaterThan_CFixedPoint, LessThanOrEqualTo_CFixedPoint. Example: visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)0.0')]" | EqualTo_CFixedPoint and related typed comparison functions are confirmed to exist in EU5 GUI. The inline == operator does not work in visible expressions. The _scripted_widgets.info file also documents EqualTo_CFixedPoint as the canonical equality check. |
 
 ## Valid Enum Values
 
@@ -125,9 +132,9 @@ src/
 | --- | --- | --- | --- |
 | GUI Icons (`@xxx!`) | 351 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
 | Scripted Triggers | 507 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
-| Scripted Effects | 504 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
+| Scripted Effects | 506 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 196 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 204 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 
