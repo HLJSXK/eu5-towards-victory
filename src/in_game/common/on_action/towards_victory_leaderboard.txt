@@ -20,7 +20,7 @@ monthly_country_pulse = {
 		# the tv_arts_exhibition IO and initialise influence tracking variables.
 		if = {
 			limit = {
-				tv_cultural_milestone_1_trigger = yes
+				tv_cultural_milestone_1 = yes
 				NOT = { has_variable = tv_arts_exhibition_member }
 			}
 			set_variable = { name = tv_arts_exhibition_member value = 1 }
