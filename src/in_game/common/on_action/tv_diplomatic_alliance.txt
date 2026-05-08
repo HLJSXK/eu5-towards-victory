@@ -37,16 +37,14 @@ monthly_country_pulse = {
 				change_variable = { name = tv_alliance_cohesion add = 0.1 }
 			}
 			# Additional growth from diplomatic reputation: +0.05 per point per month
-			# Store the temporary value on the leader so the IO scope can read it via prev.var.
-			set_variable = { name = tv_rep_bonus value = modifier:diplomatic_reputation }
-			change_variable = { name = tv_rep_bonus multiply = 0.05 }
+			set_local_variable = { name = tv_rep_bonus_local value = modifier:diplomatic_reputation }
+			change_local_variable = { name = tv_rep_bonus_local multiply = 0.05 }
 			if = {
-				limit = { var:tv_rep_bonus > 0 }
+				limit = { local_var:tv_rep_bonus_local > 0 }
 				international_organization:tv_diplomatic_alliance = {
-					change_variable = { name = tv_alliance_cohesion add = { value = prev.var:tv_rep_bonus } }
+					change_variable = { name = tv_alliance_cohesion add = local_var:tv_rep_bonus_local }
 				}
 			}
-			remove_variable = tv_rep_bonus
 		}
 
 		# ── Diplomatic Unlock Notification Events ────────────────────────────

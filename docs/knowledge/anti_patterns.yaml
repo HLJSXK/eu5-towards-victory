@@ -356,11 +356,20 @@
   source: "reference_mods/3686272563/in_game/common/on_action/country_monthly.txt:3 (singleton comment)"
   notes: "EU5 on_action loading is singleton per on_action key for effect = { } blocks: only the last file loaded alphabetically wins. Two mod files each defining monthly_country_pulse = { effect = { ... } } means only one effect block ever runs. Confirmed: _yearly.txt (y) overrides _leaderboard.txt (l), silently discarding the leaderboard update."
 
-- id: change_variable_add_scope_chain_inline
-  pattern: 'change_variable\s*=\s*\{[^}]*\badd\s*=\s*prev\.'
-  bad: "change_variable = { name = X add = prev.num_locations } — inline scope-chain value in add position"
-  correction: "Use the block form: change_variable = { name = X add = { value = prev.num_locations } }. For fractional weighting add multiply: add = { value = prev.num_locations  multiply = 0.5 }."
+- id: root_scope_in_situation_on_monthly
+  pattern: ''
+  bad: "every_X = { root = { change_variable = { name = Y ... } } } where Y was set_variable'd on `this` before the loop, called from a situation's on_monthly"
+  correction: "Use set_local_variable / change_local_variable for the accumulator. local_variable persists across all scope switches. Inside every_X, access the current-scope value directly (no prev. needed): change_local_variable = { name = acc add = some_value }. Then use local_var:acc after the loop."
+  category: scope
+  scope: any
+  source: "reference_game_files/game/in_game/common/situations/guelphs_and_ghibellines.txt:229 (add = local_var:guelphs_total_tax); reference_game_files/game/in_game/events/wokou_events.txt:140 (change_local_variable block form)"
+  notes: "In a situation's on_monthly, root = the situation scope, not the iterating country. set_variable stores onto `this` (country); root = { change_variable } then targets the situation — the accumulation goes to the wrong scope and the variable on the country stays 0. fix: local_variable is scope-independent and thread-local to the effect call."
+
+- id: change_variable_add_prev_var
+  pattern: 'add\s*=\s*\{?\s*value\s*=\s*prev\.var:|add\s*=\s*prev\.var:'
+  bad: "change_variable = { name = X add = prev.var:some_var } — reading a named variable from prev scope in a numeric value position"
+  correction: "Use set_local_variable / change_local_variable to capture the numeric value before the scope switch, then use add = local_var:name inside the new scope. Example: set_local_variable = { name = tmp value = var:some_var }  then in the other scope: change_variable = { name = X add = local_var:tmp }."
   category: script
   scope: any
-  source: "reference_game_files/game/in_game/common/disasters/reform_society.txt:37-44"
-  notes: "EU5 engine cannot resolve a dotted scope-chain (prev.X, root.X) in the simple inline add = position of change_variable. The engine error is 'Variable not of the value scope type. Type: empty'. Use the block form add = { value = prev.X } which explicitly declares the scope expression."
+  source: "reference_game_files/game/in_game/common/situations/guelphs_and_ghibellines.txt:229 (add = local_var:guelphs_total_tax)"
+  notes: "prev.var:X is valid only as a scope reference (country, religion, etc.), not as a numeric value source. Using it in an add = position causes 'Variable not of the value scope type. Type: empty'. Built-in scripted values like prev.num_locations are valid inline; only prev.var:X is broken."

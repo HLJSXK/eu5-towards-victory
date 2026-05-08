@@ -21,14 +21,11 @@ tv_check_all_milestones_effect = {
 
 tv_update_conquest_score_effect = {
 	set_variable = { name = tv_conquest_score value = num_locations }
-	set_variable = { name = tv_conquest_subj_temp value = 0 }
+	set_local_variable = { name = tv_conquest_subj_temp value = 0 }
 	every_subject_or_below = {
-		root = {
-			change_variable = { name = tv_conquest_subj_temp add = { value = prev.num_locations } }
-		}
+		change_local_variable = { name = tv_conquest_subj_temp add = { value = num_locations  multiply = 0.5 } }
 	}
-	change_variable = { name = tv_conquest_subj_temp divide = 2 }
-	change_variable = { name = tv_conquest_score add = var:tv_conquest_subj_temp }
+	change_variable = { name = tv_conquest_score add = local_var:tv_conquest_subj_temp }
 }
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -37,20 +34,20 @@ tv_update_conquest_score_effect = {
 
 tv_update_prosperity_score_effect = {
 	# 1. 计数领地
-	set_variable = { name = tv_num_locs value = 0 }
+	set_local_variable = { name = tv_num_locs value = 0 }
 	every_owned_location = {
-		root = { change_variable = { name = tv_num_locs add = 1 } }
+		change_local_variable = { name = tv_num_locs add = 1 }
 	}
 	# 2. 累加总量：total_pop + Σdev + tax_base
 	set_variable = { name = tv_raw_score value = total_population }
-	set_variable = { name = tv_sum_dev value = 0 }
+	set_local_variable = { name = tv_sum_dev value = 0 }
 	every_owned_location = {
-		root = { change_variable = { name = tv_sum_dev add = { value = prev.development } } }
+		change_local_variable = { name = tv_sum_dev add = development }
 	}
-	change_variable = { name = tv_raw_score add = var:tv_sum_dev }
+	change_variable = { name = tv_raw_score add = local_var:tv_sum_dev }
 	change_variable = { name = tv_raw_score add = country_tax_base }
 	# 3. base_score = raw × 100 / (N + 100)  递减规模惩罚
-	set_variable = { name = tv_denom value = var:tv_num_locs }
+	set_variable = { name = tv_denom value = local_var:tv_num_locs }
 	change_variable = { name = tv_denom add = 100 }
 	change_variable = { name = tv_raw_score multiply = 100 }
 	change_variable = { name = tv_raw_score divide = var:tv_denom }
