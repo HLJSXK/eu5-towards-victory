@@ -19,3 +19,37 @@
 
  game_concept_tv_science_score: "科技分数"
  game_concept_tv_science_score_desc: "科技分数追踪您国家的技术进步。它是您国家已研究的[advances|e]总数的月度快照。达到400即可实现[tv_victory_situation|E]的长期胜利。"
+
+ # ── Situation ──────────────────────────────────────────────────────────────
+ game_concept_tv_victory_situation: "胜利之路"
+ game_concept_tv_victory_situation_desc: "胜利之路是一项对所有国家永久生效的局势，同步追踪六条通往霸主地位的路径上的进展。每条路径设有五个里程碑；达到第三里程碑可获得短期胜利奖励，达到第五里程碑则实现长期胜利。可通过胜利之路面板随时查看己方与竞争对手的进展。"
+
+ # ── Six Victory Types ──────────────────────────────────────────────────────
+ game_concept_tv_conquest_victory: "征服胜利"
+ game_concept_tv_conquest_victory_desc: "以领土扩张主宰世界。[tv_conquest_score|e]衡量你的疆域规模——直属领地完整计算，附属国与封臣领地折半计算。里程碑设于150、300、500、1000和2000，奖励军事战力与伟大遗产。"
+
+ game_concept_tv_prosperity_victory: "繁荣胜利"
+ game_concept_tv_prosperity_victory_desc: "建立最富庶、发展最完善的国家。[tv_prosperity_score|e]综合考量总人口、所有领地的发展度与国家税基。里程碑设于5000、8000、12000、18000和25000，奖励国内生产、人口增长与建设能力。"
+
+ game_concept_tv_trade_victory: "贸易胜利"
+ game_concept_tv_trade_victory_desc: "掌控世界商业命脉。[tv_trade_score|e]是你每月贸易收入的月度快照。第三和第五里程碑还要求主导市场数量（分别为5和10个）。奖励着重商人容量、贸易效率与贸易收入倍增。"
+
+ game_concept_tv_diplomatic_victory: "外交胜利"
+ game_concept_tv_diplomatic_victory_desc: "构建世界上最强大的联盟与影响力网络。[tv_dvp|e]通过联姻（各+3）和赢得战争（+5）永久积累。里程碑设于50、120、220、380和580，奖励外交声望、联盟可靠性、封臣管理与威望。"
+
+ game_concept_tv_cultural_victory: "文化胜利"
+ game_concept_tv_cultural_victory_desc: "以艺术与文化输出塑造文明。[tv_cip|e]永久积累——每创作一件艺术品+10，每月被动+1。第2至5里程碑还要求达到最低[tv_arts_intl_influence|e]阈值（25、50、75、100）。奖励艺术家技能、威望与文化传统。"
+
+ game_concept_tv_science_victory: "科技胜利"
+ game_concept_tv_science_victory_desc: "引领人类迈入理性时代。[tv_science_score|e]追踪已研究的进步总数。每个里程碑还需在首都建造[tv_academy_of_sciences|e]的相应阶段。奖励加速研究、机构传播与生产。"
+
+ # ── Cultural Victory Unique Mechanics ──────────────────────────────────────
+ game_concept_tv_arts_intl_influence: "国际影响力"
+ game_concept_tv_arts_intl_influence_desc: "衡量你的国家在境外文化影响力的指标，通过[tv_arts_exhibition|e]积累。可通过派遣艺术家出国巡演与举办国内展览来提升。每月自然衰减−0.05，模拟过往文化输出影响力的逐渐消退。文化胜利第2至5里程碑分别要求国际影响力达到25、50、75和100。"
+
+ game_concept_tv_arts_exhibition: "文化艺术展"
+ game_concept_tv_arts_exhibition_desc: "联合文化雄心勃勃的国家的国际组织。国家在达到文化胜利第一里程碑（50点[tv_cip|e]）后自动加入。成员可解锁两项通用行动："派遣艺术家出国"（200达克特；将艺术家派往1至10年的海外巡演，期间触发月度事件影响[tv_arts_intl_influence|e]）和"举办国内展览"（1000达克特；每拥有一件艺术品获得+0.1[tv_arts_intl_influence|e]）。"
+
+ # ── Scientific Victory Unique Mechanics ────────────────────────────────────
+ game_concept_tv_academy_of_sciences: "科学院"
+ game_concept_tv_academy_of_sciences_desc: "锁定各科技胜利里程碑的五阶段首都建筑。第一阶段在[tv_science_score|e]达到100时解锁；后续阶段分别在150、200、300和400时解锁。每个阶段必须在首都实际建造完毕，相应里程碑方可触发。科学院从游戏开始起便在每个首都中可见。"
