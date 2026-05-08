@@ -20,6 +20,13 @@ tv_victory_situation = {
 	on_start = {
 		# Initialise the AI yearly pulse counter on the situation scope
 		set_variable = { name = tv_ai_pulse_counter value = 0 }
+		every_country = {
+			limit = {
+				is_ai = no
+			}
+			tv_check_all_milestones_effect = yes
+			tv_update_all_progress_pct_effect = yes
+		}
 	}
 
 	on_monthly = {
