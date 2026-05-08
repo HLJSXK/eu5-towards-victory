@@ -2,12 +2,6 @@
 	type = diplomacy
 	category = CATEGORY_FRIENDLY_ACTIONS
 
-	potential = {
-		scope:actor = {
-			NOT = { exists = international_organization:tv_diplomatic_alliance }
-		}
-	}
-
 	cooldown = {
 		type = tv_seek_diplomatic_support
 		years = 1
@@ -84,7 +78,6 @@
 		base = -200
 		opinion = 0.5
 		same_culture = 50
-		different_religion = -50
 	}
 
 	accept = {
