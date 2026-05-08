@@ -269,16 +269,6 @@
  TV_ACADEMY_HAS_PREV_3_TT: "Phase II Academy of Sciences must be constructed first"
  TV_ACADEMY_HAS_PREV_4_TT: "Phase III Academy of Sciences must be constructed first"
  TV_ACADEMY_HAS_PREV_5_TT: "Phase IV Academy of Sciences must be constructed first"
- MODIFIER_TYPE_NAME_tv_academy_1_price_cost_modifier: "Academy of Sciences I: Construction Cost"
- MODIFIER_TYPE_DESC_tv_academy_1_price_cost_modifier: "Modifies the gold construction cost of the Academy of Sciences (Phase I)."
- MODIFIER_TYPE_NAME_tv_academy_2_price_cost_modifier: "Academy of Sciences II: Construction Cost"
- MODIFIER_TYPE_DESC_tv_academy_2_price_cost_modifier: "Modifies the gold construction cost of the Academy of Sciences (Phase II)."
- MODIFIER_TYPE_NAME_tv_academy_3_price_cost_modifier: "Academy of Sciences III: Construction Cost"
- MODIFIER_TYPE_DESC_tv_academy_3_price_cost_modifier: "Modifies the gold construction cost of the Academy of Sciences (Phase III)."
- MODIFIER_TYPE_NAME_tv_academy_4_price_cost_modifier: "Academy of Sciences IV: Construction Cost"
- MODIFIER_TYPE_DESC_tv_academy_4_price_cost_modifier: "Modifies the gold construction cost of the Academy of Sciences (Phase IV)."
- MODIFIER_TYPE_NAME_tv_academy_5_price_cost_modifier: "Academy of Sciences V: Construction Cost"
- MODIFIER_TYPE_DESC_tv_academy_5_price_cost_modifier: "Modifies the gold construction cost of the Academy of Sciences (Phase V)."
  tv_academy_1_price: "Academy of Sciences I"
  tv_academy_2_price: "Academy of Sciences II"
  tv_academy_3_price: "Academy of Sciences III"
@@ -330,24 +320,3 @@
  STATIC_MODIFIER_NAME_tv_science_m3_bonus: "Age of Enlightenment"
  STATIC_MODIFIER_NAME_tv_science_m4_bonus: "Preeminent Science"
  STATIC_MODIFIER_NAME_tv_science_m5_bonus: "Industrial Vanguard"
-
- # ── Game Concepts ──────────────────────────────────────────────────────────
- game_concept_tv_conquest_score: "Conquest Score"
- game_concept_tv_conquest_score_desc: "The Conquest Score measures the territorial extent of your realm. Each location you directly own adds 1 point; each location held by a [subject|e] or lower-ranked country adds 0.5 points. Updated monthly. Reach 2,000 to achieve the long-term [tv_victory_situation|E]."
-
- game_concept_tv_prosperity_score: "Prosperity Score"
- game_concept_tv_prosperity_score_desc: "The Prosperity Score tracks the domestic development of your realm. It accumulates as the sum of your total population, development across all owned locations, and your country tax base. Updated yearly. Reach 25,000 to achieve the long-term [tv_victory_situation|E]."
-
- game_concept_tv_trade_score: "Trade Score"
- game_concept_tv_trade_score_desc: "The Trade Score reflects your commercial power. It is a monthly snapshot of your country's total monthly [trade_income|e]. Reach 2,000 to achieve the long-term [tv_victory_situation|E]."
-
- game_concept_tv_diplomatic_victory_points: "Diplomatic Victory Points"
- game_concept_tv_dvp: "DVP"
- game_concept_tv_diplomatic_victory_points_desc: "Diplomatic Victory Points (DVP) are earned permanently through statecraft: each [royal_marriage|e] concluded grants +3 DVP to both parties, and winning a [war|e] grants +5 DVP to the victor. DVP never decrease. Reach 580 to achieve the long-term [tv_victory_situation|E]."
-
- game_concept_tv_cultural_influence_points: "Cultural Influence Points"
- game_concept_tv_cip: "CIP"
- game_concept_tv_cultural_influence_points_desc: "Cultural Influence Points (CIP) are earned through artistic achievement: each [work_of_art|e] created grants +10 CIP to the owner's country, and +1 CIP is earned passively each month. CIP never decrease. Reach 580 to achieve the long-term [tv_victory_situation|E]."
-
- game_concept_tv_science_score: "Science Score"
- game_concept_tv_science_score_desc: "The Science Score tracks the technological progress of your realm. It is a monthly snapshot of the total number of [advances|e] your country has researched. Reach 400 to achieve the long-term [tv_victory_situation|E]."

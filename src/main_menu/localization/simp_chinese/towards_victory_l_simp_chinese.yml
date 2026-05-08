@@ -269,16 +269,6 @@
  TV_ACADEMY_HAS_PREV_3_TT: "须先建造第二阶段科学院"
  TV_ACADEMY_HAS_PREV_4_TT: "须先建造第三阶段科学院"
  TV_ACADEMY_HAS_PREV_5_TT: "须先建造第四阶段科学院"
- MODIFIER_TYPE_NAME_tv_academy_1_price_cost_modifier: "科学院第一阶段：建造费用"
- MODIFIER_TYPE_DESC_tv_academy_1_price_cost_modifier: "影响科学院（第一阶段）的金币建造费用。"
- MODIFIER_TYPE_NAME_tv_academy_2_price_cost_modifier: "科学院第二阶段：建造费用"
- MODIFIER_TYPE_DESC_tv_academy_2_price_cost_modifier: "影响科学院（第二阶段）的金币建造费用。"
- MODIFIER_TYPE_NAME_tv_academy_3_price_cost_modifier: "科学院第三阶段：建造费用"
- MODIFIER_TYPE_DESC_tv_academy_3_price_cost_modifier: "影响科学院（第三阶段）的金币建造费用。"
- MODIFIER_TYPE_NAME_tv_academy_4_price_cost_modifier: "科学院第四阶段：建造费用"
- MODIFIER_TYPE_DESC_tv_academy_4_price_cost_modifier: "影响科学院（第四阶段）的金币建造费用。"
- MODIFIER_TYPE_NAME_tv_academy_5_price_cost_modifier: "科学院第五阶段：建造费用"
- MODIFIER_TYPE_DESC_tv_academy_5_price_cost_modifier: "影响科学院（第五阶段）的金币建造费用。"
  tv_academy_1_price: "科学院第一阶段"
  tv_academy_2_price: "科学院第二阶段"
  tv_academy_3_price: "科学院第三阶段"
@@ -330,24 +320,3 @@
  STATIC_MODIFIER_NAME_tv_science_m3_bonus: "启蒙时代"
  STATIC_MODIFIER_NAME_tv_science_m4_bonus: "科学巅峰"
  STATIC_MODIFIER_NAME_tv_science_m5_bonus: "工业先驱"
-
- # ── Game Concepts ──────────────────────────────────────────────────────────
- game_concept_tv_conquest_score: "征服分数"
- game_concept_tv_conquest_score_desc: "征服分数衡量您国家的领土规模。每个直接拥有的地点加1分；每个[subject|e]或下属国家持有的地点加0.5分。每月更新。达到2,000即可实现[tv_victory_situation|E]的长期胜利。"
-
- game_concept_tv_prosperity_score: "繁荣分数"
- game_concept_tv_prosperity_score_desc: "繁荣分数追踪您国家的国内发展水平。它由总人口、所有拥有地点的发展度以及国家税基之和累积而成。每年更新。达到25,000即可实现[tv_victory_situation|E]的长期胜利。"
-
- game_concept_tv_trade_score: "贸易分数"
- game_concept_tv_trade_score_desc: "贸易分数反映您的商业实力。它是您国家每月[trade_income|e]总量的月度快照。达到2,000即可实现[tv_victory_situation|E]的长期胜利。"
-
- game_concept_tv_diplomatic_victory_points: "外交胜利点"
- game_concept_tv_dvp: "DVP"
- game_concept_tv_diplomatic_victory_points_desc: "外交胜利点（DVP）通过外交手段永久积累：每次达成[royal_marriage|e]为双方各增加3点DVP，赢得[war|e]为胜者增加5点DVP。DVP永不减少。达到580即可实现[tv_victory_situation|E]的长期胜利。"
-
- game_concept_tv_cultural_influence_points: "文化影响力点"
- game_concept_tv_cip: "CIP"
- game_concept_tv_cultural_influence_points_desc: "文化影响力点（CIP）通过艺术成就积累：每创作一件[work_of_art|e]为拥有者国家增加10点CIP，每月还被动积累1点CIP。CIP永不减少。达到580即可实现[tv_victory_situation|E]的长期胜利。"
-
- game_concept_tv_science_score: "科技分数"
- game_concept_tv_science_score_desc: "科技分数追踪您国家的技术进步。它是您国家已研究的[advances|e]总数的月度快照。达到400即可实现[tv_victory_situation|E]的长期胜利。"

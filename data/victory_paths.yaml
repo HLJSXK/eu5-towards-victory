@@ -120,8 +120,8 @@ paths:
         en: '"The greatest happiness is to vanquish your enemies." — Genghis Khan'
         zh: '"最大的幸福就是征服你的敌人。" — 成吉思汗'
       progress_display:
-        en: "Conquest Score: [Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,000"
-        zh: "征服分数：[Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,000"
+        en: "[tv_conquest_score|e]: [Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,000"
+        zh: "[tv_conquest_score|e]：[Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,000"
 
     milestones:
       - n: 1
@@ -142,8 +142,8 @@ paths:
             en: "A nation of modest reach. ~150 owned locations."
             zh: "初具规模的国家。征服分数约150。"
           trigger_desc:
-            en: "Conquest score ≥ 150"
-            zh: "征服分数 ≥ 150"
+            en: "[tv_conquest_score|e] ≥ 150"
+            zh: "[tv_conquest_score|e] ≥ 150"
           event_title:
             en: "The Empire Grows"
             zh: "帝国正在壮大"
@@ -172,8 +172,8 @@ paths:
             en: "A substantial empire. ~300 owned locations."
             zh: "幅员辽阔的帝国。征服分数约300。"
           trigger_desc:
-            en: "Conquest score ≥ 300"
-            zh: "征服分数 ≥ 300"
+            en: "[tv_conquest_score|e] ≥ 300"
+            zh: "[tv_conquest_score|e] ≥ 300"
           event_title:
             en: "A Substantial Empire"
             zh: "幅员辽阔的帝国"
@@ -205,8 +205,8 @@ paths:
             en: "Territorial supremacy secured. Short-term Victory. ~500 owned locations."
             zh: "确立领土霸主地位。短期胜利。征服分数约500。"
           trigger_desc:
-            en: "Conquest score ≥ 500"
-            zh: "征服分数 ≥ 500"
+            en: "[tv_conquest_score|e] ≥ 500"
+            zh: "[tv_conquest_score|e] ≥ 500"
           event_title:
             en: "Territorial Supremacy — Short-term Victory"
             zh: "领土霸权 — 短期胜利"
@@ -236,8 +236,8 @@ paths:
             en: "An empire spanning continents. ~1,000 owned locations."
             zh: "横跨大陆的帝国。征服分数约1,000。"
           trigger_desc:
-            en: "Conquest score ≥ 1,000"
-            zh: "征服分数 ≥ 1,000"
+            en: "[tv_conquest_score|e] ≥ 1,000"
+            zh: "[tv_conquest_score|e] ≥ 1,000"
           event_title:
             en: "An Empire Spanning Continents"
             zh: "横跨大陆的帝国"
@@ -267,8 +267,8 @@ paths:
             en: "Undisputed world empire. Long-term Victory. ~2,000 owned locations."
             zh: "无可争议的世界帝国。长期胜利。征服分数约2,000。"
           trigger_desc:
-            en: "Conquest score ≥ 2,000"
-            zh: "征服分数 ≥ 2,000"
+            en: "[tv_conquest_score|e] ≥ 2,000"
+            zh: "[tv_conquest_score|e] ≥ 2,000"
           event_title:
             en: "Long-term Victory — World Empire"
             zh: "长期胜利 — 世界帝国"
@@ -403,8 +403,8 @@ paths:
         en: '"Prosperity is the fruit of labour." — Thucydides'
         zh: '"繁荣是劳动的果实。" — 修昔底德'
       progress_display:
-        en: "Prosperity Score: [Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 25,000"
-        zh: "繁荣分数：[Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 25,000"
+        en: "[tv_prosperity_score|e]: [Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 25,000"
+        zh: "[tv_prosperity_score|e]：[Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 25,000"
 
     milestones:
       - n: 1
@@ -425,8 +425,8 @@ paths:
             en: "A growing nation — early domestic prosperity. Score ~5,000."
             zh: "蓬勃发展的国家 — 国内繁荣初现。分数约5,000。"
           trigger_desc:
-            en: "Prosperity score ≥ 5,000"
-            zh: "繁荣分数 ≥ 5,000"
+            en: "[tv_prosperity_score|e] ≥ 5,000"
+            zh: "[tv_prosperity_score|e] ≥ 5,000"
           event_title:
             en: "A Nation Begins to Thrive"
             zh: "国家开始兴旺"
@@ -455,8 +455,8 @@ paths:
             en: "A flourishing nation — sustained domestic investment. Score ~8,000."
             zh: "兴旺发达的国家 — 持续的国内投入。分数约8,000。"
           trigger_desc:
-            en: "Prosperity score ≥ 8,000"
-            zh: "繁荣分数 ≥ 8,000"
+            en: "[tv_prosperity_score|e] ≥ 8,000"
+            zh: "[tv_prosperity_score|e] ≥ 8,000"
           event_title:
             en: "A Flourishing Realm"
             zh: "蓬勃发展的王国"
@@ -488,8 +488,8 @@ paths:
             en: "A prosperous heartland. Short-term Victory. Score ~12,000."
             zh: "繁荣的腹地。短期胜利。分数约12,000。"
           trigger_desc:
-            en: "Prosperity score ≥ 12,000"
-            zh: "繁荣分数 ≥ 12,000"
+            en: "[tv_prosperity_score|e] ≥ 12,000"
+            zh: "[tv_prosperity_score|e] ≥ 12,000"
           event_title:
             en: "Prosperity Victory — The Heartland Thrives"
             zh: "繁荣胜利 — 腹地蓬勃兴盛"
@@ -519,8 +519,8 @@ paths:
             en: "An advanced nation — the envy of neighbours. Score ~18,000."
             zh: "先进的国家 — 令邻国艳羡。分数约18,000。"
           trigger_desc:
-            en: "Prosperity score ≥ 18,000"
-            zh: "繁荣分数 ≥ 18,000"
+            en: "[tv_prosperity_score|e] ≥ 18,000"
+            zh: "[tv_prosperity_score|e] ≥ 18,000"
           event_title:
             en: "An Advanced Nation"
             zh: "先进的国家"
@@ -550,8 +550,8 @@ paths:
             en: "The most developed nation on earth. Long-term Victory. Score ~25,000."
             zh: "地球上最发达的国家。长期胜利。分数约25,000。"
           trigger_desc:
-            en: "Prosperity score ≥ 25,000"
-            zh: "繁荣分数 ≥ 25,000"
+            en: "[tv_prosperity_score|e] ≥ 25,000"
+            zh: "[tv_prosperity_score|e] ≥ 25,000"
           event_title:
             en: "Long-term Victory — The Most Developed Nation"
             zh: "长期胜利 — 最繁荣的国家"
@@ -640,8 +640,8 @@ paths:
         en: '"Venice does not make war; Venice makes money."'
         zh: '"威尼斯不打仗；威尼斯赚钱。"'
       progress_display:
-        en: "Trade Score: [Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
-        zh: "贸易分数：[Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
+        en: "[tv_trade_score|e]: [Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
+        zh: "[tv_trade_score|e]：[Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
 
     milestones:
       - n: 1
@@ -662,8 +662,8 @@ paths:
             en: "A merchant of note — commanding a trade node. Monthly trade income ~100."
             zh: "商业立足 — 主导一个贸易节点。每月贸易收入约100。"
           trigger_desc:
-            en: "Trade score ≥ 100"
-            zh: "贸易分数 ≥ 100"
+            en: "[tv_trade_score|e] ≥ 100"
+            zh: "[tv_trade_score|e] ≥ 100"
           event_title:
             en: "The First Markets"
             zh: "首批市场"
@@ -692,8 +692,8 @@ paths:
             en: "A maritime power — dominating regional trade. Monthly trade income ~200."
             zh: "区域贸易霸主 — 主导地区贸易。每月贸易收入约200。"
           trigger_desc:
-            en: "Trade score ≥ 200"
-            zh: "贸易分数 ≥ 200"
+            en: "[tv_trade_score|e] ≥ 200"
+            zh: "[tv_trade_score|e] ≥ 200"
           event_title:
             en: "Lords of the Trade Route"
             zh: "贸易路线之主"
@@ -732,8 +732,8 @@ paths:
             en: "A major trade empire. Short-term Victory. Monthly trade income ~400."
             zh: "贸易帝国。短期胜利。每月贸易收入约400。"
           trigger_desc:
-            en: "Trade score ≥ 400, with market dominance"
-            zh: "贸易分数 ≥ 400，且需达到市场主导地位"
+            en: "[tv_trade_score|e] ≥ 400, with market dominance"
+            zh: "[tv_trade_score|e] ≥ 400，且需达到市场主导地位"
           event_title:
             en: "A Great Commercial Empire"
             zh: "伟大的商业帝国"
@@ -763,8 +763,8 @@ paths:
             en: "Near-monopoly control of key trade arteries. Monthly trade income ~1,000."
             zh: "商业之海 — 近乎垄断关键贸易要道。每月贸易收入约1,000。"
           trigger_desc:
-            en: "Trade score ≥ 1,000"
-            zh: "贸易分数 ≥ 1,000"
+            en: "[tv_trade_score|e] ≥ 1,000"
+            zh: "[tv_trade_score|e] ≥ 1,000"
           event_title:
             en: "Masters of the Seas of Commerce"
             zh: "商业之海的主宰"
@@ -802,8 +802,8 @@ paths:
             en: "Undisputed trade hegemon. Long-term Victory. Monthly trade income ~2,000."
             zh: "贸易霸主。无可争议。长期胜利。每月贸易收入约2,000。"
           trigger_desc:
-            en: "Trade score ≥ 2,000, with market dominance"
-            zh: "贸易分数 ≥ 2,000，且需达到市场主导地位"
+            en: "[tv_trade_score|e] ≥ 2,000, with market dominance"
+            zh: "[tv_trade_score|e] ≥ 2,000，且需达到市场主导地位"
           event_title:
             en: "The Trade Hegemon"
             zh: "贸易霸主"
@@ -883,8 +883,8 @@ paths:
         en: '"An army is of little use where reason fails."'
         zh: '"在理性失败之处，军随谓少用。"'
       progress_display:
-        en: "Diplomatic Victory Points: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 580"
-        zh: "外交胜利点数：[Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 580"
+        en: "[tv_diplomatic_victory_points|e]: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 580"
+        zh: "[tv_diplomatic_victory_points|e]：[Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 580"
 
     milestones:
       - n: 1
@@ -936,11 +936,11 @@ paths:
             en: "Diplomatic Victory — Milestone 1"
             zh: "外交胜利 — 里程碑一"
           meaning:
-            en: "50 DVP and 10 nations support our cause. The Alliance is born."
-            zh: "50 外交胜利点且10国支持我们的事业。联盟诞生。"
+            en: "50 [tv_diplomatic_victory_points|e]. A respected voice in affairs."
+            zh: "50 [tv_diplomatic_victory_points|e]。在国际事务中占有一席之地。"
           trigger_desc:
-            en: "Diplomatic Victory Points ≥ 50 AND Diplomatic Supporters ≥ 10"
-            zh: "外交胜利点 ≥ 50 且外交支持国 ≥ 10"
+            en: "[tv_diplomatic_victory_points|e] ≥ 50"
+            zh: "[tv_diplomatic_victory_points|e] ≥ 50"
           event_title:
             en: "A Voice Among Nations"
             zh: "外交展露头角"
@@ -968,11 +968,11 @@ paths:
             en: "Diplomatic Victory — Milestone 2"
             zh: "外交胜利 — 里程碑二"
           meaning:
-            en: "120 DVP and Alliance Tier ≥ 3. A reliable ally and guarantor of peace."
-            zh: "120 DVP 且联盟等级 ≥ 3。可靠的盟友与和平居间人。"
+            en: "120 [tv_dvp|e]. A reliable ally and guarantor of peace."
+            zh: "120 [tv_dvp|e]。可靠的盟友与和平居间人。"
           trigger_desc:
-            en: "Diplomatic Victory Points ≥ 120 AND Alliance Tier ≥ 3"
-            zh: "外交胜利点 ≥ 120 且联盟等级 ≥ 3"
+            en: "[tv_diplomatic_victory_points|e] ≥ 120"
+            zh: "[tv_diplomatic_victory_points|e] ≥ 120"
           event_title:
             en: "A Reliable Ally"
             zh: "可靠的盟友"
@@ -1000,11 +1000,11 @@ paths:
             en: "Diplomatic Victory — Short-term Victory"
             zh: "外交胜利 — 短期胜利"
           meaning:
-            en: "220 DVP and Alliance Tier ≥ 6. A power of first diplomatic rank. Short-term Victory."
-            zh: "220 DVP 且联盟等级 ≥ 6。一流外交大国。短期胜利。"
+            en: "220 [tv_dvp|e]. A power of first diplomatic rank. Short-term Victory."
+            zh: "220 [tv_dvp|e]。一流外交大国。短期胜利。"
           trigger_desc:
-            en: "Diplomatic Victory Points ≥ 220 AND Alliance Tier ≥ 6"
-            zh: "外交胜利点 ≥ 220 且联盟等级 ≥ 6"
+            en: "[tv_diplomatic_victory_points|e] ≥ 220"
+            zh: "[tv_diplomatic_victory_points|e] ≥ 220"
           event_title:
             en: "A Power of the First Rank — Short-term Victory"
             zh: "一流外交大国 — 短期胜利"
@@ -1033,11 +1033,11 @@ paths:
             en: "Diplomatic Victory — Milestone 4"
             zh: "外交胜利 — 里程碑四"
           meaning:
-            en: "380 DVP and Alliance Tier ≥ 9. The arbiter of international order."
-            zh: "380 DVP 且联盟等级 ≥ 9。国际秩序的仲裁人。"
+            en: "380 [tv_dvp|e]. The arbiter of international order."
+            zh: "380 [tv_dvp|e]。国际秩序的仲裁人。"
           trigger_desc:
-            en: "Diplomatic Victory Points ≥ 380 AND Alliance Tier ≥ 9"
-            zh: "外交胜利点 ≥ 380 且联盟等级 ≥ 9"
+            en: "[tv_diplomatic_victory_points|e] ≥ 380"
+            zh: "[tv_diplomatic_victory_points|e] ≥ 380"
           event_title:
             en: "Arbiter of Nations"
             zh: "万国仲裁人"
@@ -1065,11 +1065,11 @@ paths:
             en: "Diplomatic Victory — Long-term Victory"
             zh: "外交胜利 — 长期胜利"
           meaning:
-            en: "580 DVP and Alliance Tier ≥ 12. Undisputed diplomatic hegemon. Long-term Victory."
-            zh: "580 DVP 且联盟等级 ≥ 12。无可争议的外交霸主。长期胜利。"
+            en: "580 [tv_dvp|e]. Undisputed diplomatic hegemon. Long-term Victory."
+            zh: "580 [tv_dvp|e]。无可争议的外交霸主。长期胜利。"
           trigger_desc:
-            en: "Diplomatic Victory Points ≥ 580 AND Alliance Tier ≥ 12"
-            zh: "外交胜利点 ≥ 580 且联盟等级 ≥ 12"
+            en: "[tv_diplomatic_victory_points|e] ≥ 580"
+            zh: "[tv_diplomatic_victory_points|e] ≥ 580"
           event_title:
             en: "Long-term Victory — Diplomatic Hegemon"
             zh: "长期胜利 — 外交霸主"
@@ -1149,8 +1149,8 @@ paths:
         en: '"Art is the signature of civilisations."'
         zh: "TODO"
       progress_display:
-        en: "Cultural Influence Points: [Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
-        zh: "文化影响力点数：[Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
+        en: "[tv_cultural_influence_points|e]: [Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
+        zh: "[tv_cultural_influence_points|e]：[Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
 
     milestones:
       - n: 1
@@ -1168,11 +1168,11 @@ paths:
             en: "Cultural Victory — Milestone 1"
             zh: "文化胜利 — 里程碑1"
           meaning:
-            en: "50 Cultural Influence Points. A patron of the arts."
-            zh: "50文化影响力点。艺术的赞助人。"
+            en: "50 [tv_cultural_influence_points|e]. A patron of the arts."
+            zh: "50 [tv_cultural_influence_points|e]。艺术的赞助人。"
           trigger_desc:
-            en: "Cultural Influence Points ≥ 50"
-            zh: "文化影响力点 ≥ 50"
+            en: "[tv_cultural_influence_points|e] ≥ 50"
+            zh: "[tv_cultural_influence_points|e] ≥ 50"
           event_title:
             en: "A Patron of the Arts"
             zh: "艺术赞助人"
@@ -1200,11 +1200,11 @@ paths:
             en: "Cultural Victory — Milestone 2"
             zh: "文化胜利 — 里程碑2"
           meaning:
-            en: "120 CIP. A celebrated cultural power."
-            zh: "120 CIP。享誉盛名的文化强国。"
+            en: "120 [tv_cip|e]. A celebrated cultural power."
+            zh: "120 [tv_cip|e]。享誉盛名的文化强国。"
           trigger_desc:
-            en: "Cultural Influence Points ≥ 120  •  International Influence ≥ 25"
-            zh: "文化影响力点 ≥ 120  •  国际影响力 ≥ 25"
+            en: "[tv_cultural_influence_points|e] ≥ 120  •  International Influence ≥ 25"
+            zh: "[tv_cultural_influence_points|e] ≥ 120  •  国际影响力 ≥ 25"
           event_title:
             en: "The Renaissance Court"
             zh: "文艺复兴宫廷"
@@ -1232,11 +1232,11 @@ paths:
             en: "Cultural Victory — Short-term Victory"
             zh: "文化胜利 — 短期胜利"
           meaning:
-            en: "220 CIP. A centre of Renaissance brilliance. Short-term Victory."
-            zh: "220 CIP。文艺复兴的璀璨中心。短期胜利。"
+            en: "220 [tv_cip|e]. A centre of Renaissance brilliance. Short-term Victory."
+            zh: "220 [tv_cip|e]。文艺复兴的璀璨中心。短期胜利。"
           trigger_desc:
-            en: "Cultural Influence Points ≥ 220  •  International Influence ≥ 50"
-            zh: "文化影响力点 ≥ 220  •  国际影响力 ≥ 50"
+            en: "[tv_cultural_influence_points|e] ≥ 220  •  International Influence ≥ 50"
+            zh: "[tv_cultural_influence_points|e] ≥ 220  •  国际影响力 ≥ 50"
           event_title:
             en: "A Centre of Civilisation — Short-term Victory"
             zh: "文明中心 — 短期胜利"
@@ -1265,11 +1265,11 @@ paths:
             en: "Cultural Victory — Milestone 4"
             zh: "文化胜利 — 里程碑4"
           meaning:
-            en: "380 CIP. Culture radiates from your court across the world."
-            zh: "380 CIP。文化从您的宫廷辐射至全世界。"
+            en: "380 [tv_cip|e]. Culture radiates from your court across the world."
+            zh: "380 [tv_cip|e]。文化从您的宫廷辐射至全世界。"
           trigger_desc:
-            en: "Cultural Influence Points ≥ 380  •  International Influence ≥ 75"
-            zh: "文化影响力点 ≥ 380  •  国际影响力 ≥ 75"
+            en: "[tv_cultural_influence_points|e] ≥ 380  •  International Influence ≥ 75"
+            zh: "[tv_cultural_influence_points|e] ≥ 380  •  国际影响力 ≥ 75"
           event_title:
             en: "Light of the World"
             zh: "世界之光"
@@ -1297,11 +1297,11 @@ paths:
             en: "Cultural Victory — Long-term Victory"
             zh: "文化胜利 — 长期胜利"
           meaning:
-            en: "580 CIP. The greatest cultural legacy in history. Long-term Victory."
-            zh: "580 CIP。历史上最伟大的文化遗产。长期胜利。"
+            en: "580 [tv_cip|e]. The greatest cultural legacy in history. Long-term Victory."
+            zh: "580 [tv_cip|e]。历史上最伟大的文化遗产。长期胜利。"
           trigger_desc:
-            en: "Cultural Influence Points ≥ 580  •  International Influence ≥ 100"
-            zh: "文化影响力点 ≥ 580  •  国际影响力 ≥ 100"
+            en: "[tv_cultural_influence_points|e] ≥ 580  •  International Influence ≥ 100"
+            zh: "[tv_cultural_influence_points|e] ≥ 580  •  国际影响力 ≥ 100"
           event_title:
             en: "Long-term Victory — Cultural Hegemon"
             zh: "长期胜利 — 文化霸主"
@@ -1412,24 +1412,24 @@ paths:
         zh: "科学院推动国家迈入工业与理性的时代，其发现奠定了新世界的基础。"
       - key: TV_ACADEMY_SCORE_1_TT
         has_version_suffix: false
-        en: "Requires Science Score of at least 100 (total advances researched >= 100)"
-        zh: "需要科技分数达到 100（已研究技艺总数 ≥ 100）"
+        en: "Requires [tv_science_score|e] of at least 100 (total advances researched >= 100)"
+        zh: "需要[tv_science_score|e]达到 100（已研究技艺总数 ≥ 100）"
       - key: TV_ACADEMY_SCORE_2_TT
         has_version_suffix: false
-        en: "Requires Science Score of at least 150 (total advances researched >= 150)"
-        zh: "需要科技分数达到 150（已研究技艺总数 ≥ 150）"
+        en: "Requires [tv_science_score|e] of at least 150 (total advances researched >= 150)"
+        zh: "需要[tv_science_score|e]达到 150（已研究技艺总数 ≥ 150）"
       - key: TV_ACADEMY_SCORE_3_TT
         has_version_suffix: false
-        en: "Requires Science Score of at least 200 (total advances researched >= 200)"
-        zh: "需要科技分数达到 200（已研究技艺总数 ≥ 200）"
+        en: "Requires [tv_science_score|e] of at least 200 (total advances researched >= 200)"
+        zh: "需要[tv_science_score|e]达到 200（已研究技艺总数 ≥ 200）"
       - key: TV_ACADEMY_SCORE_4_TT
         has_version_suffix: false
-        en: "Requires Science Score of at least 300 (total advances researched >= 300)"
-        zh: "需要科技分数达到 300（已研究技艺总数 ≥ 300）"
+        en: "Requires [tv_science_score|e] of at least 300 (total advances researched >= 300)"
+        zh: "需要[tv_science_score|e]达到 300（已研究技艺总数 ≥ 300）"
       - key: TV_ACADEMY_SCORE_5_TT
         has_version_suffix: false
-        en: "Requires Science Score of at least 400 (total advances researched >= 400)"
-        zh: "需要科技分数达到 400（已研究技艺总数 ≥ 400）"
+        en: "Requires [tv_science_score|e] of at least 400 (total advances researched >= 400)"
+        zh: "需要[tv_science_score|e]达到 400（已研究技艺总数 ≥ 400）"
       - key: TV_ACADEMY_HAS_PREV_2_TT
         has_version_suffix: false
         en: "Phase I Academy of Sciences must be constructed first"
@@ -1446,46 +1446,6 @@ paths:
         has_version_suffix: false
         en: "Phase IV Academy of Sciences must be constructed first"
         zh: "须先建造第四阶段科学院"
-      - key: MODIFIER_TYPE_NAME_tv_academy_1_price_cost_modifier
-        has_version_suffix: false
-        en: "Academy of Sciences I: Construction Cost"
-        zh: "科学院第一阶段：建造费用"
-      - key: MODIFIER_TYPE_DESC_tv_academy_1_price_cost_modifier
-        has_version_suffix: false
-        en: "Modifies the gold construction cost of the Academy of Sciences (Phase I)."
-        zh: "影响科学院（第一阶段）的金币建造费用。"
-      - key: MODIFIER_TYPE_NAME_tv_academy_2_price_cost_modifier
-        has_version_suffix: false
-        en: "Academy of Sciences II: Construction Cost"
-        zh: "科学院第二阶段：建造费用"
-      - key: MODIFIER_TYPE_DESC_tv_academy_2_price_cost_modifier
-        has_version_suffix: false
-        en: "Modifies the gold construction cost of the Academy of Sciences (Phase II)."
-        zh: "影响科学院（第二阶段）的金币建造费用。"
-      - key: MODIFIER_TYPE_NAME_tv_academy_3_price_cost_modifier
-        has_version_suffix: false
-        en: "Academy of Sciences III: Construction Cost"
-        zh: "科学院第三阶段：建造费用"
-      - key: MODIFIER_TYPE_DESC_tv_academy_3_price_cost_modifier
-        has_version_suffix: false
-        en: "Modifies the gold construction cost of the Academy of Sciences (Phase III)."
-        zh: "影响科学院（第三阶段）的金币建造费用。"
-      - key: MODIFIER_TYPE_NAME_tv_academy_4_price_cost_modifier
-        has_version_suffix: false
-        en: "Academy of Sciences IV: Construction Cost"
-        zh: "科学院第四阶段：建造费用"
-      - key: MODIFIER_TYPE_DESC_tv_academy_4_price_cost_modifier
-        has_version_suffix: false
-        en: "Modifies the gold construction cost of the Academy of Sciences (Phase IV)."
-        zh: "影响科学院（第四阶段）的金币建造费用。"
-      - key: MODIFIER_TYPE_NAME_tv_academy_5_price_cost_modifier
-        has_version_suffix: false
-        en: "Academy of Sciences V: Construction Cost"
-        zh: "科学院第五阶段：建造费用"
-      - key: MODIFIER_TYPE_DESC_tv_academy_5_price_cost_modifier
-        has_version_suffix: false
-        en: "Modifies the gold construction cost of the Academy of Sciences (Phase V)."
-        zh: "影响科学院（第五阶段）的金币建造费用。"
       - key: tv_academy_1_price
         has_version_suffix: false
         en: "Academy of Sciences I"
@@ -1542,8 +1502,8 @@ paths:
         en: '"The true method of knowledge is experiment." — William Blake'
         zh: '"认识真相的真正方法是实验。" — 威廉·布莱克'
       progress_display:
-        en: "Science Score: [Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
-        zh: "科学分数：[Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
+        en: "[tv_science_score|e]: [Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
+        zh: "[tv_science_score|e]：[Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
 
     milestones:
       - n: 1
@@ -1566,8 +1526,8 @@ paths:
             en: "A nation of curious minds. ~100 advances researched."
             zh: "充满好奇心的国度。约已研究100项技艺。"
           trigger_desc:
-            en: "Science score ≥ 100 and Academy Level ≥ 1"
-            zh: "科技分数 ≥ 100，科学院等级 ≥ 1"
+            en: "[tv_science_score|e] ≥ 100 and Academy Level ≥ 1"
+            zh: "[tv_science_score|e] ≥ 100，科学院等级 ≥ 1"
           event_title:
             en: "A Nation of Scholars"
             zh: "学者之国"
@@ -1598,8 +1558,8 @@ paths:
             en: "A realm that embraces new institutions. ~150 advances researched."
             zh: "积极拥抱新思潮的国度。约已研究150项技艺。"
           trigger_desc:
-            en: "Science score ≥ 150 and Academy Level ≥ 2"
-            zh: "科技分数 ≥ 150，科学院等级 ≥ 2"
+            en: "[tv_science_score|e] ≥ 150 and Academy Level ≥ 2"
+            zh: "[tv_science_score|e] ≥ 150，科学院等级 ≥ 2"
           event_title:
             en: "Embracing New Ideas"
             zh: "拥抱新思想"
@@ -1630,8 +1590,8 @@ paths:
             en: "A vanguard of learning. Short-term Victory. ~200 advances researched."
             zh: "学问的先锋国度。短期胜利。约已研究200项技艺。"
           trigger_desc:
-            en: "Science score ≥ 200 and Academy Level ≥ 3"
-            zh: "科技分数 ≥ 200，科学院等级 ≥ 3"
+            en: "[tv_science_score|e] ≥ 200 and Academy Level ≥ 3"
+            zh: "[tv_science_score|e] ≥ 200，科学院等级 ≥ 3"
           event_title:
             en: "A Centre of Learning — Short-term Victory"
             zh: "学问中心 — 短期胜利"
@@ -1662,8 +1622,8 @@ paths:
             en: "The preeminent scientific power. ~300 advances researched."
             zh: "首屈一指的科学强国。约已研究300项技艺。"
           trigger_desc:
-            en: "Science score ≥ 300 and Academy Level ≥ 4"
-            zh: "科技分数 ≥ 300，科学院等级 ≥ 4"
+            en: "[tv_science_score|e] ≥ 300 and Academy Level ≥ 4"
+            zh: "[tv_science_score|e] ≥ 300，科学院等级 ≥ 4"
           event_title:
             en: "On the Threshold of Modernity"
             zh: "现代性的门槛"
@@ -1695,8 +1655,8 @@ paths:
             en: "The nation that ushered in the Industrial Age. Long-term Victory. ~400 advances researched."
             zh: "开创工业时代的国度。长期胜利。约已研究400项技艺。"
           trigger_desc:
-            en: "Science score ≥ 400 and Academy Level ≥ 5"
-            zh: "科技分数 ≥ 400，科学院等级 ≥ 5"
+            en: "[tv_science_score|e] ≥ 400 and Academy Level ≥ 5"
+            zh: "[tv_science_score|e] ≥ 400，科学院等级 ≥ 5"
           event_title:
             en: "Long-term Victory — The Industrial Vanguard"
             zh: "长期胜利 — 工业先驱"
