@@ -19,7 +19,10 @@ tv_update_best_path_effect = {
 
 	# Prosperity = path 1  (>= preserves lower index on equal progress)
 	if = {
-		limit = { var:tv_prosperity_progress_pct >= var:tv_best_progress_pct }
+		limit = {
+			has_variable = tv_prosperity_progress_pct
+			var:tv_prosperity_progress_pct >= var:tv_best_progress_pct
+		}
 		set_variable = { name = tv_best_progress_pct  value = var:tv_prosperity_progress_pct }
 		set_variable = { name = tv_best_path          value = 1 }
 		set_variable = { name = tv_best_milestone      value = var:tv_prosperity_milestone }
@@ -28,7 +31,10 @@ tv_update_best_path_effect = {
 
 	# Trade = path 2
 	if = {
-		limit = { var:tv_trade_progress_pct >= var:tv_best_progress_pct }
+		limit = {
+			has_variable = tv_trade_progress_pct
+			var:tv_trade_progress_pct >= var:tv_best_progress_pct
+		}
 		set_variable = { name = tv_best_progress_pct  value = var:tv_trade_progress_pct }
 		set_variable = { name = tv_best_path          value = 2 }
 		set_variable = { name = tv_best_milestone      value = var:tv_trade_milestone }
@@ -37,7 +43,10 @@ tv_update_best_path_effect = {
 
 	# Diplomatic = path 3  (score stored in tv_diplomatic_victory_points)
 	if = {
-		limit = { var:tv_diplomatic_progress_pct >= var:tv_best_progress_pct }
+		limit = {
+			has_variable = tv_diplomatic_progress_pct
+			var:tv_diplomatic_progress_pct >= var:tv_best_progress_pct
+		}
 		set_variable = { name = tv_best_progress_pct  value = var:tv_diplomatic_progress_pct }
 		set_variable = { name = tv_best_path          value = 3 }
 		set_variable = { name = tv_best_milestone      value = var:tv_diplomatic_milestone }
@@ -46,7 +55,10 @@ tv_update_best_path_effect = {
 
 	# Cultural = path 4  (score stored in tv_cultural_influence_points)
 	if = {
-		limit = { var:tv_cultural_progress_pct >= var:tv_best_progress_pct }
+		limit = {
+			has_variable = tv_cultural_progress_pct
+			var:tv_cultural_progress_pct >= var:tv_best_progress_pct
+		}
 		set_variable = { name = tv_best_progress_pct  value = var:tv_cultural_progress_pct }
 		set_variable = { name = tv_best_path          value = 4 }
 		set_variable = { name = tv_best_milestone      value = var:tv_cultural_milestone }
@@ -55,7 +67,10 @@ tv_update_best_path_effect = {
 
 	# Scientific = path 5
 	if = {
-		limit = { var:tv_science_progress_pct >= var:tv_best_progress_pct }
+		limit = {
+			has_variable = tv_science_progress_pct
+			var:tv_science_progress_pct >= var:tv_best_progress_pct
+		}
 		set_variable = { name = tv_best_progress_pct  value = var:tv_science_progress_pct }
 		set_variable = { name = tv_best_path          value = 5 }
 		set_variable = { name = tv_best_milestone      value = var:tv_science_milestone }

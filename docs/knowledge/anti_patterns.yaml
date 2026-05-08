@@ -273,6 +273,15 @@
   source: "reference_game_files/game/main_menu/gui/shared/geopolitics_tooltips.gui:198, building_tooltips.gui:1043"
   notes: "EqualTo_CFixedPoint and related typed comparison functions are confirmed to exist in EU5 GUI. The inline == operator does not work in visible expressions. The _scripted_widgets.info file also documents EqualTo_CFixedPoint as the canonical equality check."
 
+- id: var_comparison_unset_crash
+  pattern: ''
+  bad: "limit = { var:some_var >= var:other_var } when some_var may not be set on the scope"
+  correction: "Add has_variable = some_var to the limit block before the var: comparison: limit = { has_variable = some_var  var:some_var >= var:other_var }"
+  category: script
+  scope: any
+  source: "error.log: 'Failed to fetch variable for tv_science_progress_pct due to not being set', towards_victory_leaderboard.txt:47"
+  notes: "EU5 does NOT default unset variables to 0 in trigger comparisons; var:X on the left side of >= throws a script error and aborts the if-block. set_variable = { value = var:X } with an unset var appears to be silent (no error), so only limit comparisons need the has_variable guard."
+
 - id: on_action_effect_block_singleton
   pattern: ''
   bad: "Defining monthly_country_pulse = { effect = { ... } } in more than one on_action file within the same mod"
