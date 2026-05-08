@@ -5,7 +5,7 @@
 tv_end_artist_exhibition_effect = {
 	save_scope_as = finished_artist
 	var:tv_exhibition_home_country ?= {
-		trigger_event = { id = tv_arts_exhibition.5 }
+		trigger_event_non_silently = { id = tv_arts_exhibition.5 }
 		scope:finished_artist = {
 			move_country = prev
 		}

@@ -9,7 +9,7 @@ on_character_death = {
 				limit = { has_variable = tv_on_exhibition }
 				save_scope_as = dead_touring_artist
 				var:tv_exhibition_home_country ?= {
-					trigger_event = { id = tv_arts_exhibition.6 }
+					trigger_event_non_silently = { id = tv_arts_exhibition.6 }
 				}
 				remove_variable = tv_on_exhibition
 				remove_variable = tv_exhibition_home_country

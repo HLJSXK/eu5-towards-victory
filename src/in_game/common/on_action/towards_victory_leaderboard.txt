@@ -73,7 +73,7 @@ monthly_country_pulse = {
 					40 = {
 						var:tv_exhibition_home_country ?= {
 							change_variable = { name = tv_arts_intl_influence add = 0.1 }
-							trigger_event = { id = tv_arts_exhibition.101 }
+							trigger_event_non_silently = { id = tv_arts_exhibition.101 }
 						}
 					}
 					# ── Great Success +0.5 (skill-boosted) ─────────────────────
@@ -81,21 +81,21 @@ monthly_country_pulse = {
 						trigger = { artist_skill < 0.5 }
 						var:tv_exhibition_home_country ?= {
 							change_variable = { name = tv_arts_intl_influence add = 0.5 }
-							trigger_event = { id = tv_arts_exhibition.102 }
+							trigger_event_non_silently = { id = tv_arts_exhibition.102 }
 						}
 					}
 					25 = {
 						trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
 						var:tv_exhibition_home_country ?= {
 							change_variable = { name = tv_arts_intl_influence add = 0.5 }
-							trigger_event = { id = tv_arts_exhibition.102 }
+							trigger_event_non_silently = { id = tv_arts_exhibition.102 }
 						}
 					}
 					40 = {
 						trigger = { artist_skill >= 0.7 }
 						var:tv_exhibition_home_country ?= {
 							change_variable = { name = tv_arts_intl_influence add = 0.5 }
-							trigger_event = { id = tv_arts_exhibition.102 }
+							trigger_event_non_silently = { id = tv_arts_exhibition.102 }
 						}
 					}
 					# ── Terrible −0.1 (skill-reduced) ──────────────────────────
@@ -107,7 +107,7 @@ monthly_country_pulse = {
 								limit = { var:tv_arts_intl_influence < 0 }
 								set_variable = { name = tv_arts_intl_influence value = 0 }
 							}
-							trigger_event = { id = tv_arts_exhibition.103 }
+							trigger_event_non_silently = { id = tv_arts_exhibition.103 }
 						}
 					}
 					15 = {
@@ -118,7 +118,7 @@ monthly_country_pulse = {
 								limit = { var:tv_arts_intl_influence < 0 }
 								set_variable = { name = tv_arts_intl_influence value = 0 }
 							}
-							trigger_event = { id = tv_arts_exhibition.103 }
+							trigger_event_non_silently = { id = tv_arts_exhibition.103 }
 						}
 					}
 					5 = {
@@ -129,14 +129,14 @@ monthly_country_pulse = {
 								limit = { var:tv_arts_intl_influence < 0 }
 								set_variable = { name = tv_arts_intl_influence value = 0 }
 							}
-							trigger_event = { id = tv_arts_exhibition.103 }
+							trigger_event_non_silently = { id = tv_arts_exhibition.103 }
 						}
 					}
 					# ── Artist Hired +1.0, stays permanently ───────────────────
 					5 = {
 						var:tv_exhibition_home_country ?= {
 							change_variable = { name = tv_arts_intl_influence add = 1.0 }
-							trigger_event = { id = tv_arts_exhibition.104 }
+							trigger_event_non_silently = { id = tv_arts_exhibition.104 }
 						}
 						remove_variable = tv_on_exhibition
 						remove_variable = tv_exhibition_home_country
@@ -153,7 +153,7 @@ monthly_country_pulse = {
 							mode = add_and_extend
 						}
 						var:tv_exhibition_home_country ?= {
-							trigger_event = { id = tv_arts_exhibition.105 }
+							trigger_event_non_silently = { id = tv_arts_exhibition.105 }
 						}
 					}
 				}

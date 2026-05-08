@@ -319,6 +319,16 @@
   source: "reference_mods/3692202776/in_game/common/scripted_effects/cmm_core_slider_setting_effects.txt:223"
   notes: "multiply_variable and divide_variable do not exist in EU5; all variable math uses change_variable with multiply/divide parameters"
 
+- id: trigger_event_invalid_in_scripted_effects
+  pattern: '\btrigger_event\s*='
+  only_in_paths: ['scripted_effects', 'on_action']
+  bad: "trigger_event = { id = X } or trigger_event = X inside scripted_effects or on_action"
+  correction: "Use trigger_event_non_silently = { id = X } for popup events shown to the player, or trigger_event_silently = X for background events. Both accept simple form (= event_id) and object form (= { id = X days = Y })."
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/common/scripted_effects/on_action_effects.txt:39, reference_game_files/game/in_game/common/on_action/character_death_pulses.txt:57"
+  notes: "EU5 does not have a bare trigger_event effect. In scripted_effects and on_action files, the engine reports 'Unknown effect trigger_event'. The two valid variants are trigger_event_non_silently (shows popup) and trigger_event_silently (hidden/background). This distinction does not apply inside event option = { } blocks, which may use a different syntax."
+
 - id: on_action_effect_block_singleton
   pattern: ''
   bad: "Defining monthly_country_pulse = { effect = { ... } } in more than one on_action file within the same mod"
