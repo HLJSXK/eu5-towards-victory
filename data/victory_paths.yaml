@@ -286,15 +286,61 @@ paths:
     score_var_init_in_checker: false
 
     score_updater_body: |
-      set_variable = { name = tv_prosperity_score value = total_population }
-      set_variable = { name = tv_prosperity_temp value = 0 }
+      # 1. 计数领地
+      set_variable = { name = tv_num_locs value = 0 }
       every_owned_location = {
-      	root = {
-      		change_variable = { name = tv_prosperity_temp add = prev.development }
-      	}
+      	root = { change_variable = { name = tv_num_locs add = 1 } }
       }
-      change_variable = { name = tv_prosperity_score add = var:tv_prosperity_temp }
-      change_variable = { name = tv_prosperity_score add = country_tax_base }
+      # 2. 累加总量：total_pop + Σdev + tax_base
+      set_variable = { name = tv_raw_score value = total_population }
+      set_variable = { name = tv_sum_dev value = 0 }
+      every_owned_location = {
+      	root = { change_variable = { name = tv_sum_dev add = prev.development } }
+      }
+      change_variable = { name = tv_raw_score add = var:tv_sum_dev }
+      change_variable = { name = tv_raw_score add = country_tax_base }
+      # 3. base_score = raw × 100 / (N + 100)  递减规模惩罚
+      set_variable = { name = tv_denom value = var:tv_num_locs }
+      change_variable = { name = tv_denom add = 100 }
+      change_variable = { name = tv_raw_score multiply = 100 }
+      change_variable = { name = tv_raw_score divide = var:tv_denom }
+      set_variable = { name = tv_prosperity_score value = var:tv_raw_score }
+      # 4. 稳定度乘数：× (100 + stability) / 100
+      set_variable = { name = tv_stab_factor value = stability }
+      change_variable = { name = tv_stab_factor add = 100 }
+      change_variable = { name = tv_prosperity_score multiply = var:tv_stab_factor }
+      change_variable = { name = tv_prosperity_score divide = 100 }
+      # 5. 政体权力乘数（君主=合法性，共和=传统，等）
+      if = {
+      	limit = { government_type = government_type:monarchy }
+      	set_variable = { name = tv_gov_power value = legitimacy }
+      	change_variable = { name = tv_prosperity_score multiply = var:tv_gov_power }
+      	change_variable = { name = tv_prosperity_score divide = 100 }
+      }
+      else_if = {
+      	limit = { government_type = government_type:republic }
+      	set_variable = { name = tv_gov_power value = republican_tradition }
+      	change_variable = { name = tv_prosperity_score multiply = var:tv_gov_power }
+      	change_variable = { name = tv_prosperity_score divide = 100 }
+      }
+      else_if = {
+      	limit = { government_type = government_type:theocracy }
+      	set_variable = { name = tv_gov_power value = devotion }
+      	change_variable = { name = tv_prosperity_score multiply = var:tv_gov_power }
+      	change_variable = { name = tv_prosperity_score divide = 100 }
+      }
+      else_if = {
+      	limit = { government_type = government_type:tribe }
+      	set_variable = { name = tv_gov_power value = tribal_cohesion }
+      	change_variable = { name = tv_prosperity_score multiply = var:tv_gov_power }
+      	change_variable = { name = tv_prosperity_score divide = 100 }
+      }
+      else_if = {
+      	limit = { government_type = government_type:steppe_horde }
+      	set_variable = { name = tv_gov_power value = horde_unity }
+      	change_variable = { name = tv_prosperity_score multiply = var:tv_gov_power }
+      	change_variable = { name = tv_prosperity_score divide = 100 }
+      }
 
     progress_pct_body: |
       # ── Prosperity Victory ────────────────────────────────────────────────────

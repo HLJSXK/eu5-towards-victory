@@ -249,13 +249,14 @@ tv_victory_situation = {{
 \ton_start = {{
 \t\t# Initialise the AI yearly pulse counter on the situation scope
 \t\tset_variable = {{ name = tv_ai_pulse_counter value = 0 }}
+\t\t# Full initial scan of every country -- seeds best-path variables for leaderboard
 \t\tevery_country = {{
-\t\t\tlimit = {{
-\t\t\t\tis_ai = no
-\t\t\t}}
 \t\t\ttv_check_all_milestones_effect = yes
 \t\t\ttv_update_all_progress_pct_effect = yes
+\t\t\ttv_update_best_path_effect = yes
 \t\t}}
+\t\t# Build initial leaderboard ranking immediately
+\t\ttv_update_leaderboard_effect = yes
 \t}}
 
 \ton_monthly = {{
