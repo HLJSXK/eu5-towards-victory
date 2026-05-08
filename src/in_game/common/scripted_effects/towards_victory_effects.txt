@@ -24,7 +24,7 @@ tv_update_conquest_score_effect = {
 	set_variable = { name = tv_conquest_subj_temp value = 0 }
 	every_subject_or_below = {
 		root = {
-			change_variable = { name = tv_conquest_subj_temp add = prev.num_locations }
+			change_variable = { name = tv_conquest_subj_temp add = { value = prev.num_locations } }
 		}
 	}
 	change_variable = { name = tv_conquest_subj_temp divide = 2 }

@@ -116,6 +116,7 @@ src/
 | script | country | add_treasury = X to add or subtract gold from a country | Use add_gold = X (simple literal: add_gold = -200) or add_gold = { value = script_value multiply = N } (computed form). Trigger side: gold >= 200 (literal integer) is valid. | add_treasury does not exist in EU5. The effect is add_gold; it accepts a bare literal integer (positive or negative) or a block with value/multiply. Error: 'Unknown effect add_treasury'. |
 | script | any | Defining a price in common/prices/ without a corresponding modifier_type in common/modifier_type_definitions/ | For every price named {name} in common/prices/, a modifier type named {name}_cost_modifier MUST exist in common/modifier_type_definitions/. EU5's price_database.cpp validates this at startup and logs 'Missing modifier type for price. {name}_cost_modifier'. The modifier type allows future modifiers/events to discount the price. | This is an engine-enforced convention, not optional. Even if no modifier currently applies the discount, the modifier_type definition must be present. The naming is exact: price 'tv_academy_1_price' requires modifier type 'tv_academy_1_price_cost_modifier'. These appear unused but are implicitly consumed by the price loading system. |
 | script | any | Defining monthly_country_pulse = { effect = { ... } } in more than one on_action file within the same mod | Consolidate all effect = { } content for the same on_action key into a single file. Alternatively, use on_actions = { sub_action_name } dispatch from each file and define each sub_action separately. | EU5 on_action loading is singleton per on_action key for effect = { } blocks: only the last file loaded alphabetically wins. Two mod files each defining monthly_country_pulse = { effect = { ... } } means only one effect block ever runs. Confirmed: _yearly.txt (y) overrides _leaderboard.txt (l), silently discarding the leaderboard update. |
+| script | any | change_variable = { name = X add = prev.num_locations } — inline scope-chain value in add position | Use the block form: change_variable = { name = X add = { value = prev.num_locations } }. For fractional weighting add multiply: add = { value = prev.num_locations  multiply = 0.5 }. | EU5 engine cannot resolve a dotted scope-chain (prev.X, root.X) in the simple inline add = position of change_variable. The engine error is 'Variable not of the value scope type. Type: empty'. Use the block form add = { value = prev.X } which explicitly declares the scope expression. |
 
 ## Valid Enum Values
 
@@ -144,7 +145,7 @@ src/
 | Scripted Triggers | 507 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 507 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 239 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 321 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

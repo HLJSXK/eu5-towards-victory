@@ -355,3 +355,12 @@
   scope: any
   source: "reference_mods/3686272563/in_game/common/on_action/country_monthly.txt:3 (singleton comment)"
   notes: "EU5 on_action loading is singleton per on_action key for effect = { } blocks: only the last file loaded alphabetically wins. Two mod files each defining monthly_country_pulse = { effect = { ... } } means only one effect block ever runs. Confirmed: _yearly.txt (y) overrides _leaderboard.txt (l), silently discarding the leaderboard update."
+
+- id: change_variable_add_scope_chain_inline
+  pattern: 'change_variable\s*=\s*\{[^}]*\badd\s*=\s*prev\.'
+  bad: "change_variable = { name = X add = prev.num_locations } — inline scope-chain value in add position"
+  correction: "Use the block form: change_variable = { name = X add = { value = prev.num_locations } }. For fractional weighting add multiply: add = { value = prev.num_locations  multiply = 0.5 }."
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/common/disasters/reform_society.txt:37-44"
+  notes: "EU5 engine cannot resolve a dotted scope-chain (prev.X, root.X) in the simple inline add = position of change_variable. The engine error is 'Variable not of the value scope type. Type: empty'. Use the block form add = { value = prev.X } which explicitly declares the scope expression."
