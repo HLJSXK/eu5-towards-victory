@@ -153,14 +153,18 @@ monthly_country_pulse = {
 			}
 		}
 
-		# Update this country's leading path / milestone / score for leaderboard display
-		tv_update_best_path_effect = yes
-
-		# Human player pulse: rebuild the global top-5 leaderboard on the situation scope
+		# Only run leaderboard logic once the situation is active
 		if = {
-			limit = { is_ai = no }
-			situation:tv_victory_situation = {
-				tv_update_leaderboard_effect = yes
+			limit = { exists = situation:tv_victory_situation }
+			# Update this country's leading path / milestone / score for leaderboard display
+			tv_update_best_path_effect = yes
+
+			# Human player pulse: rebuild the global top-5 leaderboard on the situation scope
+			if = {
+				limit = { is_ai = no }
+				situation:tv_victory_situation = {
+					tv_update_leaderboard_effect = yes
+				}
 			}
 		}
 		
