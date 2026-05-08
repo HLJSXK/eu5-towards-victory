@@ -271,7 +271,19 @@ def main():
     if files:
         for path in files:
             try:
-                content = path.read_text(encoding="utf-8-sig")
+                raw = path.read_bytes()
+            except OSError as e:
+                issues.append(f"[ENCODING] Cannot read {path.relative_to(REPO_ROOT)}: {e}")
+                continue
+
+            if not raw.startswith(UTF8_BOM):
+                issues.append(
+                    f"[ENCODING] {path.relative_to(REPO_ROOT)} -- missing UTF-8 BOM "
+                    f"(EU5 will warn on load; save as UTF-8 with BOM)"
+                )
+
+            try:
+                content = raw.decode("utf-8-sig")
             except UnicodeDecodeError:
                 issues.append(f"[ENCODING] Cannot decode as UTF-8: {path.relative_to(REPO_ROOT)}")
                 continue

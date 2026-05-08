@@ -126,7 +126,7 @@ src/
 | Scripted Triggers | 507 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 504 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 195 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 175 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 
@@ -135,6 +135,7 @@ src/
 | `scripts/gen_brief.py` | anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md | docs/knowledge/BRIEF.md | After editing any YAML knowledge file |
 | `scripts/gen_index.py` | reference_game_files + src/ | data/index/*.txt symbol indexes | Run by gen_brief.py automatically |
 | `scripts/gen_scaffold.py` | --type argument | Scaffold .txt/.yml file in dir | When creating a new EU5 file |
+| `scripts/gen_victory.py` | data/victory_paths.yaml | 13 victory-path game files (see below) | After editing data/victory_paths.yaml |
 | `scripts/validate.py` | src/ mod files + knowledge YAML | Console report (exit 0/1) | Before launching game; --changed for quick check |
 
 ## Auto-Generated Files (do not edit directly)
@@ -150,3 +151,16 @@ src/
 | `data/index/scripted_effects.txt` | `scripts/gen_index.py` |
 | `data/index/static_modifiers.txt` | `scripts/gen_index.py` |
 | `data/index/loc_keys_en.txt` | `scripts/gen_index.py` |
+| `src/in_game/common/scripted_triggers/towards_victory_triggers.txt` | `scripts/gen_victory.py` |
+| `src/in_game/common/scripted_effects/towards_victory_effects.txt` | `scripts/gen_victory.py` |
+| `src/in_game/common/static_modifiers/towards_victory_modifiers.txt` | `scripts/gen_victory.py` |
+| `src/in_game/common/situations/towards_victory_situations.txt` | `scripts/gen_victory.py` |
+| `src/in_game/common/on_action/towards_victory_yearly.txt` | `scripts/gen_victory.py` |
+| `src/in_game/events/towards_victory_conquest_events.txt` | `scripts/gen_victory.py` |
+| `src/in_game/events/towards_victory_prosperity_events.txt` | `scripts/gen_victory.py` |
+| `src/in_game/events/towards_victory_trade_events.txt` | `scripts/gen_victory.py` |
+| `src/in_game/events/towards_victory_diplomatic_events.txt` | `scripts/gen_victory.py` |
+| `src/in_game/events/towards_victory_cultural_events.txt` | `scripts/gen_victory.py` |
+| `src/in_game/events/towards_victory_science_events.txt` | `scripts/gen_victory.py` |
+| `src/main_menu/localization/english/towards_victory_l_english.yml` | `scripts/gen_victory.py` |
+| `src/main_menu/localization/simp_chinese/towards_victory_l_simp_chinese.yml` | `scripts/gen_victory.py` |

@@ -1,21 +1,21 @@
 ﻿l_english:
- # ── Situation ──────────────────────────────────────────────────────────────────
+ # ── Situation ──────────────────────────────────────────────────────────────
  tv_victory_situation: "Towards Victory"
  tv_victory_situation_desc: "Track your progress across six distinct victory paths."
  TV_VICTORY_SITUATION_TITLE: "Victory Progress"
 
- # ── Shared milestone circle labels ─────────────────────────────────────────────
+ # ── Shared milestone circle labels ─────────────────────────────────────────
  TV_MILESTONE_1_LABEL: "1"
  TV_MILESTONE_2_LABEL: "2"
  TV_MILESTONE_V1_LABEL: "V1"
  TV_MILESTONE_4_LABEL: "4"
  TV_MILESTONE_V2_LABEL: "V2"
 
- # ── Shared tooltip section headers ─────────────────────────────────────────────
+ # ── Shared tooltip section headers ─────────────────────────────────────────
  TV_TOOLTIP_CONDITIONS_HEADER: "Required Conditions"
  TV_TOOLTIP_REWARDS_HEADER: "Milestone Reward"
 
- # ── Conquest Victory ─────────────────────────────────────────────────────────
+ # ── Conquest Victory ──────────────────────────────────────────────────────────
  TV_CONQUEST_TITLE: "Conquest Victory"
  TV_CONQUEST_DESCRIPTION: "Dominate the world through territorial expansion."
  TV_CONQUEST_FLAVOR: "\"The greatest happiness is to vanquish your enemies.\" — Genghis Khan"
@@ -53,24 +53,8 @@
  tv_conquest.5.d: "Two thousand locations. No empire in recorded history has claimed so much of the known world. Our legacy is written not in ink but in the march of armies and the raising of banners."
  tv_conquest.5.a: "Our name shall echo through the ages."
 
- # ── Prosperity Victory Events ─────────────────────────────────────────────
- tv_prosperity.1.t: "A Nation Begins to Thrive"
- tv_prosperity.1.d: "Our people are prospering. Farms yield more, towns bustle with commerce, and the realm's foundations grow stronger with each passing year."
- tv_prosperity.1.a: "Let our prosperity continue to grow."
- tv_prosperity.2.t: "A Flourishing Realm"
- tv_prosperity.2.d: "Sustained investment in our lands is bearing fruit. The population swells, buildings rise, and the wealth of the nation is evident to all who enter our borders."
- tv_prosperity.2.a: "Our people shall want for nothing."
- tv_prosperity.3.t: "Prosperity Victory — The Heartland Thrives"
- tv_prosperity.3.d: "Our realm has achieved a level of domestic prosperity that few nations ever reach. The combination of healthy population, vibrant towns, and well-tended lands marks us as a true short-term victor."
- tv_prosperity.3.a: "Let this prosperity be the foundation of our greatness."
- tv_prosperity.4.t: "An Advanced Nation"
- tv_prosperity.4.d: "Neighbours look upon our realm with envy. Our cities are among the finest in the known world, our population among the most numerous and well-fed. Yet the summit of prosperity still beckons."
- tv_prosperity.4.a: "We shall reach the pinnacle of civilisation."
- tv_prosperity.5.t: "Long-term Victory — The Most Developed Nation"
- tv_prosperity.5.d: "No nation in the known world can rival the prosperity of our realm. Our people are the most numerous, our towns the most prosperous, and our lands the most developed. History shall remember us as the pinnacle of human achievement."
- tv_prosperity.5.a: "Our legacy is written in the flourishing of our people."
 
- # ── Prosperity Victory ─────────────────────────────────────────────────────────
+ # ── Prosperity Victory ──────────────────────────────────────────────────────────
  TV_PROSPERITY_TITLE: "Prosperity Victory"
  TV_PROSPERITY_DESCRIPTION: "Build a thriving nation through domestic development."
  TV_PROSPERITY_FLAVOR: "\"Prosperity is the fruit of labour.\" — Thucydides"
@@ -91,24 +75,25 @@
  TV_PROSPERITY_M5_MEANING: "The most developed nation on earth. Long-term Victory. Score ~25,000."
  TV_PROSPERITY_M5_TRIGGER_DESC: "Prosperity score ≥ 25,000"
 
- # ── Trade Victory Events ─────────────────────────────────────────────────
- tv_trade.1.t: "The First Markets"
- tv_trade.1.d: "Our merchants have gained a foothold in the great trade markets. Let them grow rich."
- tv_trade.1.a: "Open the ledgers."
- tv_trade.2.t: "Lords of the Trade Route"
- tv_trade.2.d: "Our commercial networks now dominate the region. The caravans and ships answer to us."
- tv_trade.2.a: "Send more merchants."
- tv_trade.3.t: "A Great Commercial Empire"
- tv_trade.3.d: "What began as a handful of traders has grown into an empire of commerce. Our name is known in every great market."
- tv_trade.3.a: "Glory to the merchant class."
- tv_trade.4.t: "Masters of the Seas of Commerce"
- tv_trade.4.d: "Our trade routes crisscross the known world. Distance itself bows to our merchant fleets."
- tv_trade.4.a: "Chart new routes."
- tv_trade.5.t: "The Trade Hegemon"
- tv_trade.5.d: "We have done what no nation has done before: we have made the world's commerce our own. This victory is eternal."
- tv_trade.5.a: "Our ledgers overflow."
+ # ── Prosperity Victory Events ───────────────────────────────────────────────
+ tv_prosperity.1.t: "A Nation Begins to Thrive"
+ tv_prosperity.1.d: "Our people are prospering. Farms yield more, towns bustle with commerce, and the realm's foundations grow stronger with each passing year."
+ tv_prosperity.1.a: "Let our prosperity continue to grow."
+ tv_prosperity.2.t: "A Flourishing Realm"
+ tv_prosperity.2.d: "Sustained investment in our lands is bearing fruit. The population swells, buildings rise, and the wealth of the nation is evident to all who enter our borders."
+ tv_prosperity.2.a: "Our people shall want for nothing."
+ tv_prosperity.3.t: "Prosperity Victory — The Heartland Thrives"
+ tv_prosperity.3.d: "Our realm has achieved a level of domestic prosperity that few nations ever reach. The combination of healthy population, vibrant towns, and well-tended lands marks us as a true short-term victor."
+ tv_prosperity.3.a: "Let this prosperity be the foundation of our greatness."
+ tv_prosperity.4.t: "An Advanced Nation"
+ tv_prosperity.4.d: "Neighbours look upon our realm with envy. Our cities are among the finest in the known world, our population among the most numerous and well-fed. Yet the summit of prosperity still beckons."
+ tv_prosperity.4.a: "We shall reach the pinnacle of civilisation."
+ tv_prosperity.5.t: "Long-term Victory — The Most Developed Nation"
+ tv_prosperity.5.d: "No nation in the known world can rival the prosperity of our realm. Our people are the most numerous, our towns the most prosperous, and our lands the most developed. History shall remember us as the pinnacle of human achievement."
+ tv_prosperity.5.a: "Our legacy is written in the flourishing of our people."
 
- # ── Trade Victory ─────────────────────────────────────────────────────────
+
+ # ── Trade Victory ──────────────────────────────────────────────────────────
  TV_TRADE_TITLE: "Trade Victory"
  TV_TRADE_DESCRIPTION: "Build an empire of commerce and maritime power."
  TV_TRADE_FLAVOR: "\"Venice does not make war; Venice makes money.\""
@@ -128,10 +113,28 @@
  TV_TRADE_M5_TITLE: "Trade Victory — Long-term Victory"
  TV_TRADE_M5_MEANING: "Undisputed trade hegemon. Long-term Victory. Monthly trade income ~2,000."
  TV_TRADE_M5_TRIGGER_DESC: "Trade score ≥ 2,000, with market dominance"
+
+ # ── Trade Victory Events ───────────────────────────────────────────────
+ tv_trade.1.t: "The First Markets"
+ tv_trade.1.d: "Our merchants have gained a foothold in the great trade markets. Let them grow rich."
+ tv_trade.1.a: "Open the ledgers."
+ tv_trade.2.t: "Lords of the Trade Route"
+ tv_trade.2.d: "Our commercial networks now dominate the region. The caravans and ships answer to us."
+ tv_trade.2.a: "Send more merchants."
+ tv_trade.3.t: "A Great Commercial Empire"
+ tv_trade.3.d: "What began as a handful of traders has grown into an empire of commerce. Our name is known in every great market."
+ tv_trade.3.a: "Glory to the merchant class."
+ tv_trade.4.t: "Masters of the Seas of Commerce"
+ tv_trade.4.d: "Our trade routes crisscross the known world. Distance itself bows to our merchant fleets."
+ tv_trade.4.a: "Chart new routes."
+ tv_trade.5.t: "The Trade Hegemon"
+ tv_trade.5.d: "We have done what no nation has done before: we have made the world's commerce our own. This victory is eternal."
+ tv_trade.5.a: "Our ledgers overflow."
+
  tv_trade_market_dominance_5_tt:0 "Leading merchant in at least 5 markets"
  tv_trade_market_dominance_10_tt:0 "Leading merchant in at least 10 markets"
 
- # ── Diplomatic Victory ─────────────────────────────────────────────────────────
+ # ── Diplomatic Victory ──────────────────────────────────────────────────────────
  TV_DIPLOMATIC_TITLE: "Diplomatic Victory"
  TV_DIPLOMATIC_DESCRIPTION: "Accumulate influence through alliances, treaties, and statecraft."
  TV_DIPLOMATIC_FLAVOR: "\"An army is of little use where reason fails.\""
@@ -152,7 +155,25 @@
  TV_DIPLOMATIC_M5_MEANING: "580 DVP. Undisputed diplomatic hegemon. Long-term Victory."
  TV_DIPLOMATIC_M5_TRIGGER_DESC: "Diplomatic Victory Points ≥ 580"
 
- # ── Cultural Victory ─────────────────────────────────────────────────────────
+ # ── Diplomatic Victory Events ───────────────────────────────────────────────
+ tv_diplomatic.1.t: "A Voice Among Nations"
+ tv_diplomatic.1.d: "Our patient diplomacy has begun to bear fruit. Through alliances and royal bonds, our nation is earning a place at the table of great powers."
+ tv_diplomatic.1.a: "Let our word carry weight."
+ tv_diplomatic.2.t: "A Reliable Ally"
+ tv_diplomatic.2.d: "Nations seek us out as guarantors and partners. Our willingness to honour our commitments has built a reputation that money cannot buy."
+ tv_diplomatic.2.a: "Our word is our bond."
+ tv_diplomatic.3.t: "A Power of the First Rank — Short-term Victory"
+ tv_diplomatic.3.d: "Our diplomatic reach extends across continents. Treaties bear our seal, and ambassadors from distant courts seek our counsel. We have achieved a short-term diplomatic victory."
+ tv_diplomatic.3.a: "The world listens when we speak."
+ tv_diplomatic.4.t: "Arbiter of Nations"
+ tv_diplomatic.4.d: "No quarrel between princes is settled without our consent. Our subjects are loyal, our allies numerous, and our influence unmatched in this age."
+ tv_diplomatic.4.a: "We shall keep the peace of the world."
+ tv_diplomatic.5.t: "Long-term Victory — Diplomatic Hegemon"
+ tv_diplomatic.5.d: "Five hundred and eighty points of diplomatic achievement. No nation in history has woven so vast a web of alliances, marriages, and mutual guarantees. Our legacy is written not in conquest but in the peace we preserved."
+ tv_diplomatic.5.a: "Our name shall be synonymous with statecraft."
+
+
+ # ── Cultural Victory ──────────────────────────────────────────────────────────
  TV_CULTURAL_TITLE: "Cultural Victory"
  TV_CULTURAL_DESCRIPTION: "Achieve pre-eminence through art, court, and the spread of culture."
  TV_CULTURAL_FLAVOR: "\"Art is the signature of civilisations.\""
@@ -173,24 +194,7 @@
  TV_CULTURAL_M5_MEANING: "580 CIP. The greatest cultural legacy in history. Long-term Victory."
  TV_CULTURAL_M5_TRIGGER_DESC: "Cultural Influence Points ≥ 580"
 
- # ── Diplomatic Victory Events ─────────────────────────────────────────
- tv_diplomatic.1.t: "A Voice Among Nations"
- tv_diplomatic.1.d: "Our patient diplomacy has begun to bear fruit. Through alliances and royal bonds, our nation is earning a place at the table of great powers."
- tv_diplomatic.1.a: "Let our word carry weight."
- tv_diplomatic.2.t: "A Reliable Ally"
- tv_diplomatic.2.d: "Nations seek us out as guarantors and partners. Our willingness to honour our commitments has built a reputation that money cannot buy."
- tv_diplomatic.2.a: "Our word is our bond."
- tv_diplomatic.3.t: "A Power of the First Rank — Short-term Victory"
- tv_diplomatic.3.d: "Our diplomatic reach extends across continents. Treaties bear our seal, and ambassadors from distant courts seek our counsel. We have achieved a short-term diplomatic victory."
- tv_diplomatic.3.a: "The world listens when we speak."
- tv_diplomatic.4.t: "Arbiter of Nations"
- tv_diplomatic.4.d: "No quarrel between princes is settled without our consent. Our subjects are loyal, our allies numerous, and our influence unmatched in this age."
- tv_diplomatic.4.a: "We shall keep the peace of the world."
- tv_diplomatic.5.t: "Long-term Victory — Diplomatic Hegemon"
- tv_diplomatic.5.d: "Five hundred and eighty points of diplomatic achievement. No nation in history has woven so vast a web of alliances, marriages, and mutual guarantees. Our legacy is written not in conquest but in the peace we preserved."
- tv_diplomatic.5.a: "Our name shall be synonymous with statecraft."
-
- # ── Cultural Victory Events ─────────────────────────────────────────
+ # ── Cultural Victory Events ───────────────────────────────────────────────
  tv_cultural.1.t: "A Patron of the Arts"
  tv_cultural.1.d: "Our court has begun to attract painters, sculptors, and men of letters. The works commissioned in our name already speak to something greater than mere politics — a civilisation is taking shape."
  tv_cultural.1.a: "Let the arts flourish in our name."
@@ -207,7 +211,8 @@
  tv_cultural.5.d: "Five hundred and eighty points of cultural achievement. No nation in history has produced so much beauty, wisdom, and wonder. Long after our armies are forgotten, the works created in our name will endure as the greatest cultural legacy the world has ever known."
  tv_cultural.5.a: "Our name shall be synonymous with civilisation itself."
 
- # ── Scientific Victory ─────────────────────────────────────────────────
+
+ # ── Science Victory ──────────────────────────────────────────────────────────
  TV_SCIENCE_TITLE: "Scientific Victory"
  TV_SCIENCE_DESCRIPTION: "Lead the world through the advancement of knowledge and technology."
  TV_SCIENCE_FLAVOR: "\"The true method of knowledge is experiment.\" — William Blake"
@@ -228,7 +233,7 @@
  TV_SCIENCE_M5_MEANING: "The nation that ushered in the Industrial Age. Long-term Victory. ~400 advances researched."
  TV_SCIENCE_M5_TRIGGER_DESC: "Science score ≥ 400 and Academy Level ≥ 5"
 
- # ── Scientific Victory Events ──────────────────────────────────────────
+ # ── Science Victory Events ───────────────────────────────────────────────
  tv_science.1.t: "A Nation of Scholars"
  tv_science.1.d: "Our universities and academies are beginning to bear fruit. One hundred advances researched — our realm stands at the vanguard of learning in this age."
  tv_science.1.a: "Knowledge shall light our way forward."
@@ -245,7 +250,56 @@
  tv_science.5.d: "Four hundred advances. Steam, iron, and the rational mind have remade our nation. Long after the old empires crumble, the knowledge forged in our academies will transform the world entire."
  tv_science.5.a: "Our name shall be synonymous with progress itself."
 
- # ── Static Modifier Names (shown in modifier tooltips) ────────────────────────
+ tv_academy_of_sciences_1: "Academy of Sciences, Phase I"
+ tv_academy_of_sciences_1_desc: "The founding of a national academy dedicated to the systematic advancement of learning and natural philosophy."
+ tv_academy_of_sciences_2: "Academy of Sciences, Phase II"
+ tv_academy_of_sciences_2_desc: "Expansion of the Academy's research faculties and the establishment of dedicated natural philosophy laboratories."
+ tv_academy_of_sciences_3: "Academy of Sciences, Phase III"
+ tv_academy_of_sciences_3_desc: "International recognition of the Academy as a preeminent seat of scholarship, drawing scholars from across the known world."
+ tv_academy_of_sciences_4: "Academy of Sciences, Phase IV"
+ tv_academy_of_sciences_4_desc: "The Academy becomes the nexus of the natural philosophy revolution, pioneering advances that redefine the limits of human knowledge."
+ tv_academy_of_sciences_5: "Academy of Sciences, Phase V"
+ tv_academy_of_sciences_5_desc: "The Academy drives the nation into the age of industry and reason, its discoveries forging the foundations of a new world."
+ TV_ACADEMY_SCORE_1_TT: "Requires Science Score of at least 100 (total advances researched >= 100)"
+ TV_ACADEMY_SCORE_2_TT: "Requires Science Score of at least 150 (total advances researched >= 150)"
+ TV_ACADEMY_SCORE_3_TT: "Requires Science Score of at least 200 (total advances researched >= 200)"
+ TV_ACADEMY_SCORE_4_TT: "Requires Science Score of at least 300 (total advances researched >= 300)"
+ TV_ACADEMY_SCORE_5_TT: "Requires Science Score of at least 400 (total advances researched >= 400)"
+ TV_ACADEMY_HAS_PREV_2_TT: "Phase I Academy of Sciences must be constructed first"
+ TV_ACADEMY_HAS_PREV_3_TT: "Phase II Academy of Sciences must be constructed first"
+ TV_ACADEMY_HAS_PREV_4_TT: "Phase III Academy of Sciences must be constructed first"
+ TV_ACADEMY_HAS_PREV_5_TT: "Phase IV Academy of Sciences must be constructed first"
+ MODIFIER_TYPE_NAME_tv_academy_1_price_cost_modifier: "Academy of Sciences I: Construction Cost"
+ MODIFIER_TYPE_DESC_tv_academy_1_price_cost_modifier: "Modifies the gold construction cost of the Academy of Sciences (Phase I)."
+ MODIFIER_TYPE_NAME_tv_academy_2_price_cost_modifier: "Academy of Sciences II: Construction Cost"
+ MODIFIER_TYPE_DESC_tv_academy_2_price_cost_modifier: "Modifies the gold construction cost of the Academy of Sciences (Phase II)."
+ MODIFIER_TYPE_NAME_tv_academy_3_price_cost_modifier: "Academy of Sciences III: Construction Cost"
+ MODIFIER_TYPE_DESC_tv_academy_3_price_cost_modifier: "Modifies the gold construction cost of the Academy of Sciences (Phase III)."
+ MODIFIER_TYPE_NAME_tv_academy_4_price_cost_modifier: "Academy of Sciences IV: Construction Cost"
+ MODIFIER_TYPE_DESC_tv_academy_4_price_cost_modifier: "Modifies the gold construction cost of the Academy of Sciences (Phase IV)."
+ MODIFIER_TYPE_NAME_tv_academy_5_price_cost_modifier: "Academy of Sciences V: Construction Cost"
+ MODIFIER_TYPE_DESC_tv_academy_5_price_cost_modifier: "Modifies the gold construction cost of the Academy of Sciences (Phase V)."
+ tv_academy_1_price: "Academy of Sciences I"
+ tv_academy_2_price: "Academy of Sciences II"
+ tv_academy_3_price: "Academy of Sciences III"
+ tv_academy_4_price: "Academy of Sciences IV"
+ tv_academy_5_price: "Academy of Sciences V"
+ tv_academy_1_construction: "Construction of Academy of Sciences I"
+ tv_academy_2_construction: "Construction of Academy of Sciences II"
+ tv_academy_3_construction: "Construction of Academy of Sciences III"
+ tv_academy_4_construction: "Construction of Academy of Sciences IV"
+ tv_academy_5_construction: "Construction of Academy of Sciences V"
+ tv_academy_maintenance: "Academy Maintenance"
+
+ # ── Progress bar tooltips — current score display ───────────────────────────
+ TV_CONQUEST_PROGRESS_DISPLAY:0 "Conquest Score: [Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,000"
+ TV_PROSPERITY_PROGRESS_DISPLAY:0 "Prosperity Score: [Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 25,000"
+ TV_TRADE_PROGRESS_DISPLAY:0 "Trade Score: [Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
+ TV_DIPLOMATIC_PROGRESS_DISPLAY:0 "Diplomatic Victory Points: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 580"
+ TV_CULTURAL_PROGRESS_DISPLAY:0 "Cultural Influence Points: [Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
+ TV_SCIENCE_PROGRESS_DISPLAY:0 "Science Score: [Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
+
+ # ── Static Modifier Names (shown in modifier tooltips) ─────────────────────
  STATIC_MODIFIER_NAME_tv_conquest_m1_bonus: "Seasoned Legions"
  STATIC_MODIFIER_NAME_tv_conquest_m2_bonus: "Manpower Surge"
  STATIC_MODIFIER_NAME_tv_conquest_m3_bonus: "Iron Governance"
@@ -276,58 +330,3 @@
  STATIC_MODIFIER_NAME_tv_science_m3_bonus: "Age of Enlightenment"
  STATIC_MODIFIER_NAME_tv_science_m4_bonus: "Preeminent Science"
  STATIC_MODIFIER_NAME_tv_science_m5_bonus: "Industrial Vanguard"
-
- # ── Academy of Sciences Building Chain ────────────────────────────────────
- tv_academy_of_sciences_1: "Academy of Sciences, Phase I"
- tv_academy_of_sciences_1_desc: "The founding of a national academy dedicated to the systematic advancement of learning and natural philosophy."
- tv_academy_of_sciences_2: "Academy of Sciences, Phase II"
- tv_academy_of_sciences_2_desc: "Expansion of the Academy's research faculties and the establishment of dedicated natural philosophy laboratories."
- tv_academy_of_sciences_3: "Academy of Sciences, Phase III"
- tv_academy_of_sciences_3_desc: "International recognition of the Academy as a preeminent seat of scholarship, drawing scholars from across the known world."
- tv_academy_of_sciences_4: "Academy of Sciences, Phase IV"
- tv_academy_of_sciences_4_desc: "The Academy becomes the nexus of the natural philosophy revolution, pioneering advances that redefine the limits of human knowledge."
- tv_academy_of_sciences_5: "Academy of Sciences, Phase V"
- tv_academy_of_sciences_5_desc: "The Academy drives the nation into the age of industry and reason, its discoveries forging the foundations of a new world."
-
- # Allow-block custom tooltips (score requirements — not auto-parseable)
- TV_ACADEMY_SCORE_1_TT: "Requires Science Score of at least 100 (total advances researched >= 100)"
- TV_ACADEMY_SCORE_2_TT: "Requires Science Score of at least 150 (total advances researched >= 150)"
- TV_ACADEMY_SCORE_3_TT: "Requires Science Score of at least 200 (total advances researched >= 200)"
- TV_ACADEMY_SCORE_4_TT: "Requires Science Score of at least 300 (total advances researched >= 300)"
- TV_ACADEMY_SCORE_5_TT: "Requires Science Score of at least 400 (total advances researched >= 400)"
-
- # Allow-block custom tooltips (prerequisite building requirements)
- TV_ACADEMY_HAS_PREV_2_TT: "Phase I Academy of Sciences must be constructed first"
- TV_ACADEMY_HAS_PREV_3_TT: "Phase II Academy of Sciences must be constructed first"
- TV_ACADEMY_HAS_PREV_4_TT: "Phase III Academy of Sciences must be constructed first"
- TV_ACADEMY_HAS_PREV_5_TT: "Phase IV Academy of Sciences must be constructed first"
-
- # Progress bar tooltips — current score display (Verified: Step 3, situations_l_english.yml:198)
- TV_CONQUEST_PROGRESS_DISPLAY:0 "Conquest Score: [Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,000"
- TV_PROSPERITY_PROGRESS_DISPLAY:0 "Prosperity Score: [Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 25,000"
- TV_TRADE_PROGRESS_DISPLAY:0 "Trade Score: [Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
- TV_DIPLOMATIC_PROGRESS_DISPLAY:0 "Diplomatic Victory Points: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 580"
- TV_CULTURAL_PROGRESS_DISPLAY:0 "Cultural Influence Points: [Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
- TV_SCIENCE_PROGRESS_DISPLAY:0 "Science Score: [Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
-
- # ── Academy of Sciences price, demand, and modifier-type localization ─────
- tv_academy_1_price: "Academy Phase I"
- tv_academy_2_price: "Academy Phase II"
- tv_academy_3_price: "Academy Phase III"
- tv_academy_4_price: "Academy Phase IV"
- tv_academy_5_price: "Academy Phase V"
- tv_academy_1_construction: "Academy Phase I Materials"
- tv_academy_2_construction: "Academy Phase II Materials"
- tv_academy_3_construction: "Academy Phase III Materials"
- tv_academy_4_construction: "Academy Phase IV Materials"
- tv_academy_5_construction: "Academy Phase V Materials"
- MODIFIER_TYPE_NAME_tv_academy_1_price_cost_modifier: "Academy Phase I Construction Cost"
- MODIFIER_TYPE_DESC_tv_academy_1_price_cost_modifier: "This impacts how much it [costs|e] to construct [ShowBuildingTypeName('tv_academy_of_sciences_1')]."
- MODIFIER_TYPE_NAME_tv_academy_2_price_cost_modifier: "Academy Phase II Construction Cost"
- MODIFIER_TYPE_DESC_tv_academy_2_price_cost_modifier: "This impacts how much it [costs|e] to construct [ShowBuildingTypeName('tv_academy_of_sciences_2')]."
- MODIFIER_TYPE_NAME_tv_academy_3_price_cost_modifier: "Academy Phase III Construction Cost"
- MODIFIER_TYPE_DESC_tv_academy_3_price_cost_modifier: "This impacts how much it [costs|e] to construct [ShowBuildingTypeName('tv_academy_of_sciences_3')]."
- MODIFIER_TYPE_NAME_tv_academy_4_price_cost_modifier: "Academy Phase IV Construction Cost"
- MODIFIER_TYPE_DESC_tv_academy_4_price_cost_modifier: "This impacts how much it [costs|e] to construct [ShowBuildingTypeName('tv_academy_of_sciences_4')]."
- MODIFIER_TYPE_NAME_tv_academy_5_price_cost_modifier: "Academy Phase V Construction Cost"
- MODIFIER_TYPE_DESC_tv_academy_5_price_cost_modifier: "This impacts how much it [costs|e] to construct [ShowBuildingTypeName('tv_academy_of_sciences_5')]."

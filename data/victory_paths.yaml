@@ -1,0 +1,1436 @@
+# data/victory_paths.yaml
+# Single source of truth for all Towards Victory victory path data.
+# Regenerate all 13 game files with:
+#   conda run --no-capture-output -n eu5 python scripts/gen_victory.py
+#
+# 1对1原则: Each field maps directly to one piece of generated output.
+# Complex EU5 script bodies are stored verbatim (multiline strings); the generator
+# inserts them unchanged. Simple repetitive blocks use Python templates.
+#
+# Do NOT hand-edit the generated files — edit this YAML and re-run gen_victory.py.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SHARED — written to both localization files
+# ─────────────────────────────────────────────────────────────────────────────
+shared:
+  situation_name:
+    en: "Towards Victory"
+    zh: "胜利条件"
+  situation_desc:
+    en: "Track your progress across six distinct victory paths."
+    zh: "追踪您在六条胜利路径上的进度。"
+  situation_title:
+    en: "Victory Progress"
+    zh: "胜利进度"
+  tooltip_conditions_header:
+    en: "Required Conditions"
+    zh: "达成条件"
+  tooltip_rewards_header:
+    en: "Milestone Reward"
+    zh: "里程碑奖励"
+  milestone_labels:
+    1: "1"
+    2: "2"
+    3: "V1"
+    4: "4"
+    5: "V2"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# VICTORY PATHS
+# ─────────────────────────────────────────────────────────────────────────────
+paths:
+
+  # ── CONQUEST ──────────────────────────────────────────────────────────────
+  - id: conquest
+    score_var: tv_conquest_score
+    call_updater_in_checker: true      # true → emit tv_update_{id}_score_effect = yes at top of checker
+    score_var_init_in_checker: false   # true → emit extra has_variable init for score_var in checker
+
+    # 1对1: Score updater body — inserted verbatim into tv_update_conquest_score_effect
+    score_updater_body: |
+      set_variable = { name = tv_conquest_score value = num_locations }
+      set_variable = { name = tv_conquest_subj_temp value = 0 }
+      every_subject_or_below = {
+      	root = {
+      		change_variable = { name = tv_conquest_subj_temp add = prev.num_locations }
+      	}
+      }
+      change_variable = { name = tv_conquest_subj_temp divide = 2 }
+      change_variable = { name = tv_conquest_score add = var:tv_conquest_subj_temp }
+
+    # 1对1: Progress pct body — inserted verbatim into tv_update_all_progress_pct_effect
+    progress_pct_body: |
+      # ── Conquest Victory ─────────────────────────────────────────────────────
+      # threshold = 2000; divisor = 20 (2000 ÷ 100 = 20, exact)
+      if = {
+      	limit = { has_variable = tv_conquest_score }
+      	set_variable = { name = tv_conquest_progress_pct value = var:tv_conquest_score }
+      	change_variable = { name = tv_conquest_progress_pct divide = 20 }
+      	if = { limit = { var:tv_conquest_progress_pct > 100 } set_variable = { name = tv_conquest_progress_pct value = 100 } }
+      }
+
+    extra_loc_keys: []
+
+    loc:
+      title:
+        en: "Conquest Victory"
+        zh: "征服胜利"
+      description:
+        en: "Dominate the world through territorial expansion."
+        zh: "通过领土扩张称霸世界。"
+      flavor:
+        en: '"The greatest happiness is to vanquish your enemies." — Genghis Khan'
+        zh: '"最大的幸福就是征服你的敌人。" — 成吉思汗'
+      progress_display:
+        en: "Conquest Score: [Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,000"
+        zh: "征服分数：[Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,000"
+
+    milestones:
+      - n: 1
+        is_short_term: false
+        is_long_term: false
+        threshold: 150
+        extra_trigger_block: null
+        modifier:
+          discipline: 0.05
+        modifier_name:
+          en: "Seasoned Legions"
+          zh: "百炼雄师"
+        loc:
+          title:
+            en: "Conquest Victory — Milestone 1"
+            zh: "征服胜利 — 里程碑一"
+          meaning:
+            en: "A nation of modest reach. ~150 owned locations."
+            zh: "初具规模的国家。征服分数约150。"
+          trigger_desc:
+            en: "Conquest score ≥ 150"
+            zh: "征服分数 ≥ 150"
+          event_title:
+            en: "The Empire Grows"
+            zh: "帝国正在壮大"
+          event_desc:
+            en: "Our armies have marched and our banners now fly over territories once beyond reach. With 150 locations under our dominion, the realm is taking shape."
+            zh: "我们的军队已经远征，旗帜飘扬在150处领地之上。帝国的轮廓日渐清晰。"
+          event_option:
+            en: "Let our dominion grow ever wider."
+            zh: "让我们的疆域继续扩张。"
+
+      - n: 2
+        is_short_term: false
+        is_long_term: false
+        threshold: 300
+        extra_trigger_block: null
+        modifier:
+          global_manpower_modifier: 0.25
+        modifier_name:
+          en: "Manpower Surge"
+          zh: "兵源汹涌"
+        loc:
+          title:
+            en: "Conquest Victory — Milestone 2"
+            zh: "征服胜利 — 里程碑二"
+          meaning:
+            en: "A substantial empire. ~300 owned locations."
+            zh: "幅员辽阔的帝国。征服分数约300。"
+          trigger_desc:
+            en: "Conquest score ≥ 300"
+            zh: "征服分数 ≥ 300"
+          event_title:
+            en: "A Substantial Empire"
+            zh: "幅员辽阔的帝国"
+          event_desc:
+            en: "Our realm now encompasses 300 locations. Supplying our vast armies and reducing the ravages of campaign attrition will be essential to sustaining this empire."
+            zh: "我国版图已覆盖300处领地。维持如此广袤的帝国，后勤补给与减少行军损耗至关重要。"
+          event_option:
+            en: "Our logistics must match our ambition."
+            zh: "后勤必须跟上我们的雄心。"
+
+      - n: 3
+        is_short_term: true
+        is_long_term: false
+        threshold: 500
+        extra_trigger_block: null
+        modifier:
+          pop_join_rebel_threshold: -0.05
+          monthly_legitimacy: 0.10
+          monthly_republican_tradition: 0.10
+          monthly_devotion: 0.10
+        modifier_name:
+          en: "Iron Governance"
+          zh: "铁腕治国"
+        loc:
+          title:
+            en: "Conquest Victory — Short-term Victory"
+            zh: "征服胜利 — 短期胜利"
+          meaning:
+            en: "Territorial supremacy secured. Short-term Victory. ~500 owned locations."
+            zh: "确立领土霸主地位。短期胜利。征服分数约500。"
+          trigger_desc:
+            en: "Conquest score ≥ 500"
+            zh: "征服分数 ≥ 500"
+          event_title:
+            en: "Territorial Supremacy — Short-term Victory"
+            zh: "领土霸权 — 短期胜利"
+          event_desc:
+            en: "Five hundred locations bow before our flag. This is no mere kingdom — this is an empire. Yet governing so vast a domain demands firm administration and a steady hand."
+            zh: "500处领地已向我国旗帜俯首。这已不是王国，这是一个帝国。然而统治如此广袤的疆域，需要严明的治理与坚定的手腕。"
+          event_option:
+            en: "The realm is ours to govern."
+            zh: "这片疆土是我们治理的基业。"
+
+      - n: 4
+        is_short_term: false
+        is_long_term: false
+        threshold: 1000
+        extra_trigger_block: null
+        modifier:
+          global_integration_speed_modifier: 0.25
+          annexation_speed_modifier: 0.25
+        modifier_name:
+          en: "Imperial Absorption"
+          zh: "帝国消化"
+        loc:
+          title:
+            en: "Conquest Victory — Milestone 4"
+            zh: "征服胜利 — 里程碑四"
+          meaning:
+            en: "An empire spanning continents. ~1,000 owned locations."
+            zh: "横跨大陆的帝国。征服分数约1,000。"
+          trigger_desc:
+            en: "Conquest score ≥ 1,000"
+            zh: "征服分数 ≥ 1,000"
+          event_title:
+            en: "An Empire Spanning Continents"
+            zh: "横跨大陆的帝国"
+          event_desc:
+            en: "Over a thousand locations have fallen under our sway. The world watches. To hold what we have seized, we must project power with discipline and sustain our armies across every front."
+            zh: "超过千处领地已臣服于我们的统治。全世界都在注视。守住已征服之地，需要铁的纪律与强大的后勤。"
+          event_option:
+            en: "We shall hold what we have conquered."
+            zh: "我们将守护所征服的一切。"
+
+      - n: 5
+        is_short_term: false
+        is_long_term: true
+        threshold: 2000
+        extra_trigger_block: null
+        modifier:
+          global_war_score_efficiency: 0.5
+          siege_ability: 0.5
+        modifier_name:
+          en: "Unstoppable Tide"
+          zh: "势如破竹"
+        loc:
+          title:
+            en: "Conquest Victory — Long-term Victory"
+            zh: "征服胜利 — 长期胜利"
+          meaning:
+            en: "Undisputed world empire. Long-term Victory. ~2,000 owned locations."
+            zh: "无可争议的世界帝国。长期胜利。征服分数约2,000。"
+          trigger_desc:
+            en: "Conquest score ≥ 2,000"
+            zh: "征服分数 ≥ 2,000"
+          event_title:
+            en: "Long-term Victory — World Empire"
+            zh: "长期胜利 — 世界帝国"
+          event_desc:
+            en: "Two thousand locations. No empire in recorded history has claimed so much of the known world. Our legacy is written not in ink but in the march of armies and the raising of banners."
+            zh: "两千处领地。有史以来，从未有任何帝国掌控过如此广阔的疆土。我们的功业不书于纸，而铭刻于万里征途与猎猎旌旗之中。"
+          event_option:
+            en: "Our name shall echo through the ages."
+            zh: "我们的名字将永垂青史。"
+
+  # ── PROSPERITY ────────────────────────────────────────────────────────────
+  - id: prosperity
+    score_var: tv_prosperity_score
+    call_updater_in_checker: false     # updater called separately in situation (expensive)
+    score_var_init_in_checker: false
+
+    score_updater_body: |
+      set_variable = { name = tv_prosperity_score value = total_population }
+      set_variable = { name = tv_prosperity_temp value = 0 }
+      every_owned_location = {
+      	root = {
+      		change_variable = { name = tv_prosperity_temp add = prev.development }
+      	}
+      }
+      change_variable = { name = tv_prosperity_score add = var:tv_prosperity_temp }
+      change_variable = { name = tv_prosperity_score add = country_tax_base }
+
+    progress_pct_body: |
+      # ── Prosperity Victory ────────────────────────────────────────────────────
+      # threshold = 25000; divisor = 250 (25000 ÷ 100 = 250, exact; avoids overflow)
+      if = {
+      	limit = { has_variable = tv_prosperity_score }
+      	set_variable = { name = tv_prosperity_progress_pct value = var:tv_prosperity_score }
+      	change_variable = { name = tv_prosperity_progress_pct divide = 250 }
+      	if = { limit = { var:tv_prosperity_progress_pct > 100 } set_variable = { name = tv_prosperity_progress_pct value = 100 } }
+      }
+
+    extra_loc_keys: []
+
+    loc:
+      title:
+        en: "Prosperity Victory"
+        zh: "繁荣胜利"
+      description:
+        en: "Build a thriving nation through domestic development."
+        zh: "通过国内发展建设一个繁荣的国家。"
+      flavor:
+        en: '"Prosperity is the fruit of labour." — Thucydides'
+        zh: '"繁荣是劳动的果实。" — 修昔底德'
+      progress_display:
+        en: "Prosperity Score: [Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 25,000"
+        zh: "繁荣分数：[Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 25,000"
+
+    milestones:
+      - n: 1
+        is_short_term: false
+        is_long_term: false
+        threshold: 5000
+        extra_trigger_block: null
+        modifier:
+          global_monthly_prosperity: 0.001
+        modifier_name:
+          en: "Steady Prosperity"
+          zh: "稳步繁荣"
+        loc:
+          title:
+            en: "Prosperity Victory — Milestone 1"
+            zh: "繁荣胜利 — 里程碑一"
+          meaning:
+            en: "A growing nation — early domestic prosperity. Score ~5,000."
+            zh: "蓬勃发展的国家 — 国内繁荣初现。分数约5,000。"
+          trigger_desc:
+            en: "Prosperity score ≥ 5,000"
+            zh: "繁荣分数 ≥ 5,000"
+          event_title:
+            en: "A Nation Begins to Thrive"
+            zh: "国家开始兴旺"
+          event_desc:
+            en: "Our people are prospering. Farms yield more, towns bustle with commerce, and the realm's foundations grow stronger with each passing year."
+            zh: "我们的人民正在繁荣。农田收成更丰，城镇商贸兴盛，国家的根基日益稳固。"
+          event_option:
+            en: "Let our prosperity continue to grow."
+            zh: "愿我们的繁荣持续增长。"
+
+      - n: 2
+        is_short_term: false
+        is_long_term: false
+        threshold: 8000
+        extra_trigger_block: null
+        modifier:
+          global_population_growth: 0.001
+        modifier_name:
+          en: "Growing Population"
+          zh: "人口滋长"
+        loc:
+          title:
+            en: "Prosperity Victory — Milestone 2"
+            zh: "繁荣胜利 — 里程碑二"
+          meaning:
+            en: "A flourishing nation — sustained domestic investment. Score ~8,000."
+            zh: "兴旺发达的国家 — 持续的国内投入。分数约8,000。"
+          trigger_desc:
+            en: "Prosperity score ≥ 8,000"
+            zh: "繁荣分数 ≥ 8,000"
+          event_title:
+            en: "A Flourishing Realm"
+            zh: "蓬勃发展的王国"
+          event_desc:
+            en: "Sustained investment in our lands is bearing fruit. The population swells, buildings rise, and the wealth of the nation is evident to all who enter our borders."
+            zh: "对土地的持续投入正在结出硕果。人口增长，建筑林立，国家的财富令所有踏入边境者叹为观止。"
+          event_option:
+            en: "Our people shall want for nothing."
+            zh: "我们的人民将衣食无忧。"
+
+      - n: 3
+        is_short_term: true
+        is_long_term: false
+        threshold: 12000
+        extra_trigger_block: null
+        modifier:
+          global_build_buildings_cost: -0.25
+          city_upgrade_cost_modifier: -0.25
+          town_upgrade_cost_modifier: -0.25
+          rural_settlement_upgrade_cost_modifier: -0.25
+        modifier_name:
+          en: "Builder's Economy"
+          zh: "建设经济"
+        loc:
+          title:
+            en: "Prosperity Victory — Short-term Victory"
+            zh: "繁荣胜利 — 短期胜利"
+          meaning:
+            en: "A prosperous heartland. Short-term Victory. Score ~12,000."
+            zh: "繁荣的腹地。短期胜利。分数约12,000。"
+          trigger_desc:
+            en: "Prosperity score ≥ 12,000"
+            zh: "繁荣分数 ≥ 12,000"
+          event_title:
+            en: "Prosperity Victory — The Heartland Thrives"
+            zh: "繁荣胜利 — 腹地蓬勃兴盛"
+          event_desc:
+            en: "Our realm has achieved a level of domestic prosperity that few nations ever reach. The combination of healthy population, vibrant towns, and well-tended lands marks us as a true short-term victor."
+            zh: "我国已实现极少数国家能够企及的内政繁荣水平。健康的人口、活跃的城镇与精心耕耘的土地，使我们成为真正的短期胜利者。"
+          event_option:
+            en: "Let this prosperity be the foundation of our greatness."
+            zh: "愿这份繁荣成为我们伟大的基石。"
+
+      - n: 4
+        is_short_term: false
+        is_long_term: false
+        threshold: 18000
+        extra_trigger_block: null
+        modifier:
+          global_construction_speed: 0.5
+          global_distance_from_capital_speed_propagation: 0.20
+        modifier_name:
+          en: "Construction Boom"
+          zh: "建造大潮"
+        loc:
+          title:
+            en: "Prosperity Victory — Milestone 4"
+            zh: "繁荣胜利 — 里程碑四"
+          meaning:
+            en: "An advanced nation — the envy of neighbours. Score ~18,000."
+            zh: "先进的国家 — 令邻国艳羡。分数约18,000。"
+          trigger_desc:
+            en: "Prosperity score ≥ 18,000"
+            zh: "繁荣分数 ≥ 18,000"
+          event_title:
+            en: "An Advanced Nation"
+            zh: "先进的国家"
+          event_desc:
+            en: "Neighbours look upon our realm with envy. Our cities are among the finest in the known world, our population among the most numerous and well-fed. Yet the summit of prosperity still beckons."
+            zh: "邻国投以艳羡的目光。我们的城市跻身已知世界最出色之列，我们的人口位居最多且衣食充足。然而繁荣的顶峰依然在向我们招手。"
+          event_option:
+            en: "We shall reach the pinnacle of civilisation."
+            zh: "我们将攀登文明的巅峰。"
+
+      - n: 5
+        is_short_term: false
+        is_long_term: true
+        threshold: 25000
+        extra_trigger_block: null
+        modifier:
+          global_estate_max_tax: 0.5
+          tax_income_efficiency: 0.1
+        modifier_name:
+          en: "Peak Taxation"
+          zh: "税收峰值"
+        loc:
+          title:
+            en: "Prosperity Victory — Long-term Victory"
+            zh: "繁荣胜利 — 长期胜利"
+          meaning:
+            en: "The most developed nation on earth. Long-term Victory. Score ~25,000."
+            zh: "地球上最发达的国家。长期胜利。分数约25,000。"
+          trigger_desc:
+            en: "Prosperity score ≥ 25,000"
+            zh: "繁荣分数 ≥ 25,000"
+          event_title:
+            en: "Long-term Victory — The Most Developed Nation"
+            zh: "长期胜利 — 最繁荣的国家"
+          event_desc:
+            en: "No nation in the known world can rival the prosperity of our realm. Our people are the most numerous, our towns the most prosperous, and our lands the most developed. History shall remember us as the pinnacle of human achievement."
+            zh: "已知世界中，没有任何国家能与我国的繁荣相媲美。我们的人民最为众多，我们的城镇最为繁盛，我们的土地最为发达。历史将铭记我们是人类文明的巅峰。"
+          event_option:
+            en: "Our legacy is written in the flourishing of our people."
+            zh: "我们的遗产书写于人民的繁荣之中。"
+
+  # ── TRADE ─────────────────────────────────────────────────────────────────
+  - id: trade
+    score_var: tv_trade_score
+    call_updater_in_checker: true
+    score_var_init_in_checker: false
+
+    score_updater_body: |
+      set_variable = { name = tv_trade_score value = monthly_trade_income }
+
+    progress_pct_body: |
+      # ── Trade Victory ─────────────────────────────────────────────────────────
+      # threshold = 2000; divisor = 20 (2000 ÷ 100 = 20, exact)
+      if = {
+      	limit = { has_variable = tv_trade_score }
+      	set_variable = { name = tv_trade_progress_pct value = var:tv_trade_score }
+      	change_variable = { name = tv_trade_progress_pct divide = 20 }
+      	if = { limit = { var:tv_trade_progress_pct > 100 } set_variable = { name = tv_trade_progress_pct value = 100 } }
+      }
+
+    extra_loc_keys:
+      - key: tv_trade_market_dominance_5_tt
+        has_version_suffix: true
+        en: "Leading merchant in at least 5 markets"
+        zh: "在至少5个贸易市场中拥有最高贸易优势"
+      - key: tv_trade_market_dominance_10_tt
+        has_version_suffix: true
+        en: "Leading merchant in at least 10 markets"
+        zh: "在至少10个贸易市场中拥有最高贸易优势"
+
+    loc:
+      title:
+        en: "Trade Victory"
+        zh: "贸易胜利"
+      description:
+        en: "Build an empire of commerce and maritime power."
+        zh: "建立一个商业与海上力量的帝国。"
+      flavor:
+        en: '"Venice does not make war; Venice makes money."'
+        zh: '"威尼斯不打仗；威尼斯赚钱。"'
+      progress_display:
+        en: "Trade Score: [Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
+        zh: "贸易分数：[Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
+
+    milestones:
+      - n: 1
+        is_short_term: false
+        is_long_term: false
+        threshold: 100
+        extra_trigger_block: null
+        modifier:
+          merchant_maintenance_efficiency: 0.10
+        modifier_name:
+          en: "Merchant Efficiency"
+          zh: "商人效率"
+        loc:
+          title:
+            en: "Trade Victory — Milestone 1"
+            zh: "贸易胜利 — 里程碑一"
+          meaning:
+            en: "A merchant of note — commanding a trade node. Monthly trade income ~100."
+            zh: "商业立足 — 主导一个贸易节点。每月贸易收入约100。"
+          trigger_desc:
+            en: "Trade score ≥ 100"
+            zh: "贸易分数 ≥ 100"
+          event_title:
+            en: "The First Markets"
+            zh: "首批市场"
+          event_desc:
+            en: "Our merchants have gained a foothold in the great trade markets. Let them grow rich."
+            zh: "我们的商人已在伟大的贸易市场站稳脚跟。让他们积累财富吧。"
+          event_option:
+            en: "Open the ledgers."
+            zh: "打开账本。"
+
+      - n: 2
+        is_short_term: false
+        is_long_term: false
+        threshold: 200
+        extra_trigger_block: null
+        modifier:
+          global_foreign_build_buildings_cost: -0.20
+        modifier_name:
+          en: "Foreign Investment"
+          zh: "海外投资"
+        loc:
+          title:
+            en: "Trade Victory — Milestone 2"
+            zh: "贸易胜利 — 里程碑二"
+          meaning:
+            en: "A maritime power — dominating regional trade. Monthly trade income ~200."
+            zh: "区域贸易霸主 — 主导地区贸易。每月贸易收入约200。"
+          trigger_desc:
+            en: "Trade score ≥ 200"
+            zh: "贸易分数 ≥ 200"
+          event_title:
+            en: "Lords of the Trade Route"
+            zh: "贸易路线之主"
+          event_desc:
+            en: "Our commercial networks now dominate the region. The caravans and ships answer to us."
+            zh: "我们的商业网络如今主导着整个地区。商队与船只都听命于我们。"
+          event_option:
+            en: "Send more merchants."
+            zh: "派遣更多商人。"
+
+      - n: 3
+        is_short_term: true
+        is_long_term: false
+        threshold: 400
+        extra_trigger_block: |
+          # Verification — Step 3, Reference: events/economy/trade.txt:129, Quote: "any_market_with_merchants = { most_powerful_merchant = root"
+          custom_tooltip = {
+          	text = tv_trade_market_dominance_5_tt
+          	any_market_with_merchants = {
+          		most_powerful_merchant = root
+          		count >= 5
+          	}
+          }
+        modifier:
+          naval_range: 500
+          trade_range: 500
+          colonial_range: 500
+        modifier_name:
+          en: "Maritime Reach"
+          zh: "海洋霸权"
+        loc:
+          title:
+            en: "Trade Victory — Short-term Victory"
+            zh: "贸易胜利 — 短期胜利"
+          meaning:
+            en: "A major trade empire. Short-term Victory. Monthly trade income ~400."
+            zh: "贸易帝国。短期胜利。每月贸易收入约400。"
+          trigger_desc:
+            en: "Trade score ≥ 400, with market dominance"
+            zh: "贸易分数 ≥ 400，且需达到市场主导地位"
+          event_title:
+            en: "A Great Commercial Empire"
+            zh: "伟大的商业帝国"
+          event_desc:
+            en: "What began as a handful of traders has grown into an empire of commerce. Our name is known in every great market."
+            zh: "昔日的几名商人已成长为一个商业帝国。我们的名字出现在每一个伟大的市场上。"
+          event_option:
+            en: "Glory to the merchant class."
+            zh: "荣耀归于商人阶层。"
+
+      - n: 4
+        is_short_term: false
+        is_long_term: false
+        threshold: 1000
+        extra_trigger_block: null
+        modifier:
+          global_trade_center_power: 0.50
+          global_merchant_capacity_modifier: 0.25
+        modifier_name:
+          en: "Market Dominance"
+          zh: "市场支配"
+        loc:
+          title:
+            en: "Trade Victory — Milestone 4"
+            zh: "贸易胜利 — 里程碑四"
+          meaning:
+            en: "Near-monopoly control of key trade arteries. Monthly trade income ~1,000."
+            zh: "商业之海 — 近乎垄断关键贸易要道。每月贸易收入约1,000。"
+          trigger_desc:
+            en: "Trade score ≥ 1,000"
+            zh: "贸易分数 ≥ 1,000"
+          event_title:
+            en: "Masters of the Seas of Commerce"
+            zh: "商业之海的主宰"
+          event_desc:
+            en: "Our trade routes crisscross the known world. Distance itself bows to our merchant fleets."
+            zh: "我们的贸易航线纵横交错，遍布已知世界。连距离本身也向我们的商业舰队低头。"
+          event_option:
+            en: "Chart new routes."
+            zh: "开辟新航线。"
+
+      - n: 5
+        is_short_term: false
+        is_long_term: true
+        threshold: 2000
+        extra_trigger_block: |
+          custom_tooltip = {
+          	text = tv_trade_market_dominance_10_tt
+          	any_market_with_merchants = {
+          		most_powerful_merchant = root
+          		count >= 10
+          	}
+          }
+        modifier:
+          trade_land_efficiency: 0.10
+          trade_sea_efficiency: 0.10
+          trade_income: 0.25
+        modifier_name:
+          en: "Trade Hegemon"
+          zh: "贸易霸主"
+        loc:
+          title:
+            en: "Trade Victory — Long-term Victory"
+            zh: "贸易胜利 — 长期胜利"
+          meaning:
+            en: "Undisputed trade hegemon. Long-term Victory. Monthly trade income ~2,000."
+            zh: "贸易霸主。无可争议。长期胜利。每月贸易收入约2,000。"
+          trigger_desc:
+            en: "Trade score ≥ 2,000, with market dominance"
+            zh: "贸易分数 ≥ 2,000，且需达到市场主导地位"
+          event_title:
+            en: "The Trade Hegemon"
+            zh: "贸易霸主"
+          event_desc:
+            en: "We have done what no nation has done before: we have made the world's commerce our own. This victory is eternal."
+            zh: "我们完成了前所未有的壮举：将世界的商业据为己有。这场胜利，永世长存。"
+          event_option:
+            en: "Our ledgers overflow."
+            zh: "我们的账本已满溢。"
+
+  # ── DIPLOMATIC ────────────────────────────────────────────────────────────
+  - id: diplomatic
+    score_var: tv_diplomatic_victory_points
+    call_updater_in_checker: false     # accumulated via on_action, no updater effect
+    score_var_init_in_checker: true    # DVP variable may not exist if no marriage/war yet
+
+    score_updater_body: null           # no score updater (accumulated via on_action)
+
+    progress_pct_body: |
+      # ── Diplomatic Victory ────────────────────────────────────────────────────
+      # threshold = 580 (not divisible by 100); multiply × 100 first (max 58 000 — no overflow)
+      if = {
+      	limit = { has_variable = tv_diplomatic_victory_points }
+      	set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
+      	change_variable = { name = tv_diplomatic_progress_pct multiply = 100 }
+      	change_variable = { name = tv_diplomatic_progress_pct divide = 580 }
+      	if = { limit = { var:tv_diplomatic_progress_pct > 100 } set_variable = { name = tv_diplomatic_progress_pct value = 100 } }
+      }
+
+    extra_loc_keys: []
+
+    loc:
+      title:
+        en: "Diplomatic Victory"
+        zh: "外交胜利"
+      description:
+        en: "Accumulate influence through alliances, treaties, and statecraft."
+        zh: "通过同盟、条约和外交手段积累影响力。"
+      flavor:
+        en: '"An army is of little use where reason fails."'
+        zh: '"在理性失败之处，军随谓少用。"'
+      progress_display:
+        en: "Diplomatic Victory Points: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 580"
+        zh: "外交胜利点数：[Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 580"
+
+    milestones:
+      - n: 1
+        is_short_term: false
+        is_long_term: false
+        threshold: 50
+        extra_trigger_block: null
+        modifier:
+          monthly_diplomats: 0.10
+        modifier_name:
+          en: "Diplomatic Corps"
+          zh: "外交团队"
+        loc:
+          title:
+            en: "Diplomatic Victory — Milestone 1"
+            zh: "外交胜利 — 里程碑一"
+          meaning:
+            en: "50 Diplomatic Victory Points. A respected voice in affairs."
+            zh: "50 外交胜利点。在国际事务中占有一席之地。"
+          trigger_desc:
+            en: "Diplomatic Victory Points ≥ 50"
+            zh: "外交胜利点 ≥ 50"
+          event_title:
+            en: "A Voice Among Nations"
+            zh: "外交展露头角"
+          event_desc:
+            en: "Our patient diplomacy has begun to bear fruit. Through alliances and royal bonds, our nation is earning a place at the table of great powers."
+            zh: "我们耐心的外交已开始结果。通过同盟与联姻，我国正在赢得一席之地。"
+          event_option:
+            en: "Let our word carry weight."
+            zh: "让我们的话语具有分量。"
+
+      - n: 2
+        is_short_term: false
+        is_long_term: false
+        threshold: 120
+        extra_trigger_block: null
+        modifier:
+          diplomatic_capacity_modifier: 0.50
+        modifier_name:
+          en: "Extended Reach"
+          zh: "外交扩容"
+        loc:
+          title:
+            en: "Diplomatic Victory — Milestone 2"
+            zh: "外交胜利 — 里程碑二"
+          meaning:
+            en: "120 DVP. A reliable ally and guarantor of peace."
+            zh: "120 DVP。可靠的盟友与和平居间人。"
+          trigger_desc:
+            en: "Diplomatic Victory Points ≥ 120"
+            zh: "外交胜利点 ≥ 120"
+          event_title:
+            en: "A Reliable Ally"
+            zh: "可靠的盟友"
+          event_desc:
+            en: "Nations seek us out as guarantors and partners. Our willingness to honour our commitments has built a reputation that money cannot buy."
+            zh: "各国将我们视为促成和平的保证人与合作伙伴。我们履行承诺的意愿已树立了金钱买不到的声望。"
+          event_option:
+            en: "Our word is our bond."
+            zh: "我们以诺言为盟。"
+
+      - n: 3
+        is_short_term: true
+        is_long_term: false
+        threshold: 220
+        extra_trigger_block: null
+        modifier:
+          diplomatic_reputation: 5
+        modifier_name:
+          en: "Renowned Statecraft"
+          zh: "享誉外交"
+        loc:
+          title:
+            en: "Diplomatic Victory — Short-term Victory"
+            zh: "外交胜利 — 短期胜利"
+          meaning:
+            en: "220 DVP. A power of first diplomatic rank. Short-term Victory."
+            zh: "220 DVP。一流外交大国。短期胜利。"
+          trigger_desc:
+            en: "Diplomatic Victory Points ≥ 220"
+            zh: "外交胜利点 ≥ 220"
+          event_title:
+            en: "A Power of the First Rank — Short-term Victory"
+            zh: "一流外交大国 — 短期胜利"
+          event_desc:
+            en: "Our diplomatic reach extends across continents. Treaties bear our seal, and ambassadors from distant courts seek our counsel. We have achieved a short-term diplomatic victory."
+            zh: "我们的外交触角已覆盖大陆。条约盖有我们的印签，远方宫廷的使节寻求我们的建言。我们已取得短期外交胜利。"
+          event_option:
+            en: "The world listens when we speak."
+            zh: "世界在我们说话时会倾听我们的声音。"
+
+      - n: 4
+        is_short_term: false
+        is_long_term: false
+        threshold: 380
+        extra_trigger_block: null
+        modifier:
+          diplomatic_range: 500
+          diplomatic_spending_cost: -0.05
+        modifier_name:
+          en: "Grand Strategy"
+          zh: "大国战略"
+        loc:
+          title:
+            en: "Diplomatic Victory — Milestone 4"
+            zh: "外交胜利 — 里程碑四"
+          meaning:
+            en: "380 DVP. The arbiter of international order."
+            zh: "380 DVP。国际秩序的仲裁人。"
+          trigger_desc:
+            en: "Diplomatic Victory Points ≥ 380"
+            zh: "外交胜利点 ≥ 380"
+          event_title:
+            en: "Arbiter of Nations"
+            zh: "万国仲裁人"
+          event_desc:
+            en: "No quarrel between princes is settled without our consent. Our subjects are loyal, our allies numerous, and our influence unmatched in this age."
+            zh: "没有任何小国纷争可绕过我们的同意而得到解决。我们的属国忠诚，盟友众多，在这个时代影响无可匹敌。"
+          event_option:
+            en: "We shall keep the peace of the world."
+            zh: "我们将维护世界和平。"
+
+      - n: 5
+        is_short_term: false
+        is_long_term: true
+        threshold: 580
+        extra_trigger_block: null
+        modifier:
+          diplomatic_reputation: 10
+        modifier_name:
+          en: "Diplomatic Hegemon"
+          zh: "外交霸主"
+        loc:
+          title:
+            en: "Diplomatic Victory — Long-term Victory"
+            zh: "外交胜利 — 长期胜利"
+          meaning:
+            en: "580 DVP. Undisputed diplomatic hegemon. Long-term Victory."
+            zh: "580 DVP。无可争议的外交霸主。长期胜利。"
+          trigger_desc:
+            en: "Diplomatic Victory Points ≥ 580"
+            zh: "外交胜利点 ≥ 580"
+          event_title:
+            en: "Long-term Victory — Diplomatic Hegemon"
+            zh: "长期胜利 — 外交霸主"
+          event_desc:
+            en: "Five hundred and eighty points of diplomatic achievement. No nation in history has woven so vast a web of alliances, marriages, and mutual guarantees. Our legacy is written not in conquest but in the peace we preserved."
+            zh: "五百八十分外交胜利点。史上从未有任何国家编织过如此广大的同盟、联姻与互保网络。我们的功勣不写于征服，而写于我们保卫的和平。"
+          event_option:
+            en: "Our name shall be synonymous with statecraft."
+            zh: "我们的名字将与外交艺术永远共存。"
+
+  # ── CULTURAL ──────────────────────────────────────────────────────────────
+  - id: cultural
+    score_var: tv_cultural_influence_points
+    call_updater_in_checker: false     # accumulated via on_action, no updater effect
+    score_var_init_in_checker: false   # monthly_country_pulse always initializes it
+
+    score_updater_body: null
+
+    progress_pct_body: |
+      # ── Cultural Victory ──────────────────────────────────────────────────────
+      # threshold = 580 (not divisible by 100); multiply × 100 first (max 58 000 — no overflow)
+      if = {
+      	limit = { has_variable = tv_cultural_influence_points }
+      	set_variable    = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
+      	change_variable = { name = tv_cultural_progress_pct multiply = 100 }
+      	change_variable = { name = tv_cultural_progress_pct divide = 580 }
+      	if = { limit = { var:tv_cultural_progress_pct > 100 } set_variable = { name = tv_cultural_progress_pct value = 100 } }
+      }
+
+    extra_loc_keys: []
+
+    loc:
+      title:
+        en: "Cultural Victory"
+        zh: "文化胜利"
+      description:
+        en: "Achieve pre-eminence through art, court, and the spread of culture."
+        zh: "TODO"
+      flavor:
+        en: '"Art is the signature of civilisations."'
+        zh: "TODO"
+      progress_display:
+        en: "Cultural Influence Points: [Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
+        zh: "文化影响力点数：[Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
+
+    milestones:
+      - n: 1
+        is_short_term: false
+        is_long_term: false
+        threshold: 50
+        extra_trigger_block: null
+        modifier:
+          hire_artist_cost_modifier: -0.50
+        modifier_name:
+          en: "Patron of the Arts"
+          zh: "艺术赞助人"
+        loc:
+          title:
+            en: "Cultural Victory — Milestone 1"
+            zh: "文化胜利 — 里程碑1"
+          meaning:
+            en: "50 Cultural Influence Points. A patron of the arts."
+            zh: "50文化影响力点。艺术的赞助人。"
+          trigger_desc:
+            en: "Cultural Influence Points ≥ 50"
+            zh: "文化影响力点 ≥ 50"
+          event_title:
+            en: "A Patron of the Arts"
+            zh: "艺术赞助人"
+          event_desc:
+            en: "Our court has begun to attract painters, sculptors, and men of letters. The works commissioned in our name already speak to something greater than mere politics — a civilisation is taking shape."
+            zh: "我们的宫廷已开始吸引画家、雕塑家和文人。以我们名义委托的作品已经彰显出某种远超政治的意义——一个文明正在成形。"
+          event_option:
+            en: "Let the arts flourish in our name."
+            zh: "让艺术在我们的庇护下繁荣。"
+
+      - n: 2
+        is_short_term: false
+        is_long_term: false
+        threshold: 120
+        extra_trigger_block: null
+        modifier:
+          cultures_capacity: 2
+        modifier_name:
+          en: "Cultural Breadth"
+          zh: "文化包容"
+        loc:
+          title:
+            en: "Cultural Victory — Milestone 2"
+            zh: "文化胜利 — 里程碑2"
+          meaning:
+            en: "120 CIP. A celebrated cultural power."
+            zh: "120 CIP。享誉盛名的文化强国。"
+          trigger_desc:
+            en: "Cultural Influence Points ≥ 120"
+            zh: "文化影响力点 ≥ 120"
+          event_title:
+            en: "The Renaissance Court"
+            zh: "文艺复兴宫廷"
+          event_desc:
+            en: "Word of our court's magnificence has spread to distant lands. Scholars and artists seek our patronage, and the works we commission are spoken of with admiration by princes and popes alike."
+            zh: "我们宫廷的辉煌已传播至遥远之地。学者与艺术家纷纷寻求我们的赞助，以我们名义委托的作品令王公与教皇皆赞叹不已。"
+          event_option:
+            en: "Our court shall be a beacon of learning."
+            zh: "我们的宫廷将成为学问的灯塔。"
+
+      - n: 3
+        is_short_term: true
+        is_long_term: false
+        threshold: 220
+        extra_trigger_block: null
+        modifier:
+          num_possible_artists: 5
+        modifier_name:
+          en: "House of Artists"
+          zh: "艺术殿堂"
+        loc:
+          title:
+            en: "Cultural Victory — Short-term Victory"
+            zh: "文化胜利 — 短期胜利"
+          meaning:
+            en: "220 CIP. A centre of Renaissance brilliance. Short-term Victory."
+            zh: "220 CIP。文艺复兴的璀璨中心。短期胜利。"
+          trigger_desc:
+            en: "Cultural Influence Points ≥ 220"
+            zh: "文化影响力点 ≥ 220"
+          event_title:
+            en: "A Centre of Civilisation — Short-term Victory"
+            zh: "文明中心 — 短期胜利"
+          event_desc:
+            en: "No court in this age surpasses ours in the arts, letters, and learning. We have achieved what lesser princes can only dream of — a short-term cultural victory that will echo through the centuries."
+            zh: "这个时代没有任何宫廷在艺术、文学和学问上能超越我们。我们取得了平庸王公只能梦想之物——一个将在几个世纪中回响的短期文化胜利。"
+          event_option:
+            en: "Civilisation itself radiates from our halls."
+            zh: "文明本身从我们的大殿中放射光芒。"
+
+      - n: 4
+        is_short_term: false
+        is_long_term: false
+        threshold: 380
+        extra_trigger_block: null
+        modifier:
+          cultural_influence_modifier: 0.50
+          cultural_tradition_modifier: 0.50
+        modifier_name:
+          en: "Cultural Beacon"
+          zh: "文化灯塔"
+        loc:
+          title:
+            en: "Cultural Victory — Milestone 4"
+            zh: "文化胜利 — 里程碑4"
+          meaning:
+            en: "380 CIP. Culture radiates from your court across the world."
+            zh: "380 CIP。文化从您的宫廷辐射至全世界。"
+          trigger_desc:
+            en: "Cultural Influence Points ≥ 380"
+            zh: "文化影响力点 ≥ 380"
+          event_title:
+            en: "Light of the World"
+            zh: "世界之光"
+          event_desc:
+            en: "Our cultural influence has spread far beyond our borders. Other nations imitate our fashions, adopt our ideas, and send their finest minds to study under our masters. The world looks to us as the arbiter of taste and refinement."
+            zh: "我们的文化影响力早已超越国界。他国模仿我们的风尚，接受我们的思想，将其最优秀的才智送来在我们的大师门下学习。世界将我们视为品位与文雅的仲裁者。"
+          event_option:
+            en: "We shall carry the torch of civilisation."
+            zh: "我们将肩负文明的火炬。"
+
+      - n: 5
+        is_short_term: false
+        is_long_term: true
+        threshold: 580
+        extra_trigger_block: null
+        modifier:
+          num_possible_artists: 10
+        modifier_name:
+          en: "Cultural Hegemon"
+          zh: "文化霸主"
+        loc:
+          title:
+            en: "Cultural Victory — Long-term Victory"
+            zh: "文化胜利 — 长期胜利"
+          meaning:
+            en: "580 CIP. The greatest cultural legacy in history. Long-term Victory."
+            zh: "580 CIP。历史上最伟大的文化遗产。长期胜利。"
+          trigger_desc:
+            en: "Cultural Influence Points ≥ 580"
+            zh: "文化影响力点 ≥ 580"
+          event_title:
+            en: "Long-term Victory — Cultural Hegemon"
+            zh: "长期胜利 — 文化霸主"
+          event_desc:
+            en: "Five hundred and eighty points of cultural achievement. No nation in history has produced so much beauty, wisdom, and wonder. Long after our armies are forgotten, the works created in our name will endure as the greatest cultural legacy the world has ever known."
+            zh: "五百八十文化影响力点。历史上从未有任何国家创造出如此之多的美、智慧与奇迹。在我们的军队早已被遗忘之后，以我们名义创造的作品将永久流传，成为世界有史以来最伟大的文化遗产。"
+          event_option:
+            en: "Our name shall be synonymous with civilisation itself."
+            zh: "我们的名字将与文明本身永远共存。"
+
+  # ── SCIENCE ───────────────────────────────────────────────────────────────
+  - id: science
+    score_var: tv_science_score
+    call_updater_in_checker: true
+    score_var_init_in_checker: false
+
+    score_updater_body: |
+      set_variable = { name = tv_science_score value = num_of_advances_researched }
+
+    progress_pct_body: |
+      # ── Scientific Victory ────────────────────────────────────────────────────
+      # threshold = 400; divisor = 4 (400 ÷ 100 = 4, exact)
+      if = {
+      	limit = { has_variable = tv_science_score }
+      	set_variable = { name = tv_science_progress_pct value = var:tv_science_score }
+      	change_variable = { name = tv_science_progress_pct divide = 4 }
+      	if = { limit = { var:tv_science_progress_pct > 100 } set_variable = { name = tv_science_progress_pct value = 100 } }
+      }
+
+    extra_loc_keys:
+      - key: tv_academy_of_sciences_1
+        has_version_suffix: false
+        en: "Academy of Sciences, Phase I"
+        zh: "科学院，第一阶段"
+      - key: tv_academy_of_sciences_1_desc
+        has_version_suffix: false
+        en: "The founding of a national academy dedicated to the systematic advancement of learning and natural philosophy."
+        zh: "建立一所专门致力于系统推进学问与自然哲学的国家科学院。"
+      - key: tv_academy_of_sciences_2
+        has_version_suffix: false
+        en: "Academy of Sciences, Phase II"
+        zh: "科学院，第二阶段"
+      - key: tv_academy_of_sciences_2_desc
+        has_version_suffix: false
+        en: "Expansion of the Academy's research faculties and the establishment of dedicated natural philosophy laboratories."
+        zh: "扩充科学院的研究部门，建立专用的自然哲学实验室。"
+      - key: tv_academy_of_sciences_3
+        has_version_suffix: false
+        en: "Academy of Sciences, Phase III"
+        zh: "科学院，第三阶段"
+      - key: tv_academy_of_sciences_3_desc
+        has_version_suffix: false
+        en: "International recognition of the Academy as a preeminent seat of scholarship, drawing scholars from across the known world."
+        zh: "科学院获得国际认可，成为顶尖学术重镇，汇聚各地学者。"
+      - key: tv_academy_of_sciences_4
+        has_version_suffix: false
+        en: "Academy of Sciences, Phase IV"
+        zh: "科学院，第四阶段"
+      - key: tv_academy_of_sciences_4_desc
+        has_version_suffix: false
+        en: "The Academy becomes the nexus of the natural philosophy revolution, pioneering advances that redefine the limits of human knowledge."
+        zh: "科学院成为自然哲学革命的中心，引领开创性发现，重新定义人类知识的边界。"
+      - key: tv_academy_of_sciences_5
+        has_version_suffix: false
+        en: "Academy of Sciences, Phase V"
+        zh: "科学院，第五阶段"
+      - key: tv_academy_of_sciences_5_desc
+        has_version_suffix: false
+        en: "The Academy drives the nation into the age of industry and reason, its discoveries forging the foundations of a new world."
+        zh: "科学院推动国家迈入工业与理性的时代，其发现奠定了新世界的基础。"
+      - key: TV_ACADEMY_SCORE_1_TT
+        has_version_suffix: false
+        en: "Requires Science Score of at least 100 (total advances researched >= 100)"
+        zh: "需要科技分数达到 100（已研究技艺总数 ≥ 100）"
+      - key: TV_ACADEMY_SCORE_2_TT
+        has_version_suffix: false
+        en: "Requires Science Score of at least 150 (total advances researched >= 150)"
+        zh: "需要科技分数达到 150（已研究技艺总数 ≥ 150）"
+      - key: TV_ACADEMY_SCORE_3_TT
+        has_version_suffix: false
+        en: "Requires Science Score of at least 200 (total advances researched >= 200)"
+        zh: "需要科技分数达到 200（已研究技艺总数 ≥ 200）"
+      - key: TV_ACADEMY_SCORE_4_TT
+        has_version_suffix: false
+        en: "Requires Science Score of at least 300 (total advances researched >= 300)"
+        zh: "需要科技分数达到 300（已研究技艺总数 ≥ 300）"
+      - key: TV_ACADEMY_SCORE_5_TT
+        has_version_suffix: false
+        en: "Requires Science Score of at least 400 (total advances researched >= 400)"
+        zh: "需要科技分数达到 400（已研究技艺总数 ≥ 400）"
+      - key: TV_ACADEMY_HAS_PREV_2_TT
+        has_version_suffix: false
+        en: "Phase I Academy of Sciences must be constructed first"
+        zh: "须先建造第一阶段科学院"
+      - key: TV_ACADEMY_HAS_PREV_3_TT
+        has_version_suffix: false
+        en: "Phase II Academy of Sciences must be constructed first"
+        zh: "须先建造第二阶段科学院"
+      - key: TV_ACADEMY_HAS_PREV_4_TT
+        has_version_suffix: false
+        en: "Phase III Academy of Sciences must be constructed first"
+        zh: "须先建造第三阶段科学院"
+      - key: TV_ACADEMY_HAS_PREV_5_TT
+        has_version_suffix: false
+        en: "Phase IV Academy of Sciences must be constructed first"
+        zh: "须先建造第四阶段科学院"
+      - key: MODIFIER_TYPE_NAME_tv_academy_1_price_cost_modifier
+        has_version_suffix: false
+        en: "Academy of Sciences I: Construction Cost"
+        zh: "科学院第一阶段：建造费用"
+      - key: MODIFIER_TYPE_DESC_tv_academy_1_price_cost_modifier
+        has_version_suffix: false
+        en: "Modifies the gold construction cost of the Academy of Sciences (Phase I)."
+        zh: "影响科学院（第一阶段）的金币建造费用。"
+      - key: MODIFIER_TYPE_NAME_tv_academy_2_price_cost_modifier
+        has_version_suffix: false
+        en: "Academy of Sciences II: Construction Cost"
+        zh: "科学院第二阶段：建造费用"
+      - key: MODIFIER_TYPE_DESC_tv_academy_2_price_cost_modifier
+        has_version_suffix: false
+        en: "Modifies the gold construction cost of the Academy of Sciences (Phase II)."
+        zh: "影响科学院（第二阶段）的金币建造费用。"
+      - key: MODIFIER_TYPE_NAME_tv_academy_3_price_cost_modifier
+        has_version_suffix: false
+        en: "Academy of Sciences III: Construction Cost"
+        zh: "科学院第三阶段：建造费用"
+      - key: MODIFIER_TYPE_DESC_tv_academy_3_price_cost_modifier
+        has_version_suffix: false
+        en: "Modifies the gold construction cost of the Academy of Sciences (Phase III)."
+        zh: "影响科学院（第三阶段）的金币建造费用。"
+      - key: MODIFIER_TYPE_NAME_tv_academy_4_price_cost_modifier
+        has_version_suffix: false
+        en: "Academy of Sciences IV: Construction Cost"
+        zh: "科学院第四阶段：建造费用"
+      - key: MODIFIER_TYPE_DESC_tv_academy_4_price_cost_modifier
+        has_version_suffix: false
+        en: "Modifies the gold construction cost of the Academy of Sciences (Phase IV)."
+        zh: "影响科学院（第四阶段）的金币建造费用。"
+      - key: MODIFIER_TYPE_NAME_tv_academy_5_price_cost_modifier
+        has_version_suffix: false
+        en: "Academy of Sciences V: Construction Cost"
+        zh: "科学院第五阶段：建造费用"
+      - key: MODIFIER_TYPE_DESC_tv_academy_5_price_cost_modifier
+        has_version_suffix: false
+        en: "Modifies the gold construction cost of the Academy of Sciences (Phase V)."
+        zh: "影响科学院（第五阶段）的金币建造费用。"
+      - key: tv_academy_1_price
+        has_version_suffix: false
+        en: "Academy of Sciences I"
+        zh: "科学院第一阶段"
+      - key: tv_academy_2_price
+        has_version_suffix: false
+        en: "Academy of Sciences II"
+        zh: "科学院第二阶段"
+      - key: tv_academy_3_price
+        has_version_suffix: false
+        en: "Academy of Sciences III"
+        zh: "科学院第三阶段"
+      - key: tv_academy_4_price
+        has_version_suffix: false
+        en: "Academy of Sciences IV"
+        zh: "科学院第四阶段"
+      - key: tv_academy_5_price
+        has_version_suffix: false
+        en: "Academy of Sciences V"
+        zh: "科学院第五阶段"
+      - key: tv_academy_1_construction
+        has_version_suffix: false
+        en: "Construction of Academy of Sciences I"
+        zh: "科学院第一阶段建材"
+      - key: tv_academy_2_construction
+        has_version_suffix: false
+        en: "Construction of Academy of Sciences II"
+        zh: "科学院第二阶段建材"
+      - key: tv_academy_3_construction
+        has_version_suffix: false
+        en: "Construction of Academy of Sciences III"
+        zh: "科学院第三阶段建材"
+      - key: tv_academy_4_construction
+        has_version_suffix: false
+        en: "Construction of Academy of Sciences IV"
+        zh: "科学院第四阶段建材"
+      - key: tv_academy_5_construction
+        has_version_suffix: false
+        en: "Construction of Academy of Sciences V"
+        zh: "科学院第五阶段建材"
+      - key: tv_academy_maintenance
+        has_version_suffix: false
+        en: "Academy Maintenance"
+        zh: "科学院维护"
+
+    loc:
+      title:
+        en: "Scientific Victory"
+        zh: "科技胜利"
+      description:
+        en: "Lead the world through the advancement of knowledge and technology."
+        zh: "通过推动知识与技术的进步，引领世界走向未来。"
+      flavor:
+        en: '"The true method of knowledge is experiment." — William Blake'
+        zh: '"认识真相的真正方法是实验。" — 威廉·布莱克'
+      progress_display:
+        en: "Science Score: [Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
+        zh: "科学分数：[Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
+
+    milestones:
+      - n: 1
+        is_short_term: false
+        is_long_term: false
+        threshold: 100
+        extra_trigger_block: |
+          has_variable = tv_academy_of_sciences_level
+          var:tv_academy_of_sciences_level >= 1
+        modifier:
+          global_max_literacy: 0.05
+        modifier_name:
+          en: "Literate Nation"
+          zh: "知识之国"
+        loc:
+          title:
+            en: "Scientific Victory — Milestone 1"
+            zh: "科技胜利 — 第一里程碑"
+          meaning:
+            en: "A nation of curious minds. ~100 advances researched."
+            zh: "充满好奇心的国度。约已研究100项技艺。"
+          trigger_desc:
+            en: "Science score ≥ 100 and Academy Level ≥ 1"
+            zh: "科技分数 ≥ 100，科学院等级 ≥ 1"
+          event_title:
+            en: "A Nation of Scholars"
+            zh: "学者之国"
+          event_desc:
+            en: "Our universities and academies are beginning to bear fruit. One hundred advances researched — our realm stands at the vanguard of learning in this age."
+            zh: "我们的大学与学院已开始结出硕果。一百项技艺已被我们掌握——在这个时代，我们的国度已站在学问的前沿。"
+          event_option:
+            en: "Knowledge shall light our way forward."
+            zh: "知识将为我们照亮前行之路。"
+
+      - n: 2
+        is_short_term: false
+        is_long_term: false
+        threshold: 150
+        extra_trigger_block: |
+          has_variable = tv_academy_of_sciences_level
+          var:tv_academy_of_sciences_level >= 2
+        modifier:
+          clergy_estate_target_satisfaction: 0.10
+        modifier_name:
+          en: "Age of Learning"
+          zh: "学识时代"
+        loc:
+          title:
+            en: "Scientific Victory — Milestone 2"
+            zh: "科技胜利 — 第二里程碑"
+          meaning:
+            en: "A realm that embraces new institutions. ~150 advances researched."
+            zh: "积极拥抱新思潮的国度。约已研究150项技艺。"
+          trigger_desc:
+            en: "Science score ≥ 150 and Academy Level ≥ 2"
+            zh: "科技分数 ≥ 150，科学院等级 ≥ 2"
+          event_title:
+            en: "Embracing New Ideas"
+            zh: "拥抱新思想"
+          event_desc:
+            en: "Our scholars have absorbed and spread the great institutions of this era. One hundred and fifty advances stand to our name, and foreign thinkers seek the patronage of our court."
+            zh: "我们的学者已消化并传播了这个时代的伟大制度。一百五十项技艺以我们的名义立下，外邦思想家纷纷寻求我们宫廷的庇护。"
+          event_option:
+            en: "Open minds conquer more than armies."
+            zh: "开放的心灵胜过千军万马。"
+
+      - n: 3
+        is_short_term: true
+        is_long_term: false
+        threshold: 200
+        extra_trigger_block: |
+          has_variable = tv_academy_of_sciences_level
+          var:tv_academy_of_sciences_level >= 3
+        modifier:
+          global_institution_growth_modifier: 1.0
+        modifier_name:
+          en: "Age of Enlightenment"
+          zh: "启蒙时代"
+        loc:
+          title:
+            en: "Scientific Victory — Short-term Victory"
+            zh: "科技胜利 — 短期胜利"
+          meaning:
+            en: "A vanguard of learning. Short-term Victory. ~200 advances researched."
+            zh: "学问的先锋国度。短期胜利。约已研究200项技艺。"
+          trigger_desc:
+            en: "Science score ≥ 200 and Academy Level ≥ 3"
+            zh: "科技分数 ≥ 200，科学院等级 ≥ 3"
+          event_title:
+            en: "A Centre of Learning — Short-term Victory"
+            zh: "学问中心 — 短期胜利"
+          event_desc:
+            en: "No nation rivals our command of the sciences and arts of governance. Two hundred advances — a short-term scientific victory that marks us as the intellectual power of our age."
+            zh: "没有任何国家能与我们在科学与治理之道上的造诣相抗衡。两百项技艺——一个短期科技胜利，标志着我们已成为这个时代的智识强国。"
+          event_option:
+            en: "Reason and inquiry shall carry us forward."
+            zh: "理性与探究将引领我们继续前行。"
+
+      - n: 4
+        is_short_term: false
+        is_long_term: false
+        threshold: 300
+        extra_trigger_block: |
+          has_variable = tv_academy_of_sciences_level
+          var:tv_academy_of_sciences_level >= 4
+        modifier:
+          research_speed_modifier: 0.10
+        modifier_name:
+          en: "Preeminent Science"
+          zh: "科学巅峰"
+        loc:
+          title:
+            en: "Scientific Victory — Milestone 4"
+            zh: "科技胜利 — 第四里程碑"
+          meaning:
+            en: "The preeminent scientific power. ~300 advances researched."
+            zh: "首屈一指的科学强国。约已研究300项技艺。"
+          trigger_desc:
+            en: "Science score ≥ 300 and Academy Level ≥ 4"
+            zh: "科技分数 ≥ 300，科学院等级 ≥ 4"
+          event_title:
+            en: "On the Threshold of Modernity"
+            zh: "现代性的门槛"
+          event_desc:
+            en: "Our natural philosophers and engineers now push at the very boundaries of the known world. Three hundred advances stand as testament to generations of investment in learning."
+            zh: "我们的自然哲学家与工程师如今已将探索推至已知世界的边疆。三百项技艺，是数代人对学问持续投入的明证。"
+          event_option:
+            en: "The age of steam and iron awaits."
+            zh: "蒸汽与钢铁的时代正在等待我们。"
+
+      - n: 5
+        is_short_term: false
+        is_long_term: true
+        threshold: 400
+        extra_trigger_block: |
+          has_variable = tv_academy_of_sciences_level
+          var:tv_academy_of_sciences_level >= 5
+        modifier:
+          global_institution_growth_modifier: 2.0
+          global_max_literacy: 0.20
+        modifier_name:
+          en: "Industrial Vanguard"
+          zh: "工业先驱"
+        loc:
+          title:
+            en: "Scientific Victory — Long-term Victory"
+            zh: "科技胜利 — 长期胜利"
+          meaning:
+            en: "The nation that ushered in the Industrial Age. Long-term Victory. ~400 advances researched."
+            zh: "开创工业时代的国度。长期胜利。约已研究400项技艺。"
+          trigger_desc:
+            en: "Science score ≥ 400 and Academy Level ≥ 5"
+            zh: "科技分数 ≥ 400，科学院等级 ≥ 5"
+          event_title:
+            en: "Long-term Victory — The Industrial Vanguard"
+            zh: "长期胜利 — 工业先驱"
+          event_desc:
+            en: "Four hundred advances. Steam, iron, and the rational mind have remade our nation. Long after the old empires crumble, the knowledge forged in our academies will transform the world entire."
+            zh: "四百项技艺。蒸汽、钢铁与理性的思维已彻底改造了我们的国度。旧帝国相继崩塌之后，在我们学院中铸就的知识，将永远改变整个世界。"
+          event_option:
+            en: "Our name shall be synonymous with progress itself."
+            zh: "我们的名字将与进步本身永远共存。"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ON-ACTION HOOKS
+# 1对1: effect_body stored verbatim; generator wraps in hook = { effect = { ... } }
+# ─────────────────────────────────────────────────────────────────────────────
+on_actions:
+  - hook: on_royal_marriage
+    effect_body: |
+      scope:actor = {
+      	if = {
+      		limit = { NOT = { has_variable = tv_diplomatic_victory_points } }
+      		set_variable = { name = tv_diplomatic_victory_points value = 0 }
+      	}
+      	change_variable = { name = tv_diplomatic_victory_points add = 3 }
+      }
+      scope:recipient = {
+      	if = {
+      		limit = { NOT = { has_variable = tv_diplomatic_victory_points } }
+      		set_variable = { name = tv_diplomatic_victory_points value = 0 }
+      	}
+      	change_variable = { name = tv_diplomatic_victory_points add = 3 }
+      }
+
+  - hook: on_winning_war
+    effect_body: |
+      scope:winner = {
+      	if = {
+      		limit = { NOT = { has_variable = tv_diplomatic_victory_points } }
+      		set_variable = { name = tv_diplomatic_victory_points value = 0 }
+      	}
+      	change_variable = { name = tv_diplomatic_victory_points add = 5 }
+      }
+
+  - hook: on_work_of_art_created
+    effect_body: |
+      root.owner ?= {
+      	if = {
+      		limit = { NOT = { has_variable = tv_cultural_influence_points } }
+      		set_variable = { name = tv_cultural_influence_points value = 0 }
+      	}
+      	change_variable = { name = tv_cultural_influence_points add = 10 }
+      }
+
+  - hook: monthly_country_pulse
+    effect_body: |
+      if = {
+      	limit = { NOT = { has_variable = tv_cultural_influence_points } }
+      	set_variable = { name = tv_cultural_influence_points value = 0 }
+      }
+      change_variable = { name = tv_cultural_influence_points add = 1 }
