@@ -58,47 +58,47 @@ paths:
     # 1对1: Progress pct body — inserted verbatim into tv_update_all_progress_pct_effect
     progress_pct_body: |
       # ── Conquest Victory ─────────────────────────────────────────────────────
-      # piecewise: thresholds 150/300/500/1000/2000 → each milestone = +20%
+      # piecewise: thresholds 200/400/600/1200/2500 → each milestone = +20%
       if = {
       	limit = { has_variable = tv_conquest_score }
-      	# Seg 1: 0–150 → 0–20
+      	# Seg 1: 0–200 → 0–20
       	set_variable = { name = tv_conquest_progress_pct value = var:tv_conquest_score }
       	change_variable = { name = tv_conquest_progress_pct multiply = 20 }
-      	change_variable = { name = tv_conquest_progress_pct divide = 150 }
-      	# Seg 2: 150–300 → 20–40
+      	change_variable = { name = tv_conquest_progress_pct divide = 200 }
+      	# Seg 2: 200–400 → 20–40
       	if = {
-      		limit = { var:tv_conquest_score >= 150 }
+      		limit = { var:tv_conquest_score >= 200 }
       		set_variable = { name = tv_conquest_progress_pct value = var:tv_conquest_score }
-      		change_variable = { name = tv_conquest_progress_pct subtract = 150 }
+      		change_variable = { name = tv_conquest_progress_pct subtract = 200 }
       		change_variable = { name = tv_conquest_progress_pct multiply = 20 }
-      		change_variable = { name = tv_conquest_progress_pct divide = 150 }
+      		change_variable = { name = tv_conquest_progress_pct divide = 200 }
       		change_variable = { name = tv_conquest_progress_pct add = 20 }
       	}
-      	# Seg 3: 300–500 → 40–60
+      	# Seg 3: 400–600 → 40–60
       	if = {
-      		limit = { var:tv_conquest_score >= 300 }
+      		limit = { var:tv_conquest_score >= 400 }
       		set_variable = { name = tv_conquest_progress_pct value = var:tv_conquest_score }
-      		change_variable = { name = tv_conquest_progress_pct subtract = 300 }
+      		change_variable = { name = tv_conquest_progress_pct subtract = 400 }
       		change_variable = { name = tv_conquest_progress_pct multiply = 20 }
       		change_variable = { name = tv_conquest_progress_pct divide = 200 }
       		change_variable = { name = tv_conquest_progress_pct add = 40 }
       	}
-      	# Seg 4: 500–1000 → 60–80
+      	# Seg 4: 600–1200 → 60–80
       	if = {
-      		limit = { var:tv_conquest_score >= 500 }
+      		limit = { var:tv_conquest_score >= 600 }
       		set_variable = { name = tv_conquest_progress_pct value = var:tv_conquest_score }
-      		change_variable = { name = tv_conquest_progress_pct subtract = 500 }
+      		change_variable = { name = tv_conquest_progress_pct subtract = 600 }
       		change_variable = { name = tv_conquest_progress_pct multiply = 20 }
-      		change_variable = { name = tv_conquest_progress_pct divide = 500 }
+      		change_variable = { name = tv_conquest_progress_pct divide = 600 }
       		change_variable = { name = tv_conquest_progress_pct add = 60 }
       	}
-      	# Seg 5: 1000–2000 → 80–100
+      	# Seg 5: 1200–2500 → 80–100
       	if = {
-      		limit = { var:tv_conquest_score >= 1000 }
+      		limit = { var:tv_conquest_score >= 1200 }
       		set_variable = { name = tv_conquest_progress_pct value = var:tv_conquest_score }
-      		change_variable = { name = tv_conquest_progress_pct subtract = 1000 }
+      		change_variable = { name = tv_conquest_progress_pct subtract = 1200 }
       		change_variable = { name = tv_conquest_progress_pct multiply = 20 }
-      		change_variable = { name = tv_conquest_progress_pct divide = 1000 }
+      		change_variable = { name = tv_conquest_progress_pct divide = 1300 }
       		change_variable = { name = tv_conquest_progress_pct add = 80 }
       	}
       	if = { limit = { var:tv_conquest_progress_pct > 100 } set_variable = { name = tv_conquest_progress_pct value = 100 } }
@@ -117,14 +117,14 @@ paths:
         en: '"The greatest happiness is to vanquish your enemies." — Genghis Khan'
         zh: '"最大的幸福就是征服你的敌人。" — 成吉思汗'
       progress_display:
-        en: "[tv_conquest_score|e]: [Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,000"
-        zh: "[tv_conquest_score|e]：[Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,000"
+        en: "[tv_conquest_score|e]: [Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,500"
+        zh: "[tv_conquest_score|e]：[Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,500"
 
     milestones:
       - n: 1
         is_short_term: false
         is_long_term: false
-        threshold: 150
+        threshold: 200
         extra_trigger_block: null
         modifier:
           discipline: 0.05
@@ -136,17 +136,17 @@ paths:
             en: "Conquest Victory — Milestone 1"
             zh: "征服胜利 — 里程碑一"
           meaning:
-            en: "A nation of modest reach. ~150 owned locations."
-            zh: "初具规模的国家。征服分数约150。"
+            en: "A nation of modest reach. ~200 owned locations."
+            zh: "初具规模的国家。征服分数约200。"
           trigger_desc:
-            en: "[tv_conquest_score|e] ≥ 150"
-            zh: "[tv_conquest_score|e] ≥ 150"
+            en: "[tv_conquest_score|e] ≥ 200"
+            zh: "[tv_conquest_score|e] ≥ 200"
           event_title:
             en: "The Empire Grows"
             zh: "帝国正在壮大"
           event_desc:
-            en: "Our armies have marched and our banners now fly over territories once beyond reach. With 150 locations under our dominion, the realm is taking shape."
-            zh: "我们的军队已经远征，旗帜飘扬在150处领地之上。帝国的轮廓日渐清晰。"
+            en: "Our armies have marched and our banners now fly over territories once beyond reach. With 200 locations under our dominion, the realm is taking shape."
+            zh: "我们的军队已经远征，旗帜飘扬在200处领地之上。帝国的轮廓日渐清晰。"
           event_option:
             en: "Let our dominion grow ever wider."
             zh: "让我们的疆域继续扩张。"
@@ -154,7 +154,7 @@ paths:
       - n: 2
         is_short_term: false
         is_long_term: false
-        threshold: 300
+        threshold: 400
         extra_trigger_block: null
         modifier:
           global_manpower_modifier: 0.25
@@ -166,17 +166,17 @@ paths:
             en: "Conquest Victory — Milestone 2"
             zh: "征服胜利 — 里程碑二"
           meaning:
-            en: "A substantial empire. ~300 owned locations."
-            zh: "幅员辽阔的帝国。征服分数约300。"
+            en: "A substantial empire. ~400 owned locations."
+            zh: "幅员辽阔的帝国。征服分数约400。"
           trigger_desc:
-            en: "[tv_conquest_score|e] ≥ 300"
-            zh: "[tv_conquest_score|e] ≥ 300"
+            en: "[tv_conquest_score|e] ≥ 400"
+            zh: "[tv_conquest_score|e] ≥ 400"
           event_title:
             en: "A Substantial Empire"
             zh: "幅员辽阔的帝国"
           event_desc:
-            en: "Our realm now encompasses 300 locations. Supplying our vast armies and reducing the ravages of campaign attrition will be essential to sustaining this empire."
-            zh: "我国版图已覆盖300处领地。维持如此广袤的帝国，后勤补给与减少行军损耗至关重要。"
+            en: "Our realm now encompasses 400 locations. Supplying our vast armies and reducing the ravages of campaign attrition will be essential to sustaining this empire."
+            zh: "我国版图已覆盖400处领地。维持如此广袤的帝国，后勤补给与减少行军损耗至关重要。"
           event_option:
             en: "Our logistics must match our ambition."
             zh: "后勤必须跟上我们的雄心。"
@@ -184,7 +184,7 @@ paths:
       - n: 3
         is_short_term: true
         is_long_term: false
-        threshold: 500
+        threshold: 600
         extra_trigger_block: null
         modifier:
           pop_join_rebel_threshold: -0.05
@@ -199,17 +199,17 @@ paths:
             en: "Conquest Victory — Short-term Victory"
             zh: "征服胜利 — 短期胜利"
           meaning:
-            en: "Territorial supremacy secured. Short-term Victory. ~500 owned locations."
-            zh: "确立领土霸主地位。短期胜利。征服分数约500。"
+            en: "Territorial supremacy secured. Short-term Victory. ~600 owned locations."
+            zh: "确立领土霸主地位。短期胜利。征服分数约600。"
           trigger_desc:
-            en: "[tv_conquest_score|e] ≥ 500"
-            zh: "[tv_conquest_score|e] ≥ 500"
+            en: "[tv_conquest_score|e] ≥ 600"
+            zh: "[tv_conquest_score|e] ≥ 600"
           event_title:
             en: "Territorial Supremacy — Short-term Victory"
             zh: "领土霸权 — 短期胜利"
           event_desc:
-            en: "Five hundred locations bow before our flag. This is no mere kingdom — this is an empire. Yet governing so vast a domain demands firm administration and a steady hand."
-            zh: "500处领地已向我国旗帜俯首。这已不是王国，这是一个帝国。然而统治如此广袤的疆域，需要严明的治理与坚定的手腕。"
+            en: "Six hundred locations bow before our flag. This is no mere kingdom — this is an empire. Yet governing so vast a domain demands firm administration and a steady hand."
+            zh: "600处领地已向我国旗帜俯首。这已不是王国，这是一个帝国。然而统治如此广袤的疆域，需要严明的治理与坚定的手腕。"
           event_option:
             en: "The realm is ours to govern."
             zh: "这片疆土是我们治理的基业。"
@@ -217,7 +217,7 @@ paths:
       - n: 4
         is_short_term: false
         is_long_term: false
-        threshold: 1000
+        threshold: 1200
         extra_trigger_block: null
         modifier:
           global_integration_speed_modifier: 0.25
@@ -230,17 +230,17 @@ paths:
             en: "Conquest Victory — Milestone 4"
             zh: "征服胜利 — 里程碑四"
           meaning:
-            en: "An empire spanning continents. ~1,000 owned locations."
-            zh: "横跨大陆的帝国。征服分数约1,000。"
+            en: "An empire spanning continents. ~1,200 owned locations."
+            zh: "横跨大陆的帝国。征服分数约1,200。"
           trigger_desc:
-            en: "[tv_conquest_score|e] ≥ 1,000"
-            zh: "[tv_conquest_score|e] ≥ 1,000"
+            en: "[tv_conquest_score|e] ≥ 1,200"
+            zh: "[tv_conquest_score|e] ≥ 1,200"
           event_title:
             en: "An Empire Spanning Continents"
             zh: "横跨大陆的帝国"
           event_desc:
-            en: "Over a thousand locations have fallen under our sway. The world watches. To hold what we have seized, we must project power with discipline and sustain our armies across every front."
-            zh: "超过千处领地已臣服于我们的统治。全世界都在注视。守住已征服之地，需要铁的纪律与强大的后勤。"
+            en: "Over 1,200 locations have fallen under our sway. The world watches. To hold what we have seized, we must project power with discipline and sustain our armies across every front."
+            zh: "超过1,200处领地已臣服于我们的统治。全世界都在注视。守住已征服之地，需要铁的纪律与强大的后勤。"
           event_option:
             en: "We shall hold what we have conquered."
             zh: "我们将守护所征服的一切。"
@@ -248,7 +248,7 @@ paths:
       - n: 5
         is_short_term: false
         is_long_term: true
-        threshold: 2000
+        threshold: 2500
         extra_trigger_block: null
         modifier:
           global_war_score_efficiency: 0.5
@@ -261,17 +261,17 @@ paths:
             en: "Conquest Victory — Long-term Victory"
             zh: "征服胜利 — 长期胜利"
           meaning:
-            en: "Undisputed world empire. Long-term Victory. ~2,000 owned locations."
-            zh: "无可争议的世界帝国。长期胜利。征服分数约2,000。"
+            en: "Undisputed world empire. Long-term Victory. ~2,500 owned locations."
+            zh: "无可争议的世界帝国。长期胜利。征服分数约2,500。"
           trigger_desc:
-            en: "[tv_conquest_score|e] ≥ 2,000"
-            zh: "[tv_conquest_score|e] ≥ 2,000"
+            en: "[tv_conquest_score|e] ≥ 2,500"
+            zh: "[tv_conquest_score|e] ≥ 2,500"
           event_title:
             en: "Long-term Victory — World Empire"
             zh: "长期胜利 — 世界帝国"
           event_desc:
-            en: "Two thousand locations. No empire in recorded history has claimed so much of the known world. Our legacy is written not in ink but in the march of armies and the raising of banners."
-            zh: "两千处领地。有史以来，从未有任何帝国掌控过如此广阔的疆土。我们的功业不书于纸，而铭刻于万里征途与猎猎旌旗之中。"
+            en: "Two thousand five hundred locations. No empire in recorded history has claimed so much of the known world. Our legacy is written not in ink but in the march of armies and the raising of banners."
+            zh: "两千五百处领地。有史以来，从未有任何帝国掌控过如此广阔的疆土。我们的功业不书于纸，而铭刻于万里征途与猎猎旌旗之中。"
           event_option:
             en: "Our name shall echo through the ages."
             zh: "我们的名字将永垂青史。"
