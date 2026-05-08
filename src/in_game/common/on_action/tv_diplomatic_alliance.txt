@@ -43,7 +43,7 @@ monthly_country_pulse = {
 			if = {
 				limit = { var:tv_rep_bonus > 0 }
 				international_organization:tv_diplomatic_alliance = {
-					change_variable = { name = tv_alliance_cohesion add = prev.var:tv_rep_bonus }
+					change_variable = { name = tv_alliance_cohesion add = { value = prev.var:tv_rep_bonus } }
 				}
 			}
 			remove_variable = tv_rep_bonus

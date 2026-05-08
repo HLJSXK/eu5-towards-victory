@@ -282,7 +282,7 @@ paths:
   # ── PROSPERITY ────────────────────────────────────────────────────────────
   - id: prosperity
     score_var: tv_prosperity_score
-    call_updater_in_checker: false     # updater called separately in situation (expensive)
+    call_updater_in_checker: true      # player gets monthly update; AI still uses 12-month batch in situation
     score_var_init_in_checker: false
 
     score_updater_body: |
@@ -295,7 +295,7 @@ paths:
       set_variable = { name = tv_raw_score value = total_population }
       set_variable = { name = tv_sum_dev value = 0 }
       every_owned_location = {
-      	root = { change_variable = { name = tv_sum_dev add = prev.development } }
+      	root = { change_variable = { name = tv_sum_dev add = { value = prev.development } } }
       }
       change_variable = { name = tv_raw_score add = var:tv_sum_dev }
       change_variable = { name = tv_raw_score add = country_tax_base }

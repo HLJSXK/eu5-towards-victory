@@ -45,7 +45,7 @@ tv_update_prosperity_score_effect = {
 	set_variable = { name = tv_raw_score value = total_population }
 	set_variable = { name = tv_sum_dev value = 0 }
 	every_owned_location = {
-		root = { change_variable = { name = tv_sum_dev add = prev.development } }
+		root = { change_variable = { name = tv_sum_dev add = { value = prev.development } } }
 	}
 	change_variable = { name = tv_raw_score add = var:tv_sum_dev }
 	change_variable = { name = tv_raw_score add = country_tax_base }
@@ -166,6 +166,7 @@ tv_check_conquest_milestones_effect = {
 
 # ── Prosperity Victory ──────────────────────────────────────────────────
 tv_check_prosperity_milestones_effect = {
+	tv_update_prosperity_score_effect = yes
 	# Initialise on first call (guards against missing variable)
 	if = {
 		limit = { NOT = { has_variable = tv_prosperity_milestone } }
