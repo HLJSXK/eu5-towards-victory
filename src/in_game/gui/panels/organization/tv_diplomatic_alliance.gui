@@ -1,0 +1,330 @@
+﻿organization_geodiplomatic_theme = {
+	blockoverride "organization_laws_tab_text" {
+		text = "TV_ALLIANCE_LAWS_TAB"
+	}
+
+	blockoverride "organization_panel_left_header" {
+		hbox = {
+			spacing = 8
+			margin_left = 6
+			parentanchor = vcenter
+
+			country_flag_small = {
+				datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry]"
+			}
+			vbox = {
+				text_single = {
+					fontsize = 14
+					text = "TV_ALLIANCE_ADVOCATOR"
+				}
+				text_single = {
+					fontsize = 11
+					text = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.GetName]"
+					default_format = "#yellow_titles"
+				}
+			}
+		}
+	}
+
+	blockoverride "organization_panel_right_header" {
+		hbox = {
+			spacing = 12
+			parentanchor = vcenter
+
+			vbox = {
+				text_single = {
+					fontsize = 11
+					text = "TV_ALLIANCE_COHESION"
+				}
+				text_single = {
+					fontsize = 14
+					default_format = "#yellow_titles"
+					text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_cohesion').GetValue|1]"
+				}
+			}
+			vbox = {
+				text_single = {
+					fontsize = 11
+					text = "TV_ALLIANCE_TIER"
+				}
+				text_single = {
+					fontsize = 14
+					default_format = "#yellow_titles"
+					text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_tier').GetValue|0]"
+				}
+			}
+			vbox = {
+				text_single = {
+					fontsize = 11
+					text = "TV_ALLIANCE_MEMBERS"
+				}
+				text_single = {
+					fontsize = 14
+					default_format = "#yellow_titles"
+					raw_text = "[GetDataModelSize(InternationalOrganizationsView.GetInternationalOrganization.GetMembers)]"
+				}
+			}
+		}
+	}
+
+	blockoverride "organization_panel_extra_item" {
+		flowcontainer = {
+			parentanchor = top|hcenter
+			spacing = 10
+			icon = {
+				size = { 48 48 }
+				texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetIcon]"
+				texture_density = 2
+			}
+			vbox = {
+				parentanchor = vcenter
+				text_single = {
+					fontsize = 16
+					text = "TV_ALLIANCE_OVERVIEW_TITLE"
+				}
+				text_single = {
+					fontsize = 12
+					maximumsize = { 360 40 }
+					text = "TV_ALLIANCE_OVERVIEW_DESC"
+					multiline = yes
+				}
+			}
+		}
+	}
+
+	blockoverride "organization_overview_list_custom_top_extra" {
+		vbox = {
+			margin = { 10 5 }
+			layoutpolicy_horizontal = expanding
+			card_expandable = {
+				blockoverride "header_content" {
+					margin = { 10 0 }
+					icon = {
+						size = { 30 30 }
+						block "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds"
+						}
+						texture_density = 2
+					}
+					text_single = {
+						block "header_text" {
+							margin = { 10 0 }
+							text = "TV_ALLIANCE_STATUS_TITLE"
+						}
+					}
+					expand = {}
+				}
+				blockoverride "bottom_content" {
+					vbox = {
+						margin = { 20 10 }
+						spacing = 6
+						layoutpolicy_horizontal = expanding
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							text_single = { text = "TV_ALLIANCE_SUPPORTERS" }
+							expand = {}
+							text_single = {
+								default_format = "#yellow_titles"
+								text = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_diplomatic_support_count').GetValue|0]"
+							}
+						}
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							text_single = { text = "TV_ALLIANCE_COHESION" }
+							expand = {}
+							text_single = {
+								default_format = "#yellow_titles"
+								text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_cohesion').GetValue|1]"
+							}
+						}
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							text_single = { text = "TV_ALLIANCE_TIER" }
+							expand = {}
+							text_single = {
+								default_format = "#yellow_titles"
+								text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_tier').GetValue|0]"
+							}
+						}
+						text_single = {
+							margin_top = 6
+							multiline = yes
+							autoresize = yes
+							layoutpolicy_horizontal = expanding
+							text = "TV_ALLIANCE_STATUS_HELP"
+						}
+					}
+				}
+				blockoverride "header_button_onclick" {
+					onclick = "[GetVariableSystem.Toggle( 'tv_alliance_status_info' )]"
+				}
+				blockoverride "icon_replace_visible_yes" {
+					visible = "[GetVariableSystem.Exists( 'tv_alliance_status_info' )]"
+				}
+				blockoverride "icon_replace_visible_not" {
+					visible = "[Not(GetVariableSystem.Exists( 'tv_alliance_status_info' ))]"
+				}
+				blockoverride "bottom_content_onclick" {
+					visible = "[GetVariableSystem.Exists( 'tv_alliance_status_info' )]"
+				}
+				margin_bottom = 10
+			}
+			card_expandable = {
+				blockoverride "header_content" {
+					margin = { 10 0 }
+					icon = {
+						size = { 30 30 }
+						block "common_header_icon_texture" {
+							texture = "gfx/interface/icons/international_organizations/law_voting.dds"
+						}
+						texture_density = 2
+					}
+					text_single = {
+						block "header_text" {
+							margin = { 10 0 }
+							text = "TV_ALLIANCE_HOW_TO_PROGRESS_TITLE"
+						}
+					}
+					expand = {}
+				}
+				blockoverride "bottom_content" {
+					vbox = {
+						margin = { 20 10 }
+						spacing = 6
+						layoutpolicy_horizontal = expanding
+
+						text_single = {
+							multiline = yes
+							autoresize = yes
+							layoutpolicy_horizontal = expanding
+							text = "TV_ALLIANCE_HOW_TO_PROGRESS_DESC"
+						}
+						text_single = {
+							multiline = yes
+							autoresize = yes
+							layoutpolicy_horizontal = expanding
+							text = "TV_ALLIANCE_COHESION_GAIN_DESC"
+						}
+						text_single = {
+							multiline = yes
+							autoresize = yes
+							layoutpolicy_horizontal = expanding
+							text = "TV_ALLIANCE_LAW_COST_DESC"
+						}
+					}
+				}
+				blockoverride "header_button_onclick" {
+					onclick = "[GetVariableSystem.Toggle( 'tv_alliance_progress_info' )]"
+				}
+				blockoverride "icon_replace_visible_yes" {
+					visible = "[GetVariableSystem.Exists( 'tv_alliance_progress_info' )]"
+				}
+				blockoverride "icon_replace_visible_not" {
+					visible = "[Not(GetVariableSystem.Exists( 'tv_alliance_progress_info' ))]"
+				}
+				blockoverride "bottom_content_onclick" {
+					visible = "[GetVariableSystem.Exists( 'tv_alliance_progress_info' )]"
+				}
+				margin_bottom = 10
+			}
+			card_expandable = {
+				blockoverride "header_content" {
+					margin = { 10 0 }
+					icon = {
+						size = { 30 30 }
+						block "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds"
+						}
+						texture_density = 2
+					}
+					text_single = {
+						block "header_text" {
+							margin = { 10 0 }
+							text = "TV_ALLIANCE_LAW_GROUPS_TITLE"
+						}
+					}
+					expand = {}
+				}
+				blockoverride "bottom_content" {
+					vbox = {
+						margin = { 20 10 }
+						spacing = 4
+						layoutpolicy_horizontal = expanding
+
+						text_single = { text = "TV_ALLIANCE_LAW_GROUP_COURT" }
+						text_single = { text = "TV_ALLIANCE_LAW_GROUP_INFO" }
+						text_single = { text = "TV_ALLIANCE_LAW_GROUP_COMMERCE" }
+						text_single = { text = "TV_ALLIANCE_LAW_GROUP_FAITH" }
+						text_single = { text = "TV_ALLIANCE_LAW_GROUP_COLONIZATION" }
+						text_single = {
+							margin_top = 6
+							multiline = yes
+							autoresize = yes
+							layoutpolicy_horizontal = expanding
+							text = "TV_ALLIANCE_LAW_GROUPS_HELP"
+						}
+					}
+				}
+				blockoverride "header_button_onclick" {
+					onclick = "[GetVariableSystem.Toggle( 'tv_alliance_law_groups_info' )]"
+				}
+				blockoverride "icon_replace_visible_yes" {
+					visible = "[GetVariableSystem.Exists( 'tv_alliance_law_groups_info' )]"
+				}
+				blockoverride "icon_replace_visible_not" {
+					visible = "[Not(GetVariableSystem.Exists( 'tv_alliance_law_groups_info' ))]"
+				}
+				blockoverride "bottom_content_onclick" {
+					visible = "[GetVariableSystem.Exists( 'tv_alliance_law_groups_info' )]"
+				}
+				margin_bottom = 10
+			}
+			card_expandable = {
+				blockoverride "header_content" {
+					margin = { 10 0 }
+					icon = {
+						size = { 30 30 }
+						block "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/tabicons/diplomacy.dds"
+						}
+						texture_density = 2
+					}
+					text_single = {
+						block "header_text" {
+							margin = { 10 0 }
+							text = "TV_ALLIANCE_VICTORY_REQUIREMENTS_TITLE"
+						}
+					}
+					expand = {}
+				}
+				blockoverride "bottom_content" {
+					vbox = {
+						margin = { 20 10 }
+						spacing = 4
+						layoutpolicy_horizontal = expanding
+
+						text_single = { text = "TV_ALLIANCE_VICTORY_REQ_M1" }
+						text_single = { text = "TV_ALLIANCE_VICTORY_REQ_M2" }
+						text_single = { text = "TV_ALLIANCE_VICTORY_REQ_M3" }
+						text_single = { text = "TV_ALLIANCE_VICTORY_REQ_M4" }
+						text_single = { text = "TV_ALLIANCE_VICTORY_REQ_M5" }
+					}
+				}
+				blockoverride "header_button_onclick" {
+					onclick = "[GetVariableSystem.Toggle( 'tv_alliance_victory_requirements_info' )]"
+				}
+				blockoverride "icon_replace_visible_yes" {
+					visible = "[GetVariableSystem.Exists( 'tv_alliance_victory_requirements_info' )]"
+				}
+				blockoverride "icon_replace_visible_not" {
+					visible = "[Not(GetVariableSystem.Exists( 'tv_alliance_victory_requirements_info' ))]"
+				}
+				blockoverride "bottom_content_onclick" {
+					visible = "[GetVariableSystem.Exists( 'tv_alliance_victory_requirements_info' )]"
+				}
+				margin_bottom = 10
+			}
+		}
+	}
+}
