@@ -91,3 +91,34 @@
  TV_COHESION_REQUIREMENT: "Alliance cohesion supports upgrade"
  TV_INSUFFICIENT_COHESION: "Insufficient alliance cohesion"
  TV_UPGRADE_DESIRE: "Desire for stronger alliance"
+
+ # ── Special Status ─────────────────────────────────────────────────────
+ TV_ALLIANCE_ADVOCATOR_MALE: "Advocator"
+ TV_ALLIANCE_ADVOCATOR_FEMALE: "Advocator"
+ tv_alliance_advocator_desc: "The Advocator leads the Diplomatic Alliance and may propose new laws for member nations to vote upon."
+
+ # ── IO Description ─────────────────────────────────────────────────────
+ tv_diplomatic_alliance_desc: "The Diplomatic Alliance is a grand coalition of nations united in pursuit of diplomatic supremacy. Led by its Advocator, the Alliance coordinates foreign policy, establishes shared protocols, and votes on laws governing cooperation between its members."
+
+ # ── Law Category Descriptions ──────────────────────────────────────────
+ tv_court_protocol_desc: "Determines the level of diplomatic formality and legitimacy recognition between Alliance members."
+ tv_information_network_desc: "Governs how intelligence, cartography, and communications are shared within the Alliance."
+ tv_commerce_consensus_desc: "Sets the rules of maritime commerce, trade agreements, and navigational rights for Alliance members."
+ tv_faith_harmony_desc: "Determines the Alliance's stance on religious tolerance and ideological cohesion."
+ tv_colonization_sphere_desc: "Defines how Alliance members divide and respect each other's colonial spheres of influence."
+
+ # ── Country Interaction — Seek Diplomatic Support ──────────────────────
+ dip_tv_seek_diplomatic_support_CATEGORY: "CATEGORY_FRIENDLY_ACTIONS"
+ tv_seek_diplomatic_support_act: "Seek the diplomatic support of [SCOPE.sCountry('recipient').GetName]."
+ tv_seek_diplomatic_support_effect_text: "[SCOPE.sCountry('actor').GetName] gains the diplomatic support of [SCOPE.sCountry('recipient').GetName]."
+ tv_seek_diplomatic_support_effect_text_past: "[SCOPE.sCountry('actor').GetName] has gained the diplomatic support of [SCOPE.sCountry('recipient').GetName]."
+ tv_seek_diplomatic_support_reject_effect_text: "$generic_reject_request_effect_string$"
+ tv_seek_diplomatic_support_reject_effect_text_past: "$generic_reject_request_effect_string_past$"
+ PROPOSE_tv_seek_diplomatic_support: "Would we like to ask $RECIPIENT$ to formally support our diplomatic endeavors?\n\n$INFO$"
+ INCOMING_OFFER_TITLE_tv_seek_diplomatic_support: "Request for Diplomatic Support"
+ INCOMING_OFFER_tv_seek_diplomatic_support: "$ACTOR$ is requesting our formal diplomatic support. Do we wish to accept?\n\n$INFO$"
+
+ # ── Diplomatic Status ──────────────────────────────────────────────────
+ diplomatic_status_tv_diplomatic_alliance_name: "Member of [INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetNameWithNoTooltip]'s Diplomatic Alliance"
+ diplomatic_status_tv_diplomatic_alliance_tooltip: "#T Member of [INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetName]'s Diplomatic Alliance#!\nThis country is a member of [INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetName]'s Diplomatic Alliance, supporting their bid for diplomatic victory."
+ tv_diplomatic_alliance_list_who_tt: "#T $LIST$#!\n$WHO$ is a member of [INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetName]'s Diplomatic Alliance."
