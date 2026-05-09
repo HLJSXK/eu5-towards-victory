@@ -356,6 +356,25 @@
   source: "reference_mods/3686272563/in_game/common/on_action/country_monthly.txt:3 (singleton comment)"
   notes: "EU5 on_action loading is singleton per on_action key for effect = { } blocks: only the last file loaded alphabetically wins. Two mod files each defining monthly_country_pulse = { effect = { ... } } means only one effect block ever runs. Confirmed: _yearly.txt (y) overrides _leaderboard.txt (l), silently discarding the leaderboard update."
 
+- id: ordered_in_global_list_limit_unguarded_var
+  pattern: ''
+  bad: "ordered_in_global_list limit block that references situation:X.var:Y without a prior has_variable = Y guard when Y might not be set"
+  correction: "Wrap the entire ordered_in_global_list block in: if = { limit = { has_variable = Y } ordered_in_global_list = { ... } }. The outer if is evaluated once on the situation scope, so it is cheap. The inner limit still includes the var: reference but now only runs when Y is known to be set."
+  category: script
+  scope: any
+  source: "src/in_game/common/scripted_effects/towards_victory_leaderboard.txt (ranks 2-5 fix, 2026-05)"
+  notes: "ordered_in_global_list evaluates its limit block for EVERY entry in the pool. If the referenced situation variable (e.g. tv_rank_1_country) was never set (because the pool was empty at situation on_start), every pool entry triggers a script error, producing N errors on first load. Guard with has_variable on the outer if to skip the whole pass when the prerequisite rank is absent."
+
+- id: game_is_initialized_delays_situation_spawn
+  pattern: 'game_is_initialized\s*=\s*yes'
+  only_in_paths: ['situations']
+  bad: "can_start = { game_is_initialized = yes } on a situation intended to spawn at game start"
+  correction: "Use can_start = { always = yes } for situations with monthly_spawn_chance_unique that should exist from turn 1. game_is_initialized evaluates to current_date > 1337.5.1 (strictly greater); EU5 starts on exactly 1337.5.x, so the first spawn attempt fails and the situation spawns one month late."
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/common/scripted_triggers/game_triggers.txt:58-60"
+  notes: "game_is_initialized = { current_date > 1337.5.1 }. The strict > operator means month-1 (1337.5.x) evaluates to FALSE. Situation spawns in month 2 and becomes visible to the player in month 3 due to UI propagation delay. For non-popup situations with on_start initialization, always = yes is safe because monthly_spawn_chance_unique prevents duplicate instances."
+
 - id: root_scope_in_situation_on_monthly
   pattern: ''
   bad: "every_X = { root = { change_variable = { name = Y ... } } } where Y was set_variable'd on `this` before the loop, called from a situation's on_monthly"

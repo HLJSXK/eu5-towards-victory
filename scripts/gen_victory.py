@@ -235,7 +235,7 @@ tv_victory_situation = {{
 \tmonthly_spawn_chance = monthly_spawn_chance_unique
 
 \tcan_start = {{
-\t\tgame_is_initialized = yes
+\t\talways = yes
 \t}}
 
 \tcan_end = {{

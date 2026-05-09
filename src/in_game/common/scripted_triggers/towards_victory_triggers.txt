@@ -163,6 +163,10 @@ tv_diplomatic_milestone_1 = {
 		var:tv_diplomatic_victory_points >= 50
 		has_variable = tv_diplomatic_support_count
 		var:tv_diplomatic_support_count >= 10
+		OR = {
+		    NOT = { exists = international_organization:tv_diplomatic_alliance }
+		    is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
+		}
 	}
 }
 

@@ -104,68 +104,80 @@ tv_update_leaderboard_effect = {
 	}
 
 	# Rank 2 — highest among the rest
-	ordered_in_global_list = {
-		variable = tv_country_pool
-		order_by = { add = { value = var:tv_best_progress_pct } }
-		limit = {
-			has_variable = tv_best_progress_pct
-			this != situation:tv_victory_situation.var:tv_rank_1_country
-		}
-		max = 1
-		check_range_bounds = no
-		situation:tv_victory_situation = {
-			set_variable = { name = tv_rank_2_country  value = prev }
+	if = {
+		limit = { has_variable = tv_rank_1_country }
+		ordered_in_global_list = {
+			variable = tv_country_pool
+			order_by = { add = { value = var:tv_best_progress_pct } }
+			limit = {
+				has_variable = tv_best_progress_pct
+				this != situation:tv_victory_situation.var:tv_rank_1_country
+			}
+			max = 1
+			check_range_bounds = no
+			situation:tv_victory_situation = {
+				set_variable = { name = tv_rank_2_country  value = prev }
+			}
 		}
 	}
 
 	# Rank 3
-	ordered_in_global_list = {
-		variable = tv_country_pool
-		order_by = { add = { value = var:tv_best_progress_pct } }
-		limit = {
-			has_variable = tv_best_progress_pct
-			this != situation:tv_victory_situation.var:tv_rank_1_country
-			this != situation:tv_victory_situation.var:tv_rank_2_country
-		}
-		max = 1
-		check_range_bounds = no
-		situation:tv_victory_situation = {
-			set_variable = { name = tv_rank_3_country  value = prev }
+	if = {
+		limit = { has_variable = tv_rank_2_country }
+		ordered_in_global_list = {
+			variable = tv_country_pool
+			order_by = { add = { value = var:tv_best_progress_pct } }
+			limit = {
+				has_variable = tv_best_progress_pct
+				this != situation:tv_victory_situation.var:tv_rank_1_country
+				this != situation:tv_victory_situation.var:tv_rank_2_country
+			}
+			max = 1
+			check_range_bounds = no
+			situation:tv_victory_situation = {
+				set_variable = { name = tv_rank_3_country  value = prev }
+			}
 		}
 	}
 
 	# Rank 4
-	ordered_in_global_list = {
-		variable = tv_country_pool
-		order_by = { add = { value = var:tv_best_progress_pct } }
-		limit = {
-			has_variable = tv_best_progress_pct
-			this != situation:tv_victory_situation.var:tv_rank_1_country
-			this != situation:tv_victory_situation.var:tv_rank_2_country
-			this != situation:tv_victory_situation.var:tv_rank_3_country
-		}
-		max = 1
-		check_range_bounds = no
-		situation:tv_victory_situation = {
-			set_variable = { name = tv_rank_4_country  value = prev }
+	if = {
+		limit = { has_variable = tv_rank_3_country }
+		ordered_in_global_list = {
+			variable = tv_country_pool
+			order_by = { add = { value = var:tv_best_progress_pct } }
+			limit = {
+				has_variable = tv_best_progress_pct
+				this != situation:tv_victory_situation.var:tv_rank_1_country
+				this != situation:tv_victory_situation.var:tv_rank_2_country
+				this != situation:tv_victory_situation.var:tv_rank_3_country
+			}
+			max = 1
+			check_range_bounds = no
+			situation:tv_victory_situation = {
+				set_variable = { name = tv_rank_4_country  value = prev }
+			}
 		}
 	}
 
 	# Rank 5
-	ordered_in_global_list = {
-		variable = tv_country_pool
-		order_by = { add = { value = var:tv_best_progress_pct } }
-		limit = {
-			has_variable = tv_best_progress_pct
-			this != situation:tv_victory_situation.var:tv_rank_1_country
-			this != situation:tv_victory_situation.var:tv_rank_2_country
-			this != situation:tv_victory_situation.var:tv_rank_3_country
-			this != situation:tv_victory_situation.var:tv_rank_4_country
-		}
-		max = 1
-		check_range_bounds = no
-		situation:tv_victory_situation = {
-			set_variable = { name = tv_rank_5_country  value = prev }
+	if = {
+		limit = { has_variable = tv_rank_4_country }
+		ordered_in_global_list = {
+			variable = tv_country_pool
+			order_by = { add = { value = var:tv_best_progress_pct } }
+			limit = {
+				has_variable = tv_best_progress_pct
+				this != situation:tv_victory_situation.var:tv_rank_1_country
+				this != situation:tv_victory_situation.var:tv_rank_2_country
+				this != situation:tv_victory_situation.var:tv_rank_3_country
+				this != situation:tv_victory_situation.var:tv_rank_4_country
+			}
+			max = 1
+			check_range_bounds = no
+			situation:tv_victory_situation = {
+				set_variable = { name = tv_rank_5_country  value = prev }
+			}
 		}
 	}
 }
