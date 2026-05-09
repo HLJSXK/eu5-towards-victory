@@ -900,23 +900,23 @@ paths:
           # Create the Diplomatic Alliance international organization
           if = {
               limit = { NOT = { exists = international_organization:tv_diplomatic_alliance } }
+              save_scope_as = tv_founder
               create_international_organization = {
                   type = international_organization_type:tv_diplomatic_alliance
-                  add_country_to_international_organization = root
-                  set_leader_country = root
-              }
-              # Add all existing supporters to the organization
-              every_country = {
-                  limit = {
-                      has_variable = tv_diplomatic_supporter_of
-                      var:tv_diplomatic_supporter_of = root
+                  add_country_to_international_organization = prev
+                  set_leader_country = prev
+                  save_scope_as = tv_alliance_io
+                  # Add all existing supporters to the organization
+                  every_country = {
+                      limit = {
+                          has_variable = tv_diplomatic_supporter_of
+                          var:tv_diplomatic_supporter_of = scope:tv_founder
+                      }
+                      scope:tv_alliance_io = {
+                          add_country_to_international_organization = prev
+                      }
                   }
-                  international_organization:tv_diplomatic_alliance = {
-                      add_country_to_international_organization = prev
-                  }
-              }
-              # Initialize cohesion and alliance tier on the newly created IO
-              international_organization:tv_diplomatic_alliance = {
+                  # Initialize cohesion and alliance tier on the newly created IO
                   set_variable = { name = tv_alliance_cohesion value = 0 }
                   set_variable = { name = tv_alliance_tier value = 0 }
               }
