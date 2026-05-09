@@ -66,5 +66,16 @@
  TV_ARTS_EXHIBITION_LEADER: "Cultural Leader"
  tv_arts_intl_influence_header_tt: "Your current #bold International Influence#! in the Arts Exhibition.\n\nBase change: -0.05 per month\nHost Domestic Exhibition: +0.1 per artwork owned\nTouring artists: periodic events that raise or lower influence\n\nMilestones M2-M5 require >= 25 / 50 / 75 / 100"
 
+ # ── Chief Artist keys ─────────────────────────────────────────────────────
+ tv_chief_artist_header: "Chief Artist"
+ tv_chief_artist_empty_slot: "@artistic_skill_icon! Appoint"
+ tv_chief_artist_none_hint: "Appoint a Chief Artist to gain International Influence each month."
+ tv_chief_artist_monthly_label: "Monthly Influence:"
+ tv_chief_artist_bonus_tt: "Monthly International Influence gained from your Chief Artist.\n\nFormula: Art Skill x 0.002\n(Art Skill 100 = +0.20 per month)"
+ tv_appoint_chief_artist: "Appoint Chief Artist"
+ tv_appoint_chief_artist_desc: "Designate a court artist as Chief Artist. The Chief Artist passively increases your International Influence each month based on their Art Skill (Skill x 0.002 per month)."
+ tv_select_chief_artist: "Select Chief Artist"
+ tv_no_chief_artist_available: "@trigger_no! No eligible artists are available."
+
  # ── M1 grant tooltip (shown in the Cultural Victory M1 event reward) ─────────
- tv_cultural_m1_io_grant_tt: "Establishes the #bold Arts Exhibition#! and begins tracking #bold International Influence#!. Use Send Artist Abroad and Host Domestic Exhibition to grow your influence. Cultural Victory Milestones M2–M5 each require a minimum International Influence threshold."
+ tv_cultural_m1_io_grant_tt: "Establishes the #bold Arts Exhibition#! and begins tracking #bold International Influence#!. Use Send Artist Abroad and Host Domestic Exhibition to grow your influence. Cultural Victory Milestones M2-M5 each require a minimum International Influence threshold."

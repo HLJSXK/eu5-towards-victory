@@ -73,12 +73,102 @@ organization_panel = {
 		}
 	}
 
-	# ── Cultural action buttons ────────────────────────────────────────────
+	# ── Cultural action buttons + Chief Artist section ───────────────────
 	blockoverride "organization_main_actions_extra_visible" {
 		visible = yes
 	}
 
 	blockoverride "organization_main_actions_extra" {
+
+		# ── Chief Artist slot ─────────────────────────────────────────────────
+		# Country datacontext lets child widgets use Country.MakeScope.GetVariable(...)
+		widget = {
+			size = { 470 90 }
+			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+
+			hbox = {
+				spacing = 8
+				margin = { 4 4 }
+
+				# ── Portrait area ─────────────────────────────────────────────
+				# FILLED: show character portrait in the small frame
+				character_frame_small = {
+					visible = "[Country.MakeScope.GetVariable('tv_chief_artist').IsSet]"
+					blockoverride "portrait_datacontext" {
+						datacontext = "[Country.MakeScope.GetVariable('tv_chief_artist').GetCharacter]"
+					}
+				}
+
+				# EMPTY: clickable button styled at portrait dimensions; clicking opens the
+				# artist selection menu via the tv_appoint_chief_artist generic action.
+				action_button_diamond = {
+					visible = "[Not(Country.MakeScope.GetVariable('tv_chief_artist').IsSet)]"
+					size = { 64 76 }
+					text = "tv_chief_artist_empty_slot"
+					actor = "[InternationalOrganizationsView.GetPlayer]"
+					left_action = {
+						action_name = "tv_appoint_chief_artist"
+					}
+				}
+
+				# ── Stats panel (right of portrait) ──────────────────────────
+				vbox = {
+					spacing = 5
+
+					# Section header
+					text_single = {
+						text = "tv_chief_artist_header"
+						autoresize = yes
+						fontsize = 14
+						font = "header_font"
+					}
+
+					# Character name — only when a chief artist is assigned
+					text_single = {
+						visible = "[Country.MakeScope.GetVariable('tv_chief_artist').IsSet]"
+						text = "[Country.MakeScope.GetVariable('tv_chief_artist').GetCharacter.GetShortNameWithNoTooltip]"
+						autoresize = yes
+					}
+
+					# Monthly influence bonus — only when assigned
+					hbox = {
+						visible = "[Country.MakeScope.GetVariable('tv_chief_artist').IsSet]"
+						spacing = 4
+						tooltip = "tv_chief_artist_bonus_tt"
+
+						text_single = {
+							text = "tv_chief_artist_monthly_label"
+							autoresize = yes
+						}
+						text_single = {
+							text = "+[Country.MakeScope.GetVariable('tv_chief_artist_monthly_bonus').GetValue|2]"
+							autoresize = yes
+						}
+					}
+
+					# Hint text — only when no chief artist is assigned
+					text_single = {
+						visible = "[Not(Country.MakeScope.GetVariable('tv_chief_artist').IsSet)]"
+						text = "tv_chief_artist_none_hint"
+						autoresize = yes
+						fontsize = 11
+					}
+				}
+			}
+		}
+
+		# ── Appoint / Replace Chief Artist button ─────────────────────────────
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "tv_appoint_chief_artist"
+			title = "tv_appoint_chief_artist"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_appoint_chief_artist"
+			}
+		}
+
+		# ── Existing cultural action buttons (unchanged) ──────────────────────
 		action_button_diamond = {
 			size = { 470 30 }
 			text = "tv_send_artist_abroad"
