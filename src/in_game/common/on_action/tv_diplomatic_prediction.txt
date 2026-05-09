@@ -1,0 +1,10 @@
+﻿# Towards Victory — Diplomatic Prediction on_actions (MANUAL)
+
+monthly_country_pulse = {
+	effect = {
+		if = {
+			limit = { is_human = yes }
+			tv_diplomatic_prediction_monthly_effect = yes
+		}
+	}
+}

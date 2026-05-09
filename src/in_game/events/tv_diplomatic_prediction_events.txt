@@ -1,0 +1,89 @@
+﻿# Towards Victory — Diplomatic Prediction events (MANUAL)
+
+namespace = tv_diplo_prediction
+
+tv_diplo_prediction.1 = {
+	type = country_event
+	title = tv_diplo_prediction.1.t
+	desc = tv_diplo_prediction.1.d
+	outcome = neutral
+	option = {
+		name = tv_diplo_prediction.1.a
+		set_variable = { name = tv_pred_western_schism_choice value = 1 }
+		custom_tooltip = tv_diplo_prediction_western_schism_papal_tt
+	}
+	option = {
+		name = tv_diplo_prediction.1.b
+		set_variable = { name = tv_pred_western_schism_choice value = 2 }
+		custom_tooltip = tv_diplo_prediction_western_schism_opponent_tt
+	}
+	option = {
+		name = tv_diplo_prediction.1.c
+		set_variable = { name = tv_pred_western_schism_declined value = 1 }
+	}
+}
+
+tv_diplo_prediction.2 = {
+	type = country_event
+	title = tv_diplo_prediction.2.t
+	desc = tv_diplo_prediction.2.d
+	outcome = neutral
+	option = {
+		name = tv_diplo_prediction.2.a
+		set_variable = { name = tv_pred_rise_ottomans_choice value = 1 }
+		set_variable = { name = tv_pred_rise_ottomans_country value = situation:rise_of_the_ottomans.var:strongest_beylik_variable }
+		custom_tooltip = tv_diplo_prediction_rise_ottomans_current_tt
+	}
+	option = {
+		name = tv_diplo_prediction.2.b
+		trigger = { country_exists = c:TUR }
+		set_variable = { name = tv_pred_rise_ottomans_choice value = 2 }
+		custom_tooltip = tv_diplo_prediction_rise_ottomans_tur_tt
+	}
+	option = {
+		name = tv_diplo_prediction.2.c
+		set_variable = { name = tv_pred_rise_ottomans_declined value = 1 }
+	}
+}
+
+tv_diplo_prediction.101 = {
+	type = country_event
+	title = tv_diplo_prediction.101.t
+	desc = tv_diplo_prediction.101.d
+	outcome = positive
+	option = {
+		name = tv_diplo_prediction.correct.a
+		custom_tooltip = tv_diplo_prediction_major_reward_tt
+	}
+}
+
+tv_diplo_prediction.102 = {
+	type = country_event
+	title = tv_diplo_prediction.102.t
+	desc = tv_diplo_prediction.102.d
+	outcome = negative
+	option = {
+		name = tv_diplo_prediction.incorrect.a
+	}
+}
+
+tv_diplo_prediction.201 = {
+	type = country_event
+	title = tv_diplo_prediction.201.t
+	desc = tv_diplo_prediction.201.d
+	outcome = positive
+	option = {
+		name = tv_diplo_prediction.correct.a
+		custom_tooltip = tv_diplo_prediction_regional_reward_tt
+	}
+}
+
+tv_diplo_prediction.202 = {
+	type = country_event
+	title = tv_diplo_prediction.202.t
+	desc = tv_diplo_prediction.202.d
+	outcome = negative
+	option = {
+		name = tv_diplo_prediction.incorrect.a
+	}
+}

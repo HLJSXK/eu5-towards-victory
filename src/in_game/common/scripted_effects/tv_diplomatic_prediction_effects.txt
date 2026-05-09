@@ -1,0 +1,78 @@
+﻿# Towards Victory — Diplomatic Prediction effects (MANUAL)
+
+tv_prediction_init_score_effect = {
+	if = {
+		limit = { NOT = { has_variable = tv_prediction_score } }
+		set_variable = { name = tv_prediction_score value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_variable = tv_diplomatic_victory_points } }
+		set_variable = { name = tv_diplomatic_victory_points value = 0 }
+	}
+}
+
+tv_prediction_award_major_effect = {
+	tv_prediction_init_score_effect = yes
+	change_variable = { name = tv_prediction_score add = 30 }
+	change_variable = { name = tv_diplomatic_victory_points add = 30 }
+}
+
+tv_prediction_award_regional_effect = {
+	tv_prediction_init_score_effect = yes
+	change_variable = { name = tv_prediction_score add = 20 }
+	change_variable = { name = tv_diplomatic_victory_points add = 20 }
+}
+
+tv_offer_diplomatic_predictions_effect = {
+	if = {
+		limit = { tv_can_offer_western_schism_prediction = yes }
+		trigger_event_non_silently = tv_diplo_prediction.1
+	}
+	if = {
+		limit = { tv_can_offer_rise_ottomans_prediction = yes }
+		trigger_event_non_silently = tv_diplo_prediction.2
+	}
+}
+
+tv_resolve_western_schism_prediction_effect = {
+	if = {
+		limit = { tv_western_schism_prediction_is_correct = yes }
+		tv_prediction_award_major_effect = yes
+		set_variable = { name = tv_pred_western_schism_resolved value = 1 }
+		trigger_event_non_silently = tv_diplo_prediction.101
+	}
+	else = {
+		set_variable = { name = tv_pred_western_schism_resolved value = 1 }
+		trigger_event_non_silently = tv_diplo_prediction.102
+	}
+}
+
+tv_resolve_rise_ottomans_prediction_effect = {
+	if = {
+		limit = { tv_rise_ottomans_prediction_is_correct = yes }
+		tv_prediction_award_regional_effect = yes
+		set_variable = { name = tv_pred_rise_ottomans_resolved value = 1 }
+		trigger_event_non_silently = tv_diplo_prediction.201
+	}
+	else = {
+		set_variable = { name = tv_pred_rise_ottomans_resolved value = 1 }
+		trigger_event_non_silently = tv_diplo_prediction.202
+	}
+}
+
+tv_resolve_diplomatic_predictions_effect = {
+	if = {
+		limit = { tv_western_schism_prediction_ready_to_resolve = yes }
+		tv_resolve_western_schism_prediction_effect = yes
+	}
+	if = {
+		limit = { tv_rise_ottomans_prediction_ready_to_resolve = yes }
+		tv_resolve_rise_ottomans_prediction_effect = yes
+	}
+}
+
+tv_diplomatic_prediction_monthly_effect = {
+	tv_prediction_init_score_effect = yes
+	tv_resolve_diplomatic_predictions_effect = yes
+	tv_offer_diplomatic_predictions_effect = yes
+}

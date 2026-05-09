@@ -1,0 +1,84 @@
+﻿# Towards Victory — Diplomatic Prediction triggers (MANUAL)
+
+tv_can_offer_western_schism_prediction = {
+	is_human = yes
+	religion = religion:catholic
+	NOT = { has_variable = tv_pred_western_schism_choice }
+	NOT = { has_variable = tv_pred_western_schism_declined }
+	NOT = { has_variable = tv_pred_western_schism_resolved }
+	situation:western_schism = {
+		situation_is_active = yes
+		has_variable = western_schism_pope_score
+		has_variable = western_schism_anti_pope_score
+	}
+}
+
+tv_western_schism_prediction_ready_to_resolve = {
+	has_variable = tv_pred_western_schism_choice
+	NOT = { has_variable = tv_pred_western_schism_resolved }
+	OR = {
+		situation:western_schism = { western_schism_end_trigger = yes }
+		has_variable = western_schism_pope_score
+		has_variable = western_schism_anti_pope_score
+	}
+}
+
+tv_western_schism_prediction_is_correct = {
+	OR = {
+		AND = {
+			var:tv_pred_western_schism_choice = 1
+			has_variable = western_schism_pope_score
+			var:western_schism_pope_score >= 2
+		}
+		AND = {
+			var:tv_pred_western_schism_choice = 2
+			has_variable = western_schism_anti_pope_score
+			var:western_schism_anti_pope_score >= 2
+		}
+	}
+}
+
+tv_can_offer_rise_ottomans_prediction = {
+	is_human = yes
+	NOT = { has_variable = tv_pred_rise_ottomans_choice }
+	NOT = { has_variable = tv_pred_rise_ottomans_declined }
+	NOT = { has_variable = tv_pred_rise_ottomans_resolved }
+	situation:rise_of_the_ottomans = {
+		situation_is_active = yes
+		has_variable = strongest_beylik_variable
+	}
+	OR = {
+		has_presence_in = region:anatolia_region
+		has_presence_in = region:balkan_region
+		has_reform = government_reform:anatolian_beylik
+		is_neighbor_of = situation:rise_of_the_ottomans.var:strongest_beylik_variable
+		is_rival_of = situation:rise_of_the_ottomans.var:strongest_beylik_variable
+		is_enemy_of = situation:rise_of_the_ottomans.var:strongest_beylik_variable
+	}
+}
+
+tv_rise_ottomans_prediction_ready_to_resolve = {
+	has_variable = tv_pred_rise_ottomans_choice
+	NOT = { has_variable = tv_pred_rise_ottomans_resolved }
+	situation:rise_of_the_ottomans = {
+		rise_of_the_ottomans_end_trigger = yes
+	}
+}
+
+tv_rise_ottomans_prediction_is_correct = {
+	situation:rise_of_the_ottomans = {
+		has_variable = strongest_beylik_variable
+	}
+	OR = {
+		AND = {
+			var:tv_pred_rise_ottomans_choice = 1
+			has_variable = tv_pred_rise_ottomans_country
+			var:tv_pred_rise_ottomans_country = situation:rise_of_the_ottomans.var:strongest_beylik_variable
+		}
+		AND = {
+			var:tv_pred_rise_ottomans_choice = 2
+			country_exists = c:TUR
+			situation:rise_of_the_ottomans.var:strongest_beylik_variable = c:TUR
+		}
+	}
+}
