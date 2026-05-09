@@ -179,20 +179,20 @@
  TV_CULTURAL_FLAVOR: "\"Art is the signature of civilisations.\""
 
  TV_CULTURAL_M1_TITLE: "Cultural Victory — Milestone 1"
- TV_CULTURAL_M1_MEANING: "50 [tv_cultural_influence_points|e]. Your court draws its first [artist|e]s and patrons — a cultural legacy begins."
- TV_CULTURAL_M1_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 50"
+ TV_CULTURAL_M1_MEANING: "100 [tv_cultural_influence_points|e]. Your court draws its first [artist|e]s and patrons — a cultural legacy begins."
+ TV_CULTURAL_M1_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 100"
  TV_CULTURAL_M2_TITLE: "Cultural Victory — Milestone 2"
- TV_CULTURAL_M2_MEANING: "120 [tv_cultural_influence_points|e]. A celebrated cultural power — [work_of_art|e]s from your court speak of your greatness."
- TV_CULTURAL_M2_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 120  •  International Influence ≥ 25"
+ TV_CULTURAL_M2_MEANING: "200 [tv_cultural_influence_points|e]. A celebrated cultural power — [work_of_art|e]s from your court speak of your greatness."
+ TV_CULTURAL_M2_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 200  •  International Influence ≥ 25"
  TV_CULTURAL_M3_TITLE: "Cultural Victory — Short-term Victory"
- TV_CULTURAL_M3_MEANING: "220 [tv_cultural_influence_points|e]. A centre of Renaissance brilliance — [artist|e]s from across the world seek your court. Short-term Victory."
- TV_CULTURAL_M3_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 220  •  International Influence ≥ 50"
+ TV_CULTURAL_M3_MEANING: "400 [tv_cultural_influence_points|e]. A centre of Renaissance brilliance — [artist|e]s from across the world seek your court. Short-term Victory."
+ TV_CULTURAL_M3_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 400  •  International Influence ≥ 50"
  TV_CULTURAL_M4_TITLE: "Cultural Victory — Milestone 4"
- TV_CULTURAL_M4_MEANING: "380 [tv_cultural_influence_points|e]. [cultural_influence|e] radiates from your court across the world — your [artist|e]s define the age."
- TV_CULTURAL_M4_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 380  •  International Influence ≥ 75"
+ TV_CULTURAL_M4_MEANING: "800 [tv_cultural_influence_points|e]. [cultural_influence|e] radiates from your court across the world — your [artist|e]s define the age."
+ TV_CULTURAL_M4_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 800  •  International Influence ≥ 75"
  TV_CULTURAL_M5_TITLE: "Cultural Victory — Long-term Victory"
- TV_CULTURAL_M5_MEANING: "580 [tv_cultural_influence_points|e]. The greatest cultural legacy in history — [work_of_art|e]s made in your name will outlast every empire. Long-term Victory."
- TV_CULTURAL_M5_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 580  •  International Influence ≥ 100"
+ TV_CULTURAL_M5_MEANING: "1600 [tv_cultural_influence_points|e]. The greatest cultural legacy in history — [work_of_art|e]s made in your name will outlast every empire. Long-term Victory."
+ TV_CULTURAL_M5_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 1600  •  International Influence ≥ 100"
 
  # ── Cultural Victory Events ───────────────────────────────────────────────
  tv_cultural.1.t: "A Patron of the Arts"
@@ -208,7 +208,7 @@
  tv_cultural.4.d: "Our [cultural_influence|e] has spread far beyond our borders. Other nations imitate our fashions, adopt our ideas, and send their finest minds to study under our masters. The world looks to us as the arbiter of taste and refinement."
  tv_cultural.4.a: "We shall carry the torch of civilisation."
  tv_cultural.5.t: "Long-term Victory — Cultural Hegemon"
- tv_cultural.5.d: "Five hundred and eighty points of cultural achievement. No nation in history has produced so much beauty, wisdom, and wonder. Long after our [army|e]s are forgotten, the [work_of_art|e]s created in our name will endure as the greatest cultural legacy the world has ever known."
+ tv_cultural.5.d: "One thousand six hundred points of cultural achievement. No nation in history has produced so much beauty, wisdom, and wonder. Long after our [army|e]s are forgotten, the [work_of_art|e]s created in our name will endure as the greatest cultural legacy the world has ever known."
  tv_cultural.5.a: "Our name shall be synonymous with civilisation itself."
 
 
@@ -296,7 +296,7 @@
  TV_PROSPERITY_PROGRESS_DISPLAY:0 "[tv_prosperity_score|e]: [Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 25,000"
  TV_TRADE_PROGRESS_DISPLAY:0 "[tv_trade_score|e]: [Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
  TV_DIPLOMATIC_PROGRESS_DISPLAY:0 "[tv_diplomatic_victory_points|e]: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 580"
- TV_CULTURAL_PROGRESS_DISPLAY:0 "[tv_cultural_influence_points|e]: [Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
+ TV_CULTURAL_PROGRESS_DISPLAY:0 "[tv_cultural_influence_points|e]: [Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 1600"
  TV_SCIENCE_PROGRESS_DISPLAY:0 "[tv_science_score|e]: [Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
 
  # ── Static Modifier Names (shown in modifier tooltips) ─────────────────────

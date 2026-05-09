@@ -8,12 +8,11 @@
 
 monthly_country_pulse = {
 	effect = {
-		# ── Cultural Victory: CIP +1 per country per month ──────────────────────────
+		# ── Cultural Victory: initialise CIP variable if absent ─────────────────────
 		if = {
 			limit = { NOT = { has_variable = tv_cultural_influence_points } }
 			set_variable = { name = tv_cultural_influence_points value = 0 }
 		}
-		change_variable = { name = tv_cultural_influence_points add = 1 }
 
 		# ── Arts Exhibition: Chief Artist monthly influence bonus ─────────────────────
 		# Block D: if a chief artist is assigned, navigate to character scope, compute

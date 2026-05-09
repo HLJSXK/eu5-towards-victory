@@ -609,47 +609,47 @@ tv_update_all_progress_pct_effect = {
 	}
 
 	# ── Cultural Victory ──────────────────────────────────────────────────────
-	# piecewise: thresholds 50/120/220/380/580 → each milestone = +20%
+	# piecewise: thresholds 100/200/400/800/1600 → each milestone = +20%
 	if = {
 		limit = { has_variable = tv_cultural_influence_points }
-		# Seg 1: 0–50 → 0–20
+		# Seg 1: 0–100 → 0–20
 		set_variable = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
 		change_variable = { name = tv_cultural_progress_pct multiply = 20 }
-		change_variable = { name = tv_cultural_progress_pct divide = 50 }
-		# Seg 2: 50–120 → 20–40
+		change_variable = { name = tv_cultural_progress_pct divide = 100 }
+		# Seg 2: 100–200 → 20–40
 		if = {
-			limit = { var:tv_cultural_influence_points >= 50 }
+			limit = { var:tv_cultural_influence_points >= 100 }
 			set_variable = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
-			change_variable = { name = tv_cultural_progress_pct subtract = 50 }
-			change_variable = { name = tv_cultural_progress_pct multiply = 20 }
-			change_variable = { name = tv_cultural_progress_pct divide = 70 }
-			change_variable = { name = tv_cultural_progress_pct add = 20 }
-		}
-		# Seg 3: 120–220 → 40–60
-		if = {
-			limit = { var:tv_cultural_influence_points >= 120 }
-			set_variable = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
-			change_variable = { name = tv_cultural_progress_pct subtract = 120 }
+			change_variable = { name = tv_cultural_progress_pct subtract = 100 }
 			change_variable = { name = tv_cultural_progress_pct multiply = 20 }
 			change_variable = { name = tv_cultural_progress_pct divide = 100 }
-			change_variable = { name = tv_cultural_progress_pct add = 40 }
+			change_variable = { name = tv_cultural_progress_pct add = 20 }
 		}
-		# Seg 4: 220–380 → 60–80
+		# Seg 3: 200–400 → 40–60
 		if = {
-			limit = { var:tv_cultural_influence_points >= 220 }
+			limit = { var:tv_cultural_influence_points >= 200 }
 			set_variable = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
-			change_variable = { name = tv_cultural_progress_pct subtract = 220 }
-			change_variable = { name = tv_cultural_progress_pct multiply = 20 }
-			change_variable = { name = tv_cultural_progress_pct divide = 160 }
-			change_variable = { name = tv_cultural_progress_pct add = 60 }
-		}
-		# Seg 5: 380–580 → 80–100
-		if = {
-			limit = { var:tv_cultural_influence_points >= 380 }
-			set_variable = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
-			change_variable = { name = tv_cultural_progress_pct subtract = 380 }
+			change_variable = { name = tv_cultural_progress_pct subtract = 200 }
 			change_variable = { name = tv_cultural_progress_pct multiply = 20 }
 			change_variable = { name = tv_cultural_progress_pct divide = 200 }
+			change_variable = { name = tv_cultural_progress_pct add = 40 }
+		}
+		# Seg 4: 400–800 → 60–80
+		if = {
+			limit = { var:tv_cultural_influence_points >= 400 }
+			set_variable = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
+			change_variable = { name = tv_cultural_progress_pct subtract = 400 }
+			change_variable = { name = tv_cultural_progress_pct multiply = 20 }
+			change_variable = { name = tv_cultural_progress_pct divide = 400 }
+			change_variable = { name = tv_cultural_progress_pct add = 60 }
+		}
+		# Seg 5: 800–1600 → 80–100
+		if = {
+			limit = { var:tv_cultural_influence_points >= 800 }
+			set_variable = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
+			change_variable = { name = tv_cultural_progress_pct subtract = 800 }
+			change_variable = { name = tv_cultural_progress_pct multiply = 20 }
+			change_variable = { name = tv_cultural_progress_pct divide = 800 }
 			change_variable = { name = tv_cultural_progress_pct add = 80 }
 		}
 		if = { limit = { var:tv_cultural_progress_pct > 100 } set_variable = { name = tv_cultural_progress_pct value = 100 } }

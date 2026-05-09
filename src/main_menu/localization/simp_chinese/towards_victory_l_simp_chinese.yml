@@ -179,20 +179,20 @@
  TV_CULTURAL_FLAVOR: "\"艺术是文明的印记。\""
 
  TV_CULTURAL_M1_TITLE: "文化胜利 — 里程碑1"
- TV_CULTURAL_M1_MEANING: "50 [tv_cultural_influence_points|e]。你的宫廷吸引了第一批[artist|e]与赞助人——文化遗产由此发轫。"
- TV_CULTURAL_M1_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 50"
+ TV_CULTURAL_M1_MEANING: "100 [tv_cultural_influence_points|e]。你的宫廷吸引了第一批[artist|e]与赞助人——文化遗产由此发轫。"
+ TV_CULTURAL_M1_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 100"
  TV_CULTURAL_M2_TITLE: "文化胜利 — 里程碑2"
- TV_CULTURAL_M2_MEANING: "120 [tv_cultural_influence_points|e]。享誉盛名的文化强国——你宫廷中的[work_of_art|e]彰显了你的伟大。"
- TV_CULTURAL_M2_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 120  •  国际影响力 ≥ 25"
+ TV_CULTURAL_M2_MEANING: "200 [tv_cultural_influence_points|e]。享誉盛名的文化强国——你宫廷中的[work_of_art|e]彰显了你的伟大。"
+ TV_CULTURAL_M2_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 200  •  国际影响力 ≥ 25"
  TV_CULTURAL_M3_TITLE: "文化胜利 — 短期胜利"
- TV_CULTURAL_M3_MEANING: "220 [tv_cultural_influence_points|e]。文艺复兴的璀璨中心——各地[artist|e]慕名而来。短期胜利。"
- TV_CULTURAL_M3_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 220  •  国际影响力 ≥ 50"
+ TV_CULTURAL_M3_MEANING: "400 [tv_cultural_influence_points|e]。文艺复兴的璀璨中心——各地[artist|e]慕名而来。短期胜利。"
+ TV_CULTURAL_M3_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 400  •  国际影响力 ≥ 50"
  TV_CULTURAL_M4_TITLE: "文化胜利 — 里程碑4"
- TV_CULTURAL_M4_MEANING: "380 [tv_cultural_influence_points|e]。[cultural_influence|e]从你的宫廷辐射至全世界——你的[artist|e]定义了这个时代。"
- TV_CULTURAL_M4_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 380  •  国际影响力 ≥ 75"
+ TV_CULTURAL_M4_MEANING: "800 [tv_cultural_influence_points|e]。[cultural_influence|e]从你的宫廷辐射至全世界——你的[artist|e]定义了这个时代。"
+ TV_CULTURAL_M4_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 800  •  国际影响力 ≥ 75"
  TV_CULTURAL_M5_TITLE: "文化胜利 — 长期胜利"
- TV_CULTURAL_M5_MEANING: "580 [tv_cultural_influence_points|e]。历史上最伟大的文化遗产——以你名义创作的[work_of_art|e]将超越每一个帝国，永世流传。长期胜利。"
- TV_CULTURAL_M5_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 580  •  国际影响力 ≥ 100"
+ TV_CULTURAL_M5_MEANING: "1600 [tv_cultural_influence_points|e]。历史上最伟大的文化遗产——以你名义创作的[work_of_art|e]将超越每一个帝国，永世流传。长期胜利。"
+ TV_CULTURAL_M5_TRIGGER_DESC: "[tv_cultural_influence_points|e] ≥ 1600  •  国际影响力 ≥ 100"
 
  # ── Cultural Victory Events ───────────────────────────────────────────────
  tv_cultural.1.t: "艺术赞助人"
@@ -208,7 +208,7 @@
  tv_cultural.4.d: "我们的[cultural_influence|e]早已超越国界。他国模仿我们的风尚，接受我们的思想，将其最优秀的才智送来在我们的大师门下学习。世界将我们视为品位与文雅的仲裁者。"
  tv_cultural.4.a: "我们将肩负文明的火炬。"
  tv_cultural.5.t: "长期胜利 — 文化霸主"
- tv_cultural.5.d: "五百八十文化影响力点。历史上从未有任何国家创造出如此之多的美、智慧与奇迹。在我们的[army|e]早已被遗忘之后，以我们名义创造的[work_of_art|e]将永久流传，成为世界有史以来最伟大的文化遗产。"
+ tv_cultural.5.d: "一千六百文化影响力点。历史上从未有任何国家创造出如此之多的美、智慧与奇迹。在我们的[army|e]早已被遗忘之后，以我们名义创造的[work_of_art|e]将永久流传，成为世界有史以来最伟大的文化遗产。"
  tv_cultural.5.a: "我们的名字将与文明本身永远共存。"
 
 
@@ -296,7 +296,7 @@
  TV_PROSPERITY_PROGRESS_DISPLAY:0 "[tv_prosperity_score|e]：[Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 25,000"
  TV_TRADE_PROGRESS_DISPLAY:0 "[tv_trade_score|e]：[Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
  TV_DIPLOMATIC_PROGRESS_DISPLAY:0 "[tv_diplomatic_victory_points|e]：[Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 580"
- TV_CULTURAL_PROGRESS_DISPLAY:0 "[tv_cultural_influence_points|e]：[Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
+ TV_CULTURAL_PROGRESS_DISPLAY:0 "[tv_cultural_influence_points|e]：[Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 1600"
  TV_SCIENCE_PROGRESS_DISPLAY:0 "[tv_science_score|e]：[Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
 
  # ── Static Modifier Names (shown in modifier tooltips) ─────────────────────
