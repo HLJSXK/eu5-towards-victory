@@ -825,6 +825,15 @@ tv_grant_diplomatic_milestone_5 = {
 # Cultural Victory
 tv_grant_cultural_milestone_1 = {
 	add_country_modifier = { modifier = tv_cultural_m1_bonus days = -1 }
+	custom_tooltip = { text = tv_cultural_m1_io_grant_tt }
+	hidden_effect = {
+	    set_variable = { name = tv_arts_exhibition_member value = 1 }
+	    set_variable = { name = tv_arts_intl_influence value = 0 }
+	    create_international_organization = {
+	        type = international_organization_type:tv_arts_exhibition
+	        add_country_to_international_organization = prev
+	    }
+	}
 }
 
 tv_grant_cultural_milestone_2 = {

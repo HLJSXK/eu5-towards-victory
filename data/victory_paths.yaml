@@ -1159,6 +1159,17 @@ paths:
         modifier_name:
           en: "Patron of the Arts"
           zh: "艺术赞助人"
+        custom_grant_body: |
+          add_country_modifier = { modifier = tv_cultural_m1_bonus days = -1 }
+          custom_tooltip = { text = tv_cultural_m1_io_grant_tt }
+          hidden_effect = {
+              set_variable = { name = tv_arts_exhibition_member value = 1 }
+              set_variable = { name = tv_arts_intl_influence value = 0 }
+              create_international_organization = {
+                  type = international_organization_type:tv_arts_exhibition
+                  add_country_to_international_organization = prev
+              }
+          }
         loc:
           title:
             en: "Cultural Victory — Milestone 1"

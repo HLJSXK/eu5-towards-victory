@@ -15,25 +15,6 @@ monthly_country_pulse = {
 		}
 		change_variable = { name = tv_cultural_influence_points add = 1 }
 
-		# ── Arts Exhibition: join IO on first M1 achievement ─────────────────────────
-		# Block A: when a country first reaches Cultural Victory M1, create or join
-		# the tv_arts_exhibition IO and initialise influence tracking variables.
-		if = {
-			limit = {
-				tv_cultural_milestone_1 = yes
-				NOT = { has_variable = tv_arts_exhibition_member }
-			}
-			set_variable = { name = tv_arts_exhibition_member value = 1 }
-			set_variable = { name = tv_arts_intl_influence value = 0 }
-			# Each qualifying country creates its own Arts Exhibition IO
-			create_international_organization = {
-				type = international_organization_type:tv_arts_exhibition
-				hidden_effect = {
-					add_country_to_international_organization = prev
-				}
-			}
-		}
-
 		# ── Arts Exhibition: International Influence decay ────────────────────────────
 		# Block B: decay -0.05 per month, floor 0.
 		if = {
