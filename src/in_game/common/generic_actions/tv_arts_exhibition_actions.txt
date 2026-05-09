@@ -37,11 +37,11 @@ tv_send_artist_abroad = {
 		name = "tv_select_touring_artist"
 		none_available_msg_key = "tv_no_touring_artist_available"
 		column = {
-			data = character_artist
+			data = character_info
 		}
 		visible = {
+			is_alive = yes
 			is_artist = yes
-			is_courtier = yes
 			is_ruler = no
 			is_heir = no
 			is_consort = no
