@@ -26,14 +26,6 @@ tv_send_artist_abroad = {
 				text = tv_send_artist_abroad_cost_tt
 				gold >= 200
 			}
-			custom_tooltip = {
-				text = tv_send_artist_abroad_requires_artist_tt
-				any_character = {
-					is_courtier = yes
-					is_artist = yes
-					NOT = { has_variable = tv_on_exhibition }
-				}
-			}
 		}
 	}
 
