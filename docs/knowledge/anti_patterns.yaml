@@ -410,3 +410,12 @@
   scope: any
   source: "reference_game_files/game/in_game/common/situations/guelphs_and_ghibellines.txt:229 (add = local_var:guelphs_total_tax)"
   notes: "prev.var:X is valid only as a scope reference (country, religion, etc.), not as a numeric value source. Using it in an add = position causes 'Variable not of the value scope type. Type: empty'. Built-in scripted values like prev.num_locations are valid inline; only prev.var:X is broken."
+
+- id: random_list_inside_random
+  pattern: 'random\s*=\s*\{[^}]*random_list'
+  bad: "random = { chance = X random_list = { ... } } — nesting random_list as a child of random"
+  correction: "random_list = { (100-X) = {} X = { random_list = { ... } } }. Use the outer random_list to implement the probability gate and the inner random_list to pick the specific outcome. Both levels of random_list are confirmed valid EU5 syntax."
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/common/situations/the_revolution.txt:59-72 (random_list { 98={} 1={event} 1={event} } pattern confirmed)"
+  notes: "random_list as a direct child of random = { chance = X } is silently dropped by the EU5 engine — the 8% roll fires but the random_list produces no outcome. All intended events are skipped with no error in the log. Fix: restructure to nested random_list where the high-weight option is the no-event case."

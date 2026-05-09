@@ -59,94 +59,98 @@ monthly_country_pulse = {
 				has_variable = tv_on_exhibition
 			}
 			save_scope_as = touring_artist
-			random = {
-				chance = 8
-				random_list = {
-					# ── Unremarkable +0.1 ──────────────────────────────────────
-					40 = {
-						var:tv_exhibition_home_country ?= {
-							change_variable = { name = tv_arts_intl_influence add = 0.1 }
-							trigger_event_non_silently = { id = tv_arts_exhibition.101 }
-						}
-					}
-					# ── Great Success +0.5 (skill-boosted) ─────────────────────
-					15 = {
-						trigger = { artist_skill < 0.5 }
-						var:tv_exhibition_home_country ?= {
-							change_variable = { name = tv_arts_intl_influence add = 0.5 }
-							trigger_event_non_silently = { id = tv_arts_exhibition.102 }
-						}
-					}
-					25 = {
-						trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
-						var:tv_exhibition_home_country ?= {
-							change_variable = { name = tv_arts_intl_influence add = 0.5 }
-							trigger_event_non_silently = { id = tv_arts_exhibition.102 }
-						}
-					}
-					40 = {
-						trigger = { artist_skill >= 0.7 }
-						var:tv_exhibition_home_country ?= {
-							change_variable = { name = tv_arts_intl_influence add = 0.5 }
-							trigger_event_non_silently = { id = tv_arts_exhibition.102 }
-						}
-					}
-					# ── Terrible −0.1 (skill-reduced) ──────────────────────────
-					30 = {
-						trigger = { artist_skill < 0.5 }
-						var:tv_exhibition_home_country ?= {
-							change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
-							if = {
-								limit = { var:tv_arts_intl_influence < 0 }
-								set_variable = { name = tv_arts_intl_influence value = 0 }
+			# ~8% monthly chance (~1 event per artist per year).
+			# Outer random_list: 92 = no event, 8 = pick an outcome from the inner list.
+			random_list = {
+				92 = {}
+				8 = {
+					random_list = {
+						# ── Unremarkable +0.1 ──────────────────────────────────────
+						40 = {
+							var:tv_exhibition_home_country ?= {
+								change_variable = { name = tv_arts_intl_influence add = 0.1 }
+								trigger_event_non_silently = { id = tv_arts_exhibition.101 }
 							}
-							trigger_event_non_silently = { id = tv_arts_exhibition.103 }
 						}
-					}
-					15 = {
-						trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
-						var:tv_exhibition_home_country ?= {
-							change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
-							if = {
-								limit = { var:tv_arts_intl_influence < 0 }
-								set_variable = { name = tv_arts_intl_influence value = 0 }
+						# ── Great Success +0.5 (skill-boosted) ─────────────────────
+						15 = {
+							trigger = { artist_skill < 0.5 }
+							var:tv_exhibition_home_country ?= {
+								change_variable = { name = tv_arts_intl_influence add = 0.5 }
+								trigger_event_non_silently = { id = tv_arts_exhibition.102 }
 							}
-							trigger_event_non_silently = { id = tv_arts_exhibition.103 }
 						}
-					}
-					5 = {
-						trigger = { artist_skill >= 0.7 }
-						var:tv_exhibition_home_country ?= {
-							change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
-							if = {
-								limit = { var:tv_arts_intl_influence < 0 }
-								set_variable = { name = tv_arts_intl_influence value = 0 }
+						25 = {
+							trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
+							var:tv_exhibition_home_country ?= {
+								change_variable = { name = tv_arts_intl_influence add = 0.5 }
+								trigger_event_non_silently = { id = tv_arts_exhibition.102 }
 							}
-							trigger_event_non_silently = { id = tv_arts_exhibition.103 }
 						}
-					}
-					# ── Artist Hired +1.0, stays permanently ───────────────────
-					5 = {
-						var:tv_exhibition_home_country ?= {
-							change_variable = { name = tv_arts_intl_influence add = 1.0 }
-							trigger_event_non_silently = { id = tv_arts_exhibition.104 }
+						40 = {
+							trigger = { artist_skill >= 0.7 }
+							var:tv_exhibition_home_country ?= {
+								change_variable = { name = tv_arts_intl_influence add = 0.5 }
+								trigger_event_non_silently = { id = tv_arts_exhibition.102 }
+							}
 						}
-						remove_variable = tv_on_exhibition
-						remove_variable = tv_exhibition_home_country
-						remove_variable = tv_exhibition_target_country
-						remove_variable = tv_exhibition_location
-						remove_variable = tv_exhibition_elapsed
-						remove_variable = tv_exhibition_duration
-					}
-					# ── Inspiration: +10% artist_skill_level_gain for 10 years ─
-					10 = {
-						add_character_modifier = {
-							modifier = tv_artistic_inspiration_modifier
-							years = 10
-							mode = add_and_extend
+						# ── Terrible −0.1 (skill-reduced) ──────────────────────────
+						30 = {
+							trigger = { artist_skill < 0.5 }
+							var:tv_exhibition_home_country ?= {
+								change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
+								if = {
+									limit = { var:tv_arts_intl_influence < 0 }
+									set_variable = { name = tv_arts_intl_influence value = 0 }
+								}
+								trigger_event_non_silently = { id = tv_arts_exhibition.103 }
+							}
 						}
-						var:tv_exhibition_home_country ?= {
-							trigger_event_non_silently = { id = tv_arts_exhibition.105 }
+						15 = {
+							trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
+							var:tv_exhibition_home_country ?= {
+								change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
+								if = {
+									limit = { var:tv_arts_intl_influence < 0 }
+									set_variable = { name = tv_arts_intl_influence value = 0 }
+								}
+								trigger_event_non_silently = { id = tv_arts_exhibition.103 }
+							}
+						}
+						5 = {
+							trigger = { artist_skill >= 0.7 }
+							var:tv_exhibition_home_country ?= {
+								change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
+								if = {
+									limit = { var:tv_arts_intl_influence < 0 }
+									set_variable = { name = tv_arts_intl_influence value = 0 }
+								}
+								trigger_event_non_silently = { id = tv_arts_exhibition.103 }
+							}
+						}
+						# ── Artist Hired +1.0, stays permanently ───────────────────
+						5 = {
+							var:tv_exhibition_home_country ?= {
+								change_variable = { name = tv_arts_intl_influence add = 1.0 }
+								trigger_event_non_silently = { id = tv_arts_exhibition.104 }
+							}
+							remove_variable = tv_on_exhibition
+							remove_variable = tv_exhibition_home_country
+							remove_variable = tv_exhibition_target_country
+							remove_variable = tv_exhibition_location
+							remove_variable = tv_exhibition_elapsed
+							remove_variable = tv_exhibition_duration
+						}
+						# ── Inspiration: +10% artist_skill_level_gain for 10 years ─
+						10 = {
+							add_character_modifier = {
+								modifier = tv_artistic_inspiration_modifier
+								years = 10
+								mode = add_and_extend
+							}
+							var:tv_exhibition_home_country ?= {
+								trigger_event_non_silently = { id = tv_arts_exhibition.105 }
+							}
 						}
 					}
 				}
