@@ -23,56 +23,6 @@ organization_panel = {
 		texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetIcon]"
 	}
 
-	# ── Show ios_information_header for members (IO has no type variables, so default is hidden) ──
-	blockoverride "ios_information_header_visible" {
-		visible = "[Player.IsMemberOfInternationalOrganization(InternationalOrganizationsView.GetInternationalOrganization)]"
-	}
-
-	# ── International Influence piechart in the header info bar ──────────────
-	# Mirrors the Catholic Church "Reform Desire" pattern: value text left, piechart right.
-	# Variable tv_arts_intl_influence is country-scoped, range 0–100.
-	blockoverride "ios_information_header_content_extra_1" {
-		using = ios_header_content_extra_template
-		blockoverride "ios_header_content_extra" {
-			widget = {
-				visible = "[Country.MakeScope.GetVariable('tv_arts_intl_influence').IsSet]"
-				datacontext = "[InternationalOrganizationsView.GetPlayer]"
-				hbox = {
-					spacing = 5
-					tooltip = "tv_arts_intl_influence_header_tt"
-
-					text_single = {
-						text = "[Country.MakeScope.GetVariable('tv_arts_intl_influence').GetValue|1]"
-						margin_right = 5
-						autoresize = yes
-						align = right
-					}
-
-					piechart = {
-						size = { 25 25 }
-						using = bg_circle
-						pieslice = {
-							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
-							value = "[FixedPointToFloat(Country.MakeScope.GetVariable('tv_arts_intl_influence').GetValue)]"
-							color = { 0.01 0.6 0.9 1 }
-						}
-						pieslice = {
-							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
-							value = "[Subtract_float('(float)100.0', FixedPointToFloat(Country.MakeScope.GetVariable('tv_arts_intl_influence').GetValue))]"
-							color = { 0.0 0.1 0.1 1 }
-						}
-						icon = {
-							size = { 65% 65% }
-							parentanchor = center
-							texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
-							texture_density = 2
-						}
-					}
-				}
-			}
-		}
-	}
-
 	# ── Cultural action buttons + Chief Artist section ───────────────────
 	blockoverride "organization_main_actions_extra_visible" {
 		visible = yes

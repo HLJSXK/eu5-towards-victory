@@ -1164,10 +1164,10 @@ paths:
           custom_tooltip = { text = tv_cultural_m1_io_grant_tt }
           hidden_effect = {
               set_variable = { name = tv_arts_exhibition_member value = 1 }
-              set_variable = { name = tv_arts_intl_influence value = 0 }
               create_international_organization = {
                   type = international_organization_type:tv_arts_exhibition
                   add_country_to_international_organization = prev
+                  set_leader_country = prev
               }
           }
         loc:
@@ -1196,7 +1196,10 @@ paths:
         threshold: 120
         extra_trigger_block: |
           has_variable = tv_arts_exhibition_member
-          var:tv_arts_intl_influence >= 25
+          any_international_organizations_member_of = {
+              international_organization_type = international_organization_type:tv_arts_exhibition
+              var:tv_arts_intl_influence >= 25
+          }
         modifier:
           cultures_capacity: 2
         modifier_name:
@@ -1228,7 +1231,10 @@ paths:
         threshold: 220
         extra_trigger_block: |
           has_variable = tv_arts_exhibition_member
-          var:tv_arts_intl_influence >= 50
+          any_international_organizations_member_of = {
+              international_organization_type = international_organization_type:tv_arts_exhibition
+              var:tv_arts_intl_influence >= 50
+          }
         modifier:
           num_possible_artists: 5
         modifier_name:
@@ -1260,7 +1266,10 @@ paths:
         threshold: 380
         extra_trigger_block: |
           has_variable = tv_arts_exhibition_member
-          var:tv_arts_intl_influence >= 75
+          any_international_organizations_member_of = {
+              international_organization_type = international_organization_type:tv_arts_exhibition
+              var:tv_arts_intl_influence >= 75
+          }
         modifier:
           cultural_influence_modifier: 0.50
           cultural_tradition_modifier: 0.50
@@ -1293,7 +1302,10 @@ paths:
         threshold: 580
         extra_trigger_block: |
           has_variable = tv_arts_exhibition_member
-          var:tv_arts_intl_influence >= 100
+          any_international_organizations_member_of = {
+              international_organization_type = international_organization_type:tv_arts_exhibition
+              var:tv_arts_intl_influence >= 100
+          }
         modifier:
           num_possible_artists: 10
         modifier_name:

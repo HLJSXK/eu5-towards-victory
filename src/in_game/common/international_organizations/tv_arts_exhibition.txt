@@ -1,6 +1,7 @@
 ﻿# Towards Victory — Arts Exhibition International Organization type definition
 # Countries join via script when they achieve Cultural Victory Milestone 1.
-# Membership and influence tracked per-country (tv_arts_exhibition_member, tv_arts_intl_influence).
+# Membership tracked per-country (tv_arts_exhibition_member).
+# International Influence is an IO type variable (tv_arts_intl_influence), auto-decays -0.05/month.
 
 tv_arts_exhibition = {
 	has_target = no
@@ -12,13 +13,23 @@ tv_arts_exhibition = {
 	disband_if_no_leader = no
 	show_on_diplomatic_map = no
 
-	modifier = {
+	variables = {
+		tv_arts_intl_influence = {
+			format = "TV_ARTS_INTL_INFLUENCE_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 100
+			start = 0
+			monthly_change = {
+				subtract = {
+					desc = "TV_ARTS_INTL_INFLUENCE_DECAY"
+					value = 0.05
+				}
+			}
+		}
 	}
 
-	# Set the founding country as leader immediately on creation.
-	# This enables the country_header illustration in the IO panel.
-	on_creation = {
-		set_leader_country = scope:actor
+	modifier = {
 	}
 
 	create_visible_trigger = {

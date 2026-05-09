@@ -64,7 +64,12 @@
 
  # ── UI keys added for improved Arts Exhibition panel ─────────────────────
  TV_ARTS_EXHIBITION_LEADER: "Cultural Leader"
- tv_arts_intl_influence_header_tt: "Your current #bold International Influence#! in the Arts Exhibition.\n\nBase change: -0.05 per month\nHost Domestic Exhibition: +0.1 per artwork owned\nTouring artists: periodic events that raise or lower influence\n\nMilestones M2-M5 require >= 25 / 50 / 75 / 100"
+
+ # ── IO type variable localization ─────────────────────────────────────────
+ tv_arts_intl_influence: "International Influence"
+ tv_arts_intl_influence_desc: "A measure of your country's cultural reach beyond its borders. Gained by sending artists on foreign tours and hosting domestic exhibitions. Decays by −0.05 each month. Milestones M2–M5 require minimum 25 / 50 / 75 / 100."
+ TV_ARTS_INTL_INFLUENCE_FORMAT: "$VAL|1$"
+ TV_ARTS_INTL_INFLUENCE_DECAY: "Natural Decay"
 
  # ── Chief Artist keys ─────────────────────────────────────────────────────
  tv_chief_artist_header: "Chief Artist"

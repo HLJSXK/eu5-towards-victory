@@ -15,24 +15,9 @@ monthly_country_pulse = {
 		}
 		change_variable = { name = tv_cultural_influence_points add = 1 }
 
-		# ── Arts Exhibition: International Influence decay ────────────────────────────
-		# Block B: decay -0.05 per month, floor 0.
-		if = {
-			limit = {
-				has_variable = tv_arts_exhibition_member
-				has_variable = tv_arts_intl_influence
-			}
-			change_variable = { name = tv_arts_intl_influence subtract = 0.05 }
-			if = {
-				limit = { var:tv_arts_intl_influence < 0 }
-				set_variable = { name = tv_arts_intl_influence value = 0 }
-			}
-		}
-
 		# ── Arts Exhibition: Chief Artist monthly influence bonus ─────────────────────
 		# Block D: if a chief artist is assigned, navigate to character scope, compute
-		# artist_skill x 0.002 via local_variable, add to tv_arts_intl_influence, and
-		# update tv_chief_artist_monthly_bonus for GUI display.
+		# artist_skill x 0.002 via local_variable, add to IO tv_arts_intl_influence.
 		if = {
 			limit = {
 				has_variable = tv_arts_exhibition_member
@@ -44,7 +29,10 @@ monthly_country_pulse = {
 					set_local_variable = { name = ca_bonus value = artist_skill }
 					change_local_variable = { name = ca_bonus multiply = 0.002 }
 					prev = {
-						change_variable = { name = tv_arts_intl_influence add = local_var:ca_bonus }
+						every_international_organizations_member_of = {
+							limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
+							change_variable = { name = tv_arts_intl_influence add = local_var:ca_bonus }
+						}
 						set_variable = { name = tv_chief_artist_monthly_bonus value = local_var:ca_bonus }
 					}
 				}
@@ -71,7 +59,10 @@ monthly_country_pulse = {
 						# ── Unremarkable +0.1 ──────────────────────────────────────
 						40 = {
 							var:tv_exhibition_home_country ?= {
-								change_variable = { name = tv_arts_intl_influence add = 0.1 }
+								every_international_organizations_member_of = {
+									limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
+									change_variable = { name = tv_arts_intl_influence add = 0.1 }
+								}
 								trigger_event_non_silently = { id = tv_arts_exhibition.101 }
 							}
 						}
@@ -79,21 +70,30 @@ monthly_country_pulse = {
 						15 = {
 							trigger = { artist_skill < 0.5 }
 							var:tv_exhibition_home_country ?= {
-								change_variable = { name = tv_arts_intl_influence add = 0.5 }
+								every_international_organizations_member_of = {
+									limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
+									change_variable = { name = tv_arts_intl_influence add = 0.5 }
+								}
 								trigger_event_non_silently = { id = tv_arts_exhibition.102 }
 							}
 						}
 						25 = {
 							trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
 							var:tv_exhibition_home_country ?= {
-								change_variable = { name = tv_arts_intl_influence add = 0.5 }
+								every_international_organizations_member_of = {
+									limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
+									change_variable = { name = tv_arts_intl_influence add = 0.5 }
+								}
 								trigger_event_non_silently = { id = tv_arts_exhibition.102 }
 							}
 						}
 						40 = {
 							trigger = { artist_skill >= 0.7 }
 							var:tv_exhibition_home_country ?= {
-								change_variable = { name = tv_arts_intl_influence add = 0.5 }
+								every_international_organizations_member_of = {
+									limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
+									change_variable = { name = tv_arts_intl_influence add = 0.5 }
+								}
 								trigger_event_non_silently = { id = tv_arts_exhibition.102 }
 							}
 						}
@@ -101,10 +101,9 @@ monthly_country_pulse = {
 						30 = {
 							trigger = { artist_skill < 0.5 }
 							var:tv_exhibition_home_country ?= {
-								change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
-								if = {
-									limit = { var:tv_arts_intl_influence < 0 }
-									set_variable = { name = tv_arts_intl_influence value = 0 }
+								every_international_organizations_member_of = {
+									limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
+									change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
 								}
 								trigger_event_non_silently = { id = tv_arts_exhibition.103 }
 							}
@@ -112,10 +111,9 @@ monthly_country_pulse = {
 						15 = {
 							trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
 							var:tv_exhibition_home_country ?= {
-								change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
-								if = {
-									limit = { var:tv_arts_intl_influence < 0 }
-									set_variable = { name = tv_arts_intl_influence value = 0 }
+								every_international_organizations_member_of = {
+									limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
+									change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
 								}
 								trigger_event_non_silently = { id = tv_arts_exhibition.103 }
 							}
@@ -123,10 +121,9 @@ monthly_country_pulse = {
 						5 = {
 							trigger = { artist_skill >= 0.7 }
 							var:tv_exhibition_home_country ?= {
-								change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
-								if = {
-									limit = { var:tv_arts_intl_influence < 0 }
-									set_variable = { name = tv_arts_intl_influence value = 0 }
+								every_international_organizations_member_of = {
+									limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
+									change_variable = { name = tv_arts_intl_influence subtract = 0.1 }
 								}
 								trigger_event_non_silently = { id = tv_arts_exhibition.103 }
 							}
@@ -134,7 +131,10 @@ monthly_country_pulse = {
 						# ── Artist Hired +1.0, stays permanently ───────────────────
 						5 = {
 							var:tv_exhibition_home_country ?= {
-								change_variable = { name = tv_arts_intl_influence add = 1.0 }
+								every_international_organizations_member_of = {
+									limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
+									change_variable = { name = tv_arts_intl_influence add = 1.0 }
+								}
 								trigger_event_non_silently = { id = tv_arts_exhibition.104 }
 							}
 							remove_variable = tv_on_exhibition
