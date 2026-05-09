@@ -961,6 +961,10 @@ template tv_cultural_milestone_1_tooltip {
 				textcontext = "[GetModifier('tv_cultural_m1_bonus').GetDesc]"
 			}
 
+			TooltipTextBlock = {
+				blockoverride "text" { text = "tv_cultural_m1_io_grant_tt" }
+			}
+
 		}
 	}
 }
