@@ -41,7 +41,7 @@ tv_send_artist_abroad = {
 	select_trigger = {
 		looking_for_a = character
 		source = actor
-		target_flag = selected_artist
+		target_flag = target
 		name = "tv_select_touring_artist"
 		none_available_msg_key = "tv_no_touring_artist_available"
 		column = {
@@ -57,10 +57,10 @@ tv_send_artist_abroad = {
 		}
 	}
 
-	# Step 2: select a target country (stored in scope:target)
+	# Step 2: select a target country
 	select_trigger = {
 		looking_for_a = country
-		target_flag = target
+		target_flag = target_1
 		name = "tv_select_touring_country"
 		none_available_msg_key = "tv_no_touring_country_available"
 		column = {
@@ -71,11 +71,11 @@ tv_send_artist_abroad = {
 		}
 	}
 
-	# Step 3: select a location in the target country (source = target)
+	# Step 3: select a location in the target country (source = target_1)
 	select_trigger = {
 		looking_for_a = location
-		source = target
-		target_flag = selected_location
+		source = target_1
+		target_flag = target_2
 		name = "tv_select_touring_location"
 		none_available_msg_key = "tv_no_touring_location_available"
 		column = {
@@ -84,31 +84,31 @@ tv_send_artist_abroad = {
 	}
 
 	effect = {
-		scope:actor = {
-			add_gold = -200
-		}
-		scope:selected_artist = {
-			# Record exhibition state on the artist
-			set_variable = { name = tv_on_exhibition value = 1 }
-			set_variable = { name = tv_exhibition_home_country value = scope:actor }
-			set_variable = { name = tv_exhibition_target_country value = scope:target }
-			set_variable = { name = tv_exhibition_location value = scope:selected_location }
-			set_variable = { name = tv_exhibition_elapsed value = 0 }
-			# Random duration: 1–10 years (uniform distribution)
-			random_list = {
-				1 = { set_variable = { name = tv_exhibition_duration value = 1 } }
-				1 = { set_variable = { name = tv_exhibition_duration value = 2 } }
-				1 = { set_variable = { name = tv_exhibition_duration value = 3 } }
-				1 = { set_variable = { name = tv_exhibition_duration value = 4 } }
-				1 = { set_variable = { name = tv_exhibition_duration value = 5 } }
-				1 = { set_variable = { name = tv_exhibition_duration value = 6 } }
-				1 = { set_variable = { name = tv_exhibition_duration value = 7 } }
-				1 = { set_variable = { name = tv_exhibition_duration value = 8 } }
-				1 = { set_variable = { name = tv_exhibition_duration value = 9 } }
-				1 = { set_variable = { name = tv_exhibition_duration value = 10 } }
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				add_gold = -200
 			}
-			# Move the artist to the target country's court
-			move_country = scope:target
+			scope:target = {
+				set_variable = { name = tv_on_exhibition value = 1 }
+				set_variable = { name = tv_exhibition_home_country value = scope:actor }
+				set_variable = { name = tv_exhibition_target_country value = scope:target_1 }
+				set_variable = { name = tv_exhibition_location value = scope:target_2 }
+				set_variable = { name = tv_exhibition_elapsed value = 0 }
+				random_list = {
+					1 = { set_variable = { name = tv_exhibition_duration value = 1 } }
+					1 = { set_variable = { name = tv_exhibition_duration value = 2 } }
+					1 = { set_variable = { name = tv_exhibition_duration value = 3 } }
+					1 = { set_variable = { name = tv_exhibition_duration value = 4 } }
+					1 = { set_variable = { name = tv_exhibition_duration value = 5 } }
+					1 = { set_variable = { name = tv_exhibition_duration value = 6 } }
+					1 = { set_variable = { name = tv_exhibition_duration value = 7 } }
+					1 = { set_variable = { name = tv_exhibition_duration value = 8 } }
+					1 = { set_variable = { name = tv_exhibition_duration value = 9 } }
+					1 = { set_variable = { name = tv_exhibition_duration value = 10 } }
+				}
+				move_country = scope:target_1
+			}
 		}
 	}
 

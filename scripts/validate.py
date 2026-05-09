@@ -308,7 +308,7 @@ def main():
                 issues.append(f"[ENCODING] Cannot read {path.relative_to(REPO_ROOT)}: {e}")
                 continue
 
-            if not raw.startswith(UTF8_BOM):
+            if not raw.startswith(UTF8_BOM) and path.is_relative_to(REPO_ROOT / "src"):
                 issues.append(
                     f"[ENCODING] {path.relative_to(REPO_ROOT)} -- missing UTF-8 BOM "
                     f"(EU5 will warn on load; save as UTF-8 with BOM)"

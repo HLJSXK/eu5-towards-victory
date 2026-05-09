@@ -365,6 +365,15 @@
   source: "reference_game_files/game/in_game/common/situations/guelphs_and_ghibellines.txt:229 (add = local_var:guelphs_total_tax); reference_game_files/game/in_game/events/wokou_events.txt:140 (change_local_variable block form)"
   notes: "In a situation's on_monthly, root = the situation scope, not the iterating country. set_variable stores onto `this` (country); root = { change_variable } then targets the situation — the accumulation goes to the wrong scope and the variable on the country stays 0. fix: local_variable is scope-independent and thread-local to the effect call."
 
+- id: select_trigger_custom_target_flag
+  pattern: 'target_flag\s*=\s+(?!target(_\d+)?\b|recipient\b)'
+  bad: "target_flag = selected_artist (or any custom name) in select_trigger for 3-step generic actions"
+  correction: "Use the vanilla naming convention: target_flag = target for step 1, target_flag = target_1 for step 2, target_flag = target_2 for step 3. Always wrap effect block in if = { limit = { exists = scope:target } ... } guard."
+  category: scope
+  scope: any
+  source: "reference_game_files/game/in_game/common/generic_actions/make_unit_available_for_hire.txt (target / target_1 / target_2 pattern)"
+  notes: "Custom target_flag names (e.g. selected_artist) in multi-step generic actions cause 'Undefined event target' / 'scope returned unset scope' errors at runtime. Engine appears to only reliably resolve target, target_1, target_2 for scope: lookups in effects. Missing exists guard causes THIRD_MOVE_CHARACTER_EFFECT loc failures when AI path skips selections."
+
 - id: change_variable_add_prev_var
   pattern: 'add\s*=\s*\{?\s*value\s*=\s*prev\.var:|add\s*=\s*prev\.var:'
   bad: "change_variable = { name = X add = prev.var:some_var } — reading a named variable from prev scope in a numeric value position"
