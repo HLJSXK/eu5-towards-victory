@@ -1573,7 +1573,7 @@ paths:
           has_variable = tv_academy_of_sciences_level
           var:tv_academy_of_sciences_level >= 1
         modifier:
-          global_max_literacy: 0.05
+          global_max_literacy: 10
         modifier_name:
           en: "Literate Nation"
           zh: "知识之国"
@@ -1702,7 +1702,7 @@ paths:
           var:tv_academy_of_sciences_level >= 5
         modifier:
           global_institution_growth_modifier: 2.0
-          global_max_literacy: 0.20
+          global_max_literacy: 20
         modifier_name:
           en: "Industrial Vanguard"
           zh: "工业先驱"
