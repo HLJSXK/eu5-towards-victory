@@ -137,3 +137,16 @@
  diplomatic_status_tv_diplomatic_alliance_name: "Member of [INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetNameWithNoTooltip]'s Diplomatic Alliance"
  diplomatic_status_tv_diplomatic_alliance_tooltip: "#T Member of [INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetName]'s Diplomatic Alliance#!\nThis country is a member of [INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetName]'s Diplomatic Alliance, supporting their bid for diplomatic victory."
  tv_diplomatic_alliance_list_who_tt: "#T $LIST$#!\n$WHO$ is a member of [INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetName]'s Diplomatic Alliance."
+
+ # ── IO Variable Display ────────────────────────────────────────────────
+ TV_COHESION_DISPLAY: "$VAL|1$"
+ TV_TIER_DISPLAY: "$VAL|0$"
+
+ # ── IO Variable Tooltip Descriptions ──────────────────────────────────
+ TV_COHESION_BASE_GROWTH: "Base Growth"
+ TV_COHESION_DIPLOMATIC_REP: "Diplomatic Reputation"
+
+ # ── Panel Tab Labels ───────────────────────────────────────────────────
+ TV_ALLIANCE_LAWS_TAB: "Alliance Laws"
+ TV_ALLIANCE_ASSEMBLY_TAB: "Assembly"
+ tv_alliance_assembly: "Alliance Assembly"

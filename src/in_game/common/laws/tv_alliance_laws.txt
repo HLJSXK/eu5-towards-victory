@@ -60,9 +60,6 @@ tv_court_protocol = {
 				change_variable = { name = tv_alliance_cohesion add = -25 }
 				change_variable = { name = tv_alliance_tier add = 1 }
 				# Sync tier to leader country
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -116,9 +113,6 @@ tv_court_protocol = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -50 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -172,9 +166,6 @@ tv_court_protocol = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -75 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -270,9 +261,6 @@ tv_information_network = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -25 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -326,9 +314,6 @@ tv_information_network = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -50 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -382,9 +367,6 @@ tv_information_network = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -75 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -480,9 +462,6 @@ tv_commerce_consensus = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -25 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -536,9 +515,6 @@ tv_commerce_consensus = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -50 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -593,9 +569,6 @@ tv_commerce_consensus = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -75 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -690,9 +663,6 @@ tv_faith_harmony = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -25 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -746,9 +716,6 @@ tv_faith_harmony = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -50 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -802,9 +769,6 @@ tv_faith_harmony = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -75 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -899,9 +863,6 @@ tv_colonization_sphere = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -25 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -955,9 +916,6 @@ tv_colonization_sphere = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -50 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {
@@ -1011,9 +969,6 @@ tv_colonization_sphere = {
 			scope:recipient = {
 				change_variable = { name = tv_alliance_cohesion add = -75 }
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country ?= {
-					set_variable = { name = tv_alliance_tier value = scope:recipient.var:tv_alliance_tier }
-				}
 			}
 		}
 		country_modifier = {

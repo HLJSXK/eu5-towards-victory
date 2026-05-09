@@ -137,3 +137,16 @@
  diplomatic_status_tv_diplomatic_alliance_name: "[INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetNameWithNoTooltip]外交联盟成员"
  diplomatic_status_tv_diplomatic_alliance_tooltip: "#T [INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetName]外交联盟成员#!\n该国是[INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetName]外交联盟的成员，支持其争取外交胜利。"
  tv_diplomatic_alliance_list_who_tt: "#T $LIST$#!\n$WHO$是[INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetName]外交联盟的成员。"
+
+ # ── IO变量显示 ────────────────────────────────────────────────────────
+ TV_COHESION_DISPLAY: "$VAL|1$"
+ TV_TIER_DISPLAY: "$VAL|0$"
+
+ # ── IO变量提示说明 ────────────────────────────────────────────────────
+ TV_COHESION_BASE_GROWTH: "基础增长"
+ TV_COHESION_DIPLOMATIC_REP: "外交声誉"
+
+ # ── 面板标签 ──────────────────────────────────────────────────────────
+ TV_ALLIANCE_LAWS_TAB: "联盟法律"
+ TV_ALLIANCE_ASSEMBLY_TAB: "联盟议会"
+ tv_alliance_assembly: "联盟议会"

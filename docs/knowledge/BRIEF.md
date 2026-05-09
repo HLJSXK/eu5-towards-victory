@@ -23,7 +23,7 @@ The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers,
 
 The **Trade Victory** path (贸易胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = monthly_trade_income (snapshot taken monthly by tv_update_trade_score_effect); thresholds at 100 / 200 / 400 / 1000 / 2000 (provisional, calibrate after playtesting).
 
-The **Diplomatic Victory** path (外交胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `tv_diplomatic_victory_points` accumulated permanently via `on_royal_marriage` (+3 DVP per party) and `on_winning_war` (+5 DVP to winner); thresholds at 50 / 120 / 220 / 380 / 580 (provisional, calibrate after playtesting).
+The **Diplomatic Victory** path (外交胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `tv_diplomatic_victory_points` accumulated permanently via `on_royal_marriage` (+3 DVP per party) and `on_winning_war` (+5 DVP to winner); thresholds at 50 / 120 / 220 / 380 / 580 (provisional, calibrate after playtesting). **Diplomatic Alliance IO** (`tv_diplomatic_alliance`): custom `organization_panel` with HRE-style header (tier piechart at 220,60; cohesion at 294,60; leader country flag). IO native `variables` block manages `tv_alliance_tier` (max 15, incremented by law reforms) and `tv_alliance_cohesion` (max 100, monthly_change driven by base +0.1 and leader's diplomatic_reputation × 0.05). Parliament tab uses `tv_alliance_assembly` parliament type (`uses_parliament_for_law_votes = yes`), routing the existing 5-law system through the HRE-style voting/bribery interface.
 
 The **Cultural Victory** path (文化胜利) is fully implemented with an Arts Exhibition layer: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = `tv_cultural_influence_points` (CIP) accumulated via `on_work_of_art_created` (+10 CIP, scope `root.owner`) and `monthly_country_pulse` (+1 CIP per month); thresholds at 50 / 120 / 220 / 380 / 580. M2–M5 also require `tv_arts_intl_influence` ≥ 25 / 50 / 75 / 100 respectively. **Arts Exhibition IO** (`tv_arts_exhibition`): countries join automatically at M1. Per-country `tv_arts_intl_influence` (International Influence) decays −0.05/month. Two generic actions: "Send Artist Abroad" (200 ducats, 3-step selection: artist → country → location; 1–10 year tour with `yearly_country_pulse` timer and `on_character_death` hook) and "Host Domestic Exhibition" (1000 ducats, +0.1 per owned artwork). Touring artists generate monthly events (~8% per artist per month, skill-weighted): unremarkable (+0.1), great success (+0.5), terrible (−0.1), artist hired (+1.0 permanently), artistic inspiration (+10% artist_skill_level_gain for 10 years). Character modifier: `tv_artistic_inspiration_modifier`.
 
@@ -55,15 +55,22 @@ src/
 │   │   │                                  towards_victory_leaderboard.txt  [MANUAL — leaderboard effects]
 │   │   ├── static_modifiers/              towards_victory_modifiers.txt  [GENERATED]
 │   │   ├── building_types/                towards_victory_buildings.txt (Academy of Sciences chain)
+│   │   ├── international_organizations/   tv_diplomatic_alliance.txt  [MANUAL]
+│   │   │                                  tv_arts_exhibition.txt  [MANUAL]
+│   │   ├── parliament_types/              tv_alliance_parliament.txt  [MANUAL — tv_alliance_assembly IO parliament type]
 │   │   └── on_action/                     towards_victory_yearly.txt  [GENERATED]
 │   │                                      towards_victory_leaderboard.txt  [MANUAL — monthly_country_pulse hooks]
 │   ├── events/                            towards_victory_{conquest,prosperity,trade,diplomatic,cultural,science}_events.txt (one namespace per category — EU5 event IDs must be `<ns>.<int>` with exactly one dot)
-│   └── gui/panels/situation/              tv_victory_situation.gui  [MANUAL]
+│   └── gui/
+│       ├── panels/situation/              tv_victory_situation.gui  [MANUAL]
+│       └── panels/organization/           tv_diplomatic_alliance.gui  [MANUAL — custom HRE-style IO panel]
 └── main_menu/localization/
     ├── english/                           towards_victory_l_english.yml  [GENERATED]
     │                                      towards_victory_leaderboard_l_english.yml  [MANUAL]
+    │                                      tv_diplomatic_alliance_l_english.yml  [MANUAL]
     └── simp_chinese/                      towards_victory_l_simp_chinese.yml  [GENERATED]
                                            towards_victory_leaderboard_l_simp_chinese.yml  [MANUAL]
+                                           tv_diplomatic_alliance_l_simp_chinese.yml  [MANUAL]
 ```
 
 ## Script Reference
@@ -151,7 +158,7 @@ src/
 | Scripted Triggers | 507 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 507 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 348 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 357 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

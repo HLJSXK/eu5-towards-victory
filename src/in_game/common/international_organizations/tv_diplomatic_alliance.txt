@@ -27,7 +27,39 @@
 	leader_change_method = hereditary
 	disband_if_no_leader = no
 
-	has_parliament = no
+	has_parliament = yes
+	parliament_type = tv_alliance_assembly
+	resolution_widget = parliament
+
+	variables = {
+		# Tier is first so DataModelFirst in the GUI decoration picks it up as the large piechart
+		tv_alliance_tier = {
+			format = "TV_TIER_DISPLAY"
+			min = 0
+			max = 15
+		}
+		tv_alliance_cohesion = {
+			format = "TV_COHESION_DISPLAY"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 100
+			start = 0
+			monthly_change = {
+				add = {
+					desc = "TV_COHESION_BASE_GROWTH"
+					value = 0.1
+				}
+				if = {
+					limit = { international_organization_has_leader = yes }
+					add = {
+						desc = "TV_COHESION_DIPLOMATIC_REP"
+						value = leader_country.modifier:diplomatic_reputation
+						multiply = 0.05
+					}
+				}
+			}
+		}
+	}
 
 	can_initiate_policy_votes = {
 		is_leader_of_international_organization = scope:recipient

@@ -1,0 +1,108 @@
+﻿# Towards Victory — Diplomatic Alliance IO Panel
+# Models the header after HRE: tier piechart at (220,60), cohesion at (294,60), leader flag overlay.
+# Parliament tab label renamed; laws tab label renamed.
+
+organization_panel = {
+
+	# ── Tab label overrides ────────────────────────────────────────────────
+	blockoverride "organization_laws_tab_text" {
+		text = "TV_ALLIANCE_LAWS_TAB"
+	}
+
+	blockoverride "organization_parliament_tab_text" {
+		text = "TV_ALLIANCE_ASSEMBLY_TAB"
+	}
+
+	blockoverride "organization_parliament_tab_tooltip" {
+		tooltipwidget = {
+			using = SubTabIOParliamentTooltip
+		}
+	}
+
+	# ── Header decoration (behind character portrait) ──────────────────────
+	# Mirrors HRE io_decoration_behind_character layout:
+	#   (220,60) → tier piechart (centralization level, 0-15)
+	#   (294,60) → cohesion value (alliance resource)
+	#   center-top → leader country flag
+	blockoverride "io_decoration_behind_character" {
+
+		# Alliance Tier — large piechart at fixed position
+		# DataModelFirst picks tv_alliance_tier (first variable in the variables block).
+		widget = {
+			allow_outside = yes
+			ignore_layout = yes
+			position = { 220 60 }
+			visible = "[GreaterThan_int32(GetDataModelSize(InternationalOrganizationsView.GetInternationalOrganization.GetType.GetVariables), '(int32)0')]"
+			using = layoutpolicy_expanding
+			datamodel = "[DataModelFirst(InternationalOrganizationsView.GetInternationalOrganization.GetType.GetVariables, '(int32)1')]"
+			item = {
+				vbox = {
+					using = layoutpolicy_expanding
+					spacing = 5
+					tooltipwidget = {
+						using = IOVariableTooltip
+					}
+					hbox = {
+						using = organization_piechart_template
+						blockoverride "organization_piechart_size" { size = { 28 28 } }
+						blockoverride "organization_piechart_value" {
+							value = "[Subtract_float(FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetVariable(InternationalOrganizationTypeVariable.GetTag)),FixedPointToFloat(InternationalOrganizationTypeVariable.GetMin))]"
+						}
+						blockoverride "organization_piechart_max_value" {
+							value = "[Subtract_float(FixedPointToFloat(InternationalOrganizationTypeVariable.GetMax), FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetVariable(InternationalOrganizationTypeVariable.GetTag)))]"
+						}
+						blockoverride "organization_piechart_icon" {
+							texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableIcon(InternationalOrganizationTypeVariable.GetTag)]"
+						}
+					}
+					text_single = {
+						autoresize = yes
+						minimumsize = { 35 21 }
+						maximumsize = { 35 21 }
+						align = center
+						text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText(InternationalOrganizationTypeVariable.GetTag)]"
+					}
+				}
+			}
+		}
+
+		# Alliance Cohesion — circular icon + value at fixed position (mirrors HRE treasury)
+		widget = {
+			allow_outside = yes
+			ignore_layout = yes
+			position = { 294 60 }
+			vbox = {
+				spacing = 5
+				widget = {
+					size = { 28 28 }
+					using = bg_circle
+					using = bg_circle_piechart
+					icon = {
+						texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetIcon]"
+						size = { 95% 95% }
+						parentanchor = center
+					}
+				}
+				text_single = {
+					autoresize = yes
+					minimumsize = { 35 21 }
+					maximumsize = { 35 21 }
+					align = center
+					text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_cohesion').GetValue|1]"
+				}
+			}
+		}
+
+		# Leader country flag overlay (mirrors HRE emperor flag)
+		widget = {
+			size = { 137 112 }
+			parentanchor = hcenter|top
+			position = { 0 -40 }
+			allow_outside = yes
+			country_flag_mid = {
+				parentanchor = center
+				datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry]"
+			}
+		}
+	}
+}

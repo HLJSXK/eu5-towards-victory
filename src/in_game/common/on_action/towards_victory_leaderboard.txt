@@ -172,33 +172,6 @@ monthly_country_pulse = {
 			}
 		}
 		
-		# ── Diplomatic Alliance Cohesion Growth ──────────────────────────────
-		# Only the alliance leader runs this logic
-		if = {
-			limit = {
-				exists = international_organization:tv_diplomatic_alliance
-				is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
-			}
-			international_organization:tv_diplomatic_alliance = {
-				# Initialize cohesion if needed
-				if = {
-					limit = { NOT = { has_variable = tv_alliance_cohesion } }
-					set_variable = { name = tv_alliance_cohesion value = 0 }
-				}
-				# Base growth: +0.1 per month
-				change_variable = { name = tv_alliance_cohesion add = 0.1 }
-			}
-			# Additional growth from diplomatic reputation: +0.05 per point per month
-			set_local_variable = { name = tv_rep_bonus_local value = modifier:diplomatic_reputation }
-			change_local_variable = { name = tv_rep_bonus_local multiply = 0.05 }
-			if = {
-				limit = { local_var:tv_rep_bonus_local > 0 }
-				international_organization:tv_diplomatic_alliance = {
-					change_variable = { name = tv_alliance_cohesion add = local_var:tv_rep_bonus_local }
-				}
-			}
-		}
-
 		# ── Diplomatic Unlock Notification Events ────────────────────────────
 		# Fire informational event when DVP reaches 50 (support system unlocked)
 		if = {
