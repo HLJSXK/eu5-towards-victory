@@ -3,7 +3,6 @@
 # Membership and influence tracked per-country (tv_arts_exhibition_member, tv_arts_intl_influence).
 
 tv_arts_exhibition = {
-	unique = yes
 	has_target = no
 	has_leader_country = yes
 	leader_title_key = "TV_ARTS_EXHIBITION_LEADER"
@@ -14,6 +13,12 @@ tv_arts_exhibition = {
 	show_on_diplomatic_map = no
 
 	modifier = {
+	}
+
+	# Set the founding country as leader immediately on creation.
+	# This enables the country_header illustration in the IO panel.
+	on_creation = {
+		set_leader_country = scope:actor
 	}
 
 	create_visible_trigger = {

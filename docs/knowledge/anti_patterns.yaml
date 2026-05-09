@@ -419,3 +419,12 @@
   scope: any
   source: "reference_game_files/game/in_game/common/situations/the_revolution.txt:59-72 (random_list { 98={} 1={event} 1={event} } pattern confirmed)"
   notes: "random_list as a direct child of random = { chance = X } is silently dropped by the EU5 engine — the 8% roll fires but the random_list produces no outcome. All intended events are skipped with no error in the log. Fix: restructure to nested random_list where the high-weight option is the no-event case."
+
+- id: io_non_unique_scope_link
+  pattern: ''
+  bad: "international_organization:type_name or is_member_of_international_organization = type_name for an IO type without unique = yes"
+  correction: "For non-unique IOs, never add unique = yes. Use on_creation = { set_leader_country = scope:actor } in the IO type definition to set the leader on creation. To scope to an IO instance at runtime, use every_international_organization = { limit = { type = type_name } ... }. Do NOT use international_organization:type_name or is_member_of_international_organization = type_name — both require unique = yes and will error at runtime for non-unique types."
+  category: scope
+  scope: any
+  source: "runtime error.log: 'key tv_arts_exhibition does not lead to a unique international organization', reference_game_files/game/in_game/common/international_organizations/swiss_confederation.txt:3 (unique = yes enables the scope link)"
+  notes: "tv_arts_exhibition is a non-unique IO: each country pursuing cultural victory creates their own independent instance. unique = yes is FORBIDDEN on this IO. The engine errors 'Failed to find a valid event target link' and 'does not lead to a unique international organization' for both the scope link and is_member_of_international_organization trigger. Pattern empty — static detection would require cross-referencing IO type definitions."

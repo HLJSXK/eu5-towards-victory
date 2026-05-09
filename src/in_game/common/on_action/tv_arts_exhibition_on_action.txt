@@ -24,7 +24,6 @@ on_character_death = {
 
 # Yearly tick: advance elapsed counter for touring artists currently in this country's court.
 # When an artist's elapsed time reaches their duration, return them home via the scripted effect.
-# Also updates the Arts Exhibition leader country to the member with highest tv_arts_intl_influence.
 yearly_country_pulse = {
 	effect = {
 		every_character = {
@@ -37,25 +36,6 @@ yearly_country_pulse = {
 			if = {
 				limit = { var:tv_exhibition_elapsed >= var:tv_exhibition_duration }
 				tv_end_artist_exhibition_effect = yes
-			}
-		}
-
-		# Update Arts Exhibition leader country to the member with highest International Influence.
-		# Runs for every member country (idempotent — set_leader_country with the same country is harmless).
-		if = {
-			limit = { is_member_of_international_organization = tv_arts_exhibition }
-			international_organization:tv_arts_exhibition = {
-				ordered_international_organization_member = {
-					limit = { has_variable = tv_arts_intl_influence }
-					order_by = var:tv_arts_intl_influence
-					max = 1
-					check_range_bounds = no
-					save_scope_as = tv_intl_top_country
-				}
-				if = {
-					limit = { exists = scope:tv_intl_top_country }
-					set_leader_country = scope:tv_intl_top_country
-				}
 			}
 		}
 	}
