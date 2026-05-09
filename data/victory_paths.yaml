@@ -17,8 +17,8 @@ shared:
     en: "Towards Victory"
     zh: "胜利条件"
   situation_desc:
-    en: "Track your progress across six distinct victory paths."
-    zh: "追踪您在六条胜利路径上的进度。"
+    en: "Six paths to glory lie open before you. Which legacy shall your realm leave upon the world?"
+    zh: "六条荣耀之路，就在您的前方。您的国度，将向世界留下怎样的传世遗产？"
   situation_title:
     en: "Victory Progress"
     zh: "胜利进度"
@@ -111,8 +111,8 @@ paths:
         en: "Conquest Victory"
         zh: "征服胜利"
       description:
-        en: "Dominate the world through territorial expansion."
-        zh: "通过领土扩张称霸世界。"
+        en: "The sword writes history. March beyond your borders, seize what others dare not hold, and forge an empire that the world cannot ignore."
+        zh: "刀剑书写历史。越过疆界，夺取他人不敢染指之地，铸就一个令世界无法漠视的帝国。"
       flavor:
         en: '"The greatest happiness is to vanquish your enemies." — Genghis Khan'
         zh: '"最大的幸福就是征服你的敌人。" — 成吉思汗'
@@ -136,8 +136,8 @@ paths:
             en: "Conquest Victory — Milestone 1"
             zh: "征服胜利 — 里程碑一"
           meaning:
-            en: "A nation of modest reach. ~200 owned locations."
-            zh: "初具规模的国家。征服分数约200。"
+            en: "Beyond your heartland, banners now fly over distant [location|e]s. The empire's first outline is drawn. ~200 [location|e]s."
+            zh: "故土之外，旗帜飘扬在遥远的[location|e]之上。帝国的第一道轮廓已然成形。约200处[location|e]。"
           trigger_desc:
             en: "[tv_conquest_score|e] ≥ 200"
             zh: "[tv_conquest_score|e] ≥ 200"
@@ -145,8 +145,8 @@ paths:
             en: "The Empire Grows"
             zh: "帝国正在壮大"
           event_desc:
-            en: "Our armies have marched and our banners now fly over territories once beyond reach. With 200 locations under our dominion, the realm is taking shape."
-            zh: "我们的军队已经远征，旗帜飘扬在200处领地之上。帝国的轮廓日渐清晰。"
+            en: "Our [army|e]s have marched and our banners now fly over [location|e]s once beyond reach. With 200 [location|e]s under our dominion, the realm is taking shape."
+            zh: "我们的[army|e]已经远征，旗帜飘扬在200处[location|e]之上。帝国的轮廓日渐清晰。"
           event_option:
             en: "Let our dominion grow ever wider."
             zh: "让我们的疆域继续扩张。"
@@ -166,8 +166,8 @@ paths:
             en: "Conquest Victory — Milestone 2"
             zh: "征服胜利 — 里程碑二"
           meaning:
-            en: "A substantial empire. ~400 owned locations."
-            zh: "幅员辽阔的帝国。征服分数约400。"
+            en: "A substantial empire takes shape, its frontiers drawn by the march of [army|e]s. ~400 [location|e]s."
+            zh: "幅员辽阔的帝国初具规模，其疆界由[army|e]的行进划定。约400处[location|e]。"
           trigger_desc:
             en: "[tv_conquest_score|e] ≥ 400"
             zh: "[tv_conquest_score|e] ≥ 400"
@@ -175,8 +175,8 @@ paths:
             en: "A Substantial Empire"
             zh: "幅员辽阔的帝国"
           event_desc:
-            en: "Our realm now encompasses 400 locations. Supplying our vast armies and reducing the ravages of campaign attrition will be essential to sustaining this empire."
-            zh: "我国版图已覆盖400处领地。维持如此广袤的帝国，后勤补给与减少行军损耗至关重要。"
+            en: "Our realm now encompasses 400 [location|e]s. Supplying our vast [army|e]s and reducing the ravages of campaign [attrition|e] will be essential to sustaining this empire."
+            zh: "我国版图已覆盖400处[location|e]。维持如此广袤的帝国，后勤补给与减少行军[attrition|e]至关重要。"
           event_option:
             en: "Our logistics must match our ambition."
             zh: "后勤必须跟上我们的雄心。"
@@ -199,8 +199,8 @@ paths:
             en: "Conquest Victory — Short-term Victory"
             zh: "征服胜利 — 短期胜利"
           meaning:
-            en: "Territorial supremacy secured. Short-term Victory. ~600 owned locations."
-            zh: "确立领土霸主地位。短期胜利。征服分数约600。"
+            en: "Territorial supremacy secured — no neighbour may challenge your [location|e] count without ruin. Short-term Victory. ~600 [location|e]s."
+            zh: "领土霸权已然确立——无邻国可在不自取灭亡的前提下撼动你的[location|e]数量。短期胜利。约600处[location|e]。"
           trigger_desc:
             en: "[tv_conquest_score|e] ≥ 600"
             zh: "[tv_conquest_score|e] ≥ 600"
@@ -208,8 +208,8 @@ paths:
             en: "Territorial Supremacy — Short-term Victory"
             zh: "领土霸权 — 短期胜利"
           event_desc:
-            en: "Six hundred locations bow before our flag. This is no mere kingdom — this is an empire. Yet governing so vast a domain demands firm administration and a steady hand."
-            zh: "600处领地已向我国旗帜俯首。这已不是王国，这是一个帝国。然而统治如此广袤的疆域，需要严明的治理与坚定的手腕。"
+            en: "Six hundred [location|e]s bow before our flag. This is no mere kingdom — this is an empire. Yet governing so vast a domain demands firm administration and a steady hand."
+            zh: "600处[location|e]已向我国旗帜俯首。这已不是王国，这是一个帝国。然而统治如此广袤的疆域，需要严明的治理与坚定的手腕。"
           event_option:
             en: "The realm is ours to govern."
             zh: "这片疆土是我们治理的基业。"
@@ -230,8 +230,8 @@ paths:
             en: "Conquest Victory — Milestone 4"
             zh: "征服胜利 — 里程碑四"
           meaning:
-            en: "An empire spanning continents. ~1,200 owned locations."
-            zh: "横跨大陆的帝国。征服分数约1,200。"
+            en: "An empire spanning continents — distance itself becomes the adversary your [army|e]s must defeat. ~1,200 [location|e]s."
+            zh: "横跨大陆的帝国——距离本身成为你的[army|e]必须征服的对手。约1,200处[location|e]。"
           trigger_desc:
             en: "[tv_conquest_score|e] ≥ 1,200"
             zh: "[tv_conquest_score|e] ≥ 1,200"
@@ -239,8 +239,8 @@ paths:
             en: "An Empire Spanning Continents"
             zh: "横跨大陆的帝国"
           event_desc:
-            en: "Over 1,200 locations have fallen under our sway. The world watches. To hold what we have seized, we must project power with discipline and sustain our armies across every front."
-            zh: "超过1,200处领地已臣服于我们的统治。全世界都在注视。守住已征服之地，需要铁的纪律与强大的后勤。"
+            en: "Over 1,200 [location|e]s have fallen under our sway. The world watches. To hold what we have seized, we must project power with discipline and sustain our [army|e]s across every front."
+            zh: "超过1,200处[location|e]已臣服于我们的统治。全世界都在注视。守住已征服之地，需要铁的纪律与强大的后勤。"
           event_option:
             en: "We shall hold what we have conquered."
             zh: "我们将守护所征服的一切。"
@@ -261,8 +261,8 @@ paths:
             en: "Conquest Victory — Long-term Victory"
             zh: "征服胜利 — 长期胜利"
           meaning:
-            en: "Undisputed world empire. Long-term Victory. ~2,500 owned locations."
-            zh: "无可争议的世界帝国。长期胜利。征服分数约2,500。"
+            en: "A world empire without rival or precedent. The last [location|e]s fall into the vast whole. Long-term Victory. ~2,500 [location|e]s."
+            zh: "无与伦比、史无前例的世界帝国。最后的[location|e]并入这庞大的整体之中。长期胜利。约2,500处[location|e]。"
           trigger_desc:
             en: "[tv_conquest_score|e] ≥ 2,500"
             zh: "[tv_conquest_score|e] ≥ 2,500"
@@ -270,8 +270,8 @@ paths:
             en: "Long-term Victory — World Empire"
             zh: "长期胜利 — 世界帝国"
           event_desc:
-            en: "Two thousand five hundred locations. No empire in recorded history has claimed so much of the known world. Our legacy is written not in ink but in the march of armies and the raising of banners."
-            zh: "两千五百处领地。有史以来，从未有任何帝国掌控过如此广阔的疆土。我们的功业不书于纸，而铭刻于万里征途与猎猎旌旗之中。"
+            en: "Two thousand five hundred [location|e]s. No empire in recorded history has claimed so much of the known world. Our legacy is written not in ink but in the march of [army|e]s and the raising of banners."
+            zh: "两千五百处[location|e]。有史以来，从未有任何帝国掌控过如此广阔的疆土。我们的功业不书于纸，而铭刻于万里征途与猎猎旌旗之中。"
           event_option:
             en: "Our name shall echo through the ages."
             zh: "我们的名字将永垂青史。"
@@ -394,8 +394,8 @@ paths:
         en: "Prosperity Victory"
         zh: "繁荣胜利"
       description:
-        en: "Build a thriving nation through domestic development."
-        zh: "通过国内发展建设一个繁荣的国家。"
+        en: "True greatness is not measured in miles of conquest, but in the full granaries, the thriving towns, and the flourishing of a people who want for nothing."
+        zh: "真正的伟大，不以征服的里程衡量，而在于粮仓充盈、城镇兴旺，以及无所匮乏的子民。"
       flavor:
         en: '"Prosperity is the fruit of labour." — Thucydides'
         zh: '"繁荣是劳动的果实。" — 修昔底德'
@@ -419,8 +419,8 @@ paths:
             en: "Prosperity Victory — Milestone 1"
             zh: "繁荣胜利 — 里程碑一"
           meaning:
-            en: "A growing nation — early domestic prosperity. Score ~5,000."
-            zh: "蓬勃发展的国家 — 国内繁荣初现。分数约5,000。"
+            en: "The first signs of [prosperity|e]: fields yield more, towns grow, and [population|e] swells. Score ~5,000."
+            zh: "[prosperity|e]的初兆：田野更加丰饶，城镇日益壮大，[population|e]持续增长。分数约5,000。"
           trigger_desc:
             en: "[tv_prosperity_score|e] ≥ 5,000"
             zh: "[tv_prosperity_score|e] ≥ 5,000"
@@ -449,8 +449,8 @@ paths:
             en: "Prosperity Victory — Milestone 2"
             zh: "繁荣胜利 — 里程碑二"
           meaning:
-            en: "A flourishing nation — sustained domestic investment. Score ~8,000."
-            zh: "兴旺发达的国家 — 持续的国内投入。分数约8,000。"
+            en: "A flourishing realm — sustained [development|e] and investment in [building|e]s bears tangible fruit. Score ~8,000."
+            zh: "兴旺发达的王国——对[development|e]与[building|e]的持续投入已结出丰硕果实。分数约8,000。"
           trigger_desc:
             en: "[tv_prosperity_score|e] ≥ 8,000"
             zh: "[tv_prosperity_score|e] ≥ 8,000"
@@ -458,8 +458,8 @@ paths:
             en: "A Flourishing Realm"
             zh: "蓬勃发展的王国"
           event_desc:
-            en: "Sustained investment in our lands is bearing fruit. The population swells, buildings rise, and the wealth of the nation is evident to all who enter our borders."
-            zh: "对土地的持续投入正在结出硕果。人口增长，建筑林立，国家的财富令所有踏入边境者叹为观止。"
+            en: "Sustained investment in our lands is bearing fruit. The [population|e] swells, [building|e]s rise, and the [wealth|e] of the nation is evident to all who enter our borders."
+            zh: "对土地的持续投入正在结出硕果。[population|e]增长，[building|e]林立，国家的[wealth|e]令所有踏入边境者叹为观止。"
           event_option:
             en: "Our people shall want for nothing."
             zh: "我们的人民将衣食无忧。"
@@ -482,8 +482,8 @@ paths:
             en: "Prosperity Victory — Short-term Victory"
             zh: "繁荣胜利 — 短期胜利"
           meaning:
-            en: "A prosperous heartland. Short-term Victory. Score ~12,000."
-            zh: "繁荣的腹地。短期胜利。分数约12,000。"
+            en: "A prosperous heartland that sets the standard for the age. Short-term Victory. Score ~12,000."
+            zh: "繁荣的腹地，为这个时代树立了标杆。短期胜利。分数约12,000。"
           trigger_desc:
             en: "[tv_prosperity_score|e] ≥ 12,000"
             zh: "[tv_prosperity_score|e] ≥ 12,000"
@@ -491,8 +491,8 @@ paths:
             en: "Prosperity Victory — The Heartland Thrives"
             zh: "繁荣胜利 — 腹地蓬勃兴盛"
           event_desc:
-            en: "Our realm has achieved a level of domestic prosperity that few nations ever reach. The combination of healthy population, vibrant towns, and well-tended lands marks us as a true short-term victor."
-            zh: "我国已实现极少数国家能够企及的内政繁荣水平。健康的人口、活跃的城镇与精心耕耘的土地，使我们成为真正的短期胜利者。"
+            en: "Our realm has achieved a level of [prosperity|e] that few nations ever reach. Healthy [population|e], vibrant towns, and well-tended lands mark us as a true short-term victor."
+            zh: "我国已实现极少数国家能够企及的内政[prosperity|e]水平。健康的[population|e]、活跃的城镇与精心耕耘的土地，使我们成为真正的短期胜利者。"
           event_option:
             en: "Let this prosperity be the foundation of our greatness."
             zh: "愿这份繁荣成为我们伟大的基石。"
@@ -513,8 +513,8 @@ paths:
             en: "Prosperity Victory — Milestone 4"
             zh: "繁荣胜利 — 里程碑四"
           meaning:
-            en: "An advanced nation — the envy of neighbours. Score ~18,000."
-            zh: "先进的国家 — 令邻国艳羡。分数约18,000。"
+            en: "An advanced nation — neighbouring powers envy your [population|e] and the splendour of your towns. Score ~18,000."
+            zh: "先进的国家——邻国艳羡你的[population|e]与城镇之辉煌。分数约18,000。"
           trigger_desc:
             en: "[tv_prosperity_score|e] ≥ 18,000"
             zh: "[tv_prosperity_score|e] ≥ 18,000"
@@ -522,8 +522,8 @@ paths:
             en: "An Advanced Nation"
             zh: "先进的国家"
           event_desc:
-            en: "Neighbours look upon our realm with envy. Our cities are among the finest in the known world, our population among the most numerous and well-fed. Yet the summit of prosperity still beckons."
-            zh: "邻国投以艳羡的目光。我们的城市跻身已知世界最出色之列，我们的人口位居最多且衣食充足。然而繁荣的顶峰依然在向我们招手。"
+            en: "Neighbours look upon our realm with envy. Our cities are among the finest in the known world, our [population|e] among the most numerous and well-fed. Yet the summit of [prosperity|e] still beckons."
+            zh: "邻国投以艳羡的目光。我们的城市跻身已知世界最出色之列，我们的[population|e]位居最多且衣食充足。然而[prosperity|e]的顶峰依然在向我们招手。"
           event_option:
             en: "We shall reach the pinnacle of civilisation."
             zh: "我们将攀登文明的巅峰。"
@@ -544,8 +544,8 @@ paths:
             en: "Prosperity Victory — Long-term Victory"
             zh: "繁荣胜利 — 长期胜利"
           meaning:
-            en: "The most developed nation on earth. Long-term Victory. Score ~25,000."
-            zh: "地球上最发达的国家。长期胜利。分数约25,000。"
+            en: "The most [development|e]-advanced nation on earth, its [wealth|e] and [population|e] unrivalled. Long-term Victory. Score ~25,000."
+            zh: "地球上[development|e]程度最高的国家，其[wealth|e]与[population|e]无可比拟。长期胜利。分数约25,000。"
           trigger_desc:
             en: "[tv_prosperity_score|e] ≥ 25,000"
             zh: "[tv_prosperity_score|e] ≥ 25,000"
@@ -553,8 +553,8 @@ paths:
             en: "Long-term Victory — The Most Developed Nation"
             zh: "长期胜利 — 最繁荣的国家"
           event_desc:
-            en: "No nation in the known world can rival the prosperity of our realm. Our people are the most numerous, our towns the most prosperous, and our lands the most developed. History shall remember us as the pinnacle of human achievement."
-            zh: "已知世界中，没有任何国家能与我国的繁荣相媲美。我们的人民最为众多，我们的城镇最为繁盛，我们的土地最为发达。历史将铭记我们是人类文明的巅峰。"
+            en: "No nation in the known world can rival the [prosperity|e] of our realm. Our people are the most numerous, our towns the most prosperous, and our lands the most developed. History shall remember us as the pinnacle of human achievement."
+            zh: "已知世界中，没有任何国家能与我国的[prosperity|e]相媲美。我们的人民最为众多，我们的城镇最为繁盛，我们的土地最为发达。历史将铭记我们是人类文明的巅峰。"
           event_option:
             en: "Our legacy is written in the flourishing of our people."
             zh: "我们的遗产书写于人民的繁荣之中。"
@@ -619,20 +619,20 @@ paths:
     extra_loc_keys:
       - key: tv_trade_market_dominance_5_tt
         has_version_suffix: true
-        en: "Leading merchant in at least 5 markets"
-        zh: "在至少5个贸易市场中拥有最高贸易优势"
+        en: "Leading [merchant|e] in at least 5 [market|e]s"
+        zh: "在至少5个[market|e]中拥有最高贸易优势"
       - key: tv_trade_market_dominance_10_tt
         has_version_suffix: true
-        en: "Leading merchant in at least 10 markets"
-        zh: "在至少10个贸易市场中拥有最高贸易优势"
+        en: "Leading [merchant|e] in at least 10 [market|e]s"
+        zh: "在至少10个[market|e]中拥有最高贸易优势"
 
     loc:
       title:
         en: "Trade Victory"
         zh: "贸易胜利"
       description:
-        en: "Build an empire of commerce and maritime power."
-        zh: "建立一个商业与海上力量的帝国。"
+        en: "The ledger is mightier than the sword. Command the world's [market|e]s, and let every coin spent in every port find its way to your treasury."
+        zh: "账本比刀剑更有力量。掌控天下的[market|e]，让每一个港口流转的钱币，都汇入你的国库。"
       flavor:
         en: '"Venice does not make war; Venice makes money."'
         zh: '"威尼斯不打仗；威尼斯赚钱。"'
@@ -656,8 +656,8 @@ paths:
             en: "Trade Victory — Milestone 1"
             zh: "贸易胜利 — 里程碑一"
           meaning:
-            en: "A merchant of note — commanding a trade node. Monthly trade income ~100."
-            zh: "商业立足 — 主导一个贸易节点。每月贸易收入约100。"
+            en: "A [merchant|e] of note — seated at the heart of a great [market_center|e]. Monthly [trade_income|e] ~100."
+            zh: "一位举足轻重的[merchant|e]——坐镇伟大的[market_center|e]核心。每月[trade_income|e]约100。"
           trigger_desc:
             en: "[tv_trade_score|e] ≥ 100"
             zh: "[tv_trade_score|e] ≥ 100"
@@ -665,8 +665,8 @@ paths:
             en: "The First Markets"
             zh: "首批市场"
           event_desc:
-            en: "Our merchants have gained a foothold in the great trade markets. Let them grow rich."
-            zh: "我们的商人已在伟大的贸易市场站稳脚跟。让他们积累财富吧。"
+            en: "Our [merchant|e]s have gained a foothold in the great [trade|e] [market|e]s. Let them grow rich."
+            zh: "我们的[merchant|e]已在伟大的[trade|e][market|e]站稳脚跟。让他们积累财富吧。"
           event_option:
             en: "Open the ledgers."
             zh: "打开账本。"
@@ -686,8 +686,8 @@ paths:
             en: "Trade Victory — Milestone 2"
             zh: "贸易胜利 — 里程碑二"
           meaning:
-            en: "A maritime power — dominating regional trade. Monthly trade income ~200."
-            zh: "区域贸易霸主 — 主导地区贸易。每月贸易收入约200。"
+            en: "A maritime power — dominating regional [trade|e]. Monthly [trade_income|e] ~200."
+            zh: "区域贸易霸主——主导地区[trade|e]。每月[trade_income|e]约200。"
           trigger_desc:
             en: "[tv_trade_score|e] ≥ 200"
             zh: "[tv_trade_score|e] ≥ 200"
@@ -726,8 +726,8 @@ paths:
             en: "Trade Victory — Short-term Victory"
             zh: "贸易胜利 — 短期胜利"
           meaning:
-            en: "A major trade empire. Short-term Victory. Monthly trade income ~400."
-            zh: "贸易帝国。短期胜利。每月贸易收入约400。"
+            en: "A great [trade|e] empire, our name known in every counting house. Short-term Victory. Monthly [trade_income|e] ~400."
+            zh: "一个伟大的[trade|e]帝国，名字广为人知。短期胜利。每月[trade_income|e]约400。"
           trigger_desc:
             en: "[tv_trade_score|e] ≥ 400, with market dominance"
             zh: "[tv_trade_score|e] ≥ 400，且需达到市场主导地位"
@@ -735,8 +735,8 @@ paths:
             en: "A Great Commercial Empire"
             zh: "伟大的商业帝国"
           event_desc:
-            en: "What began as a handful of traders has grown into an empire of commerce. Our name is known in every great market."
-            zh: "昔日的几名商人已成长为一个商业帝国。我们的名字出现在每一个伟大的市场上。"
+            en: "What began as a handful of [merchant|e]s has grown into an empire of [trade|e]. Our name is known in every great [market|e]."
+            zh: "昔日的几名[merchant|e]已成长为一个[trade|e]帝国。我们的名字出现在每一个伟大的[market|e]上。"
           event_option:
             en: "Glory to the merchant class."
             zh: "荣耀归于商人阶层。"
@@ -757,8 +757,8 @@ paths:
             en: "Trade Victory — Milestone 4"
             zh: "贸易胜利 — 里程碑四"
           meaning:
-            en: "Near-monopoly control of key trade arteries. Monthly trade income ~1,000."
-            zh: "商业之海 — 近乎垄断关键贸易要道。每月贸易收入约1,000。"
+            en: "Near-monopoly control of the world's key [market|e]s — rivals count their losses. Monthly [trade_income|e] ~1,000."
+            zh: "近乎垄断世界关键[market|e]——竞争者只能数着自己的损失。每月[trade_income|e]约1,000。"
           trigger_desc:
             en: "[tv_trade_score|e] ≥ 1,000"
             zh: "[tv_trade_score|e] ≥ 1,000"
@@ -766,8 +766,8 @@ paths:
             en: "Masters of the Seas of Commerce"
             zh: "商业之海的主宰"
           event_desc:
-            en: "Our trade routes crisscross the known world. Distance itself bows to our merchant fleets."
-            zh: "我们的贸易航线纵横交错，遍布已知世界。连距离本身也向我们的商业舰队低头。"
+            en: "Our [trade|e] routes crisscross the known world. Distance itself bows to our [merchant|e] fleets."
+            zh: "我们的[trade|e]航线纵横交错，遍布已知世界。连距离本身也向我们的[merchant|e]舰队低头。"
           event_option:
             en: "Chart new routes."
             zh: "开辟新航线。"
@@ -796,8 +796,8 @@ paths:
             en: "Trade Victory — Long-term Victory"
             zh: "贸易胜利 — 长期胜利"
           meaning:
-            en: "Undisputed trade hegemon. Long-term Victory. Monthly trade income ~2,000."
-            zh: "贸易霸主。无可争议。长期胜利。每月贸易收入约2,000。"
+            en: "Undisputed [trade|e] hegemon. Long-term Victory. Monthly [trade_income|e] ~2,000."
+            zh: "[trade|e]霸主，无可争议。长期胜利。每月[trade_income|e]约2,000。"
           trigger_desc:
             en: "[tv_trade_score|e] ≥ 2,000, with market dominance"
             zh: "[tv_trade_score|e] ≥ 2,000，且需达到市场主导地位"
@@ -874,8 +874,8 @@ paths:
         en: "Diplomatic Victory"
         zh: "外交胜利"
       description:
-        en: "Accumulate influence through alliances, treaties, and statecraft."
-        zh: "通过同盟、条约和外交手段积累影响力。"
+        en: "War leaves only widows and ruins. True power is the art of making every throne your [alliance|e] partner, every border your [guarantee|e], and every prince your debtor."
+        zh: "战争留下的只有孤寡与废墟。真正的权力，是让每一座王座成为你的[alliance|e]伙伴，每一道边境成为你的[guarantee|e]，每一位王公成为你的债务人。"
       flavor:
         en: '"An army is of little use where reason fails."'
         zh: '"在理性失败之处，军随谓少用。"'
@@ -933,8 +933,8 @@ paths:
             en: "Diplomatic Victory — Milestone 1"
             zh: "外交胜利 — 里程碑一"
           meaning:
-            en: "50 [tv_diplomatic_victory_points|e]. A respected voice in affairs."
-            zh: "50 [tv_diplomatic_victory_points|e]。在国际事务中占有一席之地。"
+            en: "50 [tv_diplomatic_victory_points|e]. A voice that carries weight in the courts of nations."
+            zh: "50 [tv_diplomatic_victory_points|e]。一个在各国宫廷中具有分量的声音。"
           trigger_desc:
             en: "[tv_diplomatic_victory_points|e] ≥ 50"
             zh: "[tv_diplomatic_victory_points|e] ≥ 50"
@@ -942,8 +942,8 @@ paths:
             en: "A Voice Among Nations"
             zh: "外交展露头角"
           event_desc:
-            en: "Our patient diplomacy has begun to bear fruit. Through alliances and royal bonds, our nation is earning a place at the table of great powers. Ten nations have pledged their diplomatic support — together, we shall form a grand alliance."
-            zh: "我们耐心的外交已开始结果。通过同盟与联姻，我国正在赢得一席之地。十个国家已承诺外交支持——我们将共同组建一个伟大的联盟。"
+            en: "Our patient diplomacy has begun to bear fruit. Through [alliance|e]s and [royal_marriage|e]s, our nation is earning a place at the table of [great_power|e]s. Ten nations have pledged their diplomatic support — together, we shall form a grand alliance."
+            zh: "我们耐心的外交已开始结果。通过[alliance|e]与[royal_marriage|e]，我国正在赢得一席之地。十个国家已承诺外交支持——我们将共同组建一个伟大的联盟。"
           event_option:
             en: "Let our word carry weight."
             zh: "让我们的话语具有分量。"
@@ -965,8 +965,8 @@ paths:
             en: "Diplomatic Victory — Milestone 2"
             zh: "外交胜利 — 里程碑二"
           meaning:
-            en: "120 [tv_dvp|e]. A reliable ally and guarantor of peace."
-            zh: "120 [tv_dvp|e]。可靠的盟友与和平居间人。"
+            en: "120 [tv_diplomatic_victory_points|e]. A reliable ally — princes seek your [guarantee|e] before they seek your sword."
+            zh: "120 [tv_diplomatic_victory_points|e]。可靠的盟友——王公们在索求你的刀剑之前，先寻求你的[guarantee|e]。"
           trigger_desc:
             en: "[tv_diplomatic_victory_points|e] ≥ 120"
             zh: "[tv_diplomatic_victory_points|e] ≥ 120"
@@ -974,8 +974,8 @@ paths:
             en: "A Reliable Ally"
             zh: "可靠的盟友"
           event_desc:
-            en: "Nations seek us out as guarantors and partners. Our willingness to honour our commitments has built a reputation that money cannot buy."
-            zh: "各国将我们视为促成和平的保证人与合作伙伴。我们履行承诺的意愿已树立了金钱买不到的声望。"
+            en: "Nations seek us out as [guarantee|e]ors and partners. Our willingness to honour our commitments has built a reputation that money cannot buy."
+            zh: "各国将我们视为[guarantee|e]人与合作伙伴。我们履行承诺的意愿已树立了金钱买不到的声望。"
           event_option:
             en: "Our word is our bond."
             zh: "我们以诺言为盟。"
@@ -997,8 +997,8 @@ paths:
             en: "Diplomatic Victory — Short-term Victory"
             zh: "外交胜利 — 短期胜利"
           meaning:
-            en: "220 [tv_dvp|e]. A power of first diplomatic rank. Short-term Victory."
-            zh: "220 [tv_dvp|e]。一流外交大国。短期胜利。"
+            en: "220 [tv_diplomatic_victory_points|e]. A power of the first diplomatic rank — [treaty|e]s bear your seal. Short-term Victory."
+            zh: "220 [tv_diplomatic_victory_points|e]。一流外交大国——[treaty|e]上盖有你的印签。短期胜利。"
           trigger_desc:
             en: "[tv_diplomatic_victory_points|e] ≥ 220"
             zh: "[tv_diplomatic_victory_points|e] ≥ 220"
@@ -1006,8 +1006,8 @@ paths:
             en: "A Power of the First Rank — Short-term Victory"
             zh: "一流外交大国 — 短期胜利"
           event_desc:
-            en: "Our diplomatic reach extends across continents. Treaties bear our seal, and ambassadors from distant courts seek our counsel. We have achieved a short-term diplomatic victory."
-            zh: "我们的外交触角已覆盖大陆。条约盖有我们的印签，远方宫廷的使节寻求我们的建言。我们已取得短期外交胜利。"
+            en: "Our diplomatic reach extends across continents. [treaty|e]s bear our seal, and [diplomat|e]s from distant courts seek our counsel. We have achieved a short-term diplomatic victory."
+            zh: "我们的外交触角已覆盖大陆。[treaty|e]上盖有我们的印签，远方宫廷的[diplomat|e]寻求我们的建言。我们已取得短期外交胜利。"
           event_option:
             en: "The world listens when we speak."
             zh: "世界在我们说话时会倾听我们的声音。"
@@ -1030,8 +1030,8 @@ paths:
             en: "Diplomatic Victory — Milestone 4"
             zh: "外交胜利 — 里程碑四"
           meaning:
-            en: "380 [tv_dvp|e]. The arbiter of international order."
-            zh: "380 [tv_dvp|e]。国际秩序的仲裁人。"
+            en: "380 [tv_diplomatic_victory_points|e]. The arbiter of international order — no quarrel is settled without your consent."
+            zh: "380 [tv_diplomatic_victory_points|e]。国际秩序的仲裁人——没有任何争端能绕开你的同意而得到解决。"
           trigger_desc:
             en: "[tv_diplomatic_victory_points|e] ≥ 380"
             zh: "[tv_diplomatic_victory_points|e] ≥ 380"
@@ -1039,8 +1039,8 @@ paths:
             en: "Arbiter of Nations"
             zh: "万国仲裁人"
           event_desc:
-            en: "No quarrel between princes is settled without our consent. Our subjects are loyal, our allies numerous, and our influence unmatched in this age."
-            zh: "没有任何小国纷争可绕过我们的同意而得到解决。我们的属国忠诚，盟友众多，在这个时代影响无可匹敌。"
+            en: "No quarrel between princes is settled without our consent. Our [subject|e]s are loyal, our [alliance|e] partners numerous, and our influence unmatched in this age."
+            zh: "没有任何王公纷争可绕过我们的同意而得到解决。我们的[subject|e]忠诚，[alliance|e]伙伴众多，在这个时代影响无可匹敌。"
           event_option:
             en: "We shall keep the peace of the world."
             zh: "我们将维护世界和平。"
@@ -1062,8 +1062,8 @@ paths:
             en: "Diplomatic Victory — Long-term Victory"
             zh: "外交胜利 — 长期胜利"
           meaning:
-            en: "580 [tv_dvp|e]. Undisputed diplomatic hegemon. Long-term Victory."
-            zh: "580 [tv_dvp|e]。无可争议的外交霸主。长期胜利。"
+            en: "580 [tv_diplomatic_victory_points|e]. Undisputed diplomatic hegemon — the web of [alliance|e]s and [royal_marriage|e]s is yours alone. Long-term Victory."
+            zh: "580 [tv_diplomatic_victory_points|e]。无可争议的外交霸主——[alliance|e]与[royal_marriage|e]交织的大网唯你独有。长期胜利。"
           trigger_desc:
             en: "[tv_diplomatic_victory_points|e] ≥ 580"
             zh: "[tv_diplomatic_victory_points|e] ≥ 580"
@@ -1071,8 +1071,8 @@ paths:
             en: "Long-term Victory — Diplomatic Hegemon"
             zh: "长期胜利 — 外交霸主"
           event_desc:
-            en: "Five hundred and eighty points of diplomatic achievement. No nation in history has woven so vast a web of alliances, marriages, and mutual guarantees. Our legacy is written not in conquest but in the peace we preserved."
-            zh: "五百八十分外交胜利点。史上从未有任何国家编织过如此广大的同盟、联姻与互保网络。我们的功勣不写于征服，而写于我们保卫的和平。"
+            en: "Five hundred and eighty points of diplomatic achievement. No nation in history has woven so vast a web of [alliance|e]s, [royal_marriage|e]s, and mutual [guarantee|e]s. Our legacy is written not in conquest but in the peace we preserved."
+            zh: "五百八十分外交胜利点。史上从未有任何国家编织过如此广大的[alliance|e]、[royal_marriage|e]与互保[guarantee|e]网络。我们的功绩不写于征服，而写于我们保卫的和平。"
           event_option:
             en: "Our name shall be synonymous with statecraft."
             zh: "我们的名字将与外交艺术永远共存。"
@@ -1140,11 +1140,11 @@ paths:
         en: "Cultural Victory"
         zh: "文化胜利"
       description:
-        en: "Achieve pre-eminence through art, court, and the spread of culture."
-        zh: "TODO"
+        en: "Empires rise and crumble, but great art endures. Let your court be the envy of princes, your [artist|e]s the voice of an age, and your culture outlast every conqueror."
+        zh: "帝国兴衰更迭，而伟大的艺术永世长存。让你的宫廷令王公嫉羡，让你的[artist|e]成为一个时代的声音，让你的文明超越每一位征服者。"
       flavor:
         en: '"Art is the signature of civilisations."'
-        zh: "TODO"
+        zh: '"艺术是文明的印记。"'
       progress_display:
         en: "[tv_cultural_influence_points|e]: [Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
         zh: "[tv_cultural_influence_points|e]：[Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 580"
@@ -1165,8 +1165,8 @@ paths:
             en: "Cultural Victory — Milestone 1"
             zh: "文化胜利 — 里程碑1"
           meaning:
-            en: "50 [tv_cultural_influence_points|e]. A patron of the arts."
-            zh: "50 [tv_cultural_influence_points|e]。艺术的赞助人。"
+            en: "50 [tv_cultural_influence_points|e]. Your court draws its first [artist|e]s and patrons — a cultural legacy begins."
+            zh: "50 [tv_cultural_influence_points|e]。你的宫廷吸引了第一批[artist|e]与赞助人——文化遗产由此发轫。"
           trigger_desc:
             en: "[tv_cultural_influence_points|e] ≥ 50"
             zh: "[tv_cultural_influence_points|e] ≥ 50"
@@ -1174,8 +1174,8 @@ paths:
             en: "A Patron of the Arts"
             zh: "艺术赞助人"
           event_desc:
-            en: "Our court has begun to attract painters, sculptors, and men of letters. The works commissioned in our name already speak to something greater than mere politics — a civilisation is taking shape."
-            zh: "我们的宫廷已开始吸引画家、雕塑家和文人。以我们名义委托的作品已经彰显出某种远超政治的意义——一个文明正在成形。"
+            en: "Our court has begun to attract [artist|e]s, sculptors, and men of letters. The [work_of_art|e]s commissioned in our name already speak to something greater than mere politics — a civilisation is taking shape."
+            zh: "我们的宫廷已开始吸引[artist|e]、雕塑家和文人。以我们名义委托的[work_of_art|e]已经彰显出某种远超政治的意义——一个文明正在成形。"
           event_option:
             en: "Let the arts flourish in our name."
             zh: "让艺术在我们的庇护下繁荣。"
@@ -1197,8 +1197,8 @@ paths:
             en: "Cultural Victory — Milestone 2"
             zh: "文化胜利 — 里程碑2"
           meaning:
-            en: "120 [tv_cip|e]. A celebrated cultural power."
-            zh: "120 [tv_cip|e]。享誉盛名的文化强国。"
+            en: "120 [tv_cultural_influence_points|e]. A celebrated cultural power — [work_of_art|e]s from your court speak of your greatness."
+            zh: "120 [tv_cultural_influence_points|e]。享誉盛名的文化强国——你宫廷中的[work_of_art|e]彰显了你的伟大。"
           trigger_desc:
             en: "[tv_cultural_influence_points|e] ≥ 120  •  International Influence ≥ 25"
             zh: "[tv_cultural_influence_points|e] ≥ 120  •  国际影响力 ≥ 25"
@@ -1206,8 +1206,8 @@ paths:
             en: "The Renaissance Court"
             zh: "文艺复兴宫廷"
           event_desc:
-            en: "Word of our court's magnificence has spread to distant lands. Scholars and artists seek our patronage, and the works we commission are spoken of with admiration by princes and popes alike."
-            zh: "我们宫廷的辉煌已传播至遥远之地。学者与艺术家纷纷寻求我们的赞助，以我们名义委托的作品令王公与教皇皆赞叹不已。"
+            en: "Word of our court's magnificence has spread to distant lands. Scholars and [artist|e]s seek our patronage, and the [work_of_art|e]s we commission are spoken of with admiration by princes and popes alike."
+            zh: "我们宫廷的辉煌已传播至遥远之地。学者与[artist|e]纷纷寻求我们的赞助，以我们名义委托的[work_of_art|e]令王公与教皇皆赞叹不已。"
           event_option:
             en: "Our court shall be a beacon of learning."
             zh: "我们的宫廷将成为学问的灯塔。"
@@ -1229,8 +1229,8 @@ paths:
             en: "Cultural Victory — Short-term Victory"
             zh: "文化胜利 — 短期胜利"
           meaning:
-            en: "220 [tv_cip|e]. A centre of Renaissance brilliance. Short-term Victory."
-            zh: "220 [tv_cip|e]。文艺复兴的璀璨中心。短期胜利。"
+            en: "220 [tv_cultural_influence_points|e]. A centre of Renaissance brilliance — [artist|e]s from across the world seek your court. Short-term Victory."
+            zh: "220 [tv_cultural_influence_points|e]。文艺复兴的璀璨中心——各地[artist|e]慕名而来。短期胜利。"
           trigger_desc:
             en: "[tv_cultural_influence_points|e] ≥ 220  •  International Influence ≥ 50"
             zh: "[tv_cultural_influence_points|e] ≥ 220  •  国际影响力 ≥ 50"
@@ -1262,8 +1262,8 @@ paths:
             en: "Cultural Victory — Milestone 4"
             zh: "文化胜利 — 里程碑4"
           meaning:
-            en: "380 [tv_cip|e]. Culture radiates from your court across the world."
-            zh: "380 [tv_cip|e]。文化从您的宫廷辐射至全世界。"
+            en: "380 [tv_cultural_influence_points|e]. [cultural_influence|e] radiates from your court across the world — your [artist|e]s define the age."
+            zh: "380 [tv_cultural_influence_points|e]。[cultural_influence|e]从你的宫廷辐射至全世界——你的[artist|e]定义了这个时代。"
           trigger_desc:
             en: "[tv_cultural_influence_points|e] ≥ 380  •  International Influence ≥ 75"
             zh: "[tv_cultural_influence_points|e] ≥ 380  •  国际影响力 ≥ 75"
@@ -1271,8 +1271,8 @@ paths:
             en: "Light of the World"
             zh: "世界之光"
           event_desc:
-            en: "Our cultural influence has spread far beyond our borders. Other nations imitate our fashions, adopt our ideas, and send their finest minds to study under our masters. The world looks to us as the arbiter of taste and refinement."
-            zh: "我们的文化影响力早已超越国界。他国模仿我们的风尚，接受我们的思想，将其最优秀的才智送来在我们的大师门下学习。世界将我们视为品位与文雅的仲裁者。"
+            en: "Our [cultural_influence|e] has spread far beyond our borders. Other nations imitate our fashions, adopt our ideas, and send their finest minds to study under our masters. The world looks to us as the arbiter of taste and refinement."
+            zh: "我们的[cultural_influence|e]早已超越国界。他国模仿我们的风尚，接受我们的思想，将其最优秀的才智送来在我们的大师门下学习。世界将我们视为品位与文雅的仲裁者。"
           event_option:
             en: "We shall carry the torch of civilisation."
             zh: "我们将肩负文明的火炬。"
@@ -1294,8 +1294,8 @@ paths:
             en: "Cultural Victory — Long-term Victory"
             zh: "文化胜利 — 长期胜利"
           meaning:
-            en: "580 [tv_cip|e]. The greatest cultural legacy in history. Long-term Victory."
-            zh: "580 [tv_cip|e]。历史上最伟大的文化遗产。长期胜利。"
+            en: "580 [tv_cultural_influence_points|e]. The greatest cultural legacy in history — [work_of_art|e]s made in your name will outlast every empire. Long-term Victory."
+            zh: "580 [tv_cultural_influence_points|e]。历史上最伟大的文化遗产——以你名义创作的[work_of_art|e]将超越每一个帝国，永世流传。长期胜利。"
           trigger_desc:
             en: "[tv_cultural_influence_points|e] ≥ 580  •  International Influence ≥ 100"
             zh: "[tv_cultural_influence_points|e] ≥ 580  •  国际影响力 ≥ 100"
@@ -1303,8 +1303,8 @@ paths:
             en: "Long-term Victory — Cultural Hegemon"
             zh: "长期胜利 — 文化霸主"
           event_desc:
-            en: "Five hundred and eighty points of cultural achievement. No nation in history has produced so much beauty, wisdom, and wonder. Long after our armies are forgotten, the works created in our name will endure as the greatest cultural legacy the world has ever known."
-            zh: "五百八十文化影响力点。历史上从未有任何国家创造出如此之多的美、智慧与奇迹。在我们的军队早已被遗忘之后，以我们名义创造的作品将永久流传，成为世界有史以来最伟大的文化遗产。"
+            en: "Five hundred and eighty points of cultural achievement. No nation in history has produced so much beauty, wisdom, and wonder. Long after our [army|e]s are forgotten, the [work_of_art|e]s created in our name will endure as the greatest cultural legacy the world has ever known."
+            zh: "五百八十文化影响力点。历史上从未有任何国家创造出如此之多的美、智慧与奇迹。在我们的[army|e]早已被遗忘之后，以我们名义创造的[work_of_art|e]将永久流传，成为世界有史以来最伟大的文化遗产。"
           event_option:
             en: "Our name shall be synonymous with civilisation itself."
             zh: "我们的名字将与文明本身永远共存。"
@@ -1373,60 +1373,60 @@ paths:
         zh: "科学院，第一阶段"
       - key: tv_academy_of_sciences_1_desc
         has_version_suffix: false
-        en: "The founding of a national academy dedicated to the systematic advancement of learning and natural philosophy."
-        zh: "建立一所专门致力于系统推进学问与自然哲学的国家科学院。"
+        en: "A first gathering of the realm's finest minds under one roof — the systematic pursuit of natural philosophy begins."
+        zh: "国内最优秀的头脑首次汇聚一堂——对自然哲学的系统性探索由此开始。"
       - key: tv_academy_of_sciences_2
         has_version_suffix: false
         en: "Academy of Sciences, Phase II"
         zh: "科学院，第二阶段"
       - key: tv_academy_of_sciences_2_desc
         has_version_suffix: false
-        en: "Expansion of the Academy's research faculties and the establishment of dedicated natural philosophy laboratories."
-        zh: "扩充科学院的研究部门，建立专用的自然哲学实验室。"
+        en: "New halls, new instruments, new questions. The Academy expands its reach into the deepest mysteries of nature."
+        zh: "新的讲堂、新的仪器、新的问题。科学院将探索延伸至自然最深邃的奥秘。"
       - key: tv_academy_of_sciences_3
         has_version_suffix: false
         en: "Academy of Sciences, Phase III"
         zh: "科学院，第三阶段"
       - key: tv_academy_of_sciences_3_desc
         has_version_suffix: false
-        en: "International recognition of the Academy as a preeminent seat of scholarship, drawing scholars from across the known world."
-        zh: "科学院获得国际认可，成为顶尖学术重镇，汇聚各地学者。"
+        en: "Scholars arrive from courts across the known world, drawn by the Academy's growing reputation. We are no longer merely students — we are teachers."
+        zh: "来自已知世界各宫廷的学者纷至沓来，皆为科学院日益彰显的声望所吸引。我们不再只是求学者——我们已成为传道者。"
       - key: tv_academy_of_sciences_4
         has_version_suffix: false
         en: "Academy of Sciences, Phase IV"
         zh: "科学院，第四阶段"
       - key: tv_academy_of_sciences_4_desc
         has_version_suffix: false
-        en: "The Academy becomes the nexus of the natural philosophy revolution, pioneering advances that redefine the limits of human knowledge."
-        zh: "科学院成为自然哲学革命的中心，引领开创性发现，重新定义人类知识的边界。"
+        en: "The Academy stands at the frontier of human knowledge, pioneering discoveries that overturn centuries of assumption and reshape what is possible."
+        zh: "科学院矗立于人类知识的前沿，开创性的发现推翻了数百年的假设，重塑了可能性的边界。"
       - key: tv_academy_of_sciences_5
         has_version_suffix: false
         en: "Academy of Sciences, Phase V"
         zh: "科学院，第五阶段"
       - key: tv_academy_of_sciences_5_desc
         has_version_suffix: false
-        en: "The Academy drives the nation into the age of industry and reason, its discoveries forging the foundations of a new world."
-        zh: "科学院推动国家迈入工业与理性的时代，其发现奠定了新世界的基础。"
+        en: "Steam, iron, and the rational mind are no longer theory. The Academy's discoveries have become the sinew of a new age — one that will outlast every dynasty."
+        zh: "蒸汽、钢铁与理性的思维已不再是理论。科学院的发现已成为新时代的筋骨——一个将超越每一个王朝的时代。"
       - key: TV_ACADEMY_SCORE_1_TT
         has_version_suffix: false
-        en: "Requires [tv_science_score|e] of at least 100 (total advances researched >= 100)"
-        zh: "需要[tv_science_score|e]达到 100（已研究技艺总数 ≥ 100）"
+        en: "Requires [tv_science_score|e] of at least 100 (total [advance|e]s researched >= 100)"
+        zh: "需要[tv_science_score|e]达到 100（已研究[advance|e]总数 ≥ 100）"
       - key: TV_ACADEMY_SCORE_2_TT
         has_version_suffix: false
-        en: "Requires [tv_science_score|e] of at least 150 (total advances researched >= 150)"
-        zh: "需要[tv_science_score|e]达到 150（已研究技艺总数 ≥ 150）"
+        en: "Requires [tv_science_score|e] of at least 150 (total [advance|e]s researched >= 150)"
+        zh: "需要[tv_science_score|e]达到 150（已研究[advance|e]总数 ≥ 150）"
       - key: TV_ACADEMY_SCORE_3_TT
         has_version_suffix: false
-        en: "Requires [tv_science_score|e] of at least 200 (total advances researched >= 200)"
-        zh: "需要[tv_science_score|e]达到 200（已研究技艺总数 ≥ 200）"
+        en: "Requires [tv_science_score|e] of at least 200 (total [advance|e]s researched >= 200)"
+        zh: "需要[tv_science_score|e]达到 200（已研究[advance|e]总数 ≥ 200）"
       - key: TV_ACADEMY_SCORE_4_TT
         has_version_suffix: false
-        en: "Requires [tv_science_score|e] of at least 300 (total advances researched >= 300)"
-        zh: "需要[tv_science_score|e]达到 300（已研究技艺总数 ≥ 300）"
+        en: "Requires [tv_science_score|e] of at least 300 (total [advance|e]s researched >= 300)"
+        zh: "需要[tv_science_score|e]达到 300（已研究[advance|e]总数 ≥ 300）"
       - key: TV_ACADEMY_SCORE_5_TT
         has_version_suffix: false
-        en: "Requires [tv_science_score|e] of at least 400 (total advances researched >= 400)"
-        zh: "需要[tv_science_score|e]达到 400（已研究技艺总数 ≥ 400）"
+        en: "Requires [tv_science_score|e] of at least 400 (total [advance|e]s researched >= 400)"
+        zh: "需要[tv_science_score|e]达到 400（已研究[advance|e]总数 ≥ 400）"
       - key: TV_ACADEMY_HAS_PREV_2_TT
         has_version_suffix: false
         en: "Phase I Academy of Sciences must be constructed first"
@@ -1533,8 +1533,8 @@ paths:
         en: "Scientific Victory"
         zh: "科技胜利"
       description:
-        en: "Lead the world through the advancement of knowledge and technology."
-        zh: "通过推动知识与技术的进步，引领世界走向未来。"
+        en: "While others sharpen their blades, sharpen your minds. The nation that masters nature's secrets commands not just its own age, but the shape of all ages to come."
+        zh: "他人在磨刀，你们在磨砺心智。掌握自然奥秘的国度，统御的不只是当下，更是未来每一个时代的面貌。"
       flavor:
         en: '"The true method of knowledge is experiment." — William Blake'
         zh: '"认识真相的真正方法是实验。" — 威廉·布莱克'
@@ -1560,8 +1560,8 @@ paths:
             en: "Scientific Victory — Milestone 1"
             zh: "科技胜利 — 第一里程碑"
           meaning:
-            en: "A nation of curious minds. ~100 advances researched."
-            zh: "充满好奇心的国度。约已研究100项技艺。"
+            en: "A nation of curious minds — one hundred [advance|e]s claimed in the pursuit of knowledge."
+            zh: "充满求知欲的国度——在追求知识的征途上掌握了一百项[advance|e]。"
           trigger_desc:
             en: "[tv_science_score|e] ≥ 100 and Academy Level ≥ 1"
             zh: "[tv_science_score|e] ≥ 100，科学院等级 ≥ 1"
@@ -1569,8 +1569,8 @@ paths:
             en: "A Nation of Scholars"
             zh: "学者之国"
           event_desc:
-            en: "Our universities and academies are beginning to bear fruit. One hundred advances researched — our realm stands at the vanguard of learning in this age."
-            zh: "我们的大学与学院已开始结出硕果。一百项技艺已被我们掌握——在这个时代，我们的国度已站在学问的前沿。"
+            en: "Our universities and academies are beginning to bear fruit. One hundred [advance|e]s researched — our realm stands at the vanguard of learning in this age."
+            zh: "我们的大学与学院已开始结出硕果。一百项[advance|e]已被我们掌握——在这个时代，我们的国度已站在学问的前沿。"
           event_option:
             en: "Knowledge shall light our way forward."
             zh: "知识将为我们照亮前行之路。"
@@ -1592,8 +1592,8 @@ paths:
             en: "Scientific Victory — Milestone 2"
             zh: "科技胜利 — 第二里程碑"
           meaning:
-            en: "A realm that embraces new institutions. ~150 advances researched."
-            zh: "积极拥抱新思潮的国度。约已研究150项技艺。"
+            en: "A realm that embraces the great [institution|e]s of this era — one hundred and fifty [advance|e]s mastered."
+            zh: "积极拥抱这个时代伟大[institution|e]的国度——已掌握一百五十项[advance|e]。"
           trigger_desc:
             en: "[tv_science_score|e] ≥ 150 and Academy Level ≥ 2"
             zh: "[tv_science_score|e] ≥ 150，科学院等级 ≥ 2"
@@ -1601,8 +1601,8 @@ paths:
             en: "Embracing New Ideas"
             zh: "拥抱新思想"
           event_desc:
-            en: "Our scholars have absorbed and spread the great institutions of this era. One hundred and fifty advances stand to our name, and foreign thinkers seek the patronage of our court."
-            zh: "我们的学者已消化并传播了这个时代的伟大制度。一百五十项技艺以我们的名义立下，外邦思想家纷纷寻求我们宫廷的庇护。"
+            en: "Our scholars have absorbed and spread the great [institution|e]s of this era. One hundred and fifty [advance|e]s stand to our name, and foreign thinkers seek the patronage of our court."
+            zh: "我们的学者已消化并传播了这个时代的伟大[institution|e]。一百五十项[advance|e]以我们的名义立下，外邦思想家纷纷寻求我们宫廷的庇护。"
           event_option:
             en: "Open minds conquer more than armies."
             zh: "开放的心灵胜过千军万马。"
@@ -1624,8 +1624,8 @@ paths:
             en: "Scientific Victory — Short-term Victory"
             zh: "科技胜利 — 短期胜利"
           meaning:
-            en: "A vanguard of learning. Short-term Victory. ~200 advances researched."
-            zh: "学问的先锋国度。短期胜利。约已研究200项技艺。"
+            en: "A vanguard of learning — two hundred [advance|e]s. Short-term Victory. No nation rivals your command of knowledge."
+            zh: "学问的先锋国度——两百项[advance|e]。短期胜利。没有任何国家能在知识领域与你抗衡。"
           trigger_desc:
             en: "[tv_science_score|e] ≥ 200 and Academy Level ≥ 3"
             zh: "[tv_science_score|e] ≥ 200，科学院等级 ≥ 3"
@@ -1633,8 +1633,8 @@ paths:
             en: "A Centre of Learning — Short-term Victory"
             zh: "学问中心 — 短期胜利"
           event_desc:
-            en: "No nation rivals our command of the sciences and arts of governance. Two hundred advances — a short-term scientific victory that marks us as the intellectual power of our age."
-            zh: "没有任何国家能与我们在科学与治理之道上的造诣相抗衡。两百项技艺——一个短期科技胜利，标志着我们已成为这个时代的智识强国。"
+            en: "No nation rivals our command of the sciences and arts of governance. Two hundred [advance|e]s — a short-term scientific victory that marks us as the intellectual power of our age."
+            zh: "没有任何国家能与我们在科学与治理之道上的造诣相抗衡。两百项[advance|e]——一个短期科技胜利，标志着我们已成为这个时代的智识强国。"
           event_option:
             en: "Reason and inquiry shall carry us forward."
             zh: "理性与探究将引领我们继续前行。"
@@ -1656,8 +1656,8 @@ paths:
             en: "Scientific Victory — Milestone 4"
             zh: "科技胜利 — 第四里程碑"
           meaning:
-            en: "The preeminent scientific power. ~300 advances researched."
-            zh: "首屈一指的科学强国。约已研究300项技艺。"
+            en: "The preeminent scientific power — three hundred [advance|e]s, generations of investment made manifest."
+            zh: "首屈一指的科学强国——三百项[advance|e]，数代投入已然成真。"
           trigger_desc:
             en: "[tv_science_score|e] ≥ 300 and Academy Level ≥ 4"
             zh: "[tv_science_score|e] ≥ 300，科学院等级 ≥ 4"
@@ -1665,8 +1665,8 @@ paths:
             en: "On the Threshold of Modernity"
             zh: "现代性的门槛"
           event_desc:
-            en: "Our natural philosophers and engineers now push at the very boundaries of the known world. Three hundred advances stand as testament to generations of investment in learning."
-            zh: "我们的自然哲学家与工程师如今已将探索推至已知世界的边疆。三百项技艺，是数代人对学问持续投入的明证。"
+            en: "Our natural philosophers and engineers now push at the very boundaries of the known world. Three hundred [advance|e]s stand as testament to generations of investment in learning."
+            zh: "我们的自然哲学家与工程师如今已将探索推至已知世界的边疆。三百项[advance|e]，是数代人对学问持续投入的明证。"
           event_option:
             en: "The age of steam and iron awaits."
             zh: "蒸汽与钢铁的时代正在等待我们。"
@@ -1689,8 +1689,8 @@ paths:
             en: "Scientific Victory — Long-term Victory"
             zh: "科技胜利 — 长期胜利"
           meaning:
-            en: "The nation that ushered in the Industrial Age. Long-term Victory. ~400 advances researched."
-            zh: "开创工业时代的国度。长期胜利。约已研究400项技艺。"
+            en: "The nation that ushered in the Industrial Age — four hundred [advance|e]s. Long-term Victory. The future belongs to you."
+            zh: "开创工业时代的国度——四百项[advance|e]。长期胜利。未来属于你。"
           trigger_desc:
             en: "[tv_science_score|e] ≥ 400 and Academy Level ≥ 5"
             zh: "[tv_science_score|e] ≥ 400，科学院等级 ≥ 5"
@@ -1698,8 +1698,8 @@ paths:
             en: "Long-term Victory — The Industrial Vanguard"
             zh: "长期胜利 — 工业先驱"
           event_desc:
-            en: "Four hundred advances. Steam, iron, and the rational mind have remade our nation. Long after the old empires crumble, the knowledge forged in our academies will transform the world entire."
-            zh: "四百项技艺。蒸汽、钢铁与理性的思维已彻底改造了我们的国度。旧帝国相继崩塌之后，在我们学院中铸就的知识，将永远改变整个世界。"
+            en: "Four hundred [advance|e]s. Steam, iron, and the rational mind have remade our nation. Long after the old empires crumble, the knowledge forged in our academies will transform the world entire."
+            zh: "四百项[advance|e]。蒸汽、钢铁与理性的思维已彻底改造了我们的国度。旧帝国相继崩塌之后，在我们学院中铸就的知识，将永远改变整个世界。"
           event_option:
             en: "Our name shall be synonymous with progress itself."
             zh: "我们的名字将与进步本身永远共存。"
