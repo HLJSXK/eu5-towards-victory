@@ -1,0 +1,81 @@
+﻿# Towards Victory — Arts Exhibition IO Panel
+# Adds International Influence stat display and the two cultural actions.
+
+organization_panel = {
+
+	blockoverride "organization_overview_tab_visible" {}
+
+	blockoverride "organization_panel_overview_visible" {
+		visible = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
+	}
+
+	blockoverride "organization_members_tab_down" {
+		down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+	}
+
+	blockoverride "organization_panel_members_visible" {
+		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+	}
+
+	blockoverride "scroll_overview_empty_visible" { visible = no }
+
+	blockoverride "io_main_actions_icon" {
+		texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetIcon]"
+	}
+
+	# ── International Influence stat ──────────────────────────────────────
+	blockoverride "organization_overview_list_custom_top_extra" {
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			margin = { 10 5 }
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				margin = { 20 8 }
+
+				icon = {
+					size = { 24 24 }
+					texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+					texture_density = 2
+				}
+				text_single = {
+					margin_left = 8
+					text = "game_concept_tv_arts_intl_influence"
+				}
+				expand = {}
+				widget = {
+					datacontext = "[InternationalOrganizationsView.GetPlayer]"
+					text_single = {
+						text = "[Country.MakeScope.GetVariable('tv_arts_intl_influence').GetValue|1]"
+					}
+				}
+			}
+		}
+	}
+
+	# ── Cultural action buttons ────────────────────────────────────────────
+	blockoverride "organization_main_actions_extra_visible" {
+		visible = yes
+	}
+
+	blockoverride "organization_main_actions_extra" {
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "tv_send_artist_abroad"
+			title = "tv_send_artist_abroad"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_send_artist_abroad"
+			}
+		}
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "tv_host_domestic_exhibition"
+			title = "tv_host_domestic_exhibition"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_host_domestic_exhibition"
+			}
+		}
+	}
+}
