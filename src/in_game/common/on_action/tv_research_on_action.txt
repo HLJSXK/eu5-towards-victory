@@ -35,8 +35,22 @@ monthly_country_pulse = {
 		}
 	}
 
-	# ── Sub-process A: monthly interest event (random) ─────────────────────────
-	# Weight ~25/125 ≈ 20% base monthly chance; event trigger enforces preconditions.
+	# ── Sub-process A: dispatch to dedicated sub-action ────────────────────────
+	# on_actions lists merge additively across files; random_events in the sub-action
+	# runs every tick (no chance_to_happen needed at the sub-action level).
+	on_actions = { tv_research_a_pulse }
+}
+
+# ── tv_research_a_pulse ────────────────────────────────────────────────────────
+# Sub-action for Sub-process A interest collection.
+# Trigger gates the whole block; random_events selects the event ~20% of months.
+tv_research_a_pulse = {
+	trigger = {
+		has_variable = tv_academy_io_member
+		has_variable = tv_research_phase
+		var:tv_research_phase = 1
+		NOT = { var:tv_rm_subprocess_a >= 2 }
+	}
 	random_events = {
 		100 = 0
 		25 = tv_research.1

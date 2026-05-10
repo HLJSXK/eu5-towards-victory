@@ -217,7 +217,7 @@ organization_panel = {
 					}
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_c').GetValue, '(CFixedPoint)1.0')]"
-						text = "TV_RM_STATUS_IN_PROGRESS"
+						raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_research_c_progress')]"
 						align = nobaseline
 					}
 					text_single = {

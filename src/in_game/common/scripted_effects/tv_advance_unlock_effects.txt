@@ -7,50 +7,50 @@
 
 tv_unlock_advance_printing_press_effect = {
 	set_variable = { name = tv_advance_printing_press_unlocked value = 1 }
-	custom_tooltip = TV_ADVANCE_UNLOCK_PRINTING_PRESS_TT
+	research_advance = advance_type:printing_press_advance
 }
 
 tv_unlock_advance_iron_working_effect = {
 	set_variable = { name = tv_advance_iron_working_unlocked value = 1 }
-	custom_tooltip = TV_ADVANCE_UNLOCK_IRON_WORKING_TT
+	research_advance = advance_type:iron_working
 }
 
 tv_unlock_advance_anatomy_effect = {
 	set_variable = { name = tv_advance_anatomy_unlocked value = 1 }
-	custom_tooltip = TV_ADVANCE_UNLOCK_ANATOMY_TT
+	research_advance = advance_type:anatomy_advance
 }
 
 tv_unlock_advance_gunpowder_effect = {
 	set_variable = { name = tv_advance_gunpowder_unlocked value = 1 }
-	custom_tooltip = TV_ADVANCE_UNLOCK_GUNPOWDER_TT
+	research_advance = advance_type:gunpowder_advance
 }
 
 tv_unlock_advance_blast_furnace_effect = {
 	set_variable = { name = tv_advance_blast_furnace_unlocked value = 1 }
-	custom_tooltip = TV_ADVANCE_UNLOCK_BLAST_FURNACE_TT
+	research_advance = advance_type:blast_furnace
 }
 
 tv_unlock_advance_scientific_experimentation_effect = {
 	set_variable = { name = tv_advance_scientific_experimentation_unlocked value = 1 }
-	custom_tooltip = TV_ADVANCE_UNLOCK_SCIENTIFIC_EXPERIMENTATION_TT
+	research_advance = advance_type:scientific_experimentation
 }
 
 tv_unlock_advance_scientific_revolution_effect = {
 	set_variable = { name = tv_advance_scientific_revolution_unlocked value = 1 }
-	custom_tooltip = TV_ADVANCE_UNLOCK_SCIENTIFIC_REVOLUTION_TT
+	research_advance = advance_type:scientific_revolution_advance
 }
 
 tv_unlock_advance_manufactories_effect = {
 	set_variable = { name = tv_advance_manufactories_unlocked value = 1 }
-	custom_tooltip = TV_ADVANCE_UNLOCK_MANUFACTORIES_TT
+	research_advance = advance_type:manufactories_advance
 }
 
 tv_unlock_advance_industrialization_effect = {
 	set_variable = { name = tv_advance_industrialization_unlocked value = 1 }
-	custom_tooltip = TV_ADVANCE_UNLOCK_INDUSTRIALIZATION_TT
+	research_advance = advance_type:industrialization_advance
 }
 
 tv_unlock_advance_vaccination_effect = {
 	set_variable = { name = tv_advance_vaccination_unlocked value = 1 }
-	custom_tooltip = TV_ADVANCE_UNLOCK_VACCINATION_TT
+	research_advance = advance_type:vaccination_advance
 }
