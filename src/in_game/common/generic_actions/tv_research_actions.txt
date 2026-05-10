@@ -87,8 +87,6 @@ tv_start_concentrated_research = {
 
 	potential = {
 		scope:actor = { has_variable = tv_academy_io_member }
-		scope:actor = { has_variable = tv_research_phase }
-		scope:actor = { tv_research_can_start_d_trigger = yes }
 	}
 
 	allow = {

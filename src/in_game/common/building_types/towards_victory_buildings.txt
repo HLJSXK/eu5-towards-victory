@@ -32,10 +32,8 @@ tv_academy_of_sciences_1 = {
 	allow = {
 		custom_tooltip = {
 			text = TV_ACADEMY_SCORE_1_TT
-			scope:actor = {
-				has_variable = tv_science_score
-				var:tv_science_score >= 100
-			}
+			scope:actor = { has_variable = tv_science_score }
+			scope:actor = { var:tv_science_score >= 100 }
 		}
 	}
 
@@ -80,17 +78,13 @@ tv_academy_of_sciences_2 = {
 	allow = {
 		custom_tooltip = {
 			text = TV_ACADEMY_HAS_PREV_2_TT
-			scope:actor = {
-				has_variable = tv_academy_of_sciences_level
-				var:tv_academy_of_sciences_level >= 1
-			}
+			scope:actor = { has_variable = tv_academy_of_sciences_level }
+			scope:actor = { var:tv_academy_of_sciences_level >= 1 }
 		}
 		custom_tooltip = {
 			text = TV_ACADEMY_SCORE_2_TT
-			scope:actor = {
-				has_variable = tv_science_score
-				var:tv_science_score >= 150
-			}
+			scope:actor = { has_variable = tv_science_score }
+			scope:actor = { var:tv_science_score >= 150 }
 		}
 	}
 
@@ -134,17 +128,13 @@ tv_academy_of_sciences_3 = {
 	allow = {
 		custom_tooltip = {
 			text = TV_ACADEMY_HAS_PREV_3_TT
-			scope:actor = {
-				has_variable = tv_academy_of_sciences_level
-				var:tv_academy_of_sciences_level >= 2
-			}
+			scope:actor = { has_variable = tv_academy_of_sciences_level }
+			scope:actor = { var:tv_academy_of_sciences_level >= 2 }
 		}
 		custom_tooltip = {
 			text = TV_ACADEMY_SCORE_3_TT
-			scope:actor = {
-				has_variable = tv_science_score
-				var:tv_science_score >= 200
-			}
+			scope:actor = { has_variable = tv_science_score }
+			scope:actor = { var:tv_science_score >= 200 }
 		}
 	}
 
@@ -188,17 +178,13 @@ tv_academy_of_sciences_4 = {
 	allow = {
 		custom_tooltip = {
 			text = TV_ACADEMY_HAS_PREV_4_TT
-			scope:actor = {
-				has_variable = tv_academy_of_sciences_level
-				var:tv_academy_of_sciences_level >= 3
-			}
+			scope:actor = { has_variable = tv_academy_of_sciences_level }
+			scope:actor = { var:tv_academy_of_sciences_level >= 3 }
 		}
 		custom_tooltip = {
 			text = TV_ACADEMY_SCORE_4_TT
-			scope:actor = {
-				has_variable = tv_science_score
-				var:tv_science_score >= 300
-			}
+			scope:actor = { has_variable = tv_science_score }
+			scope:actor = { var:tv_science_score >= 300 }
 		}
 	}
 
@@ -242,17 +228,13 @@ tv_academy_of_sciences_5 = {
 	allow = {
 		custom_tooltip = {
 			text = TV_ACADEMY_HAS_PREV_5_TT
-			scope:actor = {
-				has_variable = tv_academy_of_sciences_level
-				var:tv_academy_of_sciences_level >= 4
-			}
+			scope:actor = { has_variable = tv_academy_of_sciences_level }
+			scope:actor = { var:tv_academy_of_sciences_level >= 4 }
 		}
 		custom_tooltip = {
 			text = TV_ACADEMY_SCORE_5_TT
-			scope:actor = {
-				has_variable = tv_science_score
-				var:tv_science_score >= 400
-			}
+			scope:actor = { has_variable = tv_science_score }
+			scope:actor = { var:tv_science_score >= 400 }
 		}
 	}
 
