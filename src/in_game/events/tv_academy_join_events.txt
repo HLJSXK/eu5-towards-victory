@@ -24,6 +24,13 @@ tv_academy.1 = {
 	option = {
 		name = tv_academy.1.a
 		set_variable = { name = tv_academy_io_member value = 1 }
+		set_variable = { name = tv_research_phase value = 0 }
+		set_variable = { name = tv_research_interest value = 0 }
+		set_variable = { name = tv_research_b_done value = 0 }
+		set_variable = { name = tv_rm_subprocess_a value = 0 }
+		set_variable = { name = tv_rm_subprocess_b value = 0 }
+		set_variable = { name = tv_rm_subprocess_c value = 0 }
+		set_variable = { name = tv_rm_subprocess_d_ready value = 0 }
 		create_international_organization = {
 			type = international_organization_type:tv_academy_of_sciences
 			hidden_effect = {
