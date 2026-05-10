@@ -1,0 +1,81 @@
+﻿# Towards Victory — Generic Action Message Types
+
+PERFORM_tv_send_artist_abroad_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_host_domestic_exhibition_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_appoint_chief_artist_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_request_research_target_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_abandon_research_target_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_start_concentrated_research_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+WE_PERFORM_tv_seek_diplomatic_support_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US={
+	log=yes
+	onmap=no
+	popup=yes
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}

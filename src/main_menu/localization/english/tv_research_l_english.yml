@@ -3,6 +3,12 @@
  TV_ACADEMY_IO_LEADER_MALE:0 "President of the Academy"
  TV_ACADEMY_IO_LEADER_FEMALE:0 "President of the Academy"
 
+ # ── IO Variable Names and Descriptions (engine uses variable name as loc key) ──
+ tv_research_c_progress:0 "Literacy Foundation"
+ tv_research_c_progress_desc:0 "Measures the scholarly literacy base accumulated by this country's population for the current research cycle."
+ tv_research_d_progress:0 "Concentrated Research"
+ tv_research_d_progress_desc:0 "Measures the progress of concentrated research directed by the Chief Scientist."
+
  # ── IO Variable Display Formats ───────────────────────────────────────────────
  TV_C_PROGRESS_FORMAT:0 "$VALUE|0$/100"
  TV_C_PROGRESS_CHANGE_FORMAT:0 "$VALUE|2$/month"
