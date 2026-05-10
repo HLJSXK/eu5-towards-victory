@@ -167,6 +167,49 @@ Six victory paths, each reflecting a historically meaningful way a 15th–18th c
 | 200 | — | Embrace institution cost reduction, production bonus |
 | 270 | Long-term Victory (长期胜利) | Production efficiency, discipline |
 
+### 3.6.1 Research Mechanism (科技胜利专属机制)
+
+The Scientific Victory path includes a unique **Research Mechanism** that goes beyond the passive score accumulation used by other victory paths. This mechanic is exclusive to the Scientific Victory and adds an active, player-driven layer on top of the standard milestone system.
+
+#### Locked Advances
+
+A small number of Advance nodes (target: fewer than 10) are designated **Frontier Technology** — they represent discoveries that are too advanced for ordinary research and are locked at game start. A locked Advance cannot be researched through the normal Advance panel; its subsequent nodes in the tech tree are also blocked until the parent is unlocked.
+
+Locked Advances are selected to represent genuine historical turning points (e.g., printing press, steam engine) distributed across different tech tree branches. The specific selection is finalized during implementation (see Phase 5 of the implementation plan).
+
+#### Academy of Sciences (科学院) — International Organization
+
+The Research Mechanism is hosted by the **Academy of Sciences**, an International Organization with the following properties:
+
+- **Type:** Non-unique (`unique = no`) — each country creates and manages its own independent instance.
+- **Trigger:** When a country constructs the first phase of the Academy of Sciences building (`tv_academy_of_sciences_1`) in its capital, an event fires to create and join the country's own Academy IO.
+- **Relationship to buildings:** The five-phase Academy building chain (`tv_academy_of_sciences_1` through `tv_academy_of_sciences_5`) already serves as the milestone gate for the five Scientific Victory milestones. The Academy IO is a *separate but related* system: same building triggers both the milestone gate and the IO creation.
+
+The IO's panel (accessed via the Situation panel's Science section) is the player-facing interface for operating the Research Mechanism.
+
+#### Four-Step Research Cycle
+
+To unlock a single locked Advance, the player must complete one full **Research Cycle**, which consists of four sub-processes:
+
+```
+[Sub-process A] ─┐
+[Sub-process B] ─┼─ (any order, all three must complete) ──► [Sub-process D: Concentrated Research]
+[Sub-process C] ─┘                                              │
+                                                                 ▼
+                                                         Unlock one target Advance
+```
+
+- **Sub-processes A, B, C** are independent and can be completed in any order. Their specific forms (resource costs, duration, activation method) are a design decision to be finalized in Phase 1 of implementation. Design intent: each should represent a distinct aspect of scientific investment — e.g., personnel, resources, external collaboration.
+- **Sub-process D: Concentrated Research (开展集中研究)** becomes available only after A, B, and C are all complete. It represents the culmination of preparation and cannot be started until the groundwork is laid.
+
+**Unlock mapping:** One complete cycle (A + B + C + D) → unlocks exactly one pre-selected locked Advance. The player selects the target Advance before or at the start of the cycle. After unlock, all four sub-processes reset, and a new cycle may begin to target another locked Advance.
+
+#### Design Intent
+
+This mechanism gives the Scientific Victory an active, multi-step engagement loop absent from other victory paths. Passive research (advancing `tv_science_score`) drives milestone progression; the Research Cycle is required only to access the small set of Frontier Technology nodes that represent the ceiling of pre-industrial science. Players pursuing this path face a genuine choice: invest time and resources in the Research Cycle to unlock powerful frontier Advances, or prioritize breadth of research to push the milestone score threshold higher.
+
+The Academy of Sciences IO also serves as a natural UI container for any future science-related mechanics, keeping the Science path's complexity isolated from the shared Situation panel.
+
 ---
 
 ## 4. Milestone Threshold Calibration
