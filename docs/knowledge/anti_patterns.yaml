@@ -420,6 +420,15 @@
   source: "reference_game_files/game/in_game/common/situations/the_revolution.txt:59-72 (random_list { 98={} 1={event} 1={event} } pattern confirmed)"
   notes: "random_list as a direct child of random = { chance = X } is silently dropped by the EU5 engine — the 8% roll fires but the random_list produces no outcome. All intended events are skipped with no error in the log. Fix: restructure to nested random_list where the high-weight option is the no-event case."
 
+- id: io_typed_variable_update_in_on_action
+  pattern: ''
+  bad: "Applying a computed bonus to an IO typed variable via change_variable inside on_action (e.g. every_international_organizations_member_of { change_variable { name = tv_arts_intl_influence add = local_var:X } }) to implement a monthly character contribution"
+  correction: "Put the contribution in the IO type's monthly_change scripted value using leader_country.var:X chained access: if = { limit = { international_organization_has_leader = yes  leader_country = { has_variable = X } }  add = { desc = KEY  value = leader_country.var:X } }. Store the computed value on the country (tv_chief_artist_monthly_bonus) via on_action for GUI display only. The monthly_change runs automatically and shows in the IO variable tooltip."
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/events/situations/red_turban_rebellions.txt:3371 (value = root.var:X); reference_game_files/game/in_game/common/laws/christian_tenets.txt:359 (value = scope:recipient.leader_country.modifier:X); src/in_game/common/international_organizations/tv_diplomatic_alliance.txt (leader_country.modifier: in monthly_change)"
+  notes: "IO typed variables (in the variables = {} block of the IO type) have a monthly_change scripted value that drives the tooltip. Contributions applied externally via on_action change_variable are invisible to the tooltip. The leader_country.var:X chain is valid in scripted value context (same family as root.var:X); it is NOT valid in change_variable { add = } effect context (see change_variable_add_prev_var anti-pattern). Set leader_type = country and call set_leader_country in on_creation or the creation block."
+
 - id: io_non_unique_scope_link
   pattern: ''
   bad: "international_organization:type_name or is_member_of_international_organization = type_name for an IO type without unique = yes"
