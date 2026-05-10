@@ -41,7 +41,7 @@ monthly_country_pulse = {
 		# country. Weights are stratified by artist_skill (low < 0.5 / mid 0.5–0.7 / high ≥ 0.7).
 		every_character = {
 			limit = {
-				is_courtier = yes
+				is_alive = yes
 				is_artist = yes
 				has_variable = tv_on_exhibition
 			}

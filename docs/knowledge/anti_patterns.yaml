@@ -437,3 +437,13 @@
   scope: any
   source: "runtime error.log: 'key tv_arts_exhibition does not lead to a unique international organization', reference_game_files/game/in_game/common/international_organizations/swiss_confederation.txt:3 (unique = yes enables the scope link)"
   notes: "tv_arts_exhibition is a non-unique IO: each country pursuing cultural victory creates their own independent instance. unique = yes is FORBIDDEN on this IO. The engine errors 'Failed to find a valid event target link' and 'does not lead to a unique international organization' for both the scope link and is_member_of_international_organization trigger. Pattern empty — static detection would require cross-referencing IO type definitions."
+
+- id: is_courtier_invalid_after_move_country_unilateral
+  pattern: 'is_courtier\s*=\s*yes'
+  only_in_paths: ['on_action']
+  bad: "is_courtier = yes in every_character limit to find a character dispatched via move_country in a generic_action"
+  correction: "Use is_alive = yes + has_variable = <dispatch_tag> instead. The dispatch tag (e.g. tv_on_exhibition) set before move_country is sufficient to uniquely identify the character."
+  category: scope
+  scope: character
+  source: "reference_game_files/game/in_game/common/country_interactions/invite_artist.txt:104 (move_country in formal interaction grants courtier); src/in_game/common/on_action/tv_arts_exhibition_on_action.txt"
+  notes: "move_country called unilaterally from a generic_action (owncountry type) does NOT grant is_courtier = yes in the destination court. Only formal country_interaction invitations (e.g. invite_artist where the recipient accepts) produce a true courtier relationship. The result: every_character { is_courtier = yes } silently skips the dispatched character in both yearly and monthly pulses — timer never increments, no events fire."
