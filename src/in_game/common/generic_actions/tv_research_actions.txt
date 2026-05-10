@@ -86,16 +86,14 @@ tv_start_concentrated_research = {
 	ai_tick_frequency = 6
 
 	potential = {
-		scope:actor = {
-			has_variable = tv_academy_io_member
-			tv_research_can_start_d_trigger = yes
-		}
+		scope:actor = { has_variable = tv_academy_io_member }
+		scope:actor = { has_variable = tv_research_phase }
+		scope:actor = { tv_research_can_start_d_trigger = yes }
 	}
 
 	allow = {
-		scope:actor = {
-			tv_research_can_start_d_trigger = yes
-		}
+		scope:actor = { has_variable = tv_research_phase }
+		scope:actor = { tv_research_can_start_d_trigger = yes }
 	}
 
 	effect = {
