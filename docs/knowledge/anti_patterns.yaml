@@ -474,3 +474,30 @@
   scope: any
   source: "src/in_game/common/on_action/towards_victory_leaderboard.txt (Block C rewrite)"
   notes: "var:X ?= {} is the optional-navigation operator: it silently skips the block if the variable is unset or the target doesn't exist. Inside deeply nested random_list branches (every_character → random_list { 8 = { random_list { weight = { ... } } } }) the optional scope switch silently fails — no engine error is logged, the block is skipped, and no event fires. Pre-saving the target as a named scope before the random_list and using scope:name = {} inside branches is the reliable pattern."
+
+- id: io_has_leader_invalid_gui_function
+  pattern: 'InternationalOrganization\.HasLeader|GetInternationalOrganization\.HasLeader'
+  bad: "visible = \"[InternationalOrganizationsView.GetInternationalOrganization.HasLeader]\" — HasLeader does not exist on InternationalOrganization in the GUI data system"
+  correction: "Use IsLeaderCountryInPlace instead: visible = \"[InternationalOrganizationsView.GetInternationalOrganization.IsLeaderCountryInPlace]\". To display the IO leader character's name, use datacontext = \"[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.GetGovernment.GetRuler]\" then text = \"[Character.GetShortNameWithNoTooltip]\"."
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/panels/organization/common_header.gui:10 (IsLeaderCountryInPlace); reference_game_files/game/in_game/gui/character_header.gui:46 (GetShortNameWithNoTooltip)"
+  notes: "HasLeader is a method on Unit (for army/navy leaders), not on InternationalOrganization. Calling it on an IO scope produces 'Could not find data system function HasLeader' and a malformed token error. IsLeaderCountryInPlace is the equivalent check for IOs."
+
+- id: event_flavor_invalid_key
+  pattern: '^\s+flavor\s*=\s*flavor_'
+  bad: "flavor = flavor_neutral / flavor_good / flavor_bad inside an event block"
+  correction: "Use outcome = neutral / good / bad / positive / negative instead. Valid values confirmed from vanilla: neutral, good, bad, positive, negative."
+  category: event
+  scope: any
+  source: "reference_game_files/game/in_game/events/culture/culture_greek.txt:2847 (outcome = neutral)"
+  notes: "EU5 uses outcome = (neutral|good|bad|positive|negative); there is no 'flavor' key on events. Using flavor causes 'Unexpected token: flavor' parse errors and the event will be missing an outcome."
+
+- id: event_multiple_desc_blocks_invalid
+  pattern: ''
+  bad: "Two or more top-level desc = { ... } blocks on the same event — e.g. desc = { desc = key_a trigger = {...} } followed by desc = { desc = key_b trigger = {...} }"
+  correction: "Use a single desc block with first_valid + triggered_desc children: desc = { first_valid = { triggered_desc = { trigger = { ... } desc = key_a } triggered_desc = { trigger = { ... } desc = key_b } } }"
+  category: event
+  scope: any
+  source: "reference_game_files/game/in_game/events/culture/culture_greek.txt:2831-2846"
+  notes: "EU5 allows only one top-level desc block per event. A second desc block at the same level causes 'Scoped pointer has already been read' and 'There should be only one special desc' engine errors. All conditional descriptions must be nested inside a single desc = { first_valid = { ... } } block."

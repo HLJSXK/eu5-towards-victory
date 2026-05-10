@@ -96,14 +96,15 @@ organization_panel = {
 				hbox = {
 					layoutpolicy_horizontal = expanding
 					spacing = 4
-					visible = "[InternationalOrganizationsView.GetInternationalOrganization.HasLeader]"
+					visible = "[InternationalOrganizationsView.GetInternationalOrganization.IsLeaderCountryInPlace]"
 					text_single = {
 						text = "TV_RM_CHIEF_SCIENTIST_LABEL"
 						align = nobaseline
 					}
 					expand = {}
 					text_single = {
-						text = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderName]"
+						datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.GetGovernment.GetRuler]"
+						text = "[Character.GetShortNameWithNoTooltip]"
 						align = nobaseline
 					}
 				}
