@@ -10,10 +10,10 @@
  tv_research_d_progress_desc:0 "Measures the progress of concentrated research directed by the Chief Scientist."
 
  # ── IO Variable Display Formats ───────────────────────────────────────────────
- TV_C_PROGRESS_FORMAT:0 "$VALUE|0$/100"
- TV_C_PROGRESS_CHANGE_FORMAT:0 "$VALUE|2$/month"
- TV_D_PROGRESS_FORMAT:0 "$VALUE|0$/100"
- TV_D_PROGRESS_CHANGE_FORMAT:0 "$VALUE|2$/month"
+ TV_C_PROGRESS_FORMAT:0 "$VAL|0$/100"
+ TV_C_PROGRESS_CHANGE_FORMAT:0 "$KEY$: $VALUE|+=2$"
+ TV_D_PROGRESS_FORMAT:0 "$VAL|0$/100"
+ TV_D_PROGRESS_CHANGE_FORMAT:0 "$KEY$: $VALUE|+=2$"
 
  # ── IO Variable Monthly Change Descriptions ───────────────────────────────────
  TV_C_LITERACY_CONTRIBUTION:0 "Literacy Foundation (population literacy)"

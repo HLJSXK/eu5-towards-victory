@@ -10,10 +10,10 @@
  tv_research_d_progress_desc:0 "衡量由首席科学家主导的集中研究进度。"
 
  # ── IO 变量显示格式 ────────────────────────────────────────────────────────────
- TV_C_PROGRESS_FORMAT:0 "$VALUE|0$/100"
- TV_C_PROGRESS_CHANGE_FORMAT:0 "$VALUE|2$/月"
- TV_D_PROGRESS_FORMAT:0 "$VALUE|0$/100"
- TV_D_PROGRESS_CHANGE_FORMAT:0 "$VALUE|2$/月"
+ TV_C_PROGRESS_FORMAT:0 "$VAL|0$/100"
+ TV_C_PROGRESS_CHANGE_FORMAT:0 "$KEY$: $VALUE|+=2$"
+ TV_D_PROGRESS_FORMAT:0 "$VAL|0$/100"
+ TV_D_PROGRESS_CHANGE_FORMAT:0 "$KEY$: $VALUE|+=2$"
 
  # ── IO 变量月度变化描述 ────────────────────────────────────────────────────────
  TV_C_LITERACY_CONTRIBUTION:0 "识字基础（国民识字率）"
