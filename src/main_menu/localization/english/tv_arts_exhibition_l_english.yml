@@ -87,3 +87,16 @@
 
  # ── M1 grant tooltip (shown in the Cultural Victory M1 event reward) ─────────
  tv_cultural_m1_io_grant_tt: "Establishes the #bold Arts Exhibition#! and begins tracking #bold International Influence#!. Use Send Artist Abroad and Host Domestic Exhibition to grow your influence. Cultural Victory Milestones M2-M5 each require a minimum International Influence threshold."
+
+ # ── Action notification message keys ─────────────────────────────────────────
+ PERFORM_tv_send_artist_abroad_ACTION_SETUP: "When we dispatch one of our artists to tour a foreign court."
+ PERFORM_tv_send_artist_abroad_ACTION_LOG: "We dispatched [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] to [SCOPE.sCountry('target_1').GetNameWithNoTooltip] as a touring artist."
+ PERFORM_tv_send_artist_abroad_ACTION_MAP: ""
+
+ PERFORM_tv_host_domestic_exhibition_ACTION_SETUP: "When we host a domestic arts exhibition."
+ PERFORM_tv_host_domestic_exhibition_ACTION_LOG: "We hosted a domestic arts exhibition."
+ PERFORM_tv_host_domestic_exhibition_ACTION_MAP: ""
+
+ PERFORM_tv_appoint_chief_artist_ACTION_SETUP: "When we appoint a Chief Artist to lead the Arts Exhibition."
+ PERFORM_tv_appoint_chief_artist_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as Chief Artist."
+ PERFORM_tv_appoint_chief_artist_ACTION_MAP: ""

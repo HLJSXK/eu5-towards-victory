@@ -155,3 +155,12 @@
  TV_ALLIANCE_LAWS_TAB: "联盟法律"
  TV_ALLIANCE_ASSEMBLY_TAB: "联盟议会"
  tv_alliance_assembly: "联盟议会"
+
+ # ── 行动通知消息键 ─────────────────────────────────────────────────────────────
+ WE_PERFORM_tv_seek_diplomatic_support_ACTION_SETUP: "当我们向其他国家寻求外交支持时。"
+ WE_PERFORM_tv_seek_diplomatic_support_ACTION_LOG: "我们向[SCOPE.sCountry('target').GetNameWithNoTooltip]寻求了外交支持。"
+ WE_PERFORM_tv_seek_diplomatic_support_ACTION_MAP: ""
+
+ ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_SETUP: "当其他国家向我们寻求外交支持时。"
+ ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_LOG: "[SCOPE.sCountry('actor').GetName]向我们寻求了外交支持。"
+ ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_MAP: ""

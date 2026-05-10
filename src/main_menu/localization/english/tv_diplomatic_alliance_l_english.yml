@@ -155,3 +155,12 @@
  TV_ALLIANCE_LAWS_TAB: "Alliance Laws"
  TV_ALLIANCE_ASSEMBLY_TAB: "Assembly"
  tv_alliance_assembly: "Alliance Assembly"
+
+ # ── Action notification message keys ─────────────────────────────────────────
+ WE_PERFORM_tv_seek_diplomatic_support_ACTION_SETUP: "When we seek diplomatic support from another country."
+ WE_PERFORM_tv_seek_diplomatic_support_ACTION_LOG: "We sought diplomatic support from [SCOPE.sCountry('target').GetNameWithNoTooltip]."
+ WE_PERFORM_tv_seek_diplomatic_support_ACTION_MAP: ""
+
+ ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_SETUP: "When another country seeks our diplomatic support."
+ ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_LOG: "[SCOPE.sCountry('actor').GetName] sought our diplomatic support."
+ ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_MAP: ""
