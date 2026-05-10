@@ -143,6 +143,15 @@ tv_academy_of_sciences = {
 		if = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
+			scope:actor = {
+				set_variable = { name = tv_research_phase value = 0 }
+				set_variable = { name = tv_research_interest value = 0 }
+				set_variable = { name = tv_research_b_done value = 0 }
+				set_variable = { name = tv_rm_subprocess_a value = 0 }
+				set_variable = { name = tv_rm_subprocess_b value = 0 }
+				set_variable = { name = tv_rm_subprocess_c value = 0 }
+				set_variable = { name = tv_rm_subprocess_d_ready value = 0 }
+			}
 		}
 	}
 

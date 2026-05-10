@@ -85,3 +85,9 @@
  PERFORM_tv_start_concentrated_research_ACTION_SETUP: "当我们开始集中研究时。"
  PERFORM_tv_start_concentrated_research_ACTION_LOG: "我们开始了集中研究。"
  PERFORM_tv_start_concentrated_research_ACTION_MAP: ""
+
+ # ── 开始集中研究（D阶段）允许条件提示 ─────────────────────────────────────
+ tv_start_d_requires_phase1_tt: "已选定研究目标，且子进程A、B、C正在进行中"
+ tv_start_d_requires_a_tt: "子进程A（学术兴趣）已完成"
+ tv_start_d_requires_b_tt: "子进程B（先决条件研究）已完成"
+ tv_start_d_requires_c_tt: "子进程C（理论发展）已完成"

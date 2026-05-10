@@ -36,7 +36,7 @@ tv_research_init_cycle_effect = {
 # Clears all progress variables. tv_research_target and tv_research_phase are removed.
 # tv_research_selection_cd is NOT touched here; set it separately if needed.
 tv_research_reset_cycle_effect = {
-	remove_variable = tv_research_phase
+	set_variable = { name = tv_research_phase value = 0 }
 	remove_variable = tv_research_target
 	remove_variable = tv_research_proposed_advance
 	remove_variable = tv_research_interest
