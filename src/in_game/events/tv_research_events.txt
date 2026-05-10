@@ -10,7 +10,7 @@ tv_research.1 = {
 	type = country_event
 	title = tv_research.1.t
 	desc = tv_research.1.d
-	flavor = flavor_neutral
+	outcome = neutral
 
 	trigger = {
 		has_variable = tv_academy_io_member
@@ -22,12 +22,10 @@ tv_research.1 = {
 	option = {
 		name = tv_research.1.a	# "Encourage the inquiry"
 		change_variable = { name = tv_research_interest add = 1 }
-		# Update display state: 1 = in progress
 		if = {
 			limit = { NOT = { var:tv_rm_subprocess_a >= 1 } }
 			set_variable = { name = tv_rm_subprocess_a value = 1 }
 		}
-		# Check A completion
 		if = {
 			limit = { tv_research_check_a_trigger = yes }
 			tv_research_complete_a_effect = yes
@@ -46,14 +44,18 @@ tv_research.10 = {
 	type = country_event
 	title = tv_research.10.t
 	desc = {
-		desc = tv_research.10.d_printing_press
-		trigger = { var:tv_research_proposed_advance = 1 }
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 1 }
+				desc = tv_research.10.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 2 }
+				desc = tv_research.10.d_steam_engine
+			}
+		}
 	}
-	desc = {
-		desc = tv_research.10.d_steam_engine
-		trigger = { var:tv_research_proposed_advance = 2 }
-	}
-	flavor = flavor_good
+	outcome = neutral
 
 	trigger = {
 		has_variable = tv_research_proposed_advance
@@ -77,7 +79,7 @@ tv_research.11 = {
 	type = country_event
 	title = tv_research.11.t
 	desc = tv_research.11.d
-	flavor = flavor_bad
+	outcome = bad
 
 	trigger = {
 		has_variable = tv_research_target
@@ -98,7 +100,7 @@ tv_research.20 = {
 	type = country_event
 	title = tv_research.20.t
 	desc = tv_research.20.d
-	flavor = flavor_good
+	outcome = good
 
 	trigger = {
 		tv_research_can_start_d_trigger = yes
@@ -120,14 +122,17 @@ tv_research.30 = {
 	type = country_event
 	title = tv_research.30.t
 	desc = {
-		desc = tv_research.30.d_printing_press
-		trigger = { var:tv_advance_printing_press_unlocked = 1 }
+		first_valid = {
+			triggered_desc = {
+				trigger = { has_variable = tv_advance_printing_press_unlocked }
+				desc = tv_research.30.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { has_variable = tv_advance_steam_engine_unlocked }
+				desc = tv_research.30.d_steam_engine
+			}
+		}
 	}
-	desc = {
-		desc = tv_research.30.d_steam_engine
-		trigger = { var:tv_advance_steam_engine_unlocked = 1 }
-	}
-	flavor = flavor_good
 	outcome = good
 
 	option = {
