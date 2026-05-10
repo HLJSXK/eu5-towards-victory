@@ -71,7 +71,47 @@ organization_panel = {
 					}
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)2.0')]"
-						text = "TV_RM_TARGET_STEAM_ENGINE"
+						text = "TV_RM_TARGET_IRON_WORKING"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)3.0')]"
+						text = "TV_RM_TARGET_ANATOMY"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)4.0')]"
+						text = "TV_RM_TARGET_GUNPOWDER"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)5.0')]"
+						text = "TV_RM_TARGET_BLAST_FURNACE"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)6.0')]"
+						text = "TV_RM_TARGET_SCIENTIFIC_EXPERIMENTATION"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)7.0')]"
+						text = "TV_RM_TARGET_SCIENTIFIC_REVOLUTION"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)8.0')]"
+						text = "TV_RM_TARGET_MANUFACTORIES"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)9.0')]"
+						text = "TV_RM_TARGET_INDUSTRIALIZATION"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)10.0')]"
+						text = "TV_RM_TARGET_VACCINATION"
 						align = nobaseline
 					}
 				}
