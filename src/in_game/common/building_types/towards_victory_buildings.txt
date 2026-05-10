@@ -51,6 +51,7 @@ tv_academy_of_sciences_1 = {
 			location.owner = {
 				set_variable = { name = tv_academy_of_sciences_level value = 1 }
 				tv_check_science_milestones_effect = yes
+				trigger_event_non_silently = { id = tv_academy.1 }
 			}
 		}
 	}

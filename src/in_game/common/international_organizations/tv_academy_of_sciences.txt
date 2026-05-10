@@ -1,0 +1,66 @@
+# Towards Victory — Academy of Sciences International Organization type definition
+# Non-unique IO; each country pursuing Scientific Victory creates their own instance
+# when they build tv_academy_of_sciences_1 (Phase I building).
+# Country membership flag: tv_academy_io_member (set to 1 when joining).
+# Research subprocess state and target advance are country-scoped variables (Phase 4).
+#
+# Verification — Step 3, Reference: tv_arts_exhibition.txt:6-83
+#   Quote: "tv_arts_exhibition = { has_target = no  has_leader_country = yes  leader_type = country
+#           on_creation = { if = { limit = { exists = scope:actor } set_leader_country = scope:actor } }
+#           auto_disband_trigger = { total_members < 1 } }"
+
+tv_academy_of_sciences = {
+	has_target = no
+	has_leader_country = yes
+	leader_title_key = "TV_ACADEMY_IO_LEADER"
+	leader_type = country
+	leader_change_trigger_type = none
+	leader_change_method = none
+	disband_if_no_leader = no
+	show_on_diplomatic_map = no
+
+	variables = {
+	}
+
+	modifier = {
+	}
+
+	on_creation = {
+		if = {
+			limit = { exists = scope:actor }
+			set_leader_country = scope:actor
+		}
+	}
+
+	create_visible_trigger = {
+		always = no
+	}
+
+	invite_visible_trigger = {
+		always = no
+	}
+
+	can_join_trigger = {
+		always = no
+	}
+
+	can_leave_trigger = {
+		always = no
+	}
+
+	auto_leave_trigger = {
+		always = no
+	}
+
+	auto_disband_trigger = {
+		total_members < 1
+	}
+
+	join_defensive_wars_always = {
+		always = no
+	}
+
+	join_offensive_wars_always = {
+		always = no
+	}
+}

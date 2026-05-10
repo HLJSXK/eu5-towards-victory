@@ -2136,6 +2136,180 @@ situation_panel = {
 				}
 			}
 
+			# ── Academy of Sciences IO sub-block (Science path) ─────────────────────────
+			# Verification — Step 3, Reference: tv_victory_situation.gui:1326
+			#   Quote: "visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable(...).GetValue, '(CFixedPoint)1.0')]""
+			# Verification — Step 3, Reference: ai_diplomatic_objectives_viewer.gui:195
+			#   Quote: "visible = "[Not(AiDiplomaticObjectiveGroup.IsImportant)]""
+			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.15 } }
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 2
+				margin = { 8 4 }
+				background = {
+					texture = "gfx/interface/component_tiles/square_tile.dds"
+					alpha = 0.06
+					spriteType = CorneredStretched
+					spriteborder = { 4 4 }
+				}
+
+				# ── Header ────────────────────────────────────────────────────────────
+				text_single = {
+					layoutpolicy_horizontal = expanding
+					text = "TV_ACADEMY_IO_HEADER"
+					align = center
+					fontsize = 13
+					margin = { 0 2 }
+				}
+
+				# ── IO membership status ──────────────────────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					margin = { 4 0 }
+					text_single = {
+						text = "TV_ACADEMY_JOINED_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[Country.MakeScope.GetVariable('tv_academy_io_member').IsSet]"
+						text = "TV_ACADEMY_JOINED_YES"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[Not(Country.MakeScope.GetVariable('tv_academy_io_member').IsSet)]"
+						text = "TV_ACADEMY_JOINED_NO"
+						align = nobaseline
+					}
+				}
+
+				# ── Subprocess A status ────────────────────────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					margin = { 4 0 }
+					text_single = {
+						text = "TV_ACADEMY_SUBPROCESS_A_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_a').GetValue, '(CFixedPoint)0.0')]"
+						text = "TV_RM_STATUS_NOT_STARTED"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_a').GetValue, '(CFixedPoint)1.0')]"
+						text = "TV_RM_STATUS_IN_PROGRESS"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_a').GetValue, '(CFixedPoint)2.0')]"
+						text = "TV_RM_STATUS_COMPLETE"
+						align = nobaseline
+					}
+				}
+
+				# ── Subprocess B status ────────────────────────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					margin = { 4 0 }
+					text_single = {
+						text = "TV_ACADEMY_SUBPROCESS_B_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)0.0')]"
+						text = "TV_RM_STATUS_NOT_STARTED"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)1.0')]"
+						text = "TV_RM_STATUS_IN_PROGRESS"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')]"
+						text = "TV_RM_STATUS_COMPLETE"
+						align = nobaseline
+					}
+				}
+
+				# ── Subprocess C status ────────────────────────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					margin = { 4 0 }
+					text_single = {
+						text = "TV_ACADEMY_SUBPROCESS_C_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_c').GetValue, '(CFixedPoint)0.0')]"
+						text = "TV_RM_STATUS_NOT_STARTED"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_c').GetValue, '(CFixedPoint)1.0')]"
+						text = "TV_RM_STATUS_IN_PROGRESS"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_c').GetValue, '(CFixedPoint)2.0')]"
+						text = "TV_RM_STATUS_COMPLETE"
+						align = nobaseline
+					}
+				}
+
+				# ── Subprocess D ready ─────────────────────────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					margin = { 4 0 }
+					text_single = {
+						text = "TV_ACADEMY_SUBPROCESS_D_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)0.0')]"
+						text = "TV_RM_STATUS_NOT_READY"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0')]"
+						text = "TV_RM_STATUS_READY"
+						align = nobaseline
+					}
+				}
+
+				# ── Target advance ─────────────────────────────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					margin = { 4 2 }
+					text_single = {
+						text = "TV_ACADEMY_TARGET_ADVANCE_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[Not(Country.MakeScope.GetVariable('tv_rm_target_advance').IsSet)]"
+						text = "TV_ACADEMY_TARGET_NONE"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[Country.MakeScope.GetVariable('tv_rm_target_advance').IsSet]"
+						text = "TV_ACADEMY_TARGET_SELECTED"
+						align = nobaseline
+					}
+				}
+			}
+
 			# ── SECTION 3: Global Rankings ────────────────────────────────────────────────
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			text_single = {
