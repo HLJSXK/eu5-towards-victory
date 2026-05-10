@@ -457,6 +457,15 @@
   source: "reference_game_files/game/in_game/common/country_interactions/invite_artist.txt:129 (add = scope:target.artist_skill confirms chained character-scope access); hellenism_religion.txt:2866 (value = artist_skill as direct scripted value)"
   notes: "local_var is NOT reliably propagated when reading it from prev = {} after a var:X ?= {} block. The local variable appears to be tied to the scope frame of the block where it was set; on exit via prev or other scope navigation, the local_var reference resolves to 0 or causes an error. The fix is to eliminate scope switching entirely: var:X.some_scripted_value reads the scripted value directly on the referenced character from the current scope."
 
+- id: create_io_inner_effects_must_be_hidden
+  pattern: ''
+  bad: "add_country_to_international_organization = prev or set_leader_country = prev placed as direct (visible) children of create_international_organization = { ... }"
+  correction: "Wrap add_country_to_international_organization and set_leader_country inside hidden_effect = { } within the create_international_organization block: create_international_organization = { type = ... hidden_effect = { add_country_to_international_organization = prev  set_leader_country = prev } }"
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/events/situations/red_turban_rebellions.txt:379-386"
+  notes: "The vanilla tooltip strings THIRD_ADD_TO_INTERNATIONAL_ORGANIZATION_EFFECT and SET_LEADER_EFFECT use INTERNATIONAL_ORGANIZATION.GetName / .GetLeaderTitle. When these effects are visible children of create_international_organization, the engine evaluates the tooltip before the IO is fully instantiated, causing 'Promote INTERNATIONAL_ORGANIZATION returned nullptr' errors. Wrapping in hidden_effect suppresses tooltip generation and eliminates the errors. The outer create_international_organization tooltip (CREATE_INTERNATIONAL_ORGANIZATION_EFFECT) still shows correctly."
+
 - id: var_optional_scope_silent_fail_nested_random_list
   pattern: ''
   bad: "var:X ?= { trigger_event_non_silently = ... } or var:X ?= { change_variable = ... } inside a random_list weight branch that is itself inside another random_list or every_character"
