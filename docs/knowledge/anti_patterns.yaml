@@ -512,7 +512,7 @@
   notes: "EU5 Jomini evaluates ALL conditions inside a single scope block for tooltip/UI display purposes, even if earlier conditions short-circuit the logical result. The outer-level AND (between separate scope:actor = {} blocks) DOES short-circuit. Mixing has_variable guards and var: reads in the same block will spam 'Failed to fetch variable' errors at game start when the action is evaluated for countries that never set those variables."
 
 - id: advance_inject_duplicates_allow_block
-  pattern: 'INJECT:\w+\s*=\s*\{[^}]*allow\s*='
+  pattern: ''
   bad: "INJECT:advance_name = { allow = { ... } } when the vanilla advance already has an allow block"
   correction: "Use REPLACE:advance_name = { <full vanilla block> allow = { OR = { <mod condition> <original condition> } } } to merge conditions. Use INJECT only for advances with no existing allow block."
   category: modifier
