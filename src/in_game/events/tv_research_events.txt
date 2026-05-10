@@ -1,0 +1,136 @@
+﻿# Towards Victory — Research Mechanism Events
+# Covers: A interest accumulation, target selection, D start confirmation, D unlock notification.
+
+namespace = tv_research
+
+# ── tv_research.1 — Interest Collection (Sub-process A) ─────────────────────────
+# Fires monthly via random_events when the research cycle is in phase 1 and A is incomplete.
+# Player encourages inquiry (+1 interest) or dismisses (no effect).
+tv_research.1 = {
+	type = country_event
+	title = tv_research.1.t
+	desc = tv_research.1.d
+	flavor = flavor_neutral
+
+	trigger = {
+		has_variable = tv_academy_io_member
+		has_variable = tv_research_phase
+		var:tv_research_phase = 1
+		NOT = { var:tv_rm_subprocess_a >= 2 }
+	}
+
+	option = {
+		name = tv_research.1.a	# "Encourage the inquiry"
+		change_variable = { name = tv_research_interest add = 1 }
+		# Update display state: 1 = in progress
+		if = {
+			limit = { NOT = { var:tv_rm_subprocess_a >= 1 } }
+			set_variable = { name = tv_rm_subprocess_a value = 1 }
+		}
+		# Check A completion
+		if = {
+			limit = { tv_research_check_a_trigger = yes }
+			tv_research_complete_a_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.1.b	# "Dismiss it"
+	}
+}
+
+# ── tv_research.10 — Target Selection Proposal ───────────────────────────────────
+# Fired by tv_request_research_target generic action.
+# Proposes the advance stored in tv_research_proposed_advance.
+# Player authorizes (starts cycle) or vetoes (12-month cooldown).
+tv_research.10 = {
+	type = country_event
+	title = tv_research.10.t
+	desc = {
+		desc = tv_research.10.d_printing_press
+		trigger = { var:tv_research_proposed_advance = 1 }
+	}
+	desc = {
+		desc = tv_research.10.d_steam_engine
+		trigger = { var:tv_research_proposed_advance = 2 }
+	}
+	flavor = flavor_good
+
+	trigger = {
+		has_variable = tv_research_proposed_advance
+		NOT = { has_variable = tv_research_target }
+	}
+
+	option = {
+		name = tv_research.10.a	# "Authorize the investigation"
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.b	# "Veto (12-month cooldown)"
+		remove_variable = tv_research_proposed_advance
+		set_variable = { name = tv_research_selection_cd value = 12 }
+	}
+}
+
+# ── tv_research.11 — Abandon Target Confirmation ─────────────────────────────────
+# Fired by tv_abandon_research_target generic action.
+tv_research.11 = {
+	type = country_event
+	title = tv_research.11.t
+	desc = tv_research.11.d
+	flavor = flavor_bad
+
+	trigger = {
+		has_variable = tv_research_target
+	}
+
+	option = {
+		name = tv_research.11.a	# "Abandon the research"
+		tv_research_abandon_effect = yes
+	}
+	option = {
+		name = tv_research.11.b	# "Continue (cancel)"
+	}
+}
+
+# ── tv_research.20 — Start Concentrated Research (D) Confirmation ────────────────
+# Fired by tv_start_concentrated_research generic action.
+tv_research.20 = {
+	type = country_event
+	title = tv_research.20.t
+	desc = tv_research.20.d
+	flavor = flavor_good
+
+	trigger = {
+		tv_research_can_start_d_trigger = yes
+	}
+
+	option = {
+		name = tv_research.20.a	# "Begin concentrated research"
+		tv_research_start_d_effect = yes
+	}
+	option = {
+		name = tv_research.20.b	# "Not yet"
+	}
+}
+
+# ── tv_research.30 — Advance Unlocked Notification ───────────────────────────────
+# Fired by tv_research_concentrated_complete_effect when D finishes.
+# The unlock has already been applied before this event fires.
+tv_research.30 = {
+	type = country_event
+	title = tv_research.30.t
+	desc = {
+		desc = tv_research.30.d_printing_press
+		trigger = { var:tv_advance_printing_press_unlocked = 1 }
+	}
+	desc = {
+		desc = tv_research.30.d_steam_engine
+		trigger = { var:tv_advance_steam_engine_unlocked = 1 }
+	}
+	flavor = flavor_good
+	outcome = good
+
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+	}
+}

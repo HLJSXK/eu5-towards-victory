@@ -2298,13 +2298,18 @@ situation_panel = {
 					}
 					expand = {}
 					text_single = {
-						visible = "[Not(Country.MakeScope.GetVariable('tv_rm_target_advance').IsSet)]"
+						visible = "[Not(Country.MakeScope.GetVariable('tv_research_target').IsSet)]"
 						text = "TV_ACADEMY_TARGET_NONE"
 						align = nobaseline
 					}
 					text_single = {
-						visible = "[Country.MakeScope.GetVariable('tv_rm_target_advance').IsSet]"
-						text = "TV_ACADEMY_TARGET_SELECTED"
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)1.0')]"
+						text = "TV_RM_TARGET_PRINTING_PRESS"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)2.0')]"
+						text = "TV_RM_TARGET_STEAM_ENGINE"
 						align = nobaseline
 					}
 				}

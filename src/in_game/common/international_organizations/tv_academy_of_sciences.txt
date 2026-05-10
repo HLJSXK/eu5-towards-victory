@@ -2,27 +2,141 @@
 # Non-unique IO; each country pursuing Scientific Victory creates their own instance
 # when they build tv_academy_of_sciences_1 (Phase I building).
 # Country membership flag: tv_academy_io_member (set to 1 when joining).
-# Research subprocess state and target advance are country-scoped variables (Phase 4).
+# Research subprocess state and target advance are country-scoped variables.
+# C and D progress tracked as IO variables (vanilla variable system).
 #
-# Verification — Step 3, Reference: tv_arts_exhibition.txt:6-83
-#   Quote: "tv_arts_exhibition = { has_target = no  has_leader_country = yes  leader_type = country
-#           on_creation = { if = { limit = { exists = scope:actor } set_leader_country = scope:actor } }
-#           auto_disband_trigger = { total_members < 1 } }"
+# Verification — Step 3, Reference: hre.txt:19-44
+#   Quote: "has_leader_country = yes  leader_title_key = "HRE_LEADER"  use_regnal_number = yes
+#           leader_type = character  leader = { leader_country ?= { ... ruler ?= { add_to_list = leaders } } }
+#           leader_change_trigger_type = rulerchange  leader_change_method = vote"
+# Verification — Step 3, Reference: hre.txt:396-700
+#   Quote: "variables = { imperial_authority = { format = ... min = 0  max = 100
+#           monthly_change = { add = { desc = "..." value = 0  if = { ... } } } } }"
+# Verification — Step 3, Reference: hre.txt:661-663
+#   Quote: "value = "leader_country.ruler_or_heir_if_regent.adm""
+# Verification — Step 3, Reference: imperial_examination_events.txt:20
+#   Quote: "value = root.average_country_literacy"  (range 0-100)
 
 tv_academy_of_sciences = {
 	has_target = no
 	has_leader_country = yes
 	leader_title_key = "TV_ACADEMY_IO_LEADER"
-	leader_type = country
-	leader_change_trigger_type = none
+	leader_type = character
+	leader_change_trigger_type = rulerchange
 	leader_change_method = none
 	disband_if_no_leader = no
 	show_on_diplomatic_map = no
 
+	leader = {
+		leader_country ?= {
+			ruler ?= {
+				add_to_list = leaders
+			}
+		}
+	}
+
+	# ── IO Variables: C and D research progress ───────────────────────────────
+	# These are auto-accumulated via monthly_change; completion is detected in monthly_effect.
+	# Calibration C: average_country_literacy * 0.05 /month → 100 in ~40 months at literacy=50.
+	# Calibration D: ruler.adm * 1.0 /month → 100 in ~17 months at adm=6.
 	variables = {
+		tv_research_c_progress = {
+			format = "TV_C_PROGRESS_FORMAT"
+			change_format = "TV_C_PROGRESS_CHANGE_FORMAT"
+			min = 0
+			max = 100
+			start = 0
+			monthly_change = {
+				add = {
+					desc = "TV_C_LITERACY_CONTRIBUTION"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								has_variable = tv_research_phase
+								var:tv_research_phase = 1
+								NOT = { var:tv_rm_subprocess_c >= 2 }
+							}
+						}
+						value = leader_country.average_country_literacy
+						multiply = 0.05
+					}
+				}
+			}
+		}
+		tv_research_d_progress = {
+			format = "TV_D_PROGRESS_FORMAT"
+			change_format = "TV_D_PROGRESS_CHANGE_FORMAT"
+			min = 0
+			max = 100
+			start = 0
+			monthly_change = {
+				add = {
+					desc = "TV_D_RESEARCH_CONTRIBUTION"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								has_variable = tv_research_phase
+								var:tv_research_phase = 2
+							}
+						}
+						value = leader_country.ruler_or_heir_if_regent.adm
+						multiply = 1.0
+					}
+				}
+			}
+		}
 	}
 
 	modifier = {
+	}
+
+	# ── Monthly effect: completion detection, D gold cost, display state updates ──
+	monthly_effect = {
+		# C: update in-progress display (0→1) when C has begun accumulating
+		if = {
+			limit = {
+				var:tv_research_c_progress > 0
+				leader_country ?= { NOT = { var:tv_rm_subprocess_c >= 1 } }
+			}
+			leader_country ?= { set_variable = { name = tv_rm_subprocess_c value = 1 } }
+		}
+		# C: completion (1→2) when C reaches 100
+		if = {
+			limit = {
+				var:tv_research_c_progress >= 100
+				leader_country ?= { NOT = { var:tv_rm_subprocess_c >= 2 } }
+			}
+			leader_country ?= { tv_research_complete_c_effect = yes }
+		}
+		# D: monthly gold cost when concentrated research is active
+		if = {
+			limit = {
+				leader_country ?= {
+					has_variable = tv_research_phase
+					var:tv_research_phase = 2
+				}
+			}
+			leader_country ?= {
+				add_gold = {
+					value = ruler_or_heir_if_regent.dip
+					add = ruler_or_heir_if_regent.mil
+					multiply = -0.5
+				}
+			}
+		}
+		# D: completion when D reaches 100
+		if = {
+			limit = {
+				var:tv_research_d_progress >= 100
+				leader_country ?= {
+					has_variable = tv_research_phase
+					var:tv_research_phase = 2
+				}
+			}
+			leader_country ?= { tv_research_concentrated_complete_effect = yes }
+		}
 	}
 
 	on_creation = {

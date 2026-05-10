@@ -1,0 +1,142 @@
+﻿# Towards Victory — Research Mechanism Subprocess Effects
+# All effects are country-scoped unless noted.
+# IO variables (tv_research_c_progress, tv_research_d_progress) are reset by navigating
+# to the Academy IO via every_international_organizations_member_of.
+#
+# Verification — Step 3, Reference: jurchen_confederation_events.txt:47-54
+#   Quote: "every_international_organizations_member_of = { limit = {
+#           international_organization_type = international_organization_type:jurchen_confederation }
+#           leader_country ?= { save_scope_as = target_jc_leader } }"
+
+# ── Internal helper: reset IO-scoped progress variables ───────────────────────
+tv_research_reset_io_progress_effect = {
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_academy_of_sciences
+		}
+		set_variable = { name = tv_research_c_progress value = 0 }
+		set_variable = { name = tv_research_d_progress value = 0 }
+	}
+}
+
+# ── Initialize research cycle ──────────────────────────────────────────────────
+# Called when the player confirms a research target. Starts phase 1 (A/B/C running).
+tv_research_init_cycle_effect = {
+	set_variable = { name = tv_research_phase value = 1 }
+	set_variable = { name = tv_research_interest value = 0 }
+	set_variable = { name = tv_research_b_done value = 0 }
+	set_variable = { name = tv_rm_subprocess_a value = 0 }
+	set_variable = { name = tv_rm_subprocess_b value = 0 }
+	set_variable = { name = tv_rm_subprocess_c value = 0 }
+	set_variable = { name = tv_rm_subprocess_d_ready value = 0 }
+	tv_research_reset_io_progress_effect = yes
+}
+
+# ── Reset full research cycle (after completion or abandon) ───────────────────
+# Clears all progress variables. tv_research_target and tv_research_phase are removed.
+# tv_research_selection_cd is NOT touched here; set it separately if needed.
+tv_research_reset_cycle_effect = {
+	remove_variable = tv_research_phase
+	remove_variable = tv_research_target
+	remove_variable = tv_research_proposed_advance
+	remove_variable = tv_research_interest
+	remove_variable = tv_research_b_done
+	set_variable = { name = tv_rm_subprocess_a value = 0 }
+	set_variable = { name = tv_rm_subprocess_b value = 0 }
+	set_variable = { name = tv_rm_subprocess_c value = 0 }
+	set_variable = { name = tv_rm_subprocess_d_ready value = 0 }
+	tv_research_reset_io_progress_effect = yes
+}
+
+# ── Abandon research cycle ─────────────────────────────────────────────────────
+# Resets cycle and applies 12-month cooldown on target selection.
+tv_research_abandon_effect = {
+	tv_research_reset_cycle_effect = yes
+	set_variable = { name = tv_research_selection_cd value = 12 }
+}
+
+# ── Sub-process A complete ────────────────────────────────────────────────────
+tv_research_complete_a_effect = {
+	set_variable = { name = tv_rm_subprocess_a value = 2 }
+	tv_research_check_d_ready_effect = yes
+}
+
+# ── Sub-process B complete ────────────────────────────────────────────────────
+tv_research_complete_b_effect = {
+	set_variable = { name = tv_research_b_done value = 1 }
+	set_variable = { name = tv_rm_subprocess_b value = 2 }
+	tv_research_check_d_ready_effect = yes
+}
+
+# ── Sub-process C complete (called from IO monthly_effect) ────────────────────
+tv_research_complete_c_effect = {
+	set_variable = { name = tv_rm_subprocess_c value = 2 }
+	tv_research_check_d_ready_effect = yes
+}
+
+# ── Check if D is now ready ────────────────────────────────────────────────────
+# Called after each subprocess completes to potentially enable the D button.
+tv_research_check_d_ready_effect = {
+	if = {
+		limit = { tv_research_can_start_d_trigger = yes }
+		set_variable = { name = tv_rm_subprocess_d_ready value = 1 }
+	}
+}
+
+# ── Start sub-process D (Concentrated Research) ───────────────────────────────
+# Called from the confirmation event when player clicks the D button.
+tv_research_start_d_effect = {
+	set_variable = { name = tv_research_phase value = 2 }
+}
+
+# ── Concentrated Research complete ────────────────────────────────────────────
+# Called from IO monthly_effect when tv_research_d_progress >= 100.
+# Dispatches the unlock for the selected target advance, fires notification event,
+# then resets the cycle for the next round.
+tv_research_concentrated_complete_effect = {
+	# Unlock the target advance based on tv_research_target value
+	if = {
+		limit = { var:tv_research_target = 1 }
+		tv_unlock_advance_printing_press_effect = yes
+	}
+	if = {
+		limit = { var:tv_research_target = 2 }
+		tv_unlock_advance_steam_engine_effect = yes
+	}
+	# Notify the player
+	trigger_event_non_silently = { id = tv_research.30 }
+	# Reset cycle for next round
+	tv_research_reset_cycle_effect = yes
+}
+
+# ── Propose research target ────────────────────────────────────────────────────
+# Selects a random locked advance and stores it as tv_research_proposed_advance,
+# then fires the target selection event.
+# Target enum: 1 = printing_press, 2 = steam_engine.
+tv_research_propose_target_effect = {
+	random_list = {
+		1 = {
+			modifier = {
+				factor = 0
+				has_variable = tv_advance_printing_press_unlocked
+			}
+			set_variable = { name = tv_research_proposed_advance value = 1 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				has_variable = tv_advance_steam_engine_unlocked
+			}
+			set_variable = { name = tv_research_proposed_advance value = 2 }
+		}
+	}
+	trigger_event_non_silently = { id = tv_research.10 }
+}
+
+# ── Confirm selected target and start cycle ────────────────────────────────────
+# Called from the target selection event when the player authorizes.
+tv_research_confirm_target_effect = {
+	set_variable = { name = tv_research_target value = var:tv_research_proposed_advance }
+	remove_variable = tv_research_proposed_advance
+	tv_research_init_cycle_effect = yes
+}

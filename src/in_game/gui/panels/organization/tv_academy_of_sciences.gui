@@ -1,0 +1,252 @@
+﻿# Towards Victory — Academy of Sciences IO Panel
+# Provides the interactive research mechanism UI: research target selection,
+# subprocess A/B/C/D status display, and action buttons.
+#
+# Verification — Step 3, Reference: tv_arts_exhibition.gui:1-141
+#   Quote: "organization_panel = { blockoverride "organization_main_actions_extra_visible" { visible = yes }
+#           blockoverride "organization_main_actions_extra" { action_button_diamond = {
+#           actor = "[InternationalOrganizationsView.GetPlayer]"
+#           left_action = { action_name = "tv_appoint_chief_artist" } } } }"
+# Verification — Step 3, Reference: tv_arts_exhibition.gui:37
+#   Quote: "datacontext = "[InternationalOrganizationsView.GetPlayer]""
+# Verification — Step 3, Reference: tv_arts_exhibition.gui:46-49
+#   Quote: "visible = "[Country.MakeScope.GetVariable('tv_chief_artist').IsSet]""
+
+organization_panel = {
+
+	blockoverride "organization_overview_tab_visible" {}
+
+	blockoverride "organization_panel_overview_visible" {
+		visible = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
+	}
+
+	blockoverride "organization_members_tab_down" {
+		down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+	}
+
+	blockoverride "organization_panel_members_visible" {
+		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+	}
+
+	blockoverride "scroll_overview_empty_visible" { visible = no }
+
+	blockoverride "io_main_actions_icon" {
+		texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetIcon]"
+	}
+
+	blockoverride "organization_main_actions_extra_visible" {
+		visible = yes
+	}
+
+	blockoverride "organization_main_actions_extra" {
+
+		# ── Research Status Overview ──────────────────────────────────────────
+		widget = {
+			size = { 470 200 }
+			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 4
+				margin = { 4 6 }
+
+				# ── Current Research Target ───────────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = {
+						text = "TV_ACADEMY_TARGET_ADVANCE_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[Not(Country.MakeScope.GetVariable('tv_research_target').IsSet)]"
+						text = "TV_ACADEMY_TARGET_NONE"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)1.0')]"
+						text = "TV_RM_TARGET_PRINTING_PRESS"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)2.0')]"
+						text = "TV_RM_TARGET_STEAM_ENGINE"
+						align = nobaseline
+					}
+				}
+
+				# ── Selection Cooldown ────────────────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					visible = "[Country.MakeScope.GetVariable('tv_research_selection_cd').IsSet]"
+					text_single = {
+						text = "TV_RM_SELECTION_CD_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						raw_text = "[Country.MakeScope.GetVariable('tv_research_selection_cd').GetValue|0]"
+						align = nobaseline
+					}
+				}
+
+				# ── Chief Scientist (IO Leader) ───────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					visible = "[InternationalOrganizationsView.GetInternationalOrganization.HasLeader]"
+					text_single = {
+						text = "TV_RM_CHIEF_SCIENTIST_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						text = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderName]"
+						align = nobaseline
+					}
+				}
+
+				# ── Subprocess A: Interest Collection ─────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = {
+						text = "TV_ACADEMY_SUBPROCESS_A_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						raw_text = "[Country.MakeScope.GetVariable('tv_research_interest').GetValue|0]/5"
+						visible = "[Country.MakeScope.GetVariable('tv_research_interest').IsSet]"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_a').GetValue, '(CFixedPoint)0.0')]"
+						text = "TV_RM_STATUS_NOT_STARTED"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_a').GetValue, '(CFixedPoint)1.0')]"
+						text = "TV_RM_STATUS_IN_PROGRESS"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_a').GetValue, '(CFixedPoint)2.0')]"
+						text = "TV_RM_STATUS_COMPLETE"
+						align = nobaseline
+					}
+				}
+
+				# ── Subprocess B: Technology Prerequisites ─────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = {
+						text = "TV_ACADEMY_SUBPROCESS_B_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0'))]"
+						text = "TV_RM_STATUS_NOT_STARTED"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')]"
+						text = "TV_RM_STATUS_COMPLETE"
+						align = nobaseline
+					}
+				}
+
+				# ── Subprocess C: Literacy Foundation ─────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = {
+						text = "TV_ACADEMY_SUBPROCESS_C_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_c').GetValue, '(CFixedPoint)0.0')]"
+						text = "TV_RM_STATUS_NOT_STARTED"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_c').GetValue, '(CFixedPoint)1.0')]"
+						text = "TV_RM_STATUS_IN_PROGRESS"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_c').GetValue, '(CFixedPoint)2.0')]"
+						text = "TV_RM_STATUS_COMPLETE"
+						align = nobaseline
+					}
+				}
+
+				# ── Subprocess D: Concentrated Research ───────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = {
+						text = "TV_ACADEMY_SUBPROCESS_D_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0'))]"
+						text = "TV_RM_STATUS_NOT_READY"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0')]"
+						text = "TV_RM_STATUS_READY"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[Country.MakeScope.GetVariable('tv_research_phase').IsSet]"
+						raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_research_d_progress')]"
+						align = nobaseline
+					}
+				}
+			}
+		}
+
+		# ── Action Buttons ────────────────────────────────────────────────────
+
+		# Request Research Target (disabled when cooldown active or target already set)
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "TV_RM_REQUEST_TARGET_BTN"
+			title = "TV_RM_REQUEST_TARGET_BTN"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_request_research_target"
+			}
+		}
+
+		# Abandon Target (visible when target is set)
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "TV_RM_ABANDON_TARGET_BTN"
+			title = "TV_RM_ABANDON_TARGET_BTN"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_abandon_research_target"
+			}
+		}
+
+		# Begin Concentrated Research (visible when A+B+C complete and D not started)
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "TV_RM_START_D_BTN"
+			title = "TV_RM_START_D_BTN"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_start_concentrated_research"
+			}
+		}
+	}
+}

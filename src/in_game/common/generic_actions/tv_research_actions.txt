@@ -1,0 +1,110 @@
+﻿# Towards Victory — Research Mechanism Generic Actions
+# Used by IO panel buttons in tv_academy_of_sciences.gui.
+# type = owncountry; scope:actor = the country performing the action.
+#
+# Verification — Step 3, Reference: tv_arts_exhibition_actions.txt:9-110
+#   Quote: "tv_host_domestic_exhibition = { type = owncountry ... allow = { scope:actor = { ... } }
+#           effect = { scope:actor = { trigger_event_non_silently = tv_arts_exhibition.1 } } }"
+
+# ── Request Research Target ────────────────────────────────────────────────────
+# Opens the semi-random target selection event.
+# Disabled when a cooldown is active or a target is already selected.
+tv_request_research_target = {
+	type = owncountry
+
+	sound = UI_action_religion_generic
+
+	ai_tick = monthly
+	ai_tick_frequency = 24
+
+	potential = {
+		scope:actor = {
+			has_variable = tv_academy_io_member
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			tv_research_can_request_target_trigger = yes
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			tv_research_propose_target_effect = yes
+		}
+	}
+
+	ai_will_do = {
+		add = 10
+	}
+}
+
+# ── Abandon Research Target ────────────────────────────────────────────────────
+# Fires confirmation event that clears all progress and sets 12-month cooldown.
+tv_abandon_research_target = {
+	type = owncountry
+
+	sound = UI_action_religion_generic
+
+	ai_tick = monthly
+	ai_tick_frequency = 12
+
+	potential = {
+		scope:actor = {
+			has_variable = tv_academy_io_member
+			tv_research_has_active_target_trigger = yes
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			tv_research_has_active_target_trigger = yes
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			trigger_event_non_silently = { id = tv_research.11 }
+		}
+	}
+
+	ai_will_do = {
+		add = -100
+	}
+}
+
+# ── Start Concentrated Research (D) ───────────────────────────────────────────
+# Available only when A, B, and C are all complete and D has not yet started.
+# Fires a confirmation event; the player may then confirm or cancel.
+tv_start_concentrated_research = {
+	type = owncountry
+
+	sound = UI_action_religion_generic
+
+	ai_tick = monthly
+	ai_tick_frequency = 6
+
+	potential = {
+		scope:actor = {
+			has_variable = tv_academy_io_member
+			tv_research_can_start_d_trigger = yes
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			tv_research_can_start_d_trigger = yes
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			trigger_event_non_silently = { id = tv_research.20 }
+		}
+	}
+
+	ai_will_do = {
+		add = 50
+	}
+}
