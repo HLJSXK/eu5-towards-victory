@@ -63,15 +63,18 @@ tv_appoint_chief_artist = {
 			scope:target = {
 				set_variable = { name = tv_is_chief_artist value = 1 }
 				set_variable = { name = tv_chief_artist_country value = scope:actor }
-				# Compute initial bonus so the UI shows a value immediately on appointment
-				set_local_variable = { name = ca_init value = artist_skill }
-				change_local_variable = { name = ca_init multiply = 0.002 }
 			}
 
-			# Store references and initial bonus on the country
+			# Store reference on the country; initial bonus computed via chained access
 			scope:actor = {
 				set_variable = { name = tv_chief_artist value = scope:target }
-				set_variable = { name = tv_chief_artist_monthly_bonus value = local_var:ca_init }
+				set_variable = {
+					name = tv_chief_artist_monthly_bonus
+					value = {
+						value = scope:target.artist_skill
+						multiply = 0.002
+					}
+				}
 			}
 		}
 	}

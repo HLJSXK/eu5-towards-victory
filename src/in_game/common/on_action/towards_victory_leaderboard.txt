@@ -22,15 +22,13 @@ monthly_country_pulse = {
 			limit = {
 				has_variable = tv_arts_exhibition_member
 				has_variable = tv_chief_artist
+				var:tv_chief_artist = { is_alive = yes }
 			}
-			var:tv_chief_artist ?= {
-				if = {
-					limit = { is_alive = yes }
-					set_local_variable = { name = ca_bonus value = artist_skill }
-					change_local_variable = { name = ca_bonus multiply = 0.002 }
-					prev = {
-						set_variable = { name = tv_chief_artist_monthly_bonus value = local_var:ca_bonus }
-					}
+			set_variable = {
+				name = tv_chief_artist_monthly_bonus
+				value = {
+					value = var:tv_chief_artist.artist_skill
+					multiply = 0.002
 				}
 			}
 		}

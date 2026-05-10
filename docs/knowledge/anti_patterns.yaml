@@ -447,3 +447,12 @@
   scope: character
   source: "reference_game_files/game/in_game/common/country_interactions/invite_artist.txt:104 (move_country in formal interaction grants courtier); src/in_game/common/on_action/tv_arts_exhibition_on_action.txt"
   notes: "move_country called unilaterally from a generic_action (owncountry type) does NOT grant is_courtier = yes in the destination court. Only formal country_interaction invitations (e.g. invite_artist where the recipient accepts) produce a true courtier relationship. The result: every_character { is_courtier = yes } silently skips the dispatched character in both yearly and monthly pulses — timer never increments, no events fire."
+
+- id: local_var_lost_across_var_scope_switch
+  pattern: 'var:\w+\s*\?=\s*\{[^}]*local_var:|prev\s*=\s*\{[^}]*local_var:'
+  bad: "set_local_variable inside var:X ?= {} then reading local_var: from prev = {} — or setting local_var: before var:X ?= {} and reading inside after. Example: var:tv_chief_artist ?= { set_local_variable = { name = ca value = artist_skill } change_local_variable = { name = ca multiply = 0.002 }  prev = { set_variable = { name = tv_chief_artist_monthly_bonus value = local_var:ca } } }"
+  correction: "Use chained scope access from the original scope instead of switching. To read a character skill stored in a country variable: value = var:tv_chief_artist.artist_skill (reads artist_skill on the referenced character without a scope switch). Wrap in a scripted value block if math is needed: set_variable = { name = tv_chief_artist_monthly_bonus  value = { value = var:tv_chief_artist.artist_skill  multiply = 0.002 } }. Check liveness in the limit: var:tv_chief_artist = { is_alive = yes }."
+  category: scope
+  scope: any
+  source: "reference_game_files/game/in_game/common/country_interactions/invite_artist.txt:129 (add = scope:target.artist_skill confirms chained character-scope access); hellenism_religion.txt:2866 (value = artist_skill as direct scripted value)"
+  notes: "local_var is NOT reliably propagated when reading it from prev = {} after a var:X ?= {} block. The local variable appears to be tied to the scope frame of the block where it was set; on exit via prev or other scope navigation, the local_var reference resolves to 0 or causes an error. The fix is to eliminate scope switching entirely: var:X.some_scripted_value reads the scripted value directly on the referenced character from the current scope."
