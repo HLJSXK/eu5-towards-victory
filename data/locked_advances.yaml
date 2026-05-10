@@ -1,0 +1,39 @@
+# Locked Frontier Technology Advances
+# Each entry defines one advance node that is inaccessible by default and must
+# be unlocked via a complete Research Mechanism cycle in the Academy of Sciences IO.
+#
+# Fields:
+#   id                  EU5 advance key (verified against game files in Phase 5)
+#   label_en            English display name
+#   label_zh            Chinese display name
+#   research_unlock_var Country script variable set to 1 when unlocked
+#   trigger_block       Verbatim EU5 trigger body (is-locked check; inserted as-is)
+#   loc.en              English lock-reason tooltip shown in advance tree
+#   loc.zh              Chinese lock-reason tooltip shown in advance tree
+#
+# NOTE: advance IDs are placeholders pending Phase 5 verification against
+# reference_game_files/game/in_game/common/advances/
+#
+# DO NOT hand-edit generated output files. Run:
+#   conda run --no-capture-output -n eu5 python scripts/gen_locked_advances.py
+
+locked_advances:
+  - id: printing_press
+    label_en: "Printing Press"
+    label_zh: "印刷术"
+    research_unlock_var: tv_advance_printing_press_unlocked
+    trigger_block: |
+      NOT = { has_variable = tv_advance_printing_press_unlocked }
+    loc:
+      en: "Requires Academy Research"
+      zh: "需要科学院研究解锁"
+
+  - id: steam_engine
+    label_en: "Steam Engine"
+    label_zh: "蒸汽机"
+    research_unlock_var: tv_advance_steam_engine_unlocked
+    trigger_block: |
+      NOT = { has_variable = tv_advance_steam_engine_unlocked }
+    loc:
+      en: "Requires Academy Research"
+      zh: "需要科学院研究解锁"
