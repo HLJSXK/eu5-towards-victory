@@ -91,7 +91,7 @@ organization_panel = {
 							autoresize = yes
 						}
 						text_single = {
-							text = "+[Country.MakeScope.GetVariable('tv_chief_artist_monthly_bonus').GetValue|2]"
+							raw_text = "+[Country.MakeScope.GetVariable('tv_chief_artist_monthly_bonus').GetValue|2]"
 							autoresize = yes
 						}
 					}
