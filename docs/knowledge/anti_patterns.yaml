@@ -456,3 +456,12 @@
   scope: any
   source: "reference_game_files/game/in_game/common/country_interactions/invite_artist.txt:129 (add = scope:target.artist_skill confirms chained character-scope access); hellenism_religion.txt:2866 (value = artist_skill as direct scripted value)"
   notes: "local_var is NOT reliably propagated when reading it from prev = {} after a var:X ?= {} block. The local variable appears to be tied to the scope frame of the block where it was set; on exit via prev or other scope navigation, the local_var reference resolves to 0 or causes an error. The fix is to eliminate scope switching entirely: var:X.some_scripted_value reads the scripted value directly on the referenced character from the current scope."
+
+- id: var_optional_scope_silent_fail_nested_random_list
+  pattern: 'var:\w+\s*\?=\s*\{'
+  bad: "var:X ?= { trigger_event_non_silently = ... } or var:X ?= { change_variable = ... } inside a random_list weight branch that is itself inside another random_list or every_character"
+  correction: "Navigate to the scope ONCE before the random_list using save_scope_as: var:tv_exhibition_home_country ?= { save_scope_as = touring_home }. Then use scope:touring_home = { ... } inside every branch. Guard the outer random_list with if = { limit = { exists = scope:touring_home } }."
+  category: scope
+  scope: any
+  source: "src/in_game/common/on_action/towards_victory_leaderboard.txt (Block C rewrite)"
+  notes: "var:X ?= {} is the optional-navigation operator: it silently skips the block if the variable is unset or the target doesn't exist. Inside deeply nested random_list branches (every_character → random_list { 8 = { random_list { weight = { ... } } } }) the optional scope switch silently fails — no engine error is logged, the block is skipped, and no event fires. Pre-saving the target as a named scope before the random_list and using scope:name = {} inside branches is the reliable pattern."
