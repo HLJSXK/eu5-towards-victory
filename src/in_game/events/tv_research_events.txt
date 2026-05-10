@@ -51,7 +51,39 @@ tv_research.10 = {
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance = 2 }
-				desc = tv_research.10.d_steam_engine
+				desc = tv_research.10.d_iron_working
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 3 }
+				desc = tv_research.10.d_anatomy
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 4 }
+				desc = tv_research.10.d_gunpowder
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 5 }
+				desc = tv_research.10.d_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 6 }
+				desc = tv_research.10.d_scientific_experimentation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 7 }
+				desc = tv_research.10.d_scientific_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 8 }
+				desc = tv_research.10.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 9 }
+				desc = tv_research.10.d_industrialization
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 10 }
+				desc = tv_research.10.d_vaccination
 			}
 		}
 	}
@@ -124,12 +156,44 @@ tv_research.30 = {
 	desc = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { has_variable = tv_advance_printing_press_unlocked }
+				trigger = { var:tv_research_target = 1 }
 				desc = tv_research.30.d_printing_press
 			}
 			triggered_desc = {
-				trigger = { has_variable = tv_advance_steam_engine_unlocked }
-				desc = tv_research.30.d_steam_engine
+				trigger = { var:tv_research_target = 2 }
+				desc = tv_research.30.d_iron_working
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 3 }
+				desc = tv_research.30.d_anatomy
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 4 }
+				desc = tv_research.30.d_gunpowder
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 5 }
+				desc = tv_research.30.d_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 6 }
+				desc = tv_research.30.d_scientific_experimentation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 7 }
+				desc = tv_research.30.d_scientific_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 8 }
+				desc = tv_research.30.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 9 }
+				desc = tv_research.30.d_industrialization
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 10 }
+				desc = tv_research.30.d_vaccination
 			}
 		}
 	}

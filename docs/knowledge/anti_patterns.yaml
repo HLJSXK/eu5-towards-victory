@@ -510,3 +510,12 @@
   scope: any
   source: "src/in_game/common/generic_actions/tv_arts_exhibition_actions.txt (one has_variable per scope:actor block); src/in_game/common/generic_actions/tv_research_actions.txt (tv_start_concentrated_research fix)"
   notes: "EU5 Jomini evaluates ALL conditions inside a single scope block for tooltip/UI display purposes, even if earlier conditions short-circuit the logical result. The outer-level AND (between separate scope:actor = {} blocks) DOES short-circuit. Mixing has_variable guards and var: reads in the same block will spam 'Failed to fetch variable' errors at game start when the action is evaluated for countries that never set those variables."
+
+- id: advance_inject_duplicates_allow_block
+  pattern: 'INJECT:\w+\s*=\s*\{[^}]*allow\s*='
+  bad: "INJECT:advance_name = { allow = { ... } } when the vanilla advance already has an allow block"
+  correction: "Use REPLACE:advance_name = { <full vanilla block> allow = { OR = { <mod condition> <original condition> } } } to merge conditions. Use INJECT only for advances with no existing allow block."
+  category: modifier
+  scope: any
+  source: "reference_game_files/game/in_game/common/advances/0_age_of_discovery.txt:336 (printing_press_advance has allow); reference_mods/3649381461/in_game/common/advances/mod_improved_trade_and_buildings_advances.txt:1 (REPLACE syntax)"
+  notes: "EU5 advance definitions allow only ONE allow block. INJECT appends properties; a second allow block via INJECT is invalid. Must copy the full vanilla advance definition into a REPLACE block and merge the OR condition manually."

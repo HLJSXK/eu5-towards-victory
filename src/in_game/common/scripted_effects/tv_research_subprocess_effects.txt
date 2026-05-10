@@ -95,13 +95,48 @@ tv_research_start_d_effect = {
 # then resets the cycle for the next round.
 tv_research_concentrated_complete_effect = {
 	# Unlock the target advance based on tv_research_target value
+	# Enum: 1=printing_press  2=iron_working  3=anatomy  4=gunpowder  5=blast_furnace
+	#       6=scientific_experimentation  7=scientific_revolution  8=manufactories
+	#       9=industrialization  10=vaccination
 	if = {
 		limit = { var:tv_research_target = 1 }
 		tv_unlock_advance_printing_press_effect = yes
 	}
 	if = {
 		limit = { var:tv_research_target = 2 }
-		tv_unlock_advance_steam_engine_effect = yes
+		tv_unlock_advance_iron_working_effect = yes
+	}
+	if = {
+		limit = { var:tv_research_target = 3 }
+		tv_unlock_advance_anatomy_effect = yes
+	}
+	if = {
+		limit = { var:tv_research_target = 4 }
+		tv_unlock_advance_gunpowder_effect = yes
+	}
+	if = {
+		limit = { var:tv_research_target = 5 }
+		tv_unlock_advance_blast_furnace_effect = yes
+	}
+	if = {
+		limit = { var:tv_research_target = 6 }
+		tv_unlock_advance_scientific_experimentation_effect = yes
+	}
+	if = {
+		limit = { var:tv_research_target = 7 }
+		tv_unlock_advance_scientific_revolution_effect = yes
+	}
+	if = {
+		limit = { var:tv_research_target = 8 }
+		tv_unlock_advance_manufactories_effect = yes
+	}
+	if = {
+		limit = { var:tv_research_target = 9 }
+		tv_unlock_advance_industrialization_effect = yes
+	}
+	if = {
+		limit = { var:tv_research_target = 10 }
+		tv_unlock_advance_vaccination_effect = yes
 	}
 	# Notify the player
 	trigger_event_non_silently = { id = tv_research.30 }
@@ -110,24 +145,52 @@ tv_research_concentrated_complete_effect = {
 }
 
 # ── Propose research target ────────────────────────────────────────────────────
-# Selects a random locked advance and stores it as tv_research_proposed_advance,
+# Selects a random still-locked advance and stores it as tv_research_proposed_advance,
 # then fires the target selection event.
-# Target enum: 1 = printing_press, 2 = steam_engine.
+# Enum: 1=printing_press  2=iron_working  3=anatomy  4=gunpowder  5=blast_furnace
+#       6=scientific_experimentation  7=scientific_revolution  8=manufactories
+#       9=industrialization  10=vaccination
 tv_research_propose_target_effect = {
 	random_list = {
 		1 = {
-			modifier = {
-				factor = 0
-				has_variable = tv_advance_printing_press_unlocked
-			}
+			modifier = { factor = 0  has_variable = tv_advance_printing_press_unlocked }
 			set_variable = { name = tv_research_proposed_advance value = 1 }
 		}
 		1 = {
-			modifier = {
-				factor = 0
-				has_variable = tv_advance_steam_engine_unlocked
-			}
+			modifier = { factor = 0  has_variable = tv_advance_iron_working_unlocked }
 			set_variable = { name = tv_research_proposed_advance value = 2 }
+		}
+		1 = {
+			modifier = { factor = 0  has_variable = tv_advance_anatomy_unlocked }
+			set_variable = { name = tv_research_proposed_advance value = 3 }
+		}
+		1 = {
+			modifier = { factor = 0  has_variable = tv_advance_gunpowder_unlocked }
+			set_variable = { name = tv_research_proposed_advance value = 4 }
+		}
+		1 = {
+			modifier = { factor = 0  has_variable = tv_advance_blast_furnace_unlocked }
+			set_variable = { name = tv_research_proposed_advance value = 5 }
+		}
+		1 = {
+			modifier = { factor = 0  has_variable = tv_advance_scientific_experimentation_unlocked }
+			set_variable = { name = tv_research_proposed_advance value = 6 }
+		}
+		1 = {
+			modifier = { factor = 0  has_variable = tv_advance_scientific_revolution_unlocked }
+			set_variable = { name = tv_research_proposed_advance value = 7 }
+		}
+		1 = {
+			modifier = { factor = 0  has_variable = tv_advance_manufactories_unlocked }
+			set_variable = { name = tv_research_proposed_advance value = 8 }
+		}
+		1 = {
+			modifier = { factor = 0  has_variable = tv_advance_industrialization_unlocked }
+			set_variable = { name = tv_research_proposed_advance value = 9 }
+		}
+		1 = {
+			modifier = { factor = 0  has_variable = tv_advance_vaccination_unlocked }
+			set_variable = { name = tv_research_proposed_advance value = 10 }
 		}
 	}
 	trigger_event_non_silently = { id = tv_research.10 }
