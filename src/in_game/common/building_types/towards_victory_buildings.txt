@@ -13,6 +13,7 @@ tv_academy_of_sciences_1 = {
 	is_foreign = no
 	pop_type = clergy
 	max_levels = 1
+	employment_size = tv_academy_1_employment
 
 	category = cultural_category
 	price = tv_academy_1_price
@@ -40,8 +41,12 @@ tv_academy_of_sciences_1 = {
 	build_time = large_capital_build_time
 	construction_demand = tv_academy_1_construction
 
+	modifier = {
+		local_max_literacy = 5
+	}
+
 	possible_production_methods = {
-		tv_academy_maintenance
+		tv_academy_1_maintenance
 	}
 
 	on_built = {
@@ -59,6 +64,7 @@ tv_academy_of_sciences_2 = {
 	is_foreign = no
 	pop_type = clergy
 	max_levels = 1
+	employment_size = tv_academy_2_employment
 
 	category = cultural_category
 	price = tv_academy_2_price
@@ -91,8 +97,13 @@ tv_academy_of_sciences_2 = {
 	build_time = large_capital_build_time
 	construction_demand = tv_academy_2_construction
 
+	modifier = {
+		local_max_literacy = 5
+		local_unrest = -0.10
+	}
+
 	possible_production_methods = {
-		tv_academy_maintenance
+		tv_academy_2_maintenance
 	}
 
 	on_built = {
@@ -109,6 +120,7 @@ tv_academy_of_sciences_3 = {
 	is_foreign = no
 	pop_type = clergy
 	max_levels = 1
+	employment_size = tv_academy_3_employment
 
 	category = cultural_category
 	price = tv_academy_3_price
@@ -141,8 +153,17 @@ tv_academy_of_sciences_3 = {
 	build_time = large_capital_build_time
 	construction_demand = tv_academy_3_construction
 
+	modifier = {
+		local_max_literacy = 10
+		local_unrest = -0.10
+	}
+
+	capital_country_modifier = {
+		global_max_literacy = 5
+	}
+
 	possible_production_methods = {
-		tv_academy_maintenance
+		tv_academy_3_maintenance
 	}
 
 	on_built = {
@@ -159,6 +180,7 @@ tv_academy_of_sciences_4 = {
 	is_foreign = no
 	pop_type = clergy
 	max_levels = 1
+	employment_size = tv_academy_4_employment
 
 	category = cultural_category
 	price = tv_academy_4_price
@@ -191,8 +213,18 @@ tv_academy_of_sciences_4 = {
 	build_time = large_capital_build_time
 	construction_demand = tv_academy_4_construction
 
+	modifier = {
+		local_max_literacy = 10
+		local_unrest = -0.10
+	}
+
+	capital_country_modifier = {
+		global_max_literacy = 5
+		monthly_prestige = 0.1
+	}
+
 	possible_production_methods = {
-		tv_academy_maintenance
+		tv_academy_4_maintenance
 	}
 
 	on_built = {
@@ -209,6 +241,7 @@ tv_academy_of_sciences_5 = {
 	is_foreign = no
 	pop_type = clergy
 	max_levels = 1
+	employment_size = tv_academy_5_employment
 
 	category = cultural_category
 	price = tv_academy_5_price
@@ -241,8 +274,19 @@ tv_academy_of_sciences_5 = {
 	build_time = large_capital_build_time
 	construction_demand = tv_academy_5_construction
 
+	modifier = {
+		local_max_literacy = 20
+		local_unrest = -0.10
+	}
+
+	capital_country_modifier = {
+		global_max_literacy = 10
+		monthly_prestige = 0.1
+		country_cabinet_efficiency = 0.20
+	}
+
 	possible_production_methods = {
-		tv_academy_maintenance
+		tv_academy_5_maintenance
 	}
 
 	on_built = {
