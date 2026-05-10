@@ -91,3 +91,4 @@ src/
 | `scripts/gen_brief.py` | anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md | docs/knowledge/BRIEF.md | After editing any knowledge YAML |
 | `scripts/gen_index.py` | reference_game_files + src/ | data/index/*.txt | Run by gen_brief.py automatically |
 | `scripts/gen_scaffold.py --type X --name Y` | --type argument | Scaffold .txt/.yml file | When creating a new EU5 file |
+| `scripts/gen_messagetypes.py` | reference_game_files vanilla messagetypes.txt + TV_ENTRIES block | src/main_menu/gui/messagetypes.txt | After adding a new generic action |
