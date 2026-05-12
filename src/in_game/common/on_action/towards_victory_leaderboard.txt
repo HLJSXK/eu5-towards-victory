@@ -143,6 +143,37 @@ monthly_country_pulse = {
 			}
 		}
 
+		# ── Research Mechanism monthly pulse ────────────────────────────────────────
+		if = {
+			limit = { has_variable = tv_academy_io_member }
+
+			# ── Selection cooldown countdown ───────────────────────────────────
+			if = {
+				limit = {
+					has_variable = tv_research_selection_cd
+					var:tv_research_selection_cd >= 1
+				}
+				change_variable = { name = tv_research_selection_cd add = -1 }
+				if = {
+					limit = { var:tv_research_selection_cd <= 0 }
+					remove_variable = tv_research_selection_cd
+				}
+			}
+
+			# ── Sub-process B: passive prerequisite check (phase 1 only) ──────
+			# Phase 4 stub: tv_research_check_b_trigger = always, so B auto-completes
+			# on the first monthly tick after a research target is confirmed.
+			if = {
+				limit = {
+					has_variable = tv_research_phase
+					var:tv_research_phase = 1
+					NOT = { var:tv_rm_subprocess_b >= 2 }
+					tv_research_check_b_trigger = yes
+				}
+				tv_research_complete_b_effect = yes
+			}
+		}
+
 		# Only run leaderboard logic once the situation is active
 		if = {
 			limit = { exists = situation:tv_victory_situation }
@@ -157,7 +188,7 @@ monthly_country_pulse = {
 				}
 			}
 		}
-		
+
 		# ── Diplomatic Unlock Notification Events ────────────────────────────
 		# Fire informational event when DVP reaches 50 (support system unlocked)
 		if = {
@@ -191,4 +222,9 @@ monthly_country_pulse = {
 			trigger_event_non_silently = tv_diplo_alliance.2
 		}
 	}
+
+	# ── Sub-process A: dispatch to dedicated sub-action ────────────────────────
+	# on_actions lists merge additively across files; random_events in the sub-action
+	# runs every tick (no chance_to_happen needed at the sub-action level).
+	on_actions = { tv_research_a_pulse }
 }

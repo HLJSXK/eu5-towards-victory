@@ -2,48 +2,12 @@
 # C and D accumulation are handled by IO variables (monthly_change) and monthly_effect.
 # This file handles: selection cooldown countdown, B passive check, A random events.
 
-monthly_country_pulse = {
-	effect = {
-		if = {
-			limit = { has_variable = tv_academy_io_member }
-
-			# ── Selection cooldown countdown ───────────────────────────────────
-			if = {
-				limit = {
-					has_variable = tv_research_selection_cd
-					var:tv_research_selection_cd >= 1
-				}
-				change_variable = { name = tv_research_selection_cd add = -1 }
-				if = {
-					limit = { var:tv_research_selection_cd <= 0 }
-					remove_variable = tv_research_selection_cd
-				}
-			}
-
-			# ── Sub-process B: passive prerequisite check (phase 1 only) ──────
-			# Phase 4 stub: tv_research_check_b_trigger = always, so B auto-completes
-			# on the first monthly tick after a research target is confirmed.
-			if = {
-				limit = {
-					has_variable = tv_research_phase
-					var:tv_research_phase = 1
-					NOT = { var:tv_rm_subprocess_b >= 2 }
-					tv_research_check_b_trigger = yes
-				}
-				tv_research_complete_b_effect = yes
-			}
-		}
-	}
-
-	# ── Sub-process A: dispatch to dedicated sub-action ────────────────────────
-	# on_actions lists merge additively across files; random_events in the sub-action
-	# runs every tick (no chance_to_happen needed at the sub-action level).
-	on_actions = { tv_research_a_pulse }
-}
+# monthly_country_pulse logic is owned by towards_victory_leaderboard.txt to avoid
+# EU5 singleton on_action overrides for duplicate effect blocks.
 
 # ── tv_research_a_pulse ────────────────────────────────────────────────────────
 # Sub-action for Sub-process A interest collection.
-# Trigger gates the whole block; random_events selects the event ~20% of months.
+# Trigger gates the whole block; random_events selects the event ~10% of months.
 tv_research_a_pulse = {
 	trigger = {
 		has_variable = tv_academy_io_member
@@ -52,7 +16,7 @@ tv_research_a_pulse = {
 		NOT = { var:tv_rm_subprocess_a >= 2 }
 	}
 	random_events = {
-		100 = 0
-		25 = tv_research.1
+		90 = 0
+		10 = tv_research.1
 	}
 }
