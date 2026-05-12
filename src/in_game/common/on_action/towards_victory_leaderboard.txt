@@ -14,25 +14,6 @@ monthly_country_pulse = {
 			set_variable = { name = tv_cultural_influence_points value = 0 }
 		}
 
-		# ── Arts Exhibition: Chief Artist bonus display variable ──────────────────────
-		# Block D: compute artist_skill x 0.002 and store as tv_chief_artist_monthly_bonus
-		# on the country for UI display. The IO monthly_change reads this via
-		# leader_country.var:tv_chief_artist_monthly_bonus to apply and show the bonus.
-		if = {
-			limit = {
-				has_variable = tv_arts_exhibition_member
-				has_variable = tv_chief_artist
-				var:tv_chief_artist = { is_alive = yes }
-			}
-			set_variable = {
-				name = tv_chief_artist_monthly_bonus
-				value = {
-					value = var:tv_chief_artist.artist_skill
-					multiply = 0.002
-				}
-			}
-		}
-
 		# ── Arts Exhibition: touring event roll ───────────────────────────────────────
 		# Block C: for each touring artist currently in THIS country's court, roll an
 		# ~8% monthly chance (~1 event/year) for a touring outcome event on their home

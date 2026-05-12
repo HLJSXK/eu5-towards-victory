@@ -5,31 +5,30 @@
 # Research subprocess state and target advance are country-scoped variables.
 # C and D progress tracked as IO variables (vanilla variable system).
 #
+# Leader: character (the "Chief Scientist"). Selected manually by the leader_country via
+# the Appoint / Remove / Change Leader generic actions (tv_io_leader_actions.txt).
+# The leader country variable tv_academy_leader_char holds the appointed character.
+# D-progress and D-phase gold cost use the appointed leader's adm/dip/mil skills.
+#
 # Verification — Step 3, Reference: hre.txt:19-44
-#   Quote: "has_leader_country = yes  leader_title_key = "HRE_LEADER"  use_regnal_number = yes
-#           leader_type = character  leader = { leader_country ?= { ... ruler ?= { add_to_list = leaders } } }
-#           leader_change_trigger_type = rulerchange  leader_change_method = vote"
-# Verification — Step 3, Reference: hre.txt:396-700
-#   Quote: "variables = { imperial_authority = { format = ... min = 0  max = 100
-#           monthly_change = { add = { desc = "..." value = 0  if = { ... } } } } }"
-# Verification — Step 3, Reference: hre.txt:661-663
-#   Quote: "value = "leader_country.ruler_or_heir_if_regent.adm""
-# Verification — Step 3, Reference: imperial_examination_events.txt:20
-#   Quote: "value = root.average_country_literacy"  (range 0-100)
+#   Quote: "has_leader_country = yes  leader_title_key = "HRE_LEADER"  leader_type = character
+#           leader = { leader_country ?= { ... add_to_list = leaders } }"
+# Verification — Step 3, Reference: effects.log:3259
+#   Quote: "international_organization_chooses_new_leader: international organization chooses a new leader"
 
 tv_academy_of_sciences = {
 	has_target = no
 	has_leader_country = yes
 	leader_title_key = "TV_ACADEMY_IO_LEADER"
 	leader_type = character
-	leader_change_trigger_type = rulerchange
+	leader_change_trigger_type = none
 	leader_change_method = none
 	disband_if_no_leader = no
 	show_on_diplomatic_map = no
 
 	leader = {
 		leader_country ?= {
-			ruler ?= {
+			var:tv_academy_leader_char ?= {
 				add_to_list = leaders
 			}
 		}
@@ -38,7 +37,8 @@ tv_academy_of_sciences = {
 	# ── IO Variables: C and D research progress ───────────────────────────────
 	# These are auto-accumulated via monthly_change; completion is detected in monthly_effect.
 	# Calibration C: average_country_literacy * 0.05 /month → 100 in ~40 months at literacy=50.
-	# Calibration D: ruler.adm * 1.0 /month → 100 in ~17 months at adm=6.
+	# Calibration D: appointed_leader.adm * 1.0 /month → 100 in ~17 months at adm=6.
+	# D halts when no leader appointed (international_organization_has_leader = no).
 	variables = {
 		tv_research_c_progress = {
 			format = "TV_C_PROGRESS_FORMAT"
@@ -76,12 +76,15 @@ tv_academy_of_sciences = {
 					value = 0
 					if = {
 						limit = {
+							international_organization_has_leader = yes
 							leader_country ?= {
 								has_variable = tv_research_phase
 								var:tv_research_phase = 2
+								has_variable = tv_academy_leader_char
+								var:tv_academy_leader_char = { is_alive = yes }
 							}
 						}
-						value = leader_country.ruler_or_heir_if_regent.adm
+						value = leader_country.var:tv_academy_leader_char.adm
 						multiply = 1.0
 					}
 				}
@@ -110,18 +113,22 @@ tv_academy_of_sciences = {
 			}
 			leader_country ?= { tv_research_complete_c_effect = yes }
 		}
-		# D: monthly gold cost when concentrated research is active
+		# D: monthly gold cost when concentrated research is active.
+		# Uses appointed leader's dip + mil skills (consistent with D-progress source).
 		if = {
 			limit = {
+				international_organization_has_leader = yes
 				leader_country ?= {
 					has_variable = tv_research_phase
 					var:tv_research_phase = 2
+					has_variable = tv_academy_leader_char
+					var:tv_academy_leader_char = { is_alive = yes }
 				}
 			}
 			leader_country ?= {
 				add_gold = {
-					value = ruler_or_heir_if_regent.dip
-					add = ruler_or_heir_if_regent.mil
+					value = var:tv_academy_leader_char.dip
+					add = var:tv_academy_leader_char.mil
 					multiply = -0.5
 				}
 			}

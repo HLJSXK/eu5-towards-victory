@@ -1,0 +1,422 @@
+﻿# Towards Victory — IO Leader Management generic actions
+# Three actions per IO (Appoint / Remove / Change) × three IOs = 9 actions.
+#
+# Pattern (per IO type):
+#   • Appoint: visible when no leader. Opens character selector; sets leader_country's
+#     tv_<io>_leader_char variable; calls international_organization_chooses_new_leader.
+#   • Remove:  visible when leader exists. Clears the country variable; recomputes leader.
+#   • Change:  visible when leader exists. Opens character selector; replaces var; recomputes.
+#
+# Leader-character filter:
+#   • Arts Exhibition: is_artist = yes (plus generic exclusions)
+#   • Diplomatic Alliance: any character (alive, not ruler/heir/consort)
+#   • Academy of Sciences: any character (alive, not ruler/heir/consort)
+#
+# Verification — Step 3, Reference: hre.txt:23 / readme.txt:38
+#   Quote: "leader_change_trigger_type = ... (none/rulerchange/timed)"
+# Verification — Step 2, Reference: effects.log:3259
+#   Quote: "international_organization_chooses_new_leader: international organization chooses a new leader.
+#           Supported Targets: international_organization"
+# Verification — Step 3, Reference: high_kingship_of_ireland.txt:13-14
+#   Quote: "international_organization_has_leader = yes  leader_country = prev"
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Arts Exhibition (non-unique IO)
+# ═════════════════════════════════════════════════════════════════════════════
+
+tv_appoint_arts_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_arts_exhibition
+				leader_country = scope:actor
+				international_organization_has_leader = no
+			}
+		}
+	}
+
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_arts_leader"
+		none_available_msg_key = "tv_no_arts_leader_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_artist = yes
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+			NOT = { has_variable = tv_on_exhibition }
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_arts_exhibition_leader_char value = scope:target }
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_arts_exhibition
+						leader_country = scope:actor
+					}
+					international_organization_chooses_new_leader = this
+				}
+			}
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_remove_arts_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_arts_exhibition
+				leader_country = scope:actor
+				international_organization_has_leader = yes
+			}
+		}
+	}
+
+	allow = { always = yes }
+
+	effect = {
+		scope:actor = {
+			remove_variable = tv_arts_exhibition_leader_char
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_arts_exhibition
+					leader_country = scope:actor
+				}
+				international_organization_chooses_new_leader = this
+			}
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_change_arts_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_arts_exhibition
+				leader_country = scope:actor
+				international_organization_has_leader = yes
+			}
+		}
+	}
+
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_arts_leader"
+		none_available_msg_key = "tv_no_arts_leader_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_artist = yes
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+			NOT = { has_variable = tv_on_exhibition }
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_arts_exhibition_leader_char value = scope:target }
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_arts_exhibition
+						leader_country = scope:actor
+					}
+					international_organization_chooses_new_leader = this
+				}
+			}
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Diplomatic Alliance (unique IO)
+# ═════════════════════════════════════════════════════════════════════════════
+
+tv_appoint_alliance_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
+			international_organization:tv_diplomatic_alliance = { international_organization_has_leader = no }
+		}
+	}
+
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_alliance_leader"
+		none_available_msg_key = "tv_no_alliance_leader_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_diplomatic_alliance_leader_char value = scope:target }
+			}
+			international_organization_chooses_new_leader = international_organization:tv_diplomatic_alliance
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_remove_alliance_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
+			international_organization:tv_diplomatic_alliance = { international_organization_has_leader = yes }
+		}
+	}
+
+	allow = { always = yes }
+
+	effect = {
+		scope:actor = { remove_variable = tv_diplomatic_alliance_leader_char }
+		international_organization_chooses_new_leader = international_organization:tv_diplomatic_alliance
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_change_alliance_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
+			international_organization:tv_diplomatic_alliance = { international_organization_has_leader = yes }
+		}
+	}
+
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_alliance_leader"
+		none_available_msg_key = "tv_no_alliance_leader_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_diplomatic_alliance_leader_char value = scope:target }
+			}
+			international_organization_chooses_new_leader = international_organization:tv_diplomatic_alliance
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Academy of Sciences (non-unique IO)
+# ═════════════════════════════════════════════════════════════════════════════
+
+tv_appoint_academy_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country = scope:actor
+				international_organization_has_leader = no
+			}
+		}
+	}
+
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_academy_leader"
+		none_available_msg_key = "tv_no_academy_leader_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_academy_leader_char value = scope:target }
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_academy_of_sciences
+						leader_country = scope:actor
+					}
+					international_organization_chooses_new_leader = this
+				}
+			}
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_remove_academy_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country = scope:actor
+				international_organization_has_leader = yes
+			}
+		}
+	}
+
+	allow = { always = yes }
+
+	effect = {
+		scope:actor = {
+			remove_variable = tv_academy_leader_char
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_academy_of_sciences
+					leader_country = scope:actor
+				}
+				international_organization_chooses_new_leader = this
+			}
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_change_academy_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country = scope:actor
+				international_organization_has_leader = yes
+			}
+		}
+	}
+
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_academy_leader"
+		none_available_msg_key = "tv_no_academy_leader_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_academy_leader_char value = scope:target }
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_academy_of_sciences
+						leader_country = scope:actor
+					}
+					international_organization_chooses_new_leader = this
+				}
+			}
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}

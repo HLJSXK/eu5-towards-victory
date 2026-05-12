@@ -145,51 +145,136 @@ tv_research_concentrated_complete_effect = {
 }
 
 # ── Propose research target ────────────────────────────────────────────────────
-# Selects a random still-locked advance and stores it as tv_research_proposed_advance,
-# then fires the target selection event.
-# Enum: 1=printing_press  2=iron_working  3=anatomy  4=gunpowder  5=blast_furnace
-#       6=scientific_experimentation  7=scientific_revolution  8=manufactories
-#       9=industrialization  10=vaccination
+# Strict earliest-age principle: each entry is excluded when (a) the player has already
+# researched this advance via the vanilla path, or (b) any earlier-age Frontier advance
+# is still unresearched. Among the earliest age with unresearched candidates, selection
+# is uniform random.
+#
+# Enum: 1=printing_press(A3)  2=iron_working(A1)  3=anatomy(A2)  4=gunpowder(A2)
+#       5=blast_furnace(A3)  6=scientific_experimentation(A4)  7=scientific_revolution(A5)
+#       8=manufactories(A5)  9=industrialization(A6)  10=vaccination(A6)
 tv_research_propose_target_effect = {
 	random_list = {
+		# ── Age 1: iron_working ──────────────────────────────────────────────────
 		1 = {
-			modifier = { factor = 0  has_variable = tv_advance_printing_press_unlocked }
-			set_variable = { name = tv_research_proposed_advance value = 1 }
-		}
-		1 = {
-			modifier = { factor = 0  has_variable = tv_advance_iron_working_unlocked }
+			modifier = { factor = 0  has_advance = iron_working }
 			set_variable = { name = tv_research_proposed_advance value = 2 }
 		}
+		# ── Age 2: anatomy, gunpowder ────────────────────────────────────────────
 		1 = {
-			modifier = { factor = 0  has_variable = tv_advance_anatomy_unlocked }
+			modifier = { factor = 0  has_advance = anatomy_advance }
+			modifier = { factor = 0  NOT = { has_advance = iron_working } }
 			set_variable = { name = tv_research_proposed_advance value = 3 }
 		}
 		1 = {
-			modifier = { factor = 0  has_variable = tv_advance_gunpowder_unlocked }
+			modifier = { factor = 0  has_advance = gunpowder_advance }
+			modifier = { factor = 0  NOT = { has_advance = iron_working } }
 			set_variable = { name = tv_research_proposed_advance value = 4 }
 		}
+		# ── Age 3: printing_press, blast_furnace ─────────────────────────────────
 		1 = {
-			modifier = { factor = 0  has_variable = tv_advance_blast_furnace_unlocked }
+			modifier = { factor = 0  has_advance = printing_press_advance }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_advance = iron_working }
+					NOT = { has_advance = anatomy_advance }
+					NOT = { has_advance = gunpowder_advance }
+				}
+			}
+			set_variable = { name = tv_research_proposed_advance value = 1 }
+		}
+		1 = {
+			modifier = { factor = 0  has_advance = blast_furnace }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_advance = iron_working }
+					NOT = { has_advance = anatomy_advance }
+					NOT = { has_advance = gunpowder_advance }
+				}
+			}
 			set_variable = { name = tv_research_proposed_advance value = 5 }
 		}
+		# ── Age 4: scientific_experimentation ────────────────────────────────────
 		1 = {
-			modifier = { factor = 0  has_variable = tv_advance_scientific_experimentation_unlocked }
+			modifier = { factor = 0  has_advance = scientific_experimentation }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_advance = iron_working }
+					NOT = { has_advance = anatomy_advance }
+					NOT = { has_advance = gunpowder_advance }
+					NOT = { has_advance = printing_press_advance }
+					NOT = { has_advance = blast_furnace }
+				}
+			}
 			set_variable = { name = tv_research_proposed_advance value = 6 }
 		}
+		# ── Age 5: scientific_revolution, manufactories ──────────────────────────
 		1 = {
-			modifier = { factor = 0  has_variable = tv_advance_scientific_revolution_unlocked }
+			modifier = { factor = 0  has_advance = scientific_revolution_advance }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_advance = iron_working }
+					NOT = { has_advance = anatomy_advance }
+					NOT = { has_advance = gunpowder_advance }
+					NOT = { has_advance = printing_press_advance }
+					NOT = { has_advance = blast_furnace }
+					NOT = { has_advance = scientific_experimentation }
+				}
+			}
 			set_variable = { name = tv_research_proposed_advance value = 7 }
 		}
 		1 = {
-			modifier = { factor = 0  has_variable = tv_advance_manufactories_unlocked }
+			modifier = { factor = 0  has_advance = manufactories_advance }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_advance = iron_working }
+					NOT = { has_advance = anatomy_advance }
+					NOT = { has_advance = gunpowder_advance }
+					NOT = { has_advance = printing_press_advance }
+					NOT = { has_advance = blast_furnace }
+					NOT = { has_advance = scientific_experimentation }
+				}
+			}
 			set_variable = { name = tv_research_proposed_advance value = 8 }
 		}
+		# ── Age 6: industrialization, vaccination ────────────────────────────────
 		1 = {
-			modifier = { factor = 0  has_variable = tv_advance_industrialization_unlocked }
+			modifier = { factor = 0  has_advance = industrialization_advance }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_advance = iron_working }
+					NOT = { has_advance = anatomy_advance }
+					NOT = { has_advance = gunpowder_advance }
+					NOT = { has_advance = printing_press_advance }
+					NOT = { has_advance = blast_furnace }
+					NOT = { has_advance = scientific_experimentation }
+					NOT = { has_advance = scientific_revolution_advance }
+					NOT = { has_advance = manufactories_advance }
+				}
+			}
 			set_variable = { name = tv_research_proposed_advance value = 9 }
 		}
 		1 = {
-			modifier = { factor = 0  has_variable = tv_advance_vaccination_unlocked }
+			modifier = { factor = 0  has_advance = vaccination_advance }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_advance = iron_working }
+					NOT = { has_advance = anatomy_advance }
+					NOT = { has_advance = gunpowder_advance }
+					NOT = { has_advance = printing_press_advance }
+					NOT = { has_advance = blast_furnace }
+					NOT = { has_advance = scientific_experimentation }
+					NOT = { has_advance = scientific_revolution_advance }
+					NOT = { has_advance = manufactories_advance }
+				}
+			}
 			set_variable = { name = tv_research_proposed_advance value = 10 }
 		}
 	}

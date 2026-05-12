@@ -105,4 +105,45 @@ organization_panel = {
 			}
 		}
 	}
+
+	# ── Leader management actions ─────────────────────────────────────────
+	blockoverride "organization_main_actions_extra_visible" {
+		visible = yes
+	}
+
+	blockoverride "organization_main_actions_extra" {
+		action_button_diamond = {
+			size = { 470 30 }
+			visible = "[Not(Country.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet)]"
+			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			text = "tv_appoint_alliance_leader"
+			title = "tv_appoint_alliance_leader"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_appoint_alliance_leader"
+			}
+		}
+		action_button_diamond = {
+			size = { 470 30 }
+			visible = "[Country.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
+			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			text = "tv_change_alliance_leader"
+			title = "tv_change_alliance_leader"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_change_alliance_leader"
+			}
+		}
+		action_button_diamond = {
+			size = { 470 30 }
+			visible = "[Country.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
+			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			text = "tv_remove_alliance_leader"
+			title = "tv_remove_alliance_leader"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_remove_alliance_leader"
+			}
+		}
+	}
 }

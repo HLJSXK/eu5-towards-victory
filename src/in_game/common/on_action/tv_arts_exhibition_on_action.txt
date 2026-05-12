@@ -19,16 +19,6 @@ on_character_death = {
 				remove_variable = tv_exhibition_elapsed
 				remove_variable = tv_exhibition_duration
 			}
-			# Chief Artist cleanup: navigate to the appointing country and clear its reference
-			if = {
-				limit = { has_variable = tv_is_chief_artist }
-				var:tv_chief_artist_country ?= {
-					remove_variable = tv_chief_artist
-					remove_variable = tv_chief_artist_monthly_bonus
-				}
-				remove_variable = tv_is_chief_artist
-				remove_variable = tv_chief_artist_country
-			}
 		}
 	}
 }

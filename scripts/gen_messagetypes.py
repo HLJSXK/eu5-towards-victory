@@ -36,7 +36,87 @@ PERFORM_tv_host_domestic_exhibition_ACTION={
 \tmessage_category = society
 }
 
-PERFORM_tv_appoint_chief_artist_ACTION={
+PERFORM_tv_appoint_arts_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_remove_arts_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_change_arts_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_appoint_alliance_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = diplomacy
+}
+
+PERFORM_tv_remove_alliance_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = diplomacy
+}
+
+PERFORM_tv_change_alliance_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = diplomacy
+}
+
+PERFORM_tv_appoint_academy_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_remove_academy_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_change_academy_leader_ACTION={
 \tlog=yes
 \tonmap=no
 \tpopup=no

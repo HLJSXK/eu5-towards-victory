@@ -38,11 +38,23 @@ tv_research_can_start_d_trigger = {
 
 # ── Target request eligibility ─────────────────────────────────────────────────
 # Player may request a research target when: member of Academy IO, no target selected,
-# and selection cooldown is not active.
+# selection cooldown is not active, and at least one Frontier advance is unresearched.
 tv_research_can_request_target_trigger = {
 	has_variable = tv_academy_io_member
 	NOT = { has_variable = tv_research_target }
 	NOT = { has_variable = tv_research_selection_cd }
+	OR = {
+		NOT = { has_advance = iron_working }
+		NOT = { has_advance = anatomy_advance }
+		NOT = { has_advance = gunpowder_advance }
+		NOT = { has_advance = printing_press_advance }
+		NOT = { has_advance = blast_furnace }
+		NOT = { has_advance = scientific_experimentation }
+		NOT = { has_advance = scientific_revolution_advance }
+		NOT = { has_advance = manufactories_advance }
+		NOT = { has_advance = industrialization_advance }
+		NOT = { has_advance = vaccination_advance }
+	}
 }
 
 # ── Active target check ────────────────────────────────────────────────────────

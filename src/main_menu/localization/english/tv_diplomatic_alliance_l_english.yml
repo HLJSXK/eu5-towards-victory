@@ -164,3 +164,25 @@
  ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_SETUP: "When another country seeks our diplomatic support."
  ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_LOG: "[SCOPE.sCountry('actor').GetName] sought our diplomatic support."
  ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_MAP: ""
+
+ # ── IO Leader management ──────────────────────────────────────────────
+ tv_appoint_alliance_leader: "Appoint Advocator"
+ tv_appoint_alliance_leader_desc: "Appoint one of our characters as the Advocator of the Diplomatic Alliance."
+ tv_remove_alliance_leader: "Dismiss Advocator"
+ tv_remove_alliance_leader_desc: "Remove the current Advocator from office. The Diplomatic Alliance will operate without a named leader until a new Advocator is appointed."
+ tv_change_alliance_leader: "Replace Advocator"
+ tv_change_alliance_leader_desc: "Replace the current Advocator with another character."
+ tv_select_alliance_leader: "Select Advocator"
+ tv_no_alliance_leader_available: "@trigger_no! No eligible characters are available."
+
+ PERFORM_tv_appoint_alliance_leader_ACTION_SETUP: "When we appoint an Advocator for the Diplomatic Alliance."
+ PERFORM_tv_appoint_alliance_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as Advocator of the Diplomatic Alliance."
+ PERFORM_tv_appoint_alliance_leader_ACTION_MAP: ""
+
+ PERFORM_tv_remove_alliance_leader_ACTION_SETUP: "When we dismiss the Advocator of the Diplomatic Alliance."
+ PERFORM_tv_remove_alliance_leader_ACTION_LOG: "We dismissed the Advocator of the Diplomatic Alliance."
+ PERFORM_tv_remove_alliance_leader_ACTION_MAP: ""
+
+ PERFORM_tv_change_alliance_leader_ACTION_SETUP: "When we replace the Advocator of the Diplomatic Alliance."
+ PERFORM_tv_change_alliance_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as the new Advocator of the Diplomatic Alliance."
+ PERFORM_tv_change_alliance_leader_ACTION_MAP: ""

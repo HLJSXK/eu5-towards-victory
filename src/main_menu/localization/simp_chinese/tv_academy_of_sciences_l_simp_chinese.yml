@@ -7,3 +7,25 @@
  diplomatic_status_tv_academy_of_sciences_tooltip: "该国已建立科学院并参与研究机制。"
  tv_academy_of_sciences_list_who_tt: "科学院成员国"
  io_opinion_tv_academy_of_sciences: "科学院共同成员"
+
+ # ── IO 领袖管理 ───────────────────────────────────────────────────────────────
+ tv_appoint_academy_leader: "任命首席科学家"
+ tv_appoint_academy_leader_desc: "任命我国的一位角色担任科学院的首席科学家。首席科学家的行政技能驱动集中研究子流程；其外交与军事技能决定其每月金币花费。"
+ tv_remove_academy_leader: "解除首席科学家"
+ tv_remove_academy_leader_desc: "解除现任首席科学家的职务。在任命新首席科学家之前，集中研究将停止。"
+ tv_change_academy_leader: "更换首席科学家"
+ tv_change_academy_leader_desc: "以另一位角色替换现任首席科学家。"
+ tv_select_academy_leader: "选择首席科学家"
+ tv_no_academy_leader_available: "@trigger_no! 没有符合条件的角色可供选择。"
+
+ PERFORM_tv_appoint_academy_leader_ACTION_SETUP: "当我们任命科学院首席科学家时。"
+ PERFORM_tv_appoint_academy_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为科学院首席科学家。"
+ PERFORM_tv_appoint_academy_leader_ACTION_MAP: ""
+
+ PERFORM_tv_remove_academy_leader_ACTION_SETUP: "当我们解除科学院首席科学家职务时。"
+ PERFORM_tv_remove_academy_leader_ACTION_LOG: "我们解除了科学院首席科学家的职务。"
+ PERFORM_tv_remove_academy_leader_ACTION_MAP: ""
+
+ PERFORM_tv_change_academy_leader_ACTION_SETUP: "当我们更换科学院首席科学家时。"
+ PERFORM_tv_change_academy_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为科学院新任首席科学家。"
+ PERFORM_tv_change_academy_leader_ACTION_MAP: ""

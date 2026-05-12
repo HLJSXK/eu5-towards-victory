@@ -71,19 +71,18 @@
  TV_ARTS_INTL_INFLUENCE_FORMAT: "$VAL|1$"
  TV_ARTS_INTL_INFLUENCE_DECAY: "自然衰减"
 
- # ── 首席艺术家键 ──────────────────────────────────────────────────────────────
- tv_chief_artist_header: "首席艺术家"
- tv_chief_artist_empty_slot: "@artistic_skill_icon! 任命"
- tv_chief_artist_none_hint: "任命一位首席艺术家，每月自动提升国际影响力。"
- tv_chief_artist_monthly_label: "每月影响力："
- tv_chief_artist_bonus_tt: "首席艺术家每月贡献的国际影响力。\n\n公式：艺术技能 x 0.002\n（艺术技能 100 = 每月 +0.20）"
- tv_appoint_chief_artist: "任命首席艺术家"
- tv_appoint_chief_artist_desc: "指定一位宫廷艺术家为首席艺术家。首席艺术家每月根据其艺术技能自动为本国增加国际影响力（技能 x 0.002 / 月）。"
- tv_select_chief_artist: "选择首席艺术家"
- tv_no_chief_artist_available: "@trigger_no! 没有符合条件的艺术家可供选择。"
+ # ── IO 领袖管理 ───────────────────────────────────────────────────────────────
+ tv_appoint_arts_leader: "任命领袖"
+ tv_appoint_arts_leader_desc: "从宫廷艺术家中任命一位作为文艺展演的文化领袖。其艺术技能将每月贡献国际影响力（技能 x 0.002 / 月）。"
+ tv_remove_arts_leader: "解除领袖"
+ tv_remove_arts_leader_desc: "解除现任文化领袖职务。在任命新领袖之前，国际影响力将不再获得领袖的月度贡献。"
+ tv_change_arts_leader: "更换领袖"
+ tv_change_arts_leader_desc: "以另一位宫廷艺术家替换现任文化领袖。"
+ tv_select_arts_leader: "选择文化领袖"
+ tv_no_arts_leader_available: "@trigger_no! 没有符合条件的艺术家可供选择。"
 
  # ── IO月度变化Tooltip标签 ──────────────────────────────────────────────────────
- TV_CHIEF_ARTIST_CONTRIBUTION: "首席艺术家"
+ TV_ARTS_LEADER_CONTRIBUTION: "文化领袖（艺术技能 × 0.002）"
 
  # ── M1奖励提示（显示在文化胜利M1事件奖励中）─────────────────────────────────────
  tv_cultural_m1_io_grant_tt: "建立#bold 文艺展演#!并开始追踪#bold 国际影响力#!。使用\"派遣艺术家出访\"和\"举办国内展览\"行动来提升影响力。文化胜利 M2-M5 各里程碑均要求达到最低国际影响力门槛。"
@@ -97,6 +96,14 @@
  PERFORM_tv_host_domestic_exhibition_ACTION_LOG: "我们举办了国内艺术展览。"
  PERFORM_tv_host_domestic_exhibition_ACTION_MAP: ""
 
- PERFORM_tv_appoint_chief_artist_ACTION_SETUP: "当我们任命首席艺术家领导艺术展览时。"
- PERFORM_tv_appoint_chief_artist_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为首席艺术家。"
- PERFORM_tv_appoint_chief_artist_ACTION_MAP: ""
+ PERFORM_tv_appoint_arts_leader_ACTION_SETUP: "当我们任命文艺展演的文化领袖时。"
+ PERFORM_tv_appoint_arts_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为文艺展演的文化领袖。"
+ PERFORM_tv_appoint_arts_leader_ACTION_MAP: ""
+
+ PERFORM_tv_remove_arts_leader_ACTION_SETUP: "当我们解除文艺展演文化领袖职务时。"
+ PERFORM_tv_remove_arts_leader_ACTION_LOG: "我们解除了文艺展演文化领袖的职务。"
+ PERFORM_tv_remove_arts_leader_ACTION_MAP: ""
+
+ PERFORM_tv_change_arts_leader_ACTION_SETUP: "当我们更换文艺展演的文化领袖时。"
+ PERFORM_tv_change_arts_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为文艺展演新任文化领袖。"
+ PERFORM_tv_change_arts_leader_ACTION_MAP: ""

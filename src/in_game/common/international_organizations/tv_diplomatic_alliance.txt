@@ -12,19 +12,13 @@
 	leader_type = character
 	leader = {
 		leader_country ?= {
-			if = {
-				limit = {
-					has_ruler = yes
-					ruler ?= { is_alive = yes }
-				}
-				ruler ?= {
-					add_to_list = leaders
-				}
+			var:tv_diplomatic_alliance_leader_char ?= {
+				add_to_list = leaders
 			}
 		}
 	}
-	leader_change_trigger_type = rulerchange
-	leader_change_method = hereditary
+	leader_change_trigger_type = none
+	leader_change_method = none
 	disband_if_no_leader = no
 
 	has_parliament = yes

@@ -164,3 +164,25 @@
  ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_SETUP: "当其他国家向我们寻求外交支持时。"
  ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_LOG: "[SCOPE.sCountry('actor').GetName]向我们寻求了外交支持。"
  ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_MAP: ""
+
+ # ── IO 领袖管理 ───────────────────────────────────────────────────────────────
+ tv_appoint_alliance_leader: "任命倡导者"
+ tv_appoint_alliance_leader_desc: "任命我国的一位角色担任外交联盟的倡导者。"
+ tv_remove_alliance_leader: "解除倡导者"
+ tv_remove_alliance_leader_desc: "解除现任倡导者的职务。在任命新倡导者之前，外交联盟将无名义领袖。"
+ tv_change_alliance_leader: "更换倡导者"
+ tv_change_alliance_leader_desc: "以另一位角色替换现任倡导者。"
+ tv_select_alliance_leader: "选择倡导者"
+ tv_no_alliance_leader_available: "@trigger_no! 没有符合条件的角色可供选择。"
+
+ PERFORM_tv_appoint_alliance_leader_ACTION_SETUP: "当我们任命外交联盟倡导者时。"
+ PERFORM_tv_appoint_alliance_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为外交联盟倡导者。"
+ PERFORM_tv_appoint_alliance_leader_ACTION_MAP: ""
+
+ PERFORM_tv_remove_alliance_leader_ACTION_SETUP: "当我们解除外交联盟倡导者职务时。"
+ PERFORM_tv_remove_alliance_leader_ACTION_LOG: "我们解除了外交联盟倡导者的职务。"
+ PERFORM_tv_remove_alliance_leader_ACTION_MAP: ""
+
+ PERFORM_tv_change_alliance_leader_ACTION_SETUP: "当我们更换外交联盟倡导者时。"
+ PERFORM_tv_change_alliance_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为外交联盟新任倡导者。"
+ PERFORM_tv_change_alliance_leader_ACTION_MAP: ""

@@ -1,27 +1,20 @@
-# Locked Frontier Technology Advances
-# Each entry defines one advance node that is inaccessible by default and must
-# be unlocked via a complete Research Mechanism cycle in the Academy of Sciences IO.
+# Research Mechanism — Frontier Technology Targets
+# Each entry defines one advance node that the Academy of Sciences Research Mechanism
+# can unlock as a shortcut (a completed cycle auto-researches it via `research_advance`).
+#
+# NOTE: As of v0.1.x, these advances are NOT locked at game start. The vanilla
+# research path is fully intact; the Research Mechanism is an *extra* unlock route
+# (skip the vanilla cost / institution requirement and grant the advance immediately
+# upon completing one full A+B+C+D cycle).
 #
 # Fields:
-#   id                  Short key used for variable/trigger/effect naming (no _advance suffix)
-#   label_en            English display name
-#   label_zh            Chinese display name
-#   research_unlock_var Country script variable set to 1 when unlocked
-#   trigger_block       Verbatim EU5 trigger body (is-locked check; inserted as-is)
-#   loc.en              English lock-reason tooltip shown in advance tree
-#   loc.zh              Chinese lock-reason tooltip shown in advance tree
-#
-# Vanilla advance key mapping (for tv_locked_advances.txt REPLACE/INJECT):
-#   iron_working                  → iron_working           (Age 1, has allow:feudalism — REPLACE)
-#   printing_press                → printing_press_advance (Age 3, has allow:printing_press — REPLACE)
-#   scientific_revolution         → scientific_revolution_advance (Age 5, has allow:scientific_revolution — REPLACE)
-#   manufactories                 → manufactories_advance  (Age 5, has allow:manufactories — REPLACE)
-#   industrialization             → industrialization_advance (Age 6, has allow:industrialization — REPLACE)
-#   anatomy                       → anatomy_advance        (Age 2, no allow — INJECT)
-#   gunpowder                     → gunpowder_advance      (Age 2, no allow — INJECT)
-#   blast_furnace                 → blast_furnace          (Age 3, no allow — INJECT)
-#   scientific_experimentation    → scientific_experimentation (Age 4, no allow — INJECT)
-#   vaccination                   → vaccination_advance    (Age 6, no allow — INJECT)
+#   id                  Short key used for variable/effect naming (no _advance suffix)
+#   vanilla_advance_id  The vanilla advance key (used in `research_advance = advance_type:X`)
+#   age                 Numeric age (1..6); used by the propose-target effect to prefer
+#                       earlier-age unresearched advances
+#   research_unlock_var Country script variable set to 1 when unlocked (kept for backward
+#                       compatibility with the propose-target effect's "skip if already
+#                       unlocked via prior cycle" guard)
 #
 # Enum assignments for tv_research_target (used in subprocess_effects.txt):
 #   1=printing_press  2=iron_working  3=anatomy  4=gunpowder  5=blast_furnace
@@ -33,101 +26,51 @@
 
 locked_advances:
   - id: printing_press
-    label_en: "Printing Press"
-    label_zh: "印刷术"
+    vanilla_advance_id: printing_press_advance
+    age: 3
     research_unlock_var: tv_advance_printing_press_unlocked
-    trigger_block: |
-      NOT = { has_variable = tv_advance_printing_press_unlocked }
-    loc:
-      en: "Requires Academy Research"
-      zh: "需要科学院研究解锁"
 
   - id: iron_working
-    label_en: "Iron Working"
-    label_zh: "炼铁技术"
+    vanilla_advance_id: iron_working
+    age: 1
     research_unlock_var: tv_advance_iron_working_unlocked
-    trigger_block: |
-      NOT = { has_variable = tv_advance_iron_working_unlocked }
-    loc:
-      en: "Requires Academy Research"
-      zh: "需要科学院研究解锁"
 
   - id: anatomy
-    label_en: "Anatomy"
-    label_zh: "解剖学"
+    vanilla_advance_id: anatomy_advance
+    age: 2
     research_unlock_var: tv_advance_anatomy_unlocked
-    trigger_block: |
-      NOT = { has_variable = tv_advance_anatomy_unlocked }
-    loc:
-      en: "Requires Academy Research"
-      zh: "需要科学院研究解锁"
 
   - id: gunpowder
-    label_en: "Gunpowder"
-    label_zh: "火药技术"
+    vanilla_advance_id: gunpowder_advance
+    age: 2
     research_unlock_var: tv_advance_gunpowder_unlocked
-    trigger_block: |
-      NOT = { has_variable = tv_advance_gunpowder_unlocked }
-    loc:
-      en: "Requires Academy Research"
-      zh: "需要科学院研究解锁"
 
   - id: blast_furnace
-    label_en: "Blast Furnace"
-    label_zh: "高炉炼铁"
+    vanilla_advance_id: blast_furnace
+    age: 3
     research_unlock_var: tv_advance_blast_furnace_unlocked
-    trigger_block: |
-      NOT = { has_variable = tv_advance_blast_furnace_unlocked }
-    loc:
-      en: "Requires Academy Research"
-      zh: "需要科学院研究解锁"
 
   - id: scientific_experimentation
-    label_en: "Scientific Experimentation"
-    label_zh: "科学实验"
+    vanilla_advance_id: scientific_experimentation
+    age: 4
     research_unlock_var: tv_advance_scientific_experimentation_unlocked
-    trigger_block: |
-      NOT = { has_variable = tv_advance_scientific_experimentation_unlocked }
-    loc:
-      en: "Requires Academy Research"
-      zh: "需要科学院研究解锁"
 
   - id: scientific_revolution
-    label_en: "Scientific Revolution"
-    label_zh: "科学革命"
+    vanilla_advance_id: scientific_revolution_advance
+    age: 5
     research_unlock_var: tv_advance_scientific_revolution_unlocked
-    trigger_block: |
-      NOT = { has_variable = tv_advance_scientific_revolution_unlocked }
-    loc:
-      en: "Requires Academy Research"
-      zh: "需要科学院研究解锁"
 
   - id: manufactories
-    label_en: "Manufactories"
-    label_zh: "工厂制造"
+    vanilla_advance_id: manufactories_advance
+    age: 5
     research_unlock_var: tv_advance_manufactories_unlocked
-    trigger_block: |
-      NOT = { has_variable = tv_advance_manufactories_unlocked }
-    loc:
-      en: "Requires Academy Research"
-      zh: "需要科学院研究解锁"
 
   - id: industrialization
-    label_en: "Industrialization"
-    label_zh: "工业化"
+    vanilla_advance_id: industrialization_advance
+    age: 6
     research_unlock_var: tv_advance_industrialization_unlocked
-    trigger_block: |
-      NOT = { has_variable = tv_advance_industrialization_unlocked }
-    loc:
-      en: "Requires Academy Research"
-      zh: "需要科学院研究解锁"
 
   - id: vaccination
-    label_en: "Vaccination"
-    label_zh: "疫苗接种"
+    vanilla_advance_id: vaccination_advance
+    age: 6
     research_unlock_var: tv_advance_vaccination_unlocked
-    trigger_block: |
-      NOT = { has_variable = tv_advance_vaccination_unlocked }
-    loc:
-      en: "Requires Academy Research"
-      zh: "需要科学院研究解锁"

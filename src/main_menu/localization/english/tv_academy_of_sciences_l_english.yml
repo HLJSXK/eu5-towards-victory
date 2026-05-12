@@ -7,3 +7,25 @@
  diplomatic_status_tv_academy_of_sciences_tooltip: "This country has founded its own Academy of Sciences and participates in the Research Mechanism."
  tv_academy_of_sciences_list_who_tt: "Academy of Sciences members"
  io_opinion_tv_academy_of_sciences: "Fellow Academy of Sciences Member"
+
+ # ── IO Leader management ──────────────────────────────────────────────
+ tv_appoint_academy_leader: "Appoint Chief Scientist"
+ tv_appoint_academy_leader_desc: "Appoint one of our characters as the Chief Scientist of the Academy. The Chief Scientist's Administration skill drives the Concentrated Research subprocess; their Diplomacy and Military skills determine its monthly gold cost."
+ tv_remove_academy_leader: "Dismiss Chief Scientist"
+ tv_remove_academy_leader_desc: "Remove the current Chief Scientist. Concentrated Research will halt until a new Chief Scientist is appointed."
+ tv_change_academy_leader: "Replace Chief Scientist"
+ tv_change_academy_leader_desc: "Replace the current Chief Scientist with another character."
+ tv_select_academy_leader: "Select Chief Scientist"
+ tv_no_academy_leader_available: "@trigger_no! No eligible characters are available."
+
+ PERFORM_tv_appoint_academy_leader_ACTION_SETUP: "When we appoint a Chief Scientist of the Academy."
+ PERFORM_tv_appoint_academy_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as Chief Scientist of the Academy."
+ PERFORM_tv_appoint_academy_leader_ACTION_MAP: ""
+
+ PERFORM_tv_remove_academy_leader_ACTION_SETUP: "When we dismiss the Chief Scientist of the Academy."
+ PERFORM_tv_remove_academy_leader_ACTION_LOG: "We dismissed the Chief Scientist of the Academy."
+ PERFORM_tv_remove_academy_leader_ACTION_MAP: ""
+
+ PERFORM_tv_change_academy_leader_ACTION_SETUP: "When we replace the Chief Scientist of the Academy."
+ PERFORM_tv_change_academy_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as the new Chief Scientist of the Academy."
+ PERFORM_tv_change_academy_leader_ACTION_MAP: ""

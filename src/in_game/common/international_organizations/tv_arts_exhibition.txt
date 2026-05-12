@@ -1,13 +1,24 @@
 ﻿# Towards Victory — Arts Exhibition International Organization type definition
-# Countries join via script when they achieve Cultural Victory Milestone 1.
-# Membership tracked per-country (tv_arts_exhibition_member).
+# Non-unique IO; each country pursuing Cultural Victory creates their own instance
+# at Cultural Victory Milestone 1. Country membership flag: tv_arts_exhibition_member.
 # International Influence is an IO type variable (tv_arts_intl_influence), auto-decays -0.05/month.
+#
+# Leader: character (artist). Selected manually by the leader_country via the
+# Appoint / Remove / Change Leader generic actions (tv_io_leader_actions.txt).
+# The leader country variable tv_arts_exhibition_leader_char holds the appointed character.
 
 tv_arts_exhibition = {
 	has_target = no
 	has_leader_country = yes
 	leader_title_key = "TV_ARTS_EXHIBITION_LEADER"
-	leader_type = country
+	leader_type = character
+	leader = {
+		leader_country ?= {
+			var:tv_arts_exhibition_leader_char ?= {
+				add_to_list = leaders
+			}
+		}
+	}
 	leader_change_trigger_type = none
 	leader_change_method = none
 	disband_if_no_leader = no
@@ -28,11 +39,15 @@ tv_arts_exhibition = {
 				if = {
 					limit = {
 						international_organization_has_leader = yes
-						leader_country = { has_variable = tv_chief_artist_monthly_bonus }
+						leader_country = {
+							has_variable = tv_arts_exhibition_leader_char
+							var:tv_arts_exhibition_leader_char = { is_alive = yes }
+						}
 					}
 					add = {
-						desc = "TV_CHIEF_ARTIST_CONTRIBUTION"
-						value = leader_country.var:tv_chief_artist_monthly_bonus
+						desc = "TV_ARTS_LEADER_CONTRIBUTION"
+						value = leader_country.var:tv_arts_exhibition_leader_char.artist_skill
+						multiply = 0.002
 					}
 				}
 			}
