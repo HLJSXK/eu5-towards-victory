@@ -39,3 +39,16 @@ ios:
     title_loc_key: character_title_tv_chief_scientist
     char_filter: |
       is_adult = yes
+
+  - id: conquest_general  # generates tv_appoint_conquest_general_leader, tv_remove_conquest_general_leader, tv_change_conquest_general_leader
+    display_name: "Governor's House - Grand General"
+    io_type: tv_govhouse
+    member_var: tv_govhouse_member
+    leader_var: tv_conquest_general_char
+    select_name: tv_select_grand_general
+    no_leader_msg: tv_no_grand_general_available
+    title_modifier: tv_grand_general_role_modifier
+    title_loc_key: character_title_tv_grand_general
+    char_filter: |
+      is_adult = yes
+      # TODO: add eligibility filter — e.g. mil >= 4, or a specific trait

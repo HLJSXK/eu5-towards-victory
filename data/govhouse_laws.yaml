@@ -1,0 +1,36 @@
+# Governor's House (总督府) subject taxation laws
+# Source for src/in_game/common/laws/tv_govhouse_laws.txt
+# TODO: create scripts/in_game/common/laws/gen_tv_govhouse_laws.py (modelled on gen_tv_alliance_laws.py)
+#
+# Three-level subject taxation law.
+# AI bias: always oppose level 3 (high tax), always support level 1 (low tax).
+# Player must bribe enough subjects to pass high-tax policy.
+#
+# TODO: Step 2/3 verify correct modifier names for vassal income and subject opinion.
+# TODO: Verify whether laws support 3-level policies or require 4; use 3 levels for now.
+
+laws:
+  - id: tv_subject_tax
+    display_comment: "附庸税收 / Subject Taxation"
+    law_category: socioeconomic
+    parliament_type: tv_govhouse_assembly
+    policies:
+      - level: 1
+        id: tv_subject_tax_low
+        display_comment: "低税收 / Low Tax"
+        country_modifier: |
+          # TODO: vassal_income = -0.05
+          # TODO: subject_opinion = 5
+      - level: 2
+        id: tv_subject_tax_medium
+        display_comment: "中税收（默认）/ Medium Tax (default)"
+        is_default: true
+        country_modifier: ""
+      - level: 3
+        id: tv_subject_tax_high
+        display_comment: "高税收 / High Tax"
+        country_modifier: |
+          # TODO: vassal_income = 0.05
+          # TODO: subject_opinion = -5
+        # AI always opposes this policy
+        ai_oppose: true

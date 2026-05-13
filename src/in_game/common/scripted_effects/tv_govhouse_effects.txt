@@ -1,0 +1,102 @@
+﻿# Towards Victory — Governor's House (总督府) scripted effects
+
+# Creates the Governor's House IO for scope country (must be called as owner country).
+# Sets the tv_govhouse_member flag, creates the IO, and adds the country as its first member.
+tv_govhouse_create_effect = {
+	if = {
+		limit = {
+			NOT = {
+				any_international_organizations_member_of = {
+					international_organization_type = international_organization_type:tv_govhouse
+					leader_country = this
+				}
+			}
+		}
+		set_variable = { name = tv_govhouse_member value = 1 }
+		create_international_organization = {
+			type = international_organization_type:tv_govhouse
+			add_country_to_international_organization = prev
+			set_leader_country = prev
+		}
+	}
+}
+
+# Starts Grand General training. Marks the Grand General as in training.
+# Called by the tv_train_grand_general generic action.
+# Scope: actor country.
+tv_training_start_effect = {
+	# TODO: apply +10% court expenses for 1 year once modifier name is verified
+	# add_country_modifier = { modifier = tv_gg_training_cost days = 365 }
+	var:tv_conquest_general_char = {
+		set_variable = { name = tv_gg_training_active value = 1 }
+	}
+}
+
+# Fires the weighted training outcome for the Grand General.
+# Called from yearly_country_pulse once tv_gg_training_active is detected.
+# Scope: actor country. 49 / 49 / 1 / 1 split.
+# Each event handles sub-routing based on character state (mil level, trait level).
+tv_training_resolve_effect = {
+	random_list = {
+		49 = {
+			# Mil skill gain (or 世间无两 if mil = 100) — routing done inside event 1
+			trigger_event_non_silently = { id = tv_grand_general.1 }
+		}
+		49 = {
+			# Trait upgrade (or 百炼成钢/世间无两 if maxed) — routing done inside event 3
+			trigger_event_non_silently = { id = tv_grand_general.3 }
+		}
+		1 = {
+			# Injury (or 旧伤复发 death if already injured) — routing done inside event 6
+			trigger_event_non_silently = { id = tv_grand_general.6 }
+		}
+		1 = {
+			# Accidental death
+			trigger_event_non_silently = { id = tv_grand_general.8 }
+		}
+	}
+	# Clear training flag regardless of outcome
+	var:tv_conquest_general_char ?= {
+		remove_variable = tv_gg_training_active
+	}
+}
+
+# ── Governor system (总督 per area) — TODO ───────────────────────────────────
+#
+# DESIGN: Each EU5 area in which the country owns at least one location gets a governor character.
+# Governor bonuses scale with character adm/dip/mil:
+#   +max control    = adm × 0.1%  (max 10%)
+#   -building costs = dip × 0.2%  (max 20%)
+#   +pop satisfaction = mil × 0.2% (max 20%)
+#   +estate influence (governor's class) = (adm+dip+mil) × 0.2% (max 60%)
+#
+# Implementation blocker: Requires:
+#   (a) per-area character variable storage (e.g. country var tv_gov_<area_tag>_char)
+#   (b) location modifier application via TRY_REPLACE in static_modifiers/
+#       (auto_modifiers are NON-FUNCTIONAL — see CLAUDE.md)
+#   (c) Step 2/3 verification of EU5 area scope iteration syntax
+#
+# Stub effect — fill in after verifying EU5 area iteration and TRY_REPLACE syntax.
+tv_apply_governor_bonuses_effect = {
+	# TODO: iterate every_in_list = areas owned by this country
+	#   for each area with a governor assigned (has_variable = tv_gov_<area>_char):
+	#     apply location modifiers via TRY_REPLACE to all locations in the area
+	#   Step 2/3 research needed before implementation
+}
+
+# Cleans up governor variables and IO on country deletion or conquest defeat.
+# Scope: country being cleaned up.
+tv_govhouse_cleanup_effect = {
+	if = {
+		limit = { has_variable = tv_govhouse_member }
+		remove_variable = tv_govhouse_member
+	}
+	if = {
+		limit = { has_variable = tv_conquest_general_char }
+		var:tv_conquest_general_char ?= {
+			remove_character_modifier = tv_grand_general_role_modifier
+		}
+		remove_variable = tv_conquest_general_char
+	}
+	# TODO: clean up per-area governor variables once governor system is implemented
+}

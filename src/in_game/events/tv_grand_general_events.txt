@@ -1,0 +1,202 @@
+﻿# Towards Victory — Grand General (大将军) training outcome events
+# Fired by tv_training_resolve_effect (tv_govhouse_effects.txt) after a 1-year training period.
+# Root/scope: country that owns the Grand General.
+# The Grand General character is accessed via var:tv_conquest_general_char on the root country.
+
+namespace = tv_grand_general
+
+# ── Outcome 1: Mil skill gain (weight 49) ────────────────────────────────────
+# If mil < 100 → +10 mil. If mil = 100 → 世间无双 (fire event 2 instead).
+tv_grand_general.1 = {
+	type = country_event
+	title = tv_grand_general.1.t
+	desc = tv_grand_general.1.d
+	outcome = neutral
+
+	immediate = {
+		if = {
+			limit = {
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char = { mil >= 100 }
+			}
+			# Redirect: mil already maxed → 世间无双
+			trigger_event_non_silently = { id = tv_grand_general.2 }
+			# Hide this event since we fired the replacement
+			hidden_effect = { set_variable = { name = tv_gg_skip_event value = 1 } }
+		}
+	}
+
+	option = {
+		name = tv_grand_general.1.a
+		# TODO: var:tv_conquest_general_char = { add_character_skill = { skill = mil value = 10 } }
+		# Verify add_character_skill syntax against reference_game_files before implementing.
+		custom_tooltip = { text = tv_gg_mil_gain_todo_tt }
+	}
+}
+
+# ── Outcome 2: 世间无双 — ruler +3 mil (mil = 100 on skill-gain path) ────────
+tv_grand_general.2 = {
+	type = country_event
+	title = tv_grand_general.2.t
+	desc = tv_grand_general.2.d
+	outcome = positive
+
+	option = {
+		name = tv_grand_general.2.a
+		# TODO: ruler = { add_character_skill = { skill = mil value = 3 } }
+		# Verify ruler scope access and add_character_skill syntax.
+		custom_tooltip = { text = tv_gg_ruler_mil_gain_todo_tt }
+	}
+}
+
+# ── Outcome 3: Trait upgrade (weight 49) ────────────────────────────────────
+# Player chooses offense / defense / tactics path. Each option upgrades that path's trait level.
+# If the chosen path is already at L3, the event should not offer that option (use trigger).
+# Routing to events 4/5 (百炼成钢/世间无双) is handled by the option effects.
+tv_grand_general.3 = {
+	type = country_event
+	title = tv_grand_general.3.t
+	desc = tv_grand_general.3.d
+	outcome = neutral
+
+	# Option A: Offense path
+	option = {
+		name = tv_grand_general.3.a
+		trigger = {
+			# Only show if offense path is not yet at L3
+			OR = {
+				NOT = {
+					var:tv_conquest_general_char = { has_trait = tv_gg_offense_1 }
+					var:tv_conquest_general_char = { has_trait = tv_gg_offense_2 }
+					var:tv_conquest_general_char = { has_trait = tv_gg_offense_3 }
+				}
+				var:tv_conquest_general_char = { has_trait = tv_gg_offense_1 }
+				var:tv_conquest_general_char = { has_trait = tv_gg_offense_2 }
+			}
+		}
+		# TODO: upgrade offense trait:
+		#   if tv_gg_offense_2 → remove + add tv_gg_offense_3
+		#   elif tv_gg_offense_1 → remove + add tv_gg_offense_2
+		#   else → add tv_gg_offense_1
+		# Verify add_trait / remove_trait syntax on characters.
+		custom_tooltip = { text = tv_gg_offense_upgrade_todo_tt }
+	}
+
+	# Option B: Defense path
+	option = {
+		name = tv_grand_general.3.b
+		trigger = {
+			OR = {
+				NOT = {
+					var:tv_conquest_general_char = { has_trait = tv_gg_defense_1 }
+					var:tv_conquest_general_char = { has_trait = tv_gg_defense_2 }
+					var:tv_conquest_general_char = { has_trait = tv_gg_defense_3 }
+				}
+				var:tv_conquest_general_char = { has_trait = tv_gg_defense_1 }
+				var:tv_conquest_general_char = { has_trait = tv_gg_defense_2 }
+			}
+		}
+		custom_tooltip = { text = tv_gg_defense_upgrade_todo_tt }
+	}
+
+	# Option C: Tactics path
+	option = {
+		name = tv_grand_general.3.c
+		trigger = {
+			OR = {
+				NOT = {
+					var:tv_conquest_general_char = { has_trait = tv_gg_tactics_1 }
+					var:tv_conquest_general_char = { has_trait = tv_gg_tactics_2 }
+					var:tv_conquest_general_char = { has_trait = tv_gg_tactics_3 }
+				}
+				var:tv_conquest_general_char = { has_trait = tv_gg_tactics_1 }
+				var:tv_conquest_general_char = { has_trait = tv_gg_tactics_2 }
+			}
+		}
+		custom_tooltip = { text = tv_gg_tactics_upgrade_todo_tt }
+	}
+}
+
+# ── Outcome 4: 百炼成钢 — +15 mil (trait maxed, mil < 100) ──────────────────
+tv_grand_general.4 = {
+	type = country_event
+	title = tv_grand_general.4.t
+	desc = tv_grand_general.4.d
+	outcome = positive
+
+	option = {
+		name = tv_grand_general.4.a
+		# TODO: var:tv_conquest_general_char = { add_character_skill = { skill = mil value = 15 } }
+		custom_tooltip = { text = tv_gg_mil_gain_15_todo_tt }
+	}
+}
+
+# ── Outcome 5: 世间无双 — ruler +3 mil (trait maxed AND mil = 100) ───────────
+tv_grand_general.5 = {
+	type = country_event
+	title = tv_grand_general.5.t
+	desc = tv_grand_general.5.d
+	outcome = positive
+
+	option = {
+		name = tv_grand_general.5.a
+		# TODO: ruler = { add_character_skill = { skill = mil value = 3 } }
+		custom_tooltip = { text = tv_gg_ruler_mil_gain_todo_tt }
+	}
+}
+
+# ── Outcome 6: 伤疤 — injury (weight 1) ─────────────────────────────────────
+# If Grand General already has tv_gg_injured → 旧伤复发 (fire event 7 instead).
+tv_grand_general.6 = {
+	type = country_event
+	title = tv_grand_general.6.t
+	desc = tv_grand_general.6.d
+	outcome = negative
+
+	immediate = {
+		if = {
+			limit = {
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char = { has_trait = tv_gg_injured }
+			}
+			# Redirect: already injured → 旧伤复发
+			trigger_event_non_silently = { id = tv_grand_general.7 }
+			hidden_effect = { set_variable = { name = tv_gg_skip_event value = 1 } }
+		}
+	}
+
+	option = {
+		name = tv_grand_general.6.a
+		# TODO: var:tv_conquest_general_char = { add_trait = tv_gg_injured }
+		custom_tooltip = { text = tv_gg_injury_todo_tt }
+	}
+}
+
+# ── Outcome 7: 旧伤复发 — death (already injured) ────────────────────────────
+tv_grand_general.7 = {
+	type = country_event
+	title = tv_grand_general.7.t
+	desc = tv_grand_general.7.d
+	outcome = negative
+
+	option = {
+		name = tv_grand_general.7.a
+		# TODO: var:tv_conquest_general_char = { death = { natural = no } }
+		# Verify death effect syntax for characters.
+		custom_tooltip = { text = tv_gg_death_todo_tt }
+	}
+}
+
+# ── Outcome 8: Accidental death (weight 1) ──────────────────────────────────
+tv_grand_general.8 = {
+	type = country_event
+	title = tv_grand_general.8.t
+	desc = tv_grand_general.8.d
+	outcome = negative
+
+	option = {
+		name = tv_grand_general.8.a
+		# TODO: var:tv_conquest_general_char = { death = { natural = no } }
+		custom_tooltip = { text = tv_gg_death_todo_tt }
+	}
+}

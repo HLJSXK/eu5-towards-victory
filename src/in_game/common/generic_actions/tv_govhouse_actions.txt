@@ -1,0 +1,37 @@
+﻿# Towards Victory — Governor's House training action for Grand General (大将军)
+# Appoint/Remove/Change actions are auto-generated in tv_io_leader_actions.txt
+# via data/io_leaders.yaml entry id: conquest_general.
+
+tv_train_grand_general = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = { has_variable = tv_govhouse_member }
+		scope:actor = { has_variable = tv_conquest_general_char }
+		scope:actor = {
+			var:tv_conquest_general_char = { is_alive = yes }
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			# Grand General must not already be in training
+			var:tv_conquest_general_char = {
+				NOT = { has_variable = tv_gg_training_active }
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			tv_training_start_effect = yes
+		}
+	}
+
+	ai_will_do = {
+		add = -100
+	}
+}

@@ -1,0 +1,111 @@
+﻿# Towards Victory — Governor's House (总督府) International Organization type definition
+# Non-unique IO; each country pursuing Conquest Victory creates their own instance
+# at Conquest Victory Milestone 1 (200 locations). Country membership flag: tv_govhouse_member.
+# Authority is an IO type variable (tv_govhouse_authority, 0-100), decays 0.05%/month,
+# grows by Grand General's mil skill contribution.
+#
+# Leader: Grand General character. Selected manually by leader_country via
+# tv_appoint_conquest_general_leader / tv_remove_conquest_general_leader / tv_change_conquest_general_leader
+# (generated from data/io_leaders.yaml). The country variable tv_conquest_general_char holds the character.
+#
+# Tab 1: Governor status per area — TODO: implement governor system
+# Tab 2: Subject taxation laws — uses parliament_type = tv_govhouse_assembly
+# Tab 3: Grand General actions
+# Tab 4: IO members (default display)
+
+tv_govhouse = {
+	has_target = no
+	has_leader_country = yes
+	leader_title_key = "TV_GOVHOUSE_GRAND_GENERAL"
+	use_regnal_number = no
+	leader_type = character
+	leader = {
+		leader_country ?= {
+			var:tv_conquest_general_char ?= {
+				add_to_list = leaders
+			}
+		}
+	}
+	leader_change_trigger_type = none
+	leader_change_method = none
+	disband_if_no_leader = no
+	show_on_diplomatic_map = no
+
+	# TODO: add has_parliament = yes / parliament_type = tv_govhouse_assembly / resolution_widget = parliament
+	# once the assembly type and subject taxation laws are defined in common/parliament/ and common/laws/.
+
+	variables = {
+		tv_govhouse_authority = {
+			format = "TV_GOVHOUSE_AUTHORITY_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 100
+			start = 0
+			monthly_change = {
+				subtract = {
+					desc = "TV_GOVHOUSE_AUTHORITY_DECAY"
+					value = var:tv_govhouse_authority
+					# TODO: tune decay rate (currently 0.05% of current value per month)
+					multiply = 0.0005
+				}
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country = {
+							has_variable = tv_conquest_general_char
+							var:tv_conquest_general_char = { is_alive = yes }
+						}
+					}
+					add = {
+						desc = "TV_GOVHOUSE_GENERAL_CONTRIBUTION"
+						value = leader_country.var:tv_conquest_general_char.mil
+						# TODO: tune contribution multiplier
+						multiply = 0.05
+					}
+				}
+			}
+		}
+	}
+
+	modifier = {
+	}
+
+	on_creation = {
+		if = {
+			limit = { exists = scope:actor }
+			set_leader_country = scope:actor
+		}
+	}
+
+	create_visible_trigger = {
+		always = no
+	}
+
+	invite_visible_trigger = {
+		always = no
+	}
+
+	can_join_trigger = {
+		always = no
+	}
+
+	can_leave_trigger = {
+		always = no
+	}
+
+	auto_leave_trigger = {
+		always = no
+	}
+
+	auto_disband_trigger = {
+		total_members < 1
+	}
+
+	join_defensive_wars_always = {
+		always = no
+	}
+
+	join_offensive_wars_always = {
+		always = no
+	}
+}

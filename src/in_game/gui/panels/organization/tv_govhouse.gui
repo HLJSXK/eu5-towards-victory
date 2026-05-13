@@ -1,0 +1,104 @@
+﻿# Towards Victory — Governor's House (总督府) IO Panel
+# 4-tab layout:
+#   Tab 1 (overview):  Governor status per area — TODO: implement region iteration
+#   Tab 2 (laws):      Subject taxation laws — uses default parliament display
+#   Tab 3 (actions):   Grand General portrait + Appoint/Remove/Change/Train actions
+#   Tab 4 (members):   IO members — uses default members display
+#
+# TODO: Verify all blockoverride names against the base organization_panel template:
+#   reference_game_files/game/main_menu/gui/panels/organization/organization_panel.gui
+# TODO: Verify GUI expression syntax for InternationalOrganizationsView accessors.
+
+organization_panel = {
+
+	# ── Tab visibility overrides ─────────────────────────────────────────────
+	# Overview tab = Tab 1 (Governor Status): shown by default
+	blockoverride "organization_overview_tab_visible" {}
+
+	blockoverride "organization_panel_overview_visible" {
+		visible = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
+	}
+
+	# Members tab = Tab 4: use vanilla display
+	blockoverride "organization_members_tab_down" {
+		down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+	}
+
+	blockoverride "organization_panel_members_visible" {
+		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+	}
+
+	# ── Header: Grand General character portrait ─────────────────────────────
+	blockoverride "country_header_character_visible" {
+		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+	}
+	blockoverride "country_header_character_context" {
+		datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
+	}
+	blockoverride "country_header_religion" {}
+	blockoverride "extra_titles" {}
+	blockoverride "country_header_names_visible" {
+		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+	}
+	blockoverride "country_header_character_name" {
+		datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
+		margin = { 2 0 }
+		character_label_name = {
+			margin_left = 0
+			margin_right = 10
+			blockoverride "character_name_text" {
+				raw_text = "[Character.GetNameToFit('(int32)40', '(bool)yes')]"
+			}
+		}
+	}
+
+	# ── Tab icon for the "actions" / Grand General tab ───────────────────────
+	# TODO: replace with a suitable military icon
+	blockoverride "io_main_actions_icon" {
+		texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+	}
+
+	# ── Tab 1 overview content: Governor Status (总督状态) ───────────────────
+	# TODO: implement governor region list.
+	# Design: header card "xxx has Y governors", then one card per EU5 area with:
+	#   - area icon + area name
+	#   - character card (portrait, attributes, traits) for the assigned governor
+	#   - effect row: max control / building cost / pop satisfaction / estate influence values
+	#
+	# Implementation requires governor assignment system (tv_govhouse_effects.txt:
+	#   tv_apply_governor_bonuses_effect) — mark as TODO until that system is built.
+	blockoverride "scroll_overview_empty_visible" { visible = no }
+
+	blockoverride "io_overview_content" {
+		# TODO: governor list — placeholder text until governor system is implemented
+		widget = {
+			size = { 470 60 }
+			text_label_center = {
+				size = { 470 60 }
+				text = "TV_GOVHOUSE_TAB1_PLACEHOLDER"
+			}
+		}
+	}
+
+	# ── Tab 2 laws content: Subject Taxation Laws ────────────────────────────
+	# Uses default parliament/law display (has_parliament = yes in tv_govhouse.txt).
+	# No custom blockoverride needed — vanilla law panel renders automatically.
+	# TODO: verify that parliament_type = tv_govhouse_assembly renders correctly
+	#   once the parliament type and law definitions are created.
+
+	# ── Tab 3 actions content: Grand General management ─────────────────────
+	# TODO: verify blockoverride name for additional/custom actions content.
+	# The generated tv_io_leader_actions.txt already provides:
+	#   tv_appoint_conquest_general_leader, tv_remove_conquest_general_leader,
+	#   tv_change_conquest_general_leader
+	# tv_govhouse_actions.txt provides: tv_train_grand_general
+	blockoverride "io_action_content" {
+		# TODO: verify that generic_actions auto-appear, or if explicit buttons are needed.
+		# If explicit buttons are required, add generic_action_button widgets here for:
+		#   tv_appoint_conquest_general_leader
+		#   tv_remove_conquest_general_leader
+		#   tv_change_conquest_general_leader
+		#   tv_train_grand_general
+	}
+
+}

@@ -361,3 +361,130 @@ tv_change_academy_leader = {
 
 	ai_will_do = { add = -100 }
 }
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Governor's House - Grand General (non-unique IO)
+# ═════════════════════════════════════════════════════════════════════════════
+
+tv_appoint_conquest_general_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = { has_variable = tv_govhouse_member }
+	}
+
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_grand_general"
+		none_available_msg_key = "tv_no_grand_general_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_adult = yes
+			# TODO: add eligibility filter — e.g. mil >= 4, or a specific trait
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_conquest_general_char value = scope:target }
+			}
+			scope:target = {
+				add_character_modifier = { modifier = tv_grand_general_role_modifier years = -1 mode = add_and_extend }
+			}
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_remove_conquest_general_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = { has_variable = tv_govhouse_member }
+	}
+
+	allow = { always = yes }
+
+	effect = {
+		scope:actor = {
+			if = {
+				limit = { has_variable = tv_conquest_general_char }
+				var:tv_conquest_general_char ?= {
+					remove_character_modifier = tv_grand_general_role_modifier
+				}
+			}
+			remove_variable = tv_conquest_general_char
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_change_conquest_general_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = { has_variable = tv_govhouse_member }
+	}
+
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_grand_general"
+		none_available_msg_key = "tv_no_grand_general_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_adult = yes
+			# TODO: add eligibility filter — e.g. mil >= 4, or a specific trait
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			if = {
+				limit = { has_variable = tv_conquest_general_char }
+				var:tv_conquest_general_char ?= {
+					remove_character_modifier = tv_grand_general_role_modifier
+				}
+			}
+		}
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_conquest_general_char value = scope:target }
+			}
+			scope:target = {
+				add_character_modifier = { modifier = tv_grand_general_role_modifier years = -1 mode = add_and_extend }
+			}
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}

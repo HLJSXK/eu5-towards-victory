@@ -714,6 +714,8 @@ tv_update_all_progress_pct_effect = {
 # Conquest Victory
 tv_grant_conquest_milestone_1 = {
 	add_country_modifier = { modifier = tv_conquest_m1_bonus days = -1 }
+	custom_tooltip = { text = tv_conquest_m1_govhouse_tt }
+	hidden_effect = { tv_govhouse_create_effect = yes }
 }
 
 tv_grant_conquest_milestone_2 = {

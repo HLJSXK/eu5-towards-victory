@@ -1,0 +1,141 @@
+﻿l_english:
+ # ── Governor's House (总督府) ─────────────────────────────────────────────────
+ # IO type auto-derived keys
+ tv_govhouse: "Governor's House"
+ tv_govhouse_desc: "The Governor's House is the administrative apparatus of a conquering empire. Established when the realm controls 200 locations, it organises the appointment of governors over conquered regions and commands the Grand General — the supreme military commander of the realm."
+ diplomatic_status_tv_govhouse_name: "Governor's House Member"
+ diplomatic_status_tv_govhouse_tooltip: "This country has established a Governor's House to administer its conquered territories."
+ tv_govhouse_list_who_tt: "Governor's House members"
+ io_opinion_tv_govhouse: "Fellow Governor's House Member"
+ TV_GOVHOUSE_GRAND_GENERAL: "Grand General"
+
+ # ── Conquest M1 IO creation tooltip ─────────────────────────────────────────
+ tv_conquest_m1_govhouse_tt: "Establish the Governor's House to administer conquered territories and appoint a Grand General."
+
+ # ── IO Leader management (Grand General) ────────────────────────────────────
+ tv_appoint_conquest_general_leader: "Appoint Grand General"
+ tv_appoint_conquest_general_leader_desc: "Appoint one of our characters as Grand General of the realm. The Grand General can be trained to improve their military skill and develop one of three specialised military trait paths."
+ tv_remove_conquest_general_leader: "Dismiss Grand General"
+ tv_remove_conquest_general_leader_desc: "Remove the current Grand General. The position will remain vacant until a new Grand General is appointed."
+ tv_change_conquest_general_leader: "Replace Grand General"
+ tv_change_conquest_general_leader_desc: "Replace the current Grand General with another character."
+ tv_select_grand_general: "Select Grand General"
+ tv_no_grand_general_available: "@trigger_no! No eligible characters are available."
+
+ PERFORM_tv_appoint_conquest_general_leader_ACTION_SETUP: "When we appoint a Grand General."
+ PERFORM_tv_appoint_conquest_general_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as Grand General."
+ PERFORM_tv_appoint_conquest_general_leader_ACTION_MAP: ""
+
+ PERFORM_tv_remove_conquest_general_leader_ACTION_SETUP: "When we dismiss the Grand General."
+ PERFORM_tv_remove_conquest_general_leader_ACTION_LOG: "We dismissed the Grand General."
+ PERFORM_tv_remove_conquest_general_leader_ACTION_MAP: ""
+
+ PERFORM_tv_change_conquest_general_leader_ACTION_SETUP: "When we replace the Grand General."
+ PERFORM_tv_change_conquest_general_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as the new Grand General."
+ PERFORM_tv_change_conquest_general_leader_ACTION_MAP: ""
+
+ # ── Train action ─────────────────────────────────────────────────────────────
+ tv_train_grand_general: "Train Grand General"
+ tv_train_grand_general_desc: "Subject our Grand General to a year of intensive training. This increases court expenses by 10% for one year. At the end of training, one of several outcomes occurs: a gain in military skill, advancement along a military trait path, or — rarely — injury or death."
+
+ PERFORM_tv_train_grand_general_ACTION_SETUP: "When we begin training the Grand General."
+ PERFORM_tv_train_grand_general_ACTION_LOG: "We began training the Grand General."
+ PERFORM_tv_train_grand_general_ACTION_MAP: ""
+
+ # ── Character title prefix ───────────────────────────────────────────────────
+ character_title_tv_grand_general: "Grand General"
+ character_title_tv_grand_general_female: "Grand General"
+ STATIC_MODIFIER_NAME_tv_grand_general_role_modifier: "Grand General"
+
+ # ── IO variables display ─────────────────────────────────────────────────────
+ TV_GOVHOUSE_AUTHORITY_FORMAT: "$VAL|0$"
+ TV_GOVHOUSE_AUTHORITY_DECAY: "Monthly decay"
+ TV_GOVHOUSE_GENERAL_CONTRIBUTION: "Grand General contribution"
+
+ # ── Training outcome events ──────────────────────────────────────────────────
+ tv_grand_general.1.t: "A General Honed"
+ tv_grand_general.1.d: "The rigorous training regimen has borne fruit. Our Grand General emerges sharper, stronger, and more tactically astute than before."
+ tv_grand_general.1.a: "Every campaign now makes us stronger."
+
+ tv_grand_general.2.t: "Peerless Under Heaven"
+ tv_grand_general.2.d: "There is nothing more our Grand General can learn from training — their military genius has reached its pinnacle. This mastery now flows upward, inspiring even our ruler to new heights of strategic vision."
+ tv_grand_general.2.a: "Our realm commands the greatest military mind of the age."
+
+ tv_grand_general.3.t: "A Path of Mastery"
+ tv_grand_general.3.d: "The training has honed our Grand General's skills to a fine edge. A new military discipline now opens before them — choose the path they shall walk."
+ tv_grand_general.3.a: "Pursue the Offensive Path (进攻)."
+ tv_grand_general.3.b: "Pursue the Defensive Path (防御)."
+ tv_grand_general.3.c: "Pursue the Tactical Path (战术)."
+
+ tv_grand_general.4.t: "Forged in a Hundred Battles"
+ tv_grand_general.4.d: "Every path of military mastery has been walked to its end. Our Grand General has nothing left to learn of the art of war itself — but their personal military skill still has room to grow."
+ tv_grand_general.4.a: "The realm is fortunate to command such a warrior."
+
+ tv_grand_general.5.t: "Peerless Under Heaven"
+ tv_grand_general.5.d: "Our Grand General has transcended the limits of both skill and technique. There is no greater military mind alive. This perfection now elevates even our ruler."
+ tv_grand_general.5.a: "Our realm commands the greatest military mind of the age."
+
+ tv_grand_general.6.t: "Wounded in Training"
+ tv_grand_general.6.d: "An accident during training has left our Grand General with a lasting injury. They carry it with stoic resolve — but the wound may one day prove fatal if they train again without care."
+ tv_grand_general.6.a: "We shall pray for a swift recovery."
+
+ tv_grand_general.7.t: "Old Wounds Reopened"
+ tv_grand_general.7.d: "The rigors of training have proven too much. The old injury has torn open again — and this time, there is no recovery. Our Grand General has died on the training grounds."
+ tv_grand_general.7.a: "A heavy loss. We shall find a worthy successor."
+
+ tv_grand_general.8.t: "A General Lost"
+ tv_grand_general.8.d: "Fate is cruel. An accident during training has taken our Grand General from us. They died before their potential was fully realised."
+ tv_grand_general.8.a: "We shall honour their memory and continue."
+
+ # ── Grand General traits ─────────────────────────────────────────────────────
+ # Offense path (进攻)
+ tv_gg_offense_1: "Aggressive Commander I"
+ tv_gg_offense_1_desc: "This general favours bold offensives, driving their troops forward with relentless discipline and fire."
+ tv_gg_offense_2: "Aggressive Commander II"
+ tv_gg_offense_2_desc: "Refined aggression and heightened morale make this general a terror on the offensive."
+ tv_gg_offense_3: "Warlord"
+ tv_gg_offense_3_desc: "This general's mastery of offensive warfare is complete. Their presence on the battlefield turns the tide before the first blow is struck."
+
+ # Defense path (防御)
+ tv_gg_defense_1: "Stalwart Defender I"
+ tv_gg_defense_1_desc: "This general's soldiers hold their ground like iron, conserving strength where others squander it."
+ tv_gg_defense_2: "Stalwart Defender II"
+ tv_gg_defense_2_desc: "Tactical genius for defensive warfare — no siege line can break them, no ambush can rout them."
+ tv_gg_defense_3: "Unbreakable"
+ tv_gg_defense_3_desc: "This general has turned defense into an art form. Enemies crash against their lines like waves against stone."
+
+ # Tactics path (战术)
+ tv_gg_tactics_1: "Tactician I"
+ tv_gg_tactics_1_desc: "Swift marches and precise sieges mark this general's campaigns — always where the enemy least expects."
+ tv_gg_tactics_2: "Tactician II"
+ tv_gg_tactics_2_desc: "Superior coordination and battlefield awareness give this general a decisive edge in maneuver warfare."
+ tv_gg_tactics_3: "Grand Strategist"
+ tv_gg_tactics_3_desc: "The complete tactician — their campaigns end before they begin, opponents outmaneuvered before a single battle is fought."
+
+ # Injury trait
+ tv_gg_injured: "Battle Scar"
+ tv_gg_injured_desc: "A lingering injury from an intensive training accident. Further training risks reopening the wound — with fatal consequences."
+
+ # ── Subject taxation laws ────────────────────────────────────────────────────
+ tv_subject_tax: "Subject Taxation"
+ tv_subject_tax_desc: "Determines the level of tribute extracted from subject nations."
+ tv_subject_tax_low: "Low Taxation"
+ tv_subject_tax_low_desc: "Reduced tribute from subjects. They will be more content, but the Governor's House coffers will suffer."
+ tv_subject_tax_medium: "Standard Taxation"
+ tv_subject_tax_medium_desc: "The default rate of subject tribute — neither generous nor extractive."
+ tv_subject_tax_high: "High Taxation"
+ tv_subject_tax_high_desc: "Elevated tribute from subjects. Profitable for the empire, but deeply resented by the subjected peoples."
+
+ # ── Event option placeholder tooltips (removed when TODO effects are implemented) ──
+ tv_gg_mil_gain_todo_tt: "TODO: Grand General gains +10 Military skill."
+ tv_gg_mil_gain_15_todo_tt: "TODO: Grand General gains +15 Military skill."
+ tv_gg_ruler_mil_gain_todo_tt: "TODO: Our ruler gains +3 Military skill."
+ tv_gg_offense_upgrade_todo_tt: "TODO: Grand General advances along the Offense trait path."
+ tv_gg_defense_upgrade_todo_tt: "TODO: Grand General advances along the Defense trait path."
+ tv_gg_tactics_upgrade_todo_tt: "TODO: Grand General advances along the Tactics trait path."
+ tv_gg_injury_todo_tt: "TODO: Grand General receives the Battle Scar trait."
+ tv_gg_death_todo_tt: "TODO: Grand General dies."
+
+ # ── Governor system (总督) ───────────────────────────────────────────────────
+ # TODO: add governor-related UI and tooltip keys once governor system is implemented
+ TV_GOVHOUSE_TAB1_PLACEHOLDER: "Governor system — coming soon. (TODO: implement per-area governor assignment)"

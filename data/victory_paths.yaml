@@ -131,6 +131,10 @@ paths:
         modifier_name:
           en: "Seasoned Legions"
           zh: "百炼雄师"
+        custom_grant_body: |
+          add_country_modifier = { modifier = tv_conquest_m1_bonus days = -1 }
+          custom_tooltip = { text = tv_conquest_m1_govhouse_tt }
+          hidden_effect = { tv_govhouse_create_effect = yes }
         loc:
           title:
             en: "Conquest Victory — Milestone 1"

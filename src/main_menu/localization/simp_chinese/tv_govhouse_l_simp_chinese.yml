@@ -1,0 +1,139 @@
+﻿l_simp_chinese:
+ # ── 总督府 ────────────────────────────────────────────────────────────────────
+ tv_govhouse: "总督府"
+ tv_govhouse_desc: "总督府是征服帝国的行政体系。当国家控制200处地点后建立，负责任命总督管辖各占领区域，并统领最高军事指挥官——大将军。"
+ diplomatic_status_tv_govhouse_name: "总督府成员"
+ diplomatic_status_tv_govhouse_tooltip: "该国建立了总督府，用于管辖其征服的领土。"
+ tv_govhouse_list_who_tt: "总督府成员"
+ io_opinion_tv_govhouse: "同为总督府成员"
+ TV_GOVHOUSE_GRAND_GENERAL: "大将军"
+
+ # ── 征服里程碑一 — 创建总督府提示 ──────────────────────────────────────────
+ tv_conquest_m1_govhouse_tt: "建立总督府，管辖征服领土，并任命大将军。"
+
+ # ── IO 领袖管理（大将军）───────────────────────────────────────────────────
+ tv_appoint_conquest_general_leader: "任命大将军"
+ tv_appoint_conquest_general_leader_desc: "从本国角色中任命一位大将军。大将军可接受训练以提升军事能力，并沿三条专精路线之一发展军事特质。"
+ tv_remove_conquest_general_leader: "撤销大将军"
+ tv_remove_conquest_general_leader_desc: "解除现任大将军的职务。直至任命新的大将军，该职位将保持空缺。"
+ tv_change_conquest_general_leader: "更换大将军"
+ tv_change_conquest_general_leader_desc: "以另一位角色替换现任大将军。"
+ tv_select_grand_general: "选择大将军"
+ tv_no_grand_general_available: "@trigger_no! 当前没有符合条件的角色。"
+
+ PERFORM_tv_appoint_conquest_general_leader_ACTION_SETUP: "当我们任命大将军时。"
+ PERFORM_tv_appoint_conquest_general_leader_ACTION_LOG: "我们任命了[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为大将军。"
+ PERFORM_tv_appoint_conquest_general_leader_ACTION_MAP: ""
+
+ PERFORM_tv_remove_conquest_general_leader_ACTION_SETUP: "当我们撤销大将军时。"
+ PERFORM_tv_remove_conquest_general_leader_ACTION_LOG: "我们解除了大将军的职务。"
+ PERFORM_tv_remove_conquest_general_leader_ACTION_MAP: ""
+
+ PERFORM_tv_change_conquest_general_leader_ACTION_SETUP: "当我们更换大将军时。"
+ PERFORM_tv_change_conquest_general_leader_ACTION_LOG: "我们任命了[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为新的大将军。"
+ PERFORM_tv_change_conquest_general_leader_ACTION_MAP: ""
+
+ # ── 训练行动 ─────────────────────────────────────────────────────────────────
+ tv_train_grand_general: "训练大将军"
+ tv_train_grand_general_desc: "对大将军进行一年的强化训练。训练期间宫廷花费增加10%。训练结束后，将随机触发以下结果之一：军事能力提升、军事特质路线晋级，或——极少情况下——受伤乃至死亡。"
+
+ PERFORM_tv_train_grand_general_ACTION_SETUP: "当我们开始训练大将军时。"
+ PERFORM_tv_train_grand_general_ACTION_LOG: "我们开始了大将军的训练。"
+ PERFORM_tv_train_grand_general_ACTION_MAP: ""
+
+ # ── 角色称号 ─────────────────────────────────────────────────────────────────
+ character_title_tv_grand_general: "大将军"
+ character_title_tv_grand_general_female: "大将军"
+ STATIC_MODIFIER_NAME_tv_grand_general_role_modifier: "大将军"
+
+ # ── IO 变量显示 ──────────────────────────────────────────────────────────────
+ TV_GOVHOUSE_AUTHORITY_FORMAT: "$VAL|0$"
+ TV_GOVHOUSE_AUTHORITY_DECAY: "每月衰减"
+ TV_GOVHOUSE_GENERAL_CONTRIBUTION: "大将军贡献"
+
+ # ── 训练结果事件 ─────────────────────────────────────────────────────────────
+ tv_grand_general.1.t: "将才磨砺"
+ tv_grand_general.1.d: "严酷的训练硕果累累。大将军从中走出，比训练前更加敏锐、强健，战术眼光也愈加犀利。"
+ tv_grand_general.1.a: "每一次历练都让我们愈加强大。"
+
+ tv_grand_general.2.t: "世间无双"
+ tv_grand_general.2.d: "训练已无法再赋予大将军更多——其军事天赋已达巅峰。这份精熟向上传递，甚至启迪了我们的统治者，使其战略眼光提升至新的境界。"
+ tv_grand_general.2.a: "吾国坐拥当世无双的军事智慧。"
+
+ tv_grand_general.3.t: "精进之道"
+ tv_grand_general.3.d: "训练将大将军的技艺磨砺至锋芒毕露。一条新的军事精进之道在其眼前展开——请选择他们将踏上哪条路线。"
+ tv_grand_general.3.a: "走进攻路线（进攻）。"
+ tv_grand_general.3.b: "走防御路线（防御）。"
+ tv_grand_general.3.c: "走战术路线（战术）。"
+
+ tv_grand_general.4.t: "百炼成钢"
+ tv_grand_general.4.d: "所有军事精进路线皆已走到尽头。大将军对战争艺术本身已无更多可学——但其个人军事能力仍有提升空间。"
+ tv_grand_general.4.a: "吾国能有如此战将，实乃幸事。"
+
+ tv_grand_general.5.t: "世间无双"
+ tv_grand_general.5.d: "大将军已超越技能与技法的一切极限。当世再无更伟大的军事头脑。这份完美也提升了我们统治者的境界。"
+ tv_grand_general.5.a: "吾国坐拥当世无双的军事智慧。"
+
+ tv_grand_general.6.t: "训练受伤"
+ tv_grand_general.6.d: "训练中的一次意外使大将军留下了永久的伤疤。他以坚忍之心承受，但若再次训练而不加谨慎，旧伤终有一日将致命。"
+ tv_grand_general.6.a: "愿他早日康复。"
+
+ tv_grand_general.7.t: "旧伤复发"
+ tv_grand_general.7.d: "训练的严酷超出了极限。旧伤再度撕裂——这一次，再无恢复的可能。大将军倒在了训练场上。"
+ tv_grand_general.7.a: "损失惨重。我们将寻找一位worthy的继任者。"
+
+ tv_grand_general.8.t: "折损将才"
+ tv_grand_general.8.d: "命运残酷。训练中的一次意外夺走了我们的大将军。他在其潜力充分发挥之前便已离世。"
+ tv_grand_general.8.a: "我们将铭记他的功勋，继续前行。"
+
+ # ── 大将军特质 ───────────────────────────────────────────────────────────────
+ # 进攻路线
+ tv_gg_offense_1: "进攻指挥官 I"
+ tv_gg_offense_1_desc: "此将军钟爱大胆的攻势，以无情的纪律与热情驱使部队奋勇向前。"
+ tv_gg_offense_2: "进攻指挥官 II"
+ tv_gg_offense_2_desc: "精炼的攻势与高昂的士气使此将军成为进攻中的威慑。"
+ tv_gg_offense_3: "战争领主"
+ tv_gg_offense_3_desc: "此将军已完全掌握攻势作战之道。其在战场上的存在，在第一击落下前便已扭转战局。"
+
+ # 防御路线
+ tv_gg_defense_1: "坚守指挥官 I"
+ tv_gg_defense_1_desc: "此将军的士兵坚守阵地如铁，在他人消耗之处积蓄实力。"
+ tv_gg_defense_2: "坚守指挥官 II"
+ tv_gg_defense_2_desc: "防御作战的战术天才——无攻势可破其防线，无伏击可击溃其部队。"
+ tv_gg_defense_3: "铁壁"
+ tv_gg_defense_3_desc: "此将军已将防御升华为艺术。敌人撞上他的防线，如浪击磐石。"
+
+ # 战术路线
+ tv_gg_tactics_1: "战术家 I"
+ tv_gg_tactics_1_desc: "快速行军与精准围城是此将军战役的印记——总出现在敌人最意想不到之处。"
+ tv_gg_tactics_2: "战术家 II"
+ tv_gg_tactics_2_desc: "卓越的协调与战场感知赋予此将军在机动战中决定性的优势。"
+ tv_gg_tactics_3: "大战略家"
+ tv_gg_tactics_3_desc: "完全的战术家——其战役在开始前便已结束，对手在第一场战斗打响前便已被调离。"
+
+ # 伤疤特质
+ tv_gg_injured: "伤疤"
+ tv_gg_injured_desc: "一次强化训练事故留下的持久创伤。如若再次训练而不加小心，旧伤有致命复发之虞。"
+
+ # ── 附庸税收法律 ─────────────────────────────────────────────────────────────
+ tv_subject_tax: "附庸税收"
+ tv_subject_tax_desc: "决定从附庸国征收的贡金水平。"
+ tv_subject_tax_low: "低税收"
+ tv_subject_tax_low_desc: "减少从附庸国征收的贡金。他们将更为满意，但总督府的财库将有所损失。"
+ tv_subject_tax_medium: "中税收"
+ tv_subject_tax_medium_desc: "附庸国贡金的默认标准——不慷慨，也不苛索。"
+ tv_subject_tax_high: "高税收"
+ tv_subject_tax_high_desc: "提高附庸国贡金。对帝国有利可图，但深受附庸国民的憎恨。"
+
+ # ── 事件选项占位提示（TODO效果实现后移除）──────────────────────────────────
+ tv_gg_mil_gain_todo_tt: "TODO：大将军获得+10军事能力。"
+ tv_gg_mil_gain_15_todo_tt: "TODO：大将军获得+15军事能力。"
+ tv_gg_ruler_mil_gain_todo_tt: "TODO：统治者获得+3军事能力。"
+ tv_gg_offense_upgrade_todo_tt: "TODO：大将军沿进攻路线晋升特质。"
+ tv_gg_defense_upgrade_todo_tt: "TODO：大将军沿防御路线晋升特质。"
+ tv_gg_tactics_upgrade_todo_tt: "TODO：大将军沿战术路线晋升特质。"
+ tv_gg_injury_todo_tt: "TODO：大将军获得伤疤特质。"
+ tv_gg_death_todo_tt: "TODO：大将军死亡。"
+
+ # ── 总督系统 ─────────────────────────────────────────────────────────────────
+ TV_GOVHOUSE_TAB1_PLACEHOLDER: "总督系统——开发中。（TODO：实现按区域的总督任命功能）"

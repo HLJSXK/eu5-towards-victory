@@ -1,0 +1,40 @@
+﻿# Towards Victory — Governor's House on_action hooks
+
+# Yearly tick: check if Grand General is in training; resolve outcome if active.
+# Uses yearly_country_pulse (same pattern as tv_arts_exhibition_on_action.txt).
+yearly_country_pulse = {
+	effect = {
+		if = {
+			limit = {
+				has_variable = tv_govhouse_member
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char = {
+					is_alive = yes
+					has_variable = tv_gg_training_active
+				}
+			}
+			tv_training_resolve_effect = yes
+		}
+	}
+}
+
+# Death cleanup: if the Grand General dies, clear country variables and notify.
+on_character_death = {
+	effect = {
+		scope:target = {
+			if = {
+				limit = { has_variable = tv_gg_training_active }
+				remove_variable = tv_gg_training_active
+			}
+		}
+		# If the deceased was this country's Grand General, clear the reference
+		if = {
+			limit = {
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char = scope:target
+			}
+			remove_variable = tv_conquest_general_char
+			# TODO: fire a notification event to inform the player their Grand General has died
+		}
+	}
+}
