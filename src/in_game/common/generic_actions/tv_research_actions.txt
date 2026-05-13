@@ -137,8 +137,11 @@ tv_treat_character = {
 	}
 
 	allow = {
-		scope:actor = {
-			NOT = { has_variable = tv_med_target_char }
+		custom_tooltip = {
+			text = tv_treat_character_no_active_patient_tt
+			scope:actor = {
+				NOT = { has_variable = tv_med_target_char }
+			}
 		}
 	}
 
