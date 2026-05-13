@@ -64,6 +64,22 @@ organization_panel = {
 \tblockoverride "country_header_character_context" {
 \t\tdatacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
 \t}
+\tblockoverride "country_header_religion" {}
+\tblockoverride "extra_titles" {}
+\tblockoverride "country_header_names_visible" {
+\t\tvisible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter.IsValid]"
+\t}
+\tblockoverride "country_header_character_name" {
+\t\tdatacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
+\t\tmargin = { 2 0 }
+\t\tcharacter_label_name = {
+\t\t\tmargin_left = 0
+\t\t\tmargin_right = 10
+\t\t\tblockoverride "character_name_text" {
+\t\t\t\traw_text = "[Character.GetNameToFit('(int32)40', '(bool)yes')]"
+\t\t\t}
+\t\t}
+\t}
 
 \tblockoverride "io_main_actions_icon" {
 \t\ttexture = "[InternationalOrganizationsView.GetInternationalOrganization.GetIcon]"

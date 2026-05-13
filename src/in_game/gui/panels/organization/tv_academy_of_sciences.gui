@@ -36,6 +36,22 @@ organization_panel = {
 	blockoverride "country_header_character_context" {
 		datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
 	}
+	blockoverride "country_header_religion" {}
+	blockoverride "extra_titles" {}
+	blockoverride "country_header_names_visible" {
+		visible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter.IsValid]"
+	}
+	blockoverride "country_header_character_name" {
+		datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
+		margin = { 2 0 }
+		character_label_name = {
+			margin_left = 0
+			margin_right = 10
+			blockoverride "character_name_text" {
+				raw_text = "[Character.GetNameToFit('(int32)40', '(bool)yes')]"
+			}
+		}
+	}
 
 	blockoverride "io_main_actions_icon" {
 		texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetIcon]"
