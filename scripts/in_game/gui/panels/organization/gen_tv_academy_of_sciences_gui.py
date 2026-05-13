@@ -35,8 +35,9 @@ GUI_PREFIX = """\
 # subprocess A/B/C/D status display, and action buttons.
 # The Chief Scientist (IO leader character) is shown in portrait when appointed.
 #
-# Verification — Step 3, Reference: union_header.gui:12
-#   Quote: "datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]""
+# Verification — Step 3, Reference: autocephalous_patriarchate.gui:57,60
+#   Quote: "visible = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('patriarch').IsSet]""
+#   Quote: "datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('patriarch').GetCharacter]""
 # Verification — Step 3, Reference: country_header.gui:34,67
 #   Quote: block "country_header_character_visible" / block "country_header_character_context"
 
@@ -59,18 +60,18 @@ organization_panel = {
 \tblockoverride "scroll_overview_empty_visible" { visible = no }
 
 \tblockoverride "country_header_character_visible" {
-\t\tvisible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter.IsValid]"
+\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
 \t}
 \tblockoverride "country_header_character_context" {
-\t\tdatacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
+\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
 \t}
 \tblockoverride "country_header_religion" {}
 \tblockoverride "extra_titles" {}
 \tblockoverride "country_header_names_visible" {
-\t\tvisible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter.IsValid]"
+\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
 \t}
 \tblockoverride "country_header_character_name" {
-\t\tdatacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
+\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
 \t\tmargin = { 2 0 }
 \t\tcharacter_label_name = {
 \t\t\tmargin_left = 0
@@ -149,7 +150,7 @@ GUI_SUFFIX = """\
 \t\t\t\t\t}
 \t\t\t\t\texpand = {}
 \t\t\t\t\ttext_single = {
-\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
+\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
 \t\t\t\t\t\ttext = "[Character.GetShortNameWithNoTooltip]"
 \t\t\t\t\t\talign = nobaseline
 \t\t\t\t\t}

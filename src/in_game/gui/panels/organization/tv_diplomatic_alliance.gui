@@ -20,18 +20,18 @@ organization_panel = {
 	}
 
 	blockoverride "country_header_character_visible" {
-		visible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter.IsValid]"
+		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
 	}
 	blockoverride "country_header_character_context" {
-		datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
+		datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').GetCharacter]"
 	}
 	blockoverride "country_header_religion" {}
 	blockoverride "extra_titles" {}
 	blockoverride "country_header_names_visible" {
-		visible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter.IsValid]"
+		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
 	}
 	blockoverride "country_header_character_name" {
-		datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
+		datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').GetCharacter]"
 		margin = { 2 0 }
 		character_label_name = {
 			margin_left = 0
