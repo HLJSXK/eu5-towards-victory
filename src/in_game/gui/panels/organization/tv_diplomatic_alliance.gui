@@ -114,8 +114,7 @@ organization_panel = {
 	blockoverride "organization_main_actions_extra" {
 		action_button_diamond = {
 			size = { 470 30 }
-			visible = "[Not(Country.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet)]"
-			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			visible = "[Not(Player.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet)]"
 			text = "tv_appoint_alliance_leader"
 			title = "tv_appoint_alliance_leader"
 			actor = "[InternationalOrganizationsView.GetPlayer]"
@@ -125,8 +124,7 @@ organization_panel = {
 		}
 		action_button_diamond = {
 			size = { 470 30 }
-			visible = "[Country.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
-			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			visible = "[Player.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
 			text = "tv_change_alliance_leader"
 			title = "tv_change_alliance_leader"
 			actor = "[InternationalOrganizationsView.GetPlayer]"
@@ -136,8 +134,7 @@ organization_panel = {
 		}
 		action_button_diamond = {
 			size = { 470 30 }
-			visible = "[Country.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
-			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			visible = "[Player.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
 			text = "tv_remove_alliance_leader"
 			title = "tv_remove_alliance_leader"
 			actor = "[InternationalOrganizationsView.GetPlayer]"

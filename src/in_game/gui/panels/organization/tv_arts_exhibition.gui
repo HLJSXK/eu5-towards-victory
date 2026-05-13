@@ -55,8 +55,7 @@ organization_panel = {
 		# Visibility is gated by the appointed-leader country variable on the player.
 		action_button_diamond = {
 			size = { 470 30 }
-			visible = "[Not(Country.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet)]"
-			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			visible = "[Not(Player.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet)]"
 			text = "tv_appoint_arts_leader"
 			title = "tv_appoint_arts_leader"
 			actor = "[InternationalOrganizationsView.GetPlayer]"
@@ -66,8 +65,7 @@ organization_panel = {
 		}
 		action_button_diamond = {
 			size = { 470 30 }
-			visible = "[Country.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
-			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			visible = "[Player.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
 			text = "tv_change_arts_leader"
 			title = "tv_change_arts_leader"
 			actor = "[InternationalOrganizationsView.GetPlayer]"
@@ -77,8 +75,7 @@ organization_panel = {
 		}
 		action_button_diamond = {
 			size = { 470 30 }
-			visible = "[Country.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
-			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			visible = "[Player.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
 			text = "tv_remove_arts_leader"
 			title = "tv_remove_arts_leader"
 			actor = "[InternationalOrganizationsView.GetPlayer]"

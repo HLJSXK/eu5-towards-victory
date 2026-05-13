@@ -162,6 +162,15 @@
   source: "reference_game_files/game/in_game/common/scripted_effects/global_effects.txt"
   notes: "Exhaustive search of reference_game_files/ and reference_mods/ found no multiply_global_variable effect. Only set_global_variable and change_global_variable exist for global-scope numeric variables."
 
+- id: action_button_diamond_datacontext_breaks_tooltip
+  pattern: ''
+  bad: "datacontext = \"[InternationalOrganizationsView.GetPlayer]\" inside action_button_diamond in an organization panel"
+  correction: "Remove datacontext entirely. Use Player.MakeScope.GetVariable(...).IsSet in visible expressions instead of Country.MakeScope.GetVariable(...).IsSet"
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/panels/organization/defensive_league.gui:128-149"
+  notes: "Adding datacontext to action_button_diamond overrides the widget's internal binding, causing tooltip generation to fail silently (empty tooltip, button stays grayed regardless of action potential). Vanilla IO panels never use datacontext on action_button_diamond. Use Player (global GUI binding) instead of Country (datacontext-dependent) to access player-country variables."
+
 - id: positive_sign_in_float_literal
   pattern: 'value = \+\d'
   bad: "Writing a leading + sign on positive float literals, e.g. value = +0.025 or change_variable = { ... value = +0.003 }"
