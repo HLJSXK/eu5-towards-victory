@@ -11,15 +11,13 @@ tv_train_grand_general = {
 	potential = {
 		scope:actor = { has_variable = tv_govhouse_member }
 		scope:actor = { has_variable = tv_conquest_general_char }
-		scope:actor = {
-			var:tv_conquest_general_char = { is_alive = yes }
-		}
 	}
 
 	allow = {
+		scope:actor = { has_variable = tv_conquest_general_char }
 		scope:actor = {
-			# Grand General must not already be in training
 			var:tv_conquest_general_char = {
+				is_alive = yes
 				NOT = { has_variable = tv_gg_training_active }
 			}
 		}

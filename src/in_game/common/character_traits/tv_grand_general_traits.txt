@@ -12,92 +12,122 @@
 # ── Offense path (进攻) ──────────────────────────────────────────────────────
 
 tv_gg_offense_1 = {
-	# L1: +5% discipline, +10% morale, +10% infantry combat, +10% cavalry combat
-	# TODO: verify modifier names; these are guesses based on EU4 → EU5 mapping
-	# discipline = 0.05
-	# morale_damage_received = -0.1
-	# infantry_morale = 0.1
-	# cavalry_morale = 0.1
+	category = general
+	modifier = {
+		# L1: +5% discipline, +10% morale, +10% infantry combat, +10% cavalry combat
+		# TODO: verify modifier names; these are guesses based on EU4 → EU5 mapping
+		# discipline = 0.05
+		# morale_damage_received = -0.1
+		# infantry_morale = 0.1
+		# cavalry_morale = 0.1
+	}
 }
 
 tv_gg_offense_2 = {
-	# L2 (cumulative): L1 + additional +5% discipline, +10% morale
-	# discipline = 0.10
-	# morale_damage_received = -0.2
-	# infantry_morale = 0.1
-	# cavalry_morale = 0.1
+	category = general
+	modifier = {
+		# L2 (cumulative): L1 + additional +5% discipline, +10% morale
+		# discipline = 0.10
+		# morale_damage_received = -0.2
+		# infantry_morale = 0.1
+		# cavalry_morale = 0.1
+	}
 }
 
 tv_gg_offense_3 = {
-	# L3 (cumulative): L2 + +1 battle dice
-	# discipline = 0.10
-	# morale_damage_received = -0.2
-	# infantry_morale = 0.1
-	# cavalry_morale = 0.1
-	# TODO: +1 battle dice — verify modifier name (combat_dice_bonus = 1 ?)
+	category = general
+	modifier = {
+		# L3 (cumulative): L2 + +1 battle dice
+		# discipline = 0.10
+		# morale_damage_received = -0.2
+		# infantry_morale = 0.1
+		# cavalry_morale = 0.1
+		# TODO: +1 battle dice — verify modifier name (commander_combat_bonus = 1 confirmed in 01_general.txt)
+	}
 }
 
 # ── Defense path (防御) ──────────────────────────────────────────────────────
 
 tv_gg_defense_1 = {
-	# L1: +0.2 mil tactics, +10% morale, +20% morale recovery, -20% supply consumption
-	# TODO: verify modifier names
-	# mil_tactics = 0.2
-	# morale_damage_received = -0.1
-	# TODO: morale recovery modifier name
-	# TODO: supply consumption modifier name
+	category = general
+	modifier = {
+		# L1: +0.2 mil tactics, +10% morale, +20% morale recovery, -20% supply consumption
+		# TODO: verify modifier names
+		# military_tactics = 0.2  (confirmed: military_tactics in 01_general.txt:defensive_planner)
+		# morale_damage_received = -0.1
+		# land_morale_recovery = 0.02  (confirmed: land_morale_recovery in 01_general.txt:inspirational_leader_general)
+		# TODO: supply consumption modifier name
+	}
 }
 
 tv_gg_defense_2 = {
-	# L2 (cumulative): L1 + additional +0.2 mil tactics, +10% morale
-	# mil_tactics = 0.4
-	# morale_damage_received = -0.2
-	# TODO: morale recovery modifier name
-	# TODO: supply consumption modifier name
+	category = general
+	modifier = {
+		# L2 (cumulative): L1 + additional +0.2 mil tactics, +10% morale
+		# military_tactics = 0.4
+		# morale_damage_received = -0.2
+		# land_morale_recovery = ...
+		# TODO: supply consumption modifier name
+	}
 }
 
 tv_gg_defense_3 = {
-	# L3 (cumulative): L2 + +1 battle dice
-	# mil_tactics = 0.4
-	# morale_damage_received = -0.2
-	# TODO: morale recovery modifier name
-	# TODO: supply consumption modifier name
-	# TODO: +1 battle dice — verify modifier name
+	category = general
+	modifier = {
+		# L3 (cumulative): L2 + +1 battle dice
+		# military_tactics = 0.4
+		# morale_damage_received = -0.2
+		# land_morale_recovery = ...
+		# TODO: supply consumption modifier name
+		# TODO: +1 battle dice — commander_combat_bonus = 1 confirmed in 01_general.txt
+	}
 }
 
 # ── Tactics path (战术) ──────────────────────────────────────────────────────
 
 tv_gg_tactics_1 = {
-	# L1: +10% movement speed, +10% siege ability, +10% initiative, +10% join speed
-	# TODO: verify modifier names
-	# movement_speed = 0.1
-	# TODO: siege ability modifier name
-	# TODO: initiative/flanking modifier name
-	# TODO: join_speed modifier name
+	category = general
+	modifier = {
+		# L1: +10% movement speed, +10% siege ability, +10% initiative, +10% join speed
+		# TODO: verify modifier names
+		# movement_speed = 0.1
+		# TODO: siege ability modifier name
+		# TODO: initiative/flanking modifier name
+		# TODO: join_speed modifier name
+	}
 }
 
 tv_gg_tactics_2 = {
-	# L2 (cumulative): L1 + additional +10% movement speed, +10% siege ability
-	# movement_speed = 0.2
-	# TODO: siege ability modifier name × 2
-	# TODO: initiative/flanking modifier name
-	# TODO: join_speed modifier name
+	category = general
+	modifier = {
+		# L2 (cumulative): L1 + additional +10% movement speed, +10% siege ability
+		# movement_speed = 0.2
+		# TODO: siege ability modifier name × 2
+		# TODO: initiative/flanking modifier name
+		# TODO: join_speed modifier name
+	}
 }
 
 tv_gg_tactics_3 = {
-	# L3 (cumulative): L2 + +1 battle dice
-	# movement_speed = 0.2
-	# TODO: siege ability modifier name × 2
-	# TODO: initiative/flanking modifier name
-	# TODO: join_speed modifier name
-	# TODO: +1 battle dice — verify modifier name
+	category = general
+	modifier = {
+		# L3 (cumulative): L2 + +1 battle dice
+		# movement_speed = 0.2
+		# TODO: siege ability modifier name × 2
+		# TODO: initiative/flanking modifier name
+		# TODO: join_speed modifier name
+		# TODO: +1 battle dice — commander_combat_bonus = 1 confirmed in 01_general.txt
+	}
 }
 
 # ── Injury trait (伤疤) ──────────────────────────────────────────────────────
 
 tv_gg_injured = {
-	# Negative health trait applied on training accident (tv_grand_general.6)
-	# Can only be applied once; if already present, triggers tv_grand_general.7 (death from relapse)
-	# TODO: verify negative health trait syntax — is_bad = yes ? health_bad = yes ?
-	# TODO: consider adding a health penalty modifier here
+	category = health
+	is_bad = yes
+	modifier = {
+		# Negative health trait applied on training accident (tv_grand_general.6)
+		# Can only be applied once; if already present, triggers tv_grand_general.7 (death from relapse)
+		# TODO: add health penalty modifier (e.g. character_life_expectancy = -5)
+	}
 }
