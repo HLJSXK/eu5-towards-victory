@@ -133,10 +133,23 @@ on_creation = {
 
 ### 3.2 `international_organization_chooses_new_leader`
 
-命令 IO 引擎**重新评估** `leader = {}` 块，刷新内部 leaders 列表。
+官方说明（`readme.txt:172`）：**"organization chooses a new leader according to its own process"**
 
-- 本 mod 的三组 IO leader actions（Appoint/Remove/Change）每次执行后都必须调用此效果
-- 调用后引擎重新执行 `leader = {}` 脚本块，读取最新的 country variable 值
+该效果按 IO 定义的 `leader_change_method` 流程**选出新的 leader_country**，而非仅刷新显示列表。
+
+| `leader_change_method` | 实际行为 |
+|---|---|
+| `vote` | 触发选帝侯/选举流程，选举结束后改变 `leader_country`（HRE 选举即此路径） |
+| 其他方法 | 按该方法的评分逻辑选出新领导国并调用 `set_leader_country` |
+| `none` | 无选举流程；ref 中无直接说明，但对 `none` 方法而言推测退化为仅刷新 `leader = {}` 显示块而不改变 `leader_country` |
+
+原版 ref 中的典型用法：
+- `high_kingship_overthrow.txt:56`：确认当前 `leader_country = scope:loser` 后调用此效果，令高王权选出新领导国（明确是换 `leader_country`）
+- `_hardcoded.txt:2896`：HRE 领导国君主死亡时调用，触发选帝侯选举，换领导国
+- `war_of_religions.txt:595`：宗教战争情境结束时对 HRE 调用，重置领导国
+
+**本 mod 的用法**：三组 IO leader actions（Appoint/Remove/Change）执行后均调用此效果。由于 mod 所有 IO 均设 `leader_change_method = none`，该效果在 mod 语境下不应改变 `leader_country`（on_creation 中由 `set_leader_country` 固定，永不更换）。其实际作用为通知引擎重新评估 `leader = {}` 块，使新设置的 country variable 反映到 leaders 列表及 GUI 显示中。
+
 - 对于非 unique IO：`every_international_organizations_member_of = { limit = { type = ... } international_organization_chooses_new_leader = this }`
 - 对于 unique IO（如 DA）：`international_organization:tv_diplomatic_alliance → international_organization_chooses_new_leader`
 
@@ -265,7 +278,9 @@ A：原版 IO 中会（HRE 通过选举更换领导国）。本 mod 设置了 `l
 
 **Q：`international_organization_chooses_new_leader` 是在换 `leader_country` 吗？**
 
-A：不是。它是在**重新执行 `leader = {}` 块**，刷新 leaders 列表（即显示的角色列表）。`leader_country` 本身不变。
+A：**是的，这是它的主要用途**——按 IO 的 `leader_change_method` 流程选出新 `leader_country`（ref：`readme.txt:172`、`high_kingship_overthrow.txt:56`、`_hardcoded.txt:2896`）。对于 `leader_change_method = vote` 的 IO（如 HRE），调用后触发选举并改变 `leader_country`。
+
+本 mod 的 IO 设为 `leader_change_method = none`，没有选举流程，推测该效果在此情况下退化为仅刷新 `leader = {}` 显示块而不改变 `leader_country`。`leader_country` 由 on_creation 固定，不会被此效果意外替换。
 
 **Q：手动指定的角色（如 artist）和 leader_country 之间的关系？**
 
