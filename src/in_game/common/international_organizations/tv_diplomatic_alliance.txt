@@ -72,6 +72,13 @@
 		var:tv_diplomatic_supporter_of = scope:recipient.leader_country
 	}
 
+	on_creation = {
+		if = {
+			limit = { exists = scope:actor }
+			set_leader_country = scope:actor
+		}
+	}
+
 	create_visible_trigger = {
 		always = no
 	}

@@ -147,6 +147,10 @@ tv_academy_of_sciences = {
 	}
 
 	on_creation = {
+		if = {
+			limit = { exists = scope:actor }
+			set_leader_country = scope:actor
+		}
 	}
 
 	create_visible_trigger = {
