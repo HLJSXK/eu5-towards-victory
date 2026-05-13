@@ -399,6 +399,8 @@ organization_panel = {
 				# ── Progress bar ────────────────────────────────────────────────────
 				progressbar = {
 					size = { 440 16 }
+					using = progress_bar_green_alt
+					min = 0
 					max = 100
 					value = "[Country.MakeScope.GetVariable('tv_med_progress').GetValue]"
 					visible = "[Country.MakeScope.GetVariable('tv_med_target_char').IsSet]"

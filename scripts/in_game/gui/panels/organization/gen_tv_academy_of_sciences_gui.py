@@ -382,6 +382,8 @@ GUI_SUFFIX = """\
 \t\t\t\t# ── Progress bar ────────────────────────────────────────────────────
 \t\t\t\tprogressbar = {
 \t\t\t\t\tsize = { 440 16 }
+\t\t\t\t\tusing = progress_bar_green_alt
+\t\t\t\t\tmin = 0
 \t\t\t\t\tmax = 100
 \t\t\t\t\tvalue = "[Country.MakeScope.GetVariable('tv_med_progress').GetValue]"
 \t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_med_target_char').IsSet]"

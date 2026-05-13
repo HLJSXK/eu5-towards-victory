@@ -250,7 +250,7 @@ To extend character title prefixes, generate or copy the full vanilla `character
 
 The user interface is highly moddable through `.gui` files. The system is modular, using templates and types to create reusable UI components. Creating new windows and widgets allows for the development of complex new game features. [10]
 
-GUI-localized text blocks do not safely accept every localization markup form used by events. In particular, a localization key containing a game-concept link such as `[tv_arts_exhibition_mechanism|e]` can be parsed as a GUI data-system expression when used by `TooltipTextBlock` / `blockoverride "text" { text = "KEY" }`, producing `Could not find data system function '<concept>'`. Use a separate GUI-safe localization key without `[concept|e]` markup for GUI previews, and keep the concept-linked key for event or `custom_tooltip` text.
+Custom game concepts require both localization and a definition in `main_menu/common/game_concepts/`. A localization pair such as `game_concept_tv_foo` / `game_concept_tv_foo_desc` does not create the concept by itself. If `[tv_foo|e]` is used before `tv_foo = { texture = "..." }` is registered, the localization parser treats `tv_foo` as a data-system function and logs `Could not find data system function 'tv_foo'`.
 
 ### 7.2. Map Modding
 
