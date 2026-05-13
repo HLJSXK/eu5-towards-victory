@@ -49,3 +49,8 @@
  PERFORM_tv_change_academy_leader_ACTION_SETUP: "When we replace the Chief Scientist of the Academy."
  PERFORM_tv_change_academy_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as the new Chief Scientist of the Academy."
  PERFORM_tv_change_academy_leader_ACTION_MAP: ""
+
+ # ── Character title prefix for the Academy of Sciences leader ────────────────
+ character_title_tv_chief_scientist: "Chief Scientist"
+ character_title_tv_chief_scientist_female: "Chief Scientist"
+ STATIC_MODIFIER_NAME_tv_chief_scientist_role_modifier: "Chief Scientist"

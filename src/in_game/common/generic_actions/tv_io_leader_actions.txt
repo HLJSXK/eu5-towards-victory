@@ -42,6 +42,9 @@ tv_appoint_arts_leader = {
 			scope:actor = {
 				set_variable = { name = tv_arts_exhibition_leader_char value = scope:target }
 			}
+			scope:target = {
+				add_character_modifier = { modifier = tv_chief_artist_role_modifier years = -1 mode = add_and_extend }
+			}
 		}
 	}
 
@@ -62,6 +65,12 @@ tv_remove_arts_leader = {
 
 	effect = {
 		scope:actor = {
+			if = {
+				limit = { has_variable = tv_arts_exhibition_leader_char }
+				var:tv_arts_exhibition_leader_char ?= {
+					remove_character_modifier = tv_chief_artist_role_modifier
+				}
+			}
 			remove_variable = tv_arts_exhibition_leader_char
 		}
 	}
@@ -99,10 +108,21 @@ tv_change_arts_leader = {
 	}
 
 	effect = {
+		scope:actor = {
+			if = {
+				limit = { has_variable = tv_arts_exhibition_leader_char }
+				var:tv_arts_exhibition_leader_char ?= {
+					remove_character_modifier = tv_chief_artist_role_modifier
+				}
+			}
+		}
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = {
 				set_variable = { name = tv_arts_exhibition_leader_char value = scope:target }
+			}
+			scope:target = {
+				add_character_modifier = { modifier = tv_chief_artist_role_modifier years = -1 mode = add_and_extend }
 			}
 		}
 	}
@@ -250,6 +270,9 @@ tv_appoint_academy_leader = {
 			scope:actor = {
 				set_variable = { name = tv_academy_leader_char value = scope:target }
 			}
+			scope:target = {
+				add_character_modifier = { modifier = tv_chief_scientist_role_modifier years = -1 mode = add_and_extend }
+			}
 		}
 	}
 
@@ -270,6 +293,12 @@ tv_remove_academy_leader = {
 
 	effect = {
 		scope:actor = {
+			if = {
+				limit = { has_variable = tv_academy_leader_char }
+				var:tv_academy_leader_char ?= {
+					remove_character_modifier = tv_chief_scientist_role_modifier
+				}
+			}
 			remove_variable = tv_academy_leader_char
 		}
 	}
@@ -305,10 +334,21 @@ tv_change_academy_leader = {
 	}
 
 	effect = {
+		scope:actor = {
+			if = {
+				limit = { has_variable = tv_academy_leader_char }
+				var:tv_academy_leader_char ?= {
+					remove_character_modifier = tv_chief_scientist_role_modifier
+				}
+			}
+		}
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = {
 				set_variable = { name = tv_academy_leader_char value = scope:target }
+			}
+			scope:target = {
+				add_character_modifier = { modifier = tv_chief_scientist_role_modifier years = -1 mode = add_and_extend }
 			}
 		}
 	}

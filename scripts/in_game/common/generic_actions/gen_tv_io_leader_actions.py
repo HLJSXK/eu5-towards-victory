@@ -57,6 +57,12 @@ def _char_selector_block(io: dict) -> str:
 
 def gen_appoint(io: dict) -> str:
     selector = _char_selector_block(io)
+    title_mod = io.get("title_modifier", "")
+    title_effect = (
+        f"\t\t\tscope:target = {{\n"
+        f"\t\t\t\tadd_character_modifier = {{ modifier = {title_mod} years = -1 mode = add_and_extend }}\n"
+        f"\t\t\t}}\n"
+    ) if title_mod else ""
     return (
         f"tv_appoint_{io['id']}_leader = {{\n"
         f"\ttype = owncountry\n"
@@ -78,6 +84,7 @@ def gen_appoint(io: dict) -> str:
         f"\t\t\tscope:actor = {{\n"
         f"\t\t\t\tset_variable = {{ name = {io['leader_var']} value = scope:target }}\n"
         f"\t\t\t}}\n"
+        f"{title_effect}"
         f"\t\t}}\n"
         f"\t}}\n"
         f"\n"
@@ -87,6 +94,15 @@ def gen_appoint(io: dict) -> str:
 
 
 def gen_remove(io: dict) -> str:
+    title_mod = io.get("title_modifier", "")
+    title_effect = (
+        f"\t\t\tif = {{\n"
+        f"\t\t\t\tlimit = {{ has_variable = {io['leader_var']} }}\n"
+        f"\t\t\t\tvar:{io['leader_var']} ?= {{\n"
+        f"\t\t\t\t\tremove_character_modifier = {title_mod}\n"
+        f"\t\t\t\t}}\n"
+        f"\t\t\t}}\n"
+    ) if title_mod else ""
     return (
         f"tv_remove_{io['id']}_leader = {{\n"
         f"\ttype = owncountry\n"
@@ -102,6 +118,7 @@ def gen_remove(io: dict) -> str:
         f"\n"
         f"\teffect = {{\n"
         f"\t\tscope:actor = {{\n"
+        f"{title_effect}"
         f"\t\t\tremove_variable = {io['leader_var']}\n"
         f"\t\t}}\n"
         f"\t}}\n"
@@ -113,6 +130,22 @@ def gen_remove(io: dict) -> str:
 
 def gen_change(io: dict) -> str:
     selector = _char_selector_block(io)
+    title_mod = io.get("title_modifier", "")
+    remove_old_title = (
+        f"\t\tscope:actor = {{\n"
+        f"\t\t\tif = {{\n"
+        f"\t\t\t\tlimit = {{ has_variable = {io['leader_var']} }}\n"
+        f"\t\t\t\tvar:{io['leader_var']} ?= {{\n"
+        f"\t\t\t\t\tremove_character_modifier = {title_mod}\n"
+        f"\t\t\t\t}}\n"
+        f"\t\t\t}}\n"
+        f"\t\t}}\n"
+    ) if title_mod else ""
+    add_new_title = (
+        f"\t\t\tscope:target = {{\n"
+        f"\t\t\t\tadd_character_modifier = {{ modifier = {title_mod} years = -1 mode = add_and_extend }}\n"
+        f"\t\t\t}}\n"
+    ) if title_mod else ""
     return (
         f"tv_change_{io['id']}_leader = {{\n"
         f"\ttype = owncountry\n"
@@ -129,11 +162,13 @@ def gen_change(io: dict) -> str:
         f"{selector}\n"
         f"\n"
         f"\teffect = {{\n"
+        f"{remove_old_title}"
         f"\t\tif = {{\n"
         f"\t\t\tlimit = {{ exists = scope:target }}\n"
         f"\t\t\tscope:actor = {{\n"
         f"\t\t\t\tset_variable = {{ name = {io['leader_var']} value = scope:target }}\n"
         f"\t\t\t}}\n"
+        f"{add_new_title}"
         f"\t\t}}\n"
         f"\t}}\n"
         f"\n"

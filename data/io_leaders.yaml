@@ -9,6 +9,7 @@ ios:
     leader_var: tv_arts_exhibition_leader_char
     select_name: tv_select_arts_leader
     no_leader_msg: tv_no_arts_leader_available
+    title_modifier: tv_chief_artist_role_modifier
     char_filter: |
       is_artist = yes
       NOT = { has_variable = tv_on_exhibition }
@@ -29,4 +30,5 @@ ios:
     leader_var: tv_academy_leader_char
     select_name: tv_select_academy_leader
     no_leader_msg: tv_no_academy_leader_available
+    title_modifier: tv_chief_scientist_role_modifier
     char_filter: ""
