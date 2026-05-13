@@ -46,7 +46,7 @@ For the categories below, you MUST go to Step 2 or 3 before writing any code. No
 - **`location_rank` enum** — only 3 valid values: `rural_settlement`, `town`, `city` (EU4 names like `village` cause silent failures)
 - **Localization YAML** — must be UTF-8 BOM (not plain UTF-8); only straight ASCII double-quotes `"` are valid
 - **`custom_tooltip`** — never remove it; dotted suffix format IS valid in event options; verify key format before changing
-- **Pre-test validation** — run `python scripts/validate.py --changed` before launching the game
+- **Pre-test validation** — run `conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix` before launching the game
 
 ## GUI Icon Display Rule
 
@@ -230,9 +230,9 @@ Add matching keys to `src/main_menu/localization/simp_chinese/towards_victory_l_
 
 ### Step 5: Validate
 ```
-conda run --no-capture-output -n eu5 python scripts/validate.py --changed
+conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix
 ```
-Expected: 0 errors, 0 warnings.
+Expected: 0 errors, 0 warnings (`[FIXED]` BOM lines are not errors).
 
 ### Step 6: Knowledge capture + docs update
 If any new EU5 pattern was discovered during this session, execute the standard Knowledge Capture protocol (see below). Then:

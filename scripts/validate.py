@@ -311,7 +311,9 @@ def main():
 
     use_changed = "--changed" in sys.argv
     ai_report = "--ai-report" in sys.argv
+    use_fix = "--fix" in sys.argv
     targets = [a for a in sys.argv[1:] if not a.startswith("-")]
+    fixed: list[str] = []
 
     if use_changed:
         files = get_changed_files()
@@ -337,10 +339,14 @@ def main():
                 continue
 
             if not raw.startswith(UTF8_BOM) and path.is_relative_to(REPO_ROOT / "src"):
-                issues.append(
-                    f"[ENCODING] {path.relative_to(REPO_ROOT)} -- missing UTF-8 BOM "
-                    f"(EU5 will warn on load; save as UTF-8 with BOM)"
-                )
+                if use_fix:
+                    path.write_bytes(UTF8_BOM + raw)
+                    fixed.append(str(path.relative_to(REPO_ROOT)))
+                else:
+                    issues.append(
+                        f"[ENCODING] {path.relative_to(REPO_ROOT)} -- missing UTF-8 BOM "
+                        f"(EU5 will warn on load; save as UTF-8 with BOM)"
+                    )
 
             try:
                 content = raw.decode("utf-8-sig")
@@ -373,6 +379,10 @@ def main():
         }, ensure_ascii=False, indent=2))
         sys.exit(0 if len(errors) == 0 else 1)
 
+    if fixed:
+        for f in fixed:
+            print(f"[FIXED] Added UTF-8 BOM: {f}")
+
     if issues:
         print(f"[FAIL] {len(issues)} issue(s) found:\n")
         for issue in issues:
@@ -380,7 +390,9 @@ def main():
         sys.exit(1)
     else:
         if files:
-            print(f"[OK] Validated {len(files)} file(s) -- no issues found.")
+            n = len(files)
+            suffix = f", {len(fixed)} BOM(s) fixed" if fixed else ""
+            print(f"[OK] Validated {n} file(s) -- no issues found{suffix}.")
         sys.exit(0)
 
 
