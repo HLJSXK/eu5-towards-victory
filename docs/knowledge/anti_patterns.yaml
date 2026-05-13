@@ -661,7 +661,7 @@
   notes: "remove_trait effect requires trait: prefix (remove_trait = trait:blind). has_trait trigger does NOT use the prefix (has_trait = blind). Mixing them causes: remove_trait effect [ target: field not set ]."
 
 - id: none_available_msg_key_missing_trigger_no_icon
-  pattern: 'none_available_msg_key\s*=\s*"(?!.*@trigger_no)'
+  pattern: ''
   bad: "none_available_msg_key localization value missing @trigger_no! icon prefix"
   correction: "In the localization YAML, the VALUE of the none_available_msg_key string must begin with @trigger_no! — e.g. \"@trigger_no! No characters available.\" The key name itself has no prefix requirement."
   category: localization
