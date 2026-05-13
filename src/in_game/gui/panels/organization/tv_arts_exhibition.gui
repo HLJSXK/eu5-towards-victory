@@ -21,6 +21,13 @@ organization_panel = {
 
 	blockoverride "scroll_overview_empty_visible" { visible = no }
 
+	blockoverride "country_header_character_visible" {
+		visible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter.IsValid]"
+	}
+	blockoverride "country_header_character_context" {
+		datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
+	}
+
 	blockoverride "io_main_actions_icon" {
 		texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetIcon]"
 	}

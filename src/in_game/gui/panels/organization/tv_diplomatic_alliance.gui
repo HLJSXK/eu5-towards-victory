@@ -19,6 +19,13 @@ organization_panel = {
 		}
 	}
 
+	blockoverride "country_header_character_visible" {
+		visible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter.IsValid]"
+	}
+	blockoverride "country_header_character_context" {
+		datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
+	}
+
 	# ── Header decoration (behind character portrait) ──────────────────────
 	# Mirrors HRE io_decoration_behind_character layout:
 	#   (220,60) → tier piechart (centralization level, 0-15)

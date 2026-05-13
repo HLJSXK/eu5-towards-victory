@@ -55,22 +55,8 @@ def _char_selector_block(io: dict) -> str:
     return "\n".join(lines)
 
 
-def _io_iterator(io_type: str, indent: str) -> list[str]:
-    """Return every_international_organizations_member_of block lines (no leader_country check)."""
-    t = indent
-    return [
-        f"{t}every_international_organizations_member_of = {{",
-        f"{t}\tlimit = {{",
-        f"{t}\t\tinternational_organization_type = international_organization_type:{io_type}",
-        f"{t}\t}}",
-        f"{t}\tinternational_organization_chooses_new_leader = this",
-        f"{t}}}",
-    ]
-
-
 def gen_appoint(io: dict) -> str:
     selector = _char_selector_block(io)
-    iterator = "\n".join(_io_iterator(io["io_type"], "\t\t\t\t"))
     return (
         f"tv_appoint_{io['id']}_leader = {{\n"
         f"\ttype = owncountry\n"
@@ -91,7 +77,6 @@ def gen_appoint(io: dict) -> str:
         f"\t\t\tlimit = {{ exists = scope:target }}\n"
         f"\t\t\tscope:actor = {{\n"
         f"\t\t\t\tset_variable = {{ name = {io['leader_var']} value = scope:target }}\n"
-        f"{iterator}\n"
         f"\t\t\t}}\n"
         f"\t\t}}\n"
         f"\t}}\n"
@@ -102,7 +87,6 @@ def gen_appoint(io: dict) -> str:
 
 
 def gen_remove(io: dict) -> str:
-    iterator = "\n".join(_io_iterator(io["io_type"], "\t\t\t"))
     return (
         f"tv_remove_{io['id']}_leader = {{\n"
         f"\ttype = owncountry\n"
@@ -119,7 +103,6 @@ def gen_remove(io: dict) -> str:
         f"\teffect = {{\n"
         f"\t\tscope:actor = {{\n"
         f"\t\t\tremove_variable = {io['leader_var']}\n"
-        f"{iterator}\n"
         f"\t\t}}\n"
         f"\t}}\n"
         f"\n"
@@ -130,7 +113,6 @@ def gen_remove(io: dict) -> str:
 
 def gen_change(io: dict) -> str:
     selector = _char_selector_block(io)
-    iterator = "\n".join(_io_iterator(io["io_type"], "\t\t\t\t"))
     return (
         f"tv_change_{io['id']}_leader = {{\n"
         f"\ttype = owncountry\n"
@@ -151,7 +133,6 @@ def gen_change(io: dict) -> str:
         f"\t\t\tlimit = {{ exists = scope:target }}\n"
         f"\t\t\tscope:actor = {{\n"
         f"\t\t\t\tset_variable = {{ name = {io['leader_var']} value = scope:target }}\n"
-        f"{iterator}\n"
         f"\t\t\t}}\n"
         f"\t\t}}\n"
         f"\t}}\n"

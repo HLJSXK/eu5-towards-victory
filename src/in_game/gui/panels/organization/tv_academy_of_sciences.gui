@@ -5,10 +5,12 @@
 # Towards Victory — Academy of Sciences IO Panel
 # Provides the interactive research mechanism UI: research target selection,
 # subprocess A/B/C/D status display, and action buttons.
-# The Chief Scientist (IO leader character) is shown in the standard IO header.
+# The Chief Scientist (IO leader character) is shown in portrait when appointed.
 #
 # Verification — Step 3, Reference: union_header.gui:12
 #   Quote: "datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]""
+# Verification — Step 3, Reference: country_header.gui:34,67
+#   Quote: block "country_header_character_visible" / block "country_header_character_context"
 
 organization_panel = {
 
@@ -27,6 +29,13 @@ organization_panel = {
 	}
 
 	blockoverride "scroll_overview_empty_visible" { visible = no }
+
+	blockoverride "country_header_character_visible" {
+		visible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter.IsValid]"
+	}
+	blockoverride "country_header_character_context" {
+		datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderScopeObjectAtIndex('(int32)0').GetCharacter]"
+	}
 
 	blockoverride "io_main_actions_icon" {
 		texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetIcon]"
