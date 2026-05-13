@@ -101,6 +101,11 @@ tv_send_artist_abroad = {
 				}
 				move_country = scope:target_1
 			}
+			# Copy duration to home country for event display; removed in the event option.
+			scope:actor = {
+				set_variable = { name = tv_dispatch_notif_duration value = scope:target.var:tv_exhibition_duration }
+				trigger_event_non_silently = tv_arts_exhibition.10
+			}
 		}
 	}
 

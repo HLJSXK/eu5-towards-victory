@@ -2,6 +2,69 @@
 
 namespace = tv_arts_exhibition
 
+# ── Artist Dispatched Confirmation ───────────────────────────────────────────
+# Fired immediately after "Send Artist Abroad" completes.
+# ROOT = home country. ROOT.var:tv_dispatch_notif_duration holds the tour length.
+# The option removes the notification variable.
+tv_arts_exhibition.10 = {
+	type = country_event
+	title = tv_arts_exhibition.10.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 1 }
+				desc = tv_arts_exhibition.10.d.1
+			}
+			triggered_desc = {
+				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 2 }
+				desc = tv_arts_exhibition.10.d.2
+			}
+			triggered_desc = {
+				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 3 }
+				desc = tv_arts_exhibition.10.d.3
+			}
+			triggered_desc = {
+				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 4 }
+				desc = tv_arts_exhibition.10.d.4
+			}
+			triggered_desc = {
+				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 5 }
+				desc = tv_arts_exhibition.10.d.5
+			}
+			triggered_desc = {
+				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 6 }
+				desc = tv_arts_exhibition.10.d.6
+			}
+			triggered_desc = {
+				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 7 }
+				desc = tv_arts_exhibition.10.d.7
+			}
+			triggered_desc = {
+				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 8 }
+				desc = tv_arts_exhibition.10.d.8
+			}
+			triggered_desc = {
+				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 9 }
+				desc = tv_arts_exhibition.10.d.9
+			}
+			triggered_desc = {
+				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 10 }
+				desc = tv_arts_exhibition.10.d.10
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = tv_arts_exhibition.10.d.default
+			}
+		}
+	}
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.10.a
+		remove_variable = tv_dispatch_notif_duration
+	}
+}
+
 # ── Domestic Exhibition ───────────────────────────────────────────────────────
 # Fired by the "Host Domestic Exhibition" action (costs 1000 ducats).
 # Counts every work of art owned by this country and grants 0.1 International
@@ -65,6 +128,7 @@ tv_arts_exhibition.101 = {
 
 	option = {
 		name = tv_arts_exhibition.101.a
+		custom_tooltip = tv_arts_exhibition.101.effect_tt
 	}
 }
 
@@ -79,6 +143,7 @@ tv_arts_exhibition.102 = {
 
 	option = {
 		name = tv_arts_exhibition.102.a
+		custom_tooltip = tv_arts_exhibition.102.effect_tt
 	}
 }
 
@@ -93,6 +158,7 @@ tv_arts_exhibition.103 = {
 
 	option = {
 		name = tv_arts_exhibition.103.a
+		custom_tooltip = tv_arts_exhibition.103.effect_tt
 	}
 }
 
@@ -109,6 +175,7 @@ tv_arts_exhibition.104 = {
 
 	option = {
 		name = tv_arts_exhibition.104.a
+		custom_tooltip = tv_arts_exhibition.104.effect_tt
 	}
 }
 
@@ -124,5 +191,6 @@ tv_arts_exhibition.105 = {
 
 	option = {
 		name = tv_arts_exhibition.105.a
+		custom_tooltip = tv_arts_exhibition.105.effect_tt
 	}
 }

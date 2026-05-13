@@ -574,3 +574,12 @@
   scope: any
   source: "src/in_game/common/international_organizations/tv_academy_of_sciences.txt:87 (leader_country.var:tv_academy_leader_char.adm); src/in_game/common/international_organizations/tv_arts_exhibition.txt:49 (leader_country.var:tv_arts_exhibition_leader_char.artist_skill)"
   notes: "appointed_leader accesses the leader via the vanilla IO leader mechanism, which in our design is decoupled from the great person character. The great person is stored as a country variable on leader_country; chained access leader_country.var:tv_xxx_leader_char.attribute is the correct pattern."
+
+- id: artist_skill_is_normalized_float
+  pattern: 'artist_skill\s*\n.*multiply\s*=\s*0\.00[0-9]'
+  bad: "value = character.artist_skill  multiply = 0.002 (assuming artist_skill is an integer 0-100 scale)"
+  correction: "Use multiply = 0.1 (or other factor scaled to the 0-1 range). artist_skill in EU5 is a normalized float 0.0-1.0, not a raw integer. A skill-5 artist returns ~0.5, not 5."
+  category: modifier
+  scope: character
+  source: "src/in_game/common/international_organizations/tv_arts_exhibition.txt (confirmed by runtime: original multiply = 0.002 was 100× too small; corrected to multiply = 0.1)"
+  notes: "artist_skill is a level-based attribute normalized to [0,1] by the engine when accessed as a scripted value. Design formulas written assuming 0-100 scale must divide the intended multiplier by 100."

@@ -29,6 +29,20 @@
  tv_no_touring_location_available: "@trigger_no! 该国没有可用的地点。"
 
  # 文艺展演事件
+ tv_arts_exhibition.10.t: "艺术家已出发"
+ tv_arts_exhibition.10.d.1: "我们的艺术家已踏上巡演之旅。命运给了他们一段短暂的任务——此次展演预计持续#bold 1年#!。"
+ tv_arts_exhibition.10.d.2: "我们的艺术家已踏上巡演之旅。此次展演预计持续#bold 2年#!。"
+ tv_arts_exhibition.10.d.3: "我们的艺术家已踏上巡演之旅。此次展演预计持续#bold 3年#!。"
+ tv_arts_exhibition.10.d.4: "我们的艺术家已踏上巡演之旅。此次展演预计持续#bold 4年#!。"
+ tv_arts_exhibition.10.d.5: "我们的艺术家已踏上巡演之旅。此次展演预计持续#bold 5年#!。"
+ tv_arts_exhibition.10.d.6: "我们的艺术家已踏上巡演之旅。此次展演预计持续#bold 6年#!。"
+ tv_arts_exhibition.10.d.7: "我们的艺术家已踏上巡演之旅。此次展演预计持续#bold 7年#!。"
+ tv_arts_exhibition.10.d.8: "我们的艺术家已踏上巡演之旅。此次展演预计持续#bold 8年#!。"
+ tv_arts_exhibition.10.d.9: "我们的艺术家已踏上巡演之旅。此次展演预计持续#bold 9年#!。"
+ tv_arts_exhibition.10.d.10: "我们的艺术家已踏上巡演之旅。命运给了他们一段漫长的任务——此次展演预计持续#bold 10年#!。"
+ tv_arts_exhibition.10.d.default: "我们的艺术家已出发前往海外展演，巡演正式开始。"
+ tv_arts_exhibition.10.a: "期待他们归来。"
+
  tv_arts_exhibition.1.t: "盛大国内展出"
  tv_arts_exhibition.1.d: "我们打开了最宏伟殿堂的大门，展出了本国艺术家的旷世杰作。贵族、商人与神职人员纷纷聚集，亲睹我国艺术的辉煌成就。"
  tv_arts_exhibition.1.a: "让世界见识我们的文化荣光。"
@@ -45,22 +59,27 @@
  tv_arts_exhibition.101.t: "展演：反响平平"
  tv_arts_exhibition.101.d: "消息传来，我们的巡演艺术家所到之处受到了礼貌而平淡的接待——既非大获成功，亦非糟糕透顶。但仍赢得了些许国际关注。"
  tv_arts_exhibition.101.a: "至少引起了注意。"
+ tv_arts_exhibition.101.effect_tt: "国际影响力：#G +0.1#!"
 
  tv_arts_exhibition.102.t: "展演：大获成功！"
  tv_arts_exhibition.102.d: "捷报传来！我们的巡演艺术家令异国宫廷为之倾倒，本国艺术才华的美名正在边境之外广为流传。"
  tv_arts_exhibition.102.a: "我们的名声在遥远的殿堂中回响。"
+ tv_arts_exhibition.102.effect_tt: "国际影响力：#G +0.5#!"
 
  tv_arts_exhibition.103.t: "展演：糟糕透顶"
  tv_arts_exhibition.103.d: "令人汗颜的消息传来：我们的巡演艺术家遭到了嘲讽与鄙视。这场丢脸的展演对我们的海外声誉造成了一定损害。"
  tv_arts_exhibition.103.a: "此事不必再提。"
+ tv_arts_exhibition.103.effect_tt: "国际影响力：#R -0.1#!"
 
  tv_arts_exhibition.104.t: "艺术家被异国聘用！"
  tv_arts_exhibition.104.d: "惊人消息传来：我们的巡演艺术家深深打动了东道主，对方已邀请其长期留任。尽管我们就此失去了一位才俊，但此等殊荣所带来的声望已远播四方。"
  tv_arts_exhibition.104.a: "苦乐参半的荣誉。"
+ tv_arts_exhibition.104.effect_tt: "国际影响力：#G +1.0#! — 艺术家已被永久留任于异国宫廷。"
 
  tv_arts_exhibition.105.t: "艺术家灵感爆发！"
  tv_arts_exhibition.105.d: "异域文化的熏陶在我们的巡演艺术家身上激发出了非凡的创造力。其技艺的升华是在本国永远无法实现的，他们将以焕然一新的热忱继续创作。"
  tv_arts_exhibition.105.a: "艺术超越国界。"
+ tv_arts_exhibition.105.effect_tt: "巡演艺术家获得#bold 艺术灵感#!（#G +10% 艺术技能成长#!），持续10年。"
 
  # ── 文艺展演面板改善新增UI键 ──────────────────────────────────────────────────
  TV_ARTS_EXHIBITION_LEADER: "文化领袖"
@@ -69,13 +88,13 @@
 
  # ── IO类型变量本地化 ──────────────────────────────────────────────────────────
  tv_arts_intl_influence: "国际影响力"
- tv_arts_intl_influence_desc: "衡量你的国家在境外文化影响力的指标。可通过派遣艺术家出国巡演与举办国内展览来提升。每月自然衰减−0.05。M2–M5里程碑分别要求达到25 / 50 / 75 / 100。"
+ tv_arts_intl_influence_desc: "衡量你的国家在境外文化影响力的指标。可通过派遣艺术家出国巡演与举办国内展览来提升。每月按当前值的0.1%衰减。M2-M5里程碑分别要求达到25 / 50 / 75 / 100。"
  TV_ARTS_INTL_INFLUENCE_FORMAT: "$VAL|1$"
  TV_ARTS_INTL_INFLUENCE_DECAY: "自然衰减"
 
  # ── IO 领袖管理 ───────────────────────────────────────────────────────────────
  tv_appoint_arts_leader: "任命领袖"
- tv_appoint_arts_leader_desc: "从宫廷艺术家中任命一位作为文艺展演的文化领袖。其艺术技能将每月贡献国际影响力（技能 x 0.002 / 月）。"
+ tv_appoint_arts_leader_desc: "从宫廷艺术家中任命一位作为文艺展演的文化领袖。其艺术技能将每月贡献国际影响力（技能 × 0.1 / 月）。"
  tv_remove_arts_leader: "解除领袖"
  tv_remove_arts_leader_desc: "解除现任文化领袖职务。在任命新领袖之前，国际影响力将不再获得领袖的月度贡献。"
  tv_change_arts_leader: "更换领袖"
@@ -84,7 +103,7 @@
  tv_no_arts_leader_available: "@trigger_no! 没有符合条件的艺术家可供选择。"
 
  # ── IO月度变化Tooltip标签 ──────────────────────────────────────────────────────
- TV_ARTS_LEADER_CONTRIBUTION: "文化领袖（艺术技能 × 0.002）"
+ TV_ARTS_LEADER_CONTRIBUTION: "文化领袖（艺术技能 × 0.1）"
 
  # ── M1奖励提示（显示在文化胜利M1事件奖励中）─────────────────────────────────────
  tv_cultural_m1_io_grant_tt: "建立#bold 文艺展演#!并开始追踪#bold 国际影响力#!。使用\"派遣艺术家出访\"和\"举办国内展览\"行动来提升影响力。文化胜利 M2-M5 各里程碑均要求达到最低国际影响力门槛。"
