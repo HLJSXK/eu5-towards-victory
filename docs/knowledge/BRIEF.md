@@ -229,6 +229,7 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | event | character | kill_character = yes | Use kill_character = this when in character scope (e.g. inside var:name ?= { }), or kill_character = scope:char_ref from any scope. kill_character = yes is invalid — EU5 expects a character scope reference, not a boolean. | kill_character takes a character scope value, not a boolean. kill_character = yes causes PostValidate error: target scope type boolean, expected character. |
 | event | character | remove_trait = blind | remove_trait = trait:blind — always prefix the trait name with trait: for remove_trait and add_trait effects. Note: has_trait = blind (no prefix) is correct for trigger checks. | remove_trait effect requires trait: prefix (remove_trait = trait:blind). has_trait trigger does NOT use the prefix (has_trait = blind). Mixing them causes: remove_trait effect [ target: field not set ]. |
 | localization | any | none_available_msg_key localization value missing @trigger_no! icon prefix | In the localization YAML, the VALUE of the none_available_msg_key string must begin with @trigger_no! — e.g. "@trigger_no! No characters available." The key name itself has no prefix requirement. | Engine logs: Key X doesn't exist or doesn't start with trigger_no icon. The @trigger_no! inline icon must be the first token in the localization value string. |
+| script | any | Placing character trait definitions in common/character_traits/ (e.g. src/in_game/common/character_traits/my_traits.txt) | Place trait files in common/traits/ — the correct EU5 directory: src/in_game/common/traits/my_traits.txt | EU5 loads character traits from common/traits/ not common/character_traits/. Files in the wrong directory are silently ignored and all has_trait checks against those trait IDs produce 'Invalid database object' errors at PostValidate. |
 
 ## Valid Enum Values
 
@@ -255,9 +256,9 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | --- | --- | --- | --- |
 | GUI Icons (`@xxx!`) | 351 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
 | Scripted Triggers | 515 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
-| Scripted Effects | 533 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
+| Scripted Effects | 538 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 556 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 633 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

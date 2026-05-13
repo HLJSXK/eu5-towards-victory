@@ -668,3 +668,12 @@
   scope: any
   source: "src/main_menu/localization/english/tv_arts_exhibition_l_english.yml:27"
   notes: "Engine logs: Key X doesn't exist or doesn't start with trigger_no icon. The @trigger_no! inline icon must be the first token in the localization value string."
+
+- id: character_traits_wrong_directory
+  pattern: 'common/character_traits/'
+  bad: "Placing character trait definitions in common/character_traits/ (e.g. src/in_game/common/character_traits/my_traits.txt)"
+  correction: "Place trait files in common/traits/ — the correct EU5 directory: src/in_game/common/traits/my_traits.txt"
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/common/traits/ (confirmed directory; character_traits/ does not exist in vanilla)"
+  notes: "EU5 loads character traits from common/traits/ not common/character_traits/. Files in the wrong directory are silently ignored and all has_trait checks against those trait IDs produce 'Invalid database object' errors at PostValidate."
