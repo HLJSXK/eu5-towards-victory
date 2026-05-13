@@ -3,7 +3,7 @@
 # Each has a trigger block that gates execution automatically.
 
 # ── Discovery event pulse ──────────────────────────────────────────────────────
-# ~1% monthly chance (approximates dip*0.2% at median dip=5).
+# ~10% monthly chance (approximates dip*0.2% at median dip=50).
 # Fires tv_medicine.1 — player must choose a treatment approach.
 tv_med_discovery_pulse = {
 	trigger = {
@@ -14,15 +14,14 @@ tv_med_discovery_pulse = {
 		var:tv_academy_leader_char = { is_alive = yes }
 	}
 	random_events = {
-		99 = 0
-		1 = tv_medicine.1
+		90 = 0
+		10 = tv_medicine.1
 	}
 }
 
-# ── Medical accident pulse ─────────────────────────────────────────────────────
-# ~5% monthly chance (approximates 5% - mil*0.05% at median mil=5).
-# Fires tv_medicine.2 — informational notification event.
-tv_med_accident_pulse = {
+# ── Minor accident pulse ───────────────────────────────────────────────────────
+# 2% monthly chance — sets back treatment progress by 10.
+tv_med_minor_accident_pulse = {
 	trigger = {
 		has_variable = tv_academy_io_member
 		has_variable = tv_med_target_char
@@ -31,7 +30,23 @@ tv_med_accident_pulse = {
 		var:tv_academy_leader_char = { is_alive = yes }
 	}
 	random_events = {
-		95 = 0
-		5 = tv_medicine.2
+		98 = 0
+		2 = tv_medicine.2
+	}
+}
+
+# ── Major accident pulse ───────────────────────────────────────────────────────
+# 2% monthly chance — kills the patient immediately.
+tv_med_major_accident_pulse = {
+	trigger = {
+		has_variable = tv_academy_io_member
+		has_variable = tv_med_target_char
+		var:tv_med_target_char = { is_alive = yes }
+		has_variable = tv_academy_leader_char
+		var:tv_academy_leader_char = { is_alive = yes }
+	}
+	random_events = {
+		98 = 0
+		2 = tv_medicine.5
 	}
 }

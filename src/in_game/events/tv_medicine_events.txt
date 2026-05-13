@@ -58,9 +58,8 @@ tv_medicine.1 = {
 	}
 }
 
-# ── tv_medicine.2 — Medical Accident ──────────────────────────────────────────
-# Fired monthly via random_events when treatment is active (~5% chance).
-# Informational notification — no mechanical consequence.
+# ── tv_medicine.2 — Minor Medical Accident ────────────────────────────────────
+# 2% monthly chance. Immediately sets back treatment progress by 10.
 tv_medicine.2 = {
 	type = country_event
 	title = tv_medicine.2.t
@@ -71,8 +70,43 @@ tv_medicine.2 = {
 		has_variable = tv_med_target_char
 	}
 
+	immediate = {
+		if = {
+			limit = { has_variable = tv_med_progress }
+			change_variable = { name = tv_med_progress  add = -10 }
+			if = {
+				limit = { var:tv_med_progress < 0 }
+				set_variable = { name = tv_med_progress  value = 0 }
+			}
+		}
+	}
+
 	option = {
 		name = tv_medicine.2.a
+	}
+}
+
+# ── tv_medicine.5 — Major Medical Accident ────────────────────────────────────
+# 2% monthly chance. Kills the patient immediately; cleanup in immediate block
+# prevents the natural-death pulse from double-firing next month.
+tv_medicine.5 = {
+	type = country_event
+	title = tv_medicine.5.t
+	desc = tv_medicine.5.d
+	outcome = bad
+
+	trigger = {
+		has_variable = tv_med_target_char
+		var:tv_med_target_char = { is_alive = yes }
+	}
+
+	immediate = {
+		var:tv_med_target_char ?= { kill_character = this }
+		tv_med_cleanup_effect = yes
+	}
+
+	option = {
+		name = tv_medicine.5.a
 	}
 }
 

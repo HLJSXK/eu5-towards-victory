@@ -267,5 +267,5 @@ monthly_country_pulse = {
 	# ── Sub-process A: dispatch to dedicated sub-action ────────────────────────
 	# on_actions lists merge additively across files; random_events in the sub-action
 	# runs every tick (no chance_to_happen needed at the sub-action level).
-	on_actions = { tv_research_a_pulse  tv_med_discovery_pulse  tv_med_accident_pulse }
+	on_actions = { tv_research_a_pulse  tv_med_discovery_pulse  tv_med_minor_accident_pulse  tv_med_major_accident_pulse }
 }
