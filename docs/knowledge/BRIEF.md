@@ -224,6 +224,7 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | gui | scripted_triggers | custom_description { text = KEY  has_variable = X  var:X >= N  has_variable = Y  var:Y >= M } — multiple independent conditions collapsed into one block | Use one custom_tooltip block per condition group at the top level of the scripted_trigger body (implicit AND). The extra_trigger_block YAML field must be a complete custom_tooltip { } block, not raw condition lines. | When multiple sub-conditions are collapsed into one custom_description or custom_tooltip, the player sees a single pass/fail indicator for all conditions combined. Separate custom_tooltip blocks each show their own pass/fail state, allowing the player to see which specific sub-condition is not yet met. |
 | localization | character | Defining a second character_title_prefix block in a separate customizable_localization file | Copy/generate the full vanilla character_title.txt and insert custom title text entries into the original character_title_prefix block. | Top-level customizable localization keys are unique database entries, not additive merge blocks. A duplicate block is ignored, so custom character title prefixes never load. |
 | gui | international_organization | Relying on InternationalOrganization.GetIcon for a mod-defined IO without providing a matching icon texture | Add a DDS at main_menu/gfx/interface/icons/international_organizations/<io_type>.dds. The filename should match the international_organization type key, e.g. tv_arts_exhibition.dds. | The shared IO UI calls InternationalOrganization.GetIcon. Vanilla IO icon files are named after IO type keys in gfx/interface/icons/international_organizations/. Mod IOs without matching files fall back to the generic IO icon. |
+| gui | localization | Reusing a localization key that contains a game-concept link like [tv_arts_exhibition_mechanism|e] inside a GUI TooltipTextBlock text override | Use a GUI-safe localization key without [concept|e] markup for GUI text blocks, and keep the game-concept link only in event/custom_tooltip localization. | In GUI-localized text contexts, square-bracket concept links can be parsed as GUI data-system expressions. The engine tried to resolve tv_arts_exhibition_mechanism as a data-system function and logged 'Could not find data system function'. |
 
 ## Valid Enum Values
 
@@ -252,7 +253,7 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | Scripted Triggers | 515 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 533 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 550 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 551 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

@@ -631,3 +631,13 @@
   scope: international_organization
   source: "reference_game_files/game/in_game/gui/panels/organization/common.gui:26; C:/Program Files (x86)/Steam/steamapps/common/Europa Universalis V/game/main_menu/gfx/interface/icons/international_organizations/hre.dds"
   notes: "The shared IO UI calls InternationalOrganization.GetIcon. Vanilla IO icon files are named after IO type keys in gfx/interface/icons/international_organizations/. Mod IOs without matching files fall back to the generic IO icon."
+
+- id: gui_text_block_game_concept_link
+  pattern: 'blockoverride\s+"text"\s*\{\s*text\s*=\s*"tv_cultural_m1_io_grant_tt"\s*\}'
+  only_in_paths: ['gui/panels/situation']
+  bad: "Reusing a localization key that contains a game-concept link like [tv_arts_exhibition_mechanism|e] inside a GUI TooltipTextBlock text override"
+  correction: "Use a GUI-safe localization key without [concept|e] markup for GUI text blocks, and keep the game-concept link only in event/custom_tooltip localization."
+  category: gui
+  scope: localization
+  source: "runtime error.log: gui/panels/situation/tv_victory_situation.gui:965 failed parsing localized text tv_cultural_m1_io_grant_tt"
+  notes: "In GUI-localized text contexts, square-bracket concept links can be parsed as GUI data-system expressions. The engine tried to resolve tv_arts_exhibition_mechanism as a data-system function and logged 'Could not find data system function'."

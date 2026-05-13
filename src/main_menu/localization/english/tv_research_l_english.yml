@@ -124,6 +124,9 @@
  PERFORM_tv_start_concentrated_research_ACTION_SETUP: "When we begin a concentrated research effort."
  PERFORM_tv_start_concentrated_research_ACTION_LOG: "We began a concentrated research effort."
  PERFORM_tv_start_concentrated_research_ACTION_MAP: ""
+ PERFORM_tv_treat_character_ACTION_SETUP: "When we select a patient for Academy medical treatment."
+ PERFORM_tv_treat_character_ACTION_LOG: "We selected a patient for Academy medical treatment."
+ PERFORM_tv_treat_character_ACTION_MAP: ""
 
  # ── Start Concentrated Research (D) allow condition tooltips ─────────────────
  tv_start_d_requires_phase1_tt: "A research target has been selected and Sub-processes A, B, and C are underway"
@@ -140,8 +143,9 @@
  TV_MED_DISCOVERY_CHANCE_LABEL: "Discovery Event Chance:"
  TV_MED_ACCIDENT_CHANCE_LABEL: "Accident Chance:"
  tv_select_med_target: "Select Patient"
- tv_no_med_target_available: "No characters with treatable health conditions available."
+ tv_no_med_target_available: "@trigger_no! No characters with treatable health conditions available."
  tv_treat_character: "Treat Character"
+ tv_treat_character_desc:0 "Select a character with a health condition to begin treatment. Only one patient may be treated at a time."
  # ── Medicine events ───────────────────────────────────────────────────────────
  tv_medicine.1.t: "Critical Medical Finding"
  tv_medicine.1.d: "Our chief scientist has identified a critical characteristic of the patient's condition. We must decide how to proceed with the treatment."

@@ -124,6 +124,9 @@
  PERFORM_tv_start_concentrated_research_ACTION_SETUP: "当我们开始集中研究时。"
  PERFORM_tv_start_concentrated_research_ACTION_LOG: "我们开始了集中研究。"
  PERFORM_tv_start_concentrated_research_ACTION_MAP: ""
+ PERFORM_tv_treat_character_ACTION_SETUP: "当我们为科学院选定治疗患者时。"
+ PERFORM_tv_treat_character_ACTION_LOG: "我们为科学院选定了治疗患者。"
+ PERFORM_tv_treat_character_ACTION_MAP: ""
 
  # ── 开始集中研究（D阶段）允许条件提示 ─────────────────────────────────────
  tv_start_d_requires_phase1_tt: "已选定研究目标，且子进程A、B、C正在进行中"
@@ -140,8 +143,9 @@
  TV_MED_DISCOVERY_CHANCE_LABEL: "发现事件概率："
  TV_MED_ACCIDENT_CHANCE_LABEL: "事故概率："
  tv_select_med_target: "选择患者"
- tv_no_med_target_available: "没有可治疗的角色。"
+ tv_no_med_target_available: "@trigger_no! 没有可治疗的角色。"
  tv_treat_character: "治疗角色"
+ tv_treat_character_desc:0 "选择一名患有健康特质的角色开始治疗。同一时间只能治疗一名患者。"
  # ── 医学事件 ──────────────────────────────────────────────────────────────────
  tv_medicine.1.t: "关键医学发现"
  tv_medicine.1.d: "首席科学家发现了患者病情的一个关键特征。我们必须决定如何推进治疗方案。"
