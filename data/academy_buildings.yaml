@@ -1,0 +1,53 @@
+# Academy of Sciences building chain data for towards_victory_buildings.txt
+#
+# employment, price, construction, production_method follow the pattern tv_academy_{n}_<type>
+# and are derived from n in the generator — do not need to be specified here.
+#
+# modifier_lines: verbatim content of the modifier = { ... } block (location-scoped)
+# capital_modifier_lines: verbatim content of capital_country_modifier = { ... } block (optional)
+# trigger_event_id: event to fire in on_built (only tier 1)
+tiers:
+  - n: 1
+    score_threshold: 100
+    modifier_lines: |
+      local_max_literacy = 5
+    capital_modifier_lines: ""
+    trigger_event_id: "tv_academy.1"
+
+  - n: 2
+    score_threshold: 150
+    modifier_lines: |
+      local_max_literacy = 5
+      local_unrest = -0.10
+    capital_modifier_lines: ""
+    trigger_event_id: ""
+
+  - n: 3
+    score_threshold: 200
+    modifier_lines: |
+      local_max_literacy = 10
+      local_unrest = -0.10
+    capital_modifier_lines: |
+      global_max_literacy = 5
+    trigger_event_id: ""
+
+  - n: 4
+    score_threshold: 300
+    modifier_lines: |
+      local_max_literacy = 10
+      local_unrest = -0.10
+    capital_modifier_lines: |
+      global_max_literacy = 5
+      monthly_prestige = 0.1
+    trigger_event_id: ""
+
+  - n: 5
+    score_threshold: 400
+    modifier_lines: |
+      local_max_literacy = 20
+      local_unrest = -0.10
+    capital_modifier_lines: |
+      global_max_literacy = 10
+      monthly_prestige = 0.1
+      country_cabinet_efficiency = 0.20
+    trigger_event_id: ""

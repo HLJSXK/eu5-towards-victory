@@ -1,0 +1,32 @@
+# IO leader data for tv_io_leader_actions.txt
+# Each entry generates 3 generic_actions: tv_appoint_<id>_leader, tv_remove_<id>_leader, tv_change_<id>_leader
+# char_filter: extra lines inside the visible = {} block of the character selector
+ios:
+  - id: arts              # generates tv_appoint_arts_leader, tv_remove_arts_leader, tv_change_arts_leader
+    display_name: Arts Exhibition
+    io_type: tv_arts_exhibition
+    member_var: tv_arts_exhibition_member
+    leader_var: tv_arts_exhibition_leader_char
+    select_name: tv_select_arts_leader
+    no_leader_msg: tv_no_arts_leader_available
+    char_filter: |
+      is_artist = yes
+      NOT = { has_variable = tv_on_exhibition }
+
+  - id: alliance          # generates tv_appoint_alliance_leader, tv_remove_alliance_leader, tv_change_alliance_leader
+    display_name: Diplomatic Alliance
+    io_type: tv_diplomatic_alliance
+    member_var: tv_diplomatic_alliance_member
+    leader_var: tv_diplomatic_alliance_leader_char
+    select_name: tv_select_alliance_leader
+    no_leader_msg: tv_no_alliance_leader_available
+    char_filter: ""
+
+  - id: academy           # generates tv_appoint_academy_leader, tv_remove_academy_leader, tv_change_academy_leader
+    display_name: Academy of Sciences
+    io_type: tv_academy_of_sciences
+    member_var: tv_academy_io_member
+    leader_var: tv_academy_leader_char
+    select_name: tv_select_academy_leader
+    no_leader_msg: tv_no_academy_leader_available
+    char_filter: ""

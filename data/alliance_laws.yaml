@@ -1,0 +1,164 @@
+# Diplomatic Alliance law categories for tv_alliance_laws.txt
+# Structure: 5 law categories × 4 policy levels each
+# Cohesion thresholds are fixed: L2=25, L3=50, L4=75 (all laws share these)
+# AI bias values are fixed by level: L2 bias=30, L3 bias=20, L4 bias=10
+#
+# Fields per policy (L2-L4):
+#   id:               EU5 policy identifier
+#   display_comment:  the #-prefixed comment line above the policy block
+#   cohesion_cost:    cohesion spent on activation (25/50/75 for L2/L3/L4)
+#   country_modifier: verbatim modifier lines inside country_modifier = { ... }
+#   on_activate_note: optional extra comment inside on_activate scope:recipient (rare)
+#
+# DO NOT hand-edit generated output files. Run:
+#   conda run --no-capture-output -n eu5 python scripts/in_game/common/laws/gen_tv_alliance_laws.py
+
+laws:
+  - id: tv_court_protocol
+    law_category: diplomatic
+    display_comment: "LAW 1: Court Protocol & Legitimacy (宫廷礼仪与法理认同)"
+    policies:
+      - level: 1
+        id: tv_adhoc_envoys_policy
+        display_comment: "Level 1 — Ad-hoc Envoys (initial, no effect)"
+
+      - level: 2
+        id: tv_resident_ambassadors_policy
+        display_comment: "Level 2 — Resident Ambassadors (cohesion ≥ 25)"
+        cohesion_cost: 25
+        on_activate_note: "# Sync tier to leader country"
+        country_modifier: |
+          diplomatic_reputation = 1
+
+      - level: 3
+        id: tv_refuse_pretenders_policy
+        display_comment: "Level 3 — Refusal of Pretenders (cohesion ≥ 50)"
+        cohesion_cost: 50
+        country_modifier: |
+          monthly_legitimacy = 0.5
+
+      - level: 4
+        id: tv_divine_right_policy
+        display_comment: "Level 4 — Divine Right Registry (cohesion ≥ 75)"
+        cohesion_cost: 75
+        country_modifier: |
+          monthly_legitimacy = 1
+          monthly_prestige = 0.5
+
+  - id: tv_information_network
+    law_category: diplomatic
+    display_comment: "LAW 2: Information & Cartography Network (跨国信息与制图学交流)"
+    policies:
+      - level: 1
+        id: tv_royal_couriers_policy
+        display_comment: "Level 1 — Royal Couriers Only (initial)"
+
+      - level: 2
+        id: tv_postal_system_policy
+        display_comment: "Level 2 — Transnational Postal System (cohesion ≥ 25)"
+        cohesion_cost: 25
+        country_modifier: |
+          diplomatic_range_modifier = 0.10
+
+      - level: 3
+        id: tv_cartographic_exchange_policy
+        display_comment: "Level 3 — Cartographic Exchange (cohesion ≥ 50)"
+        cohesion_cost: 50
+        country_modifier: |
+          exploration_mission_speed_modifier = 0.10
+
+      - level: 4
+        id: tv_intelligence_bureau_policy
+        display_comment: "Level 4 — Centralized Intelligence Bureau (cohesion ≥ 75)"
+        cohesion_cost: 75
+        country_modifier: |
+          spy_network_construction = 0.10
+          counter_espionage = 0.10
+
+  - id: tv_commerce_consensus
+    law_category: socioeconomic
+    display_comment: "LAW 3: Commercial & Navigational Consensus (商业航海与关税共识)"
+    policies:
+      - level: 1
+        id: tv_non_piracy_policy
+        display_comment: "Level 1 — Non-Piracy Pacts (initial)"
+
+      - level: 2
+        id: tv_mfn_ports_policy
+        display_comment: "Level 2 — Most-Favored-Nation Ports (cohesion ≥ 25)"
+        cohesion_cost: 25
+        country_modifier: |
+          naval_range = 50
+
+      - level: 3
+        id: tv_unified_measures_policy
+        display_comment: "Level 3 — Unified Measures & Maritime Law (cohesion ≥ 50)"
+        cohesion_cost: 50
+        country_modifier: |
+          trade_land_efficiency = 0.05
+          trade_sea_efficiency = 0.05
+
+      - level: 4
+        id: tv_trade_monopoly_policy
+        display_comment: "Level 4 — Syndicated Trade Monopolies (cohesion ≥ 75)"
+        cohesion_cost: 75
+        country_modifier: |
+          global_trade_center_power = 0.10
+
+  - id: tv_faith_harmony
+    law_category: religious
+    display_comment: "LAW 4: Faith & Ideological Harmony (信仰与意识形态调和)"
+    policies:
+      - level: 1
+        id: tv_cuius_regio_policy
+        display_comment: "Level 1 — Cuius Regio, Eius Religio (initial)"
+
+      - level: 2
+        id: tv_pilgrim_protection_policy
+        display_comment: "Level 2 — Protection of Pilgrims & Minorities (cohesion ≥ 25)"
+        cohesion_cost: 25
+        country_modifier: |
+          tolerance_heretic = 1
+
+      - level: 3
+        id: tv_joint_denunciation_policy
+        display_comment: "Level 3 — Joint Denunciation (cohesion ≥ 50)"
+        cohesion_cost: 50
+        country_modifier: |
+          building_missionary_effort_modifier = 0.10
+
+      - level: 4
+        id: tv_universal_council_policy
+        display_comment: "Level 4 — Universal Spiritual Council (cohesion ≥ 75)"
+        cohesion_cost: 75
+        country_modifier: |
+          monthly_prestige = 1
+
+  - id: tv_colonization_sphere
+    law_category: socioeconomic
+    display_comment: "LAW 5: Colonization & Sphere of Influence (拓殖与势力范围划界)"
+    policies:
+      - level: 1
+        id: tv_free_colonization_policy
+        display_comment: "Level 1 — Free-for-All Colonization (initial)"
+
+      - level: 2
+        id: tv_doctrine_discovery_policy
+        display_comment: "Level 2 — Doctrine of Discovery (cohesion ≥ 25)"
+        cohesion_cost: 25
+        country_modifier: |
+          colonial_migration_size = 50
+
+      - level: 3
+        id: tv_demarcation_policy
+        display_comment: "Level 3 — Demarcation Treaties (cohesion ≥ 50)"
+        cohesion_cost: 50
+        country_modifier: |
+          colonial_range_modifier = 0.10
+
+      - level: 4
+        id: tv_joint_ventures_policy
+        display_comment: "Level 4 — Condominium & Joint Ventures (cohesion ≥ 75)"
+        cohesion_cost: 75
+        country_modifier: |
+          colonial_migration_size_modifier = 0.15

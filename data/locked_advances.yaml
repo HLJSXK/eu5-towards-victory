@@ -16,61 +16,71 @@
 #                       compatibility with the propose-target effect's "skip if already
 #                       unlocked via prior cycle" guard)
 #
-# Enum assignments for tv_research_target (used in subprocess_effects.txt):
-#   1=printing_press  2=iron_working  3=anatomy  4=gunpowder  5=blast_furnace
-#   6=scientific_experimentation  7=scientific_revolution  8=manufactories
-#   9=industrialization  10=vaccination
+# Enum assignments for tv_research_target (used in subprocess_effects.txt and GUI):
+#   gui_value must match the hardcoded enum in subprocess_effects.txt — do NOT reorder.
+#   gui_loc_key is derived by the GUI generator as TV_RM_TARGET_<ID_UPPER>.
 #
 # DO NOT hand-edit generated output files. Run:
 #   conda run --no-capture-output -n eu5 python scripts/gen_locked_advances.py
+#   conda run --no-capture-output -n eu5 python scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py
 
 locked_advances:
   - id: printing_press
+    gui_value: 1
     vanilla_advance_id: printing_press_advance
     age: 3
     research_unlock_var: tv_advance_printing_press_unlocked
 
   - id: iron_working
+    gui_value: 2
     vanilla_advance_id: iron_working
     age: 1
     research_unlock_var: tv_advance_iron_working_unlocked
 
   - id: anatomy
+    gui_value: 3
     vanilla_advance_id: anatomy_advance
     age: 2
     research_unlock_var: tv_advance_anatomy_unlocked
 
   - id: gunpowder
+    gui_value: 4
     vanilla_advance_id: gunpowder_advance
     age: 2
     research_unlock_var: tv_advance_gunpowder_unlocked
 
   - id: blast_furnace
+    gui_value: 5
     vanilla_advance_id: blast_furnace
     age: 3
     research_unlock_var: tv_advance_blast_furnace_unlocked
 
   - id: scientific_experimentation
+    gui_value: 6
     vanilla_advance_id: scientific_experimentation
     age: 4
     research_unlock_var: tv_advance_scientific_experimentation_unlocked
 
   - id: scientific_revolution
+    gui_value: 7
     vanilla_advance_id: scientific_revolution_advance
     age: 5
     research_unlock_var: tv_advance_scientific_revolution_unlocked
 
   - id: manufactories
+    gui_value: 8
     vanilla_advance_id: manufactories_advance
     age: 5
     research_unlock_var: tv_advance_manufactories_unlocked
 
   - id: industrialization
+    gui_value: 9
     vanilla_advance_id: industrialization_advance
     age: 6
     research_unlock_var: tv_advance_industrialization_unlocked
 
   - id: vaccination
+    gui_value: 10
     vanilla_advance_id: vaccination_advance
     age: 6
     research_unlock_var: tv_advance_vaccination_unlocked

@@ -55,9 +55,10 @@ src/
 │   │   │                                  tv_advance_unlock_effects.txt  [GENERATED — tv_unlock_advance_<id>_effect (set_variable + research_advance)]
 │   │   │                                  tv_research_subprocess_effects.txt  [MANUAL — Research Mechanism lifecycle effects; strict-earliest-age target proposal]
 │   │   ├── static_modifiers/              towards_victory_modifiers.txt  [GENERATED]
-│   │   ├── building_types/                towards_victory_buildings.txt (Academy of Sciences chain)
+│   │   ├── building_types/                towards_victory_buildings.txt  [GENERATED — Academy of Sciences building chain tiers 1–5]
 │   │   ├── generic_actions/               tv_arts_exhibition_actions.txt  [MANUAL — Send Artist Abroad / Host Domestic Exhibition]
-│   │   │                                  tv_io_leader_actions.txt  [MANUAL — 9 IO leader Appoint/Remove/Change actions (3 per IO × 3 IOs)]
+│   │   │                                  tv_io_leader_actions.txt  [GENERATED — 9 IO leader Appoint/Remove/Change actions (3 per IO × 3 IOs)]
+│   │   ├── laws/                          tv_alliance_laws.txt  [GENERATED — 5 law categories × 4 policy levels for the Diplomatic Alliance IO]
 │   │   │                                  tv_research_actions.txt  [MANUAL — Research Mechanism IO panel actions]
 │   │   ├── generic_action_ai_lists/       tv_arts_exhibition_list.txt  [MANUAL]
 │   │   │                                  tv_diplomatic_alliance_list.txt  [MANUAL]
@@ -76,7 +77,7 @@ src/
 │       ├── panels/situation/              tv_victory_situation.gui  [MANUAL]
 │       └── panels/organization/           tv_diplomatic_alliance.gui  [MANUAL — custom HRE-style IO panel; 3 leader-management buttons]
 │                                          tv_arts_exhibition.gui  [MANUAL — 2 cultural action buttons + 3 leader-management buttons]
-│                                          tv_academy_of_sciences.gui  [MANUAL — Research Mechanism IO panel; 3 research + 3 leader-management buttons]
+│                                          tv_academy_of_sciences.gui  [GENERATED — Research Mechanism IO panel; 3 research + 3 leader-management buttons]
 └── main_menu/localization/
     ├── english/                           towards_victory_l_english.yml  [GENERATED]
     │                                      towards_victory_leaderboard_l_english.yml  [MANUAL]
@@ -92,8 +93,13 @@ src/
 
 | Script | Input(s) | Output(s) | When to run |
 |---|---|---|---|
-| `scripts/validate.py --changed` | src/ mod files | Console report (exit 0/1) | Before launching game |
+| `scripts/validate.py --changed` | src/ mod files + data/generated_files.yaml | Console report (exit 0/1) | Before launching game |
 | `scripts/gen_brief.py` | anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md | docs/knowledge/BRIEF.md | After editing any knowledge YAML |
 | `scripts/gen_index.py` | reference_game_files + src/ | data/index/*.txt | Run by gen_brief.py automatically |
 | `scripts/gen_scaffold.py --type X --name Y` | --type argument | Scaffold .txt/.yml file | When creating a new EU5 file |
 | `scripts/gen_messagetypes.py` | reference_game_files vanilla messagetypes.txt + TV_ENTRIES block | src/main_menu/gui/messagetypes.txt | After adding a new generic action |
+| `scripts/gen_victory.py` | data/victory_paths.yaml | 13 generated files (triggers, effects, modifiers, situations, yearly, 6× events, 2× loc) | After editing data/victory_paths.yaml |
+| `scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py` | data/io_leaders.yaml | src/in_game/common/generic_actions/tv_io_leader_actions.txt | After adding/changing an IO or its leader actions |
+| `scripts/in_game/common/building_types/gen_towards_victory_buildings.py` | data/academy_buildings.yaml | src/in_game/common/building_types/towards_victory_buildings.txt | After changing Academy of Sciences building tiers |
+| `scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py` | data/locked_advances.yaml | src/in_game/gui/panels/organization/tv_academy_of_sciences.gui | After adding/removing Frontier advance targets |
+| `scripts/in_game/common/laws/gen_tv_alliance_laws.py` | data/alliance_laws.yaml | src/in_game/common/laws/tv_alliance_laws.txt | After editing Diplomatic Alliance law categories or policies |

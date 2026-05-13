@@ -1,0 +1,82 @@
+# Registry of script-managed generated files.
+# Used by validate.py (check_generated_headers) and gen_brief.py (codegen map table).
+#
+# Format:
+#   script:    path relative to repo root (the generator script)
+#   output:    path relative to repo root (the generated src file)
+#   data:      path relative to repo root (the data source file)
+#
+# Multi-output exception: gen_victory.py generates 13 files; listed individually below.
+# All other entries follow the 1:1 principle (one script → one output file).
+
+generated:
+
+  # ── gen_victory.py (multi-output exception) ─────────────────────────────────
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/common/scripted_triggers/towards_victory_triggers.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/common/scripted_effects/towards_victory_effects.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/common/static_modifiers/towards_victory_modifiers.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/common/situations/towards_victory_situations.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/common/on_action/towards_victory_yearly.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/events/towards_victory_conquest_events.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/events/towards_victory_prosperity_events.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/events/towards_victory_trade_events.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/events/towards_victory_diplomatic_events.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/events/towards_victory_cultural_events.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/events/towards_victory_science_events.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/main_menu/localization/english/towards_victory_l_english.yml
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml
+    output: src/main_menu/localization/simp_chinese/towards_victory_l_simp_chinese.yml
+
+  # ── 1:1 feature generators ───────────────────────────────────────────────────
+  - script: scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py
+    data:   data/io_leaders.yaml
+    output: src/in_game/common/generic_actions/tv_io_leader_actions.txt
+
+  - script: scripts/in_game/common/building_types/gen_towards_victory_buildings.py
+    data:   data/academy_buildings.yaml
+    output: src/in_game/common/building_types/towards_victory_buildings.txt
+
+  - script: scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py
+    data:   data/locked_advances.yaml
+    output: src/in_game/gui/panels/organization/tv_academy_of_sciences.gui
+
+  - script: scripts/in_game/common/laws/gen_tv_alliance_laws.py
+    data:   data/alliance_laws.yaml
+    output: src/in_game/common/laws/tv_alliance_laws.txt
