@@ -1,14 +1,75 @@
 ﻿# Towards Victory — Arts Exhibition scripted effects
 
-# Called in character scope when a touring artist reaches their exhibition duration limit.
-# Fires a "returned home" event on the home country, moves the artist back, then cleans up.
+# ── Capacity helper (country scope) ──────────────────────────────────────────
+# Removes all touring penalty modifiers then re-applies the one matching the
+# current tv_dispatched_artists_count value.  Call after any change to the counter.
+tv_update_tour_capacity_effect = {
+	remove_country_modifier = tv_touring_penalty_1
+	remove_country_modifier = tv_touring_penalty_2
+	remove_country_modifier = tv_touring_penalty_3
+	remove_country_modifier = tv_touring_penalty_4
+	remove_country_modifier = tv_touring_penalty_5
+	remove_country_modifier = tv_touring_penalty_6
+	remove_country_modifier = tv_touring_penalty_7
+	remove_country_modifier = tv_touring_penalty_8
+	if = {
+		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 8 }
+		add_country_modifier = { modifier = tv_touring_penalty_8 days = -1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 7 }
+		add_country_modifier = { modifier = tv_touring_penalty_7 days = -1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 6 }
+		add_country_modifier = { modifier = tv_touring_penalty_6 days = -1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 5 }
+		add_country_modifier = { modifier = tv_touring_penalty_5 days = -1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 4 }
+		add_country_modifier = { modifier = tv_touring_penalty_4 days = -1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 3 }
+		add_country_modifier = { modifier = tv_touring_penalty_3 days = -1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 2 }
+		add_country_modifier = { modifier = tv_touring_penalty_2 days = -1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 1 }
+		add_country_modifier = { modifier = tv_touring_penalty_1 days = -1 }
+	}
+}
+
+# ── Return / death cleanup (character scope) ──────────────────────────────────
+# Called when a touring artist reaches their exhibition duration limit.
+# Clears the target country marker and home country counter BEFORE removing
+# character variables, then fires the return event and moves the artist home.
 tv_end_artist_exhibition_effect = {
 	save_scope_as = finished_artist
+	# Clear target-country marker before the variable is removed
+	if = {
+		limit = { has_variable = tv_exhibition_target_country }
+		var:tv_exhibition_target_country ?= {
+			remove_variable = tv_has_visiting_artist
+		}
+	}
 	var:tv_exhibition_home_country ?= {
 		trigger_event_non_silently = { id = tv_arts_exhibition.5 }
 		scope:finished_artist = {
 			move_country = prev
 		}
+		# Decrement counter and update capacity penalty
+		if = {
+			limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 1 }
+			change_variable = { name = tv_dispatched_artists_count add = -1 }
+		}
+		tv_update_tour_capacity_effect = yes
 	}
 	remove_variable = tv_on_exhibition
 	remove_variable = tv_exhibition_home_country

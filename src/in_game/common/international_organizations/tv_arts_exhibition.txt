@@ -62,6 +62,9 @@ tv_arts_exhibition = {
 		if = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
+			scope:actor = {
+				set_variable = { name = tv_dispatched_artists_count value = 0 }
+			}
 		}
 	}
 

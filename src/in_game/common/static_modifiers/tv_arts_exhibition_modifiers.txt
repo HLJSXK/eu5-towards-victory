@@ -3,3 +3,17 @@
 tv_artistic_inspiration_modifier = {
 	artist_skill_level_gain = 0.10
 }
+
+# ── Touring Capacity Penalties ────────────────────────────────────────────────
+# Applied by tv_update_tour_capacity_effect based on tv_dispatched_artists_count.
+# Only one of these is active at a time; the effect removes all and re-applies
+# the correct level. num_possible_artists = -N reduces the artist slot cap by N.
+
+tv_touring_penalty_1 = { num_possible_artists = -1 }
+tv_touring_penalty_2 = { num_possible_artists = -2 }
+tv_touring_penalty_3 = { num_possible_artists = -3 }
+tv_touring_penalty_4 = { num_possible_artists = -4 }
+tv_touring_penalty_5 = { num_possible_artists = -5 }
+tv_touring_penalty_6 = { num_possible_artists = -6 }
+tv_touring_penalty_7 = { num_possible_artists = -7 }
+tv_touring_penalty_8 = { num_possible_artists = -8 }

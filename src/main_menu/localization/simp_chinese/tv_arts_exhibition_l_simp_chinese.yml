@@ -108,6 +108,19 @@
  # ── M1奖励提示（显示在文化胜利M1事件奖励中）─────────────────────────────────────
  tv_cultural_m1_io_grant_tt: "建立#bold 文艺展演#!并开始追踪#bold 国际影响力#!。使用\"派遣艺术家出访\"和\"举办国内展览\"行动来提升影响力。文化胜利 M2-M5 各里程碑均要求达到最低国际影响力门槛。"
 
+ # ── 面板派出数量计数器 ──────────────────────────────────────────────────────────
+ TV_ARTS_DISPATCHED_COUNT_LABEL:0 "当前巡演中"
+
+ # ── 巡演容量惩罚修正 ─────────────────────────────────────────────────────────
+ STATIC_MODIFIER_NAME_tv_touring_penalty_1: "艺术家出访巡演"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_2: "艺术家出访巡演"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_3: "艺术家出访巡演"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_4: "艺术家出访巡演"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_5: "艺术家出访巡演"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_6: "艺术家出访巡演"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_7: "艺术家出访巡演"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_8: "艺术家出访巡演"
+
  # ── 行动通知消息键 ─────────────────────────────────────────────────────────────
  PERFORM_tv_send_artist_abroad_ACTION_SETUP: "当我们将艺术家派往外国宫廷进行巡演时。"
  PERFORM_tv_send_artist_abroad_ACTION_LOG: "我们将[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]派往[SCOPE.sCountry('target_1').GetNameWithNoTooltip]进行艺术巡演。"

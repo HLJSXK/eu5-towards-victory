@@ -54,6 +54,26 @@ organization_panel = {
 
 	blockoverride "organization_main_actions_extra" {
 
+		# ── Dispatched Artists count ──────────────────────────────────────────
+		widget = {
+			size = { 470 30 }
+			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 4
+				margin = { 6 4 }
+				text_single = {
+					text = "TV_ARTS_DISPATCHED_COUNT_LABEL"
+					align = nobaseline
+				}
+				expand = {}
+				text_single = {
+					raw_text = "[Country.MakeScope.GetVariable('tv_dispatched_artists_count').GetValue|0]"
+					align = nobaseline
+				}
+			}
+		}
+
 		# ── Cultural actions ──────────────────────────────────────────────────
 		action_button_diamond = {
 			size = { 470 30 }

@@ -9,8 +9,21 @@ on_character_death = {
 			if = {
 				limit = { has_variable = tv_on_exhibition }
 				save_scope_as = dead_touring_artist
+				# Clear marker on the target country before removing the variable
+				if = {
+					limit = { has_variable = tv_exhibition_target_country }
+					var:tv_exhibition_target_country ?= {
+						remove_variable = tv_has_visiting_artist
+					}
+				}
 				var:tv_exhibition_home_country ?= {
 					trigger_event_non_silently = { id = tv_arts_exhibition.6 }
+					# Decrement counter and update capacity penalty
+					if = {
+						limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 1 }
+						change_variable = { name = tv_dispatched_artists_count add = -1 }
+					}
+					tv_update_tour_capacity_effect = yes
 				}
 				remove_variable = tv_on_exhibition
 				remove_variable = tv_exhibition_home_country

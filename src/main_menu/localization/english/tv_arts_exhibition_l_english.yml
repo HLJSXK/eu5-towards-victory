@@ -108,6 +108,19 @@
  # ── M1 grant tooltip (shown in the Cultural Victory M1 event reward) ─────────
  tv_cultural_m1_io_grant_tt: "Establishes the #bold Arts Exhibition#! and begins tracking #bold International Influence#!. Use Send Artist Abroad and Host Domestic Exhibition to grow your influence. Cultural Victory Milestones M2-M5 each require a minimum International Influence threshold."
 
+ # ── Dispatched Artists panel counter ──────────────────────────────────────────
+ TV_ARTS_DISPATCHED_COUNT_LABEL:0 "Artists on Tour"
+
+ # ── Touring capacity penalty modifiers ────────────────────────────────────────
+ STATIC_MODIFIER_NAME_tv_touring_penalty_1: "Artists on Tour"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_2: "Artists on Tour"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_3: "Artists on Tour"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_4: "Artists on Tour"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_5: "Artists on Tour"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_6: "Artists on Tour"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_7: "Artists on Tour"
+ STATIC_MODIFIER_NAME_tv_touring_penalty_8: "Artists on Tour"
+
  # ── Action notification message keys ─────────────────────────────────────────
  PERFORM_tv_send_artist_abroad_ACTION_SETUP: "When we dispatch one of our artists to tour a foreign court."
  PERFORM_tv_send_artist_abroad_ACTION_LOG: "We dispatched [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] to [SCOPE.sCountry('target_1').GetNameWithNoTooltip] as a touring artist."
