@@ -28,12 +28,12 @@
 			}
 		}
 		visible = {
-			# Cannot already be a supporter of any country
+		}
+		enabled = {
 			NOT = { has_variable = tv_diplomatic_supporter_of }
 			is_subject = no
 		}
-		enabled = {
-		}
+		show_why_not_enabled = yes
 	}
 
 	effect = {
