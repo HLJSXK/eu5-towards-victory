@@ -1,0 +1,113 @@
+﻿# Towards Victory — Medicine mechanic events
+# Namespace: tv_medicine
+# Events .1/.2/.3/.4 cover the full treatment lifecycle.
+
+namespace = tv_medicine
+
+# ── tv_medicine.1 — Critical Medical Finding ──────────────────────────────────
+# Fired monthly via random_events when treatment is active (~1% chance).
+# Player chooses a treatment approach; outcomes may advance progress or kill the patient.
+tv_medicine.1 = {
+	type = country_event
+	title = tv_medicine.1.t
+	desc = tv_medicine.1.d
+	outcome = neutral
+
+	trigger = {
+		has_variable = tv_med_target_char
+		var:tv_med_target_char = { is_alive = yes }
+	}
+
+	# ── Conservative: 95% +5 progress, 5% patient dies ────────────────────────
+	option = {
+		name = tv_medicine.1.a
+		random_list = {
+			95 = {
+				if = {
+					limit = { has_variable = tv_med_progress }
+					change_variable = { name = tv_med_progress  add = 5 }
+				}
+			}
+			5 = {
+				var:tv_med_target_char ?= { kill_character = yes }
+				tv_med_cleanup_effect = yes
+			}
+		}
+	}
+
+	# ── Funded/Risky: 80% +10 progress, 20% patient dies ─────────────────────
+	option = {
+		name = tv_medicine.1.b
+		random_list = {
+			80 = {
+				if = {
+					limit = { has_variable = tv_med_progress }
+					change_variable = { name = tv_med_progress  add = 10 }
+				}
+			}
+			20 = {
+				var:tv_med_target_char ?= { kill_character = yes }
+				tv_med_cleanup_effect = yes
+			}
+		}
+	}
+
+	# ── Continue research — no intervention ───────────────────────────────────
+	option = {
+		name = tv_medicine.1.c
+	}
+}
+
+# ── tv_medicine.2 — Medical Accident ──────────────────────────────────────────
+# Fired monthly via random_events when treatment is active (~5% chance).
+# Informational notification — no mechanical consequence.
+tv_medicine.2 = {
+	type = country_event
+	title = tv_medicine.2.t
+	desc = tv_medicine.2.d
+	outcome = bad
+
+	trigger = {
+		has_variable = tv_med_target_char
+	}
+
+	option = {
+		name = tv_medicine.2.a
+	}
+}
+
+# ── tv_medicine.3 — Patient Has Recovered ─────────────────────────────────────
+# Fired by tv_med_complete_treatment_effect when progress reaches 100.
+# Health traits have already been removed before this event fires.
+tv_medicine.3 = {
+	type = country_event
+	title = tv_medicine.3.t
+	desc = tv_medicine.3.d
+	outcome = good
+
+	trigger = {
+		always = yes
+	}
+
+	option = {
+		name = tv_medicine.3.a
+	}
+}
+
+# ── tv_medicine.4 — Patient Died During Treatment ─────────────────────────────
+# Fired when the patient dies of natural causes while treatment is active.
+# Variables have already been cleaned up before this event fires.
+tv_medicine.4 = {
+	type = country_event
+	title = tv_medicine.4.t
+	desc = tv_medicine.4.d
+	outcome = bad
+
+	trigger = {
+		always = yes
+	}
+
+	option = {
+		name = tv_medicine.4.a
+	}
+}

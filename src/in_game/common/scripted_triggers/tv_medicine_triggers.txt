@@ -1,0 +1,17 @@
+﻿# Towards Victory — Medicine mechanic scripted triggers
+
+# Returns yes if the character has any bad health condition that can be treated.
+tv_has_health_condition_trigger = {
+	OR = {
+		has_trait = blind
+		has_trait = one_eyed
+		has_trait = maimed
+		has_trait = disfigured
+		has_trait = scarred
+		has_trait = hunchback
+		has_trait = pockmarked_trait
+		has_trait = smallpox_trait
+		has_trait = bubonic_plague_trait
+		has_trait = sickly
+	}
+}

@@ -84,6 +84,16 @@ The `in_game` and `main_menu` folders are the heart of most mods, containing the
 *   **/in_game/**: This folder mirrors the game's own file structure for core mechanics. The most frequently used subfolder is `common`, which houses scripts for a vast array of game features, from government reforms to unit types.
 *   **/main_menu/**: This folder primarily contains `localization` files, which handle all in-game text, and `gfx` files for custom graphics and interface elements.
 
+#### International Organization Icons
+
+The shared IO UI calls `InternationalOrganization.GetIcon` in common organization panels and tooltips. For a mod-defined international organization, provide a DDS file at:
+
+```
+main_menu/gfx/interface/icons/international_organizations/<io_type>.dds
+```
+
+The filename should match the `common/international_organizations` type key, such as `tv_arts_exhibition.dds`. Without this matching texture, shared UI surfaces fall back to the generic international organization icon even if a custom organization panel displays another texture locally.
+
 ### 4.4. Common File Types and Formats
 
 Modders primarily work with a few text-based file formats:

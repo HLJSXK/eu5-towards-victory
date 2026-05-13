@@ -622,3 +622,12 @@
   scope: character
   source: "reference_game_files/game/in_game/common/customizable_localization/character_title.txt:1; runtime debug.log: 'Duplicated key character_title_prefix will not be created'"
   notes: "Top-level customizable localization keys are unique database entries, not additive merge blocks. A duplicate block is ignored, so custom character title prefixes never load."
+
+- id: mod_io_geticon_without_matching_texture
+  pattern: 'InternationalOrganization\.GetIcon|InternationalOrganizationsView\.GetInternationalOrganization\.GetIcon'
+  bad: "Relying on InternationalOrganization.GetIcon for a mod-defined IO without providing a matching icon texture"
+  correction: "Add a DDS at main_menu/gfx/interface/icons/international_organizations/<io_type>.dds. The filename should match the international_organization type key, e.g. tv_arts_exhibition.dds."
+  category: gui
+  scope: international_organization
+  source: "reference_game_files/game/in_game/gui/panels/organization/common.gui:26; C:/Program Files (x86)/Steam/steamapps/common/Europa Universalis V/game/main_menu/gfx/interface/icons/international_organizations/hre.dds"
+  notes: "The shared IO UI calls InternationalOrganization.GetIcon. Vanilla IO icon files are named after IO type keys in gfx/interface/icons/international_organizations/. Mod IOs without matching files fall back to the generic IO icon."

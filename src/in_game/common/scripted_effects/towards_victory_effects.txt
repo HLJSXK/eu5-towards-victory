@@ -865,6 +865,31 @@ tv_grant_cultural_milestone_5 = {
 # Science Victory
 tv_grant_science_milestone_1 = {
 	add_country_modifier = { modifier = tv_science_m1_bonus days = -1 }
+	custom_tooltip = { text = tv_science_m1_io_grant_tt }
+	hidden_effect = {
+	    if = {
+	        limit = { NOT = { has_variable = tv_academy_io_member } }
+	        set_variable = { name = tv_academy_io_member value = 1 }
+	        set_variable = { name = tv_research_phase value = 0 }
+	        set_variable = { name = tv_research_interest value = 0 }
+	        set_variable = { name = tv_research_b_done value = 0 }
+	        set_variable = { name = tv_rm_subprocess_a value = 0 }
+	        set_variable = { name = tv_rm_subprocess_b value = 0 }
+	        set_variable = { name = tv_rm_subprocess_c value = 0 }
+	        set_variable = { name = tv_rm_subprocess_d_ready value = 0 }
+	        set_variable = { name = tv_med_progress  value = 0 }
+	        set_variable = { name = tv_med_disp_adm  value = 0 }
+	        set_variable = { name = tv_med_disp_dip  value = 0 }
+	        set_variable = { name = tv_med_disp_mil  value = 0 }
+	        create_international_organization = {
+	            type = international_organization_type:tv_academy_of_sciences
+	            hidden_effect = {
+	                add_country_to_international_organization = prev
+	                set_leader_country = prev
+	            }
+	        }
+	    }
+	}
 }
 
 tv_grant_science_milestone_2 = {

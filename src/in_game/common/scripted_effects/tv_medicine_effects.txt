@@ -1,0 +1,34 @@
+﻿# Towards Victory — Medicine mechanic scripted effects
+
+# Reset all medicine state. Call from completion or patient death.
+tv_med_cleanup_effect = {
+	remove_variable = tv_med_target_char
+	set_variable = { name = tv_med_progress  value = 0 }
+	set_variable = { name = tv_med_disp_adm  value = 0 }
+	set_variable = { name = tv_med_disp_dip  value = 0 }
+	set_variable = { name = tv_med_disp_mil  value = 0 }
+}
+
+# Remove all known bad health traits from the patient character (called in character scope).
+tv_med_remove_health_traits_effect = {
+	if = { limit = { has_trait = blind }               remove_trait = blind }
+	if = { limit = { has_trait = one_eyed }            remove_trait = one_eyed }
+	if = { limit = { has_trait = maimed }              remove_trait = maimed }
+	if = { limit = { has_trait = disfigured }          remove_trait = disfigured }
+	if = { limit = { has_trait = scarred }             remove_trait = scarred }
+	if = { limit = { has_trait = hunchback }           remove_trait = hunchback }
+	if = { limit = { has_trait = pockmarked_trait }    remove_trait = pockmarked_trait }
+	if = { limit = { has_trait = smallpox_trait }      remove_trait = smallpox_trait }
+	if = { limit = { has_trait = bubonic_plague_trait } remove_trait = bubonic_plague_trait }
+	if = { limit = { has_trait = sickly }              remove_trait = sickly }
+}
+
+# Called when tv_med_progress >= 100. Removes traits, fires completion event, resets state.
+# Must be called from country scope (leader_country).
+tv_med_complete_treatment_effect = {
+	var:tv_med_target_char ?= {
+		tv_med_remove_health_traits_effect = yes
+	}
+	trigger_event_non_silently = { id = tv_medicine.3 }
+	tv_med_cleanup_effect = yes
+}

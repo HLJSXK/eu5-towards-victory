@@ -83,7 +83,7 @@ organization_panel = {
 \t}
 
 \tblockoverride "io_main_actions_icon" {
-\t\ttexture = "[InternationalOrganizationsView.GetInternationalOrganization.GetIcon]"
+\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
 \t}
 
 \tblockoverride "organization_main_actions_extra_visible" {
@@ -326,6 +326,122 @@ GUI_SUFFIX = """\
 \t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
 \t\t\tleft_action = {
 \t\t\t\taction_name = "tv_remove_academy_leader"
+\t\t\t}
+\t\t}
+\t}
+
+\t# ── Medicine tab: enable the custom tab slot ──────────────────────────────────
+\tblockoverride "organization_custom_tab_visible" {
+\t\tvisible = yes
+\t}
+\tblockoverride "organization_custom_tab_text" {
+\t\ttext = "TV_MED_TAB"
+\t}
+\tblockoverride "organization_custom_tab_tooltip" {
+\t\ttooltip = "TV_MED_TAB_TOOLTIP"
+\t}
+
+\tblockoverride "organization_custom_content_visible" {
+\t\tvisible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' )]"
+\t}
+
+\tblockoverride "organization_custom_content" {
+
+\t\t# ── Data block: patient + rates display ───────────────────────────────
+\t\twidget = {
+\t\t\tsize = { 470 140 }
+\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer]"
+
+\t\t\tvbox = {
+\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\tspacing = 4
+\t\t\t\tmargin = { 4 6 }
+
+\t\t\t\t# ── Current patient ─────────────────────────────────────────────────
+\t\t\t\thbox = {
+\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\tspacing = 4
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\ttext = "TV_MED_PATIENT_LABEL"
+\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t}
+\t\t\t\t\texpand = {}
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\tvisible = "[Not(Country.MakeScope.GetVariable('tv_med_target_char').IsSet)]"
+\t\t\t\t\t\ttext = "TV_MED_NO_PATIENT"
+\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t}
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_med_target_char').IsSet]"
+\t\t\t\t\t\tdatacontext = "[Country.MakeScope.GetVariable('tv_med_target_char').GetCharacter]"
+\t\t\t\t\t\ttext = "[Character.GetShortNameWithNoTooltip]"
+\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t}
+\t\t\t\t}
+
+\t\t\t\t# ── Progress bar ────────────────────────────────────────────────────
+\t\t\t\tprogressbar = {
+\t\t\t\t\tsize = { 440 16 }
+\t\t\t\t\tmax = 100
+\t\t\t\t\tvalue = "[Country.MakeScope.GetVariable('tv_med_progress').GetValue]"
+\t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_med_target_char').IsSet]"
+\t\t\t\t}
+
+\t\t\t\t# ── Monthly progress gain (adm x 0.1%) ──────────────────────────────
+\t\t\t\thbox = {
+\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\tspacing = 4
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\ttext = "TV_MED_MONTHLY_GAIN_LABEL"
+\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t}
+\t\t\t\t\texpand = {}
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\traw_text = "[Country.MakeScope.GetVariable('tv_med_disp_adm').GetValue|0]x0.1%"
+\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t}
+\t\t\t\t}
+
+\t\t\t\t# ── Discovery event chance (dip x 0.2%) ─────────────────────────────
+\t\t\t\thbox = {
+\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\tspacing = 4
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\ttext = "TV_MED_DISCOVERY_CHANCE_LABEL"
+\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t}
+\t\t\t\t\texpand = {}
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\traw_text = "[Country.MakeScope.GetVariable('tv_med_disp_dip').GetValue|0]x0.2%"
+\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t}
+\t\t\t\t}
+
+\t\t\t\t# ── Accident chance (5% - mil x 0.05%) ──────────────────────────────
+\t\t\t\thbox = {
+\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\tspacing = 4
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\ttext = "TV_MED_ACCIDENT_CHANCE_LABEL"
+\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t}
+\t\t\t\t\texpand = {}
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\traw_text = "5%-[Country.MakeScope.GetVariable('tv_med_disp_mil').GetValue|0]x0.05%"
+\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+\t\t}
+
+\t\t# ── Treat Character button ──────────────────────────────────────────────
+\t\taction_button_diamond = {
+\t\t\tsize = { 470 30 }
+\t\t\ttext = "tv_treat_character"
+\t\t\ttitle = "tv_treat_character"
+\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\tleft_action = {
+\t\t\t\taction_name = "tv_treat_character"
 \t\t\t}
 \t\t}
 \t}

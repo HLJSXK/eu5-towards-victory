@@ -118,3 +118,54 @@ tv_start_concentrated_research = {
 		add = 50
 	}
 }
+
+# ── Treat Character (Medicine Tab) ────────────────────────────────────────────
+# Selects a character with a health condition to begin treatment.
+# Disabled while another character is already being treated.
+tv_treat_character = {
+	type = owncountry
+
+	sound = UI_action_religion_generic
+
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			has_variable = tv_academy_io_member
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			NOT = { has_variable = tv_med_target_char }
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_med_target"
+		none_available_msg_key = "tv_no_med_target_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			tv_has_health_condition_trigger = yes
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_med_target_char  value = scope:target }
+				set_variable = { name = tv_med_progress     value = 0 }
+			}
+		}
+	}
+
+	ai_will_do = {
+		add = -100
+	}
+}

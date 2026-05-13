@@ -95,6 +95,7 @@ The following violations occurred and informed the Mandatory Reference Categorie
 
 | Date | Violation | Root cause | Correct behavior |
 |---|---|---|---|
+| 2026-05 | Left mod-defined IOs without matching `international_organizations/<io_type>.dds` textures | Assumed custom organization panels could provide all visible IO icons | Shared IO UI uses `InternationalOrganization.GetIcon`; provide `main_menu/gfx/interface/icons/international_organizations/<io_type>.dds` matching the IO type key, or shared title/list/tooltips fall back to the generic IO icon. |
 | 2026-03 | Removed `custom_tooltip` from event options | Guessed dotted key format was invalid; skipped Steps 2/3 | Read `reference_game_files/`; `ali_qushji_settles.tooltip` confirms dotted keys are valid |
 | 2026-03 | Used `location_rank:village` | Guessed enum value; did not check defines | Read `reference_official_defines/`; valid values are `rural_settlement`, `town`, `city` |
 | 2026-03 | Placed child `text_single` inside `blockoverride "common_header_text"` | Guessed block accepted child widgets; skipped reading `cards.gui` | Read `cards.gui:1084`; block overrides a `text` property, not a widget container |

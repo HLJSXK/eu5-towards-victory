@@ -55,7 +55,7 @@ organization_panel = {
 	}
 
 	blockoverride "io_main_actions_icon" {
-		texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetIcon]"
+		texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
 	}
 
 	blockoverride "organization_main_actions_extra_visible" {
@@ -343,6 +343,122 @@ organization_panel = {
 			actor = "[InternationalOrganizationsView.GetPlayer]"
 			left_action = {
 				action_name = "tv_remove_academy_leader"
+			}
+		}
+	}
+
+	# ── Medicine tab: enable the custom tab slot ──────────────────────────────────
+	blockoverride "organization_custom_tab_visible" {
+		visible = yes
+	}
+	blockoverride "organization_custom_tab_text" {
+		text = "TV_MED_TAB"
+	}
+	blockoverride "organization_custom_tab_tooltip" {
+		tooltip = "TV_MED_TAB_TOOLTIP"
+	}
+
+	blockoverride "organization_custom_content_visible" {
+		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' )]"
+	}
+
+	blockoverride "organization_custom_content" {
+
+		# ── Data block: patient + rates display ───────────────────────────────
+		widget = {
+			size = { 470 140 }
+			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 4
+				margin = { 4 6 }
+
+				# ── Current patient ─────────────────────────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = {
+						text = "TV_MED_PATIENT_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[Not(Country.MakeScope.GetVariable('tv_med_target_char').IsSet)]"
+						text = "TV_MED_NO_PATIENT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[Country.MakeScope.GetVariable('tv_med_target_char').IsSet]"
+						datacontext = "[Country.MakeScope.GetVariable('tv_med_target_char').GetCharacter]"
+						text = "[Character.GetShortNameWithNoTooltip]"
+						align = nobaseline
+					}
+				}
+
+				# ── Progress bar ────────────────────────────────────────────────────
+				progressbar = {
+					size = { 440 16 }
+					max = 100
+					value = "[Country.MakeScope.GetVariable('tv_med_progress').GetValue]"
+					visible = "[Country.MakeScope.GetVariable('tv_med_target_char').IsSet]"
+				}
+
+				# ── Monthly progress gain (adm x 0.1%) ──────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = {
+						text = "TV_MED_MONTHLY_GAIN_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						raw_text = "[Country.MakeScope.GetVariable('tv_med_disp_adm').GetValue|0]x0.1%"
+						align = nobaseline
+					}
+				}
+
+				# ── Discovery event chance (dip x 0.2%) ─────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = {
+						text = "TV_MED_DISCOVERY_CHANCE_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						raw_text = "[Country.MakeScope.GetVariable('tv_med_disp_dip').GetValue|0]x0.2%"
+						align = nobaseline
+					}
+				}
+
+				# ── Accident chance (5% - mil x 0.05%) ──────────────────────────────
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = {
+						text = "TV_MED_ACCIDENT_CHANCE_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						raw_text = "5%-[Country.MakeScope.GetVariable('tv_med_disp_mil').GetValue|0]x0.05%"
+						align = nobaseline
+					}
+				}
+			}
+		}
+
+		# ── Treat Character button ──────────────────────────────────────────────
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "tv_treat_character"
+			title = "tv_treat_character"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_treat_character"
 			}
 		}
 	}

@@ -189,6 +189,47 @@ monthly_country_pulse = {
 			}
 		}
 
+		# ── Medicine: display stats (always when CS is appointed) ─────────────
+		if = {
+			limit = {
+				has_variable = tv_academy_io_member
+				has_variable = tv_academy_leader_char
+				var:tv_academy_leader_char = { is_alive = yes }
+			}
+			set_variable = { name = tv_med_disp_adm  value = var:tv_academy_leader_char.adm }
+			set_variable = { name = tv_med_disp_dip  value = var:tv_academy_leader_char.dip }
+			set_variable = { name = tv_med_disp_mil  value = var:tv_academy_leader_char.mil }
+		}
+
+		# ── Medicine: monthly treatment processing ─────────────────────────────
+		if = {
+			limit = {
+				has_variable = tv_academy_io_member
+				has_variable = tv_med_target_char
+			}
+			# Detect natural death of patient
+			if = {
+				limit = { NOT = { var:tv_med_target_char = { is_alive = yes } } }
+				trigger_event_non_silently = { id = tv_medicine.4 }
+				tv_med_cleanup_effect = yes
+			}
+			# Patient alive: accumulate progress and check completion
+			else_if = {
+				limit = {
+					has_variable = tv_academy_leader_char
+					var:tv_academy_leader_char = { is_alive = yes }
+					has_variable = tv_med_progress
+				}
+				set_local_variable = { name = med_gain  value = var:tv_academy_leader_char.adm }
+				change_local_variable = { name = med_gain  multiply = 0.1 }
+				change_variable = { name = tv_med_progress  add = local_var:med_gain }
+				if = {
+					limit = { var:tv_med_progress >= 100 }
+					tv_med_complete_treatment_effect = yes
+				}
+			}
+		}
+
 		# ── Diplomatic Unlock Notification Events ────────────────────────────
 		# Fire informational event when DVP reaches 50 (support system unlocked)
 		if = {
@@ -226,5 +267,5 @@ monthly_country_pulse = {
 	# ── Sub-process A: dispatch to dedicated sub-action ────────────────────────
 	# on_actions lists merge additively across files; random_events in the sub-action
 	# runs every tick (no chance_to_happen needed at the sub-action level).
-	on_actions = { tv_research_a_pulse }
+	on_actions = { tv_research_a_pulse  tv_med_discovery_pulse  tv_med_accident_pulse }
 }
