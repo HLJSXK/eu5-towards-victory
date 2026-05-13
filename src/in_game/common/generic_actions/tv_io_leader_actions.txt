@@ -25,7 +25,7 @@ tv_appoint_arts_leader = {
 		target_flag = target
 		name = "tv_select_arts_leader"
 		none_available_msg_key = "tv_no_arts_leader_available"
-		column = { data = character_info }
+		column = { data = character_artist }
 		visible = {
 			is_alive = yes
 			is_adult = yes
@@ -97,7 +97,7 @@ tv_change_arts_leader = {
 		target_flag = target
 		name = "tv_select_arts_leader"
 		none_available_msg_key = "tv_no_arts_leader_available"
-		column = { data = character_info }
+		column = { data = character_artist }
 		visible = {
 			is_alive = yes
 			is_adult = yes

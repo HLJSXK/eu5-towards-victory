@@ -594,6 +594,16 @@
   notes: "Without category = character, the engine does not recognize the modifier as character-scoped. add_character_modifier runs (tooltip shows the grant) but the modifier is not stored on the character — has_character_modifier returns false and no title prefix fires. Confirmed at runtime: tv_chief_artist_role_modifier = {} appeared in appoint tooltip but never on the character panel."
 
 
+- id: artist_selector_should_use_artist_column
+  pattern: 'name\s*=\s*"tv_select_arts_leader"[\s\S]{0,240}?column\s*=\s*\{\s*data\s*=\s*character_info\s*\}'
+  only_in_paths: ['generic_actions']
+  bad: "Arts leader select_trigger using column.data = character_info"
+  correction: "Use column.data = character_artist for artist-only character selectors so the list uses the artist ability view."
+  category: gui
+  scope: character
+  source: "reference_game_files/game/in_game/common/country_interactions/invite_artist.txt:68; reference_game_files/game/in_game/gui/attribute_columns/character.gui:10"
+  notes: "The character_artist attribute column swaps the character list's ability area and tooltip to artist skill. Generic character_info shows ruler-style ADM/DIP/MIL information and is the wrong view for selecting a Chief Artist."
+
 - id: custom_description_collapses_multi_condition_tooltip
   pattern: ''
   bad: "custom_description { text = KEY  has_variable = X  var:X >= N  has_variable = Y  var:Y >= M } — multiple independent conditions collapsed into one block"

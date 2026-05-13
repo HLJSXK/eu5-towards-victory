@@ -1,6 +1,7 @@
 # IO leader data for tv_io_leader_actions.txt
 # Each entry generates 3 generic_actions: tv_appoint_<id>_leader, tv_remove_<id>_leader, tv_change_<id>_leader
 # char_filter: extra lines inside the visible = {} block of the character selector
+# character_column: attribute column used by the character selector; defaults to character_info
 ios:
   - id: arts              # generates tv_appoint_arts_leader, tv_remove_arts_leader, tv_change_arts_leader
     display_name: Arts Exhibition
@@ -11,6 +12,7 @@ ios:
     no_leader_msg: tv_no_arts_leader_available
     title_modifier: tv_chief_artist_role_modifier
     title_loc_key: character_title_tv_chief_artist
+    character_column: character_artist
     char_filter: |
       is_adult = yes
       is_artist = yes

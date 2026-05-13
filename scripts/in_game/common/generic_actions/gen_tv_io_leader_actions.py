@@ -34,13 +34,14 @@ SECTION_BANNER = """\
 
 def _char_selector_block(io: dict) -> str:
     """Return the select_trigger block for Appoint and Change actions."""
+    character_column = io.get("character_column", "character_info")
     lines = ["\tselect_trigger = {"]
     lines.append("\t\tlooking_for_a = character")
     lines.append("\t\tsource = actor")
     lines.append("\t\ttarget_flag = target")
     lines.append(f'\t\tname = "{io["select_name"]}"')
     lines.append(f'\t\tnone_available_msg_key = "{io["no_leader_msg"]}"')
-    lines.append("\t\tcolumn = { data = character_info }")
+    lines.append(f"\t\tcolumn = {{ data = {character_column} }}")
     lines.append("\t\tvisible = {")
     lines.append("\t\t\tis_alive = yes")
     char_filter = io.get("char_filter", "").strip()
