@@ -86,13 +86,13 @@ def gen_triggers(data: dict) -> str:
         for m in path["milestones"]:
             n = m["n"]
             lines.append(f"tv_{pid}_milestone_{n} = {{")
-            lines.append(f"\tcustom_description = {{")
+            lines.append(f"\tcustom_tooltip = {{")
             lines.append(f"\t\ttext = TV_{PID}_M{n}_TRIGGER_DESC")
             lines.append(f"\t\thas_variable = {score_var}")
             lines.append(f"\t\tvar:{score_var} >= {m['threshold']}")
-            if m.get("extra_trigger_block"):
-                lines.append(indent(m["extra_trigger_block"].rstrip(), 2))
             lines.append(f"\t}}")
+            if m.get("extra_trigger_block"):
+                lines.append(indent(m["extra_trigger_block"].rstrip(), 1))
             lines.append(f"}}")
             lines.append("")
         lines.append("")
@@ -406,6 +406,8 @@ def gen_localization(data: dict, lang: str) -> str:
             lines.append(kv(f"TV_{PID}_M{n}_TITLE", mloc["title"][lang]))
             lines.append(kv(f"TV_{PID}_M{n}_MEANING", mloc["meaning"][lang]))
             lines.append(kv(f"TV_{PID}_M{n}_TRIGGER_DESC", mloc["trigger_desc"][lang]))
+            if mloc.get("extra_trigger_desc") and mloc["extra_trigger_desc"].get(lang):
+                lines.append(kv(f"TV_{PID}_M{n}_EXTRA_TRIGGER_DESC", mloc["extra_trigger_desc"][lang]))
         lines.append("")
         # Events
         lines.append(f" # ── {pid.capitalize()} Victory Events ───────────────────────────────────────────────")

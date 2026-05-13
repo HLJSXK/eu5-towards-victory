@@ -9,7 +9,7 @@
 # ──────────────────────────────────────────────────────────────────────
 
 tv_conquest_milestone_1 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_CONQUEST_M1_TRIGGER_DESC
 		has_variable = tv_conquest_score
 		var:tv_conquest_score >= 200
@@ -17,7 +17,7 @@ tv_conquest_milestone_1 = {
 }
 
 tv_conquest_milestone_2 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_CONQUEST_M2_TRIGGER_DESC
 		has_variable = tv_conquest_score
 		var:tv_conquest_score >= 400
@@ -25,7 +25,7 @@ tv_conquest_milestone_2 = {
 }
 
 tv_conquest_milestone_3 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_CONQUEST_M3_TRIGGER_DESC
 		has_variable = tv_conquest_score
 		var:tv_conquest_score >= 600
@@ -33,7 +33,7 @@ tv_conquest_milestone_3 = {
 }
 
 tv_conquest_milestone_4 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_CONQUEST_M4_TRIGGER_DESC
 		has_variable = tv_conquest_score
 		var:tv_conquest_score >= 1200
@@ -41,7 +41,7 @@ tv_conquest_milestone_4 = {
 }
 
 tv_conquest_milestone_5 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_CONQUEST_M5_TRIGGER_DESC
 		has_variable = tv_conquest_score
 		var:tv_conquest_score >= 2500
@@ -54,7 +54,7 @@ tv_conquest_milestone_5 = {
 # ──────────────────────────────────────────────────────────────────────
 
 tv_prosperity_milestone_1 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_PROSPERITY_M1_TRIGGER_DESC
 		has_variable = tv_prosperity_score
 		var:tv_prosperity_score >= 5000
@@ -62,7 +62,7 @@ tv_prosperity_milestone_1 = {
 }
 
 tv_prosperity_milestone_2 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_PROSPERITY_M2_TRIGGER_DESC
 		has_variable = tv_prosperity_score
 		var:tv_prosperity_score >= 8000
@@ -70,7 +70,7 @@ tv_prosperity_milestone_2 = {
 }
 
 tv_prosperity_milestone_3 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_PROSPERITY_M3_TRIGGER_DESC
 		has_variable = tv_prosperity_score
 		var:tv_prosperity_score >= 12000
@@ -78,7 +78,7 @@ tv_prosperity_milestone_3 = {
 }
 
 tv_prosperity_milestone_4 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_PROSPERITY_M4_TRIGGER_DESC
 		has_variable = tv_prosperity_score
 		var:tv_prosperity_score >= 18000
@@ -86,7 +86,7 @@ tv_prosperity_milestone_4 = {
 }
 
 tv_prosperity_milestone_5 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_PROSPERITY_M5_TRIGGER_DESC
 		has_variable = tv_prosperity_score
 		var:tv_prosperity_score >= 25000
@@ -99,7 +99,7 @@ tv_prosperity_milestone_5 = {
 # ──────────────────────────────────────────────────────────────────────
 
 tv_trade_milestone_1 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_TRADE_M1_TRIGGER_DESC
 		has_variable = tv_trade_score
 		var:tv_trade_score >= 100
@@ -107,7 +107,7 @@ tv_trade_milestone_1 = {
 }
 
 tv_trade_milestone_2 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_TRADE_M2_TRIGGER_DESC
 		has_variable = tv_trade_score
 		var:tv_trade_score >= 200
@@ -115,23 +115,23 @@ tv_trade_milestone_2 = {
 }
 
 tv_trade_milestone_3 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_TRADE_M3_TRIGGER_DESC
 		has_variable = tv_trade_score
 		var:tv_trade_score >= 400
-		# Verification — Step 3, Reference: events/economy/trade.txt:129, Quote: "any_market_with_merchants = { most_powerful_merchant = root"
-		custom_tooltip = {
-			text = tv_trade_market_dominance_5_tt
-			any_market_with_merchants = {
-				most_powerful_merchant = root
-				count >= 5
-			}
+	}
+	# Verification — Step 3, Reference: events/economy/trade.txt:129, Quote: "any_market_with_merchants = { most_powerful_merchant = root"
+	custom_tooltip = {
+		text = tv_trade_market_dominance_5_tt
+		any_market_with_merchants = {
+			most_powerful_merchant = root
+			count >= 5
 		}
 	}
 }
 
 tv_trade_milestone_4 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_TRADE_M4_TRIGGER_DESC
 		has_variable = tv_trade_score
 		var:tv_trade_score >= 1000
@@ -139,16 +139,16 @@ tv_trade_milestone_4 = {
 }
 
 tv_trade_milestone_5 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_TRADE_M5_TRIGGER_DESC
 		has_variable = tv_trade_score
 		var:tv_trade_score >= 2000
-		custom_tooltip = {
-			text = tv_trade_market_dominance_10_tt
-			any_market_with_merchants = {
-				most_powerful_merchant = root
-				count >= 10
-			}
+	}
+	custom_tooltip = {
+		text = tv_trade_market_dominance_10_tt
+		any_market_with_merchants = {
+			most_powerful_merchant = root
+			count >= 10
 		}
 	}
 }
@@ -159,50 +159,65 @@ tv_trade_milestone_5 = {
 # ──────────────────────────────────────────────────────────────────────
 
 tv_diplomatic_milestone_1 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_DIPLOMATIC_M1_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
 		var:tv_diplomatic_victory_points >= 50
+	}
+	custom_tooltip = {
+		text = TV_DIPLOMATIC_M1_EXTRA_TRIGGER_DESC
 		has_variable = tv_diplomatic_support_count
 		var:tv_diplomatic_support_count >= 10
 	}
 }
 
 tv_diplomatic_milestone_2 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_DIPLOMATIC_M2_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
 		var:tv_diplomatic_victory_points >= 120
+	}
+	custom_tooltip = {
+		text = TV_DIPLOMATIC_M2_EXTRA_TRIGGER_DESC
 		has_variable = tv_alliance_tier
 		var:tv_alliance_tier >= 3
 	}
 }
 
 tv_diplomatic_milestone_3 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_DIPLOMATIC_M3_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
 		var:tv_diplomatic_victory_points >= 220
+	}
+	custom_tooltip = {
+		text = TV_DIPLOMATIC_M3_EXTRA_TRIGGER_DESC
 		has_variable = tv_alliance_tier
 		var:tv_alliance_tier >= 6
 	}
 }
 
 tv_diplomatic_milestone_4 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_DIPLOMATIC_M4_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
 		var:tv_diplomatic_victory_points >= 380
+	}
+	custom_tooltip = {
+		text = TV_DIPLOMATIC_M4_EXTRA_TRIGGER_DESC
 		has_variable = tv_alliance_tier
 		var:tv_alliance_tier >= 9
 	}
 }
 
 tv_diplomatic_milestone_5 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_DIPLOMATIC_M5_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
 		var:tv_diplomatic_victory_points >= 580
+	}
+	custom_tooltip = {
+		text = TV_DIPLOMATIC_M5_EXTRA_TRIGGER_DESC
 		has_variable = tv_alliance_tier
 		var:tv_alliance_tier >= 12
 	}
@@ -214,7 +229,7 @@ tv_diplomatic_milestone_5 = {
 # ──────────────────────────────────────────────────────────────────────
 
 tv_cultural_milestone_1 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_CULTURAL_M1_TRIGGER_DESC
 		has_variable = tv_cultural_influence_points
 		var:tv_cultural_influence_points >= 100
@@ -222,53 +237,65 @@ tv_cultural_milestone_1 = {
 }
 
 tv_cultural_milestone_2 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_CULTURAL_M2_TRIGGER_DESC
 		has_variable = tv_cultural_influence_points
 		var:tv_cultural_influence_points >= 200
+	}
+	custom_tooltip = {
+		text = TV_CULTURAL_M2_EXTRA_TRIGGER_DESC
 		has_variable = tv_arts_exhibition_member
 		any_international_organizations_member_of = {
-		    international_organization_type = international_organization_type:tv_arts_exhibition
-		    var:tv_arts_intl_influence >= 25
+			international_organization_type = international_organization_type:tv_arts_exhibition
+			var:tv_arts_intl_influence >= 25
 		}
 	}
 }
 
 tv_cultural_milestone_3 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_CULTURAL_M3_TRIGGER_DESC
 		has_variable = tv_cultural_influence_points
 		var:tv_cultural_influence_points >= 400
+	}
+	custom_tooltip = {
+		text = TV_CULTURAL_M3_EXTRA_TRIGGER_DESC
 		has_variable = tv_arts_exhibition_member
 		any_international_organizations_member_of = {
-		    international_organization_type = international_organization_type:tv_arts_exhibition
-		    var:tv_arts_intl_influence >= 50
+			international_organization_type = international_organization_type:tv_arts_exhibition
+			var:tv_arts_intl_influence >= 50
 		}
 	}
 }
 
 tv_cultural_milestone_4 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_CULTURAL_M4_TRIGGER_DESC
 		has_variable = tv_cultural_influence_points
 		var:tv_cultural_influence_points >= 800
+	}
+	custom_tooltip = {
+		text = TV_CULTURAL_M4_EXTRA_TRIGGER_DESC
 		has_variable = tv_arts_exhibition_member
 		any_international_organizations_member_of = {
-		    international_organization_type = international_organization_type:tv_arts_exhibition
-		    var:tv_arts_intl_influence >= 75
+			international_organization_type = international_organization_type:tv_arts_exhibition
+			var:tv_arts_intl_influence >= 75
 		}
 	}
 }
 
 tv_cultural_milestone_5 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_CULTURAL_M5_TRIGGER_DESC
 		has_variable = tv_cultural_influence_points
 		var:tv_cultural_influence_points >= 1600
+	}
+	custom_tooltip = {
+		text = TV_CULTURAL_M5_EXTRA_TRIGGER_DESC
 		has_variable = tv_arts_exhibition_member
 		any_international_organizations_member_of = {
-		    international_organization_type = international_organization_type:tv_arts_exhibition
-		    var:tv_arts_intl_influence >= 100
+			international_organization_type = international_organization_type:tv_arts_exhibition
+			var:tv_arts_intl_influence >= 100
 		}
 	}
 }
@@ -279,50 +306,65 @@ tv_cultural_milestone_5 = {
 # ──────────────────────────────────────────────────────────────────────
 
 tv_science_milestone_1 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_SCIENCE_M1_TRIGGER_DESC
 		has_variable = tv_science_score
 		var:tv_science_score >= 100
+	}
+	custom_tooltip = {
+		text = TV_SCIENCE_M1_EXTRA_TRIGGER_DESC
 		has_variable = tv_academy_of_sciences_level
 		var:tv_academy_of_sciences_level >= 1
 	}
 }
 
 tv_science_milestone_2 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_SCIENCE_M2_TRIGGER_DESC
 		has_variable = tv_science_score
 		var:tv_science_score >= 150
+	}
+	custom_tooltip = {
+		text = TV_SCIENCE_M2_EXTRA_TRIGGER_DESC
 		has_variable = tv_academy_of_sciences_level
 		var:tv_academy_of_sciences_level >= 2
 	}
 }
 
 tv_science_milestone_3 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_SCIENCE_M3_TRIGGER_DESC
 		has_variable = tv_science_score
 		var:tv_science_score >= 200
+	}
+	custom_tooltip = {
+		text = TV_SCIENCE_M3_EXTRA_TRIGGER_DESC
 		has_variable = tv_academy_of_sciences_level
 		var:tv_academy_of_sciences_level >= 3
 	}
 }
 
 tv_science_milestone_4 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_SCIENCE_M4_TRIGGER_DESC
 		has_variable = tv_science_score
 		var:tv_science_score >= 300
+	}
+	custom_tooltip = {
+		text = TV_SCIENCE_M4_EXTRA_TRIGGER_DESC
 		has_variable = tv_academy_of_sciences_level
 		var:tv_academy_of_sciences_level >= 4
 	}
 }
 
 tv_science_milestone_5 = {
-	custom_description = {
+	custom_tooltip = {
 		text = TV_SCIENCE_M5_TRIGGER_DESC
 		has_variable = tv_science_score
 		var:tv_science_score >= 400
+	}
+	custom_tooltip = {
+		text = TV_SCIENCE_M5_EXTRA_TRIGGER_DESC
 		has_variable = tv_academy_of_sciences_level
 		var:tv_academy_of_sciences_level >= 5
 	}

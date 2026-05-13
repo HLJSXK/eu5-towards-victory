@@ -62,6 +62,41 @@ The three TV IOs (`tv_arts_exhibition`, `tv_diplomatic_alliance`, `tv_academy_of
 
 5. **IO header uses `blockoverride` to display the appointed character variable** — not the vanilla `GetRuler` or `GetLeaderCountry.GetGovernment.GetRulerOrRegent` accessor.
 
+## Milestone Trigger Tooltip Pattern
+
+All milestone scripted_triggers **must** use one `custom_tooltip` block per condition group so the engine displays each condition on its own tooltip line with an independent pass/fail indicator.
+
+**Correct pattern** (separate `custom_tooltip` blocks; implicit AND at top level):
+```
+tv_example_milestone_1 = {
+    custom_tooltip = {
+        text = TV_EXAMPLE_M1_TRIGGER_DESC
+        has_variable = tv_example_score
+        var:tv_example_score >= 100
+    }
+    custom_tooltip = {
+        text = TV_EXAMPLE_M1_EXTRA_TRIGGER_DESC
+        has_variable = tv_example_extra_var
+        var:tv_example_extra_var >= 1
+    }
+}
+```
+
+**Anti-pattern** (do not use — collapses all conditions into one tooltip line):
+```
+tv_example_milestone_1 = {
+    custom_description = {
+        text = TV_EXAMPLE_M1_TRIGGER_DESC
+        has_variable = tv_example_score
+        var:tv_example_score >= 100
+        has_variable = tv_example_extra_var
+        var:tv_example_extra_var >= 1
+    }
+}
+```
+
+**YAML data rule:** The `extra_trigger_block` field in `victory_paths.yaml` must always be `null` or a **complete `custom_tooltip = { ... }` block**. Raw condition lines are no longer valid. Add a matching `extra_trigger_desc` key under `loc` for the new tooltip's localization.
+
 ## GUI Icon Display Rule
 
 When displaying an icon in the UI, follow this exact priority order and stop at the first tier that works:

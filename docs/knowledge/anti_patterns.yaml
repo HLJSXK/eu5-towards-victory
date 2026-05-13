@@ -583,3 +583,22 @@
   scope: character
   source: "src/in_game/common/international_organizations/tv_arts_exhibition.txt (confirmed by runtime: original multiply = 0.002 was 100× too small; corrected to multiply = 0.1)"
   notes: "artist_skill is a level-based attribute normalized to [0,1] by the engine when accessed as a scripted value. Design formulas written assuming 0-100 scale must divide the intended multiplier by 100."
+
+- id: character_modifier_missing_game_data_category
+  pattern: ''
+  bad: "Static modifier used with add_character_modifier but defined without game_data = { category = character }, e.g. my_modifier = { }"
+  correction: "All static modifiers intended for use with add_character_modifier / has_character_modifier MUST include game_data = { category = character }. Example: my_modifier = { game_data = { category = character } [effects...] }"
+  category: modifier
+  scope: character
+  source: "reference_game_files/game/main_menu/common/static_modifiers/character.txt:227-232 (bastard); D008_fate_of_the_phoenix_modifiers.txt:472-480 (despot_modifier)"
+  notes: "Without category = character, the engine does not recognize the modifier as character-scoped. add_character_modifier runs (tooltip shows the grant) but the modifier is not stored on the character — has_character_modifier returns false and no title prefix fires. Confirmed at runtime: tv_chief_artist_role_modifier = {} appeared in appoint tooltip but never on the character panel."
+
+
+- id: custom_description_collapses_multi_condition_tooltip
+  pattern: ''
+  bad: "custom_description { text = KEY  has_variable = X  var:X >= N  has_variable = Y  var:Y >= M } — multiple independent conditions collapsed into one block"
+  correction: "Use one custom_tooltip block per condition group at the top level of the scripted_trigger body (implicit AND). The extra_trigger_block YAML field must be a complete custom_tooltip { } block, not raw condition lines."
+  category: gui
+  scope: scripted_triggers
+  source: "reference_game_files/game/in_game/common/scripted_triggers/building_triggers.txt:1-13"
+  notes: "When multiple sub-conditions are collapsed into one custom_description or custom_tooltip, the player sees a single pass/fail indicator for all conditions combined. Separate custom_tooltip blocks each show their own pass/fail state, allowing the player to see which specific sub-condition is not yet met."

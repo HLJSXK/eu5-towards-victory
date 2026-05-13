@@ -729,8 +729,8 @@ paths:
             en: "A great [trade|e] empire, our name known in every counting house. Short-term Victory. Monthly [trade_income|e] ~400."
             zh: "一个伟大的[trade|e]帝国，名字广为人知。短期胜利。每月[trade_income|e]约400。"
           trigger_desc:
-            en: "[tv_trade_score|e] ≥ 400, with market dominance"
-            zh: "[tv_trade_score|e] ≥ 400，且需达到市场主导地位"
+            en: "[tv_trade_score|e] ≥ 400"
+            zh: "[tv_trade_score|e] ≥ 400"
           event_title:
             en: "A Great Commercial Empire"
             zh: "伟大的商业帝国"
@@ -799,8 +799,8 @@ paths:
             en: "Undisputed [trade|e] hegemon. Long-term Victory. Monthly [trade_income|e] ~2,000."
             zh: "[trade|e]霸主，无可争议。长期胜利。每月[trade_income|e]约2,000。"
           trigger_desc:
-            en: "[tv_trade_score|e] ≥ 2,000, with market dominance"
-            zh: "[tv_trade_score|e] ≥ 2,000，且需达到市场主导地位"
+            en: "[tv_trade_score|e] ≥ 2,000"
+            zh: "[tv_trade_score|e] ≥ 2,000"
           event_title:
             en: "The Trade Hegemon"
             zh: "贸易霸主"
@@ -889,8 +889,11 @@ paths:
         is_long_term: false
         threshold: 50
         extra_trigger_block: |
-          has_variable = tv_diplomatic_support_count
-          var:tv_diplomatic_support_count >= 10
+          custom_tooltip = {
+          	text = TV_DIPLOMATIC_M1_EXTRA_TRIGGER_DESC
+          	has_variable = tv_diplomatic_support_count
+          	var:tv_diplomatic_support_count >= 10
+          }
         custom_grant_body: |
           add_country_modifier = { modifier = tv_diplomatic_m1_bonus days = -1 }
           if = {
@@ -938,8 +941,11 @@ paths:
             en: "50 [tv_diplomatic_victory_points|e]. A voice that carries weight in the courts of nations."
             zh: "50 [tv_diplomatic_victory_points|e]。一个在各国宫廷中具有分量的声音。"
           trigger_desc:
-            en: "[tv_diplomatic_victory_points|e] ≥ 50  •  Diplomatic Supporters ≥ 10"
-            zh: "[tv_diplomatic_victory_points|e] ≥ 50  •  外交支持国 ≥ 10"
+            en: "[tv_diplomatic_victory_points|e] ≥ 50"
+            zh: "[tv_diplomatic_victory_points|e] ≥ 50"
+          extra_trigger_desc:
+            en: "Diplomatic Supporters ≥ 10"
+            zh: "外交支持国 ≥ 10"
           event_title:
             en: "A Voice Among Nations"
             zh: "外交展露头角"
@@ -955,8 +961,11 @@ paths:
         is_long_term: false
         threshold: 120
         extra_trigger_block: |
-          has_variable = tv_alliance_tier
-          var:tv_alliance_tier >= 3
+          custom_tooltip = {
+          	text = TV_DIPLOMATIC_M2_EXTRA_TRIGGER_DESC
+          	has_variable = tv_alliance_tier
+          	var:tv_alliance_tier >= 3
+          }
         modifier:
           diplomatic_capacity_modifier: 0.50
         modifier_name:
@@ -972,6 +981,9 @@ paths:
           trigger_desc:
             en: "[tv_diplomatic_victory_points|e] ≥ 120"
             zh: "[tv_diplomatic_victory_points|e] ≥ 120"
+          extra_trigger_desc:
+            en: "Alliance Tier ≥ 3"
+            zh: "联盟等级 ≥ 3"
           event_title:
             en: "A Reliable Ally"
             zh: "可靠的盟友"
@@ -987,8 +999,11 @@ paths:
         is_long_term: false
         threshold: 220
         extra_trigger_block: |
-          has_variable = tv_alliance_tier
-          var:tv_alliance_tier >= 6
+          custom_tooltip = {
+          	text = TV_DIPLOMATIC_M3_EXTRA_TRIGGER_DESC
+          	has_variable = tv_alliance_tier
+          	var:tv_alliance_tier >= 6
+          }
         modifier:
           diplomatic_reputation: 5
         modifier_name:
@@ -1004,6 +1019,9 @@ paths:
           trigger_desc:
             en: "[tv_diplomatic_victory_points|e] ≥ 220"
             zh: "[tv_diplomatic_victory_points|e] ≥ 220"
+          extra_trigger_desc:
+            en: "Alliance Tier ≥ 6"
+            zh: "联盟等级 ≥ 6"
           event_title:
             en: "A Power of the First Rank — Short-term Victory"
             zh: "一流外交大国 — 短期胜利"
@@ -1019,8 +1037,11 @@ paths:
         is_long_term: false
         threshold: 380
         extra_trigger_block: |
-          has_variable = tv_alliance_tier
-          var:tv_alliance_tier >= 9
+          custom_tooltip = {
+          	text = TV_DIPLOMATIC_M4_EXTRA_TRIGGER_DESC
+          	has_variable = tv_alliance_tier
+          	var:tv_alliance_tier >= 9
+          }
         modifier:
           diplomatic_range: 500
           diplomatic_spending_cost: -0.05
@@ -1037,6 +1058,9 @@ paths:
           trigger_desc:
             en: "[tv_diplomatic_victory_points|e] ≥ 380"
             zh: "[tv_diplomatic_victory_points|e] ≥ 380"
+          extra_trigger_desc:
+            en: "Alliance Tier ≥ 9"
+            zh: "联盟等级 ≥ 9"
           event_title:
             en: "Arbiter of Nations"
             zh: "万国仲裁人"
@@ -1052,8 +1076,11 @@ paths:
         is_long_term: true
         threshold: 580
         extra_trigger_block: |
-          has_variable = tv_alliance_tier
-          var:tv_alliance_tier >= 12
+          custom_tooltip = {
+          	text = TV_DIPLOMATIC_M5_EXTRA_TRIGGER_DESC
+          	has_variable = tv_alliance_tier
+          	var:tv_alliance_tier >= 12
+          }
         modifier:
           diplomatic_reputation: 10
         modifier_name:
@@ -1069,6 +1096,9 @@ paths:
           trigger_desc:
             en: "[tv_diplomatic_victory_points|e] ≥ 580"
             zh: "[tv_diplomatic_victory_points|e] ≥ 580"
+          extra_trigger_desc:
+            en: "Alliance Tier ≥ 12"
+            zh: "联盟等级 ≥ 12"
           event_title:
             en: "Long-term Victory — Diplomatic Hegemon"
             zh: "长期胜利 — 外交霸主"
@@ -1198,10 +1228,13 @@ paths:
         is_long_term: false
         threshold: 200
         extra_trigger_block: |
-          has_variable = tv_arts_exhibition_member
-          any_international_organizations_member_of = {
-              international_organization_type = international_organization_type:tv_arts_exhibition
-              var:tv_arts_intl_influence >= 25
+          custom_tooltip = {
+          	text = TV_CULTURAL_M2_EXTRA_TRIGGER_DESC
+          	has_variable = tv_arts_exhibition_member
+          	any_international_organizations_member_of = {
+          		international_organization_type = international_organization_type:tv_arts_exhibition
+          		var:tv_arts_intl_influence >= 25
+          	}
           }
         modifier:
           cultures_capacity: 2
@@ -1216,8 +1249,11 @@ paths:
             en: "200 [tv_cultural_influence_points|e]. A celebrated cultural power — [work_of_art|e]s from your court speak of your greatness."
             zh: "200 [tv_cultural_influence_points|e]。享誉盛名的文化强国——你宫廷中的[work_of_art|e]彰显了你的伟大。"
           trigger_desc:
-            en: "[tv_cultural_influence_points|e] ≥ 200  •  International Influence ≥ 25"
-            zh: "[tv_cultural_influence_points|e] ≥ 200  •  国际影响力 ≥ 25"
+            en: "[tv_cultural_influence_points|e] ≥ 200"
+            zh: "[tv_cultural_influence_points|e] ≥ 200"
+          extra_trigger_desc:
+            en: "International Influence ≥ 25"
+            zh: "国际影响力 ≥ 25"
           event_title:
             en: "The Renaissance Court"
             zh: "文艺复兴宫廷"
@@ -1233,10 +1269,13 @@ paths:
         is_long_term: false
         threshold: 400
         extra_trigger_block: |
-          has_variable = tv_arts_exhibition_member
-          any_international_organizations_member_of = {
-              international_organization_type = international_organization_type:tv_arts_exhibition
-              var:tv_arts_intl_influence >= 50
+          custom_tooltip = {
+          	text = TV_CULTURAL_M3_EXTRA_TRIGGER_DESC
+          	has_variable = tv_arts_exhibition_member
+          	any_international_organizations_member_of = {
+          		international_organization_type = international_organization_type:tv_arts_exhibition
+          		var:tv_arts_intl_influence >= 50
+          	}
           }
         modifier:
           num_possible_artists: 5
@@ -1251,8 +1290,11 @@ paths:
             en: "400 [tv_cultural_influence_points|e]. A centre of Renaissance brilliance — [artist|e]s from across the world seek your court. Short-term Victory."
             zh: "400 [tv_cultural_influence_points|e]。文艺复兴的璀璨中心——各地[artist|e]慕名而来。短期胜利。"
           trigger_desc:
-            en: "[tv_cultural_influence_points|e] ≥ 400  •  International Influence ≥ 50"
-            zh: "[tv_cultural_influence_points|e] ≥ 400  •  国际影响力 ≥ 50"
+            en: "[tv_cultural_influence_points|e] ≥ 400"
+            zh: "[tv_cultural_influence_points|e] ≥ 400"
+          extra_trigger_desc:
+            en: "International Influence ≥ 50"
+            zh: "国际影响力 ≥ 50"
           event_title:
             en: "A Centre of Civilisation — Short-term Victory"
             zh: "文明中心 — 短期胜利"
@@ -1268,10 +1310,13 @@ paths:
         is_long_term: false
         threshold: 800
         extra_trigger_block: |
-          has_variable = tv_arts_exhibition_member
-          any_international_organizations_member_of = {
-              international_organization_type = international_organization_type:tv_arts_exhibition
-              var:tv_arts_intl_influence >= 75
+          custom_tooltip = {
+          	text = TV_CULTURAL_M4_EXTRA_TRIGGER_DESC
+          	has_variable = tv_arts_exhibition_member
+          	any_international_organizations_member_of = {
+          		international_organization_type = international_organization_type:tv_arts_exhibition
+          		var:tv_arts_intl_influence >= 75
+          	}
           }
         modifier:
           cultural_influence_modifier: 0.50
@@ -1287,8 +1332,11 @@ paths:
             en: "800 [tv_cultural_influence_points|e]. [cultural_influence|e] radiates from your court across the world — your [artist|e]s define the age."
             zh: "800 [tv_cultural_influence_points|e]。[cultural_influence|e]从你的宫廷辐射至全世界——你的[artist|e]定义了这个时代。"
           trigger_desc:
-            en: "[tv_cultural_influence_points|e] ≥ 800  •  International Influence ≥ 75"
-            zh: "[tv_cultural_influence_points|e] ≥ 800  •  国际影响力 ≥ 75"
+            en: "[tv_cultural_influence_points|e] ≥ 800"
+            zh: "[tv_cultural_influence_points|e] ≥ 800"
+          extra_trigger_desc:
+            en: "International Influence ≥ 75"
+            zh: "国际影响力 ≥ 75"
           event_title:
             en: "Light of the World"
             zh: "世界之光"
@@ -1304,10 +1352,13 @@ paths:
         is_long_term: true
         threshold: 1600
         extra_trigger_block: |
-          has_variable = tv_arts_exhibition_member
-          any_international_organizations_member_of = {
-              international_organization_type = international_organization_type:tv_arts_exhibition
-              var:tv_arts_intl_influence >= 100
+          custom_tooltip = {
+          	text = TV_CULTURAL_M5_EXTRA_TRIGGER_DESC
+          	has_variable = tv_arts_exhibition_member
+          	any_international_organizations_member_of = {
+          		international_organization_type = international_organization_type:tv_arts_exhibition
+          		var:tv_arts_intl_influence >= 100
+          	}
           }
         modifier:
           num_possible_artists: 10
@@ -1322,8 +1373,11 @@ paths:
             en: "1600 [tv_cultural_influence_points|e]. The greatest cultural legacy in history — [work_of_art|e]s made in your name will outlast every empire. Long-term Victory."
             zh: "1600 [tv_cultural_influence_points|e]。历史上最伟大的文化遗产——以你名义创作的[work_of_art|e]将超越每一个帝国，永世流传。长期胜利。"
           trigger_desc:
-            en: "[tv_cultural_influence_points|e] ≥ 1600  •  International Influence ≥ 100"
-            zh: "[tv_cultural_influence_points|e] ≥ 1600  •  国际影响力 ≥ 100"
+            en: "[tv_cultural_influence_points|e] ≥ 1600"
+            zh: "[tv_cultural_influence_points|e] ≥ 1600"
+          extra_trigger_desc:
+            en: "International Influence ≥ 100"
+            zh: "国际影响力 ≥ 100"
           event_title:
             en: "Long-term Victory — Cultural Hegemon"
             zh: "长期胜利 — 文化霸主"
@@ -1573,8 +1627,11 @@ paths:
         is_long_term: false
         threshold: 100
         extra_trigger_block: |
-          has_variable = tv_academy_of_sciences_level
-          var:tv_academy_of_sciences_level >= 1
+          custom_tooltip = {
+          	text = TV_SCIENCE_M1_EXTRA_TRIGGER_DESC
+          	has_variable = tv_academy_of_sciences_level
+          	var:tv_academy_of_sciences_level >= 1
+          }
         modifier:
           global_max_literacy: 10
         modifier_name:
@@ -1588,8 +1645,11 @@ paths:
             en: "A nation of curious minds — one hundred [advance|e]s claimed in the pursuit of knowledge."
             zh: "充满求知欲的国度——在追求知识的征途上掌握了一百项[advance|e]。"
           trigger_desc:
-            en: "[tv_science_score|e] ≥ 100 and Academy Level ≥ 1"
-            zh: "[tv_science_score|e] ≥ 100，科学院等级 ≥ 1"
+            en: "[tv_science_score|e] ≥ 100"
+            zh: "[tv_science_score|e] ≥ 100"
+          extra_trigger_desc:
+            en: "Academy of Sciences Level ≥ 1"
+            zh: "科学院等级 ≥ 1"
           event_title:
             en: "A Nation of Scholars"
             zh: "学者之国"
@@ -1605,8 +1665,11 @@ paths:
         is_long_term: false
         threshold: 150
         extra_trigger_block: |
-          has_variable = tv_academy_of_sciences_level
-          var:tv_academy_of_sciences_level >= 2
+          custom_tooltip = {
+          	text = TV_SCIENCE_M2_EXTRA_TRIGGER_DESC
+          	has_variable = tv_academy_of_sciences_level
+          	var:tv_academy_of_sciences_level >= 2
+          }
         modifier:
           clergy_estate_target_satisfaction: 0.10
         modifier_name:
@@ -1620,8 +1683,11 @@ paths:
             en: "A realm that embraces the great [institution|e]s of this era — one hundred and fifty [advance|e]s mastered."
             zh: "积极拥抱这个时代伟大[institution|e]的国度——已掌握一百五十项[advance|e]。"
           trigger_desc:
-            en: "[tv_science_score|e] ≥ 150 and Academy Level ≥ 2"
-            zh: "[tv_science_score|e] ≥ 150，科学院等级 ≥ 2"
+            en: "[tv_science_score|e] ≥ 150"
+            zh: "[tv_science_score|e] ≥ 150"
+          extra_trigger_desc:
+            en: "Academy of Sciences Level ≥ 2"
+            zh: "科学院等级 ≥ 2"
           event_title:
             en: "Embracing New Ideas"
             zh: "拥抱新思想"
@@ -1637,8 +1703,11 @@ paths:
         is_long_term: false
         threshold: 200
         extra_trigger_block: |
-          has_variable = tv_academy_of_sciences_level
-          var:tv_academy_of_sciences_level >= 3
+          custom_tooltip = {
+          	text = TV_SCIENCE_M3_EXTRA_TRIGGER_DESC
+          	has_variable = tv_academy_of_sciences_level
+          	var:tv_academy_of_sciences_level >= 3
+          }
         modifier:
           global_institution_growth_modifier: 1.0
         modifier_name:
@@ -1652,8 +1721,11 @@ paths:
             en: "A vanguard of learning — two hundred [advance|e]s. Short-term Victory. No nation rivals your command of knowledge."
             zh: "学问的先锋国度——两百项[advance|e]。短期胜利。没有任何国家能在知识领域与你抗衡。"
           trigger_desc:
-            en: "[tv_science_score|e] ≥ 200 and Academy Level ≥ 3"
-            zh: "[tv_science_score|e] ≥ 200，科学院等级 ≥ 3"
+            en: "[tv_science_score|e] ≥ 200"
+            zh: "[tv_science_score|e] ≥ 200"
+          extra_trigger_desc:
+            en: "Academy of Sciences Level ≥ 3"
+            zh: "科学院等级 ≥ 3"
           event_title:
             en: "A Centre of Learning — Short-term Victory"
             zh: "学问中心 — 短期胜利"
@@ -1669,8 +1741,11 @@ paths:
         is_long_term: false
         threshold: 300
         extra_trigger_block: |
-          has_variable = tv_academy_of_sciences_level
-          var:tv_academy_of_sciences_level >= 4
+          custom_tooltip = {
+          	text = TV_SCIENCE_M4_EXTRA_TRIGGER_DESC
+          	has_variable = tv_academy_of_sciences_level
+          	var:tv_academy_of_sciences_level >= 4
+          }
         modifier:
           research_speed_modifier: 0.10
         modifier_name:
@@ -1684,8 +1759,11 @@ paths:
             en: "The preeminent scientific power — three hundred [advance|e]s, generations of investment made manifest."
             zh: "首屈一指的科学强国——三百项[advance|e]，数代投入已然成真。"
           trigger_desc:
-            en: "[tv_science_score|e] ≥ 300 and Academy Level ≥ 4"
-            zh: "[tv_science_score|e] ≥ 300，科学院等级 ≥ 4"
+            en: "[tv_science_score|e] ≥ 300"
+            zh: "[tv_science_score|e] ≥ 300"
+          extra_trigger_desc:
+            en: "Academy of Sciences Level ≥ 4"
+            zh: "科学院等级 ≥ 4"
           event_title:
             en: "On the Threshold of Modernity"
             zh: "现代性的门槛"
@@ -1701,8 +1779,11 @@ paths:
         is_long_term: true
         threshold: 400
         extra_trigger_block: |
-          has_variable = tv_academy_of_sciences_level
-          var:tv_academy_of_sciences_level >= 5
+          custom_tooltip = {
+          	text = TV_SCIENCE_M5_EXTRA_TRIGGER_DESC
+          	has_variable = tv_academy_of_sciences_level
+          	var:tv_academy_of_sciences_level >= 5
+          }
         modifier:
           global_institution_growth_modifier: 2.0
           global_max_literacy: 20
@@ -1717,8 +1798,11 @@ paths:
             en: "The nation that ushered in the Industrial Age — four hundred [advance|e]s. Long-term Victory. The future belongs to you."
             zh: "开创工业时代的国度——四百项[advance|e]。长期胜利。未来属于你。"
           trigger_desc:
-            en: "[tv_science_score|e] ≥ 400 and Academy Level ≥ 5"
-            zh: "[tv_science_score|e] ≥ 400，科学院等级 ≥ 5"
+            en: "[tv_science_score|e] ≥ 400"
+            zh: "[tv_science_score|e] ≥ 400"
+          extra_trigger_desc:
+            en: "Academy of Sciences Level ≥ 5"
+            zh: "科学院等级 ≥ 5"
           event_title:
             en: "Long-term Victory — The Industrial Vanguard"
             zh: "长期胜利 — 工业先驱"
