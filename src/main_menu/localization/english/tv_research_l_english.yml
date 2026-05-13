@@ -127,6 +127,11 @@
  PERFORM_tv_treat_character_ACTION_SETUP: "When we select a patient for Academy medical treatment."
  PERFORM_tv_treat_character_ACTION_LOG: "We selected a patient for Academy medical treatment."
  PERFORM_tv_treat_character_ACTION_MAP: ""
+ tv_reinitialize_mod: "Reinitialize Mod"
+ tv_reinitialize_mod_desc: "Reassigns any existing Arts Exhibition and Academy of Sciences IO instances joined by the current country so their leader country is the current country."
+ PERFORM_tv_reinitialize_mod_ACTION_SETUP: "When we reinitialize the Towards Victory mod."
+ PERFORM_tv_reinitialize_mod_ACTION_LOG: "We reinitialized the Towards Victory mod."
+ PERFORM_tv_reinitialize_mod_ACTION_MAP: ""
 
  # ── Start Concentrated Research (D) allow condition tooltips ─────────────────
  tv_start_d_requires_phase1_tt: "A research target has been selected and Sub-processes A, B, and C are underway"

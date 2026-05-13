@@ -1274,6 +1274,16 @@ situation_panel = {
 			margin = { 8 8 }
 			datacontext = "[SituationView.GetPlayer]"
 
+			action_button_diamond = {
+				size = { 380 30 }
+				text = "tv_reinitialize_mod"
+				title = "tv_reinitialize_mod"
+				actor = "[SituationView.GetPlayer]"
+				left_action = {
+					action_name = "tv_reinitialize_mod"
+				}
+			}
+
 			# ── SECTION 1: Flavor Introduction ──────────────────────────────────────────
 			vbox = {
 				layoutpolicy_horizontal = expanding

@@ -1,0 +1,41 @@
+﻿# Towards Victory - Reinitialization Generic Actions
+# Used by the Victory Situation panel as a manual recovery button.
+# type = owncountry; scope:actor = the country performing the action.
+
+tv_reinitialize_mod = {
+	type = owncountry
+
+	sound = UI_action_religion_generic
+
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		always = yes
+	}
+
+	allow = {
+		always = yes
+	}
+
+	effect = {
+		scope:actor = {
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_arts_exhibition
+				}
+				set_leader_country = scope:actor
+			}
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_academy_of_sciences
+				}
+				set_leader_country = scope:actor
+			}
+		}
+	}
+
+	ai_will_do = {
+		add = -100
+	}
+}
