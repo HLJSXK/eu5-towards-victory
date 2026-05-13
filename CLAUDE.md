@@ -48,6 +48,20 @@ For the categories below, you MUST go to Step 2 or 3 before writing any code. No
 - **`custom_tooltip`** — never remove it; dotted suffix format IS valid in event options; verify key format before changing
 - **Pre-test validation** — run `conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix` before launching the game
 
+## IO Architecture Invariants
+
+The three TV IOs (`tv_arts_exhibition`, `tv_diplomatic_alliance`, `tv_academy_of_sciences`) enforce these rules with no exceptions:
+
+1. **`international_organization_chooses_new_leader` is globally banned** on all TV IO-related code — this triggers the vanilla election process and violates the no-elections design. The code correctly omits it everywhere.
+
+2. **`unique = no` — never add `unique = yes`.** All three are non-unique. Use `every_international_organizations_member_of = { limit = { international_organization_type = international_organization_type:<io_type> } ... }` to scope to them; never `international_organization:type_name`.
+
+3. **`leader_change_trigger_type = none` — never change it.** Any other value allows automatic `leader_country` reassignment, breaking the founding-country lock.
+
+4. **Great person characters are country variables on the `leader_country`, not the vanilla ruler.** Monthly_change blocks must use `leader_country.var:tv_xxx_leader_char.attribute` — never `appointed_leader.attribute`.
+
+5. **IO header uses `blockoverride` to display the appointed character variable** — not the vanilla `GetRuler` or `GetLeaderCountry.GetGovernment.GetRulerOrRegent` accessor.
+
 ## GUI Icon Display Rule
 
 When displaying an icon in the UI, follow this exact priority order and stop at the first tier that works:

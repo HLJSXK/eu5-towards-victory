@@ -13,8 +13,9 @@
 # Verification — Step 3, Reference: hre.txt:19-44
 #   Quote: "has_leader_country = yes  leader_title_key = "HRE_LEADER"  leader_type = character
 #           leader = { leader_country ?= { ... add_to_list = leaders } }"
-# Verification — Step 3, Reference: effects.log:3259
-#   Quote: "international_organization_chooses_new_leader: international organization chooses a new leader"
+# NOTE: The vanilla IO "choose new leader" effect is GLOBALLY BANNED on TV IOs.
+#   It triggers the leader-election process, violating the no-elections design.
+#   leader_country is locked to the founding country via on_creation and never reassigned.
 
 tv_academy_of_sciences = {
 	has_target = no
@@ -37,7 +38,7 @@ tv_academy_of_sciences = {
 	# ── IO Variables: C and D research progress ───────────────────────────────
 	# These are auto-accumulated via monthly_change; completion is detected in monthly_effect.
 	# Calibration C: average_country_literacy * 0.05 /month → 100 in ~40 months at literacy=50.
-	# Calibration D: appointed_leader.adm * 1.0 /month → 100 in ~17 months at adm=6.
+	# Calibration D: leader_country.var:tv_academy_leader_char.adm * 1.0 /month → 100 in ~17 months at adm=6.
 	# D halts when no leader appointed (international_organization_has_leader = no).
 	variables = {
 		tv_research_c_progress = {
