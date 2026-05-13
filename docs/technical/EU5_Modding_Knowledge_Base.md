@@ -228,6 +228,12 @@ Countries are defined in two parts: a **country definition** file in `in_game/se
 
 All text displayed to the player is handled through the localization system. Localization files are in `.yml` format and must be encoded in **UTF-8-BOM**. Each language has its own subfolder and file naming convention (e.g., `_l_english.yml`). The system supports dynamic text, color formatting, and icons. [9]
 
+#### Customizable Localization Database Keys
+
+Customizable localization files under `in_game/common/customizable_localization/` are parsed as database entries keyed by the top-level block name. These keys are not additive merge blocks. For example, adding a second file with `character_title_prefix = { ... }` causes the engine to ignore the duplicate and log `Duplicated key character_title_prefix will not be created`.
+
+To extend character title prefixes, generate or copy the full vanilla `character_title.txt` and insert custom `text = { ... }` entries into the existing `character_title_prefix` block instead of creating a separate same-key file.
+
 ## 7. Advanced Modding Topics
 
 ### 7.1. Interface (GUI) Modding

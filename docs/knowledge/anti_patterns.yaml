@@ -602,3 +602,13 @@
   scope: scripted_triggers
   source: "reference_game_files/game/in_game/common/scripted_triggers/building_triggers.txt:1-13"
   notes: "When multiple sub-conditions are collapsed into one custom_description or custom_tooltip, the player sees a single pass/fail indicator for all conditions combined. Separate custom_tooltip blocks each show their own pass/fail state, allowing the player to see which specific sub-condition is not yet met."
+
+- id: customizable_localization_duplicate_key_ignored
+  pattern: ''
+  only_in_paths: ['customizable_localization']
+  bad: "Defining a second character_title_prefix block in a separate customizable_localization file"
+  correction: "Copy/generate the full vanilla character_title.txt and insert custom title text entries into the original character_title_prefix block."
+  category: localization
+  scope: character
+  source: "reference_game_files/game/in_game/common/customizable_localization/character_title.txt:1; runtime debug.log: 'Duplicated key character_title_prefix will not be created'"
+  notes: "Top-level customizable localization keys are unique database entries, not additive merge blocks. A duplicate block is ignored, so custom character title prefixes never load."

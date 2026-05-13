@@ -10,6 +10,7 @@ ios:
     select_name: tv_select_arts_leader
     no_leader_msg: tv_no_arts_leader_available
     title_modifier: tv_chief_artist_role_modifier
+    title_loc_key: character_title_tv_chief_artist
     char_filter: |
       is_adult = yes
       is_artist = yes
@@ -33,5 +34,6 @@ ios:
     select_name: tv_select_academy_leader
     no_leader_msg: tv_no_academy_leader_available
     title_modifier: tv_chief_scientist_role_modifier
+    title_loc_key: character_title_tv_chief_scientist
     char_filter: |
       is_adult = yes
