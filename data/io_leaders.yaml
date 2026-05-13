@@ -11,6 +11,7 @@ ios:
     no_leader_msg: tv_no_arts_leader_available
     title_modifier: tv_chief_artist_role_modifier
     char_filter: |
+      is_adult = yes
       is_artist = yes
       NOT = { has_variable = tv_on_exhibition }
 
@@ -21,7 +22,8 @@ ios:
     leader_var: tv_diplomatic_alliance_leader_char
     select_name: tv_select_alliance_leader
     no_leader_msg: tv_no_alliance_leader_available
-    char_filter: ""
+    char_filter: |
+      is_adult = yes
 
   - id: academy           # generates tv_appoint_academy_leader, tv_remove_academy_leader, tv_change_academy_leader
     display_name: Academy of Sciences
@@ -31,4 +33,5 @@ ios:
     select_name: tv_select_academy_leader
     no_leader_msg: tv_no_academy_leader_available
     title_modifier: tv_chief_scientist_role_modifier
-    char_filter: ""
+    char_filter: |
+      is_adult = yes

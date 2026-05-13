@@ -28,6 +28,7 @@ tv_appoint_arts_leader = {
 		column = { data = character_info }
 		visible = {
 			is_alive = yes
+			is_adult = yes
 			is_artist = yes
 			NOT = { has_variable = tv_on_exhibition }
 			is_ruler = no
@@ -99,6 +100,7 @@ tv_change_arts_leader = {
 		column = { data = character_info }
 		visible = {
 			is_alive = yes
+			is_adult = yes
 			is_artist = yes
 			NOT = { has_variable = tv_on_exhibition }
 			is_ruler = no
@@ -155,6 +157,7 @@ tv_appoint_alliance_leader = {
 		column = { data = character_info }
 		visible = {
 			is_alive = yes
+			is_adult = yes
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -215,6 +218,7 @@ tv_change_alliance_leader = {
 		column = { data = character_info }
 		visible = {
 			is_alive = yes
+			is_adult = yes
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -258,6 +262,7 @@ tv_appoint_academy_leader = {
 		column = { data = character_info }
 		visible = {
 			is_alive = yes
+			is_adult = yes
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -327,6 +332,7 @@ tv_change_academy_leader = {
 		column = { data = character_info }
 		visible = {
 			is_alive = yes
+			is_adult = yes
 			is_ruler = no
 			is_heir = no
 			is_consort = no
