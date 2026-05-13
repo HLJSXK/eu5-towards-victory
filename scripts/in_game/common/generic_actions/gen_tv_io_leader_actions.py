@@ -7,7 +7,6 @@ Each block shares identical structural boilerplate; only the IO-specific strings
 
 import sys
 import argparse
-import textwrap
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -33,7 +32,7 @@ SECTION_BANNER = """\
 """
 
 
-def _char_selector_block(io: dict, action: str) -> str:
+def _char_selector_block(io: dict) -> str:
     """Return the select_trigger block for Appoint and Change actions."""
     lines = ["\tselect_trigger = {"]
     lines.append("\t\tlooking_for_a = character")
@@ -56,130 +55,110 @@ def _char_selector_block(io: dict, action: str) -> str:
     return "\n".join(lines)
 
 
+def _io_iterator(io_type: str, indent: str) -> list[str]:
+    """Return every_international_organizations_member_of block lines (no leader_country check)."""
+    t = indent
+    return [
+        f"{t}every_international_organizations_member_of = {{",
+        f"{t}\tlimit = {{",
+        f"{t}\t\tinternational_organization_type = international_organization_type:{io_type}",
+        f"{t}\t}}",
+        f"{t}\tinternational_organization_chooses_new_leader = this",
+        f"{t}}}",
+    ]
+
+
 def gen_appoint(io: dict) -> str:
-    selector = _char_selector_block(io, "appoint")
-    return f"""\
-tv_appoint_{io["id"]}_leader = {{
-\ttype = owncountry
-\tsound = UI_action_religion_generic
-\tai_tick = monthly
-\tai_tick_frequency = 99999
-
-\tpotential = {{
-\t\tscope:actor = {{ has_variable = {io["member_var"]} }}
-\t\tscope:actor = {{
-\t\t\tany_international_organizations_member_of = {{
-\t\t\t\tinternational_organization_type = international_organization_type:{io["io_type"]}
-\t\t\t\tinternational_organization_has_leader = no
-\t\t\t}}
-\t\t}}
-\t}}
-
-\tallow = {{ always = yes }}
-
-{selector}
-
-\teffect = {{
-\t\tif = {{
-\t\t\tlimit = {{ exists = scope:target }}
-\t\t\tscope:actor = {{
-\t\t\t\tset_variable = {{ name = {io["leader_var"]} value = scope:target }}
-\t\t\t\tevery_international_organizations_member_of = {{
-\t\t\t\t\tlimit = {{
-\t\t\t\t\t\tinternational_organization_type = international_organization_type:{io["io_type"]}
-\t\t\t\t\t\tleader_country ?= scope:actor
-\t\t\t\t\t}}
-\t\t\t\t\tinternational_organization_chooses_new_leader = this
-\t\t\t\t}}
-\t\t\t}}
-\t\t}}
-\t}}
-
-\tai_will_do = {{ add = -100 }}
-}}
-"""
+    selector = _char_selector_block(io)
+    iterator = "\n".join(_io_iterator(io["io_type"], "\t\t\t\t"))
+    return (
+        f"tv_appoint_{io['id']}_leader = {{\n"
+        f"\ttype = owncountry\n"
+        f"\tsound = UI_action_religion_generic\n"
+        f"\tai_tick = monthly\n"
+        f"\tai_tick_frequency = 99999\n"
+        f"\n"
+        f"\tpotential = {{\n"
+        f"\t\tscope:actor = {{ has_variable = {io['member_var']} }}\n"
+        f"\t}}\n"
+        f"\n"
+        f"\tallow = {{ always = yes }}\n"
+        f"\n"
+        f"{selector}\n"
+        f"\n"
+        f"\teffect = {{\n"
+        f"\t\tif = {{\n"
+        f"\t\t\tlimit = {{ exists = scope:target }}\n"
+        f"\t\t\tscope:actor = {{\n"
+        f"\t\t\t\tset_variable = {{ name = {io['leader_var']} value = scope:target }}\n"
+        f"{iterator}\n"
+        f"\t\t\t}}\n"
+        f"\t\t}}\n"
+        f"\t}}\n"
+        f"\n"
+        f"\tai_will_do = {{ add = -100 }}\n"
+        f"}}\n"
+    )
 
 
 def gen_remove(io: dict) -> str:
-    return f"""\
-tv_remove_{io["id"]}_leader = {{
-\ttype = owncountry
-\tsound = UI_action_religion_generic
-\tai_tick = monthly
-\tai_tick_frequency = 99999
-
-\tpotential = {{
-\t\tscope:actor = {{ has_variable = {io["member_var"]} }}
-\t\tscope:actor = {{
-\t\t\tany_international_organizations_member_of = {{
-\t\t\t\tinternational_organization_type = international_organization_type:{io["io_type"]}
-\t\t\t\tinternational_organization_has_leader = yes
-\t\t\t}}
-\t\t}}
-\t}}
-
-\tallow = {{ always = yes }}
-
-\teffect = {{
-\t\tscope:actor = {{
-\t\t\tremove_variable = {io["leader_var"]}
-\t\t\tevery_international_organizations_member_of = {{
-\t\t\t\tlimit = {{
-\t\t\t\t\tinternational_organization_type = international_organization_type:{io["io_type"]}
-\t\t\t\t\tleader_country ?= scope:actor
-\t\t\t\t}}
-\t\t\t\tinternational_organization_chooses_new_leader = this
-\t\t\t}}
-\t\t}}
-\t}}
-
-\tai_will_do = {{ add = -100 }}
-}}
-"""
+    iterator = "\n".join(_io_iterator(io["io_type"], "\t\t\t"))
+    return (
+        f"tv_remove_{io['id']}_leader = {{\n"
+        f"\ttype = owncountry\n"
+        f"\tsound = UI_action_religion_generic\n"
+        f"\tai_tick = monthly\n"
+        f"\tai_tick_frequency = 99999\n"
+        f"\n"
+        f"\tpotential = {{\n"
+        f"\t\tscope:actor = {{ has_variable = {io['member_var']} }}\n"
+        f"\t}}\n"
+        f"\n"
+        f"\tallow = {{ always = yes }}\n"
+        f"\n"
+        f"\teffect = {{\n"
+        f"\t\tscope:actor = {{\n"
+        f"\t\t\tremove_variable = {io['leader_var']}\n"
+        f"{iterator}\n"
+        f"\t\t}}\n"
+        f"\t}}\n"
+        f"\n"
+        f"\tai_will_do = {{ add = -100 }}\n"
+        f"}}\n"
+    )
 
 
 def gen_change(io: dict) -> str:
-    selector = _char_selector_block(io, "change")
-    return f"""\
-tv_change_{io["id"]}_leader = {{
-\ttype = owncountry
-\tsound = UI_action_religion_generic
-\tai_tick = monthly
-\tai_tick_frequency = 99999
-
-\tpotential = {{
-\t\tscope:actor = {{ has_variable = {io["member_var"]} }}
-\t\tscope:actor = {{
-\t\t\tany_international_organizations_member_of = {{
-\t\t\t\tinternational_organization_type = international_organization_type:{io["io_type"]}
-\t\t\t\tinternational_organization_has_leader = yes
-\t\t\t}}
-\t\t}}
-\t}}
-
-\tallow = {{ always = yes }}
-
-{selector}
-
-\teffect = {{
-\t\tif = {{
-\t\t\tlimit = {{ exists = scope:target }}
-\t\t\tscope:actor = {{
-\t\t\t\tset_variable = {{ name = {io["leader_var"]} value = scope:target }}
-\t\t\t\tevery_international_organizations_member_of = {{
-\t\t\t\t\tlimit = {{
-\t\t\t\t\t\tinternational_organization_type = international_organization_type:{io["io_type"]}
-\t\t\t\t\t\tleader_country ?= scope:actor
-\t\t\t\t\t}}
-\t\t\t\t\tinternational_organization_chooses_new_leader = this
-\t\t\t\t}}
-\t\t\t}}
-\t\t}}
-\t}}
-
-\tai_will_do = {{ add = -100 }}
-}}
-"""
+    selector = _char_selector_block(io)
+    iterator = "\n".join(_io_iterator(io["io_type"], "\t\t\t\t"))
+    return (
+        f"tv_change_{io['id']}_leader = {{\n"
+        f"\ttype = owncountry\n"
+        f"\tsound = UI_action_religion_generic\n"
+        f"\tai_tick = monthly\n"
+        f"\tai_tick_frequency = 99999\n"
+        f"\n"
+        f"\tpotential = {{\n"
+        f"\t\tscope:actor = {{ has_variable = {io['member_var']} }}\n"
+        f"\t}}\n"
+        f"\n"
+        f"\tallow = {{ always = yes }}\n"
+        f"\n"
+        f"{selector}\n"
+        f"\n"
+        f"\teffect = {{\n"
+        f"\t\tif = {{\n"
+        f"\t\t\tlimit = {{ exists = scope:target }}\n"
+        f"\t\t\tscope:actor = {{\n"
+        f"\t\t\t\tset_variable = {{ name = {io['leader_var']} value = scope:target }}\n"
+        f"{iterator}\n"
+        f"\t\t\t}}\n"
+        f"\t\t}}\n"
+        f"\t}}\n"
+        f"\n"
+        f"\tai_will_do = {{ add = -100 }}\n"
+        f"}}\n"
+    )
 
 
 def _io_title(io: dict) -> str:

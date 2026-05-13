@@ -15,12 +15,6 @@ tv_appoint_arts_leader = {
 
 	potential = {
 		scope:actor = { has_variable = tv_arts_exhibition_member }
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_arts_exhibition
-				international_organization_has_leader = no
-			}
-		}
 	}
 
 	allow = { always = yes }
@@ -50,7 +44,6 @@ tv_appoint_arts_leader = {
 				every_international_organizations_member_of = {
 					limit = {
 						international_organization_type = international_organization_type:tv_arts_exhibition
-						leader_country ?= scope:actor
 					}
 					international_organization_chooses_new_leader = this
 				}
@@ -69,12 +62,6 @@ tv_remove_arts_leader = {
 
 	potential = {
 		scope:actor = { has_variable = tv_arts_exhibition_member }
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_arts_exhibition
-				international_organization_has_leader = yes
-			}
-		}
 	}
 
 	allow = { always = yes }
@@ -85,7 +72,6 @@ tv_remove_arts_leader = {
 			every_international_organizations_member_of = {
 				limit = {
 					international_organization_type = international_organization_type:tv_arts_exhibition
-					leader_country ?= scope:actor
 				}
 				international_organization_chooses_new_leader = this
 			}
@@ -103,12 +89,6 @@ tv_change_arts_leader = {
 
 	potential = {
 		scope:actor = { has_variable = tv_arts_exhibition_member }
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_arts_exhibition
-				international_organization_has_leader = yes
-			}
-		}
 	}
 
 	allow = { always = yes }
@@ -138,7 +118,6 @@ tv_change_arts_leader = {
 				every_international_organizations_member_of = {
 					limit = {
 						international_organization_type = international_organization_type:tv_arts_exhibition
-						leader_country ?= scope:actor
 					}
 					international_organization_chooses_new_leader = this
 				}
@@ -161,12 +140,6 @@ tv_appoint_alliance_leader = {
 
 	potential = {
 		scope:actor = { has_variable = tv_diplomatic_alliance_member }
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_diplomatic_alliance
-				international_organization_has_leader = no
-			}
-		}
 	}
 
 	allow = { always = yes }
@@ -194,7 +167,6 @@ tv_appoint_alliance_leader = {
 				every_international_organizations_member_of = {
 					limit = {
 						international_organization_type = international_organization_type:tv_diplomatic_alliance
-						leader_country ?= scope:actor
 					}
 					international_organization_chooses_new_leader = this
 				}
@@ -213,12 +185,6 @@ tv_remove_alliance_leader = {
 
 	potential = {
 		scope:actor = { has_variable = tv_diplomatic_alliance_member }
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_diplomatic_alliance
-				international_organization_has_leader = yes
-			}
-		}
 	}
 
 	allow = { always = yes }
@@ -229,7 +195,6 @@ tv_remove_alliance_leader = {
 			every_international_organizations_member_of = {
 				limit = {
 					international_organization_type = international_organization_type:tv_diplomatic_alliance
-					leader_country ?= scope:actor
 				}
 				international_organization_chooses_new_leader = this
 			}
@@ -247,12 +212,6 @@ tv_change_alliance_leader = {
 
 	potential = {
 		scope:actor = { has_variable = tv_diplomatic_alliance_member }
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_diplomatic_alliance
-				international_organization_has_leader = yes
-			}
-		}
 	}
 
 	allow = { always = yes }
@@ -280,7 +239,6 @@ tv_change_alliance_leader = {
 				every_international_organizations_member_of = {
 					limit = {
 						international_organization_type = international_organization_type:tv_diplomatic_alliance
-						leader_country ?= scope:actor
 					}
 					international_organization_chooses_new_leader = this
 				}
@@ -303,12 +261,6 @@ tv_appoint_academy_leader = {
 
 	potential = {
 		scope:actor = { has_variable = tv_academy_io_member }
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_academy_of_sciences
-				international_organization_has_leader = no
-			}
-		}
 	}
 
 	allow = { always = yes }
@@ -336,7 +288,6 @@ tv_appoint_academy_leader = {
 				every_international_organizations_member_of = {
 					limit = {
 						international_organization_type = international_organization_type:tv_academy_of_sciences
-						leader_country ?= scope:actor
 					}
 					international_organization_chooses_new_leader = this
 				}
@@ -355,12 +306,6 @@ tv_remove_academy_leader = {
 
 	potential = {
 		scope:actor = { has_variable = tv_academy_io_member }
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_academy_of_sciences
-				international_organization_has_leader = yes
-			}
-		}
 	}
 
 	allow = { always = yes }
@@ -371,7 +316,6 @@ tv_remove_academy_leader = {
 			every_international_organizations_member_of = {
 				limit = {
 					international_organization_type = international_organization_type:tv_academy_of_sciences
-					leader_country ?= scope:actor
 				}
 				international_organization_chooses_new_leader = this
 			}
@@ -389,12 +333,6 @@ tv_change_academy_leader = {
 
 	potential = {
 		scope:actor = { has_variable = tv_academy_io_member }
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_academy_of_sciences
-				international_organization_has_leader = yes
-			}
-		}
 	}
 
 	allow = { always = yes }
@@ -422,7 +360,6 @@ tv_change_academy_leader = {
 				every_international_organizations_member_of = {
 					limit = {
 						international_organization_type = international_organization_type:tv_academy_of_sciences
-						leader_country ?= scope:actor
 					}
 					international_organization_chooses_new_leader = this
 				}
