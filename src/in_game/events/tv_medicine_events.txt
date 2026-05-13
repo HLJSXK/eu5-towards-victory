@@ -91,6 +91,8 @@ tv_medicine.3 = {
 
 	option = {
 		name = tv_medicine.3.a
+		var:tv_med_target_char ?= { tv_med_remove_health_traits_effect = yes }
+		hidden_effect = { tv_med_cleanup_effect = yes }
 	}
 }
 

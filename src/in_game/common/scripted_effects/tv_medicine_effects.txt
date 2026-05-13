@@ -23,12 +23,11 @@ tv_med_remove_health_traits_effect = {
 	if = { limit = { has_trait = sickly }              remove_trait = trait:sickly }
 }
 
-# Called when tv_med_progress >= 100. Removes traits, fires completion event, resets state.
+# Called when tv_med_progress >= 100. Fires the recovery event; trait removal and cleanup
+# happen in the event option so the player sees the patient's condition before it is removed.
+# Progress is zeroed immediately to prevent re-triggering before the event is clicked.
 # Must be called from country scope (leader_country).
 tv_med_complete_treatment_effect = {
-	var:tv_med_target_char ?= {
-		tv_med_remove_health_traits_effect = yes
-	}
+	set_variable = { name = tv_med_progress  value = 0 }
 	trigger_event_non_silently = { id = tv_medicine.3 }
-	tv_med_cleanup_effect = yes
 }
