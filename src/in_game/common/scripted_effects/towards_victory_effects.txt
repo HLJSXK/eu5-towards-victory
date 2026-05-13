@@ -779,7 +779,14 @@ tv_grant_trade_milestone_5 = {
 tv_grant_diplomatic_milestone_1 = {
 	add_country_modifier = { modifier = tv_diplomatic_m1_bonus days = -1 }
 	if = {
-	    limit = { NOT = { exists = international_organization:tv_diplomatic_alliance } }
+	    limit = {
+	        NOT = {
+	            any_international_organizations_member_of = {
+	                international_organization_type = international_organization_type:tv_diplomatic_alliance
+	                leader_country = this
+	            }
+	        }
+	    }
 	    custom_tooltip = { text = tv_create_diplomatic_alliance_tt }
 	    hidden_effect = {
 	        save_scope_as = tv_founder

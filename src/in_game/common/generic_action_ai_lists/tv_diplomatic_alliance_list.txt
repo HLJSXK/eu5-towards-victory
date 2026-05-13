@@ -1,6 +1,9 @@
 ﻿tv_diplomatic_alliance_list = {
 	potential = {
-		is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
+		any_international_organizations_member_of = {
+			international_organization_type = international_organization_type:tv_diplomatic_alliance
+			leader_country = this
+		}
 	}
 	actions = {
 		tv_appoint_alliance_leader

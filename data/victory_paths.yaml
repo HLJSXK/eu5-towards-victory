@@ -891,14 +891,17 @@ paths:
         extra_trigger_block: |
           has_variable = tv_diplomatic_support_count
           var:tv_diplomatic_support_count >= 10
-          OR = {
-              NOT = { exists = international_organization:tv_diplomatic_alliance }
-              is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
-          }
         custom_grant_body: |
           add_country_modifier = { modifier = tv_diplomatic_m1_bonus days = -1 }
           if = {
-              limit = { NOT = { exists = international_organization:tv_diplomatic_alliance } }
+              limit = {
+                  NOT = {
+                      any_international_organizations_member_of = {
+                          international_organization_type = international_organization_type:tv_diplomatic_alliance
+                          leader_country = this
+                      }
+                  }
+              }
               custom_tooltip = { text = tv_create_diplomatic_alliance_tt }
               hidden_effect = {
                   save_scope_as = tv_founder

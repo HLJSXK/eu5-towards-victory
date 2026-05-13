@@ -167,7 +167,7 @@ tv_change_arts_leader = {
 }
 
 # ═════════════════════════════════════════════════════════════════════════════
-# Diplomatic Alliance (unique IO)
+# Diplomatic Alliance (non-unique IO)
 # ═════════════════════════════════════════════════════════════════════════════
 
 tv_appoint_alliance_leader = {
@@ -178,8 +178,11 @@ tv_appoint_alliance_leader = {
 
 	potential = {
 		scope:actor = {
-			is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
-			international_organization:tv_diplomatic_alliance = { international_organization_has_leader = no }
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country = scope:actor
+				international_organization_has_leader = no
+			}
 		}
 	}
 
@@ -205,8 +208,14 @@ tv_appoint_alliance_leader = {
 			limit = { exists = scope:target }
 			scope:actor = {
 				set_variable = { name = tv_diplomatic_alliance_leader_char value = scope:target }
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_diplomatic_alliance
+						leader_country = scope:actor
+					}
+					international_organization_chooses_new_leader = this
+				}
 			}
-			international_organization_chooses_new_leader = international_organization:tv_diplomatic_alliance
 		}
 	}
 
@@ -221,16 +230,27 @@ tv_remove_alliance_leader = {
 
 	potential = {
 		scope:actor = {
-			is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
-			international_organization:tv_diplomatic_alliance = { international_organization_has_leader = yes }
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country = scope:actor
+				international_organization_has_leader = yes
+			}
 		}
 	}
 
 	allow = { always = yes }
 
 	effect = {
-		scope:actor = { remove_variable = tv_diplomatic_alliance_leader_char }
-		international_organization_chooses_new_leader = international_organization:tv_diplomatic_alliance
+		scope:actor = {
+			remove_variable = tv_diplomatic_alliance_leader_char
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_diplomatic_alliance
+					leader_country = scope:actor
+				}
+				international_organization_chooses_new_leader = this
+			}
+		}
 	}
 
 	ai_will_do = { add = -100 }
@@ -244,8 +264,11 @@ tv_change_alliance_leader = {
 
 	potential = {
 		scope:actor = {
-			is_leader_of_international_organization = international_organization:tv_diplomatic_alliance
-			international_organization:tv_diplomatic_alliance = { international_organization_has_leader = yes }
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country = scope:actor
+				international_organization_has_leader = yes
+			}
 		}
 	}
 
@@ -271,8 +294,14 @@ tv_change_alliance_leader = {
 			limit = { exists = scope:target }
 			scope:actor = {
 				set_variable = { name = tv_diplomatic_alliance_leader_char value = scope:target }
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_diplomatic_alliance
+						leader_country = scope:actor
+					}
+					international_organization_chooses_new_leader = this
+				}
 			}
-			international_organization_chooses_new_leader = international_organization:tv_diplomatic_alliance
 		}
 	}
 
