@@ -11,16 +11,16 @@ tv_med_cleanup_effect = {
 
 # Remove all known bad health traits from the patient character (called in character scope).
 tv_med_remove_health_traits_effect = {
-	if = { limit = { has_trait = blind }               remove_trait = blind }
-	if = { limit = { has_trait = one_eyed }            remove_trait = one_eyed }
-	if = { limit = { has_trait = maimed }              remove_trait = maimed }
-	if = { limit = { has_trait = disfigured }          remove_trait = disfigured }
-	if = { limit = { has_trait = scarred }             remove_trait = scarred }
-	if = { limit = { has_trait = hunchback }           remove_trait = hunchback }
-	if = { limit = { has_trait = pockmarked_trait }    remove_trait = pockmarked_trait }
-	if = { limit = { has_trait = smallpox_trait }      remove_trait = smallpox_trait }
-	if = { limit = { has_trait = bubonic_plague_trait } remove_trait = bubonic_plague_trait }
-	if = { limit = { has_trait = sickly }              remove_trait = sickly }
+	if = { limit = { has_trait = blind }               remove_trait = trait:blind }
+	if = { limit = { has_trait = one_eyed }            remove_trait = trait:one_eyed }
+	if = { limit = { has_trait = maimed }              remove_trait = trait:maimed }
+	if = { limit = { has_trait = disfigured }          remove_trait = trait:disfigured }
+	if = { limit = { has_trait = scarred }             remove_trait = trait:scarred }
+	if = { limit = { has_trait = hunchback }           remove_trait = trait:hunchback }
+	if = { limit = { has_trait = pockmarked_trait }    remove_trait = trait:pockmarked_trait }
+	if = { limit = { has_trait = smallpox_trait }      remove_trait = trait:smallpox_trait }
+	if = { limit = { has_trait = bubonic_plague_trait } remove_trait = trait:bubonic_plague_trait }
+	if = { limit = { has_trait = sickly }              remove_trait = trait:sickly }
 }
 
 # Called when tv_med_progress >= 100. Removes traits, fires completion event, resets state.

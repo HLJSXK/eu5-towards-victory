@@ -641,3 +641,30 @@
   scope: localization
   source: "runtime error.log: gui/panels/situation/tv_victory_situation.gui:965 failed parsing localized text tv_cultural_m1_io_grant_tt"
   notes: "In GUI-localized text contexts, square-bracket concept links can be parsed as GUI data-system expressions. The engine tried to resolve tv_arts_exhibition_mechanism as a data-system function and logged 'Could not find data system function'."
+
+- id: kill_character_yes_in_character_scope
+  pattern: 'kill_character\s*=\s*yes'
+  bad: "kill_character = yes"
+  correction: "Use kill_character = this when in character scope (e.g. inside var:name ?= { }), or kill_character = scope:char_ref from any scope. kill_character = yes is invalid — EU5 expects a character scope reference, not a boolean."
+  category: event
+  scope: character
+  source: "reference_game_files/game/in_game/events/DHE/flavor_ENG.txt:11243"
+  notes: "kill_character takes a character scope value, not a boolean. kill_character = yes causes PostValidate error: target scope type boolean, expected character."
+
+- id: remove_trait_missing_trait_prefix
+  pattern: 'remove_trait\s*=\s*(?!trait:)\w+'
+  bad: "remove_trait = blind"
+  correction: "remove_trait = trait:blind — always prefix the trait name with trait: for remove_trait and add_trait effects. Note: has_trait = blind (no prefix) is correct for trigger checks."
+  category: event
+  scope: character
+  source: "reference_game_files/game/in_game/events/character/artist_events.txt:260"
+  notes: "remove_trait effect requires trait: prefix (remove_trait = trait:blind). has_trait trigger does NOT use the prefix (has_trait = blind). Mixing them causes: remove_trait effect [ target: field not set ]."
+
+- id: none_available_msg_key_missing_trigger_no_icon
+  pattern: 'none_available_msg_key\s*=\s*"(?!.*@trigger_no)'
+  bad: "none_available_msg_key localization value missing @trigger_no! icon prefix"
+  correction: "In the localization YAML, the VALUE of the none_available_msg_key string must begin with @trigger_no! — e.g. \"@trigger_no! No characters available.\" The key name itself has no prefix requirement."
+  category: localization
+  scope: any
+  source: "src/main_menu/localization/english/tv_arts_exhibition_l_english.yml:27"
+  notes: "Engine logs: Key X doesn't exist or doesn't start with trigger_no icon. The @trigger_no! inline icon must be the first token in the localization value string."

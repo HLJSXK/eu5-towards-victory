@@ -29,7 +29,7 @@ tv_medicine.1 = {
 				}
 			}
 			5 = {
-				var:tv_med_target_char ?= { kill_character = yes }
+				var:tv_med_target_char ?= { kill_character = this }
 				tv_med_cleanup_effect = yes
 			}
 		}
@@ -46,7 +46,7 @@ tv_medicine.1 = {
 				}
 			}
 			20 = {
-				var:tv_med_target_char ?= { kill_character = yes }
+				var:tv_med_target_char ?= { kill_character = this }
 				tv_med_cleanup_effect = yes
 			}
 		}

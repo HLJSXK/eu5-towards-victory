@@ -225,6 +225,9 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | localization | character | Defining a second character_title_prefix block in a separate customizable_localization file | Copy/generate the full vanilla character_title.txt and insert custom title text entries into the original character_title_prefix block. | Top-level customizable localization keys are unique database entries, not additive merge blocks. A duplicate block is ignored, so custom character title prefixes never load. |
 | gui | international_organization | Relying on InternationalOrganization.GetIcon for a mod-defined IO without providing a matching icon texture | Add a DDS at main_menu/gfx/interface/icons/international_organizations/<io_type>.dds. The filename should match the international_organization type key, e.g. tv_arts_exhibition.dds. | The shared IO UI calls InternationalOrganization.GetIcon. Vanilla IO icon files are named after IO type keys in gfx/interface/icons/international_organizations/. Mod IOs without matching files fall back to the generic IO icon. |
 | gui | localization | Reusing a localization key that contains a game-concept link like [tv_arts_exhibition_mechanism|e] inside a GUI TooltipTextBlock text override | Use a GUI-safe localization key without [concept|e] markup for GUI text blocks, and keep the game-concept link only in event/custom_tooltip localization. | In GUI-localized text contexts, square-bracket concept links can be parsed as GUI data-system expressions. The engine tried to resolve tv_arts_exhibition_mechanism as a data-system function and logged 'Could not find data system function'. |
+| event | character | kill_character = yes | Use kill_character = this when in character scope (e.g. inside var:name ?= { }), or kill_character = scope:char_ref from any scope. kill_character = yes is invalid — EU5 expects a character scope reference, not a boolean. | kill_character takes a character scope value, not a boolean. kill_character = yes causes PostValidate error: target scope type boolean, expected character. |
+| event | character | remove_trait = blind | remove_trait = trait:blind — always prefix the trait name with trait: for remove_trait and add_trait effects. Note: has_trait = blind (no prefix) is correct for trigger checks. | remove_trait effect requires trait: prefix (remove_trait = trait:blind). has_trait trigger does NOT use the prefix (has_trait = blind). Mixing them causes: remove_trait effect [ target: field not set ]. |
+| localization | any | none_available_msg_key localization value missing @trigger_no! icon prefix | In the localization YAML, the VALUE of the none_available_msg_key string must begin with @trigger_no! — e.g. "@trigger_no! No characters available." The key name itself has no prefix requirement. | Engine logs: Key X doesn't exist or doesn't start with trigger_no icon. The @trigger_no! inline icon must be the first token in the localization value string. |
 
 ## Valid Enum Values
 
@@ -253,7 +256,7 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | Scripted Triggers | 515 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 533 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 551 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 555 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 
