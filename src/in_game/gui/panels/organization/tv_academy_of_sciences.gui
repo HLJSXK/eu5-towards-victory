@@ -441,8 +441,6 @@ organization_panel = {
 		io_character_card = {
 			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').IsSet]"
 			datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').GetCharacter]"
-			size = { 97% 72 }
-			parentanchor = hcenter
 			using = layoutpolicy_expanding
 		}
 

@@ -35,6 +35,8 @@ tv_train_grand_general = {
 }
 
 # ── Governor management actions ──────────────────────────────────────────────
+# Governor appointment/removal is only available while an alive Grand General is in office.
+# Existing governors remain in tv_governor_list if the Grand General leaves office.
 
 # Appoints a governor: 2-step selection (character → area).
 # step 1 sets scope:recipient (character), step 2 sets scope:target (area).
@@ -50,6 +52,10 @@ tv_appoint_governor = {
 
 	allow = {
 		scope:actor = { has_variable = tv_govhouse_member }
+		scope:actor = { has_variable = tv_conquest_general_char }
+		scope:actor = {
+			var:tv_conquest_general_char = { is_alive = yes }
+		}
 	}
 
 	select_trigger = {
@@ -103,11 +109,15 @@ tv_remove_governor = {
 	ai_tick_frequency = 99999
 
 	potential = {
-		always = yes
+		scope:actor = { has_variable = tv_govhouse_member }
 	}
 
 	allow = {
-		always = yes
+		scope:actor = { has_variable = tv_govhouse_member }
+		scope:actor = { has_variable = tv_conquest_general_char }
+		scope:actor = {
+			var:tv_conquest_general_char = { is_alive = yes }
+		}
 	}
 
 	effect = {

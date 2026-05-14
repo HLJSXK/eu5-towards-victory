@@ -234,6 +234,15 @@
   source: "EU5 engine validation (pdx_gui_validation.cpp:62: 'Unsupported property: parentanchor on widgets that are a child of a hbox/vbox. Hboxes/vboxes arrange their children automatically.')"
   notes: "Pattern is empty because static detection requires parsing GUI parent structure. Audit any widget nested inside hbox = { ... } or vbox = { ... } and strip parentanchor. Children of progressbar/widget/window are unaffected."
 
+- id: percent_size_under_hbox_vbox
+  pattern: ''
+  bad: "Setting size with a percentage component on a widget that is a direct child of an hbox or vbox, e.g. size = { 97% 72 } inside organization_custom_content"
+  correction: "Remove the percentage size and rely on layout policies, or use non-percent fixed/min/max sizing when a fixed dimension is actually needed. For io_character_card in organization_custom_content, omit size/parentanchor and rely on the card type's built-in layoutpolicy_expanding."
+  category: gui
+  scope: any
+  source: "EU5 engine validation (pdx_gui_validation.cpp:62: 'Unsupported property: size with a percentage on widgets that are a child of a vbox/hbox. Consider using layout policies and stretch factors instead.')"
+  notes: "Pattern is empty because static detection requires parsing GUI parent structure. Percent sizes are valid in some plain widget/fixedgrid contexts, but hbox/vbox children are arranged by the box layout and should be driven by layoutpolicy_* or stretch factors."
+
 - id: building_eu4_price_numeric
   pattern: '^\s*price\s*=\s*\d+'
   only_in_paths: ['building_types']

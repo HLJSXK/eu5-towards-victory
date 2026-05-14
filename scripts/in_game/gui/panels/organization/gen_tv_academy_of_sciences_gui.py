@@ -404,8 +404,6 @@ GUI_SUFFIX = """\
 \t\tio_character_card = {
 \t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').IsSet]"
 \t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').GetCharacter]"
-\t\t\tsize = { 97% 72 }
-\t\t\tparentanchor = hcenter
 \t\t\tusing = layoutpolicy_expanding
 \t\t}
 
