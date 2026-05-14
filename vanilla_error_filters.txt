@@ -1,0 +1,14 @@
+# Human-maintained filters for known vanilla EU5 error.log noise.
+#
+# Rules are matched against the whole log entry after the leading timestamp
+# has been removed. Blank lines and lines beginning with # are ignored.
+#
+# Supported forms:
+#   contains:<text>
+#   exact:<full entry body, with \n for line breaks if needed>
+#   regex:<python regular expression>
+#
+# Bare lines are treated as contains:<text>.
+#
+# Example:
+# contains:[pdx_data_localize.cpp:151]: Data error in loc string 'VANILLA_KEY_NAME'
