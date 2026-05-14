@@ -7,6 +7,8 @@
  diplomatic_status_tv_arts_exhibition_tooltip: "该国是文艺展演国际组织的成员国。"
  tv_arts_exhibition_list_who_tt: "文艺展演成员国"
  io_opinion_tv_arts_exhibition: "文艺展演共同成员"
+ tv_cultural_diplomacy_opinion: "文化外交"
+ tv_art_theft_opinion: "艺术品盗窃事件"
  STATIC_MODIFIER_NAME_tv_artistic_inspiration_modifier: "艺术灵感"
 
  # 通用动作名称及说明
@@ -80,6 +82,53 @@
  tv_arts_exhibition.105.d: "异域文化的熏陶在我们的巡演艺术家身上激发出了非凡的创造力。其技艺的升华是在本国永远无法实现的，他们将以焕然一新的热忱继续创作。"
  tv_arts_exhibition.105.a: "艺术超越国界。"
  tv_arts_exhibition.105.effect_tt: "巡演艺术家获得#bold 艺术灵感#!（#G +10% 艺术技能成长#!），持续10年。"
+
+ # ── 月度特殊事件（201-205） ────────────────────────────────────────────────────
+ tv_arts_exhibition.201.t: "文化的桥梁"
+ tv_arts_exhibition.201.d: "我们的巡演艺术家在异国的存在远不止于展示作品——他们打动了人心。外国宫廷对我国充满好感，而我们亦以同样的温情回应。"
+ tv_arts_exhibition.201.a: "艺术所建之桥，外交难以企及。"
+ tv_arts_exhibition.201.effect_tt: "与东道国#G +20好感度#!（随时间衰减），对方亦对我国获得相同加成。"
+
+ tv_arts_exhibition.202.t: "展览令全城倾倒"
+ tv_arts_exhibition.202.d: "我们艺术家的作品令东道城市焕然一新。来自周边乡野的访客纷纷涌入，只为亲眼目睹这场盛展，为街头带来了勃勃生机与商业活力。"
+ tv_arts_exhibition.202.a: "愿城市因此繁荣。"
+ tv_arts_exhibition.202.effect_tt: "展演所在地获得为期5年的加成：#G +2 移民吸引力#!、#G -20% 地方动荡#!、#R -20% 生产效率#!（工人驻足观展所致）。"
+
+ tv_arts_exhibition.203.t: "贵族赞助人现身"
+ tv_arts_exhibition.203.d: "东道宫廷一位富裕贵族深受我们艺术家的感染，慷慨出资在展演地修建了一座宏伟剧院——这将成为我国文化影响力的长久见证。"
+ tv_arts_exhibition.203.a: "我们的艺术将铭刻于砖石之上。"
+ tv_arts_exhibition.203.effect_tt: "在展演所在地免费建造一座#bold 剧院#!。"
+
+ tv_arts_exhibition.204.t: "大师间的交流"
+ tv_arts_exhibition.204.d: "我们的巡演艺术家与当地一位大师数周以来相互切磋技艺，两人均从彼此身上汲取到了独自无法成就的精进。"
+ tv_arts_exhibition.204.a: "最伟大的艺术不分国界。"
+ tv_arts_exhibition.204.effect_tt: "我方巡演艺术家与当地艺术家各永久获得#G +0.05 艺术技能#!。"
+
+ tv_arts_exhibition.205.t: "海外丑闻：盗窃与悲剧"
+ tv_arts_exhibition.205.d: "大祸临头。我们的艺术家显然被异国作品迷了心窍，竟试图从东道宫廷盗取一件珍宝，当场被擒，死于混乱之中。画作毁于一旦，我国声名蒙羞。"
+ tv_arts_exhibition.205.a: "我国的至暗时刻。"
+ tv_arts_exhibition.205.effect_tt: "巡演艺术家#R 死亡#!。东道国一件艺术品遭到#R 毁坏#!。东道国对我国获得#R -20 永久好感度#!。"
+
+ # ── 归国特殊事件（120-124） ──────────────────────────────────────────────────
+ tv_arts_exhibition.120.t: "带着纪念品归来"
+ tv_arts_exhibition.120.d: "我们的艺术家归来了——而且并非两手空空。行囊中藏着一件来自东道宫廷的艺术品，据称是赠予之物。无论真相如何，它如今已为我国所有。"
+ tv_arts_exhibition.120.a: "为我们的藏品添上精彩一笔。"
+
+ tv_arts_exhibition.121.t: "归国：一部新的杰作"
+ tv_arts_exhibition.121.d: "这段旅程彻底改变了我们的艺术家。几乎刚踏上归途，他们便再度执笔，创作出一幅深邃而隽永的新作——这是他们在异国所见所感的见证。"
+ tv_arts_exhibition.121.a: "让我们为他们的归来而庆贺。"
+
+ tv_arts_exhibition.122.t: "归国：异域的启示"
+ tv_arts_exhibition.122.d: "我们的艺术家归来时，带回的不仅是记忆。对异国技艺的细心观察，被认真记录在案，为我国学者提供了新的思路，将加速我们自身的探索步伐。"
+ tv_arts_exhibition.122.a: "知识亦能旅行。"
+
+ tv_arts_exhibition.123.t: "归国：艺术家的安息"
+ tv_arts_exhibition.123.d: "我们的艺术家年迈而满足地归来。漫长的海外岁月已将他们消磨殆尽，他们在故土悄然离世，留下的作品将使其名字永垂不朽。"
+ tv_arts_exhibition.123.a: "愿他们安息。"
+
+ tv_arts_exhibition.124.t: "归国：慷慨的临别馈赠"
+ tv_arts_exhibition.124.d: "东道宫廷满怀温情地送我们的艺术家踏上归途，并附上一份丰厚的礼金——以感谢多年来为他们带来光彩的文化交流。"
+ tv_arts_exhibition.124.a: "多情的惜别。"
 
  # ── 文艺展演面板改善新增UI键 ──────────────────────────────────────────────────
  TV_ARTS_EXHIBITION_LEADER: "文化领袖"

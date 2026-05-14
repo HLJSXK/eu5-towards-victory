@@ -7,6 +7,8 @@
  diplomatic_status_tv_arts_exhibition_tooltip: "This country is a member of the Arts Exhibition international organization."
  tv_arts_exhibition_list_who_tt: "Arts Exhibition members"
  io_opinion_tv_arts_exhibition: "Fellow Arts Exhibition Member"
+ tv_cultural_diplomacy_opinion: "Cultural Diplomacy"
+ tv_art_theft_opinion: "Art Theft Incident"
  STATIC_MODIFIER_NAME_tv_artistic_inspiration_modifier: "Artistic Inspiration"
 
  # Generic action names and descriptions
@@ -80,6 +82,53 @@
  tv_arts_exhibition.105.d: "Exposure to a foreign culture has unlocked something extraordinary in our touring artist. Their technique has evolved in ways that would never have been possible at home."
  tv_arts_exhibition.105.a: "Art transcends borders."
  tv_arts_exhibition.105.effect_tt: "The touring artist gains #bold Artistic Inspiration#! (#G +10% Artist Skill Gain#!) for 10 years."
+
+ # ── Monthly Special Events (201-205) ─────────────────────────────────────
+ tv_arts_exhibition.201.t: "A Bridge of Cultures"
+ tv_arts_exhibition.201.d: "Our touring artist's presence abroad has done more than display our works — it has opened hearts. The foreign court speaks warmly of our realm, and we reciprocate the sentiment."
+ tv_arts_exhibition.201.a: "Art builds what diplomacy cannot."
+ tv_arts_exhibition.201.effect_tt: "#G +20 opinion#! with the host country (decays over time). They gain the same towards us."
+
+ tv_arts_exhibition.202.t: "The Exhibition Captivates a City"
+ tv_arts_exhibition.202.d: "Our artist's works have transformed the host city. Visitors flock from the surrounding countryside to witness the display, bringing new life and commerce to the streets."
+ tv_arts_exhibition.202.a: "Let the city flourish."
+ tv_arts_exhibition.202.effect_tt: "The exhibition location gains a 5-year modifier: #G +2 Migration Attraction#!, #G -20% Unrest#!, #R -20% Production Efficiency#! (as workers take time off to attend)."
+
+ tv_arts_exhibition.203.t: "A Noble Patron Emerges"
+ tv_arts_exhibition.203.d: "So moved by our artist's performance, a wealthy noble of the host court has commissioned a grand theater to be built at the exhibition site — a lasting monument to our cultural reach."
+ tv_arts_exhibition.203.a: "Our art leaves its mark in stone."
+ tv_arts_exhibition.203.effect_tt: "A #bold Theater#! is constructed at the exhibition location at no cost."
+
+ tv_arts_exhibition.204.t: "An Exchange of Masters"
+ tv_arts_exhibition.204.d: "Our touring artist and a local master have spent weeks studying each other's techniques. Both have emerged with refined skills that neither could have achieved alone."
+ tv_arts_exhibition.204.a: "The greatest art knows no borders."
+ tv_arts_exhibition.204.effect_tt: "Our touring artist and a local artist each gain #G +0.05 Artist Skill#! permanently."
+
+ tv_arts_exhibition.205.t: "Scandal Abroad: Theft and Tragedy"
+ tv_arts_exhibition.205.d: "Catastrophe. Our artist, apparently overwhelmed by the foreign works, attempted to steal a masterpiece from the host court. Caught in the act, they died in the ensuing confrontation. The artwork is destroyed, and our name is tarnished."
+ tv_arts_exhibition.205.a: "A dark day for our realm."
+ tv_arts_exhibition.205.effect_tt: "The touring artist has #R died#!. A host-country artwork is #R destroyed#!. The host country gains #R -20 permanent opinion#! towards us."
+
+ # ── Return Special Events (120-124) ──────────────────────────────────────
+ tv_arts_exhibition.120.t: "A Souvenir Returns Home"
+ tv_arts_exhibition.120.d: "Our artist returns — and not empty-handed. Among their baggage is a work of art from the host court, which they claim was gifted to them. Whether truly given or quietly acquired, it now graces our halls."
+ tv_arts_exhibition.120.a: "A fine addition to our collection."
+
+ tv_arts_exhibition.121.t: "Homecoming: A New Masterpiece"
+ tv_arts_exhibition.121.d: "The journey has transformed our artist. Barely home before picking up the brush again, they have produced a new work of remarkable depth and beauty — a testament to what they witnessed abroad."
+ tv_arts_exhibition.121.a: "Let us celebrate their return."
+
+ tv_arts_exhibition.122.t: "Homecoming: Foreign Insights"
+ tv_arts_exhibition.122.d: "Our artist returns carrying more than memories. Observations of foreign techniques, written in careful notes, have provided our scholars with fresh ideas that will accelerate the pace of our own inquiries."
+ tv_arts_exhibition.122.a: "Knowledge, too, travels."
+
+ tv_arts_exhibition.123.t: "Homecoming: An Artist at Rest"
+ tv_arts_exhibition.123.d: "Our artist returns home aged but fulfilled. The long years abroad have taken their toll, and they pass away quietly in their homeland, their legacy preserved in the works they left behind."
+ tv_arts_exhibition.123.a: "May they rest in peace."
+
+ tv_arts_exhibition.124.t: "Homecoming: A Generous Farewell"
+ tv_arts_exhibition.124.d: "The host court sends our artist home with warm words and a generous purse — a token of gratitude for the cultural exchange that brightened their halls for so many years."
+ tv_arts_exhibition.124.a: "A gracious parting gift."
 
  # ── UI keys added for improved Arts Exhibition panel ─────────────────────
  TV_ARTS_EXHIBITION_LEADER: "Cultural Leader"

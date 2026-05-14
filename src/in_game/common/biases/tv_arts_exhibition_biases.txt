@@ -3,3 +3,15 @@
 io_opinion_tv_arts_exhibition = {
 	value = 10
 }
+
+# Cultural diplomacy: +20, decays 0.5/month (yearly_decay = 6)
+tv_cultural_diplomacy_opinion = {
+	value = 20
+	yearly_decay = 6
+}
+
+# Art theft incident: −20, decays 0.5/month (yearly_decay = 6)
+tv_art_theft_opinion = {
+	value = -20
+	yearly_decay = 6
+}

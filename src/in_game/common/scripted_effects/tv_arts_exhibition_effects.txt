@@ -52,6 +52,10 @@ tv_update_tour_capacity_effect = {
 # character variables, then fires the return event and moves the artist home.
 tv_end_artist_exhibition_effect = {
 	save_scope_as = finished_artist
+	# Preserve target country scope for return event option effects (before variables are cleared)
+	var:tv_exhibition_target_country ?= {
+		save_scope_as = exhibition_target
+	}
 	# Clear target-country marker before the variable is removed
 	if = {
 		limit = { has_variable = tv_exhibition_target_country }
@@ -60,7 +64,18 @@ tv_end_artist_exhibition_effect = {
 		}
 	}
 	var:tv_exhibition_home_country ?= {
-		trigger_event_non_silently = { id = tv_arts_exhibition.5 }
+		# 90% plain return; 2% each × 5 special return outcomes
+		random_list = {
+			90 = { trigger_event_non_silently = { id = tv_arts_exhibition.5 } }
+			2 = {
+				trigger = { exists = scope:exhibition_target  scope:exhibition_target = { any_work_of_art_in_country = { always = yes } } }
+				trigger_event_non_silently = { id = tv_arts_exhibition.120 }
+			}
+			2 = { trigger_event_non_silently = { id = tv_arts_exhibition.121 } }
+			2 = { trigger_event_non_silently = { id = tv_arts_exhibition.122 } }
+			2 = { trigger_event_non_silently = { id = tv_arts_exhibition.123 } }
+			2 = { trigger_event_non_silently = { id = tv_arts_exhibition.124 } }
+		}
 		scope:finished_artist = {
 			move_country = prev
 		}
@@ -77,4 +92,9 @@ tv_end_artist_exhibition_effect = {
 	remove_variable = tv_exhibition_location
 	remove_variable = tv_exhibition_elapsed
 	remove_variable = tv_exhibition_duration
+	remove_variable = tv_tour_event_1_fired
+	remove_variable = tv_tour_event_2_fired
+	remove_variable = tv_tour_event_3_fired
+	remove_variable = tv_tour_event_4_fired
+	remove_variable = tv_tour_event_5_fired
 }

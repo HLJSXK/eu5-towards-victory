@@ -125,6 +125,11 @@ monthly_country_pulse = {
 								remove_variable = tv_exhibition_location
 								remove_variable = tv_exhibition_elapsed
 								remove_variable = tv_exhibition_duration
+								remove_variable = tv_tour_event_1_fired
+								remove_variable = tv_tour_event_2_fired
+								remove_variable = tv_tour_event_3_fired
+								remove_variable = tv_tour_event_4_fired
+								remove_variable = tv_tour_event_5_fired
 							}
 							# ── Inspiration: +10% artist_skill_level_gain for 10 years ─
 							10 = {
@@ -137,6 +142,128 @@ monthly_country_pulse = {
 									trigger_event_non_silently = { id = tv_arts_exhibition.105 }
 								}
 							}
+						}
+					}
+				}
+
+				# ── Event 201: Cultural Diplomacy (1/300 per month, once-per-tour) ─────────────
+				if = {
+					limit = { NOT = { has_variable = tv_tour_event_1_fired } }
+					random_list = {
+						299 = {}
+						1 = {
+							set_variable = { name = tv_tour_event_1_fired value = 1 }
+							var:tv_exhibition_target_country ?= {
+								save_scope_as = diplo_target
+								add_opinion = { target = scope:touring_home  modifier = tv_cultural_diplomacy_opinion }
+							}
+							scope:touring_home = {
+								add_opinion = { target = scope:diplo_target  modifier = tv_cultural_diplomacy_opinion }
+								trigger_event_non_silently = { id = tv_arts_exhibition.201 }
+							}
+						}
+					}
+				}
+
+				# ── Event 202: Exhibition Success — location buff (1/300, once-per-tour) ────────
+				if = {
+					limit = { NOT = { has_variable = tv_tour_event_2_fired } }
+					random_list = {
+						299 = {}
+						1 = {
+							set_variable = { name = tv_tour_event_2_fired value = 1 }
+							var:tv_exhibition_location ?= {
+								add_location_modifier = { modifier = tv_exhibition_success_location_modifier  years = 5 }
+							}
+							scope:touring_home = {
+								trigger_event_non_silently = { id = tv_arts_exhibition.202 }
+							}
+						}
+					}
+				}
+
+				# ── Event 203: Noble Patron — construct theater (1/300, once-per-tour) ─────────
+				if = {
+					limit = { NOT = { has_variable = tv_tour_event_3_fired } }
+					random_list = {
+						299 = {}
+						1 = {
+							set_variable = { name = tv_tour_event_3_fired value = 1 }
+							var:tv_exhibition_location ?= {
+								construct_building = { building_type = building_type:theater  cost_multiplier = 0  instant = yes }
+							}
+							scope:touring_home = {
+								trigger_event_non_silently = { id = tv_arts_exhibition.203 }
+							}
+						}
+					}
+				}
+
+				# ── Event 204: Artist Exchange (1/300, once-per-tour, needs target artist) ──────
+				if = {
+					limit = {
+						NOT = { has_variable = tv_tour_event_4_fired }
+						var:tv_exhibition_target_country ?= {
+							any_character = { is_alive = yes  is_artist = yes }
+						}
+					}
+					random_list = {
+						299 = {}
+						1 = {
+							set_variable = { name = tv_tour_event_4_fired value = 1 }
+							add_artist_skill = 0.05
+							var:tv_exhibition_target_country ?= {
+								random_character = {
+									limit = { is_alive = yes  is_artist = yes }
+									save_scope_as = local_artist
+									add_artist_skill = 0.05
+								}
+							}
+							scope:touring_home = {
+								trigger_event_non_silently = { id = tv_arts_exhibition.204 }
+							}
+						}
+					}
+				}
+
+				# ── Event 205: Art Theft + Artist Dies (1/300, once-per-tour, needs artwork) ────
+				if = {
+					limit = {
+						NOT = { has_variable = tv_tour_event_5_fired }
+						var:tv_exhibition_target_country ?= {
+							any_work_of_art_in_country = { always = yes }
+						}
+					}
+					random_list = {
+						299 = {}
+						1 = {
+							var:tv_exhibition_target_country ?= {
+								save_scope_as = theft_target
+								random_work_of_art_in_country = { save_scope_as = stolen_art }
+								destroy_art = scope:stolen_art
+								add_opinion = { target = scope:touring_home  modifier = tv_art_theft_opinion }
+							}
+							var:tv_exhibition_target_country ?= { remove_variable = tv_has_visiting_artist }
+							var:tv_exhibition_home_country ?= {
+								trigger_event_non_silently = { id = tv_arts_exhibition.205 }
+								if = {
+									limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 1 }
+									change_variable = { name = tv_dispatched_artists_count add = -1 }
+								}
+								tv_update_tour_capacity_effect = yes
+							}
+							# Clear tv_on_exhibition BEFORE kill_character so on_character_death skips .6
+							remove_variable = tv_on_exhibition
+							remove_variable = tv_exhibition_home_country
+							remove_variable = tv_exhibition_target_country
+							remove_variable = tv_exhibition_location
+							remove_variable = tv_exhibition_elapsed
+							remove_variable = tv_exhibition_duration
+							remove_variable = tv_tour_event_1_fired
+							remove_variable = tv_tour_event_2_fired
+							remove_variable = tv_tour_event_3_fired
+							remove_variable = tv_tour_event_4_fired
+							kill_character = this
 						}
 					}
 				}

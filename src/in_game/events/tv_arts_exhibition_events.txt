@@ -194,3 +194,167 @@ tv_arts_exhibition.105 = {
 		custom_tooltip = tv_arts_exhibition.105.effect_tt
 	}
 }
+
+# ── Monthly Special: Cultural Diplomacy ───────────────────────────────────────
+# 1/300 monthly chance. Bilateral +20 opinion (decays 0.5/month) between home
+# and host country. scope:touring_artist = the touring artist.
+tv_arts_exhibition.201 = {
+	type = country_event
+	title = tv_arts_exhibition.201.t
+	desc = tv_arts_exhibition.201.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.201.a
+		custom_tooltip = tv_arts_exhibition.201.effect_tt
+	}
+}
+
+# ── Monthly Special: Exhibition Success ──────────────────────────────────────
+# 1/300 monthly chance. 5-year location modifier on the exhibition location.
+# scope:touring_artist = the touring artist.
+tv_arts_exhibition.202 = {
+	type = country_event
+	title = tv_arts_exhibition.202.t
+	desc = tv_arts_exhibition.202.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.202.a
+		custom_tooltip = tv_arts_exhibition.202.effect_tt
+	}
+}
+
+# ── Monthly Special: Noble Patron ─────────────────────────────────────────────
+# 1/300 monthly chance. A theater is constructed at the exhibition location for
+# free. scope:touring_artist = the touring artist.
+tv_arts_exhibition.203 = {
+	type = country_event
+	title = tv_arts_exhibition.203.t
+	desc = tv_arts_exhibition.203.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.203.a
+		custom_tooltip = tv_arts_exhibition.203.effect_tt
+	}
+}
+
+# ── Monthly Special: Artist Exchange ──────────────────────────────────────────
+# 1/300 monthly chance (requires host artist). Both touring artist and a local
+# artist permanently gain +0.05 artist_skill.
+# scope:touring_artist = the touring artist. scope:local_artist = host artist.
+tv_arts_exhibition.204 = {
+	type = country_event
+	title = tv_arts_exhibition.204.t
+	desc = tv_arts_exhibition.204.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.204.a
+		custom_tooltip = tv_arts_exhibition.204.effect_tt
+	}
+}
+
+# ── Monthly Special: Art Theft + Artist Death ────────────────────────────────
+# 1/300 monthly chance (requires host artwork). Artwork is destroyed, the
+# touring artist dies, and the host country gains −20 permanent opinion.
+# scope:touring_home fires this event. scope:theft_target = host country.
+tv_arts_exhibition.205 = {
+	type = country_event
+	title = tv_arts_exhibition.205.t
+	desc = tv_arts_exhibition.205.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.205.a
+		custom_tooltip = tv_arts_exhibition.205.effect_tt
+	}
+}
+
+# ── Return Special: Artwork Brought Home ─────────────────────────────────────
+# 2% chance on natural tour end (requires host artwork). The artwork is moved
+# to the home country's capital.
+# scope:finished_artist = returning artist. scope:exhibition_target = host country.
+tv_arts_exhibition.120 = {
+	type = country_event
+	title = tv_arts_exhibition.120.t
+	desc = tv_arts_exhibition.120.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.120.a
+		scope:exhibition_target = {
+			random_work_of_art_in_country = { save_scope_as = acquired_art }
+		}
+		scope:acquired_art = {
+			move_art = root.capital
+			set_art_owner = root
+		}
+	}
+}
+
+# ── Return Special: Inspiration Creates Art ───────────────────────────────────
+# 2% chance on natural tour end. The returned artist creates a new work of art.
+# scope:finished_artist = the artist.
+tv_arts_exhibition.121 = {
+	type = country_event
+	title = tv_arts_exhibition.121.t
+	desc = tv_arts_exhibition.121.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.121.a
+		create_art = { artist = scope:finished_artist }
+	}
+}
+
+# ── Return Special: Research Progress ─────────────────────────────────────────
+# 2% chance on natural tour end. Grants research_progress_mild_bonus (+5) to
+# the home country.
+tv_arts_exhibition.122 = {
+	type = country_event
+	title = tv_arts_exhibition.122.t
+	desc = tv_arts_exhibition.122.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.122.a
+		add_research_progress = research_progress_mild_bonus
+	}
+}
+
+# ── Return Special: Artist Retires ────────────────────────────────────────────
+# 2% chance on natural tour end. The artist retires (dies peacefully) upon
+# returning home. scope:finished_artist = the artist.
+tv_arts_exhibition.123 = {
+	type = country_event
+	title = tv_arts_exhibition.123.t
+	desc = tv_arts_exhibition.123.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.123.a
+		scope:finished_artist = { kill_character = this }
+	}
+}
+
+# ── Return Special: Gold Donation ─────────────────────────────────────────────
+# 2% chance on natural tour end. The host country gifts gold to the home country
+# in gratitude for the exhibition.
+tv_arts_exhibition.124 = {
+	type = country_event
+	title = tv_arts_exhibition.124.t
+	desc = tv_arts_exhibition.124.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.124.a
+		random_list = {
+			40 = { add_gold = 50 }
+			30 = { add_gold = 80 }
+			20 = { add_gold = 100 }
+			10 = { add_gold = 150 }
+		}
+	}
+}
