@@ -52,28 +52,81 @@ organization_panel = {
 		visible = yes
 	}
 
-	blockoverride "organization_main_actions_extra" {
+	blockoverride "organization_overview_list_custom_top_extra" {
+		vbox = {
+			margin = { 10 0 }
+			layoutpolicy_horizontal = expanding
 
-		# ── Dispatched Artists count ──────────────────────────────────────────
-		widget = {
-			size = { 470 30 }
-			datacontext = "[InternationalOrganizationsView.GetPlayer]"
-			hbox = {
-				layoutpolicy_horizontal = expanding
-				spacing = 4
-				margin = { 6 4 }
-				text_single = {
-					text = "TV_ARTS_DISPATCHED_COUNT_LABEL"
-					align = nobaseline
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
 				}
-				expand = {}
-				text_single = {
-					raw_text = "[Country.MakeScope.GetVariable('tv_dispatched_artists_count').GetValue|0]"
-					align = nobaseline
+
+				blockoverride "common_header_text" {
+					text = "TV_ARTS_DISPATCHED_ARTISTS_HEADER"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 270 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer]"
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 6
+							margin = { 4 6 }
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = {
+									text = "TV_ARTS_DISPATCHED_COUNT_LABEL"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									raw_text = "[Country.MakeScope.GetVariable('tv_dispatched_artists_count').GetValue|0]"
+									align = nobaseline
+								}
+							}
+
+							scrollarea = {
+								size = { 458 220 }
+								scrollbarpolicy_horizontal = always_off
+
+								scrollbar_vertical = {
+									using = Scrollbar_Vertical
+								}
+
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									datamodel = "[Country.MakeScope.GetList('tv_dispatched_artists_list')]"
+									item = {
+										io_character_card = {
+											size = { 97% 72 }
+											using = layoutpolicy_expanding
+											datacontext = "[Scope.GetCharacter]"
+											blockoverride "character_abilities_visible" {
+												visible = no
+											}
+											blockoverride "artist_abilities_visible" {
+												visible = yes
+											}
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
+	}
 
+	blockoverride "organization_main_actions_extra" {
 		# ── Cultural actions ──────────────────────────────────────────────────
 		action_button_diamond = {
 			size = { 470 30 }
@@ -115,53 +168,6 @@ organization_panel = {
 			actor = "[InternationalOrganizationsView.GetPlayer]"
 			left_action = {
 				action_name = "tv_remove_arts_leader"
-			}
-		}
-
-		# ── Touring Artist cards ──────────────────────────────────────────────
-		widget = {
-			layoutpolicy_horizontal = expanding
-			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_dispatched_artists_count').IsSet]"
-
-			vbox = {
-				layoutpolicy_horizontal = expanding
-				spacing = 4
-				margin = { 6 6 }
-
-				text_single = {
-					text = "TV_ARTS_DISPATCHED_ARTISTS_HEADER"
-					align = nobaseline|left
-					layoutpolicy_horizontal = expanding
-				}
-
-				scrollarea = {
-					size = { 458 220 }
-					scrollbarpolicy_horizontal = always_off
-
-					scrollbar_vertical = {
-						using = Scrollbar_Vertical
-					}
-
-					vbox = {
-						layoutpolicy_horizontal = expanding
-						spacing = 4
-						datamodel = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_dispatched_artists_list')]"
-						item = {
-							io_character_card = {
-								size = { 97% 72 }
-								parentanchor = hcenter
-								using = layoutpolicy_expanding
-								datacontext = "[Scope.GetCharacter]"
-								blockoverride "character_abilities_visible" {
-									visible = no
-								}
-								blockoverride "artist_abilities_visible" {
-									visible = yes
-								}
-							}
-						}
-					}
-				}
 			}
 		}
 	}
