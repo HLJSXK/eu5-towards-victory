@@ -3,12 +3,13 @@
 # Creates the Governor's House IO for scope country (must be called as owner country).
 # Sets the tv_govhouse_member flag, creates the IO, and adds the country as its first member.
 tv_govhouse_create_effect = {
+	save_scope_as = tv_govhouse_founder
 	if = {
 		limit = {
 			NOT = {
 				any_international_organizations_member_of = {
 					international_organization_type = international_organization_type:tv_govhouse
-					leader_country = this
+					leader_country ?= scope:tv_govhouse_founder
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 """
 Generate src/in_game/common/generic_actions/tv_io_leader_actions.txt from data/io_leaders.yaml.
 
-Pattern: 3 IOs × 3 actions (Appoint / Remove / Change) = 9 generic_action blocks.
+Pattern: one data entry per character-led IO, each generating Appoint / Remove / Change actions.
 Each block shares identical structural boilerplate; only the IO-specific strings differ.
 """
 

@@ -1,21 +1,16 @@
-﻿# Towards Victory — Governor's House (总督府) IO Panel
-# 4-tab layout:
-#   Tab 1 (overview):  Governor status per area — TODO: implement region iteration
-#   Tab 2 (laws):      Subject taxation laws — uses default parliament display
-#   Tab 3 (actions):   Grand General portrait + Appoint/Remove/Change/Train actions
-#   Tab 4 (members):   IO members — uses default members display
+﻿# Towards Victory - Governor's House IO Panel
+# Overview tab: governor appointment and governor status list.
+# Custom tab: Grand General management, backed by tv_conquest_general_char.
 
 organization_panel = {
 
-	# ── Tab visibility overrides ─────────────────────────────────────────────
-	# Overview tab = Tab 1 (Governor Status): shown by default
+	# -- Tab visibility overrides --------------------------------------------
 	blockoverride "organization_overview_tab_visible" {}
 
 	blockoverride "organization_panel_overview_visible" {
 		visible = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
 	}
 
-	# Members tab = Tab 4: use vanilla display
 	blockoverride "organization_members_tab_down" {
 		down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
 	}
@@ -24,7 +19,7 @@ organization_panel = {
 		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
 	}
 
-	# ── Header: Grand General character portrait ─────────────────────────────
+	# -- Header: Grand General character portrait -----------------------------
 	blockoverride "country_header_character_visible" {
 		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
 	}
@@ -48,140 +43,231 @@ organization_panel = {
 		}
 	}
 
-	# ── Tab icon for the "actions" / Grand General tab ───────────────────────
 	blockoverride "io_main_actions_icon" {
 		texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
 	}
 
-	# ── Tab 1 overview content: Governor Status (总督状态) ───────────────────
-	# Lists all appointed governors from tv_governor_list (governor-list-driven).
-	# Each card: character_frame_small portrait + name + area + bonus stats + dismiss.
-	# Area name via tv_governed_area_capital (location scope) → GetLocation.GetArea.GetNameWithNoTooltip.
-	# GetVariable('area').GetArea is not a valid GUI accessor; GetLocation.GetArea is valid on Location type.
+	# -- Tab 1 overview content: Governor Status ------------------------------
 	blockoverride "scroll_overview_empty_visible" { visible = no }
 
-	blockoverride "organization_main_actions_extra_visible" {
-		visible = yes
-	}
-
-	blockoverride "organization_main_actions_extra" {
-
-		# Appoint Governor action button — always shown at the top
-		action_button_diamond = {
-			size = { 470 30 }
-			text = "tv_appoint_governor"
-			title = "tv_appoint_governor"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_appoint_governor"
-			}
-		}
-
-		# Governor cards — one per appointed governor in tv_governor_list
-		# GetList returns Scope wrappers; use Scope.GetCharacter throughout (no datacontext rebind).
+	# Replace the default IO action list so Grand General actions live only in
+	# their dedicated tab.
+	blockoverride "io_overview_actions" {
 		vbox = {
 			layoutpolicy_horizontal = expanding
-			spacing = 4
-			datamodel = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_governor_list')]"
-			item = {
-				vbox = {
-					layoutpolicy_horizontal = expanding
+			spacing = 6
+			margin = { 10 2 }
 
-					# Governor card: portrait left, info right
-					hbox = {
+			action_button_diamond = {
+				size = { 470 30 }
+				text = "tv_appoint_governor"
+				title = "tv_appoint_governor"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = {
+					action_name = "tv_appoint_governor"
+				}
+			}
+
+			text_single = {
+				layoutpolicy_horizontal = expanding
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_governor_list').IsSet)]"
+				text = "TV_GOVHOUSE_NO_GOVERNORS"
+				align = nobaseline|left
+			}
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 4
+				datamodel = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_governor_list')]"
+				item = {
+					vbox = {
 						layoutpolicy_horizontal = expanding
-						spacing = 8
-						margin = { 8 6 }
 
-						character_frame_small = {
-							size = { 64 76 }
-							blockoverride "portrait_datacontext" {
-								datacontext = "[Scope.GetCharacter]"
-							}
-						}
-
-						vbox = {
+						hbox = {
 							layoutpolicy_horizontal = expanding
-							spacing = 2
+							spacing = 8
+							margin = { 8 6 }
 
-							# Governor name
-							text_single = {
+							character_frame_small = {
+								size = { 64 76 }
+								blockoverride "portrait_datacontext" {
+									datacontext = "[Scope.GetCharacter]"
+								}
+							}
+
+							vbox = {
 								layoutpolicy_horizontal = expanding
-								raw_text = "[Scope.GetCharacter.GetNameToFit('(int32)36', '(bool)yes')]"
-								align = nobaseline|left
-							}
+								spacing = 2
 
-							# Governed area name — tv_governed_area_capital is a location scope stored at appointment.
-							# datacontext sets Area context so tooltipwidget can use Area.* (same pattern as
-							# setup_mercenary_requirements.gui:197). raw_text uses full chain (GetLocation.GetArea
-							# is valid on typed Location; GetVariable('area').GetArea is not).
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								visible = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').IsSet]"
-								datacontext = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').GetLocation.GetArea]"
-								raw_text = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').GetLocation.GetArea.GetNameWithNoTooltip]"
-								align = nobaseline|left
-								tooltipwidget = {
-									using = Area_tooltip
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									raw_text = "[Scope.GetCharacter.GetNameToFit('(int32)36', '(bool)yes')]"
+									align = nobaseline|left
 								}
-							}
 
-							# Bonus stats: max control / build cost / unrest
-							hbox = {
-								spacing = 12
 								text_single = {
-									raw_text = "@max_control! +[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_max_control_pct').GetValue|%]"
-									align = nobaseline
+									layoutpolicy_horizontal = expanding
+									visible = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').IsSet]"
+									datacontext = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').GetLocation.GetArea]"
+									raw_text = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').GetLocation.GetArea.GetNameWithNoTooltip]"
+									align = nobaseline|left
+									tooltipwidget = {
+										using = Area_tooltip
+									}
 								}
-								text_single = {
-									raw_text = "@build_icon! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_build_cost_pct').GetValue|%]"
-									align = nobaseline
-								}
-								text_single = {
-									raw_text = "@rebels! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_unrest_pct').GetValue|%]"
-									align = nobaseline
-								}
-							}
 
-							# Dismiss button — parameter_value must use Scope.GetCharacter, not [Character],
-							# because action_button_diamond evaluates parameter_value in UIAction context,
-							# which does not inherit parent widget datacontext bindings.
-							action_button_diamond = {
-								size = { 200 24 }
-								text = "tv_remove_governor"
-								actor = "[InternationalOrganizationsView.GetPlayer]"
-								left_action = {
-									action_name = "tv_remove_governor"
-									parameter = {
-										parameter_name = "recipient"
-										parameter_value = "[Scope.GetCharacter]"
+								hbox = {
+									spacing = 12
+									text_single = {
+										raw_text = "@max_control! +[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_max_control_pct').GetValue|%]"
+										align = nobaseline
+									}
+									text_single = {
+										raw_text = "@build_icon! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_build_cost_pct').GetValue|%]"
+										align = nobaseline
+									}
+									text_single = {
+										raw_text = "@rebels! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_unrest_pct').GetValue|%]"
+										align = nobaseline
+									}
+								}
+
+								action_button_diamond = {
+									size = { 200 24 }
+									text = "tv_remove_governor"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									left_action = {
+										action_name = "tv_remove_governor"
+										parameter = {
+											parameter_name = "recipient"
+											parameter_value = "[Scope.GetCharacter]"
+										}
 									}
 								}
 							}
 						}
-					}
 
-					# Horizontal separator between governor entries
-					widget = {
-						layoutpolicy_horizontal = expanding
-						size = { -1 1 }
-						using = bg_divider_flavor_01
+						widget = {
+							layoutpolicy_horizontal = expanding
+							size = { -1 1 }
+							using = bg_divider_flavor_01
+						}
 					}
 				}
 			}
 		}
 	}
 
-	# ── Tab 2 laws content: Subject Taxation Laws ────────────────────────────
-	# Uses default parliament/law display (has_parliament = yes in tv_govhouse.txt).
-	# No custom blockoverride needed — vanilla law panel renders automatically.
-	# TODO: verify that parliament_type = tv_govhouse_assembly renders correctly
-	#   once the parliament type and law definitions are created.
+	# -- Grand General tab -----------------------------------------------------
+	blockoverride "organization_custom_tab_visible" {
+		visible = yes
+	}
+	blockoverride "organization_custom_tab_text" {
+		text = "TV_GOVHOUSE_GENERAL_TAB"
+	}
+	blockoverride "organization_custom_tab_tooltip" {
+		tooltip = "TV_GOVHOUSE_GENERAL_TAB_TOOLTIP"
+	}
 
-	# ── Tab 3 actions content: Grand General management ─────────────────────
-	# TODO: verify blockoverride name for additional/custom actions content.
-	# The generated tv_io_leader_actions.txt already provides:
-	#   tv_appoint_conquest_general_leader, tv_remove_conquest_general_leader,
-	#   tv_change_conquest_general_leader
-	# tv_govhouse_actions.txt provides: tv_train_grand_general
+	blockoverride "organization_custom_content_visible" {
+		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' )]"
+	}
+
+	blockoverride "organization_custom_content" {
+
+		io_character_card = {
+			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+			datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
+			size = { 97% 72 }
+			parentanchor = hcenter
+			using = layoutpolicy_expanding
+		}
+
+		widget = {
+			size = { 470 70 }
+			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 4
+				margin = { 4 6 }
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = {
+						text = "TV_GOVHOUSE_CURRENT_GENERAL_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						visible = "[Not(Country.MakeScope.GetVariable('tv_conquest_general_char').IsSet)]"
+						text = "TV_GOVHOUSE_NO_GENERAL"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[Country.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+						datacontext = "[Country.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
+						text = "[Character.GetShortNameWithNoTooltip]"
+						align = nobaseline
+					}
+				}
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = {
+						text = "TV_GOVHOUSE_AUTHORITY_LABEL"
+						align = nobaseline
+					}
+					expand = {}
+					text_single = {
+						raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_govhouse_authority')]"
+						align = nobaseline
+					}
+				}
+			}
+		}
+
+		action_button_diamond = {
+			size = { 470 30 }
+			visible = "[Not(Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet)]"
+			text = "tv_appoint_conquest_general_leader"
+			title = "tv_appoint_conquest_general_leader"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_appoint_conquest_general_leader"
+			}
+		}
+		action_button_diamond = {
+			size = { 470 30 }
+			visible = "[Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+			text = "tv_change_conquest_general_leader"
+			title = "tv_change_conquest_general_leader"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_change_conquest_general_leader"
+			}
+		}
+		action_button_diamond = {
+			size = { 470 30 }
+			visible = "[Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+			text = "tv_remove_conquest_general_leader"
+			title = "tv_remove_conquest_general_leader"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_remove_conquest_general_leader"
+			}
+		}
+		action_button_diamond = {
+			size = { 470 30 }
+			visible = "[Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+			text = "tv_train_grand_general"
+			title = "tv_train_grand_general"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_train_grand_general"
+			}
+		}
+	}
 }

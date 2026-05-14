@@ -232,6 +232,11 @@ character_title_prefix = {
 		localization_key = character_title_tv_chief_scientist
 		trigger = { has_character_modifier = tv_chief_scientist_role_modifier }
 	}
+
+	text = {
+		localization_key = character_title_tv_grand_general
+		trigger = { has_character_modifier = tv_grand_general_role_modifier }
+	}
 }
 character_title_prefix_female = { parent = character_title_prefix suffix = "_female" }
 
