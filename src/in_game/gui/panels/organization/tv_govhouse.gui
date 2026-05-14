@@ -4,10 +4,6 @@
 #   Tab 2 (laws):      Subject taxation laws — uses default parliament display
 #   Tab 3 (actions):   Grand General portrait + Appoint/Remove/Change/Train actions
 #   Tab 4 (members):   IO members — uses default members display
-#
-# TODO: Verify all blockoverride names against the base organization_panel template:
-#   reference_game_files/game/main_menu/gui/panels/organization/organization_panel.gui
-# TODO: Verify GUI expression syntax for InternationalOrganizationsView accessors.
 
 organization_panel = {
 
@@ -82,6 +78,7 @@ organization_panel = {
 		}
 
 		# Governor cards — one per appointed governor in tv_governor_list
+		# GetList returns Scope wrappers; use Scope.GetCharacter throughout (no datacontext rebind).
 		vbox = {
 			layoutpolicy_horizontal = expanding
 			spacing = 4
@@ -89,7 +86,6 @@ organization_panel = {
 			item = {
 				widget = {
 					size = { 460 80 }
-					datacontext = "[Scope.GetCharacter]"
 					vbox = {
 						layoutpolicy_horizontal = expanding
 						spacing = 2
@@ -98,7 +94,7 @@ organization_panel = {
 						# Governor name
 						text_single = {
 							layoutpolicy_horizontal = expanding
-							raw_text = "[Character.GetNameToFit('(int32)40', '(bool)yes')]"
+							raw_text = "[Scope.GetCharacter.GetNameToFit('(int32)40', '(bool)yes')]"
 							align = nobaseline|left
 						}
 
@@ -106,20 +102,22 @@ organization_panel = {
 						hbox = {
 							spacing = 12
 							text_single = {
-								raw_text = "@max_control! +[Character.MakeScope.GetVariable('tv_gov_max_control_pct').GetValue|%]"
+								raw_text = "@max_control! +[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_max_control_pct').GetValue|%]"
 								align = nobaseline
 							}
 							text_single = {
-								raw_text = "@build_icon! -[Character.MakeScope.GetVariable('tv_gov_build_cost_pct').GetValue|%]"
+								raw_text = "@build_icon! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_build_cost_pct').GetValue|%]"
 								align = nobaseline
 							}
 							text_single = {
-								raw_text = "@rebels! -[Character.MakeScope.GetVariable('tv_gov_unrest_pct').GetValue|%]"
+								raw_text = "@rebels! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_unrest_pct').GetValue|%]"
 								align = nobaseline
 							}
 						}
 
-						# Dismiss button
+						# Dismiss button — parameter_value must use Scope.GetCharacter, not [Character],
+						# because action_button_diamond evaluates parameter_value in UIAction context,
+						# which does not inherit parent widget datacontext bindings.
 						action_button_diamond = {
 							size = { 200 24 }
 							text = "tv_remove_governor"
@@ -128,7 +126,7 @@ organization_panel = {
 								action_name = "tv_remove_governor"
 								parameter = {
 									parameter_name = "recipient"
-									parameter_value = "[Character]"
+									parameter_value = "[Scope.GetCharacter]"
 								}
 							}
 						}

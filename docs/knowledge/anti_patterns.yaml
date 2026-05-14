@@ -520,14 +520,14 @@
   source: "src/in_game/common/generic_actions/tv_arts_exhibition_actions.txt (one has_variable per scope:actor block); src/in_game/common/generic_actions/tv_research_actions.txt (tv_start_concentrated_research fix)"
   notes: "EU5 Jomini evaluates ALL conditions inside a single scope block for tooltip/UI display purposes, even if earlier conditions short-circuit the logical result. The outer-level AND (between separate scope:actor = {} blocks) DOES short-circuit. Mixing has_variable guards and var: reads in the same block will spam 'Failed to fetch variable' errors at game start when the action is evaluated for countries that never set those variables."
 
-- id: gui_datamodel_item_widget_needs_explicit_datacontext
+- id: gui_datamodel_getlist_scope_wrapper
   pattern: ''
-  bad: "item = { widget = { ... [Character.GetName] ... } } — using typed GUI accessors inside a widget nested under item in a MakeScope.GetList datamodel, without datacontext on the widget"
-  correction: "MakeScope.GetList returns Scope wrapper objects, not typed Character/Country objects. Use datacontext = \"[Scope.GetCharacter]\" for character lists, or \"[Scope.GetCountry]\" for country lists. Do NOT use datacontext = \"[Character]\" — that resolves to the outer context character, not the list element."
+  bad: "item = { widget = { datacontext = \"[Scope.GetCharacter]\" ... action_button_diamond = { parameter = { parameter_value = \"[Character]\" } } } } — rebinding datacontext to Character, then using [Character] in action_button_diamond parameter_value"
+  correction: "MakeScope.GetList returns Scope wrappers. Do NOT rebind datacontext inside item's widget. Instead, use the full Scope.GetCharacter chain everywhere: raw_text = \"[Scope.GetCharacter.GetNameToFit(...)]\", parameter_value = \"[Scope.GetCharacter]\". action_button_diamond evaluates parameter_value in UIAction context, which does NOT inherit parent widget datacontext — so [Character] after datacontext rebind silently resolves to the outer context or null."
   category: gui
   scope: any
-  source: "reference_game_files/game/in_game/gui/panels/organization/middle_kingdom.gui:332-336 (GetList + Scope.GetCountry pattern)"
-  notes: "GetList('variable_list_name') always returns Scope-typed objects regardless of what was stored in the list. Inside item = { widget = { } }, use Scope.GetCharacter or Scope.GetCountry to extract the typed object. Direct children of item (text_single, hbox without a widget wrapper) do NOT inherit context automatically either — they also need the Scope accessor chain."
+  source: "reference_game_files/game/in_game/gui/panels/organization/middle_kingdom.gui:332-336 (GetList + Scope.GetCountry), reference_game_files/game/in_game/gui/government_lateralview.gui:4225 (parameter_value uses full explicit chain)"
+  notes: "GetList always returns Scope wrappers regardless of stored type. action_button_diamond creates a UIAction object that evaluates parameter_value outside the widget's local datacontext chain. [Character] after datacontext = \"[Scope.GetCharacter]\" on the parent widget is NOT visible to the UIAction evaluator. Always use the explicit Scope.GetCharacter.xxx chain in every expression within the item, including parameter_value — never rely on datacontext inheritance through action_button_diamond."
 
 - id: advance_inject_duplicates_allow_block
   pattern: ''
