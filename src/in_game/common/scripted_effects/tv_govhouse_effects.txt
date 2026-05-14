@@ -155,36 +155,44 @@ tv_apply_governor_bonuses_effect = {
 #                  scope:target_1 = area (from select_trigger target_flag = target_1).
 tv_governor_appoint_effect = {
 	save_scope_as = tv_governing_country
-	# Displace any existing governor for this area first
-	every_in_list = { variable = tv_governor_list
-		limit = { var:tv_governed_area ?= scope:target_1 }
-		var:tv_governed_area = {
-			every_location_in_area = {
-				limit = { owner ?= scope:tv_governing_country }
-				remove_location_modifier = tv_governor_max_control
-				remove_location_modifier = tv_governor_build_cost
-				remove_location_modifier = tv_governor_unrest
+	# Guard: EU5 pre-evaluates the effect body during select_trigger steps.
+	# Both scopes are unset at pre-eval time; skip silently and execute only when both are set.
+	if = {
+		limit = {
+			exists = scope:target
+			exists = scope:target_1
+		}
+		# Displace any existing governor for this area first
+		every_in_list = { variable = tv_governor_list
+			limit = { var:tv_governed_area ?= scope:target_1 }
+			var:tv_governed_area = {
+				every_location_in_area = {
+					limit = { owner ?= scope:tv_governing_country }
+					remove_location_modifier = tv_governor_max_control
+					remove_location_modifier = tv_governor_build_cost
+					remove_location_modifier = tv_governor_unrest
+				}
+			}
+			remove_variable = tv_is_governor
+			remove_variable = tv_governed_area
+			remove_variable = tv_gov_max_control_pct
+			remove_variable = tv_gov_build_cost_pct
+			remove_variable = tv_gov_unrest_pct
+			save_scope_as = tv_displaced_governor
+			scope:tv_governing_country = {
+				remove_list_variable = { name = tv_governor_list target = scope:tv_displaced_governor }
 			}
 		}
-		remove_variable = tv_is_governor
-		remove_variable = tv_governed_area
-		remove_variable = tv_gov_max_control_pct
-		remove_variable = tv_gov_build_cost_pct
-		remove_variable = tv_gov_unrest_pct
-		save_scope_as = tv_displaced_governor
-		scope:tv_governing_country = {
-			remove_list_variable = { name = tv_governor_list target = scope:tv_displaced_governor }
+		# Set governor variables on the character
+		scope:target = {
+			set_variable = { name = tv_is_governor value = 1 }
+			set_variable = { name = tv_governed_area value = scope:target_1 }
 		}
+		# Register in the country governor list
+		add_to_variable_list = { name = tv_governor_list target = scope:target }
+		# Apply location modifiers and initialise display variables
+		tv_governor_apply_modifiers_effect = yes
 	}
-	# Set governor variables on the character
-	scope:target = {
-		set_variable = { name = tv_is_governor value = 1 }
-		set_variable = { name = tv_governed_area value = scope:target_1 }
-	}
-	# Register in the country governor list
-	add_to_variable_list = { name = tv_governor_list target = scope:target }
-	# Apply location modifiers and initialise display variables
-	tv_governor_apply_modifiers_effect = yes
 }
 
 # Dismisses a governor, removing their location modifiers.
