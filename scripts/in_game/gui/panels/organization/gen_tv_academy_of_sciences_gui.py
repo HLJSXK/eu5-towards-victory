@@ -399,12 +399,34 @@ GUI_SUFFIX = """\
 \t}
 
 \tblockoverride "organization_custom_content" {
+\t\tvbox = {
+\t\t\tmargin = { 10 0 }
+\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\tspacing = 10
+
+\t\t\tcard_common = {
+\t\t\t\tmaximumsize = { 500 -1 }
+
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_MED_TREATMENT_CARD_TITLE"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\tvbox = {
+\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\tspacing = 6
 
 \t\t# ── Patient character card (visible when treatment is active) ──────────
 \t\tio_character_card = {
 \t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').IsSet]"
 \t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').GetCharacter]"
 \t\t\tusing = layoutpolicy_expanding
+\t\t\tblockoverride "name_highlight" {}
+\t\t\tblockoverride "character_entry_name_sort_by_highlight" {}
 \t\t}
 
 \t\t# ── Data block: patient + rates display ───────────────────────────────
@@ -496,14 +518,37 @@ GUI_SUFFIX = """\
 \t\t\t}
 \t\t}
 
-\t\t# ── Treat Character button ──────────────────────────────────────────────
-\t\taction_button_diamond = {
-\t\t\tsize = { 470 30 }
-\t\t\ttext = "tv_treat_character"
-\t\t\ttitle = "tv_treat_character"
-\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\tleft_action = {
-\t\t\t\taction_name = "tv_treat_character"
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+
+\t\t\tcard_actions = {
+\t\t\t\tblockoverride "card_header_text" {
+\t\t\t\t\ttext = "MAIN_ACTIONS"
+\t\t\t\t}
+\t\t\t\tblockoverride "card_header_icon" {
+\t\t\t\t\tblock "io_main_actions_icon" {
+\t\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t\t}
+\t\t\t\t}
+
+\t\t\t\tblockoverride "actions_override" {
+\t\t\t\t\tvbox = {
+\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\tspacing = 2
+
+\t\t\t\t\t\t# Treat Character button
+\t\t\t\t\t\taction_button_diamond = {
+\t\t\t\t\t\t\tsize = { 470 30 }
+\t\t\t\t\t\t\ttext = "tv_treat_character"
+\t\t\t\t\t\t\ttitle = "tv_treat_character"
+\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\t\t\t\tleft_action = {
+\t\t\t\t\t\t\t\taction_name = "tv_treat_character"
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+\t\t\t\t\t}
+\t\t\t\t}
 \t\t\t}
 \t\t}
 \t}

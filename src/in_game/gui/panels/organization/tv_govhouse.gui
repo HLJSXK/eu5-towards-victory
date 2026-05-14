@@ -213,56 +213,25 @@ organization_panel = {
 
 	blockoverride "organization_custom_content" {
 
-		io_character_card = {
+		card_common = {
 			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
-			datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
-			using = layoutpolicy_expanding
-			blockoverride "name_highlight" {}
-			blockoverride "character_entry_name_sort_by_highlight" {}
-		}
+			maximumsize = { 500 -1 }
 
-		widget = {
-			size = { 470 70 }
-			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			blockoverride "common_header_icon_texture" {
+				texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+			}
 
-			vbox = {
-				layoutpolicy_horizontal = expanding
-				spacing = 4
-				margin = { 4 6 }
+			blockoverride "common_header_text" {
+				text = "TV_GOVHOUSE_GENERAL_TAB"
+			}
 
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 4
-					text_single = {
-						text = "TV_GOVHOUSE_CURRENT_GENERAL_LABEL"
-						align = nobaseline
-					}
-					expand = {}
-					text_single = {
-						visible = "[Not(Country.MakeScope.GetVariable('tv_conquest_general_char').IsSet)]"
-						text = "TV_GOVHOUSE_NO_GENERAL"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[Country.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
-						datacontext = "[Country.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
-						text = "[Character.GetShortNameWithNoTooltip]"
-						align = nobaseline
-					}
-				}
-
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 4
-					text_single = {
-						text = "TV_GOVHOUSE_AUTHORITY_LABEL"
-						align = nobaseline
-					}
-					expand = {}
-					text_single = {
-						raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_govhouse_authority')]"
-						align = nobaseline
-					}
+			blockoverride "common_bottom_content" {
+				io_character_card = {
+					visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+					datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
+					using = layoutpolicy_expanding
+					blockoverride "name_highlight" {}
+					blockoverride "character_entry_name_sort_by_highlight" {}
 				}
 			}
 		}
@@ -315,44 +284,66 @@ organization_panel = {
 			}
 		}
 
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Not(Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet)]"
-			text = "tv_appoint_conquest_general_leader"
-			title = "tv_appoint_conquest_general_leader"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_appoint_conquest_general_leader"
+		card_actions = {
+			minimumsize = { 500 190 }
+			maximumsize = { 500 190 }
+
+			blockoverride "card_header_text" {
+				text = "MAIN_ACTIONS"
 			}
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
-			text = "tv_change_conquest_general_leader"
-			title = "tv_change_conquest_general_leader"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_change_conquest_general_leader"
+
+			blockoverride "card_header_icon" {
+				block "io_main_actions_icon" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+				}
 			}
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
-			text = "tv_remove_conquest_general_leader"
-			title = "tv_remove_conquest_general_leader"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_remove_conquest_general_leader"
-			}
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
-			text = "tv_train_grand_general"
-			title = "tv_train_grand_general"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_train_grand_general"
+
+			blockoverride "actions_override" {
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 2
+
+					action_button_diamond = {
+						size = { 470 30 }
+						visible = "[Not(Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet)]"
+						text = "tv_appoint_conquest_general_leader"
+						title = "tv_appoint_conquest_general_leader"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = {
+							action_name = "tv_appoint_conquest_general_leader"
+						}
+					}
+					action_button_diamond = {
+						size = { 470 30 }
+						visible = "[Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+						text = "tv_change_conquest_general_leader"
+						title = "tv_change_conquest_general_leader"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = {
+							action_name = "tv_change_conquest_general_leader"
+						}
+					}
+					action_button_diamond = {
+						size = { 470 30 }
+						visible = "[Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+						text = "tv_remove_conquest_general_leader"
+						title = "tv_remove_conquest_general_leader"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = {
+							action_name = "tv_remove_conquest_general_leader"
+						}
+					}
+					action_button_diamond = {
+						size = { 470 30 }
+						visible = "[Player.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+						text = "tv_train_grand_general"
+						title = "tv_train_grand_general"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = {
+							action_name = "tv_train_grand_general"
+						}
+					}
+				}
 			}
 		}
 	}
