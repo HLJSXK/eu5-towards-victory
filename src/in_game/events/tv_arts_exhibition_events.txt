@@ -65,6 +65,21 @@ tv_arts_exhibition.10 = {
 	}
 }
 
+# ── Chief Artist Died ────────────────────────────────────────────────────────
+# Fired on the leader_country when the appointed Chief Artist dies.
+# The option clears tv_arts_exhibition_leader_char to formally dismiss them.
+tv_arts_exhibition.7 = {
+	type = country_event
+	title = tv_arts_exhibition.7.t
+	desc = tv_arts_exhibition.7.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.7.a
+		remove_variable = tv_arts_exhibition_leader_char
+	}
+}
+
 # ── Domestic Exhibition ───────────────────────────────────────────────────────
 # Fired by the "Host Domestic Exhibition" action (costs 1000 ducats).
 # Counts every work of art owned by this country and grants 0.1 International

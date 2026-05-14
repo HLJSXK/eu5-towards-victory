@@ -1,0 +1,18 @@
+﻿# Towards Victory — Academy of Sciences events
+
+namespace = tv_academy
+
+# ── Chief Scientist Died ──────────────────────────────────────────────────────
+# Fired on the leader_country when the appointed Chief Scientist dies.
+# The option clears tv_academy_leader_char to formally dismiss them.
+tv_academy.10 = {
+	type = country_event
+	title = tv_academy.10.t
+	desc = tv_academy.10.d
+	outcome = bad
+
+	option = {
+		name = tv_academy.10.a
+		remove_variable = tv_academy_leader_char
+	}
+}

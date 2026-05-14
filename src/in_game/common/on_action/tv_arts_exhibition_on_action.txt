@@ -38,6 +38,15 @@ on_character_death = {
 				remove_variable = tv_tour_event_5_fired
 			}
 		}
+		# If the dead character was the appointed Chief Artist, notify the player.
+		# tv_arts_exhibition_leader_char is cleared in the event option.
+		if = {
+			limit = {
+				has_variable = tv_arts_exhibition_leader_char
+				var:tv_arts_exhibition_leader_char = scope:target
+			}
+			trigger_event_non_silently = { id = tv_arts_exhibition.7 }
+		}
 	}
 }
 

@@ -1,0 +1,16 @@
+﻿# Towards Victory — Academy of Sciences on_action hooks
+
+# Death cleanup: if the Chief Scientist dies, clear country variable and notify.
+# root = country the character belonged to, scope:target = dead character.
+on_character_death = {
+	effect = {
+		if = {
+			limit = {
+				has_variable = tv_academy_leader_char
+				var:tv_academy_leader_char = scope:target
+			}
+			# tv_academy_leader_char is cleared in the event option.
+			trigger_event_non_silently = { id = tv_academy.10 }
+		}
+	}
+}
