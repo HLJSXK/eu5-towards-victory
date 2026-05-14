@@ -48,10 +48,10 @@ tv_update_prosperity_score_effect = {
 	}
 	change_variable = { name = tv_raw_score add = local_var:tv_sum_dev }
 	change_variable = { name = tv_raw_score add = country_tax_base }
-	# 3. base_score = raw × 100 / (N + 100)  递减规模惩罚
+	# 3. base_score = raw × 50 / (N + 50)  递减规模惩罚
 	set_variable = { name = tv_denom value = local_var:tv_num_locs }
-	change_variable = { name = tv_denom add = 100 }
-	change_variable = { name = tv_raw_score multiply = 100 }
+	change_variable = { name = tv_denom add = 50 }
+	change_variable = { name = tv_raw_score multiply = 50 }
 	change_variable = { name = tv_raw_score divide = var:tv_denom }
 	set_variable = { name = tv_prosperity_score value = var:tv_raw_score }
 	# 4. 稳定度乘数：× (100 + stability) / 100
