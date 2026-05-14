@@ -78,8 +78,12 @@ tv_research_complete_c_effect = {
 # Called after each subprocess completes to potentially enable the D button.
 tv_research_check_d_ready_effect = {
 	if = {
-		limit = { tv_research_can_start_d_trigger = yes }
+		limit = {
+			tv_research_can_start_d_trigger = yes
+			NOT = { var:tv_rm_subprocess_d_ready ?= { this >= 1 } }
+		}
 		set_variable = { name = tv_rm_subprocess_d_ready value = 1 }
+		trigger_event_non_silently = { id = tv_research.19 }
 	}
 }
 

@@ -1,5 +1,6 @@
 ﻿# Towards Victory — Research Mechanism Events
-# Covers: A interest accumulation, target selection, D start confirmation, D unlock notification.
+# Covers: A interest accumulation, target selection, D-ready notification, D start
+# confirmation, D unlock notification.
 
 namespace = tv_research
 
@@ -139,6 +140,24 @@ tv_research.11 = {
 	}
 	option = {
 		name = tv_research.11.b	# "Continue (cancel)"
+	}
+}
+
+# ── tv_research.19 — Concentrated Research Ready Notification ─────────────────
+# Fired once by tv_research_check_d_ready_effect when A/B/C are all complete.
+# Pure reminder event; the option intentionally has no effect.
+tv_research.19 = {
+	type = country_event
+	title = tv_research.19.t
+	desc = tv_research.19.d
+	outcome = neutral
+
+	trigger = {
+		tv_research_can_start_d_trigger = yes
+	}
+
+	option = {
+		name = tv_research.19.a	# "Understood"
 	}
 }
 
