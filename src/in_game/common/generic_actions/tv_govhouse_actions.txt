@@ -9,16 +9,24 @@ tv_train_grand_general = {
 	ai_tick_frequency = 99999
 
 	potential = {
-		scope:actor = { has_variable = tv_govhouse_member }
-		scope:actor = { has_variable = tv_conquest_general_char }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
 	}
 
 	allow = {
-		scope:actor = { has_variable = tv_conquest_general_char }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
 		scope:actor = {
-			var:tv_conquest_general_char = {
+			var:tv_conquest_general_char ?= {
 				is_alive = yes
-				NOT = { has_variable = tv_gg_training_active }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_NOT_SET_TT
+					NOT = { has_variable = tv_gg_training_active }
+				}
 			}
 		}
 	}
@@ -47,14 +55,23 @@ tv_appoint_governor = {
 	ai_tick_frequency = 99999
 
 	potential = {
-		scope:actor = { has_variable = tv_govhouse_member }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
 	}
 
 	allow = {
-		scope:actor = { has_variable = tv_govhouse_member }
-		scope:actor = { has_variable = tv_conquest_general_char }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
 		scope:actor = {
-			var:tv_conquest_general_char = { is_alive = yes }
+			var:tv_conquest_general_char ?= { is_alive = yes }
 		}
 	}
 
@@ -72,7 +89,10 @@ tv_appoint_governor = {
 			is_heir = no
 			is_consort = no
 			is_loyal = yes
-			NOT = { has_variable = tv_is_governor }
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_NOT_SET_TT
+				NOT = { has_variable = tv_is_governor }
+			}
 		}
 	}
 
@@ -109,14 +129,27 @@ tv_remove_governor = {
 	ai_tick_frequency = 99999
 
 	potential = {
-		scope:actor = { has_variable = tv_govhouse_member }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
 	}
 
 	allow = {
-		scope:actor = { has_variable = tv_govhouse_member }
-		scope:actor = { has_variable = tv_conquest_general_char }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
 		scope:actor = {
-			var:tv_conquest_general_char = { is_alive = yes }
+			var:tv_conquest_general_char ?= { is_alive = yes }
 		}
 	}
 

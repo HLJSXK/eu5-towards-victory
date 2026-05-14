@@ -52,8 +52,11 @@ tv_govhouse = {
 					limit = {
 						international_organization_has_leader = yes
 						leader_country = {
-							has_variable = tv_conquest_general_char
-							var:tv_conquest_general_char = { is_alive = yes }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_SET_TT
+								has_variable = tv_conquest_general_char
+							}
+							var:tv_conquest_general_char ?= { is_alive = yes }
 						}
 					}
 					add = {
@@ -96,8 +99,11 @@ tv_govhouse = {
 			limit = {
 				leader_country ?= {
 					has_ruler = yes
-					has_variable = tv_conquest_general_char
-					var:tv_conquest_general_char = { is_alive = yes }
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_conquest_general_char
+					}
+					var:tv_conquest_general_char ?= { is_alive = yes }
 				}
 			}
 			set_variable = {
@@ -157,7 +163,12 @@ tv_govhouse = {
 		}
 		leader_country ?= {
 			if = {
-				limit = { has_variable = tv_govhouse_member }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_govhouse_member
+					}
+				}
 				tv_apply_governor_bonuses_effect = yes
 			}
 		}
