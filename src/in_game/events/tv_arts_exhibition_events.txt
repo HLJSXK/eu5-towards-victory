@@ -320,7 +320,9 @@ tv_arts_exhibition.121 = {
 
 	option = {
 		name = tv_arts_exhibition.121.a
-		create_art = { artist = scope:finished_artist }
+		capital ?= {
+			create_art = { artist = scope:finished_artist }
+		}
 	}
 }
 
