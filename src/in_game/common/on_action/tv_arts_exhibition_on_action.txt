@@ -2,7 +2,7 @@
 
 # When a touring artist dies: notify home country and clean up exhibition state.
 # root = country the artist belonged to at death, scope:target = dead character.
-on_character_death = {
+tv_arts_exhibition_char_death = {
 	effect = {
 		scope:target = {
 			# Touring artist cleanup

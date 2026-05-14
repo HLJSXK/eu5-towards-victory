@@ -2,7 +2,7 @@
 
 # Death cleanup: if the Chief Scientist dies, clear country variable and notify.
 # root = country the character belonged to, scope:target = dead character.
-on_character_death = {
+tv_academy_char_death = {
 	effect = {
 		if = {
 			limit = {

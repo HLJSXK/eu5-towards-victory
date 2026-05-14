@@ -92,3 +92,7 @@ generated:
   - script: scripts/in_game/common/on_action/gen_tv_pulse_registry.py
     data:   data/pulse_registry.yaml
     output: src/in_game/common/on_action/country_yearly.txt
+
+  - script: scripts/in_game/common/on_action/gen_tv_pulse_registry.py
+    data:   data/pulse_registry.yaml
+    output: src/in_game/common/on_action/character_death_pulses.txt

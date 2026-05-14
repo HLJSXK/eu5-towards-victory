@@ -16,3 +16,8 @@ pulses:
   yearly_country_pulse:
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home
     - tv_govhouse_yearly_pulse        # Grand General training resolution
+
+  on_character_death:
+    - tv_govhouse_char_death           # Grand General death cleanup
+    - tv_arts_exhibition_char_death    # touring artist + Chief Artist death cleanup
+    - tv_academy_char_death            # Chief Scientist death cleanup

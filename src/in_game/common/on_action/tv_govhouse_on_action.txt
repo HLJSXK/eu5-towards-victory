@@ -18,7 +18,7 @@ tv_govhouse_yearly_pulse = {
 }
 
 # Death cleanup: if the Grand General dies, clear country variables and notify.
-on_character_death = {
+tv_govhouse_char_death = {
 	effect = {
 		scope:target = {
 			if = {

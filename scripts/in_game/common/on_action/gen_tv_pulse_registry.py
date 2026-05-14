@@ -22,11 +22,13 @@ REGISTRY = REPO_ROOT / "data" / "pulse_registry.yaml"
 VANILLA_SOURCES = {
     "monthly_country_pulse": REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "country_monthly.txt",
     "yearly_country_pulse":  REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "country_yearly.txt",
+    "on_character_death":    REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "character_death_pulses.txt",
 }
 
 OUTPUT_FILES = {
     "monthly_country_pulse": REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "country_monthly.txt",
     "yearly_country_pulse":  REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "country_yearly.txt",
+    "on_character_death":    REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "character_death_pulses.txt",
 }
 
 SCRIPT_REL = "scripts/in_game/common/on_action/gen_tv_pulse_registry.py"
