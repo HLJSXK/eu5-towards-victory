@@ -326,3 +326,12 @@ exact:[jomini_script_system.cpp:252]: Script system error!\n  Error: Event targe
 exact:[jomini_script_system.cpp:252]: Script system error!\n  Error: add_to_list effect [ Scoped object is not valid. Type: 角色“角色”（4294967295） ]\n  Script location: common/international_organizations/japanese_shogunate.txt:17
 exact:[pdx_data_localize_helper.cpp:128]: Unterminated '[' when reading property 'seize_location_from_subject_act'
 exact:[pdx_data_localize.cpp:136]: Data error in loc string 'seize_location_from_subject_act'
+contains:Failed to read key reference: nd_mc_seek_mandate
+exact:[jomini_script_system.cpp:252]: Script system error!\n  Error: Failed to scope to country via tag 'CHI'\n  Script location: common/disasters/sinicization_disaster.txt:11
+
+exact:[jomini_script_system.cpp:252]: Script system error!\n  Error: Event target link 'c' returned an unset scope\n  Script location: common/disasters/sinicization_disaster.txt:11
+
+exact:[jomini_scriptvalue.cpp:1939]: Value of wrong type in 'common/disasters/sinicization_disaster.txt:10'. Got value of type 'none'
+exact:[jomini_script_system.cpp:252]: Script system error!\n  Error: is_enemy_of trigger [ Object incorrect type! Field: target, Expected: country, Type: none ]\n  Script location: common/situations/red_turban_rebellions.txt:39
+
+exact:[jomini_script_system.cpp:252]: Script system error!\n  Error: is_rival_of trigger [ Object incorrect type! Field: target, Expected: country, Type: none ]\n  Script location: common/situations/red_turban_rebellions.txt:40
