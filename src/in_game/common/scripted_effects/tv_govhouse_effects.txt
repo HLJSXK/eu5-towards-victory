@@ -1,4 +1,4 @@
-﻿# Towards Victory — Governor's House (总督府) scripted effects
+# Towards Victory — Governor's House (总督府) scripted effects
 
 # Creates the Governor's House IO for scope country (must be called as owner country).
 # Sets the tv_govhouse_member flag, creates the IO, and adds the country as its first member.
@@ -71,10 +71,12 @@ tv_training_resolve_effect = {
 # Scaling: size reads pre-computed pct variable directly (no inline multiply needed)
 
 # Applies or refreshes location modifiers and display variables for one governor.
-# Scope: country. scope:recipient = governor character. scope:tv_governing_country = owning country.
+# Scope: country. scope:target = governor character. scope:tv_governing_country = owning country.
 # Caller must save_scope_as = tv_governing_country before calling this effect.
+# Note: scope:target here is the character (set by select_trigger target_flag = target in
+# tv_appoint_governor, or by save_scope_as = target in tv_apply_governor_bonuses_effect).
 tv_governor_apply_modifiers_effect = {
-	scope:recipient = {
+	scope:target = {
 		# Refresh display variables (shared scale with size — GUI uses |% format)
 		set_variable = { name = tv_gov_max_control_pct value = { value = this.adm multiply = 0.001 } }
 		set_variable = { name = tv_gov_build_cost_pct value = { value = this.dip multiply = 0.002 } }
@@ -90,19 +92,19 @@ tv_governor_apply_modifiers_effect = {
 					modifier = tv_governor_max_control
 					years = -1
 					mode = add_and_extend
-					size = { value = scope:recipient.var:tv_gov_max_control_pct }
+					size = { value = scope:target.var:tv_gov_max_control_pct }
 				}
 				add_location_modifier = {
 					modifier = tv_governor_build_cost
 					years = -1
 					mode = add_and_extend
-					size = { value = scope:recipient.var:tv_gov_build_cost_pct }
+					size = { value = scope:target.var:tv_gov_build_cost_pct }
 				}
 				add_location_modifier = {
 					modifier = tv_governor_unrest
 					years = -1
 					mode = add_and_extend
-					size = { value = scope:recipient.var:tv_gov_unrest_pct }
+					size = { value = scope:target.var:tv_gov_unrest_pct }
 				}
 			}
 		}
@@ -140,7 +142,7 @@ tv_apply_governor_bonuses_effect = {
 			}
 		}
 		else = {
-			save_scope_as = recipient
+			save_scope_as = target
 			scope:tv_governing_country = {
 				tv_governor_apply_modifiers_effect = yes
 			}
@@ -149,12 +151,13 @@ tv_apply_governor_bonuses_effect = {
 }
 
 # Appoints a governor to an area. Displaces any existing governor for that area.
-# Scope: country. scope:recipient = character. scope:target = area.
+# Scope: country. scope:target = character (from select_trigger target_flag = target).
+#                  scope:target_1 = area (from select_trigger target_flag = target_1).
 tv_governor_appoint_effect = {
 	save_scope_as = tv_governing_country
 	# Displace any existing governor for this area first
 	every_in_list = { variable = tv_governor_list
-		limit = { var:tv_governed_area ?= scope:target }
+		limit = { var:tv_governed_area ?= scope:target_1 }
 		var:tv_governed_area = {
 			every_location_in_area = {
 				limit = { owner ?= scope:tv_governing_country }
@@ -174,18 +177,18 @@ tv_governor_appoint_effect = {
 		}
 	}
 	# Set governor variables on the character
-	scope:recipient = {
+	scope:target = {
 		set_variable = { name = tv_is_governor value = 1 }
-		set_variable = { name = tv_governed_area value = scope:target }
+		set_variable = { name = tv_governed_area value = scope:target_1 }
 	}
 	# Register in the country governor list
-	add_to_variable_list = { name = tv_governor_list target = scope:recipient }
+	add_to_variable_list = { name = tv_governor_list target = scope:target }
 	# Apply location modifiers and initialise display variables
 	tv_governor_apply_modifiers_effect = yes
 }
 
 # Dismisses a governor, removing their location modifiers.
-# Scope: country. scope:recipient = governor character to dismiss.
+# Scope: country. scope:recipient = governor character (set via GUI button parameter).
 tv_governor_remove_effect = {
 	save_scope_as = tv_governing_country
 	scope:recipient = {

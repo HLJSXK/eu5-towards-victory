@@ -206,6 +206,16 @@ PERFORM_tv_change_conquest_general_leader_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_reinitialize_mod_ACTION={
+\tlog=no
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=no
+\tpausepopup=no
+\tmessage_category = government
+}
+
 PERFORM_tv_appoint_governor_ACTION={
 \tlog=yes
 \tonmap=no

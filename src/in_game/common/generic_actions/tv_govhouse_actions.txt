@@ -55,7 +55,7 @@ tv_appoint_governor = {
 	select_trigger = {
 		looking_for_a = character
 		source = actor
-		target_flag = recipient
+		target_flag = target
 		name = "tv_appoint_governor_select_char"
 		none_available_msg_key = "tv_appoint_governor_no_chars"
 		column = { data = character_info }
@@ -73,7 +73,7 @@ tv_appoint_governor = {
 	select_trigger = {
 		looking_for_a = area
 		source = actor
-		target_flag = target
+		target_flag = target_1
 		name = "tv_appoint_governor_select_area"
 		none_available_msg_key = "tv_appoint_governor_no_areas"
 		column = { data = name }
