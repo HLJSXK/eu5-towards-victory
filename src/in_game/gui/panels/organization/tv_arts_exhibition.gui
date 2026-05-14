@@ -70,7 +70,7 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 270 }
+						size = { 470 174 }
 						datacontext = "[InternationalOrganizationsView.GetPlayer]"
 
 						vbox = {
@@ -93,7 +93,7 @@ organization_panel = {
 							}
 
 							scrollarea = {
-								size = { 458 220 }
+								size = { 458 124 }
 								scrollbarpolicy_horizontal = always_off
 
 								scrollbar_vertical = {
