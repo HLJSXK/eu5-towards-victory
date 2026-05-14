@@ -117,6 +117,18 @@ tv_send_artist_abroad = {
 				scope:actor = {
 					if = {
 						limit = {
+							var:tv_arts_exhibition_leader_char ?= {
+								this = scope:target
+							}
+						}
+						scope:target = {
+							remove_character_modifier = tv_chief_artist_role_modifier
+						}
+						remove_variable = tv_arts_exhibition_leader_char
+						trigger_event_non_silently = { id = tv_arts_exhibition.8 }
+					}
+					if = {
+						limit = {
 							custom_tooltip = {
 								text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 								has_variable = tv_dispatched_artists_count

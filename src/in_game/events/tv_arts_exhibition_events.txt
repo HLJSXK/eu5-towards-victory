@@ -80,6 +80,20 @@ tv_arts_exhibition.7 = {
 	}
 }
 
+# ── Chief Artist Sent Abroad ─────────────────────────────────────────────────
+# Fired when the current Chief Artist is selected for a foreign tour.
+# The dispatch action has already cleared tv_arts_exhibition_leader_char.
+tv_arts_exhibition.8 = {
+	type = country_event
+	title = tv_arts_exhibition.8.t
+	desc = tv_arts_exhibition.8.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.8.a
+	}
+}
+
 # ── Domestic Exhibition ───────────────────────────────────────────────────────
 # Fired by the "Host Domestic Exhibition" action (costs 1000 ducats).
 # Counts every work of art owned by this country and grants 0.1 International
