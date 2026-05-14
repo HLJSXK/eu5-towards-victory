@@ -32,6 +32,21 @@ SECTION_BANNER = """\
 """
 
 
+HAS_VARIABLE_TOOLTIP_KEYS = {
+    "tv_academy_io_member": "TV_HAS_ACADEMY_IO_MEMBER_TT",
+    "tv_academy_leader_char": "TV_HAS_ACADEMY_LEADER_CHAR_TT",
+    "tv_arts_exhibition_leader_char": "TV_HAS_ARTS_EXHIBITION_LEADER_CHAR_TT",
+    "tv_arts_exhibition_member": "TV_HAS_ARTS_EXHIBITION_MEMBER_TT",
+    "tv_conquest_general_char": "TV_HAS_CONQUEST_GENERAL_CHAR_TT",
+    "tv_diplomatic_alliance_member": "TV_HAS_DIPLOMATIC_ALLIANCE_MEMBER_TT",
+    "tv_govhouse_member": "TV_HAS_GOVHOUSE_MEMBER_TT",
+}
+
+
+def _has_variable_tooltip(var_name: str) -> str:
+    return HAS_VARIABLE_TOOLTIP_KEYS.get(var_name, "TV_HAS_VARIABLE_SET_TT")
+
+
 def _char_selector_block(io: dict) -> str:
     """Return the select_trigger block for Appoint and Change actions."""
     character_column = io.get("character_column", "character_info")
@@ -88,7 +103,7 @@ def gen_appoint(io: dict) -> str:
         f"\n"
         f"\tpotential = {{\n"
         f"\t\tcustom_tooltip = {{\n"
-        f"\t\t\ttext = TV_HAS_VARIABLE_SET_TT\n"
+        f"\t\t\ttext = {_has_variable_tooltip(io['member_var'])}\n"
         f"\t\t\tscope:actor = {{ has_variable = {io['member_var']} }}\n"
         f"\t\t}}\n"
         f"\t}}\n"
@@ -120,7 +135,7 @@ def gen_remove(io: dict) -> str:
         f"\t\t\tif = {{\n"
         f"\t\t\t\tlimit = {{\n"
         f"\t\t\t\t\tcustom_tooltip = {{\n"
-        f"\t\t\t\t\t\ttext = TV_HAS_VARIABLE_SET_TT\n"
+        f"\t\t\t\t\t\ttext = {_has_variable_tooltip(io['leader_var'])}\n"
         f"\t\t\t\t\t\thas_variable = {io['leader_var']}\n"
         f"\t\t\t\t\t}}\n"
         f"\t\t\t\t}}\n"
@@ -138,7 +153,7 @@ def gen_remove(io: dict) -> str:
         f"\n"
         f"\tpotential = {{\n"
         f"\t\tcustom_tooltip = {{\n"
-        f"\t\t\ttext = TV_HAS_VARIABLE_SET_TT\n"
+        f"\t\t\ttext = {_has_variable_tooltip(io['member_var'])}\n"
         f"\t\t\tscope:actor = {{ has_variable = {io['member_var']} }}\n"
         f"\t\t}}\n"
         f"\t}}\n"
@@ -166,7 +181,7 @@ def gen_change(io: dict) -> str:
         f"\t\t\tif = {{\n"
         f"\t\t\t\tlimit = {{\n"
         f"\t\t\t\t\tcustom_tooltip = {{\n"
-        f"\t\t\t\t\t\ttext = TV_HAS_VARIABLE_SET_TT\n"
+        f"\t\t\t\t\t\ttext = {_has_variable_tooltip(io['leader_var'])}\n"
         f"\t\t\t\t\t\thas_variable = {io['leader_var']}\n"
         f"\t\t\t\t\t}}\n"
         f"\t\t\t\t}}\n"
@@ -195,7 +210,7 @@ def gen_change(io: dict) -> str:
         f"\n"
         f"\tpotential = {{\n"
         f"\t\tcustom_tooltip = {{\n"
-        f"\t\t\ttext = TV_HAS_VARIABLE_SET_TT\n"
+        f"\t\t\ttext = {_has_variable_tooltip(io['member_var'])}\n"
         f"\t\t\tscope:actor = {{ has_variable = {io['member_var']} }}\n"
         f"\t\t}}\n"
         f"\t}}\n"

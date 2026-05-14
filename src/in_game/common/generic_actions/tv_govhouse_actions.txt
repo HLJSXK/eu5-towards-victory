@@ -10,18 +10,18 @@ tv_train_grand_general = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 			scope:actor = { has_variable = tv_conquest_general_char }
 		}
 	}
 
 	allow = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 			scope:actor = { has_variable = tv_conquest_general_char }
 		}
 		scope:actor = {
@@ -60,18 +60,18 @@ tv_appoint_governor = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
 	}
 
 	allow = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 			scope:actor = { has_variable = tv_conquest_general_char }
 		}
 		scope:actor = {
@@ -134,22 +134,22 @@ tv_remove_governor = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 			scope:actor = { has_variable = tv_conquest_general_char }
 		}
 	}
 
 	allow = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 			scope:actor = { has_variable = tv_conquest_general_char }
 		}
 		scope:actor = {

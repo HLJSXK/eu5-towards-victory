@@ -55,7 +55,7 @@ tv_academy_of_sciences = {
 						limit = {
 							leader_country ?= {
 								custom_tooltip = {
-									text = TV_HAS_VARIABLE_SET_TT
+									text = TV_HAS_RESEARCH_PHASE_TT
 									has_variable = tv_research_phase
 								}
 								var:tv_research_phase ?= 1
@@ -83,12 +83,12 @@ tv_academy_of_sciences = {
 							international_organization_has_leader = yes
 							leader_country ?= {
 								custom_tooltip = {
-									text = TV_HAS_VARIABLE_SET_TT
+									text = TV_HAS_RESEARCH_PHASE_TT
 									has_variable = tv_research_phase
 								}
 								var:tv_research_phase ?= 2
 								custom_tooltip = {
-									text = TV_HAS_VARIABLE_SET_TT
+									text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 									has_variable = tv_academy_leader_char
 								}
 								var:tv_academy_leader_char ?= { is_alive = yes }
@@ -130,12 +130,12 @@ tv_academy_of_sciences = {
 				international_organization_has_leader = yes
 				leader_country ?= {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_RESEARCH_PHASE_TT
 						has_variable = tv_research_phase
 					}
 					var:tv_research_phase ?= 2
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 						has_variable = tv_academy_leader_char
 					}
 					var:tv_academy_leader_char ?= { is_alive = yes }
@@ -155,7 +155,7 @@ tv_academy_of_sciences = {
 				var:tv_research_d_progress >= 100
 				leader_country ?= {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_RESEARCH_PHASE_TT
 						has_variable = tv_research_phase
 					}
 					var:tv_research_phase ?= 2

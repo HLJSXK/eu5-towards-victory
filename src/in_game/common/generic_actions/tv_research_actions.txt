@@ -20,7 +20,7 @@ tv_request_research_target = {
 	potential = {
 		scope:actor = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_ACADEMY_IO_MEMBER_TT
 				has_variable = tv_academy_io_member
 			}
 		}
@@ -56,7 +56,7 @@ tv_abandon_research_target = {
 	potential = {
 		scope:actor = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_ACADEMY_IO_MEMBER_TT
 				has_variable = tv_academy_io_member
 			}
 			tv_research_has_active_target_trigger = yes
@@ -93,7 +93,7 @@ tv_start_concentrated_research = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
 			scope:actor = { has_variable = tv_academy_io_member }
 		}
 	}
@@ -142,7 +142,7 @@ tv_treat_character = {
 	potential = {
 		scope:actor = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_ACADEMY_IO_MEMBER_TT
 				has_variable = tv_academy_io_member
 			}
 		}

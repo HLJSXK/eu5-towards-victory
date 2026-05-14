@@ -8,16 +8,16 @@
 tv_med_discovery_pulse = {
 	trigger = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
 			has_variable = tv_academy_io_member
 		}
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_MED_TARGET_CHAR_TT
 			has_variable = tv_med_target_char
 		}
 		var:tv_med_target_char ?= { is_alive = yes }
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 			has_variable = tv_academy_leader_char
 		}
 		var:tv_academy_leader_char ?= { is_alive = yes }
@@ -33,16 +33,16 @@ tv_med_discovery_pulse = {
 tv_med_minor_accident_pulse = {
 	trigger = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
 			has_variable = tv_academy_io_member
 		}
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_MED_TARGET_CHAR_TT
 			has_variable = tv_med_target_char
 		}
 		var:tv_med_target_char ?= { is_alive = yes }
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 			has_variable = tv_academy_leader_char
 		}
 		var:tv_academy_leader_char ?= { is_alive = yes }
@@ -58,16 +58,16 @@ tv_med_minor_accident_pulse = {
 tv_med_major_accident_pulse = {
 	trigger = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
 			has_variable = tv_academy_io_member
 		}
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_MED_TARGET_CHAR_TT
 			has_variable = tv_med_target_char
 		}
 		var:tv_med_target_char ?= { is_alive = yes }
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 			has_variable = tv_academy_leader_char
 		}
 		var:tv_academy_leader_char ?= { is_alive = yes }

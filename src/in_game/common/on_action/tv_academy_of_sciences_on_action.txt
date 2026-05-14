@@ -7,7 +7,7 @@ tv_academy_char_death = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 					has_variable = tv_academy_leader_char
 				}
 				var:tv_academy_leader_char ?= scope:target

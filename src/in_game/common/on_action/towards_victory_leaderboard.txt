@@ -28,7 +28,7 @@ tv_leaderboard_monthly_pulse = {
 				is_alive = yes
 				is_artist = yes
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_ON_EXHIBITION_TT
 					has_variable = tv_on_exhibition
 				}
 			}
@@ -124,7 +124,7 @@ tv_leaderboard_monthly_pulse = {
 								if = {
 									limit = {
 										custom_tooltip = {
-											text = TV_HAS_VARIABLE_SET_TT
+											text = TV_HAS_EXHIBITION_TARGET_COUNTRY_TT
 											has_variable = tv_exhibition_target_country
 										}
 									}
@@ -141,7 +141,7 @@ tv_leaderboard_monthly_pulse = {
 									if = {
 										limit = {
 											custom_tooltip = {
-												text = TV_HAS_VARIABLE_SET_TT
+												text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 												has_variable = tv_dispatched_artists_count
 											}
 											var:tv_dispatched_artists_count >= 1
@@ -305,7 +305,7 @@ tv_leaderboard_monthly_pulse = {
 								if = {
 									limit = {
 										custom_tooltip = {
-											text = TV_HAS_VARIABLE_SET_TT
+											text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 											has_variable = tv_dispatched_artists_count
 										}
 										var:tv_dispatched_artists_count >= 1
@@ -340,7 +340,7 @@ tv_leaderboard_monthly_pulse = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_ACADEMY_IO_MEMBER_TT
 					has_variable = tv_academy_io_member
 				}
 			}
@@ -349,7 +349,7 @@ tv_leaderboard_monthly_pulse = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_RESEARCH_SELECTION_CD_TT
 						has_variable = tv_research_selection_cd
 					}
 					var:tv_research_selection_cd >= 1
@@ -367,7 +367,7 @@ tv_leaderboard_monthly_pulse = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_RESEARCH_PHASE_TT
 						has_variable = tv_research_phase
 					}
 					var:tv_research_phase = 1
@@ -397,11 +397,11 @@ tv_leaderboard_monthly_pulse = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_ACADEMY_IO_MEMBER_TT
 					has_variable = tv_academy_io_member
 				}
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 					has_variable = tv_academy_leader_char
 				}
 				var:tv_academy_leader_char ?= { is_alive = yes }
@@ -415,11 +415,11 @@ tv_leaderboard_monthly_pulse = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_ACADEMY_IO_MEMBER_TT
 					has_variable = tv_academy_io_member
 				}
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_MED_TARGET_CHAR_TT
 					has_variable = tv_med_target_char
 				}
 			}
@@ -433,12 +433,12 @@ tv_leaderboard_monthly_pulse = {
 			else_if = {
 				limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 					has_variable = tv_academy_leader_char
 				}
 				var:tv_academy_leader_char ?= { is_alive = yes }
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_MED_PROGRESS_TT
 					has_variable = tv_med_progress
 				}
 			}
@@ -457,7 +457,7 @@ tv_leaderboard_monthly_pulse = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_DIPLOMATIC_VICTORY_POINTS_TT
 					has_variable = tv_diplomatic_victory_points
 				}
 				var:tv_diplomatic_victory_points >= 50
@@ -482,7 +482,7 @@ tv_leaderboard_monthly_pulse = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_DIPLOMATIC_SUPPORT_COUNT_TT
 					has_variable = tv_diplomatic_support_count
 				}
 				var:tv_diplomatic_support_count >= 10

@@ -159,7 +159,7 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | `scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py` | data/locked_advances.yaml | src/in_game/gui/panels/organization/tv_academy_of_sciences.gui | After adding/removing Frontier advance targets |
 | `scripts/in_game/common/laws/gen_tv_alliance_laws.py` | data/alliance_laws.yaml | src/in_game/common/laws/tv_alliance_laws.txt | After editing Diplomatic Alliance law categories or policies |
 
-All TV `trigger`/`limit` condition blocks that use `has_variable` wrap the guard in a `custom_tooltip` block. Shared tooltip loc keys are `TV_HAS_VARIABLE_SET_TT` and `TV_HAS_VARIABLE_NOT_SET_TT`; the active generators preserve this convention in generated outputs.
+All TV `trigger`/`limit` condition blocks that use `has_variable` wrap the guard in a `custom_tooltip` block. Positive guards for `tv_` namespace variables use specific `TV_HAS_*_TT` loc keys so the player sees the concrete required state; copied vanilla guards that reference non-`tv_` variables keep the generic `TV_HAS_VARIABLE_SET_TT`. Negative guards continue to use `TV_HAS_VARIABLE_NOT_SET_TT`; the active generators preserve this convention in generated outputs.
 
 ## Manual UI Notes
 

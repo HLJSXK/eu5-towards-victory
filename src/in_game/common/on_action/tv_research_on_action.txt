@@ -11,11 +11,11 @@
 tv_research_a_pulse = {
 	trigger = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
 			has_variable = tv_academy_io_member
 		}
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_RESEARCH_PHASE_TT
 			has_variable = tv_research_phase
 		}
 		var:tv_research_phase = 1

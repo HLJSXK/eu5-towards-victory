@@ -15,7 +15,7 @@ tv_update_tour_capacity_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 				has_variable = tv_dispatched_artists_count
 			}
 			var:tv_dispatched_artists_count >= 8
@@ -25,7 +25,7 @@ tv_update_tour_capacity_effect = {
 	else_if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 				has_variable = tv_dispatched_artists_count
 			}
 			var:tv_dispatched_artists_count >= 7
@@ -35,7 +35,7 @@ tv_update_tour_capacity_effect = {
 	else_if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 				has_variable = tv_dispatched_artists_count
 			}
 			var:tv_dispatched_artists_count >= 6
@@ -45,7 +45,7 @@ tv_update_tour_capacity_effect = {
 	else_if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 				has_variable = tv_dispatched_artists_count
 			}
 			var:tv_dispatched_artists_count >= 5
@@ -55,7 +55,7 @@ tv_update_tour_capacity_effect = {
 	else_if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 				has_variable = tv_dispatched_artists_count
 			}
 			var:tv_dispatched_artists_count >= 4
@@ -65,7 +65,7 @@ tv_update_tour_capacity_effect = {
 	else_if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 				has_variable = tv_dispatched_artists_count
 			}
 			var:tv_dispatched_artists_count >= 3
@@ -75,7 +75,7 @@ tv_update_tour_capacity_effect = {
 	else_if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 				has_variable = tv_dispatched_artists_count
 			}
 			var:tv_dispatched_artists_count >= 2
@@ -85,7 +85,7 @@ tv_update_tour_capacity_effect = {
 	else_if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 				has_variable = tv_dispatched_artists_count
 			}
 			var:tv_dispatched_artists_count >= 1
@@ -108,7 +108,7 @@ tv_end_artist_exhibition_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_EXHIBITION_TARGET_COUNTRY_TT
 				has_variable = tv_exhibition_target_country
 			}
 		}
@@ -136,7 +136,7 @@ tv_end_artist_exhibition_effect = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 					has_variable = tv_dispatched_artists_count
 				}
 				var:tv_dispatched_artists_count >= 1

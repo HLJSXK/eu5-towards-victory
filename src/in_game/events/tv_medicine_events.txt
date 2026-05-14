@@ -15,7 +15,7 @@ tv_medicine.1 = {
 
 	trigger = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_MED_TARGET_CHAR_TT
 			has_variable = tv_med_target_char
 		}
 		var:tv_med_target_char ?= { is_alive = yes }
@@ -29,7 +29,7 @@ tv_medicine.1 = {
 				if = {
 					limit = {
 						custom_tooltip = {
-							text = TV_HAS_VARIABLE_SET_TT
+							text = TV_HAS_MED_PROGRESS_TT
 							has_variable = tv_med_progress
 						}
 					}
@@ -51,7 +51,7 @@ tv_medicine.1 = {
 				if = {
 					limit = {
 						custom_tooltip = {
-							text = TV_HAS_VARIABLE_SET_TT
+							text = TV_HAS_MED_PROGRESS_TT
 							has_variable = tv_med_progress
 						}
 					}
@@ -81,7 +81,7 @@ tv_medicine.2 = {
 
 	trigger = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_MED_TARGET_CHAR_TT
 			has_variable = tv_med_target_char
 		}
 	}
@@ -90,7 +90,7 @@ tv_medicine.2 = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_MED_PROGRESS_TT
 					has_variable = tv_med_progress
 				}
 			}
@@ -118,7 +118,7 @@ tv_medicine.5 = {
 
 	trigger = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_MED_TARGET_CHAR_TT
 			has_variable = tv_med_target_char
 		}
 		var:tv_med_target_char ?= { is_alive = yes }

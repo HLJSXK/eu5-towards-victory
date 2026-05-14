@@ -19,7 +19,7 @@ tv_update_best_path_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_CONQUEST_PROGRESS_PCT_TT
 				has_variable = tv_conquest_progress_pct
 			}
 		}
@@ -28,7 +28,7 @@ tv_update_best_path_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_CONQUEST_MILESTONE_TT
 				has_variable = tv_conquest_milestone
 			}
 		}
@@ -37,7 +37,7 @@ tv_update_best_path_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_CONQUEST_SCORE_TT
 				has_variable = tv_conquest_score
 			}
 		}
@@ -48,7 +48,7 @@ tv_update_best_path_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_PROSPERITY_PROGRESS_PCT_TT
 				has_variable = tv_prosperity_progress_pct
 			}
 		}
@@ -61,7 +61,7 @@ tv_update_best_path_effect = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_PROSPERITY_MILESTONE_TT
 						has_variable = tv_prosperity_milestone
 					}
 				}
@@ -70,7 +70,7 @@ tv_update_best_path_effect = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_PROSPERITY_SCORE_TT
 						has_variable = tv_prosperity_score
 					}
 				}
@@ -83,7 +83,7 @@ tv_update_best_path_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_TRADE_PROGRESS_PCT_TT
 				has_variable = tv_trade_progress_pct
 			}
 		}
@@ -96,7 +96,7 @@ tv_update_best_path_effect = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_TRADE_MILESTONE_TT
 						has_variable = tv_trade_milestone
 					}
 				}
@@ -105,7 +105,7 @@ tv_update_best_path_effect = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_TRADE_SCORE_TT
 						has_variable = tv_trade_score
 					}
 				}
@@ -118,7 +118,7 @@ tv_update_best_path_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_DIPLOMATIC_PROGRESS_PCT_TT
 				has_variable = tv_diplomatic_progress_pct
 			}
 		}
@@ -131,7 +131,7 @@ tv_update_best_path_effect = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_DIPLOMATIC_MILESTONE_TT
 						has_variable = tv_diplomatic_milestone
 					}
 				}
@@ -140,7 +140,7 @@ tv_update_best_path_effect = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_DIPLOMATIC_VICTORY_POINTS_TT
 						has_variable = tv_diplomatic_victory_points
 					}
 				}
@@ -153,7 +153,7 @@ tv_update_best_path_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_CULTURAL_PROGRESS_PCT_TT
 				has_variable = tv_cultural_progress_pct
 			}
 		}
@@ -166,7 +166,7 @@ tv_update_best_path_effect = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_CULTURAL_MILESTONE_TT
 						has_variable = tv_cultural_milestone
 					}
 				}
@@ -175,7 +175,7 @@ tv_update_best_path_effect = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_CULTURAL_INFLUENCE_POINTS_TT
 						has_variable = tv_cultural_influence_points
 					}
 				}
@@ -188,7 +188,7 @@ tv_update_best_path_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_SCIENCE_PROGRESS_PCT_TT
 				has_variable = tv_science_progress_pct
 			}
 		}
@@ -201,7 +201,7 @@ tv_update_best_path_effect = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_SCIENCE_MILESTONE_TT
 						has_variable = tv_science_milestone
 					}
 				}
@@ -210,7 +210,7 @@ tv_update_best_path_effect = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_SCIENCE_SCORE_TT
 						has_variable = tv_science_score
 					}
 				}
@@ -264,7 +264,7 @@ tv_update_leaderboard_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_RANK_1_COUNTRY_TT
 				has_variable = tv_rank_1_country
 			}
 			global_variable_list_size = {
@@ -290,11 +290,11 @@ tv_update_leaderboard_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_RANK_1_COUNTRY_TT
 				has_variable = tv_rank_1_country
 			}
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_RANK_2_COUNTRY_TT
 				has_variable = tv_rank_2_country
 			}
 			global_variable_list_size = {
@@ -321,15 +321,15 @@ tv_update_leaderboard_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_RANK_1_COUNTRY_TT
 				has_variable = tv_rank_1_country
 			}
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_RANK_2_COUNTRY_TT
 				has_variable = tv_rank_2_country
 			}
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_RANK_3_COUNTRY_TT
 				has_variable = tv_rank_3_country
 			}
 			global_variable_list_size = {
@@ -357,19 +357,19 @@ tv_update_leaderboard_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_RANK_1_COUNTRY_TT
 				has_variable = tv_rank_1_country
 			}
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_RANK_2_COUNTRY_TT
 				has_variable = tv_rank_2_country
 			}
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_RANK_3_COUNTRY_TT
 				has_variable = tv_rank_3_country
 			}
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_RANK_4_COUNTRY_TT
 				has_variable = tv_rank_4_country
 			}
 			global_variable_list_size = {

@@ -9,7 +9,7 @@ tv_arts_exhibition_char_death = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_ON_EXHIBITION_TT
 						has_variable = tv_on_exhibition
 					}
 				}
@@ -18,7 +18,7 @@ tv_arts_exhibition_char_death = {
 				if = {
 					limit = {
 						custom_tooltip = {
-							text = TV_HAS_VARIABLE_SET_TT
+							text = TV_HAS_EXHIBITION_TARGET_COUNTRY_TT
 							has_variable = tv_exhibition_target_country
 						}
 					}
@@ -32,7 +32,7 @@ tv_arts_exhibition_char_death = {
 					if = {
 						limit = {
 							custom_tooltip = {
-								text = TV_HAS_VARIABLE_SET_TT
+								text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 								has_variable = tv_dispatched_artists_count
 							}
 							var:tv_dispatched_artists_count >= 1
@@ -63,7 +63,7 @@ tv_arts_exhibition_char_death = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_ARTS_EXHIBITION_LEADER_CHAR_TT
 					has_variable = tv_arts_exhibition_leader_char
 				}
 				var:tv_arts_exhibition_leader_char = scope:target
@@ -82,7 +82,7 @@ tv_arts_exhibition_yearly_pulse = {
 				is_alive = yes
 				is_artist = yes
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_ON_EXHIBITION_TT
 					has_variable = tv_on_exhibition
 				}
 			}

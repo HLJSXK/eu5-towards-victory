@@ -135,6 +135,15 @@
   source: "reference_game_files/game/in_game/gui/panels/situation/the_revolution.gui:112"
   notes: "Default progressbar max appears to be 1; GetVariable returning an integer 0-100 without matching max produces 0% for all values except 1 (which shows 100%). Pattern left empty — regex cannot reliably detect the missing-max + variable-value combination."
 
+- id: situation_panel_empty_subheader_row
+  pattern: ''
+  bad: "Custom situation_panel leaves the shared default situation_subheader_content in place when no subheader content is needed"
+  correction: "Add blockoverride \"situation_subheader_content\" {} near the top of the situation_panel block to suppress the default 45px empty row."
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/panels/situation/common.gui:197; reference_game_files/game/in_game/gui/panels/situation/colonial_revolution.gui:14"
+  notes: "The shared situation_panel template includes a default subheader widget. Vanilla situation panels that do not use it override the block to empty; otherwise custom panels show unwanted blank space above their main content."
+
 - id: gui_no_getgoods_from_string
   pattern: "GetGoods\\('|GetGoodsFromKey|MakeGoods\\("
   bad: "GetGoods('key'), GetGoodsFromKey, or MakeGoods('key') in GUI expressions to construct a Goods object from a string literal"

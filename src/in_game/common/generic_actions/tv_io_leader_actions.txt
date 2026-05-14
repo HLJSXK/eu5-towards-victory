@@ -15,7 +15,7 @@ tv_appoint_arts_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ARTS_EXHIBITION_MEMBER_TT
 			scope:actor = { has_variable = tv_arts_exhibition_member }
 		}
 	}
@@ -66,7 +66,7 @@ tv_remove_arts_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ARTS_EXHIBITION_MEMBER_TT
 			scope:actor = { has_variable = tv_arts_exhibition_member }
 		}
 	}
@@ -78,7 +78,7 @@ tv_remove_arts_leader = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_ARTS_EXHIBITION_LEADER_CHAR_TT
 						has_variable = tv_arts_exhibition_leader_char
 					}
 				}
@@ -101,7 +101,7 @@ tv_change_arts_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ARTS_EXHIBITION_MEMBER_TT
 			scope:actor = { has_variable = tv_arts_exhibition_member }
 		}
 	}
@@ -134,7 +134,7 @@ tv_change_arts_leader = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_ARTS_EXHIBITION_LEADER_CHAR_TT
 						has_variable = tv_arts_exhibition_leader_char
 					}
 				}
@@ -169,7 +169,7 @@ tv_appoint_alliance_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_DIPLOMATIC_ALLIANCE_MEMBER_TT
 			scope:actor = { has_variable = tv_diplomatic_alliance_member }
 		}
 	}
@@ -212,7 +212,7 @@ tv_remove_alliance_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_DIPLOMATIC_ALLIANCE_MEMBER_TT
 			scope:actor = { has_variable = tv_diplomatic_alliance_member }
 		}
 	}
@@ -236,7 +236,7 @@ tv_change_alliance_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_DIPLOMATIC_ALLIANCE_MEMBER_TT
 			scope:actor = { has_variable = tv_diplomatic_alliance_member }
 		}
 	}
@@ -283,7 +283,7 @@ tv_appoint_academy_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
 			scope:actor = { has_variable = tv_academy_io_member }
 		}
 	}
@@ -329,7 +329,7 @@ tv_remove_academy_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
 			scope:actor = { has_variable = tv_academy_io_member }
 		}
 	}
@@ -341,7 +341,7 @@ tv_remove_academy_leader = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 						has_variable = tv_academy_leader_char
 					}
 				}
@@ -364,7 +364,7 @@ tv_change_academy_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
 			scope:actor = { has_variable = tv_academy_io_member }
 		}
 	}
@@ -392,7 +392,7 @@ tv_change_academy_leader = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 						has_variable = tv_academy_leader_char
 					}
 				}
@@ -427,7 +427,7 @@ tv_appoint_conquest_general_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
 	}
@@ -475,7 +475,7 @@ tv_remove_conquest_general_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
 	}
@@ -487,7 +487,7 @@ tv_remove_conquest_general_leader = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 						has_variable = tv_conquest_general_char
 					}
 				}
@@ -511,7 +511,7 @@ tv_change_conquest_general_leader = {
 
 	potential = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
 	}
@@ -540,7 +540,7 @@ tv_change_conquest_general_leader = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 						has_variable = tv_conquest_general_char
 					}
 				}

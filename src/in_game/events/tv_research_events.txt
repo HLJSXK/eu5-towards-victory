@@ -14,11 +14,11 @@ tv_research.1 = {
 
 	trigger = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
 			has_variable = tv_academy_io_member
 		}
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_RESEARCH_PHASE_TT
 			has_variable = tv_research_phase
 		}
 		var:tv_research_phase = 1
@@ -97,7 +97,7 @@ tv_research.10 = {
 
 	trigger = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_RESEARCH_PROPOSED_ADVANCE_TT
 			has_variable = tv_research_proposed_advance
 		}
 		custom_tooltip = {
@@ -127,7 +127,7 @@ tv_research.11 = {
 
 	trigger = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_RESEARCH_TARGET_TT
 			has_variable = tv_research_target
 		}
 	}
@@ -216,7 +216,7 @@ tv_research.30 = {
 
 	trigger = {
 		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
+			text = TV_HAS_RESEARCH_TARGET_TT
 			has_variable = tv_research_target
 		}
 	}

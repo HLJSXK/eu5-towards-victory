@@ -6,17 +6,17 @@ tv_govhouse_yearly_pulse = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_GOVHOUSE_MEMBER_TT
 					has_variable = tv_govhouse_member
 				}
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 					has_variable = tv_conquest_general_char
 				}
 				var:tv_conquest_general_char ?= {
 					is_alive = yes
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_GG_TRAINING_ACTIVE_TT
 						has_variable = tv_gg_training_active
 					}
 				}
@@ -33,7 +33,7 @@ tv_govhouse_char_death = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_GG_TRAINING_ACTIVE_TT
 						has_variable = tv_gg_training_active
 					}
 				}
@@ -44,7 +44,7 @@ tv_govhouse_char_death = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 					has_variable = tv_conquest_general_char
 				}
 				var:tv_conquest_general_char ?= scope:target

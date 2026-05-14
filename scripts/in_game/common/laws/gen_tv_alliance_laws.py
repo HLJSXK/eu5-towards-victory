@@ -91,7 +91,7 @@ def gen_lN(policy: dict, prev_policy_id: str) -> str:
     lines.append(T*2 + "allow = {")
     lines.append(T*3 + f"international_organization_has_policy = policy:{prev_policy_id}")
     lines.append(T*3 + "custom_tooltip = {")
-    lines.append(T*4 + "text = TV_HAS_VARIABLE_SET_TT")
+    lines.append(T*4 + "text = TV_HAS_ALLIANCE_COHESION_TT")
     lines.append(T*4 + "scope:recipient = { has_variable = tv_alliance_cohesion }")
     lines.append(T*3 + "}")
     lines.append(T*3 + "scope:recipient = {")

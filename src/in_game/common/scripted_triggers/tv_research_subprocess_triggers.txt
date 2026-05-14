@@ -39,7 +39,7 @@ tv_research_can_start_d_trigger = {
 # selection cooldown is not active, and at least one Frontier advance is unresearched.
 tv_research_can_request_target_trigger = {
 	custom_tooltip = {
-		text = TV_HAS_VARIABLE_SET_TT
+		text = TV_HAS_ACADEMY_IO_MEMBER_TT
 		has_variable = tv_academy_io_member
 	}
 	custom_tooltip = {
@@ -67,7 +67,7 @@ tv_research_can_request_target_trigger = {
 # ── Active target check ────────────────────────────────────────────────────────
 tv_research_has_active_target_trigger = {
 	custom_tooltip = {
-		text = TV_HAS_VARIABLE_SET_TT
+		text = TV_HAS_RESEARCH_TARGET_TT
 		has_variable = tv_research_target
 	}
 }

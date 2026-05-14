@@ -17,7 +17,7 @@ tv_grand_general.1 = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 					has_variable = tv_conquest_general_char
 				}
 				var:tv_conquest_general_char ?= { mil >= 100 }
@@ -160,7 +160,7 @@ tv_grand_general.6 = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 					has_variable = tv_conquest_general_char
 				}
 				var:tv_conquest_general_char ?= { has_trait = tv_gg_injured }

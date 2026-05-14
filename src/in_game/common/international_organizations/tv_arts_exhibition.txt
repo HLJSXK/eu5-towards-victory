@@ -42,7 +42,7 @@ tv_arts_exhibition = {
 						international_organization_has_leader = yes
 						leader_country = {
 							custom_tooltip = {
-								text = TV_HAS_VARIABLE_SET_TT
+								text = TV_HAS_ARTS_EXHIBITION_LEADER_CHAR_TT
 								has_variable = tv_arts_exhibition_leader_char
 							}
 							var:tv_arts_exhibition_leader_char ?= { is_alive = yes }

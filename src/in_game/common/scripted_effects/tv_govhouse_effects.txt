@@ -143,7 +143,7 @@ tv_apply_governor_bonuses_effect = {
 			if = {
 				limit = {
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_GOVERNED_AREA_TT
 						has_variable = tv_governed_area
 					}
 				}
@@ -244,7 +244,7 @@ tv_governor_remove_effect = {
 		if = {
 			limit = {
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_SET_TT
+					text = TV_HAS_GOVERNED_AREA_TT
 					has_variable = tv_governed_area
 				}
 			}
@@ -274,7 +274,7 @@ tv_govhouse_cleanup_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_GOVHOUSE_MEMBER_TT
 				has_variable = tv_govhouse_member
 			}
 		}
@@ -284,7 +284,7 @@ tv_govhouse_cleanup_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
 				has_variable = tv_conquest_general_char
 			}
 		}
@@ -296,7 +296,7 @@ tv_govhouse_cleanup_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_GOVERNOR_LIST_TT
 				has_variable = tv_governor_list
 			}
 		}
@@ -305,7 +305,7 @@ tv_govhouse_cleanup_effect = {
 				limit = {
 					is_alive = yes
 					custom_tooltip = {
-						text = TV_HAS_VARIABLE_SET_TT
+						text = TV_HAS_GOVERNED_AREA_TT
 						has_variable = tv_governed_area
 					}
 				}

@@ -17,7 +17,7 @@ tv_send_artist_abroad = {
 	potential = {
 		scope:actor = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_ARTS_EXHIBITION_MEMBER_TT
 				has_variable = tv_arts_exhibition_member
 			}
 		}
@@ -118,7 +118,7 @@ tv_send_artist_abroad = {
 					if = {
 						limit = {
 							custom_tooltip = {
-								text = TV_HAS_VARIABLE_SET_TT
+								text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
 								has_variable = tv_dispatched_artists_count
 							}
 						}
@@ -165,7 +165,7 @@ tv_host_domestic_exhibition = {
 	potential = {
 		scope:actor = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_SET_TT
+				text = TV_HAS_ARTS_EXHIBITION_MEMBER_TT
 				has_variable = tv_arts_exhibition_member
 			}
 		}
