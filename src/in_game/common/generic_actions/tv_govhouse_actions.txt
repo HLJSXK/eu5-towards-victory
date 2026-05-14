@@ -39,7 +39,7 @@ tv_train_grand_general = {
 # Existing governors remain in tv_governor_list if the Grand General leaves office.
 
 # Appoints a governor: 2-step selection (character → area).
-# step 1 sets scope:recipient (character), step 2 sets scope:target (area).
+# step 1 sets scope:target (character), step 2 sets scope:target_1 (area).
 tv_appoint_governor = {
 	type = owncountry
 	sound = UI_action_religion_generic
