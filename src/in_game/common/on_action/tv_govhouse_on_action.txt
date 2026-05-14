@@ -32,6 +32,7 @@ tv_govhouse_char_death = {
 				has_variable = tv_conquest_general_char
 				var:tv_conquest_general_char = scope:target
 			}
+			tv_govhouse_reset_power_consolidation_effect = yes
 			remove_variable = tv_conquest_general_char
 			# TODO: fire a notification event to inform the player their Grand General has died
 		}

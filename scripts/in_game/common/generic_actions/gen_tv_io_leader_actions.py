@@ -56,9 +56,24 @@ def _char_selector_block(io: dict) -> str:
     return "\n".join(lines)
 
 
+def _extra_effect_block(io: dict, key: str, indent: str) -> str:
+    """Return an optional YAML-provided effect snippet at the requested indent."""
+    effect = io.get(key, "").rstrip()
+    if not effect:
+        return ""
+    lines = []
+    for line in effect.splitlines():
+        if line:
+            lines.append(f"{indent}{line.rstrip()}")
+        else:
+            lines.append("")
+    return "\n".join(lines) + "\n"
+
+
 def gen_appoint(io: dict) -> str:
     selector = _char_selector_block(io)
     title_mod = io.get("title_modifier", "")
+    extra_effect = _extra_effect_block(io, "on_appoint_effect", "\t\t\t\t")
     title_effect = (
         f"\t\t\tscope:target = {{\n"
         f"\t\t\t\tadd_character_modifier = {{ modifier = {title_mod} years = -1 mode = add_and_extend }}\n"
@@ -84,6 +99,7 @@ def gen_appoint(io: dict) -> str:
         f"\t\t\tlimit = {{ exists = scope:target }}\n"
         f"\t\t\tscope:actor = {{\n"
         f"\t\t\t\tset_variable = {{ name = {io['leader_var']} value = scope:target }}\n"
+        f"{extra_effect}"
         f"\t\t\t}}\n"
         f"{title_effect}"
         f"\t\t}}\n"
@@ -96,6 +112,7 @@ def gen_appoint(io: dict) -> str:
 
 def gen_remove(io: dict) -> str:
     title_mod = io.get("title_modifier", "")
+    extra_effect = _extra_effect_block(io, "on_remove_effect", "\t\t\t")
     title_effect = (
         f"\t\t\tif = {{\n"
         f"\t\t\t\tlimit = {{ has_variable = {io['leader_var']} }}\n"
@@ -120,6 +137,7 @@ def gen_remove(io: dict) -> str:
         f"\teffect = {{\n"
         f"\t\tscope:actor = {{\n"
         f"{title_effect}"
+        f"{extra_effect}"
         f"\t\t\tremove_variable = {io['leader_var']}\n"
         f"\t\t}}\n"
         f"\t}}\n"
@@ -132,16 +150,21 @@ def gen_remove(io: dict) -> str:
 def gen_change(io: dict) -> str:
     selector = _char_selector_block(io)
     title_mod = io.get("title_modifier", "")
-    remove_old_title = (
-        f"\t\tscope:actor = {{\n"
+    extra_effect = _extra_effect_block(io, "on_change_effect", "\t\t\t")
+    remove_old_title_inner = (
         f"\t\t\tif = {{\n"
         f"\t\t\t\tlimit = {{ has_variable = {io['leader_var']} }}\n"
         f"\t\t\t\tvar:{io['leader_var']} ?= {{\n"
         f"\t\t\t\t\tremove_character_modifier = {title_mod}\n"
         f"\t\t\t\t}}\n"
         f"\t\t\t}}\n"
-        f"\t\t}}\n"
     ) if title_mod else ""
+    pre_change_actor_effect = (
+        f"\t\tscope:actor = {{\n"
+        f"{remove_old_title_inner}"
+        f"{extra_effect}"
+        f"\t\t}}\n"
+    ) if (remove_old_title_inner or extra_effect) else ""
     add_new_title = (
         f"\t\t\tscope:target = {{\n"
         f"\t\t\t\tadd_character_modifier = {{ modifier = {title_mod} years = -1 mode = add_and_extend }}\n"
@@ -163,7 +186,7 @@ def gen_change(io: dict) -> str:
         f"{selector}\n"
         f"\n"
         f"\teffect = {{\n"
-        f"{remove_old_title}"
+        f"{pre_change_actor_effect}"
         f"\t\tif = {{\n"
         f"\t\t\tlimit = {{ exists = scope:target }}\n"
         f"\t\t\tscope:actor = {{\n"

@@ -22,6 +22,19 @@ tv_govhouse_create_effect = {
 	}
 }
 
+# Resets the IO-scoped Grand General consolidation value for this country's
+# Governor's House. Scope: leader country / Governor's House owner.
+tv_govhouse_reset_power_consolidation_effect = {
+	save_scope_as = tv_govhouse_power_owner
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_govhouse
+			leader_country ?= scope:tv_govhouse_power_owner
+		}
+		set_variable = { name = tv_govhouse_power_consolidation value = 0 }
+	}
+}
+
 # Starts Grand General training. Marks the Grand General as in training.
 # Called by the tv_train_grand_general generic action.
 # Scope: actor country.
@@ -250,6 +263,7 @@ tv_govhouse_cleanup_effect = {
 	save_scope_as = tv_governing_country
 	if = {
 		limit = { has_variable = tv_govhouse_member }
+		tv_govhouse_reset_power_consolidation_effect = yes
 		remove_variable = tv_govhouse_member
 	}
 	if = {

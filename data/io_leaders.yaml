@@ -49,6 +49,12 @@ ios:
     no_leader_msg: tv_no_grand_general_available
     title_modifier: tv_grand_general_role_modifier
     title_loc_key: character_title_tv_grand_general
+    on_appoint_effect: |
+      tv_govhouse_reset_power_consolidation_effect = yes
+    on_remove_effect: |
+      tv_govhouse_reset_power_consolidation_effect = yes
+    on_change_effect: |
+      tv_govhouse_reset_power_consolidation_effect = yes
     char_filter: |
       is_adult = yes
       # TODO: add eligibility filter — e.g. mil >= 4, or a specific trait

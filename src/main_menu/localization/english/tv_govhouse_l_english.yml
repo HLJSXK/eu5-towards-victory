@@ -12,11 +12,21 @@
  TV_GOVHOUSE_GRAND_GENERAL_FEMALE:0 "Grand General"
  tv_govhouse_authority:0 "Governor's Authority"
  tv_govhouse_authority_desc:0 "Represents the administrative and military authority wielded by the Governor's House. High authority enables more effective governance of conquered territories."
+ tv_govhouse_power_balance:0 "Balance of Power"
+ tv_govhouse_power_balance_desc:0 "The actual distribution of power between the Grand General and the Crown."
+ tv_govhouse_power_equilibrium:0 "Balance of Power Equilibrium"
+ tv_govhouse_power_equilibrium_desc:0 "The balance of power moves toward this value each month, up to 1% at a time."
+ tv_govhouse_power_consolidation:0 "Power Consolidation"
+ tv_govhouse_power_consolidation_desc:0 "Personal power accumulated by the Grand General while in office. It immediately resets when the Grand General leaves office."
  TV_GOVHOUSE_GENERAL_TAB: "Grand General"
  TV_GOVHOUSE_GENERAL_TAB_TOOLTIP: "Grand General management"
  TV_GOVHOUSE_CURRENT_GENERAL_LABEL: "Current Grand General:"
  TV_GOVHOUSE_NO_GENERAL: "None appointed"
  TV_GOVHOUSE_AUTHORITY_LABEL: "Governor's Authority:"
+ TV_GOVHOUSE_POWER_BALANCE_CARD_TITLE: "Balance of Power"
+ TV_GOVHOUSE_POWER_BALANCE_TOOLTIP: "The left side represents the Grand General; the right side represents the Crown. The balance moves toward equilibrium by up to 1% each month."
+ TV_GOVHOUSE_POWER_BALANCE_GENERAL_SIDE: "Grand General"
+ TV_GOVHOUSE_POWER_BALANCE_CROWN_SIDE: "Crown"
 
  # ── Conquest M1 IO creation tooltip ─────────────────────────────────────────
  tv_conquest_m1_govhouse_tt: "Establish the Governor's House to administer conquered territories and appoint a Grand General."
@@ -60,6 +70,7 @@
  TV_GOVHOUSE_AUTHORITY_FORMAT: "$VAL|0$"
  TV_GOVHOUSE_AUTHORITY_DECAY: "Monthly decay"
  TV_GOVHOUSE_GENERAL_CONTRIBUTION: "Grand General contribution"
+ TV_GOVHOUSE_POWER_BALANCE_FORMAT: "$VAL|%0$"
 
  # ── Training outcome events ──────────────────────────────────────────────────
  tv_grand_general.1.t: "A General Honed"

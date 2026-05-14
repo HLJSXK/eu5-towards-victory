@@ -400,6 +400,7 @@ tv_appoint_conquest_general_leader = {
 			limit = { exists = scope:target }
 			scope:actor = {
 				set_variable = { name = tv_conquest_general_char value = scope:target }
+				tv_govhouse_reset_power_consolidation_effect = yes
 			}
 			scope:target = {
 				add_character_modifier = { modifier = tv_grand_general_role_modifier years = -1 mode = add_and_extend }
@@ -430,6 +431,7 @@ tv_remove_conquest_general_leader = {
 					remove_character_modifier = tv_grand_general_role_modifier
 				}
 			}
+			tv_govhouse_reset_power_consolidation_effect = yes
 			remove_variable = tv_conquest_general_char
 		}
 	}
@@ -474,6 +476,7 @@ tv_change_conquest_general_leader = {
 					remove_character_modifier = tv_grand_general_role_modifier
 				}
 			}
+			tv_govhouse_reset_power_consolidation_effect = yes
 		}
 		if = {
 			limit = { exists = scope:target }

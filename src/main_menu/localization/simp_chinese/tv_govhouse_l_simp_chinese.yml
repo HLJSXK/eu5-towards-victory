@@ -11,11 +11,21 @@
  TV_GOVHOUSE_GRAND_GENERAL_FEMALE:0 "大将军"
  tv_govhouse_authority:0 "总督权威"
  tv_govhouse_authority_desc:0 "代表总督府所掌握的行政与军事权威。高权威有助于更有效地管理征服领土。"
+ tv_govhouse_power_balance:0 "权力平衡"
+ tv_govhouse_power_balance_desc:0 "大将军与王室之间的实际权力分布。"
+ tv_govhouse_power_equilibrium:0 "权力平衡均衡点"
+ tv_govhouse_power_equilibrium_desc:0 "权力平衡每月会向该数值移动，最多移动1%。"
+ tv_govhouse_power_consolidation:0 "巩固权力"
+ tv_govhouse_power_consolidation_desc:0 "大将军在任期间逐月积累的个人权势。大将军下台时立刻归零。"
  TV_GOVHOUSE_GENERAL_TAB: "大将军"
  TV_GOVHOUSE_GENERAL_TAB_TOOLTIP: "大将军管理"
  TV_GOVHOUSE_CURRENT_GENERAL_LABEL: "现任大将军："
  TV_GOVHOUSE_NO_GENERAL: "尚未任命"
  TV_GOVHOUSE_AUTHORITY_LABEL: "总督权威："
+ TV_GOVHOUSE_POWER_BALANCE_CARD_TITLE: "权力平衡"
+ TV_GOVHOUSE_POWER_BALANCE_TOOLTIP: "左侧代表大将军，右侧代表王室。权力平衡每月向均衡点移动最多1%。"
+ TV_GOVHOUSE_POWER_BALANCE_GENERAL_SIDE: "大将军"
+ TV_GOVHOUSE_POWER_BALANCE_CROWN_SIDE: "王室"
 
  # ── 征服里程碑一 — 创建总督府提示 ──────────────────────────────────────────
  tv_conquest_m1_govhouse_tt: "建立总督府，管辖征服领土，并任命大将军。"
@@ -59,6 +69,7 @@
  TV_GOVHOUSE_AUTHORITY_FORMAT: "$VAL|0$"
  TV_GOVHOUSE_AUTHORITY_DECAY: "每月衰减"
  TV_GOVHOUSE_GENERAL_CONTRIBUTION: "大将军贡献"
+ TV_GOVHOUSE_POWER_BALANCE_FORMAT: "$VAL|%0$"
 
  # ── 训练结果事件 ─────────────────────────────────────────────────────────────
  tv_grand_general.1.t: "将才磨砺"
