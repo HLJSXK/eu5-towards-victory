@@ -5,7 +5,7 @@ namespace = tv_research
 
 # ── tv_research.1 — Interest Collection (Sub-process A) ─────────────────────────
 # Fires monthly via random_events when the research cycle is in phase 1 and A is incomplete.
-# Player encourages inquiry (+1 interest) or dismisses (no effect).
+# Player funds inquiry (+1 interest, dynamic gold cost) or dismisses (no effect).
 tv_research.1 = {
 	type = country_event
 	title = tv_research.1.t
@@ -26,7 +26,8 @@ tv_research.1 = {
 	}
 
 	option = {
-		name = tv_research.1.a	# "Encourage the inquiry"
+		name = tv_research.1.a	# "Fund the inquiry"
+		change_gold_effect = { scale = -2 }
 		change_variable = { name = tv_research_interest add = 1 }
 		if = {
 			limit = { NOT = { var:tv_rm_subprocess_a >= 1 } }

@@ -401,6 +401,15 @@
   source: "reference_game_files/game/in_game/common/scripted_effects/country_effects.txt:2161 (add_gold = 5000), reference_game_files/game/in_game/common/generic_actions/fall_of_delhi.txt:44 (add_gold = { value = ... })"
   notes: "add_treasury does not exist in EU5. The effect is add_gold; it accepts a bare literal integer (positive or negative) or a block with value/multiply. Error: 'Unknown effect add_treasury'."
 
+- id: flat_gold_cost_when_dynamic_event_cost_intended
+  pattern: ''
+  bad: "Hardcoding add_gold = -N for an event option that should scale with the country's economy"
+  correction: "Use vanilla scripted effect change_gold_effect = { scale = -N } for dynamic country-event costs. The effect scales with capital_wealth and country_economical_base and clamps the result."
+  category: script
+  scope: country
+  source: "reference_game_files/game/in_game/common/scripted_effects/country_gold_effects.txt:1, reference_game_files/game/in_game/events/government/laws.txt:238"
+  notes: "Vanilla event laws.0005 uses change_gold_effect = { scale = -3.5 } for the paid +10 research-progress option. Use fixed add_gold only when a flat cost is the design intent."
+
 - id: price_requires_cost_modifier_type
   pattern: ''
   bad: "Defining a price in common/prices/ without a corresponding modifier_type in common/modifier_type_definitions/"

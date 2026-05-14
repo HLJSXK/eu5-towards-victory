@@ -141,6 +141,16 @@ construct_building = {
 
 Omitting `cost_multiplier_reason` logs: `No reason given for the cost multiplier in construct_building effect`. Vanilla event-funded construction commonly uses `game_concept_event`, which is already localized.
 
+#### Dynamic Event Gold Costs
+
+For country event options that should scale with the country's economy, vanilla uses:
+
+```pdx
+change_gold_effect = { scale = -3.5 }
+```
+
+The helper wraps `add_gold` and scales the value with `capital_wealth` and `country_economical_base`, with clamps for positive and negative results. Use fixed `add_gold = -N` only when a flat cost is the design intent. Example: vanilla `laws.0005` offers a free `research_progress_weak_bonus` (+2.5) option and a paid `change_gold_effect = { scale = -3.5 }` + `research_progress_severe_bonus` (+10) option.
+
 ### 5.2. Scopes and Scope Links
 
 A **scope** refers to the specific game object (e.g., a country, a character, a location) that a script is currently focused on. **Scope links** are used to access data from or apply effects to other scopes. For example, `c:FRA.gold` would access the treasury of the country with the tag FRA.
