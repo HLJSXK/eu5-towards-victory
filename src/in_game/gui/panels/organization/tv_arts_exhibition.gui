@@ -105,15 +105,86 @@ organization_panel = {
 									spacing = 4
 									datamodel = "[Country.MakeScope.GetList('tv_dispatched_artists_list')]"
 									item = {
-										io_character_card = {
-											size = { 97% 72 }
-											using = layoutpolicy_expanding
-											datacontext = "[Scope.GetCharacter]"
-											blockoverride "character_abilities_visible" {
-												visible = no
-											}
-											blockoverride "artist_abilities_visible" {
-												visible = yes
+										widget = {
+											size = { 97% 48 }
+											using = bg_paper_card
+
+											hbox = {
+												layoutpolicy_horizontal = expanding
+												spacing = 6
+												margin = { 6 4 }
+
+												character_frame_small = {
+													size = { 40 40 }
+													blockoverride "portrait_datacontext" {
+														datacontext = "[Scope.GetCharacter]"
+													}
+												}
+
+												vbox = {
+													layoutpolicy_horizontal = expanding
+													spacing = 1
+
+													text_single = {
+														layoutpolicy_horizontal = expanding
+														raw_text = "[Scope.GetCharacter.GetNameToFitWithNoTooltip('(int32)38', '(bool)yes')], [Scope.GetCharacter.GetAgeInYears]"
+														align = nobaseline|left
+														default_format = "#yellow_titles"
+														autoresize = no
+													}
+
+													hbox = {
+														layoutpolicy_horizontal = expanding
+														spacing = 8
+
+														hbox = {
+															spacing = 3
+															tooltip = "[artistic_skill|e]"
+															widget = {
+																size = { 22 22 }
+																using = icon_art_skill_alt
+															}
+															text_single = {
+																size = { 24 22 }
+																raw_text = "[Multiply_CFixedPoint(Scope.GetCharacter.GetArtistSkill, '(CFixedPoint)100')|0]"
+																align = nobaseline|left
+																default_format = "#important_number"
+																autoresize = no
+															}
+														}
+
+														hbox = {
+															spacing = 3
+															tooltip = "[work_of_art|e]"
+															icon = {
+																size = { 22 22 }
+																texture = "gfx/interface/icons/flat_icons/art_works.dds"
+															}
+															text_single = {
+																size = { 22 22 }
+																text = "[GetDataModelSize(Scope.GetCharacter.GetWorksOfArt)]"
+																align = nobaseline|left
+																default_format = "#important_number"
+																autoresize = no
+															}
+														}
+
+														hbox = {
+															layoutpolicy_horizontal = expanding
+															spacing = 3
+															datamodel = "[Scope.GetCharacter.GetTraits]"
+															item = {
+																icon = {
+																	size = { 22 22 }
+																	using = trait_item
+																	blockoverride "trait_item_size" {
+																		size = { 22 22 }
+																	}
+																}
+															}
+														}
+													}
+												}
 											}
 										}
 									}
