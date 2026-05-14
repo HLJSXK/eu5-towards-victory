@@ -162,6 +162,15 @@
   source: "reference_game_files/game/in_game/common/scripted_effects/global_effects.txt"
   notes: "Exhaustive search of reference_game_files/ and reference_mods/ found no multiply_global_variable effect. Only set_global_variable and change_global_variable exist for global-scope numeric variables."
 
+- id: variable_list_remove_wrong_effect
+  pattern: 'remove_from_variable_list\s*='
+  bad: "remove_from_variable_list = { name = X target = Y } for persistent variable lists"
+  correction: "remove_list_variable = { name = X target = Y } to remove a specific entry. add_to_variable_list = { name = X target = Y } is still correct for adding. Temporary lists (add_to_list) use a different API: every_in_list = { list = X } and remove_from_list = X."
+  category: script
+  scope: any
+  source: "src/in_game/common/scripted_effects/tv_govhouse_effects.txt"
+  notes: "EU5 uses remove_list_variable (not remove_from_variable_list) to remove a scope reference from a persistent variable list. Confirmed by govhouse implementation."
+
 - id: action_button_diamond_datacontext_breaks_tooltip
   pattern: ''
   bad: "datacontext = \"[InternationalOrganizationsView.GetPlayer]\" inside action_button_diamond in an organization panel"

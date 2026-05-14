@@ -71,7 +71,8 @@ tv_training_resolve_effect = {
 # Scaling: size reads pre-computed pct variable directly (no inline multiply needed)
 
 # Applies or refreshes location modifiers and display variables for one governor.
-# Scope: country (root = country). scope:recipient = governor character.
+# Scope: country. scope:recipient = governor character. scope:tv_governing_country = owning country.
+# Caller must save_scope_as = tv_governing_country before calling this effect.
 tv_governor_apply_modifiers_effect = {
 	scope:recipient = {
 		# Refresh display variables (shared scale with size — GUI uses |% format)
@@ -81,7 +82,7 @@ tv_governor_apply_modifiers_effect = {
 		# Apply to all owned locations in the governed area
 		var:tv_governed_area = {
 			every_location_in_area = {
-				limit = { owner ?= root }
+				limit = { owner ?= scope:tv_governing_country }
 				remove_location_modifier = tv_governor_max_control
 				remove_location_modifier = tv_governor_build_cost
 				remove_location_modifier = tv_governor_unrest
@@ -110,7 +111,9 @@ tv_governor_apply_modifiers_effect = {
 
 # Refreshes all governor modifiers; cleans up dead governors.
 # Scope: country. Called monthly from the IO monthly_effect.
+# root may be the IO when called via monthly_effect — use save_scope_as to pin the country.
 tv_apply_governor_bonuses_effect = {
+	save_scope_as = tv_governing_country
 	every_in_list = { variable = tv_governor_list
 		if = {
 			limit = { is_alive = no }
@@ -119,7 +122,7 @@ tv_apply_governor_bonuses_effect = {
 				limit = { has_variable = tv_governed_area }
 				var:tv_governed_area = {
 					every_location_in_area = {
-						limit = { owner ?= root }
+						limit = { owner ?= scope:tv_governing_country }
 						remove_location_modifier = tv_governor_max_control
 						remove_location_modifier = tv_governor_build_cost
 						remove_location_modifier = tv_governor_unrest
@@ -132,13 +135,13 @@ tv_apply_governor_bonuses_effect = {
 			remove_variable = tv_gov_build_cost_pct
 			remove_variable = tv_gov_unrest_pct
 			save_scope_as = tv_dead_governor
-			root = {
+			scope:tv_governing_country = {
 				remove_list_variable = { name = tv_governor_list target = scope:tv_dead_governor }
 			}
 		}
 		else = {
 			save_scope_as = recipient
-			root = {
+			scope:tv_governing_country = {
 				tv_governor_apply_modifiers_effect = yes
 			}
 		}
@@ -146,14 +149,15 @@ tv_apply_governor_bonuses_effect = {
 }
 
 # Appoints a governor to an area. Displaces any existing governor for that area.
-# Scope: country (root = country). scope:recipient = character. scope:target = area.
+# Scope: country. scope:recipient = character. scope:target = area.
 tv_governor_appoint_effect = {
+	save_scope_as = tv_governing_country
 	# Displace any existing governor for this area first
 	every_in_list = { variable = tv_governor_list
 		limit = { var:tv_governed_area ?= scope:target }
 		var:tv_governed_area = {
 			every_location_in_area = {
-				limit = { owner ?= root }
+				limit = { owner ?= scope:tv_governing_country }
 				remove_location_modifier = tv_governor_max_control
 				remove_location_modifier = tv_governor_build_cost
 				remove_location_modifier = tv_governor_unrest
@@ -165,7 +169,7 @@ tv_governor_appoint_effect = {
 		remove_variable = tv_gov_build_cost_pct
 		remove_variable = tv_gov_unrest_pct
 		save_scope_as = tv_displaced_governor
-		root = {
+		scope:tv_governing_country = {
 			remove_list_variable = { name = tv_governor_list target = scope:tv_displaced_governor }
 		}
 	}
@@ -181,14 +185,15 @@ tv_governor_appoint_effect = {
 }
 
 # Dismisses a governor, removing their location modifiers.
-# Scope: country (root = country). scope:recipient = governor character to dismiss.
+# Scope: country. scope:recipient = governor character to dismiss.
 tv_governor_remove_effect = {
+	save_scope_as = tv_governing_country
 	scope:recipient = {
 		if = {
 			limit = { has_variable = tv_governed_area }
 			var:tv_governed_area = {
 				every_location_in_area = {
-					limit = { owner ?= root }
+					limit = { owner ?= scope:tv_governing_country }
 					remove_location_modifier = tv_governor_max_control
 					remove_location_modifier = tv_governor_build_cost
 					remove_location_modifier = tv_governor_unrest
@@ -207,6 +212,7 @@ tv_governor_remove_effect = {
 # Cleans up governor variables and IO on country deletion or conquest defeat.
 # Scope: country being cleaned up.
 tv_govhouse_cleanup_effect = {
+	save_scope_as = tv_governing_country
 	if = {
 		limit = { has_variable = tv_govhouse_member }
 		remove_variable = tv_govhouse_member
@@ -225,7 +231,7 @@ tv_govhouse_cleanup_effect = {
 				limit = { is_alive = yes  has_variable = tv_governed_area }
 				var:tv_governed_area = {
 					every_location_in_area = {
-						limit = { owner ?= root }
+						limit = { owner ?= scope:tv_governing_country }
 						remove_location_modifier = tv_governor_max_control
 						remove_location_modifier = tv_governor_build_cost
 						remove_location_modifier = tv_governor_unrest
