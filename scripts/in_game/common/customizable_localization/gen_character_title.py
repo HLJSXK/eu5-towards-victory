@@ -82,41 +82,12 @@ def _find_block_end(text: str, block_name: str) -> int:
     raise ValueError(f"Could not find end of block: {block_name}")
 
 
-def _wrap_standalone_has_variable_lines(text: str) -> str:
-    lines: list[str] = []
-    for line in text.splitlines():
-        stripped = line.strip()
-        indent = line[: len(line) - len(line.lstrip())]
-        if stripped.startswith("has_variable = "):
-            lines.extend(
-                [
-                    f"{indent}custom_tooltip = {{",
-                    f"{indent}\ttext = TV_HAS_VARIABLE_SET_TT",
-                    f"{indent}\t{stripped}",
-                    f"{indent}}}",
-                ]
-            )
-        elif stripped.startswith("NOT = { has_variable = ") and stripped.endswith("}"):
-            lines.extend(
-                [
-                    f"{indent}custom_tooltip = {{",
-                    f"{indent}\ttext = TV_HAS_VARIABLE_NOT_SET_TT",
-                    f"{indent}\t{stripped}",
-                    f"{indent}}}",
-                ]
-            )
-        else:
-            lines.append(line)
-    return "\n".join(lines)
-
-
 def generate(data: dict) -> str:
     vanilla = VANILLA_FILE.read_text(encoding="utf-8-sig")
     insertion = _tv_title_entries(data)
     if insertion:
         end = _find_block_end(vanilla, "character_title_prefix")
         vanilla = vanilla[:end].rstrip() + "\n" + insertion + vanilla[end:]
-    vanilla = _wrap_standalone_has_variable_lines(vanilla)
     return HEADER + "\n" + vanilla.rstrip() + "\n"
 
 

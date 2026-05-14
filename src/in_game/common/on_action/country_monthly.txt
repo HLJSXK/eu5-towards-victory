@@ -174,10 +174,7 @@ on_papacy_reform_removed = {
 
 france_naples_administration_broken = {
 	trigger = {
-		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
-			has_variable = france_naples_union
-		}
+		has_variable = france_naples_union
 		NOT = { c:NAP ?= { in_union_with = c:FRA } }
 	}
 	effect = {
@@ -230,10 +227,7 @@ wor_on_wallenstein_prison_occupation = {
 			siege = {
 				any_besieging_unit = {
 					owner = {
-						custom_tooltip = {
-							text = TV_HAS_VARIABLE_SET_TT
-							has_variable = wallenstein_rescue_mission
-						}
+						has_variable = wallenstein_rescue_mission
 					}
 				}
 			}
@@ -251,10 +245,7 @@ wor_on_wallenstein_prison_timeout = {
 			siege = {
 				any_besieging_unit = {
 					owner = {
-						custom_tooltip = {
-							text = TV_HAS_VARIABLE_SET_TT
-							has_variable = wallenstein_rescue_mission
-						}
+						has_variable = wallenstein_rescue_mission
 					}
 				}
 			}
@@ -284,10 +275,7 @@ on_annexing_subject_monthly_pulse = {
 
 on_fraticide_underage_succession_waiting = {
 	trigger = {
-		custom_tooltip = {
-			text = TV_HAS_VARIABLE_SET_TT
-			has_variable = fraticide_succession_has_child_sons
-		}
+		has_variable = fraticide_succession_has_child_sons
 	}
 	effect = {
 		if = {

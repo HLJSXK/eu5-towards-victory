@@ -19,7 +19,7 @@ Towards Victory adds 6 generalized victory paths to EU5: Conquest, Prosperity, T
 
 The **Conquest Victory** path (征服胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = direct locations + 0.5 × subject-or-below locations; thresholds at 150 / 300 / 500 / 1000 / 2000.
 
-The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = (total_population + Σdev + country_tax_base) × 50 / (N + 50) × (1 + stability/100) × (gov_power/100), where N = num_owned_locations and gov_power = legitimacy/republican_tradition/devotion/tribal_cohesion/horde_unity by government type. The 50N/(N+50) effective scale term provides stronger diminishing returns on country size. Updated yearly; thresholds at 500 / 1,000 / 2,000 / 4,000 / 8,000 (provisional, calibrate after playtesting).
+The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = (total_population + Σdev + country_tax_base) × 50 / (N + 50) × (1 + stability/100) × (gov_power/100), where N = num_owned_locations and gov_power = legitimacy/republican_tradition/devotion/tribal_cohesion/horde_unity by government type. The 50N/(N+50) effective scale term provides stronger diminishing returns on country size. Updated yearly; thresholds at 1,000 / 2,000 / 4,000 / 6,000 / 10,000 (provisional, calibrate after playtesting).
 
 The **Trade Victory** path (贸易胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = monthly_trade_income (snapshot taken monthly by tv_update_trade_score_effect); thresholds at 100 / 200 / 400 / 1000 / 2000 (provisional, calibrate after playtesting).
 
@@ -152,7 +152,7 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 
 | Script | Input(s) | Output(s) | When to run |
 |---|---|---|---|
-| `scripts/validate.py --changed` | src/ mod files + data/generated_files.yaml | Console report (exit 0/1) | Before launching game |
+| `scripts/validate.py --changed` | src/ mod files + data/generated_files.yaml + vanilla-copy integrity checks | Console report (exit 0/1) | Before launching game |
 | `scripts/gen_brief.py` | anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md | docs/knowledge/BRIEF.md | After editing any knowledge YAML |
 | `scripts/gen_index.py` | reference_game_files + src/ | data/index/*.txt | Run by gen_brief.py automatically |
 | `scripts/gen_scaffold.py --type X --name Y` | --type argument | Scaffold .txt/.yml file | When creating a new EU5 file |
@@ -162,8 +162,10 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | `scripts/in_game/common/building_types/gen_towards_victory_buildings.py` | data/academy_buildings.yaml | src/in_game/common/building_types/towards_victory_buildings.txt | After changing Academy of Sciences building tiers |
 | `scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py` | data/locked_advances.yaml | src/in_game/gui/panels/organization/tv_academy_of_sciences.gui | After adding/removing Frontier advance targets |
 | `scripts/in_game/common/laws/gen_tv_alliance_laws.py` | data/alliance_laws.yaml | src/in_game/common/laws/tv_alliance_laws.txt | After editing Diplomatic Alliance law categories or policies |
+| `scripts/in_game/common/on_action/gen_tv_pulse_registry.py` | data/pulse_registry.yaml + vanilla pulse files | src/in_game/common/on_action/country_monthly.txt, country_yearly.txt, character_death_pulses.txt | After adding/changing singleton pulse hooks |
+| `scripts/in_game/common/customizable_localization/gen_character_title.py` | data/io_leaders.yaml + vanilla character_title.txt | src/in_game/common/customizable_localization/character_title.txt | After changing IO leader title modifiers |
 
-All TV `trigger`/`limit` condition blocks that use `has_variable` wrap the guard in a `custom_tooltip` block. Positive guards for `tv_` namespace variables use specific `TV_HAS_*_TT` loc keys so the player sees the concrete required state; copied vanilla guards that reference non-`tv_` variables keep the generic `TV_HAS_VARIABLE_SET_TT`. Negative guards continue to use `TV_HAS_VARIABLE_NOT_SET_TT`; the active generators preserve this convention in generated outputs.
+Generated files that copy vanilla sources preserve the copied vanilla content verbatim. The only intended changes are TV-owned insertions: pulse on_action names from `data/pulse_registry.yaml`, TV character title entries from `data/io_leaders.yaml`, and TV message type entries from `scripts/gen_messagetypes.py`. TV-authored `trigger`/`limit` condition blocks that use `has_variable` may wrap guards in `custom_tooltip`, but generated vanilla-copy files must not rewrite copied vanilla guards.
 
 ## Manual UI Notes
 

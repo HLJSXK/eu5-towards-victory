@@ -1,15 +1,12 @@
 """
-Generate country_monthly.txt and country_yearly.txt by copying vanilla pulse
-files and injecting Towards Victory custom on_action names into their
-on_actions = {} blocks.
+Generate vanilla singleton pulse files by copying them verbatim and injecting
+Towards Victory custom on_action names into their on_actions = {} blocks.
 
 Usage:
     conda run --no-capture-output -n eu5 python scripts/in_game/common/on_action/gen_tv_pulse_registry.py
 """
 
 import sys
-import os
-import re
 import yaml
 from pathlib import Path
 
@@ -42,110 +39,6 @@ HEADER_TEMPLATE = """\
 # Do not edit directly — modify the data file and re-run the generator.
 
 """
-
-POS_HAS_VARIABLE_TT = "TV_HAS_VARIABLE_SET_TT"
-NEG_HAS_VARIABLE_TT = "TV_HAS_VARIABLE_NOT_SET_TT"
-TRIGGER_BLOCK_KEYS = {
-    "trigger",
-    "limit",
-    "potential",
-    "allow",
-    "visible",
-    "can_start",
-    "can_end",
-    "location_potential",
-    "potential_trigger",
-}
-
-
-def _strip_comment(line: str) -> str:
-    in_string = False
-    escaped = False
-    for index, char in enumerate(line):
-        if char == '"' and not escaped:
-            in_string = not in_string
-        if char == "#" and not in_string:
-            return line[:index]
-        escaped = char == "\\" and not escaped
-        if char != "\\":
-            escaped = False
-    return line
-
-
-def _tooltip_lines(indent: str, inner: str, negated: bool = False) -> list[str]:
-    key = NEG_HAS_VARIABLE_TT if negated else POS_HAS_VARIABLE_TT
-    return [
-        f"{indent}custom_tooltip = {{",
-        f"{indent}\ttext = {key}",
-        f"{indent}\t{inner}",
-        f"{indent}}}",
-    ]
-
-
-def _wrap_has_variable_custom_tooltips(text: str) -> str:
-    """Wrap simple has_variable checks copied from vanilla in custom_tooltip blocks."""
-    output: list[str] = []
-    custom_depth = 0
-
-    for line in text.splitlines():
-        raw = line.rstrip("\n")
-        code = _strip_comment(raw).rstrip()
-        replacement: list[str] | None = None
-
-        if custom_depth == 0 and "has_variable" in raw and "custom_tooltip" not in raw:
-            match = re.match(r"^(\s*)has_variable\s*=\s*([^\s{}#]+)\s*$", code)
-            if match:
-                replacement = _tooltip_lines(match.group(1), f"has_variable = {match.group(2)}")
-
-            match = match or re.match(r"^(\s*)NOT\s*=\s*\{\s*has_variable\s*=\s*([^\s{}#]+)\s*\}\s*$", code)
-            if replacement is None and match:
-                replacement = _tooltip_lines(match.group(1), f"NOT = {{ has_variable = {match.group(2)} }}", True)
-
-            match = re.match(r"^(\s*)([A-Za-z_][\w:]*)\s*=\s*\{\s*has_variable\s*=\s*([^\s{}#]+)(.*?)\}\s*$", code)
-            if replacement is None and match and match.group(2) in TRIGGER_BLOCK_KEYS:
-                indent, key, var, rest = match.group(1), match.group(2), match.group(3), match.group(4).strip()
-                replacement = [f"{indent}{key} = {{"]
-                replacement.extend(_tooltip_lines(indent + "\t", f"has_variable = {var}"))
-                if rest:
-                    replacement.append(f"{indent}\t{rest}")
-                replacement.append(f"{indent}}}")
-
-            match = re.match(r"^(\s*)([A-Za-z_][\w:]*)\s*=\s*\{\s*NOT\s*=\s*\{\s*has_variable\s*=\s*([^\s{}#]+)\s*\}\s*\}\s*$", code)
-            if replacement is None and match and match.group(2) in TRIGGER_BLOCK_KEYS:
-                indent, key, var = match.group(1), match.group(2), match.group(3)
-                replacement = [f"{indent}{key} = {{"]
-                replacement.extend(_tooltip_lines(indent + "\t", f"NOT = {{ has_variable = {var} }}", True))
-                replacement.append(f"{indent}}}")
-
-            match = re.match(
-                r"^(\s*)([A-Za-z_][\w:]*)\s*=\s*\{\s*((?:[A-Za-z_][\w:.$-]*|[A-Za-z_][\w:.$-]*\s*\?))\s*=\s*\{\s*has_variable\s*=\s*([^\s{}#]+)\s*\}\s*\}\s*$",
-                code,
-            )
-            if replacement is None and match and match.group(2) in TRIGGER_BLOCK_KEYS:
-                indent, key, lhs, var = match.group(1), match.group(2), match.group(3).strip(), match.group(4)
-                replacement = [f"{indent}{key} = {{"]
-                replacement.extend(_tooltip_lines(indent + "\t", f"{lhs} = {{ has_variable = {var} }}"))
-                replacement.append(f"{indent}}}")
-
-            scope_match = re.match(
-                r"^(\s*)((?:[A-Za-z_][\w:.$-]*|[A-Za-z_][\w:.$-]*\s*\?))\s*=\s*\{\s*has_variable\s*=\s*([^\s{}#]+)\s*\}\s*$",
-                code,
-            )
-            if replacement is None and scope_match:
-                indent, lhs, var = scope_match.group(1), scope_match.group(2).strip(), scope_match.group(3)
-                replacement = _tooltip_lines(indent, f"{lhs} = {{ has_variable = {var} }}")
-
-        output.extend(replacement if replacement is not None else [raw])
-
-        stripped_original = _strip_comment(line)
-        if "custom_tooltip" in stripped_original and "{" in stripped_original:
-            custom_depth += stripped_original.count("{") - stripped_original.count("}")
-        elif custom_depth > 0:
-            custom_depth += stripped_original.count("{") - stripped_original.count("}")
-            custom_depth = max(custom_depth, 0)
-
-    return "\n".join(output) + "\n"
-
 
 def find_on_actions_insertion(lines: list[str], pulse_name: str) -> int:
     """Return the line index just before the closing } of the on_actions block
@@ -206,7 +99,7 @@ def generate_file(pulse_name: str, additions: list[str]) -> None:
     lines = inject_additions(lines, idx, additions)
 
     header = HEADER_TEMPLATE.format(script=SCRIPT_REL, data=DATA_REL)
-    output = _wrap_has_variable_custom_tooltips(header + "".join(lines))
+    output = header + "".join(lines)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(output, encoding="utf-8-sig")
