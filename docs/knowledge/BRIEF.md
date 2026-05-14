@@ -129,7 +129,7 @@ src/
 │       └── panels/organization/           tv_govhouse.gui  [MANUAL — Tab1 governor list (datamodel tv_governor_list); Appoint button; bonus stats via pre-computed character variables; Dismiss button with parameter recipient]
 │                                          tv_diplomatic_alliance.gui  [MANUAL — custom HRE-style IO panel; 3 leader-management buttons]
 │                                          tv_arts_exhibition.gui  [MANUAL — 2 cultural action buttons + 3 leader-management buttons]
-│                                          tv_academy_of_sciences.gui  [GENERATED — Research Mechanism IO panel; 3 research + 3 leader-management buttons]
+│                                          tv_academy_of_sciences.gui  [GENERATED — Research Mechanism IO panel; separate Research Status card + 3 research + 3 leader-management buttons]
 └── main_menu/localization/
     ├── english/                           towards_victory_l_english.yml  [GENERATED]
     │                                      towards_victory_leaderboard_l_english.yml  [MANUAL]
@@ -271,7 +271,7 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | Scripted Triggers | 515 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 541 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 692 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 693 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

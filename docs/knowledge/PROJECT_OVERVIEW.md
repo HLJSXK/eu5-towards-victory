@@ -125,7 +125,7 @@ src/
 │       └── panels/organization/           tv_govhouse.gui  [MANUAL — Tab1 governor list (datamodel tv_governor_list); Appoint button; bonus stats via pre-computed character variables; Dismiss button with parameter recipient]
 │                                          tv_diplomatic_alliance.gui  [MANUAL — custom HRE-style IO panel; 3 leader-management buttons]
 │                                          tv_arts_exhibition.gui  [MANUAL — 2 cultural action buttons + 3 leader-management buttons]
-│                                          tv_academy_of_sciences.gui  [GENERATED — Research Mechanism IO panel; 3 research + 3 leader-management buttons]
+│                                          tv_academy_of_sciences.gui  [GENERATED — Research Mechanism IO panel; separate Research Status card + 3 research + 3 leader-management buttons]
 └── main_menu/localization/
     ├── english/                           towards_victory_l_english.yml  [GENERATED]
     │                                      towards_victory_leaderboard_l_english.yml  [MANUAL]

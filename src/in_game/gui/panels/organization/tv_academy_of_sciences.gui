@@ -62,7 +62,23 @@ organization_panel = {
 		visible = yes
 	}
 
-	blockoverride "organization_main_actions_extra" {
+	blockoverride "organization_overview_list_custom_top_extra" {
+		vbox = {
+			margin = { 10 0 }
+			layoutpolicy_horizontal = expanding
+
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_RM_STATUS_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
 
 		# ── Research Status Overview ────────────────────────────────────────────────────────────────────
 		widget = {
@@ -329,6 +345,12 @@ organization_panel = {
 				}
 			}
 		}
+				}
+			}
+		}
+	}
+
+	blockoverride "organization_main_actions_extra" {
 
 		# ── Action Buttons ────────────────────────────────────────────────────────────────────────────────────
 

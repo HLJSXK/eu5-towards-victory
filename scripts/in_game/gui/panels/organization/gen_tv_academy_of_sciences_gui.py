@@ -90,7 +90,23 @@ organization_panel = {
 \t\tvisible = yes
 \t}
 
-\tblockoverride "organization_main_actions_extra" {
+\tblockoverride "organization_overview_list_custom_top_extra" {
+\t\tvbox = {
+\t\t\tmargin = { 10 0 }
+\t\t\tlayoutpolicy_horizontal = expanding
+
+\t\t\tcard_common = {
+\t\t\t\tmaximumsize = { 500 -1 }
+
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_RM_STATUS_CARD_TITLE"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_bottom_content" {
 
 \t\t# ── Research Status Overview ────────────────────────────────────────────────────────────────────
 \t\twidget = {
@@ -292,6 +308,12 @@ GUI_SUFFIX = """\
 \t\t\t\t}
 \t\t\t}
 \t\t}
+\t\t\t\t}
+\t\t\t}
+\t\t}
+\t}
+
+\tblockoverride "organization_main_actions_extra" {
 
 \t\t# ── Action Buttons ────────────────────────────────────────────────────────────────────────────────────
 
