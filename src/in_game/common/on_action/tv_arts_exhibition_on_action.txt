@@ -52,7 +52,7 @@ on_character_death = {
 
 # Yearly tick: advance elapsed counter for touring artists currently in this country's court.
 # When an artist's elapsed time reaches their duration, return them home via the scripted effect.
-yearly_country_pulse = {
+tv_arts_exhibition_yearly_pulse = {
 	effect = {
 		every_character = {
 			limit = {

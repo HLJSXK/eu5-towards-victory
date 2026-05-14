@@ -1,0 +1,18 @@
+# Towards Victory — pulse on_action registry
+# Maps EU5 singleton pulse on_action names to TV mod custom named on_actions
+# that should be injected into their on_actions = {} blocks.
+#
+# To add a new feature hook: append its named on_action here, then re-run:
+#   conda run --no-capture-output -n eu5 python scripts/in_game/common/on_action/gen_tv_pulse_registry.py
+
+pulses:
+  monthly_country_pulse:
+    - tv_leaderboard_monthly_pulse    # leaderboard + arts monthly roll + research/medicine/diplo inline
+    - tv_research_a_pulse             # sub-process A random events
+    - tv_med_discovery_pulse          # medicine discovery events
+    - tv_med_minor_accident_pulse     # medicine minor accident events
+    - tv_med_major_accident_pulse     # medicine major accident events
+
+  yearly_country_pulse:
+    - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home
+    - tv_govhouse_yearly_pulse        # Grand General training resolution

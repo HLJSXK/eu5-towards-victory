@@ -1,8 +1,7 @@
 ﻿# Towards Victory — Governor's House on_action hooks
 
 # Yearly tick: check if Grand General is in training; resolve outcome if active.
-# Uses yearly_country_pulse (same pattern as tv_arts_exhibition_on_action.txt).
-yearly_country_pulse = {
+tv_govhouse_yearly_pulse = {
 	effect = {
 		if = {
 			limit = {
