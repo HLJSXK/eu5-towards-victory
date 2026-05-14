@@ -58,12 +58,13 @@ tv_appoint_governor = {
 		target_flag = recipient
 		name = "tv_appoint_governor_select_char"
 		none_available_msg_key = "tv_appoint_governor_no_chars"
-		column = { data = name }
+		column = { data = character_info }
 		visible = {
 			is_alive = yes
 			is_adult = yes
 			is_ruler = no
 			is_heir = no
+			is_consort = no
 			is_loyal = yes
 			NOT = { has_variable = tv_is_governor }
 		}
