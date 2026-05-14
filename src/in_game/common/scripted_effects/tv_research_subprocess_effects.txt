@@ -91,57 +91,12 @@ tv_research_start_d_effect = {
 
 # ── Concentrated Research complete ────────────────────────────────────────────
 # Called from IO monthly_effect when tv_research_d_progress >= 100.
-# Dispatches the unlock for the selected target advance, fires notification event,
-# then resets the cycle for the next round.
+# Fires the notification event. The event option applies the selected advance unlock
+# so the reward is visible to the player, then resets the cycle for the next round.
 tv_research_concentrated_complete_effect = {
-	# Unlock the target advance based on tv_research_target value
-	# Enum: 1=printing_press  2=iron_working  3=anatomy  4=gunpowder  5=blast_furnace
-	#       6=scientific_experimentation  7=scientific_revolution  8=manufactories
-	#       9=industrialization  10=vaccination
-	if = {
-		limit = { var:tv_research_target = 1 }
-		tv_unlock_advance_printing_press_effect = yes
-	}
-	if = {
-		limit = { var:tv_research_target = 2 }
-		tv_unlock_advance_iron_working_effect = yes
-	}
-	if = {
-		limit = { var:tv_research_target = 3 }
-		tv_unlock_advance_anatomy_effect = yes
-	}
-	if = {
-		limit = { var:tv_research_target = 4 }
-		tv_unlock_advance_gunpowder_effect = yes
-	}
-	if = {
-		limit = { var:tv_research_target = 5 }
-		tv_unlock_advance_blast_furnace_effect = yes
-	}
-	if = {
-		limit = { var:tv_research_target = 6 }
-		tv_unlock_advance_scientific_experimentation_effect = yes
-	}
-	if = {
-		limit = { var:tv_research_target = 7 }
-		tv_unlock_advance_scientific_revolution_effect = yes
-	}
-	if = {
-		limit = { var:tv_research_target = 8 }
-		tv_unlock_advance_manufactories_effect = yes
-	}
-	if = {
-		limit = { var:tv_research_target = 9 }
-		tv_unlock_advance_industrialization_effect = yes
-	}
-	if = {
-		limit = { var:tv_research_target = 10 }
-		tv_unlock_advance_vaccination_effect = yes
-	}
-	# Notify the player
+	# Stop D monthly completion checks while keeping tv_research_target for the event.
+	set_variable = { name = tv_research_phase value = 0 }
 	trigger_event_non_silently = { id = tv_research.30 }
-	# Reset cycle for next round
-	tv_research_reset_cycle_effect = yes
 }
 
 # ── Propose research target ────────────────────────────────────────────────────

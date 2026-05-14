@@ -149,7 +149,7 @@ tv_research.20 = {
 
 # ── tv_research.30 — Advance Unlocked Notification ───────────────────────────────
 # Fired by tv_research_concentrated_complete_effect when D finishes.
-# The unlock has already been applied before this event fires.
+# The option applies the unlock so the reward tooltip shows the gained advance.
 tv_research.30 = {
 	type = country_event
 	title = tv_research.30.t
@@ -199,7 +199,68 @@ tv_research.30 = {
 	}
 	outcome = good
 
+	trigger = {
+		has_variable = tv_research_target
+	}
+
 	option = {
 		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 1 }
+		tv_unlock_advance_printing_press_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 2 }
+		tv_unlock_advance_iron_working_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 3 }
+		tv_unlock_advance_anatomy_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 4 }
+		tv_unlock_advance_gunpowder_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 5 }
+		tv_unlock_advance_blast_furnace_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 6 }
+		tv_unlock_advance_scientific_experimentation_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 7 }
+		tv_unlock_advance_scientific_revolution_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 8 }
+		tv_unlock_advance_manufactories_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 9 }
+		tv_unlock_advance_industrialization_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 10 }
+		tv_unlock_advance_vaccination_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
 	}
 }
