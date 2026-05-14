@@ -70,6 +70,15 @@ tv_govhouse = {
 	modifier = {
 	}
 
+	monthly_effect = {
+		leader_country ?= {
+			if = {
+				limit = { has_variable = tv_govhouse_member }
+				tv_apply_governor_bonuses_effect = yes
+			}
+		}
+	}
+
 	on_creation = {
 		if = {
 			limit = { exists = scope:actor }

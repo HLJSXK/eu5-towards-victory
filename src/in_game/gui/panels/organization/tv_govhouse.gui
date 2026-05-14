@@ -59,23 +59,76 @@ organization_panel = {
 	}
 
 	# ── Tab 1 overview content: Governor Status (总督状态) ───────────────────
-	# TODO: implement governor region list.
-	# Design: header card "xxx has Y governors", then one card per EU5 area with:
-	#   - area icon + area name
-	#   - character card (portrait, attributes, traits) for the assigned governor
-	#   - effect row: max control / building cost / pop satisfaction / estate influence values
-	#
-	# Implementation requires governor assignment system (tv_govhouse_effects.txt:
-	#   tv_apply_governor_bonuses_effect) — mark as TODO until that system is built.
+	# Lists all appointed governors from tv_governor_list (governor-list-driven).
+	# Area name display is omitted — no .GetArea GUI accessor exists in EU5.
+	# Bonus stats read from pre-computed character variables (tv_gov_*_pct).
 	blockoverride "scroll_overview_empty_visible" { visible = no }
 
 	blockoverride "io_overview_content" {
-		# TODO: governor list — placeholder text until governor system is implemented
-		widget = {
-			size = { 470 60 }
-			text_label_center = {
-				size = { 470 60 }
-				text = "TV_GOVHOUSE_TAB1_PLACEHOLDER"
+
+		# Appoint Governor action button — always shown at the top
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "tv_appoint_governor"
+			title = "tv_appoint_governor"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_appoint_governor"
+			}
+		}
+
+		# Governor cards — one per appointed governor in tv_governor_list
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 4
+			datamodel = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_governor_list')]"
+			item = {
+				widget = {
+					size = { 460 80 }
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+						margin = { 8 6 }
+
+						# Governor name
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							raw_text = "[Character.GetNameToFit('(int32)40', '(bool)yes')]"
+							align = nobaseline|left
+						}
+
+						# Bonus stats: max control / build cost / unrest
+						hbox = {
+							spacing = 12
+							text_single = {
+								raw_text = "@max_control! +[Character.MakeScope.GetVariable('tv_gov_max_control_pct').GetValue|%]"
+								align = nobaseline
+							}
+							text_single = {
+								raw_text = "@build_icon! -[Character.MakeScope.GetVariable('tv_gov_build_cost_pct').GetValue|%]"
+								align = nobaseline
+							}
+							text_single = {
+								raw_text = "@rebels! -[Character.MakeScope.GetVariable('tv_gov_unrest_pct').GetValue|%]"
+								align = nobaseline
+							}
+						}
+
+						# Dismiss button
+						action_button_diamond = {
+							size = { 200 24 }
+							text = "tv_remove_governor"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_remove_governor"
+								parameter = {
+									parameter_name = "recipient"
+									parameter_value = "[Character]"
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}

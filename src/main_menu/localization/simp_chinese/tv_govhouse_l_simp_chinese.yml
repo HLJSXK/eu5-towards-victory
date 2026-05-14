@@ -160,4 +160,31 @@
  tv_gg_death_todo_tt: "TODO：大将军死亡。"
 
  # ── 总督系统 ─────────────────────────────────────────────────────────────────
- TV_GOVHOUSE_TAB1_PLACEHOLDER: "总督系统——开发中。（TODO：实现按区域的总督任命功能）"
+ tv_appoint_governor: "派遣总督"
+ tv_appoint_governor_desc: "从本国角色中任命一位总督，负责管辖某征服区域。总督的行政、外交与军事能力将分别提升当地最大控制力、降低建造花费并压制动乱。"
+ tv_remove_governor: "撤换总督"
+ tv_remove_governor_desc: "解除该总督的职务，其所在区域的加成将立即移除。"
+
+ tv_appoint_governor_select_char: "选择总督人选"
+ tv_appoint_governor_no_chars: "@trigger_no! 当前没有符合条件的角色。"
+ tv_appoint_governor_select_area: "选择管辖区域"
+ tv_appoint_governor_no_areas: "@trigger_no! 当前没有可用的区域。"
+
+ PERFORM_tv_appoint_governor_ACTION_SETUP: "当我们派遣总督时。"
+ PERFORM_tv_appoint_governor_ACTION_LOG: "我们任命了一位新总督。"
+ PERFORM_tv_appoint_governor_ACTION_MAP: ""
+
+ PERFORM_tv_remove_governor_ACTION_SETUP: "当我们撤换总督时。"
+ PERFORM_tv_remove_governor_ACTION_LOG: "我们撤换了一位总督。"
+ PERFORM_tv_remove_governor_ACTION_MAP: ""
+
+ TV_GOVHOUSE_GOVERNOR_COUNT: "在任总督"
+ TV_GOVHOUSE_NO_GOVERNORS: "尚未派遣任何总督。"
+ TV_GOVHOUSE_MAX_CONTROL_LABEL: "最大控制力"
+ TV_GOVHOUSE_BUILD_COST_LABEL: "建造花费"
+ TV_GOVHOUSE_UNREST_LABEL: "动乱抑制"
+ TV_GOVHOUSE_GOVERNED_AREA_LABEL: "管辖区域"
+
+ STATIC_MODIFIER_NAME_tv_governor_max_control: "总督：地方控制"
+ STATIC_MODIFIER_NAME_tv_governor_build_cost: "总督：建造"
+ STATIC_MODIFIER_NAME_tv_governor_unrest: "总督：秩序"

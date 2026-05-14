@@ -642,6 +642,15 @@
   source: "reference_game_files/game/main_menu/common/game_concepts/00_game_concepts.txt:73-75; runtime error.log: Data error in loc string 'tv_cultural_m1_io_grant_tt'"
   notes: "Unregistered custom concepts in square brackets are parsed as data-system functions. The engine logs 'Could not find data system function <concept>' and renders ERROR:<concept> in tooltip text."
 
+- id: gui_no_get_area_accessor
+  pattern: '\.GetArea\.'
+  bad: "GetVariable('tv_governed_area').GetArea.GetName — navigating from a scope variable that stores an Area to call .GetName via .GetArea"
+  correction: "No .GetArea accessor exists in the EU5 GUI expression language. Pre-compute display values as numeric character variables (e.g. tv_gov_max_control_pct) readable via GetVariable('name').GetValue|0. Area names stored in scope variables cannot be displayed directly in GUI."
+  category: gui
+  scope: any
+  source: "Exhaustive search of reference_game_files/game/main_menu/gui/ — zero occurrences of .GetArea in any .gui file"
+  notes: "Only .GetCharacter (character scope) and similar type accessors were found. .GetArea does not exist. Avoid any GUI accessor chain that requires navigating a scope variable to an area scope and then reading area properties."
+
 - id: kill_character_yes_in_character_scope
   pattern: 'kill_character\s*=\s*yes'
   bad: "kill_character = yes"

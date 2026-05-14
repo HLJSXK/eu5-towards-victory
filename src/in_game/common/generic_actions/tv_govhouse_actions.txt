@@ -33,3 +33,91 @@ tv_train_grand_general = {
 		add = -100
 	}
 }
+
+# ── Governor management actions ──────────────────────────────────────────────
+
+# Appoints a governor: 2-step selection (character → area).
+# step 1 sets scope:recipient (character), step 2 sets scope:target (area).
+tv_appoint_governor = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = { has_variable = tv_govhouse_member }
+	}
+
+	allow = {
+		scope:actor = { has_variable = tv_govhouse_member }
+	}
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = recipient
+		name = "tv_appoint_governor_select_char"
+		none_available_msg_key = "tv_appoint_governor_no_chars"
+		column = { data = name }
+		visible = {
+			is_alive = yes
+			is_adult = yes
+			is_ruler = no
+			is_heir = no
+			is_loyal = yes
+			NOT = { has_variable = tv_is_governor }
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = area
+		source = actor
+		target_flag = target
+		name = "tv_appoint_governor_select_area"
+		none_available_msg_key = "tv_appoint_governor_no_areas"
+		column = { data = name }
+		visible = {
+			any_location_in_area = {
+				owner ?= scope:actor
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			tv_governor_appoint_effect = yes
+		}
+	}
+
+	ai_will_do = {
+		add = 0
+	}
+}
+
+# Dismisses the governor whose character is pre-set as scope:recipient by the GUI button.
+tv_remove_governor = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = { has_variable = tv_govhouse_member }
+		scope:recipient = { has_variable = tv_is_governor }
+	}
+
+	allow = {
+		scope:actor = { has_variable = tv_govhouse_member }
+		scope:recipient = { has_variable = tv_is_governor }
+	}
+
+	effect = {
+		scope:actor = {
+			tv_governor_remove_effect = yes
+		}
+	}
+
+	ai_will_do = {
+		add = 0
+	}
+}

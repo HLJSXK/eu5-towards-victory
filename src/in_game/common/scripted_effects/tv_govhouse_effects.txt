@@ -25,8 +25,6 @@ tv_govhouse_create_effect = {
 # Called by the tv_train_grand_general generic action.
 # Scope: actor country.
 tv_training_start_effect = {
-	# TODO: apply +10% court expenses for 1 year once modifier name is verified
-	# add_country_modifier = { modifier = tv_gg_training_cost days = 365 }
 	var:tv_conquest_general_char = {
 		set_variable = { name = tv_gg_training_active value = 1 }
 	}
@@ -61,27 +59,149 @@ tv_training_resolve_effect = {
 	}
 }
 
-# ── Governor system (总督 per area) — TODO ───────────────────────────────────
-#
-# DESIGN: Each EU5 area in which the country owns at least one location gets a governor character.
-# Governor bonuses scale with character adm/dip/mil:
-#   +max control    = adm × 0.1%  (max 10%)
-#   -building costs = dip × 0.2%  (max 20%)
-#   +pop satisfaction = mil × 0.2% (max 20%)
-#   +estate influence (governor's class) = (adm+dip+mil) × 0.2% (max 60%)
-#
-# Implementation blocker: Requires:
-#   (a) per-area character variable storage (e.g. country var tv_gov_<area_tag>_char)
-#   (b) location modifier application via TRY_REPLACE in static_modifiers/
-#       (auto_modifiers are NON-FUNCTIONAL — see CLAUDE.md)
-#   (c) Step 2/3 verification of EU5 area scope iteration syntax
-#
-# Stub effect — fill in after verifying EU5 area iteration and TRY_REPLACE syntax.
+# ── Governor system (总督 per area) ─────────────────────────────────────────
+# Data model: country variable list tv_governor_list — elements are governor characters.
+# Each governor character carries:
+#   tv_is_governor = 1          (presence flag)
+#   tv_governed_area            (area scope value)
+#   tv_gov_max_control_pct      (adm × 0.001 — fractional; GUI |% format → "+10%")
+#   tv_gov_build_cost_pct       (dip × 0.002 — fractional; GUI |% format → "-20%")
+#   tv_gov_unrest_pct           (mil × 0.002 — fractional; GUI |% format → "-20%")
+# Location modifiers applied: tv_governor_max_control, tv_governor_build_cost, tv_governor_unrest
+# Scaling: size reads pre-computed pct variable directly (no inline multiply needed)
+
+# Applies or refreshes location modifiers and display variables for one governor.
+# Scope: country (root = country). scope:recipient = governor character.
+tv_governor_apply_modifiers_effect = {
+	scope:recipient = {
+		# Refresh display variables (shared scale with size — GUI uses |% format)
+		set_variable = { name = tv_gov_max_control_pct value = { value = this.adm multiply = 0.001 } }
+		set_variable = { name = tv_gov_build_cost_pct value = { value = this.dip multiply = 0.002 } }
+		set_variable = { name = tv_gov_unrest_pct value = { value = this.mil multiply = 0.002 } }
+		# Apply to all owned locations in the governed area
+		var:tv_governed_area = {
+			every_location_in_area = {
+				limit = { owner ?= root }
+				remove_location_modifier = tv_governor_max_control
+				remove_location_modifier = tv_governor_build_cost
+				remove_location_modifier = tv_governor_unrest
+				add_location_modifier = {
+					modifier = tv_governor_max_control
+					years = -1
+					mode = add_and_extend
+					size = { value = scope:recipient.var:tv_gov_max_control_pct }
+				}
+				add_location_modifier = {
+					modifier = tv_governor_build_cost
+					years = -1
+					mode = add_and_extend
+					size = { value = scope:recipient.var:tv_gov_build_cost_pct }
+				}
+				add_location_modifier = {
+					modifier = tv_governor_unrest
+					years = -1
+					mode = add_and_extend
+					size = { value = scope:recipient.var:tv_gov_unrest_pct }
+				}
+			}
+		}
+	}
+}
+
+# Refreshes all governor modifiers; cleans up dead governors.
+# Scope: country. Called monthly from the IO monthly_effect.
 tv_apply_governor_bonuses_effect = {
-	# TODO: iterate every_in_list = areas owned by this country
-	#   for each area with a governor assigned (has_variable = tv_gov_<area>_char):
-	#     apply location modifiers via TRY_REPLACE to all locations in the area
-	#   Step 2/3 research needed before implementation
+	every_in_variable_list = { name = tv_governor_list
+		if = {
+			limit = { is_alive = no }
+			# Dead governor — strip their area's modifiers and remove them from the list
+			if = {
+				limit = { has_variable = tv_governed_area }
+				var:tv_governed_area = {
+					every_location_in_area = {
+						limit = { owner ?= root }
+						remove_location_modifier = tv_governor_max_control
+						remove_location_modifier = tv_governor_build_cost
+						remove_location_modifier = tv_governor_unrest
+					}
+				}
+			}
+			remove_variable = tv_is_governor
+			remove_variable = tv_governed_area
+			remove_variable = tv_gov_max_control_pct
+			remove_variable = tv_gov_build_cost_pct
+			remove_variable = tv_gov_unrest_pct
+			save_scope_as = tv_dead_governor
+			root = {
+				remove_from_variable_list = { name = tv_governor_list target = scope:tv_dead_governor }
+			}
+		}
+		else = {
+			save_scope_as = recipient
+			root = {
+				tv_governor_apply_modifiers_effect = yes
+			}
+		}
+	}
+}
+
+# Appoints a governor to an area. Displaces any existing governor for that area.
+# Scope: country (root = country). scope:recipient = character. scope:target = area.
+tv_governor_appoint_effect = {
+	# Displace any existing governor for this area first
+	every_in_variable_list = { name = tv_governor_list
+		limit = { var:tv_governed_area ?= scope:target }
+		var:tv_governed_area = {
+			every_location_in_area = {
+				limit = { owner ?= root }
+				remove_location_modifier = tv_governor_max_control
+				remove_location_modifier = tv_governor_build_cost
+				remove_location_modifier = tv_governor_unrest
+			}
+		}
+		remove_variable = tv_is_governor
+		remove_variable = tv_governed_area
+		remove_variable = tv_gov_max_control_pct
+		remove_variable = tv_gov_build_cost_pct
+		remove_variable = tv_gov_unrest_pct
+		save_scope_as = tv_displaced_governor
+		root = {
+			remove_from_variable_list = { name = tv_governor_list target = scope:tv_displaced_governor }
+		}
+	}
+	# Set governor variables on the character
+	scope:recipient = {
+		set_variable = { name = tv_is_governor value = 1 }
+		set_variable = { name = tv_governed_area value = scope:target }
+	}
+	# Register in the country governor list
+	add_to_variable_list = { name = tv_governor_list target = scope:recipient }
+	# Apply location modifiers and initialise display variables
+	tv_governor_apply_modifiers_effect = yes
+}
+
+# Dismisses a governor, removing their location modifiers.
+# Scope: country (root = country). scope:recipient = governor character to dismiss.
+tv_governor_remove_effect = {
+	scope:recipient = {
+		if = {
+			limit = { has_variable = tv_governed_area }
+			var:tv_governed_area = {
+				every_location_in_area = {
+					limit = { owner ?= root }
+					remove_location_modifier = tv_governor_max_control
+					remove_location_modifier = tv_governor_build_cost
+					remove_location_modifier = tv_governor_unrest
+				}
+			}
+		}
+		remove_variable = tv_is_governor
+		remove_variable = tv_governed_area
+		remove_variable = tv_gov_max_control_pct
+		remove_variable = tv_gov_build_cost_pct
+		remove_variable = tv_gov_unrest_pct
+	}
+	remove_from_variable_list = { name = tv_governor_list target = scope:recipient }
 }
 
 # Cleans up governor variables and IO on country deletion or conquest defeat.
@@ -98,5 +218,26 @@ tv_govhouse_cleanup_effect = {
 		}
 		remove_variable = tv_conquest_general_char
 	}
-	# TODO: clean up per-area governor variables once governor system is implemented
+	if = {
+		limit = { has_variable = tv_governor_list }
+		every_in_variable_list = { name = tv_governor_list
+			if = {
+				limit = { is_alive = yes  has_variable = tv_governed_area }
+				var:tv_governed_area = {
+					every_location_in_area = {
+						limit = { owner ?= root }
+						remove_location_modifier = tv_governor_max_control
+						remove_location_modifier = tv_governor_build_cost
+						remove_location_modifier = tv_governor_unrest
+					}
+				}
+			}
+			remove_variable = tv_is_governor
+			remove_variable = tv_governed_area
+			remove_variable = tv_gov_max_control_pct
+			remove_variable = tv_gov_build_cost_pct
+			remove_variable = tv_gov_unrest_pct
+		}
+		remove_variable = tv_governor_list
+	}
 }
