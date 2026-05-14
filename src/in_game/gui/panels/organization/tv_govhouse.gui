@@ -112,12 +112,18 @@ organization_panel = {
 							}
 
 							# Governed area name — tv_governed_area_capital is a location scope stored at appointment.
-							# GetVariable('area').GetArea is invalid in GUI; GetLocation.GetArea.GetName is valid.
+							# datacontext sets Area context so tooltipwidget can use Area.* (same pattern as
+							# setup_mercenary_requirements.gui:197). raw_text uses full chain (GetLocation.GetArea
+							# is valid on typed Location; GetVariable('area').GetArea is not).
 							text_single = {
 								layoutpolicy_horizontal = expanding
 								visible = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').IsSet]"
+								datacontext = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').GetLocation.GetArea]"
 								raw_text = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').GetLocation.GetArea.GetNameWithNoTooltip]"
 								align = nobaseline|left
+								tooltipwidget = {
+									using = Area_tooltip
+								}
 							}
 
 							# Bonus stats: max control / build cost / unrest
