@@ -64,7 +64,11 @@ organization_panel = {
 	# Bonus stats read from pre-computed character variables (tv_gov_*_pct).
 	blockoverride "scroll_overview_empty_visible" { visible = no }
 
-	blockoverride "io_overview_content" {
+	blockoverride "organization_main_actions_extra_visible" {
+		visible = yes
+	}
+
+	blockoverride "organization_main_actions_extra" {
 
 		# Appoint Governor action button — always shown at the top
 		action_button_diamond = {
@@ -145,13 +149,4 @@ organization_panel = {
 	#   tv_appoint_conquest_general_leader, tv_remove_conquest_general_leader,
 	#   tv_change_conquest_general_leader
 	# tv_govhouse_actions.txt provides: tv_train_grand_general
-	blockoverride "io_action_content" {
-		# TODO: verify that generic_actions auto-appear, or if explicit buttons are needed.
-		# If explicit buttons are required, add generic_action_button widgets here for:
-		#   tv_appoint_conquest_general_leader
-		#   tv_remove_conquest_general_leader
-		#   tv_change_conquest_general_leader
-		#   tv_train_grand_general
-	}
-
 }
