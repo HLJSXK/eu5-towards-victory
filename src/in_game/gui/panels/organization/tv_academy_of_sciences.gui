@@ -436,6 +436,26 @@ organization_panel = {
 	}
 
 	blockoverride "organization_custom_content" {
+		vbox = {
+			margin = { 10 0 }
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_MED_TREATMENT_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 6
 
 		# ── Patient character card (visible when treatment is active) ──────────
 		io_character_card = {
@@ -535,14 +555,37 @@ organization_panel = {
 			}
 		}
 
-		# ── Treat Character button ──────────────────────────────────────────────
-		action_button_diamond = {
-			size = { 470 30 }
-			text = "tv_treat_character"
-			title = "tv_treat_character"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_treat_character"
+					}
+				}
+			}
+
+			card_actions = {
+				blockoverride "card_header_text" {
+					text = "MAIN_ACTIONS"
+				}
+				blockoverride "card_header_icon" {
+					block "io_main_actions_icon" {
+						texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+					}
+				}
+
+				blockoverride "actions_override" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+
+						# Treat Character button
+						action_button_diamond = {
+							size = { 470 30 }
+							text = "tv_treat_character"
+							title = "tv_treat_character"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_treat_character"
+							}
+						}
+					}
+				}
 			}
 		}
 	}
