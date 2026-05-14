@@ -364,6 +364,15 @@ organization_panel = {
 
 	blockoverride "organization_custom_content" {
 
+		# ── Patient character card (visible when treatment is active) ──────────
+		io_character_card = {
+			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').IsSet]"
+			datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').GetCharacter]"
+			size = { 97% 72 }
+			parentanchor = hcenter
+			using = layoutpolicy_expanding
+		}
+
 		# ── Data block: patient + rates display ───────────────────────────────
 		widget = {
 			size = { 470 140 }

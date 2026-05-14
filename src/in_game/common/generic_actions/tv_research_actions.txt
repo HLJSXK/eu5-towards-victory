@@ -143,6 +143,15 @@ tv_treat_character = {
 				NOT = { has_variable = tv_med_target_char }
 			}
 		}
+		custom_tooltip = {
+			text = tv_treat_character_requires_scientist_tt
+			scope:actor = {
+				has_variable = tv_academy_leader_char
+			}
+			scope:actor = {
+				var:tv_academy_leader_char = { is_alive = yes }
+			}
+		}
 	}
 
 	select_trigger = {

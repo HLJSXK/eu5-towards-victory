@@ -347,6 +347,15 @@ GUI_SUFFIX = """\
 
 \tblockoverride "organization_custom_content" {
 
+\t\t# ── Patient character card (visible when treatment is active) ──────────
+\t\tio_character_card = {
+\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').IsSet]"
+\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').GetCharacter]"
+\t\t\tsize = { 97% 72 }
+\t\t\tparentanchor = hcenter
+\t\t\tusing = layoutpolicy_expanding
+\t\t}
+
 \t\t# ── Data block: patient + rates display ───────────────────────────────
 \t\twidget = {
 \t\t\tsize = { 470 140 }
