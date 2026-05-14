@@ -42,6 +42,7 @@ ios:
     title_loc_key: character_title_tv_chief_scientist
     char_filter: |
       is_adult = yes
+      NOT = { is_artist = yes }
 
   - id: conquest_general  # generates tv_appoint_conquest_general_leader, tv_remove_conquest_general_leader, tv_change_conquest_general_leader
     display_name: "Governor's House - Grand General"

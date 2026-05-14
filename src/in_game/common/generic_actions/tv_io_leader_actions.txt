@@ -300,6 +300,7 @@ tv_appoint_academy_leader = {
 		visible = {
 			is_alive = yes
 			is_adult = yes
+			NOT = { is_artist = yes }
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -381,6 +382,7 @@ tv_change_academy_leader = {
 		visible = {
 			is_alive = yes
 			is_adult = yes
+			NOT = { is_artist = yes }
 			is_ruler = no
 			is_heir = no
 			is_consort = no
