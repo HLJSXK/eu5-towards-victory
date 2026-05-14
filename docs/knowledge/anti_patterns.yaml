@@ -392,6 +392,15 @@
   source: "src/in_game/common/scripted_effects/towards_victory_leaderboard.txt (ranks 2-5 fix, 2026-05)"
   notes: "ordered_in_global_list evaluates its limit block for EVERY entry in the pool. If the referenced situation variable (e.g. tv_rank_1_country) was never set (because the pool was empty at situation on_start), every pool entry triggers a script error, producing N errors on first load. Guard with has_variable on the outer if to skip the whole pass when the prerequisite rank is absent."
 
+- id: ordered_in_global_list_stale_rank_rebuild
+  pattern: ''
+  bad: "Cascading ordered_in_global_list ranks that never clear old rank variables and gate later ranks only with has_variable = previous_rank"
+  correction: "Treat ranking output as a fresh snapshot: remove all rank_N variables before rebuilding, ensure every pool entry has numeric order_by variables, and guard rank N with global_variable_list_size value > N-1 before running ordered_in_global_list."
+  category: script
+  scope: any
+  source: "src/in_game/common/scripted_effects/towards_victory_leaderboard.txt (leaderboard rebuild fix, 2026-05)"
+  notes: "A stale previous rank can survive from an earlier rebuild. If the current pool has fewer eligible entries, the later ordered_in_global_list pass can run with no selected item; prev is none, set_variable value = prev logs 'Value of wrong type ... none', and order_by/var reads may log failed variable fetches. Clearing outputs and checking current pool size prevents the pass from running when no current candidate exists."
+
 - id: game_is_initialized_delays_situation_spawn
   pattern: 'game_is_initialized\s*=\s*yes'
   only_in_paths: ['situations']
@@ -670,13 +679,13 @@
   notes: "Unregistered custom concepts in square brackets are parsed as data-system functions. The engine logs 'Could not find data system function <concept>' and renders ERROR:<concept> in tooltip text."
 
 - id: gui_no_get_area_accessor
-  pattern: '\.GetArea\.'
-  bad: "GetVariable('tv_governed_area').GetArea.GetName — navigating from a scope variable that stores an Area to call .GetName via .GetArea"
-  correction: "No .GetArea accessor exists in the EU5 GUI expression language. Pre-compute display values as numeric character variables (e.g. tv_gov_max_control_pct) readable via GetVariable('name').GetValue|0. Area names stored in scope variables cannot be displayed directly in GUI."
+  pattern: 'GetVariable\([^)]*\)\.GetArea\.'
+  bad: "GetVariable('tv_governed_area').GetArea.GetName — navigating from a scope variable that stores an Area to call .GetName directly via .GetArea"
+  correction: "GetVariable(...).GetArea is not a valid EU5 GUI accessor. To display an area name from a scope variable, store a location from the area as a separate character variable (e.g. tv_governed_area_capital), then use GetVariable('tv_governed_area_capital').GetLocation.GetArea.GetNameWithNoTooltip. Location.GetArea.GetName IS valid when the Location type is a proper GUI-layer typed object (e.g. from GetLocation on a typed view)."
   category: gui
   scope: any
-  source: "Exhaustive search of reference_game_files/game/main_menu/gui/ — zero occurrences of .GetArea in any .gui file"
-  notes: "Only .GetCharacter (character scope) and similar type accessors were found. .GetArea does not exist. Avoid any GUI accessor chain that requires navigating a scope variable to an area scope and then reading area properties."
+  source: "Exhaustive search of reference_game_files/game/main_menu/gui/ — zero occurrences of GetVariable(...).GetArea in any .gui file. Location.GetArea IS used in reference_game_files/game/in_game/gui/context_menu.gui and area.gui (typed Location, not scope variable). GetVariable('x').GetLocation confirmed valid in fall_of_delhi.gui."
+  notes: "The accessor .GetArea exists on the Location GUI type but not on scope variable wrappers returned by GetVariable(). Chain: GetVariable('loc_var').GetLocation.GetArea.GetNameWithNoTooltip works because GetLocation returns a typed Location object. Pattern rule narrowed to only flag GetVariable(...).GetArea. to allow Location.GetArea. chains."
 
 - id: kill_character_yes_in_character_scope
   pattern: 'kill_character\s*=\s*yes'

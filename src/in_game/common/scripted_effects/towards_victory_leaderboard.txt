@@ -9,72 +9,124 @@
 
 # ── Per-country best-path computation ──────────────────────────────────────────
 # Reads the 6 progress_pct vars (0-100) already computed by tv_update_all_progress_pct_effect.
-# Unset variables default to 0 in EU5, so this is safe at game start.
+# Missing path vars can happen for freshly created countries, so default them to 0.
 tv_update_best_path_effect = {
-	# Initialise: conquest = path 0
-	set_variable = { name = tv_best_progress_pct  value = var:tv_conquest_progress_pct }
+	# Initialise: conquest = path 0, defaulting absent path data to 0
+	set_variable = { name = tv_best_progress_pct  value = 0 }
 	set_variable = { name = tv_best_path          value = 0 }
-	set_variable = { name = tv_best_milestone      value = var:tv_conquest_milestone }
-	set_variable = { name = tv_best_score          value = var:tv_conquest_score }
+	set_variable = { name = tv_best_milestone      value = 0 }
+	set_variable = { name = tv_best_score          value = 0 }
+	if = {
+		limit = { has_variable = tv_conquest_progress_pct }
+		set_variable = { name = tv_best_progress_pct  value = var:tv_conquest_progress_pct }
+	}
+	if = {
+		limit = { has_variable = tv_conquest_milestone }
+		set_variable = { name = tv_best_milestone  value = var:tv_conquest_milestone }
+	}
+	if = {
+		limit = { has_variable = tv_conquest_score }
+		set_variable = { name = tv_best_score  value = var:tv_conquest_score }
+	}
 
 	# Prosperity = path 1  (>= preserves lower index on equal progress)
 	if = {
-		limit = {
-			has_variable = tv_prosperity_progress_pct
-			var:tv_prosperity_progress_pct >= var:tv_best_progress_pct
+		limit = { has_variable = tv_prosperity_progress_pct }
+		if = {
+			limit = { var:tv_prosperity_progress_pct >= var:tv_best_progress_pct }
+			set_variable = { name = tv_best_progress_pct  value = var:tv_prosperity_progress_pct }
+			set_variable = { name = tv_best_path          value = 1 }
+			set_variable = { name = tv_best_milestone      value = 0 }
+			set_variable = { name = tv_best_score          value = 0 }
+			if = {
+				limit = { has_variable = tv_prosperity_milestone }
+				set_variable = { name = tv_best_milestone  value = var:tv_prosperity_milestone }
+			}
+			if = {
+				limit = { has_variable = tv_prosperity_score }
+				set_variable = { name = tv_best_score  value = var:tv_prosperity_score }
+			}
 		}
-		set_variable = { name = tv_best_progress_pct  value = var:tv_prosperity_progress_pct }
-		set_variable = { name = tv_best_path          value = 1 }
-		set_variable = { name = tv_best_milestone      value = var:tv_prosperity_milestone }
-		set_variable = { name = tv_best_score          value = var:tv_prosperity_score }
 	}
 
 	# Trade = path 2
 	if = {
-		limit = {
-			has_variable = tv_trade_progress_pct
-			var:tv_trade_progress_pct >= var:tv_best_progress_pct
+		limit = { has_variable = tv_trade_progress_pct }
+		if = {
+			limit = { var:tv_trade_progress_pct >= var:tv_best_progress_pct }
+			set_variable = { name = tv_best_progress_pct  value = var:tv_trade_progress_pct }
+			set_variable = { name = tv_best_path          value = 2 }
+			set_variable = { name = tv_best_milestone      value = 0 }
+			set_variable = { name = tv_best_score          value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_milestone }
+				set_variable = { name = tv_best_milestone  value = var:tv_trade_milestone }
+			}
+			if = {
+				limit = { has_variable = tv_trade_score }
+				set_variable = { name = tv_best_score  value = var:tv_trade_score }
+			}
 		}
-		set_variable = { name = tv_best_progress_pct  value = var:tv_trade_progress_pct }
-		set_variable = { name = tv_best_path          value = 2 }
-		set_variable = { name = tv_best_milestone      value = var:tv_trade_milestone }
-		set_variable = { name = tv_best_score          value = var:tv_trade_score }
 	}
 
 	# Diplomatic = path 3  (score stored in tv_diplomatic_victory_points)
 	if = {
-		limit = {
-			has_variable = tv_diplomatic_progress_pct
-			var:tv_diplomatic_progress_pct >= var:tv_best_progress_pct
+		limit = { has_variable = tv_diplomatic_progress_pct }
+		if = {
+			limit = { var:tv_diplomatic_progress_pct >= var:tv_best_progress_pct }
+			set_variable = { name = tv_best_progress_pct  value = var:tv_diplomatic_progress_pct }
+			set_variable = { name = tv_best_path          value = 3 }
+			set_variable = { name = tv_best_milestone      value = 0 }
+			set_variable = { name = tv_best_score          value = 0 }
+			if = {
+				limit = { has_variable = tv_diplomatic_milestone }
+				set_variable = { name = tv_best_milestone  value = var:tv_diplomatic_milestone }
+			}
+			if = {
+				limit = { has_variable = tv_diplomatic_victory_points }
+				set_variable = { name = tv_best_score  value = var:tv_diplomatic_victory_points }
+			}
 		}
-		set_variable = { name = tv_best_progress_pct  value = var:tv_diplomatic_progress_pct }
-		set_variable = { name = tv_best_path          value = 3 }
-		set_variable = { name = tv_best_milestone      value = var:tv_diplomatic_milestone }
-		set_variable = { name = tv_best_score          value = var:tv_diplomatic_victory_points }
 	}
 
 	# Cultural = path 4  (score stored in tv_cultural_influence_points)
 	if = {
-		limit = {
-			has_variable = tv_cultural_progress_pct
-			var:tv_cultural_progress_pct >= var:tv_best_progress_pct
+		limit = { has_variable = tv_cultural_progress_pct }
+		if = {
+			limit = { var:tv_cultural_progress_pct >= var:tv_best_progress_pct }
+			set_variable = { name = tv_best_progress_pct  value = var:tv_cultural_progress_pct }
+			set_variable = { name = tv_best_path          value = 4 }
+			set_variable = { name = tv_best_milestone      value = 0 }
+			set_variable = { name = tv_best_score          value = 0 }
+			if = {
+				limit = { has_variable = tv_cultural_milestone }
+				set_variable = { name = tv_best_milestone  value = var:tv_cultural_milestone }
+			}
+			if = {
+				limit = { has_variable = tv_cultural_influence_points }
+				set_variable = { name = tv_best_score  value = var:tv_cultural_influence_points }
+			}
 		}
-		set_variable = { name = tv_best_progress_pct  value = var:tv_cultural_progress_pct }
-		set_variable = { name = tv_best_path          value = 4 }
-		set_variable = { name = tv_best_milestone      value = var:tv_cultural_milestone }
-		set_variable = { name = tv_best_score          value = var:tv_cultural_influence_points }
 	}
 
 	# Scientific = path 5
 	if = {
-		limit = {
-			has_variable = tv_science_progress_pct
-			var:tv_science_progress_pct >= var:tv_best_progress_pct
+		limit = { has_variable = tv_science_progress_pct }
+		if = {
+			limit = { var:tv_science_progress_pct >= var:tv_best_progress_pct }
+			set_variable = { name = tv_best_progress_pct  value = var:tv_science_progress_pct }
+			set_variable = { name = tv_best_path          value = 5 }
+			set_variable = { name = tv_best_milestone      value = 0 }
+			set_variable = { name = tv_best_score          value = 0 }
+			if = {
+				limit = { has_variable = tv_science_milestone }
+				set_variable = { name = tv_best_milestone  value = var:tv_science_milestone }
+			}
+			if = {
+				limit = { has_variable = tv_science_score }
+				set_variable = { name = tv_best_score  value = var:tv_science_score }
+			}
 		}
-		set_variable = { name = tv_best_progress_pct  value = var:tv_science_progress_pct }
-		set_variable = { name = tv_best_path          value = 5 }
-		set_variable = { name = tv_best_milestone      value = var:tv_science_milestone }
-		set_variable = { name = tv_best_score          value = var:tv_science_score }
 	}
 }
 
@@ -84,33 +136,53 @@ tv_update_best_path_effect = {
 # Each pass stores the winning country reference in tv_rank_N_country on this
 # situation scope; the GUI reads path/milestone/score directly from that country.
 tv_update_leaderboard_effect = {
-	# Rebuild the sortable pool — only countries already initialised with progress data
+	# Start from a blank ranking. Stale rank variables can otherwise keep later
+	# ordered_in_global_list passes alive after the current pool shrinks.
+	remove_variable = tv_rank_1_country
+	remove_variable = tv_rank_2_country
+	remove_variable = tv_rank_3_country
+	remove_variable = tv_rank_4_country
+	remove_variable = tv_rank_5_country
+
+	# Rebuild the sortable pool after ensuring each country has safe best-path vars.
 	clear_global_variable_list = tv_country_pool
 	every_country = {
-		limit = { has_variable = tv_best_progress_pct }
+		tv_update_best_path_effect = yes
 		add_to_global_variable_list = { name = tv_country_pool  target = this }
 	}
 
 	# Rank 1 — highest tv_best_progress_pct
-	ordered_in_global_list = {
-		variable = tv_country_pool
-		order_by = { add = { value = var:tv_best_progress_pct } }
-		limit = { has_variable = tv_best_progress_pct }
-		max = 1
-		check_range_bounds = no
-		situation:tv_victory_situation = {
-			set_variable = { name = tv_rank_1_country  value = prev }
+	if = {
+		limit = {
+			global_variable_list_size = {
+				name = tv_country_pool
+				value > 0
+			}
+		}
+		ordered_in_global_list = {
+			variable = tv_country_pool
+			order_by = { add = { value = var:tv_best_progress_pct } }
+			max = 1
+			check_range_bounds = no
+			situation:tv_victory_situation = {
+				set_variable = { name = tv_rank_1_country  value = prev }
+			}
 		}
 	}
 
 	# Rank 2 — highest among the rest
 	if = {
-		limit = { has_variable = tv_rank_1_country }
+		limit = {
+			has_variable = tv_rank_1_country
+			global_variable_list_size = {
+				name = tv_country_pool
+				value > 1
+			}
+		}
 		ordered_in_global_list = {
 			variable = tv_country_pool
 			order_by = { add = { value = var:tv_best_progress_pct } }
 			limit = {
-				has_variable = tv_best_progress_pct
 				this != situation:tv_victory_situation.var:tv_rank_1_country
 			}
 			max = 1
@@ -123,12 +195,18 @@ tv_update_leaderboard_effect = {
 
 	# Rank 3
 	if = {
-		limit = { has_variable = tv_rank_2_country }
+		limit = {
+			has_variable = tv_rank_1_country
+			has_variable = tv_rank_2_country
+			global_variable_list_size = {
+				name = tv_country_pool
+				value > 2
+			}
+		}
 		ordered_in_global_list = {
 			variable = tv_country_pool
 			order_by = { add = { value = var:tv_best_progress_pct } }
 			limit = {
-				has_variable = tv_best_progress_pct
 				this != situation:tv_victory_situation.var:tv_rank_1_country
 				this != situation:tv_victory_situation.var:tv_rank_2_country
 			}
@@ -142,12 +220,19 @@ tv_update_leaderboard_effect = {
 
 	# Rank 4
 	if = {
-		limit = { has_variable = tv_rank_3_country }
+		limit = {
+			has_variable = tv_rank_1_country
+			has_variable = tv_rank_2_country
+			has_variable = tv_rank_3_country
+			global_variable_list_size = {
+				name = tv_country_pool
+				value > 3
+			}
+		}
 		ordered_in_global_list = {
 			variable = tv_country_pool
 			order_by = { add = { value = var:tv_best_progress_pct } }
 			limit = {
-				has_variable = tv_best_progress_pct
 				this != situation:tv_victory_situation.var:tv_rank_1_country
 				this != situation:tv_victory_situation.var:tv_rank_2_country
 				this != situation:tv_victory_situation.var:tv_rank_3_country
@@ -162,12 +247,20 @@ tv_update_leaderboard_effect = {
 
 	# Rank 5
 	if = {
-		limit = { has_variable = tv_rank_4_country }
+		limit = {
+			has_variable = tv_rank_1_country
+			has_variable = tv_rank_2_country
+			has_variable = tv_rank_3_country
+			has_variable = tv_rank_4_country
+			global_variable_list_size = {
+				name = tv_country_pool
+				value > 4
+			}
+		}
 		ordered_in_global_list = {
 			variable = tv_country_pool
 			order_by = { add = { value = var:tv_best_progress_pct } }
 			limit = {
-				has_variable = tv_best_progress_pct
 				this != situation:tv_victory_situation.var:tv_rank_1_country
 				this != situation:tv_victory_situation.var:tv_rank_2_country
 				this != situation:tv_victory_situation.var:tv_rank_3_country

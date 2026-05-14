@@ -55,8 +55,9 @@ organization_panel = {
 
 	# ── Tab 1 overview content: Governor Status (总督状态) ───────────────────
 	# Lists all appointed governors from tv_governor_list (governor-list-driven).
-	# Area name display is omitted — no .GetArea GUI accessor exists in EU5.
-	# Bonus stats read from pre-computed character variables (tv_gov_*_pct).
+	# Each card: character_frame_small portrait + name + area + bonus stats + dismiss.
+	# Area name via tv_governed_area_capital (location scope) → GetLocation.GetArea.GetNameWithNoTooltip.
+	# GetVariable('area').GetArea is not a valid GUI accessor; GetLocation.GetArea is valid on Location type.
 	blockoverride "scroll_overview_empty_visible" { visible = no }
 
 	blockoverride "organization_main_actions_extra_visible" {
@@ -83,52 +84,82 @@ organization_panel = {
 			spacing = 4
 			datamodel = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_governor_list')]"
 			item = {
-				widget = {
-					size = { 460 80 }
-					vbox = {
+				vbox = {
+					layoutpolicy_horizontal = expanding
+
+					# Governor card: portrait left, info right
+					hbox = {
 						layoutpolicy_horizontal = expanding
-						spacing = 2
+						spacing = 8
 						margin = { 8 6 }
 
-						# Governor name
-						text_single = {
+						character_frame_small = {
+							size = { 64 76 }
+							blockoverride "portrait_datacontext" {
+								datacontext = "[Scope.GetCharacter]"
+							}
+						}
+
+						vbox = {
 							layoutpolicy_horizontal = expanding
-							raw_text = "[Scope.GetCharacter.GetNameToFit('(int32)40', '(bool)yes')]"
-							align = nobaseline|left
-						}
+							spacing = 2
 
-						# Bonus stats: max control / build cost / unrest
-						hbox = {
-							spacing = 12
+							# Governor name
 							text_single = {
-								raw_text = "@max_control! +[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_max_control_pct').GetValue|%]"
-								align = nobaseline
+								layoutpolicy_horizontal = expanding
+								raw_text = "[Scope.GetCharacter.GetNameToFit('(int32)36', '(bool)yes')]"
+								align = nobaseline|left
 							}
-							text_single = {
-								raw_text = "@build_icon! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_build_cost_pct').GetValue|%]"
-								align = nobaseline
-							}
-							text_single = {
-								raw_text = "@rebels! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_unrest_pct').GetValue|%]"
-								align = nobaseline
-							}
-						}
 
-						# Dismiss button — parameter_value must use Scope.GetCharacter, not [Character],
-						# because action_button_diamond evaluates parameter_value in UIAction context,
-						# which does not inherit parent widget datacontext bindings.
-						action_button_diamond = {
-							size = { 200 24 }
-							text = "tv_remove_governor"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = {
-								action_name = "tv_remove_governor"
-								parameter = {
-									parameter_name = "recipient"
-									parameter_value = "[Scope.GetCharacter]"
+							# Governed area name — tv_governed_area_capital is a location scope stored at appointment.
+							# GetVariable('area').GetArea is invalid in GUI; GetLocation.GetArea.GetName is valid.
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								visible = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').IsSet]"
+								raw_text = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').GetLocation.GetArea.GetNameWithNoTooltip]"
+								align = nobaseline|left
+							}
+
+							# Bonus stats: max control / build cost / unrest
+							hbox = {
+								spacing = 12
+								text_single = {
+									raw_text = "@max_control! +[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_max_control_pct').GetValue|%]"
+									align = nobaseline
+								}
+								text_single = {
+									raw_text = "@build_icon! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_build_cost_pct').GetValue|%]"
+									align = nobaseline
+								}
+								text_single = {
+									raw_text = "@rebels! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_unrest_pct').GetValue|%]"
+									align = nobaseline
+								}
+							}
+
+							# Dismiss button — parameter_value must use Scope.GetCharacter, not [Character],
+							# because action_button_diamond evaluates parameter_value in UIAction context,
+							# which does not inherit parent widget datacontext bindings.
+							action_button_diamond = {
+								size = { 200 24 }
+								text = "tv_remove_governor"
+								actor = "[InternationalOrganizationsView.GetPlayer]"
+								left_action = {
+									action_name = "tv_remove_governor"
+									parameter = {
+										parameter_name = "recipient"
+										parameter_value = "[Scope.GetCharacter]"
+									}
 								}
 							}
 						}
+					}
+
+					# Horizontal separator between governor entries
+					widget = {
+						layoutpolicy_horizontal = expanding
+						size = { -1 1 }
+						using = bg_divider_flavor_01
 					}
 				}
 			}

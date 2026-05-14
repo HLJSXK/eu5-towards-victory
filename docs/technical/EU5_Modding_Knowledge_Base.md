@@ -200,7 +200,17 @@ change_variable = { name = my_var add = country_tax_base } # country scope prope
 
 Confirmed: `multiply = var:X` and `divide = var:X` are both valid (verified `cmm_core_slider_setting_effects.txt:223`).
 
-### 5.5. Government Type Trigger
+### 5.6. Ordered Global List Rebuilds
+
+When using `ordered_in_global_list` to build rank 1..N outputs, treat the output variables as a fresh snapshot each time:
+
+1. Clear all old rank variables before rebuilding.
+2. Rebuild the pool and ensure every pool entry has the numeric variables used by `order_by`.
+3. Guard rank N with `global_variable_list_size = { name = pool value > N-1 }` before running the ordered pass.
+
+Do not rely only on `has_variable = previous_rank`. That may be a stale output from a previous rebuild. If the current pool has fewer candidates, a later ordered pass can execute with no selected item; `prev` becomes `none`, producing wrong-type errors when stored with `set_variable`, and adjacent `var:` reads may also log failed fetches.
+
+### 5.7. Government Type Trigger
 
 EU5 does **not** have the EU4 `government = monarchy` trigger. Use:
 

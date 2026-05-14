@@ -64,11 +64,14 @@ tv_training_resolve_effect = {
 # Each governor character carries:
 #   tv_is_governor = 1          (presence flag)
 #   tv_governed_area            (area scope value)
+#   tv_governed_area_capital    (location scope value — one owned location in the area, for GUI display)
 #   tv_gov_max_control_pct      (adm × 0.001 — fractional; GUI |% format → "+10%")
 #   tv_gov_build_cost_pct       (dip × 0.002 — fractional; GUI |% format → "-20%")
 #   tv_gov_unrest_pct           (mil × 0.002 — fractional; GUI |% format → "-20%")
 # Location modifiers applied: tv_governor_max_control, tv_governor_build_cost, tv_governor_unrest
 # Scaling: size reads pre-computed pct variable directly (no inline multiply needed)
+# tv_governed_area_capital: set on appointment so GUI can chain .GetLocation.GetArea.GetNameWithNoTooltip
+# (GetVariable('area').GetArea is invalid; location scope variable → GetLocation is valid)
 
 # Applies or refreshes location modifiers and display variables for one governor.
 # Scope: country. scope:target = governor character. scope:tv_governing_country = owning country.
@@ -136,6 +139,7 @@ tv_apply_governor_bonuses_effect = {
 			}
 			remove_variable = tv_is_governor
 			remove_variable = tv_governed_area
+			remove_variable = tv_governed_area_capital
 			remove_variable = tv_gov_max_control_pct
 			remove_variable = tv_gov_build_cost_pct
 			remove_variable = tv_gov_unrest_pct
@@ -178,6 +182,7 @@ tv_governor_appoint_effect = {
 			}
 			remove_variable = tv_is_governor
 			remove_variable = tv_governed_area
+			remove_variable = tv_governed_area_capital
 			remove_variable = tv_gov_max_control_pct
 			remove_variable = tv_gov_build_cost_pct
 			remove_variable = tv_gov_unrest_pct
@@ -190,6 +195,20 @@ tv_governor_appoint_effect = {
 		scope:target = {
 			set_variable = { name = tv_is_governor value = 1 }
 			set_variable = { name = tv_governed_area value = scope:target_1 }
+		}
+		# Store a representative location from the area so the GUI can display the area name.
+		# GetVariable('area').GetArea is invalid; GetVariable('location').GetLocation.GetArea works.
+		scope:target_1 = {
+			random_location_in_area = {
+				limit = { owner ?= scope:tv_governing_country }
+				save_scope_as = tv_temp_area_loc
+			}
+		}
+		if = {
+			limit = { exists = scope:tv_temp_area_loc }
+			scope:target = {
+				set_variable = { name = tv_governed_area_capital value = scope:tv_temp_area_loc }
+			}
 		}
 		# Register in the country governor list
 		add_to_variable_list = { name = tv_governor_list target = scope:target }
@@ -216,6 +235,7 @@ tv_governor_remove_effect = {
 		}
 		remove_variable = tv_is_governor
 		remove_variable = tv_governed_area
+		remove_variable = tv_governed_area_capital
 		remove_variable = tv_gov_max_control_pct
 		remove_variable = tv_gov_build_cost_pct
 		remove_variable = tv_gov_unrest_pct
@@ -254,6 +274,7 @@ tv_govhouse_cleanup_effect = {
 			}
 			remove_variable = tv_is_governor
 			remove_variable = tv_governed_area
+			remove_variable = tv_governed_area_capital
 			remove_variable = tv_gov_max_control_pct
 			remove_variable = tv_gov_build_cost_pct
 			remove_variable = tv_gov_unrest_pct
