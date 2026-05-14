@@ -520,6 +520,24 @@
   source: "src/in_game/common/generic_actions/tv_arts_exhibition_actions.txt (one has_variable per scope:actor block); src/in_game/common/generic_actions/tv_research_actions.txt (tv_start_concentrated_research fix)"
   notes: "EU5 Jomini evaluates ALL conditions inside a single scope block for tooltip/UI display purposes, even if earlier conditions short-circuit the logical result. The outer-level AND (between separate scope:actor = {} blocks) DOES short-circuit. Mixing has_variable guards and var: reads in the same block will spam 'Failed to fetch variable' errors at game start when the action is evaluated for countries that never set those variables."
 
+- id: gui_datamodel_item_widget_needs_explicit_datacontext
+  pattern: ''
+  bad: "item = { widget = { ... [Character.GetName] ... } } — using typed GUI accessors (e.g. Character.GetName, Character.MakeScope.GetVariable) inside a widget nested under item in a datamodel loop, without setting datacontext on that widget"
+  correction: "Add datacontext = \"[Character]\" (or the appropriate type) to the widget immediately inside item: item = { widget = { datacontext = \"[Character]\"  ... } }. If the datamodel element is a character, use \"[Character]\"; for country, use \"[Country]\"; etc."
+  category: gui
+  scope: any
+  source: "EU5 engine error log: 'No context supplied (Use SetDataContext), wanted context of type Character for Character.GetNameToFit(...)' (tv_govhouse.gui datamodel, 2026-05)"
+  notes: "In EU5 Jomini GUI, a datamodel sets the element type as the data context for DIRECT children of item only. An inner widget = { } nested inside item does NOT automatically inherit the context. Every nested widget that accesses typed accessors needs an explicit datacontext rebinding. Only direct children (text_single, hbox placed directly in item) inherit the type without a datacontext line."
+
+- id: generic_action_potential_named_scope_undefined
+  pattern: 'potential\s*=\s*\{[^}]*scope:(recipient|target)\s*='
+  bad: "scope:recipient = { has_variable = X } or scope:target = { ... } inside generic_action potential block when that scope is set via GUI button parameter"
+  correction: "Remove all scope:recipient / scope:target checks from potential. Keep only scope:actor conditions in potential. Move recipient/target validation to allow only: allow = { scope:actor = { ... }  scope:recipient = { has_variable = X } }."
+  category: scope
+  scope: any
+  source: "EU5 engine error log: 'Undefined event target recipient, Script location: tv_govhouse_actions.txt:106' (tv_remove_governor potential block, 2026-05)"
+  notes: "potential is evaluated at UI render time to decide if the action button is shown. Named scopes set via GUI button parameters (parameter = { parameter_name = recipient parameter_value = \"[Character]\" }) are NOT injected until the action is actually triggered. At render time scope:recipient is unset, producing 'Undefined event target' and 'scope returned unset scope' errors. Only scope:actor is reliably set during potential evaluation."
+
 - id: advance_inject_duplicates_allow_block
   pattern: ''
   bad: "INJECT:advance_name = { allow = { ... } } when the vanilla advance already has an allow block"

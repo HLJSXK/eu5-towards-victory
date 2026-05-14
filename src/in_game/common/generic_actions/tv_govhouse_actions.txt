@@ -104,7 +104,6 @@ tv_remove_governor = {
 
 	potential = {
 		scope:actor = { has_variable = tv_govhouse_member }
-		scope:recipient = { has_variable = tv_is_governor }
 	}
 
 	allow = {
