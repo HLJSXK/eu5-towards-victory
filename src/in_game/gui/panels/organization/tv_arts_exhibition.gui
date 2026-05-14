@@ -135,17 +135,29 @@ organization_panel = {
 				}
 
 				scrollarea = {
-					size = { 458 148 }
-					scrollbarpolicy_horizontal = visible_when_needed
-					scrollbarpolicy_vertical = always_off
+					size = { 458 220 }
+					scrollbarpolicy_horizontal = always_off
 
-					hbox = {
+					scrollbar_vertical = {
+						using = Scrollbar_Vertical
+					}
+
+					vbox = {
+						layoutpolicy_horizontal = expanding
 						spacing = 4
 						datamodel = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_dispatched_artists_list')]"
 						item = {
 							io_character_card = {
-								size = { 90 138 }
+								size = { 97% 72 }
+								parentanchor = hcenter
+								using = layoutpolicy_expanding
 								datacontext = "[Scope.GetCharacter]"
+								blockoverride "character_abilities_visible" {
+									visible = no
+								}
+								blockoverride "artist_abilities_visible" {
+									visible = yes
+								}
 							}
 						}
 					}

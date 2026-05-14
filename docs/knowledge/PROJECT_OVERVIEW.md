@@ -157,3 +157,7 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | `scripts/in_game/common/building_types/gen_towards_victory_buildings.py` | data/academy_buildings.yaml | src/in_game/common/building_types/towards_victory_buildings.txt | After changing Academy of Sciences building tiers |
 | `scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py` | data/locked_advances.yaml | src/in_game/gui/panels/organization/tv_academy_of_sciences.gui | After adding/removing Frontier advance targets |
 | `scripts/in_game/common/laws/gen_tv_alliance_laws.py` | data/alliance_laws.yaml | src/in_game/common/laws/tv_alliance_laws.txt | After editing Diplomatic Alliance law categories or policies |
+
+## Manual UI Notes
+
+- `src/in_game/gui/panels/organization/tv_arts_exhibition.gui` displays the Arts Exhibition actions, IO leader actions, current dispatched artist count, and all currently dispatched artists from `tv_dispatched_artists_list` as standard artist-ability character rows.
