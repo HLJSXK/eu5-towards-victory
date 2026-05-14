@@ -722,3 +722,32 @@
   scope: any
   source: "reference_game_files/game/in_game/common/traits/ (confirmed directory; character_traits/ does not exist in vanilla)"
   notes: "EU5 loads character traits from common/traits/ not common/character_traits/. Files in the wrong directory are silently ignored and all has_trait checks against those trait IDs produce 'Invalid database object' errors at PostValidate."
+
+- id: construct_building_cost_multiplier_needs_reason
+  pattern: ''
+  bad: "construct_building = { ... cost_multiplier = N ... } without cost_multiplier_reason"
+  correction: "When construct_building uses cost_multiplier, also provide cost_multiplier_reason = <loc key>. For event-funded free construction, vanilla commonly uses cost_multiplier_reason = \"game_concept_event\"."
+  category: script
+  scope: location
+  source: "reference_game_files/game/in_game/events/situations/golden_age_of_piracy.txt:261-265"
+  notes: "EU5 logs a script system error when construct_building has a cost multiplier but no reason key: 'No reason given for the cost multiplier in construct_building effect'."
+
+- id: gui_text_missing_localization_key
+  pattern: ''
+  only_in_paths: ['gui']
+  bad: "text = \"LOC_KEY\" in a GUI file when LOC_KEY is not defined in main_menu/localization"
+  correction: "Define the key in every supported localization file, correct the key to an existing one, or use raw_text for literal display strings."
+  category: localization
+  scope: any
+  source: "runtime error.log: pdx_gui_localize.cpp:182"
+  notes: "GUI text fields are localized. A typo such as TV_RM_TARGET_STEAM_ENGINE when only TV_RM_TARGET_IRON_WORKING exists logs 'Unlocalized text' at load."
+
+- id: generic_action_missing_ai_list
+  pattern: ''
+  only_in_paths: ['generic_actions']
+  bad: "Defining a generic action without listing it in common/generic_action_ai_lists"
+  correction: "Add every generic action id to at least one generic_action_ai_lists file. Use the list potential to restrict evaluation to countries that can use that feature; player-only actions may still set ai_will_do = { add = -100 }."
+  category: script
+  scope: country
+  source: "reference_game_files/game/in_game/common/generic_action_ai_lists/readme.txt:3-7; runtime error.log: generic_action_ai_list.cpp:82"
+  notes: "Unlisted generic actions are put into the global AI list and the engine logs a performance warning: 'Action X is not explicitly listed in an ai list!'."

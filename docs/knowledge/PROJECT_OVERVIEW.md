@@ -161,4 +161,4 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 
 ## Manual UI Notes
 
-- `src/in_game/gui/panels/organization/tv_arts_exhibition.gui` displays the Arts Exhibition actions, IO leader actions, current dispatched artist count, and all currently dispatched artists from `tv_dispatched_artists_list` as compact artist rows with portrait, artistic skill, works, and traits.
+- `src/in_game/gui/panels/organization/tv_arts_exhibition.gui` displays the Arts Exhibition actions, IO leader actions, current dispatched artist count, and all currently dispatched artists from `tv_dispatched_artists_list` as `io_character_card` artist rows in a vanilla-style fixed-grid scroll list.

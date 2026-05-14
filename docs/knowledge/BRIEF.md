@@ -165,7 +165,7 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 
 ## Manual UI Notes
 
-- `src/in_game/gui/panels/organization/tv_arts_exhibition.gui` displays the Arts Exhibition actions, IO leader actions, current dispatched artist count, and all currently dispatched artists from `tv_dispatched_artists_list` as compact artist rows with portrait, artistic skill, works, and traits.
+- `src/in_game/gui/panels/organization/tv_arts_exhibition.gui` displays the Arts Exhibition actions, IO leader actions, current dispatched artist count, and all currently dispatched artists from `tv_dispatched_artists_list` as `io_character_card` artist rows in a vanilla-style fixed-grid scroll list.
 
 ## Known Anti-Patterns
 
@@ -248,6 +248,9 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | event | character | remove_trait = blind | remove_trait = trait:blind — always prefix the trait name with trait: for remove_trait and add_trait effects. Note: has_trait = blind (no prefix) is correct for trigger checks. | remove_trait effect requires trait: prefix (remove_trait = trait:blind). has_trait trigger does NOT use the prefix (has_trait = blind). Mixing them causes: remove_trait effect [ target: field not set ]. |
 | localization | any | none_available_msg_key localization value missing @trigger_no! icon prefix | In the localization YAML, the VALUE of the none_available_msg_key string must begin with @trigger_no! — e.g. "@trigger_no! No characters available." The key name itself has no prefix requirement. | Engine logs: Key X doesn't exist or doesn't start with trigger_no icon. The @trigger_no! inline icon must be the first token in the localization value string. |
 | script | any | Placing character trait definitions in common/character_traits/ (e.g. src/in_game/common/character_traits/my_traits.txt) | Place trait files in common/traits/ — the correct EU5 directory: src/in_game/common/traits/my_traits.txt | EU5 loads character traits from common/traits/ not common/character_traits/. Files in the wrong directory are silently ignored and all has_trait checks against those trait IDs produce 'Invalid database object' errors at PostValidate. |
+| script | location | construct_building = { ... cost_multiplier = N ... } without cost_multiplier_reason | When construct_building uses cost_multiplier, also provide cost_multiplier_reason = <loc key>. For event-funded free construction, vanilla commonly uses cost_multiplier_reason = "game_concept_event". | EU5 logs a script system error when construct_building has a cost multiplier but no reason key: 'No reason given for the cost multiplier in construct_building effect'. |
+| localization | any | text = "LOC_KEY" in a GUI file when LOC_KEY is not defined in main_menu/localization | Define the key in every supported localization file, correct the key to an existing one, or use raw_text for literal display strings. | GUI text fields are localized. A typo such as TV_RM_TARGET_STEAM_ENGINE when only TV_RM_TARGET_IRON_WORKING exists logs 'Unlocalized text' at load. |
+| script | country | Defining a generic action without listing it in common/generic_action_ai_lists | Add every generic action id to at least one generic_action_ai_lists file. Use the list potential to restrict evaluation to countries that can use that feature; player-only actions may still set ai_will_do = { add = -100 }. | Unlisted generic actions are put into the global AI list and the engine logs a performance warning: 'Action X is not explicitly listed in an ai list!'. |
 
 ## Valid Enum Values
 

@@ -206,7 +206,7 @@ tv_leaderboard_monthly_pulse = {
 						1 = {
 							set_variable = { name = tv_tour_event_3_fired value = 1 }
 							var:tv_exhibition_location ?= {
-								construct_building = { building_type = building_type:theater  cost_multiplier = 0  instant = yes }
+								construct_building = { building_type = building_type:theater  cost_multiplier = 0  cost_multiplier_reason = "game_concept_event"  instant = yes }
 							}
 							scope:touring_home = {
 								trigger_event_non_silently = { id = tv_arts_exhibition.203 }

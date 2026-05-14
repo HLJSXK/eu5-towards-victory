@@ -126,6 +126,21 @@ EU5's scripting language revolves around a few core concepts: Triggers, Effects,
 
 Both triggers and effects can be *inline* (for simple operations) or *block* (for more complex logic) and are highly dependent on the current **scope**.
 
+#### `construct_building` Cost Multipliers
+
+When `construct_building` uses `cost_multiplier`, EU5 requires a localized reason key:
+
+```pdx
+construct_building = {
+    building_type = building_type:theater
+    instant = yes
+    cost_multiplier = 0
+    cost_multiplier_reason = "game_concept_event"
+}
+```
+
+Omitting `cost_multiplier_reason` logs: `No reason given for the cost multiplier in construct_building effect`. Vanilla event-funded construction commonly uses `game_concept_event`, which is already localized.
+
 ### 5.2. Scopes and Scope Links
 
 A **scope** refers to the specific game object (e.g., a country, a character, a location) that a script is currently focused on. **Scope links** are used to access data from or apply effects to other scopes. For example, `c:FRA.gold` would access the treasury of the country with the tag FRA.
@@ -186,6 +201,12 @@ When a generic action has multiple `select_trigger` steps, EU5 **pre-evaluates t
    ```
 
 The `exists = scope:<name>` trigger is the vanilla pattern for this (confirmed in `assign_governor.txt` and `assume_fort_command.txt`). The errors appear in `error.log` as "Undefined event target" or "Failed to fetch variable" but the effect still fires correctly once all selections are complete.
+
+#### Generic Action AI Lists
+
+Every generic action should be explicitly listed in `in_game/common/generic_action_ai_lists/`. Vanilla's readme says unlisted actions are put into the global list, and EU5 logs a performance warning such as `Action X is not explicitly listed in an ai list!`.
+
+Use the AI list `potential` block to restrict evaluation to countries that can use the feature. Player-facing actions should still be listed; set restrictive AI behavior such as `ai_will_do = { add = -100 }` when the AI should never execute them.
 
 ### 5.5. Variable Arithmetic (`change_variable`)
 
@@ -287,6 +308,8 @@ To extend character title prefixes, generate or copy the full vanilla `character
 ### 7.1. Interface (GUI) Modding
 
 The user interface is highly moddable through `.gui` files. The system is modular, using templates and types to create reusable UI components. Creating new windows and widgets allows for the development of complex new game features. [10]
+
+GUI `text = "KEY"` properties are localization lookups. If the key is missing from `main_menu/localization`, the engine logs `Unlocalized text 'KEY'` from `pdx_gui_localize.cpp`. Correct the key to one defined by the current data/localization set, add the key for all supported languages, or use `raw_text` only when the intended display is a literal string.
 
 Custom game concepts require both localization and a definition in `main_menu/common/game_concepts/`. A localization pair such as `game_concept_tv_foo` / `game_concept_tv_foo_desc` does not create the concept by itself. If `[tv_foo|e]` is used before `tv_foo = { texture = "..." }` is registered, the localization parser treats `tv_foo` as a data-system function and logs `Could not find data system function 'tv_foo'`.
 
