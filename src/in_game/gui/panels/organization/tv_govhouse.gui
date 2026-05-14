@@ -55,102 +55,140 @@ organization_panel = {
 	blockoverride "io_overview_actions" {
 		vbox = {
 			layoutpolicy_horizontal = expanding
-			spacing = 6
+			spacing = 10
 			margin = { 10 2 }
 
-			action_button_diamond = {
-				size = { 470 30 }
-				text = "tv_appoint_governor"
-				title = "tv_appoint_governor"
-				actor = "[InternationalOrganizationsView.GetPlayer]"
-				left_action = {
-					action_name = "tv_appoint_governor"
+			card_actions = {
+				blockoverride "card_header_text" {
+					text = "MAIN_ACTIONS"
+				}
+
+				blockoverride "card_header_icon" {
+					block "io_main_actions_icon" {
+						texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+					}
+				}
+
+				blockoverride "actions_override" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+
+						action_button_diamond = {
+							size = { 470 30 }
+							text = "tv_appoint_governor"
+							title = "tv_appoint_governor"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_appoint_governor"
+							}
+						}
+					}
 				}
 			}
 
-			text_single = {
-				layoutpolicy_horizontal = expanding
-				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_governor_list').IsSet)]"
-				text = "TV_GOVHOUSE_NO_GOVERNORS"
-				align = nobaseline|left
-			}
+			card_common = {
+				maximumsize = { 500 -1 }
 
-			vbox = {
-				layoutpolicy_horizontal = expanding
-				spacing = 4
-				datamodel = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_governor_list')]"
-				item = {
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_GOVHOUSE_GOVERNOR_COUNT"
+				}
+
+				blockoverride "common_bottom_content" {
 					vbox = {
 						layoutpolicy_horizontal = expanding
+						spacing = 4
 
-						hbox = {
+						text_single = {
 							layoutpolicy_horizontal = expanding
-							spacing = 8
-							margin = { 8 6 }
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_governor_list').IsSet)]"
+							text = "TV_GOVHOUSE_NO_GOVERNORS"
+							align = nobaseline|left
+						}
 
-							character_frame_small = {
-								size = { 64 76 }
-								blockoverride "portrait_datacontext" {
-									datacontext = "[Scope.GetCharacter]"
-								}
-							}
-
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 2
-
-								text_single = {
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							datamodel = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_governor_list')]"
+							item = {
+								vbox = {
 									layoutpolicy_horizontal = expanding
-									raw_text = "[Scope.GetCharacter.GetNameToFit('(int32)36', '(bool)yes')]"
-									align = nobaseline|left
-								}
 
-								text_single = {
-									layoutpolicy_horizontal = expanding
-									visible = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').IsSet]"
-									datacontext = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').GetLocation.GetArea]"
-									raw_text = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').GetLocation.GetArea.GetNameWithNoTooltip]"
-									align = nobaseline|left
-									tooltipwidget = {
-										using = Area_tooltip
-									}
-								}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 8
+										margin = { 8 6 }
 
-								hbox = {
-									spacing = 12
-									text_single = {
-										raw_text = "@max_control! +[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_max_control_pct').GetValue|%]"
-										align = nobaseline
-									}
-									text_single = {
-										raw_text = "@build_icon! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_build_cost_pct').GetValue|%]"
-										align = nobaseline
-									}
-									text_single = {
-										raw_text = "@rebels! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_unrest_pct').GetValue|%]"
-										align = nobaseline
-									}
-								}
+										character_frame_small = {
+											size = { 64 76 }
+											blockoverride "portrait_datacontext" {
+												datacontext = "[Scope.GetCharacter]"
+											}
+										}
 
-								action_button_diamond = {
-									size = { 200 24 }
-									text = "tv_remove_governor"
-									actor = "[InternationalOrganizationsView.GetPlayer]"
-									left_action = {
-										action_name = "tv_remove_governor"
-										parameter = {
-											parameter_name = "recipient"
-											parameter_value = "[Scope.GetCharacter]"
+										vbox = {
+											layoutpolicy_horizontal = expanding
+											spacing = 2
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												raw_text = "[Scope.GetCharacter.GetNameToFit('(int32)36', '(bool)yes')]"
+												align = nobaseline|left
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												visible = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').IsSet]"
+												datacontext = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').GetLocation.GetArea]"
+												raw_text = "[Scope.GetCharacter.MakeScope.GetVariable('tv_governed_area_capital').GetLocation.GetArea.GetNameWithNoTooltip]"
+												align = nobaseline|left
+												tooltipwidget = {
+													using = Area_tooltip
+												}
+											}
+
+											hbox = {
+												spacing = 12
+												text_single = {
+													raw_text = "@max_control! +[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_max_control_pct').GetValue|%]"
+													align = nobaseline
+												}
+												text_single = {
+													raw_text = "@build_icon! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_build_cost_pct').GetValue|%]"
+													align = nobaseline
+												}
+												text_single = {
+													raw_text = "@rebels! -[Scope.GetCharacter.MakeScope.GetVariable('tv_gov_unrest_pct').GetValue|%]"
+													align = nobaseline
+												}
+											}
+
+											action_button_diamond = {
+												size = { 200 24 }
+												text = "tv_remove_governor"
+												actor = "[InternationalOrganizationsView.GetPlayer]"
+												left_action = {
+													action_name = "tv_remove_governor"
+													parameter = {
+														parameter_name = "recipient"
+														parameter_value = "[Scope.GetCharacter]"
+													}
+												}
+											}
 										}
 									}
 								}
-							}
-						}
 
-						widget = {
-							layoutpolicy_horizontal = expanding
-							size = { -1 1 }
-							using = bg_divider_flavor_01
+								widget = {
+									layoutpolicy_horizontal = expanding
+									size = { -1 1 }
+									using = bg_divider_flavor_01
+								}
+							}
 						}
 					}
 				}
@@ -222,6 +260,54 @@ organization_panel = {
 					text_single = {
 						raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_govhouse_authority')]"
 						align = nobaseline
+					}
+				}
+			}
+		}
+
+		card_common = {
+			maximumsize = { 500 -1 }
+
+			blockoverride "common_header_icon_texture" {
+				texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+			}
+
+			blockoverride "common_header_text" {
+				text = "TV_GOVHOUSE_POWER_BALANCE_CARD_TITLE"
+			}
+
+			blockoverride "common_bottom_content" {
+				widget = {
+					size = { 470 54 }
+
+					hbox = {
+						margin = { 10 10 }
+						spacing = 10
+
+						icon = {
+							size = { 32 32 }
+							texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+							tooltip = "TV_GOVHOUSE_POWER_BALANCE_GENERAL_SIDE"
+						}
+
+						progressbar = {
+							size = { 366 18 }
+							min = 0
+							max = 1
+							value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_govhouse_power_balance').GetValue]"
+							progresstexture = "gfx/interface/progressbars/progress_bar_blue_alt_left.dds"
+							noprogresstexture = "gfx/interface/progressbars/progress_bar_goldish.dds"
+							texture_density = 2
+							spriteType = Corneredstretched
+							spriteborder = { 12 0 }
+							tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+						}
+
+						icon = {
+							size = { 32 32 }
+							texture = "gfx/interface/icons/estates/crown_estate.dds"
+							tooltip = "TV_GOVHOUSE_POWER_BALANCE_CROWN_SIDE"
+						}
 					}
 				}
 			}
