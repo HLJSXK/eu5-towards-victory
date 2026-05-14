@@ -143,8 +143,8 @@ src/
 
 ### Main Menu Graphics
 
-`src/main_menu/gfx/interface/icons/international_organizations/` contains the three custom TV IO `GetIcon` assets:
-`tv_diplomatic_alliance.dds`, `tv_arts_exhibition.dds`, and `tv_academy_of_sciences.dds`.
+`src/main_menu/gfx/interface/icons/international_organizations/` contains the four custom TV IO `GetIcon` assets:
+`tv_govhouse.dds`, `tv_diplomatic_alliance.dds`, `tv_arts_exhibition.dds`, and `tv_academy_of_sciences.dds`.
 They are copied from the Victory Path panel icons so shared IO title/list/tooltip UI no longer falls back to the generic international organization icon.
 
 ## Script Reference
