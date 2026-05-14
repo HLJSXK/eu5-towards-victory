@@ -117,6 +117,7 @@ organization_panel = {
 							item = {
 								vbox = {
 									layoutpolicy_horizontal = expanding
+									spacing = 0
 
 									hbox = {
 										layoutpolicy_horizontal = expanding
@@ -181,12 +182,12 @@ organization_panel = {
 											}
 										}
 									}
-								}
 
-								widget = {
-									layoutpolicy_horizontal = expanding
-									size = { -1 1 }
-									using = bg_divider_flavor_01
+									widget = {
+										layoutpolicy_horizontal = expanding
+										size = { -1 1 }
+										using = bg_divider_flavor_01
+									}
 								}
 							}
 						}

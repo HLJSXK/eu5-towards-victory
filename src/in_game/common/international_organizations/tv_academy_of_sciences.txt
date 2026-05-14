@@ -54,9 +54,12 @@ tv_academy_of_sciences = {
 					if = {
 						limit = {
 							leader_country ?= {
-								has_variable = tv_research_phase
-								var:tv_research_phase = 1
-								NOT = { var:tv_rm_subprocess_c >= 2 }
+								custom_tooltip = {
+									text = TV_HAS_VARIABLE_SET_TT
+									has_variable = tv_research_phase
+								}
+								var:tv_research_phase ?= 1
+								NOT = { var:tv_rm_subprocess_c ?= { this >= 2 } }
 							}
 						}
 						value = leader_country.average_country_literacy
@@ -79,10 +82,16 @@ tv_academy_of_sciences = {
 						limit = {
 							international_organization_has_leader = yes
 							leader_country ?= {
-								has_variable = tv_research_phase
-								var:tv_research_phase = 2
-								has_variable = tv_academy_leader_char
-								var:tv_academy_leader_char = { is_alive = yes }
+								custom_tooltip = {
+									text = TV_HAS_VARIABLE_SET_TT
+									has_variable = tv_research_phase
+								}
+								var:tv_research_phase ?= 2
+								custom_tooltip = {
+									text = TV_HAS_VARIABLE_SET_TT
+									has_variable = tv_academy_leader_char
+								}
+								var:tv_academy_leader_char ?= { is_alive = yes }
 							}
 						}
 						value = leader_country.var:tv_academy_leader_char.adm
@@ -120,10 +129,16 @@ tv_academy_of_sciences = {
 			limit = {
 				international_organization_has_leader = yes
 				leader_country ?= {
-					has_variable = tv_research_phase
-					var:tv_research_phase = 2
-					has_variable = tv_academy_leader_char
-					var:tv_academy_leader_char = { is_alive = yes }
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_research_phase
+					}
+					var:tv_research_phase ?= 2
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_academy_leader_char
+					}
+					var:tv_academy_leader_char ?= { is_alive = yes }
 				}
 			}
 			leader_country ?= {
@@ -139,8 +154,11 @@ tv_academy_of_sciences = {
 			limit = {
 				var:tv_research_d_progress >= 100
 				leader_country ?= {
-					has_variable = tv_research_phase
-					var:tv_research_phase = 2
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_research_phase
+					}
+					var:tv_research_phase ?= 2
 				}
 			}
 			leader_country ?= { tv_research_concentrated_complete_effect = yes }

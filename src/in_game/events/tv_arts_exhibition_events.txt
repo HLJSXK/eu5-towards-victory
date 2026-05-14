@@ -12,43 +12,43 @@ tv_arts_exhibition.10 = {
 	desc = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 1 }
+				trigger = { var:tv_dispatch_notif_duration ?= 1 }
 				desc = tv_arts_exhibition.10.d.1
 			}
 			triggered_desc = {
-				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 2 }
+				trigger = { var:tv_dispatch_notif_duration ?= 2 }
 				desc = tv_arts_exhibition.10.d.2
 			}
 			triggered_desc = {
-				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 3 }
+				trigger = { var:tv_dispatch_notif_duration ?= 3 }
 				desc = tv_arts_exhibition.10.d.3
 			}
 			triggered_desc = {
-				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 4 }
+				trigger = { var:tv_dispatch_notif_duration ?= 4 }
 				desc = tv_arts_exhibition.10.d.4
 			}
 			triggered_desc = {
-				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 5 }
+				trigger = { var:tv_dispatch_notif_duration ?= 5 }
 				desc = tv_arts_exhibition.10.d.5
 			}
 			triggered_desc = {
-				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 6 }
+				trigger = { var:tv_dispatch_notif_duration ?= 6 }
 				desc = tv_arts_exhibition.10.d.6
 			}
 			triggered_desc = {
-				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 7 }
+				trigger = { var:tv_dispatch_notif_duration ?= 7 }
 				desc = tv_arts_exhibition.10.d.7
 			}
 			triggered_desc = {
-				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 8 }
+				trigger = { var:tv_dispatch_notif_duration ?= 8 }
 				desc = tv_arts_exhibition.10.d.8
 			}
 			triggered_desc = {
-				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 9 }
+				trigger = { var:tv_dispatch_notif_duration ?= 9 }
 				desc = tv_arts_exhibition.10.d.9
 			}
 			triggered_desc = {
-				trigger = { has_variable = tv_dispatch_notif_duration  var:tv_dispatch_notif_duration = 10 }
+				trigger = { var:tv_dispatch_notif_duration ?= 10 }
 				desc = tv_arts_exhibition.10.d.10
 			}
 			triggered_desc = {

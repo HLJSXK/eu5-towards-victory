@@ -15,7 +15,7 @@ Towards Victory adds 6 generalized victory paths to EU5: Conquest, Prosperity, T
 
 The **Conquest Victory** path (征服胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = direct locations + 0.5 × subject-or-below locations; thresholds at 150 / 300 / 500 / 1000 / 2000.
 
-The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = (total_population + Σdev + country_tax_base) × 50 / (N + 50) × (1 + stability/100) × (gov_power/100), where N = num_owned_locations and gov_power = legitimacy/republican_tradition/devotion/tribal_cohesion/horde_unity by government type. The 50N/(N+50) effective scale term provides stronger diminishing returns on country size. Updated yearly; thresholds at 5,000 / 8,000 / 12,000 / 18,000 / 25,000 (provisional, calibrate after playtesting).
+The **Prosperity Victory** path (繁荣胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = (total_population + Σdev + country_tax_base) × 50 / (N + 50) × (1 + stability/100) × (gov_power/100), where N = num_owned_locations and gov_power = legitimacy/republican_tradition/devotion/tribal_cohesion/horde_unity by government type. The 50N/(N+50) effective scale term provides stronger diminishing returns on country size. Updated yearly; thresholds at 500 / 1,000 / 2,000 / 4,000 / 8,000 (provisional, calibrate after playtesting).
 
 The **Trade Victory** path (贸易胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = monthly_trade_income (snapshot taken monthly by tv_update_trade_score_effect); thresholds at 100 / 200 / 400 / 1000 / 2000 (provisional, calibrate after playtesting).
 
@@ -158,6 +158,8 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | `scripts/in_game/common/building_types/gen_towards_victory_buildings.py` | data/academy_buildings.yaml | src/in_game/common/building_types/towards_victory_buildings.txt | After changing Academy of Sciences building tiers |
 | `scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py` | data/locked_advances.yaml | src/in_game/gui/panels/organization/tv_academy_of_sciences.gui | After adding/removing Frontier advance targets |
 | `scripts/in_game/common/laws/gen_tv_alliance_laws.py` | data/alliance_laws.yaml | src/in_game/common/laws/tv_alliance_laws.txt | After editing Diplomatic Alliance law categories or policies |
+
+All TV `trigger`/`limit` condition blocks that use `has_variable` wrap the guard in a `custom_tooltip` block. Shared tooltip loc keys are `TV_HAS_VARIABLE_SET_TT` and `TV_HAS_VARIABLE_NOT_SET_TT`; the active generators preserve this convention in generated outputs.
 
 ## Manual UI Notes
 

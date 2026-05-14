@@ -19,7 +19,10 @@ tv_request_research_target = {
 
 	potential = {
 		scope:actor = {
-			has_variable = tv_academy_io_member
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_academy_io_member
+			}
 		}
 	}
 
@@ -52,7 +55,10 @@ tv_abandon_research_target = {
 
 	potential = {
 		scope:actor = {
-			has_variable = tv_academy_io_member
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_academy_io_member
+			}
 			tv_research_has_active_target_trigger = yes
 		}
 	}
@@ -86,25 +92,28 @@ tv_start_concentrated_research = {
 	ai_tick_frequency = 6
 
 	potential = {
-		scope:actor = { has_variable = tv_academy_io_member }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:actor = { has_variable = tv_academy_io_member }
+		}
 	}
 
 	allow = {
 		custom_tooltip = {
 			text = tv_start_d_requires_phase1_tt
-			scope:actor = { var:tv_research_phase = 1 }
+			scope:actor = { var:tv_research_phase ?= 1 }
 		}
 		custom_tooltip = {
 			text = tv_start_d_requires_a_tt
-			scope:actor = { var:tv_rm_subprocess_a >= 2 }
+			scope:actor = { var:tv_rm_subprocess_a ?= { this >= 2 } }
 		}
 		custom_tooltip = {
 			text = tv_start_d_requires_b_tt
-			scope:actor = { var:tv_rm_subprocess_b >= 2 }
+			scope:actor = { var:tv_rm_subprocess_b ?= { this >= 2 } }
 		}
 		custom_tooltip = {
 			text = tv_start_d_requires_c_tt
-			scope:actor = { var:tv_rm_subprocess_c >= 2 }
+			scope:actor = { var:tv_rm_subprocess_c ?= { this >= 2 } }
 		}
 	}
 
@@ -132,7 +141,10 @@ tv_treat_character = {
 
 	potential = {
 		scope:actor = {
-			has_variable = tv_academy_io_member
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_academy_io_member
+			}
 		}
 	}
 
@@ -149,7 +161,7 @@ tv_treat_character = {
 				has_variable = tv_academy_leader_char
 			}
 			scope:actor = {
-				var:tv_academy_leader_char = { is_alive = yes }
+				var:tv_academy_leader_char ?= { is_alive = yes }
 			}
 		}
 	}

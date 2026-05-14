@@ -13,35 +13,83 @@ tv_update_tour_capacity_effect = {
 	remove_country_modifier = tv_touring_penalty_7
 	remove_country_modifier = tv_touring_penalty_8
 	if = {
-		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 8 }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_dispatched_artists_count
+			}
+			var:tv_dispatched_artists_count >= 8
+		}
 		add_country_modifier = { modifier = tv_touring_penalty_8 days = -1 }
 	}
 	else_if = {
-		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 7 }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_dispatched_artists_count
+			}
+			var:tv_dispatched_artists_count >= 7
+		}
 		add_country_modifier = { modifier = tv_touring_penalty_7 days = -1 }
 	}
 	else_if = {
-		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 6 }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_dispatched_artists_count
+			}
+			var:tv_dispatched_artists_count >= 6
+		}
 		add_country_modifier = { modifier = tv_touring_penalty_6 days = -1 }
 	}
 	else_if = {
-		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 5 }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_dispatched_artists_count
+			}
+			var:tv_dispatched_artists_count >= 5
+		}
 		add_country_modifier = { modifier = tv_touring_penalty_5 days = -1 }
 	}
 	else_if = {
-		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 4 }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_dispatched_artists_count
+			}
+			var:tv_dispatched_artists_count >= 4
+		}
 		add_country_modifier = { modifier = tv_touring_penalty_4 days = -1 }
 	}
 	else_if = {
-		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 3 }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_dispatched_artists_count
+			}
+			var:tv_dispatched_artists_count >= 3
+		}
 		add_country_modifier = { modifier = tv_touring_penalty_3 days = -1 }
 	}
 	else_if = {
-		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 2 }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_dispatched_artists_count
+			}
+			var:tv_dispatched_artists_count >= 2
+		}
 		add_country_modifier = { modifier = tv_touring_penalty_2 days = -1 }
 	}
 	else_if = {
-		limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 1 }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_dispatched_artists_count
+			}
+			var:tv_dispatched_artists_count >= 1
+		}
 		add_country_modifier = { modifier = tv_touring_penalty_1 days = -1 }
 	}
 }
@@ -58,7 +106,12 @@ tv_end_artist_exhibition_effect = {
 	}
 	# Clear target-country marker before the variable is removed
 	if = {
-		limit = { has_variable = tv_exhibition_target_country }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_exhibition_target_country
+			}
+		}
 		var:tv_exhibition_target_country ?= {
 			remove_variable = tv_has_visiting_artist
 		}
@@ -81,7 +134,13 @@ tv_end_artist_exhibition_effect = {
 		}
 		# Decrement counter and update capacity penalty
 		if = {
-			limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 1 }
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_dispatched_artists_count
+				}
+				var:tv_dispatched_artists_count >= 1
+			}
 			change_variable = { name = tv_dispatched_artists_count add = -1 }
 		}
 		tv_update_tour_capacity_effect = yes

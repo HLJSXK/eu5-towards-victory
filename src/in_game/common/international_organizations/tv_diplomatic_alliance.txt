@@ -64,12 +64,15 @@
 	can_join_trigger = {
 		is_subject = no
 		is_rebel_country = no
-		has_variable = tv_diplomatic_supporter_of
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_diplomatic_supporter_of
+		}
 		# Must be a supporter of the alliance leader specifically
 		scope:recipient = {
 			international_organization_has_leader = yes
 		}
-		var:tv_diplomatic_supporter_of = scope:recipient.leader_country
+		var:tv_diplomatic_supporter_of ?= scope:recipient.leader_country
 	}
 
 	on_creation = {

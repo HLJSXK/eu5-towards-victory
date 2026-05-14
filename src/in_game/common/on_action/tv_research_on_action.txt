@@ -10,8 +10,14 @@
 # Trigger gates the whole block; random_events selects the event ~10% of months.
 tv_research_a_pulse = {
 	trigger = {
-		has_variable = tv_academy_io_member
-		has_variable = tv_research_phase
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_research_phase
+		}
 		var:tv_research_phase = 1
 		NOT = { var:tv_rm_subprocess_a >= 2 }
 	}

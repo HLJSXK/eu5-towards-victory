@@ -7,11 +7,20 @@
 # Fires tv_medicine.1 — player must choose a treatment approach.
 tv_med_discovery_pulse = {
 	trigger = {
-		has_variable = tv_academy_io_member
-		has_variable = tv_med_target_char
-		var:tv_med_target_char = { is_alive = yes }
-		has_variable = tv_academy_leader_char
-		var:tv_academy_leader_char = { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_med_target_char
+		}
+		var:tv_med_target_char ?= { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_academy_leader_char
+		}
+		var:tv_academy_leader_char ?= { is_alive = yes }
 	}
 	random_events = {
 		90 = 0
@@ -23,11 +32,20 @@ tv_med_discovery_pulse = {
 # 2% monthly chance — sets back treatment progress by 10.
 tv_med_minor_accident_pulse = {
 	trigger = {
-		has_variable = tv_academy_io_member
-		has_variable = tv_med_target_char
-		var:tv_med_target_char = { is_alive = yes }
-		has_variable = tv_academy_leader_char
-		var:tv_academy_leader_char = { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_med_target_char
+		}
+		var:tv_med_target_char ?= { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_academy_leader_char
+		}
+		var:tv_academy_leader_char ?= { is_alive = yes }
 	}
 	random_events = {
 		98 = 0
@@ -39,11 +57,20 @@ tv_med_minor_accident_pulse = {
 # 2% monthly chance — kills the patient immediately.
 tv_med_major_accident_pulse = {
 	trigger = {
-		has_variable = tv_academy_io_member
-		has_variable = tv_med_target_char
-		var:tv_med_target_char = { is_alive = yes }
-		has_variable = tv_academy_leader_char
-		var:tv_academy_leader_char = { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_med_target_char
+		}
+		var:tv_med_target_char ?= { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_academy_leader_char
+		}
+		var:tv_academy_leader_char ?= { is_alive = yes }
 	}
 	random_events = {
 		98 = 0

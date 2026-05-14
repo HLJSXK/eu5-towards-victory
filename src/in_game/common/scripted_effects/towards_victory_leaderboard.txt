@@ -17,21 +17,41 @@ tv_update_best_path_effect = {
 	set_variable = { name = tv_best_milestone      value = 0 }
 	set_variable = { name = tv_best_score          value = 0 }
 	if = {
-		limit = { has_variable = tv_conquest_progress_pct }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_conquest_progress_pct
+			}
+		}
 		set_variable = { name = tv_best_progress_pct  value = var:tv_conquest_progress_pct }
 	}
 	if = {
-		limit = { has_variable = tv_conquest_milestone }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_conquest_milestone
+			}
+		}
 		set_variable = { name = tv_best_milestone  value = var:tv_conquest_milestone }
 	}
 	if = {
-		limit = { has_variable = tv_conquest_score }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_conquest_score
+			}
+		}
 		set_variable = { name = tv_best_score  value = var:tv_conquest_score }
 	}
 
 	# Prosperity = path 1  (>= preserves lower index on equal progress)
 	if = {
-		limit = { has_variable = tv_prosperity_progress_pct }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_prosperity_progress_pct
+			}
+		}
 		if = {
 			limit = { var:tv_prosperity_progress_pct >= var:tv_best_progress_pct }
 			set_variable = { name = tv_best_progress_pct  value = var:tv_prosperity_progress_pct }
@@ -39,11 +59,21 @@ tv_update_best_path_effect = {
 			set_variable = { name = tv_best_milestone      value = 0 }
 			set_variable = { name = tv_best_score          value = 0 }
 			if = {
-				limit = { has_variable = tv_prosperity_milestone }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_prosperity_milestone
+					}
+				}
 				set_variable = { name = tv_best_milestone  value = var:tv_prosperity_milestone }
 			}
 			if = {
-				limit = { has_variable = tv_prosperity_score }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_prosperity_score
+					}
+				}
 				set_variable = { name = tv_best_score  value = var:tv_prosperity_score }
 			}
 		}
@@ -51,7 +81,12 @@ tv_update_best_path_effect = {
 
 	# Trade = path 2
 	if = {
-		limit = { has_variable = tv_trade_progress_pct }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_trade_progress_pct
+			}
+		}
 		if = {
 			limit = { var:tv_trade_progress_pct >= var:tv_best_progress_pct }
 			set_variable = { name = tv_best_progress_pct  value = var:tv_trade_progress_pct }
@@ -59,11 +94,21 @@ tv_update_best_path_effect = {
 			set_variable = { name = tv_best_milestone      value = 0 }
 			set_variable = { name = tv_best_score          value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_milestone }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_trade_milestone
+					}
+				}
 				set_variable = { name = tv_best_milestone  value = var:tv_trade_milestone }
 			}
 			if = {
-				limit = { has_variable = tv_trade_score }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_trade_score
+					}
+				}
 				set_variable = { name = tv_best_score  value = var:tv_trade_score }
 			}
 		}
@@ -71,7 +116,12 @@ tv_update_best_path_effect = {
 
 	# Diplomatic = path 3  (score stored in tv_diplomatic_victory_points)
 	if = {
-		limit = { has_variable = tv_diplomatic_progress_pct }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_diplomatic_progress_pct
+			}
+		}
 		if = {
 			limit = { var:tv_diplomatic_progress_pct >= var:tv_best_progress_pct }
 			set_variable = { name = tv_best_progress_pct  value = var:tv_diplomatic_progress_pct }
@@ -79,11 +129,21 @@ tv_update_best_path_effect = {
 			set_variable = { name = tv_best_milestone      value = 0 }
 			set_variable = { name = tv_best_score          value = 0 }
 			if = {
-				limit = { has_variable = tv_diplomatic_milestone }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_diplomatic_milestone
+					}
+				}
 				set_variable = { name = tv_best_milestone  value = var:tv_diplomatic_milestone }
 			}
 			if = {
-				limit = { has_variable = tv_diplomatic_victory_points }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_diplomatic_victory_points
+					}
+				}
 				set_variable = { name = tv_best_score  value = var:tv_diplomatic_victory_points }
 			}
 		}
@@ -91,7 +151,12 @@ tv_update_best_path_effect = {
 
 	# Cultural = path 4  (score stored in tv_cultural_influence_points)
 	if = {
-		limit = { has_variable = tv_cultural_progress_pct }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_cultural_progress_pct
+			}
+		}
 		if = {
 			limit = { var:tv_cultural_progress_pct >= var:tv_best_progress_pct }
 			set_variable = { name = tv_best_progress_pct  value = var:tv_cultural_progress_pct }
@@ -99,11 +164,21 @@ tv_update_best_path_effect = {
 			set_variable = { name = tv_best_milestone      value = 0 }
 			set_variable = { name = tv_best_score          value = 0 }
 			if = {
-				limit = { has_variable = tv_cultural_milestone }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_cultural_milestone
+					}
+				}
 				set_variable = { name = tv_best_milestone  value = var:tv_cultural_milestone }
 			}
 			if = {
-				limit = { has_variable = tv_cultural_influence_points }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_cultural_influence_points
+					}
+				}
 				set_variable = { name = tv_best_score  value = var:tv_cultural_influence_points }
 			}
 		}
@@ -111,7 +186,12 @@ tv_update_best_path_effect = {
 
 	# Scientific = path 5
 	if = {
-		limit = { has_variable = tv_science_progress_pct }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_science_progress_pct
+			}
+		}
 		if = {
 			limit = { var:tv_science_progress_pct >= var:tv_best_progress_pct }
 			set_variable = { name = tv_best_progress_pct  value = var:tv_science_progress_pct }
@@ -119,11 +199,21 @@ tv_update_best_path_effect = {
 			set_variable = { name = tv_best_milestone      value = 0 }
 			set_variable = { name = tv_best_score          value = 0 }
 			if = {
-				limit = { has_variable = tv_science_milestone }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_science_milestone
+					}
+				}
 				set_variable = { name = tv_best_milestone  value = var:tv_science_milestone }
 			}
 			if = {
-				limit = { has_variable = tv_science_score }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_science_score
+					}
+				}
 				set_variable = { name = tv_best_score  value = var:tv_science_score }
 			}
 		}
@@ -173,7 +263,10 @@ tv_update_leaderboard_effect = {
 	# Rank 2 — highest among the rest
 	if = {
 		limit = {
-			has_variable = tv_rank_1_country
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_rank_1_country
+			}
 			global_variable_list_size = {
 				name = tv_country_pool
 				value > 1
@@ -196,8 +289,14 @@ tv_update_leaderboard_effect = {
 	# Rank 3
 	if = {
 		limit = {
-			has_variable = tv_rank_1_country
-			has_variable = tv_rank_2_country
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_rank_1_country
+			}
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_rank_2_country
+			}
 			global_variable_list_size = {
 				name = tv_country_pool
 				value > 2
@@ -221,9 +320,18 @@ tv_update_leaderboard_effect = {
 	# Rank 4
 	if = {
 		limit = {
-			has_variable = tv_rank_1_country
-			has_variable = tv_rank_2_country
-			has_variable = tv_rank_3_country
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_rank_1_country
+			}
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_rank_2_country
+			}
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_rank_3_country
+			}
 			global_variable_list_size = {
 				name = tv_country_pool
 				value > 3
@@ -248,10 +356,22 @@ tv_update_leaderboard_effect = {
 	# Rank 5
 	if = {
 		limit = {
-			has_variable = tv_rank_1_country
-			has_variable = tv_rank_2_country
-			has_variable = tv_rank_3_country
-			has_variable = tv_rank_4_country
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_rank_1_country
+			}
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_rank_2_country
+			}
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_rank_3_country
+			}
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_rank_4_country
+			}
 			global_variable_list_size = {
 				name = tv_country_pool
 				value > 4

@@ -324,6 +324,19 @@ blockoverride "character_entry_name_sort_by_highlight" {}
 
 Vanilla `middle_kingdom.gui` applies these exact overrides with a comment that they block error log spam.
 
+For GUI lists backed by a `datamodel`, each `item = { ... }` block is an item description, not a general layout container. It must contain exactly one top-level child widget and no direct properties. If a row needs both content and a divider, wrap both inside a single parent `vbox` or `widget`:
+
+```gui
+item = {
+    vbox = {
+        hbox = { }
+        widget = { using = bg_divider_flavor_01 }
+    }
+}
+```
+
+Putting sibling widgets directly under `item` logs `Malformed item desc`, and can produce nearby text formatter noise while the list is rendered.
+
 ### 7.2. Map Modding
 
 EU5 includes a powerful map editor for modifying the game world. This tool allows for editing the heightmap, terrain textures, and location setup. However, it has high system requirements, recommending at least 32GB of RAM. [11]
@@ -388,19 +401,18 @@ The `allow` block uses `root = location`, `scope:actor = building country`. Cust
 allow = {
     custom_tooltip = {
         text = MY_TOOLTIP_KEY     # localization key
-        scope:actor = {
-            has_variable = my_score_var
-            var:my_score_var >= 100
-        }
+        scope:actor = { var:my_score_var ?= { this >= 100 } }
     }
     custom_tooltip = {
         text = MY_SECOND_TOOLTIP_KEY
-        scope:actor = { has_variable = my_prereq; var:my_prereq >= 1 }
+        scope:actor = { var:my_prereq ?= { this >= 1 } }
     }
 }
 ```
 
 Multiple `custom_tooltip` blocks in `allow` are AND-combined. Each evaluates independently and shows its own green/red state. Source: `estate_buildings.txt`, `capital_buildings.txt`.
+
+Do not use `has_variable = X` as a guard for `var:X = ...` inside generic action `allow` or tooltip logic. The UI evaluator may still fetch direct `var:` links from sibling trigger blocks while building tooltips. For nullable variables, use optional variable links (`var:X ?= ...`) so an absent variable returns false without logging an unset-scope error.
 
 ### 10.4 on_built Scope
 

@@ -20,7 +20,10 @@ on_character_death = {
 		if = {
 			limit = {
 				scope:target = {
-					has_variable = home_country
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = home_country
+					}
 				}
 			}
 			if = {
@@ -39,7 +42,10 @@ on_character_death = {
 		if = {
 			limit = {
 				scope:target = {
-					has_variable = favored_in_country
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = favored_in_country
+					}
 				}
 			}
 			scope:target.var:favored_in_country ?= {
@@ -49,7 +55,10 @@ on_character_death = {
 				}
 				if = {
 					limit = {
-						has_variable = favored_heir
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_SET_TT
+							has_variable = favored_heir
+						}
 						var:favored_heir = scope:target
 					}
 					remove_variable = favored_heir
@@ -69,7 +78,10 @@ on_character_death = {
 		if = {
 			limit = {
 				scope:target = {
-					has_variable = chi_captured_emperor_origin
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = chi_captured_emperor_origin
+					}
 				}
 			}
 			trigger_event_non_silently = {
@@ -91,7 +103,10 @@ on_character_death = {
 		}
 		if = {
 			limit = {
-				scope:target ?= { has_variable = hostage_character_country }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					scope:target ? = { has_variable = hostage_character_country }
+				}
 			}
 			scope:target ?= {
 				var:hostage_character_country ?= {
@@ -146,7 +161,10 @@ on_character_death = {
 		if = {
 			limit = {
 				scope:target = { 
-					has_variable = is_chinese_expedition_expedition_leader
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = is_chinese_expedition_expedition_leader
+					}
 					has_global_variable = chinese_treasure_voyage_running
 					owner ?= global_var:chinese_treasure_voyage_running
 				}
@@ -160,7 +178,10 @@ on_character_death = {
 		}
 		if = {
 			limit = {
-				scope:target ?= { has_variable = wali_songo }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					scope:target ? = { has_variable = wali_songo }
+				}
 			}
 			trigger_event_non_silently = {
 				id = flavor_maj.18
@@ -168,14 +189,20 @@ on_character_death = {
 		}
 		if = {
 			limit = {
-				scope:target ?= { has_variable = searching_for_greek_fire }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					scope:target ? = { has_variable = searching_for_greek_fire }
+				}
 			}
 			trigger_event_non_silently = d008_flavor_byz.4
 		}
 		if = {
 			limit = {
 				scope:target = {
-					has_variable = is_patriarch
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = is_patriarch
+					}
 					var:is_patriarch = { 
 						exists = leader_country
 						var:patriarch ?= { this = scope:target }
@@ -190,7 +217,10 @@ on_character_death = {
 		}
 		if = {
 			limit = {
-				scope:target = { has_variable = is_pentarch }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					scope:target = { has_variable = is_pentarch }
+				}
 			}
 			religion:orthodox = {
 				every_key_in_variable_map = {
@@ -205,7 +235,10 @@ on_character_death = {
 						limit = {
 							OR = {
 								NOT = { exists = scope:target_patriarch }
-								scope:target_patriarch = { has_variable = is_pentarch }
+								custom_tooltip = {
+									text = TV_HAS_VARIABLE_SET_TT
+									scope:target_patriarch = { has_variable = is_pentarch }
+								}
 							}
 							scope:target_pentarchy_seat.owner ?= { religion = religion:orthodox }
 						}
@@ -248,7 +281,10 @@ on_horde_pretender_death = {
 		scope:target = {
 			exists = var:scope_horde_pretender_var
 			var:scope_horde_pretender_var = {
-				NOT = { has_variable = horde_civil_war_can_end }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_NOT_SET_TT
+					NOT = { has_variable = horde_civil_war_can_end }
+				}
 			}
 		}
 	}
@@ -263,7 +299,10 @@ on_horde_pretender_death = {
 
 on_tamil_rebel_death = {
 	trigger = {
-		scope:target = { has_variable = tamil_rebel_leader }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:target = { has_variable = tamil_rebel_leader }
+		}
 	}
 	effect = {
 		trigger_event_silently = flavor_vij.1103
@@ -276,7 +315,12 @@ on_prussian_crusader_death = {
 	}
 	effect = {
 		if = {
-			limit = { scope:target = { has_variable = pr_cr_home_country } }
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					scope:target = { has_variable = pr_cr_home_country }
+				}
+			}
 			scope:target = {
 				var:pr_cr_home_country = {
 					trigger_event_silently = flavor_teu.102

@@ -55,8 +55,11 @@ tv_court_protocol = {
 		level = 2
 		allow = {
 			international_organization_has_policy = policy:tv_adhoc_envoys_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 25
 			}
 		}
@@ -79,7 +82,10 @@ tv_court_protocol = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 25
 						}
 					}
@@ -109,8 +115,11 @@ tv_court_protocol = {
 		level = 3
 		allow = {
 			international_organization_has_policy = policy:tv_resident_ambassadors_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 50
 			}
 		}
@@ -132,7 +141,10 @@ tv_court_protocol = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 50
 						}
 					}
@@ -162,8 +174,11 @@ tv_court_protocol = {
 		level = 4
 		allow = {
 			international_organization_has_policy = policy:tv_refuse_pretenders_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 75
 			}
 		}
@@ -186,7 +201,10 @@ tv_court_protocol = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 75
 						}
 					}
@@ -257,8 +275,11 @@ tv_information_network = {
 		level = 2
 		allow = {
 			international_organization_has_policy = policy:tv_royal_couriers_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 25
 			}
 		}
@@ -280,7 +301,10 @@ tv_information_network = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 25
 						}
 					}
@@ -310,8 +334,11 @@ tv_information_network = {
 		level = 3
 		allow = {
 			international_organization_has_policy = policy:tv_postal_system_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 50
 			}
 		}
@@ -333,7 +360,10 @@ tv_information_network = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 50
 						}
 					}
@@ -363,8 +393,11 @@ tv_information_network = {
 		level = 4
 		allow = {
 			international_organization_has_policy = policy:tv_cartographic_exchange_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 75
 			}
 		}
@@ -387,7 +420,10 @@ tv_information_network = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 75
 						}
 					}
@@ -458,8 +494,11 @@ tv_commerce_consensus = {
 		level = 2
 		allow = {
 			international_organization_has_policy = policy:tv_non_piracy_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 25
 			}
 		}
@@ -481,7 +520,10 @@ tv_commerce_consensus = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 25
 						}
 					}
@@ -511,8 +553,11 @@ tv_commerce_consensus = {
 		level = 3
 		allow = {
 			international_organization_has_policy = policy:tv_mfn_ports_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 50
 			}
 		}
@@ -535,7 +580,10 @@ tv_commerce_consensus = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 50
 						}
 					}
@@ -565,8 +613,11 @@ tv_commerce_consensus = {
 		level = 4
 		allow = {
 			international_organization_has_policy = policy:tv_unified_measures_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 75
 			}
 		}
@@ -588,7 +639,10 @@ tv_commerce_consensus = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 75
 						}
 					}
@@ -659,8 +713,11 @@ tv_faith_harmony = {
 		level = 2
 		allow = {
 			international_organization_has_policy = policy:tv_cuius_regio_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 25
 			}
 		}
@@ -682,7 +739,10 @@ tv_faith_harmony = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 25
 						}
 					}
@@ -712,8 +772,11 @@ tv_faith_harmony = {
 		level = 3
 		allow = {
 			international_organization_has_policy = policy:tv_pilgrim_protection_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 50
 			}
 		}
@@ -735,7 +798,10 @@ tv_faith_harmony = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 50
 						}
 					}
@@ -765,8 +831,11 @@ tv_faith_harmony = {
 		level = 4
 		allow = {
 			international_organization_has_policy = policy:tv_joint_denunciation_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 75
 			}
 		}
@@ -788,7 +857,10 @@ tv_faith_harmony = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 75
 						}
 					}
@@ -859,8 +931,11 @@ tv_colonization_sphere = {
 		level = 2
 		allow = {
 			international_organization_has_policy = policy:tv_free_colonization_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 25
 			}
 		}
@@ -882,7 +957,10 @@ tv_colonization_sphere = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 25
 						}
 					}
@@ -912,8 +990,11 @@ tv_colonization_sphere = {
 		level = 3
 		allow = {
 			international_organization_has_policy = policy:tv_doctrine_discovery_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 50
 			}
 		}
@@ -935,7 +1016,10 @@ tv_colonization_sphere = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 50
 						}
 					}
@@ -965,8 +1049,11 @@ tv_colonization_sphere = {
 		level = 4
 		allow = {
 			international_organization_has_policy = policy:tv_demarcation_policy
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				scope:recipient = { has_variable = tv_alliance_cohesion }
+			}
 			scope:recipient = {
-				has_variable = tv_alliance_cohesion
 				var:tv_alliance_cohesion >= 75
 			}
 		}
@@ -988,7 +1075,10 @@ tv_colonization_sphere = {
 				limit = {
 					scope:recipient = {
 						OR = {
-							NOT = { has_variable = tv_alliance_cohesion }
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
 							var:tv_alliance_cohesion < 75
 						}
 					}

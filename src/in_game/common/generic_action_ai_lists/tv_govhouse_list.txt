@@ -1,6 +1,9 @@
 ﻿tv_govhouse_list = {
 	potential = {
-		has_variable = tv_govhouse_member
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_govhouse_member
+		}
 	}
 	actions = {
 		tv_train_grand_general

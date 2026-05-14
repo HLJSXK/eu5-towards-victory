@@ -16,7 +16,10 @@ tv_send_artist_abroad = {
 
 	potential = {
 		scope:actor = {
-			has_variable = tv_arts_exhibition_member
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_arts_exhibition_member
+			}
 		}
 	}
 
@@ -45,7 +48,10 @@ tv_send_artist_abroad = {
 			is_ruler = no
 			is_heir = no
 			is_consort = no
-			NOT = { has_variable = tv_on_exhibition }
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_NOT_SET_TT
+				NOT = { has_variable = tv_on_exhibition }
+			}
 		}
 	}
 
@@ -60,7 +66,10 @@ tv_send_artist_abroad = {
 		}
 		visible = {
 			this != scope:actor
-			NOT = { has_variable = tv_has_visiting_artist }
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_NOT_SET_TT
+				NOT = { has_variable = tv_has_visiting_artist }
+			}
 		}
 	}
 
@@ -107,7 +116,12 @@ tv_send_artist_abroad = {
 				}
 				scope:actor = {
 					if = {
-						limit = { has_variable = tv_dispatched_artists_count }
+						limit = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_SET_TT
+								has_variable = tv_dispatched_artists_count
+							}
+						}
 						change_variable = { name = tv_dispatched_artists_count add = 1 }
 					}
 					else = {
@@ -150,7 +164,10 @@ tv_host_domestic_exhibition = {
 
 	potential = {
 		scope:actor = {
-			has_variable = tv_arts_exhibition_member
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_arts_exhibition_member
+			}
 		}
 	}
 

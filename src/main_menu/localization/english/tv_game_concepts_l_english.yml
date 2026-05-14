@@ -1,10 +1,14 @@
 ﻿l_english:
+ # ── Generic trigger tooltips ──────────────────────────────────────────────
+ TV_HAS_VARIABLE_SET_TT: "Required state is available."
+ TV_HAS_VARIABLE_NOT_SET_TT: "Required state is not active."
+
  # ── Towards Victory — Game Concepts ───────────────────────────────────────
  game_concept_tv_conquest_score: "Conquest Score"
  game_concept_tv_conquest_score_desc: "The Conquest Score measures the territorial extent of your realm. Each location you directly own adds 1 point; each location held by a [subject|e] or lower-ranked country adds 0.5 points. Updated monthly. Reach 2,000 to achieve the long-term [tv_victory_situation|E]."
 
  game_concept_tv_prosperity_score: "Prosperity Score"
- game_concept_tv_prosperity_score_desc: "The Prosperity Score tracks the domestic development of your realm. It accumulates as the sum of your total population, development across all owned locations, and your country tax base. Updated yearly. Reach 25,000 to achieve the long-term [tv_victory_situation|E]."
+ game_concept_tv_prosperity_score_desc: "The Prosperity Score tracks the domestic development of your realm. It accumulates as the sum of your total population, development across all owned locations, and your country tax base. Updated yearly. Reach 8,000 to achieve the long-term [tv_victory_situation|E]."
 
  game_concept_tv_trade_score: "Trade Score"
  game_concept_tv_trade_score_desc: "The Trade Score reflects your commercial power. It is a monthly snapshot of your country's total monthly [trade_income|e]. Reach 2,000 to achieve the long-term [tv_victory_situation|E]."
@@ -29,7 +33,7 @@
  game_concept_tv_conquest_victory_desc: "Dominate the world through territorial expansion. Your [tv_conquest_score|e] measures the size of your realm—direct holdings count fully, subject and vassal locations at half weight. Milestones at 150, 300, 500, 1,000, and 2,000 reward military capability and leave a grand legacy."
 
  game_concept_tv_prosperity_victory: "Prosperity Victory"
- game_concept_tv_prosperity_victory_desc: "Build the wealthiest and most developed nation. Your [tv_prosperity_score|e] is a composite of total population, development across all owned locations, and country tax base. Milestones at 5,000, 8,000, 12,000, 18,000, and 25,000 reward domestic production, population growth, and construction power."
+ game_concept_tv_prosperity_victory_desc: "Build the wealthiest and most developed nation. Your [tv_prosperity_score|e] is a composite of total population, development across all owned locations, and country tax base. Milestones at 500, 1,000, 2,000, 4,000, and 8,000 reward domestic production, population growth, and construction power."
 
  game_concept_tv_trade_victory: "Trade Victory"
  game_concept_tv_trade_victory_desc: "Command the world's commerce. Your [tv_trade_score|e] is a monthly snapshot of your total monthly trade income. Milestones 3 and 5 also require leading market dominance (5 and 10 markets respectively). Rewards focus on merchant capacity, trade efficiency, and trade income multipliers."

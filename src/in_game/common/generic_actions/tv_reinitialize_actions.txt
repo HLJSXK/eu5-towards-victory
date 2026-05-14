@@ -26,7 +26,12 @@ tv_reinitialize_mod = {
 
 			# Conquest → Governor's House
 			if = {
-				limit = { has_variable = tv_conquest_milestone }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_conquest_milestone
+					}
+				}
 				if = {
 					limit = { var:tv_conquest_milestone >= 1 }
 					tv_govhouse_create_effect = yes
@@ -35,7 +40,12 @@ tv_reinitialize_mod = {
 
 			# Diplomatic → Diplomatic Alliance
 			if = {
-				limit = { has_variable = tv_diplomatic_milestone }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_diplomatic_milestone
+					}
+				}
 				if = {
 					limit = {
 						var:tv_diplomatic_milestone >= 1
@@ -54,8 +64,11 @@ tv_reinitialize_mod = {
 						save_scope_as = tv_alliance_io
 						every_country = {
 							limit = {
-								has_variable = tv_diplomatic_supporter_of
-								var:tv_diplomatic_supporter_of = scope:tv_founder
+								custom_tooltip = {
+									text = TV_HAS_VARIABLE_SET_TT
+									has_variable = tv_diplomatic_supporter_of
+								}
+								var:tv_diplomatic_supporter_of ?= scope:tv_founder
 							}
 							scope:tv_alliance_io = {
 								add_country_to_international_organization = prev
@@ -69,7 +82,12 @@ tv_reinitialize_mod = {
 
 			# Cultural → Arts Exhibition
 			if = {
-				limit = { has_variable = tv_cultural_milestone }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_cultural_milestone
+					}
+				}
 				if = {
 					limit = {
 						var:tv_cultural_milestone >= 1
@@ -90,7 +108,12 @@ tv_reinitialize_mod = {
 
 			# Science → Academy of Sciences
 			if = {
-				limit = { has_variable = tv_science_milestone }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_science_milestone
+					}
+				}
 				if = {
 					limit = {
 						var:tv_science_milestone >= 1
@@ -101,7 +124,12 @@ tv_reinitialize_mod = {
 						}
 					}
 					if = {
-						limit = { NOT = { has_variable = tv_academy_io_member } }
+						limit = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_academy_io_member }
+							}
+						}
 						set_variable = { name = tv_academy_io_member value = 1 }
 						set_variable = { name = tv_research_phase value = 0 }
 						set_variable = { name = tv_research_interest value = 0 }

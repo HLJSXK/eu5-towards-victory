@@ -16,8 +16,11 @@ tv_grand_general.1 = {
 	immediate = {
 		if = {
 			limit = {
-				has_variable = tv_conquest_general_char
-				var:tv_conquest_general_char = { mil >= 100 }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_conquest_general_char
+				}
+				var:tv_conquest_general_char ?= { mil >= 100 }
 			}
 			# Redirect: mil already maxed → 世间无双
 			trigger_event_non_silently = { id = tv_grand_general.2 }
@@ -66,12 +69,12 @@ tv_grand_general.3 = {
 			# Only show if offense path is not yet at L3
 			OR = {
 				NOT = {
-					var:tv_conquest_general_char = { has_trait = tv_gg_offense_1 }
-					var:tv_conquest_general_char = { has_trait = tv_gg_offense_2 }
-					var:tv_conquest_general_char = { has_trait = tv_gg_offense_3 }
+					var:tv_conquest_general_char ?= { has_trait = tv_gg_offense_1 }
+					var:tv_conquest_general_char ?= { has_trait = tv_gg_offense_2 }
+					var:tv_conquest_general_char ?= { has_trait = tv_gg_offense_3 }
 				}
-				var:tv_conquest_general_char = { has_trait = tv_gg_offense_1 }
-				var:tv_conquest_general_char = { has_trait = tv_gg_offense_2 }
+				var:tv_conquest_general_char ?= { has_trait = tv_gg_offense_1 }
+				var:tv_conquest_general_char ?= { has_trait = tv_gg_offense_2 }
 			}
 		}
 		# TODO: upgrade offense trait:
@@ -88,12 +91,12 @@ tv_grand_general.3 = {
 		trigger = {
 			OR = {
 				NOT = {
-					var:tv_conquest_general_char = { has_trait = tv_gg_defense_1 }
-					var:tv_conquest_general_char = { has_trait = tv_gg_defense_2 }
-					var:tv_conquest_general_char = { has_trait = tv_gg_defense_3 }
+					var:tv_conquest_general_char ?= { has_trait = tv_gg_defense_1 }
+					var:tv_conquest_general_char ?= { has_trait = tv_gg_defense_2 }
+					var:tv_conquest_general_char ?= { has_trait = tv_gg_defense_3 }
 				}
-				var:tv_conquest_general_char = { has_trait = tv_gg_defense_1 }
-				var:tv_conquest_general_char = { has_trait = tv_gg_defense_2 }
+				var:tv_conquest_general_char ?= { has_trait = tv_gg_defense_1 }
+				var:tv_conquest_general_char ?= { has_trait = tv_gg_defense_2 }
 			}
 		}
 		custom_tooltip = { text = tv_gg_defense_upgrade_todo_tt }
@@ -105,12 +108,12 @@ tv_grand_general.3 = {
 		trigger = {
 			OR = {
 				NOT = {
-					var:tv_conquest_general_char = { has_trait = tv_gg_tactics_1 }
-					var:tv_conquest_general_char = { has_trait = tv_gg_tactics_2 }
-					var:tv_conquest_general_char = { has_trait = tv_gg_tactics_3 }
+					var:tv_conquest_general_char ?= { has_trait = tv_gg_tactics_1 }
+					var:tv_conquest_general_char ?= { has_trait = tv_gg_tactics_2 }
+					var:tv_conquest_general_char ?= { has_trait = tv_gg_tactics_3 }
 				}
-				var:tv_conquest_general_char = { has_trait = tv_gg_tactics_1 }
-				var:tv_conquest_general_char = { has_trait = tv_gg_tactics_2 }
+				var:tv_conquest_general_char ?= { has_trait = tv_gg_tactics_1 }
+				var:tv_conquest_general_char ?= { has_trait = tv_gg_tactics_2 }
 			}
 		}
 		custom_tooltip = { text = tv_gg_tactics_upgrade_todo_tt }
@@ -156,8 +159,11 @@ tv_grand_general.6 = {
 	immediate = {
 		if = {
 			limit = {
-				has_variable = tv_conquest_general_char
-				var:tv_conquest_general_char = { has_trait = tv_gg_injured }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_conquest_general_char
+				}
+				var:tv_conquest_general_char ?= { has_trait = tv_gg_injured }
 			}
 			# Redirect: already injured → 旧伤复发
 			trigger_event_non_silently = { id = tv_grand_general.7 }

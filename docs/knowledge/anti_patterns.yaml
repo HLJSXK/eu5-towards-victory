@@ -252,6 +252,15 @@
   source: "reference_game_files/game/in_game/gui/panels/organization/middle_kingdom.gui:226-228"
   notes: "io_character_card uses character_entry, whose name highlight blocks call FilteredSortedList.IsKeyHoveredByWidgetName. Without a FilteredSortedList datacontext, the GUI data manager spams 'No context supplied' while the card is visible."
 
+- id: gui_datamodel_item_multiple_children
+  pattern: ''
+  bad: "A datamodel item block with more than one top-level child widget, e.g. item = { vbox = { ... } widget = { ... } }"
+  correction: "Wrap all row content inside a single parent widget/vbox/hbox so the item block contains exactly one child. Put dividers or auxiliary widgets inside that parent."
+  category: gui
+  scope: any
+  source: "EU5 runtime error docs/error_log/error.log:10; reference_game_files/game/in_game/gui/panels/organization/middle_kingdom.gui:333"
+  notes: "GUI datamodel item descriptions can only contain a single child and no properties. Multiple top-level children log 'Malformed item desc' and can cause adjacent formatter noise while the list is rendered."
+
 - id: building_eu4_price_numeric
   pattern: '^\s*price\s*=\s*\d+'
   only_in_paths: ['building_types']
@@ -557,13 +566,14 @@
   notes: "EU5 allows only one top-level desc block per event. A second desc block at the same level causes 'Scoped pointer has already been read' and 'There should be only one special desc' engine errors. All conditional descriptions must be nested inside a single desc = { first_valid = { ... } } block."
 
 - id: var_read_without_outer_scope_guard
-  pattern: 'scope:actor\s*=\s*\{[^}]*has_variable\s*=\s*\w+[^}]*var:\w+'
-  bad: "scope:actor = { has_variable = X  var:X >= N  some_trigger = yes } — has_variable guard and var: read in the SAME scope block; EU5 evaluates all conditions in a single scope block for tooltip generation, so var:X is attempted even when has_variable = X returns false, producing 'Failed to fetch variable' errors"
-  correction: "Split into SEPARATE scope blocks at the outer level: scope:actor = { has_variable = X }  scope:actor = { var:X >= N  some_trigger = yes }. The outer trigger block (potential/allow) short-circuits between blocks, so the second block is never evaluated if the first fails. Only enter the var: block after all has_variable guards pass."
+  pattern: 'has_variable\s*=\s*(\w+)[\s\S]{0,300}var:\1\s*='
+  only_in_paths: ['generic_actions']
+  bad: "scope:actor = { has_variable = X } followed by scope:actor = { var:X = { ... } } in a generic action allow/custom_tooltip/trigger, expecting has_variable to suppress the var:X read"
+  correction: "Use the optional variable link for variable-dependent reads: var:X ?= { ... }, var:X ?= 1, or var:X ?= { this >= N }. For generic actions, move a prerequisite to potential only when the action should disappear entirely. Do not rely on has_variable, custom_tooltip order, or separate sibling scope blocks to prevent a direct var:X read."
   category: scope
   scope: any
-  source: "src/in_game/common/generic_actions/tv_arts_exhibition_actions.txt (one has_variable per scope:actor block); src/in_game/common/generic_actions/tv_research_actions.txt (tv_start_concentrated_research fix)"
-  notes: "EU5 Jomini evaluates ALL conditions inside a single scope block for tooltip/UI display purposes, even if earlier conditions short-circuit the logical result. The outer-level AND (between separate scope:actor = {} blocks) DOES short-circuit. Mixing has_variable guards and var: reads in the same block will spam 'Failed to fetch variable' errors at game start when the action is evaluated for countries that never set those variables."
+  source: "Runtime: docs/error_log/error.log (tv_govhouse_actions.txt:57); vanilla optional variable links: reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt:214 and reference_game_files/game/in_game/events/religion/buddhism_events.txt:1541"
+  notes: "EU5 generic action UI evaluation may fetch every trigger line needed for tooltips, including sibling scope blocks inside allow. A direct var:X = { ... } fetches X before the logical result of has_variable can protect it, producing 'Failed to fetch variable' and 'Event target link var returned an unset scope'. Optional ?= returns false when the variable/scope is absent and avoids the error."
 
 - id: gui_datamodel_getlist_scope_wrapper
   pattern: ''

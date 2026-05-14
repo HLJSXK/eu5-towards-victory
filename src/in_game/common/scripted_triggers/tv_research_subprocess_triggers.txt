@@ -4,8 +4,7 @@
 # ── Sub-process A completion check ────────────────────────────────────────────
 # A is complete when interest reaches 5 via monthly random events.
 tv_research_check_a_trigger = {
-	has_variable = tv_research_interest
-	var:tv_research_interest >= 5
+	var:tv_research_interest ?= { this >= 5 }
 }
 
 # ── Sub-process B completion check ────────────────────────────────────────────
@@ -23,26 +22,34 @@ tv_research_check_b_trigger = {
 # The actual accumulation is tracked as the IO variable tv_research_c_progress (0-100);
 # the IO monthly_effect sets tv_rm_subprocess_c = 2 when c_progress >= 100.
 tv_research_check_c_trigger = {
-	has_variable = tv_rm_subprocess_c
-	var:tv_rm_subprocess_c >= 2
+	var:tv_rm_subprocess_c ?= { this >= 2 }
 }
 
 # ── Sub-process D start eligibility ───────────────────────────────────────────
 # D is available only after A, B, and C are all complete, and the cycle is in phase 1.
 tv_research_can_start_d_trigger = {
-	var:tv_research_phase = 1
-	var:tv_rm_subprocess_a >= 2
-	var:tv_rm_subprocess_b >= 2
-	var:tv_rm_subprocess_c >= 2
+	var:tv_research_phase ?= 1
+	var:tv_rm_subprocess_a ?= { this >= 2 }
+	var:tv_rm_subprocess_b ?= { this >= 2 }
+	var:tv_rm_subprocess_c ?= { this >= 2 }
 }
 
 # ── Target request eligibility ─────────────────────────────────────────────────
 # Player may request a research target when: member of Academy IO, no target selected,
 # selection cooldown is not active, and at least one Frontier advance is unresearched.
 tv_research_can_request_target_trigger = {
-	has_variable = tv_academy_io_member
-	NOT = { has_variable = tv_research_target }
-	NOT = { has_variable = tv_research_selection_cd }
+	custom_tooltip = {
+		text = TV_HAS_VARIABLE_SET_TT
+		has_variable = tv_academy_io_member
+	}
+	custom_tooltip = {
+		text = TV_HAS_VARIABLE_NOT_SET_TT
+		NOT = { has_variable = tv_research_target }
+	}
+	custom_tooltip = {
+		text = TV_HAS_VARIABLE_NOT_SET_TT
+		NOT = { has_variable = tv_research_selection_cd }
+	}
 	OR = {
 		NOT = { has_advance = iron_working }
 		NOT = { has_advance = anatomy_advance }
@@ -59,11 +66,13 @@ tv_research_can_request_target_trigger = {
 
 # ── Active target check ────────────────────────────────────────────────────────
 tv_research_has_active_target_trigger = {
-	has_variable = tv_research_target
+	custom_tooltip = {
+		text = TV_HAS_VARIABLE_SET_TT
+		has_variable = tv_research_target
+	}
 }
 
 # ── D in progress check ────────────────────────────────────────────────────────
 tv_research_d_in_progress_trigger = {
-	has_variable = tv_research_phase
-	var:tv_research_phase = 2
+	var:tv_research_phase ?= 2
 }

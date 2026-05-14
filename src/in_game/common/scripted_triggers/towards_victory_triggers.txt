@@ -57,7 +57,7 @@ tv_prosperity_milestone_1 = {
 	custom_tooltip = {
 		text = TV_PROSPERITY_M1_TRIGGER_DESC
 		has_variable = tv_prosperity_score
-		var:tv_prosperity_score >= 5000
+		var:tv_prosperity_score >= 500
 	}
 }
 
@@ -65,7 +65,7 @@ tv_prosperity_milestone_2 = {
 	custom_tooltip = {
 		text = TV_PROSPERITY_M2_TRIGGER_DESC
 		has_variable = tv_prosperity_score
-		var:tv_prosperity_score >= 8000
+		var:tv_prosperity_score >= 1000
 	}
 }
 
@@ -73,7 +73,7 @@ tv_prosperity_milestone_3 = {
 	custom_tooltip = {
 		text = TV_PROSPERITY_M3_TRIGGER_DESC
 		has_variable = tv_prosperity_score
-		var:tv_prosperity_score >= 12000
+		var:tv_prosperity_score >= 2000
 	}
 }
 
@@ -81,7 +81,7 @@ tv_prosperity_milestone_4 = {
 	custom_tooltip = {
 		text = TV_PROSPERITY_M4_TRIGGER_DESC
 		has_variable = tv_prosperity_score
-		var:tv_prosperity_score >= 18000
+		var:tv_prosperity_score >= 4000
 	}
 }
 
@@ -89,7 +89,7 @@ tv_prosperity_milestone_5 = {
 	custom_tooltip = {
 		text = TV_PROSPERITY_M5_TRIGGER_DESC
 		has_variable = tv_prosperity_score
-		var:tv_prosperity_score >= 25000
+		var:tv_prosperity_score >= 8000
 	}
 }
 

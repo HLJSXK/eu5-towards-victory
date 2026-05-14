@@ -13,8 +13,14 @@ tv_research.1 = {
 	outcome = neutral
 
 	trigger = {
-		has_variable = tv_academy_io_member
-		has_variable = tv_research_phase
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_research_phase
+		}
 		var:tv_research_phase = 1
 		NOT = { var:tv_rm_subprocess_a >= 2 }
 	}
@@ -90,8 +96,14 @@ tv_research.10 = {
 	outcome = neutral
 
 	trigger = {
-		has_variable = tv_research_proposed_advance
-		NOT = { has_variable = tv_research_target }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_research_proposed_advance
+		}
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_NOT_SET_TT
+			NOT = { has_variable = tv_research_target }
+		}
 	}
 
 	option = {
@@ -114,7 +126,10 @@ tv_research.11 = {
 	outcome = bad
 
 	trigger = {
-		has_variable = tv_research_target
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_research_target
+		}
 	}
 
 	option = {
@@ -200,7 +215,10 @@ tv_research.30 = {
 	outcome = good
 
 	trigger = {
-		has_variable = tv_research_target
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_research_target
+		}
 	}
 
 	option = {

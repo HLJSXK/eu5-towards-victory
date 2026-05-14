@@ -34,8 +34,14 @@ character_title_prefix = {
 		localization_key = character_title_patriarch
 		trigger = {
         	OR = {
-        	    has_variable = is_patriarch
-        	    has_variable = is_pentarch
+        	    custom_tooltip = {
+        	    	text = TV_HAS_VARIABLE_SET_TT
+        	    	has_variable = is_patriarch
+        	    }
+        	    custom_tooltip = {
+        	    	text = TV_HAS_VARIABLE_SET_TT
+        	    	has_variable = is_pentarch
+        	    }
         	}
 		}
 	}

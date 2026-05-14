@@ -7,6 +7,10 @@
 # All four perspectives (none/global/first/third) are declared for every entry.
 # EU5 requires 'first' when custom_description wraps a nested custom_tooltip.
 
+# ── Generic has_variable tooltip keys ──────────────────────────────────────
+TV_HAS_VARIABLE_SET_TT = { none = TV_HAS_VARIABLE_SET_TT  global = TV_HAS_VARIABLE_SET_TT  first = TV_HAS_VARIABLE_SET_TT  third = TV_HAS_VARIABLE_SET_TT }
+TV_HAS_VARIABLE_NOT_SET_TT = { none = TV_HAS_VARIABLE_NOT_SET_TT  global = TV_HAS_VARIABLE_NOT_SET_TT  first = TV_HAS_VARIABLE_NOT_SET_TT  third = TV_HAS_VARIABLE_NOT_SET_TT }
+
 # ── Conquest Victory ─────────────────────────────────────────────────────────
 TV_CONQUEST_M1_TRIGGER_DESC = { none = TV_CONQUEST_M1_TRIGGER_DESC  global = TV_CONQUEST_M1_TRIGGER_DESC  first = TV_CONQUEST_M1_TRIGGER_DESC  third = TV_CONQUEST_M1_TRIGGER_DESC }
 TV_CONQUEST_M2_TRIGGER_DESC = { none = TV_CONQUEST_M2_TRIGGER_DESC  global = TV_CONQUEST_M2_TRIGGER_DESC  first = TV_CONQUEST_M2_TRIGGER_DESC  third = TV_CONQUEST_M2_TRIGGER_DESC }

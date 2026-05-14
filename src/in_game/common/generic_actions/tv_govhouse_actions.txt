@@ -13,6 +13,10 @@ tv_train_grand_general = {
 			text = TV_HAS_VARIABLE_SET_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
 	}
 
 	allow = {

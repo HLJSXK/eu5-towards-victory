@@ -1,6 +1,9 @@
 ﻿tv_arts_exhibition_list = {
 	potential = {
-		has_variable = tv_arts_exhibition_member
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_arts_exhibition_member
+		}
 	}
 	actions = {
 		tv_send_artist_abroad

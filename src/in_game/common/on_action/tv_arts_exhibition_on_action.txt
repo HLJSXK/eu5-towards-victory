@@ -7,11 +7,21 @@ tv_arts_exhibition_char_death = {
 		scope:target = {
 			# Touring artist cleanup
 			if = {
-				limit = { has_variable = tv_on_exhibition }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_on_exhibition
+					}
+				}
 				save_scope_as = dead_touring_artist
 				# Clear marker on the target country before removing the variable
 				if = {
-					limit = { has_variable = tv_exhibition_target_country }
+					limit = {
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_SET_TT
+							has_variable = tv_exhibition_target_country
+						}
+					}
 					var:tv_exhibition_target_country ?= {
 						remove_variable = tv_has_visiting_artist
 					}
@@ -20,7 +30,13 @@ tv_arts_exhibition_char_death = {
 					trigger_event_non_silently = { id = tv_arts_exhibition.6 }
 					# Decrement counter and update capacity penalty
 					if = {
-						limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 1 }
+						limit = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_SET_TT
+								has_variable = tv_dispatched_artists_count
+							}
+							var:tv_dispatched_artists_count >= 1
+						}
 						change_variable = { name = tv_dispatched_artists_count add = -1 }
 					}
 					tv_update_tour_capacity_effect = yes
@@ -46,7 +62,10 @@ tv_arts_exhibition_char_death = {
 		# tv_arts_exhibition_leader_char is cleared in the event option.
 		if = {
 			limit = {
-				has_variable = tv_arts_exhibition_leader_char
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_arts_exhibition_leader_char
+				}
 				var:tv_arts_exhibition_leader_char = scope:target
 			}
 			trigger_event_non_silently = { id = tv_arts_exhibition.7 }
@@ -62,7 +81,10 @@ tv_arts_exhibition_yearly_pulse = {
 			limit = {
 				is_alive = yes
 				is_artist = yes
-				has_variable = tv_on_exhibition
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_on_exhibition
+				}
 			}
 			change_variable = { name = tv_exhibition_elapsed add = 1 }
 			if = {

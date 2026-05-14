@@ -18,7 +18,10 @@ tv_academy.1 = {
 	outcome = good
 
 	trigger = {
-		NOT = { has_variable = tv_academy_io_member }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_NOT_SET_TT
+			NOT = { has_variable = tv_academy_io_member }
+		}
 	}
 
 	option = {

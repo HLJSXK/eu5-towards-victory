@@ -39,7 +39,7 @@ tv_govhouse_reset_power_consolidation_effect = {
 # Called by the tv_train_grand_general generic action.
 # Scope: actor country.
 tv_training_start_effect = {
-	var:tv_conquest_general_char = {
+	var:tv_conquest_general_char ?= {
 		set_variable = { name = tv_gg_training_active value = 1 }
 	}
 }
@@ -141,8 +141,13 @@ tv_apply_governor_bonuses_effect = {
 			limit = { is_alive = no }
 			# Dead governor — strip their area's modifiers and remove them from the list
 			if = {
-				limit = { has_variable = tv_governed_area }
-				var:tv_governed_area = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_governed_area
+					}
+				}
+				var:tv_governed_area ?= {
 					every_location_in_area = {
 						limit = { owner ?= scope:tv_governing_country }
 						remove_location_modifier = tv_governor_max_control
@@ -186,7 +191,7 @@ tv_governor_appoint_effect = {
 		# Displace any existing governor for this area first
 		every_in_list = { variable = tv_governor_list
 			limit = { var:tv_governed_area ?= scope:target_1 }
-			var:tv_governed_area = {
+			var:tv_governed_area ?= {
 				every_location_in_area = {
 					limit = { owner ?= scope:tv_governing_country }
 					remove_location_modifier = tv_governor_max_control
@@ -237,8 +242,13 @@ tv_governor_remove_effect = {
 	save_scope_as = tv_governing_country
 	scope:recipient = {
 		if = {
-			limit = { has_variable = tv_governed_area }
-			var:tv_governed_area = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_governed_area
+				}
+			}
+			var:tv_governed_area ?= {
 				every_location_in_area = {
 					limit = { owner ?= scope:tv_governing_country }
 					remove_location_modifier = tv_governor_max_control
@@ -262,23 +272,44 @@ tv_governor_remove_effect = {
 tv_govhouse_cleanup_effect = {
 	save_scope_as = tv_governing_country
 	if = {
-		limit = { has_variable = tv_govhouse_member }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_govhouse_member
+			}
+		}
 		tv_govhouse_reset_power_consolidation_effect = yes
 		remove_variable = tv_govhouse_member
 	}
 	if = {
-		limit = { has_variable = tv_conquest_general_char }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_conquest_general_char
+			}
+		}
 		var:tv_conquest_general_char ?= {
 			remove_character_modifier = tv_grand_general_role_modifier
 		}
 		remove_variable = tv_conquest_general_char
 	}
 	if = {
-		limit = { has_variable = tv_governor_list }
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_SET_TT
+				has_variable = tv_governor_list
+			}
+		}
 		every_in_list = { variable = tv_governor_list
 			if = {
-				limit = { is_alive = yes  has_variable = tv_governed_area }
-				var:tv_governed_area = {
+				limit = {
+					is_alive = yes
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_governed_area
+					}
+				}
+				var:tv_governed_area ?= {
 					every_location_in_area = {
 						limit = { owner ?= scope:tv_governing_country }
 						remove_location_modifier = tv_governor_max_control

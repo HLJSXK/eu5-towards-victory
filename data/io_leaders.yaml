@@ -16,7 +16,10 @@ ios:
     char_filter: |
       is_adult = yes
       is_artist = yes
-      NOT = { has_variable = tv_on_exhibition }
+      custom_tooltip = {
+      	text = TV_HAS_VARIABLE_NOT_SET_TT
+      	NOT = { has_variable = tv_on_exhibition }
+      }
 
   - id: alliance          # generates tv_appoint_alliance_leader, tv_remove_alliance_leader, tv_change_alliance_leader
     display_name: Diplomatic Alliance

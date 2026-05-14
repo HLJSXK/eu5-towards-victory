@@ -5,11 +5,20 @@ tv_govhouse_yearly_pulse = {
 	effect = {
 		if = {
 			limit = {
-				has_variable = tv_govhouse_member
-				has_variable = tv_conquest_general_char
-				var:tv_conquest_general_char = {
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_govhouse_member
+				}
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_conquest_general_char
+				}
+				var:tv_conquest_general_char ?= {
 					is_alive = yes
-					has_variable = tv_gg_training_active
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_gg_training_active
+					}
 				}
 			}
 			tv_training_resolve_effect = yes
@@ -22,15 +31,23 @@ tv_govhouse_char_death = {
 	effect = {
 		scope:target = {
 			if = {
-				limit = { has_variable = tv_gg_training_active }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_gg_training_active
+					}
+				}
 				remove_variable = tv_gg_training_active
 			}
 		}
 		# If the deceased was this country's Grand General, clear the reference
 		if = {
 			limit = {
-				has_variable = tv_conquest_general_char
-				var:tv_conquest_general_char = scope:target
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_conquest_general_char
+				}
+				var:tv_conquest_general_char ?= scope:target
 			}
 			tv_govhouse_reset_power_consolidation_effect = yes
 			remove_variable = tv_conquest_general_char

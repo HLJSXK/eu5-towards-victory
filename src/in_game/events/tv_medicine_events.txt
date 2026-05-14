@@ -14,8 +14,11 @@ tv_medicine.1 = {
 	outcome = neutral
 
 	trigger = {
-		has_variable = tv_med_target_char
-		var:tv_med_target_char = { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_med_target_char
+		}
+		var:tv_med_target_char ?= { is_alive = yes }
 	}
 
 	# ── Conservative: 95% +5 progress, 5% patient dies ────────────────────────
@@ -24,7 +27,12 @@ tv_medicine.1 = {
 		random_list = {
 			95 = {
 				if = {
-					limit = { has_variable = tv_med_progress }
+					limit = {
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_SET_TT
+							has_variable = tv_med_progress
+						}
+					}
 					change_variable = { name = tv_med_progress  add = 5 }
 				}
 			}
@@ -41,7 +49,12 @@ tv_medicine.1 = {
 		random_list = {
 			80 = {
 				if = {
-					limit = { has_variable = tv_med_progress }
+					limit = {
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_SET_TT
+							has_variable = tv_med_progress
+						}
+					}
 					change_variable = { name = tv_med_progress  add = 10 }
 				}
 			}
@@ -67,12 +80,20 @@ tv_medicine.2 = {
 	outcome = bad
 
 	trigger = {
-		has_variable = tv_med_target_char
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_med_target_char
+		}
 	}
 
 	immediate = {
 		if = {
-			limit = { has_variable = tv_med_progress }
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_med_progress
+				}
+			}
 			change_variable = { name = tv_med_progress  add = -10 }
 			if = {
 				limit = { var:tv_med_progress < 0 }
@@ -96,8 +117,11 @@ tv_medicine.5 = {
 	outcome = bad
 
 	trigger = {
-		has_variable = tv_med_target_char
-		var:tv_med_target_char = { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_med_target_char
+		}
+		var:tv_med_target_char ?= { is_alive = yes }
 	}
 
 	immediate = {

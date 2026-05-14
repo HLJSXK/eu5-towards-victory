@@ -6,10 +6,20 @@ on_annex = {
 		# When a supporter is annexed, decrement the support count on the country they supported
 		scope:target = {
 			if = {
-				limit = { has_variable = tv_diplomatic_supporter_of }
-				var:tv_diplomatic_supporter_of = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_diplomatic_supporter_of
+					}
+				}
+				var:tv_diplomatic_supporter_of ?= {
 					if = {
-						limit = { has_variable = tv_diplomatic_support_count }
+						limit = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_SET_TT
+								has_variable = tv_diplomatic_support_count
+							}
+						}
 						change_variable = { name = tv_diplomatic_support_count add = -1 }
 					}
 				}

@@ -1,10 +1,14 @@
 ﻿l_simp_chinese:
+ # ── Generic trigger tooltips ──────────────────────────────────────────────
+ TV_HAS_VARIABLE_SET_TT: "所需状态已就绪。"
+ TV_HAS_VARIABLE_NOT_SET_TT: "所需状态未激活。"
+
  # ── Towards Victory — Game Concepts ───────────────────────────────────────
  game_concept_tv_conquest_score: "征服分数"
  game_concept_tv_conquest_score_desc: "征服分数衡量您国家的领土规模。每个直接拥有的地点加1分；每个[subject|e]或下属国家持有的地点加0.5分。每月更新。达到2,000即可实现[tv_victory_situation|E]的长期胜利。"
 
  game_concept_tv_prosperity_score: "繁荣分数"
- game_concept_tv_prosperity_score_desc: "繁荣分数追踪您国家的国内发展水平。它由总人口、所有拥有地点的发展度以及国家税基之和累积而成。每年更新。达到25,000即可实现[tv_victory_situation|E]的长期胜利。"
+ game_concept_tv_prosperity_score_desc: "繁荣分数追踪您国家的国内发展水平。它由总人口、所有拥有地点的发展度以及国家税基之和累积而成。每年更新。达到8,000即可实现[tv_victory_situation|E]的长期胜利。"
 
  game_concept_tv_trade_score: "贸易分数"
  game_concept_tv_trade_score_desc: "贸易分数反映您的商业实力。它是您国家每月[trade_income|e]总量的月度快照。达到2,000即可实现[tv_victory_situation|E]的长期胜利。"
@@ -29,7 +33,7 @@
  game_concept_tv_conquest_victory_desc: "以领土扩张主宰世界。[tv_conquest_score|e]衡量你的疆域规模——直属领地完整计算，附属国与封臣领地折半计算。里程碑设于150、300、500、1000和2000，奖励军事战力与伟大遗产。"
 
  game_concept_tv_prosperity_victory: "繁荣胜利"
- game_concept_tv_prosperity_victory_desc: "建立最富庶、发展最完善的国家。[tv_prosperity_score|e]综合考量总人口、所有领地的发展度与国家税基。里程碑设于5000、8000、12000、18000和25000，奖励国内生产、人口增长与建设能力。"
+ game_concept_tv_prosperity_victory_desc: "建立最富庶、发展最完善的国家。[tv_prosperity_score|e]综合考量总人口、所有领地的发展度与国家税基。里程碑设于500、1000、2000、4000和8000，奖励国内生产、人口增长与建设能力。"
 
  game_concept_tv_trade_victory: "贸易胜利"
  game_concept_tv_trade_victory_desc: "掌控世界商业命脉。[tv_trade_score|e]是你每月贸易收入的月度快照。第三和第五里程碑还要求主导市场数量（分别为5和10个）。奖励着重商人容量、贸易效率与贸易收入倍增。"

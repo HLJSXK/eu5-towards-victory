@@ -30,7 +30,10 @@
 		visible = {
 		}
 		enabled = {
-			NOT = { has_variable = tv_diplomatic_supporter_of }
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_NOT_SET_TT
+				NOT = { has_variable = tv_diplomatic_supporter_of }
+			}
 			is_subject = no
 		}
 		show_why_not_enabled = yes
@@ -44,7 +47,12 @@
 		# Increment actor's support count
 		scope:actor = {
 			if = {
-				limit = { NOT = { has_variable = tv_diplomatic_support_count } }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_NOT_SET_TT
+						NOT = { has_variable = tv_diplomatic_support_count }
+					}
+				}
 				set_variable = { name = tv_diplomatic_support_count value = 0 }
 			}
 			change_variable = { name = tv_diplomatic_support_count add = 1 }
@@ -66,7 +74,10 @@
 			limit = {
 				scope:actor = {
 					OR = {
-						NOT = { has_variable = tv_diplomatic_support_count }
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_NOT_SET_TT
+							NOT = { has_variable = tv_diplomatic_support_count }
+						}
 						var:tv_diplomatic_support_count < 15
 					}
 				}

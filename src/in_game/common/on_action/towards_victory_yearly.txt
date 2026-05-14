@@ -11,14 +11,24 @@ on_royal_marriage = {
 	effect = {
 		scope:actor = {
 			if = {
-				limit = { NOT = { has_variable = tv_diplomatic_victory_points } }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_NOT_SET_TT
+						NOT = { has_variable = tv_diplomatic_victory_points }
+					}
+				}
 				set_variable = { name = tv_diplomatic_victory_points value = 0 }
 			}
 			change_variable = { name = tv_diplomatic_victory_points add = 3 }
 		}
 		scope:recipient = {
 			if = {
-				limit = { NOT = { has_variable = tv_diplomatic_victory_points } }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_NOT_SET_TT
+						NOT = { has_variable = tv_diplomatic_victory_points }
+					}
+				}
 				set_variable = { name = tv_diplomatic_victory_points value = 0 }
 			}
 			change_variable = { name = tv_diplomatic_victory_points add = 3 }
@@ -30,7 +40,12 @@ on_winning_war = {
 	effect = {
 		scope:winner = {
 			if = {
-				limit = { NOT = { has_variable = tv_diplomatic_victory_points } }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_NOT_SET_TT
+						NOT = { has_variable = tv_diplomatic_victory_points }
+					}
+				}
 				set_variable = { name = tv_diplomatic_victory_points value = 0 }
 			}
 			change_variable = { name = tv_diplomatic_victory_points add = 5 }
@@ -42,7 +57,12 @@ on_work_of_art_created = {
 	effect = {
 		root.owner ?= {
 			if = {
-				limit = { NOT = { has_variable = tv_cultural_influence_points } }
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_NOT_SET_TT
+						NOT = { has_variable = tv_cultural_influence_points }
+					}
+				}
 				set_variable = { name = tv_cultural_influence_points value = 0 }
 			}
 			change_variable = { name = tv_cultural_influence_points add = 10 }

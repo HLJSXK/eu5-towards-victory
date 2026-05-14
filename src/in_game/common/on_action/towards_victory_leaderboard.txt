@@ -10,7 +10,12 @@ tv_leaderboard_monthly_pulse = {
 	effect = {
 		# ── Cultural Victory: initialise CIP variable if absent ─────────────────────
 		if = {
-			limit = { NOT = { has_variable = tv_cultural_influence_points } }
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_NOT_SET_TT
+					NOT = { has_variable = tv_cultural_influence_points }
+				}
+			}
 			set_variable = { name = tv_cultural_influence_points value = 0 }
 		}
 
@@ -22,7 +27,10 @@ tv_leaderboard_monthly_pulse = {
 			limit = {
 				is_alive = yes
 				is_artist = yes
-				has_variable = tv_on_exhibition
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_on_exhibition
+				}
 			}
 			save_scope_as = touring_artist
 			# Pre-save home country as a named scope so inner random_list branches can
@@ -114,7 +122,12 @@ tv_leaderboard_monthly_pulse = {
 							5 = {
 								# Clear the target-country visiting marker before removing the variable
 								if = {
-									limit = { has_variable = tv_exhibition_target_country }
+									limit = {
+										custom_tooltip = {
+											text = TV_HAS_VARIABLE_SET_TT
+											has_variable = tv_exhibition_target_country
+										}
+									}
 									var:tv_exhibition_target_country ?= {
 										remove_variable = tv_has_visiting_artist
 									}
@@ -126,7 +139,13 @@ tv_leaderboard_monthly_pulse = {
 									}
 									trigger_event_non_silently = { id = tv_arts_exhibition.104 }
 									if = {
-										limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 1 }
+										limit = {
+											custom_tooltip = {
+												text = TV_HAS_VARIABLE_SET_TT
+												has_variable = tv_dispatched_artists_count
+											}
+											var:tv_dispatched_artists_count >= 1
+										}
 										change_variable = { name = tv_dispatched_artists_count add = -1 }
 									}
 									tv_update_tour_capacity_effect = yes
@@ -164,7 +183,12 @@ tv_leaderboard_monthly_pulse = {
 
 				# ── Event 201: Cultural Diplomacy (1/300 per month, once-per-tour) ─────────────
 				if = {
-					limit = { NOT = { has_variable = tv_tour_event_1_fired } }
+					limit = {
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_NOT_SET_TT
+							NOT = { has_variable = tv_tour_event_1_fired }
+						}
+					}
 					random_list = {
 						299 = {}
 						1 = {
@@ -183,7 +207,12 @@ tv_leaderboard_monthly_pulse = {
 
 				# ── Event 202: Exhibition Success — location buff (1/300, once-per-tour) ────────
 				if = {
-					limit = { NOT = { has_variable = tv_tour_event_2_fired } }
+					limit = {
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_NOT_SET_TT
+							NOT = { has_variable = tv_tour_event_2_fired }
+						}
+					}
 					random_list = {
 						299 = {}
 						1 = {
@@ -200,7 +229,12 @@ tv_leaderboard_monthly_pulse = {
 
 				# ── Event 203: Noble Patron — construct theater (1/300, once-per-tour) ─────────
 				if = {
-					limit = { NOT = { has_variable = tv_tour_event_3_fired } }
+					limit = {
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_NOT_SET_TT
+							NOT = { has_variable = tv_tour_event_3_fired }
+						}
+					}
 					random_list = {
 						299 = {}
 						1 = {
@@ -218,7 +252,10 @@ tv_leaderboard_monthly_pulse = {
 				# ── Event 204: Artist Exchange (1/300, once-per-tour, needs target artist) ──────
 				if = {
 					limit = {
-						NOT = { has_variable = tv_tour_event_4_fired }
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_NOT_SET_TT
+							NOT = { has_variable = tv_tour_event_4_fired }
+						}
 						var:tv_exhibition_target_country ?= {
 							any_character = { is_alive = yes  is_artist = yes }
 						}
@@ -245,7 +282,10 @@ tv_leaderboard_monthly_pulse = {
 				# ── Event 205: Art Theft + Artist Dies (1/300, once-per-tour, needs artwork) ────
 				if = {
 					limit = {
-						NOT = { has_variable = tv_tour_event_5_fired }
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_NOT_SET_TT
+							NOT = { has_variable = tv_tour_event_5_fired }
+						}
 						var:tv_exhibition_target_country ?= {
 							any_work_of_art_in_country = { always = yes }
 						}
@@ -263,7 +303,13 @@ tv_leaderboard_monthly_pulse = {
 							var:tv_exhibition_home_country ?= {
 								trigger_event_non_silently = { id = tv_arts_exhibition.205 }
 								if = {
-									limit = { has_variable = tv_dispatched_artists_count  var:tv_dispatched_artists_count >= 1 }
+									limit = {
+										custom_tooltip = {
+											text = TV_HAS_VARIABLE_SET_TT
+											has_variable = tv_dispatched_artists_count
+										}
+										var:tv_dispatched_artists_count >= 1
+									}
 									change_variable = { name = tv_dispatched_artists_count add = -1 }
 								}
 								tv_update_tour_capacity_effect = yes
@@ -292,12 +338,20 @@ tv_leaderboard_monthly_pulse = {
 
 		# ── Research Mechanism monthly pulse ────────────────────────────────────────
 		if = {
-			limit = { has_variable = tv_academy_io_member }
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_academy_io_member
+				}
+			}
 
 			# ── Selection cooldown countdown ───────────────────────────────────
 			if = {
 				limit = {
-					has_variable = tv_research_selection_cd
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_research_selection_cd
+					}
 					var:tv_research_selection_cd >= 1
 				}
 				change_variable = { name = tv_research_selection_cd add = -1 }
@@ -312,7 +366,10 @@ tv_leaderboard_monthly_pulse = {
 			# on the first monthly tick after a research target is confirmed.
 			if = {
 				limit = {
-					has_variable = tv_research_phase
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_SET_TT
+						has_variable = tv_research_phase
+					}
 					var:tv_research_phase = 1
 					NOT = { var:tv_rm_subprocess_b >= 2 }
 					tv_research_check_b_trigger = yes
@@ -339,9 +396,15 @@ tv_leaderboard_monthly_pulse = {
 		# ── Medicine: display stats (always when CS is appointed) ─────────────
 		if = {
 			limit = {
-				has_variable = tv_academy_io_member
-				has_variable = tv_academy_leader_char
-				var:tv_academy_leader_char = { is_alive = yes }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_academy_io_member
+				}
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_academy_leader_char
+				}
+				var:tv_academy_leader_char ?= { is_alive = yes }
 			}
 			set_variable = { name = tv_med_disp_adm  value = var:tv_academy_leader_char.adm }
 			set_variable = { name = tv_med_disp_dip  value = var:tv_academy_leader_char.dip }
@@ -351,22 +414,34 @@ tv_leaderboard_monthly_pulse = {
 		# ── Medicine: monthly treatment processing ─────────────────────────────
 		if = {
 			limit = {
-				has_variable = tv_academy_io_member
-				has_variable = tv_med_target_char
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_academy_io_member
+				}
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_med_target_char
+				}
 			}
 			# Detect natural death of patient
 			if = {
-				limit = { NOT = { var:tv_med_target_char = { is_alive = yes } } }
+				limit = { NOT = { var:tv_med_target_char ?= { is_alive = yes } } }
 				trigger_event_non_silently = { id = tv_medicine.4 }
 				tv_med_cleanup_effect = yes
 			}
 			# Patient alive: accumulate progress and check completion
 			else_if = {
 				limit = {
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
 					has_variable = tv_academy_leader_char
-					var:tv_academy_leader_char = { is_alive = yes }
+				}
+				var:tv_academy_leader_char ?= { is_alive = yes }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
 					has_variable = tv_med_progress
 				}
+			}
 				set_local_variable = { name = med_gain  value = var:tv_academy_leader_char.adm }
 				change_local_variable = { name = med_gain  multiply = 0.1 }
 				change_variable = { name = tv_med_progress  add = local_var:med_gain }
@@ -381,12 +456,21 @@ tv_leaderboard_monthly_pulse = {
 		# Fire informational event when DVP reaches 50 (support system unlocked)
 		if = {
 			limit = {
-				has_variable = tv_diplomatic_victory_points
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_diplomatic_victory_points
+				}
 				var:tv_diplomatic_victory_points >= 50
-				NOT = { has_variable = tv_diplo_unlock_notified }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_NOT_SET_TT
+					NOT = { has_variable = tv_diplo_unlock_notified }
+				}
 				# Only fire if M1 hasn't been reached yet (support count < 10)
 				OR = {
-					NOT = { has_variable = tv_diplomatic_support_count }
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_NOT_SET_TT
+						NOT = { has_variable = tv_diplomatic_support_count }
+					}
 					var:tv_diplomatic_support_count < 10
 				}
 			}
@@ -397,12 +481,21 @@ tv_leaderboard_monthly_pulse = {
 		# Fire informational event when support count reaches 10
 		if = {
 			limit = {
-				has_variable = tv_diplomatic_support_count
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_SET_TT
+					has_variable = tv_diplomatic_support_count
+				}
 				var:tv_diplomatic_support_count >= 10
-				NOT = { has_variable = tv_diplo_support_notified }
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_NOT_SET_TT
+					NOT = { has_variable = tv_diplo_support_notified }
+				}
 				# Only fire if M1 hasn't been reached yet
 				OR = {
-					NOT = { has_variable = tv_diplomatic_milestone }
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_NOT_SET_TT
+						NOT = { has_variable = tv_diplomatic_milestone }
+					}
 					var:tv_diplomatic_milestone < 1
 				}
 			}

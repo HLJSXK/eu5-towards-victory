@@ -1,6 +1,9 @@
 ﻿tv_research_actions_list = {
 	potential = {
-		has_variable = tv_academy_io_member
+		custom_tooltip = {
+			text = TV_HAS_VARIABLE_SET_TT
+			has_variable = tv_academy_io_member
+		}
 	}
 	actions = {
 		tv_request_research_target
