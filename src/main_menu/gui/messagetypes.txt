@@ -12228,6 +12228,26 @@ PERFORM_tv_change_conquest_general_leader_ACTION={
 	message_category = society
 }
 
+PERFORM_tv_appoint_governor_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_remove_governor_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
 WE_PERFORM_tv_seek_diplomatic_support_ACTION={
 	log=yes
 	onmap=no

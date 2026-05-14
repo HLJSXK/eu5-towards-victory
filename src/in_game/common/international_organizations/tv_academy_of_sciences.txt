@@ -38,7 +38,7 @@ tv_academy_of_sciences = {
 	# ── IO Variables: C and D research progress ───────────────────────────────
 	# These are auto-accumulated via monthly_change; completion is detected in monthly_effect.
 	# Calibration C: average_country_literacy * 0.05 /month → 100 in ~40 months at literacy=50.
-	# Calibration D: leader_country.var:tv_academy_leader_char.adm * 1.0 /month → 100 in ~17 months at adm=6.
+	# Calibration D: leader_country.var:tv_academy_leader_char.adm * 0.05 /month → 100 in ~333 months at adm=6.
 	# D halts when no leader appointed (international_organization_has_leader = no).
 	variables = {
 		tv_research_c_progress = {
@@ -86,7 +86,7 @@ tv_academy_of_sciences = {
 							}
 						}
 						value = leader_country.var:tv_academy_leader_char.adm
-						multiply = 1.0
+						multiply = 0.05
 					}
 				}
 			}

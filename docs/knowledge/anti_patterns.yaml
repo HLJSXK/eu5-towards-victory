@@ -338,6 +338,15 @@
   source: "reference_game_files/game/in_game/common/scripted_effects/on_action_effects.txt:39, reference_game_files/game/in_game/common/on_action/character_death_pulses.txt:57"
   notes: "EU5 does not have a bare trigger_event effect. In scripted_effects and on_action files, the engine reports 'Unknown effect trigger_event'. The two valid variants are trigger_event_non_silently (shows popup) and trigger_event_silently (hidden/background). This distinction does not apply inside event option = { } blocks, which may use a different syntax."
 
+- id: variable_list_wrong_iteration_syntax
+  pattern: 'every_in_variable_list|remove_from_variable_list'
+  bad: "every_in_variable_list = { name = X ... } or remove_from_variable_list = { name = X target = Y } for persistent variable lists"
+  correction: "every_in_list = { variable = X ... } to iterate; remove_list_variable = { name = X target = Y } to remove a specific entry. add_to_variable_list = { name = X target = Y } is still correct for adding. Temporary lists (add_to_list) use a different API: every_in_list = { list = X } and remove_from_list = X."
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/events/culture/culture_greek.txt:452 (every_in_list variable =), reference_game_files/game/in_game/common/on_action/character_death_pulses.txt:37 (remove_list_variable)"
+  notes: "EU5 has two distinct list types: (1) Temporary lists created with add_to_list — iterated with every_in_list { list = X }, removed with remove_from_list = X. (2) Persistent variable lists created with add_to_variable_list — iterated with every_in_list { variable = X }, removed with remove_list_variable { name = X target = Y }. every_in_variable_list and remove_from_variable_list do not exist in EU5; the engine reports 'Unknown effect' for both."
+
 - id: add_treasury_nonexistent
   pattern: '\badd_treasury\b'
   bad: "add_treasury = X to add or subtract gold from a country"

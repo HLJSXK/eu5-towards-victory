@@ -94,7 +94,7 @@ organization_panel = {
 
 \t\t# ── Research Status Overview ────────────────────────────────────────────────────────────────────
 \t\twidget = {
-\t\t\tsize = { 470 200 }
+\t\t\tsize = { 470 300 }
 \t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer]"
 
 \t\t\tvbox = {
@@ -186,6 +186,14 @@ GUI_SUFFIX = """\
 \t\t\t\t\t\talign = nobaseline
 \t\t\t\t\t}
 \t\t\t\t}
+\t\t\t\tprogressbar = {
+\t\t\t\t\tsize = { 440 16 }
+\t\t\t\t\tusing = progress_bar_blue_alt
+\t\t\t\t\tmin = 0
+\t\t\t\t\tmax = 5
+\t\t\t\t\tvalue = "[Country.MakeScope.GetVariable('tv_research_interest').GetValue]"
+\t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_rm_subprocess_a').IsSet]"
+\t\t\t\t}
 
 \t\t\t\t# ── Subprocess B: Technology Prerequisites ────────────────────────────────────────────────────
 \t\t\t\thbox = {
@@ -206,6 +214,13 @@ GUI_SUFFIX = """\
 \t\t\t\t\t\ttext = "TV_RM_STATUS_COMPLETE"
 \t\t\t\t\t\talign = nobaseline
 \t\t\t\t\t}
+\t\t\t\t}
+\t\t\t\tprogressbar = {
+\t\t\t\t\tsize = { 440 16 }
+\t\t\t\t\tusing = progress_bar_blue_alt
+\t\t\t\t\tmin = 0
+\t\t\t\t\tmax = 2
+\t\t\t\t\tvalue = "[Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue]"
 \t\t\t\t}
 
 \t\t\t\t# ── Subprocess C: Literacy Foundation ─────────────────────────────────────────────────────
@@ -233,6 +248,14 @@ GUI_SUFFIX = """\
 \t\t\t\t\t\talign = nobaseline
 \t\t\t\t\t}
 \t\t\t\t}
+\t\t\t\tprogressbar = {
+\t\t\t\t\tsize = { 440 16 }
+\t\t\t\t\tusing = progress_bar_blue_alt
+\t\t\t\t\tmin = 0
+\t\t\t\t\tmax = 100
+\t\t\t\t\tvalue = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_c_progress').GetValue]"
+\t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_rm_subprocess_c').IsSet]"
+\t\t\t\t}
 
 \t\t\t\t# ── Subprocess D: Concentrated Research ─────────────────────────────────────────────────────────────────
 \t\t\t\thbox = {
@@ -258,6 +281,14 @@ GUI_SUFFIX = """\
 \t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_research_d_progress')]"
 \t\t\t\t\t\talign = nobaseline
 \t\t\t\t\t}
+\t\t\t\t}
+\t\t\t\tprogressbar = {
+\t\t\t\t\tsize = { 440 16 }
+\t\t\t\t\tusing = progress_bar_blue_alt
+\t\t\t\t\tmin = 0
+\t\t\t\t\tmax = 100
+\t\t\t\t\tvalue = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_d_progress').GetValue]"
+\t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_research_phase').IsSet]"
 \t\t\t\t}
 \t\t\t}
 \t\t}
@@ -463,11 +494,14 @@ GUI_SUFFIX = """\
 def gen_target_entry(advance: dict) -> str:
     gui_value = advance["gui_value"]
     loc_key = f"TV_RM_TARGET_{advance['id'].upper()}"
+    tt_key = f"{loc_key}_TT"
     float_str = f"{gui_value}.0"
     return (
         T*5 + "text_single = {\n"
         + T*6 + f"visible = \"[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint){float_str}')]\"\n"
         + T*6 + f"text = \"{loc_key}\"\n"
+        + T*6 + "default_format = \"#explanation_link\"\n"
+        + T*6 + f"tooltip = \"{tt_key}\"\n"
         + T*6 + "align = nobaseline\n"
         + T*5 + "}"
     )

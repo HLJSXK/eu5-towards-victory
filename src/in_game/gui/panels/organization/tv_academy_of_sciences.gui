@@ -66,7 +66,7 @@ organization_panel = {
 
 		# ── Research Status Overview ────────────────────────────────────────────────────────────────────
 		widget = {
-			size = { 470 200 }
+			size = { 470 300 }
 			datacontext = "[InternationalOrganizationsView.GetPlayer]"
 
 			vbox = {
@@ -91,51 +91,71 @@ organization_panel = {
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)1.0')]"
 						text = "TV_RM_TARGET_PRINTING_PRESS"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_PRINTING_PRESS_TT"
 						align = nobaseline
 					}
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)2.0')]"
 						text = "TV_RM_TARGET_IRON_WORKING"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_IRON_WORKING_TT"
 						align = nobaseline
 					}
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)3.0')]"
 						text = "TV_RM_TARGET_ANATOMY"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_ANATOMY_TT"
 						align = nobaseline
 					}
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)4.0')]"
 						text = "TV_RM_TARGET_GUNPOWDER"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_GUNPOWDER_TT"
 						align = nobaseline
 					}
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)5.0')]"
 						text = "TV_RM_TARGET_BLAST_FURNACE"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_BLAST_FURNACE_TT"
 						align = nobaseline
 					}
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)6.0')]"
 						text = "TV_RM_TARGET_SCIENTIFIC_EXPERIMENTATION"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_SCIENTIFIC_EXPERIMENTATION_TT"
 						align = nobaseline
 					}
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)7.0')]"
 						text = "TV_RM_TARGET_SCIENTIFIC_REVOLUTION"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_SCIENTIFIC_REVOLUTION_TT"
 						align = nobaseline
 					}
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)8.0')]"
 						text = "TV_RM_TARGET_MANUFACTORIES"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_MANUFACTORIES_TT"
 						align = nobaseline
 					}
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)9.0')]"
 						text = "TV_RM_TARGET_INDUSTRIALIZATION"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_INDUSTRIALIZATION_TT"
 						align = nobaseline
 					}
 					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)10.0')]"
 						text = "TV_RM_TARGET_VACCINATION"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_VACCINATION_TT"
 						align = nobaseline
 					}
 				}
@@ -203,6 +223,14 @@ organization_panel = {
 						align = nobaseline
 					}
 				}
+				progressbar = {
+					size = { 440 16 }
+					using = progress_bar_blue_alt
+					min = 0
+					max = 5
+					value = "[Country.MakeScope.GetVariable('tv_research_interest').GetValue]"
+					visible = "[Country.MakeScope.GetVariable('tv_rm_subprocess_a').IsSet]"
+				}
 
 				# ── Subprocess B: Technology Prerequisites ────────────────────────────────────────────────────
 				hbox = {
@@ -223,6 +251,13 @@ organization_panel = {
 						text = "TV_RM_STATUS_COMPLETE"
 						align = nobaseline
 					}
+				}
+				progressbar = {
+					size = { 440 16 }
+					using = progress_bar_blue_alt
+					min = 0
+					max = 2
+					value = "[Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue]"
 				}
 
 				# ── Subprocess C: Literacy Foundation ─────────────────────────────────────────────────────
@@ -250,6 +285,14 @@ organization_panel = {
 						align = nobaseline
 					}
 				}
+				progressbar = {
+					size = { 440 16 }
+					using = progress_bar_blue_alt
+					min = 0
+					max = 100
+					value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_c_progress').GetValue]"
+					visible = "[Country.MakeScope.GetVariable('tv_rm_subprocess_c').IsSet]"
+				}
 
 				# ── Subprocess D: Concentrated Research ─────────────────────────────────────────────────────────────────
 				hbox = {
@@ -275,6 +318,14 @@ organization_panel = {
 						raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_research_d_progress')]"
 						align = nobaseline
 					}
+				}
+				progressbar = {
+					size = { 440 16 }
+					using = progress_bar_blue_alt
+					min = 0
+					max = 100
+					value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_d_progress').GetValue]"
+					visible = "[Country.MakeScope.GetVariable('tv_research_phase').IsSet]"
 				}
 			}
 		}

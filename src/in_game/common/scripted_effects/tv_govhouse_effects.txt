@@ -111,7 +111,7 @@ tv_governor_apply_modifiers_effect = {
 # Refreshes all governor modifiers; cleans up dead governors.
 # Scope: country. Called monthly from the IO monthly_effect.
 tv_apply_governor_bonuses_effect = {
-	every_in_variable_list = { name = tv_governor_list
+	every_in_list = { variable = tv_governor_list
 		if = {
 			limit = { is_alive = no }
 			# Dead governor — strip their area's modifiers and remove them from the list
@@ -133,7 +133,7 @@ tv_apply_governor_bonuses_effect = {
 			remove_variable = tv_gov_unrest_pct
 			save_scope_as = tv_dead_governor
 			root = {
-				remove_from_variable_list = { name = tv_governor_list target = scope:tv_dead_governor }
+				remove_list_variable = { name = tv_governor_list target = scope:tv_dead_governor }
 			}
 		}
 		else = {
@@ -149,7 +149,7 @@ tv_apply_governor_bonuses_effect = {
 # Scope: country (root = country). scope:recipient = character. scope:target = area.
 tv_governor_appoint_effect = {
 	# Displace any existing governor for this area first
-	every_in_variable_list = { name = tv_governor_list
+	every_in_list = { variable = tv_governor_list
 		limit = { var:tv_governed_area ?= scope:target }
 		var:tv_governed_area = {
 			every_location_in_area = {
@@ -166,7 +166,7 @@ tv_governor_appoint_effect = {
 		remove_variable = tv_gov_unrest_pct
 		save_scope_as = tv_displaced_governor
 		root = {
-			remove_from_variable_list = { name = tv_governor_list target = scope:tv_displaced_governor }
+			remove_list_variable = { name = tv_governor_list target = scope:tv_displaced_governor }
 		}
 	}
 	# Set governor variables on the character
@@ -201,7 +201,7 @@ tv_governor_remove_effect = {
 		remove_variable = tv_gov_build_cost_pct
 		remove_variable = tv_gov_unrest_pct
 	}
-	remove_from_variable_list = { name = tv_governor_list target = scope:recipient }
+	remove_list_variable = { name = tv_governor_list target = scope:recipient }
 }
 
 # Cleans up governor variables and IO on country deletion or conquest defeat.
@@ -220,7 +220,7 @@ tv_govhouse_cleanup_effect = {
 	}
 	if = {
 		limit = { has_variable = tv_governor_list }
-		every_in_variable_list = { name = tv_governor_list
+		every_in_list = { variable = tv_governor_list
 			if = {
 				limit = { is_alive = yes  has_variable = tv_governed_area }
 				var:tv_governed_area = {

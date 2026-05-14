@@ -206,6 +206,26 @@ PERFORM_tv_change_conquest_general_leader_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_appoint_governor_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_remove_governor_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
 WE_PERFORM_tv_seek_diplomatic_support_ACTION={
 \tlog=yes
 \tonmap=no
