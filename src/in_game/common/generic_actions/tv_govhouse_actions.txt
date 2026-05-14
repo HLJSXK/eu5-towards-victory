@@ -103,12 +103,11 @@ tv_remove_governor = {
 	ai_tick_frequency = 99999
 
 	potential = {
-		scope:actor = { has_variable = tv_govhouse_member }
+		always = yes
 	}
 
 	allow = {
-		scope:actor = { has_variable = tv_govhouse_member }
-		scope:recipient = { has_variable = tv_is_governor }
+		always = yes
 	}
 
 	effect = {
