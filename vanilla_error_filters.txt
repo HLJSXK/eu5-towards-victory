@@ -325,3 +325,5 @@ exact:[jomini_effect.cpp:140]: PostValidate of effect 'custom_tooltip' returned 
 exact:[jomini_script_system.cpp:252]: Script system error!\n  Error: Event target link 'heir' returned an invalid object\n  Script location: common/international_organizations/japanese_shogunate.txt:16
 
 exact:[jomini_script_system.cpp:252]: Script system error!\n  Error: add_to_list effect [ Scoped object is not valid. Type: 角色“角色”（4294967295） ]\n  Script location: common/international_organizations/japanese_shogunate.txt:17
+exact:[pdx_data_localize_helper.cpp:128]: Unterminated '[' when reading property 'seize_location_from_subject_act'
+exact:[pdx_data_localize.cpp:136]: Data error in loc string 'seize_location_from_subject_act'
