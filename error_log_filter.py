@@ -40,6 +40,7 @@ DEFAULT_VANILLA_FILTERS = "vanilla_error_filters.txt"
 DEFAULT_INTERVAL_SECONDS = 1.0
 
 TIMESTAMP_RE = re.compile(r"^\[\d{2}:\d{2}:\d{2}\]")
+FILTER_MODES = {"contains", "exact", "regex"}
 
 
 @dataclass(frozen=True)
@@ -167,13 +168,75 @@ def match_key(entry: str) -> str:
     return entry_body_without_timestamp(entry).rstrip()
 
 
+def escape_filter_value(value: str) -> str:
+    return value.replace("\t", r"\t").replace("\n", r"\n")
+
+
 def unescape_filter_value(value: str) -> str:
     return value.replace(r"\n", "\n").replace(r"\t", "\t")
+
+
+def filter_mode_from_line(line: str) -> str | None:
+    if ":" not in line:
+        return None
+    prefix, _ = line.split(":", 1)
+    if prefix in FILTER_MODES:
+        return prefix
+    return None
+
+
+def should_stop_timestamp_filter_block(line: str) -> bool:
+    stripped = line.strip()
+    return (
+        not stripped
+        or TIMESTAMP_RE.match(line) is not None
+        or stripped.startswith("#")
+        or filter_mode_from_line(stripped) is not None
+    )
+
+
+def canonicalize_filter_content(content: str) -> tuple[str, bool]:
+    lines = content.splitlines(keepends=True)
+    canonical_lines: list[str] = []
+    changed = False
+    index = 0
+
+    while index < len(lines):
+        line = lines[index]
+        if TIMESTAMP_RE.match(line):
+            entry_lines = [line]
+            index += 1
+            while index < len(lines) and not should_stop_timestamp_filter_block(
+                lines[index]
+            ):
+                entry_lines.append(lines[index])
+                index += 1
+
+            exact_value = escape_filter_value(match_key("".join(entry_lines)))
+            canonical_lines.append(f"exact:{exact_value}\n")
+            changed = True
+            continue
+
+        canonical_lines.append(line)
+        index += 1
+
+    return "".join(canonical_lines), changed
+
+
+def canonicalize_filter_file(path: Path) -> None:
+    if not path.exists():
+        return
+    content = read_text(path)
+    canonical_content, changed = canonicalize_filter_content(content)
+    if changed:
+        write_text_if_changed(path, canonical_content)
 
 
 def load_filter_rules(path: Path) -> list[FilterRule]:
     if not path.exists():
         return []
+
+    canonicalize_filter_file(path)
 
     rules: list[FilterRule] = []
     with path.open("r", encoding="utf-8-sig", errors="replace") as handle:
@@ -184,11 +247,9 @@ def load_filter_rules(path: Path) -> list[FilterRule]:
 
             mode = "contains"
             value = line
-            if ":" in line:
-                prefix, rest = line.split(":", 1)
-                if prefix in {"contains", "exact", "regex"}:
-                    mode = prefix
-                    value = rest.strip()
+            if filter_mode_from_line(line):
+                mode, value = line.split(":", 1)
+                value = value.strip()
 
             value = unescape_filter_value(value)
             regex = None
