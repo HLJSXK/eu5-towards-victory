@@ -159,7 +159,35 @@ Script values always execute in the scope they are *called from*, not from the s
   ```
   Engine error: `Event target link 'location' did not get a matching scope type. Expected 'character, pop, …', but got 'location'`
 
-### 5.4. Variable Arithmetic (`change_variable`)
+### 5.4. Generic Action `select_trigger` Pre-evaluation
+
+When a generic action has multiple `select_trigger` steps, EU5 **pre-evaluates the `effect` block at each step** before the user finishes all selections:
+
+- After step 1 completes, the first `target_flag` scope (e.g. `scope:target`) is set but subsequent ones (`scope:target_1`) are not.
+- At step 2 display time, the engine may evaluate the effect with `scope:target` set to the selected character — but any variables that the effect itself would write (e.g. `tv_governed_area`) do not yet exist on that character.
+
+**Required guards:**
+
+1. Wrap the entire effect body in an existence check for all required named scopes:
+   ```
+   if = {
+       limit = {
+           exists = scope:target
+           exists = scope:target_1
+       }
+       # ... actual effect body
+   }
+   ```
+2. Within scripted effects called by the action effect, use `?=` on any variable access that may be absent on a freshly selected character:
+   ```
+   var:tv_governed_area ?= {   # silently skipped if character has no tv_governed_area yet
+       every_location_in_area = { ... }
+   }
+   ```
+
+The `exists = scope:<name>` trigger is the vanilla pattern for this (confirmed in `assign_governor.txt` and `assume_fort_command.txt`). The errors appear in `error.log` as "Undefined event target" or "Failed to fetch variable" but the effect still fires correctly once all selections are complete.
+
+### 5.5. Variable Arithmetic (`change_variable`)
 
 EU5 does **not** have `multiply_variable` or `divide_variable` commands. All in-place variable arithmetic uses `change_variable` with a named operator:
 

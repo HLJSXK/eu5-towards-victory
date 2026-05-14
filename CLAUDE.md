@@ -47,6 +47,7 @@ For the categories below, you MUST go to Step 2 or 3 before writing any code. No
 - **Localization YAML** — must be UTF-8 BOM (not plain UTF-8); only straight ASCII double-quotes `"` are valid
 - **`custom_tooltip`** — never remove it; dotted suffix format IS valid in event options; verify key format before changing
 - **Pre-test validation** — run `conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix` before launching the game
+- **`select_trigger` pre-evaluation** — EU5 pre-evaluates a generic action's `effect` block at each selection step before the user confirms: after step 1 only the first `target_flag` scope is set; after step 2 the character is set but any variables that would be written by the effect itself (e.g. `tv_governed_area`) do not yet exist on the character. Guard multi-step effects with `if = { limit = { exists = scope:target  exists = scope:target_1 } }` and use `?=` on any variable access that may be absent on a freshly selected character.
 
 ## IO Architecture Invariants
 

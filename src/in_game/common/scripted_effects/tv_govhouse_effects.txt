@@ -82,7 +82,10 @@ tv_governor_apply_modifiers_effect = {
 		set_variable = { name = tv_gov_build_cost_pct value = { value = this.dip multiply = 0.002 } }
 		set_variable = { name = tv_gov_unrest_pct value = { value = this.mil multiply = 0.002 } }
 		# Apply to all owned locations in the governed area
-		var:tv_governed_area = {
+		# ?= guards the case where scope:target has no tv_governed_area yet
+		# (e.g. EU5 pre-evaluates this effect after select_trigger step 1 picks the character
+		# but before step 2 sets the area — fresh characters have no tv_governed_area variable).
+		var:tv_governed_area ?= {
 			every_location_in_area = {
 				limit = { owner ?= scope:tv_governing_country }
 				remove_location_modifier = tv_governor_max_control
