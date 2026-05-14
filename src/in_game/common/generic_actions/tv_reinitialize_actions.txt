@@ -20,6 +20,118 @@ tv_reinitialize_mod = {
 
 	effect = {
 		scope:actor = {
+			# Create missing IOs for paths where M1 was already granted but IO was never created.
+			# has_variable and var: are in separate limit blocks (nested if) to avoid the
+			# var_read_without_outer_scope_guard anti-pattern.
+
+			# Conquest → Governor's House
+			if = {
+				limit = { has_variable = tv_conquest_milestone }
+				if = {
+					limit = { var:tv_conquest_milestone >= 1 }
+					tv_govhouse_create_effect = yes
+				}
+			}
+
+			# Diplomatic → Diplomatic Alliance
+			if = {
+				limit = { has_variable = tv_diplomatic_milestone }
+				if = {
+					limit = {
+						var:tv_diplomatic_milestone >= 1
+						NOT = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_diplomatic_alliance
+								leader_country = this
+							}
+						}
+					}
+					save_scope_as = tv_founder
+					create_international_organization = {
+						type = international_organization_type:tv_diplomatic_alliance
+						add_country_to_international_organization = prev
+						set_leader_country = prev
+						save_scope_as = tv_alliance_io
+						every_country = {
+							limit = {
+								has_variable = tv_diplomatic_supporter_of
+								var:tv_diplomatic_supporter_of = scope:tv_founder
+							}
+							scope:tv_alliance_io = {
+								add_country_to_international_organization = prev
+							}
+						}
+						set_variable = { name = tv_alliance_cohesion value = 0 }
+						set_variable = { name = tv_alliance_tier value = 0 }
+					}
+				}
+			}
+
+			# Cultural → Arts Exhibition
+			if = {
+				limit = { has_variable = tv_cultural_milestone }
+				if = {
+					limit = {
+						var:tv_cultural_milestone >= 1
+						NOT = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_arts_exhibition
+							}
+						}
+					}
+					set_variable = { name = tv_arts_exhibition_member value = 1 }
+					create_international_organization = {
+						type = international_organization_type:tv_arts_exhibition
+						add_country_to_international_organization = prev
+						set_leader_country = prev
+					}
+				}
+			}
+
+			# Science → Academy of Sciences
+			if = {
+				limit = { has_variable = tv_science_milestone }
+				if = {
+					limit = {
+						var:tv_science_milestone >= 1
+						NOT = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_academy_of_sciences
+							}
+						}
+					}
+					if = {
+						limit = { NOT = { has_variable = tv_academy_io_member } }
+						set_variable = { name = tv_academy_io_member value = 1 }
+						set_variable = { name = tv_research_phase value = 0 }
+						set_variable = { name = tv_research_interest value = 0 }
+						set_variable = { name = tv_research_b_done value = 0 }
+						set_variable = { name = tv_rm_subprocess_a value = 0 }
+						set_variable = { name = tv_rm_subprocess_b value = 0 }
+						set_variable = { name = tv_rm_subprocess_c value = 0 }
+						set_variable = { name = tv_rm_subprocess_d_ready value = 0 }
+						set_variable = { name = tv_med_progress value = 0 }
+						set_variable = { name = tv_med_disp_adm value = 0 }
+						set_variable = { name = tv_med_disp_dip value = 0 }
+						set_variable = { name = tv_med_disp_mil value = 0 }
+					}
+					create_international_organization = {
+						type = international_organization_type:tv_academy_of_sciences
+						hidden_effect = {
+							add_country_to_international_organization = prev
+							set_leader_country = prev
+						}
+					}
+				}
+			}
+
+			# Reassign leader for existing IOs (recovery for stale leader_country).
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_govhouse
+				}
+				set_leader_country = scope:actor
+			}
 			every_international_organizations_member_of = {
 				limit = {
 					international_organization_type = international_organization_type:tv_arts_exhibition
