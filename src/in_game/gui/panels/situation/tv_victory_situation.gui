@@ -2147,14 +2147,24 @@ situation_panel = {
 			}
 
 			# ── SECTION 3: Global Rankings ────────────────────────────────────────────────
-			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
-			text_single = {
-				layoutpolicy_horizontal = expanding
-				text = "TV_SECTION3_HEADER"
-				align = center
-				fontsize = 14
-				margin = { 0 4 }
-			}
+			situation_card_common = {
+				blockoverride "common_header" {
+					text_single = {
+						layoutpolicy_horizontal = expanding
+						text = "TV_SECTION3_HEADER"
+						align = center
+						fontsize = 14
+					}
+				}
+
+				blockoverride "card_common_bottom_margin" {
+					margin = { 8 6 }
+				}
+
+				blockoverride "common_bottom_content" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
 
 			# Rank row macro: repeated 5 times (rank 1 through rank 5).
 			# Each reads from tv_rank_N_country stored on the situation scope.
@@ -2446,6 +2456,10 @@ situation_panel = {
 					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)3.0')]"  text = "TV_S3_DIPLOMATIC_SCORE" }
 					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)4.0')]"  text = "TV_S3_CULTURAL_SCORE" }
 					text_single = { size = { 100% 100% }  align = right|nobaseline  visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_best_path').GetValue, '(CFixedPoint)5.0')]"  text = "TV_S3_SCIENCE_SCORE" }
+				}
+			}
+
+					}
 				}
 			}
 
