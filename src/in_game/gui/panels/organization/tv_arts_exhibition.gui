@@ -1,6 +1,6 @@
 ﻿# Towards Victory — Arts Exhibition IO Panel
-# Shows the three cultural action buttons (Send Artist Abroad, Host Domestic Exhibition)
-# plus the three IO leader management actions (Appoint / Remove / Change Leader).
+# Shows cultural touring controls plus the three IO leader management actions
+# (Appoint / Remove / Change Leader). Domestic exhibitions live in a custom tab.
 # The IO's character leader (an artist) is shown in the standard IO header.
 
 organization_panel = {
@@ -84,15 +84,6 @@ organization_panel = {
 				action_name = "tv_send_artist_abroad"
 			}
 		}
-		action_button_diamond = {
-			size = { 470 30 }
-			text = "tv_host_domestic_exhibition"
-			title = "tv_host_domestic_exhibition"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_host_domestic_exhibition"
-			}
-		}
 
 		# ── IO Leader management ──────────────────────────────────────────────
 		# Visibility is gated by the appointed-leader country variable on the player.
@@ -159,6 +150,33 @@ organization_panel = {
 						}
 					}
 				}
+			}
+		}
+	}
+
+	# ── Domestic exhibition tab ───────────────────────────────────────────────
+	blockoverride "organization_custom_tab_visible" {
+		visible = yes
+	}
+	blockoverride "organization_custom_tab_text" {
+		text = "tv_host_domestic_exhibition"
+	}
+	blockoverride "organization_custom_tab_tooltip" {
+		tooltip = "tv_host_domestic_exhibition_desc"
+	}
+
+	blockoverride "organization_custom_content_visible" {
+		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' )]"
+	}
+
+	blockoverride "organization_custom_content" {
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "tv_host_domestic_exhibition"
+			title = "tv_host_domestic_exhibition"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_host_domestic_exhibition"
 			}
 		}
 	}
