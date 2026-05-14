@@ -442,6 +442,8 @@ organization_panel = {
 			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').IsSet]"
 			datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_med_target_char').GetCharacter]"
 			using = layoutpolicy_expanding
+			blockoverride "name_highlight" {}
+			blockoverride "character_entry_name_sort_by_highlight" {}
 		}
 
 		# ── Data block: patient + rates display ───────────────────────────────

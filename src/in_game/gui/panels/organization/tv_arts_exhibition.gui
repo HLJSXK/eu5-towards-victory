@@ -116,6 +116,8 @@ organization_panel = {
 													parentanchor = hcenter
 													using = layoutpolicy_expanding
 													datacontext = "[Scope.GetCharacter]"
+													blockoverride "name_highlight" {}
+													blockoverride "character_entry_name_sort_by_highlight" {}
 
 													blockoverride "character_button_pin" {
 														visible = no
@@ -201,13 +203,73 @@ organization_panel = {
 	}
 
 	blockoverride "organization_custom_content" {
-		action_button_diamond = {
-			size = { 470 30 }
-			text = "tv_host_domestic_exhibition"
-			title = "tv_host_domestic_exhibition"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_host_domestic_exhibition"
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			margin = { 10 2 }
+
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ARTS_DOMESTIC_EXHIBITION_INFO_HEADER"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 36 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer]"
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							margin = { 4 6 }
+
+							text_single = {
+								text = "TV_ARTS_OWNED_ARTWORKS_LABEL"
+								align = nobaseline
+							}
+							expand = {}
+							text_single = {
+								raw_text = "[Country.GetNumWorksOfArt|0]"
+								align = nobaseline
+							}
+						}
+					}
+				}
+			}
+
+			card_actions = {
+				blockoverride "card_header_text" {
+					text = "MAIN_ACTIONS"
+				}
+
+				blockoverride "card_header_icon" {
+					block "io_main_actions_icon" {
+						texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+					}
+				}
+
+				blockoverride "actions_override" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+
+						action_button_diamond = {
+							size = { 470 30 }
+							text = "tv_host_domestic_exhibition"
+							title = "tv_host_domestic_exhibition"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_host_domestic_exhibition"
+							}
+						}
+					}
+				}
 			}
 		}
 	}

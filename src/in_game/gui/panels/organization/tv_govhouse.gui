@@ -217,6 +217,8 @@ organization_panel = {
 			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
 			datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
 			using = layoutpolicy_expanding
+			blockoverride "name_highlight" {}
+			blockoverride "character_entry_name_sort_by_highlight" {}
 		}
 
 		widget = {

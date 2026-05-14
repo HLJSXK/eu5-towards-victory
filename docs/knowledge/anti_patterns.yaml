@@ -243,6 +243,15 @@
   source: "EU5 engine validation (pdx_gui_validation.cpp:62: 'Unsupported property: size with a percentage on widgets that are a child of a vbox/hbox. Consider using layout policies and stretch factors instead.')"
   notes: "Pattern is empty because static detection requires parsing GUI parent structure. Percent sizes are valid in some plain widget/fixedgrid contexts, but hbox/vbox children are arranged by the box layout and should be driven by layoutpolicy_* or stretch factors."
 
+- id: io_character_card_sort_highlight_without_filtered_list
+  pattern: ''
+  bad: "Using io_character_card outside a FilteredSortedList context without suppressing the inherited name sort highlights"
+  correction: "Inside standalone io_character_card usages, add blockoverride \"name_highlight\" {} and blockoverride \"character_entry_name_sort_by_highlight\" {} unless the card is actually inside a sortable FilteredSortedList."
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/panels/organization/middle_kingdom.gui:226-228"
+  notes: "io_character_card uses character_entry, whose name highlight blocks call FilteredSortedList.IsKeyHoveredByWidgetName. Without a FilteredSortedList datacontext, the GUI data manager spams 'No context supplied' while the card is visible."
+
 - id: building_eu4_price_numeric
   pattern: '^\s*price\s*=\s*\d+'
   only_in_paths: ['building_types']

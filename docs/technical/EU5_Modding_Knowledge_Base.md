@@ -315,6 +315,15 @@ Custom game concepts require both localization and a definition in `main_menu/co
 
 When a widget is a direct child of `hbox` or `vbox`, the box layout owns placement and sizing. Do not set `parentanchor` on those children, and do not use percentage components in their `size` values such as `size = { 97% 72 }`. Use `layoutpolicy_horizontal`, `layoutpolicy_vertical`, stretch factors, or non-percent fixed/min/max sizing instead. For `io_character_card` in an `organization_custom_content` block, vanilla panels rely on the type's built-in `layoutpolicy_expanding` rather than adding a percentage `size` or `parentanchor`.
 
+Standalone `io_character_card` widgets inherit `character_entry` name sort highlights. Those highlights call `FilteredSortedList.IsKeyHoveredByWidgetName`, which only works when a `FilteredSortedList` datacontext exists. For cards shown in custom IO panels, situation panels, or other non-sortable contexts, override both inherited highlight blocks:
+
+```gui
+blockoverride "name_highlight" {}
+blockoverride "character_entry_name_sort_by_highlight" {}
+```
+
+Vanilla `middle_kingdom.gui` applies these exact overrides with a comment that they block error log spam.
+
 ### 7.2. Map Modding
 
 EU5 includes a powerful map editor for modifying the game world. This tool allows for editing the heightmap, terrain textures, and location setup. However, it has high system requirements, recommending at least 32GB of RAM. [11]
