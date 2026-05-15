@@ -1,0 +1,16 @@
+﻿# Towards Victory - Governor's House events
+
+namespace = tv_govhouse
+
+# Fired on the governing country when an appointed regional governor dies.
+# scope:target = the dead governor character from on_character_death.
+tv_govhouse.1 = {
+	type = country_event
+	title = tv_govhouse.1.t
+	desc = tv_govhouse.1.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.1.a
+	}
+}

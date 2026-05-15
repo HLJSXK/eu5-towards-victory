@@ -19,5 +19,6 @@ pulses:
 
   on_character_death:
     - tv_govhouse_char_death           # Grand General death cleanup
+    - tv_govhouse_governor_death       # Governor death cleanup + popup
     - tv_arts_exhibition_char_death    # touring artist + Chief Artist death cleanup
     - tv_academy_char_death            # Chief Scientist death cleanup

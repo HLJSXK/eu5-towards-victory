@@ -22,7 +22,13 @@ tv_govhouse = {
 	leader = {
 		leader_country ?= {
 			var:tv_conquest_general_char ?= {
-				add_to_list = leaders
+				if = {
+					limit = {
+						is_female = no
+						is_artist = no
+					}
+					add_to_list = leaders
+				}
 			}
 		}
 	}

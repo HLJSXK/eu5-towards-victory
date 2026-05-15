@@ -380,6 +380,10 @@ tv_governor_appoint_effect = {
 		limit = {
 			exists = scope:target
 			exists = scope:target_1
+			scope:target = {
+				is_female = no
+				is_artist = no
+			}
 		}
 		# Displace any existing governor for this region first
 		every_in_list = { variable = tv_governor_list

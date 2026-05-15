@@ -55,3 +55,22 @@ tv_govhouse_char_death = {
 		}
 	}
 }
+
+# Death cleanup: if a regional Governor dies, clear their assignment and notify.
+tv_govhouse_governor_death = {
+	trigger = {
+		scope:target = { has_variable = tv_is_governor }
+	}
+	effect = {
+		save_scope_as = tv_governing_country
+		scope:target = {
+			save_scope_as = tv_dead_governor
+		}
+		trigger_event_non_silently = { id = tv_govhouse.1 }
+		scope:target = {
+			tv_governor_clear_assignment_effect = yes
+		}
+		remove_list_variable = { name = tv_governor_list target = scope:tv_dead_governor }
+		tv_govhouse_refresh_region_list_effect = yes
+	}
+}

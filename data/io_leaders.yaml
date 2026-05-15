@@ -61,4 +61,5 @@ ios:
       tv_govhouse_reset_power_consolidation_effect = yes
     char_filter: |
       is_adult = yes
-      # TODO: add eligibility filter — e.g. mil >= 4, or a specific trait
+      is_female = no
+      is_artist = no

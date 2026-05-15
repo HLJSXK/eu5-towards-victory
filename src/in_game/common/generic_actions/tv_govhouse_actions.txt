@@ -23,6 +23,8 @@ tv_train_grand_general = {
 		scope:actor = {
 			var:tv_conquest_general_char ?= {
 				is_alive = yes
+				is_female = no
+				is_artist = no
 				custom_tooltip = {
 					text = TV_HAS_VARIABLE_NOT_SET_TT
 					NOT = { has_variable = tv_gg_training_active }
@@ -71,7 +73,11 @@ tv_appoint_governor = {
 			scope:actor = { has_variable = tv_conquest_general_char }
 		}
 		scope:actor = {
-			var:tv_conquest_general_char ?= { is_alive = yes }
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				is_female = no
+				is_artist = no
+			}
 		}
 		trigger_if = {
 			limit = { exists = scope:target_1 }
@@ -117,6 +123,8 @@ tv_appoint_governor = {
 		visible = {
 			is_alive = yes
 			is_adult = yes
+			is_female = no
+			is_artist = no
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -163,7 +171,11 @@ tv_remove_governor = {
 			scope:actor = { has_variable = tv_conquest_general_char }
 		}
 		scope:actor = {
-			var:tv_conquest_general_char ?= { is_alive = yes }
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				is_female = no
+				is_artist = no
+			}
 		}
 		trigger_if = {
 			limit = { exists = scope:target_1 }
@@ -232,7 +244,11 @@ tv_change_governor = {
 			scope:actor = { has_variable = tv_conquest_general_char }
 		}
 		scope:actor = {
-			var:tv_conquest_general_char ?= { is_alive = yes }
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				is_female = no
+				is_artist = no
+			}
 		}
 		trigger_if = {
 			limit = { exists = scope:target_1 }
@@ -276,6 +292,8 @@ tv_change_governor = {
 		visible = {
 			is_alive = yes
 			is_adult = yes
+			is_female = no
+			is_artist = no
 			is_ruler = no
 			is_heir = no
 			is_consort = no
