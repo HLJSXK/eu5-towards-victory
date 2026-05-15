@@ -141,10 +141,29 @@ organization_panel = {
 												spacing = 2
 												text_single = {
 													size = { 20 22 }
-													datacontext = "[GC('construction')]"
 													raw_text = "@construction!"
 													tooltipwidget = {
-														using = game_concept_tooltip
+														ContextualTooltipType = {
+															blockoverride "title_icon" {
+																icon = {
+																	using = tooltip_title_icon_size
+																	texture = "gfx/interface/icons/modifier_types/small_foreign_building_cost_modifier.dds"
+																}
+															}
+															blockoverride "title_text" {
+																text = "MODIFIER_TYPE_NAME_local_build_buildings_cost"
+															}
+															blockoverride "concept_link" {
+																text = "[location_modifier|E]"
+															}
+															blockoverride "tooltip_content" {
+																TooltipTextBlock = {
+																	blockoverride "text" {
+																		text = "MODIFIER_TYPE_DESC_local_build_buildings_cost"
+																	}
+																}
+															}
+														}
 													}
 													align = nobaseline|center
 												}
