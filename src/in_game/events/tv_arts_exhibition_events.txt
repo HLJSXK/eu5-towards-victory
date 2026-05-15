@@ -742,7 +742,12 @@ tv_arts_exhibition.354 = {
 			1 = { create_character = { age = 30 artist = composer estate = estate_type:burghers_estate artist_skill = { 0.10 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
 			1 = { create_character = { age = 30 artist = writer estate = estate_type:burghers_estate artist_skill = { 0.10 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
 		}
-		scope:new_artist = { move_country = root }
+		hidden_effect = {
+			if = {
+				limit = { exists = scope:new_artist }
+				scope:new_artist = { move_country = root }
+			}
+		}
 	}
 }
 
@@ -760,7 +765,12 @@ tv_arts_exhibition.355 = {
 			1 = { create_character = { age = 30 artist = composer estate = estate_type:burghers_estate artist_skill = { 0.70 0.95 } save_scope_as = new_artist create_in_limbo = yes } }
 			1 = { create_character = { age = 30 artist = writer estate = estate_type:burghers_estate artist_skill = { 0.70 0.95 } save_scope_as = new_artist create_in_limbo = yes } }
 		}
-		scope:new_artist = { move_country = root }
+		hidden_effect = {
+			if = {
+				limit = { exists = scope:new_artist }
+				scope:new_artist = { move_country = root }
+			}
+		}
 	}
 }
 
