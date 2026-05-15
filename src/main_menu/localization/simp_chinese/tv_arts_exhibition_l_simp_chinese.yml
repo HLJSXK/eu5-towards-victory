@@ -330,7 +330,7 @@
  TV_ARTS_INTL_INFLUENCE_FORMAT: "$VAL|1$"
  TV_ARTS_INTL_INFLUENCE_DECAY: "自然衰减"
  tv_local_exhibition_enthusiasm: "展览热情"
- tv_local_exhibition_enthusiasm_desc: "维系当前[tv_domestic_exhibition|e]的公众热度。展览开始时为80，上限为100；展览期间每月自然衰减12。当其降至0时，展览结束。"
+ tv_local_exhibition_enthusiasm_desc: "维系当前[tv_domestic_exhibition|e]的公众热度。展览开始时为80，上限为200；展览期间每月自然衰减12。当其降至0时，展览结束。"
  TV_LOCAL_EXHIBITION_ENTHUSIASM_FORMAT: "$VAL|0$"
  TV_LOCAL_EXHIBITION_ENTHUSIASM_DECAY: "兴趣消退"
  TV_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "获得$VALUE|+$#Y $tv_local_exhibition_enthusiasm$#!"
