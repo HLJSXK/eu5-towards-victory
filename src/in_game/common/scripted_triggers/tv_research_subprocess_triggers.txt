@@ -34,6 +34,93 @@ tv_research_can_start_d_trigger = {
 	var:tv_rm_subprocess_c ?= { this >= 2 }
 }
 
+# ── Frontier target availability pools ────────────────────────────────────────
+tv_research_has_unresearched_age_1_frontier_trigger = {
+	NOT = { has_advance = iron_working }
+}
+
+tv_research_has_unresearched_age_2_frontier_trigger = {
+	OR = {
+		NOT = { has_advance = renaissance_advance }
+		NOT = { has_advance = banking_advance }
+		NOT = { has_advance = professional_armies_advance }
+		NOT = { has_advance = gunpowder_advance }
+	}
+}
+
+tv_research_has_unresearched_age_3_frontier_trigger = {
+	OR = {
+		NOT = { has_advance = new_world_advance }
+		NOT = { has_advance = printing_press_advance }
+		NOT = { has_advance = pike_and_shot_advance }
+		NOT = { has_advance = blast_furnace }
+	}
+}
+
+tv_research_has_unresearched_age_4_frontier_trigger = {
+	OR = {
+		NOT = { has_advance = confessionalism_advance }
+		NOT = { has_advance = global_trade_advance }
+		NOT = { has_advance = artillery_institution_advance }
+		NOT = { has_advance = scientific_experimentation }
+	}
+}
+
+tv_research_has_unresearched_age_5_frontier_trigger = {
+	OR = {
+		NOT = { has_advance = manufactories_advance }
+		NOT = { has_advance = scientific_revolution_advance }
+		NOT = { has_advance = military_revolution_advance }
+	}
+}
+
+tv_research_has_unresearched_age_6_frontier_trigger = {
+	OR = {
+		NOT = { has_advance = enlightenment_advance }
+		NOT = { has_advance = industrialization_advance }
+		NOT = { has_advance = levee_en_masse_advance }
+		NOT = { has_advance = vaccination_advance }
+	}
+}
+
+tv_research_has_unresearched_earlier_than_age_2_frontier_trigger = {
+	tv_research_has_unresearched_age_1_frontier_trigger = yes
+}
+
+tv_research_has_unresearched_earlier_than_age_3_frontier_trigger = {
+	OR = {
+		tv_research_has_unresearched_age_1_frontier_trigger = yes
+		tv_research_has_unresearched_age_2_frontier_trigger = yes
+	}
+}
+
+tv_research_has_unresearched_earlier_than_age_4_frontier_trigger = {
+	OR = {
+		tv_research_has_unresearched_age_1_frontier_trigger = yes
+		tv_research_has_unresearched_age_2_frontier_trigger = yes
+		tv_research_has_unresearched_age_3_frontier_trigger = yes
+	}
+}
+
+tv_research_has_unresearched_earlier_than_age_5_frontier_trigger = {
+	OR = {
+		tv_research_has_unresearched_age_1_frontier_trigger = yes
+		tv_research_has_unresearched_age_2_frontier_trigger = yes
+		tv_research_has_unresearched_age_3_frontier_trigger = yes
+		tv_research_has_unresearched_age_4_frontier_trigger = yes
+	}
+}
+
+tv_research_has_unresearched_earlier_than_age_6_frontier_trigger = {
+	OR = {
+		tv_research_has_unresearched_age_1_frontier_trigger = yes
+		tv_research_has_unresearched_age_2_frontier_trigger = yes
+		tv_research_has_unresearched_age_3_frontier_trigger = yes
+		tv_research_has_unresearched_age_4_frontier_trigger = yes
+		tv_research_has_unresearched_age_5_frontier_trigger = yes
+	}
+}
+
 # ── Target request eligibility ─────────────────────────────────────────────────
 # Player may request a research target when: member of Academy IO, no target selected,
 # selection cooldown is not active, and at least one Frontier advance is unresearched.
@@ -51,16 +138,12 @@ tv_research_can_request_target_trigger = {
 		NOT = { has_variable = tv_research_selection_cd }
 	}
 	OR = {
-		NOT = { has_advance = iron_working }
-		NOT = { has_advance = anatomy_advance }
-		NOT = { has_advance = gunpowder_advance }
-		NOT = { has_advance = printing_press_advance }
-		NOT = { has_advance = blast_furnace }
-		NOT = { has_advance = scientific_experimentation }
-		NOT = { has_advance = scientific_revolution_advance }
-		NOT = { has_advance = manufactories_advance }
-		NOT = { has_advance = industrialization_advance }
-		NOT = { has_advance = vaccination_advance }
+		tv_research_has_unresearched_age_1_frontier_trigger = yes
+		tv_research_has_unresearched_age_2_frontier_trigger = yes
+		tv_research_has_unresearched_age_3_frontier_trigger = yes
+		tv_research_has_unresearched_age_4_frontier_trigger = yes
+		tv_research_has_unresearched_age_5_frontier_trigger = yes
+		tv_research_has_unresearched_age_6_frontier_trigger = yes
 	}
 }
 

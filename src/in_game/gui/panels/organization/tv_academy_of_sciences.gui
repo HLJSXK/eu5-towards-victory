@@ -129,13 +129,6 @@ organization_panel = {
 						align = nobaseline
 					}
 					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)3.0')]"
-						text = "TV_RM_TARGET_ANATOMY"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_ANATOMY_TT"
-						align = nobaseline
-					}
-					text_single = {
 						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)4.0')]"
 						text = "TV_RM_TARGET_GUNPOWDER"
 						default_format = "#explanation_link"
@@ -182,6 +175,83 @@ organization_panel = {
 						text = "TV_RM_TARGET_VACCINATION"
 						default_format = "#explanation_link"
 						tooltip = "TV_RM_TARGET_VACCINATION_TT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)11.0')]"
+						text = "TV_RM_TARGET_RENAISSANCE"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_RENAISSANCE_TT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)12.0')]"
+						text = "TV_RM_TARGET_BANKING"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_BANKING_TT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)13.0')]"
+						text = "TV_RM_TARGET_PROFESSIONAL_ARMIES"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_PROFESSIONAL_ARMIES_TT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)14.0')]"
+						text = "TV_RM_TARGET_NEW_WORLD"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_NEW_WORLD_TT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)15.0')]"
+						text = "TV_RM_TARGET_PIKE_AND_SHOT"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_PIKE_AND_SHOT_TT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)16.0')]"
+						text = "TV_RM_TARGET_CONFESSIONALISM"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_CONFESSIONALISM_TT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)17.0')]"
+						text = "TV_RM_TARGET_GLOBAL_TRADE"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_GLOBAL_TRADE_TT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)18.0')]"
+						text = "TV_RM_TARGET_ARTILLERY_INSTITUTION"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_ARTILLERY_INSTITUTION_TT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)19.0')]"
+						text = "TV_RM_TARGET_MILITARY_REVOLUTION"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_MILITARY_REVOLUTION_TT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)20.0')]"
+						text = "TV_RM_TARGET_ENLIGHTENMENT"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_ENLIGHTENMENT_TT"
+						align = nobaseline
+					}
+					text_single = {
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)21.0')]"
+						text = "TV_RM_TARGET_LEVEE_EN_MASSE"
+						default_format = "#explanation_link"
+						tooltip = "TV_RM_TARGET_LEVEE_EN_MASSE_TT"
 						align = nobaseline
 					}
 				}

@@ -19,6 +19,7 @@
 # Enum assignments for tv_research_target (used in subprocess_effects.txt and GUI):
 #   gui_value must match the hardcoded enum in subprocess_effects.txt — do NOT reorder.
 #   gui_loc_key is derived by the GUI generator as TV_RM_TARGET_<ID_UPPER>.
+#   gui_value 3 is retired (formerly anatomy_advance) and intentionally not reused.
 #
 # DO NOT hand-edit generated output files. Run:
 #   conda run --no-capture-output -n eu5 python scripts/gen_locked_advances.py
@@ -36,12 +37,6 @@ locked_advances:
     vanilla_advance_id: iron_working
     age: 1
     research_unlock_var: tv_advance_iron_working_unlocked
-
-  - id: anatomy
-    gui_value: 3
-    vanilla_advance_id: anatomy_advance
-    age: 2
-    research_unlock_var: tv_advance_anatomy_unlocked
 
   - id: gunpowder
     gui_value: 4
@@ -84,3 +79,69 @@ locked_advances:
     vanilla_advance_id: vaccination_advance
     age: 6
     research_unlock_var: tv_advance_vaccination_unlocked
+
+  - id: renaissance
+    gui_value: 11
+    vanilla_advance_id: renaissance_advance
+    age: 2
+    research_unlock_var: tv_advance_renaissance_unlocked
+
+  - id: banking
+    gui_value: 12
+    vanilla_advance_id: banking_advance
+    age: 2
+    research_unlock_var: tv_advance_banking_unlocked
+
+  - id: professional_armies
+    gui_value: 13
+    vanilla_advance_id: professional_armies_advance
+    age: 2
+    research_unlock_var: tv_advance_professional_armies_unlocked
+
+  - id: new_world
+    gui_value: 14
+    vanilla_advance_id: new_world_advance
+    age: 3
+    research_unlock_var: tv_advance_new_world_unlocked
+
+  - id: pike_and_shot
+    gui_value: 15
+    vanilla_advance_id: pike_and_shot_advance
+    age: 3
+    research_unlock_var: tv_advance_pike_and_shot_unlocked
+
+  - id: confessionalism
+    gui_value: 16
+    vanilla_advance_id: confessionalism_advance
+    age: 4
+    research_unlock_var: tv_advance_confessionalism_unlocked
+
+  - id: global_trade
+    gui_value: 17
+    vanilla_advance_id: global_trade_advance
+    age: 4
+    research_unlock_var: tv_advance_global_trade_unlocked
+
+  - id: artillery_institution
+    gui_value: 18
+    vanilla_advance_id: artillery_institution_advance
+    age: 4
+    research_unlock_var: tv_advance_artillery_institution_unlocked
+
+  - id: military_revolution
+    gui_value: 19
+    vanilla_advance_id: military_revolution_advance
+    age: 5
+    research_unlock_var: tv_advance_military_revolution_unlocked
+
+  - id: enlightenment
+    gui_value: 20
+    vanilla_advance_id: enlightenment_advance
+    age: 6
+    research_unlock_var: tv_advance_enlightenment_unlocked
+
+  - id: levee_en_masse
+    gui_value: 21
+    vanilla_advance_id: levee_en_masse_advance
+    age: 6
+    research_unlock_var: tv_advance_levee_en_masse_unlocked

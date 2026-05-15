@@ -62,10 +62,6 @@ tv_research.10 = {
 				desc = tv_research.10.d_iron_working
 			}
 			triggered_desc = {
-				trigger = { var:tv_research_proposed_advance = 3 }
-				desc = tv_research.10.d_anatomy
-			}
-			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance = 4 }
 				desc = tv_research.10.d_gunpowder
 			}
@@ -92,6 +88,50 @@ tv_research.10 = {
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance = 10 }
 				desc = tv_research.10.d_vaccination
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 11 }
+				desc = tv_research.10.d_renaissance
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 12 }
+				desc = tv_research.10.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 13 }
+				desc = tv_research.10.d_professional_armies
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 14 }
+				desc = tv_research.10.d_new_world
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 15 }
+				desc = tv_research.10.d_pike_and_shot
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 16 }
+				desc = tv_research.10.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 17 }
+				desc = tv_research.10.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 18 }
+				desc = tv_research.10.d_artillery_institution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 19 }
+				desc = tv_research.10.d_military_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 20 }
+				desc = tv_research.10.d_enlightenment
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance = 21 }
+				desc = tv_research.10.d_levee_en_masse
 			}
 		}
 	}
@@ -199,10 +239,6 @@ tv_research.30 = {
 				desc = tv_research.30.d_iron_working
 			}
 			triggered_desc = {
-				trigger = { var:tv_research_target = 3 }
-				desc = tv_research.30.d_anatomy
-			}
-			triggered_desc = {
 				trigger = { var:tv_research_target = 4 }
 				desc = tv_research.30.d_gunpowder
 			}
@@ -230,6 +266,50 @@ tv_research.30 = {
 				trigger = { var:tv_research_target = 10 }
 				desc = tv_research.30.d_vaccination
 			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 11 }
+				desc = tv_research.30.d_renaissance
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 12 }
+				desc = tv_research.30.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 13 }
+				desc = tv_research.30.d_professional_armies
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 14 }
+				desc = tv_research.30.d_new_world
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 15 }
+				desc = tv_research.30.d_pike_and_shot
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 16 }
+				desc = tv_research.30.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 17 }
+				desc = tv_research.30.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 18 }
+				desc = tv_research.30.d_artillery_institution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 19 }
+				desc = tv_research.30.d_military_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 20 }
+				desc = tv_research.30.d_enlightenment
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 21 }
+				desc = tv_research.30.d_levee_en_masse
+			}
 		}
 	}
 	outcome = good
@@ -251,12 +331,6 @@ tv_research.30 = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 2 }
 		tv_unlock_advance_iron_working_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
-	}
-	option = {
-		name = tv_research.30.a	# "Excellent!"
-		trigger = { var:tv_research_target = 3 }
-		tv_unlock_advance_anatomy_effect = yes
 		hidden_effect = { tv_research_reset_cycle_effect = yes }
 	}
 	option = {
@@ -299,6 +373,72 @@ tv_research.30 = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 10 }
 		tv_unlock_advance_vaccination_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 11 }
+		tv_unlock_advance_renaissance_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 12 }
+		tv_unlock_advance_banking_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 13 }
+		tv_unlock_advance_professional_armies_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 14 }
+		tv_unlock_advance_new_world_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 15 }
+		tv_unlock_advance_pike_and_shot_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 16 }
+		tv_unlock_advance_confessionalism_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 17 }
+		tv_unlock_advance_global_trade_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 18 }
+		tv_unlock_advance_artillery_institution_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 19 }
+		tv_unlock_advance_military_revolution_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 20 }
+		tv_unlock_advance_enlightenment_effect = yes
+		hidden_effect = { tv_research_reset_cycle_effect = yes }
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 21 }
+		tv_unlock_advance_levee_en_masse_effect = yes
 		hidden_effect = { tv_research_reset_cycle_effect = yes }
 	}
 }

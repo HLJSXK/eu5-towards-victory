@@ -16,11 +16,6 @@ tv_unlock_advance_iron_working_effect = {
 	research_advance = advance_type:iron_working
 }
 
-tv_unlock_advance_anatomy_effect = {
-	set_variable = { name = tv_advance_anatomy_unlocked value = 1 }
-	research_advance = advance_type:anatomy_advance
-}
-
 tv_unlock_advance_gunpowder_effect = {
 	set_variable = { name = tv_advance_gunpowder_unlocked value = 1 }
 	research_advance = advance_type:gunpowder_advance
@@ -54,4 +49,59 @@ tv_unlock_advance_industrialization_effect = {
 tv_unlock_advance_vaccination_effect = {
 	set_variable = { name = tv_advance_vaccination_unlocked value = 1 }
 	research_advance = advance_type:vaccination_advance
+}
+
+tv_unlock_advance_renaissance_effect = {
+	set_variable = { name = tv_advance_renaissance_unlocked value = 1 }
+	research_advance = advance_type:renaissance_advance
+}
+
+tv_unlock_advance_banking_effect = {
+	set_variable = { name = tv_advance_banking_unlocked value = 1 }
+	research_advance = advance_type:banking_advance
+}
+
+tv_unlock_advance_professional_armies_effect = {
+	set_variable = { name = tv_advance_professional_armies_unlocked value = 1 }
+	research_advance = advance_type:professional_armies_advance
+}
+
+tv_unlock_advance_new_world_effect = {
+	set_variable = { name = tv_advance_new_world_unlocked value = 1 }
+	research_advance = advance_type:new_world_advance
+}
+
+tv_unlock_advance_pike_and_shot_effect = {
+	set_variable = { name = tv_advance_pike_and_shot_unlocked value = 1 }
+	research_advance = advance_type:pike_and_shot_advance
+}
+
+tv_unlock_advance_confessionalism_effect = {
+	set_variable = { name = tv_advance_confessionalism_unlocked value = 1 }
+	research_advance = advance_type:confessionalism_advance
+}
+
+tv_unlock_advance_global_trade_effect = {
+	set_variable = { name = tv_advance_global_trade_unlocked value = 1 }
+	research_advance = advance_type:global_trade_advance
+}
+
+tv_unlock_advance_artillery_institution_effect = {
+	set_variable = { name = tv_advance_artillery_institution_unlocked value = 1 }
+	research_advance = advance_type:artillery_institution_advance
+}
+
+tv_unlock_advance_military_revolution_effect = {
+	set_variable = { name = tv_advance_military_revolution_unlocked value = 1 }
+	research_advance = advance_type:military_revolution_advance
+}
+
+tv_unlock_advance_enlightenment_effect = {
+	set_variable = { name = tv_advance_enlightenment_unlocked value = 1 }
+	research_advance = advance_type:enlightenment_advance
+}
+
+tv_unlock_advance_levee_en_masse_effect = {
+	set_variable = { name = tv_advance_levee_en_masse_unlocked value = 1 }
+	research_advance = advance_type:levee_en_masse_advance
 }
