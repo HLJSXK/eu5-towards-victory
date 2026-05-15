@@ -31,6 +31,10 @@ tv_academy_of_sciences = {
 	parliament_type = tv_academy_assembly
 	resolution_widget = parliament
 
+	special_statuses_implemented = {
+		tv_academy_member
+	}
+
 	leader = {
 		leader_country ?= {
 			var:tv_academy_leader_char ?= {

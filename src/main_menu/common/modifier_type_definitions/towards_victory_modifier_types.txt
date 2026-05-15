@@ -86,6 +86,20 @@ tv_local_exhibition_designate_treasure_price_cost_modifier = {
 	}
 }
 
+tv_academy_member_can_participate_in_parliament = {
+	boolean = yes
+	game_data = {
+		category = internationalorganization
+	}
+}
+
+tv_academy_member_agenda_impact = {
+	percent = yes
+	game_data = {
+		category = internationalorganization
+	}
+}
+
 tv_alliance_advocator_can_participate_in_parliament = {
 	boolean = yes
 	game_data = {

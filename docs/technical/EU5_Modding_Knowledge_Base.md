@@ -108,6 +108,14 @@ monthly_effect = {
 
 Vanilla IOs such as HRE and Union use this pattern. Keep `monthly_change` entries visible when the player should see an IO variable's monthly breakdown; use `hidden_effect` for non-player-facing `monthly_effect` logic.
 
+#### International Organization Law Votes and Special Status Power
+
+For an IO law system that routes policy changes through the parliament UI, the parliament type and the laws are only part of the setup. `requires_vote = yes` on the law and `uses_parliament_for_law_votes = yes` on the parliament type start the policy vote flow, but vote eligibility is driven by special status power.
+
+Create an entry under `common/international_organization_special_statuses`, list that status in the IO type's `special_statuses_implemented`, give the status a `special_status_power`, and enable a matching `<status>_can_participate_in_parliament = yes` modifier in the IO parliament type. The matching modifier type belongs in `main_menu/common/modifier_type_definitions` with `game_data = { category = internationalorganization }`.
+
+Vanilla `policy_vote` checks `country_combined_special_status_power(scope:recipient) > 0` for IOs using parliament law votes. If no implemented special status supplies voting power, a law debate may begin but the IO parliament page has no voter group to display.
+
 ### 4.4. Common File Types and Formats
 
 Modders primarily work with a few text-based file formats:

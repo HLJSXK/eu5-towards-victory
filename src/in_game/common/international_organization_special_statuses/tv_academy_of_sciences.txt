@@ -1,0 +1,13 @@
+﻿tv_academy_member = {
+	priority = 5
+	can_bestow_trigger = {
+		is_member_of_international_organization = scope:recipient
+	}
+	auto_bestowal_trigger = {
+		always = yes
+	}
+	auto_rescind_trigger = {
+		NOT = { is_member_of_international_organization = scope:recipient }
+	}
+	special_status_power = 1
+}
