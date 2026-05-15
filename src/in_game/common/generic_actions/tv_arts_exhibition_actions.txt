@@ -389,8 +389,12 @@ tv_local_exhibition_expand = {
 				text = TV_HAS_LOCAL_EXHIBITION_EXPAND_NOT_SET_TT
 				NOT = { has_variable = tv_local_exhibition_expand_done }
 			}
-			any_owned_location = {
-				NOT = { has_building = building_type:tv_local_arts_exhibition }
+			var:tv_local_exhibition_location ?= {
+				any_neighbor_location = {
+					has_owner = yes
+					owner ?= scope:actor
+					NOT = { has_building = building_type:tv_local_arts_exhibition }
+				}
 			}
 		}
 	}
@@ -408,6 +412,13 @@ tv_local_exhibition_expand = {
 			has_owner = yes
 			owner ?= scope:actor
 			NOT = { has_building = building_type:tv_local_arts_exhibition }
+			scope:actor = {
+				var:tv_local_exhibition_location ?= {
+					any_neighbor_location = {
+						this = root
+					}
+				}
+			}
 		}
 	}
 
