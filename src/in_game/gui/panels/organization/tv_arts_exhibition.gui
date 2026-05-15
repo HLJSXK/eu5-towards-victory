@@ -153,76 +153,11 @@ organization_panel = {
 			}
 		}
 
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
-			text = "tv_local_exhibition_royal_visit"
-			title = "tv_local_exhibition_royal_visit"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = { action_name = "tv_local_exhibition_royal_visit" }
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
-			text = "tv_local_exhibition_radical_art"
-			title = "tv_local_exhibition_radical_art"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = { action_name = "tv_local_exhibition_radical_art" }
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
-			text = "tv_local_exhibition_expand"
-			title = "tv_local_exhibition_expand"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = { action_name = "tv_local_exhibition_expand" }
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
-			text = "tv_local_exhibition_sell_art"
-			title = "tv_local_exhibition_sell_art"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = { action_name = "tv_local_exhibition_sell_art" }
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
-			text = "tv_local_exhibition_recruit_artists"
-			title = "tv_local_exhibition_recruit_artists"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = { action_name = "tv_local_exhibition_recruit_artists" }
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
-			text = "tv_local_exhibition_invite_foreign_artist"
-			title = "tv_local_exhibition_invite_foreign_artist"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = { action_name = "tv_local_exhibition_invite_foreign_artist" }
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
-			text = "tv_local_exhibition_designate_treasure"
-			title = "tv_local_exhibition_designate_treasure"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = { action_name = "tv_local_exhibition_designate_treasure" }
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
-			text = "tv_local_exhibition_live_creation"
-			title = "tv_local_exhibition_live_creation"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = { action_name = "tv_local_exhibition_live_creation" }
-		}
-
 		# ── IO Leader management ──────────────────────────────────────────────
 		# Visibility is gated by the appointed-leader country variable on the player.
 		action_button_diamond = {
 			size = { 470 30 }
-			visible = "[Not(Player.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet)]"
+			visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet)]"
 			text = "tv_appoint_arts_leader"
 			title = "tv_appoint_arts_leader"
 			actor = "[InternationalOrganizationsView.GetPlayer]"
@@ -232,7 +167,7 @@ organization_panel = {
 		}
 		action_button_diamond = {
 			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
+			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
 			text = "tv_change_arts_leader"
 			title = "tv_change_arts_leader"
 			actor = "[InternationalOrganizationsView.GetPlayer]"
@@ -242,7 +177,7 @@ organization_panel = {
 		}
 		action_button_diamond = {
 			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
+			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
 			text = "tv_remove_arts_leader"
 			title = "tv_remove_arts_leader"
 			actor = "[InternationalOrganizationsView.GetPlayer]"
@@ -403,7 +338,7 @@ organization_panel = {
 
 						action_button_diamond = {
 							size = { 470 30 }
-							visible = "[Not(Player.MakeScope.GetVariable('tv_local_exhibition_active').IsSet)]"
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet)]"
 							text = "tv_host_domestic_exhibition"
 							title = "tv_host_domestic_exhibition"
 							actor = "[InternationalOrganizationsView.GetPlayer]"
@@ -413,13 +348,77 @@ organization_panel = {
 						}
 						action_button_diamond = {
 							size = { 470 30 }
-							visible = "[Player.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
 							text = "tv_local_exhibition_add_artworks"
 							title = "tv_local_exhibition_add_artworks"
 							actor = "[InternationalOrganizationsView.GetPlayer]"
 							left_action = {
 								action_name = "tv_local_exhibition_add_artworks"
 							}
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
+							text = "tv_local_exhibition_royal_visit"
+							title = "tv_local_exhibition_royal_visit"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_local_exhibition_royal_visit" }
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
+							text = "tv_local_exhibition_radical_art"
+							title = "tv_local_exhibition_radical_art"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_local_exhibition_radical_art" }
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
+							text = "tv_local_exhibition_expand"
+							title = "tv_local_exhibition_expand"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_local_exhibition_expand" }
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
+							text = "tv_local_exhibition_sell_art"
+							title = "tv_local_exhibition_sell_art"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_local_exhibition_sell_art" }
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
+							text = "tv_local_exhibition_recruit_artists"
+							title = "tv_local_exhibition_recruit_artists"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_local_exhibition_recruit_artists" }
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
+							text = "tv_local_exhibition_invite_foreign_artist"
+							title = "tv_local_exhibition_invite_foreign_artist"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_local_exhibition_invite_foreign_artist" }
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
+							text = "tv_local_exhibition_designate_treasure"
+							title = "tv_local_exhibition_designate_treasure"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_local_exhibition_designate_treasure" }
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
+							text = "tv_local_exhibition_live_creation"
+							title = "tv_local_exhibition_live_creation"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_local_exhibition_live_creation" }
 						}
 					}
 				}
