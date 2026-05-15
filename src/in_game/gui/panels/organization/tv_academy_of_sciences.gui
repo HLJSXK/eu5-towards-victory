@@ -401,9 +401,13 @@ organization_panel = {
 
 	# -- Chief Scientist tab: reuse the vanilla resolutions slot -----------------
 	blockoverride "organization_resolutions_content" {
+		margin = { 0 0 }
+
 		vbox = {
 			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			ignoreinvisible = yes
 			spacing = 10
 
 			card_common = {
@@ -506,6 +510,8 @@ organization_panel = {
 				}
 			}
 		}
+
+		expand = {}
 	}
 
 	# -- Medicine tab: enable the custom tab slot -------------------------------
