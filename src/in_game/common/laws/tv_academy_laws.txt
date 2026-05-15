@@ -4,7 +4,7 @@
 # Do not edit directly - modify the data file and re-run the generator.
 #
 # TOWARDS VICTORY - ACADEMY OF SCIENCES LAWS
-# 6 laws under the Scientific Factions law category.
+# Academy laws under the Scientific Factions and Leadership law categories.
 # requires_vote = yes: Academy law changes use the IO parliament tab.
 
 # ------------------------------------------------------------------------------
@@ -346,6 +346,38 @@ tv_academy_academic_prestige_law = {
 			research_speed_modifier = 0.05
 			diplomatic_reputation = -1
 			monthly_prestige = -0.05
+		}
+	}
+}
+
+# ------------------------------------------------------------------------------
+# LAW 7: Leader Gender Restriction
+# ------------------------------------------------------------------------------
+tv_academy_leader_gender_law = {
+	type = international_organization
+	law_category = tv_academy_leadership
+	potential = {
+		international_organization_type = international_organization_type:tv_academy_of_sciences
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	requires_vote = yes
+	custom_tags = { forbids_no_policy }
+
+	# Male Only (default)
+	tv_academy_leader_gender_male_only_policy = {
+		allow = {
+			always = yes
+		}
+	}
+
+	# Unrestricted
+	tv_academy_leader_gender_unrestricted_policy = {
+		allow = {
+			always = yes
 		}
 	}
 }

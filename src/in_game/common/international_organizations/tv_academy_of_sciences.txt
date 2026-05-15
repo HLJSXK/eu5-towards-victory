@@ -141,6 +141,10 @@ tv_academy_of_sciences = {
 				limit = { NOT = { international_organization_has_law = law:tv_academy_academic_prestige_law } }
 				add_policy_to_international_organization = policy:tv_academy_academic_prestige_none_policy
 			}
+			if = {
+				limit = { NOT = { international_organization_has_law = law:tv_academy_leader_gender_law } }
+				add_policy_to_international_organization = policy:tv_academy_leader_gender_male_only_policy
+			}
 		}
 
 		# C: update in-progress display (0→1) when C has begun accumulating
@@ -213,6 +217,7 @@ tv_academy_of_sciences = {
 			add_policy_to_international_organization = policy:tv_academy_research_funding_private_policy
 			add_policy_to_international_organization = policy:tv_academy_technology_spread_laissez_faire_policy
 			add_policy_to_international_organization = policy:tv_academy_academic_prestige_none_policy
+			add_policy_to_international_organization = policy:tv_academy_leader_gender_male_only_policy
 		}
 	}
 
