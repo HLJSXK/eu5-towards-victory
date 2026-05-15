@@ -242,7 +242,14 @@ tv_governor_appoint_effect = {
 		}
 		# Displace any existing governor for this region first
 		every_in_list = { variable = tv_governor_list
-			limit = { var:tv_governed_region ?= scope:target_1 }
+			limit = {
+				OR = {
+					var:tv_governed_region ?= scope:target_1
+					var:tv_governed_area ?= {
+						region = scope:target_1
+					}
+				}
+			}
 			var:tv_governed_region ?= {
 				every_location_in_region = {
 					limit = { owner ?= scope:tv_governing_country }
