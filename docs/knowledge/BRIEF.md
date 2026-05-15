@@ -201,6 +201,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | gui | any | text_single widget inside blockoverride "common_header_text" | blockoverride overrides a 'text' property value, not a widget container; do not add child widgets | Guessing block structure causes silent failures; always read cards.gui before using blockoverride |
 | modifier | country | trade_efficiency = <value> | Use trade_land_efficiency and trade_sea_efficiency separately (both category=country, percent) | trade_efficiency does not exist in EU5; split into trade_land_efficiency + trade_sea_efficiency |
 | localization | any | Smart/curly quotes (“”‘’) in localization YAML | Use straight ASCII double-quotes (") only; escape with \" inside values | PDX parser rejects non-ASCII quote characters; the failure is silent |
+| localization | international_organization | Custom IO law category localized only by raw category id (e.g. tv_science_factions) | Also define <CATEGORY_ID_UPPERCASE>_LAW_CATEGORY in main_menu localization, e.g. TV_SCIENCE_FACTIONS_LAW_CATEGORY | The vanilla IO Laws tab displays InternationalOrganizationLawCategory.GetName and looks up the uppercase *_LAW_CATEGORY key for law category headers; missing keys render literally. |
 | scope | location | add_province_modifier (EU4 effect) | add_location_modifier or add_static_modifier with location scope | EU4 province scope effects do not exist in EU5; use location-scoped equivalents |
 | scope | location | has_province_modifier (EU4 trigger) | has_location_modifier | EU4 province scope triggers do not exist in EU5 |
 | precision | any | float literal with 6+ decimal places (e.g. value = 0.123456789) | Round to at most 5 decimal places: value = 0.12346; EU5 engine reads no further | EU5 engine truncates all float literals at 5 decimal places; digits beyond the 5th are silently ignored |
@@ -310,7 +311,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | Scripted Triggers | 515 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 553 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 945 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 947 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

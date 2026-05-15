@@ -90,6 +90,15 @@
   source: "reference_official_defines/docs/data_types_gui.txt"
   notes: "PDX parser rejects non-ASCII quote characters; the failure is silent"
 
+- id: io_law_category_missing_uppercase_loc
+  pattern: ''
+  bad: "Custom IO law category localized only by raw category id (e.g. tv_science_factions)"
+  correction: "Also define <CATEGORY_ID_UPPERCASE>_LAW_CATEGORY in main_menu localization, e.g. TV_SCIENCE_FACTIONS_LAW_CATEGORY"
+  category: localization
+  scope: international_organization
+  source: "user-reported runtime UI behavior (2026-05-15)"
+  notes: "The vanilla IO Laws tab displays InternationalOrganizationLawCategory.GetName and looks up the uppercase *_LAW_CATEGORY key for law category headers; missing keys render literally."
+
 - id: eu4_province_modifier_scope
   pattern: 'add_province_modifier'
   bad: "add_province_modifier (EU4 effect)"
