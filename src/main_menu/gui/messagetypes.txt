@@ -12288,6 +12288,46 @@ PERFORM_tv_train_grand_general_ACTION={
 	message_category = society
 }
 
+PERFORM_tv_plan_offensive_strategy_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = military
+}
+
+PERFORM_tv_plan_defensive_strategy_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = military
+}
+
+PERFORM_tv_abort_war_plan_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = military
+}
+
+PERFORM_tv_change_war_plan_target_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = military
+}
+
 PERFORM_tv_appoint_conquest_general_leader_ACTION={
 	log=yes
 	onmap=no

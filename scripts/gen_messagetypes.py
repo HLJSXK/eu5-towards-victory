@@ -266,6 +266,46 @@ PERFORM_tv_train_grand_general_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_plan_offensive_strategy_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = military
+}
+
+PERFORM_tv_plan_defensive_strategy_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = military
+}
+
+PERFORM_tv_abort_war_plan_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = military
+}
+
+PERFORM_tv_change_war_plan_target_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = military
+}
+
 PERFORM_tv_appoint_conquest_general_leader_ACTION={
 \tlog=yes
 \tonmap=no

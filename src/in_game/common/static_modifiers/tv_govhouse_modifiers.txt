@@ -3,3 +3,59 @@
 tv_grand_general_training_modifier = {
 	court_spending_cost_modifier = 0.10
 }
+
+# War Tent - Grand General tactics
+tv_govhouse_tactic_steady_advance = {
+	land_morale_modifier = 0.05
+}
+
+tv_govhouse_tactic_careful_advance = {
+	army_movement_speed = -0.10
+	discipline = 0.05
+}
+
+tv_govhouse_tactic_rapid_advance = {
+	army_movement_speed = 0.20
+	land_morale_modifier = 0.10
+	military_tactics = -0.20
+}
+
+tv_govhouse_tactic_guerrilla = {
+	army_movement_speed = 0.10
+	military_tactics = 0.20
+}
+
+tv_govhouse_tactic_siege_relief = {
+	siege_ability = 0.10
+}
+
+tv_govhouse_tactic_ambush_general = {
+	game_data = {
+		category = character
+	}
+	commander_combat_bonus = 1
+}
+
+tv_govhouse_tactic_surprise_general = {
+	game_data = {
+		category = character
+	}
+	commander_combat_bonus = 1
+}
+
+# War Tent - scaling war-plan modifiers. The applied size carries the real value.
+tv_govhouse_offensive_plan_siege = {
+	siege_ability = 1
+}
+
+tv_govhouse_offensive_plan_discipline = {
+	discipline = 1
+}
+
+tv_govhouse_defensive_plan_fort = {
+	global_defensive = 1
+}
+
+tv_govhouse_defensive_plan_tactics = {
+	military_tactics = 1
+}

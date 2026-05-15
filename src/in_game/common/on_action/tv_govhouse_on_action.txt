@@ -162,6 +162,14 @@ tv_govhouse_negative_monthly_pulse = {
 	}
 }
 
+# Monthly War Tent processing: plan progress, active plan modifiers, and
+# the 5% Grand General tactic-change roll while at war.
+tv_govhouse_war_tent_monthly_pulse = {
+	effect = {
+		tv_govhouse_war_tent_monthly_effect = yes
+	}
+}
+
 # Death cleanup: if the Grand General dies, clear country variables and notify.
 tv_govhouse_char_death = {
 	effect = {
@@ -197,6 +205,7 @@ tv_govhouse_char_death = {
 				trigger_event_non_silently = { id = tv_govhouse.2 }
 			}
 			tv_govhouse_reset_power_consolidation_effect = yes
+			tv_govhouse_clear_war_tent_effect = yes
 			tv_training_clear_effect = yes
 			remove_variable = tv_conquest_general_char
 		}

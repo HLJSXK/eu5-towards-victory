@@ -308,6 +308,492 @@ tv_training_resolve_effect = {
 	tv_training_clear_effect = yes
 }
 
+# ── War Tent (战帐): tactics and war plans ──────────────────────────────────
+# Scope for all effects in this section: country.
+
+tv_govhouse_remove_tactic_modifiers_effect = {
+	remove_country_modifier = tv_govhouse_tactic_steady_advance
+	remove_country_modifier = tv_govhouse_tactic_careful_advance
+	remove_country_modifier = tv_govhouse_tactic_rapid_advance
+	remove_country_modifier = tv_govhouse_tactic_guerrilla
+	remove_country_modifier = tv_govhouse_tactic_siege_relief
+	var:tv_conquest_general_char ?= {
+		remove_character_modifier = tv_govhouse_tactic_ambush_general
+		remove_character_modifier = tv_govhouse_tactic_surprise_general
+	}
+}
+
+tv_govhouse_apply_tactic_effect = {
+	tv_govhouse_remove_tactic_modifiers_effect = yes
+	if = {
+		limit = { var:tv_govhouse_active_tactic = 1 }
+		add_country_modifier = { modifier = tv_govhouse_tactic_steady_advance years = -1 mode = replace }
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic = 2 }
+		add_country_modifier = { modifier = tv_govhouse_tactic_careful_advance years = -1 mode = replace }
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic = 3 }
+		add_country_modifier = { modifier = tv_govhouse_tactic_rapid_advance years = -1 mode = replace }
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic = 4 }
+		var:tv_conquest_general_char ?= {
+			add_character_modifier = { modifier = tv_govhouse_tactic_ambush_general years = -1 mode = replace }
+		}
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic = 5 }
+		var:tv_conquest_general_char ?= {
+			add_character_modifier = { modifier = tv_govhouse_tactic_surprise_general years = -1 mode = replace }
+		}
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic = 6 }
+		add_country_modifier = { modifier = tv_govhouse_tactic_guerrilla years = -1 mode = replace }
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic = 7 }
+		add_country_modifier = { modifier = tv_govhouse_tactic_siege_relief years = -1 mode = replace }
+	}
+}
+
+tv_govhouse_clear_tactic_effect = {
+	tv_govhouse_remove_tactic_modifiers_effect = yes
+	remove_variable = tv_govhouse_pending_tactic
+	remove_variable = tv_govhouse_active_tactic
+	remove_variable = tv_govhouse_tactic_offered_this_war
+}
+
+tv_govhouse_pick_pending_tactic_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+				has_variable = tv_conquest_general_char
+			}
+			var:tv_conquest_general_char ?= { is_alive = yes }
+			at_war = yes
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_NOT_SET_TT
+				NOT = { has_variable = tv_govhouse_pending_tactic }
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable = tv_govhouse_active_tactic }
+					var:tv_govhouse_active_tactic < 1
+					var:tv_govhouse_active_tactic > 7
+				}
+			}
+			random_list = {
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_active_tactic = 1 }
+			random_list = {
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_active_tactic = 2 }
+			random_list = {
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_active_tactic = 3 }
+			random_list = {
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_active_tactic = 4 }
+			random_list = {
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_active_tactic = 5 }
+			random_list = {
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_active_tactic = 6 }
+			random_list = {
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			}
+		}
+		else = {
+			random_list = {
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
+				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
+			}
+		}
+		set_variable = { name = tv_govhouse_tactic_offered_this_war value = 1 }
+		trigger_event_non_silently = { id = tv_govhouse.40 }
+	}
+}
+
+tv_govhouse_approve_pending_tactic_effect = {
+	if = {
+		limit = {
+			at_war = yes
+			custom_tooltip = {
+				text = TV_GOVHOUSE_HAS_PENDING_TACTIC_TT
+				has_variable = tv_govhouse_pending_tactic
+			}
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+				has_variable = tv_conquest_general_char
+			}
+			var:tv_conquest_general_char ?= { is_alive = yes }
+		}
+		set_variable = { name = tv_govhouse_active_tactic value = var:tv_govhouse_pending_tactic }
+		remove_variable = tv_govhouse_pending_tactic
+		tv_govhouse_apply_tactic_effect = yes
+	}
+	else = {
+		tv_govhouse_clear_tactic_effect = yes
+	}
+}
+
+tv_govhouse_deny_pending_tactic_effect = {
+	remove_variable = tv_govhouse_pending_tactic
+}
+
+tv_govhouse_clear_war_plan_modifiers_effect = {
+	remove_country_modifier = tv_govhouse_offensive_plan_siege
+	remove_country_modifier = tv_govhouse_offensive_plan_discipline
+	remove_country_modifier = tv_govhouse_defensive_plan_fort
+	remove_country_modifier = tv_govhouse_defensive_plan_tactics
+}
+
+tv_govhouse_update_plan_display_effect = {
+	if = {
+		limit = { NOT = { has_variable = tv_govhouse_plan_progress } }
+		set_variable = { name = tv_govhouse_plan_progress value = 0 }
+	}
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+				has_variable = tv_conquest_general_char
+			}
+			var:tv_conquest_general_char ?= { is_alive = yes }
+		}
+		set_variable = {
+			name = tv_govhouse_plan_monthly_gain
+			value = {
+				value = var:tv_conquest_general_char.adm
+				multiply = 0.05
+			}
+		}
+	}
+	else = {
+		set_variable = { name = tv_govhouse_plan_monthly_gain value = 0 }
+	}
+	set_variable = {
+		name = tv_govhouse_plan_siege_value
+		value = {
+			value = var:tv_govhouse_plan_progress
+			multiply = 0.002
+		}
+	}
+	set_variable = {
+		name = tv_govhouse_plan_discipline_value
+		value = {
+			value = var:tv_govhouse_plan_progress
+			multiply = 0.001
+		}
+	}
+	set_variable = {
+		name = tv_govhouse_plan_fort_value
+		value = {
+			value = var:tv_govhouse_plan_progress
+			multiply = 0.002
+		}
+	}
+	set_variable = {
+		name = tv_govhouse_plan_tactics_value
+		value = {
+			value = var:tv_govhouse_plan_progress
+			multiply = 0.005
+		}
+	}
+}
+
+tv_govhouse_update_plan_progress_effect = {
+	if = {
+		limit = {
+			has_variable = tv_govhouse_plan_type
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+				has_variable = tv_conquest_general_char
+			}
+			var:tv_conquest_general_char ?= { is_alive = yes }
+		}
+		if = {
+			limit = { NOT = { has_variable = tv_govhouse_plan_progress } }
+			set_variable = { name = tv_govhouse_plan_progress value = 0 }
+		}
+		set_variable = {
+			name = tv_govhouse_plan_progress
+			value = {
+				value = var:tv_govhouse_plan_progress
+				add = {
+					value = var:tv_conquest_general_char.adm
+					multiply = 0.05
+				}
+				max = 100
+				min = 0
+			}
+		}
+	}
+	tv_govhouse_update_plan_display_effect = yes
+}
+
+tv_govhouse_update_plan_modifiers_effect = {
+	save_temporary_scope_as = tv_govhouse_plan_owner
+	tv_govhouse_clear_war_plan_modifiers_effect = yes
+	tv_govhouse_update_plan_display_effect = yes
+	if = {
+		limit = {
+			has_variable = tv_govhouse_plan_type
+			var:tv_govhouse_plan_type = 1
+			has_variable = tv_govhouse_plan_target
+		}
+		var:tv_govhouse_plan_target ?= { save_temporary_scope_as = tv_govhouse_current_plan_target }
+		if = {
+			limit = {
+				exists = scope:tv_govhouse_current_plan_target
+				is_at_war_with = scope:tv_govhouse_current_plan_target
+			}
+			add_country_modifier = {
+				modifier = tv_govhouse_offensive_plan_siege
+				years = -1
+				mode = replace
+				size = { value = var:tv_govhouse_plan_siege_value }
+			}
+			add_country_modifier = {
+				modifier = tv_govhouse_offensive_plan_discipline
+				years = -1
+				mode = replace
+				size = { value = var:tv_govhouse_plan_discipline_value }
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_variable = tv_govhouse_plan_type
+			var:tv_govhouse_plan_type = 2
+			at_war = yes
+			any_current_war = {
+				is_a_defender = scope:tv_govhouse_plan_owner
+			}
+		}
+		add_country_modifier = {
+			modifier = tv_govhouse_defensive_plan_fort
+			years = -1
+			mode = replace
+			size = { value = var:tv_govhouse_plan_fort_value }
+		}
+		add_country_modifier = {
+			modifier = tv_govhouse_defensive_plan_tactics
+			years = -1
+			mode = replace
+			size = { value = var:tv_govhouse_plan_tactics_value }
+		}
+	}
+}
+
+tv_govhouse_clear_war_plan_effect = {
+	tv_govhouse_clear_war_plan_modifiers_effect = yes
+	remove_variable = tv_govhouse_plan_type
+	remove_variable = tv_govhouse_plan_target
+	remove_variable = tv_govhouse_plan_progress
+	remove_variable = tv_govhouse_plan_monthly_gain
+	remove_variable = tv_govhouse_plan_siege_value
+	remove_variable = tv_govhouse_plan_discipline_value
+	remove_variable = tv_govhouse_plan_fort_value
+	remove_variable = tv_govhouse_plan_tactics_value
+}
+
+tv_govhouse_clear_war_tent_effect = {
+	tv_govhouse_clear_tactic_effect = yes
+	tv_govhouse_clear_war_plan_effect = yes
+}
+
+tv_govhouse_start_offensive_plan_effect = {
+	if = {
+		limit = { exists = scope:target }
+		tv_govhouse_clear_war_plan_effect = yes
+		set_variable = { name = tv_govhouse_plan_type value = 1 }
+		set_variable = { name = tv_govhouse_plan_target value = scope:target }
+		set_variable = { name = tv_govhouse_plan_progress value = 0 }
+		tv_govhouse_update_plan_modifiers_effect = yes
+	}
+}
+
+tv_govhouse_start_defensive_plan_effect = {
+	tv_govhouse_clear_war_plan_effect = yes
+	set_variable = { name = tv_govhouse_plan_type value = 2 }
+	set_variable = { name = tv_govhouse_plan_progress value = 0 }
+	tv_govhouse_update_plan_modifiers_effect = yes
+}
+
+tv_govhouse_war_entry_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_GOVHOUSE_MEMBER_TT
+				has_variable = tv_govhouse_member
+			}
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+				has_variable = tv_conquest_general_char
+			}
+			var:tv_conquest_general_char ?= { is_alive = yes }
+			at_war = yes
+			NOT = { has_variable = tv_govhouse_active_tactic }
+			NOT = { has_variable = tv_govhouse_pending_tactic }
+		}
+		tv_govhouse_pick_pending_tactic_effect = yes
+	}
+	tv_govhouse_update_plan_modifiers_effect = yes
+}
+
+tv_govhouse_war_end_for_country_effect = {
+	save_temporary_scope_as = tv_govhouse_war_plan_owner
+	if = {
+		limit = {
+			has_variable = tv_govhouse_plan_type
+			var:tv_govhouse_plan_type = 1
+			has_variable = tv_govhouse_plan_target
+			exists = scope:war
+		}
+		var:tv_govhouse_plan_target ?= { save_temporary_scope_as = tv_govhouse_peace_plan_target }
+		if = {
+			limit = {
+				exists = scope:tv_govhouse_peace_plan_target
+				scope:war = {
+					OR = {
+						AND = {
+							is_an_attacker = scope:tv_govhouse_war_plan_owner
+							is_a_defender = scope:tv_govhouse_peace_plan_target
+						}
+						AND = {
+							is_a_defender = scope:tv_govhouse_war_plan_owner
+							is_an_attacker = scope:tv_govhouse_peace_plan_target
+						}
+					}
+				}
+			}
+			tv_govhouse_clear_war_plan_effect = yes
+		}
+		else = {
+			tv_govhouse_update_plan_modifiers_effect = yes
+		}
+	}
+	if = {
+		limit = { NOT = { at_war = yes } }
+		tv_govhouse_clear_tactic_effect = yes
+	}
+	else = {
+		tv_govhouse_update_plan_modifiers_effect = yes
+	}
+}
+
+tv_govhouse_war_tent_monthly_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_GOVHOUSE_MEMBER_TT
+				has_variable = tv_govhouse_member
+			}
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+				has_variable = tv_conquest_general_char
+			}
+			var:tv_conquest_general_char ?= { is_alive = yes }
+		}
+		tv_govhouse_update_plan_progress_effect = yes
+		tv_govhouse_update_plan_modifiers_effect = yes
+		if = {
+			limit = { at_war = yes }
+			if = {
+				limit = {
+					NOT = { has_variable = tv_govhouse_active_tactic }
+					NOT = { has_variable = tv_govhouse_pending_tactic }
+					NOT = { has_variable = tv_govhouse_tactic_offered_this_war }
+				}
+				tv_govhouse_pick_pending_tactic_effect = yes
+			}
+			else_if = {
+				limit = {
+					has_variable = tv_govhouse_active_tactic
+					NOT = { has_variable = tv_govhouse_pending_tactic }
+				}
+				random_list = {
+					95 = {}
+					5 = { tv_govhouse_pick_pending_tactic_effect = yes }
+				}
+			}
+		}
+		else = {
+			tv_govhouse_clear_tactic_effect = yes
+			tv_govhouse_update_plan_modifiers_effect = yes
+		}
+	}
+	else = {
+		tv_govhouse_clear_war_tent_effect = yes
+	}
+}
+
 # ── Governor system (总督 per region) ───────────────────────────────────────
 # Data model:
 #   tv_govhouse_region_list: country variable list of region scopes, rebuilt monthly

@@ -69,10 +69,12 @@ ios:
       tv_govhouse_reset_power_consolidation_effect = yes
     on_remove_effect: |
       tv_training_clear_effect = yes
+      tv_govhouse_clear_war_tent_effect = yes
       tv_govhouse_pay_grand_general_replacement_cost_effect = yes
       tv_govhouse_reset_power_consolidation_effect = yes
     on_change_effect: |
       tv_training_clear_effect = yes
+      tv_govhouse_clear_war_tent_effect = yes
       tv_govhouse_pay_grand_general_replacement_cost_effect = yes
       tv_govhouse_reset_power_consolidation_effect = yes
     char_filter: |

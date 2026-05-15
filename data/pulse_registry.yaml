@@ -14,6 +14,7 @@ pulses:
     - tv_med_major_accident_pulse     # medicine major accident events
     - tv_govhouse_training_monthly_pulse # Grand General training timer
     - tv_govhouse_negative_monthly_pulse # Governor's House balance-of-power backlash events
+    - tv_govhouse_war_tent_monthly_pulse # War Tent plans and tactic refresh
 
   yearly_country_pulse:
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home

@@ -315,3 +315,198 @@ tv_change_governor = {
 		add = 0
 	}
 }
+
+# ── War Tent actions ─────────────────────────────────────────────────────────
+
+tv_plan_offensive_strategy = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
+		scope:actor = {
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				is_female = no
+				is_artist = no
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_NO_ACTIVE_WAR_PLAN_TT
+				NOT = { has_variable = tv_govhouse_plan_type }
+			}
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = country
+		source = actor
+		target_flag = target
+		allow_self = no
+		name = "tv_select_offensive_plan_target"
+		none_available_msg_key = "tv_no_offensive_plan_target_available"
+		column = { data = name }
+		column = { data = population }
+		column = { data = army_size }
+		visible = {
+			this != scope:actor
+			is_rebel_country = no
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			tv_govhouse_start_offensive_plan_effect = yes
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_plan_defensive_strategy = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
+		scope:actor = {
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				is_female = no
+				is_artist = no
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_NO_ACTIVE_WAR_PLAN_TT
+				NOT = { has_variable = tv_govhouse_plan_type }
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			tv_govhouse_start_defensive_plan_effect = yes
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_abort_war_plan = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
+		scope:actor = {
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				is_female = no
+				is_artist = no
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_HAS_ACTIVE_WAR_PLAN_TT
+				has_variable = tv_govhouse_plan_type
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			tv_govhouse_clear_war_plan_effect = yes
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_change_war_plan_target = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
+		scope:actor = {
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				is_female = no
+				is_artist = no
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_HAS_OFFENSIVE_PLAN_TT
+				has_variable = tv_govhouse_plan_type
+				var:tv_govhouse_plan_type ?= 1
+			}
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = country
+		source = actor
+		target_flag = target
+		allow_self = no
+		name = "tv_select_offensive_plan_target"
+		none_available_msg_key = "tv_no_offensive_plan_target_available"
+		column = { data = name }
+		column = { data = population }
+		column = { data = army_size }
+		visible = {
+			this != scope:actor
+			is_rebel_country = no
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			tv_govhouse_start_offensive_plan_effect = yes
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}

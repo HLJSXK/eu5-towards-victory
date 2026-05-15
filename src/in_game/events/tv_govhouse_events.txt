@@ -298,3 +298,57 @@ tv_govhouse.34 = {
 		tv_govhouse_reduce_power_balance_effect = yes
 	}
 }
+
+tv_govhouse.40 = {
+	type = country_event
+	title = tv_govhouse.40.t
+	desc = tv_govhouse.40.d
+	outcome = neutral
+
+	option = {
+		name = tv_govhouse.40.a
+		trigger = { var:tv_govhouse_pending_tactic = 1 }
+		tv_govhouse_approve_pending_tactic_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.40.b
+		trigger = { var:tv_govhouse_pending_tactic = 2 }
+		tv_govhouse_approve_pending_tactic_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.40.c
+		trigger = { var:tv_govhouse_pending_tactic = 3 }
+		tv_govhouse_approve_pending_tactic_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.40.e
+		trigger = { var:tv_govhouse_pending_tactic = 4 }
+		tv_govhouse_approve_pending_tactic_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.40.f
+		trigger = { var:tv_govhouse_pending_tactic = 5 }
+		tv_govhouse_approve_pending_tactic_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.40.g
+		trigger = { var:tv_govhouse_pending_tactic = 6 }
+		tv_govhouse_approve_pending_tactic_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.40.h
+		trigger = { var:tv_govhouse_pending_tactic = 7 }
+		tv_govhouse_approve_pending_tactic_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.40.i
+		tv_govhouse_deny_pending_tactic_effect = yes
+	}
+}
