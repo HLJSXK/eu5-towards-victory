@@ -189,16 +189,16 @@
 
  # ── 本地展览事件 ─────────────────────────────────────────────────────────────
  tv_arts_exhibition.310.t: "展览冷清落幕"
- tv_arts_exhibition.310.d: "人群渐稀，灯火低垂，侍从甚至在最后一批访客离开前便开始遮盖展品。展览持续了[ROOT.MakeScope.GetVariable('tv_local_exhibition_last_duration').GetValue|0]个月，产出了[ROOT.MakeScope.GetVariable('tv_local_exhibition_last_reward').GetValue|0]点文化影响力点，但反响平平使我们损失10点威望。"
+ tv_arts_exhibition.310.d: "人群渐稀，灯火低垂，侍从甚至在最后一批访客离开前便开始遮盖展品。展览持续了[ROOT.GetVariable('tv_local_exhibition_last_duration').GetValue|0]个月，产出了[ROOT.GetVariable('tv_local_exhibition_last_reward').GetValue|0]点文化影响力点，但反响平平使我们损失10点威望。"
  tv_arts_exhibition.310.a: "品味的教训并不便宜。"
  tv_arts_exhibition.311.t: "尚可称道的展览"
- tv_arts_exhibition.311.d: "这场展览在[ROOT.MakeScope.GetVariable('tv_local_exhibition_last_duration').GetValue|0]个月后走向尾声。它未能成为传奇，却也足以在城市记忆中留下痕迹：获得[ROOT.MakeScope.GetVariable('tv_local_exhibition_last_reward').GetValue|0]点文化影响力点。"
+ tv_arts_exhibition.311.d: "这场展览在[ROOT.GetVariable('tv_local_exhibition_last_duration').GetValue|0]个月后走向尾声。它未能成为传奇，却也足以在城市记忆中留下痕迹：获得[ROOT.GetVariable('tv_local_exhibition_last_reward').GetValue|0]点文化影响力点。"
  tv_arts_exhibition.311.a: "这是一份体面的成绩。"
  tv_arts_exhibition.312.t: "令人铭记的展览"
- tv_arts_exhibition.312.d: "在[ROOT.MakeScope.GetVariable('tv_local_exhibition_last_duration').GetValue|0]个月里，展览吸引了赞助人、批评家与模仿者。它的声名如今越过举办城市，带来[ROOT.MakeScope.GetVariable('tv_local_exhibition_last_reward').GetValue|0]点文化影响力点与10点威望。"
+ tv_arts_exhibition.312.d: "在[ROOT.GetVariable('tv_local_exhibition_last_duration').GetValue|0]个月里，展览吸引了赞助人、批评家与模仿者。它的声名如今越过举办城市，带来[ROOT.GetVariable('tv_local_exhibition_last_reward').GetValue|0]点文化影响力点与10点威望。"
  tv_arts_exhibition.312.a: "我们的厅堂替我们说了好话。"
  tv_arts_exhibition.313.t: "艺术的凯旋"
- tv_arts_exhibition.313.d: "展览持续了[ROOT.MakeScope.GetVariable('tv_local_exhibition_last_duration').GetValue|0]个月，并成为奇观本身。它的落幕不像结束，倒像一场游行：获得[ROOT.MakeScope.GetVariable('tv_local_exhibition_last_reward').GetValue|0]点文化影响力点、15点威望，并为举办地留下繁荣余韵。"
+ tv_arts_exhibition.313.d: "展览持续了[ROOT.GetVariable('tv_local_exhibition_last_duration').GetValue|0]个月，并成为奇观本身。它的落幕不像结束，倒像一场游行：获得[ROOT.GetVariable('tv_local_exhibition_last_reward').GetValue|0]点文化影响力点、15点威望，并为举办地留下繁荣余韵。"
  tv_arts_exhibition.313.a: "这将被长久铭记。"
 
  tv_arts_exhibition.320.t: "厅堂金资不足"
