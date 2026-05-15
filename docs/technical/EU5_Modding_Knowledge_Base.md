@@ -265,6 +265,8 @@ change_variable = { name = my_var add = country_tax_base } # country scope prope
 
 Confirmed: `multiply = var:X` and `divide = var:X` are both valid (verified `cmm_core_slider_setting_effects.txt:223`).
 
+`change_variable` does not accept `value =`. Use `set_variable = { name = my_var value = 1 }` for absolute assignment, and use `change_variable = { name = my_var add = 1 }` (or `subtract`, `multiply`, `divide`) for arithmetic. Using `value =` inside `change_variable` logs `Failed to read 'value' for 'change_variable'`.
+
 ### 5.6. Ordered Global List Rebuilds
 
 When using `ordered_in_global_list` to build rank 1..N outputs, treat the output variables as a fresh snapshot each time:

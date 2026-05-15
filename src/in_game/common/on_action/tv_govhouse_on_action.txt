@@ -22,7 +22,7 @@ tv_govhouse_training_monthly_pulse = {
 				}
 			}
 			var:tv_conquest_general_char ?= {
-				change_variable = { name = tv_gg_training_months value = 1 }
+				change_variable = { name = tv_gg_training_months add = 1 }
 			}
 			if = {
 				limit = {
