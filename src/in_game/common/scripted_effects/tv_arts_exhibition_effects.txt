@@ -166,8 +166,12 @@ tv_end_artist_exhibition_effect = {
 tv_change_local_exhibition_enthusiasm_effect = {
 	every_international_organizations_member_of = {
 		limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
-		change_variable = { name = tv_local_exhibition_enthusiasm add = $value$ }
-		clamp_variable = { name = tv_local_exhibition_enthusiasm min = 0 max = 100 }
+		custom_description = {
+			text = tv_change_local_exhibition_enthusiasm_text
+			value = $value$
+			change_variable = { name = tv_local_exhibition_enthusiasm add = $value$ }
+			clamp_variable = { name = tv_local_exhibition_enthusiasm min = 0 max = 100 }
+		}
 	}
 	if = {
 		limit = {
