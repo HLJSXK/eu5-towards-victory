@@ -326,6 +326,16 @@ PERFORM_tv_remove_governor_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_change_governor_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
 WE_PERFORM_tv_seek_diplomatic_support_ACTION={
 \tlog=yes
 \tonmap=no

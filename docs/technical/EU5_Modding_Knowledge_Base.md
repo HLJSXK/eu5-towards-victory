@@ -333,6 +333,25 @@ my_event.1.a: "Option button text"
 my_event.1.a.tt: "Tooltip description shown on hover."
 ```
 
+#### Scripted Effects That Change IO Variables
+
+If a reusable `scripted_effect` changes an International Organization type variable and callers need to show the gain/loss in their option or action tooltip, do not leave the IO-scope `change_variable` bare inside the helper. Wrap the real effect in `custom_description` and register that `text` key under `in_game/common/effect_localization/`.
+
+Vanilla uses this pattern for HRE, Middle Kingdom, and Catholic Church authority helpers:
+
+```txt
+custom_description = {
+    text = change_imperial_authority_text
+    value = $value$
+    change_variable = {
+        name = imperial_authority
+        add = $value$
+    }
+}
+```
+
+The `effect_localization` entry maps the custom description to perspective-specific localization keys, including negative variants. The player-facing strings still live in `main_menu/localization`. This lets a scripted effect call display the signed IO variable change while executing the real `change_variable`.
+
 ### 6.2. Countries
 
 Countries are defined in two parts: a **country definition** file in `in_game/setup/countries/` that sets the tag, color, and culture, and a **country setup** file in `<top_folder>/setup/start/` that defines the starting situation, including owned provinces, capital, and ruler. [8]

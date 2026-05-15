@@ -46,68 +46,6 @@ organization_panel = {
 
 \tblockoverride "organization_overview_tab_visible" {}
 
-\tblockoverride "content" {
-\t\tbutton_secondary_tab_alt = {
-\t\t\tusing = layoutpolicy_expanding
-\t\t\tblock "organization_overview_tab_visible" {
-\t\t\t\tvisible = "[Or(InternationalOrganizationsView.HasOverview, InternationalOrganizationsView.HasActions)]"
-\t\t\t}
-\t\t\tblockoverride "tab_text" {
-\t\t\t\ttext = "OVERVIEW"
-\t\t\t}
-\t\t\ttooltipwidget = {
-\t\t\t\tusing = SubTabIOOverviewTooltip
-\t\t\t}
-\t\t\tonclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'overview' )]"
-\t\t\tdown = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
-\t\t}
-
-\t\tbutton_secondary_tab_alt = {
-\t\t\tusing = layoutpolicy_expanding
-\t\t\tblock "organization_members_tab_visible" {
-\t\t\t\tvisible = yes
-\t\t\t}
-\t\t\tblockoverride "tab_text" {
-\t\t\t\ttext = "MEMBERS"
-\t\t\t}
-\t\t\ttooltipwidget = {
-\t\t\t\tusing = SubTabIOAllMembersTooltip
-\t\t\t}
-\t\t\tonclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'members' )]"
-\t\t\tblock "organization_members_tab_down" {
-\t\t\t\tdown = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
-\t\t\t}
-\t\t}
-
-\t\tbutton_secondary_tab_alt = {
-\t\t\tusing = layoutpolicy_expanding
-\t\t\tvisible = yes
-\t\t\tblockoverride "tab_text" {
-\t\t\t\ttext = "TV_ACADEMY_CHIEF_SCIENTIST_TAB"
-\t\t\t}
-\t\t\ttooltip = "TV_ACADEMY_CHIEF_SCIENTIST_TAB_TOOLTIP"
-\t\t\tonclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'chief_scientist' )]"
-\t\t\tdown = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'chief_scientist' )]"
-\t\t}
-
-\t\tbutton_secondary_tab_alt = {
-\t\t\tusing = layoutpolicy_expanding
-\t\t\tblock "organization_custom_tab_visible" {
-\t\t\t\tvisible = yes
-\t\t\t}
-\t\t\tblockoverride "tab_text" {
-\t\t\t\tblock "organization_custom_tab_text" {
-\t\t\t\t\ttext = "TV_MED_TAB"
-\t\t\t\t}
-\t\t\t}
-\t\t\tblock "organization_custom_tab_tooltip" {
-\t\t\t\ttooltip = "TV_MED_TAB_TOOLTIP"
-\t\t\t}
-\t\t\tonclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'custom' )]"
-\t\t\tdown = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' )]"
-\t\t}
-\t}
-
 \tblockoverride "organization_panel_overview_visible" {
 \t\tvisible = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
 \t}
@@ -118,6 +56,16 @@ organization_panel = {
 
 \tblockoverride "organization_panel_members_visible" {
 \t\tvisible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+\t}
+
+\tblockoverride "organization_resolutions_tab_visible" {
+\t\tvisible = yes
+\t}
+\tblockoverride "organization_resolutions_tab_text" {
+\t\ttext = "TV_ACADEMY_CHIEF_SCIENTIST_TAB"
+\t}
+\tblockoverride "organization_resolutions_tooltip" {
+\t\ttooltip = "TV_ACADEMY_CHIEF_SCIENTIST_TAB_TOOLTIP"
 \t}
 
 \tblockoverride "scroll_overview_empty_visible" { visible = no }
@@ -415,7 +363,122 @@ GUI_SUFFIX = """\
 
 \t}
 
-\t# ── Medicine tab: enable the custom tab slot ──────────────────────────────────
+\t# -- Chief Scientist tab: reuse the vanilla resolutions slot -----------------
+\tblockoverride "organization_resolutions_content" {
+\t\tmargin = { 0 0 }
+
+\t\tvbox = {
+\t\t\tmargin = { 10 0 }
+\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\tlayoutpolicy_vertical = fixed
+\t\t\tignoreinvisible = yes
+\t\t\tspacing = 10
+
+\t\t\tcard_common = {
+\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
+\t\t\t\tmaximumsize = { 500 -1 }
+
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_ACADEMY_CHIEF_SCIENTIST_CARD_TITLE"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\tio_character_card = {
+\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
+\t\t\t\t\t\tusing = layoutpolicy_expanding
+\t\t\t\t\t\tblockoverride "name_highlight" {}
+\t\t\t\t\t\tblockoverride "character_entry_name_sort_by_highlight" {}
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+
+\t\t\tcard_common = {
+\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
+\t\t\t\tmaximumsize = { 500 -1 }
+
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_ACADEMY_CHIEF_SCIENTIST_CARD_TITLE"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\twidget = {
+\t\t\t\t\t\tsize = { 470 44 }
+\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\tmargin = { 4 6 }
+\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_NO_CHIEF_SCIENTIST"
+\t\t\t\t\t\t\t\talign = nobaseline|left
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+
+\t\t\tcard_actions = {
+\t\t\t\tminimumsize = { 500 150 }
+\t\t\t\tmaximumsize = { 500 150 }
+
+\t\t\t\tblockoverride "card_header_text" {
+\t\t\t\t\ttext = "MAIN_ACTIONS"
+\t\t\t\t}
+\t\t\t\tblockoverride "card_header_icon" {
+\t\t\t\t\tblock "io_main_actions_icon" {
+\t\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t\t}
+\t\t\t\t}
+
+\t\t\t\tblockoverride "actions_override" {
+\t\t\t\t\tvbox = {
+\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\tspacing = 2
+
+\t\t\t\t\t\taction_button_diamond = {
+\t\t\t\t\t\t\tsize = { 470 30 }
+\t\t\t\t\t\t\tvisible = "[Not(Player.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
+\t\t\t\t\t\t\ttext = "tv_appoint_academy_leader"
+\t\t\t\t\t\t\ttitle = "tv_appoint_academy_leader"
+\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\t\t\t\tleft_action = {
+\t\t\t\t\t\t\t\taction_name = "tv_appoint_academy_leader"
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+\t\t\t\t\t\taction_button_diamond = {
+\t\t\t\t\t\t\tsize = { 470 30 }
+\t\t\t\t\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
+\t\t\t\t\t\t\ttext = "tv_change_academy_leader"
+\t\t\t\t\t\t\ttitle = "tv_change_academy_leader"
+\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\t\t\t\tleft_action = {
+\t\t\t\t\t\t\t\taction_name = "tv_change_academy_leader"
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+\t\t\t\t\t\taction_button_diamond = {
+\t\t\t\t\t\t\tsize = { 470 30 }
+\t\t\t\t\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
+\t\t\t\t\t\t\ttext = "tv_remove_academy_leader"
+\t\t\t\t\t\t\ttitle = "tv_remove_academy_leader"
+\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\t\t\t\tleft_action = {
+\t\t\t\t\t\t\t\taction_name = "tv_remove_academy_leader"
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+\t\t}
+
+\t\texpand = {}
+\t}
+
+\t# -- Medicine tab: enable the custom tab slot -------------------------------
 \tblockoverride "organization_custom_tab_visible" {
 \t\tvisible = yes
 \t}
@@ -427,7 +490,7 @@ GUI_SUFFIX = """\
 \t}
 
 \tblockoverride "organization_custom_content_visible" {
-\t\tvisible = "[Or(InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' ), InternationalOrganizationsView.Vars.HasValue( 'organizations', 'chief_scientist' ))]"
+\t\tvisible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' )]"
 \t}
 
 \tblockoverride "organization_custom_content" {
@@ -435,112 +498,6 @@ GUI_SUFFIX = """\
 \t\t\tmargin = { 10 0 }
 \t\t\tlayoutpolicy_horizontal = expanding
 \t\t\tspacing = 10
-
-\t\t\tvbox = {
-\t\t\t\tvisible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'chief_scientist' )]"
-\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\tspacing = 10
-
-\t\t\t\tcard_common = {
-\t\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
-\t\t\t\t\tmaximumsize = { 500 -1 }
-
-\t\t\t\t\tblockoverride "common_header_icon_texture" {
-\t\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
-\t\t\t\t\t}
-
-\t\t\t\t\tblockoverride "common_header_text" {
-\t\t\t\t\t\ttext = "TV_ACADEMY_CHIEF_SCIENTIST_CARD_TITLE"
-\t\t\t\t\t}
-
-\t\t\t\t\tblockoverride "common_bottom_content" {
-\t\t\t\t\t\tio_character_card = {
-\t\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
-\t\t\t\t\t\t\tusing = layoutpolicy_expanding
-\t\t\t\t\t\t\tblockoverride "name_highlight" {}
-\t\t\t\t\t\t\tblockoverride "character_entry_name_sort_by_highlight" {}
-\t\t\t\t\t\t}
-\t\t\t\t\t}
-\t\t\t\t}
-
-\t\t\t\tcard_common = {
-\t\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
-\t\t\t\t\tmaximumsize = { 500 -1 }
-
-\t\t\t\t\tblockoverride "common_header_icon_texture" {
-\t\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
-\t\t\t\t\t}
-
-\t\t\t\t\tblockoverride "common_header_text" {
-\t\t\t\t\t\ttext = "TV_ACADEMY_CHIEF_SCIENTIST_CARD_TITLE"
-\t\t\t\t\t}
-
-\t\t\t\t\tblockoverride "common_bottom_content" {
-\t\t\t\t\t\twidget = {
-\t\t\t\t\t\t\tsize = { 470 44 }
-\t\t\t\t\t\t\tvbox = {
-\t\t\t\t\t\t\t\tmargin = { 4 6 }
-\t\t\t\t\t\t\t\ttext_single = {
-\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_NO_CHIEF_SCIENTIST"
-\t\t\t\t\t\t\t\t\talign = nobaseline|left
-\t\t\t\t\t\t\t\t}
-\t\t\t\t\t\t\t}
-\t\t\t\t\t\t}
-\t\t\t\t\t}
-\t\t\t\t}
-
-\t\t\t\tcard_actions = {
-\t\t\t\t\tminimumsize = { 500 150 }
-\t\t\t\t\tmaximumsize = { 500 150 }
-
-\t\t\t\t\tblockoverride "card_header_text" {
-\t\t\t\t\t\ttext = "MAIN_ACTIONS"
-\t\t\t\t\t}
-\t\t\t\t\tblockoverride "card_header_icon" {
-\t\t\t\t\t\tblock "io_main_actions_icon" {
-\t\t\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
-\t\t\t\t\t\t}
-\t\t\t\t\t}
-
-\t\t\t\t\tblockoverride "actions_override" {
-\t\t\t\t\t\tvbox = {
-\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\t\t\tspacing = 2
-
-\t\t\t\t\t\t\taction_button_diamond = {
-\t\t\t\t\t\t\t\tsize = { 470 30 }
-\t\t\t\t\t\t\t\tvisible = "[Not(Player.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
-\t\t\t\t\t\t\t\ttext = "tv_appoint_academy_leader"
-\t\t\t\t\t\t\t\ttitle = "tv_appoint_academy_leader"
-\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\t\tleft_action = {
-\t\t\t\t\t\t\t\t\taction_name = "tv_appoint_academy_leader"
-\t\t\t\t\t\t\t\t}
-\t\t\t\t\t\t\t}
-\t\t\t\t\t\t\taction_button_diamond = {
-\t\t\t\t\t\t\t\tsize = { 470 30 }
-\t\t\t\t\t\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
-\t\t\t\t\t\t\t\ttext = "tv_change_academy_leader"
-\t\t\t\t\t\t\t\ttitle = "tv_change_academy_leader"
-\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\t\tleft_action = {
-\t\t\t\t\t\t\t\t\taction_name = "tv_change_academy_leader"
-\t\t\t\t\t\t\t\t}
-\t\t\t\t\t\t\t}
-\t\t\t\t\t\t\taction_button_diamond = {
-\t\t\t\t\t\t\t\tsize = { 470 30 }
-\t\t\t\t\t\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
-\t\t\t\t\t\t\t\ttext = "tv_remove_academy_leader"
-\t\t\t\t\t\t\t\ttitle = "tv_remove_academy_leader"
-\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\t\tleft_action = {
-\t\t\t\t\t\t\t\t\taction_name = "tv_remove_academy_leader"
-\t\t\t\t\t\t\t\t}
-\t\t\t\t\t\t\t}
-\t\t\t\t\t\t}
-\t\t\t\t\t}
-\t\t\t\t}
-\t\t\t}
 
 \t\t\tvbox = {
 \t\t\t\tvisible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' )]"

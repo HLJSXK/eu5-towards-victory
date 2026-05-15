@@ -827,3 +827,12 @@
   scope: any
   source: "reference_game_files/game/main_menu/localization/english/events/DHE/flavor_mal_l_english.yml:46"
   notes: "In event localization, ROOT is already a script scope. Adding MakeScope produces runtime data errors such as 'Could not find promote for MakeScope' and 'Failed converting statement'."
+
+- id: scripted_effect_io_variable_change_needs_effect_localization
+  pattern: ''
+  bad: "Changing an IO type variable inside a scripted_effect with a bare change_variable, expecting callers to show the variable gain or loss"
+  correction: "Wrap the IO-scope change_variable in custom_description = { text = <effect_loc_key> value = $value$ ... } and register <effect_loc_key> in common/effect_localization with global/first/third/past/negative perspectives. Add matching main_menu localization strings for those perspective keys."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt:1508-1528; reference_game_files/game/in_game/common/effect_localization/scripted_effects.txt:597-610"
+  notes: "Scripted effect calls can otherwise produce empty option/action tooltips even though the IO variable changes. Vanilla uses custom_description plus effect_localization for imperial, celestial, and papal authority so the tooltip shows the signed value while executing the real effect."
