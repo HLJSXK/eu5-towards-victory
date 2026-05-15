@@ -54,7 +54,7 @@ tv_med_minor_accident_pulse = {
 }
 
 # ── Major accident pulse ───────────────────────────────────────────────────────
-# 2% monthly chance — kills the patient immediately.
+# 1% monthly chance — kills the patient immediately.
 tv_med_major_accident_pulse = {
 	trigger = {
 		custom_tooltip = {
@@ -73,7 +73,7 @@ tv_med_major_accident_pulse = {
 		var:tv_academy_leader_char ?= { is_alive = yes }
 	}
 	random_events = {
-		98 = 0
-		2 = tv_medicine.5
+		99 = 0
+		1 = tv_medicine.5
 	}
 }
