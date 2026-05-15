@@ -1,0 +1,38 @@
+﻿# Towards Victory — Arts Exhibition event buildings
+# Verification: event_only_buildings.txt uses country_potential = { always = no }
+# and allow = { always = no } for buildings created only by script.
+
+tv_local_arts_exhibition = {
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 1
+	employment_size = 0.05
+
+	category = cultural_category
+	price = tv_local_arts_exhibition_price
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+
+	country_potential = { always = no }
+	allow = { always = no }
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+	construction_demand = tv_local_arts_exhibition_construction
+
+	modifier = {
+		local_migration_attraction = 2
+		local_production_efficiency = -0.2
+		local_unrest = -0.2
+	}
+
+	possible_production_methods = {
+		tv_local_arts_exhibition_maintenance
+	}
+}

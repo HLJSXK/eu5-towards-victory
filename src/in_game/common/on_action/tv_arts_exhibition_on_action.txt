@@ -57,6 +57,30 @@ tv_arts_exhibition_char_death = {
 				remove_variable = tv_tour_event_4_fired
 				remove_variable = tv_tour_event_5_fired
 			}
+			# Guest artist cleanup for local exhibitions
+			if = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_LOCAL_EXHIBITION_GUEST_HOST_TT
+						has_variable = tv_local_exhibition_guest_host
+					}
+				}
+				var:tv_local_exhibition_guest_host ?= {
+					if = {
+						limit = {
+							custom_tooltip = {
+								text = TV_HAS_LOCAL_EXHIBITION_GUEST_ARTIST_TT
+								has_variable = tv_local_exhibition_guest_artist
+							}
+							var:tv_local_exhibition_guest_artist = scope:target
+						}
+						remove_variable = tv_local_exhibition_guest_artist
+						remove_variable = tv_local_exhibition_guest_country
+					}
+				}
+				remove_variable = tv_local_exhibition_guest_home
+				remove_variable = tv_local_exhibition_guest_host
+			}
 		}
 		# If the dead character was the appointed Chief Artist, notify the player.
 		# tv_arts_exhibition_leader_char is cleared in the event option.

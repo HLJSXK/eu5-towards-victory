@@ -95,10 +95,13 @@
 
  # ── Cultural Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_arts_intl_influence: "国际影响力"
- game_concept_tv_arts_intl_influence_desc: "衡量你的国家在境外文化影响力的指标，通过[tv_arts_exhibition|e]积累。可通过派遣艺术家出国巡演与举办国内展览来提升。每月自然衰减−0.05，模拟过往文化输出影响力的逐渐消退。文化胜利第2至5里程碑分别要求国际影响力达到25、50、75和100。"
+ game_concept_tv_arts_intl_influence_desc: "衡量你的国家在境外文化影响力的指标，通过[tv_arts_exhibition|e]积累，主要来自派遣艺术家出国巡演。随着旧日文化输出的影响消退，它每月衰减当前值的0.1%。文化胜利第2至5里程碑分别要求国际影响力达到25、50、75和100。"
+
+ game_concept_tv_local_exhibition_enthusiasm: "展览热情"
+ game_concept_tv_local_exhibition_enthusiasm_desc: "文艺展演IO变量，用于持续性的本地展览。开始时为80，上限为100，每月衰减12；降至0时，本地展览结束。"
 
  game_concept_tv_arts_exhibition: "文化艺术展"
- game_concept_tv_arts_exhibition_desc: "联合文化雄心勃勃的国家的国际组织。国家在达到文化胜利第一里程碑（50点[tv_cip|e]）后自动加入。成员可解锁两项通用行动："派遣艺术家出国"（200达克特；将艺术家派往1至10年的海外巡演，期间触发月度事件影响[tv_arts_intl_influence|e]）和"举办国内展览"（1000达克特；每拥有一件艺术品获得+0.1[tv_arts_intl_influence|e]）。"
+ game_concept_tv_arts_exhibition_desc: "联合文化雄心勃勃的国家的国际组织。国家在达到文化胜利第一里程碑（50点[tv_cip|e]）后自动加入。成员可派遣艺术家海外巡演，也可举办持续性的本地展览。本地展览需要至少5件艺术品，花费缩放金钱×3.5，使用[tv_local_exhibition_enthusiasm|e]维持，并在结束时产出[tv_cip|e]。"
  # ── Scientific Victory Unique Mechanics ────────────────────────────────────
  game_concept_tv_academy_of_sciences: "科学院"
  game_concept_tv_academy_of_sciences_desc: "锁定各科技胜利里程碑的五阶段首都建筑。第一阶段在[tv_science_score|e]达到100时解锁；后续阶段分别在150、200、300和400时解锁。每个阶段必须在首都实际建造完毕，相应里程碑方可触发。科学院从游戏开始起便在每个首都中可见。"

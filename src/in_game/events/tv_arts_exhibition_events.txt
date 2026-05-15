@@ -94,10 +94,8 @@ tv_arts_exhibition.8 = {
 	}
 }
 
-# ── Domestic Exhibition ───────────────────────────────────────────────────────
-# Fired by the "Host Domestic Exhibition" action (costs 1000 ducats).
-# Counts every work of art owned by this country and grants 0.1 International
-# Influence per piece.
+# ── Local Exhibition Started ─────────────────────────────────────────────────
+# Fired by the "Host Domestic Exhibition" action after a location is selected.
 tv_arts_exhibition.1 = {
 	type = country_event
 	title = tv_arts_exhibition.1.t
@@ -106,15 +104,6 @@ tv_arts_exhibition.1 = {
 
 	option = {
 		name = tv_arts_exhibition.1.a
-		custom_tooltip = tv_arts_exhibition.1.tt
-		every_work_of_art_in_country = {
-			root = {
-				every_international_organizations_member_of = {
-					limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
-					change_variable = { name = tv_arts_intl_influence add = 0.1 }
-				}
-			}
-		}
 	}
 }
 
@@ -386,6 +375,571 @@ tv_arts_exhibition.124 = {
 			30 = { add_gold = 80 }
 			20 = { add_gold = 100 }
 			10 = { add_gold = 150 }
+		}
+	}
+}
+
+# ── Local Exhibition Ending Events ───────────────────────────────────────────
+tv_arts_exhibition.310 = {
+	type = country_event
+	title = tv_arts_exhibition.310.t
+	desc = tv_arts_exhibition.310.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.310.a
+		remove_variable = tv_local_exhibition_last_duration
+		remove_variable = tv_local_exhibition_last_rating
+		remove_variable = tv_local_exhibition_last_reward
+	}
+}
+
+tv_arts_exhibition.311 = {
+	type = country_event
+	title = tv_arts_exhibition.311.t
+	desc = tv_arts_exhibition.311.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.311.a
+		remove_variable = tv_local_exhibition_last_duration
+		remove_variable = tv_local_exhibition_last_rating
+		remove_variable = tv_local_exhibition_last_reward
+	}
+}
+
+tv_arts_exhibition.312 = {
+	type = country_event
+	title = tv_arts_exhibition.312.t
+	desc = tv_arts_exhibition.312.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.312.a
+		remove_variable = tv_local_exhibition_last_duration
+		remove_variable = tv_local_exhibition_last_rating
+		remove_variable = tv_local_exhibition_last_reward
+	}
+}
+
+tv_arts_exhibition.313 = {
+	type = country_event
+	title = tv_arts_exhibition.313.t
+	desc = tv_arts_exhibition.313.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.313.a
+		remove_variable = tv_local_exhibition_last_duration
+		remove_variable = tv_local_exhibition_last_rating
+		remove_variable = tv_local_exhibition_last_reward
+	}
+}
+
+# ── Local Exhibition Monthly Exchange Events ─────────────────────────────────
+tv_arts_exhibition.320 = {
+	type = country_event
+	title = tv_arts_exhibition.320.t
+	desc = tv_arts_exhibition.320.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.320.a
+		change_gold_effect = { scale = -0.5 }
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+	option = {
+		name = tv_arts_exhibition.320.b
+		tv_change_local_exhibition_enthusiasm_effect = { value = -5 }
+	}
+}
+
+tv_arts_exhibition.321 = {
+	type = country_event
+	title = tv_arts_exhibition.321.t
+	desc = tv_arts_exhibition.321.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.321.a
+		add_prestige = prestige_weak_penalty
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+	option = {
+		name = tv_arts_exhibition.321.b
+		tv_change_local_exhibition_enthusiasm_effect = { value = -5 }
+	}
+}
+
+tv_arts_exhibition.322 = {
+	type = country_event
+	title = tv_arts_exhibition.322.t
+	desc = tv_arts_exhibition.322.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.322.a
+		add_estate_satisfaction = { type = estate_type:nobles_estate value = estate_satisfaction_weak_penalty }
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+	option = {
+		name = tv_arts_exhibition.322.b
+		tv_change_local_exhibition_enthusiasm_effect = { value = -5 }
+	}
+}
+
+tv_arts_exhibition.323 = {
+	type = country_event
+	title = tv_arts_exhibition.323.t
+	desc = tv_arts_exhibition.323.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.323.a
+		add_estate_satisfaction = { type = estate_type:clergy_estate value = estate_satisfaction_weak_penalty }
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+	option = {
+		name = tv_arts_exhibition.323.b
+		tv_change_local_exhibition_enthusiasm_effect = { value = -5 }
+	}
+}
+
+tv_arts_exhibition.324 = {
+	type = country_event
+	title = tv_arts_exhibition.324.t
+	desc = tv_arts_exhibition.324.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.324.a
+		add_estate_satisfaction = { type = estate_type:burghers_estate value = estate_satisfaction_weak_penalty }
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+	option = {
+		name = tv_arts_exhibition.324.b
+		tv_change_local_exhibition_enthusiasm_effect = { value = -5 }
+	}
+}
+
+tv_arts_exhibition.325 = {
+	type = country_event
+	title = tv_arts_exhibition.325.t
+	desc = tv_arts_exhibition.325.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.325.a
+		add_estate_satisfaction = { type = estate_type:peasants_estate value = estate_satisfaction_weak_penalty }
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+	option = {
+		name = tv_arts_exhibition.325.b
+		tv_change_local_exhibition_enthusiasm_effect = { value = -5 }
+	}
+}
+
+tv_arts_exhibition.326 = {
+	type = country_event
+	title = tv_arts_exhibition.326.t
+	desc = tv_arts_exhibition.326.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.326.a
+		add_stability = stability_weak_penalty
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+	option = {
+		name = tv_arts_exhibition.326.b
+		tv_change_local_exhibition_enthusiasm_effect = { value = -5 }
+	}
+}
+
+tv_arts_exhibition.327 = {
+	type = country_event
+	title = tv_arts_exhibition.327.t
+	desc = tv_arts_exhibition.327.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.327.a
+		add_legitimacy = legitimacy_weak_penalty
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+	option = {
+		name = tv_arts_exhibition.327.b
+		tv_change_local_exhibition_enthusiasm_effect = { value = -5 }
+	}
+}
+
+tv_arts_exhibition.328 = {
+	type = country_event
+	title = tv_arts_exhibition.328.t
+	desc = tv_arts_exhibition.328.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.328.a
+		trigger = {
+			var:tv_local_exhibition_location ?= {
+				development >= 0.25
+			}
+		}
+		var:tv_local_exhibition_location ?= {
+			change_development = -0.25
+		}
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+	option = {
+		name = tv_arts_exhibition.328.b
+		tv_change_local_exhibition_enthusiasm_effect = { value = -5 }
+	}
+}
+
+tv_arts_exhibition.329 = {
+	type = country_event
+	title = tv_arts_exhibition.329.t
+	desc = tv_arts_exhibition.329.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.329.a
+		trigger = {
+			var:tv_local_exhibition_location ?= {
+				prosperity >= 0.2
+			}
+		}
+		var:tv_local_exhibition_location ?= {
+			change_prosperity = -0.2
+		}
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+	option = {
+		name = tv_arts_exhibition.329.b
+		tv_change_local_exhibition_enthusiasm_effect = { value = -5 }
+	}
+}
+
+# ── Local Exhibition Action Outcome Events ───────────────────────────────────
+tv_arts_exhibition.340 = {
+	type = country_event
+	title = tv_arts_exhibition.340.t
+	desc = tv_arts_exhibition.340.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.340.a
+		ruler ?= {
+			add_adm = 3
+			add_dip = 3
+			add_mil = 3
+		}
+	}
+}
+
+tv_arts_exhibition.341 = {
+	type = country_event
+	title = tv_arts_exhibition.341.t
+	desc = tv_arts_exhibition.341.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.341.a
+		ruler ?= {
+			add_adm = -3
+			add_dip = -3
+			add_mil = -3
+		}
+	}
+}
+
+tv_arts_exhibition.342 = {
+	type = country_event
+	title = tv_arts_exhibition.342.t
+	desc = tv_arts_exhibition.342.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.342.a
+		add_legitimacy = legitimacy_weak_bonus
+	}
+}
+
+tv_arts_exhibition.343 = {
+	type = country_event
+	title = tv_arts_exhibition.343.t
+	desc = tv_arts_exhibition.343.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.343.a
+		add_legitimacy = legitimacy_weak_penalty
+	}
+}
+
+tv_arts_exhibition.350 = {
+	type = country_event
+	title = tv_arts_exhibition.350.t
+	desc = tv_arts_exhibition.350.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.350.a
+		add_stability = stability_mild_penalty
+		tv_change_local_exhibition_enthusiasm_effect = { value = 20 }
+	}
+}
+
+tv_arts_exhibition.351 = {
+	type = country_event
+	title = tv_arts_exhibition.351.t
+	desc = tv_arts_exhibition.351.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.351.a
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+}
+
+tv_arts_exhibition.352 = {
+	type = country_event
+	title = tv_arts_exhibition.352.t
+	desc = tv_arts_exhibition.352.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.352.a
+		tv_change_local_exhibition_enthusiasm_effect = { value = -5 }
+	}
+}
+
+tv_arts_exhibition.353 = {
+	type = country_event
+	title = tv_arts_exhibition.353.t
+	desc = tv_arts_exhibition.353.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.353.a
+		random_work_of_art_in_country = { save_scope_as = destroyed_art }
+		destroy_art = scope:destroyed_art
+	}
+}
+
+tv_arts_exhibition.354 = {
+	type = country_event
+	title = tv_arts_exhibition.354.t
+	desc = tv_arts_exhibition.354.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.354.a
+		random_list = {
+			1 = { create_character = { age = 30 artist = painter estate = estate_type:burghers_estate artist_skill = { 0.10 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = sculptor estate = estate_type:burghers_estate artist_skill = { 0.10 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = composer estate = estate_type:burghers_estate artist_skill = { 0.10 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = writer estate = estate_type:burghers_estate artist_skill = { 0.10 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
+		}
+		scope:new_artist = { move_country = root }
+	}
+}
+
+tv_arts_exhibition.355 = {
+	type = country_event
+	title = tv_arts_exhibition.355.t
+	desc = tv_arts_exhibition.355.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.355.a
+		random_list = {
+			1 = { create_character = { age = 30 artist = painter estate = estate_type:burghers_estate artist_skill = { 0.70 0.95 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = sculptor estate = estate_type:burghers_estate artist_skill = { 0.70 0.95 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = composer estate = estate_type:burghers_estate artist_skill = { 0.70 0.95 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = writer estate = estate_type:burghers_estate artist_skill = { 0.70 0.95 } save_scope_as = new_artist create_in_limbo = yes } }
+		}
+		scope:new_artist = { move_country = root }
+	}
+}
+
+tv_arts_exhibition.356 = {
+	type = country_event
+	title = tv_arts_exhibition.356.t
+	desc = tv_arts_exhibition.356.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.356.a
+	}
+}
+
+tv_arts_exhibition.360 = {
+	type = country_event
+	title = tv_arts_exhibition.360.t
+	desc = tv_arts_exhibition.360.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.360.a
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = { opinion = { target = scope:inviting_country value > 50 } }
+			}
+		}
+		add_prestige = prestige_mild_bonus
+		if = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_ARTS_EXHIBITION_LEADER_CHAR_TT
+					has_variable = tv_arts_exhibition_leader_char
+				}
+				var:tv_arts_exhibition_leader_char = scope:guest_artist
+			}
+			scope:guest_artist = {
+				remove_character_modifier = tv_chief_artist_role_modifier
+			}
+			remove_variable = tv_arts_exhibition_leader_char
+			trigger_event_non_silently = { id = tv_arts_exhibition.8 }
+		}
+		scope:guest_artist = {
+			set_variable = { name = tv_local_exhibition_guest_home value = root }
+			set_variable = { name = tv_local_exhibition_guest_host value = scope:inviting_country }
+			move_country = scope:inviting_country
+		}
+		scope:inviting_country = {
+			set_variable = { name = tv_local_exhibition_guest_artist value = scope:guest_artist }
+			set_variable = { name = tv_local_exhibition_guest_country value = root }
+			tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.361 }
+		}
+	}
+	option = {
+		name = tv_arts_exhibition.360.b
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				opinion = { target = scope:inviting_country value > 50 }
+			}
+		}
+		scope:inviting_country = {
+			trigger_event_non_silently = { id = tv_arts_exhibition.362 }
+		}
+	}
+}
+
+tv_arts_exhibition.361 = {
+	type = country_event
+	title = tv_arts_exhibition.361.t
+	desc = tv_arts_exhibition.361.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.361.a
+	}
+}
+
+tv_arts_exhibition.362 = {
+	type = country_event
+	title = tv_arts_exhibition.362.t
+	desc = tv_arts_exhibition.362.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.362.a
+	}
+}
+
+tv_arts_exhibition.363 = {
+	type = country_event
+	title = tv_arts_exhibition.363.t
+	desc = tv_arts_exhibition.363.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.363.a
+	}
+}
+
+tv_arts_exhibition.370 = {
+	type = country_event
+	title = tv_arts_exhibition.370.t
+	desc = tv_arts_exhibition.370.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.370.a
+		random_character = {
+			limit = { is_alive = yes is_artist = yes }
+			add_artist_skill = 0.05
+		}
+	}
+}
+
+tv_arts_exhibition.371 = {
+	type = country_event
+	title = tv_arts_exhibition.371.t
+	desc = tv_arts_exhibition.371.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.371.a
+		random_character = {
+			limit = { is_alive = yes is_artist = yes }
+			add_artist_skill = -0.05
+		}
+	}
+}
+
+tv_arts_exhibition.372 = {
+	type = country_event
+	title = tv_arts_exhibition.372.t
+	desc = tv_arts_exhibition.372.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.372.a
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+	}
+}
+
+tv_arts_exhibition.373 = {
+	type = country_event
+	title = tv_arts_exhibition.373.t
+	desc = tv_arts_exhibition.373.d
+	outcome = bad
+
+	option = {
+		name = tv_arts_exhibition.373.a
+		random_character = {
+			limit = { is_alive = yes is_artist = yes }
+			save_scope_as = doomed_artist
+		}
+		capital ?= {
+			create_art = { artist = scope:doomed_artist }
+		}
+		scope:doomed_artist = { kill_character = this }
+	}
+}
+
+tv_arts_exhibition.374 = {
+	type = country_event
+	title = tv_arts_exhibition.374.t
+	desc = tv_arts_exhibition.374.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.374.a
+		random_character = {
+			limit = { is_alive = yes is_artist = yes }
+			save_scope_as = inspired_artist
+		}
+		capital ?= {
+			create_art = { artist = scope:inspired_artist }
 		}
 	}
 }

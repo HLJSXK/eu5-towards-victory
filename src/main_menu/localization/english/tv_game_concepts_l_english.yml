@@ -95,10 +95,13 @@
 
  # ── Cultural Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_arts_intl_influence: "International Influence"
- game_concept_tv_arts_intl_influence_desc: "A measure of your country's cultural reach beyond its borders, accumulated through the [tv_arts_exhibition|e]. Gained by sending artists on foreign tours and hosting domestic exhibitions. Decays by −0.05 each month as the impact of past cultural exports fades. Cultural Victory Milestones 2 through 5 require minimum International Influence of 25, 50, 75, and 100 respectively."
+ game_concept_tv_arts_intl_influence_desc: "A measure of your country's cultural reach beyond its borders, accumulated through the [tv_arts_exhibition|e]. Gained primarily by sending artists on foreign tours. It decays by 0.1% of its current value each month as the impact of past cultural exports fades. Cultural Victory Milestones 2 through 5 require minimum International Influence of 25, 50, 75, and 100 respectively."
+
+ game_concept_tv_local_exhibition_enthusiasm: "Exhibition Enthusiasm"
+ game_concept_tv_local_exhibition_enthusiasm_desc: "An Arts Exhibition IO variable used by persistent local exhibitions. It starts at 80, is capped at 100, falls by 12 each month, and ends the exhibition when it reaches 0."
 
  game_concept_tv_arts_exhibition: "Arts Exhibition"
- game_concept_tv_arts_exhibition_desc: "An international organization uniting culturally ambitious powers. Countries automatically join upon reaching Cultural Victory Milestone 1 (50 [tv_cip|e]). Membership unlocks two generic actions: 'Send Artist Abroad' (200 ducats; deploys an artist on a 1–10 year foreign tour with monthly events that affect [tv_arts_intl_influence|e]) and 'Host Domestic Exhibition' (1,000 ducats; grants +0.1 [tv_arts_intl_influence|e] per owned artwork)."
+ game_concept_tv_arts_exhibition_desc: "An international organization uniting culturally ambitious powers. Countries automatically join upon reaching Cultural Victory Milestone 1 (50 [tv_cip|e]). Membership unlocks foreign artist tours and persistent local exhibitions. A local exhibition requires at least 5 artworks, costs scaled gold x3.5, uses [tv_local_exhibition_enthusiasm|e], and pays [tv_cip|e] when it closes."
  # ── Scientific Victory Unique Mechanics ────────────────────────────────────
  game_concept_tv_academy_of_sciences: "Academy of Sciences"
  game_concept_tv_academy_of_sciences_desc: "A five-phase capital building that gates each Scientific Victory milestone. Phase I unlocks once your [tv_science_score|e] reaches 100; subsequent phases unlock at 150, 200, 300, and 400 respectively. Each phase must be physically constructed in your capital before the corresponding milestone can fire. The Academy is visible in every capital from the start of the game."

@@ -52,6 +52,14 @@ tv_send_artist_abroad = {
 				text = TV_HAS_VARIABLE_NOT_SET_TT
 				NOT = { has_variable = tv_on_exhibition }
 			}
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_NOT_SET_TT
+				NOT = { has_variable = tv_local_exhibition_guest_home }
+			}
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_NOT_SET_TT
+				NOT = { has_variable = tv_local_exhibition_guest_host }
+			}
 		}
 	}
 
@@ -164,8 +172,8 @@ tv_send_artist_abroad = {
 }
 
 # ── Host Domestic Exhibition ──────────────────────────────────────────────────
-# Costs 1000 ducats. Fires an event that counts all works of art owned by this
-# country and grants 0.1 International Influence per piece (one-time).
+# Starts a persistent local exhibition. Requires at least 5 owned artworks,
+# costs scaled_gold = 3.5, and asks the player to choose the exhibition location.
 tv_host_domestic_exhibition = {
 	type = owncountry
 
@@ -173,6 +181,8 @@ tv_host_domestic_exhibition = {
 
 	ai_tick = monthly
 	ai_tick_frequency = 60
+
+	price = price:tv_host_domestic_exhibition_price
 
 	potential = {
 		scope:actor = {
@@ -186,20 +196,490 @@ tv_host_domestic_exhibition = {
 	allow = {
 		scope:actor = {
 			custom_tooltip = {
-				text = tv_host_domestic_exhibition_cost_tt
-				gold >= 1000
+				text = tv_host_domestic_exhibition_requires_art_tt
+				any_work_of_art_in_country = { count >= 5 }
+			}
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_NOT_SET_TT
+				NOT = { has_variable = tv_local_exhibition_active }
+			}
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_CD_NOT_SET_TT
+				NOT = { has_variable = tv_local_exhibition_cd }
 			}
 		}
 	}
 
+	select_trigger = {
+		looking_for_a = location
+		source = actor
+		target_flag = target
+		name = "tv_select_local_exhibition_location"
+		none_available_msg_key = "tv_no_local_exhibition_location_available"
+		column = { data = name }
+		column = { data = population }
+		column = { data = rank }
+		visible = {
+			has_owner = yes
+			owner ?= scope:actor
+			NOT = { has_building = building_type:tv_local_arts_exhibition }
+		}
+	}
+
 	effect = {
-		scope:actor = {
-			add_gold = -1000
-			trigger_event_non_silently = tv_arts_exhibition.1
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				tv_start_local_exhibition_effect = yes
+			}
 		}
 	}
 
 	ai_will_do = {
 		add = -50
 	}
+}
+
+tv_local_exhibition_add_artworks = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 12
+
+	potential = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			custom_tooltip = {
+				text = tv_local_exhibition_add_artworks_allow_tt
+				any_work_of_art_in_country = {
+					count > {
+						value = {
+							value = var:tv_local_exhibition_artworks_committed
+							add = var:tv_local_exhibition_add_art_threshold
+						}
+					}
+				}
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			tv_add_local_exhibition_artworks_effect = yes
+		}
+	}
+
+	ai_will_do = { add = 5 }
+}
+
+tv_local_exhibition_royal_visit = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 12
+
+	potential = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ROYAL_VISIT_NOT_SET_TT
+				NOT = { has_variable = tv_local_exhibition_royal_visit_done }
+			}
+			has_ruler = yes
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			set_variable = { name = tv_local_exhibition_royal_visit_done value = 1 }
+			tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+			random_list = {
+				1 = { trigger_event_non_silently = { id = tv_arts_exhibition.340 } }
+				1 = { trigger_event_non_silently = { id = tv_arts_exhibition.341 } }
+				1 = { trigger_event_non_silently = { id = tv_arts_exhibition.342 } }
+				1 = { trigger_event_non_silently = { id = tv_arts_exhibition.343 } }
+			}
+		}
+	}
+
+	ai_will_do = { add = 10 }
+}
+
+tv_local_exhibition_radical_art = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 12
+	cooldown = { type = tv_local_exhibition_radical_art years = 1 }
+
+	potential = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			random_list = {
+				1 = { trigger_event_non_silently = { id = tv_arts_exhibition.350 } }
+				2 = { trigger_event_non_silently = { id = tv_arts_exhibition.351 } }
+				2 = { trigger_event_non_silently = { id = tv_arts_exhibition.352 } }
+				1 = {
+					trigger = { any_work_of_art_in_country = { always = yes } }
+					trigger_event_non_silently = { id = tv_arts_exhibition.353 }
+				}
+			}
+		}
+	}
+
+	ai_will_do = { add = 0 }
+}
+
+tv_local_exhibition_expand = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 24
+	price = price:tv_local_exhibition_expand_price
+
+	potential = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_EXPAND_NOT_SET_TT
+				NOT = { has_variable = tv_local_exhibition_expand_done }
+			}
+			any_owned_location = {
+				NOT = { has_building = building_type:tv_local_arts_exhibition }
+			}
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = location
+		source = actor
+		target_flag = target
+		name = "tv_select_local_exhibition_secondary_location"
+		none_available_msg_key = "tv_no_local_exhibition_secondary_location_available"
+		column = { data = name }
+		column = { data = population }
+		column = { data = rank }
+		visible = {
+			has_owner = yes
+			owner ?= scope:actor
+			NOT = { has_building = building_type:tv_local_arts_exhibition }
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_local_exhibition_expand_done value = 1 }
+				set_variable = { name = tv_local_exhibition_secondary_location value = scope:target }
+				scope:target = {
+					construct_building = {
+						building_type = building_type:tv_local_arts_exhibition
+						cost_multiplier = 0
+						cost_multiplier_reason = "game_concept_event"
+						instant = yes
+					}
+				}
+				tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+			}
+		}
+	}
+
+	ai_will_do = { add = 3 }
+}
+
+tv_local_exhibition_sell_art = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 24
+	cooldown = { type = tv_local_exhibition_sell_art years = 1 }
+
+	potential = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			any_work_of_art_in_country = { always = yes }
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			random_work_of_art_in_country = { save_scope_as = sold_art }
+			destroy_art = scope:sold_art
+			change_gold_effect = { scale = 1.0 }
+		}
+	}
+
+	ai_will_do = { add = -25 }
+}
+
+tv_local_exhibition_recruit_artists = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 24
+	cooldown = { type = tv_local_exhibition_recruit_artists years = 1 }
+	price = price:tv_local_exhibition_recruit_artist_price
+
+	potential = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			random_list = {
+				70 = { trigger_event_non_silently = { id = tv_arts_exhibition.354 } }
+				15 = { trigger_event_non_silently = { id = tv_arts_exhibition.355 } }
+				15 = { trigger_event_non_silently = { id = tv_arts_exhibition.356 } }
+			}
+		}
+	}
+
+	ai_will_do = { add = 5 }
+}
+
+tv_local_exhibition_invite_foreign_artist = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 24
+
+	potential = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_FOREIGN_INVITE_NOT_SET_TT
+				NOT = { has_variable = tv_local_exhibition_foreign_invite_done }
+			}
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = country
+		source = actor
+		target_flag = target
+		name = "tv_select_local_exhibition_foreign_country"
+		none_available_msg_key = "tv_no_local_exhibition_foreign_country_available"
+		column = { data = name }
+		visible = {
+			this != scope:actor
+			any_character = {
+				is_alive = yes
+				is_artist = yes
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_NOT_SET_TT
+					NOT = { has_variable = tv_on_exhibition }
+				}
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_NOT_SET_TT
+					NOT = { has_variable = tv_local_exhibition_guest_home }
+				}
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_NOT_SET_TT
+					NOT = { has_variable = tv_local_exhibition_guest_host }
+				}
+			}
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				save_scope_as = inviting_country
+				set_variable = { name = tv_local_exhibition_foreign_invite_done value = 1 }
+			}
+			scope:target = {
+				random_character = {
+					limit = {
+						is_alive = yes
+						is_artist = yes
+						is_ruler = no
+						is_heir = no
+						is_consort = no
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_NOT_SET_TT
+							NOT = { has_variable = tv_on_exhibition }
+						}
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_NOT_SET_TT
+							NOT = { has_variable = tv_local_exhibition_guest_home }
+						}
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_NOT_SET_TT
+							NOT = { has_variable = tv_local_exhibition_guest_host }
+						}
+					}
+					save_scope_as = guest_artist
+				}
+				trigger_event_non_silently = { id = tv_arts_exhibition.360 }
+			}
+		}
+	}
+
+	ai_will_do = { add = 5 }
+}
+
+tv_local_exhibition_designate_treasure = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 24
+	price = price:tv_local_exhibition_designate_treasure_price
+
+	potential = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_TREASURE_NOT_SET_TT
+				NOT = { has_variable = tv_local_exhibition_treasure_done }
+			}
+			any_work_of_art_in_country = { always = yes }
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = work_of_art
+		source = actor
+		target_flag = target
+		name = "tv_select_local_exhibition_treasure"
+		none_available_msg_key = "tv_no_local_exhibition_treasure_available"
+		column = { data = art_quality }
+		column = { data = name }
+		column = { data = art_location }
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_local_exhibition_treasure_done value = 1 }
+				tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+			}
+			scope:target = { change_art_quality = 10 }
+		}
+	}
+
+	ai_will_do = { add = 5 }
+}
+
+tv_local_exhibition_live_creation = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 12
+
+	potential = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			any_character = {
+				is_alive = yes
+				is_artist = yes
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			random_list = {
+				30 = { trigger_event_non_silently = { id = tv_arts_exhibition.370 } }
+				20 = { trigger_event_non_silently = { id = tv_arts_exhibition.371 } }
+				30 = { trigger_event_non_silently = { id = tv_arts_exhibition.372 } }
+				10 = { trigger_event_non_silently = { id = tv_arts_exhibition.373 } }
+				10 = { trigger_event_non_silently = { id = tv_arts_exhibition.374 } }
+			}
+		}
+	}
+
+	ai_will_do = { add = 5 }
 }

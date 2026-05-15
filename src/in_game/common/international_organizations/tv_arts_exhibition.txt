@@ -56,9 +56,73 @@ tv_arts_exhibition = {
 				}
 			}
 		}
+		tv_local_exhibition_enthusiasm = {
+			format = "TV_LOCAL_EXHIBITION_ENTHUSIASM_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 100
+			start = 0
+			monthly_change = {
+				if = {
+					limit = {
+						leader_country ?= {
+							custom_tooltip = {
+								text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+								has_variable = tv_local_exhibition_active
+							}
+						}
+					}
+					subtract = {
+						desc = "TV_LOCAL_EXHIBITION_ENTHUSIASM_DECAY"
+						value = 12
+					}
+				}
+			}
+		}
 	}
 
 	modifier = {
+	}
+
+	monthly_effect = {
+		leader_country ?= {
+			if = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_LOCAL_EXHIBITION_CD_TT
+						has_variable = tv_local_exhibition_cd
+					}
+					var:tv_local_exhibition_cd >= 1
+				}
+				change_variable = { name = tv_local_exhibition_cd add = -1 }
+				if = {
+					limit = { var:tv_local_exhibition_cd <= 0 }
+					remove_variable = tv_local_exhibition_cd
+				}
+			}
+			if = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+						has_variable = tv_local_exhibition_active
+					}
+				}
+				change_variable = { name = tv_local_exhibition_duration add = 1 }
+				tv_update_local_exhibition_rating_effect = yes
+				if = {
+					limit = {
+						any_international_organizations_member_of = {
+							international_organization_type = international_organization_type:tv_arts_exhibition
+							var:tv_local_exhibition_enthusiasm <= 0
+						}
+					}
+					tv_end_local_exhibition_effect = yes
+				}
+				else = {
+					tv_roll_local_exhibition_monthly_events_effect = yes
+				}
+			}
+		}
 	}
 
 	on_creation = {
