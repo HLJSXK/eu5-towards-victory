@@ -94,6 +94,20 @@ main_menu/gfx/interface/icons/international_organizations/<io_type>.dds
 
 The filename should match the `common/international_organizations` type key, such as `tv_arts_exhibition.dds`. Without this matching texture, shared UI surfaces fall back to the generic international organization icon even if a custom organization panel displays another texture locally.
 
+#### International Organization Monthly Effects and Tooltips
+
+The shared IO tooltip can render visible children of an IO type's `monthly_effect` block. For internal monthly maintenance such as state repair, variable smoothing, member cleanup, or cached GUI refreshes, wrap the logic in `hidden_effect`:
+
+```pdx
+monthly_effect = {
+    hidden_effect = {
+        # maintenance logic
+    }
+}
+```
+
+Vanilla IOs such as HRE and Union use this pattern. Keep `monthly_change` entries visible when the player should see an IO variable's monthly breakdown; use `hidden_effect` for non-player-facing `monthly_effect` logic.
+
 ### 4.4. Common File Types and Formats
 
 Modders primarily work with a few text-based file formats:

@@ -854,3 +854,12 @@
   scope: international_organization
   source: "reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt:1508-1528; reference_game_files/game/in_game/common/effect_localization/scripted_effects.txt:597-610"
   notes: "Scripted effect calls can otherwise produce empty option/action tooltips even though the IO variable changes. Vanilla uses custom_description plus effect_localization for imperial, celestial, and papal authority so the tooltip shows the signed value while executing the real effect."
+
+- id: io_monthly_effect_visible_tooltip
+  pattern: ''
+  bad: "Putting non-player-facing maintenance logic directly in an international_organization monthly_effect block"
+  correction: "Wrap hidden IO maintenance in monthly_effect = { hidden_effect = { ... } }. Use visible monthly_effect children only when the effect text is meant to appear in the shared IO tooltip."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/international_organizations/hre.txt:315-316; reference_game_files/game/in_game/common/international_organizations/union.txt:203-204; fixed in src/in_game/common/international_organizations/tv_govhouse.txt"
+  notes: "The shared IO tooltip can render visible monthly_effect children, exposing internal set_variable/custom_tooltip refresh logic. Vanilla HRE and Union wrap monthly maintenance in hidden_effect so the logic still runs but does not clutter player-facing IO tooltips. IO variable monthly_change remains the correct place for visible variable breakdowns."

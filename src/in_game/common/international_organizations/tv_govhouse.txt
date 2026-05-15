@@ -101,81 +101,83 @@ tv_govhouse = {
 	}
 
 	monthly_effect = {
-		if = {
-			limit = {
-				leader_country ?= {
-					has_ruler = yes
-					custom_tooltip = {
-						text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
-						has_variable = tv_conquest_general_char
-					}
-					var:tv_conquest_general_char ?= { is_alive = yes }
-				}
-			}
-			set_variable = {
-				name = tv_govhouse_power_consolidation
-				value = {
-					value = var:tv_govhouse_power_consolidation
-					add = 0.004
-					max = 1
-				}
-			}
-			set_variable = {
-				name = tv_govhouse_power_equilibrium
-				value = {
-					value = leader_country.var:tv_conquest_general_char.total_abilities
-					divide = {
-						value = leader_country.ruler_or_regent.total_abilities
-						add = leader_country.var:tv_conquest_general_char.total_abilities
-						min = 1
-					}
-					add = var:tv_govhouse_power_consolidation
-					max = 1
-					min = 0
-				}
-			}
-		}
-		else = {
-			set_variable = { name = tv_govhouse_power_consolidation value = 0 }
-			set_variable = { name = tv_govhouse_power_equilibrium value = 0 }
-		}
-		if = {
-			limit = { var:tv_govhouse_power_balance < var:tv_govhouse_power_equilibrium }
-			set_variable = {
-				name = tv_govhouse_power_balance
-				value = {
-					value = var:tv_govhouse_power_balance
-					add = 0.01
-				}
-			}
+		hidden_effect = {
 			if = {
-				limit = { var:tv_govhouse_power_balance > var:tv_govhouse_power_equilibrium }
-				set_variable = { name = tv_govhouse_power_balance value = var:tv_govhouse_power_equilibrium }
-			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_power_balance > var:tv_govhouse_power_equilibrium }
-			set_variable = {
-				name = tv_govhouse_power_balance
-				value = {
-					value = var:tv_govhouse_power_balance
-					subtract = 0.01
+				limit = {
+					leader_country ?= {
+						has_ruler = yes
+						custom_tooltip = {
+							text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+							has_variable = tv_conquest_general_char
+						}
+						var:tv_conquest_general_char ?= { is_alive = yes }
+					}
 				}
+				set_variable = {
+					name = tv_govhouse_power_consolidation
+					value = {
+						value = var:tv_govhouse_power_consolidation
+						add = 0.004
+						max = 1
+					}
+				}
+				set_variable = {
+					name = tv_govhouse_power_equilibrium
+					value = {
+						value = leader_country.var:tv_conquest_general_char.total_abilities
+						divide = {
+							value = leader_country.ruler_or_regent.total_abilities
+							add = leader_country.var:tv_conquest_general_char.total_abilities
+							min = 1
+						}
+						add = var:tv_govhouse_power_consolidation
+						max = 1
+						min = 0
+					}
+				}
+			}
+			else = {
+				set_variable = { name = tv_govhouse_power_consolidation value = 0 }
+				set_variable = { name = tv_govhouse_power_equilibrium value = 0 }
 			}
 			if = {
 				limit = { var:tv_govhouse_power_balance < var:tv_govhouse_power_equilibrium }
-				set_variable = { name = tv_govhouse_power_balance value = var:tv_govhouse_power_equilibrium }
-			}
-		}
-		leader_country ?= {
-			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_GOVHOUSE_MEMBER_TT
-						has_variable = tv_govhouse_member
+				set_variable = {
+					name = tv_govhouse_power_balance
+					value = {
+						value = var:tv_govhouse_power_balance
+						add = 0.01
 					}
 				}
-				tv_apply_governor_bonuses_effect = yes
+				if = {
+					limit = { var:tv_govhouse_power_balance > var:tv_govhouse_power_equilibrium }
+					set_variable = { name = tv_govhouse_power_balance value = var:tv_govhouse_power_equilibrium }
+				}
+			}
+			else_if = {
+				limit = { var:tv_govhouse_power_balance > var:tv_govhouse_power_equilibrium }
+				set_variable = {
+					name = tv_govhouse_power_balance
+					value = {
+						value = var:tv_govhouse_power_balance
+						subtract = 0.01
+					}
+				}
+				if = {
+					limit = { var:tv_govhouse_power_balance < var:tv_govhouse_power_equilibrium }
+					set_variable = { name = tv_govhouse_power_balance value = var:tv_govhouse_power_equilibrium }
+				}
+			}
+			leader_country ?= {
+				if = {
+					limit = {
+						custom_tooltip = {
+							text = TV_HAS_GOVHOUSE_MEMBER_TT
+							has_variable = tv_govhouse_member
+						}
+					}
+					tv_apply_governor_bonuses_effect = yes
+				}
 			}
 		}
 	}
