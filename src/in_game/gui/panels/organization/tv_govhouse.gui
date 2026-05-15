@@ -76,7 +76,7 @@ organization_panel = {
 
 						text_single = {
 							layoutpolicy_horizontal = expanding
-							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_region_list').IsSet)]"
+							visible = "[Not(DataModelHasItems(InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_govhouse_region_display_list')))]"
 							text = "TV_GOVHOUSE_NO_GOVERNOR_REGIONS"
 							align = nobaseline|left
 						}
