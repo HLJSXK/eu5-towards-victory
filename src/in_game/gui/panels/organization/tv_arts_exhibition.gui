@@ -1,6 +1,6 @@
 ﻿# Towards Victory — Arts Exhibition IO Panel
-# Shows cultural touring controls in overview, Chief Artist management in the
-# resolutions tab, and domestic exhibitions in a custom tab.
+# Shows cultural touring controls in overview, Chief Artist management and
+# effect summary in the resolutions tab, and domestic exhibitions in a custom tab.
 # The IO's character leader (an artist) is shown in the standard IO header.
 
 organization_panel = {
@@ -225,6 +225,62 @@ organization_panel = {
 							text_single = {
 								text = "TV_ARTS_NO_CHIEF_ARTIST"
 								align = nobaseline|left
+							}
+						}
+					}
+				}
+			}
+
+			card_common = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ARTS_CHIEF_ARTIST_EFFECTS_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 58 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').GetCharacter]"
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 6
+							margin = { 4 6 }
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+
+								text_single = {
+									raw_text = "@cultural_influence!"
+									tooltip = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_TOOLTIP"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_LABEL"
+									tooltip = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_TOOLTIP"
+									align = nobaseline
+								}
+								expand = {}
+								hbox = {
+									spacing = 2
+									text_single = {
+										raw_text = "[Multiply_CFixedPoint(Character.GetArtistSkill, '(CFixedPoint)0.1')|+=2]"
+										tooltip = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_TOOLTIP"
+										align = nobaseline
+									}
+									text_single = {
+										text = "TV_ARTS_PER_MONTH_SUFFIX"
+										tooltip = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_TOOLTIP"
+										align = nobaseline
+									}
+								}
 							}
 						}
 					}
