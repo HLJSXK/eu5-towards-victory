@@ -13,10 +13,6 @@ tv_train_grand_general = {
 			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
-		custom_tooltip = {
-			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
-			scope:actor = { has_variable = tv_conquest_general_char }
-		}
 	}
 
 	allow = {
@@ -48,10 +44,10 @@ tv_train_grand_general = {
 
 # ── Governor management actions ──────────────────────────────────────────────
 # Governor appointment/removal is only available while an alive Grand General is in office.
-# Existing governors remain in tv_governor_list if the Grand General leaves office.
+# The Governor's House UI passes scope:target_1 (region) from each region row.
+# Appoint/Change then select scope:target (character).
 
-# Appoints a governor: 2-step selection (character → region).
-# step 1 sets scope:target (character), step 2 sets scope:target_1 (region).
+# Appoints a governor to the region pre-set as scope:target_1 by the UI.
 tv_appoint_governor = {
 	type = owncountry
 	sound = UI_action_religion_generic
@@ -77,6 +73,38 @@ tv_appoint_governor = {
 		scope:actor = {
 			var:tv_conquest_general_char ?= { is_alive = yes }
 		}
+		trigger_if = {
+			limit = { exists = scope:target_1 }
+			scope:target_1 = {
+				custom_tooltip = {
+					text = TV_GOVHOUSE_REGION_OWNED_TT
+					any_location_in_region = {
+						owner ?= scope:actor
+					}
+				}
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_REGION_HAS_NO_GOVERNOR_TT
+				NOT = {
+					scope:actor = {
+						any_in_list = { variable = tv_governor_list
+							OR = {
+								var:tv_governed_region ?= scope:target_1
+								var:tv_governed_area ?= {
+									region = scope:target_1
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = TV_GOVHOUSE_REGION_SELECTED_TT
+				exists = scope:target_1
+			}
+		}
 	}
 
 	select_trigger = {
@@ -100,21 +128,6 @@ tv_appoint_governor = {
 		}
 	}
 
-	select_trigger = {
-		looking_for_a = region
-		source = actor
-		target_flag = target_1
-		name = "tv_appoint_governor_select_region"
-		none_available_msg_key = "tv_appoint_governor_no_regions"
-		column = { data = name }
-		column = { data = population }
-		visible = {
-			any_location_in_region = {
-				owner ?= scope:actor
-			}
-		}
-	}
-
 	effect = {
 		scope:actor = {
 			tv_governor_appoint_effect = yes
@@ -126,7 +139,7 @@ tv_appoint_governor = {
 	}
 }
 
-# Dismisses the governor whose character is pre-set as scope:recipient by the GUI button.
+# Dismisses the governor assigned to the region pre-set as scope:target_1 by the UI.
 tv_remove_governor = {
 	type = owncountry
 	sound = UI_action_religion_generic
@@ -137,10 +150,6 @@ tv_remove_governor = {
 		custom_tooltip = {
 			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
-		}
-		custom_tooltip = {
-			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
-			scope:actor = { has_variable = tv_conquest_general_char }
 		}
 	}
 
@@ -156,11 +165,131 @@ tv_remove_governor = {
 		scope:actor = {
 			var:tv_conquest_general_char ?= { is_alive = yes }
 		}
+		trigger_if = {
+			limit = { exists = scope:target_1 }
+			scope:target_1 = {
+				custom_tooltip = {
+					text = TV_GOVHOUSE_REGION_OWNED_TT
+					any_location_in_region = {
+						owner ?= scope:actor
+					}
+				}
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_REGION_HAS_GOVERNOR_TT
+				scope:actor = {
+					any_in_list = { variable = tv_governor_list
+						OR = {
+							var:tv_governed_region ?= scope:target_1
+							var:tv_governed_area ?= {
+								region = scope:target_1
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = TV_GOVHOUSE_REGION_SELECTED_TT
+				exists = scope:target_1
+			}
+		}
 	}
 
 	effect = {
 		scope:actor = {
 			tv_governor_remove_effect = yes
+		}
+	}
+
+	ai_will_do = {
+		add = 0
+	}
+}
+
+# Replaces the governor assigned to the region pre-set as scope:target_1 by the UI.
+tv_change_governor = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+		custom_tooltip = {
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
+		scope:actor = {
+			var:tv_conquest_general_char ?= { is_alive = yes }
+		}
+		trigger_if = {
+			limit = { exists = scope:target_1 }
+			scope:target_1 = {
+				custom_tooltip = {
+					text = TV_GOVHOUSE_REGION_OWNED_TT
+					any_location_in_region = {
+						owner ?= scope:actor
+					}
+				}
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_REGION_HAS_GOVERNOR_TT
+				scope:actor = {
+					any_in_list = { variable = tv_governor_list
+						OR = {
+							var:tv_governed_region ?= scope:target_1
+							var:tv_governed_area ?= {
+								region = scope:target_1
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = TV_GOVHOUSE_REGION_SELECTED_TT
+				exists = scope:target_1
+			}
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_appoint_governor_select_char"
+		none_available_msg_key = "tv_appoint_governor_no_chars"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_adult = yes
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+			is_loyal = yes
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_NOT_SET_TT
+				NOT = { has_variable = tv_is_governor }
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			tv_governor_appoint_effect = yes
 		}
 	}
 
