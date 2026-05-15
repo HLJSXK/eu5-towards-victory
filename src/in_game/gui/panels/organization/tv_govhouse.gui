@@ -144,7 +144,7 @@ organization_panel = {
 												}
 												text_single = {
 													size = { 46 22 }
-													raw_text = "-[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_build_cost_pct').GetValue|%0]"
+													raw_text = "[Multiply_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_build_cost_pct').GetValue, '(CFixedPoint)-1')|-=%0]"
 													tooltip = "TV_GOVHOUSE_BUILD_COST_FORMULA_TT"
 													align = nobaseline|right
 												}
@@ -159,7 +159,7 @@ organization_panel = {
 												}
 												text_single = {
 													size = { 46 22 }
-													raw_text = "-[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_unrest_pct').GetValue|%0]"
+													raw_text = "[Multiply_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_unrest_pct').GetValue, '(CFixedPoint)-1')|-=%0]"
 													tooltip = "TV_GOVHOUSE_UNREST_FORMULA_TT"
 													align = nobaseline|right
 												}
@@ -187,7 +187,7 @@ organization_panel = {
 
 										action_button_diamond = {
 											size = { 130 24 }
-											visible = "[Not(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet)]"
+											enabled = "[Not(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet)]"
 											text = "tv_appoint_governor"
 											title = "tv_appoint_governor"
 											actor = "[InternationalOrganizationsView.GetPlayer]"
