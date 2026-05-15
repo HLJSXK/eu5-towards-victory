@@ -6,34 +6,18 @@
 namespace = tv_grand_general
 
 # ── Outcome 1: Mil skill gain (weight 49) ────────────────────────────────────
-# If mil < 100 → +10 mil. If mil = 100 → 世间无双 (fire event 2 instead).
+# Fired when mil < 100. The gain is capped at 100.
 tv_grand_general.1 = {
 	type = country_event
 	title = tv_grand_general.1.t
 	desc = tv_grand_general.1.d
 	outcome = neutral
 
-	immediate = {
-		if = {
-			limit = {
-				custom_tooltip = {
-					text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
-					has_variable = tv_conquest_general_char
-				}
-				var:tv_conquest_general_char ?= { mil >= 100 }
-			}
-			# Redirect: mil already maxed → 世间无双
-			trigger_event_non_silently = { id = tv_grand_general.2 }
-			# Hide this event since we fired the replacement
-			hidden_effect = { set_variable = { name = tv_gg_skip_event value = 1 } }
-		}
-	}
-
 	option = {
 		name = tv_grand_general.1.a
-		# TODO: var:tv_conquest_general_char = { add_character_skill = { skill = mil value = 10 } }
-		# Verify add_character_skill syntax against reference_game_files before implementing.
-		custom_tooltip = { text = tv_gg_mil_gain_todo_tt }
+		var:tv_conquest_general_char ?= {
+			add_mil = { value = 10 max = 100 }
+		}
 	}
 }
 
@@ -46,16 +30,16 @@ tv_grand_general.2 = {
 
 	option = {
 		name = tv_grand_general.2.a
-		# TODO: ruler = { add_character_skill = { skill = mil value = 3 } }
-		# Verify ruler scope access and add_character_skill syntax.
-		custom_tooltip = { text = tv_gg_ruler_mil_gain_todo_tt }
+		ruler_or_regent ?= {
+			add_mil = { value = 3 max = 100 }
+		}
 	}
 }
 
 # ── Outcome 3: Trait upgrade (weight 49) ────────────────────────────────────
 # Player chooses offense / defense / tactics path. Each option upgrades that path's trait level.
 # If the chosen path is already at L3, the event should not offer that option (use trigger).
-# Routing to events 4/5 (百炼成钢/世间无双) is handled by the option effects.
+# Routing to events 4/5 (百炼成钢/世间无双) is handled before this event fires.
 tv_grand_general.3 = {
 	type = country_event
 	title = tv_grand_general.3.t
@@ -66,57 +50,87 @@ tv_grand_general.3 = {
 	option = {
 		name = tv_grand_general.3.a
 		trigger = {
-			# Only show if offense path is not yet at L3
-			OR = {
-				NOT = {
-					var:tv_conquest_general_char ?= { has_trait = tv_gg_offense_1 }
-					var:tv_conquest_general_char ?= { has_trait = tv_gg_offense_2 }
-					var:tv_conquest_general_char ?= { has_trait = tv_gg_offense_3 }
-				}
-				var:tv_conquest_general_char ?= { has_trait = tv_gg_offense_1 }
-				var:tv_conquest_general_char ?= { has_trait = tv_gg_offense_2 }
+			var:tv_conquest_general_char ?= {
+				NOT = { has_trait = tv_gg_offense_3 }
 			}
 		}
-		# TODO: upgrade offense trait:
-		#   if tv_gg_offense_2 → remove + add tv_gg_offense_3
-		#   elif tv_gg_offense_1 → remove + add tv_gg_offense_2
-		#   else → add tv_gg_offense_1
-		# Verify add_trait / remove_trait syntax on characters.
-		custom_tooltip = { text = tv_gg_offense_upgrade_todo_tt }
+		var:tv_conquest_general_char ?= {
+			if = {
+				limit = { has_trait = tv_gg_offense_2 }
+				if = {
+					limit = { has_trait = tv_gg_offense_1 }
+					remove_trait = trait:tv_gg_offense_1
+				}
+				remove_trait = trait:tv_gg_offense_2
+				add_trait = trait:tv_gg_offense_3
+			}
+			else_if = {
+				limit = { has_trait = tv_gg_offense_1 }
+				remove_trait = trait:tv_gg_offense_1
+				add_trait = trait:tv_gg_offense_2
+			}
+			else = {
+				add_trait = trait:tv_gg_offense_1
+			}
+		}
 	}
 
 	# Option B: Defense path
 	option = {
 		name = tv_grand_general.3.b
 		trigger = {
-			OR = {
-				NOT = {
-					var:tv_conquest_general_char ?= { has_trait = tv_gg_defense_1 }
-					var:tv_conquest_general_char ?= { has_trait = tv_gg_defense_2 }
-					var:tv_conquest_general_char ?= { has_trait = tv_gg_defense_3 }
-				}
-				var:tv_conquest_general_char ?= { has_trait = tv_gg_defense_1 }
-				var:tv_conquest_general_char ?= { has_trait = tv_gg_defense_2 }
+			var:tv_conquest_general_char ?= {
+				NOT = { has_trait = tv_gg_defense_3 }
 			}
 		}
-		custom_tooltip = { text = tv_gg_defense_upgrade_todo_tt }
+		var:tv_conquest_general_char ?= {
+			if = {
+				limit = { has_trait = tv_gg_defense_2 }
+				if = {
+					limit = { has_trait = tv_gg_defense_1 }
+					remove_trait = trait:tv_gg_defense_1
+				}
+				remove_trait = trait:tv_gg_defense_2
+				add_trait = trait:tv_gg_defense_3
+			}
+			else_if = {
+				limit = { has_trait = tv_gg_defense_1 }
+				remove_trait = trait:tv_gg_defense_1
+				add_trait = trait:tv_gg_defense_2
+			}
+			else = {
+				add_trait = trait:tv_gg_defense_1
+			}
+		}
 	}
 
 	# Option C: Tactics path
 	option = {
 		name = tv_grand_general.3.c
 		trigger = {
-			OR = {
-				NOT = {
-					var:tv_conquest_general_char ?= { has_trait = tv_gg_tactics_1 }
-					var:tv_conquest_general_char ?= { has_trait = tv_gg_tactics_2 }
-					var:tv_conquest_general_char ?= { has_trait = tv_gg_tactics_3 }
-				}
-				var:tv_conquest_general_char ?= { has_trait = tv_gg_tactics_1 }
-				var:tv_conquest_general_char ?= { has_trait = tv_gg_tactics_2 }
+			var:tv_conquest_general_char ?= {
+				NOT = { has_trait = tv_gg_tactics_3 }
 			}
 		}
-		custom_tooltip = { text = tv_gg_tactics_upgrade_todo_tt }
+		var:tv_conquest_general_char ?= {
+			if = {
+				limit = { has_trait = tv_gg_tactics_2 }
+				if = {
+					limit = { has_trait = tv_gg_tactics_1 }
+					remove_trait = trait:tv_gg_tactics_1
+				}
+				remove_trait = trait:tv_gg_tactics_2
+				add_trait = trait:tv_gg_tactics_3
+			}
+			else_if = {
+				limit = { has_trait = tv_gg_tactics_1 }
+				remove_trait = trait:tv_gg_tactics_1
+				add_trait = trait:tv_gg_tactics_2
+			}
+			else = {
+				add_trait = trait:tv_gg_tactics_1
+			}
+		}
 	}
 }
 
@@ -129,8 +143,9 @@ tv_grand_general.4 = {
 
 	option = {
 		name = tv_grand_general.4.a
-		# TODO: var:tv_conquest_general_char = { add_character_skill = { skill = mil value = 15 } }
-		custom_tooltip = { text = tv_gg_mil_gain_15_todo_tt }
+		var:tv_conquest_general_char ?= {
+			add_mil = { value = 15 max = 100 }
+		}
 	}
 }
 
@@ -143,38 +158,25 @@ tv_grand_general.5 = {
 
 	option = {
 		name = tv_grand_general.5.a
-		# TODO: ruler = { add_character_skill = { skill = mil value = 3 } }
-		custom_tooltip = { text = tv_gg_ruler_mil_gain_todo_tt }
+		ruler_or_regent ?= {
+			add_mil = { value = 3 max = 100 }
+		}
 	}
 }
 
 # ── Outcome 6: 伤疤 — injury (weight 1) ─────────────────────────────────────
-# If Grand General already has tv_gg_injured → 旧伤复发 (fire event 7 instead).
+# Fired only if the Grand General does not already have tv_gg_injured.
 tv_grand_general.6 = {
 	type = country_event
 	title = tv_grand_general.6.t
 	desc = tv_grand_general.6.d
 	outcome = negative
 
-	immediate = {
-		if = {
-			limit = {
-				custom_tooltip = {
-					text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
-					has_variable = tv_conquest_general_char
-				}
-				var:tv_conquest_general_char ?= { has_trait = tv_gg_injured }
-			}
-			# Redirect: already injured → 旧伤复发
-			trigger_event_non_silently = { id = tv_grand_general.7 }
-			hidden_effect = { set_variable = { name = tv_gg_skip_event value = 1 } }
-		}
-	}
-
 	option = {
 		name = tv_grand_general.6.a
-		# TODO: var:tv_conquest_general_char = { add_trait = tv_gg_injured }
-		custom_tooltip = { text = tv_gg_injury_todo_tt }
+		var:tv_conquest_general_char ?= {
+			add_trait = trait:tv_gg_injured
+		}
 	}
 }
 
@@ -187,9 +189,10 @@ tv_grand_general.7 = {
 
 	option = {
 		name = tv_grand_general.7.a
-		# TODO: var:tv_conquest_general_char = { death = { natural = no } }
-		# Verify death effect syntax for characters.
-		custom_tooltip = { text = tv_gg_death_todo_tt }
+		var:tv_conquest_general_char ?= {
+			set_variable = { name = tv_gg_training_death_notified value = 1 }
+			kill_character = this
+		}
 	}
 }
 
@@ -202,7 +205,9 @@ tv_grand_general.8 = {
 
 	option = {
 		name = tv_grand_general.8.a
-		# TODO: var:tv_conquest_general_char = { death = { natural = no } }
-		custom_tooltip = { text = tv_gg_death_todo_tt }
+		var:tv_conquest_general_char ?= {
+			set_variable = { name = tv_gg_training_death_notified value = 1 }
+			kill_character = this
+		}
 	}
 }

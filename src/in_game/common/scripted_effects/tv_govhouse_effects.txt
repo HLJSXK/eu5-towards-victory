@@ -36,42 +36,90 @@ tv_govhouse_reset_power_consolidation_effect = {
 	}
 }
 
-# Starts Grand General training. Marks the Grand General as in training.
+# Starts Grand General training. Marks the Grand General as in training,
+# starts the month counter, and applies the temporary court cost modifier.
 # Called by the tv_train_grand_general generic action.
 # Scope: actor country.
 tv_training_start_effect = {
 	var:tv_conquest_general_char ?= {
 		set_variable = { name = tv_gg_training_active value = 1 }
+		set_variable = { name = tv_gg_training_months value = 0 }
+	}
+	add_country_modifier = {
+		modifier = tv_grand_general_training_modifier
+		years = 1
+		mode = replace
 	}
 }
 
-# Fires the weighted training outcome for the Grand General.
-# Called from yearly_country_pulse once tv_gg_training_active is detected.
-# Scope: actor country. 49 / 49 / 1 / 1 split.
-# Each event handles sub-routing based on character state (mil level, trait level).
-tv_training_resolve_effect = {
-	random_list = {
-		49 = {
-			# Mil skill gain (or 世间无两 if mil = 100) — routing done inside event 1
-			trigger_event_non_silently = { id = tv_grand_general.1 }
-		}
-		49 = {
-			# Trait upgrade (or 百炼成钢/世间无两 if maxed) — routing done inside event 3
-			trigger_event_non_silently = { id = tv_grand_general.3 }
-		}
-		1 = {
-			# Injury (or 旧伤复发 death if already injured) — routing done inside event 6
-			trigger_event_non_silently = { id = tv_grand_general.6 }
-		}
-		1 = {
-			# Accidental death
-			trigger_event_non_silently = { id = tv_grand_general.8 }
-		}
-	}
-	# Clear training flag regardless of outcome
+# Clears Grand General training state from the current stored Grand General.
+# Scope: owner country.
+tv_training_clear_effect = {
 	var:tv_conquest_general_char ?= {
 		remove_variable = tv_gg_training_active
+		remove_variable = tv_gg_training_months
 	}
+	remove_country_modifier = tv_grand_general_training_modifier
+}
+
+# Fires the weighted training outcome for the Grand General.
+# Called once tv_gg_training_active has accumulated 12 monthly ticks.
+# Scope: actor country. 49 / 49 / 1 / 1 split.
+# Routing is resolved here so each outcome event is directly meaningful.
+tv_training_resolve_effect = {
+	if = {
+		limit = {
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				has_variable = tv_gg_training_active
+			}
+		}
+		random_list = {
+			49 = {
+				if = {
+					limit = { var:tv_conquest_general_char ?= { mil >= 100 } }
+					trigger_event_non_silently = { id = tv_grand_general.2 }
+				}
+				else = {
+					trigger_event_non_silently = { id = tv_grand_general.1 }
+				}
+			}
+			49 = {
+				if = {
+					limit = {
+						var:tv_conquest_general_char ?= {
+							has_trait = tv_gg_offense_3
+							has_trait = tv_gg_defense_3
+							has_trait = tv_gg_tactics_3
+						}
+					}
+					if = {
+						limit = { var:tv_conquest_general_char ?= { mil >= 100 } }
+						trigger_event_non_silently = { id = tv_grand_general.5 }
+					}
+					else = {
+						trigger_event_non_silently = { id = tv_grand_general.4 }
+					}
+				}
+				else = {
+					trigger_event_non_silently = { id = tv_grand_general.3 }
+				}
+			}
+			1 = {
+				if = {
+					limit = { var:tv_conquest_general_char ?= { has_trait = tv_gg_injured } }
+					trigger_event_non_silently = { id = tv_grand_general.7 }
+				}
+				else = {
+					trigger_event_non_silently = { id = tv_grand_general.6 }
+				}
+			}
+			1 = {
+				trigger_event_non_silently = { id = tv_grand_general.8 }
+			}
+		}
+	}
+	tv_training_clear_effect = yes
 }
 
 # ── Governor system (总督 per region) ───────────────────────────────────────

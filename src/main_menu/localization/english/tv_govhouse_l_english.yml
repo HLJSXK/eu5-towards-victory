@@ -65,6 +65,7 @@
  character_title_tv_grand_general: "Grand General"
  character_title_tv_grand_general_female: "Grand General"
  STATIC_MODIFIER_NAME_tv_grand_general_role_modifier: "Grand General"
+ STATIC_MODIFIER_NAME_tv_grand_general_training_modifier: "Grand General Training"
 
  # ── IO variables display ─────────────────────────────────────────────────────
  TV_GOVHOUSE_AUTHORITY_FORMAT: "$VAL|0$"
@@ -111,6 +112,10 @@
  tv_govhouse.1.t: "A Governor Has Died"
  tv_govhouse.1.d: "One of our regional governors has died. Their governed region no longer receives Governor's House bonuses until a new governor is assigned."
  tv_govhouse.1.a: "We must appoint a replacement."
+
+ tv_govhouse.2.t: "The Grand General Has Died"
+ tv_govhouse.2.d: "Our Grand General has died. The Governor's House will remain without its supreme military commander until a successor is appointed."
+ tv_govhouse.2.a: "We must appoint a successor."
 
  # ── Grand General traits ─────────────────────────────────────────────────────
  # Offense path (进攻)
@@ -170,16 +175,6 @@
  tv_subject_tax_medium_desc: "The default rate of subject tribute — neither generous nor extractive."
  tv_subject_tax_high: "High Taxation"
  tv_subject_tax_high_desc: "Elevated tribute from subjects. Profitable for the empire, but deeply resented by the subjected peoples."
-
- # ── Event option placeholder tooltips (removed when TODO effects are implemented) ──
- tv_gg_mil_gain_todo_tt: "TODO: Grand General gains +10 Military skill."
- tv_gg_mil_gain_15_todo_tt: "TODO: Grand General gains +15 Military skill."
- tv_gg_ruler_mil_gain_todo_tt: "TODO: Our ruler gains +3 Military skill."
- tv_gg_offense_upgrade_todo_tt: "TODO: Grand General advances along the Offense trait path."
- tv_gg_defense_upgrade_todo_tt: "TODO: Grand General advances along the Defense trait path."
- tv_gg_tactics_upgrade_todo_tt: "TODO: Grand General advances along the Tactics trait path."
- tv_gg_injury_todo_tt: "TODO: Grand General receives the Battle Scar trait."
- tv_gg_death_todo_tt: "TODO: Grand General dies."
 
  # ── Governor system (总督) ───────────────────────────────────────────────────
  tv_appoint_governor: "Assign Governor"

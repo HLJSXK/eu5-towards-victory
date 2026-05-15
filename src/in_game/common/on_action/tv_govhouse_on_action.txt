@@ -1,7 +1,7 @@
 ﻿# Towards Victory — Governor's House on_action hooks
 
-# Yearly tick: check if Grand General is in training; resolve outcome if active.
-tv_govhouse_yearly_pulse = {
+# Monthly tick: advance Grand General training and resolve it after 12 months.
+tv_govhouse_training_monthly_pulse = {
 	effect = {
 		if = {
 			limit = {
@@ -21,7 +21,17 @@ tv_govhouse_yearly_pulse = {
 					}
 				}
 			}
-			tv_training_resolve_effect = yes
+			var:tv_conquest_general_char ?= {
+				change_variable = { name = tv_gg_training_months value = 1 }
+			}
+			if = {
+				limit = {
+					var:tv_conquest_general_char ?= {
+						var:tv_gg_training_months >= 12
+					}
+				}
+				tv_training_resolve_effect = yes
+			}
 		}
 	}
 }
@@ -38,6 +48,8 @@ tv_govhouse_char_death = {
 					}
 				}
 				remove_variable = tv_gg_training_active
+				remove_variable = tv_gg_training_months
+				root = { remove_country_modifier = tv_grand_general_training_modifier }
 			}
 		}
 		# If the deceased was this country's Grand General, clear the reference
@@ -49,9 +61,18 @@ tv_govhouse_char_death = {
 				}
 				var:tv_conquest_general_char ?= scope:target
 			}
+			scope:target = { save_scope_as = tv_dead_grand_general }
+			if = {
+				limit = {
+					scope:target = {
+						NOT = { has_variable = tv_gg_training_death_notified }
+					}
+				}
+				trigger_event_non_silently = { id = tv_govhouse.2 }
+			}
 			tv_govhouse_reset_power_consolidation_effect = yes
+			tv_training_clear_effect = yes
 			remove_variable = tv_conquest_general_char
-			# TODO: fire a notification event to inform the player their Grand General has died
 		}
 	}
 }

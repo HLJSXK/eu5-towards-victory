@@ -14,3 +14,17 @@ tv_govhouse.1 = {
 		name = tv_govhouse.1.a
 	}
 }
+
+# Fired on the governing country when the appointed Grand General dies outside
+# the dedicated training death events.
+# scope:tv_dead_grand_general = the dead Grand General character.
+tv_govhouse.2 = {
+	type = country_event
+	title = tv_govhouse.2.t
+	desc = tv_govhouse.2.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.2.a
+	}
+}

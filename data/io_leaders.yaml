@@ -56,8 +56,10 @@ ios:
     on_appoint_effect: |
       tv_govhouse_reset_power_consolidation_effect = yes
     on_remove_effect: |
+      tv_training_clear_effect = yes
       tv_govhouse_reset_power_consolidation_effect = yes
     on_change_effect: |
+      tv_training_clear_effect = yes
       tv_govhouse_reset_power_consolidation_effect = yes
     char_filter: |
       is_adult = yes

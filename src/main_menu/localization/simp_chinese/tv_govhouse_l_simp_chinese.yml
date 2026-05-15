@@ -64,6 +64,7 @@
  character_title_tv_grand_general: "大将军"
  character_title_tv_grand_general_female: "大将军"
  STATIC_MODIFIER_NAME_tv_grand_general_role_modifier: "大将军"
+ STATIC_MODIFIER_NAME_tv_grand_general_training_modifier: "大将军训练"
 
  # ── IO 变量显示 ──────────────────────────────────────────────────────────────
  TV_GOVHOUSE_AUTHORITY_FORMAT: "$VAL|0$"
@@ -100,7 +101,7 @@
 
  tv_grand_general.7.t: "旧伤复发"
  tv_grand_general.7.d: "训练的严酷超出了极限。旧伤再度撕裂——这一次，再无恢复的可能。大将军倒在了训练场上。"
- tv_grand_general.7.a: "损失惨重。我们将寻找一位worthy的继任者。"
+ tv_grand_general.7.a: "损失惨重。我们将寻找一位配得上此位的继任者。"
 
  tv_grand_general.8.t: "折损将才"
  tv_grand_general.8.d: "命运残酷。训练中的一次意外夺走了我们的大将军。他在其潜力充分发挥之前便已离世。"
@@ -110,6 +111,10 @@
  tv_govhouse.1.t: "总督已逝世"
  tv_govhouse.1.d: "一位地区总督已经离世。其辖区将不再获得总督府加成，直到我们派遣新的总督。"
  tv_govhouse.1.a: "我们必须安排继任者。"
+
+ tv_govhouse.2.t: "大将军已逝世"
+ tv_govhouse.2.d: "我国大将军已经逝世。在任命继任者之前，总督府将暂缺最高军事统帅。"
+ tv_govhouse.2.a: "我们必须任命继任者。"
 
  # ── 大将军特质 ───────────────────────────────────────────────────────────────
  # 进攻路线
@@ -169,16 +174,6 @@
  tv_subject_tax_medium_desc: "附庸国贡金的默认标准——不慷慨，也不苛索。"
  tv_subject_tax_high: "高税收"
  tv_subject_tax_high_desc: "提高附庸国贡金。对帝国有利可图，但深受附庸国民的憎恨。"
-
- # ── 事件选项占位提示（TODO效果实现后移除）──────────────────────────────────
- tv_gg_mil_gain_todo_tt: "TODO：大将军获得+10军事能力。"
- tv_gg_mil_gain_15_todo_tt: "TODO：大将军获得+15军事能力。"
- tv_gg_ruler_mil_gain_todo_tt: "TODO：统治者获得+3军事能力。"
- tv_gg_offense_upgrade_todo_tt: "TODO：大将军沿进攻路线晋升特质。"
- tv_gg_defense_upgrade_todo_tt: "TODO：大将军沿防御路线晋升特质。"
- tv_gg_tactics_upgrade_todo_tt: "TODO：大将军沿战术路线晋升特质。"
- tv_gg_injury_todo_tt: "TODO：大将军获得伤疤特质。"
- tv_gg_death_todo_tt: "TODO：大将军死亡。"
 
  # ── 总督系统 ─────────────────────────────────────────────────────────────────
  tv_appoint_governor: "安排总督"

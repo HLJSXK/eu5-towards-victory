@@ -12,10 +12,10 @@ pulses:
     - tv_med_discovery_pulse          # medicine discovery events
     - tv_med_minor_accident_pulse     # medicine minor accident events
     - tv_med_major_accident_pulse     # medicine major accident events
+    - tv_govhouse_training_monthly_pulse # Grand General training timer
 
   yearly_country_pulse:
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home
-    - tv_govhouse_yearly_pulse        # Grand General training resolution
 
   on_character_death:
     - tv_govhouse_char_death           # Grand General death cleanup

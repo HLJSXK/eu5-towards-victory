@@ -148,6 +148,7 @@ STATIC_MODIFIER_NAME_tv_governor_build_cost
 STATIC_MODIFIER_NAME_tv_governor_max_control
 STATIC_MODIFIER_NAME_tv_governor_unrest
 STATIC_MODIFIER_NAME_tv_grand_general_role_modifier
+STATIC_MODIFIER_NAME_tv_grand_general_training_modifier
 STATIC_MODIFIER_NAME_tv_local_exhibition_triumph_location_modifier
 STATIC_MODIFIER_NAME_tv_prosperity_m1_bonus
 STATIC_MODIFIER_NAME_tv_prosperity_m2_bonus
@@ -208,6 +209,9 @@ TV_ALLIANCE_COHESION_FORMAT
 TV_ALLIANCE_LAWS_TAB
 TV_ALLIANCE_TIER_FORMAT
 TV_ALREADY_HAVE_BETTER
+TV_ARTS_CHIEF_ARTIST_CARD_TITLE
+TV_ARTS_CHIEF_ARTIST_TAB
+TV_ARTS_CHIEF_ARTIST_TAB_TOOLTIP
 TV_ARTS_DISPATCHED_ARTISTS_HEADER
 TV_ARTS_DISPATCHED_COUNT_LABEL
 TV_ARTS_DOMESTIC_EXHIBITION_INFO_HEADER
@@ -223,6 +227,7 @@ TV_ARTS_LOCAL_EXHIBITION_DURATION_LABEL
 TV_ARTS_LOCAL_EXHIBITION_ENTHUSIASM_LABEL
 TV_ARTS_LOCAL_EXHIBITION_HOT_TT
 TV_ARTS_LOCAL_EXHIBITION_RATING_LABEL
+TV_ARTS_NO_CHIEF_ARTIST
 TV_ARTS_OWNED_ARTWORKS_LABEL
 TV_COHESION_BASE_GROWTH
 TV_COHESION_DIPLOMATIC_REP
@@ -755,7 +760,6 @@ tv_faith_harmony
 tv_faith_harmony_desc
 tv_free_colonization_policy
 tv_free_colonization_policy_desc
-tv_gg_death_todo_tt
 tv_gg_defense_1
 tv_gg_defense_1_desc
 tv_gg_defense_1_die_desc
@@ -765,13 +769,9 @@ tv_gg_defense_2_die_desc
 tv_gg_defense_3
 tv_gg_defense_3_desc
 tv_gg_defense_3_die_desc
-tv_gg_defense_upgrade_todo_tt
 tv_gg_injured
 tv_gg_injured_desc
 tv_gg_injured_die_desc
-tv_gg_injury_todo_tt
-tv_gg_mil_gain_15_todo_tt
-tv_gg_mil_gain_todo_tt
 tv_gg_offense_1
 tv_gg_offense_1_desc
 tv_gg_offense_1_die_desc
@@ -781,8 +781,6 @@ tv_gg_offense_2_die_desc
 tv_gg_offense_3
 tv_gg_offense_3_desc
 tv_gg_offense_3_die_desc
-tv_gg_offense_upgrade_todo_tt
-tv_gg_ruler_mil_gain_todo_tt
 tv_gg_tactics_1
 tv_gg_tactics_1_desc
 tv_gg_tactics_1_die_desc
@@ -792,7 +790,6 @@ tv_gg_tactics_2_die_desc
 tv_gg_tactics_3
 tv_gg_tactics_3_desc
 tv_gg_tactics_3_die_desc
-tv_gg_tactics_upgrade_todo_tt
 tv_govhouse
 tv_govhouse_authority
 tv_govhouse_authority_desc
