@@ -26,6 +26,10 @@
  TV_GOVHOUSE_POWER_BALANCE_TOOLTIP: "左侧代表大将军，右侧代表王室。权力平衡每月向均衡点移动最多1%。"
  TV_GOVHOUSE_POWER_BALANCE_GENERAL_SIDE: "大将军"
  TV_GOVHOUSE_POWER_BALANCE_CROWN_SIDE: "王室"
+ TV_GOVHOUSE_POWER_SEGMENT_0: "@warning_icon! <25%：安定。不会触发权力失衡负面事件。"
+ TV_GOVHOUSE_POWER_SEGMENT_1: "@warning_icon! 25-49%：轻度反噬可能发生。"
+ TV_GOVHOUSE_POWER_SEGMENT_2: "@warning_icon! 50-74%：反噬增强，并可能波及宫廷珍藏。"
+ TV_GOVHOUSE_POWER_SEGMENT_3: "@warning_icon! 75-100%：严重反噬，内阁也可能陷入危险。"
 
  # ── 征服里程碑一 — 创建总督府提示 ──────────────────────────────────────────
  tv_conquest_m1_govhouse_tt: "建立总督府，管辖征服领土，并任命大将军。"
@@ -34,9 +38,9 @@
  tv_appoint_conquest_general_leader: "任命大将军"
  tv_appoint_conquest_general_leader_desc: "从本国角色中任命一位大将军。大将军可接受训练以提升军事能力，并沿三条专精路线之一发展军事特质。"
  tv_remove_conquest_general_leader: "撤销大将军"
- tv_remove_conquest_general_leader_desc: "解除现任大将军的职务。直至任命新的大将军，该职位将保持空缺。"
+ tv_remove_conquest_general_leader_desc: "解除现任大将军的职务。此举将消耗与巩固权力成正比的政府权力，巩固权力达到100%时消耗20点。"
  tv_change_conquest_general_leader: "更换大将军"
- tv_change_conquest_general_leader_desc: "以另一位角色替换现任大将军。"
+ tv_change_conquest_general_leader_desc: "以另一位角色替换现任大将军。此举将消耗与巩固权力成正比的政府权力，巩固权力达到100%时消耗20点。"
  tv_select_grand_general: "选择大将军"
  tv_no_grand_general_available: "@trigger_no! 当前没有符合条件的角色。"
 
@@ -115,6 +119,82 @@
  tv_govhouse.2.t: "大将军已逝世"
  tv_govhouse.2.d: "我国大将军已经逝世。在任命继任者之前，总督府将暂缺最高军事统帅。"
  tv_govhouse.2.a: "我们必须任命继任者。"
+
+ # ── 权力失衡负面事件 ───────────────────────────────────────────────────────
+ tv_govhouse.10.t: "地方怨声"
+ tv_govhouse.10.d: "总督府辖下的一处地方发现，日常请愿正被军中书记与后勤官层层转递。百姓已经明白，如今真正有分量的是谁的印玺。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了25%的权力平衡。#!"
+ tv_govhouse.10.a: "让地方自行承受。"
+ tv_govhouse.10.b: "投入金钱安抚街巷。"
+
+ tv_govhouse.11.t: "玺印与军令"
+ tv_govhouse.11.d: "宫廷拟定的命令，如今会带着军官的批注返回。若坚持旧有权威，国家付出的代价恐怕不止颜面。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了25%的权力平衡。#!"
+ tv_govhouse.11.a: "让出名义权威。"
+ tv_govhouse.11.b: "以稳定度公开反制。"
+
+ tv_govhouse.12.t: "贵族冷眼"
+ tv_govhouse.12.d: "贵族们私下议论，总督府把古老特权当作又一份补给清单处理。他们的宴席愈发冷清，承诺也愈发空泛。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了25%的权力平衡。#!"
+ tv_govhouse.12.a: "接受贵族不满。"
+ tv_govhouse.12.b: "让宫廷价值观转向贵族政治。"
+
+ tv_govhouse.13.t: "研究中断"
+ tv_govhouse.13.d: "学者报告说，档案、仪器与书信都被征用于军事行政。研究必须先等待行军命令。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了25%的权力平衡。#!"
+ tv_govhouse.13.a: "让研究延后。"
+ tv_govhouse.13.b: "从首都繁荣中抽取资源。"
+
+ tv_govhouse.20.t: "一省皆怨"
+ tv_govhouse.20.d: "整片省份都感受到了总督府透过税册、巡逻与强制协作施加的压力。最初的不满已经从城镇蔓延到城镇。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了50%的权力平衡。#!"
+ tv_govhouse.20.a: "让该省忍耐。"
+ tv_govhouse.20.b: "出资达成省级和解。"
+
+ tv_govhouse.21.t: "敕令被驳"
+ tv_govhouse.21.d: "大将军的幕僚悄然推翻了一道王室敕令。假装这只是普通行政将损害政府权威；正面对抗则会动摇国家。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了50%的权力平衡。#!"
+ tv_govhouse.21.a: "承认权威受损。"
+ tv_govhouse.21.b: "以公开敕令维系稳定。"
+
+ tv_govhouse.22.t: "贵族退缩"
+ tv_govhouse.22.d: "贵族不再只是窃窃私语。他们拒绝配合总督府，并要求证明贵族等级仍然有其分量。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了50%的权力平衡。#!"
+ tv_govhouse.22.a: "任由他们愤怒。"
+ tv_govhouse.22.b: "恢复贵族优先地位。"
+
+ tv_govhouse.23.t: "手稿被没收"
+ tv_govhouse.23.d: "研究笔记像作战计划一样被扣押。学者们开始怀疑，宫廷重视的究竟是发现，还是服从。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了50%的权力平衡。#!"
+ tv_govhouse.23.a: "研究日后再说。"
+ tv_govhouse.23.b: "消耗首都繁荣。"
+
+ tv_govhouse.24.t: "画廊付之一炬"
+ tv_govhouse.24.d: "一件艺术品成了威望斗争中的筹码。总督府视其为无用奢侈，宫廷则视其为记忆上的伤口。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了50%的权力平衡。#!"
+ tv_govhouse.24.a: "让作品烧毁。"
+ tv_govhouse.24.b: "以威望保护珍藏。"
+
+ tv_govhouse.25.t: "画室沉默"
+ tv_govhouse.25.d: "一位艺术家激怒了大将军身边的军官。如今若要保住画室，就必须找一条更有价值的性命挡下罪责。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了50%的权力平衡。#!"
+ tv_govhouse.25.a: "牺牲艺术家。"
+ tv_govhouse.25.b: "让一名阁臣代其受过。"
+
+ tv_govhouse.30.t: "一区拒府"
+ tv_govhouse.30.d: "整片区域的忍耐同时崩塌。每一道命令、每一笔税赋、每一次羞辱，如今都长着总督府的面孔。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了75%的权力平衡。#!"
+ tv_govhouse.30.a: "让该区域承受。"
+ tv_govhouse.30.b: "倾注金钱平息事态。"
+
+ tv_govhouse.31.t: "国家低头"
+ tv_govhouse.31.d: "廷臣如今在昔日发号施令之处请求许可。大将军的权威已经成了另一部写在军令上的宪章。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了75%的权力平衡。#!"
+ tv_govhouse.31.a: "国家必须低头。"
+ tv_govhouse.31.b: "以稳定度抵抗。"
+
+ tv_govhouse.32.t: "贵族结阵"
+ tv_govhouse.32.d: "豪门围绕自身特权结成防线。除非宫廷公开恢复贵族权重，否则他们绝不会听命于军人。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了75%的权力平衡。#!"
+ tv_govhouse.32.a: "让贵族满意度崩落。"
+ tv_govhouse.32.b: "赋予贵族政治更大权重。"
+
+ tv_govhouse.33.t: "空桌之季"
+ tv_govhouse.33.d: "学者的书桌空置，文书官把他们的成果拖进军需仓库。整月整月的思考消失在控制机器之中。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了75%的权力平衡。#!"
+ tv_govhouse.33.a: "研究将承受损失。"
+ tv_govhouse.33.b: "消耗首都繁荣以保全研究。"
+
+ tv_govhouse.34.t: "剑下内阁"
+ tv_govhouse.34.d: "内阁已经成为大将军发号施令的阻碍。到明天清晨，要么诸位阁臣消失，要么统治者必须以更切身的方式证明顺从。\n\n#R 警告：该事件出现，是因为你的大将军至少掌握了75%的权力平衡。#!"
+ tv_govhouse.34.a: "失去整个内阁。"
+ tv_govhouse.34.b: "改由统治者折损全属性。"
 
  # ── 大将军特质 ───────────────────────────────────────────────────────────────
  # 进攻路线

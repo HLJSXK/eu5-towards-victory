@@ -328,35 +328,62 @@ organization_panel = {
 
 			blockoverride "common_bottom_content" {
 				widget = {
-					size = { 470 54 }
+					size = { 470 126 }
 
-					hbox = {
+					vbox = {
+						layoutpolicy_horizontal = expanding
 						margin = { 10 10 }
-						spacing = 10
+						spacing = 4
 
-						icon = {
-							size = { 32 32 }
-							texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
-							tooltip = "TV_GOVHOUSE_POWER_BALANCE_GENERAL_SIDE"
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 10
+
+							icon = {
+								size = { 32 32 }
+								texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+								tooltip = "TV_GOVHOUSE_POWER_BALANCE_GENERAL_SIDE"
+							}
+
+							progressbar = {
+								size = { 366 18 }
+								min = 0
+								max = 1
+								value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_govhouse_power_balance').GetValue]"
+								progresstexture = "gfx/interface/progressbars/progress_bar_blue_alt_left.dds"
+								noprogresstexture = "gfx/interface/progressbars/progress_bar_goldish.dds"
+								texture_density = 2
+								spriteType = Corneredstretched
+								spriteborder = { 12 0 }
+								tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+							}
+
+							icon = {
+								size = { 32 32 }
+								texture = "gfx/interface/icons/estates/crown_estate.dds"
+								tooltip = "TV_GOVHOUSE_POWER_BALANCE_CROWN_SIDE"
+							}
 						}
 
-						progressbar = {
-							size = { 366 18 }
-							min = 0
-							max = 1
-							value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_govhouse_power_balance').GetValue]"
-							progresstexture = "gfx/interface/progressbars/progress_bar_blue_alt_left.dds"
-							noprogresstexture = "gfx/interface/progressbars/progress_bar_goldish.dds"
-							texture_density = 2
-							spriteType = Corneredstretched
-							spriteborder = { 12 0 }
-							tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							text = "TV_GOVHOUSE_POWER_SEGMENT_0"
+							align = nobaseline|left
 						}
-
-						icon = {
-							size = { 32 32 }
-							texture = "gfx/interface/icons/estates/crown_estate.dds"
-							tooltip = "TV_GOVHOUSE_POWER_BALANCE_CROWN_SIDE"
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							text = "TV_GOVHOUSE_POWER_SEGMENT_1"
+							align = nobaseline|left
+						}
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							text = "TV_GOVHOUSE_POWER_SEGMENT_2"
+							align = nobaseline|left
+						}
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							text = "TV_GOVHOUSE_POWER_SEGMENT_3"
+							align = nobaseline|left
 						}
 					}
 				}

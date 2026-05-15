@@ -27,6 +27,10 @@
  TV_GOVHOUSE_POWER_BALANCE_TOOLTIP: "The left side represents the Grand General; the right side represents the Crown. The balance moves toward equilibrium by up to 1% each month."
  TV_GOVHOUSE_POWER_BALANCE_GENERAL_SIDE: "Grand General"
  TV_GOVHOUSE_POWER_BALANCE_CROWN_SIDE: "Crown"
+ TV_GOVHOUSE_POWER_SEGMENT_0: "@warning_icon! <25%: Quiet. No balance backlash events."
+ TV_GOVHOUSE_POWER_SEGMENT_1: "@warning_icon! 25-49%: Mild backlash can occur."
+ TV_GOVHOUSE_POWER_SEGMENT_2: "@warning_icon! 50-74%: Stronger backlash; rare court losses."
+ TV_GOVHOUSE_POWER_SEGMENT_3: "@warning_icon! 75-100%: Severe backlash; cabinet danger."
 
  # ── Conquest M1 IO creation tooltip ─────────────────────────────────────────
  tv_conquest_m1_govhouse_tt: "Establish the Governor's House to administer conquered territories and appoint a Grand General."
@@ -35,9 +39,9 @@
  tv_appoint_conquest_general_leader: "Appoint Grand General"
  tv_appoint_conquest_general_leader_desc: "Appoint one of our characters as Grand General of the realm. The Grand General can be trained to improve their military skill and develop one of three specialised military trait paths."
  tv_remove_conquest_general_leader: "Dismiss Grand General"
- tv_remove_conquest_general_leader_desc: "Remove the current Grand General. The position will remain vacant until a new Grand General is appointed."
+ tv_remove_conquest_general_leader_desc: "Remove the current Grand General. This costs Government Power proportional to Power Consolidation, up to 20 at 100%."
  tv_change_conquest_general_leader: "Replace Grand General"
- tv_change_conquest_general_leader_desc: "Replace the current Grand General with another character."
+ tv_change_conquest_general_leader_desc: "Replace the current Grand General with another character. This costs Government Power proportional to Power Consolidation, up to 20 at 100%."
  tv_select_grand_general: "Select Grand General"
  tv_no_grand_general_available: "@trigger_no! No eligible characters are available."
 
@@ -116,6 +120,82 @@
  tv_govhouse.2.t: "The Grand General Has Died"
  tv_govhouse.2.d: "Our Grand General has died. The Governor's House will remain without its supreme military commander until a successor is appointed."
  tv_govhouse.2.a: "We must appoint a successor."
+
+ # ── Balance-of-power backlash events ───────────────────────────────────────
+ tv_govhouse.10.t: "Murmurs in the District"
+ tv_govhouse.10.d: "A district under the Governor's House has found its daily petitions rerouted through military clerks and quartermasters. The people know exactly whose seal now matters.\n\n#R WARNING: This event appeared because your Grand General controls at least 25% of the Balance of Power.#!"
+ tv_govhouse.10.a: "Let the district bear it."
+ tv_govhouse.10.b: "Spend gold to calm the streets."
+
+ tv_govhouse.11.t: "Seal and Sword"
+ tv_govhouse.11.d: "Orders drafted in the palace now return with soldiers' annotations. To insist on the old chain of authority would cost the realm more than dignity.\n\n#R WARNING: This event appeared because your Grand General controls at least 25% of the Balance of Power.#!"
+ tv_govhouse.11.a: "Yield formal authority."
+ tv_govhouse.11.b: "Spend stability on an open rebuke."
+
+ tv_govhouse.12.t: "Noble Coldness"
+ tv_govhouse.12.d: "Noble houses mutter that the Governor's House treats old privilege as another supply ledger. Their banquets grow colder and their promises thinner.\n\n#R WARNING: This event appeared because your Grand General controls at least 25% of the Balance of Power.#!"
+ tv_govhouse.12.a: "Accept noble resentment."
+ tv_govhouse.12.b: "Move court values toward aristocracy."
+
+ tv_govhouse.13.t: "The Interrupted Inquiry"
+ tv_govhouse.13.d: "Scholars report that archives, instruments, and correspondence have been requisitioned for military administration. Research must wait for marching orders.\n\n#R WARNING: This event appeared because your Grand General controls at least 25% of the Balance of Power.#!"
+ tv_govhouse.13.a: "Let research be delayed."
+ tv_govhouse.13.b: "Draw resources from the capital."
+
+ tv_govhouse.20.t: "A Province Turns Sour"
+ tv_govhouse.20.d: "A whole province now feels the Governor's House pressing through tax rolls, patrols, and forced cooperation. What began as irritation has spread from town to town.\n\n#R WARNING: This event appeared because your Grand General controls at least 50% of the Balance of Power.#!"
+ tv_govhouse.20.a: "The province must endure."
+ tv_govhouse.20.b: "Fund a provincial settlement."
+
+ tv_govhouse.21.t: "A Writ Overruled"
+ tv_govhouse.21.d: "The Grand General's staff has quietly countermanded a royal writ. Pretending this is ordinary administration will cost legitimacy; confronting it will shake the realm.\n\n#R WARNING: This event appeared because your Grand General controls at least 50% of the Balance of Power.#!"
+ tv_govhouse.21.a: "Concede the loss of authority."
+ tv_govhouse.21.b: "Stabilize the realm by public decree."
+
+ tv_govhouse.22.t: "Nobles Withdraw"
+ tv_govhouse.22.d: "The nobility no longer complains in whispers. They withhold cooperation from the Governor's House and demand proof that aristocratic rank still matters.\n\n#R WARNING: This event appeared because your Grand General controls at least 50% of the Balance of Power.#!"
+ tv_govhouse.22.a: "Let their anger stand."
+ tv_govhouse.22.b: "Restore aristocratic precedence."
+
+ tv_govhouse.23.t: "Notes Confiscated"
+ tv_govhouse.23.d: "Research notes have been seized as if they were campaign plans. Learned men now ask whether the court values discovery or obedience.\n\n#R WARNING: This event appeared because your Grand General controls at least 50% of the Balance of Power.#!"
+ tv_govhouse.23.a: "The work will resume later."
+ tv_govhouse.23.b: "Spend the capital's prosperity."
+
+ tv_govhouse.24.t: "A Gallery Put to the Torch"
+ tv_govhouse.24.d: "A work of art has become a token in the struggle over prestige. The Governor's House sees a useless luxury; the court sees a wound to memory.\n\n#R WARNING: This event appeared because your Grand General controls at least 50% of the Balance of Power.#!"
+ tv_govhouse.24.a: "Let the work burn."
+ tv_govhouse.24.b: "Spend prestige to shield the collection."
+
+ tv_govhouse.25.t: "A Studio Falls Silent"
+ tv_govhouse.25.d: "An artist has angered officers close to the Grand General. Protecting the studio now means finding a more valuable life to place in the path of blame.\n\n#R WARNING: This event appeared because your Grand General controls at least 50% of the Balance of Power.#!"
+ tv_govhouse.25.a: "The artist is sacrificed."
+ tv_govhouse.25.b: "A minister will take their place."
+
+ tv_govhouse.30.t: "An Area Refuses the House"
+ tv_govhouse.30.d: "Across an entire area, local patience collapses at once. The Governor's House has become the face of every order, tax, and humiliation.\n\n#R WARNING: This event appeared because your Grand General controls at least 75% of the Balance of Power.#!"
+ tv_govhouse.30.a: "Let the area bear it."
+ tv_govhouse.30.b: "Pour money into pacification."
+
+ tv_govhouse.31.t: "The State Bows"
+ tv_govhouse.31.d: "Courtiers now ask permission where they once gave orders. The Grand General's authority has become a second constitution written in command seals.\n\n#R WARNING: This event appeared because your Grand General controls at least 75% of the Balance of Power.#!"
+ tv_govhouse.31.a: "The state must bow."
+ tv_govhouse.31.b: "Spend stability to resist."
+
+ tv_govhouse.32.t: "The Nobles Close Ranks"
+ tv_govhouse.32.d: "Great houses form a defensive circle around their privileges. They will not be ruled by soldiers unless the court openly restores aristocratic weight.\n\n#R WARNING: This event appeared because your Grand General controls at least 75% of the Balance of Power.#!"
+ tv_govhouse.32.a: "Let noble satisfaction collapse."
+ tv_govhouse.32.b: "Give aristocracy a stronger hand."
+
+ tv_govhouse.33.t: "A Season of Empty Desks"
+ tv_govhouse.33.d: "The scholars' desks sit empty while clerks drag their work into military stores. Whole months of thought vanish into the machinery of control.\n\n#R WARNING: This event appeared because your Grand General controls at least 75% of the Balance of Power.#!"
+ tv_govhouse.33.a: "Research will suffer."
+ tv_govhouse.33.b: "Drain the capital to preserve it."
+
+ tv_govhouse.34.t: "The Cabinet Under the Sword"
+ tv_govhouse.34.d: "The cabinet has become an obstacle to the Grand General's command. By morning, either the ministers will be gone, or the ruler must prove obedience in a more personal way.\n\n#R WARNING: This event appeared because your Grand General controls at least 75% of the Balance of Power.#!"
+ tv_govhouse.34.a: "The cabinet is lost."
+ tv_govhouse.34.b: "Break the ruler's strength instead."
 
  # ── Grand General traits ─────────────────────────────────────────────────────
  # Offense path (进攻)

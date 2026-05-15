@@ -56,6 +56,10 @@ Grand General training note: `tv_train_grand_general` applies the one-year `tv_g
 
 Grand General death notification note: natural Grand General deaths trigger `tv_govhouse.2` from `tv_govhouse_char_death`; training-caused deaths set `tv_gg_training_death_notified` before `kill_character = this` so the already-shown training death event is not duplicated.
 
+Governor's House balance-of-power backlash note: `tv_govhouse_power_balance` is an IO variable in the 0..1 range and is checked monthly by `tv_govhouse_negative_monthly_pulse` (registered through `data/pulse_registry.yaml`). Below 25% no backlash events fire. At 25%/50%/75% the pulse uses a single `random_list` roll with a 300 total weight so at most one backlash event can appear per month, and each eligible event has weight 1/300. Events `tv_govhouse.10`-`.13` are tier 1, `.20`-`.25` are tier 2, and `.30`-`.34` are tier 3. Every backlash event has exactly two options: accept the negative effect, or pay an alternative resource and call `tv_govhouse_reduce_power_balance_effect` to lower the balance by 5 percentage points. Tier 2 adds rare art/artist losses; tier 3 upgrades the local satisfaction loss to an area-wide effect and adds a cabinet crisis. The Governor's House GUI shows four warning rows below the Balance of Power bar for the <25, 25-49, 50-74, and 75-100 segments.
+
+Grand General replacement cost note: generated Remove/Change Grand General actions call `tv_govhouse_pay_grand_general_replacement_cost_effect` before resetting `tv_govhouse_power_consolidation`; the cost is Government Power equal to `tv_govhouse_power_consolidation * 20`, so a fully consolidated Grand General costs 20 government power to remove or replace.
+
 ## IO Architecture Design Decisions
 
 The character-led TV IOs (`tv_arts_exhibition`, `tv_diplomatic_alliance`, `tv_academy_of_sciences`, `tv_govhouse`) share invariants that must never be broken.
@@ -115,7 +119,7 @@ src/
 │   │   ├── building_types/                towards_victory_buildings.txt  [GENERATED — Academy of Sciences building chain tiers 1–5]
 │   │   │                                  tv_arts_exhibition_buildings.txt  [MANUAL — event-only tv_local_arts_exhibition building]
 │   │   ├── scripted_effects/              ...
-│   │   │                                  tv_govhouse_effects.txt  [MANUAL — governor system: tv_govhouse_refresh_region_list_effect, tv_governor_appoint/remove/apply effects, tv_apply_governor_bonuses_effect, tv_govhouse_create/cleanup_effect, Grand General training effects]
+│   │   │                                  tv_govhouse_effects.txt  [MANUAL — governor system, Grand General training, replacement cost, and balance-of-power backlash effects]
 │   │   ├── generic_actions/               tv_govhouse_actions.txt  [MANUAL — tv_train_grand_general + tv_appoint_governor + tv_remove_governor + tv_change_governor]
 │   │   │                                  tv_arts_exhibition_actions.txt  [MANUAL — foreign tours + persistent local exhibition actions]
 │   │   │                                  tv_io_leader_actions.txt  [GENERATED — 12 IO leader Appoint/Remove/Change actions (4 roles × 3 actions)]
@@ -141,10 +145,10 @@ src/
 │   │                                      tv_research_events.txt  [MANUAL — namespace tv_research; events .1/.10/.11/.19/.20/.30]
 │   │                                      tv_medicine_events.txt  [MANUAL — namespace tv_medicine; .1 discovery / .2 accident / .3 recovery / .4 patient died]
 │   │                                      tv_arts_exhibition_events.txt  [MANUAL — artist tours + local exhibition start/end/monthly/action events]
-│   │                                      tv_govhouse_events.txt  [MANUAL - Governor's House notifications; tv_govhouse.1 governor death popup]
+│   │                                      tv_govhouse_events.txt  [MANUAL - Governor's House notifications plus balance-of-power backlash events]
 │   └── gui/
 │       ├── panels/situation/              tv_victory_situation.gui  [MANUAL]
-│       └── panels/organization/           tv_govhouse.gui  [MANUAL — overview owned-region display list (datamodel tv_govhouse_region_display_list) with region effect entries, standard governor character cards, and Assign/Cancel/Change Governor buttons; dedicated Grand General custom tab with variable-backed portrait/status/actions]
+│       └── panels/organization/           tv_govhouse.gui  [MANUAL — overview owned-region display list; dedicated Grand General tab with Balance of Power bar, segment warnings, variable-backed portrait/status/actions]
 │                                          tv_diplomatic_alliance.gui  [MANUAL — custom HRE-style IO panel; 3 leader-management buttons]
 │                                          tv_arts_exhibition.gui  [MANUAL — touring controls, Chief Artist resolutions tab, local exhibition tab, active exhibition action group]
 │                                          tv_academy_of_sciences.gui  [GENERATED — Research Mechanism IO panel; overview Research Status card + research actions, Chief Scientist tab leader actions, Medicine tab treatment action]
@@ -321,9 +325,9 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | --- | --- | --- | --- |
 | GUI Icons (`@xxx!`) | 351 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
 | Scripted Triggers | 515 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
-| Scripted Effects | 554 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
+| Scripted Effects | 582 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 954 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 958 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

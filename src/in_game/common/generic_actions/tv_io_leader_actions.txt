@@ -523,6 +523,7 @@ tv_remove_conquest_general_leader = {
 				}
 			}
 			tv_training_clear_effect = yes
+			tv_govhouse_pay_grand_general_replacement_cost_effect = yes
 			tv_govhouse_reset_power_consolidation_effect = yes
 			remove_variable = tv_conquest_general_char
 		}
@@ -578,6 +579,7 @@ tv_change_conquest_general_leader = {
 				}
 			}
 			tv_training_clear_effect = yes
+			tv_govhouse_pay_grand_general_replacement_cost_effect = yes
 			tv_govhouse_reset_power_consolidation_effect = yes
 		}
 		if = {

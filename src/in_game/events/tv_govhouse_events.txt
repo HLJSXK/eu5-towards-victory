@@ -28,3 +28,273 @@ tv_govhouse.2 = {
 		name = tv_govhouse.2.a
 	}
 }
+
+tv_govhouse.10 = {
+	type = country_event
+	title = tv_govhouse.10.t
+	desc = tv_govhouse.10.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.10.a
+		tv_govhouse_bad_location_satisfaction_1_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.10.b
+		change_gold_effect = { scale = -1 }
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.11 = {
+	type = country_event
+	title = tv_govhouse.11.t
+	desc = tv_govhouse.11.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.11.a
+		tv_govhouse_bad_government_power_1_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.11.b
+		tv_govhouse_bad_stability_1_effect = yes
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.12 = {
+	type = country_event
+	title = tv_govhouse.12.t
+	desc = tv_govhouse.12.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.12.a
+		tv_govhouse_bad_nobles_satisfaction_1_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.12.b
+		tv_govhouse_bad_aristocracy_shift_1_effect = yes
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.13 = {
+	type = country_event
+	title = tv_govhouse.13.t
+	desc = tv_govhouse.13.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.13.a
+		tv_govhouse_bad_research_1_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.13.b
+		tv_govhouse_bad_capital_prosperity_1_effect = yes
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.20 = {
+	type = country_event
+	title = tv_govhouse.20.t
+	desc = tv_govhouse.20.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.20.a
+		tv_govhouse_bad_location_satisfaction_2_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.20.b
+		change_gold_effect = { scale = -2 }
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.21 = {
+	type = country_event
+	title = tv_govhouse.21.t
+	desc = tv_govhouse.21.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.21.a
+		tv_govhouse_bad_government_power_2_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.21.b
+		tv_govhouse_bad_stability_2_effect = yes
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.22 = {
+	type = country_event
+	title = tv_govhouse.22.t
+	desc = tv_govhouse.22.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.22.a
+		tv_govhouse_bad_nobles_satisfaction_2_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.22.b
+		tv_govhouse_bad_aristocracy_shift_2_effect = yes
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.23 = {
+	type = country_event
+	title = tv_govhouse.23.t
+	desc = tv_govhouse.23.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.23.a
+		tv_govhouse_bad_research_2_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.23.b
+		tv_govhouse_bad_capital_prosperity_2_effect = yes
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.24 = {
+	type = country_event
+	title = tv_govhouse.24.t
+	desc = tv_govhouse.24.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.24.a
+		tv_govhouse_bad_destroy_art_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.24.b
+		add_prestige = -10
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.25 = {
+	type = country_event
+	title = tv_govhouse.25.t
+	desc = tv_govhouse.25.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.25.a
+		tv_govhouse_bad_kill_artist_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.25.b
+		tv_govhouse_bad_kill_cabinet_member_effect = yes
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.30 = {
+	type = country_event
+	title = tv_govhouse.30.t
+	desc = tv_govhouse.30.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.30.a
+		tv_govhouse_bad_location_satisfaction_3_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.30.b
+		change_gold_effect = { scale = -4 }
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.31 = {
+	type = country_event
+	title = tv_govhouse.31.t
+	desc = tv_govhouse.31.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.31.a
+		tv_govhouse_bad_government_power_3_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.31.b
+		tv_govhouse_bad_stability_3_effect = yes
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.32 = {
+	type = country_event
+	title = tv_govhouse.32.t
+	desc = tv_govhouse.32.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.32.a
+		tv_govhouse_bad_nobles_satisfaction_3_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.32.b
+		tv_govhouse_bad_aristocracy_shift_3_effect = yes
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.33 = {
+	type = country_event
+	title = tv_govhouse.33.t
+	desc = tv_govhouse.33.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.33.a
+		tv_govhouse_bad_research_3_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.33.b
+		tv_govhouse_bad_capital_prosperity_3_effect = yes
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}
+
+tv_govhouse.34 = {
+	type = country_event
+	title = tv_govhouse.34.t
+	desc = tv_govhouse.34.d
+	outcome = bad
+
+	option = {
+		name = tv_govhouse.34.a
+		tv_govhouse_bad_kill_all_cabinet_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.34.b
+		tv_govhouse_bad_ruler_all_stats_effect = yes
+		tv_govhouse_reduce_power_balance_effect = yes
+	}
+}

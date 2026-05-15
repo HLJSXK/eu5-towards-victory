@@ -13,6 +13,7 @@ pulses:
     - tv_med_minor_accident_pulse     # medicine minor accident events
     - tv_med_major_accident_pulse     # medicine major accident events
     - tv_govhouse_training_monthly_pulse # Grand General training timer
+    - tv_govhouse_negative_monthly_pulse # Governor's House balance-of-power backlash events
 
   yearly_country_pulse:
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home

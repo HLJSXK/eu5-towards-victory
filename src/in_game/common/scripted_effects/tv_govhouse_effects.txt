@@ -36,6 +36,192 @@ tv_govhouse_reset_power_consolidation_effect = {
 	}
 }
 
+# Lowers this country's Governor's House balance of power by 5 percentage
+# points. Scope: leader country / Governor's House owner.
+tv_govhouse_reduce_power_balance_effect = {
+	save_scope_as = tv_govhouse_power_owner
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_govhouse
+			leader_country ?= scope:tv_govhouse_power_owner
+		}
+		set_variable = {
+			name = tv_govhouse_power_balance
+			value = {
+				value = var:tv_govhouse_power_balance
+				subtract = 0.05
+				min = 0
+			}
+		}
+	}
+}
+
+# Pays the dismissal/replacement price for the current Grand General.
+# At 100% power consolidation this costs 20 government power.
+# Scope: leader country / Governor's House owner.
+tv_govhouse_pay_grand_general_replacement_cost_effect = {
+	save_scope_as = tv_govhouse_power_owner
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_govhouse
+			leader_country ?= scope:tv_govhouse_power_owner
+		}
+		scope:tv_govhouse_power_owner = {
+			add_government_power = {
+				value = prev.var:tv_govhouse_power_consolidation
+				multiply = -20
+			}
+		}
+	}
+}
+
+# ── Governor's House balance-of-power negative events ───────────────────────
+# Scope for all effects below: country.
+tv_govhouse_bad_location_satisfaction_1_effect = {
+	random_owned_location = {
+		every_pop = {
+			limit = { owner = root }
+			add_pop_satisfaction = -0.5
+		}
+	}
+}
+
+tv_govhouse_bad_location_satisfaction_2_effect = {
+	random_owned_location = {
+		province = {
+			every_location_in_province = {
+				limit = { owner ?= root }
+				every_pop = {
+					limit = { owner = root }
+					add_pop_satisfaction = -0.5
+				}
+			}
+		}
+	}
+}
+
+tv_govhouse_bad_location_satisfaction_3_effect = {
+	random_owned_location = {
+		area = {
+			every_location_in_area = {
+				limit = { owner ?= root }
+				every_pop = {
+					limit = { owner = root }
+					add_pop_satisfaction = -0.5
+				}
+			}
+		}
+	}
+}
+
+tv_govhouse_bad_government_power_1_effect = {
+	add_government_power = government_power_weak_penalty
+}
+
+tv_govhouse_bad_government_power_2_effect = {
+	add_government_power = government_power_mild_penalty
+}
+
+tv_govhouse_bad_government_power_3_effect = {
+	add_government_power = government_power_severe_penalty
+}
+
+tv_govhouse_bad_stability_1_effect = {
+	add_stability = -7
+}
+
+tv_govhouse_bad_stability_2_effect = {
+	add_stability = -14
+}
+
+tv_govhouse_bad_stability_3_effect = {
+	add_stability = -21
+}
+
+tv_govhouse_bad_nobles_satisfaction_1_effect = {
+	add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.05 }
+}
+
+tv_govhouse_bad_nobles_satisfaction_2_effect = {
+	add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+}
+
+tv_govhouse_bad_nobles_satisfaction_3_effect = {
+	add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.20 }
+}
+
+tv_govhouse_bad_aristocracy_shift_1_effect = {
+	change_societal_value = { type = aristocracy_vs_plutocracy value = -10 }
+}
+
+tv_govhouse_bad_aristocracy_shift_2_effect = {
+	change_societal_value = { type = aristocracy_vs_plutocracy value = -20 }
+}
+
+tv_govhouse_bad_aristocracy_shift_3_effect = {
+	change_societal_value = { type = aristocracy_vs_plutocracy value = -30 }
+}
+
+tv_govhouse_bad_research_1_effect = {
+	add_research_progress = research_progress_weak_penalty
+}
+
+tv_govhouse_bad_research_2_effect = {
+	add_research_progress = research_progress_mild_penalty
+}
+
+tv_govhouse_bad_research_3_effect = {
+	add_research_progress = research_progress_severe_penalty
+}
+
+tv_govhouse_bad_capital_prosperity_1_effect = {
+	capital = { change_prosperity = -0.1 }
+}
+
+tv_govhouse_bad_capital_prosperity_2_effect = {
+	capital = { change_prosperity = -0.2 }
+}
+
+tv_govhouse_bad_capital_prosperity_3_effect = {
+	capital = { change_prosperity = -0.4 }
+}
+
+tv_govhouse_bad_destroy_art_effect = {
+	random_work_of_art_in_country = { save_scope_as = tv_govhouse_destroyed_art }
+	destroy_art = scope:tv_govhouse_destroyed_art
+}
+
+tv_govhouse_bad_kill_artist_effect = {
+	random_artist = {
+		limit = { is_alive = yes }
+		save_scope_as = tv_govhouse_doomed_artist
+	}
+	scope:tv_govhouse_doomed_artist = { kill_character = this }
+}
+
+tv_govhouse_bad_kill_cabinet_member_effect = {
+	random_cabinet_character = {
+		limit = { is_alive = yes }
+		save_scope_as = tv_govhouse_doomed_cabinet_member
+	}
+	scope:tv_govhouse_doomed_cabinet_member = { kill_character = this }
+}
+
+tv_govhouse_bad_kill_all_cabinet_effect = {
+	every_cabinet_character = {
+		limit = { is_alive = yes }
+		kill_character = this
+	}
+}
+
+tv_govhouse_bad_ruler_all_stats_effect = {
+	ruler ?= {
+		add_adm = -10
+		add_dip = -10
+		add_mil = -10
+	}
+}
+
 # Starts Grand General training. Marks the Grand General as in training,
 # starts the month counter, and applies the temporary court cost modifier.
 # Called by the tv_train_grand_general generic action.

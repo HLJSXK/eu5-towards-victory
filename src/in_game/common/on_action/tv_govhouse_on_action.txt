@@ -36,6 +36,132 @@ tv_govhouse_training_monthly_pulse = {
 	}
 }
 
+# Monthly roll for Governor's House balance-of-power backlash events.
+# Each eligible event has weight 1 out of 300 and only one event can fire.
+tv_govhouse_negative_monthly_pulse = {
+	effect = {
+		if = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_GOVHOUSE_MEMBER_TT
+					has_variable = tv_govhouse_member
+				}
+				any_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= root
+					}
+					var:tv_govhouse_power_balance >= 0.25
+				}
+			}
+			if = {
+				limit = {
+					any_international_organizations_member_of = {
+						limit = {
+							international_organization_type = international_organization_type:tv_govhouse
+							leader_country ?= root
+						}
+						var:tv_govhouse_power_balance >= 0.75
+					}
+				}
+				if = {
+					limit = {
+						any_cabinet_character = { is_alive = yes }
+						has_ruler = yes
+					}
+					random_list = {
+						295 = {}
+						1 = { trigger_event_non_silently = { id = tv_govhouse.30 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.31 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.32 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.33 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.34 } }
+					}
+				}
+				else = {
+					random_list = {
+						296 = {}
+						1 = { trigger_event_non_silently = { id = tv_govhouse.30 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.31 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.32 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.33 } }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					any_international_organizations_member_of = {
+						limit = {
+							international_organization_type = international_organization_type:tv_govhouse
+							leader_country ?= root
+						}
+						var:tv_govhouse_power_balance >= 0.50
+					}
+				}
+				if = {
+					limit = {
+						any_work_of_art_in_country = { always = yes }
+						any_artist = { is_alive = yes }
+						any_cabinet_character = { is_alive = yes }
+					}
+					random_list = {
+						294 = {}
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.24 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.25 } }
+					}
+				}
+				else_if = {
+					limit = { any_work_of_art_in_country = { always = yes } }
+					random_list = {
+						295 = {}
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.24 } }
+					}
+				}
+				else_if = {
+					limit = {
+						any_artist = { is_alive = yes }
+						any_cabinet_character = { is_alive = yes }
+					}
+					random_list = {
+						295 = {}
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.25 } }
+					}
+				}
+				else = {
+					random_list = {
+						296 = {}
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
+					}
+				}
+			}
+			else = {
+				random_list = {
+					296 = {}
+					1 = { trigger_event_non_silently = { id = tv_govhouse.10 } }
+					1 = { trigger_event_non_silently = { id = tv_govhouse.11 } }
+					1 = { trigger_event_non_silently = { id = tv_govhouse.12 } }
+					1 = { trigger_event_non_silently = { id = tv_govhouse.13 } }
+				}
+			}
+		}
+	}
+}
+
 # Death cleanup: if the Grand General dies, clear country variables and notify.
 tv_govhouse_char_death = {
 	effect = {
