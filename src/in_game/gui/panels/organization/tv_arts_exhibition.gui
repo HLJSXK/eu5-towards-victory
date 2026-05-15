@@ -377,9 +377,33 @@ organization_panel = {
 									align = nobaseline
 								}
 								expand = {}
-								text_single = {
-									raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue|0]"
-									align = nobaseline
+								hbox = {
+									spacing = 2
+									ignoreinvisible = yes
+									text_single = {
+										raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue|0]"
+										align = nobaseline
+									}
+									text_single = {
+										visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)1.0')]"
+										raw_text = "@art_work!"
+										align = nobaseline
+									}
+									text_single = {
+										visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)2.0')]"
+										raw_text = "@art_work!"
+										align = nobaseline
+									}
+									text_single = {
+										visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)3.0')]"
+										raw_text = "@art_work!"
+										align = nobaseline
+									}
+									text_single = {
+										visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)4.0')]"
+										raw_text = "@art_work!"
+										align = nobaseline
+									}
 								}
 							}
 							hbox = {
