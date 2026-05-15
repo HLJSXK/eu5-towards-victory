@@ -122,8 +122,11 @@ organization_panel = {
 												spacing = 2
 												text_single = {
 													size = { 20 22 }
+													datacontext = "[GC('max_control')]"
 													raw_text = "@max_control!"
-													tooltip = "[max_control|E]"
+													tooltipwidget = {
+														using = game_concept_tooltip
+													}
 													align = nobaseline|center
 												}
 												text_single = {
@@ -138,8 +141,11 @@ organization_panel = {
 												spacing = 2
 												text_single = {
 													size = { 20 22 }
+													datacontext = "[GC('construction')]"
 													raw_text = "@construction!"
-													tooltip = "[construction|E]"
+													tooltipwidget = {
+														using = game_concept_tooltip
+													}
 													align = nobaseline|center
 												}
 												text_single = {
@@ -154,8 +160,11 @@ organization_panel = {
 												spacing = 2
 												icon = {
 													size = { 18 18 }
+													datacontext = "[GC('unrest')]"
 													texture = "gfx/interface/icons/flat_icons/geography/unrest.dds"
-													tooltip = "[unrest|E]"
+													tooltipwidget = {
+														using = game_concept_tooltip
+													}
 												}
 												text_single = {
 													size = { 46 22 }
