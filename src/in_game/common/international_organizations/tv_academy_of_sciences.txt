@@ -27,6 +27,10 @@ tv_academy_of_sciences = {
 	disband_if_no_leader = no
 	show_on_diplomatic_map = no
 
+	has_parliament = yes
+	parliament_type = tv_academy_assembly
+	resolution_widget = parliament
+
 	leader = {
 		leader_country ?= {
 			var:tv_academy_leader_char ?= {
@@ -103,6 +107,10 @@ tv_academy_of_sciences = {
 	}
 
 	modifier = {
+	}
+
+	can_initiate_policy_votes = {
+		is_leader_of_international_organization = scope:recipient
 	}
 
 	# ── Monthly effect: completion detection, D gold cost, display state updates ──

@@ -5,7 +5,7 @@
 #
 # TOWARDS VICTORY - ACADEMY OF SCIENCES LAWS
 # 6 laws under the Scientific Factions law category.
-# requires_vote = no: the Academy currently has only its founding country as a member.
+# requires_vote = yes: Academy law changes use the IO parliament tab.
 
 # ------------------------------------------------------------------------------
 # LAW 1: Research Priority
@@ -21,7 +21,7 @@ tv_academy_research_priority_law = {
 	}
 	locked = {
 	}
-	requires_vote = no
+	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
 	# Balanced (default)
@@ -80,7 +80,7 @@ tv_academy_research_openness_law = {
 	}
 	locked = {
 	}
-	requires_vote = no
+	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
 	# State Seclusion (default)
@@ -142,7 +142,7 @@ tv_academy_research_risk_law = {
 	}
 	locked = {
 	}
-	requires_vote = no
+	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
 	# Mandatory Review (default)
@@ -191,7 +191,7 @@ tv_academy_research_funding_law = {
 	}
 	locked = {
 	}
-	requires_vote = no
+	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
 	# Private Patronage (default)
@@ -255,7 +255,7 @@ tv_academy_technology_spread_law = {
 	}
 	locked = {
 	}
-	requires_vote = no
+	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
 	# Laissez-Faire Diffusion (default)
@@ -305,7 +305,7 @@ tv_academy_academic_prestige_law = {
 	}
 	locked = {
 	}
-	requires_vote = no
+	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
 	# No Rewards (default)

@@ -1,0 +1,15 @@
+﻿# Towards Victory - Academy of Sciences Parliament Type
+# Routes Academy law changes through the vanilla IO parliament tab.
+
+tv_academy_assembly = {
+	type = international_organization
+	potential = {
+		international_organization_type = international_organization_type:tv_academy_of_sciences
+	}
+	locked = { parliament_type = parliament_type:tv_academy_assembly }
+	modifier = {
+		has_international_parliament = yes
+		uses_parliament_for_law_votes = yes
+		policy_vote_required_vote_ratio = 0.5
+	}
+}
