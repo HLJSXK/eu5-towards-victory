@@ -209,7 +209,7 @@ Script values always execute in the scope they are *called from*, not from the s
 When a generic action has multiple `select_trigger` steps, EU5 **pre-evaluates the `effect` block at each step** before the user finishes all selections:
 
 - After step 1 completes, the first `target_flag` scope (e.g. `scope:target`) is set but subsequent ones (`scope:target_1`) are not.
-- At step 2 display time, the engine may evaluate the effect with `scope:target` set to the selected character — but any variables that the effect itself would write (e.g. `tv_governed_area`) do not yet exist on that character.
+- At step 2 display time, the engine may evaluate the effect with `scope:target` set to the selected character — but any variables that the effect itself would write (e.g. `tv_governed_region`) do not yet exist on that character.
 
 **Required guards:**
 
@@ -225,8 +225,8 @@ When a generic action has multiple `select_trigger` steps, EU5 **pre-evaluates t
    ```
 2. Within scripted effects called by the action effect, use `?=` on any variable access that may be absent on a freshly selected character:
    ```
-   var:tv_governed_area ?= {   # silently skipped if character has no tv_governed_area yet
-       every_location_in_area = { ... }
+   var:tv_governed_region ?= {   # silently skipped if character has no tv_governed_region yet
+       every_location_in_region = { ... }
    }
    ```
 
@@ -340,6 +340,14 @@ Countries are defined in two parts: a **country definition** file in `in_game/se
 ### 6.3. Localization
 
 All text displayed to the player is handled through the localization system. Localization files are in `.yml` format and must be encoded in **UTF-8-BOM**. Each language has its own subfolder and file naming convention (e.g., `_l_english.yml`). The system supports dynamic text, color formatting, and icons. [9]
+
+Event localization scope variables can be read directly from script scopes such as `ROOT` and `THIS`:
+
+```yaml
+my_event.1.desc: "Current value: [ROOT.GetVariable('my_var').GetValue|0]"
+```
+
+Do not insert `MakeScope` after `ROOT` or `THIS` in event localization. `ROOT.MakeScope.GetVariable(...)` treats an already script-scoped object like a GUI object and can log `Could not find promote for 'MakeScope'` / `Failed converting statement`. Use `Country.MakeScope.GetVariable(...)`, `Location.MakeScope.GetVariable(...)`, and similar chains only when the starting object is a GUI-layer binding such as `Country`, `Location`, `Player`, or a typed view object.
 
 #### Customizable Localization Database Keys
 

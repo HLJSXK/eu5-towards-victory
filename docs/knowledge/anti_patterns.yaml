@@ -817,3 +817,13 @@
   scope: country
   source: "scripts/gen_messagetypes.py:3; scripts/gen_messagetypes.py:39; runtime error.log: message_handler.cpp:421"
   notes: "EU5 expects a message type for generic action notifications. Missing entries log 'Failed to find message type: PERFORM_<action_id>_ACTION' at startup or action evaluation."
+
+- id: event_loc_root_makescope_getvariable
+  pattern: '\bROOT\.MakeScope\.GetVariable\('
+  only_in_paths: ['localization']
+  bad: "ROOT.MakeScope.GetVariable('var_name') inside event localization"
+  correction: "Use ROOT.GetVariable('var_name') in event localization. Reserve Country.MakeScope.GetVariable(...) / Location.MakeScope.GetVariable(...) for GUI object contexts."
+  category: localization
+  scope: any
+  source: "reference_game_files/game/main_menu/localization/english/events/DHE/flavor_mal_l_english.yml:46"
+  notes: "In event localization, ROOT is already a script scope. Adding MakeScope produces runtime data errors such as 'Could not find promote for MakeScope' and 'Failed converting statement'."
