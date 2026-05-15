@@ -32,7 +32,7 @@ if hasattr(sys.stderr, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parent
 DEFAULT_CONFIG_PATH = REPO_ROOT / "error_log_filter_config.json"
 DEFAULT_SOURCE_LOG = (
-    "C:/Users/Administrator/Documents/Paradox Interactive/"
+    "C:/Users/Diwuji/Documents/Paradox Interactive/"
     "Europa Universalis V/logs/error.log"
 )
 DEFAULT_OUTPUT_LOG = "docs/error_log/error.log"
