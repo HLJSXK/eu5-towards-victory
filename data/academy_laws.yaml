@@ -1,0 +1,87 @@
+# Academy of Sciences law categories for tv_academy_laws.txt.
+# Structure: 6 laws under one IO law category, each with flavor-only policy choices.
+#
+# These policies deliberately have no modifiers or scripted effects. The Academy IO has
+# exactly one member for now, so laws are generated with requires_vote = no and are
+# seeded with their default policies on IO creation.
+#
+# DO NOT hand-edit generated output files. Run:
+#   conda run --no-capture-output -n eu5 python scripts/in_game/common/laws/gen_tv_academy_laws.py
+
+law_category: tv_science_factions
+io_type: tv_academy_of_sciences
+
+laws:
+  - id: tv_academy_research_priority_law
+    display_comment: "LAW 1: Research Priority"
+    policies:
+      - id: tv_academy_research_priority_balanced_policy
+        display_comment: "Balanced (default)"
+        default: true
+      - id: tv_academy_research_priority_theory_policy
+        display_comment: "Theory First"
+      - id: tv_academy_research_priority_application_policy
+        display_comment: "Application First"
+      - id: tv_academy_research_priority_medicine_policy
+        display_comment: "Medicine First"
+
+  - id: tv_academy_research_openness_law
+    display_comment: "LAW 2: Research Openness"
+    policies:
+      - id: tv_academy_research_openness_closed_policy
+        display_comment: "State Seclusion (default)"
+        default: true
+      - id: tv_academy_research_openness_school_control_policy
+        display_comment: "School Supervision"
+      - id: tv_academy_research_openness_school_free_policy
+        display_comment: "School Freedom"
+      - id: tv_academy_research_openness_international_policy
+        display_comment: "International Openness"
+
+  - id: tv_academy_research_risk_law
+    display_comment: "LAW 3: Research Risk Management"
+    policies:
+      - id: tv_academy_research_risk_mandatory_review_policy
+        display_comment: "Mandatory Review (default)"
+        default: true
+      - id: tv_academy_research_risk_conservative_policy
+        display_comment: "Conservative Security"
+      - id: tv_academy_research_risk_high_breakthrough_policy
+        display_comment: "High-Risk Breakthroughs"
+
+  - id: tv_academy_research_funding_law
+    display_comment: "LAW 4: Research Resource Allocation"
+    policies:
+      - id: tv_academy_research_funding_private_policy
+        display_comment: "Private Patronage (default)"
+        default: true
+      - id: tv_academy_research_funding_guild_policy
+        display_comment: "Guild Patronage"
+      - id: tv_academy_research_funding_royal_policy
+        display_comment: "Royal Priority"
+      - id: tv_academy_research_funding_international_policy
+        display_comment: "International Cooperation"
+
+  - id: tv_academy_technology_spread_law
+    display_comment: "LAW 5: Technology Diffusion Regulations"
+    policies:
+      - id: tv_academy_technology_spread_laissez_faire_policy
+        display_comment: "Laissez-Faire Diffusion (default)"
+        default: true
+      - id: tv_academy_technology_spread_private_policy
+        display_comment: "Privatized Research"
+      - id: tv_academy_technology_spread_state_standard_policy
+        display_comment: "State Standardization"
+
+  - id: tv_academy_academic_prestige_law
+    display_comment: "LAW 6: Academic Prestige"
+    policies:
+      - id: tv_academy_academic_prestige_none_policy
+        display_comment: "No Rewards (default)"
+        default: true
+      - id: tv_academy_academic_prestige_titles_policy
+        display_comment: "Titles and Nobility"
+      - id: tv_academy_academic_prestige_money_policy
+        display_comment: "Monetary Rewards"
+      - id: tv_academy_academic_prestige_reputation_policy
+        display_comment: "Prestige Rewards"
