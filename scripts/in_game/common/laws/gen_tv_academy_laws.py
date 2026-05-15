@@ -1,8 +1,8 @@
 """
 Generate src/in_game/common/laws/tv_academy_laws.txt from data/academy_laws.yaml.
 
-Pattern: 6 Academy of Sciences IO laws under one law category. Policies are
-flavor-only: no modifiers, no on_activate effects, and no vote requirement.
+Pattern: 6 Academy of Sciences IO laws under one law category. Policies may
+define country_modifier blocks and have no vote requirement.
 """
 
 import argparse
@@ -27,16 +27,22 @@ FILE_HEADER = (
     "# Do not edit directly - modify the data file and re-run the generator.\n"
     "#\n"
     "# TOWARDS VICTORY - ACADEMY OF SCIENCES LAWS\n"
-    "# 6 flavor-only laws under the Scientific Factions law category.\n"
+    "# 6 laws under the Scientific Factions law category.\n"
     "# requires_vote = no: the Academy currently has only its founding country as a member.\n"
 )
 
 LAW_DIVIDER = "# ------------------------------------------------------------------------------"
 
 
+def _indent_block(text: str, depth: int) -> str:
+    prefix = T * depth
+    return "\n".join(prefix + line if line.strip() else "" for line in text.rstrip().splitlines())
+
+
 def gen_policy(policy: dict) -> str:
     pid = policy["id"]
     comment = policy.get("display_comment", "")
+    modifier_lines = (policy.get("country_modifier") or "").rstrip()
 
     lines = []
     if comment:
@@ -45,6 +51,10 @@ def gen_policy(policy: dict) -> str:
     lines.append(T * 2 + "allow = {")
     lines.append(T * 3 + "always = yes")
     lines.append(T * 2 + "}")
+    if modifier_lines:
+        lines.append(T * 2 + "country_modifier = {")
+        lines.append(_indent_block(modifier_lines, 3))
+        lines.append(T * 2 + "}")
     lines.append(T + "}")
     return "\n".join(lines)
 

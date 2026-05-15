@@ -4,7 +4,7 @@
 # Do not edit directly - modify the data file and re-run the generator.
 #
 # TOWARDS VICTORY - ACADEMY OF SCIENCES LAWS
-# 6 flavor-only laws under the Scientific Factions law category.
+# 6 laws under the Scientific Factions law category.
 # requires_vote = no: the Academy currently has only its founding country as a member.
 
 # ------------------------------------------------------------------------------
@@ -36,6 +36,10 @@ tv_academy_research_priority_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			research_speed_modifier = 0.05
+			global_build_buildings_cost = 0.10
+		}
 	}
 
 	# Application First
@@ -43,12 +47,21 @@ tv_academy_research_priority_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			research_speed_modifier = -0.05
+			global_build_buildings_cost = -0.10
+		}
 	}
 
 	# Medicine First
 	tv_academy_research_priority_medicine_policy = {
 		allow = {
 			always = yes
+		}
+		country_modifier = {
+			research_speed_modifier = -0.05
+			global_build_buildings_cost = 0.10
+			global_disease_resistance = 0.05
 		}
 	}
 }
@@ -75,12 +88,19 @@ tv_academy_research_openness_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			stability_cost = -0.05
+		}
 	}
 
 	# School Supervision
 	tv_academy_research_openness_school_control_policy = {
 		allow = {
 			always = yes
+		}
+		country_modifier = {
+			research_speed_modifier = -0.05
+			global_estate_target_satisfaction = 0.025
 		}
 	}
 
@@ -89,12 +109,21 @@ tv_academy_research_openness_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			research_speed_modifier = 0.05
+			pop_join_rebel_threshold = 0.05
+		}
 	}
 
 	# International Openness
 	tv_academy_research_openness_international_policy = {
 		allow = {
 			always = yes
+		}
+		country_modifier = {
+			research_speed_modifier = 0.05
+			diplomatic_reputation = 1
+			antagonism_received_modifier = 0.20
 		}
 	}
 }
@@ -121,6 +150,9 @@ tv_academy_research_risk_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			clergy_estate_target_satisfaction = 0.025
+		}
 	}
 
 	# Conservative Security
@@ -128,12 +160,19 @@ tv_academy_research_risk_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			research_speed_modifier = 0.05
+		}
 	}
 
 	# High-Risk Breakthroughs
 	tv_academy_research_risk_high_breakthrough_policy = {
 		allow = {
 			always = yes
+		}
+		country_modifier = {
+			research_speed_modifier = 0.10
+			clergy_estate_target_satisfaction = -0.025
 		}
 	}
 }
@@ -160,12 +199,21 @@ tv_academy_research_funding_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			nobles_estate_target_satisfaction = 0.025
+			global_nobles_estate_power = 0.25
+		}
 	}
 
 	# Guild Patronage
 	tv_academy_research_funding_guild_policy = {
 		allow = {
 			always = yes
+		}
+		country_modifier = {
+			research_speed_modifier = 0.05
+			global_production_efficiency = -0.05
+			global_burghers_estate_power = 0.25
 		}
 	}
 
@@ -174,12 +222,21 @@ tv_academy_research_funding_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			research_speed_modifier = 0.05
+			court_spending_cost_modifier = 0.20
+		}
 	}
 
 	# International Cooperation
 	tv_academy_research_funding_international_policy = {
 		allow = {
 			always = yes
+		}
+		country_modifier = {
+			research_speed_modifier = 0.05
+			diplomatic_reputation = 1
+			antagonism_received_modifier = 0.20
 		}
 	}
 }
@@ -206,6 +263,9 @@ tv_academy_technology_spread_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			global_institution_growth_modifier = 0.20
+		}
 	}
 
 	# Privatized Research
@@ -213,12 +273,20 @@ tv_academy_technology_spread_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			global_production_efficiency = 0.05
+			global_burghers_estate_power = 0.25
+		}
 	}
 
 	# State Standardization
 	tv_academy_technology_spread_state_standard_policy = {
 		allow = {
 			always = yes
+		}
+		country_modifier = {
+			research_speed_modifier = 0.05
+			court_spending_cost_modifier = 0.20
 		}
 	}
 }
@@ -252,6 +320,10 @@ tv_academy_academic_prestige_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			research_speed_modifier = 0.05
+			nobles_estate_target_satisfaction = -0.025
+		}
 	}
 
 	# Monetary Rewards
@@ -259,12 +331,21 @@ tv_academy_academic_prestige_law = {
 		allow = {
 			always = yes
 		}
+		country_modifier = {
+			research_speed_modifier = 0.05
+			court_spending_cost_modifier = 0.20
+		}
 	}
 
 	# Prestige Rewards
 	tv_academy_academic_prestige_reputation_policy = {
 		allow = {
 			always = yes
+		}
+		country_modifier = {
+			research_speed_modifier = 0.05
+			diplomatic_reputation = -1
+			monthly_prestige = -0.05
 		}
 	}
 }
