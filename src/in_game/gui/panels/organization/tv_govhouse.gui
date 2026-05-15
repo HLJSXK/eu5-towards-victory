@@ -84,87 +84,153 @@ organization_panel = {
 						vbox = {
 							layoutpolicy_horizontal = expanding
 							spacing = 4
-							datamodel = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_govhouse_region_list')]"
+							datamodel = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_govhouse_region_display_list')]"
 							item = {
 								vbox = {
 									layoutpolicy_horizontal = expanding
-									spacing = 0
+									spacing = 6
+									margin = { 8 6 }
 
 									hbox = {
 										layoutpolicy_horizontal = expanding
-										spacing = 8
-										margin = { 8 6 }
+										spacing = 6
 
-										icon = {
-											size = { 34 34 }
-											texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+										text_single = {
+											size = { 22 22 }
+											raw_text = "@region!"
+											tooltip = "[region|E]"
+											align = nobaseline|center
+										}
+
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											datacontext = "[Scope.GetLocation.GetRegion]"
+											raw_text = "[Region.GetNameWithNoTooltip]"
+											align = nobaseline|left
 											tooltipwidget = {
-												datacontext = "[Scope.GetRegion]"
 												using = Region_tooltip
 											}
 										}
 
-										vbox = {
-											layoutpolicy_horizontal = expanding
-											spacing = 6
+										expand = {}
 
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												datacontext = "[Scope.GetRegion]"
-												raw_text = "[Scope.GetRegion.GetNameWithNoTooltip]"
-												align = nobaseline|left
-												tooltipwidget = {
-													using = Region_tooltip
+										hbox = {
+											visible = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet]"
+											spacing = 8
+
+											hbox = {
+												spacing = 2
+												text_single = {
+													size = { 20 22 }
+													raw_text = "@max_control!"
+													tooltip = "[max_control|E]"
+													align = nobaseline|center
+												}
+												text_single = {
+													size = { 46 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_max_control_pct').GetValue|+=%0]"
+													tooltip = "TV_GOVHOUSE_MAX_CONTROL_FORMULA_TT"
+													align = nobaseline|right
 												}
 											}
 
 											hbox = {
-												layoutpolicy_horizontal = expanding
-												spacing = 6
-
-												action_button_diamond = {
-													size = { 130 24 }
-													text = "tv_appoint_governor"
-													title = "tv_appoint_governor"
-													actor = "[InternationalOrganizationsView.GetPlayer]"
-													left_action = {
-														action_name = "tv_appoint_governor"
-														parameter = {
-															parameter_name = "target_1"
-															parameter_value = "[Scope.GetRegion]"
-														}
-													}
+												spacing = 2
+												text_single = {
+													size = { 20 22 }
+													raw_text = "@construction!"
+													tooltip = "[construction|E]"
+													align = nobaseline|center
 												}
-
-												action_button_diamond = {
-													size = { 130 24 }
-													text = "tv_remove_governor"
-													title = "tv_remove_governor"
-													actor = "[InternationalOrganizationsView.GetPlayer]"
-													left_action = {
-														action_name = "tv_remove_governor"
-														parameter = {
-															parameter_name = "target_1"
-															parameter_value = "[Scope.GetRegion]"
-														}
-													}
+												text_single = {
+													size = { 46 22 }
+													raw_text = "-[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_build_cost_pct').GetValue|%0]"
+													tooltip = "TV_GOVHOUSE_BUILD_COST_FORMULA_TT"
+													align = nobaseline|right
 												}
+											}
 
-												action_button_diamond = {
-													size = { 130 24 }
-													text = "tv_change_governor"
-													title = "tv_change_governor"
-													actor = "[InternationalOrganizationsView.GetPlayer]"
-													left_action = {
-														action_name = "tv_change_governor"
-														parameter = {
-															parameter_name = "target_1"
-															parameter_value = "[Scope.GetRegion]"
-														}
-													}
+											hbox = {
+												spacing = 2
+												icon = {
+													size = { 18 18 }
+													texture = "gfx/interface/icons/flat_icons/geography/unrest.dds"
+													tooltip = "[unrest|E]"
+												}
+												text_single = {
+													size = { 46 22 }
+													raw_text = "-[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_unrest_pct').GetValue|%0]"
+													tooltip = "TV_GOVHOUSE_UNREST_FORMULA_TT"
+													align = nobaseline|right
 												}
 											}
 										}
+
+										text_single = {
+											visible = "[Not(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet)]"
+											text = "TV_GOVHOUSE_NO_GOVERNOR_ASSIGNED"
+											align = nobaseline|right
+										}
+									}
+
+									io_character_card = {
+										visible = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet]"
+										datacontext = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').GetCharacter]"
+										using = layoutpolicy_expanding
+										blockoverride "name_highlight" {}
+										blockoverride "character_entry_name_sort_by_highlight" {}
+									}
+
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+
+										action_button_diamond = {
+											size = { 130 24 }
+											visible = "[Not(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet)]"
+											text = "tv_appoint_governor"
+											title = "tv_appoint_governor"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = {
+												action_name = "tv_appoint_governor"
+												parameter = {
+													parameter_name = "target_1"
+													parameter_value = "[Scope.GetLocation.GetRegion]"
+												}
+											}
+										}
+
+										action_button_diamond = {
+											size = { 130 24 }
+											visible = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet]"
+											text = "tv_remove_governor"
+											title = "tv_remove_governor"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = {
+												action_name = "tv_remove_governor"
+												parameter = {
+													parameter_name = "target_1"
+													parameter_value = "[Scope.GetLocation.GetRegion]"
+												}
+											}
+										}
+
+										action_button_diamond = {
+											size = { 130 24 }
+											visible = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet]"
+											text = "tv_change_governor"
+											title = "tv_change_governor"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = {
+												action_name = "tv_change_governor"
+												parameter = {
+													parameter_name = "target_1"
+													parameter_value = "[Scope.GetLocation.GetRegion]"
+												}
+											}
+										}
+
+										expand = {}
 									}
 
 									widget = {

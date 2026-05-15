@@ -78,7 +78,18 @@ tv_training_resolve_effect = {
 # Data model:
 #   tv_govhouse_region_list: country variable list of region scopes, rebuilt monthly
 #                            from the country's currently owned locations.
+#   tv_govhouse_region_display_list:
+#                            country variable list of representative owned location scopes,
+#                            one per owned region, used by the Governor's House GUI.
+#   tv_govhouse_region_display_region_list:
+#                            country variable list of region scopes, internal de-dupe helper
+#                            for building tv_govhouse_region_display_list.
 #   tv_governor_list:        country variable list of governor character scopes.
+# Each representative display location may carry:
+#   tv_govhouse_display_governor_char      (character scope value)
+#   tv_govhouse_display_max_control_pct    (copied from governor)
+#   tv_govhouse_display_build_cost_pct      (copied from governor)
+#   tv_govhouse_display_unrest_pct          (copied from governor)
 # Each governor character carries:
 #   tv_is_governor = 1            (presence flag)
 #   tv_governed_region            (region scope value)
@@ -94,7 +105,13 @@ tv_training_resolve_effect = {
 tv_govhouse_refresh_region_list_effect = {
 	save_scope_as = tv_governing_country
 	clear_variable_list = tv_govhouse_region_list
+	clear_variable_list = tv_govhouse_region_display_list
+	clear_variable_list = tv_govhouse_region_display_region_list
 	every_owned_location = {
+		remove_variable = tv_govhouse_display_governor_char
+		remove_variable = tv_govhouse_display_max_control_pct
+		remove_variable = tv_govhouse_display_build_cost_pct
+		remove_variable = tv_govhouse_display_unrest_pct
 		region = {
 			save_scope_as = tv_owned_region
 		}
@@ -116,6 +133,75 @@ tv_govhouse_refresh_region_list_effect = {
 					name = tv_govhouse_region_list
 					target = scope:tv_owned_region
 				}
+			}
+		}
+	}
+	every_in_list = { variable = tv_governor_list
+		limit = {
+			is_alive = yes
+			var:tv_governed_region ?= {
+				any_location_in_region = {
+					owner ?= scope:tv_governing_country
+				}
+			}
+		}
+		save_scope_as = tv_display_governor
+		var:tv_governed_region ?= {
+			save_scope_as = tv_display_region
+			random_location_in_region = {
+				limit = { owner ?= scope:tv_governing_country }
+				save_scope_as = tv_display_location
+			}
+		}
+		if = {
+			limit = { exists = scope:tv_display_location }
+			set_variable = { name = tv_governed_region_capital value = scope:tv_display_location }
+			scope:tv_display_location = {
+				set_variable = { name = tv_govhouse_display_governor_char value = scope:tv_display_governor }
+				set_variable = { name = tv_govhouse_display_max_control_pct value = scope:tv_display_governor.var:tv_gov_max_control_pct }
+				set_variable = { name = tv_govhouse_display_build_cost_pct value = scope:tv_display_governor.var:tv_gov_build_cost_pct }
+				set_variable = { name = tv_govhouse_display_unrest_pct value = scope:tv_display_governor.var:tv_gov_unrest_pct }
+			}
+			scope:tv_governing_country = {
+				if = {
+					limit = {
+						OR = {
+							NOT = { has_variable_list = tv_govhouse_region_display_region_list }
+							NOT = {
+								is_target_in_variable_list = {
+									name = tv_govhouse_region_display_region_list
+									target = scope:tv_display_region
+								}
+							}
+						}
+					}
+					add_to_variable_list = { name = tv_govhouse_region_display_region_list target = scope:tv_display_region }
+					add_to_variable_list = { name = tv_govhouse_region_display_list target = scope:tv_display_location }
+				}
+			}
+		}
+	}
+	every_owned_location = {
+		save_scope_as = tv_display_location
+		region = {
+			save_scope_as = tv_display_region
+		}
+		scope:tv_governing_country = {
+			if = {
+				limit = {
+					exists = scope:tv_display_region
+					OR = {
+						NOT = { has_variable_list = tv_govhouse_region_display_region_list }
+						NOT = {
+							is_target_in_variable_list = {
+								name = tv_govhouse_region_display_region_list
+								target = scope:tv_display_region
+							}
+						}
+					}
+				}
+				add_to_variable_list = { name = tv_govhouse_region_display_region_list target = scope:tv_display_region }
+				add_to_variable_list = { name = tv_govhouse_region_display_list target = scope:tv_display_location }
 			}
 		}
 	}
@@ -280,6 +366,7 @@ tv_apply_governor_bonuses_effect = {
 			}
 		}
 	}
+	tv_govhouse_refresh_region_list_effect = yes
 }
 
 # Appoints a governor to a region. Displaces any existing governor for that region.
@@ -359,6 +446,7 @@ tv_governor_appoint_effect = {
 		}
 		# Apply location modifiers and initialise display variables
 		tv_governor_apply_modifiers_effect = yes
+		tv_govhouse_refresh_region_list_effect = yes
 	}
 }
 
@@ -392,6 +480,7 @@ tv_governor_remove_effect = {
 			}
 		}
 	}
+	tv_govhouse_refresh_region_list_effect = yes
 }
 
 # Cleans up governor variables and IO on country deletion or conquest defeat.
@@ -432,5 +521,13 @@ tv_govhouse_cleanup_effect = {
 		}
 		remove_variable = tv_governor_list
 	}
+	every_owned_location = {
+		remove_variable = tv_govhouse_display_governor_char
+		remove_variable = tv_govhouse_display_max_control_pct
+		remove_variable = tv_govhouse_display_build_cost_pct
+		remove_variable = tv_govhouse_display_unrest_pct
+	}
 	remove_variable = tv_govhouse_region_list
+	remove_variable = tv_govhouse_region_display_list
+	remove_variable = tv_govhouse_region_display_region_list
 }
