@@ -73,19 +73,19 @@ tv_training_resolve_effect = {
 	}
 }
 
-# ── Governor system (总督 per area) ─────────────────────────────────────────
+# ── Governor system (总督 per region) ───────────────────────────────────────
 # Data model: country variable list tv_governor_list — elements are governor characters.
 # Each governor character carries:
-#   tv_is_governor = 1          (presence flag)
-#   tv_governed_area            (area scope value)
-#   tv_governed_area_capital    (location scope value — one owned location in the area, for GUI display)
-#   tv_gov_max_control_pct      (adm × 0.001 — fractional; GUI |% format → "+10%")
-#   tv_gov_build_cost_pct       (dip × 0.002 — fractional; GUI |% format → "-20%")
-#   tv_gov_unrest_pct           (mil × 0.002 — fractional; GUI |% format → "-20%")
+#   tv_is_governor = 1            (presence flag)
+#   tv_governed_region            (region scope value)
+#   tv_governed_region_capital    (location scope value — one owned location in the region, for GUI display)
+#   tv_gov_max_control_pct        (adm × 0.001 — fractional; GUI |% format → "+10%")
+#   tv_gov_build_cost_pct         (dip × 0.002 — fractional; GUI |% format → "-20%")
+#   tv_gov_unrest_pct             (mil × 0.002 — fractional; GUI |% format → "-20%")
 # Location modifiers applied: tv_governor_max_control, tv_governor_build_cost, tv_governor_unrest
 # Scaling: size reads pre-computed pct variable directly (no inline multiply needed)
-# tv_governed_area_capital: set on appointment so GUI can chain .GetLocation.GetArea.GetNameWithNoTooltip
-# (GetVariable('area').GetArea is invalid; location scope variable → GetLocation is valid)
+# tv_governed_region_capital: set on appointment so GUI can chain .GetLocation.GetRegion.GetNameWithNoTooltip
+# (scope variable → GetLocation returns a typed Location; Location.GetRegion is valid)
 
 # Applies or refreshes location modifiers and display variables for one governor.
 # Scope: country. scope:target = governor character. scope:tv_governing_country = owning country.
@@ -98,12 +98,49 @@ tv_governor_apply_modifiers_effect = {
 		set_variable = { name = tv_gov_max_control_pct value = { value = this.adm multiply = 0.001 } }
 		set_variable = { name = tv_gov_build_cost_pct value = { value = this.dip multiply = 0.002 } }
 		set_variable = { name = tv_gov_unrest_pct value = { value = this.mil multiply = 0.002 } }
-		# Apply to all owned locations in the governed area
-		# ?= guards the case where scope:target has no tv_governed_area yet
-		# (e.g. EU5 pre-evaluates this effect after select_trigger step 1 picks the character
-		# but before step 2 sets the area — fresh characters have no tv_governed_area variable).
+		# Migrate pre-region governors from the old area assignment, preserving the appointment.
+		if = {
+			limit = {
+				has_variable = tv_governed_area
+				NOT = { has_variable = tv_governed_region }
+			}
+			var:tv_governed_area ?= {
+				random_location_in_area = {
+					limit = { owner ?= scope:tv_governing_country }
+					save_scope_as = tv_temp_legacy_region_loc
+				}
+			}
+			if = {
+				limit = { exists = scope:tv_temp_legacy_region_loc }
+				scope:tv_temp_legacy_region_loc = {
+					region = {
+						save_scope_as = tv_temp_legacy_region
+					}
+				}
+			}
+			if = {
+				limit = { exists = scope:tv_temp_legacy_region }
+				set_variable = { name = tv_governed_region value = scope:tv_temp_legacy_region }
+				set_variable = { name = tv_governed_region_capital value = scope:tv_temp_legacy_region_loc }
+			}
+		}
+		# Remove any old area-scoped modifiers before applying the region-wide set.
 		var:tv_governed_area ?= {
 			every_location_in_area = {
+				limit = { owner ?= scope:tv_governing_country }
+				remove_location_modifier = tv_governor_max_control
+				remove_location_modifier = tv_governor_build_cost
+				remove_location_modifier = tv_governor_unrest
+			}
+		}
+		remove_variable = tv_governed_area
+		remove_variable = tv_governed_area_capital
+		# Apply to all owned locations in the governed region.
+		# ?= guards the case where scope:target has no tv_governed_region yet
+		# (e.g. EU5 pre-evaluates this effect after select_trigger step 1 picks the character
+		# but before step 2 sets the region — fresh characters have no tv_governed_region variable).
+		var:tv_governed_region ?= {
+			every_location_in_region = {
 				limit = { owner ?= scope:tv_governing_country }
 				remove_location_modifier = tv_governor_max_control
 				remove_location_modifier = tv_governor_build_cost
@@ -139,24 +176,27 @@ tv_apply_governor_bonuses_effect = {
 	every_in_list = { variable = tv_governor_list
 		if = {
 			limit = { is_alive = no }
-			# Dead governor — strip their area's modifiers and remove them from the list
-			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_GOVERNED_AREA_TT
-						has_variable = tv_governed_area
-					}
+			# Dead governor — strip their region's modifiers and remove them from the list
+			var:tv_governed_region ?= {
+				every_location_in_region = {
+					limit = { owner ?= scope:tv_governing_country }
+					remove_location_modifier = tv_governor_max_control
+					remove_location_modifier = tv_governor_build_cost
+					remove_location_modifier = tv_governor_unrest
 				}
-				var:tv_governed_area ?= {
-					every_location_in_area = {
-						limit = { owner ?= scope:tv_governing_country }
-						remove_location_modifier = tv_governor_max_control
-						remove_location_modifier = tv_governor_build_cost
-						remove_location_modifier = tv_governor_unrest
-					}
+			}
+			# Legacy area assignment cleanup for saves from before region jurisdiction.
+			var:tv_governed_area ?= {
+				every_location_in_area = {
+					limit = { owner ?= scope:tv_governing_country }
+					remove_location_modifier = tv_governor_max_control
+					remove_location_modifier = tv_governor_build_cost
+					remove_location_modifier = tv_governor_unrest
 				}
 			}
 			remove_variable = tv_is_governor
+			remove_variable = tv_governed_region
+			remove_variable = tv_governed_region_capital
 			remove_variable = tv_governed_area
 			remove_variable = tv_governed_area_capital
 			remove_variable = tv_gov_max_control_pct
@@ -172,13 +212,25 @@ tv_apply_governor_bonuses_effect = {
 			scope:tv_governing_country = {
 				tv_governor_apply_modifiers_effect = yes
 			}
+			if = {
+				limit = { NOT = { has_variable = tv_governed_region } }
+				remove_variable = tv_is_governor
+				remove_variable = tv_governed_region_capital
+				remove_variable = tv_gov_max_control_pct
+				remove_variable = tv_gov_build_cost_pct
+				remove_variable = tv_gov_unrest_pct
+				save_scope_as = tv_orphaned_governor
+				scope:tv_governing_country = {
+					remove_list_variable = { name = tv_governor_list target = scope:tv_orphaned_governor }
+				}
+			}
 		}
 	}
 }
 
-# Appoints a governor to an area. Displaces any existing governor for that area.
+# Appoints a governor to a region. Displaces any existing governor for that region.
 # Scope: country. scope:target = character (from select_trigger target_flag = target).
-#                  scope:target_1 = area (from select_trigger target_flag = target_1).
+#                  scope:target_1 = region (from select_trigger target_flag = target_1).
 tv_governor_appoint_effect = {
 	save_scope_as = tv_governing_country
 	# Guard: EU5 pre-evaluates the effect body during select_trigger steps.
@@ -188,9 +240,17 @@ tv_governor_appoint_effect = {
 			exists = scope:target
 			exists = scope:target_1
 		}
-		# Displace any existing governor for this area first
+		# Displace any existing governor for this region first
 		every_in_list = { variable = tv_governor_list
-			limit = { var:tv_governed_area ?= scope:target_1 }
+			limit = { var:tv_governed_region ?= scope:target_1 }
+			var:tv_governed_region ?= {
+				every_location_in_region = {
+					limit = { owner ?= scope:tv_governing_country }
+					remove_location_modifier = tv_governor_max_control
+					remove_location_modifier = tv_governor_build_cost
+					remove_location_modifier = tv_governor_unrest
+				}
+			}
 			var:tv_governed_area ?= {
 				every_location_in_area = {
 					limit = { owner ?= scope:tv_governing_country }
@@ -200,6 +260,8 @@ tv_governor_appoint_effect = {
 				}
 			}
 			remove_variable = tv_is_governor
+			remove_variable = tv_governed_region
+			remove_variable = tv_governed_region_capital
 			remove_variable = tv_governed_area
 			remove_variable = tv_governed_area_capital
 			remove_variable = tv_gov_max_control_pct
@@ -213,20 +275,19 @@ tv_governor_appoint_effect = {
 		# Set governor variables on the character
 		scope:target = {
 			set_variable = { name = tv_is_governor value = 1 }
-			set_variable = { name = tv_governed_area value = scope:target_1 }
+			set_variable = { name = tv_governed_region value = scope:target_1 }
 		}
-		# Store a representative location from the area so the GUI can display the area name.
-		# GetVariable('area').GetArea is invalid; GetVariable('location').GetLocation.GetArea works.
+		# Store a representative location from the region so the GUI can display the region name.
 		scope:target_1 = {
-			random_location_in_area = {
+			random_location_in_region = {
 				limit = { owner ?= scope:tv_governing_country }
-				save_scope_as = tv_temp_area_loc
+				save_scope_as = tv_temp_region_loc
 			}
 		}
 		if = {
-			limit = { exists = scope:tv_temp_area_loc }
+			limit = { exists = scope:tv_temp_region_loc }
 			scope:target = {
-				set_variable = { name = tv_governed_area_capital value = scope:tv_temp_area_loc }
+				set_variable = { name = tv_governed_region_capital value = scope:tv_temp_region_loc }
 			}
 		}
 		# Register in the country governor list
@@ -241,23 +302,25 @@ tv_governor_appoint_effect = {
 tv_governor_remove_effect = {
 	save_scope_as = tv_governing_country
 	scope:recipient = {
-		if = {
-			limit = {
-				custom_tooltip = {
-					text = TV_HAS_GOVERNED_AREA_TT
-					has_variable = tv_governed_area
-				}
+		var:tv_governed_region ?= {
+			every_location_in_region = {
+				limit = { owner ?= scope:tv_governing_country }
+				remove_location_modifier = tv_governor_max_control
+				remove_location_modifier = tv_governor_build_cost
+				remove_location_modifier = tv_governor_unrest
 			}
-			var:tv_governed_area ?= {
-				every_location_in_area = {
-					limit = { owner ?= scope:tv_governing_country }
-					remove_location_modifier = tv_governor_max_control
-					remove_location_modifier = tv_governor_build_cost
-					remove_location_modifier = tv_governor_unrest
-				}
+		}
+		var:tv_governed_area ?= {
+			every_location_in_area = {
+				limit = { owner ?= scope:tv_governing_country }
+				remove_location_modifier = tv_governor_max_control
+				remove_location_modifier = tv_governor_build_cost
+				remove_location_modifier = tv_governor_unrest
 			}
 		}
 		remove_variable = tv_is_governor
+		remove_variable = tv_governed_region
+		remove_variable = tv_governed_region_capital
 		remove_variable = tv_governed_area
 		remove_variable = tv_governed_area_capital
 		remove_variable = tv_gov_max_control_pct
@@ -304,9 +367,13 @@ tv_govhouse_cleanup_effect = {
 			if = {
 				limit = {
 					is_alive = yes
-					custom_tooltip = {
-						text = TV_HAS_GOVERNED_AREA_TT
-						has_variable = tv_governed_area
+				}
+				var:tv_governed_region ?= {
+					every_location_in_region = {
+						limit = { owner ?= scope:tv_governing_country }
+						remove_location_modifier = tv_governor_max_control
+						remove_location_modifier = tv_governor_build_cost
+						remove_location_modifier = tv_governor_unrest
 					}
 				}
 				var:tv_governed_area ?= {
@@ -319,6 +386,8 @@ tv_govhouse_cleanup_effect = {
 				}
 			}
 			remove_variable = tv_is_governor
+			remove_variable = tv_governed_region
+			remove_variable = tv_governed_region_capital
 			remove_variable = tv_governed_area
 			remove_variable = tv_governed_area_capital
 			remove_variable = tv_gov_max_control_pct

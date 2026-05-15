@@ -178,14 +178,14 @@
 
  # ── Governor system (总督) ───────────────────────────────────────────────────
  tv_appoint_governor: "Appoint Governor"
- tv_appoint_governor_desc: "Appoint one of our characters as governor of a conquered area. The governor's administrative, diplomatic, and military skill improves local control, reduces construction costs, and suppresses unrest."
+ tv_appoint_governor_desc: "Appoint one of our characters as governor of a conquered region. The governor's administrative, diplomatic, and military skill improves local control, reduces construction costs, and suppresses unrest."
  tv_remove_governor: "Dismiss Governor"
- tv_remove_governor_desc: "Dismiss this governor from their post. Their area's bonuses will be removed immediately."
+ tv_remove_governor_desc: "Dismiss this governor from their post. Their region's bonuses will be removed immediately."
 
  tv_appoint_governor_select_char: "Select Governor"
  tv_appoint_governor_no_chars: "@trigger_no! No eligible characters are available."
- tv_appoint_governor_select_area: "Select Governed Area"
- tv_appoint_governor_no_areas: "@trigger_no! No eligible areas available."
+ tv_appoint_governor_select_region: "Select Governed Region"
+ tv_appoint_governor_no_regions: "@trigger_no! No eligible regions available."
 
  PERFORM_tv_appoint_governor_ACTION_SETUP: "When we appoint a governor."
  PERFORM_tv_appoint_governor_ACTION_LOG: "We appointed a new governor."
@@ -200,7 +200,7 @@
  TV_GOVHOUSE_MAX_CONTROL_LABEL: "Max Control"
  TV_GOVHOUSE_BUILD_COST_LABEL: "Construction Cost"
  TV_GOVHOUSE_UNREST_LABEL: "Unrest Reduction"
- TV_GOVHOUSE_GOVERNED_AREA_LABEL: "Governing"
+ TV_GOVHOUSE_GOVERNED_AREA_LABEL: "Governed Region"
 
  STATIC_MODIFIER_NAME_tv_governor_max_control: "Governor: Local Control"
  STATIC_MODIFIER_NAME_tv_governor_build_cost: "Governor: Construction"

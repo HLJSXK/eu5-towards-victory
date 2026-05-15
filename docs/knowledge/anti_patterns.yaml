@@ -797,3 +797,23 @@
   scope: country
   source: "reference_game_files/game/in_game/common/generic_action_ai_lists/readme.txt:3-7; runtime error.log: generic_action_ai_list.cpp:82"
   notes: "Unlisted generic actions are put into the global AI list and the engine logs a performance warning: 'Action X is not explicitly listed in an ai list!'."
+
+- id: price_missing_cost_modifier_type
+  pattern: ''
+  only_in_paths: ['prices']
+  bad: "Defining a mod price key without a matching <price_key>_cost_modifier modifier type"
+  correction: "For every mod-defined price key, add <price_key>_cost_modifier in main_menu/common/modifier_type_definitions with category = country, and localize the price key plus MODIFIER_TYPE_NAME/DESC entries."
+  category: modifier
+  scope: country
+  source: "src/main_menu/common/modifier_type_definitions/towards_victory_modifier_types.txt:41; runtime error.log: price_database.cpp:116"
+  notes: "EU5 automatically looks for a cost modifier type named <price_key>_cost_modifier for each price. If it is absent, the engine logs 'Missing modifier type for price'."
+
+- id: generic_action_missing_message_type
+  pattern: ''
+  only_in_paths: ['generic_actions']
+  bad: "Defining a generic action without a PERFORM_<action_id>_ACTION message type"
+  correction: "Add a PERFORM_<action_id>_ACTION block to scripts/gen_messagetypes.py TV_ENTRIES, rerun scripts/gen_messagetypes.py, and define SETUP/LOG/MAP localization keys for supported languages."
+  category: script
+  scope: country
+  source: "scripts/gen_messagetypes.py:3; scripts/gen_messagetypes.py:39; runtime error.log: message_handler.cpp:421"
+  notes: "EU5 expects a message type for generic action notifications. Missing entries log 'Failed to find message type: PERFORM_<action_id>_ACTION' at startup or action evaluation."

@@ -151,6 +151,26 @@ change_gold_effect = { scale = -3.5 }
 
 The helper wraps `add_gold` and scales the value with `capital_wealth` and `country_economical_base`, with clamps for positive and negative results. Use fixed `add_gold = -N` only when a flat cost is the design intent. Example: vanilla `laws.0005` offers a free `research_progress_weak_bonus` (+2.5) option and a paid `change_gold_effect = { scale = -3.5 }` + `research_progress_severe_bonus` (+10) option.
 
+#### Price Definitions and Cost Modifiers
+
+Mod-defined prices in `in_game/common/prices/` are not complete by themselves. For each price key, EU5 looks for a matching modifier type named `<price_key>_cost_modifier`.
+
+```pdx
+my_action_price = {
+    scaled_gold = 3.5
+}
+
+my_action_price_cost_modifier = {
+    color = bad
+    percent = yes
+    game_data = {
+        category = country
+    }
+}
+```
+
+Define the modifier type in `main_menu/common/modifier_type_definitions/`, and localize all three keys in every supported language: `my_action_price`, `MODIFIER_TYPE_NAME_my_action_price_cost_modifier`, and `MODIFIER_TYPE_DESC_my_action_price_cost_modifier`. If the modifier type is missing, the engine logs `Missing modifier type for price. <price_key>_cost_modifier`.
+
 ### 5.2. Scopes and Scope Links
 
 A **scope** refers to the specific game object (e.g., a country, a character, a location) that a script is currently focused on. **Scope links** are used to access data from or apply effects to other scopes. For example, `c:FRA.gold` would access the treasury of the country with the tag FRA.
@@ -217,6 +237,20 @@ The `exists = scope:<name>` trigger is the vanilla pattern for this (confirmed i
 Every generic action should be explicitly listed in `in_game/common/generic_action_ai_lists/`. Vanilla's readme says unlisted actions are put into the global list, and EU5 logs a performance warning such as `Action X is not explicitly listed in an ai list!`.
 
 Use the AI list `potential` block to restrict evaluation to countries that can use the feature. Player-facing actions should still be listed; set restrictive AI behavior such as `ai_will_do = { add = -100 }` when the AI should never execute them.
+
+#### Generic Action Message Types
+
+Generic actions also need notification message types in `main_menu/gui/messagetypes.txt`. This project keeps those entries in `scripts/gen_messagetypes.py`; after adding a new generic action, add a `PERFORM_<action_id>_ACTION` block there and rerun the script.
+
+Each message type should have matching localization keys in every supported language:
+
+```yaml
+PERFORM_my_action_ACTION_SETUP: "When this action is performed."
+PERFORM_my_action_ACTION_LOG: "The action was performed."
+PERFORM_my_action_ACTION_MAP: ""
+```
+
+If the message type block is missing, the engine logs `Failed to find message type: PERFORM_<action_id>_ACTION`.
 
 ### 5.5. Variable Arithmetic (`change_variable`)
 

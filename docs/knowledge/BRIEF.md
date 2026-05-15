@@ -272,6 +272,8 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | script | location | construct_building = { ... cost_multiplier = N ... } without cost_multiplier_reason | When construct_building uses cost_multiplier, also provide cost_multiplier_reason = <loc key>. For event-funded free construction, vanilla commonly uses cost_multiplier_reason = "game_concept_event". | EU5 logs a script system error when construct_building has a cost multiplier but no reason key: 'No reason given for the cost multiplier in construct_building effect'. |
 | localization | any | text = "LOC_KEY" in a GUI file when LOC_KEY is not defined in main_menu/localization | Define the key in every supported localization file, correct the key to an existing one, or use raw_text for literal display strings. | GUI text fields are localized. A typo such as TV_RM_TARGET_STEAM_ENGINE when only TV_RM_TARGET_IRON_WORKING exists logs 'Unlocalized text' at load. |
 | script | country | Defining a generic action without listing it in common/generic_action_ai_lists | Add every generic action id to at least one generic_action_ai_lists file. Use the list potential to restrict evaluation to countries that can use that feature; player-only actions may still set ai_will_do = { add = -100 }. | Unlisted generic actions are put into the global AI list and the engine logs a performance warning: 'Action X is not explicitly listed in an ai list!'. |
+| modifier | country | Defining a mod price key without a matching <price_key>_cost_modifier modifier type | For every mod-defined price key, add <price_key>_cost_modifier in main_menu/common/modifier_type_definitions with category = country, and localize the price key plus MODIFIER_TYPE_NAME/DESC entries. | EU5 automatically looks for a cost modifier type named <price_key>_cost_modifier for each price. If it is absent, the engine logs 'Missing modifier type for price'. |
+| script | country | Defining a generic action without a PERFORM_<action_id>_ACTION message type | Add a PERFORM_<action_id>_ACTION block to scripts/gen_messagetypes.py TV_ENTRIES, rerun scripts/gen_messagetypes.py, and define SETUP/LOG/MAP localization keys for supported languages. | EU5 expects a message type for generic action notifications. Missing entries log 'Failed to find message type: PERFORM_<action_id>_ACTION' at startup or action evaluation. |
 
 ## Valid Enum Values
 
@@ -300,7 +302,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | Scripted Triggers | 515 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 551 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 840 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 856 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

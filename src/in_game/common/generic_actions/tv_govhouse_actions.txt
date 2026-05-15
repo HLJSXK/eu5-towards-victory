@@ -50,8 +50,8 @@ tv_train_grand_general = {
 # Governor appointment/removal is only available while an alive Grand General is in office.
 # Existing governors remain in tv_governor_list if the Grand General leaves office.
 
-# Appoints a governor: 2-step selection (character → area).
-# step 1 sets scope:target (character), step 2 sets scope:target_1 (area).
+# Appoints a governor: 2-step selection (character → region).
+# step 1 sets scope:target (character), step 2 sets scope:target_1 (region).
 tv_appoint_governor = {
 	type = owncountry
 	sound = UI_action_religion_generic
@@ -101,14 +101,15 @@ tv_appoint_governor = {
 	}
 
 	select_trigger = {
-		looking_for_a = area
+		looking_for_a = region
 		source = actor
 		target_flag = target_1
-		name = "tv_appoint_governor_select_area"
-		none_available_msg_key = "tv_appoint_governor_no_areas"
+		name = "tv_appoint_governor_select_region"
+		none_available_msg_key = "tv_appoint_governor_no_regions"
 		column = { data = name }
+		column = { data = population }
 		visible = {
-			any_location_in_area = {
+			any_location_in_region = {
 				owner ?= scope:actor
 			}
 		}
