@@ -176,15 +176,21 @@
  tv_gg_death_todo_tt: "TODO：大将军死亡。"
 
  # ── 总督系统 ─────────────────────────────────────────────────────────────────
- tv_appoint_governor: "派遣总督"
- tv_appoint_governor_desc: "从本国角色中任命一位总督，负责管辖某征服地区。总督的行政、外交与军事能力将分别提升当地最大控制力、降低建造花费并压制动乱。"
- tv_remove_governor: "撤换总督"
- tv_remove_governor_desc: "解除该总督的职务，其所在地区的加成将立即移除。"
+ tv_appoint_governor: "安排总督"
+ tv_appoint_governor_desc: "为该地区安排一位本国角色担任总督。总督的行政、外交与军事能力将分别提升当地最大控制力、降低建造花费并压制动乱。"
+ tv_remove_governor: "取消总督"
+ tv_remove_governor_desc: "取消该地区的总督安排，其地区加成将立即移除。"
+ tv_change_governor: "更换总督"
+ tv_change_governor_desc: "以另一位符合条件的角色替换该地区现任总督。"
 
  tv_appoint_governor_select_char: "选择总督人选"
  tv_appoint_governor_no_chars: "@trigger_no! 当前没有符合条件的角色。"
  tv_appoint_governor_select_region: "选择管辖地区"
  tv_appoint_governor_no_regions: "@trigger_no! 当前没有可用的地区。"
+ TV_GOVHOUSE_REGION_SELECTED_TT: "已从总督府面板选择一个管辖地区。"
+ TV_GOVHOUSE_REGION_OWNED_TT: "该地区至少包含一个直属地点。"
+ TV_GOVHOUSE_REGION_HAS_GOVERNOR_TT: "该地区已有总督。"
+ TV_GOVHOUSE_REGION_HAS_NO_GOVERNOR_TT: "该地区尚未安排总督。"
 
  PERFORM_tv_appoint_governor_ACTION_SETUP: "当我们派遣总督时。"
  PERFORM_tv_appoint_governor_ACTION_LOG: "我们任命了一位新总督。"
@@ -194,8 +200,13 @@
  PERFORM_tv_remove_governor_ACTION_LOG: "我们撤换了一位总督。"
  PERFORM_tv_remove_governor_ACTION_MAP: ""
 
- TV_GOVHOUSE_GOVERNOR_COUNT: "在任总督"
+ PERFORM_tv_change_governor_ACTION_SETUP: "当我们更换总督时。"
+ PERFORM_tv_change_governor_ACTION_LOG: "我们更换了一位地区总督。"
+ PERFORM_tv_change_governor_ACTION_MAP: ""
+
+ TV_GOVHOUSE_GOVERNOR_COUNT: "总督辖区"
  TV_GOVHOUSE_NO_GOVERNORS: "尚未派遣任何总督。"
+ TV_GOVHOUSE_NO_GOVERNOR_REGIONS: "尚未记录任何直属地区。"
  TV_GOVHOUSE_MAX_CONTROL_LABEL: "最大控制力"
  TV_GOVHOUSE_BUILD_COST_LABEL: "建造花费"
  TV_GOVHOUSE_UNREST_LABEL: "动乱抑制"

@@ -177,15 +177,21 @@
  tv_gg_death_todo_tt: "TODO: Grand General dies."
 
  # ── Governor system (总督) ───────────────────────────────────────────────────
- tv_appoint_governor: "Appoint Governor"
- tv_appoint_governor_desc: "Appoint one of our characters as governor of a conquered region. The governor's administrative, diplomatic, and military skill improves local control, reduces construction costs, and suppresses unrest."
- tv_remove_governor: "Dismiss Governor"
- tv_remove_governor_desc: "Dismiss this governor from their post. Their region's bonuses will be removed immediately."
+ tv_appoint_governor: "Assign Governor"
+ tv_appoint_governor_desc: "Assign one of our characters as governor of this region. The governor's administrative, diplomatic, and military skill improves local control, reduces construction costs, and suppresses unrest."
+ tv_remove_governor: "Cancel Governor"
+ tv_remove_governor_desc: "Cancel the governor assignment for this region. Its bonuses will be removed immediately."
+ tv_change_governor: "Change Governor"
+ tv_change_governor_desc: "Replace this region's current governor with another eligible character."
 
  tv_appoint_governor_select_char: "Select Governor"
  tv_appoint_governor_no_chars: "@trigger_no! No eligible characters are available."
  tv_appoint_governor_select_region: "Select Governed Region"
  tv_appoint_governor_no_regions: "@trigger_no! No eligible regions available."
+ TV_GOVHOUSE_REGION_SELECTED_TT: "A governed region is selected from the Governor's House panel."
+ TV_GOVHOUSE_REGION_OWNED_TT: "This region contains at least one owned location."
+ TV_GOVHOUSE_REGION_HAS_GOVERNOR_TT: "This region has an assigned governor."
+ TV_GOVHOUSE_REGION_HAS_NO_GOVERNOR_TT: "This region does not already have an assigned governor."
 
  PERFORM_tv_appoint_governor_ACTION_SETUP: "When we appoint a governor."
  PERFORM_tv_appoint_governor_ACTION_LOG: "We appointed a new governor."
@@ -195,8 +201,13 @@
  PERFORM_tv_remove_governor_ACTION_LOG: "We dismissed a governor."
  PERFORM_tv_remove_governor_ACTION_MAP: ""
 
- TV_GOVHOUSE_GOVERNOR_COUNT: "Governors Appointed"
+ PERFORM_tv_change_governor_ACTION_SETUP: "When we change a governor."
+ PERFORM_tv_change_governor_ACTION_LOG: "We changed a regional governor."
+ PERFORM_tv_change_governor_ACTION_MAP: ""
+
+ TV_GOVHOUSE_GOVERNOR_COUNT: "Governed Regions"
  TV_GOVHOUSE_NO_GOVERNORS: "No governors have been appointed."
+ TV_GOVHOUSE_NO_GOVERNOR_REGIONS: "No owned regions are tracked yet."
  TV_GOVHOUSE_MAX_CONTROL_LABEL: "Max Control"
  TV_GOVHOUSE_BUILD_COST_LABEL: "Construction Cost"
  TV_GOVHOUSE_UNREST_LABEL: "Unrest Reduction"

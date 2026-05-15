@@ -326,6 +326,18 @@
  tv_local_exhibition_enthusiasm_desc: "维系当前本地展览的公众热度。展览开始时为80，上限为100；展览期间每月自然衰减12。当其降至0时，本地展览结束。"
  TV_LOCAL_EXHIBITION_ENTHUSIASM_FORMAT: "$VAL|0$"
  TV_LOCAL_EXHIBITION_ENTHUSIASM_DECAY: "兴趣消退"
+ TV_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "获得$VALUE|+$#Y $tv_local_exhibition_enthusiasm$#!"
+ TV_FIRST_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "[international_organization|e]获得$VALUE|+$#Y $tv_local_exhibition_enthusiasm$#!"
+ TV_THIRD_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "[INTERNATIONAL_ORGANIZATION.GetName]获得$VALUE|+$#Y $tv_local_exhibition_enthusiasm$#!"
+ TV_PAST_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "获得了$VALUE|+$#Y $tv_local_exhibition_enthusiasm$#!"
+ TV_FIRST_PAST_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "[international_organization|e]获得了$VALUE|+$#Y $tv_local_exhibition_enthusiasm$#!"
+ TV_THIRD_PAST_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "[INTERNATIONAL_ORGANIZATION.GetName]获得了$VALUE|+$#Y $tv_local_exhibition_enthusiasm$#!"
+ TV_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "失去$VALUE|-$#Y $tv_local_exhibition_enthusiasm$#!"
+ TV_FIRST_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "[international_organization|e]失去$VALUE|-$#Y $tv_local_exhibition_enthusiasm$#!"
+ TV_THIRD_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "[INTERNATIONAL_ORGANIZATION.GetName]失去$VALUE|-$#Y $tv_local_exhibition_enthusiasm$#!"
+ TV_PAST_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "失去了$VALUE|-$#Y $tv_local_exhibition_enthusiasm$#!"
+ TV_FIRST_PAST_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "[international_organization|e]失去了$VALUE|-$#Y $tv_local_exhibition_enthusiasm$#!"
+ TV_THIRD_PAST_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "[INTERNATIONAL_ORGANIZATION.GetName]失去了$VALUE|-$#Y $tv_local_exhibition_enthusiasm$#!"
 
  # ── IO 领袖管理 ───────────────────────────────────────────────────────────────
  tv_appoint_arts_leader: "任命领袖"

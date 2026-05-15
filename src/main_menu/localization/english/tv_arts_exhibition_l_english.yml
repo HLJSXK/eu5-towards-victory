@@ -326,6 +326,18 @@
  tv_local_exhibition_enthusiasm_desc: "The public warmth sustaining the current local exhibition. It begins at 80, is capped at 100, and naturally falls by 12 each month while a local exhibition is active. When it reaches 0, the exhibition ends."
  TV_LOCAL_EXHIBITION_ENTHUSIASM_FORMAT: "$VAL|0$"
  TV_LOCAL_EXHIBITION_ENTHUSIASM_DECAY: "Fading Interest"
+ TV_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "Gains $VALUE|+$ #Y $tv_local_exhibition_enthusiasm$#!"
+ TV_FIRST_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "The [international_organization|e] gains $VALUE|+$ #Y $tv_local_exhibition_enthusiasm$#!"
+ TV_THIRD_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "[INTERNATIONAL_ORGANIZATION.GetName] gains $VALUE|+$ #Y $tv_local_exhibition_enthusiasm$#!"
+ TV_PAST_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "Gained $VALUE|+$ #Y $tv_local_exhibition_enthusiasm$#!"
+ TV_FIRST_PAST_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "The [international_organization|e] gained $VALUE|+$ #Y $tv_local_exhibition_enthusiasm$#!"
+ TV_THIRD_PAST_ADD_LOCAL_EXHIBITION_ENTHUSIASM: "[INTERNATIONAL_ORGANIZATION.GetName] gained $VALUE|+$ #Y $tv_local_exhibition_enthusiasm$#!"
+ TV_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "Loses $VALUE|-$ #Y $tv_local_exhibition_enthusiasm$#!"
+ TV_FIRST_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "The [international_organization|e] loses $VALUE|-$ #Y $tv_local_exhibition_enthusiasm$#!"
+ TV_THIRD_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "[INTERNATIONAL_ORGANIZATION.GetName] loses $VALUE|-$ #Y $tv_local_exhibition_enthusiasm$#!"
+ TV_PAST_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "Lost $VALUE|-$ #Y $tv_local_exhibition_enthusiasm$#!"
+ TV_FIRST_PAST_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "The [international_organization|e] lost $VALUE|-$ #Y $tv_local_exhibition_enthusiasm$#!"
+ TV_THIRD_PAST_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "[INTERNATIONAL_ORGANIZATION.GetName] lost $VALUE|-$ #Y $tv_local_exhibition_enthusiasm$#!"
 
  # ── IO Leader management ──────────────────────────────────────────────────
  tv_appoint_arts_leader: "Appoint Leader"
