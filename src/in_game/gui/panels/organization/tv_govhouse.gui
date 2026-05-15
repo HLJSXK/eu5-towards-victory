@@ -187,7 +187,7 @@ organization_panel = {
 
 										action_button_diamond = {
 											size = { 130 24 }
-											enabled = "[Not(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet)]"
+											enabled = "[And(Not(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet)]"
 											text = "tv_appoint_governor"
 											title = "tv_appoint_governor"
 											actor = "[InternationalOrganizationsView.GetPlayer]"
