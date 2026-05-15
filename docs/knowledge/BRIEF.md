@@ -50,7 +50,7 @@ The mod is additive-only and uses the `tv_` namespace prefix throughout.
 
 8. **Global Victory Leaderboard** — Monthly ranking of the top 5 countries by their best single-path progress (0–100 bar value). Per-country: `tv_best_path` (0–5), `tv_best_progress_pct`, `tv_best_milestone`, `tv_best_score` computed via `tv_update_best_path_effect` in `monthly_country_pulse`. Situation stores rank-1..5 country references (`tv_rank_1_country`–`tv_rank_5_country`) via `ordered_in_global_list` cascading-exclusion pattern. Displayed in Section 3 with flag, country name, leading-path circle icon, milestone count, and score text.
 
-Governor's House eligibility/death note: governors and the Grand General exclude female characters and artists. Invalid legacy Grand General assignments are cleared during the IO monthly effect; invalid legacy governors are pruned during `tv_apply_governor_bonuses_effect`. `tv_govhouse_governor_death` is registered under `on_character_death`, fires `tv_govhouse.1`, removes the dead governor from `tv_governor_list`, clears their region modifiers, and rebuilds the display lists immediately.
+Governor's House eligibility/death note: new governors and Grand Generals exclude female characters and artists at the selection/action-effect entry points. There is no monthly legacy-eligibility cleanup, to keep the IO monthly path focused on active governor bonus refresh. `tv_govhouse_governor_death` is registered under `on_character_death`, fires `tv_govhouse.1`, removes the dead governor from `tv_governor_list`, clears their region modifiers, and rebuilds the display lists immediately.
 
 ## IO Architecture Design Decisions
 
