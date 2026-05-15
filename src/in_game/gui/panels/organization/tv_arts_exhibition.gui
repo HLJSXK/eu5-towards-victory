@@ -1,6 +1,6 @@
 ﻿# Towards Victory — Arts Exhibition IO Panel
-# Shows cultural touring controls plus the three IO leader management actions
-# (Appoint / Remove / Change Leader). Domestic exhibitions live in a custom tab.
+# Shows cultural touring controls in overview, Chief Artist management in the
+# resolutions tab, and domestic exhibitions in a custom tab.
 # The IO's character leader (an artist) is shown in the standard IO header.
 
 organization_panel = {
@@ -17,6 +17,16 @@ organization_panel = {
 
 	blockoverride "organization_panel_members_visible" {
 		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+	}
+
+	blockoverride "organization_resolutions_tab_visible" {
+		visible = yes
+	}
+	blockoverride "organization_resolutions_tab_text" {
+		text = "TV_ARTS_CHIEF_ARTIST_TAB"
+	}
+	blockoverride "organization_resolutions_tooltip" {
+		tooltip = "TV_ARTS_CHIEF_ARTIST_TAB_TOOLTIP"
 	}
 
 	blockoverride "scroll_overview_empty_visible" { visible = no }
@@ -142,7 +152,6 @@ organization_panel = {
 	}
 
 	blockoverride "organization_main_actions_extra" {
-		# ── Cultural actions ──────────────────────────────────────────────────
 		action_button_diamond = {
 			size = { 470 30 }
 			text = "tv_send_artist_abroad"
@@ -152,39 +161,131 @@ organization_panel = {
 				action_name = "tv_send_artist_abroad"
 			}
 		}
+	}
 
-		# ── IO Leader management ──────────────────────────────────────────────
-		# Visibility is gated by the appointed-leader country variable on the player.
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet)]"
-			text = "tv_appoint_arts_leader"
-			title = "tv_appoint_arts_leader"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_appoint_arts_leader"
+	# ── Chief Artist tab: reuse the vanilla resolutions slot -------------------
+	blockoverride "organization_resolutions_content" {
+		margin = { 0 0 }
+
+		vbox = {
+			margin = { 10 0 }
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			ignoreinvisible = yes
+			spacing = 10
+
+			card_common = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ARTS_CHIEF_ARTIST_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					io_character_card = {
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').GetCharacter]"
+						using = layoutpolicy_expanding
+						blockoverride "name_highlight" {}
+						blockoverride "character_entry_name_sort_by_highlight" {}
+						blockoverride "character_button_pin" {
+							visible = no
+						}
+						blockoverride "character_abilities_visible" {
+							visible = no
+						}
+						blockoverride "artist_abilities_visible" {
+							visible = yes
+						}
+					}
+				}
+			}
+
+			card_common = {
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet)]"
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ARTS_CHIEF_ARTIST_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 44 }
+						vbox = {
+							margin = { 4 6 }
+							text_single = {
+								text = "TV_ARTS_NO_CHIEF_ARTIST"
+								align = nobaseline|left
+							}
+						}
+					}
+				}
+			}
+
+			card_actions = {
+				minimumsize = { 500 150 }
+				maximumsize = { 500 150 }
+
+				blockoverride "card_header_text" {
+					text = "MAIN_ACTIONS"
+				}
+
+				blockoverride "card_header_icon" {
+					block "io_main_actions_icon" {
+						texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+					}
+				}
+
+				blockoverride "actions_override" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[Not(Player.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet)]"
+							text = "tv_appoint_arts_leader"
+							title = "tv_appoint_arts_leader"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_appoint_arts_leader"
+							}
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[Player.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
+							text = "tv_change_arts_leader"
+							title = "tv_change_arts_leader"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_change_arts_leader"
+							}
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[Player.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
+							text = "tv_remove_arts_leader"
+							title = "tv_remove_arts_leader"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_remove_arts_leader"
+							}
+						}
+					}
+				}
 			}
 		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
-			text = "tv_change_arts_leader"
-			title = "tv_change_arts_leader"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_change_arts_leader"
-			}
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
-			text = "tv_remove_arts_leader"
-			title = "tv_remove_arts_leader"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_remove_arts_leader"
-			}
-		}
+
+		expand = {}
 	}
 
 	# ── Domestic exhibition tab ───────────────────────────────────────────────

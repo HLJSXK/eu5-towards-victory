@@ -108,7 +108,7 @@
  tv_arts_exhibition.6.a: "这是艺术界的巨大损失。"
 
  tv_arts_exhibition.7.t: "首席艺术家已逝世"
- tv_arts_exhibition.7.d: "我们的首席艺术家已经离世。该职位现已空缺；在我们任命继承人之前，艺术展览将在没有文化领袖的情况下继续运作。"
+ tv_arts_exhibition.7.d: "我们的首席艺术家已经离世。该职位现已空缺；在我们任命继承人之前，文艺展演将在没有首席艺术家的情况下继续运作。"
  tv_arts_exhibition.7.a: "我们必须物色新的首席艺术家。"
 
  tv_arts_exhibition.8.t: "首席艺术家出访"
@@ -305,10 +305,14 @@
  tv_arts_exhibition.374.a: "将它列入藏品。"
 
  # ── 文艺展演面板改善新增UI键 ──────────────────────────────────────────────────
- TV_ARTS_EXHIBITION_LEADER: "文化领袖"
- TV_ARTS_EXHIBITION_LEADER_MALE:0 "文化领袖"
- TV_ARTS_EXHIBITION_LEADER_FEMALE:0 "文化领袖"
+ TV_ARTS_EXHIBITION_LEADER: "首席艺术家"
+ TV_ARTS_EXHIBITION_LEADER_MALE:0 "首席艺术家"
+ TV_ARTS_EXHIBITION_LEADER_FEMALE:0 "首席艺术家"
  TV_ARTS_DOMESTIC_EXHIBITION_INFO_HEADER: "[tv_domestic_exhibition|E]"
+ TV_ARTS_CHIEF_ARTIST_TAB: "首席艺术家"
+ TV_ARTS_CHIEF_ARTIST_TAB_TOOLTIP: "管理文艺展演的首席艺术家。"
+ TV_ARTS_CHIEF_ARTIST_CARD_TITLE: "首席艺术家"
+ TV_ARTS_NO_CHIEF_ARTIST: "尚未任命首席艺术家。"
  TV_ARTS_OWNED_ARTWORKS_LABEL: "本国艺术品总数"
  TV_ARTS_LOCAL_EXHIBITION_COMMITTED_LABEL: "已投入展品"
  TV_ARTS_LOCAL_EXHIBITION_DURATION_LABEL: "已持续月份"
@@ -340,17 +344,17 @@
  TV_THIRD_PAST_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "[INTERNATIONAL_ORGANIZATION.GetName]失去了$VALUE|-$#Y $tv_local_exhibition_enthusiasm$#!"
 
  # ── IO 领袖管理 ───────────────────────────────────────────────────────────────
- tv_appoint_arts_leader: "任命领袖"
- tv_appoint_arts_leader_desc: "从宫廷艺术家中任命一位作为文艺展演的文化领袖。其艺术技能将每月贡献国际影响力（技能 × 0.1 / 月）。"
- tv_remove_arts_leader: "解除领袖"
- tv_remove_arts_leader_desc: "解除现任文化领袖职务。在任命新领袖之前，国际影响力将不再获得领袖的月度贡献。"
- tv_change_arts_leader: "更换领袖"
- tv_change_arts_leader_desc: "以另一位宫廷艺术家替换现任文化领袖。"
- tv_select_arts_leader: "选择文化领袖"
+ tv_appoint_arts_leader: "任命首席艺术家"
+ tv_appoint_arts_leader_desc: "从宫廷艺术家中任命一位作为文艺展演的首席艺术家。其艺术技能将每月贡献国际影响力（技能 × 0.1 / 月）。"
+ tv_remove_arts_leader: "解除首席艺术家"
+ tv_remove_arts_leader_desc: "解除现任首席艺术家职务。在任命继任者之前，国际影响力将不再获得首席艺术家的月度贡献。"
+ tv_change_arts_leader: "更换首席艺术家"
+ tv_change_arts_leader_desc: "以另一位宫廷艺术家替换现任首席艺术家。"
+ tv_select_arts_leader: "选择首席艺术家"
  tv_no_arts_leader_available: "@trigger_no! 没有符合条件的艺术家可供选择。"
 
  # ── IO月度变化Tooltip标签 ──────────────────────────────────────────────────────
- TV_ARTS_LEADER_CONTRIBUTION: "文化领袖（艺术技能 × 0.1）"
+ TV_ARTS_LEADER_CONTRIBUTION: "首席艺术家（艺术技能 × 0.1）"
 
  # ── M1奖励提示（显示在文化胜利M1事件奖励中）─────────────────────────────────────
  tv_cultural_m1_io_grant_tt: "我们将可以使用[tv_arts_exhibition|e]机制，见国际组织界面。"
@@ -427,16 +431,16 @@
  PERFORM_tv_local_exhibition_live_creation_ACTION_LOG: "我们在[tv_domestic_exhibition|e]举行了现场创作大会。"
  PERFORM_tv_local_exhibition_live_creation_ACTION_MAP: ""
 
- PERFORM_tv_appoint_arts_leader_ACTION_SETUP: "当我们任命文艺展演的文化领袖时。"
- PERFORM_tv_appoint_arts_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为文艺展演的文化领袖。"
+ PERFORM_tv_appoint_arts_leader_ACTION_SETUP: "当我们任命文艺展演的首席艺术家时。"
+ PERFORM_tv_appoint_arts_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为文艺展演的首席艺术家。"
  PERFORM_tv_appoint_arts_leader_ACTION_MAP: ""
 
- PERFORM_tv_remove_arts_leader_ACTION_SETUP: "当我们解除文艺展演文化领袖职务时。"
- PERFORM_tv_remove_arts_leader_ACTION_LOG: "我们解除了文艺展演文化领袖的职务。"
+ PERFORM_tv_remove_arts_leader_ACTION_SETUP: "当我们解除文艺展演首席艺术家职务时。"
+ PERFORM_tv_remove_arts_leader_ACTION_LOG: "我们解除了文艺展演首席艺术家的职务。"
  PERFORM_tv_remove_arts_leader_ACTION_MAP: ""
 
- PERFORM_tv_change_arts_leader_ACTION_SETUP: "当我们更换文艺展演的文化领袖时。"
- PERFORM_tv_change_arts_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为文艺展演新任文化领袖。"
+ PERFORM_tv_change_arts_leader_ACTION_SETUP: "当我们更换文艺展演的首席艺术家时。"
+ PERFORM_tv_change_arts_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为文艺展演新任首席艺术家。"
  PERFORM_tv_change_arts_leader_ACTION_MAP: ""
 
  # ── 文艺展演领袖角色头衔前缀 ──────────────────────────────────────────────────────

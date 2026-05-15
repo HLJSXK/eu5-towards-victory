@@ -108,7 +108,7 @@
  tv_arts_exhibition.6.a: "A great loss for the arts."
 
  tv_arts_exhibition.7.t: "Chief Artist Has Died"
- tv_arts_exhibition.7.d: "Our Chief Artist has passed away. The position is now vacant; the Arts Exhibition will continue without a cultural leader until we appoint a successor."
+ tv_arts_exhibition.7.d: "Our Chief Artist has passed away. The position is now vacant; the Arts Exhibition will continue without a Chief Artist until we appoint a successor."
  tv_arts_exhibition.7.a: "We must find a new Chief Artist."
 
  tv_arts_exhibition.8.t: "Chief Artist Sent Abroad"
@@ -305,10 +305,14 @@
  tv_arts_exhibition.374.a: "Place it among the collection."
 
  # ── UI keys added for improved Arts Exhibition panel ─────────────────────
- TV_ARTS_EXHIBITION_LEADER: "Cultural Leader"
- TV_ARTS_EXHIBITION_LEADER_MALE:0 "Cultural Leader"
- TV_ARTS_EXHIBITION_LEADER_FEMALE:0 "Cultural Leader"
+ TV_ARTS_EXHIBITION_LEADER: "Chief Artist"
+ TV_ARTS_EXHIBITION_LEADER_MALE:0 "Chief Artist"
+ TV_ARTS_EXHIBITION_LEADER_FEMALE:0 "Chief Artist"
  TV_ARTS_DOMESTIC_EXHIBITION_INFO_HEADER: "[tv_domestic_exhibition|E]"
+ TV_ARTS_CHIEF_ARTIST_TAB: "Chief Artist"
+ TV_ARTS_CHIEF_ARTIST_TAB_TOOLTIP: "Manage the Arts Exhibition Chief Artist."
+ TV_ARTS_CHIEF_ARTIST_CARD_TITLE: "Chief Artist"
+ TV_ARTS_NO_CHIEF_ARTIST: "No Chief Artist appointed."
  TV_ARTS_OWNED_ARTWORKS_LABEL: "Owned Artworks"
  TV_ARTS_LOCAL_EXHIBITION_COMMITTED_LABEL: "Committed Exhibits"
  TV_ARTS_LOCAL_EXHIBITION_DURATION_LABEL: "Months Open"
@@ -340,17 +344,17 @@
  TV_THIRD_PAST_SUBTRACT_LOCAL_EXHIBITION_ENTHUSIASM: "[INTERNATIONAL_ORGANIZATION.GetName] lost $VALUE|-$ #Y $tv_local_exhibition_enthusiasm$#!"
 
  # ── IO Leader management ──────────────────────────────────────────────────
- tv_appoint_arts_leader: "Appoint Leader"
- tv_appoint_arts_leader_desc: "Appoint one of your court artists as the Cultural Leader of the Arts Exhibition. Their Art Skill passively contributes to your International Influence each month (Skill × 0.1 per month)."
- tv_remove_arts_leader: "Dismiss Leader"
- tv_remove_arts_leader_desc: "Remove the current Cultural Leader. International Influence will no longer receive the Leader's monthly contribution until a new Leader is appointed."
- tv_change_arts_leader: "Replace Leader"
- tv_change_arts_leader_desc: "Replace the current Cultural Leader with another court artist."
- tv_select_arts_leader: "Select Cultural Leader"
+ tv_appoint_arts_leader: "Appoint Chief Artist"
+ tv_appoint_arts_leader_desc: "Appoint one of your court artists as the Arts Exhibition's Chief Artist. Their Art Skill passively contributes to your International Influence each month (Skill × 0.1 per month)."
+ tv_remove_arts_leader: "Dismiss Chief Artist"
+ tv_remove_arts_leader_desc: "Remove the current Chief Artist. International Influence will no longer receive the Chief Artist's monthly contribution until a successor is appointed."
+ tv_change_arts_leader: "Replace Chief Artist"
+ tv_change_arts_leader_desc: "Replace the current Chief Artist with another court artist."
+ tv_select_arts_leader: "Select Chief Artist"
  tv_no_arts_leader_available: "@trigger_no! No eligible artists are available."
 
  # ── IO monthly_change tooltip label ──────────────────────────────────────────
- TV_ARTS_LEADER_CONTRIBUTION: "Cultural Leader (Art Skill × 0.1)"
+ TV_ARTS_LEADER_CONTRIBUTION: "Chief Artist (Art Skill × 0.1)"
 
  # ── M1 grant tooltip (shown in the Cultural Victory M1 event reward) ─────────
  tv_cultural_m1_io_grant_tt: "We can now use the [tv_arts_exhibition|e] Mechanism. See the International Organization interface."
@@ -427,16 +431,16 @@
  PERFORM_tv_local_exhibition_live_creation_ACTION_LOG: "We held a live creation contest at the [tv_domestic_exhibition|e]."
  PERFORM_tv_local_exhibition_live_creation_ACTION_MAP: ""
 
- PERFORM_tv_appoint_arts_leader_ACTION_SETUP: "When we appoint a Cultural Leader of the Arts Exhibition."
- PERFORM_tv_appoint_arts_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as Cultural Leader of the Arts Exhibition."
+ PERFORM_tv_appoint_arts_leader_ACTION_SETUP: "When we appoint a Chief Artist of the Arts Exhibition."
+ PERFORM_tv_appoint_arts_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as Chief Artist of the Arts Exhibition."
  PERFORM_tv_appoint_arts_leader_ACTION_MAP: ""
 
- PERFORM_tv_remove_arts_leader_ACTION_SETUP: "When we dismiss the Cultural Leader of the Arts Exhibition."
- PERFORM_tv_remove_arts_leader_ACTION_LOG: "We dismissed the Cultural Leader of the Arts Exhibition."
+ PERFORM_tv_remove_arts_leader_ACTION_SETUP: "When we dismiss the Chief Artist of the Arts Exhibition."
+ PERFORM_tv_remove_arts_leader_ACTION_LOG: "We dismissed the Chief Artist of the Arts Exhibition."
  PERFORM_tv_remove_arts_leader_ACTION_MAP: ""
 
- PERFORM_tv_change_arts_leader_ACTION_SETUP: "When we replace the Cultural Leader of the Arts Exhibition."
- PERFORM_tv_change_arts_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as the new Cultural Leader of the Arts Exhibition."
+ PERFORM_tv_change_arts_leader_ACTION_SETUP: "When we replace the Chief Artist of the Arts Exhibition."
+ PERFORM_tv_change_arts_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as the new Chief Artist of the Arts Exhibition."
  PERFORM_tv_change_arts_leader_ACTION_MAP: ""
 
  # ── Character title prefix for the Arts Exhibition leader ────────────────────
