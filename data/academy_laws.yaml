@@ -1,6 +1,7 @@
 # Academy of Sciences law categories for tv_academy_laws.txt.
-# Structure: 6 laws under one IO law category. Policies use country_modifier
-# entries so Academy laws provide immediate member-country effects.
+# Structure: 7 laws across the Scientific Factions and Leadership IO law
+# categories. Most policies use country_modifier entries so Academy laws
+# provide immediate member-country effects.
 #
 # Academy law changes are routed through the IO parliament tab. The Academy has
 # exactly one member for now, but proposals should still use vanilla law voting
@@ -147,3 +148,13 @@ laws:
           research_speed_modifier = 0.05
           diplomatic_reputation = -1
           monthly_prestige = -0.05
+
+  - id: tv_academy_leader_gender_law
+    law_category: tv_academy_leadership
+    display_comment: "LAW 7: Leader Gender Restriction"
+    policies:
+      - id: tv_academy_leader_gender_male_only_policy
+        display_comment: "Male Only (default)"
+        default: true
+      - id: tv_academy_leader_gender_unrestricted_policy
+        display_comment: "Unrestricted"

@@ -1,8 +1,8 @@
 """
 Generate src/in_game/common/laws/tv_academy_laws.txt from data/academy_laws.yaml.
 
-Pattern: 6 Academy of Sciences IO laws under one law category. Policies may
-define country_modifier blocks and require IO parliament votes.
+Pattern: Academy of Sciences IO laws. Policies may define country_modifier
+blocks and require IO parliament votes.
 """
 
 import argparse
@@ -27,7 +27,7 @@ FILE_HEADER = (
     "# Do not edit directly - modify the data file and re-run the generator.\n"
     "#\n"
     "# TOWARDS VICTORY - ACADEMY OF SCIENCES LAWS\n"
-    "# 6 laws under the Scientific Factions law category.\n"
+    "# Academy laws under the Scientific Factions and Leadership law categories.\n"
     "# requires_vote = yes: Academy law changes use the IO parliament tab.\n"
 )
 
@@ -59,8 +59,9 @@ def gen_policy(policy: dict) -> str:
     return "\n".join(lines)
 
 
-def gen_law(law: dict, law_category: str, io_type: str) -> str:
+def gen_law(law: dict, default_law_category: str, io_type: str) -> str:
     lid = law["id"]
+    law_category = law.get("law_category", default_law_category)
     display_comment = law.get("display_comment", "")
     policies = law["policies"]
 
