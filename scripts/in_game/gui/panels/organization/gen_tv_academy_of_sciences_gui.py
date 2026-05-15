@@ -422,6 +422,74 @@ GUI_SUFFIX = """\
 \t\t\t\t}
 \t\t\t}
 
+\t\t\tcard_common = {
+\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
+\t\t\t\tmaximumsize = { 500 -1 }
+
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_ACADEMY_CHIEF_SCIENTIST_EFFECTS_CARD_TITLE"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\twidget = {
+\t\t\t\t\t\tsize = { 470 88 }
+\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
+
+\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\tmargin = { 4 6 }
+
+\t\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_EFFECT_ADM_LABEL"
+\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\texpand = {}
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\ttext = "[Character.GetAbility('adm')]"
+\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_EFFECT_RESEARCH_SPEED_LABEL"
+\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\texpand = {}
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\traw_text = "[Character.GetAbility('adm')]x0.05"
+\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_EFFECT_CURE_PROGRESS_LABEL"
+\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\texpand = {}
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\traw_text = "[Character.GetAbility('adm')]x0.1%"
+\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+
 \t\t\tcard_actions = {
 \t\t\t\tminimumsize = { 500 150 }
 \t\t\t\tmaximumsize = { 500 150 }

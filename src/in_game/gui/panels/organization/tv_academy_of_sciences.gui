@@ -458,6 +458,74 @@ organization_panel = {
 				}
 			}
 
+			card_common = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ACADEMY_CHIEF_SCIENTIST_EFFECTS_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 88 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							margin = { 4 6 }
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = {
+									text = "TV_ACADEMY_EFFECT_ADM_LABEL"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									text = "[Character.GetAbility('adm')]"
+									align = nobaseline
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = {
+									text = "TV_ACADEMY_EFFECT_RESEARCH_SPEED_LABEL"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									raw_text = "[Character.GetAbility('adm')]x0.05"
+									align = nobaseline
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = {
+									text = "TV_ACADEMY_EFFECT_CURE_PROGRESS_LABEL"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									raw_text = "[Character.GetAbility('adm')]x0.1%"
+									align = nobaseline
+								}
+							}
+						}
+					}
+				}
+			}
+
 			card_actions = {
 				minimumsize = { 500 150 }
 				maximumsize = { 500 150 }
