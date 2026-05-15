@@ -194,17 +194,21 @@ tv_host_domestic_exhibition = {
 	}
 
 	allow = {
-		scope:actor = {
-			custom_tooltip = {
-				text = tv_host_domestic_exhibition_requires_art_tt
+		custom_tooltip = {
+			text = tv_host_domestic_exhibition_requires_art_tt
+			scope:actor = {
 				any_work_of_art_in_country = { count >= 5 }
 			}
-			custom_tooltip = {
-				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_NOT_SET_TT
+		}
+		custom_tooltip = {
+			text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_NOT_SET_TT
+			scope:actor = {
 				NOT = { has_variable = tv_local_exhibition_active }
 			}
-			custom_tooltip = {
-				text = TV_HAS_LOCAL_EXHIBITION_CD_NOT_SET_TT
+		}
+		custom_tooltip = {
+			text = TV_HAS_LOCAL_EXHIBITION_CD_NOT_SET_TT
+			scope:actor = {
 				NOT = { has_variable = tv_local_exhibition_cd }
 			}
 		}
