@@ -1449,10 +1449,10 @@ tv_arts_exhibition.408 = {
 
 	immediate = {
 		random_list = {
-			1 = { create_character = { age = 30 artist = painter estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
-			1 = { create_character = { age = 30 artist = sculptor estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
-			1 = { create_character = { age = 30 artist = composer estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
-			1 = { create_character = { age = 30 artist = writer estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = painter estate = estate_type:burghers_estate artist_skill = { 0 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = sculptor estate = estate_type:burghers_estate artist_skill = { 0 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = composer estate = estate_type:burghers_estate artist_skill = { 0 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = writer estate = estate_type:burghers_estate artist_skill = { 0 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
 		}
 	}
 
