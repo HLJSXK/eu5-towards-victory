@@ -873,20 +873,18 @@ tv_arts_exhibition.354 = {
 	desc = tv_arts_exhibition.354.d
 	outcome = good
 
-	option = {
-		name = tv_arts_exhibition.354.a
+	immediate = {
 		random_list = {
 			1 = { create_character = { age = 30 artist = painter estate = estate_type:burghers_estate artist_skill = { 0.10 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
 			1 = { create_character = { age = 30 artist = sculptor estate = estate_type:burghers_estate artist_skill = { 0.10 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
 			1 = { create_character = { age = 30 artist = composer estate = estate_type:burghers_estate artist_skill = { 0.10 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
 			1 = { create_character = { age = 30 artist = writer estate = estate_type:burghers_estate artist_skill = { 0.10 0.30 } save_scope_as = new_artist create_in_limbo = yes } }
 		}
-		hidden_effect = {
-			if = {
-				limit = { exists = scope:new_artist }
-				scope:new_artist = { move_country = root }
-			}
-		}
+	}
+
+	option = {
+		name = tv_arts_exhibition.354.a
+		scope:new_artist = { move_country = root }
 	}
 }
 
@@ -896,20 +894,18 @@ tv_arts_exhibition.355 = {
 	desc = tv_arts_exhibition.355.d
 	outcome = good
 
-	option = {
-		name = tv_arts_exhibition.355.a
+	immediate = {
 		random_list = {
 			1 = { create_character = { age = 30 artist = painter estate = estate_type:burghers_estate artist_skill = { 0.70 0.95 } save_scope_as = new_artist create_in_limbo = yes } }
 			1 = { create_character = { age = 30 artist = sculptor estate = estate_type:burghers_estate artist_skill = { 0.70 0.95 } save_scope_as = new_artist create_in_limbo = yes } }
 			1 = { create_character = { age = 30 artist = composer estate = estate_type:burghers_estate artist_skill = { 0.70 0.95 } save_scope_as = new_artist create_in_limbo = yes } }
 			1 = { create_character = { age = 30 artist = writer estate = estate_type:burghers_estate artist_skill = { 0.70 0.95 } save_scope_as = new_artist create_in_limbo = yes } }
 		}
-		hidden_effect = {
-			if = {
-				limit = { exists = scope:new_artist }
-				scope:new_artist = { move_country = root }
-			}
-		}
+	}
+
+	option = {
+		name = tv_arts_exhibition.355.a
+		scope:new_artist = { move_country = root }
 	}
 }
 
@@ -1451,22 +1447,22 @@ tv_arts_exhibition.408 = {
 	desc = tv_arts_exhibition.408.d
 	outcome = good
 
-	option = {
-		name = tv_arts_exhibition.408.a
+	immediate = {
 		random_list = {
 			1 = { create_character = { age = 30 artist = painter estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
 			1 = { create_character = { age = 30 artist = sculptor estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
 			1 = { create_character = { age = 30 artist = composer estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
 			1 = { create_character = { age = 30 artist = writer estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
 		}
+	}
+
+	option = {
+		name = tv_arts_exhibition.408.a
+		scope:new_artist = { move_country = root }
 		hidden_effect = {
-			if = {
-				limit = { exists = scope:new_artist }
-				scope:new_artist = { move_country = root }
-				set_variable = { name = tv_arts_exchange_new_participant value = scope:new_artist }
-				tv_add_arts_exchange_participant_effect = yes
-				remove_variable = tv_arts_exchange_new_participant
-			}
+			set_variable = { name = tv_arts_exchange_new_participant value = scope:new_artist }
+			tv_add_arts_exchange_participant_effect = yes
+			remove_variable = tv_arts_exchange_new_participant
 		}
 	}
 }
