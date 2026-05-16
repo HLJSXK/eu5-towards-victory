@@ -146,7 +146,7 @@ tv_arts_exhibition.101 = {
 
 	option = {
 		name = tv_arts_exhibition.101.a
-		custom_tooltip = tv_arts_exhibition.101.effect_tt
+		tv_change_arts_intl_influence_effect = { value = 0.1 }
 	}
 }
 
@@ -161,7 +161,7 @@ tv_arts_exhibition.102 = {
 
 	option = {
 		name = tv_arts_exhibition.102.a
-		custom_tooltip = tv_arts_exhibition.102.effect_tt
+		tv_change_arts_intl_influence_effect = { value = 0.5 }
 	}
 }
 
@@ -176,7 +176,7 @@ tv_arts_exhibition.103 = {
 
 	option = {
 		name = tv_arts_exhibition.103.a
-		custom_tooltip = tv_arts_exhibition.103.effect_tt
+		tv_change_arts_intl_influence_effect = { value = -0.1 }
 	}
 }
 
@@ -193,7 +193,42 @@ tv_arts_exhibition.104 = {
 
 	option = {
 		name = tv_arts_exhibition.104.a
-		custom_tooltip = tv_arts_exhibition.104.effect_tt
+		tv_change_arts_intl_influence_effect = { value = 1.0 }
+		hidden_effect = {
+			scope:touring_artist = {
+				var:tv_exhibition_target_country ?= {
+					remove_variable = tv_has_visiting_artist
+				}
+			}
+			if = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
+						has_variable = tv_dispatched_artists_count
+					}
+					var:tv_dispatched_artists_count >= 1
+				}
+				change_variable = { name = tv_dispatched_artists_count add = -1 }
+			}
+			tv_update_tour_capacity_effect = yes
+			remove_list_variable = {
+				name = tv_dispatched_artists_list
+				target = scope:touring_artist
+			}
+			scope:touring_artist = {
+				remove_variable = tv_on_exhibition
+				remove_variable = tv_exhibition_home_country
+				remove_variable = tv_exhibition_target_country
+				remove_variable = tv_exhibition_location
+				remove_variable = tv_exhibition_elapsed
+				remove_variable = tv_exhibition_duration
+				remove_variable = tv_tour_event_1_fired
+				remove_variable = tv_tour_event_2_fired
+				remove_variable = tv_tour_event_3_fired
+				remove_variable = tv_tour_event_4_fired
+				remove_variable = tv_tour_event_5_fired
+			}
+		}
 	}
 }
 
@@ -209,7 +244,13 @@ tv_arts_exhibition.105 = {
 
 	option = {
 		name = tv_arts_exhibition.105.a
-		custom_tooltip = tv_arts_exhibition.105.effect_tt
+		scope:touring_artist = {
+			add_character_modifier = {
+				modifier = tv_artistic_inspiration_modifier
+				years = 10
+				mode = add_and_extend
+			}
+		}
 	}
 }
 
@@ -222,9 +263,20 @@ tv_arts_exhibition.201 = {
 	desc = tv_arts_exhibition.201.d
 	outcome = good
 
+	immediate = {
+		scope:touring_artist = {
+			var:tv_exhibition_target_country ?= {
+				save_scope_as = diplo_target
+			}
+		}
+	}
+
 	option = {
 		name = tv_arts_exhibition.201.a
-		custom_tooltip = tv_arts_exhibition.201.effect_tt
+		scope:diplo_target = {
+			add_opinion = { target = root  modifier = tv_cultural_diplomacy_opinion }
+		}
+		add_opinion = { target = scope:diplo_target  modifier = tv_cultural_diplomacy_opinion }
 	}
 }
 
@@ -237,9 +289,19 @@ tv_arts_exhibition.202 = {
 	desc = tv_arts_exhibition.202.d
 	outcome = good
 
+	immediate = {
+		scope:touring_artist = {
+			var:tv_exhibition_location ?= {
+				save_scope_as = exhibition_location
+			}
+		}
+	}
+
 	option = {
 		name = tv_arts_exhibition.202.a
-		custom_tooltip = tv_arts_exhibition.202.effect_tt
+		scope:exhibition_location = {
+			add_location_modifier = { modifier = tv_exhibition_success_location_modifier  years = 5 }
+		}
 	}
 }
 
@@ -252,9 +314,24 @@ tv_arts_exhibition.203 = {
 	desc = tv_arts_exhibition.203.d
 	outcome = good
 
+	immediate = {
+		scope:touring_artist = {
+			var:tv_exhibition_location ?= {
+				save_scope_as = exhibition_location
+			}
+		}
+	}
+
 	option = {
 		name = tv_arts_exhibition.203.a
-		custom_tooltip = tv_arts_exhibition.203.effect_tt
+		scope:exhibition_location = {
+			construct_building = {
+				building_type = building_type:theater
+				cost_multiplier = 0
+				cost_multiplier_reason = "game_concept_event"
+				instant = yes
+			}
+		}
 	}
 }
 
@@ -268,9 +345,25 @@ tv_arts_exhibition.204 = {
 	desc = tv_arts_exhibition.204.d
 	outcome = good
 
+	immediate = {
+		scope:touring_artist = {
+			var:tv_exhibition_target_country ?= {
+				random_character = {
+					limit = {
+						is_alive = yes
+						is_artist = yes
+						this != scope:touring_artist
+					}
+					save_scope_as = local_artist
+				}
+			}
+		}
+	}
+
 	option = {
 		name = tv_arts_exhibition.204.a
-		custom_tooltip = tv_arts_exhibition.204.effect_tt
+		scope:touring_artist = { add_artist_skill = 0.05 }
+		scope:local_artist = { add_artist_skill = 0.05 }
 	}
 }
 
@@ -284,9 +377,55 @@ tv_arts_exhibition.205 = {
 	desc = tv_arts_exhibition.205.d
 	outcome = bad
 
+	immediate = {
+		scope:touring_artist = {
+			var:tv_exhibition_target_country ?= {
+				save_scope_as = theft_target
+				random_work_of_art_in_country = { save_scope_as = stolen_art }
+			}
+		}
+	}
+
 	option = {
 		name = tv_arts_exhibition.205.a
-		custom_tooltip = tv_arts_exhibition.205.effect_tt
+		scope:theft_target = {
+			add_opinion = { target = root  modifier = tv_art_theft_opinion }
+		}
+		destroy_art = scope:stolen_art
+		hidden_effect = {
+			scope:touring_artist = {
+				var:tv_exhibition_target_country ?= { remove_variable = tv_has_visiting_artist }
+			}
+			if = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
+						has_variable = tv_dispatched_artists_count
+					}
+					var:tv_dispatched_artists_count >= 1
+				}
+				change_variable = { name = tv_dispatched_artists_count add = -1 }
+			}
+			tv_update_tour_capacity_effect = yes
+			remove_list_variable = {
+				name = tv_dispatched_artists_list
+				target = scope:touring_artist
+			}
+			scope:touring_artist = {
+				remove_variable = tv_on_exhibition
+				remove_variable = tv_exhibition_home_country
+				remove_variable = tv_exhibition_target_country
+				remove_variable = tv_exhibition_location
+				remove_variable = tv_exhibition_elapsed
+				remove_variable = tv_exhibition_duration
+				remove_variable = tv_tour_event_1_fired
+				remove_variable = tv_tour_event_2_fired
+				remove_variable = tv_tour_event_3_fired
+				remove_variable = tv_tour_event_4_fired
+				remove_variable = tv_tour_event_5_fired
+			}
+		}
+		scope:touring_artist = { kill_character = this }
 	}
 }
 

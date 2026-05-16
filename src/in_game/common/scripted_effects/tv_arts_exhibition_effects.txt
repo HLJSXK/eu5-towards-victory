@@ -94,6 +94,19 @@ tv_update_tour_capacity_effect = {
 	}
 }
 
+# ── International Influence helper (country scope) ─────────────────────────
+tv_change_arts_intl_influence_effect = {
+	every_international_organizations_member_of = {
+		limit = { international_organization_type = international_organization_type:tv_arts_exhibition }
+		custom_description = {
+			text = tv_change_arts_intl_influence_text
+			value = $value$
+			change_variable = { name = tv_arts_intl_influence add = $value$ }
+			clamp_variable = { name = tv_arts_intl_influence min = 0 max = 100 }
+		}
+	}
+}
+
 # ── Return / death cleanup (character scope) ──────────────────────────────────
 # Called when a touring artist reaches their exhibition duration limit.
 # Clears the target country marker and home country counter BEFORE removing
