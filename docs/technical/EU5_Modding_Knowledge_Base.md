@@ -363,6 +363,8 @@ my_event.1.a: "Option button text"
 my_event.1.a.tt: "Tooltip description shown on hover."
 ```
 
+Event options may also pre-evaluate their `effect` stack while building tooltips. Do not assume a `set_variable` earlier in the option or in a called helper is committed before a later visible helper reads that variable. If an option sets `X` and then calls code that compares `var:X`, wrap the state-changing/application sequence in `hidden_effect = { ... }`, or guard the reusable helper with `has_variable = X` before direct `var:X` comparisons. For option triggers that read optional variables, prefer `var:X ?= N`.
+
 #### Scripted Effects That Change IO Variables
 
 If a reusable `scripted_effect` changes an International Organization type variable and callers need to show the gain/loss in their option or action tooltip, do not leave the IO-scope `change_variable` bare inside the helper. Wrap the real effect in `custom_description` and register that `text` key under `in_game/common/effect_localization/`.
@@ -381,6 +383,10 @@ custom_description = {
 ```
 
 The `effect_localization` entry maps the custom description to perspective-specific localization keys, including negative variants. The player-facing strings still live in `main_menu/localization`. This lets a scripted effect call display the signed IO variable change while executing the real `change_variable`.
+
+#### Event-Created Artwork
+
+For event-created named artworks, do not rely on `create_art` with only `artist` and `quality`. Vanilla named artworks specify both `type = work_of_art_type:<type>` and `key = <loc_key>` inside `create_art`, with the key localized in `main_menu/localization`. Without an explicit key, dynamically created works can end up unnamed; if the real `create_art` must branch by `artist_type`, use visible `if`/`else_if` branches so the actual creation effect appears in the option tooltip.
 
 ### 6.2. Countries
 
@@ -415,6 +421,8 @@ GUI `text = "KEY"` properties are localization lookups. If the key is missing fr
 Custom game concepts require both localization and a definition in `main_menu/common/game_concepts/`. A localization pair such as `game_concept_tv_foo` / `game_concept_tv_foo_desc` does not create the concept by itself. If `[tv_foo|e]` is used before `tv_foo = { texture = "..." }` is registered, the localization parser treats `tv_foo` as a data-system function and logs `Could not find data system function 'tv_foo'`.
 
 GUI boolean helpers are arity-specific. `And()` and `Or()` take exactly two operands; for three operands use `And3()` / `Or3()` as vanilla GUI files do, and for larger expressions nest binary helpers. A three-argument `And(a, b, c)` logs `Function 'And' expected 2 arguments, got 3` and the widget statement fails conversion.
+
+For fixed-position icon overlays, avoid percentage `position` values directly on `icon` widgets. In the Governor's House power-balance bar, `position = { 50% 0 }` on an `icon` rendered at the left edge instead of the midpoint. Use pixel positions when the parent has a fixed size, or position a `widget` wrapper with percentages and place the icon inside that wrapper. Vanilla percentage-position examples such as `progressbars.gui` use positioned `widget` wrappers.
 
 The shared `situation_panel` template includes a default `situation_subheader_content` block with a 45px row. Custom situation panels that do not use a subheader should explicitly add `blockoverride "situation_subheader_content" {}` near the top of the panel. Vanilla situation panels such as `colonial_revolution.gui` and `council_of_trent.gui` use this empty override to avoid an unwanted blank band above the main content.
 

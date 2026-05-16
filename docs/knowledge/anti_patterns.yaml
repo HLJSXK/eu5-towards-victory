@@ -82,6 +82,16 @@
   source: "runtime error.log: pdx_data_factory.cpp:1401; reference_game_files/game/in_game/gui/panels/organization/members.gui:927"
   notes: "EU5 GUI And() and Or() are binary helpers, not variadic. And(a,b,c) fails conversion with 'Function And expected 2 arguments, got 3'. Pattern left empty because commas inside typed comparison calls make static regex detection noisy."
 
+- id: gui_icon_percent_position_ignored
+  pattern: ''
+  only_in_paths: ['gui']
+  bad: "Using percent position directly on icon widgets for fixed-position overlays"
+  correction: "For icon overlays on a fixed-size parent, use pixel positions; if percent placement is needed, put the icon inside a positioned widget wrapper instead."
+  category: gui
+  scope: any
+  source: "runtime UI observation in src/in_game/gui/panels/organization/tv_govhouse.gui; reference_game_files/game/main_menu/gui/shared/progressbars.gui:268-286"
+  notes: "Percent position is confirmed on vanilla widget wrappers, but percent position directly on these icon overlays collapsed them to the left edge. Fixed pixel bins are reliable for fixed-width bars."
+
 - id: trade_efficiency_nonexistent
   pattern: '\btrade_efficiency\s*='
   bad: "trade_efficiency = <value>"
@@ -354,6 +364,15 @@
   scope: any
   source: "error.log: 'Failed to fetch variable for tv_science_progress_pct due to not being set', towards_victory_leaderboard.txt:47"
   notes: "EU5 does NOT default unset variables to 0 in trigger comparisons; var:X on the left side of >= throws a script error and aborts the if-block. set_variable = { value = var:X } with an unset var appears to be silent (no error), so only limit comparisons need the has_variable guard."
+
+- id: event_option_effect_reads_newly_set_variable
+  pattern: ''
+  bad: "Event option effect sets variable X and then immediately calls a visible helper that compares var:X, assuming the option tooltip pre-evaluator sees the new value"
+  correction: "Wrap the state-changing/application sequence in hidden_effect, or make the called helper guard has_variable before direct var:X comparisons. For optional option triggers, use var:X ?= N."
+  category: event
+  scope: country
+  source: "runtime error.log: tv_govhouse.40 -> tv_govhouse_approve_pending_tactic_effect -> tv_govhouse_apply_tactic_effect"
+  notes: "EU5 event option tooltip generation may pre-evaluate option effects without committing earlier set_variable writes. A later visible direct var:X comparison can fetch an unset variable repeatedly while the event is open."
 
 - id: trigger_loc_missing_first_perspective
   pattern: ''
@@ -864,6 +883,16 @@
   scope: international_organization
   source: "reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt:1508-1528; reference_game_files/game/in_game/common/effect_localization/scripted_effects.txt:597-610"
   notes: "Scripted effect calls can otherwise produce empty option/action tooltips even though the IO variable changes. Vanilla uses custom_description plus effect_localization for imperial, celestial, and papal authority so the tooltip shows the signed value while executing the real effect."
+
+- id: create_art_dynamic_event_missing_type_key
+  pattern: ''
+  only_in_paths: ['events', 'scripted_effects']
+  bad: "Event-created artwork uses create_art with only artist/quality and no explicit type/key, expecting a reliable tooltip and artwork name"
+  correction: "For event-created named artworks, provide an explicit work_of_art_type and key with matching main_menu localization. If the type depends on the artist, branch with visible if/else_if create_art blocks so the real effect tooltip renders."
+  category: script
+  scope: location
+  source: "reference_game_files/game/in_game/events/culture/cultural_event.txt:406-411; src/in_game/events/tv_arts_exhibition_events.txt:1302-1428"
+  notes: "tv_arts_exhibition.406 created a work in the capital but the option tooltip was empty and the resulting artwork had no name. Vanilla named artworks pair create_art with both type = work_of_art_type:<type> and key = <loc_key>. Visible if/else_if branches can render the real create_art tooltip while still selecting the appropriate art type by artist_type."
 
 - id: io_monthly_effect_visible_tooltip
   pattern: ''
