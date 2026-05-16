@@ -46,6 +46,9 @@ tv_research_reset_cycle_effect = {
 	set_variable = { name = tv_rm_subprocess_c value = 0 }
 	set_variable = { name = tv_rm_subprocess_d_ready value = 0 }
 	tv_research_reset_io_progress_effect = yes
+	hidden_effect = {
+		remove_country_modifier = tv_concentrated_research_penalty
+	}
 }
 
 # ── Abandon research cycle ─────────────────────────────────────────────────────
@@ -91,6 +94,11 @@ tv_research_check_d_ready_effect = {
 # Called from the confirmation event when player clicks the D button.
 tv_research_start_d_effect = {
 	set_variable = { name = tv_research_phase value = 2 }
+	add_country_modifier = {
+		modifier = tv_concentrated_research_penalty
+		years = -1
+		mode = replace
+	}
 }
 
 # ── Concentrated Research complete ────────────────────────────────────────────
@@ -100,6 +108,9 @@ tv_research_start_d_effect = {
 tv_research_concentrated_complete_effect = {
 	# Stop D monthly completion checks while keeping tv_research_target for the event.
 	set_variable = { name = tv_research_phase value = 0 }
+	hidden_effect = {
+		remove_country_modifier = tv_concentrated_research_penalty
+	}
 	trigger_event_non_silently = { id = tv_research.30 }
 }
 

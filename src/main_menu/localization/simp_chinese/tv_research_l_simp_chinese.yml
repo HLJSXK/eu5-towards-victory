@@ -8,6 +8,7 @@
  tv_research_c_progress_desc:0 "衡量本国人口为当前研究周期积累的学术识字基础。"
  tv_research_d_progress:0 "集中研究"
  tv_research_d_progress_desc:0 "衡量由首席科学家主导的集中研究进度。"
+ STATIC_MODIFIER_NAME_tv_concentrated_research_penalty:0 "集中研究"
 
  # ── IO 变量显示格式 ────────────────────────────────────────────────────────────
  TV_C_PROGRESS_FORMAT:0 "$VAL|0$/100"
@@ -142,7 +143,7 @@
 
  # tv_research.20 — 开展集中研究确认
  tv_research.20.t: "开展集中研究"
- tv_research.20.d: "前置条件已就绪，首席科学家蓄势待发。此举将占用其全部精力，并每月消耗国家资源，直至取得突破。"
+ tv_research.20.d: "前置条件已就绪，首席科学家蓄势待发。此举将占用其全部精力，使研究速度降低20%，并每月消耗国家资源，直至取得突破。"
  tv_research.20.a: "开始集中研究。"
  tv_research.20.b: "暂不行动，稍后决定。"
 
