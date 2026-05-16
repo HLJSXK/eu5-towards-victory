@@ -8,6 +8,8 @@
  tv_research_c_progress_desc:0 "Measures the scholarly literacy base accumulated by this country's population for the current research cycle."
  tv_research_d_progress:0 "Concentrated Research"
  tv_research_d_progress_desc:0 "Measures the progress of concentrated research directed by the Chief Scientist."
+ tv_research_interest:0 "Academic Interest"
+ tv_research_interest_desc:0 "Measures the sparks of scholarly curiosity gathered for Sub-process A of the current research cycle."
  STATIC_MODIFIER_NAME_tv_concentrated_research_penalty:0 "Concentrated Research"
 
  # ── IO Variable Display Formats ───────────────────────────────────────────────
@@ -104,6 +106,18 @@
  tv_research.1.d: "A member of the court has demonstrated unusual intellectual curiosity related to our Academy's current research topic. Their enthusiasm may prove valuable if nurtured."
  tv_research.1.a: "Fund the inquiry."
  tv_research.1.b: "This is a distraction. Dismiss it."
+ TV_ADD_RESEARCH_INTEREST: "Gains $VALUE|+$ #Y $tv_research_interest$#!"
+ TV_FIRST_ADD_RESEARCH_INTEREST: "We gain $VALUE|+$ #Y $tv_research_interest$#!"
+ TV_THIRD_ADD_RESEARCH_INTEREST: "[COUNTRY.GetName] gains $VALUE|+$ #Y $tv_research_interest$#!"
+ TV_PAST_ADD_RESEARCH_INTEREST: "Gained $VALUE|+$ #Y $tv_research_interest$#!"
+ TV_FIRST_PAST_ADD_RESEARCH_INTEREST: "We gained $VALUE|+$ #Y $tv_research_interest$#!"
+ TV_THIRD_PAST_ADD_RESEARCH_INTEREST: "[COUNTRY.GetName] gained $VALUE|+$ #Y $tv_research_interest$#!"
+ TV_SUBTRACT_RESEARCH_INTEREST: "Loses $VALUE|-$ #Y $tv_research_interest$#!"
+ TV_FIRST_SUBTRACT_RESEARCH_INTEREST: "We lose $VALUE|-$ #Y $tv_research_interest$#!"
+ TV_THIRD_SUBTRACT_RESEARCH_INTEREST: "[COUNTRY.GetName] loses $VALUE|-$ #Y $tv_research_interest$#!"
+ TV_PAST_SUBTRACT_RESEARCH_INTEREST: "Lost $VALUE|-$ #Y $tv_research_interest$#!"
+ TV_FIRST_PAST_SUBTRACT_RESEARCH_INTEREST: "We lost $VALUE|-$ #Y $tv_research_interest$#!"
+ TV_THIRD_PAST_SUBTRACT_RESEARCH_INTEREST: "[COUNTRY.GetName] lost $VALUE|-$ #Y $tv_research_interest$#!"
 
  # tv_research.10 — Target Selection Proposal
  tv_research.10.t: "The Academy Proposes a Research Direction"

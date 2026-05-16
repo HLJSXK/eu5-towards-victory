@@ -8,6 +8,8 @@
  tv_research_c_progress_desc:0 "衡量本国人口为当前研究周期积累的学术识字基础。"
  tv_research_d_progress:0 "集中研究"
  tv_research_d_progress_desc:0 "衡量由首席科学家主导的集中研究进度。"
+ tv_research_interest:0 "学术兴趣"
+ tv_research_interest_desc:0 "衡量当前研究周期子流程A已经积累的学术好奇火花。"
  STATIC_MODIFIER_NAME_tv_concentrated_research_penalty:0 "集中研究"
 
  # ── IO 变量显示格式 ────────────────────────────────────────────────────────────
@@ -104,6 +106,18 @@
  tv_research.1.d: "宫廷中一位成员对科学院当前研究课题展现出异乎寻常的求知热情，若加以引导，或许大有裨益。"
  tv_research.1.a: "资助探究。"
  tv_research.1.b: "不过是分心之举，不必理会。"
+ TV_ADD_RESEARCH_INTEREST: "获得$VALUE|+$#Y $tv_research_interest$#!"
+ TV_FIRST_ADD_RESEARCH_INTEREST: "我们获得$VALUE|+$#Y $tv_research_interest$#!"
+ TV_THIRD_ADD_RESEARCH_INTEREST: "[COUNTRY.GetName]获得$VALUE|+$#Y $tv_research_interest$#!"
+ TV_PAST_ADD_RESEARCH_INTEREST: "获得了$VALUE|+$#Y $tv_research_interest$#!"
+ TV_FIRST_PAST_ADD_RESEARCH_INTEREST: "我们获得了$VALUE|+$#Y $tv_research_interest$#!"
+ TV_THIRD_PAST_ADD_RESEARCH_INTEREST: "[COUNTRY.GetName]获得了$VALUE|+$#Y $tv_research_interest$#!"
+ TV_SUBTRACT_RESEARCH_INTEREST: "失去$VALUE|-$#Y $tv_research_interest$#!"
+ TV_FIRST_SUBTRACT_RESEARCH_INTEREST: "我们失去$VALUE|-$#Y $tv_research_interest$#!"
+ TV_THIRD_SUBTRACT_RESEARCH_INTEREST: "[COUNTRY.GetName]失去$VALUE|-$#Y $tv_research_interest$#!"
+ TV_PAST_SUBTRACT_RESEARCH_INTEREST: "失去了$VALUE|-$#Y $tv_research_interest$#!"
+ TV_FIRST_PAST_SUBTRACT_RESEARCH_INTEREST: "我们失去了$VALUE|-$#Y $tv_research_interest$#!"
+ TV_THIRD_PAST_SUBTRACT_RESEARCH_INTEREST: "[COUNTRY.GetName]失去了$VALUE|-$#Y $tv_research_interest$#!"
 
  # tv_research.10 — 目标选择提案
  tv_research.10.t: "科学院提出研究方向"

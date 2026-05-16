@@ -19,6 +19,16 @@ tv_research_reset_io_progress_effect = {
 	}
 }
 
+# ── Academic Interest helper (country scope) ─────────────────────────────────
+tv_change_research_interest_effect = {
+	custom_description = {
+		text = tv_change_research_interest_text
+		value = $value$
+		change_variable = { name = tv_research_interest add = $value$ }
+		clamp_variable = { name = tv_research_interest min = 0 max = 5 }
+	}
+}
+
 # ── Initialize research cycle ──────────────────────────────────────────────────
 # Called when the player confirms a research target. Starts phase 1 (A/B/C running).
 tv_research_init_cycle_effect = {
