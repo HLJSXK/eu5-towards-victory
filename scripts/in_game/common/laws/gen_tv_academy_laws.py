@@ -43,6 +43,7 @@ def gen_policy(policy: dict) -> str:
     pid = policy["id"]
     comment = policy.get("display_comment", "")
     modifier_lines = (policy.get("country_modifier") or "").rstrip()
+    on_activate_tooltip = (policy.get("on_activate_tooltip") or "").strip()
 
     lines = []
     if comment:
@@ -51,6 +52,10 @@ def gen_policy(policy: dict) -> str:
     lines.append(T * 2 + "allow = {")
     lines.append(T * 3 + "always = yes")
     lines.append(T * 2 + "}")
+    if on_activate_tooltip:
+        lines.append(T * 2 + "on_activate = {")
+        lines.append(T * 3 + f"custom_tooltip = {{ text = {on_activate_tooltip} }}")
+        lines.append(T * 2 + "}")
     if modifier_lines:
         lines.append(T * 2 + "country_modifier = {")
         lines.append(_indent_block(modifier_lines, 3))
