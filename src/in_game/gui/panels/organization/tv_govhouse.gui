@@ -325,83 +325,6 @@ organization_panel = {
 
 						hbox = {
 							layoutpolicy_horizontal = expanding
-							margin = { 8 0 }
-							spacing = 6
-							tooltip = "tv_govhouse_power_consolidation_desc"
-
-							text_single = {
-								size = { 130 22 }
-								text = "tv_govhouse_power_consolidation"
-								align = nobaseline|left
-							}
-
-							vbox = {
-								size = { 280 30 }
-								spacing = 1
-
-								progressbar = {
-									size = { 280 16 }
-									min = 0
-									max = 1
-									value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_govhouse_power_consolidation').GetValue]"
-									using = progress_bar_blue_alt
-									tooltip = "tv_govhouse_power_consolidation_desc"
-								}
-
-								hbox = {
-									size = { 280 12 }
-									widget = {
-										size = { 70 12 }
-										text_single = {
-											layoutpolicy_horizontal = expanding
-											raw_text = "25%"
-											align = nobaseline|right
-											using = Font_Size_Very_Small
-											tooltip = "tv_govhouse_power_consolidation_desc"
-										}
-									}
-									widget = {
-										size = { 70 12 }
-										text_single = {
-											layoutpolicy_horizontal = expanding
-											raw_text = "50%"
-											align = nobaseline|right
-											using = Font_Size_Very_Small
-											tooltip = "tv_govhouse_power_consolidation_desc"
-										}
-									}
-									widget = {
-										size = { 70 12 }
-										text_single = {
-											layoutpolicy_horizontal = expanding
-											raw_text = "75%"
-											align = nobaseline|right
-											using = Font_Size_Very_Small
-											tooltip = "tv_govhouse_power_consolidation_desc"
-										}
-									}
-									widget = {
-										size = { 70 12 }
-										text_single = {
-											layoutpolicy_horizontal = expanding
-											raw_text = "100%"
-											align = nobaseline|right
-											using = Font_Size_Very_Small
-											tooltip = "tv_govhouse_power_consolidation_desc"
-										}
-									}
-								}
-							}
-
-							text_single = {
-								size = { 46 22 }
-								raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_govhouse_power_consolidation').GetValue|%0]"
-								align = nobaseline|right
-							}
-						}
-
-						hbox = {
-							layoutpolicy_horizontal = expanding
 							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_gg_training_progress').IsSet]"
 							margin = { 8 0 }
 							spacing = 6
@@ -445,7 +368,7 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 154 }
+						size = { 470 170 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
@@ -479,6 +402,52 @@ organization_panel = {
 									size = { 32 32 }
 									texture = "gfx/interface/icons/estates/crown_estate.dds"
 									tooltip = "TV_GOVHOUSE_POWER_BALANCE_CROWN_SIDE"
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+
+								widget = {
+									size = { 42 12 }
+								}
+
+								hbox = {
+									size = { 366 12 }
+
+									text_single = {
+										size = { 91 12 }
+										raw_text = "25%"
+										align = nobaseline|right
+										using = Font_Size_Very_Small
+										tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+									}
+									text_single = {
+										size = { 92 12 }
+										raw_text = "50%"
+										align = nobaseline|right
+										using = Font_Size_Very_Small
+										tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+									}
+									text_single = {
+										size = { 91 12 }
+										raw_text = "75%"
+										align = nobaseline|right
+										using = Font_Size_Very_Small
+										tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+									}
+									text_single = {
+										size = { 92 12 }
+										raw_text = "100%"
+										align = nobaseline|right
+										using = Font_Size_Very_Small
+										tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+									}
+								}
+
+								widget = {
+									size = { 42 12 }
 								}
 							}
 
