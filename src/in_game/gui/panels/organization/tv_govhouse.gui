@@ -716,11 +716,10 @@ organization_panel = {
 							using = bg_paper_card
 							using = bg_cabinet_card_frame
 
-							text_single = {
-								size = { 30 30 }
-								raw_text = "@normal_military_stance!"
+							icon = {
+								size = { 64 64 }
+								texture = "gfx/interface/icons/military_stances/normal_military_stance.dds"
 								tooltip = "TV_GOVHOUSE_TACTIC_STEADY_ADVANCE"
-								align = nobaseline|center
 							}
 
 							vbox = {
@@ -767,11 +766,10 @@ organization_panel = {
 							using = bg_paper_card
 							using = bg_cabinet_card_frame
 
-							text_single = {
-								size = { 30 30 }
-								raw_text = "@defensive_military_stance!"
+							icon = {
+								size = { 64 64 }
+								texture = "gfx/interface/icons/military_stances/defensive_military_stance.dds"
 								tooltip = "TV_GOVHOUSE_TACTIC_CAREFUL_ADVANCE"
-								align = nobaseline|center
 							}
 
 							vbox = {
@@ -840,11 +838,10 @@ organization_panel = {
 							using = bg_paper_card
 							using = bg_cabinet_card_frame
 
-							text_single = {
-								size = { 30 30 }
-								raw_text = "@aggressive_military_stance!"
+							icon = {
+								size = { 64 64 }
+								texture = "gfx/interface/icons/military_stances/aggressive_military_stance.dds"
 								tooltip = "TV_GOVHOUSE_TACTIC_RAPID_ADVANCE"
-								align = nobaseline|center
 							}
 
 							vbox = {
@@ -935,11 +932,10 @@ organization_panel = {
 							using = bg_paper_card
 							using = bg_cabinet_card_frame
 
-							text_single = {
-								size = { 30 30 }
-								raw_text = "@passive_military_stance!"
+							icon = {
+								size = { 64 64 }
+								texture = "gfx/interface/icons/military_stances/passive_military_stance.dds"
 								tooltip = "TV_GOVHOUSE_TACTIC_AMBUSH"
-								align = nobaseline|center
 							}
 
 							vbox = {
@@ -986,11 +982,10 @@ organization_panel = {
 							using = bg_paper_card
 							using = bg_cabinet_card_frame
 
-							text_single = {
-								size = { 30 30 }
-								raw_text = "@aggressive_military_stance!"
+							icon = {
+								size = { 64 64 }
+								texture = "gfx/interface/icons/military_stances/aggressive_military_stance.dds"
 								tooltip = "TV_GOVHOUSE_TACTIC_SURPRISE"
-								align = nobaseline|center
 							}
 
 							vbox = {
@@ -1037,11 +1032,10 @@ organization_panel = {
 							using = bg_paper_card
 							using = bg_cabinet_card_frame
 
-							text_single = {
-								size = { 30 30 }
-								raw_text = "@supportive_military_stance!"
+							icon = {
+								size = { 64 64 }
+								texture = "gfx/interface/icons/military_stances/supportive_military_stance.dds"
 								tooltip = "TV_GOVHOUSE_TACTIC_GUERRILLA"
-								align = nobaseline|center
 							}
 
 							vbox = {
@@ -1110,11 +1104,10 @@ organization_panel = {
 							using = bg_paper_card
 							using = bg_cabinet_card_frame
 
-							text_single = {
-								size = { 30 30 }
-								raw_text = "@siege_raider_military_stance!"
+							icon = {
+								size = { 64 64 }
+								texture = "gfx/interface/icons/military_stances/siege_raider_military_stance.dds"
 								tooltip = "TV_GOVHOUSE_TACTIC_SIEGE_RELIEF"
-								align = nobaseline|center
 							}
 
 							vbox = {
