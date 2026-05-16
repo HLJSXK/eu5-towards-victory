@@ -415,3 +415,404 @@ tv_roll_local_exhibition_monthly_events_effect = {
 		90 = {}
 	}
 }
+
+# ── Arts exchange helpers (country scope) ────────────────────────────────────
+tv_clear_arts_exchange_tracking_effect = {
+	every_in_list = {
+		variable = tv_arts_exchange_participants
+		remove_variable = tv_arts_exchange_participant
+		remove_variable = tv_arts_exchange_foreign_participant
+		remove_variable = tv_arts_exchange_host_country
+		remove_variable = tv_arts_exchange_auto_invitee
+	}
+	var:tv_arts_exchange_auto_invite_1 ?= {
+		remove_variable = tv_arts_exchange_auto_invitee
+	}
+	var:tv_arts_exchange_auto_invite_2 ?= {
+		remove_variable = tv_arts_exchange_auto_invitee
+	}
+	var:tv_arts_exchange_auto_invite_3 ?= {
+		remove_variable = tv_arts_exchange_auto_invitee
+	}
+	clear_variable_list = tv_arts_exchange_participants
+	clear_variable_list = tv_arts_exchange_foreign_participants
+	remove_variable = tv_arts_exchange_new_participant
+	remove_variable = tv_arts_exchange_new_foreign_participant
+	remove_variable = tv_arts_exchange_auto_invite_1
+	remove_variable = tv_arts_exchange_auto_invite_2
+	remove_variable = tv_arts_exchange_auto_invite_3
+}
+
+tv_add_arts_exchange_participant_effect = {
+	save_scope_as = tv_arts_exchange_host
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_ARTS_EXCHANGE_NEW_PARTICIPANT_TT
+				has_variable = tv_arts_exchange_new_participant
+			}
+		}
+		var:tv_arts_exchange_new_participant ?= {
+			save_scope_as = tv_arts_exchange_participant_to_add
+		}
+		if = {
+			limit = {
+				exists = scope:tv_arts_exchange_participant_to_add
+				scope:tv_arts_exchange_participant_to_add = {
+					NOT = { has_variable = tv_arts_exchange_participant }
+				}
+			}
+			add_to_variable_list = {
+				name = tv_arts_exchange_participants
+				target = scope:tv_arts_exchange_participant_to_add
+			}
+			scope:tv_arts_exchange_participant_to_add = {
+				set_variable = { name = tv_arts_exchange_participant value = 1 }
+				set_variable = { name = tv_arts_exchange_host_country value = scope:tv_arts_exchange_host }
+			}
+		}
+	}
+}
+
+tv_add_arts_exchange_foreign_participant_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_ARTS_EXCHANGE_NEW_FOREIGN_PARTICIPANT_TT
+				has_variable = tv_arts_exchange_new_foreign_participant
+			}
+		}
+		var:tv_arts_exchange_new_foreign_participant ?= {
+			save_scope_as = tv_arts_exchange_foreign_participant_to_add
+		}
+		if = {
+			limit = {
+				exists = scope:tv_arts_exchange_foreign_participant_to_add
+				scope:tv_arts_exchange_foreign_participant_to_add = {
+					NOT = { has_variable = tv_arts_exchange_foreign_participant }
+				}
+			}
+			add_to_variable_list = {
+				name = tv_arts_exchange_foreign_participants
+				target = scope:tv_arts_exchange_foreign_participant_to_add
+			}
+			scope:tv_arts_exchange_foreign_participant_to_add = {
+				set_variable = { name = tv_arts_exchange_foreign_participant value = 1 }
+			}
+		}
+	}
+}
+
+tv_start_arts_exchange_effect = {
+	tv_clear_arts_exchange_tracking_effect = yes
+	set_variable = { name = tv_arts_exchange_active value = 1 }
+	set_variable = { name = tv_arts_exchange_months_elapsed value = 0 }
+	set_variable = { name = tv_arts_exchange_months_remaining value = 12 }
+	remove_variable = tv_arts_exchange_invite_event_fired
+	var:tv_arts_exhibition_leader_char ?= {
+		save_scope_as = tv_arts_exchange_chief_artist
+	}
+	if = {
+		limit = {
+			exists = scope:tv_arts_exchange_chief_artist
+		}
+		set_variable = { name = tv_arts_exchange_new_participant value = scope:tv_arts_exchange_chief_artist }
+		tv_add_arts_exchange_participant_effect = yes
+		remove_variable = tv_arts_exchange_new_participant
+	}
+}
+
+tv_prepare_arts_exchange_auto_invites_effect = {
+	remove_variable = tv_arts_exchange_auto_invite_1
+	remove_variable = tv_arts_exchange_auto_invite_2
+	remove_variable = tv_arts_exchange_auto_invite_3
+
+	if = {
+		limit = {
+			any_character = {
+				is_alive = yes
+				is_artist = yes
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				NOT = { has_variable = tv_on_exhibition }
+				NOT = { has_variable = tv_local_exhibition_guest_home }
+				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_variable = tv_arts_exchange_participant }
+				NOT = { has_variable = tv_arts_exchange_auto_invitee }
+			}
+		}
+		random_character = {
+			limit = {
+				is_alive = yes
+				is_artist = yes
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				NOT = { has_variable = tv_on_exhibition }
+				NOT = { has_variable = tv_local_exhibition_guest_home }
+				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_variable = tv_arts_exchange_participant }
+				NOT = { has_variable = tv_arts_exchange_auto_invitee }
+			}
+			save_scope_as = tv_arts_exchange_auto_invite_1_scope
+		}
+		if = {
+			limit = { exists = scope:tv_arts_exchange_auto_invite_1_scope }
+			set_variable = { name = tv_arts_exchange_auto_invite_1 value = scope:tv_arts_exchange_auto_invite_1_scope }
+			scope:tv_arts_exchange_auto_invite_1_scope = {
+				set_variable = { name = tv_arts_exchange_auto_invitee value = 1 }
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			any_character = {
+				is_alive = yes
+				is_artist = yes
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				NOT = { has_variable = tv_on_exhibition }
+				NOT = { has_variable = tv_local_exhibition_guest_home }
+				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_variable = tv_arts_exchange_participant }
+				NOT = { has_variable = tv_arts_exchange_auto_invitee }
+			}
+		}
+		random_character = {
+			limit = {
+				is_alive = yes
+				is_artist = yes
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				NOT = { has_variable = tv_on_exhibition }
+				NOT = { has_variable = tv_local_exhibition_guest_home }
+				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_variable = tv_arts_exchange_participant }
+				NOT = { has_variable = tv_arts_exchange_auto_invitee }
+			}
+			save_scope_as = tv_arts_exchange_auto_invite_2_scope
+		}
+		if = {
+			limit = { exists = scope:tv_arts_exchange_auto_invite_2_scope }
+			set_variable = { name = tv_arts_exchange_auto_invite_2 value = scope:tv_arts_exchange_auto_invite_2_scope }
+			scope:tv_arts_exchange_auto_invite_2_scope = {
+				set_variable = { name = tv_arts_exchange_auto_invitee value = 1 }
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			any_character = {
+				is_alive = yes
+				is_artist = yes
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				NOT = { has_variable = tv_on_exhibition }
+				NOT = { has_variable = tv_local_exhibition_guest_home }
+				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_variable = tv_arts_exchange_participant }
+				NOT = { has_variable = tv_arts_exchange_auto_invitee }
+			}
+		}
+		random_character = {
+			limit = {
+				is_alive = yes
+				is_artist = yes
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				NOT = { has_variable = tv_on_exhibition }
+				NOT = { has_variable = tv_local_exhibition_guest_home }
+				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_variable = tv_arts_exchange_participant }
+				NOT = { has_variable = tv_arts_exchange_auto_invitee }
+			}
+			save_scope_as = tv_arts_exchange_auto_invite_3_scope
+		}
+		if = {
+			limit = { exists = scope:tv_arts_exchange_auto_invite_3_scope }
+			set_variable = { name = tv_arts_exchange_auto_invite_3 value = scope:tv_arts_exchange_auto_invite_3_scope }
+			scope:tv_arts_exchange_auto_invite_3_scope = {
+				set_variable = { name = tv_arts_exchange_auto_invitee value = 1 }
+			}
+		}
+	}
+}
+
+tv_apply_arts_exchange_auto_invites_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_ARTS_EXCHANGE_AUTO_INVITE_1_TT
+				has_variable = tv_arts_exchange_auto_invite_1
+			}
+		}
+		var:tv_arts_exchange_auto_invite_1 ?= {
+			save_scope_as = tv_arts_exchange_auto_invite_apply_1
+			remove_variable = tv_arts_exchange_auto_invitee
+		}
+		if = {
+			limit = { exists = scope:tv_arts_exchange_auto_invite_apply_1 }
+			set_variable = { name = tv_arts_exchange_new_participant value = scope:tv_arts_exchange_auto_invite_apply_1 }
+			tv_add_arts_exchange_participant_effect = yes
+			remove_variable = tv_arts_exchange_new_participant
+		}
+	}
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_ARTS_EXCHANGE_AUTO_INVITE_2_TT
+				has_variable = tv_arts_exchange_auto_invite_2
+			}
+		}
+		var:tv_arts_exchange_auto_invite_2 ?= {
+			save_scope_as = tv_arts_exchange_auto_invite_apply_2
+			remove_variable = tv_arts_exchange_auto_invitee
+		}
+		if = {
+			limit = { exists = scope:tv_arts_exchange_auto_invite_apply_2 }
+			set_variable = { name = tv_arts_exchange_new_participant value = scope:tv_arts_exchange_auto_invite_apply_2 }
+			tv_add_arts_exchange_participant_effect = yes
+			remove_variable = tv_arts_exchange_new_participant
+		}
+	}
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_ARTS_EXCHANGE_AUTO_INVITE_3_TT
+				has_variable = tv_arts_exchange_auto_invite_3
+			}
+		}
+		var:tv_arts_exchange_auto_invite_3 ?= {
+			save_scope_as = tv_arts_exchange_auto_invite_apply_3
+			remove_variable = tv_arts_exchange_auto_invitee
+		}
+		if = {
+			limit = { exists = scope:tv_arts_exchange_auto_invite_apply_3 }
+			set_variable = { name = tv_arts_exchange_new_participant value = scope:tv_arts_exchange_auto_invite_apply_3 }
+			tv_add_arts_exchange_participant_effect = yes
+			remove_variable = tv_arts_exchange_new_participant
+		}
+	}
+	remove_variable = tv_arts_exchange_auto_invite_1
+	remove_variable = tv_arts_exchange_auto_invite_2
+	remove_variable = tv_arts_exchange_auto_invite_3
+}
+
+tv_prune_arts_exchange_participants_effect = {
+	save_scope_as = tv_arts_exchange_host
+	every_in_list = {
+		variable = tv_arts_exchange_participants
+		limit = { is_alive = no }
+		save_scope_as = tv_arts_exchange_dead_participant
+		scope:tv_arts_exchange_host = {
+			remove_list_variable = { name = tv_arts_exchange_participants target = scope:tv_arts_exchange_dead_participant }
+			remove_list_variable = { name = tv_arts_exchange_foreign_participants target = scope:tv_arts_exchange_dead_participant }
+		}
+		remove_variable = tv_arts_exchange_participant
+		remove_variable = tv_arts_exchange_foreign_participant
+		remove_variable = tv_arts_exchange_host_country
+		remove_variable = tv_arts_exchange_auto_invitee
+	}
+}
+
+tv_roll_arts_exchange_monthly_events_effect = {
+	random_list = {
+		1 = {
+			trigger = { list_size = { name = tv_arts_exchange_participants value >= 2 } }
+			trigger_event_non_silently = { id = tv_arts_exhibition.401 }
+		}
+		1 = {
+			trigger = { list_size = { name = tv_arts_exchange_participants value >= 1 } }
+			trigger_event_non_silently = { id = tv_arts_exhibition.402 }
+		}
+		1 = {
+			trigger = {
+				list_size = { name = tv_arts_exchange_participants value >= 2 }
+				any_in_list = {
+					variable = tv_arts_exchange_participants
+					is_alive = yes
+					is_artist = yes
+					artist_skill >= 0.70
+				}
+			}
+			trigger_event_non_silently = { id = tv_arts_exhibition.403 }
+		}
+		1 = {
+			trigger = { list_size = { name = tv_arts_exchange_participants value >= 1 } }
+			trigger_event_non_silently = { id = tv_arts_exhibition.404 }
+		}
+		1 = {
+			trigger = { list_size = { name = tv_arts_exchange_foreign_participants value >= 1 } }
+			trigger_event_non_silently = { id = tv_arts_exhibition.405 }
+		}
+		1 = {
+			trigger = { list_size = { name = tv_arts_exchange_participants value >= 1 } }
+			trigger_event_non_silently = { id = tv_arts_exhibition.406 }
+		}
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.407 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.408 } }
+		1 = {
+			trigger = { has_ruler = yes }
+			trigger_event_non_silently = { id = tv_arts_exhibition.409 }
+		}
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.410 } }
+	}
+}
+
+tv_arts_exchange_monthly_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_ARTS_EXCHANGE_ACTIVE_TT
+				has_variable = tv_arts_exchange_active
+			}
+		}
+		tv_prune_arts_exchange_participants_effect = yes
+		change_variable = { name = tv_arts_exchange_months_elapsed add = 1 }
+		if = {
+			limit = {
+				var:tv_arts_exchange_months_elapsed >= 2
+				NOT = { has_variable = tv_arts_exchange_invite_event_fired }
+			}
+			set_variable = { name = tv_arts_exchange_invite_event_fired value = 1 }
+			tv_prepare_arts_exchange_auto_invites_effect = yes
+			trigger_event_non_silently = { id = tv_arts_exhibition.400 }
+		}
+		if = {
+			limit = { var:tv_arts_exchange_months_remaining > 1 }
+			random_list = {
+				50 = { tv_roll_arts_exchange_monthly_events_effect = yes }
+				50 = {}
+			}
+		}
+		change_variable = { name = tv_arts_exchange_months_remaining add = -1 }
+		if = {
+			limit = { var:tv_arts_exchange_months_remaining <= 0 }
+			tv_end_arts_exchange_effect = yes
+		}
+	}
+}
+
+tv_end_arts_exchange_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_ARTS_EXCHANGE_ACTIVE_TT
+				has_variable = tv_arts_exchange_active
+			}
+		}
+		trigger_event_non_silently = { id = tv_arts_exhibition.420 }
+	}
+	remove_variable = tv_arts_exchange_active
+	remove_variable = tv_arts_exchange_months_elapsed
+	remove_variable = tv_arts_exchange_months_remaining
+	remove_variable = tv_arts_exchange_invite_event_fired
+	tv_clear_arts_exchange_tracking_effect = yes
+}

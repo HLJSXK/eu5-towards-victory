@@ -29,6 +29,13 @@ organization_panel = {
 		tooltip = "TV_ARTS_CHIEF_ARTIST_TAB_TOOLTIP"
 	}
 
+	blockoverride "organization_laws_tab_visible" {
+		visible = yes
+	}
+	blockoverride "organization_laws_tab_text" {
+		text = "TV_ARTS_EXCHANGE_TAB"
+	}
+
 	blockoverride "scroll_overview_empty_visible" { visible = no }
 
 	blockoverride "country_header_character_visible" {
@@ -342,6 +349,166 @@ organization_panel = {
 		}
 
 		expand = {}
+	}
+
+	# ── Arts exchange tab: reuse the vanilla laws slot -------------------------
+	blockoverride "organization_laws_subheader" {
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ARTS_EXCHANGE_INFO_HEADER"
+				}
+
+				blockoverride "common_bottom_content" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 8
+						margin = { 4 6 }
+						ignoreinvisible = yes
+
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exchange_active').IsSet)]"
+							text = "TV_ARTS_EXCHANGE_INACTIVE_HINT"
+							multiline = yes
+							align = nobaseline|left
+						}
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exchange_active').IsSet]"
+							spacing = 8
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = {
+									text = "TV_ARTS_EXCHANGE_REMAINING_LABEL"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exchange_months_remaining').GetValue|0]/12"
+									align = nobaseline
+								}
+							}
+
+							progressbar = {
+								size = { 462 16 }
+								using = progress_bar_blue_alt
+								min = 0
+								max = 12
+								value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exchange_months_remaining').GetValue]"
+							}
+
+							text_single = {
+								text = "TV_ARTS_EXCHANGE_PARTICIPANTS_LABEL"
+								align = nobaseline|left
+							}
+
+							scrollarea = {
+								size = { 470 240 }
+								scrollbarpolicy_horizontal = always_off
+
+								scrollbar_vertical = {
+									using = Scrollbar_Vertical
+								}
+
+								scrollwidget = {
+									fixedgridbox = {
+										addcolumn = 98%
+										addrow = 80
+
+										datamodel = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_arts_exchange_participants')]"
+
+										item = {
+											widget = {
+												size = { 100% 80 }
+
+												io_character_card = {
+													size = { 97% 72 }
+													parentanchor = hcenter
+													using = layoutpolicy_expanding
+													datacontext = "[Scope.GetCharacter]"
+													blockoverride "name_highlight" {}
+													blockoverride "character_entry_name_sort_by_highlight" {}
+
+													blockoverride "character_button_pin" {
+														visible = no
+													}
+													blockoverride "character_abilities_visible" {
+														visible = no
+													}
+													blockoverride "artist_abilities_visible" {
+														visible = yes
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			card_actions = {
+				minimumsize = { 500 120 }
+				maximumsize = { 500 120 }
+
+				blockoverride "card_header_text" {
+					text = "MAIN_ACTIONS"
+				}
+
+				blockoverride "card_header_icon" {
+					block "io_main_actions_icon" {
+						texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+					}
+				}
+
+				blockoverride "actions_override" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[Not(Player.MakeScope.GetVariable('tv_arts_exchange_active').IsSet)]"
+							text = "tv_start_arts_exchange"
+							title = "tv_start_arts_exchange"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_start_arts_exchange" }
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[Player.MakeScope.GetVariable('tv_arts_exchange_active').IsSet]"
+							text = "tv_invite_domestic_arts_exchange_artist"
+							title = "tv_invite_domestic_arts_exchange_artist"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_invite_domestic_arts_exchange_artist" }
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[Player.MakeScope.GetVariable('tv_arts_exchange_active').IsSet]"
+							text = "tv_invite_foreign_arts_exchange_artist"
+							title = "tv_invite_foreign_arts_exchange_artist"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_invite_foreign_arts_exchange_artist" }
+						}
+					}
+				}
+			}
+		}
 	}
 
 	# ── Domestic exhibition tab ───────────────────────────────────────────────

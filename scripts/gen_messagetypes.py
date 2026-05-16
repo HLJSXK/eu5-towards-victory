@@ -126,6 +126,36 @@ PERFORM_tv_local_exhibition_live_creation_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_start_arts_exchange_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_invite_domestic_arts_exchange_artist_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_invite_foreign_arts_exchange_artist_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
 PERFORM_tv_appoint_arts_leader_ACTION={
 \tlog=yes
 \tonmap=no

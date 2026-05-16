@@ -953,3 +953,302 @@ tv_arts_exhibition.374 = {
 		}
 	}
 }
+
+# ── Arts Exchange: automatic domestic invitations ────────────────────────────
+tv_arts_exhibition.400 = {
+	type = country_event
+	title = tv_arts_exhibition.400.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					exists = scope:tv_arts_exchange_auto_invite_1_scope
+					exists = scope:tv_arts_exchange_auto_invite_2_scope
+					exists = scope:tv_arts_exchange_auto_invite_3_scope
+				}
+				desc = tv_arts_exhibition.400.d.3
+			}
+			triggered_desc = {
+				trigger = {
+					exists = scope:tv_arts_exchange_auto_invite_1_scope
+					exists = scope:tv_arts_exchange_auto_invite_2_scope
+					NOT = { exists = scope:tv_arts_exchange_auto_invite_3_scope }
+				}
+				desc = tv_arts_exhibition.400.d.2
+			}
+			triggered_desc = {
+				trigger = {
+					exists = scope:tv_arts_exchange_auto_invite_1_scope
+					NOT = { exists = scope:tv_arts_exchange_auto_invite_2_scope }
+				}
+				desc = tv_arts_exhibition.400.d.1
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = tv_arts_exhibition.400.d.0
+			}
+		}
+	}
+	outcome = neutral
+
+	immediate = {
+		var:tv_arts_exchange_auto_invite_1 ?= {
+			save_scope_as = tv_arts_exchange_auto_invite_1_scope
+		}
+		var:tv_arts_exchange_auto_invite_2 ?= {
+			save_scope_as = tv_arts_exchange_auto_invite_2_scope
+		}
+		var:tv_arts_exchange_auto_invite_3 ?= {
+			save_scope_as = tv_arts_exchange_auto_invite_3_scope
+		}
+	}
+
+	option = {
+		name = tv_arts_exhibition.400.a
+		tv_apply_arts_exchange_auto_invites_effect = yes
+	}
+}
+
+# ── Arts Exchange: monthly outcomes ──────────────────────────────────────────
+tv_arts_exhibition.401 = {
+	type = country_event
+	title = tv_arts_exhibition.401.t
+	desc = tv_arts_exhibition.401.d
+	outcome = good
+
+	immediate = {
+		random_in_list = {
+			variable = tv_arts_exchange_participants
+			limit = { is_alive = yes is_artist = yes }
+			save_scope_as = tv_arts_exchange_artist_1
+		}
+		random_in_list = {
+			variable = tv_arts_exchange_participants
+			limit = {
+				is_alive = yes
+				is_artist = yes
+				this != scope:tv_arts_exchange_artist_1
+			}
+			save_scope_as = tv_arts_exchange_artist_2
+		}
+	}
+
+	option = {
+		name = tv_arts_exhibition.401.a
+		if = {
+			limit = { exists = scope:tv_arts_exchange_artist_1 }
+			scope:tv_arts_exchange_artist_1 = { add_artist_skill = 0.03 }
+		}
+		if = {
+			limit = { exists = scope:tv_arts_exchange_artist_2 }
+			scope:tv_arts_exchange_artist_2 = { add_artist_skill = 0.03 }
+		}
+	}
+}
+
+tv_arts_exhibition.402 = {
+	type = country_event
+	title = tv_arts_exhibition.402.t
+	desc = tv_arts_exhibition.402.d
+	outcome = good
+
+	immediate = {
+		random_in_list = {
+			variable = tv_arts_exchange_participants
+			limit = { is_alive = yes is_artist = yes }
+			save_scope_as = tv_arts_exchange_artist_1
+		}
+	}
+
+	option = {
+		name = tv_arts_exhibition.402.a
+		if = {
+			limit = { exists = scope:tv_arts_exchange_artist_1 }
+			scope:tv_arts_exchange_artist_1 = { add_artist_skill = 0.05 }
+		}
+	}
+}
+
+tv_arts_exhibition.403 = {
+	type = country_event
+	title = tv_arts_exhibition.403.t
+	desc = tv_arts_exhibition.403.d
+	outcome = good
+
+	immediate = {
+		random_in_list = {
+			variable = tv_arts_exchange_participants
+			limit = {
+				is_alive = yes
+				is_artist = yes
+				artist_skill >= 0.70
+			}
+			save_scope_as = tv_arts_exchange_leading_artist
+		}
+	}
+
+	option = {
+		name = tv_arts_exhibition.403.a
+		every_in_list = {
+			variable = tv_arts_exchange_participants
+			limit = {
+				is_alive = yes
+				is_artist = yes
+				this != scope:tv_arts_exchange_leading_artist
+			}
+			add_artist_skill = 0.02
+		}
+	}
+}
+
+tv_arts_exhibition.404 = {
+	type = country_event
+	title = tv_arts_exhibition.404.t
+	desc = tv_arts_exhibition.404.d
+	outcome = bad
+
+	immediate = {
+		random_in_list = {
+			variable = tv_arts_exchange_participants
+			limit = { is_alive = yes is_artist = yes }
+			save_scope_as = tv_arts_exchange_artist_1
+		}
+	}
+
+	option = {
+		name = tv_arts_exhibition.404.a
+		if = {
+			limit = { exists = scope:tv_arts_exchange_artist_1 }
+			scope:tv_arts_exchange_artist_1 = { add_artist_skill = -0.03 }
+		}
+	}
+}
+
+tv_arts_exhibition.405 = {
+	type = country_event
+	title = tv_arts_exhibition.405.t
+	desc = tv_arts_exhibition.405.d
+	outcome = good
+
+	immediate = {
+		random_in_list = {
+			variable = tv_arts_exchange_foreign_participants
+			limit = { is_alive = yes is_artist = yes }
+			save_scope_as = tv_arts_exchange_foreign_artist
+		}
+	}
+
+	option = {
+		name = tv_arts_exhibition.405.a
+		add_prestige = 10
+	}
+}
+
+tv_arts_exhibition.406 = {
+	type = country_event
+	title = tv_arts_exhibition.406.t
+	desc = tv_arts_exhibition.406.d
+	outcome = good
+
+	immediate = {
+		random_in_list = {
+			variable = tv_arts_exchange_participants
+			limit = { is_alive = yes is_artist = yes }
+			save_scope_as = tv_arts_exchange_masterpiece_artist
+		}
+	}
+
+	option = {
+		name = tv_arts_exhibition.406.a
+		if = {
+			limit = { exists = scope:tv_arts_exchange_masterpiece_artist }
+			capital ?= {
+				create_art = {
+					quality = { 70 100 }
+					artist = scope:tv_arts_exchange_masterpiece_artist
+				}
+			}
+		}
+	}
+}
+
+tv_arts_exhibition.407 = {
+	type = country_event
+	title = tv_arts_exhibition.407.t
+	desc = tv_arts_exhibition.407.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.407.a
+		if = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_CULTURAL_INFLUENCE_POINTS_TT
+					NOT = { has_variable = tv_cultural_influence_points }
+				}
+			}
+			set_variable = { name = tv_cultural_influence_points value = 0 }
+		}
+		change_variable = { name = tv_cultural_influence_points add = 5 }
+	}
+}
+
+tv_arts_exhibition.408 = {
+	type = country_event
+	title = tv_arts_exhibition.408.t
+	desc = tv_arts_exhibition.408.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.408.a
+		random_list = {
+			1 = { create_character = { age = 30 artist = painter estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = sculptor estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = composer estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
+			1 = { create_character = { age = 30 artist = writer estate = estate_type:burghers_estate artist_skill = { 0 1 } save_scope_as = new_artist create_in_limbo = yes } }
+		}
+		hidden_effect = {
+			if = {
+				limit = { exists = scope:new_artist }
+				scope:new_artist = { move_country = root }
+				set_variable = { name = tv_arts_exchange_new_participant value = scope:new_artist }
+				tv_add_arts_exchange_participant_effect = yes
+				remove_variable = tv_arts_exchange_new_participant
+			}
+		}
+	}
+}
+
+tv_arts_exhibition.409 = {
+	type = country_event
+	title = tv_arts_exhibition.409.t
+	desc = tv_arts_exhibition.409.d
+	outcome = good
+
+	option = {
+		name = tv_arts_exhibition.409.a
+		ruler ?= { add_dip = 5 }
+	}
+}
+
+tv_arts_exhibition.410 = {
+	type = country_event
+	title = tv_arts_exhibition.410.t
+	desc = tv_arts_exhibition.410.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.410.a
+	}
+}
+
+tv_arts_exhibition.420 = {
+	type = country_event
+	title = tv_arts_exhibition.420.t
+	desc = tv_arts_exhibition.420.d
+	outcome = neutral
+
+	option = {
+		name = tv_arts_exhibition.420.a
+	}
+}

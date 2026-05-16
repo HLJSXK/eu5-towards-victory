@@ -86,6 +86,30 @@ tv_local_exhibition_designate_treasure_price_cost_modifier = {
 	}
 }
 
+tv_start_arts_exchange_price_cost_modifier = {
+	color = bad
+	percent = yes
+	game_data = {
+		category = country
+	}
+}
+
+tv_invite_domestic_arts_exchange_artist_price_cost_modifier = {
+	color = bad
+	percent = yes
+	game_data = {
+		category = country
+	}
+}
+
+tv_invite_foreign_arts_exchange_artist_price_cost_modifier = {
+	color = bad
+	percent = yes
+	game_data = {
+		category = country
+	}
+}
+
 tv_academy_member_can_participate_in_parliament = {
 	boolean = yes
 	game_data = {

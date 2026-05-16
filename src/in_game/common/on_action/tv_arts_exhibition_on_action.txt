@@ -81,6 +81,30 @@ tv_arts_exhibition_char_death = {
 				remove_variable = tv_local_exhibition_guest_home
 				remove_variable = tv_local_exhibition_guest_host
 			}
+			# Arts Exchange participant cleanup
+			if = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_ARTS_EXCHANGE_PARTICIPANT_TT
+						has_variable = tv_arts_exchange_participant
+					}
+				}
+				save_scope_as = dead_exchange_artist
+				var:tv_arts_exchange_host_country ?= {
+					remove_list_variable = {
+						name = tv_arts_exchange_participants
+						target = scope:dead_exchange_artist
+					}
+					remove_list_variable = {
+						name = tv_arts_exchange_foreign_participants
+						target = scope:dead_exchange_artist
+					}
+				}
+				remove_variable = tv_arts_exchange_participant
+				remove_variable = tv_arts_exchange_foreign_participant
+				remove_variable = tv_arts_exchange_host_country
+				remove_variable = tv_arts_exchange_auto_invitee
+			}
 		}
 		# If the dead character was the appointed Chief Artist, notify the player.
 		# tv_arts_exhibition_leader_char is cleared in the event option.
@@ -116,5 +140,12 @@ tv_arts_exhibition_yearly_pulse = {
 				tv_end_artist_exhibition_effect = yes
 			}
 		}
+	}
+}
+
+# Monthly tick: advance active Arts Exchanges.
+tv_arts_exchange_monthly_pulse = {
+	effect = {
+		tv_arts_exchange_monthly_effect = yes
 	}
 }
