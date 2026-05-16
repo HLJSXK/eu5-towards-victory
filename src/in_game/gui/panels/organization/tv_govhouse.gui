@@ -340,10 +340,7 @@ organization_panel = {
 								min = 0
 								max = 12
 								value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_gg_training_progress').GetValue]"
-								progresstexture = "gfx/interface/progressbars/progress_bar_blue.dds"
-								texture_density = 2
-								spriteType = Corneredstretched
-								spriteborder = { 12 0 }
+								using = progress_bar_blue_alt
 								tooltip = "TV_GOVHOUSE_TRAINING_PROGRESS_TOOLTIP"
 							}
 
@@ -715,10 +712,7 @@ organization_panel = {
 									min = 0
 									max = 100
 									value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_plan_progress').GetValue]"
-									progresstexture = "gfx/interface/progressbars/progress_bar_blue.dds"
-									texture_density = 2
-									spriteType = Corneredstretched
-									spriteborder = { 12 0 }
+									using = progress_bar_blue_alt
 									tooltip = "TV_GOVHOUSE_PLAN_PROGRESS_TOOLTIP"
 								}
 
