@@ -529,11 +529,11 @@ organization_panel = {
 	blockoverride "organization_custom_content" {
 		margin_top = -5
 		spacing = 0
+		layoutpolicy_vertical = expanding
 
 		scrollarea = {
-			size = { 100% 430 }
+			using = layoutpolicy_expanding
 			scrollbarpolicy_horizontal = always_off
-			layoutpolicy_horizontal = expanding
 
 			scrollbar_vertical = {
 				using = Scrollbar_Vertical
