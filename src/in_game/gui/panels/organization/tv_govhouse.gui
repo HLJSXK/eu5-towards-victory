@@ -777,7 +777,7 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 174 }
+						size = { 470 248 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
@@ -861,18 +861,79 @@ organization_panel = {
 									}
 									expand = {}
 									text_single = {
-										raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_plan_monthly_gain').GetValue|+=2]"
+										layoutpolicy_horizontal = expanding
+										datacontext = "[InternationalOrganizationsView.GetPlayer]"
+										text = "TV_GOVHOUSE_PLAN_MONTHLY_GAIN_FORMULA"
 										align = nobaseline|right
 									}
 								}
 
-								text_single = {
+								widget = {
 									layoutpolicy_horizontal = expanding
-									visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_plan_type').GetValue, '(CFixedPoint)1')]"
-									text = "TV_GOVHOUSE_OFFENSIVE_PLAN_EFFECTS"
-									multiline = yes
-									align = nobaseline|left
+									size = { -1 1 }
+									background = { using = color_gold  alpha = 0.3 }
 								}
+
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									ignoreinvisible = yes
+									spacing = 5
+									visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_plan_type').GetValue, '(CFixedPoint)1')]"
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_plan_target_war_active').GetValue, '(CFixedPoint)0')]"
+										datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_plan_target').GetCountry]"
+										text = "TV_GOVHOUSE_OFFENSIVE_PLAN_PENDING_BONUS_HEADER"
+										multiline = yes
+										align = nobaseline|left
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_plan_target_war_active').GetValue, '(CFixedPoint)1')]"
+										datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_plan_target').GetCountry]"
+										text = "TV_GOVHOUSE_OFFENSIVE_PLAN_ACTIVE_BONUS_HEADER"
+										multiline = yes
+										align = nobaseline|left
+									}
+
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+
+										text_single = {
+											text = "TV_GOVHOUSE_OFFENSIVE_PLAN_SIEGE_LABEL"
+											tooltip = "TV_GOVHOUSE_OFFENSIVE_PLAN_SIEGE_TOOLTIP"
+											align = nobaseline|left
+										}
+										expand = {}
+										text_single = {
+											datacontext = "[InternationalOrganizationsView.GetPlayer]"
+											text = "TV_GOVHOUSE_OFFENSIVE_PLAN_SIEGE_FORMULA"
+											tooltip = "TV_GOVHOUSE_OFFENSIVE_PLAN_SIEGE_TOOLTIP"
+											align = nobaseline|right
+										}
+									}
+
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+
+										text_single = {
+											text = "TV_GOVHOUSE_OFFENSIVE_PLAN_DISCIPLINE_LABEL"
+											tooltip = "TV_GOVHOUSE_OFFENSIVE_PLAN_DISCIPLINE_TOOLTIP"
+											align = nobaseline|left
+										}
+										expand = {}
+										text_single = {
+											datacontext = "[InternationalOrganizationsView.GetPlayer]"
+											text = "TV_GOVHOUSE_OFFENSIVE_PLAN_DISCIPLINE_FORMULA"
+											tooltip = "TV_GOVHOUSE_OFFENSIVE_PLAN_DISCIPLINE_TOOLTIP"
+											align = nobaseline|right
+										}
+									}
+								}
+
 								text_single = {
 									layoutpolicy_horizontal = expanding
 									visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_plan_type').GetValue, '(CFixedPoint)2')]"

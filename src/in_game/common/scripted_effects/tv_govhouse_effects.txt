@@ -537,12 +537,28 @@ tv_govhouse_update_plan_display_effect = {
 			name = tv_govhouse_plan_monthly_gain
 			value = {
 				value = var:tv_conquest_general_char.adm
-				multiply = 0.05
+				multiply = 0.02
 			}
 		}
 	}
 	else = {
 		set_variable = { name = tv_govhouse_plan_monthly_gain value = 0 }
+	}
+	set_variable = { name = tv_govhouse_plan_target_war_active value = 0 }
+	if = {
+		limit = {
+			has_variable = tv_govhouse_plan_type
+			var:tv_govhouse_plan_type = 1
+			has_variable = tv_govhouse_plan_target
+		}
+		var:tv_govhouse_plan_target ?= { save_temporary_scope_as = tv_govhouse_display_plan_target }
+		if = {
+			limit = {
+				exists = scope:tv_govhouse_display_plan_target
+				is_at_war_with = scope:tv_govhouse_display_plan_target
+			}
+			set_variable = { name = tv_govhouse_plan_target_war_active value = 1 }
+		}
 	}
 	set_variable = {
 		name = tv_govhouse_plan_siege_value
@@ -594,7 +610,7 @@ tv_govhouse_update_plan_progress_effect = {
 				value = var:tv_govhouse_plan_progress
 				add = {
 					value = var:tv_conquest_general_char.adm
-					multiply = 0.05
+					multiply = 0.02
 				}
 				max = 100
 				min = 0
@@ -704,6 +720,7 @@ tv_govhouse_clear_war_plan_effect = {
 	remove_variable = tv_govhouse_plan_discipline_value
 	remove_variable = tv_govhouse_plan_fort_value
 	remove_variable = tv_govhouse_plan_tactics_value
+	remove_variable = tv_govhouse_plan_target_war_active
 	remove_variable = tv_govhouse_plan_activation_pending
 }
 
