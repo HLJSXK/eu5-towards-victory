@@ -545,7 +545,7 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 146 }
+						size = { 470 190 }
 						datacontext = "[InternationalOrganizationsView.GetPlayer]"
 
 						vbox = {
@@ -584,12 +584,69 @@ organization_panel = {
 								spacing = 4
 								text_single = {
 									text = "TV_ARTS_LOCAL_EXHIBITION_DURATION_LABEL"
+									tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
 									align = nobaseline
 								}
 								expand = {}
 								text_single = {
-									raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_duration').GetValue|0]"
+									raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_duration').GetValue|0]/24"
+									tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
 									align = nobaseline
+								}
+							}
+							progressbar = {
+								size = { 462 16 }
+								using = progress_bar_blue_alt
+								min = 0
+								max = 24
+								value = "[Country.MakeScope.GetVariable('tv_local_exhibition_duration').GetValue]"
+								tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+							}
+							hbox = {
+								size = { 462 12 }
+								tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+
+								widget = {
+									size = { 231 12 }
+									hbox = {
+										size = { 231 12 }
+										expand = {}
+										text_single = {
+											autoresize = yes
+											text = "TV_ARTS_LOCAL_EXHIBITION_TIER_2_MARKER"
+											align = nobaseline|right
+											using = Font_Size_Very_Small
+											tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+										}
+									}
+								}
+								widget = {
+									size = { 116 12 }
+									hbox = {
+										size = { 116 12 }
+										expand = {}
+										text_single = {
+											autoresize = yes
+											text = "TV_ARTS_LOCAL_EXHIBITION_TIER_3_MARKER"
+											align = nobaseline|right
+											using = Font_Size_Very_Small
+											tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+										}
+									}
+								}
+								widget = {
+									size = { 115 12 }
+									hbox = {
+										size = { 115 12 }
+										expand = {}
+										text_single = {
+											autoresize = yes
+											text = "TV_ARTS_LOCAL_EXHIBITION_TIER_4_MARKER"
+											align = nobaseline|right
+											using = Font_Size_Very_Small
+											tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+										}
+									}
 								}
 							}
 							hbox = {
@@ -597,6 +654,7 @@ organization_panel = {
 								spacing = 4
 								text_single = {
 									text = "TV_ARTS_LOCAL_EXHIBITION_RATING_LABEL"
+									tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
 									align = nobaseline
 								}
 								expand = {}
@@ -605,26 +663,31 @@ organization_panel = {
 									ignoreinvisible = yes
 									text_single = {
 										raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue|0]"
+										tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
 										align = nobaseline
 									}
 									text_single = {
 										visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)1.0')]"
 										raw_text = "@art_work!"
+										tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
 										align = nobaseline
 									}
 									text_single = {
 										visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)2.0')]"
 										raw_text = "@art_work!"
+										tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
 										align = nobaseline
 									}
 									text_single = {
 										visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)3.0')]"
 										raw_text = "@art_work!"
+										tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
 										align = nobaseline
 									}
 									text_single = {
 										visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)4.0')]"
 										raw_text = "@art_work!"
+										tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
 										align = nobaseline
 									}
 								}
