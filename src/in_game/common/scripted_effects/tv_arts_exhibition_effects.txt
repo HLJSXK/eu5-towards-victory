@@ -505,6 +505,7 @@ tv_end_local_exhibition_effect = {
 		set_variable = { name = tv_local_exhibition_last_duration value = var:tv_local_exhibition_duration }
 		set_variable = { name = tv_local_exhibition_last_rating value = var:tv_local_exhibition_rating }
 		set_variable = { name = tv_local_exhibition_last_reward value = var:tv_local_exhibition_duration }
+		change_variable = { name = tv_local_exhibition_last_reward multiply = 0.5 }
 		set_variable = { name = tv_local_exhibition_last_location_count value = var:tv_local_exhibition_location_count }
 		if = {
 			limit = { var:tv_local_exhibition_last_location_count < 1 }
@@ -519,18 +520,18 @@ tv_end_local_exhibition_effect = {
 		}
 		if = {
 			limit = { var:tv_local_exhibition_rating >= 4 }
-			change_variable = { name = tv_local_exhibition_last_reward add = 10 }
+			change_variable = { name = tv_local_exhibition_last_reward add = 6 }
 		}
 		else_if = {
 			limit = { var:tv_local_exhibition_rating >= 3 }
-			change_variable = { name = tv_local_exhibition_last_reward add = 5 }
+			change_variable = { name = tv_local_exhibition_last_reward add = 3 }
 		}
 		else_if = {
 			limit = { var:tv_local_exhibition_rating >= 2 }
 			change_variable = { name = tv_local_exhibition_last_reward add = 0 }
 		}
 		else = {
-			change_variable = { name = tv_local_exhibition_last_reward add = -5 }
+			change_variable = { name = tv_local_exhibition_last_reward add = -3 }
 		}
 		change_variable = { name = tv_local_exhibition_last_reward multiply = var:tv_local_exhibition_last_location_count }
 		tv_cleanup_local_exhibition_buildings_effect = yes
