@@ -545,7 +545,7 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 190 }
+						size = { 470 212 }
 						datacontext = "[InternationalOrganizationsView.GetPlayer]"
 
 						vbox = {
@@ -576,6 +576,19 @@ organization_panel = {
 								expand = {}
 								text_single = {
 									raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_artworks_committed').GetValue|0]"
+									align = nobaseline
+								}
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = {
+									text = "TV_ARTS_LOCAL_EXHIBITION_LOCATIONS_LABEL"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_location_count').GetValue|0]"
 									align = nobaseline
 								}
 							}
@@ -764,16 +777,6 @@ organization_panel = {
 							actor = "[InternationalOrganizationsView.GetPlayer]"
 							left_action = {
 								action_name = "tv_host_domestic_exhibition"
-							}
-						}
-						action_button_diamond = {
-							size = { 470 30 }
-							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
-							text = "tv_local_exhibition_add_artworks"
-							title = "tv_local_exhibition_add_artworks"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = {
-								action_name = "tv_local_exhibition_add_artworks"
 							}
 						}
 						action_button_diamond = {

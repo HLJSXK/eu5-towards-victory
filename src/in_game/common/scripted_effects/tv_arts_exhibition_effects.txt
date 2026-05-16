@@ -245,15 +245,113 @@ tv_update_local_exhibition_rating_effect = {
 	}
 }
 
+# Maintains the active exhibition location list and count. The legacy
+# tv_local_exhibition_location / secondary variables are folded in for saves
+# made before the list model existed.
+tv_local_exhibition_ensure_location_list_effect = {
+	save_scope_as = local_exhibition_owner
+	if = {
+		limit = { NOT = { has_variable_list = tv_local_exhibition_locations } }
+		clear_variable_list = tv_local_exhibition_locations
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = tv_local_exhibition_primary_location }
+			has_variable = tv_local_exhibition_location
+		}
+		var:tv_local_exhibition_location ?= {
+			save_scope_as = local_exhibition_primary_location
+		}
+		if = {
+			limit = { exists = scope:local_exhibition_primary_location }
+			set_variable = { name = tv_local_exhibition_primary_location value = scope:local_exhibition_primary_location }
+		}
+	}
+	var:tv_local_exhibition_primary_location ?= {
+		save_scope_as = local_exhibition_primary_location
+	}
+	if = {
+		limit = {
+			exists = scope:local_exhibition_primary_location
+			OR = {
+				NOT = { has_variable_list = tv_local_exhibition_locations }
+				NOT = {
+					is_target_in_variable_list = {
+						name = tv_local_exhibition_locations
+						target = scope:local_exhibition_primary_location
+					}
+				}
+			}
+		}
+		add_to_variable_list = {
+			name = tv_local_exhibition_locations
+			target = scope:local_exhibition_primary_location
+		}
+	}
+	var:tv_local_exhibition_location ?= {
+		save_scope_as = local_exhibition_legacy_location
+	}
+	if = {
+		limit = {
+			exists = scope:local_exhibition_legacy_location
+			OR = {
+				NOT = { has_variable_list = tv_local_exhibition_locations }
+				NOT = {
+					is_target_in_variable_list = {
+						name = tv_local_exhibition_locations
+						target = scope:local_exhibition_legacy_location
+					}
+				}
+			}
+		}
+		add_to_variable_list = {
+			name = tv_local_exhibition_locations
+			target = scope:local_exhibition_legacy_location
+		}
+	}
+	var:tv_local_exhibition_secondary_location ?= {
+		save_scope_as = local_exhibition_legacy_secondary_location
+	}
+	if = {
+		limit = {
+			exists = scope:local_exhibition_legacy_secondary_location
+			OR = {
+				NOT = { has_variable_list = tv_local_exhibition_locations }
+				NOT = {
+					is_target_in_variable_list = {
+						name = tv_local_exhibition_locations
+						target = scope:local_exhibition_legacy_secondary_location
+					}
+				}
+			}
+		}
+		add_to_variable_list = {
+			name = tv_local_exhibition_locations
+			target = scope:local_exhibition_legacy_secondary_location
+		}
+	}
+	set_variable = { name = tv_local_exhibition_location_count value = 0 }
+	every_in_list = {
+		variable = tv_local_exhibition_locations
+		scope:local_exhibition_owner = {
+			change_variable = { name = tv_local_exhibition_location_count add = 1 }
+		}
+	}
+}
+
 tv_start_local_exhibition_effect = {
 	if = {
 		limit = { exists = scope:target }
 		set_variable = { name = tv_local_exhibition_active value = 1 }
 		set_variable = { name = tv_local_exhibition_location value = scope:target }
+		set_variable = { name = tv_local_exhibition_primary_location value = scope:target }
+		set_variable = { name = tv_local_exhibition_location_count value = 1 }
 		set_variable = { name = tv_local_exhibition_duration value = 0 }
 		set_variable = { name = tv_local_exhibition_rating value = 1 }
 		set_variable = { name = tv_local_exhibition_artworks_committed value = 5 }
 		set_variable = { name = tv_local_exhibition_add_art_threshold value = 5 }
+		clear_variable_list = tv_local_exhibition_locations
+		add_to_variable_list = { name = tv_local_exhibition_locations target = scope:target }
 		remove_variable = tv_local_exhibition_secondary_location
 		remove_variable = tv_local_exhibition_royal_visit_done
 		remove_variable = tv_local_exhibition_expand_done
@@ -265,6 +363,8 @@ tv_start_local_exhibition_effect = {
 		remove_variable = tv_local_exhibition_last_rating
 		remove_variable = tv_local_exhibition_last_reward
 		remove_variable = tv_local_exhibition_last_location
+		remove_variable = tv_local_exhibition_last_location_count
+		clear_variable_list = tv_local_exhibition_last_locations
 		scope:target = {
 			construct_building = {
 				building_type = building_type:tv_local_arts_exhibition
@@ -279,29 +379,68 @@ tv_start_local_exhibition_effect = {
 }
 
 tv_add_local_exhibition_artworks_effect = {
-	change_variable = { name = tv_local_exhibition_artworks_committed add = var:tv_local_exhibition_add_art_threshold }
 	if = {
-		limit = { var:tv_local_exhibition_add_art_threshold < 10 }
-		set_variable = { name = tv_local_exhibition_add_art_threshold value = 10 }
+		limit = { exists = scope:target }
+		tv_local_exhibition_ensure_location_list_effect = yes
+		change_variable = { name = tv_local_exhibition_artworks_committed add = var:tv_local_exhibition_add_art_threshold }
+		if = {
+			limit = { var:tv_local_exhibition_add_art_threshold < 10 }
+			set_variable = { name = tv_local_exhibition_add_art_threshold value = 10 }
+		}
+		else = {
+			set_variable = { name = tv_local_exhibition_add_art_threshold value = 20 }
+		}
+		scope:target = {
+			construct_building = {
+				building_type = building_type:tv_local_arts_exhibition
+				cost_multiplier = 0
+				cost_multiplier_reason = "game_concept_event"
+				instant = yes
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_list = tv_local_exhibition_locations }
+					NOT = {
+						is_target_in_variable_list = {
+							name = tv_local_exhibition_locations
+							target = scope:target
+						}
+					}
+				}
+			}
+			add_to_variable_list = { name = tv_local_exhibition_locations target = scope:target }
+			change_variable = { name = tv_local_exhibition_location_count add = 1 }
+		}
+		tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
 	}
-	else = {
-		set_variable = { name = tv_local_exhibition_add_art_threshold value = 20 }
-	}
-	tv_change_local_exhibition_enthusiasm_effect = { value = 20 }
 }
 
 tv_cleanup_local_exhibition_buildings_effect = {
 	save_scope_as = local_exhibition_owner
-	var:tv_local_exhibition_location ?= {
+	tv_local_exhibition_ensure_location_list_effect = yes
+	every_in_list = {
+		variable = tv_local_exhibition_locations
 		if = {
 			limit = { has_building = building_type:tv_local_arts_exhibition }
 			destroy_building_forcefully = "building(building_type:tv_local_arts_exhibition|scope:local_exhibition_owner)"
 		}
 	}
-	var:tv_local_exhibition_secondary_location ?= {
-		if = {
-			limit = { has_building = building_type:tv_local_arts_exhibition }
-			destroy_building_forcefully = "building(building_type:tv_local_arts_exhibition|scope:local_exhibition_owner)"
+}
+
+tv_snapshot_local_exhibition_locations_effect = {
+	save_scope_as = local_exhibition_owner
+	clear_variable_list = tv_local_exhibition_last_locations
+	tv_local_exhibition_ensure_location_list_effect = yes
+	every_in_list = {
+		variable = tv_local_exhibition_locations
+		save_scope_as = local_exhibition_snapshot_location
+		scope:local_exhibition_owner = {
+			add_to_variable_list = {
+				name = tv_local_exhibition_last_locations
+				target = scope:local_exhibition_snapshot_location
+			}
 		}
 	}
 }
@@ -362,9 +501,15 @@ tv_end_local_exhibition_effect = {
 			}
 		}
 		tv_update_local_exhibition_rating_effect = yes
+		tv_snapshot_local_exhibition_locations_effect = yes
 		set_variable = { name = tv_local_exhibition_last_duration value = var:tv_local_exhibition_duration }
 		set_variable = { name = tv_local_exhibition_last_rating value = var:tv_local_exhibition_rating }
 		set_variable = { name = tv_local_exhibition_last_reward value = var:tv_local_exhibition_duration }
+		set_variable = { name = tv_local_exhibition_last_location_count value = var:tv_local_exhibition_location_count }
+		if = {
+			limit = { var:tv_local_exhibition_last_location_count < 1 }
+			set_variable = { name = tv_local_exhibition_last_location_count value = 1 }
+		}
 		var:tv_local_exhibition_location ?= {
 			save_scope_as = local_exhibition_reward_location
 		}
@@ -374,16 +519,20 @@ tv_end_local_exhibition_effect = {
 		}
 		if = {
 			limit = { var:tv_local_exhibition_rating >= 4 }
-			change_variable = { name = tv_local_exhibition_last_reward add = 6 }
+			change_variable = { name = tv_local_exhibition_last_reward add = 10 }
 		}
 		else_if = {
 			limit = { var:tv_local_exhibition_rating >= 3 }
-			change_variable = { name = tv_local_exhibition_last_reward add = 4 }
+			change_variable = { name = tv_local_exhibition_last_reward add = 5 }
 		}
 		else_if = {
 			limit = { var:tv_local_exhibition_rating >= 2 }
-			change_variable = { name = tv_local_exhibition_last_reward add = 2 }
+			change_variable = { name = tv_local_exhibition_last_reward add = 0 }
 		}
+		else = {
+			change_variable = { name = tv_local_exhibition_last_reward add = -5 }
+		}
+		change_variable = { name = tv_local_exhibition_last_reward multiply = var:tv_local_exhibition_last_location_count }
 		tv_cleanup_local_exhibition_buildings_effect = yes
 		tv_return_local_exhibition_guest_artist_effect = yes
 		set_variable = { name = tv_local_exhibition_cd value = 12 }
@@ -405,7 +554,9 @@ tv_end_local_exhibition_effect = {
 		}
 		remove_variable = tv_local_exhibition_active
 		remove_variable = tv_local_exhibition_location
+		remove_variable = tv_local_exhibition_primary_location
 		remove_variable = tv_local_exhibition_secondary_location
+		remove_variable = tv_local_exhibition_location_count
 		remove_variable = tv_local_exhibition_duration
 		remove_variable = tv_local_exhibition_rating
 		remove_variable = tv_local_exhibition_artworks_committed
@@ -416,6 +567,7 @@ tv_end_local_exhibition_effect = {
 		remove_variable = tv_local_exhibition_treasure_done
 		remove_variable = tv_local_exhibition_guest_artist
 		remove_variable = tv_local_exhibition_guest_country
+		clear_variable_list = tv_local_exhibition_locations
 	}
 }
 

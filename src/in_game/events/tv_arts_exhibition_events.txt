@@ -534,6 +534,8 @@ tv_arts_exhibition.310 = {
 			remove_variable = tv_local_exhibition_last_rating
 			remove_variable = tv_local_exhibition_last_reward
 			remove_variable = tv_local_exhibition_last_location
+			remove_variable = tv_local_exhibition_last_location_count
+			clear_variable_list = tv_local_exhibition_last_locations
 		}
 	}
 }
@@ -552,6 +554,8 @@ tv_arts_exhibition.311 = {
 			remove_variable = tv_local_exhibition_last_rating
 			remove_variable = tv_local_exhibition_last_reward
 			remove_variable = tv_local_exhibition_last_location
+			remove_variable = tv_local_exhibition_last_location_count
+			clear_variable_list = tv_local_exhibition_last_locations
 		}
 	}
 }
@@ -571,6 +575,8 @@ tv_arts_exhibition.312 = {
 			remove_variable = tv_local_exhibition_last_rating
 			remove_variable = tv_local_exhibition_last_reward
 			remove_variable = tv_local_exhibition_last_location
+			remove_variable = tv_local_exhibition_last_location_count
+			clear_variable_list = tv_local_exhibition_last_locations
 		}
 	}
 }
@@ -588,13 +594,26 @@ tv_arts_exhibition.313 = {
 		var:tv_local_exhibition_last_location ?= {
 			change_development = 0.25
 			change_prosperity = 0.1
-			add_location_modifier = { modifier = tv_local_exhibition_triumph_location_modifier years = 1 mode = add_and_extend }
+		}
+		if = {
+			limit = { has_variable_list = tv_local_exhibition_last_locations }
+			every_in_list = {
+				variable = tv_local_exhibition_last_locations
+				add_location_modifier = { modifier = tv_local_exhibition_triumph_location_modifier years = 1 mode = add_and_extend }
+			}
+		}
+		else = {
+			var:tv_local_exhibition_last_location ?= {
+				add_location_modifier = { modifier = tv_local_exhibition_triumph_location_modifier years = 1 mode = add_and_extend }
+			}
 		}
 		hidden_effect = {
 			remove_variable = tv_local_exhibition_last_duration
 			remove_variable = tv_local_exhibition_last_rating
 			remove_variable = tv_local_exhibition_last_reward
 			remove_variable = tv_local_exhibition_last_location
+			remove_variable = tv_local_exhibition_last_location_count
+			clear_variable_list = tv_local_exhibition_last_locations
 		}
 	}
 }

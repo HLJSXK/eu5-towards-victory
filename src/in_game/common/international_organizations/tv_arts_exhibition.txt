@@ -108,6 +108,7 @@ tv_arts_exhibition = {
 					}
 				}
 				change_variable = { name = tv_local_exhibition_duration add = 1 }
+				tv_local_exhibition_ensure_location_list_effect = yes
 				tv_update_local_exhibition_rating_effect = yes
 				if = {
 					limit = {

@@ -250,43 +250,14 @@ tv_host_domestic_exhibition = {
 
 tv_local_exhibition_add_artworks = {
 	type = owncountry
-	sound = UI_action_religion_generic
-	ai_tick = monthly
-	ai_tick_frequency = 12
-	price = price:tv_local_exhibition_add_artworks_price
 
+	# Retained for message/save compatibility. The merged player-facing action
+	# is tv_local_exhibition_expand, which now commits the next exhibit tranche.
 	potential = {
-		scope:actor = {
-			custom_tooltip = {
-				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
-				has_variable = tv_local_exhibition_active
-			}
-		}
+		always = no
 	}
 
-	allow = {
-		scope:actor = {
-			custom_tooltip = {
-				text = tv_local_exhibition_add_artworks_allow_tt
-				any_work_of_art_in_country = {
-					count > {
-						value = {
-							value = var:tv_local_exhibition_artworks_committed
-							add = var:tv_local_exhibition_add_art_threshold
-						}
-					}
-				}
-			}
-		}
-	}
-
-	effect = {
-		scope:actor = {
-			tv_add_local_exhibition_artworks_effect = yes
-		}
-	}
-
-	ai_will_do = { add = 5 }
+	ai_will_do = { add = -100 }
 }
 
 tv_local_exhibition_royal_visit = {
@@ -376,7 +347,7 @@ tv_local_exhibition_expand = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 24
+	ai_tick_frequency = 12
 	price = price:tv_local_exhibition_expand_price
 
 	potential = {
@@ -391,14 +362,41 @@ tv_local_exhibition_expand = {
 	allow = {
 		scope:actor = {
 			custom_tooltip = {
-				text = TV_HAS_LOCAL_EXHIBITION_EXPAND_NOT_SET_TT
-				NOT = { has_variable = tv_local_exhibition_expand_done }
+				text = tv_local_exhibition_add_artworks_allow_tt
+				any_work_of_art_in_country = {
+					count >= {
+						value = {
+							value = var:tv_local_exhibition_artworks_committed
+							add = var:tv_local_exhibition_add_art_threshold
+						}
+					}
+				}
 			}
-			var:tv_local_exhibition_location ?= {
-				any_neighbor_location = {
-					has_owner = yes
-					owner ?= scope:actor
-					NOT = { has_building = building_type:tv_local_arts_exhibition }
+			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_EXPAND_TARGET_TT
+				OR = {
+					any_in_list = {
+						variable = tv_local_exhibition_locations
+						any_neighbor_location = {
+							has_owner = yes
+							owner ?= scope:actor
+							NOT = { has_building = building_type:tv_local_arts_exhibition }
+						}
+					}
+					var:tv_local_exhibition_location ?= {
+						any_neighbor_location = {
+							has_owner = yes
+							owner ?= scope:actor
+							NOT = { has_building = building_type:tv_local_arts_exhibition }
+						}
+					}
+					var:tv_local_exhibition_secondary_location ?= {
+						any_neighbor_location = {
+							has_owner = yes
+							owner ?= scope:actor
+							NOT = { has_building = building_type:tv_local_arts_exhibition }
+						}
+					}
 				}
 			}
 		}
@@ -418,9 +416,22 @@ tv_local_exhibition_expand = {
 			owner ?= scope:actor
 			NOT = { has_building = building_type:tv_local_arts_exhibition }
 			scope:actor = {
-				var:tv_local_exhibition_location ?= {
-					any_neighbor_location = {
-						this = root
+				OR = {
+					any_in_list = {
+						variable = tv_local_exhibition_locations
+						any_neighbor_location = {
+							this = root
+						}
+					}
+					var:tv_local_exhibition_location ?= {
+						any_neighbor_location = {
+							this = root
+						}
+					}
+					var:tv_local_exhibition_secondary_location ?= {
+						any_neighbor_location = {
+							this = root
+						}
 					}
 				}
 			}
@@ -431,22 +442,12 @@ tv_local_exhibition_expand = {
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = {
-				set_variable = { name = tv_local_exhibition_expand_done value = 1 }
-				set_variable = { name = tv_local_exhibition_secondary_location value = scope:target }
-				scope:target = {
-					construct_building = {
-						building_type = building_type:tv_local_arts_exhibition
-						cost_multiplier = 0
-						cost_multiplier_reason = "game_concept_event"
-						instant = yes
-					}
-				}
-				tv_change_local_exhibition_enthusiasm_effect = { value = 10 }
+				tv_add_local_exhibition_artworks_effect = yes
 			}
 		}
 	}
 
-	ai_will_do = { add = 3 }
+	ai_will_do = { add = 5 }
 }
 
 tv_local_exhibition_sell_art = {
