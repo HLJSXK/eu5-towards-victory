@@ -31,11 +31,6 @@ tv_academy_of_sciences = {
 	parliament_type = tv_academy_assembly
 	resolution_widget = parliament
 
-	special_statuses_implemented = {
-		tv_academy_president
-		tv_academy_member
-	}
-
 	leader = {
 		leader_country ?= {
 			var:tv_academy_leader_char ?= {
@@ -118,48 +113,8 @@ tv_academy_of_sciences = {
 		is_leader_of_international_organization = scope:recipient
 	}
 
-	can_vote_in_parliament = {
-		"country_highest_rated_special_status_power(scope:recipient)" > 0
-	}
-
 	# ── Monthly effect: completion detection, D gold cost, display state updates ──
 	monthly_effect = {
-		hidden_effect = {
-			every_international_organization_member = {
-				limit = {
-					NOT = {
-						has_special_status_in_international_organization = {
-							type = special_status:tv_academy_member
-							international_organization = root
-						}
-					}
-				}
-				root = {
-					international_organization_add_special_status = {
-						type = special_status:tv_academy_member
-						country = prev
-					}
-				}
-			}
-			leader_country ?= {
-				if = {
-					limit = {
-						NOT = {
-							has_special_status_in_international_organization = {
-								type = special_status:tv_academy_president
-								international_organization = root
-							}
-						}
-					}
-					root = {
-						international_organization_add_special_status = {
-							type = special_status:tv_academy_president
-							country = prev
-						}
-					}
-				}
-			}
-		}
 		# C: update in-progress display (0→1) when C has begun accumulating
 		if = {
 			limit = {
@@ -224,22 +179,6 @@ tv_academy_of_sciences = {
 			set_leader_country = scope:actor
 		}
 		hidden_effect = {
-			if = {
-				limit = { exists = scope:actor }
-				international_organization_add_special_status = {
-					type = special_status:tv_academy_member
-					country = scope:actor
-				}
-				international_organization_add_special_status = {
-					type = special_status:tv_academy_president
-					country = scope:actor
-				}
-			}
-			set_variable = { name = tv_academy_crown_support value = 0 }
-			set_variable = { name = tv_academy_nobles_support value = 0 }
-			set_variable = { name = tv_academy_clergy_support value = 0 }
-			set_variable = { name = tv_academy_burghers_support value = 0 }
-			set_variable = { name = tv_academy_commons_support value = 0 }
 			add_policy_to_international_organization = policy:tv_academy_research_priority_balanced_policy
 			add_policy_to_international_organization = policy:tv_academy_research_openness_closed_policy
 			add_policy_to_international_organization = policy:tv_academy_research_risk_mandatory_review_policy

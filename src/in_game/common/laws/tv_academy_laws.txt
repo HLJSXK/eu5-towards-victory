@@ -27,56 +27,14 @@ tv_academy_research_priority_law = {
 	# Balanced (default)
 	tv_academy_research_priority_balanced_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_priority_balanced_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_COMMONS_SUPPORT_TT
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_priority_balanced_policy
-					}
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-				change_variable = { name = tv_academy_commons_support add = -1 }
-			}
+			always = yes
 		}
 	}
 
 	# Theory First
 	tv_academy_research_priority_theory_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_priority_theory_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_CLERGY_SUPPORT_TT
-					has_variable = tv_academy_clergy_support
-					var:tv_academy_clergy_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_priority_theory_policy
-					}
-					has_variable = tv_academy_clergy_support
-					var:tv_academy_clergy_support >= 1
-				}
-				change_variable = { name = tv_academy_clergy_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.05
@@ -87,28 +45,7 @@ tv_academy_research_priority_law = {
 	# Application First
 	tv_academy_research_priority_application_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_priority_application_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_BURGHERS_SUPPORT_TT
-					has_variable = tv_academy_burghers_support
-					var:tv_academy_burghers_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_priority_application_policy
-					}
-					has_variable = tv_academy_burghers_support
-					var:tv_academy_burghers_support >= 1
-				}
-				change_variable = { name = tv_academy_burghers_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = -0.05
@@ -119,28 +56,7 @@ tv_academy_research_priority_law = {
 	# Medicine First
 	tv_academy_research_priority_medicine_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_priority_medicine_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_CLERGY_SUPPORT_TT
-					has_variable = tv_academy_clergy_support
-					var:tv_academy_clergy_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_priority_medicine_policy
-					}
-					has_variable = tv_academy_clergy_support
-					var:tv_academy_clergy_support >= 1
-				}
-				change_variable = { name = tv_academy_clergy_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = -0.05
@@ -170,28 +86,7 @@ tv_academy_research_openness_law = {
 	# State Seclusion (default)
 	tv_academy_research_openness_closed_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_openness_closed_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_CROWN_SUPPORT_TT
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_openness_closed_policy
-					}
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-				change_variable = { name = tv_academy_crown_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			stability_cost = -0.05
@@ -201,28 +96,7 @@ tv_academy_research_openness_law = {
 	# School Supervision
 	tv_academy_research_openness_school_control_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_openness_school_control_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_CLERGY_SUPPORT_TT
-					has_variable = tv_academy_clergy_support
-					var:tv_academy_clergy_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_openness_school_control_policy
-					}
-					has_variable = tv_academy_clergy_support
-					var:tv_academy_clergy_support >= 1
-				}
-				change_variable = { name = tv_academy_clergy_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = -0.05
@@ -233,28 +107,7 @@ tv_academy_research_openness_law = {
 	# School Freedom
 	tv_academy_research_openness_school_free_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_openness_school_free_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_COMMONS_SUPPORT_TT
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_openness_school_free_policy
-					}
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-				change_variable = { name = tv_academy_commons_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.05
@@ -265,28 +118,7 @@ tv_academy_research_openness_law = {
 	# International Openness
 	tv_academy_research_openness_international_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_openness_international_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_BURGHERS_SUPPORT_TT
-					has_variable = tv_academy_burghers_support
-					var:tv_academy_burghers_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_openness_international_policy
-					}
-					has_variable = tv_academy_burghers_support
-					var:tv_academy_burghers_support >= 1
-				}
-				change_variable = { name = tv_academy_burghers_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.05
@@ -316,28 +148,7 @@ tv_academy_research_risk_law = {
 	# Mandatory Review (default)
 	tv_academy_research_risk_mandatory_review_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_risk_mandatory_review_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_CLERGY_SUPPORT_TT
-					has_variable = tv_academy_clergy_support
-					var:tv_academy_clergy_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_risk_mandatory_review_policy
-					}
-					has_variable = tv_academy_clergy_support
-					var:tv_academy_clergy_support >= 1
-				}
-				change_variable = { name = tv_academy_clergy_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			clergy_estate_target_satisfaction = 0.025
@@ -347,28 +158,7 @@ tv_academy_research_risk_law = {
 	# Conservative Security
 	tv_academy_research_risk_conservative_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_risk_conservative_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_CROWN_SUPPORT_TT
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_risk_conservative_policy
-					}
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-				change_variable = { name = tv_academy_crown_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.05
@@ -378,28 +168,7 @@ tv_academy_research_risk_law = {
 	# High-Risk Breakthroughs
 	tv_academy_research_risk_high_breakthrough_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_risk_high_breakthrough_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_COMMONS_SUPPORT_TT
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_risk_high_breakthrough_policy
-					}
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-				change_variable = { name = tv_academy_commons_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.10
@@ -428,28 +197,7 @@ tv_academy_research_funding_law = {
 	# Private Patronage (default)
 	tv_academy_research_funding_private_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_funding_private_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_NOBLES_SUPPORT_TT
-					has_variable = tv_academy_nobles_support
-					var:tv_academy_nobles_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_funding_private_policy
-					}
-					has_variable = tv_academy_nobles_support
-					var:tv_academy_nobles_support >= 1
-				}
-				change_variable = { name = tv_academy_nobles_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			nobles_estate_target_satisfaction = 0.025
@@ -460,28 +208,7 @@ tv_academy_research_funding_law = {
 	# Guild Patronage
 	tv_academy_research_funding_guild_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_funding_guild_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_BURGHERS_SUPPORT_TT
-					has_variable = tv_academy_burghers_support
-					var:tv_academy_burghers_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_funding_guild_policy
-					}
-					has_variable = tv_academy_burghers_support
-					var:tv_academy_burghers_support >= 1
-				}
-				change_variable = { name = tv_academy_burghers_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.05
@@ -493,28 +220,7 @@ tv_academy_research_funding_law = {
 	# Royal Priority
 	tv_academy_research_funding_royal_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_funding_royal_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_CROWN_SUPPORT_TT
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_funding_royal_policy
-					}
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-				change_variable = { name = tv_academy_crown_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.05
@@ -525,28 +231,7 @@ tv_academy_research_funding_law = {
 	# International Cooperation
 	tv_academy_research_funding_international_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_research_funding_international_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_BURGHERS_SUPPORT_TT
-					has_variable = tv_academy_burghers_support
-					var:tv_academy_burghers_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_research_funding_international_policy
-					}
-					has_variable = tv_academy_burghers_support
-					var:tv_academy_burghers_support >= 1
-				}
-				change_variable = { name = tv_academy_burghers_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.05
@@ -576,28 +261,7 @@ tv_academy_technology_spread_law = {
 	# Laissez-Faire Diffusion (default)
 	tv_academy_technology_spread_laissez_faire_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_technology_spread_laissez_faire_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_COMMONS_SUPPORT_TT
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_technology_spread_laissez_faire_policy
-					}
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-				change_variable = { name = tv_academy_commons_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			global_institution_growth_modifier = 0.20
@@ -607,28 +271,7 @@ tv_academy_technology_spread_law = {
 	# Privatized Research
 	tv_academy_technology_spread_private_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_technology_spread_private_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_NOBLES_SUPPORT_TT
-					has_variable = tv_academy_nobles_support
-					var:tv_academy_nobles_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_technology_spread_private_policy
-					}
-					has_variable = tv_academy_nobles_support
-					var:tv_academy_nobles_support >= 1
-				}
-				change_variable = { name = tv_academy_nobles_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			global_production_efficiency = 0.05
@@ -639,28 +282,7 @@ tv_academy_technology_spread_law = {
 	# State Standardization
 	tv_academy_technology_spread_state_standard_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_technology_spread_state_standard_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_CROWN_SUPPORT_TT
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_technology_spread_state_standard_policy
-					}
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-				change_variable = { name = tv_academy_crown_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.05
@@ -689,56 +311,14 @@ tv_academy_academic_prestige_law = {
 	# No Rewards (default)
 	tv_academy_academic_prestige_none_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_academic_prestige_none_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_CROWN_SUPPORT_TT
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_academic_prestige_none_policy
-					}
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-				change_variable = { name = tv_academy_crown_support add = -1 }
-			}
+			always = yes
 		}
 	}
 
 	# Titles and Nobility
 	tv_academy_academic_prestige_titles_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_academic_prestige_titles_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_NOBLES_SUPPORT_TT
-					has_variable = tv_academy_nobles_support
-					var:tv_academy_nobles_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_academic_prestige_titles_policy
-					}
-					has_variable = tv_academy_nobles_support
-					var:tv_academy_nobles_support >= 1
-				}
-				change_variable = { name = tv_academy_nobles_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.05
@@ -749,28 +329,7 @@ tv_academy_academic_prestige_law = {
 	# Monetary Rewards
 	tv_academy_academic_prestige_money_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_academic_prestige_money_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_CROWN_SUPPORT_TT
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_academic_prestige_money_policy
-					}
-					has_variable = tv_academy_crown_support
-					var:tv_academy_crown_support >= 1
-				}
-				change_variable = { name = tv_academy_crown_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.05
@@ -781,28 +340,7 @@ tv_academy_academic_prestige_law = {
 	# Prestige Rewards
 	tv_academy_academic_prestige_reputation_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_academic_prestige_reputation_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_COMMONS_SUPPORT_TT
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_academic_prestige_reputation_policy
-					}
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-				change_variable = { name = tv_academy_commons_support add = -1 }
-			}
+			always = yes
 		}
 		country_modifier = {
 			research_speed_modifier = 0.05
@@ -832,56 +370,14 @@ tv_academy_leader_gender_law = {
 	# Male Only (default)
 	tv_academy_leader_gender_male_only_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_leader_gender_male_only_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_CLERGY_SUPPORT_TT
-					has_variable = tv_academy_clergy_support
-					var:tv_academy_clergy_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_leader_gender_male_only_policy
-					}
-					has_variable = tv_academy_clergy_support
-					var:tv_academy_clergy_support >= 1
-				}
-				change_variable = { name = tv_academy_clergy_support add = -1 }
-			}
+			always = yes
 		}
 	}
 
 	# Unrestricted
 	tv_academy_leader_gender_unrestricted_policy = {
 		allow = {
-			trigger_if = {
-				limit = { NOT = { international_organization_has_policy = policy:tv_academy_leader_gender_unrestricted_policy } }
-				custom_tooltip = {
-					text = TV_ACADEMY_REQUIRES_COMMONS_SUPPORT_TT
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-			}
-		}
-		on_activate = {
-			if = {
-				limit = {
-					has_valid_policy_vote_proposer = yes
-					OR = {
-						NOT = { has_variable = io_current_law }
-						var:io_current_law != policy:tv_academy_leader_gender_unrestricted_policy
-					}
-					has_variable = tv_academy_commons_support
-					var:tv_academy_commons_support >= 1
-				}
-				change_variable = { name = tv_academy_commons_support add = -1 }
-			}
+			always = yes
 		}
 	}
 }

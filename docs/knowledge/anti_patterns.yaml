@@ -885,8 +885,8 @@
 - id: io_single_member_parliament_without_leader_special_status
   pattern: ''
   bad: "A single-member IO relies on a generic member special status to propose IO parliament issues"
-  correction: "Give the leader/founding country its own special status with leader = yes, special_status_power, and matching <status>_can_participate_in_parliament / <status>_agenda_impact modifiers; attach leader-proposed issues and agendas to that status."
+  correction: "Do not rely on vanilla call_organization_parliament for single-member support-token meetings. The mechanic needs a different design before custom support meetings are enabled."
   category: script
   scope: international_organization
-  source: "reference_game_files/game/in_game/common/international_organization_special_statuses/hre.txt:1-20; reference_game_files/game/in_game/common/parliament_issues/10_hre_issues.txt:37-48"
-  notes: "A one-country custom IO may have no independent member group to propose issues. Vanilla leader-proposed HRE issues use the leader special status (emperor, leader = yes), so custom single-member IO parliaments should mirror that split."
+  source: "reference_game_files/game/in_game/common/generic_actions/io_parliament.txt:86-120; reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt:507-538; runtime playtest of tv_academy_of_sciences"
+  notes: "The vanilla call_organization_parliament picker builds its issue list through every_possible_parliament_issue and reports 'no special status wants to propose an issue' when it cannot surface one. propose_parliament_issue then initializes support from the issue special status and marks the proposer as voting yes. In a founder-only IO, self-backed support issues are brittle even with a leader status."
