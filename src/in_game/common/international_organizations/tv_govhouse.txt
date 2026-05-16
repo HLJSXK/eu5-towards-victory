@@ -80,6 +80,73 @@ tv_govhouse = {
 			min = 0
 			max = 1
 			start = 0
+			monthly_change = {
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_ruler = yes
+							custom_tooltip = {
+								text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+								has_variable = tv_conquest_general_char
+							}
+							var:tv_conquest_general_char ?= { is_alive = yes }
+						}
+						var:tv_govhouse_power_balance < var:tv_govhouse_power_equilibrium
+					}
+					add = {
+						desc = "TV_GOVHOUSE_POWER_BALANCE_TOWARD_GENERAL"
+						value = var:tv_govhouse_power_equilibrium
+						subtract = var:tv_govhouse_power_balance
+						min = 0
+						max = 0.01
+					}
+				}
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_ruler = yes
+							custom_tooltip = {
+								text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+								has_variable = tv_conquest_general_char
+							}
+							var:tv_conquest_general_char ?= { is_alive = yes }
+						}
+						var:tv_govhouse_power_balance > var:tv_govhouse_power_equilibrium
+					}
+					subtract = {
+						desc = "TV_GOVHOUSE_POWER_BALANCE_TOWARD_CROWN"
+						value = var:tv_govhouse_power_balance
+						subtract = var:tv_govhouse_power_equilibrium
+						min = 0
+						max = 0.01
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							AND = {
+								international_organization_has_leader = yes
+								leader_country ?= {
+									has_ruler = yes
+									custom_tooltip = {
+										text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+										has_variable = tv_conquest_general_char
+									}
+									var:tv_conquest_general_char ?= { is_alive = yes }
+								}
+							}
+						}
+					}
+					subtract = {
+						desc = "TV_GOVHOUSE_POWER_BALANCE_NO_GENERAL"
+						value = var:tv_govhouse_power_balance
+						min = 0
+						max = 0.01
+					}
+				}
+			}
 		}
 		tv_govhouse_power_equilibrium = {
 			format = "TV_GOVHOUSE_POWER_BALANCE_FORMAT"
@@ -94,6 +161,49 @@ tv_govhouse = {
 			min = 0
 			max = 1
 			start = 0
+			monthly_change = {
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_ruler = yes
+							custom_tooltip = {
+								text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+								has_variable = tv_conquest_general_char
+							}
+							var:tv_conquest_general_char ?= { is_alive = yes }
+						}
+					}
+					add = {
+						desc = "TV_GOVHOUSE_POWER_CONSOLIDATION_IN_OFFICE"
+						value = 1
+						subtract = var:tv_govhouse_power_consolidation
+						min = 0
+						max = 0.004
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							AND = {
+								international_organization_has_leader = yes
+								leader_country ?= {
+									has_ruler = yes
+									custom_tooltip = {
+										text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+										has_variable = tv_conquest_general_char
+									}
+									var:tv_conquest_general_char ?= { is_alive = yes }
+								}
+							}
+						}
+					}
+					subtract = {
+						desc = "TV_GOVHOUSE_POWER_CONSOLIDATION_NO_GENERAL"
+						value = var:tv_govhouse_power_consolidation
+					}
+				}
+			}
 		}
 	}
 
@@ -114,14 +224,6 @@ tv_govhouse = {
 					}
 				}
 				set_variable = {
-					name = tv_govhouse_power_consolidation
-					value = {
-						value = var:tv_govhouse_power_consolidation
-						add = 0.004
-						max = 1
-					}
-				}
-				set_variable = {
 					name = tv_govhouse_power_equilibrium
 					value = {
 						value = leader_country.var:tv_conquest_general_char.total_abilities
@@ -137,36 +239,7 @@ tv_govhouse = {
 				}
 			}
 			else = {
-				set_variable = { name = tv_govhouse_power_consolidation value = 0 }
 				set_variable = { name = tv_govhouse_power_equilibrium value = 0 }
-			}
-			if = {
-				limit = { var:tv_govhouse_power_balance < var:tv_govhouse_power_equilibrium }
-				set_variable = {
-					name = tv_govhouse_power_balance
-					value = {
-						value = var:tv_govhouse_power_balance
-						add = 0.01
-					}
-				}
-				if = {
-					limit = { var:tv_govhouse_power_balance > var:tv_govhouse_power_equilibrium }
-					set_variable = { name = tv_govhouse_power_balance value = var:tv_govhouse_power_equilibrium }
-				}
-			}
-			else_if = {
-				limit = { var:tv_govhouse_power_balance > var:tv_govhouse_power_equilibrium }
-				set_variable = {
-					name = tv_govhouse_power_balance
-					value = {
-						value = var:tv_govhouse_power_balance
-						subtract = 0.01
-					}
-				}
-				if = {
-					limit = { var:tv_govhouse_power_balance < var:tv_govhouse_power_equilibrium }
-					set_variable = { name = tv_govhouse_power_balance value = var:tv_govhouse_power_equilibrium }
-				}
 			}
 			leader_country ?= {
 				if = {
