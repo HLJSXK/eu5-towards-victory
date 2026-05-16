@@ -406,7 +406,7 @@ organization_panel = {
 							}
 
 							hbox = {
-								layoutpolicy_horizontal = expanding
+								size = { 450 12 }
 								tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
 
 								widget = {
@@ -416,33 +416,61 @@ organization_panel = {
 								hbox = {
 									size = { 366 12 }
 
-									text_single = {
+									widget = {
 										size = { 91 12 }
-										raw_text = "25%"
-										align = nobaseline|right
-										using = Font_Size_Very_Small
-										tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+										hbox = {
+											size = { 91 12 }
+											expand = {}
+											text_single = {
+												autoresize = yes
+												raw_text = "25%"
+												align = nobaseline|right
+												using = Font_Size_Very_Small
+												tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+											}
+										}
 									}
-									text_single = {
+									widget = {
 										size = { 92 12 }
-										raw_text = "50%"
-										align = nobaseline|right
-										using = Font_Size_Very_Small
-										tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+										hbox = {
+											size = { 92 12 }
+											expand = {}
+											text_single = {
+												autoresize = yes
+												raw_text = "50%"
+												align = nobaseline|right
+												using = Font_Size_Very_Small
+												tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+											}
+										}
 									}
-									text_single = {
+									widget = {
 										size = { 91 12 }
-										raw_text = "75%"
-										align = nobaseline|right
-										using = Font_Size_Very_Small
-										tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+										hbox = {
+											size = { 91 12 }
+											expand = {}
+											text_single = {
+												autoresize = yes
+												raw_text = "75%"
+												align = nobaseline|right
+												using = Font_Size_Very_Small
+												tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+											}
+										}
 									}
-									text_single = {
+									widget = {
 										size = { 92 12 }
-										raw_text = "100%"
-										align = nobaseline|right
-										using = Font_Size_Very_Small
-										tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+										hbox = {
+											size = { 92 12 }
+											expand = {}
+											text_single = {
+												autoresize = yes
+												raw_text = "100%"
+												align = nobaseline|right
+												using = Font_Size_Very_Small
+												tooltip = "TV_GOVHOUSE_POWER_BALANCE_TOOLTIP"
+											}
+										}
 									}
 								}
 
