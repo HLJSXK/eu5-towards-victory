@@ -293,7 +293,7 @@ organization_panel = {
 		vbox = {
 			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = fixed
+			layoutpolicy_vertical = expanding
 			ignoreinvisible = yes
 			spacing = 10
 
@@ -333,7 +333,7 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 126 }
+						size = { 470 154 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
@@ -457,6 +457,8 @@ organization_panel = {
 					}
 				}
 			}
+
+			expand = {}
 		}
 	}
 
