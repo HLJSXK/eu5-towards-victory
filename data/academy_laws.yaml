@@ -20,18 +20,22 @@ laws:
       - id: tv_academy_research_priority_balanced_policy
         display_comment: "Balanced (default)"
         default: true
+        required_support: commons
       - id: tv_academy_research_priority_theory_policy
         display_comment: "Theory First"
+        required_support: clergy
         country_modifier: |
           research_speed_modifier = 0.05
           global_build_buildings_cost = 0.10
       - id: tv_academy_research_priority_application_policy
         display_comment: "Application First"
+        required_support: burghers
         country_modifier: |
           research_speed_modifier = -0.05
           global_build_buildings_cost = -0.10
       - id: tv_academy_research_priority_medicine_policy
         display_comment: "Medicine First"
+        required_support: clergy
         country_modifier: |
           research_speed_modifier = -0.05
           global_build_buildings_cost = 0.10
@@ -43,20 +47,24 @@ laws:
       - id: tv_academy_research_openness_closed_policy
         display_comment: "State Seclusion (default)"
         default: true
+        required_support: crown
         country_modifier: |
           stability_cost = -0.05
       - id: tv_academy_research_openness_school_control_policy
         display_comment: "School Supervision"
+        required_support: clergy
         country_modifier: |
           research_speed_modifier = -0.05
           global_estate_target_satisfaction = 0.025
       - id: tv_academy_research_openness_school_free_policy
         display_comment: "School Freedom"
+        required_support: commons
         country_modifier: |
           research_speed_modifier = 0.05
           pop_join_rebel_threshold = 0.05
       - id: tv_academy_research_openness_international_policy
         display_comment: "International Openness"
+        required_support: burghers
         country_modifier: |
           research_speed_modifier = 0.05
           diplomatic_reputation = 1
@@ -68,14 +76,17 @@ laws:
       - id: tv_academy_research_risk_mandatory_review_policy
         display_comment: "Mandatory Review (default)"
         default: true
+        required_support: clergy
         country_modifier: |
           clergy_estate_target_satisfaction = 0.025
       - id: tv_academy_research_risk_conservative_policy
         display_comment: "Conservative Security"
+        required_support: crown
         country_modifier: |
           research_speed_modifier = 0.05
       - id: tv_academy_research_risk_high_breakthrough_policy
         display_comment: "High-Risk Breakthroughs"
+        required_support: commons
         country_modifier: |
           research_speed_modifier = 0.10
           clergy_estate_target_satisfaction = -0.025
@@ -86,22 +97,26 @@ laws:
       - id: tv_academy_research_funding_private_policy
         display_comment: "Private Patronage (default)"
         default: true
+        required_support: nobles
         country_modifier: |
           nobles_estate_target_satisfaction = 0.025
           global_nobles_estate_power = 0.25
       - id: tv_academy_research_funding_guild_policy
         display_comment: "Guild Patronage"
+        required_support: burghers
         country_modifier: |
           research_speed_modifier = 0.05
           global_production_efficiency = -0.05
           global_burghers_estate_power = 0.25
       - id: tv_academy_research_funding_royal_policy
         display_comment: "Royal Priority"
+        required_support: crown
         country_modifier: |
           research_speed_modifier = 0.05
           court_spending_cost_modifier = 0.20
       - id: tv_academy_research_funding_international_policy
         display_comment: "International Cooperation"
+        required_support: burghers
         country_modifier: |
           research_speed_modifier = 0.05
           diplomatic_reputation = 1
@@ -113,15 +128,18 @@ laws:
       - id: tv_academy_technology_spread_laissez_faire_policy
         display_comment: "Laissez-Faire Diffusion (default)"
         default: true
+        required_support: commons
         country_modifier: |
           global_institution_growth_modifier = 0.20
       - id: tv_academy_technology_spread_private_policy
         display_comment: "Privatized Research"
+        required_support: nobles
         country_modifier: |
           global_production_efficiency = 0.05
           global_burghers_estate_power = 0.25
       - id: tv_academy_technology_spread_state_standard_policy
         display_comment: "State Standardization"
+        required_support: crown
         country_modifier: |
           research_speed_modifier = 0.05
           court_spending_cost_modifier = 0.20
@@ -132,18 +150,22 @@ laws:
       - id: tv_academy_academic_prestige_none_policy
         display_comment: "No Rewards (default)"
         default: true
+        required_support: crown
       - id: tv_academy_academic_prestige_titles_policy
         display_comment: "Titles and Nobility"
+        required_support: nobles
         country_modifier: |
           research_speed_modifier = 0.05
           nobles_estate_target_satisfaction = -0.025
       - id: tv_academy_academic_prestige_money_policy
         display_comment: "Monetary Rewards"
+        required_support: crown
         country_modifier: |
           research_speed_modifier = 0.05
           court_spending_cost_modifier = 0.20
       - id: tv_academy_academic_prestige_reputation_policy
         display_comment: "Prestige Rewards"
+        required_support: commons
         country_modifier: |
           research_speed_modifier = 0.05
           diplomatic_reputation = -1
@@ -156,5 +178,7 @@ laws:
       - id: tv_academy_leader_gender_male_only_policy
         display_comment: "Male Only (default)"
         default: true
+        required_support: clergy
       - id: tv_academy_leader_gender_unrestricted_policy
         display_comment: "Unrestricted"
+        required_support: commons
