@@ -1,0 +1,25 @@
+﻿# Towards Victory - Academy of Sciences parliament agendas
+# IO parliament sessions need at least one valid agenda for the special status group.
+
+pa_tv_academy_publish_proceedings = {
+	type = international_organization
+	special_status = tv_academy_member
+	importance = 1
+	potential = {
+		international_organization_type = international_organization_type:tv_academy_of_sciences
+	}
+	allow = {
+		is_leader_of_international_organization = scope:recipient
+	}
+	on_accept = {
+		hidden_effect = {
+			leader_country ?= {
+				add_research_progress = research_progress_weak_bonus
+			}
+		}
+	}
+	ai_will_do = {
+		add = 5
+	}
+	chance = 100
+}

@@ -123,6 +123,24 @@ tv_academy_of_sciences = {
 
 	# ── Monthly effect: completion detection, D gold cost, display state updates ──
 	monthly_effect = {
+		hidden_effect = {
+			every_international_organization_member = {
+				limit = {
+					NOT = {
+						has_special_status_in_international_organization = {
+							type = special_status:tv_academy_member
+							international_organization = root
+						}
+					}
+				}
+				root = {
+					international_organization_add_special_status = {
+						type = special_status:tv_academy_member
+						country = prev
+					}
+				}
+			}
+		}
 		# C: update in-progress display (0→1) when C has begun accumulating
 		if = {
 			limit = {
@@ -187,6 +205,13 @@ tv_academy_of_sciences = {
 			set_leader_country = scope:actor
 		}
 		hidden_effect = {
+			if = {
+				limit = { exists = scope:actor }
+				international_organization_add_special_status = {
+					type = special_status:tv_academy_member
+					country = scope:actor
+				}
+			}
 			set_variable = { name = tv_academy_crown_support value = 0 }
 			set_variable = { name = tv_academy_nobles_support value = 0 }
 			set_variable = { name = tv_academy_clergy_support value = 0 }

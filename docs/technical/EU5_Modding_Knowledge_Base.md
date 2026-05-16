@@ -116,6 +116,8 @@ Create an entry under `common/international_organization_special_statuses`, list
 
 Vanilla `policy_vote` checks `country_combined_special_status_power(scope:recipient) > 0` for IOs using parliament law votes. If no implemented special status supplies voting power, a law debate may begin but the IO parliament page has no voter group to display.
 
+Custom IO parliament sessions also need at least one valid `common/parliament_agendas` entry for the participating special status. Define it with `type = international_organization` and `special_status = <status>`, with `potential`/`allow` that pass for the IO. Otherwise the parliament UI can report that no special status wants to propose an issue even when valid `parliament_issues` exist.
+
 ### 4.4. Common File Types and Formats
 
 Modders primarily work with a few text-based file formats:

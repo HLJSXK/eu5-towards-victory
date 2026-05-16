@@ -872,3 +872,12 @@
   scope: international_organization
   source: "reference_game_files/game/in_game/common/resolutions/policy_vote.txt:620; reference_game_files/game/in_game/common/international_organization_special_statuses/readme.txt:12; reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:14570"
   notes: "The policy_vote resolution requires country_combined_special_status_power(scope:recipient) > 0 when uses_parliament_for_law_votes_trigger is active. Without a participating special status, the law debate can open but the IO parliament page has no voter group to show."
+
+- id: io_parliament_issue_without_special_status_agenda
+  pattern: ''
+  bad: "Adding IO parliament issues for a special status without any valid parliament_agenda for that special status"
+  correction: "Add at least one common/parliament_agendas entry with type = international_organization and special_status = <status>. Keep its potential/allow valid for the IO so the parliament button has a special-status agenda to resolve."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/parliament_agendas/readme.txt:1-11; reference_game_files/game/in_game/common/parliament_agendas/10_hre_agendas.txt:1-23"
+  notes: "IO parliaments rely on special-status agendas as well as issues. Without a valid agenda for the participating special status, the UI can report that no special status wants to propose an issue even when parliament_issues exist."
