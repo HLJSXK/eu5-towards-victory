@@ -3,7 +3,7 @@
 
 tv_academy_crown_mandate_issue = {
 	type = international_organization
-	special_status = tv_academy_member
+	special_status = tv_academy_president
 	potential = { international_organization_type = international_organization_type:tv_academy_of_sciences }
 	allow = { NOT = { has_cooldown = tv_academy_crown_mandate_issue } }
 	chance = 20
@@ -20,7 +20,7 @@ tv_academy_crown_mandate_issue = {
 
 tv_academy_noble_patronage_issue = {
 	type = international_organization
-	special_status = tv_academy_member
+	special_status = tv_academy_president
 	potential = { international_organization_type = international_organization_type:tv_academy_of_sciences }
 	allow = { NOT = { has_cooldown = tv_academy_noble_patronage_issue } }
 	chance = 20
@@ -37,7 +37,7 @@ tv_academy_noble_patronage_issue = {
 
 tv_academy_clergy_ethics_issue = {
 	type = international_organization
-	special_status = tv_academy_member
+	special_status = tv_academy_president
 	potential = { international_organization_type = international_organization_type:tv_academy_of_sciences }
 	allow = { NOT = { has_cooldown = tv_academy_clergy_ethics_issue } }
 	chance = 20
@@ -54,7 +54,7 @@ tv_academy_clergy_ethics_issue = {
 
 tv_academy_burgher_workshop_issue = {
 	type = international_organization
-	special_status = tv_academy_member
+	special_status = tv_academy_president
 	potential = { international_organization_type = international_organization_type:tv_academy_of_sciences }
 	allow = { NOT = { has_cooldown = tv_academy_burgher_workshop_issue } }
 	chance = 20
@@ -71,7 +71,7 @@ tv_academy_burgher_workshop_issue = {
 
 tv_academy_public_lecture_issue = {
 	type = international_organization
-	special_status = tv_academy_member
+	special_status = tv_academy_president
 	potential = { international_organization_type = international_organization_type:tv_academy_of_sciences }
 	allow = { NOT = { has_cooldown = tv_academy_public_lecture_issue } }
 	chance = 20

@@ -118,6 +118,8 @@ Vanilla `policy_vote` checks `country_combined_special_status_power(scope:recipi
 
 Custom IO parliament sessions also need at least one valid `common/parliament_agendas` entry for the participating special status. Define it with `type = international_organization` and `special_status = <status>`, with `potential`/`allow` that pass for the IO. Otherwise the parliament UI can report that no special status wants to propose an issue even when valid `parliament_issues` exist.
 
+For single-member or founder-led IOs, do not rely on a generic member status as the issue proposer. Add a separate leader/founder special status with `leader = yes`, `special_status_power`, and matching parliament participation/agenda-impact modifier types, then attach leader-proposed issues and agendas to that status. Vanilla HRE leader issues use the `emperor` special status rather than a generic member group.
+
 ### 4.4. Common File Types and Formats
 
 Modders primarily work with a few text-based file formats:

@@ -11,3 +11,19 @@
 	}
 	special_status_power = 1
 }
+
+tv_academy_president = {
+	max_countries = 1
+	priority = 10
+	can_bestow_trigger = {
+		is_leader_of_international_organization = scope:recipient
+	}
+	auto_bestowal_trigger = {
+		is_leader_of_international_organization = scope:recipient
+	}
+	auto_rescind_trigger = {
+		NOT = { is_leader_of_international_organization = scope:recipient }
+	}
+	leader = yes
+	special_status_power = 1
+}

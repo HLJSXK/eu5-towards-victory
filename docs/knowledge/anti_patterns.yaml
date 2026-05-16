@@ -881,3 +881,12 @@
   scope: international_organization
   source: "reference_game_files/game/in_game/common/parliament_agendas/readme.txt:1-11; reference_game_files/game/in_game/common/parliament_agendas/10_hre_agendas.txt:1-23"
   notes: "IO parliaments rely on special-status agendas as well as issues. Without a valid agenda for the participating special status, the UI can report that no special status wants to propose an issue even when parliament_issues exist."
+
+- id: io_single_member_parliament_without_leader_special_status
+  pattern: ''
+  bad: "A single-member IO relies on a generic member special status to propose IO parliament issues"
+  correction: "Give the leader/founding country its own special status with leader = yes, special_status_power, and matching <status>_can_participate_in_parliament / <status>_agenda_impact modifiers; attach leader-proposed issues and agendas to that status."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/international_organization_special_statuses/hre.txt:1-20; reference_game_files/game/in_game/common/parliament_issues/10_hre_issues.txt:37-48"
+  notes: "A one-country custom IO may have no independent member group to propose issues. Vanilla leader-proposed HRE issues use the leader special status (emperor, leader = yes), so custom single-member IO parliaments should mirror that split."

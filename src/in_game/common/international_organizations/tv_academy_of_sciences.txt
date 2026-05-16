@@ -32,6 +32,7 @@ tv_academy_of_sciences = {
 	resolution_widget = parliament
 
 	special_statuses_implemented = {
+		tv_academy_president
 		tv_academy_member
 	}
 
@@ -140,6 +141,24 @@ tv_academy_of_sciences = {
 					}
 				}
 			}
+			leader_country ?= {
+				if = {
+					limit = {
+						NOT = {
+							has_special_status_in_international_organization = {
+								type = special_status:tv_academy_president
+								international_organization = root
+							}
+						}
+					}
+					root = {
+						international_organization_add_special_status = {
+							type = special_status:tv_academy_president
+							country = prev
+						}
+					}
+				}
+			}
 		}
 		# C: update in-progress display (0→1) when C has begun accumulating
 		if = {
@@ -209,6 +228,10 @@ tv_academy_of_sciences = {
 				limit = { exists = scope:actor }
 				international_organization_add_special_status = {
 					type = special_status:tv_academy_member
+					country = scope:actor
+				}
+				international_organization_add_special_status = {
+					type = special_status:tv_academy_president
 					country = scope:actor
 				}
 			}
