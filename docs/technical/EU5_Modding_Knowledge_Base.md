@@ -120,6 +120,8 @@ Custom IO parliament sessions also need at least one valid `common/parliament_ag
 
 For single-member or founder-only IOs, do not use the vanilla `call_organization_parliament` issue picker for support-token meetings. Even with a leader/founder special status, the picker can still report that no special status wants to propose an issue, and `propose_parliament_issue` initializes support from the issue special status before marking the proposer as voting yes. Redesign the mechanic before enabling custom support meetings for a founder-only IO.
 
+The shared IO panel does not expose a real `organization_parliament_tab_visible` override block. In `panels/organization/common.gui`, the parliament tab's `visible` property is bound directly to `InternationalOrganizationsView.GetInternationalOrganization.HasParliament`. To hide the parliament tab for an IO, set `has_parliament = no` on the IO type. Law `requires_vote` behavior is separate and should follow the mechanic's design.
+
 ### 4.4. Common File Types and Formats
 
 Modders primarily work with a few text-based file formats:
@@ -411,6 +413,8 @@ The user interface is highly moddable through `.gui` files. The system is modula
 GUI `text = "KEY"` properties are localization lookups. If the key is missing from `main_menu/localization`, the engine logs `Unlocalized text 'KEY'` from `pdx_gui_localize.cpp`. Correct the key to one defined by the current data/localization set, add the key for all supported languages, or use `raw_text` only when the intended display is a literal string.
 
 Custom game concepts require both localization and a definition in `main_menu/common/game_concepts/`. A localization pair such as `game_concept_tv_foo` / `game_concept_tv_foo_desc` does not create the concept by itself. If `[tv_foo|e]` is used before `tv_foo = { texture = "..." }` is registered, the localization parser treats `tv_foo` as a data-system function and logs `Could not find data system function 'tv_foo'`.
+
+GUI boolean helpers are arity-specific. `And()` and `Or()` take exactly two operands; for three operands use `And3()` / `Or3()` as vanilla GUI files do, and for larger expressions nest binary helpers. A three-argument `And(a, b, c)` logs `Function 'And' expected 2 arguments, got 3` and the widget statement fails conversion.
 
 The shared `situation_panel` template includes a default `situation_subheader_content` block with a 45px row. Custom situation panels that do not use a subheader should explicitly add `blockoverride "situation_subheader_content" {}` near the top of the panel. Vanilla situation panels such as `colonial_revolution.gui` and `council_of_trent.gui` use this empty override to avoid an unwanted blank band above the main content.
 

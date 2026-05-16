@@ -72,6 +72,16 @@
   source: "reference_game_files/game/main_menu/common/cards.gui:1084"
   notes: "Guessing block structure causes silent failures; always read cards.gui before using blockoverride"
 
+- id: gui_boolean_helper_arity
+  pattern: ''
+  only_in_paths: ['gui']
+  bad: "Using GUI And(...) or Or(...) with three or more operands"
+  correction: "Use And3(...) / Or3(...) for exactly three operands, or nest binary And(...) / Or(...) calls for larger expressions."
+  category: gui
+  scope: any
+  source: "runtime error.log: pdx_data_factory.cpp:1401; reference_game_files/game/in_game/gui/panels/organization/members.gui:927"
+  notes: "EU5 GUI And() and Or() are binary helpers, not variadic. And(a,b,c) fails conversion with 'Function And expected 2 arguments, got 3'. Pattern left empty because commas inside typed comparison calls make static regex detection noisy."
+
 - id: trade_efficiency_nonexistent
   pattern: '\btrade_efficiency\s*='
   bad: "trade_efficiency = <value>"
@@ -863,6 +873,15 @@
   scope: international_organization
   source: "reference_game_files/game/in_game/common/international_organizations/hre.txt:315-316; reference_game_files/game/in_game/common/international_organizations/union.txt:203-204; fixed in src/in_game/common/international_organizations/tv_govhouse.txt"
   notes: "The shared IO tooltip can render visible monthly_effect children, exposing internal set_variable/custom_tooltip refresh logic. Vanilla HRE and Union wrap monthly maintenance in hidden_effect so the logic still runs but does not clutter player-facing IO tooltips. IO variable monthly_change remains the correct place for visible variable breakdowns."
+
+- id: io_parliament_tab_visible_not_overrideable
+  pattern: 'blockoverride\s+"organization_parliament_tab_visible"'
+  bad: "Trying to hide an IO parliament tab with blockoverride \"organization_parliament_tab_visible\""
+  correction: "Set has_parliament = no on the international_organization type. Keep law requires_vote behavior as a separate design decision."
+  category: gui
+  scope: international_organization
+  source: "reference_game_files/game/in_game/gui/panels/organization/common.gui:383-384; reference_game_files/game/in_game/common/international_organizations/readme.txt:126"
+  notes: "The vanilla organization panel comments out the would-be parliament visible block and binds the tab directly to InternationalOrganizationsView.GetInternationalOrganization.HasParliament. There is no block to override."
 
 - id: io_law_vote_without_special_status_power
   pattern: ''
