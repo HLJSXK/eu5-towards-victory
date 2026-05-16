@@ -1301,10 +1301,132 @@ tv_arts_exhibition.406 = {
 		name = tv_arts_exhibition.406.a
 		if = {
 			limit = { exists = scope:tv_arts_exchange_masterpiece_artist }
-			capital ?= {
-				create_art = {
-					quality = { 70 100 }
-					artist = scope:tv_arts_exchange_masterpiece_artist
+			if = {
+				limit = { scope:tv_arts_exchange_masterpiece_artist = { artist_type = painter } }
+				capital ?= {
+					create_art = {
+						quality = { 70 100 }
+						type = work_of_art_type:painting
+						key = tv_arts_exchange_masterpiece
+						target = scope:tv_arts_exchange_masterpiece_artist
+						artist = scope:tv_arts_exchange_masterpiece_artist
+					}
+				}
+			}
+			else_if = {
+				limit = { scope:tv_arts_exchange_masterpiece_artist = { artist_type = sculptor } }
+				capital ?= {
+					create_art = {
+						quality = { 70 100 }
+						type = work_of_art_type:statue
+						key = tv_arts_exchange_masterpiece
+						target = scope:tv_arts_exchange_masterpiece_artist
+						artist = scope:tv_arts_exchange_masterpiece_artist
+					}
+				}
+			}
+			else_if = {
+				limit = { scope:tv_arts_exchange_masterpiece_artist = { artist_type = composer } }
+				capital ?= {
+					create_art = {
+						quality = { 70 100 }
+						type = work_of_art_type:hymnal
+						key = tv_arts_exchange_masterpiece
+						target = scope:tv_arts_exchange_masterpiece_artist
+						artist = scope:tv_arts_exchange_masterpiece_artist
+					}
+				}
+			}
+			else_if = {
+				limit = { scope:tv_arts_exchange_masterpiece_artist = { artist_type = writer } }
+				capital ?= {
+					create_art = {
+						quality = { 70 100 }
+						type = work_of_art_type:poem
+						key = tv_arts_exchange_masterpiece
+						target = scope:tv_arts_exchange_masterpiece_artist
+						artist = scope:tv_arts_exchange_masterpiece_artist
+					}
+				}
+			}
+			else_if = {
+				limit = { scope:tv_arts_exchange_masterpiece_artist = { artist_type = architect } }
+				capital ?= {
+					create_art = {
+						quality = { 70 100 }
+						type = work_of_art_type:palace
+						key = tv_arts_exchange_masterpiece
+						target = scope:tv_arts_exchange_masterpiece_artist
+						artist = scope:tv_arts_exchange_masterpiece_artist
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					scope:tv_arts_exchange_masterpiece_artist = {
+						OR = {
+							artist_type = philosopher
+							artist_type = jurist
+							artist_type = scientist
+						}
+					}
+				}
+				capital ?= {
+					create_art = {
+						quality = { 70 100 }
+						type = work_of_art_type:treatise
+						key = tv_arts_exchange_masterpiece
+						target = scope:tv_arts_exchange_masterpiece_artist
+						artist = scope:tv_arts_exchange_masterpiece_artist
+					}
+				}
+			}
+			else_if = {
+				limit = { scope:tv_arts_exchange_masterpiece_artist = { artist_type = iconographer } }
+				capital ?= {
+					create_art = {
+						quality = { 70 100 }
+						type = work_of_art_type:icon
+						key = tv_arts_exchange_masterpiece
+						target = scope:tv_arts_exchange_masterpiece_artist
+						artist = scope:tv_arts_exchange_masterpiece_artist
+					}
+				}
+			}
+			else_if = {
+				limit = { scope:tv_arts_exchange_masterpiece_artist = { artist_type = metalsmith } }
+				capital ?= {
+					create_art = {
+						quality = { 70 100 }
+						type = work_of_art_type:regalia
+						key = tv_arts_exchange_masterpiece
+						target = scope:tv_arts_exchange_masterpiece_artist
+						artist = scope:tv_arts_exchange_masterpiece_artist
+					}
+				}
+			}
+			else_if = {
+				limit = { scope:tv_arts_exchange_masterpiece_artist = { artist_type = calligrapher } }
+				capital ?= {
+					create_art = {
+						quality = { 70 100 }
+						type = work_of_art_type:miniature_painting
+						key = tv_arts_exchange_masterpiece
+						target = scope:tv_arts_exchange_masterpiece_artist
+						artist = scope:tv_arts_exchange_masterpiece_artist
+					}
+				}
+			}
+			else_if = {
+				limit = { scope:tv_arts_exchange_masterpiece_artist = { artist_type = storyteller } }
+				capital ?= {
+					create_art = {
+						quality = { 70 100 }
+						type = work_of_art_type:oral_traditions
+						key = tv_arts_exchange_masterpiece
+						target = scope:tv_arts_exchange_masterpiece_artist
+						artist = scope:tv_arts_exchange_masterpiece_artist
+					}
 				}
 			}
 		}
