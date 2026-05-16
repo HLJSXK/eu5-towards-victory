@@ -64,11 +64,11 @@ Six victory paths, each reflecting a historically meaningful way a 15th–18th c
 
 | Node | Label | Trigger condition | Reward category |
 |---|---|---|---|
-| 1 | — | Score ≥ 1,000 | Domestic production bonus, tax income |
-| 2 | — | Score ≥ 2,000 | Pop growth, building cost reduction |
-| 3 | Short-term Victory (短期胜利) | Score ≥ 4,000 | Monthly development rate, monthly prosperity |
-| 4 | — | Score ≥ 6,000 | Construction speed, goods/gold production bonus |
-| 5 | Long-term Victory (长期胜利) | Score ≥ 10,000 | Permanent construction speed + population cap bonus |
+| 1 | — | Score ≥ 2,000 | Domestic production bonus, tax income |
+| 2 | — | Score ≥ 3,000 | Pop growth, building cost reduction |
+| 3 | Short-term Victory (短期胜利) | Score ≥ 5,000 | Monthly development rate, monthly prosperity |
+| 4 | — | Score ≥ 7,000 | Construction speed, goods/gold production bonus |
+| 5 | Long-term Victory (长期胜利) | Score ≥ 11,000 | Permanent construction speed + population cap bonus |
 
 ---
 
