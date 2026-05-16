@@ -174,22 +174,12 @@ organization_panel = {
 	blockoverride "organization_resolutions_content" {
 		margin = { 0 0 }
 
-		scrollarea = {
-			scrollbarpolicy_horizontal = always_off
+		vbox = {
+			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = expanding
-
-			scrollbar_vertical = {
-				using = Scrollbar_Vertical
-			}
-
-			scrollwidget = {
-				vbox = {
-					margin = { 10 0 }
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = fixed
-					ignoreinvisible = yes
-					spacing = 10
+			layoutpolicy_vertical = fixed
+			ignoreinvisible = yes
+			spacing = 10
 
 					card_common = {
 						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
@@ -357,25 +347,16 @@ organization_panel = {
 						}
 					}
 				}
-			}
 		}
+
+		expand = {}
 	}
 
 	# ── Arts exchange tab: reuse the vanilla laws slot -------------------------
 	blockoverride "organization_laws_subheader" {
-		scrollarea = {
-			scrollbarpolicy_horizontal = always_off
+		vbox = {
 			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = expanding
-
-			scrollbar_vertical = {
-				using = Scrollbar_Vertical
-			}
-
-			scrollwidget = {
-				vbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 10
+			spacing = 10
 
 					card_common = {
 						maximumsize = { 500 -1 }
@@ -528,8 +509,6 @@ organization_panel = {
 					}
 				}
 					}
-				}
-			}
 		}
 	}
 
