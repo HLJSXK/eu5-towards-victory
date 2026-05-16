@@ -531,7 +531,9 @@ organization_panel = {
 		scrollarea = {
 			scrollbarpolicy_horizontal = always_off
 			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = expanding
+			minimumsize = { -1 60 }
+			maximumsize = { -1 430 }
+			autoresizescrollarea = yes
 
 			scrollbar_vertical = {
 				using = Scrollbar_Vertical
@@ -539,7 +541,10 @@ organization_panel = {
 
 			scrollwidget = {
 				vbox = {
+					set_parent_size_to_minimum = yes
 					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					ignoreinvisible = yes
 					spacing = 10
 					margin = { 10 2 }
 
