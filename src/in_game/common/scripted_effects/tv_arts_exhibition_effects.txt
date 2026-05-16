@@ -533,6 +533,9 @@ tv_start_arts_exchange_effect = {
 		tv_add_arts_exchange_participant_effect = yes
 		remove_variable = tv_arts_exchange_new_participant
 	}
+	set_variable = { name = tv_arts_exchange_invite_event_fired value = 1 }
+	tv_prepare_arts_exchange_auto_invites_effect = yes
+	trigger_event_non_silently = { id = tv_arts_exhibition.400 }
 }
 
 tv_prepare_arts_exchange_auto_invites_effect = {
