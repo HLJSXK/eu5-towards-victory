@@ -147,6 +147,10 @@ tv_govhouse = {
 							var:tv_conquest_general_char ?= { is_alive = yes }
 						}
 					}
+					subtract = {
+						desc = "TV_GOVHOUSE_POWER_EQUILIBRIUM_BASE"
+						value = 0.10
+					}
 					add = {
 						desc = "TV_GOVHOUSE_POWER_EQUILIBRIUM_RELATIVE_ABILITIES"
 						value = leader_country.var:tv_conquest_general_char.total_abilities
@@ -164,6 +168,7 @@ tv_govhouse = {
 						min = 0
 						max = {
 							value = 1
+							add = 0.10
 							subtract = {
 								value = leader_country.var:tv_conquest_general_char.total_abilities
 								divide = {
