@@ -353,8 +353,8 @@ tv_local_exhibition_expand = {
 	potential = {
 		scope:actor = {
 			custom_tooltip = {
-				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
-				has_variable = tv_local_exhibition_active
+				text = TV_HAS_ARTS_EXHIBITION_MEMBER_TT
+				has_variable = tv_arts_exhibition_member
 			}
 		}
 	}
@@ -362,42 +362,58 @@ tv_local_exhibition_expand = {
 	allow = {
 		scope:actor = {
 			custom_tooltip = {
+				text = TV_HAS_LOCAL_EXHIBITION_ACTIVE_TT
+				has_variable = tv_local_exhibition_active
+			}
+			custom_tooltip = {
 				text = tv_local_exhibition_add_artworks_allow_tt
-				any_work_of_art_in_country = {
-					count >= {
-						value = {
-							value = var:tv_local_exhibition_artworks_committed
-							add = var:tv_local_exhibition_add_art_threshold
+				trigger_if = {
+					limit = {
+						has_variable = tv_local_exhibition_active
+						has_variable = tv_local_exhibition_artworks_committed
+						has_variable = tv_local_exhibition_add_art_threshold
+					}
+					any_work_of_art_in_country = {
+						count >= {
+							value = {
+								value = var:tv_local_exhibition_artworks_committed
+								add = var:tv_local_exhibition_add_art_threshold
+							}
 						}
 					}
 				}
+				trigger_else = { always = no }
 			}
 			custom_tooltip = {
 				text = TV_HAS_LOCAL_EXHIBITION_EXPAND_TARGET_TT
-				OR = {
-					any_in_list = {
-						variable = tv_local_exhibition_locations
-						any_neighbor_location = {
-							has_owner = yes
-							owner ?= scope:actor
-							NOT = { has_building = building_type:tv_local_arts_exhibition }
+				trigger_if = {
+					limit = { has_variable = tv_local_exhibition_active }
+					OR = {
+						any_in_list = {
+							variable = tv_local_exhibition_locations
+							any_neighbor_location = {
+								has_owner = yes
+								owner ?= scope:actor
+								NOT = { has_building = building_type:tv_local_arts_exhibition }
+							}
 						}
-					}
-					var:tv_local_exhibition_location ?= {
-						any_neighbor_location = {
-							has_owner = yes
-							owner ?= scope:actor
-							NOT = { has_building = building_type:tv_local_arts_exhibition }
+						var:tv_local_exhibition_location ?= {
+							any_neighbor_location = {
+								has_owner = yes
+								owner ?= scope:actor
+								NOT = { has_building = building_type:tv_local_arts_exhibition }
+							}
 						}
-					}
-					var:tv_local_exhibition_secondary_location ?= {
-						any_neighbor_location = {
-							has_owner = yes
-							owner ?= scope:actor
-							NOT = { has_building = building_type:tv_local_arts_exhibition }
+						var:tv_local_exhibition_secondary_location ?= {
+							any_neighbor_location = {
+								has_owner = yes
+								owner ?= scope:actor
+								NOT = { has_building = building_type:tv_local_arts_exhibition }
+							}
 						}
 					}
 				}
+				trigger_else = { always = no }
 			}
 		}
 	}
