@@ -372,12 +372,18 @@ tv_academy_leader_gender_law = {
 		allow = {
 			always = yes
 		}
+		on_activate = {
+			custom_tooltip = { text = tv_academy_leader_gender_male_only_policy_effect_tt }
+		}
 	}
 
 	# Unrestricted
 	tv_academy_leader_gender_unrestricted_policy = {
 		allow = {
 			always = yes
+		}
+		on_activate = {
+			custom_tooltip = { text = tv_academy_leader_gender_unrestricted_policy_effect_tt }
 		}
 	}
 }
