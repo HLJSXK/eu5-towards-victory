@@ -795,7 +795,21 @@ tv_govhouse_war_end_for_country_effect = {
 		tv_govhouse_clear_war_plan_effect = yes
 	}
 	if = {
-		limit = { NOT = { at_war = yes } }
+		limit = {
+			exists = scope:war
+			NOT = {
+				any_current_war = {
+					NOT = { this = scope:war }
+				}
+			}
+		}
+		tv_govhouse_clear_tactic_effect = yes
+	}
+	else_if = {
+		limit = {
+			NOT = { exists = scope:war }
+			NOT = { at_war = yes }
+		}
 		tv_govhouse_clear_tactic_effect = yes
 	}
 	else = {
