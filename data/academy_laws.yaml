@@ -3,9 +3,9 @@
 # categories. Most policies use country_modifier entries so Academy laws
 # provide immediate member-country effects.
 #
-# Academy law changes are routed through the IO parliament tab. The Academy has
-# exactly one member for now, but proposals should still use vanilla law voting
-# instead of instant law changes.
+# Academy law changes still require IO policy votes. The founder-only Academy
+# hides the vanilla IO parliament tab, but the laws keep requires_vote = yes by
+# design.
 #
 # DO NOT hand-edit generated output files. Run:
 #   conda run --no-capture-output -n eu5 python scripts/in_game/common/laws/gen_tv_academy_laws.py

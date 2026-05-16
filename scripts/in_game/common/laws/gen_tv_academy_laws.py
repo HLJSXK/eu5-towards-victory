@@ -2,7 +2,7 @@
 Generate src/in_game/common/laws/tv_academy_laws.txt from data/academy_laws.yaml.
 
 Pattern: Academy of Sciences IO laws. Policies may define country_modifier
-blocks and use IO parliament votes.
+blocks and keep IO policy votes enabled.
 """
 
 import argparse
@@ -28,7 +28,7 @@ FILE_HEADER = (
     "#\n"
     "# TOWARDS VICTORY - ACADEMY OF SCIENCES LAWS\n"
     "# Academy laws under the Scientific Factions and Leadership law categories.\n"
-    "# requires_vote = yes: Academy law changes use the IO parliament tab.\n"
+    "# requires_vote = yes: Academy law changes use IO policy votes.\n"
 )
 
 LAW_DIVIDER = "# ------------------------------------------------------------------------------"

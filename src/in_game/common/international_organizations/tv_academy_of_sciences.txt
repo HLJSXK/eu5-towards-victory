@@ -27,9 +27,9 @@ tv_academy_of_sciences = {
 	disband_if_no_leader = no
 	show_on_diplomatic_map = no
 
-	has_parliament = yes
-	parliament_type = tv_academy_assembly
-	resolution_widget = parliament
+	# Keep the founder-only Academy focused on Laws, Chief Scientist, and Medicine.
+	# The shared IO parliament tab is tied to HasParliament in vanilla common.gui.
+	has_parliament = no
 
 	leader = {
 		leader_country ?= {
