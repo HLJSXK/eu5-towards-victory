@@ -308,43 +308,113 @@ tv_govhouse.40 = {
 	option = {
 		name = tv_govhouse.40.a
 		trigger = { var:tv_govhouse_pending_tactic ?= 1 }
-		tv_govhouse_approve_pending_tactic_effect = yes
+		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		if = {
+			limit = {
+				at_war = yes
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_steady_advance years = -1 mode = replace }
+			}
+		}
 	}
 
 	option = {
 		name = tv_govhouse.40.b
 		trigger = { var:tv_govhouse_pending_tactic ?= 2 }
-		tv_govhouse_approve_pending_tactic_effect = yes
+		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		if = {
+			limit = {
+				at_war = yes
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_careful_advance years = -1 mode = replace }
+			}
+		}
 	}
 
 	option = {
 		name = tv_govhouse.40.c
 		trigger = { var:tv_govhouse_pending_tactic ?= 3 }
-		tv_govhouse_approve_pending_tactic_effect = yes
+		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		if = {
+			limit = {
+				at_war = yes
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_rapid_advance years = -1 mode = replace }
+			}
+		}
 	}
 
 	option = {
 		name = tv_govhouse.40.e
 		trigger = { var:tv_govhouse_pending_tactic ?= 4 }
-		tv_govhouse_approve_pending_tactic_effect = yes
+		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		if = {
+			limit = {
+				at_war = yes
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_ambush_general years = -1 mode = replace }
+			}
+		}
 	}
 
 	option = {
 		name = tv_govhouse.40.f
 		trigger = { var:tv_govhouse_pending_tactic ?= 5 }
-		tv_govhouse_approve_pending_tactic_effect = yes
+		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		if = {
+			limit = {
+				at_war = yes
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_surprise_general years = -1 mode = replace }
+			}
+		}
 	}
 
 	option = {
 		name = tv_govhouse.40.g
 		trigger = { var:tv_govhouse_pending_tactic ?= 6 }
-		tv_govhouse_approve_pending_tactic_effect = yes
+		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		if = {
+			limit = {
+				at_war = yes
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_guerrilla years = -1 mode = replace }
+			}
+		}
 	}
 
 	option = {
 		name = tv_govhouse.40.h
 		trigger = { var:tv_govhouse_pending_tactic ?= 7 }
-		tv_govhouse_approve_pending_tactic_effect = yes
+		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		if = {
+			limit = {
+				at_war = yes
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_siege_relief years = -1 mode = replace }
+			}
+		}
 	}
 
 	option = {

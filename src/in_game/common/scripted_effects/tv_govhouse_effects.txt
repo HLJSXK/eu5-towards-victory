@@ -325,55 +325,6 @@ tv_govhouse_remove_tactic_modifiers_effect = {
 	}
 }
 
-tv_govhouse_apply_tactic_effect = {
-	tv_govhouse_remove_tactic_modifiers_effect = yes
-	if = {
-		limit = { has_variable = tv_govhouse_active_tactic }
-		if = {
-			limit = { var:tv_govhouse_active_tactic ?= 1 }
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_steady_advance years = -1 mode = replace }
-			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 2 }
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_careful_advance years = -1 mode = replace }
-			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 3 }
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_rapid_advance years = -1 mode = replace }
-			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 4 }
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_ambush_general years = -1 mode = replace }
-			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 5 }
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_surprise_general years = -1 mode = replace }
-			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 6 }
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_guerrilla years = -1 mode = replace }
-			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 7 }
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_siege_relief years = -1 mode = replace }
-			}
-		}
-	}
-}
-
 tv_govhouse_clear_tactic_effect = {
 	tv_govhouse_remove_tactic_modifiers_effect = yes
 	remove_variable = tv_govhouse_pending_tactic
@@ -509,9 +460,9 @@ tv_govhouse_approve_pending_tactic_effect = {
 			var:tv_conquest_general_char ?= { is_alive = yes }
 		}
 		hidden_effect = {
+			tv_govhouse_remove_tactic_modifiers_effect = yes
 			set_variable = { name = tv_govhouse_active_tactic value = var:tv_govhouse_pending_tactic }
 			remove_variable = tv_govhouse_pending_tactic
-			tv_govhouse_apply_tactic_effect = yes
 		}
 	}
 	else = {
