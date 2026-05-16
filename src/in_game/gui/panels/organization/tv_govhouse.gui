@@ -684,79 +684,482 @@ organization_panel = {
 				}
 
 				blockoverride "common_bottom_content" {
-					widget = {
-						size = { 470 148 }
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						ignoreinvisible = yes
+						margin = { 4 4 }
+						spacing = 6
 
-						vbox = {
+						text_single = {
 							layoutpolicy_horizontal = expanding
-							ignoreinvisible = yes
-							margin = { 4 6 }
-							spacing = 4
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').IsSet)]"
+							text = "TV_GOVHOUSE_TACTICS_IDLE"
+							multiline = yes
+							align = nobaseline|left
+						}
+
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_pending_tactic').IsSet]"
+							text = "TV_GOVHOUSE_TACTICS_PENDING"
+							multiline = yes
+							align = nobaseline|left
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)1')]"
+							spacing = 8
+							margin = { 8 8 }
+							using = bg_paper_card
+							using = bg_cabinet_card_frame
 
 							text_single = {
-								layoutpolicy_horizontal = expanding
-								visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').IsSet)]"
-								text = "TV_GOVHOUSE_TACTICS_IDLE"
-								multiline = yes
-								align = nobaseline|left
+								size = { 30 30 }
+								raw_text = "@normal_military_stance!"
+								tooltip = "TV_GOVHOUSE_TACTIC_STEADY_ADVANCE"
+								align = nobaseline|center
 							}
 
-							text_single = {
+							vbox = {
 								layoutpolicy_horizontal = expanding
-								visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_pending_tactic').IsSet]"
-								text = "TV_GOVHOUSE_TACTICS_PENDING"
-								multiline = yes
-								align = nobaseline|left
+								spacing = 3
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_GOVHOUSE_TACTIC_STEADY_ADVANCE"
+									default_format = "#yellow_titles"
+									align = nobaseline|left
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									text_single = {
+										size = { 18 20 }
+										raw_text = "@morale!"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_LAND_MORALE"
+										align = nobaseline|center
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_LAND_MORALE"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+5%"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
 							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)2')]"
+							spacing = 8
+							margin = { 8 8 }
+							using = bg_paper_card
+							using = bg_cabinet_card_frame
 
 							text_single = {
-								layoutpolicy_horizontal = expanding
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)1')]"
-								text = "TV_GOVHOUSE_TACTIC_STEADY_ADVANCE_FULL"
-								multiline = yes
-								align = nobaseline|left
+								size = { 30 30 }
+								raw_text = "@defensive_military_stance!"
+								tooltip = "TV_GOVHOUSE_TACTIC_CAREFUL_ADVANCE"
+								align = nobaseline|center
 							}
-							text_single = {
+
+							vbox = {
 								layoutpolicy_horizontal = expanding
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)2')]"
-								text = "TV_GOVHOUSE_TACTIC_CAREFUL_ADVANCE_FULL"
-								multiline = yes
-								align = nobaseline|left
+								spacing = 3
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_GOVHOUSE_TACTIC_CAREFUL_ADVANCE"
+									default_format = "#yellow_titles"
+									align = nobaseline|left
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									text_single = {
+										size = { 18 20 }
+										raw_text = "@defensive_military_stance!"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_ARMY_MOVEMENT_SPEED"
+										align = nobaseline|center
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_ARMY_MOVEMENT_SPEED"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "-10%"
+										default_format = "#color_red;bold"
+										align = nobaseline|right
+									}
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									text_single = {
+										size = { 18 20 }
+										raw_text = "@combat_power!"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_DISCIPLINE"
+										align = nobaseline|center
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_DISCIPLINE"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+5%"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
 							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)3')]"
+							spacing = 8
+							margin = { 8 8 }
+							using = bg_paper_card
+							using = bg_cabinet_card_frame
+
 							text_single = {
-								layoutpolicy_horizontal = expanding
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)3')]"
-								text = "TV_GOVHOUSE_TACTIC_RAPID_ADVANCE_FULL"
-								multiline = yes
-								align = nobaseline|left
+								size = { 30 30 }
+								raw_text = "@aggressive_military_stance!"
+								tooltip = "TV_GOVHOUSE_TACTIC_RAPID_ADVANCE"
+								align = nobaseline|center
 							}
-							text_single = {
+
+							vbox = {
 								layoutpolicy_horizontal = expanding
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)4')]"
-								text = "TV_GOVHOUSE_TACTIC_AMBUSH_FULL"
-								multiline = yes
-								align = nobaseline|left
+								spacing = 3
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_GOVHOUSE_TACTIC_RAPID_ADVANCE"
+									default_format = "#yellow_titles"
+									align = nobaseline|left
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									text_single = {
+										size = { 18 20 }
+										raw_text = "@aggressive_military_stance!"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_ARMY_MOVEMENT_SPEED"
+										align = nobaseline|center
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_ARMY_MOVEMENT_SPEED"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+20%"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									text_single = {
+										size = { 18 20 }
+										raw_text = "@morale!"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_LAND_MORALE"
+										align = nobaseline|center
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_LAND_MORALE"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+10%"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									text_single = {
+										size = { 18 20 }
+										raw_text = "@military_panel!"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_MILITARY_TACTICS"
+										align = nobaseline|center
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_MILITARY_TACTICS"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "-0.2"
+										default_format = "#color_red;bold"
+										align = nobaseline|right
+									}
+								}
 							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)4')]"
+							spacing = 8
+							margin = { 8 8 }
+							using = bg_paper_card
+							using = bg_cabinet_card_frame
+
 							text_single = {
-								layoutpolicy_horizontal = expanding
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)5')]"
-								text = "TV_GOVHOUSE_TACTIC_SURPRISE_FULL"
-								multiline = yes
-								align = nobaseline|left
+								size = { 30 30 }
+								raw_text = "@passive_military_stance!"
+								tooltip = "TV_GOVHOUSE_TACTIC_AMBUSH"
+								align = nobaseline|center
 							}
-							text_single = {
+
+							vbox = {
 								layoutpolicy_horizontal = expanding
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)6')]"
-								text = "TV_GOVHOUSE_TACTIC_GUERRILLA_FULL"
-								multiline = yes
-								align = nobaseline|left
+								spacing = 3
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_GOVHOUSE_TACTIC_AMBUSH"
+									default_format = "#yellow_titles"
+									align = nobaseline|left
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									text_single = {
+										size = { 18 20 }
+										raw_text = "@combat_power!"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_COMMANDER_COMBAT_BONUS"
+										align = nobaseline|center
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_COMMANDER_COMBAT_BONUS"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+1"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
 							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)5')]"
+							spacing = 8
+							margin = { 8 8 }
+							using = bg_paper_card
+							using = bg_cabinet_card_frame
+
 							text_single = {
+								size = { 30 30 }
+								raw_text = "@aggressive_military_stance!"
+								tooltip = "TV_GOVHOUSE_TACTIC_SURPRISE"
+								align = nobaseline|center
+							}
+
+							vbox = {
 								layoutpolicy_horizontal = expanding
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)7')]"
-								text = "TV_GOVHOUSE_TACTIC_SIEGE_RELIEF_FULL"
-								multiline = yes
-								align = nobaseline|left
+								spacing = 3
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_GOVHOUSE_TACTIC_SURPRISE"
+									default_format = "#yellow_titles"
+									align = nobaseline|left
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									text_single = {
+										size = { 18 20 }
+										raw_text = "@combat_power!"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_COMMANDER_COMBAT_BONUS"
+										align = nobaseline|center
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_COMMANDER_COMBAT_BONUS"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+1"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
+							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)6')]"
+							spacing = 8
+							margin = { 8 8 }
+							using = bg_paper_card
+							using = bg_cabinet_card_frame
+
+							text_single = {
+								size = { 30 30 }
+								raw_text = "@supportive_military_stance!"
+								tooltip = "TV_GOVHOUSE_TACTIC_GUERRILLA"
+								align = nobaseline|center
+							}
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 3
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_GOVHOUSE_TACTIC_GUERRILLA"
+									default_format = "#yellow_titles"
+									align = nobaseline|left
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									text_single = {
+										size = { 18 20 }
+										raw_text = "@supportive_military_stance!"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_ARMY_MOVEMENT_SPEED"
+										align = nobaseline|center
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_ARMY_MOVEMENT_SPEED"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+10%"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									text_single = {
+										size = { 18 20 }
+										raw_text = "@military_panel!"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_MILITARY_TACTICS"
+										align = nobaseline|center
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_MILITARY_TACTICS"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+0.2"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
+							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)7')]"
+							spacing = 8
+							margin = { 8 8 }
+							using = bg_paper_card
+							using = bg_cabinet_card_frame
+
+							text_single = {
+								size = { 30 30 }
+								raw_text = "@siege_raider_military_stance!"
+								tooltip = "TV_GOVHOUSE_TACTIC_SIEGE_RELIEF"
+								align = nobaseline|center
+							}
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 3
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_GOVHOUSE_TACTIC_SIEGE_RELIEF"
+									default_format = "#yellow_titles"
+									align = nobaseline|left
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									text_single = {
+										size = { 18 20 }
+										raw_text = "@siege_raider_military_stance!"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_SIEGE_ABILITY"
+										align = nobaseline|center
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_SIEGE_ABILITY"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+10%"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
 							}
 						}
 					}
