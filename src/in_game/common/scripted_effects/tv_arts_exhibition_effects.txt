@@ -725,16 +725,16 @@ tv_prune_arts_exchange_participants_effect = {
 tv_roll_arts_exchange_monthly_events_effect = {
 	random_list = {
 		1 = {
-			trigger = { list_size = { name = tv_arts_exchange_participants value >= 2 } }
+			trigger = { variable_list_size = { name = tv_arts_exchange_participants value >= 2 } }
 			trigger_event_non_silently = { id = tv_arts_exhibition.401 }
 		}
 		1 = {
-			trigger = { list_size = { name = tv_arts_exchange_participants value >= 1 } }
+			trigger = { variable_list_size = { name = tv_arts_exchange_participants value >= 1 } }
 			trigger_event_non_silently = { id = tv_arts_exhibition.402 }
 		}
 		1 = {
 			trigger = {
-				list_size = { name = tv_arts_exchange_participants value >= 2 }
+				variable_list_size = { name = tv_arts_exchange_participants value >= 2 }
 				any_in_list = {
 					variable = tv_arts_exchange_participants
 					is_alive = yes
@@ -745,15 +745,15 @@ tv_roll_arts_exchange_monthly_events_effect = {
 			trigger_event_non_silently = { id = tv_arts_exhibition.403 }
 		}
 		1 = {
-			trigger = { list_size = { name = tv_arts_exchange_participants value >= 1 } }
+			trigger = { variable_list_size = { name = tv_arts_exchange_participants value >= 1 } }
 			trigger_event_non_silently = { id = tv_arts_exhibition.404 }
 		}
 		1 = {
-			trigger = { list_size = { name = tv_arts_exchange_foreign_participants value >= 1 } }
+			trigger = { variable_list_size = { name = tv_arts_exchange_foreign_participants value >= 1 } }
 			trigger_event_non_silently = { id = tv_arts_exhibition.405 }
 		}
 		1 = {
-			trigger = { list_size = { name = tv_arts_exchange_participants value >= 1 } }
+			trigger = { variable_list_size = { name = tv_arts_exchange_participants value >= 1 } }
 			trigger_event_non_silently = { id = tv_arts_exhibition.406 }
 		}
 		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.407 } }
