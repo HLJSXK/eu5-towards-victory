@@ -186,7 +186,7 @@ Governor's House War Tent file notes: `src/in_game/common/scripted_effects/tv_go
 `tv_govhouse.dds`, `tv_diplomatic_alliance.dds`, `tv_arts_exhibition.dds`, and `tv_academy_of_sciences.dds`.
 They are copied from the Victory Path panel icons so shared IO title/list/tooltip UI no longer falls back to the generic international organization icon.
 
-`src/main_menu/gfx/interface/icons/laws/` contains seven Academy law icon assets copied from vanilla advance icons, one per Academy law category.
+`src/main_menu/gfx/interface/icons/laws/` contains seven Academy law icon assets copied from vanilla advance icons and six Governor's House law icon assets copied from related vanilla law icons, one per custom law category.
 
 ## Script Reference
 

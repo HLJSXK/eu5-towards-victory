@@ -110,7 +110,7 @@ Vanilla IOs such as HRE and Union use this pattern. Keep `monthly_change` entrie
 
 #### International Organization Custom Tab Scroll Areas
 
-The shared organization panel's `organization_custom_content` slot sits inside a vbox followed by an `expand` spacer. If custom content begins with a root `scrollarea`, use a bounded autosizing viewport: give the scrollarea a small `minimumsize`, a `maximumsize`, and `autoresizescrollarea = yes`, then make the `scrollwidget` content establish natural height with `set_parent_size_to_minimum` and/or `layoutpolicy_vertical = fixed`. An unbounded expanding scrollarea can collapse; an oversized minimum viewport can show content but leave no useful overflow for scrolling.
+The shared organization panel's `organization_custom_content` slot sits inside an inner vbox with `margin_top = 5`, followed by an `expand` spacer. If custom content begins with a root `scrollarea`, use a bounded autosizing viewport: give the scrollarea a small `minimumsize`, a `maximumsize`, and `autoresizescrollarea = yes`, then make the `scrollwidget` content establish natural height with `set_parent_size_to_minimum` and/or `layoutpolicy_vertical = fixed`. An unbounded expanding scrollarea can collapse; an oversized minimum viewport can show content but leave no useful overflow for scrolling. When the custom tab content must sit flush to the tab top, wrap the scrollarea in a `vbox` with `margin_top = -5` and add `expand = {}` after the scrollarea so any spare wrapper height is allocated below it; `margin_top` directly on `scrollarea` is ignored by the engine and logs an unsupported-property error.
 
 #### International Organization Law Votes and Special Status Power
 

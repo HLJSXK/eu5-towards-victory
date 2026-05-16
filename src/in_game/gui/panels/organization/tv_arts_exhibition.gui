@@ -528,25 +528,29 @@ organization_panel = {
 	}
 
 	blockoverride "organization_custom_content" {
-		scrollarea = {
-			scrollbarpolicy_horizontal = always_off
+		vbox = {
+			margin_top = -5
 			layoutpolicy_horizontal = expanding
-			minimumsize = { -1 60 }
-			maximumsize = { -1 430 }
-			autoresizescrollarea = yes
 
-			scrollbar_vertical = {
-				using = Scrollbar_Vertical
-			}
+			scrollarea = {
+				scrollbarpolicy_horizontal = always_off
+				layoutpolicy_horizontal = expanding
+				minimumsize = { -1 60 }
+				maximumsize = { -1 430 }
+				autoresizescrollarea = yes
 
-			scrollwidget = {
-				vbox = {
-					set_parent_size_to_minimum = yes
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = fixed
-					ignoreinvisible = yes
-					spacing = 10
-					margin = { 10 2 }
+				scrollbar_vertical = {
+					using = Scrollbar_Vertical
+				}
+
+				scrollwidget = {
+					vbox = {
+						set_parent_size_to_minimum = yes
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						ignoreinvisible = yes
+						spacing = 10
+						margin = { 10 2 }
 
 			card_common = {
 				maximumsize = { 500 -1 }
@@ -881,5 +885,8 @@ organization_panel = {
 				}
 			}
 		}
+	}
+		}
+			expand = {}
 	}
 }

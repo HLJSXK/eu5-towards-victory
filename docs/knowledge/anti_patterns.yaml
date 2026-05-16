@@ -284,11 +284,11 @@
 - id: io_custom_tab_scrollarea_collapses_without_minimum
   pattern: ''
   bad: "Using a root scrollarea directly inside organization_custom_content while its scrollwidget child lacks a natural/fixed vertical height"
-  correction: "Use a bounded autosizing viewport: give the root scrollarea a small minimumsize, a maximumsize, and autoresizescrollarea = yes, then make the scrollwidget content establish natural height with set_parent_size_to_minimum and/or layoutpolicy_vertical = fixed."
+  correction: "Use a bounded autosizing viewport: give the root scrollarea a small minimumsize, a maximumsize, and autoresizescrollarea = yes, then make the scrollwidget content establish natural height with set_parent_size_to_minimum and/or layoutpolicy_vertical = fixed. If it must sit flush to the custom tab top, wrap the scrollarea in a vbox with margin_top = -5 and put expand = {} after the scrollarea so spare height stays below it; do not put margin_top on the scrollarea itself."
   category: gui
   scope: any
   source: "reference_game_files/game/in_game/gui/panels/organization/hre.gui:2001-2014"
-  notes: "The vanilla custom content slot sits inside an inner vbox followed by an expand spacer. An unbounded expanding scrollarea can collapse; an oversized minimum viewport can show content but remove useful overflow. The HRE pattern uses min+max+autoresize so the viewport appears and still scrolls when content exceeds the cap."
+  notes: "The vanilla custom content slot sits inside an inner vbox with margin_top = 5 followed by an expand spacer. An unbounded expanding scrollarea can collapse; an oversized minimum viewport can show content but remove useful overflow. The HRE pattern uses min+max+autoresize so the viewport appears and still scrolls when content exceeds the cap. uberscrollarea does not handle margin_top; the engine logs 'Property margin_top not handled' if it is placed directly on scrollarea. A wrapper vbox that is taller than its capped scrollarea also needs a trailing expand spacer, mirroring vanilla common.gui, otherwise the scrollarea can sit lower inside the wrapper."
 
 - id: io_character_card_sort_highlight_without_filtered_list
   pattern: ''
