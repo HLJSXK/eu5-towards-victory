@@ -1142,7 +1142,7 @@ paths:
 
     progress_pct_body: |
       # ── Cultural Victory ──────────────────────────────────────────────────────
-      # piecewise: thresholds 100/200/400/800/1600 → each milestone = +20%
+      # piecewise: thresholds 50/200/400/800/1600 → each milestone = +20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -1150,17 +1150,17 @@ paths:
       			has_variable = tv_cultural_influence_points
       		}
       	}
-      	# Seg 1: 0–100 → 0–20
+      	# Seg 1: 0–50 → 0–20
       	set_variable = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
       	change_variable = { name = tv_cultural_progress_pct multiply = 20 }
-      	change_variable = { name = tv_cultural_progress_pct divide = 100 }
-      	# Seg 2: 100–200 → 20–40
+      	change_variable = { name = tv_cultural_progress_pct divide = 50 }
+      	# Seg 2: 50–200 → 20–40
       	if = {
-      		limit = { var:tv_cultural_influence_points >= 100 }
+      		limit = { var:tv_cultural_influence_points >= 50 }
       		set_variable = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
-      		change_variable = { name = tv_cultural_progress_pct subtract = 100 }
+      		change_variable = { name = tv_cultural_progress_pct subtract = 50 }
       		change_variable = { name = tv_cultural_progress_pct multiply = 20 }
-      		change_variable = { name = tv_cultural_progress_pct divide = 100 }
+      		change_variable = { name = tv_cultural_progress_pct divide = 150 }
       		change_variable = { name = tv_cultural_progress_pct add = 20 }
       	}
       	# Seg 3: 200–400 → 40–60
@@ -1213,7 +1213,7 @@ paths:
       - n: 1
         is_short_term: false
         is_long_term: false
-        threshold: 100
+        threshold: 50
         extra_trigger_block: null
         modifier:
           hire_artist_cost_modifier: -0.50
@@ -1236,11 +1236,11 @@ paths:
             en: "Cultural Victory — Milestone 1"
             zh: "文化胜利 — 里程碑1"
           meaning:
-            en: "100 [tv_cultural_influence_points|e]. Your court draws its first [artist|e]s and patrons — a cultural legacy begins."
-            zh: "100 [tv_cultural_influence_points|e]。你的宫廷吸引了第一批[artist|e]与赞助人——文化遗产由此发轫。"
+            en: "50 [tv_cultural_influence_points|e]. Your court draws its first [artist|e]s and patrons — a cultural legacy begins."
+            zh: "50 [tv_cultural_influence_points|e]。你的宫廷吸引了第一批[artist|e]与赞助人——文化遗产由此发轫。"
           trigger_desc:
-            en: "[tv_cultural_influence_points|e] ≥ 100"
-            zh: "[tv_cultural_influence_points|e] ≥ 100"
+            en: "[tv_cultural_influence_points|e] ≥ 50"
+            zh: "[tv_cultural_influence_points|e] ≥ 50"
           event_title:
             en: "A Patron of the Arts"
             zh: "艺术赞助人"
@@ -1928,6 +1928,6 @@ on_actions:
   - hook: on_work_of_art_created
     effect_body: |
       root.owner ?= {
-        tv_change_cultural_influence_points_effect = { value = 10 }
+        tv_change_cultural_influence_points_effect = { value = 3 }
       }
 

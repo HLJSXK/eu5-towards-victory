@@ -666,7 +666,7 @@ tv_update_all_progress_pct_effect = {
 	}
 
 	# ── Cultural Victory ──────────────────────────────────────────────────────
-	# piecewise: thresholds 100/200/400/800/1600 → each milestone = +20%
+	# piecewise: thresholds 50/200/400/800/1600 → each milestone = +20%
 	if = {
 		limit = {
 			custom_tooltip = {
@@ -674,17 +674,17 @@ tv_update_all_progress_pct_effect = {
 				has_variable = tv_cultural_influence_points
 			}
 		}
-		# Seg 1: 0–100 → 0–20
+		# Seg 1: 0–50 → 0–20
 		set_variable = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
 		change_variable = { name = tv_cultural_progress_pct multiply = 20 }
-		change_variable = { name = tv_cultural_progress_pct divide = 100 }
-		# Seg 2: 100–200 → 20–40
+		change_variable = { name = tv_cultural_progress_pct divide = 50 }
+		# Seg 2: 50–200 → 20–40
 		if = {
-			limit = { var:tv_cultural_influence_points >= 100 }
+			limit = { var:tv_cultural_influence_points >= 50 }
 			set_variable = { name = tv_cultural_progress_pct value = var:tv_cultural_influence_points }
-			change_variable = { name = tv_cultural_progress_pct subtract = 100 }
+			change_variable = { name = tv_cultural_progress_pct subtract = 50 }
 			change_variable = { name = tv_cultural_progress_pct multiply = 20 }
-			change_variable = { name = tv_cultural_progress_pct divide = 100 }
+			change_variable = { name = tv_cultural_progress_pct divide = 150 }
 			change_variable = { name = tv_cultural_progress_pct add = 20 }
 		}
 		# Seg 3: 200–400 → 40–60
