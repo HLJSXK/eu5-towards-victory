@@ -74,87 +74,6 @@ tv_govhouse = {
 				}
 			}
 		}
-		tv_govhouse_power_balance = {
-			format = "TV_GOVHOUSE_POWER_BALANCE_FORMAT"
-			change_format = "PERCENTAGE_CHANGE_FORMAT"
-			min = 0
-			max = 1
-			start = 0
-			monthly_change = {
-				if = {
-					limit = {
-						international_organization_has_leader = yes
-						leader_country ?= {
-							has_ruler = yes
-							custom_tooltip = {
-								text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
-								has_variable = tv_conquest_general_char
-							}
-							var:tv_conquest_general_char ?= { is_alive = yes }
-						}
-						var:tv_govhouse_power_balance < var:tv_govhouse_power_equilibrium
-					}
-					add = {
-						desc = "TV_GOVHOUSE_POWER_BALANCE_TOWARD_GENERAL"
-						value = var:tv_govhouse_power_equilibrium
-						subtract = var:tv_govhouse_power_balance
-						min = 0
-						max = 0.01
-					}
-				}
-				if = {
-					limit = {
-						international_organization_has_leader = yes
-						leader_country ?= {
-							has_ruler = yes
-							custom_tooltip = {
-								text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
-								has_variable = tv_conquest_general_char
-							}
-							var:tv_conquest_general_char ?= { is_alive = yes }
-						}
-						var:tv_govhouse_power_balance > var:tv_govhouse_power_equilibrium
-					}
-					subtract = {
-						desc = "TV_GOVHOUSE_POWER_BALANCE_TOWARD_CROWN"
-						value = var:tv_govhouse_power_balance
-						subtract = var:tv_govhouse_power_equilibrium
-						min = 0
-						max = 0.01
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							AND = {
-								international_organization_has_leader = yes
-								leader_country ?= {
-									has_ruler = yes
-									custom_tooltip = {
-										text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
-										has_variable = tv_conquest_general_char
-									}
-									var:tv_conquest_general_char ?= { is_alive = yes }
-								}
-							}
-						}
-					}
-					subtract = {
-						desc = "TV_GOVHOUSE_POWER_BALANCE_NO_GENERAL"
-						value = var:tv_govhouse_power_balance
-						min = 0
-						max = 0.01
-					}
-				}
-			}
-		}
-		tv_govhouse_power_equilibrium = {
-			format = "TV_GOVHOUSE_POWER_BALANCE_FORMAT"
-			change_format = "PERCENTAGE_CHANGE_FORMAT"
-			min = 0
-			max = 1
-			start = 0
-		}
 		tv_govhouse_power_consolidation = {
 			format = "TV_GOVHOUSE_POWER_BALANCE_FORMAT"
 			change_format = "PERCENTAGE_CHANGE_FORMAT"
@@ -205,27 +124,31 @@ tv_govhouse = {
 				}
 			}
 		}
-	}
-
-	modifier = {
-	}
-
-	monthly_effect = {
-		hidden_effect = {
-			if = {
-				limit = {
-					leader_country ?= {
-						has_ruler = yes
-						custom_tooltip = {
-							text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
-							has_variable = tv_conquest_general_char
-						}
-						var:tv_conquest_general_char ?= { is_alive = yes }
-					}
+		tv_govhouse_power_equilibrium = {
+			format = "TV_GOVHOUSE_POWER_BALANCE_FORMAT"
+			change_format = "PERCENTAGE_CHANGE_FORMAT"
+			min = 0
+			max = 1
+			start = 0
+			monthly_change = {
+				subtract = {
+					desc = "TV_GOVHOUSE_POWER_EQUILIBRIUM_RESET"
+					value = var:tv_govhouse_power_equilibrium
 				}
-				set_variable = {
-					name = tv_govhouse_power_equilibrium
-					value = {
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_ruler = yes
+							custom_tooltip = {
+								text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+								has_variable = tv_conquest_general_char
+							}
+							var:tv_conquest_general_char ?= { is_alive = yes }
+						}
+					}
+					add = {
+						desc = "TV_GOVHOUSE_POWER_EQUILIBRIUM_RECALCULATED"
 						value = leader_country.var:tv_conquest_general_char.total_abilities
 						divide = {
 							value = leader_country.ruler_or_regent.total_abilities
@@ -238,9 +161,88 @@ tv_govhouse = {
 					}
 				}
 			}
-			else = {
-				set_variable = { name = tv_govhouse_power_equilibrium value = 0 }
+		}
+		tv_govhouse_power_balance = {
+			format = "TV_GOVHOUSE_POWER_BALANCE_FORMAT"
+			change_format = "PERCENTAGE_CHANGE_FORMAT"
+			min = 0
+			max = 1
+			start = 0
+			monthly_change = {
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_ruler = yes
+							custom_tooltip = {
+								text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+								has_variable = tv_conquest_general_char
+							}
+							var:tv_conquest_general_char ?= { is_alive = yes }
+						}
+						var:tv_govhouse_power_balance < var:tv_govhouse_power_equilibrium
+					}
+					add = {
+						desc = "TV_GOVHOUSE_POWER_BALANCE_BELOW_EQUILIBRIUM"
+						value = var:tv_govhouse_power_equilibrium
+						subtract = var:tv_govhouse_power_balance
+						min = 0
+						max = 0.01
+					}
+				}
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_ruler = yes
+							custom_tooltip = {
+								text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+								has_variable = tv_conquest_general_char
+							}
+							var:tv_conquest_general_char ?= { is_alive = yes }
+						}
+						var:tv_govhouse_power_balance > var:tv_govhouse_power_equilibrium
+					}
+					subtract = {
+						desc = "TV_GOVHOUSE_POWER_BALANCE_ABOVE_EQUILIBRIUM"
+						value = var:tv_govhouse_power_balance
+						subtract = var:tv_govhouse_power_equilibrium
+						min = 0
+						max = 0.01
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							AND = {
+								international_organization_has_leader = yes
+								leader_country ?= {
+									has_ruler = yes
+									custom_tooltip = {
+										text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+										has_variable = tv_conquest_general_char
+									}
+									var:tv_conquest_general_char ?= { is_alive = yes }
+								}
+							}
+						}
+					}
+					subtract = {
+						desc = "TV_GOVHOUSE_POWER_BALANCE_NO_GENERAL"
+						value = var:tv_govhouse_power_balance
+						min = 0
+						max = 0.01
+					}
+				}
 			}
+		}
+	}
+
+	modifier = {
+	}
+
+	monthly_effect = {
+		hidden_effect = {
 			leader_country ?= {
 				if = {
 					limit = {
