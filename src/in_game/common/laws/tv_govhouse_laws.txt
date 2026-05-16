@@ -45,8 +45,7 @@ tv_govhouse_expedition_goal_law = {
 			always = yes
 		}
 		country_modifier = {
-			tax_income_efficiency = 0.10
-			global_production_efficiency = 0.05
+			tax_income_efficiency = 0.03
 			global_garrison_size_modifier = 0.10
 			monthly_rebel_growth = 0.0005
 			global_bureaucracy_maintenance_cost_modifier = 0.10
@@ -107,7 +106,6 @@ tv_govhouse_governor_appointment_law = {
 		country_modifier = {
 			monthly_legitimacy = 0.10
 			global_monthly_control = 0.001
-			global_bureaucracy_maintenance_cost_modifier = 0.05
 			global_estate_target_satisfaction = -0.025
 		}
 	}
@@ -118,11 +116,8 @@ tv_govhouse_governor_appointment_law = {
 			always = yes
 		}
 		country_modifier = {
-			nobles_estate_target_satisfaction = 0.025
-			global_nobles_estate_power = 0.15
-			global_monthly_prosperity = 0.0005
-			global_max_control = -0.025
-			global_bureaucracy_maintenance_cost_modifier = -0.05
+			global_nobles_estate_power = 0.50
+			nobles_estate_target_satisfaction = 0.05
 		}
 	}
 
@@ -132,11 +127,8 @@ tv_govhouse_governor_appointment_law = {
 			always = yes
 		}
 		country_modifier = {
-			tax_income_efficiency = 0.15
+			global_burghers_estate_power = 0.50
 			trade_income = 0.10
-			global_burghers_estate_power = 0.15
-			pop_join_rebel_threshold = -0.025
-			monthly_rebel_growth = 0.0005
 		}
 	}
 
@@ -146,10 +138,8 @@ tv_govhouse_governor_appointment_law = {
 			always = yes
 		}
 		country_modifier = {
-			siege_ability = 0.05
+			siege_ability = 0.10
 			monthly_army_tradition = 0.05
-			global_monthly_control = 0.002
-			global_soldiers_pop_growth = 0.00025
 			monthly_legitimacy = -0.05
 		}
 	}
@@ -178,9 +168,8 @@ tv_govhouse_local_autonomy_law = {
 			always = yes
 		}
 		country_modifier = {
-			tax_income_efficiency = 0.10
+			tax_income_efficiency = 0.03
 			global_monthly_control = 0.002
-			global_bureaucracy_maintenance_cost_modifier = 0.15
 			global_estate_target_satisfaction = -0.025
 			monthly_rebel_growth = 0.0005
 		}
@@ -206,11 +195,9 @@ tv_govhouse_local_autonomy_law = {
 			always = yes
 		}
 		country_modifier = {
-			colonial_migration_size_modifier = 0.10
+			colonial_migration_size_modifier = 0.25
 			global_foreign_build_buildings_cost = -0.10
-			global_burghers_estate_power = 0.10
-			global_bureaucracy_maintenance_cost_modifier = -0.05
-			subject_loyalty = -5
+			global_burghers_estate_power = 0.50
 		}
 	}
 
@@ -221,10 +208,8 @@ tv_govhouse_local_autonomy_law = {
 		}
 		country_modifier = {
 			monthly_rebel_growth = -0.0005
-			global_estate_target_satisfaction = 0.05
-			global_bureaucracy_maintenance_cost_modifier = -0.05
-			global_pop_assimilation_speed_modifier = -0.15
-			global_pop_conversion_speed_modifier = -0.10
+			global_pop_assimilation_speed_modifier = -0.40
+			global_pop_conversion_speed_modifier = -0.40
 		}
 	}
 }
@@ -254,8 +239,7 @@ tv_govhouse_religious_mission_law = {
 		country_modifier = {
 			tolerance_heathen = 1
 			tolerance_heretic = 1
-			monthly_rebel_growth = -0.0005
-			global_pop_conversion_speed_modifier = -0.05
+			global_pop_conversion_speed_modifier = -0.20
 		}
 	}
 
@@ -265,8 +249,7 @@ tv_govhouse_religious_mission_law = {
 			always = yes
 		}
 		country_modifier = {
-			global_pop_conversion_speed_modifier = 0.10
-			building_missionary_effort_modifier = 0.10
+			global_pop_conversion_speed_modifier = 0.20
 			global_clergy_estate_power = 0.10
 			diplomatic_reputation = -1
 		}
@@ -278,12 +261,10 @@ tv_govhouse_religious_mission_law = {
 			always = yes
 		}
 		country_modifier = {
-			global_pop_conversion_speed_modifier = 0.15
+			global_pop_conversion_speed_modifier = 0.40
 			land_morale_modifier = 0.05
-			global_defensive = 0.05
 			clergy_estate_target_satisfaction = 0.025
-			global_clergy_estate_power = 0.15
-			monthly_rebel_growth = 0.0005
+			global_clergy_estate_power = 0.50
 		}
 	}
 
@@ -295,9 +276,7 @@ tv_govhouse_religious_mission_law = {
 		country_modifier = {
 			tolerance_heathen = 2
 			tolerance_heretic = 2
-			trade_income = 0.05
-			global_monthly_prosperity = 0.0005
-			global_pop_conversion_speed_modifier = -0.15
+			global_pop_conversion_speed_modifier = -0.40
 		}
 	}
 }
@@ -328,7 +307,6 @@ tv_govhouse_frontier_military_law = {
 			discipline = 0.025
 			global_garrison_size_modifier = 0.10
 			global_defensive = 0.05
-			monthly_legitimacy = 0.05
 			army_maintenance_efficiency = -0.10
 		}
 	}
@@ -342,7 +320,7 @@ tv_govhouse_frontier_military_law = {
 			levy_maintenance_modifier = -0.10
 			global_army_levy_size_modifier = 0.10
 			global_monthly_control = -0.001
-			global_soldiers_pop_growth = 0.00025
+			global_soldiers_pop_growth = 0.25
 			monthly_rebel_growth = 0.0005
 		}
 	}
@@ -353,10 +331,9 @@ tv_govhouse_frontier_military_law = {
 			always = yes
 		}
 		country_modifier = {
-			colonial_migration_size_modifier = 0.10
 			global_monthly_control = 0.002
 			global_monthly_prosperity = 0.0005
-			global_soldiers_pop_growth = 0.00025
+			global_soldiers_pop_growth = 0.25
 			global_estate_target_satisfaction = -0.025
 		}
 	}
@@ -371,7 +348,6 @@ tv_govhouse_frontier_military_law = {
 			mercenary_range_modifier = 0.25
 			army_movement_speed = 0.05
 			monthly_war_exhaustion = 0.025
-			monthly_legitimacy = -0.05
 		}
 	}
 }
@@ -400,8 +376,6 @@ tv_govhouse_imperial_integration_law = {
 		}
 		country_modifier = {
 			subject_income_modifier = 0.10
-			tax_income_efficiency = 0.05
-			global_production_efficiency = 0.05
 			global_bureaucracy_maintenance_cost_modifier = 0.05
 			subject_loyalty = -5
 		}
@@ -430,7 +404,6 @@ tv_govhouse_imperial_integration_law = {
 			global_pop_assimilation_speed_modifier = 0.15
 			global_integration_speed_modifier = 0.15
 			global_monthly_development = 0.001
-			tax_income_efficiency = 0.05
 			global_bureaucracy_maintenance_cost_modifier = 0.20
 		}
 	}
@@ -441,9 +414,7 @@ tv_govhouse_imperial_integration_law = {
 			always = yes
 		}
 		country_modifier = {
-			tax_income_efficiency = 0.15
 			global_production_efficiency = 0.10
-			monthly_gold_income = 0.50
 			global_monthly_prosperity = -0.001
 			global_monthly_control = -0.002
 			global_integration_speed_modifier = -0.20
