@@ -527,366 +527,360 @@ organization_panel = {
 	}
 
 	blockoverride "organization_custom_content" {
-		vbox = {
-			margin_top = -5
+		margin_top = -5
+		spacing = 0
+
+		scrollarea = {
+			size = { 100% 430 }
+			scrollbarpolicy_horizontal = always_off
 			layoutpolicy_horizontal = expanding
 
-			scrollarea = {
-				scrollbarpolicy_horizontal = always_off
-				layoutpolicy_horizontal = expanding
-				minimumsize = { -1 60 }
-				maximumsize = { -1 430 }
-				autoresizescrollarea = yes
-
-				scrollbar_vertical = {
-					using = Scrollbar_Vertical
-				}
-
-				scrollwidget = {
-					vbox = {
-						set_parent_size_to_minimum = yes
-						layoutpolicy_horizontal = expanding
-						layoutpolicy_vertical = fixed
-						ignoreinvisible = yes
-						spacing = 10
-						margin = { 10 2 }
-
-			card_common = {
-				maximumsize = { 500 -1 }
-
-				blockoverride "common_header_icon_texture" {
-					texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
-				}
-
-				blockoverride "common_header_text" {
-					text = "TV_ARTS_DOMESTIC_EXHIBITION_INFO_HEADER"
-				}
-
-				blockoverride "common_bottom_content" {
-					widget = {
-						size = { 470 212 }
-						datacontext = "[InternationalOrganizationsView.GetPlayer]"
-
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							spacing = 6
-							margin = { 4 6 }
-
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = {
-									text = "TV_ARTS_OWNED_ARTWORKS_LABEL"
-									align = nobaseline
-								}
-								expand = {}
-								text_single = {
-									raw_text = "[Country.GetNumWorksOfArt|0]"
-									align = nobaseline
-								}
-							}
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = {
-									text = "TV_ARTS_LOCAL_EXHIBITION_COMMITTED_LABEL"
-									align = nobaseline
-								}
-								expand = {}
-								text_single = {
-									raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_artworks_committed').GetValue|0]"
-									align = nobaseline
-								}
-							}
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = {
-									text = "TV_ARTS_LOCAL_EXHIBITION_LOCATIONS_LABEL"
-									align = nobaseline
-								}
-								expand = {}
-								text_single = {
-									raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_location_count').GetValue|0]"
-									align = nobaseline
-								}
-							}
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = {
-									text = "TV_ARTS_LOCAL_EXHIBITION_DURATION_LABEL"
-									tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-									align = nobaseline
-								}
-								expand = {}
-								text_single = {
-									raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_duration').GetValue|0]/24"
-									tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-									align = nobaseline
-								}
-							}
-							progressbar = {
-								size = { 462 16 }
-								using = progress_bar_blue_alt
-								min = 0
-								max = 24
-								value = "[Country.MakeScope.GetVariable('tv_local_exhibition_duration').GetValue]"
-								tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-							}
-							hbox = {
-								size = { 462 22 }
-								tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-
-								widget = {
-									size = { 231 22 }
-									hbox = {
-										size = { 231 22 }
-										spacing = 1
-										hbox = {
-											spacing = 1
-											text_single = {
-												autoresize = yes
-												text = "TV_ARTS_LOCAL_EXHIBITION_TIER_1_MARKER"
-												align = nobaseline|left
-												using = Font_Size_Very_Small
-												tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-											}
-											text_single = {
-												visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)1.0')]"
-												autoresize = yes
-												raw_text = "@trigger_yes!"
-												align = nobaseline|left
-												using = Font_Size_Very_Small
-												tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-											}
-										}
-										expand = {}
-										hbox = {
-											spacing = 1
-											text_single = {
-												autoresize = yes
-												text = "TV_ARTS_LOCAL_EXHIBITION_TIER_2_MARKER"
-												align = nobaseline|right
-												using = Font_Size_Very_Small
-												tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-											}
-											text_single = {
-												visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)2.0')]"
-												autoresize = yes
-												raw_text = "@trigger_yes!"
-												align = nobaseline|right
-												using = Font_Size_Very_Small
-												tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-											}
-										}
-									}
-								}
-								widget = {
-									size = { 116 22 }
-									hbox = {
-										size = { 116 22 }
-										expand = {}
-										hbox = {
-											spacing = 1
-											text_single = {
-												autoresize = yes
-												text = "TV_ARTS_LOCAL_EXHIBITION_TIER_3_MARKER"
-												align = nobaseline|right
-												using = Font_Size_Very_Small
-												tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-											}
-											text_single = {
-												visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)3.0')]"
-												autoresize = yes
-												raw_text = "@trigger_yes!"
-												align = nobaseline|right
-												using = Font_Size_Very_Small
-												tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-											}
-										}
-									}
-								}
-								widget = {
-									size = { 115 22 }
-									hbox = {
-										size = { 115 22 }
-										expand = {}
-										hbox = {
-											spacing = 1
-											text_single = {
-												autoresize = yes
-												text = "TV_ARTS_LOCAL_EXHIBITION_TIER_4_MARKER"
-												align = nobaseline|right
-												using = Font_Size_Very_Small
-												tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-											}
-											text_single = {
-												visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)4.0')]"
-												autoresize = yes
-												raw_text = "@trigger_yes!"
-												align = nobaseline|right
-												using = Font_Size_Very_Small
-												tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
-											}
-										}
-									}
-								}
-							}
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 6
-								text_single = {
-									raw_text = "@trigger_no!"
-									tooltip = "TV_ARTS_LOCAL_EXHIBITION_COLD_TT"
-									align = nobaseline
-								}
-								progressbar = {
-									size = { 394 16 }
-									using = progress_bar_blue_alt
-									min = 0
-									max = 200
-									value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_local_exhibition_enthusiasm').GetValue]"
-								}
-								text_single = {
-									raw_text = "@trigger_yes!"
-									tooltip = "TV_ARTS_LOCAL_EXHIBITION_HOT_TT"
-									align = nobaseline
-								}
-							}
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = {
-									text = "TV_ARTS_LOCAL_EXHIBITION_ENTHUSIASM_LABEL"
-									align = nobaseline
-								}
-								expand = {}
-								text_single = {
-									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_local_exhibition_enthusiasm')]"
-									align = nobaseline
-								}
-							}
-						}
-					}
-				}
+			scrollbar_vertical = {
+				using = Scrollbar_Vertical
 			}
 
-			card_actions = {
-				minimumsize = { 500 130 }
-				maximumsize = { 500 130 }
+			scrollwidget = {
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					ignoreinvisible = yes
+					spacing = 10
+					margin = { 10 2 }
 
-				blockoverride "card_header_text" {
-					text = "MAIN_ACTIONS"
-				}
+					card_common = {
+						maximumsize = { 500 -1 }
 
-				blockoverride "card_header_icon" {
-					block "io_main_actions_icon" {
-						texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
-					}
-				}
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+						}
 
-				blockoverride "actions_override" {
-					vbox = {
-						layoutpolicy_horizontal = expanding
-						spacing = 2
+						blockoverride "common_header_text" {
+							text = "TV_ARTS_DOMESTIC_EXHIBITION_INFO_HEADER"
+						}
 
-						action_button_diamond = {
-							size = { 470 30 }
-							text = "tv_host_domestic_exhibition"
-							title = "tv_host_domestic_exhibition"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = {
-								action_name = "tv_host_domestic_exhibition"
+						blockoverride "common_bottom_content" {
+							widget = {
+								size = { 470 212 }
+								datacontext = "[InternationalOrganizationsView.GetPlayer]"
+
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 6
+									margin = { 4 6 }
+
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 4
+										text_single = {
+											text = "TV_ARTS_OWNED_ARTWORKS_LABEL"
+											align = nobaseline
+										}
+										expand = {}
+										text_single = {
+											raw_text = "[Country.GetNumWorksOfArt|0]"
+											align = nobaseline
+										}
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 4
+										text_single = {
+											text = "TV_ARTS_LOCAL_EXHIBITION_COMMITTED_LABEL"
+											align = nobaseline
+										}
+										expand = {}
+										text_single = {
+											raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_artworks_committed').GetValue|0]"
+											align = nobaseline
+										}
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 4
+										text_single = {
+											text = "TV_ARTS_LOCAL_EXHIBITION_LOCATIONS_LABEL"
+											align = nobaseline
+										}
+										expand = {}
+										text_single = {
+											raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_location_count').GetValue|0]"
+											align = nobaseline
+										}
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 4
+										text_single = {
+											text = "TV_ARTS_LOCAL_EXHIBITION_DURATION_LABEL"
+											tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+											align = nobaseline
+										}
+										expand = {}
+										text_single = {
+											raw_text = "[Country.MakeScope.GetVariable('tv_local_exhibition_duration').GetValue|0]/24"
+											tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+											align = nobaseline
+										}
+									}
+									progressbar = {
+										size = { 462 16 }
+										using = progress_bar_blue_alt
+										min = 0
+										max = 24
+										value = "[Country.MakeScope.GetVariable('tv_local_exhibition_duration').GetValue]"
+										tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+									}
+									hbox = {
+										size = { 462 22 }
+										tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+
+										widget = {
+											size = { 231 22 }
+											hbox = {
+												size = { 231 22 }
+												spacing = 1
+												hbox = {
+													spacing = 1
+													text_single = {
+														autoresize = yes
+														text = "TV_ARTS_LOCAL_EXHIBITION_TIER_1_MARKER"
+														align = nobaseline|left
+														using = Font_Size_Very_Small
+														tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+													}
+													text_single = {
+														visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)1.0')]"
+														autoresize = yes
+														raw_text = "@trigger_yes!"
+														align = nobaseline|left
+														using = Font_Size_Very_Small
+														tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+													}
+												}
+												expand = {}
+												hbox = {
+													spacing = 1
+													text_single = {
+														autoresize = yes
+														text = "TV_ARTS_LOCAL_EXHIBITION_TIER_2_MARKER"
+														align = nobaseline|right
+														using = Font_Size_Very_Small
+														tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+													}
+													text_single = {
+														visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)2.0')]"
+														autoresize = yes
+														raw_text = "@trigger_yes!"
+														align = nobaseline|right
+														using = Font_Size_Very_Small
+														tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+													}
+												}
+											}
+										}
+										widget = {
+											size = { 116 22 }
+											hbox = {
+												size = { 116 22 }
+												expand = {}
+												hbox = {
+													spacing = 1
+													text_single = {
+														autoresize = yes
+														text = "TV_ARTS_LOCAL_EXHIBITION_TIER_3_MARKER"
+														align = nobaseline|right
+														using = Font_Size_Very_Small
+														tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+													}
+													text_single = {
+														visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)3.0')]"
+														autoresize = yes
+														raw_text = "@trigger_yes!"
+														align = nobaseline|right
+														using = Font_Size_Very_Small
+														tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+													}
+												}
+											}
+										}
+										widget = {
+											size = { 115 22 }
+											hbox = {
+												size = { 115 22 }
+												expand = {}
+												hbox = {
+													spacing = 1
+													text_single = {
+														autoresize = yes
+														text = "TV_ARTS_LOCAL_EXHIBITION_TIER_4_MARKER"
+														align = nobaseline|right
+														using = Font_Size_Very_Small
+														tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+													}
+													text_single = {
+														visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_local_exhibition_rating').GetValue, '(CFixedPoint)4.0')]"
+														autoresize = yes
+														raw_text = "@trigger_yes!"
+														align = nobaseline|right
+														using = Font_Size_Very_Small
+														tooltip = "TV_ARTS_LOCAL_EXHIBITION_PROGRESS_TOOLTIP"
+													}
+												}
+											}
+										}
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = {
+											raw_text = "@trigger_no!"
+											tooltip = "TV_ARTS_LOCAL_EXHIBITION_COLD_TT"
+											align = nobaseline
+										}
+										progressbar = {
+											size = { 394 16 }
+											using = progress_bar_blue_alt
+											min = 0
+											max = 200
+											value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_local_exhibition_enthusiasm').GetValue]"
+										}
+										text_single = {
+											raw_text = "@trigger_yes!"
+											tooltip = "TV_ARTS_LOCAL_EXHIBITION_HOT_TT"
+											align = nobaseline
+										}
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 4
+										text_single = {
+											text = "TV_ARTS_LOCAL_EXHIBITION_ENTHUSIASM_LABEL"
+											align = nobaseline
+										}
+										expand = {}
+										text_single = {
+											raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_local_exhibition_enthusiasm')]"
+											align = nobaseline
+										}
+									}
+								}
 							}
 						}
-						action_button_diamond = {
-							size = { 470 30 }
-							text = "tv_local_exhibition_expand"
-							title = "tv_local_exhibition_expand"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = { action_name = "tv_local_exhibition_expand" }
+					}
+
+					card_actions = {
+						minimumsize = { 500 130 }
+						maximumsize = { 500 130 }
+
+						blockoverride "card_header_text" {
+							text = "MAIN_ACTIONS"
+						}
+
+						blockoverride "card_header_icon" {
+							block "io_main_actions_icon" {
+								texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+							}
+						}
+
+						blockoverride "actions_override" {
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 2
+
+								action_button_diamond = {
+									size = { 470 30 }
+									text = "tv_host_domestic_exhibition"
+									title = "tv_host_domestic_exhibition"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									left_action = {
+										action_name = "tv_host_domestic_exhibition"
+									}
+								}
+								action_button_diamond = {
+									size = { 470 30 }
+									text = "tv_local_exhibition_expand"
+									title = "tv_local_exhibition_expand"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									left_action = { action_name = "tv_local_exhibition_expand" }
+								}
+							}
 						}
 					}
-				}
-			}
 
-			card_actions = {
-				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
-				minimumsize = { 500 290 }
-				maximumsize = { 500 290 }
+					card_actions = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_local_exhibition_active').IsSet]"
+						minimumsize = { 500 290 }
+						maximumsize = { 500 290 }
 
-				blockoverride "card_header_text" {
-					text = "TV_ARTS_LOCAL_EXHIBITION_ACTIONS_HEADER"
-				}
+						blockoverride "card_header_text" {
+							text = "TV_ARTS_LOCAL_EXHIBITION_ACTIONS_HEADER"
+						}
 
-				blockoverride "card_header_icon" {
-					block "io_main_actions_icon" {
-						texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
-					}
-				}
+						blockoverride "card_header_icon" {
+							block "io_main_actions_icon" {
+								texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+							}
+						}
 
-				blockoverride "actions_override" {
-					vbox = {
-						layoutpolicy_horizontal = expanding
-						spacing = 2
+						blockoverride "actions_override" {
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 2
 
-						action_button_diamond = {
-							size = { 470 30 }
-							text = "tv_local_exhibition_royal_visit"
-							title = "tv_local_exhibition_royal_visit"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = { action_name = "tv_local_exhibition_royal_visit" }
-						}
-						action_button_diamond = {
-							size = { 470 30 }
-							text = "tv_local_exhibition_radical_art"
-							title = "tv_local_exhibition_radical_art"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = { action_name = "tv_local_exhibition_radical_art" }
-						}
-						action_button_diamond = {
-							size = { 470 30 }
-							text = "tv_local_exhibition_sell_art"
-							title = "tv_local_exhibition_sell_art"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = { action_name = "tv_local_exhibition_sell_art" }
-						}
-						action_button_diamond = {
-							size = { 470 30 }
-							text = "tv_local_exhibition_recruit_artists"
-							title = "tv_local_exhibition_recruit_artists"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = { action_name = "tv_local_exhibition_recruit_artists" }
-						}
-						action_button_diamond = {
-							size = { 470 30 }
-							text = "tv_local_exhibition_invite_foreign_artist"
-							title = "tv_local_exhibition_invite_foreign_artist"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = { action_name = "tv_local_exhibition_invite_foreign_artist" }
-						}
-						action_button_diamond = {
-							size = { 470 30 }
-							text = "tv_local_exhibition_designate_treasure"
-							title = "tv_local_exhibition_designate_treasure"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = { action_name = "tv_local_exhibition_designate_treasure" }
-						}
-						action_button_diamond = {
-							size = { 470 30 }
-							text = "tv_local_exhibition_live_creation"
-							title = "tv_local_exhibition_live_creation"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = { action_name = "tv_local_exhibition_live_creation" }
+								action_button_diamond = {
+									size = { 470 30 }
+									text = "tv_local_exhibition_royal_visit"
+									title = "tv_local_exhibition_royal_visit"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									left_action = { action_name = "tv_local_exhibition_royal_visit" }
+								}
+								action_button_diamond = {
+									size = { 470 30 }
+									text = "tv_local_exhibition_radical_art"
+									title = "tv_local_exhibition_radical_art"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									left_action = { action_name = "tv_local_exhibition_radical_art" }
+								}
+								action_button_diamond = {
+									size = { 470 30 }
+									text = "tv_local_exhibition_sell_art"
+									title = "tv_local_exhibition_sell_art"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									left_action = { action_name = "tv_local_exhibition_sell_art" }
+								}
+								action_button_diamond = {
+									size = { 470 30 }
+									text = "tv_local_exhibition_recruit_artists"
+									title = "tv_local_exhibition_recruit_artists"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									left_action = { action_name = "tv_local_exhibition_recruit_artists" }
+								}
+								action_button_diamond = {
+									size = { 470 30 }
+									text = "tv_local_exhibition_invite_foreign_artist"
+									title = "tv_local_exhibition_invite_foreign_artist"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									left_action = { action_name = "tv_local_exhibition_invite_foreign_artist" }
+								}
+								action_button_diamond = {
+									size = { 470 30 }
+									text = "tv_local_exhibition_designate_treasure"
+									title = "tv_local_exhibition_designate_treasure"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									left_action = { action_name = "tv_local_exhibition_designate_treasure" }
+								}
+								action_button_diamond = {
+									size = { 470 30 }
+									text = "tv_local_exhibition_live_creation"
+									title = "tv_local_exhibition_live_creation"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									left_action = { action_name = "tv_local_exhibition_live_creation" }
+								}
+							}
 						}
 					}
 				}
 			}
 		}
 	}
-		}
-			expand = {}
-	}
-}
 }
