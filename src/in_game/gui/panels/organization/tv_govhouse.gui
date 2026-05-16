@@ -310,12 +310,50 @@ organization_panel = {
 				}
 
 				blockoverride "common_bottom_content" {
-					io_character_card = {
-						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
-						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
-						using = layoutpolicy_expanding
-						blockoverride "name_highlight" {}
-						blockoverride "character_entry_name_sort_by_highlight" {}
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						ignoreinvisible = yes
+						spacing = 6
+
+						io_character_card = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+							datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
+							using = layoutpolicy_expanding
+							blockoverride "name_highlight" {}
+							blockoverride "character_entry_name_sort_by_highlight" {}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_gg_training_progress').IsSet]"
+							margin = { 8 0 }
+							spacing = 6
+
+							text_single = {
+								size = { 130 22 }
+								text = "TV_GOVHOUSE_TRAINING_PROGRESS_LABEL"
+								align = nobaseline|left
+							}
+
+							progressbar = {
+								size = { 278 16 }
+								min = 0
+								max = 12
+								value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_gg_training_progress').GetValue]"
+								progresstexture = "gfx/interface/progressbars/progress_bar_blue.dds"
+								texture_density = 2
+								spriteType = Corneredstretched
+								spriteborder = { 12 0 }
+								tooltip = "TV_GOVHOUSE_TRAINING_PROGRESS_TOOLTIP"
+							}
+
+							text_single = {
+								size = { 22 22 }
+								raw_text = "@mil!"
+								tooltip = "TV_GOVHOUSE_TRAINING_PROGRESS_TOOLTIP"
+								align = nobaseline|center
+							}
+						}
 					}
 				}
 			}

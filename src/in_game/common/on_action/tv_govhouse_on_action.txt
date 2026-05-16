@@ -23,6 +23,11 @@ tv_govhouse_training_monthly_pulse = {
 			}
 			var:tv_conquest_general_char ?= {
 				change_variable = { name = tv_gg_training_months add = 1 }
+				save_temporary_scope_as = tv_gg_training_general
+			}
+			set_variable = {
+				name = tv_gg_training_progress
+				value = scope:tv_gg_training_general.var:tv_gg_training_months
 			}
 			if = {
 				limit = {
@@ -177,7 +182,10 @@ tv_govhouse_char_death = {
 				}
 				remove_variable = tv_gg_training_active
 				remove_variable = tv_gg_training_months
-				root = { remove_country_modifier = tv_grand_general_training_modifier }
+				root = {
+					remove_variable = tv_gg_training_progress
+					remove_country_modifier = tv_grand_general_training_modifier
+				}
 			}
 		}
 		# If the deceased was this country's Grand General, clear the reference

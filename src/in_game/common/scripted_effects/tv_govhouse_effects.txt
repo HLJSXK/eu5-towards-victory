@@ -231,6 +231,7 @@ tv_training_start_effect = {
 		set_variable = { name = tv_gg_training_active value = 1 }
 		set_variable = { name = tv_gg_training_months value = 0 }
 	}
+	set_variable = { name = tv_gg_training_progress value = 0 }
 	add_country_modifier = {
 		modifier = tv_grand_general_training_modifier
 		years = 1
@@ -245,6 +246,7 @@ tv_training_clear_effect = {
 		remove_variable = tv_gg_training_active
 		remove_variable = tv_gg_training_months
 	}
+	remove_variable = tv_gg_training_progress
 	remove_country_modifier = tv_grand_general_training_modifier
 }
 
@@ -1231,6 +1233,7 @@ tv_govhouse_cleanup_effect = {
 		var:tv_conquest_general_char ?= {
 			remove_character_modifier = tv_grand_general_role_modifier
 		}
+		remove_variable = tv_gg_training_progress
 		remove_variable = tv_conquest_general_char
 	}
 	if = {
