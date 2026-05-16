@@ -527,9 +527,14 @@ tv_arts_exhibition.310 = {
 
 	option = {
 		name = tv_arts_exhibition.310.a
-		remove_variable = tv_local_exhibition_last_duration
-		remove_variable = tv_local_exhibition_last_rating
-		remove_variable = tv_local_exhibition_last_reward
+		tv_change_cultural_influence_points_effect = { value = var:tv_local_exhibition_last_reward }
+		add_prestige = -10
+		hidden_effect = {
+			remove_variable = tv_local_exhibition_last_duration
+			remove_variable = tv_local_exhibition_last_rating
+			remove_variable = tv_local_exhibition_last_reward
+			remove_variable = tv_local_exhibition_last_location
+		}
 	}
 }
 
@@ -541,9 +546,13 @@ tv_arts_exhibition.311 = {
 
 	option = {
 		name = tv_arts_exhibition.311.a
-		remove_variable = tv_local_exhibition_last_duration
-		remove_variable = tv_local_exhibition_last_rating
-		remove_variable = tv_local_exhibition_last_reward
+		tv_change_cultural_influence_points_effect = { value = var:tv_local_exhibition_last_reward }
+		hidden_effect = {
+			remove_variable = tv_local_exhibition_last_duration
+			remove_variable = tv_local_exhibition_last_rating
+			remove_variable = tv_local_exhibition_last_reward
+			remove_variable = tv_local_exhibition_last_location
+		}
 	}
 }
 
@@ -555,9 +564,14 @@ tv_arts_exhibition.312 = {
 
 	option = {
 		name = tv_arts_exhibition.312.a
-		remove_variable = tv_local_exhibition_last_duration
-		remove_variable = tv_local_exhibition_last_rating
-		remove_variable = tv_local_exhibition_last_reward
+		tv_change_cultural_influence_points_effect = { value = var:tv_local_exhibition_last_reward }
+		add_prestige = 10
+		hidden_effect = {
+			remove_variable = tv_local_exhibition_last_duration
+			remove_variable = tv_local_exhibition_last_rating
+			remove_variable = tv_local_exhibition_last_reward
+			remove_variable = tv_local_exhibition_last_location
+		}
 	}
 }
 
@@ -569,9 +583,19 @@ tv_arts_exhibition.313 = {
 
 	option = {
 		name = tv_arts_exhibition.313.a
-		remove_variable = tv_local_exhibition_last_duration
-		remove_variable = tv_local_exhibition_last_rating
-		remove_variable = tv_local_exhibition_last_reward
+		tv_change_cultural_influence_points_effect = { value = var:tv_local_exhibition_last_reward }
+		add_prestige = 15
+		var:tv_local_exhibition_last_location ?= {
+			change_development = 0.25
+			change_prosperity = 0.1
+			add_location_modifier = { modifier = tv_local_exhibition_triumph_location_modifier years = 1 mode = add_and_extend }
+		}
+		hidden_effect = {
+			remove_variable = tv_local_exhibition_last_duration
+			remove_variable = tv_local_exhibition_last_rating
+			remove_variable = tv_local_exhibition_last_reward
+			remove_variable = tv_local_exhibition_last_location
+		}
 	}
 }
 
