@@ -115,6 +115,9 @@ tv_start_concentrated_research = {
 			text = tv_start_d_requires_c_tt
 			scope:actor = { var:tv_rm_subprocess_c ?= { this >= 2 } }
 		}
+		scope:actor = {
+			tv_chief_scientist_available_for_concentrated_research_trigger = yes
+		}
 	}
 
 	effect = {
@@ -163,6 +166,9 @@ tv_treat_character = {
 			scope:actor = {
 				var:tv_academy_leader_char ?= { is_alive = yes }
 			}
+		}
+		scope:actor = {
+			tv_chief_scientist_available_for_treatment_trigger = yes
 		}
 	}
 

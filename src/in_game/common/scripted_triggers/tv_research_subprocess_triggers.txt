@@ -159,3 +159,88 @@ tv_research_has_active_target_trigger = {
 tv_research_d_in_progress_trigger = {
 	var:tv_research_phase ?= 2
 }
+
+# ── Chief Scientist busy-state helpers ───────────────────────────────────────
+# Country-scoped. Used to make the Chief Scientist's long-running tasks mutually
+# exclusive and to show the player which current task is blocking a new one.
+tv_chief_scientist_busy_with_concentrated_research_trigger = {
+	tv_research_d_in_progress_trigger = yes
+}
+
+tv_chief_scientist_busy_with_law_change_trigger = {
+	any_international_organizations_member_of = {
+		international_organization_type = international_organization_type:tv_academy_of_sciences
+		resolution_is_active = resolution:policy_vote
+	}
+}
+
+tv_chief_scientist_busy_with_treatment_trigger = {
+	has_variable = tv_med_target_char
+}
+
+tv_chief_scientist_available_for_concentrated_research_trigger = {
+	trigger_if = {
+		limit = { tv_chief_scientist_busy_with_law_change_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_law_change_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_treatment_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_treatment_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}
+
+tv_chief_scientist_available_for_law_change_trigger = {
+	trigger_if = {
+		limit = { tv_chief_scientist_busy_with_concentrated_research_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_concentrated_research_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_treatment_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_treatment_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_law_change_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_law_change_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}
+
+tv_chief_scientist_available_for_treatment_trigger = {
+	trigger_if = {
+		limit = { tv_chief_scientist_busy_with_concentrated_research_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_concentrated_research_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_law_change_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_law_change_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}
