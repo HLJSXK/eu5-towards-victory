@@ -203,7 +203,7 @@ The Academy IO panel must meet the following **functional** requirements by end 
 - Sub-process A: interest counter displayed as `[tv_research_interest] / 5`
 - Sub-process B: two condition indicators — prerequisite advance (researched ✓/✗) and building (constructed ✓/✗)
 - Sub-process C: progress bar showing `tv_research_c_progress` as percentage
-- Sub-process D: progress bar showing `tv_research_d_progress` as percentage, monthly progress rate, and monthly gold cost
+- Sub-process D: progress bar showing `tv_research_d_progress` as percentage and monthly progress rate
 - Chief Scientist section: character name, admin / diplomacy / martial skills
 - Cooldown indicator: months remaining on `tv_research_selection_cd` (hidden if 0)
 

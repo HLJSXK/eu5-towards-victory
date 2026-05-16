@@ -8,7 +8,7 @@
 # Leader: character (the "Chief Scientist"). Selected manually by the leader_country via
 # the Appoint / Remove / Change Leader generic actions (tv_io_leader_actions.txt).
 # The leader country variable tv_academy_leader_char holds the appointed character.
-# D-progress and D-phase gold cost use the appointed leader's adm/dip/mil skills.
+# D-progress uses the appointed leader's adm skill.
 #
 # Verification — Step 3, Reference: hre.txt:19-44
 #   Quote: "has_leader_country = yes  leader_title_key = "HRE_LEADER"  leader_type = character
@@ -114,7 +114,7 @@ tv_academy_of_sciences = {
 		tv_chief_scientist_available_for_law_change_trigger = yes
 	}
 
-	# ── Monthly effect: completion detection, D gold cost, display state updates ──
+	# ── Monthly effect: completion detection and display state updates ──
 	monthly_effect = {
 		# C: update in-progress display (0→1) when C has begun accumulating
 		if = {
@@ -131,32 +131,6 @@ tv_academy_of_sciences = {
 				leader_country ?= { NOT = { var:tv_rm_subprocess_c >= 2 } }
 			}
 			leader_country ?= { tv_research_complete_c_effect = yes }
-		}
-		# D: monthly gold cost when concentrated research is active.
-		# Uses appointed leader's dip + mil skills (consistent with D-progress source).
-		if = {
-			limit = {
-				international_organization_has_leader = yes
-				leader_country ?= {
-					custom_tooltip = {
-						text = TV_HAS_RESEARCH_PHASE_TT
-						has_variable = tv_research_phase
-					}
-					var:tv_research_phase ?= 2
-					custom_tooltip = {
-						text = TV_HAS_ACADEMY_LEADER_CHAR_TT
-						has_variable = tv_academy_leader_char
-					}
-					var:tv_academy_leader_char ?= { is_alive = yes }
-				}
-			}
-			leader_country ?= {
-				add_gold = {
-					value = var:tv_academy_leader_char.dip
-					add = var:tv_academy_leader_char.mil
-					multiply = -0.5
-				}
-			}
 		}
 		# D: completion when D reaches 100
 		if = {
