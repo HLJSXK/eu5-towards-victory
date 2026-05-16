@@ -199,6 +199,28 @@ my_action_price_cost_modifier = {
 
 Define the modifier type in `main_menu/common/modifier_type_definitions/`, and localize all three keys in every supported language: `my_action_price`, `MODIFIER_TYPE_NAME_my_action_price_cost_modifier`, and `MODIFIER_TYPE_DESC_my_action_price_cost_modifier`. If the modifier type is missing, the engine logs `Missing modifier type for price. <price_key>_cost_modifier`.
 
+#### Character Static Modifiers for Commander Effects
+
+Character-scoped static modifiers can carry military leader effects. Vanilla examples include `general_mil` with `discipline` and `army_movement_speed`, and `horde_battle_plans` with `military_tactics` and `army_movement_speed`. General traits also use the same modifier types.
+
+For an effect that should follow a specific appointed commander, define the static modifier with character game data and apply it in character scope:
+
+```pdx
+my_general_tactic = {
+    game_data = {
+        category = character
+    }
+    discipline = 0.05
+    army_movement_speed = 0.10
+}
+
+var:my_general_char ?= {
+    add_character_modifier = { modifier = my_general_tactic years = -1 mode = replace }
+}
+```
+
+Use a country modifier only when the design intentionally grants the bonus country-wide and independently of the active commander.
+
 ### 5.2. Scopes and Scope Links
 
 A **scope** refers to the specific game object (e.g., a country, a character, a location) that a script is currently focused on. **Scope links** are used to access data from or apply effects to other scopes. For example, `c:FRA.gold` would access the treasury of the country with the tag FRA.

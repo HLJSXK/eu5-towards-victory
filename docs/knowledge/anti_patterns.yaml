@@ -723,6 +723,15 @@
   notes: "Without category = character, the engine does not recognize the modifier as character-scoped. add_character_modifier runs (tooltip shows the grant) but the modifier is not stored on the character — has_character_modifier returns false and no title prefix fires. Confirmed at runtime: tv_chief_artist_role_modifier = {} appeared in appoint tooltip but never on the character panel."
 
 
+- id: general_specific_bonus_as_country_modifier
+  pattern: 'add_country_modifier\s*=\s*\{\s*modifier\s*=\s*tv_govhouse_tactic_'
+  bad: "Applying Grand General tactics with add_country_modifier, making a general-specific tactic affect the whole country directly"
+  correction: "For tactics meant to live on the appointed commander, define the static modifier with game_data = { category = character } and apply/remove it on var:tv_conquest_general_char with add_character_modifier/remove_character_modifier."
+  category: modifier
+  scope: character
+  source: "reference_game_files/game/main_menu/common/static_modifiers/character.txt:80-86 (general_mil uses discipline and army_movement_speed); reference_game_files/game/main_menu/common/static_modifiers/character.txt:1912-1917 (horde_battle_plans uses military_tactics and army_movement_speed)"
+  notes: "Vanilla character static modifiers and general traits can carry commander/army combat modifiers such as discipline, land_morale_modifier, siege_ability, army_movement_speed, army_initiative, possible_frontage_modifier, and military_tactics. Use country modifiers only when the design intentionally grants a country-wide effect independent of the active general."
+
 - id: artist_selector_should_use_artist_column
   pattern: 'name\s*=\s*"tv_select_arts_leader"[\s\S]{0,240}?column\s*=\s*\{\s*data\s*=\s*character_info\s*\}'
   only_in_paths: ['generic_actions']

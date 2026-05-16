@@ -314,12 +314,12 @@ tv_training_resolve_effect = {
 # Scope for all effects in this section: country.
 
 tv_govhouse_remove_tactic_modifiers_effect = {
-	remove_country_modifier = tv_govhouse_tactic_steady_advance
-	remove_country_modifier = tv_govhouse_tactic_careful_advance
-	remove_country_modifier = tv_govhouse_tactic_rapid_advance
-	remove_country_modifier = tv_govhouse_tactic_guerrilla
-	remove_country_modifier = tv_govhouse_tactic_siege_relief
 	var:tv_conquest_general_char ?= {
+		remove_character_modifier = tv_govhouse_tactic_steady_advance
+		remove_character_modifier = tv_govhouse_tactic_careful_advance
+		remove_character_modifier = tv_govhouse_tactic_rapid_advance
+		remove_character_modifier = tv_govhouse_tactic_guerrilla
+		remove_character_modifier = tv_govhouse_tactic_siege_relief
 		remove_character_modifier = tv_govhouse_tactic_ambush_general
 		remove_character_modifier = tv_govhouse_tactic_surprise_general
 	}
@@ -331,15 +331,21 @@ tv_govhouse_apply_tactic_effect = {
 		limit = { has_variable = tv_govhouse_active_tactic }
 		if = {
 			limit = { var:tv_govhouse_active_tactic ?= 1 }
-			add_country_modifier = { modifier = tv_govhouse_tactic_steady_advance years = -1 mode = replace }
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_steady_advance years = -1 mode = replace }
+			}
 		}
 		else_if = {
 			limit = { var:tv_govhouse_active_tactic ?= 2 }
-			add_country_modifier = { modifier = tv_govhouse_tactic_careful_advance years = -1 mode = replace }
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_careful_advance years = -1 mode = replace }
+			}
 		}
 		else_if = {
 			limit = { var:tv_govhouse_active_tactic ?= 3 }
-			add_country_modifier = { modifier = tv_govhouse_tactic_rapid_advance years = -1 mode = replace }
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_rapid_advance years = -1 mode = replace }
+			}
 		}
 		else_if = {
 			limit = { var:tv_govhouse_active_tactic ?= 4 }
@@ -355,11 +361,15 @@ tv_govhouse_apply_tactic_effect = {
 		}
 		else_if = {
 			limit = { var:tv_govhouse_active_tactic ?= 6 }
-			add_country_modifier = { modifier = tv_govhouse_tactic_guerrilla years = -1 mode = replace }
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_guerrilla years = -1 mode = replace }
+			}
 		}
 		else_if = {
 			limit = { var:tv_govhouse_active_tactic ?= 7 }
-			add_country_modifier = { modifier = tv_govhouse_tactic_siege_relief years = -1 mode = replace }
+			var:tv_conquest_general_char ?= {
+				add_character_modifier = { modifier = tv_govhouse_tactic_siege_relief years = -1 mode = replace }
+			}
 		}
 	}
 }

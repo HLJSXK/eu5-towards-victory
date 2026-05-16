@@ -6,26 +6,41 @@ tv_grand_general_training_modifier = {
 
 # War Tent - Grand General tactics
 tv_govhouse_tactic_steady_advance = {
+	game_data = {
+		category = character
+	}
 	land_morale_modifier = 0.05
 }
 
 tv_govhouse_tactic_careful_advance = {
+	game_data = {
+		category = character
+	}
 	army_movement_speed = -0.10
 	discipline = 0.05
 }
 
 tv_govhouse_tactic_rapid_advance = {
+	game_data = {
+		category = character
+	}
 	army_movement_speed = 0.20
 	land_morale_modifier = 0.10
 	military_tactics = -0.20
 }
 
 tv_govhouse_tactic_guerrilla = {
+	game_data = {
+		category = character
+	}
 	army_movement_speed = 0.10
 	military_tactics = 0.20
 }
 
 tv_govhouse_tactic_siege_relief = {
+	game_data = {
+		category = character
+	}
 	siege_ability = 0.10
 }
 
