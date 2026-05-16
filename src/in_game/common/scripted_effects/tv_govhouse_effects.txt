@@ -658,6 +658,42 @@ tv_govhouse_update_plan_modifiers_effect = {
 	}
 }
 
+tv_govhouse_trigger_plan_activation_event_effect = {
+	save_temporary_scope_as = tv_govhouse_plan_owner
+	tv_govhouse_clear_war_plan_modifiers_effect = yes
+	tv_govhouse_update_plan_display_effect = yes
+	if = {
+		limit = {
+			NOT = { has_variable = tv_govhouse_plan_activation_pending }
+			has_variable = tv_govhouse_plan_type
+			var:tv_govhouse_plan_type ?= 1
+			has_variable = tv_govhouse_plan_target
+		}
+		var:tv_govhouse_plan_target ?= { save_temporary_scope_as = tv_govhouse_current_plan_target }
+		if = {
+			limit = {
+				exists = scope:tv_govhouse_current_plan_target
+				is_at_war_with = scope:tv_govhouse_current_plan_target
+			}
+			set_variable = { name = tv_govhouse_plan_activation_pending value = 1 }
+			trigger_event_non_silently = { id = tv_govhouse.41 }
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = tv_govhouse_plan_activation_pending }
+			has_variable = tv_govhouse_plan_type
+			var:tv_govhouse_plan_type ?= 2
+			at_war = yes
+			any_current_war = {
+				is_a_defender = scope:tv_govhouse_plan_owner
+			}
+		}
+		set_variable = { name = tv_govhouse_plan_activation_pending value = 2 }
+		trigger_event_non_silently = { id = tv_govhouse.42 }
+	}
+}
+
 tv_govhouse_clear_war_plan_effect = {
 	tv_govhouse_clear_war_plan_modifiers_effect = yes
 	remove_variable = tv_govhouse_plan_type
@@ -668,6 +704,7 @@ tv_govhouse_clear_war_plan_effect = {
 	remove_variable = tv_govhouse_plan_discipline_value
 	remove_variable = tv_govhouse_plan_fort_value
 	remove_variable = tv_govhouse_plan_tactics_value
+	remove_variable = tv_govhouse_plan_activation_pending
 }
 
 tv_govhouse_clear_war_tent_effect = {
@@ -711,7 +748,7 @@ tv_govhouse_war_entry_effect = {
 		}
 		tv_govhouse_pick_pending_tactic_effect = yes
 	}
-	tv_govhouse_update_plan_modifiers_effect = yes
+	tv_govhouse_trigger_plan_activation_event_effect = yes
 }
 
 tv_govhouse_war_end_for_country_effect = {

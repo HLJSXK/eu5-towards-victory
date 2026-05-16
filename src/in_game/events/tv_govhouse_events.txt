@@ -352,3 +352,33 @@ tv_govhouse.40 = {
 		tv_govhouse_deny_pending_tactic_effect = yes
 	}
 }
+
+tv_govhouse.41 = {
+	type = country_event
+	title = tv_govhouse.41.t
+	desc = tv_govhouse.41.d
+	outcome = good
+
+	option = {
+		name = tv_govhouse.41.a
+		hidden_effect = {
+			remove_variable = tv_govhouse_plan_activation_pending
+			tv_govhouse_update_plan_modifiers_effect = yes
+		}
+	}
+}
+
+tv_govhouse.42 = {
+	type = country_event
+	title = tv_govhouse.42.t
+	desc = tv_govhouse.42.d
+	outcome = good
+
+	option = {
+		name = tv_govhouse.42.a
+		hidden_effect = {
+			remove_variable = tv_govhouse_plan_activation_pending
+			tv_govhouse_update_plan_modifiers_effect = yes
+		}
+	}
+}
