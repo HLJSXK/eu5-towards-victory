@@ -351,7 +351,18 @@ tv_plan_offensive_strategy = {
 
 	select_trigger = {
 		looking_for_a = country
-		source = actor
+		interaction_source_list = {
+			scope:actor = {
+				every_neighbor_country = {
+					limit = {
+						country_type = location
+						is_rebel_country = no
+						capital = { is_discovered_by = scope:actor }
+					}
+					add_to_list = source
+				}
+			}
+		}
 		target_flag = target
 		allow_self = no
 		name = "tv_select_offensive_plan_target"
@@ -360,8 +371,11 @@ tv_plan_offensive_strategy = {
 		column = { data = population }
 		column = { data = army_size }
 		visible = {
+			country_type = location
 			this != scope:actor
+			is_neighbor_of = scope:actor
 			is_rebel_country = no
+			capital = { is_discovered_by = scope:actor }
 		}
 	}
 
@@ -488,7 +502,18 @@ tv_change_war_plan_target = {
 
 	select_trigger = {
 		looking_for_a = country
-		source = actor
+		interaction_source_list = {
+			scope:actor = {
+				every_neighbor_country = {
+					limit = {
+						country_type = location
+						is_rebel_country = no
+						capital = { is_discovered_by = scope:actor }
+					}
+					add_to_list = source
+				}
+			}
+		}
 		target_flag = target
 		allow_self = no
 		name = "tv_select_offensive_plan_target"
@@ -497,8 +522,11 @@ tv_change_war_plan_target = {
 		column = { data = population }
 		column = { data = army_size }
 		visible = {
+			country_type = location
 			this != scope:actor
+			is_neighbor_of = scope:actor
 			is_rebel_country = no
+			capital = { is_discovered_by = scope:actor }
 		}
 	}
 
