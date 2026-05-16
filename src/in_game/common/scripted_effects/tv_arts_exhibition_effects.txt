@@ -107,6 +107,24 @@ tv_change_arts_intl_influence_effect = {
 	}
 }
 
+# ── Cultural Influence Points helper (country scope) ───────────────────────
+tv_change_cultural_influence_points_effect = {
+	custom_description = {
+		text = tv_change_cultural_influence_points_text
+		value = $value$
+		if = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_CULTURAL_INFLUENCE_POINTS_TT
+					NOT = { has_variable = tv_cultural_influence_points }
+				}
+			}
+			set_variable = { name = tv_cultural_influence_points value = 0 }
+		}
+		change_variable = { name = tv_cultural_influence_points add = $value$ }
+	}
+}
+
 # ── Return / death cleanup (character scope) ──────────────────────────────────
 # Called when a touring artist reaches their exhibition duration limit.
 # Clears the target country marker and home country counter BEFORE removing
@@ -368,16 +386,7 @@ tv_end_local_exhibition_effect = {
 		else = {
 			add_prestige = -10
 		}
-		if = {
-			limit = {
-				custom_tooltip = {
-					text = TV_HAS_CULTURAL_INFLUENCE_POINTS_TT
-					NOT = { has_variable = tv_cultural_influence_points }
-				}
-			}
-			set_variable = { name = tv_cultural_influence_points value = 0 }
-		}
-		change_variable = { name = tv_cultural_influence_points add = var:tv_local_exhibition_last_reward }
+		tv_change_cultural_influence_points_effect = { value = var:tv_local_exhibition_last_reward }
 		tv_cleanup_local_exhibition_buildings_effect = yes
 		tv_return_local_exhibition_guest_artist_effect = yes
 		set_variable = { name = tv_local_exhibition_cd value = 12 }

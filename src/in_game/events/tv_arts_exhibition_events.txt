@@ -1319,16 +1319,7 @@ tv_arts_exhibition.407 = {
 
 	option = {
 		name = tv_arts_exhibition.407.a
-		if = {
-			limit = {
-				custom_tooltip = {
-					text = TV_HAS_CULTURAL_INFLUENCE_POINTS_TT
-					NOT = { has_variable = tv_cultural_influence_points }
-				}
-			}
-			set_variable = { name = tv_cultural_influence_points value = 0 }
-		}
-		change_variable = { name = tv_cultural_influence_points add = 5 }
+		tv_change_cultural_influence_points_effect = { value = 5 }
 	}
 }
 
