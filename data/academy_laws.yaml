@@ -156,5 +156,7 @@ laws:
       - id: tv_academy_leader_gender_male_only_policy
         display_comment: "Male Only (default)"
         default: true
+        on_activate_tooltip: tv_academy_leader_gender_male_only_policy_effect_tt
       - id: tv_academy_leader_gender_unrestricted_policy
         display_comment: "Unrestricted"
+        on_activate_tooltip: tv_academy_leader_gender_unrestricted_policy_effect_tt
