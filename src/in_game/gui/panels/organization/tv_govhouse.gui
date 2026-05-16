@@ -635,22 +635,13 @@ organization_panel = {
 	}
 
 	blockoverride "organization_custom_content" {
-		scrollarea = {
-			scrollbarpolicy_horizontal = always_off
+
+		vbox = {
+			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = expanding
-
-			scrollbar_vertical = {
-				using = Scrollbar_Vertical
-			}
-
-			scrollwidget = {
-				vbox = {
-					margin = { 10 0 }
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = fixed
-					ignoreinvisible = yes
-					spacing = 10
+			layoutpolicy_vertical = fixed
+			ignoreinvisible = yes
+			spacing = 10
 
 			card_common = {
 				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet)]"
@@ -1403,7 +1394,6 @@ organization_panel = {
 							}
 						}
 					}
-				}
 				}
 			}
 		}
