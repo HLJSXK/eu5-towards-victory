@@ -956,3 +956,13 @@
   scope: international_organization
   source: "reference_game_files/game/in_game/common/generic_actions/io_parliament.txt:86-120; reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt:507-538; runtime playtest of tv_academy_of_sciences"
   notes: "The vanilla call_organization_parliament picker builds its issue list through every_possible_parliament_issue and reports 'no special status wants to propose an issue' when it cannot surface one. propose_parliament_issue then initializes support from the issue special status and marks the proposer as voting yes. In a founder-only IO, self-backed support issues are brittle even with a leader status."
+
+- id: country_trigger_root_inside_situation_every_country
+  pattern: 'most_powerful_merchant\s*=\s*root'
+  only_in_paths: ['victory_paths.yaml', 'towards_victory_triggers.txt']
+  bad: "Reusable country milestone trigger uses root inside a nested market iterator"
+  correction: "Use prev inside nested iterators so the target remains the currently checked country when the trigger is called from situation->every_country."
+  category: scope
+  scope: country
+  source: "reference_game_files/game/in_game/events/diplomacy/overextension.txt:167-168; reference_game_files/game/in_game/events/economy/trade.txt:129"
+  notes: "GUI ShowTriggerConditions(PlayerScope.Self) can pass because root is the player country, while the monthly situation checker calls the same trigger from a situation root. In any_market_with_merchants, prev points back to the iterated country."

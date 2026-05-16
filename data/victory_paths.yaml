@@ -725,11 +725,11 @@ paths:
         is_long_term: false
         threshold: 400
         extra_trigger_block: |
-          # Verification — Step 3, Reference: events/economy/trade.txt:129, Quote: "any_market_with_merchants = { most_powerful_merchant = root"
+          # Use prev, not root: this trigger is also evaluated from situation->every_country, where root is the situation.
           custom_tooltip = {
           	text = tv_trade_market_dominance_5_tt
           	any_market_with_merchants = {
-          		most_powerful_merchant = root
+          		most_powerful_merchant = prev
           		count >= 5
           	}
           }
@@ -799,7 +799,7 @@ paths:
           custom_tooltip = {
           	text = tv_trade_market_dominance_10_tt
           	any_market_with_merchants = {
-          		most_powerful_merchant = root
+          		most_powerful_merchant = prev
           		count >= 10
           	}
           }

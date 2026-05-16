@@ -229,6 +229,21 @@ Use a country modifier only when the design intentionally grants the bonus count
 
 A **scope** refers to the specific game object (e.g., a country, a character, a location) that a script is currently focused on. **Scope links** are used to access data from or apply effects to other scopes. For example, `c:FRA.gold` would access the treasury of the country with the tag FRA.
 
+#### `root` vs `prev` in reusable country triggers
+
+Do not assume `root` is the country just because a scripted trigger is country-scoped. `root` stays the root scope of the caller. If a country trigger is called from a situation `every_country` block, the current country is `this`, but `root` can still be the situation.
+
+Inside nested iterators such as `any_market_with_merchants`, use `prev` to refer back to the country being checked. This matters for target triggers such as:
+
+```pdx
+any_market_with_merchants = {
+    most_powerful_merchant = prev
+    count >= 5
+}
+```
+
+The GUI can hide this bug: `ShowTriggerConditions('trigger_name', PlayerScope.Self)` evaluates with the player country as root, while the monthly situation checker may evaluate the same trigger with situation root. A milestone can therefore show all conditions green in the panel but never grant the node unless nested country references use `prev` or an explicit saved scope.
+
 ### 5.3. Script Values
 
 Script values are used for mathematical calculations and creating dynamic numerical values. They can be defined as reusable named values in the `common/script_values/` folder or created inline within other scripts. They support a wide range of arithmetic and logical operators. [6]
