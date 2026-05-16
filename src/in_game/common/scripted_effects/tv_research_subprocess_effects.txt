@@ -252,7 +252,10 @@ tv_research_propose_target_effect = {
 # ── Confirm selected target and start cycle ────────────────────────────────────
 # Called from the target selection event when the player authorizes.
 tv_research_confirm_target_effect = {
-	set_variable = { name = tv_research_target value = var:tv_research_proposed_advance }
-	remove_variable = tv_research_proposed_advance
-	tv_research_init_cycle_effect = yes
+	if = {
+		limit = { has_variable = tv_research_proposed_advance }
+		set_variable = { name = tv_research_target value = var:tv_research_proposed_advance }
+		remove_variable = tv_research_proposed_advance
+		tv_research_init_cycle_effect = yes
+	}
 }
