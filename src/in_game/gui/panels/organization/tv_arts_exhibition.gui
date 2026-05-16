@@ -527,10 +527,20 @@ organization_panel = {
 	}
 
 	blockoverride "organization_custom_content" {
-		vbox = {
+		scrollarea = {
+			scrollbarpolicy_horizontal = always_off
 			layoutpolicy_horizontal = expanding
-			spacing = 10
-			margin = { 10 2 }
+			layoutpolicy_vertical = expanding
+
+			scrollbar_vertical = {
+				using = Scrollbar_Vertical
+			}
+
+			scrollwidget = {
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 10
+					margin = { 10 2 }
 
 			card_common = {
 				maximumsize = { 500 -1 }
