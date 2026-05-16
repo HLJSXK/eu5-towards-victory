@@ -361,10 +361,8 @@ tv_govhouse.41 = {
 
 	option = {
 		name = tv_govhouse.41.a
-		hidden_effect = {
-			remove_variable = tv_govhouse_plan_activation_pending
-			tv_govhouse_update_plan_modifiers_effect = yes
-		}
+		remove_variable = tv_govhouse_plan_activation_pending
+		tv_govhouse_update_plan_modifiers_effect = yes
 	}
 }
 
@@ -376,9 +374,7 @@ tv_govhouse.42 = {
 
 	option = {
 		name = tv_govhouse.42.a
-		hidden_effect = {
-			remove_variable = tv_govhouse_plan_activation_pending
-			tv_govhouse_update_plan_modifiers_effect = yes
-		}
+		remove_variable = tv_govhouse_plan_activation_pending
+		tv_govhouse_update_plan_modifiers_effect = yes
 	}
 }

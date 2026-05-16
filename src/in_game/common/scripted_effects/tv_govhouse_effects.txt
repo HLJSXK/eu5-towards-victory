@@ -783,6 +783,17 @@ tv_govhouse_war_end_for_country_effect = {
 			tv_govhouse_update_plan_modifiers_effect = yes
 		}
 	}
+	else_if = {
+		limit = {
+			has_variable = tv_govhouse_plan_type
+			var:tv_govhouse_plan_type = 2
+			exists = scope:war
+			scope:war = {
+				is_a_defender = scope:tv_govhouse_war_plan_owner
+			}
+		}
+		tv_govhouse_clear_war_plan_effect = yes
+	}
 	if = {
 		limit = { NOT = { at_war = yes } }
 		tv_govhouse_clear_tactic_effect = yes
