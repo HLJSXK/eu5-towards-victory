@@ -117,6 +117,10 @@ tv_academy_of_sciences = {
 		is_leader_of_international_organization = scope:recipient
 	}
 
+	can_vote_in_parliament = {
+		"country_highest_rated_special_status_power(scope:recipient)" > 0
+	}
+
 	# ── Monthly effect: completion detection, D gold cost, display state updates ──
 	monthly_effect = {
 		# C: update in-progress display (0→1) when C has begun accumulating
@@ -183,6 +187,11 @@ tv_academy_of_sciences = {
 			set_leader_country = scope:actor
 		}
 		hidden_effect = {
+			set_variable = { name = tv_academy_crown_support value = 0 }
+			set_variable = { name = tv_academy_nobles_support value = 0 }
+			set_variable = { name = tv_academy_clergy_support value = 0 }
+			set_variable = { name = tv_academy_burghers_support value = 0 }
+			set_variable = { name = tv_academy_commons_support value = 0 }
 			add_policy_to_international_organization = policy:tv_academy_research_priority_balanced_policy
 			add_policy_to_international_organization = policy:tv_academy_research_openness_closed_policy
 			add_policy_to_international_organization = policy:tv_academy_research_risk_mandatory_review_policy

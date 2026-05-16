@@ -1,0 +1,87 @@
+﻿# Towards Victory - Academy of Sciences domestic faction meetings
+# These IO parliament issues turn Academy Assembly meetings into support tokens.
+
+tv_academy_crown_mandate_issue = {
+	type = international_organization
+	special_status = tv_academy_member
+	potential = { international_organization_type = international_organization_type:tv_academy_of_sciences }
+	allow = { NOT = { has_cooldown = tv_academy_crown_mandate_issue } }
+	chance = 20
+	selectable_for = { is_leader_of_international_organization = scope:recipient }
+	on_debate_passed = {
+		add_cooldown = { type = tv_academy_crown_mandate_issue years = 3 }
+		if = { limit = { NOT = { has_variable = tv_academy_crown_support } } set_variable = { name = tv_academy_crown_support value = 0 } }
+		change_variable = { name = tv_academy_crown_support add = 1 }
+		if = { limit = { var:tv_academy_crown_support > 3 } set_variable = { name = tv_academy_crown_support value = 3 } }
+	}
+	on_debate_failed = { add_cooldown = { type = tv_academy_crown_mandate_issue years = 1 } }
+	wants_this_parliament_issue_bias = { add = { desc = "VOTE_BASE_VALUE" value = 1000 } }
+}
+
+tv_academy_noble_patronage_issue = {
+	type = international_organization
+	special_status = tv_academy_member
+	potential = { international_organization_type = international_organization_type:tv_academy_of_sciences }
+	allow = { NOT = { has_cooldown = tv_academy_noble_patronage_issue } }
+	chance = 20
+	selectable_for = { is_leader_of_international_organization = scope:recipient }
+	on_debate_passed = {
+		add_cooldown = { type = tv_academy_noble_patronage_issue years = 3 }
+		if = { limit = { NOT = { has_variable = tv_academy_nobles_support } } set_variable = { name = tv_academy_nobles_support value = 0 } }
+		change_variable = { name = tv_academy_nobles_support add = 1 }
+		if = { limit = { var:tv_academy_nobles_support > 3 } set_variable = { name = tv_academy_nobles_support value = 3 } }
+	}
+	on_debate_failed = { add_cooldown = { type = tv_academy_noble_patronage_issue years = 1 } }
+	wants_this_parliament_issue_bias = { add = { desc = "VOTE_BASE_VALUE" value = 1000 } }
+}
+
+tv_academy_clergy_ethics_issue = {
+	type = international_organization
+	special_status = tv_academy_member
+	potential = { international_organization_type = international_organization_type:tv_academy_of_sciences }
+	allow = { NOT = { has_cooldown = tv_academy_clergy_ethics_issue } }
+	chance = 20
+	selectable_for = { is_leader_of_international_organization = scope:recipient }
+	on_debate_passed = {
+		add_cooldown = { type = tv_academy_clergy_ethics_issue years = 3 }
+		if = { limit = { NOT = { has_variable = tv_academy_clergy_support } } set_variable = { name = tv_academy_clergy_support value = 0 } }
+		change_variable = { name = tv_academy_clergy_support add = 1 }
+		if = { limit = { var:tv_academy_clergy_support > 3 } set_variable = { name = tv_academy_clergy_support value = 3 } }
+	}
+	on_debate_failed = { add_cooldown = { type = tv_academy_clergy_ethics_issue years = 1 } }
+	wants_this_parliament_issue_bias = { add = { desc = "VOTE_BASE_VALUE" value = 1000 } }
+}
+
+tv_academy_burgher_workshop_issue = {
+	type = international_organization
+	special_status = tv_academy_member
+	potential = { international_organization_type = international_organization_type:tv_academy_of_sciences }
+	allow = { NOT = { has_cooldown = tv_academy_burgher_workshop_issue } }
+	chance = 20
+	selectable_for = { is_leader_of_international_organization = scope:recipient }
+	on_debate_passed = {
+		add_cooldown = { type = tv_academy_burgher_workshop_issue years = 3 }
+		if = { limit = { NOT = { has_variable = tv_academy_burghers_support } } set_variable = { name = tv_academy_burghers_support value = 0 } }
+		change_variable = { name = tv_academy_burghers_support add = 1 }
+		if = { limit = { var:tv_academy_burghers_support > 3 } set_variable = { name = tv_academy_burghers_support value = 3 } }
+	}
+	on_debate_failed = { add_cooldown = { type = tv_academy_burgher_workshop_issue years = 1 } }
+	wants_this_parliament_issue_bias = { add = { desc = "VOTE_BASE_VALUE" value = 1000 } }
+}
+
+tv_academy_public_lecture_issue = {
+	type = international_organization
+	special_status = tv_academy_member
+	potential = { international_organization_type = international_organization_type:tv_academy_of_sciences }
+	allow = { NOT = { has_cooldown = tv_academy_public_lecture_issue } }
+	chance = 20
+	selectable_for = { is_leader_of_international_organization = scope:recipient }
+	on_debate_passed = {
+		add_cooldown = { type = tv_academy_public_lecture_issue years = 3 }
+		if = { limit = { NOT = { has_variable = tv_academy_commons_support } } set_variable = { name = tv_academy_commons_support value = 0 } }
+		change_variable = { name = tv_academy_commons_support add = 1 }
+		if = { limit = { var:tv_academy_commons_support > 3 } set_variable = { name = tv_academy_commons_support value = 3 } }
+	}
+	on_debate_failed = { add_cooldown = { type = tv_academy_public_lecture_issue years = 1 } }
+	wants_this_parliament_issue_bias = { add = { desc = "VOTE_BASE_VALUE" value = 1000 } }
+}
