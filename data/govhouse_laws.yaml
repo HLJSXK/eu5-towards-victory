@@ -1,36 +1,232 @@
-# Governor's House (总督府) subject taxation laws
-# Source for src/in_game/common/laws/tv_govhouse_laws.txt
-# TODO: create scripts/in_game/common/laws/gen_tv_govhouse_laws.py (modelled on gen_tv_alliance_laws.py)
+# Governor's House law categories for tv_govhouse_laws.txt.
+# Structure: 6 Governor's House laws x 4 policies each.
+# All laws use IO policy votes, following the Academy of Sciences pattern.
 #
-# Three-level subject taxation law.
-# AI bias: always oppose level 3 (high tax), always support level 1 (low tax).
-# Player must bribe enough subjects to pass high-tax policy.
-#
-# TODO: Step 2/3 verify correct modifier names for vassal income and subject opinion.
-# TODO: Verify whether laws support 3-level policies or require 4; use 3 levels for now.
+# DO NOT hand-edit generated output files. Run:
+#   conda run --no-capture-output -n eu5 python scripts/in_game/common/laws/gen_tv_govhouse_laws.py
+
+law_category: tv_govhouse_laws
+io_type: tv_govhouse
 
 laws:
-  - id: tv_subject_tax
-    display_comment: "附庸税收 / Subject Taxation"
-    law_category: socioeconomic
-    parliament_type: tv_govhouse_assembly
+  - id: tv_govhouse_expedition_goal_law
+    display_comment: "LAW 1: Expedition Goal"
     policies:
-      - level: 1
-        id: tv_subject_tax_low
-        display_comment: "低税收 / Low Tax"
+      - id: tv_govhouse_trade_posts_policy
+        display_comment: "Trade Posts (default)"
+        default: true
         country_modifier: |
-          # TODO: vassal_income = -0.05
-          # TODO: subject_opinion = 5
-      - level: 2
-        id: tv_subject_tax_medium
-        display_comment: "中税收（默认）/ Medium Tax (default)"
-        is_default: true
-        country_modifier: ""
-      - level: 3
-        id: tv_subject_tax_high
-        display_comment: "高税收 / High Tax"
+          global_foreign_build_buildings_cost = -0.10
+          trade_sea_efficiency = 0.10
+          global_trade_center_power = 0.10
+          naval_range_modifier = 0.10
+          global_burghers_estate_power = 0.10
+          global_max_control = -0.025
+      - id: tv_govhouse_conquest_colony_policy
+        display_comment: "Conquest Colony"
         country_modifier: |
-          # TODO: vassal_income = 0.05
-          # TODO: subject_opinion = -5
-        # AI always opposes this policy
-        ai_oppose: true
+          tax_income_efficiency = 0.10
+          global_production_efficiency = 0.05
+          global_garrison_size_modifier = 0.10
+          monthly_rebel_growth = 0.0005
+          global_bureaucracy_maintenance_cost_modifier = 0.10
+      - id: tv_govhouse_frontier_settlement_policy
+        display_comment: "Frontier Settlement"
+        country_modifier: |
+          colonial_migration_size_modifier = 0.15
+          global_population_growth = 0.00025
+          global_pop_assimilation_speed_modifier = 0.10
+          global_monthly_prosperity = 0.0005
+          tax_income_efficiency = -0.05
+      - id: tv_govhouse_tributary_system_policy
+        display_comment: "Tributary System"
+        country_modifier: |
+          subject_income_modifier = 0.10
+          diplomatic_reputation = 1
+          global_bureaucracy_maintenance_cost_modifier = -0.10
+          subject_loyalty = -5
+          global_monthly_control = -0.001
+
+  - id: tv_govhouse_governor_appointment_law
+    display_comment: "LAW 2: Governor Appointment"
+    policies:
+      - id: tv_govhouse_royal_appointment_policy
+        display_comment: "Royal Appointment (default)"
+        default: true
+        country_modifier: |
+          monthly_legitimacy = 0.10
+          global_monthly_control = 0.001
+          global_bureaucracy_maintenance_cost_modifier = 0.05
+          global_estate_target_satisfaction = -0.025
+      - id: tv_govhouse_hereditary_nobility_policy
+        display_comment: "Hereditary Nobility"
+        country_modifier: |
+          nobles_estate_target_satisfaction = 0.025
+          global_nobles_estate_power = 0.15
+          global_monthly_prosperity = 0.0005
+          global_max_control = -0.025
+          global_bureaucracy_maintenance_cost_modifier = -0.05
+      - id: tv_govhouse_merchant_tax_farming_policy
+        display_comment: "Merchant Tax Farming"
+        country_modifier: |
+          tax_income_efficiency = 0.15
+          trade_income = 0.10
+          global_burghers_estate_power = 0.15
+          pop_join_rebel_threshold = -0.025
+          monthly_rebel_growth = 0.0005
+      - id: tv_govhouse_military_land_grants_policy
+        display_comment: "Military Land Grants"
+        country_modifier: |
+          siege_ability = 0.05
+          monthly_army_tradition = 0.05
+          global_monthly_control = 0.002
+          global_soldiers_pop_growth = 0.00025
+          monthly_legitimacy = -0.05
+
+  - id: tv_govhouse_local_autonomy_law
+    display_comment: "LAW 3: Local Autonomy"
+    policies:
+      - id: tv_govhouse_strict_direct_rule_policy
+        display_comment: "Strict Direct Rule (default)"
+        default: true
+        country_modifier: |
+          tax_income_efficiency = 0.10
+          global_monthly_control = 0.002
+          global_bureaucracy_maintenance_cost_modifier = 0.15
+          global_estate_target_satisfaction = -0.025
+          monthly_rebel_growth = 0.0005
+      - id: tv_govhouse_limited_autonomy_policy
+        display_comment: "Limited Autonomy"
+        country_modifier: |
+          global_estate_target_satisfaction = 0.025
+          global_production_efficiency = 0.05
+          global_monthly_prosperity = 0.0005
+          tax_income_efficiency = -0.05
+          global_monthly_control = -0.001
+      - id: tv_govhouse_chartered_colonies_policy
+        display_comment: "Chartered Colonies"
+        country_modifier: |
+          colonial_migration_size_modifier = 0.10
+          global_foreign_build_buildings_cost = -0.10
+          global_burghers_estate_power = 0.10
+          global_bureaucracy_maintenance_cost_modifier = -0.05
+          subject_loyalty = -5
+      - id: tv_govhouse_vassal_autonomy_policy
+        display_comment: "Vassal Autonomy"
+        country_modifier: |
+          monthly_rebel_growth = -0.0005
+          global_estate_target_satisfaction = 0.05
+          global_bureaucracy_maintenance_cost_modifier = -0.05
+          global_pop_assimilation_speed_modifier = -0.15
+          global_pop_conversion_speed_modifier = -0.10
+
+  - id: tv_govhouse_religious_mission_law
+    display_comment: "LAW 4: Religious Mission"
+    policies:
+      - id: tv_govhouse_secular_governance_policy
+        display_comment: "Secular Governance (default)"
+        default: true
+        country_modifier: |
+          tolerance_heathen = 1
+          tolerance_heretic = 1
+          monthly_rebel_growth = -0.0005
+          global_pop_conversion_speed_modifier = -0.05
+      - id: tv_govhouse_official_mission_policy
+        display_comment: "Official Mission"
+        country_modifier: |
+          global_pop_conversion_speed_modifier = 0.10
+          building_missionary_effort_modifier = 0.10
+          global_clergy_estate_power = 0.10
+          diplomatic_reputation = -1
+      - id: tv_govhouse_religious_orders_policy
+        display_comment: "Religious Orders"
+        country_modifier: |
+          global_pop_conversion_speed_modifier = 0.15
+          land_morale_modifier = 0.05
+          global_defensive = 0.05
+          clergy_estate_target_satisfaction = 0.025
+          global_clergy_estate_power = 0.15
+          monthly_rebel_growth = 0.0005
+      - id: tv_govhouse_religious_tolerance_policy
+        display_comment: "Religious Tolerance"
+        country_modifier: |
+          tolerance_heathen = 2
+          tolerance_heretic = 2
+          trade_income = 0.05
+          global_monthly_prosperity = 0.0005
+          global_pop_conversion_speed_modifier = -0.15
+
+  - id: tv_govhouse_frontier_military_law
+    display_comment: "LAW 5: Frontier Military"
+    policies:
+      - id: tv_govhouse_regular_garrison_policy
+        display_comment: "Regular Garrison (default)"
+        default: true
+        country_modifier: |
+          discipline = 0.025
+          global_garrison_size_modifier = 0.10
+          global_defensive = 0.05
+          monthly_legitimacy = 0.05
+          army_maintenance_efficiency = -0.10
+      - id: tv_govhouse_local_militia_policy
+        display_comment: "Local Militia"
+        country_modifier: |
+          levy_maintenance_modifier = -0.10
+          global_army_levy_size_modifier = 0.10
+          global_monthly_control = -0.001
+          global_soldiers_pop_growth = 0.00025
+          monthly_rebel_growth = 0.0005
+      - id: tv_govhouse_military_colonies_policy
+        display_comment: "Frontier Military Colonies"
+        country_modifier: |
+          colonial_migration_size_modifier = 0.10
+          global_monthly_control = 0.002
+          global_monthly_prosperity = 0.0005
+          global_soldiers_pop_growth = 0.00025
+          global_estate_target_satisfaction = -0.025
+      - id: tv_govhouse_mercenary_system_policy
+        display_comment: "Mercenary System"
+        country_modifier: |
+          mercenary_maintenance_efficiency = 0.10
+          mercenary_range_modifier = 0.25
+          army_movement_speed = 0.05
+          monthly_war_exhaustion = 0.025
+          monthly_legitimacy = -0.05
+
+  - id: tv_govhouse_imperial_integration_law
+    display_comment: "LAW 6: Imperial Integration"
+    policies:
+      - id: tv_govhouse_permanent_colony_policy
+        display_comment: "Permanent Colonies (default)"
+        default: true
+        country_modifier: |
+          subject_income_modifier = 0.10
+          tax_income_efficiency = 0.05
+          global_production_efficiency = 0.05
+          global_bureaucracy_maintenance_cost_modifier = 0.05
+          subject_loyalty = -5
+      - id: tv_govhouse_dominion_status_policy
+        display_comment: "Dominion Status"
+        country_modifier: |
+          subject_loyalty = 10
+          global_estate_target_satisfaction = 0.025
+          global_monthly_prosperity = 0.0005
+          subject_income_modifier = -0.10
+          tax_income_efficiency = -0.05
+      - id: tv_govhouse_imperial_province_policy
+        display_comment: "Imperial Provinces"
+        country_modifier: |
+          global_pop_assimilation_speed_modifier = 0.15
+          global_integration_speed_modifier = 0.15
+          global_monthly_development = 0.001
+          tax_income_efficiency = 0.05
+          global_bureaucracy_maintenance_cost_modifier = 0.20
+      - id: tv_govhouse_plunder_evacuate_policy
+        display_comment: "Plunder and Evacuate"
+        country_modifier: |
+          tax_income_efficiency = 0.15
+          global_production_efficiency = 0.10
+          monthly_gold_income = 0.50
+          global_monthly_prosperity = -0.001
+          global_monthly_control = -0.002
+          global_integration_speed_modifier = -0.20

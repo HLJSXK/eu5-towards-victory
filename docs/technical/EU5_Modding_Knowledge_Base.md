@@ -108,6 +108,10 @@ monthly_effect = {
 
 Vanilla IOs such as HRE and Union use this pattern. Keep `monthly_change` entries visible when the player should see an IO variable's monthly breakdown; use `hidden_effect` for non-player-facing `monthly_effect` logic.
 
+#### International Organization Custom Tab Scroll Areas
+
+The shared organization panel's `organization_custom_content` slot sits inside a vbox followed by an `expand` spacer. If custom content begins with a root `scrollarea`, use a bounded autosizing viewport: give the scrollarea a small `minimumsize`, a `maximumsize`, and `autoresizescrollarea = yes`, then make the `scrollwidget` content establish natural height with `set_parent_size_to_minimum` and/or `layoutpolicy_vertical = fixed`. An unbounded expanding scrollarea can collapse; an oversized minimum viewport can show content but leave no useful overflow for scrolling.
+
 #### International Organization Law Votes and Special Status Power
 
 For an IO law system that routes policy changes through the parliament UI, the parliament type and the laws are only part of the setup. `requires_vote = yes` on the law and `uses_parliament_for_law_votes = yes` on the parliament type start the policy vote flow, but vote eligibility is driven by special status power.
