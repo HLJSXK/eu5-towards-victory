@@ -132,7 +132,6 @@ tv_govhouse = {
 			start = 0
 			monthly_change = {
 				subtract = {
-					desc = "TV_GOVHOUSE_POWER_EQUILIBRIUM_RESET"
 					value = var:tv_govhouse_power_equilibrium
 				}
 				if = {
@@ -148,16 +147,34 @@ tv_govhouse = {
 						}
 					}
 					add = {
-						desc = "TV_GOVHOUSE_POWER_EQUILIBRIUM_RECALCULATED"
+						desc = "TV_GOVHOUSE_POWER_EQUILIBRIUM_RELATIVE_ABILITIES"
 						value = leader_country.var:tv_conquest_general_char.total_abilities
 						divide = {
 							value = leader_country.ruler_or_regent.total_abilities
 							add = leader_country.var:tv_conquest_general_char.total_abilities
 							min = 1
 						}
-						add = var:tv_govhouse_power_consolidation
 						max = 1
 						min = 0
+					}
+					add = {
+						desc = "TV_GOVHOUSE_POWER_EQUILIBRIUM_CONSOLIDATION"
+						value = var:tv_govhouse_power_consolidation
+						min = 0
+						max = {
+							value = 1
+							subtract = {
+								value = leader_country.var:tv_conquest_general_char.total_abilities
+								divide = {
+									value = leader_country.ruler_or_regent.total_abilities
+									add = leader_country.var:tv_conquest_general_char.total_abilities
+									min = 1
+								}
+								max = 1
+								min = 0
+							}
+							min = 0
+						}
 					}
 				}
 			}
