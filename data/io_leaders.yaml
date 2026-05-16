@@ -47,10 +47,8 @@ ios:
         is_female = no
         scope:actor = {
           any_international_organizations_member_of = {
-            limit = {
-              international_organization_type = international_organization_type:tv_academy_of_sciences
-              leader_country ?= scope:actor
-            }
+            international_organization_type = international_organization_type:tv_academy_of_sciences
+            leader_country ?= scope:actor
             international_organization_has_policy = policy:tv_academy_leader_gender_unrestricted_policy
           }
         }

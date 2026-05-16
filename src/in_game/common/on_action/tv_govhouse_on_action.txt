@@ -47,20 +47,16 @@ tv_govhouse_negative_monthly_pulse = {
 					has_variable = tv_govhouse_member
 				}
 				any_international_organizations_member_of = {
-					limit = {
-						international_organization_type = international_organization_type:tv_govhouse
-						leader_country ?= root
-					}
+					international_organization_type = international_organization_type:tv_govhouse
+					leader_country ?= root
 					var:tv_govhouse_power_balance >= 0.25
 				}
 			}
 			if = {
 				limit = {
 					any_international_organizations_member_of = {
-						limit = {
-							international_organization_type = international_organization_type:tv_govhouse
-							leader_country ?= root
-						}
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= root
 						var:tv_govhouse_power_balance >= 0.75
 					}
 				}
@@ -91,10 +87,8 @@ tv_govhouse_negative_monthly_pulse = {
 			else_if = {
 				limit = {
 					any_international_organizations_member_of = {
-						limit = {
-							international_organization_type = international_organization_type:tv_govhouse
-							leader_country ?= root
-						}
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= root
 						var:tv_govhouse_power_balance >= 0.50
 					}
 				}
