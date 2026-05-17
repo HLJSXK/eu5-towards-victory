@@ -143,6 +143,47 @@ tv_arts_exhibition_yearly_pulse = {
 	}
 }
 
+# Monthly tick: advance active Domestic Exhibitions in country scope.
+tv_local_exhibition_monthly_pulse = {
+	trigger = {
+		OR = {
+			has_variable = tv_local_exhibition_active
+			has_variable = tv_local_exhibition_cd
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_variable = tv_local_exhibition_cd
+				var:tv_local_exhibition_cd >= 1
+			}
+			change_variable = { name = tv_local_exhibition_cd add = -1 }
+			if = {
+				limit = { var:tv_local_exhibition_cd <= 0 }
+				remove_variable = tv_local_exhibition_cd
+			}
+		}
+		if = {
+			limit = { has_variable = tv_local_exhibition_active }
+			change_variable = { name = tv_local_exhibition_duration add = 1 }
+			tv_local_exhibition_ensure_location_list_effect = yes
+			tv_update_local_exhibition_rating_effect = yes
+			if = {
+				limit = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_arts_exhibition
+						var:tv_local_exhibition_enthusiasm <= 0
+					}
+				}
+				tv_end_local_exhibition_effect = yes
+			}
+			else = {
+				tv_roll_local_exhibition_monthly_events_effect = yes
+			}
+		}
+	}
+}
+
 # Monthly tick: advance active Arts Exchanges.
 tv_arts_exchange_monthly_pulse = {
 	effect = {

@@ -7,7 +7,8 @@
 
 pulses:
   monthly_country_pulse:
-    - tv_leaderboard_monthly_pulse    # leaderboard + arts monthly roll + research/medicine/diplo inline
+    - tv_leaderboard_monthly_pulse    # leaderboard + touring artist roll + research/medicine/diplo inline
+    - tv_local_exhibition_monthly_pulse # Domestic Exhibition timer, cooldown, and monthly events
     - tv_research_a_pulse             # sub-process A random events
     - tv_research_d_pulse             # sub-process D concentrated research random events
     - tv_med_discovery_pulse          # medicine discovery events
