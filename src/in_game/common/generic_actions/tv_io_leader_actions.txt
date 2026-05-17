@@ -518,10 +518,12 @@ tv_remove_conquest_general_leader = {
 					remove_character_modifier = tv_grand_general_role_modifier
 				}
 			}
-			tv_training_clear_effect = yes
-			tv_govhouse_clear_war_tent_effect = yes
 			tv_govhouse_pay_grand_general_replacement_cost_effect = yes
-			tv_govhouse_reset_power_consolidation_effect = yes
+			hidden_effect = {
+			  tv_training_clear_effect = yes
+			  tv_govhouse_clear_war_tent_effect = yes
+			  tv_govhouse_reset_power_consolidation_effect = yes
+			}
 			remove_variable = tv_conquest_general_char
 		}
 	}
@@ -575,10 +577,12 @@ tv_change_conquest_general_leader = {
 					remove_character_modifier = tv_grand_general_role_modifier
 				}
 			}
-			tv_training_clear_effect = yes
-			tv_govhouse_clear_war_tent_effect = yes
 			tv_govhouse_pay_grand_general_replacement_cost_effect = yes
-			tv_govhouse_reset_power_consolidation_effect = yes
+			hidden_effect = {
+			  tv_training_clear_effect = yes
+			  tv_govhouse_clear_war_tent_effect = yes
+			  tv_govhouse_reset_power_consolidation_effect = yes
+			}
 		}
 		if = {
 			limit = { exists = scope:target }

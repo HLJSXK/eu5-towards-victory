@@ -702,10 +702,12 @@ tv_govhouse_start_offensive_plan_effect = {
 }
 
 tv_govhouse_start_defensive_plan_effect = {
-	tv_govhouse_clear_war_plan_effect = yes
-	set_variable = { name = tv_govhouse_plan_type value = 2 }
-	set_variable = { name = tv_govhouse_plan_progress value = 0 }
-	tv_govhouse_update_plan_modifiers_effect = yes
+	hidden_effect = {
+		tv_govhouse_clear_war_plan_effect = yes
+		set_variable = { name = tv_govhouse_plan_type value = 2 }
+		set_variable = { name = tv_govhouse_plan_progress value = 0 }
+		tv_govhouse_update_plan_modifiers_effect = yes
+	}
 }
 
 tv_govhouse_war_entry_effect = {
