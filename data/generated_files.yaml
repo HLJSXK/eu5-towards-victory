@@ -89,6 +89,10 @@ generated:
     data:   data/govhouse_laws.yaml
     output: src/in_game/common/laws/tv_govhouse_laws.txt
 
+  - script: scripts/in_game/common/laws/gen_tv_arts_exhibition_laws.py
+    data:   data/arts_exhibition_laws.yaml
+    output: src/in_game/common/laws/tv_arts_exhibition_laws.txt
+
   - script: scripts/in_game/common/customizable_localization/gen_character_title.py
     data:   data/io_leaders.yaml
     output: src/in_game/common/customizable_localization/character_title.txt
