@@ -17,7 +17,7 @@ laws:
         display_comment: "Church Patronage (default)"
         default: true
         country_modifier: |
-          global_pop_conversion_speed_modifier = 0.10
+          global_pop_conversion_speed_modifier = 0.30
           global_clergy_estate_power = 0.25
           global_monthly_art_start_chance = -0.05
       - id: tv_arts_court_patronage_policy
@@ -37,7 +37,7 @@ laws:
         country_modifier: |
           global_monthly_art_start_chance = 0.10
           global_monthly_development = 0.001
-          cultural_tradition_modifier = -0.05
+          trade_income = -0.05
       - id: tv_arts_state_academy_patronage_policy
         display_comment: "State Academy System"
         country_modifier: |
@@ -53,7 +53,7 @@ laws:
         display_comment: "Guild System (default)"
         default: true
         country_modifier: |
-          skill_of_new_artists = 0.05
+          skill_of_new_artists = -0.05
           global_production_efficiency = 0.05
           global_monthly_art_start_chance = -0.05
       - id: tv_arts_court_workshops_policy
@@ -94,7 +94,7 @@ laws:
       - id: tv_arts_educate_people_policy
         display_comment: "Educate the People"
         country_modifier: |
-          global_monthly_literacy = 0.01
+          global_max_literacy = 5
           pop_join_rebel_threshold = 0.025
           court_spending_cost_modifier = 0.05
       - id: tv_arts_display_civilization_policy
@@ -124,8 +124,8 @@ laws:
         display_comment: "Licensed Creation"
         country_modifier: |
           global_monthly_control = 0.001
-          cultural_influence_modifier = 0.05
-          court_spending_cost_modifier = 0.05
+          cultural_influence_modifier = 0.20
+          court_spending_cost_modifier = 0.10
       - id: tv_arts_court_tolerance_policy
         display_comment: "Court Tolerance"
         country_modifier: |
@@ -147,13 +147,11 @@ laws:
         default: true
         country_modifier: |
           global_build_buildings_cost = -0.10
-          global_production_efficiency = 0.05
           cultural_influence_modifier = -0.05
       - id: tv_arts_religious_city_policy
         display_comment: "Religious City"
         country_modifier: |
           global_pop_conversion_speed_modifier = 0.10
-          global_clergy_estate_power = 0.25
           tolerance_heathen = -1
       - id: tv_arts_royal_axis_policy
         display_comment: "Royal Axis"
@@ -172,7 +170,7 @@ laws:
         country_modifier: |
           cultures_capacity = 1
           global_monthly_development = 0.001
-          global_monthly_control = -0.001
+          global_max_control = -0.05
 
   - id: tv_arts_knowledge_media_law
     display_comment: "LAW 6: Knowledge Transmission Media"
@@ -247,7 +245,7 @@ laws:
         country_modifier: |
           skill_of_new_artists = 0.10
           research_speed_modifier = 0.05
-          court_spending_cost_modifier = 0.05
+          court_spending_cost_modifier = 0.20
       - id: tv_arts_royal_engineering_art_policy
         display_comment: "Royal Engineering Art"
         country_modifier: |
@@ -259,4 +257,4 @@ laws:
         country_modifier: |
           research_speed_modifier = 0.05
           cultural_influence_modifier = 0.10
-          clergy_estate_target_satisfaction = -0.025
+          clergy_estate_target_satisfaction = -0.05
