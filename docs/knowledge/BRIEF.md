@@ -37,6 +37,8 @@ The **Scientific Victory** path (科技胜利) is fully implemented with a uniqu
 
 Chief Scientist work is mutually exclusive: concentrated research, Academy law-change policy votes, and medical treatment each block the other two, with explicit busy-state tooltip text naming the active task.
 
+Current concentrated research behavior: D progress and completion require a living Chief Scientist with at least 20 ADM. The player can pause D with `tv_pause_concentrated_research`, preserving `tv_research_d_progress` while freeing the Chief Scientist for laws or medicine. While D is active, `tv_research_d_pulse` uses one shared `random_events` list for `tv_research.100`-`.129`; each currently eligible event has 1% monthly weight, and eligibility is gated by ADM tiers <20, 20-49, 50-79, and >=80.
+
 The mod is additive-only and uses the `tv_` namespace prefix throughout.
 
 ## Core Features
@@ -124,7 +126,7 @@ src/
 │   │   ├── effect_localization/           tv_arts_exhibition_effects.txt  [MANUAL — custom_description text mapping for local exhibition enthusiasm IO variable changes]
 │   │   ├── static_modifiers/              towards_victory_modifiers.txt  [GENERATED]
 │   │                                  towards_victory_location_modifiers.txt  [MANUAL — governor location modifiers + tv_exhibition_success_location_modifier + tv_local_exhibition_triumph_location_modifier]
-│   │                                  tv_research_modifiers.txt  [MANUAL — Concentrated Research country penalty modifier]
+│   │                                  tv_research_modifiers.txt  [MANUAL — Concentrated Research penalty + D random-event cabinet modifiers]
 │   │   ├── building_types/                towards_victory_buildings.txt  [GENERATED — Academy of Sciences building chain tiers 1–5]
 │   │   │                                  tv_arts_exhibition_buildings.txt  [MANUAL — event-only tv_local_arts_exhibition building]
 │   │   ├── scripted_effects/              ...
@@ -149,11 +151,12 @@ src/
 │   │   │                                  tv_academy_parliament.txt  [MANUAL — dormant tv_academy_assembly type, not attached while Academy parliament is hidden]
 │   │   └── on_action/                     towards_victory_yearly.txt  [GENERATED]
 │   │                                      towards_victory_leaderboard.txt  [MANUAL — monthly_country_pulse hooks]
-│   │                                      tv_research_on_action.txt  [MANUAL — B check, CD countdown, A random event]
+│   │                                      tv_research_on_action.txt  [MANUAL — B check, CD countdown, A and D random event pulses]
 │   │                                      tv_medicine_on_action.txt  [MANUAL — tv_med_discovery_pulse (1%) and tv_med_accident_pulse (5%) sub-actions]
 │   ├── events/                            towards_victory_{conquest,prosperity,trade,diplomatic,cultural,science}_events.txt (one namespace per category — EU5 event IDs must be `<ns>.<int>` with exactly one dot)
 │   │                                      tv_academy_join_events.txt  [MANUAL — legacy namespace tv_academy; no longer fired by Phase I building]
 │   │                                      tv_research_events.txt  [MANUAL — namespace tv_research; events .1/.10/.11/.19/.20/.30]
+│   │                                      tv_research_d_events.txt  [GENERATED — namespace tv_research; D random events .100-.129]
 │   │                                      tv_medicine_events.txt  [MANUAL — namespace tv_medicine; .1 discovery / .2 accident / .3 recovery / .4 patient died]
 │   │                                      tv_arts_exhibition_events.txt  [MANUAL — artist tours + local exhibition start/end/monthly/action events]
 │   │                                      tv_govhouse_events.txt  [MANUAL - Governor's House notifications plus balance-of-power backlash events]
@@ -209,6 +212,7 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | `scripts/in_game/common/laws/gen_tv_academy_laws.py` | data/academy_laws.yaml | src/in_game/common/laws/tv_academy_laws.txt | After editing Academy of Sciences law choices |
 | `scripts/in_game/common/laws/gen_tv_govhouse_laws.py` | data/govhouse_laws.yaml | src/in_game/common/laws/tv_govhouse_laws.txt | After editing Governor's House law choices |
 | `scripts/in_game/common/on_action/gen_tv_pulse_registry.py` | data/pulse_registry.yaml + vanilla pulse files | src/in_game/common/on_action/country_monthly.txt, country_yearly.txt, character_death_pulses.txt | After adding/changing singleton pulse hooks |
+| `scripts/in_game/events/gen_tv_research_d_events.py` | data/research_d_events.yaml | src/in_game/events/tv_research_d_events.txt | After changing Concentrated Research random event definitions |
 | `scripts/in_game/common/customizable_localization/gen_character_title.py` | data/io_leaders.yaml + vanilla character_title.txt | src/in_game/common/customizable_localization/character_title.txt | After changing IO leader title modifiers |
 
 Generated files that copy vanilla sources preserve the copied vanilla content verbatim. The only intended changes are TV-owned insertions: pulse on_action names from `data/pulse_registry.yaml`, TV character title entries from `data/io_leaders.yaml`, and TV message type entries from `scripts/gen_messagetypes.py`. TV-authored `trigger`/`limit` condition blocks that use `has_variable` may wrap guards in `custom_tooltip`, but generated vanilla-copy files must not rewrite copied vanilla guards.
@@ -351,9 +355,9 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | --- | --- | --- | --- |
 | GUI Icons (`@xxx!`) | 351 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
 | Scripted Triggers | 532 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
-| Scripted Effects | 624 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
+| Scripted Effects | 627 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 1243 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 1266 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

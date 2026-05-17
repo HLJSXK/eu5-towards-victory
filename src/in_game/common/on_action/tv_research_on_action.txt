@@ -26,3 +26,118 @@ tv_research_a_pulse = {
 		10 = tv_research.1
 	}
 }
+
+# ── tv_research_d_pulse ────────────────────────────────────────────────────────
+# Sub-action for Sub-process D random events.
+# Each currently eligible event has a 1% monthly weight. The tier-dependent
+# chance_of_no_event keeps the total list at 100 while still selecting at most
+# one event each month.
+tv_research_d_pulse = {
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_RESEARCH_PHASE_TT
+			has_variable = tv_research_phase
+		}
+		var:tv_research_phase = 2
+		has_variable = tv_academy_leader_char
+		var:tv_academy_leader_char ?= { is_alive = yes }
+	}
+	random_events = {
+		chance_to_happen = 100
+		chance_of_no_event = {
+			value = 100
+			if = {
+				limit = { var:tv_academy_leader_char ?= { adm < 20 } }
+				add = -11
+			}
+			if = {
+				limit = {
+					var:tv_academy_leader_char ?= {
+						adm >= 20
+						adm < 50
+					}
+					any_cabinet_character = { count > 0 }
+				}
+				add = -17
+			}
+			if = {
+				limit = {
+					var:tv_academy_leader_char ?= {
+						adm >= 20
+						adm < 50
+					}
+					NOT = { any_cabinet_character = { count > 0 } }
+				}
+				add = -15
+			}
+			if = {
+				limit = {
+					var:tv_academy_leader_char ?= {
+						adm >= 50
+						adm < 80
+					}
+					any_cabinet_character = { count > 0 }
+				}
+				add = -17
+			}
+			if = {
+				limit = {
+					var:tv_academy_leader_char ?= {
+						adm >= 50
+						adm < 80
+					}
+					NOT = { any_cabinet_character = { count > 0 } }
+				}
+				add = -15
+			}
+			if = {
+				limit = {
+					var:tv_academy_leader_char ?= { adm >= 80 }
+					any_cabinet_character = { count > 0 }
+				}
+				add = -11
+			}
+			if = {
+				limit = {
+					var:tv_academy_leader_char ?= { adm >= 80 }
+					NOT = { any_cabinet_character = { count > 0 } }
+				}
+				add = -10
+			}
+		}
+		1 = tv_research.100
+		1 = tv_research.101
+		1 = tv_research.102
+		1 = tv_research.103
+		1 = tv_research.104
+		1 = tv_research.105
+		1 = tv_research.106
+		1 = tv_research.107
+		1 = tv_research.108
+		1 = tv_research.109
+		1 = tv_research.110
+		1 = tv_research.111
+		1 = tv_research.112
+		1 = tv_research.113
+		1 = tv_research.114
+		1 = tv_research.115
+		1 = tv_research.116
+		1 = tv_research.117
+		1 = tv_research.118
+		1 = tv_research.119
+		1 = tv_research.120
+		1 = tv_research.121
+		1 = tv_research.122
+		1 = tv_research.123
+		1 = tv_research.124
+		1 = tv_research.125
+		1 = tv_research.126
+		1 = tv_research.127
+		1 = tv_research.128
+		1 = tv_research.129
+	}
+}

@@ -115,6 +115,19 @@ tv_start_concentrated_research = {
 			text = tv_start_d_requires_c_tt
 			scope:actor = { var:tv_rm_subprocess_c ?= { this >= 2 } }
 		}
+		custom_tooltip = {
+			text = tv_start_d_requires_scientist_tt
+			scope:actor = {
+				has_variable = tv_academy_leader_char
+				var:tv_academy_leader_char ?= { is_alive = yes }
+			}
+		}
+		custom_tooltip = {
+			text = tv_start_d_requires_scientist_adm_20_tt
+			scope:actor = {
+				var:tv_academy_leader_char ?= { adm >= 20 }
+			}
+		}
 		scope:actor = {
 			tv_chief_scientist_available_for_concentrated_research_trigger = yes
 		}
@@ -128,6 +141,39 @@ tv_start_concentrated_research = {
 
 	ai_will_do = {
 		add = 50
+	}
+}
+
+# ── Pause Concentrated Research (D) ──────────────────────────────────────────
+# Preserves D progress and the target, but releases the Chief Scientist for other work.
+tv_pause_concentrated_research = {
+	type = owncountry
+
+	sound = UI_action_religion_generic
+
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
+			scope:actor = { has_variable = tv_academy_io_member }
+		}
+		scope:actor = { tv_research_d_in_progress_trigger = yes }
+	}
+
+	allow = {
+		scope:actor = { tv_research_d_in_progress_trigger = yes }
+	}
+
+	effect = {
+		scope:actor = {
+			tv_research_pause_d_effect = yes
+		}
+	}
+
+	ai_will_do = {
+		add = -100
 	}
 }
 

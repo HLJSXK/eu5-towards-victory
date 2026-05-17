@@ -276,6 +276,16 @@ PERFORM_tv_start_concentrated_research_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_pause_concentrated_research_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
 PERFORM_tv_treat_character_ACTION={
 \tlog=yes
 \tonmap=no

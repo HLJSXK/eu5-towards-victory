@@ -467,6 +467,17 @@ organization_panel = {
 			}
 		}
 
+		# Pause Concentrated Research (visible when D is in progress)
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "TV_RM_PAUSE_D_BTN"
+			title = "TV_RM_PAUSE_D_BTN"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_pause_concentrated_research"
+			}
+		}
+
 	}
 
 	# -- Chief Scientist tab: reuse the vanilla resolutions slot -----------------

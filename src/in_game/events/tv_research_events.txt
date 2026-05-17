@@ -310,6 +310,11 @@ tv_research.19 = {
 
 	trigger = {
 		tv_research_can_start_d_trigger = yes
+		has_variable = tv_academy_leader_char
+		var:tv_academy_leader_char ?= {
+			is_alive = yes
+			adm >= 20
+		}
 	}
 
 	option = {
@@ -331,6 +336,7 @@ tv_research.20 = {
 
 	option = {
 		name = tv_research.20.a	# "Begin concentrated research"
+		custom_tooltip = tv_research.20.random_events.tt
 		tv_research_start_d_effect = yes
 	}
 	option = {

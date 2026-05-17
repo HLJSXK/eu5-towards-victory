@@ -12298,6 +12298,16 @@ PERFORM_tv_start_concentrated_research_ACTION={
 	message_category = society
 }
 
+PERFORM_tv_pause_concentrated_research_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
 PERFORM_tv_treat_character_ACTION={
 	log=yes
 	onmap=no

@@ -104,3 +104,7 @@ generated:
   - script: scripts/in_game/common/on_action/gen_tv_pulse_registry.py
     data:   data/pulse_registry.yaml
     output: src/in_game/common/on_action/character_death_pulses.txt
+
+  - script: scripts/in_game/events/gen_tv_research_d_events.py
+    data:   data/research_d_events.yaml
+    output: src/in_game/events/tv_research_d_events.txt

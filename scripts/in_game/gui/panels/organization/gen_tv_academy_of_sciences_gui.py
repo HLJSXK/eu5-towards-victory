@@ -361,6 +361,17 @@ GUI_SUFFIX = """\
 \t\t\t}
 \t\t}
 
+\t\t# Pause Concentrated Research (visible when D is in progress)
+\t\taction_button_diamond = {
+\t\t\tsize = { 470 30 }
+\t\t\ttext = "TV_RM_PAUSE_D_BTN"
+\t\t\ttitle = "TV_RM_PAUSE_D_BTN"
+\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\tleft_action = {
+\t\t\t\taction_name = "tv_pause_concentrated_research"
+\t\t\t}
+\t\t}
+
 \t}
 
 \t# -- Chief Scientist tab: reuse the vanilla resolutions slot -----------------

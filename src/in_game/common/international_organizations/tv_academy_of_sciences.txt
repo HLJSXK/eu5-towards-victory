@@ -42,7 +42,9 @@ tv_academy_of_sciences = {
 	# ── IO Variables: C and D research progress ───────────────────────────────
 	# These are auto-accumulated via monthly_change; completion is detected in monthly_effect.
 	# Calibration C: average_country_literacy * 0.05 /month → 100 in ~40 months at literacy=50.
-	# Calibration D: leader_country.var:tv_academy_leader_char.adm * 0.05 /month → 100 in ~333 months at adm=6.
+	# Calibration D: leader_country.var:tv_academy_leader_char.adm * 0.05 /month.
+	# D only advances and completes when the Chief Scientist has at least 20 ADM.
+	# At 50 ADM, D gains 2.5/month and finishes in roughly 40 months.
 	# D halts when no leader appointed (international_organization_has_leader = no).
 	variables = {
 		tv_research_c_progress = {
@@ -95,7 +97,10 @@ tv_academy_of_sciences = {
 									text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 									has_variable = tv_academy_leader_char
 								}
-								var:tv_academy_leader_char ?= { is_alive = yes }
+								var:tv_academy_leader_char ?= {
+									is_alive = yes
+									adm >= 20
+								}
 							}
 						}
 						value = leader_country.var:tv_academy_leader_char.adm
@@ -142,6 +147,11 @@ tv_academy_of_sciences = {
 						has_variable = tv_research_phase
 					}
 					var:tv_research_phase ?= 2
+					has_variable = tv_academy_leader_char
+					var:tv_academy_leader_char ?= {
+						is_alive = yes
+						adm >= 20
+					}
 				}
 			}
 			leader_country ?= { tv_research_concentrated_complete_effect = yes }
