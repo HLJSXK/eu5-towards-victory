@@ -1136,6 +1136,64 @@ tv_apply_governor_bonuses_effect = {
 	tv_govhouse_refresh_region_list_effect = yes
 }
 
+# Picks the Governor and representative location used by one random Governor
+# event. Scope: governing country.
+tv_govhouse_select_random_governor_event_scope_effect = {
+	save_scope_as = tv_gov_event_owner
+	random_in_list = { variable = tv_governor_list
+		limit = {
+			is_alive = yes
+			has_variable = tv_governed_region
+			var:tv_governed_region ?= {
+				any_location_in_region = {
+					owner ?= scope:tv_gov_event_owner
+				}
+			}
+		}
+		save_scope_as = tv_gov_event_governor
+	}
+	if = {
+		limit = { exists = scope:tv_gov_event_governor }
+		scope:tv_gov_event_governor = {
+			var:tv_governed_region ?= {
+				save_scope_as = tv_gov_event_region
+				random_location_in_region = {
+					limit = { owner ?= scope:tv_gov_event_owner }
+					save_scope_as = tv_gov_event_location
+				}
+			}
+		}
+	}
+}
+
+# Applies one one-year location modifier to every owned location in the selected
+# Governor's region. Scope: governing country. Requires the event's immediate
+# block to have called tv_govhouse_select_random_governor_event_scope_effect.
+tv_govhouse_apply_region_event_modifier_effect = {
+	if = {
+		limit = { exists = scope:tv_gov_event_region }
+		scope:tv_gov_event_region = {
+			every_location_in_region = {
+				limit = { owner ?= scope:tv_gov_event_owner }
+				add_location_modifier = {
+					modifier = $modifier$
+					years = 1
+					mode = replace
+				}
+			}
+		}
+	}
+}
+
+# Applies one one-year country modifier from a Governor event. Scope: country.
+tv_govhouse_add_country_event_modifier_effect = {
+	add_country_modifier = {
+		modifier = $modifier$
+		years = 1
+		mode = replace
+	}
+}
+
 # Appoints a governor to a region. Displaces any existing governor for that region.
 # Scope: country. scope:target = character (from select_trigger target_flag = target).
 #                  scope:target_1 = region (from select_trigger target_flag = target_1).

@@ -161,6 +161,53 @@ tv_govhouse_negative_monthly_pulse = {
 	}
 }
 
+# Monthly roll for local Governor events. One country-level roll is made each
+# month if at least one living Governor still has an owned governed region.
+tv_govhouse_governor_events_monthly_pulse = {
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			has_variable = tv_govhouse_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_GOVERNOR_LIST_TT
+			has_variable = tv_governor_list
+		}
+		any_in_list = { variable = tv_governor_list
+			is_alive = yes
+			has_variable = tv_governed_region
+			var:tv_governed_region ?= {
+				any_location_in_region = {
+					owner ?= root
+				}
+			}
+		}
+	}
+	random_events = {
+		180 = 0
+		1 = tv_govhouse.100
+		1 = tv_govhouse.101
+		1 = tv_govhouse.102
+		1 = tv_govhouse.103
+		1 = tv_govhouse.104
+		1 = tv_govhouse.105
+		1 = tv_govhouse.106
+		1 = tv_govhouse.107
+		1 = tv_govhouse.108
+		1 = tv_govhouse.109
+		1 = tv_govhouse.110
+		1 = tv_govhouse.111
+		1 = tv_govhouse.112
+		1 = tv_govhouse.113
+		1 = tv_govhouse.114
+		1 = tv_govhouse.115
+		1 = tv_govhouse.116
+		1 = tv_govhouse.117
+		1 = tv_govhouse.118
+		1 = tv_govhouse.119
+	}
+}
+
 # Monthly War Tent processing: plan progress, active plan modifiers, and
 # the 5% Grand General tactic-change roll while at war.
 tv_govhouse_war_tent_monthly_pulse = {

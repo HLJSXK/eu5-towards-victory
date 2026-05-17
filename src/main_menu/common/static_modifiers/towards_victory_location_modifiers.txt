@@ -40,3 +40,197 @@ tv_local_exhibition_triumph_location_modifier = {
 		category = location
 	}
 }
+
+# Governor's House - regional governor random events
+tv_gov_event_ordered_tax_posts = {
+	local_monthly_control = 0.001
+	local_max_control = 0.02
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_trade_chokepoints = {
+	local_production_efficiency = -0.05
+	local_market_access = -0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_smuggling_network = {
+	local_monthly_control = -0.001
+	local_pirate_spawn_chance = 0.02
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_merchant_shutdown = {
+	local_production_efficiency = -0.10
+	local_trade_center_power = -0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_protected_native_allies = {
+	local_unrest = -0.10
+	local_migration_attraction = 0.5
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_native_guides = {
+	local_monthly_control = 0.001
+	local_pop_assimilation_speed_modifier = 0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_local_noble_network = {
+	local_max_control = 0.03
+	local_unrest = -0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_pirate_coast = {
+	local_pirate_spawn_chance = 0.05
+	local_trade_center_power = -0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_frontier_garrison = {
+	local_max_control = 0.05
+	local_unrest = -0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_military_requisition = {
+	local_unrest = 0.10
+	local_production_efficiency = -0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_missionary_scandal_local = {
+	local_pop_conversion_speed_modifier = -0.10
+	local_unrest = 0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_gold_rush = {
+	local_goods_gold_output_modifier = 0.10
+	local_migration_attraction = 1
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_autonomy_precedent = {
+	local_max_control = -0.03
+	local_monthly_control = -0.001
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_plague_quarantine = {
+	local_population_growth = -0.01
+	local_production_efficiency = -0.10
+	local_unrest = 0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_military_arrears = {
+	local_max_control = -0.05
+	local_unrest = 0.10
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_settler_clashes = {
+	local_unrest = 0.10
+	local_pop_assimilation_speed_modifier = -0.10
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_ceremonial_loyalty = {
+	local_monthly_prosperity = 0.002
+	local_unrest = -0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_new_religion_tensions = {
+	local_pop_conversion_speed_modifier = -0.15
+	local_unrest = 0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_garrison_loyalty = {
+	local_max_control = -0.05
+	local_unrest = 0.10
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_company_warehouses = {
+	local_trade_center_power = 0.05
+	local_market_access = 0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_settler_wave = {
+	local_population_growth = 0.005
+	local_migration_attraction = 1
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_antiquarian_schools = {
+	local_monthly_development = 0.001
+	local_migration_attraction = 0.5
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_frontier_faction = {
+	local_max_control = -0.03
+	local_unrest = 0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_gov_event_frontier_hero_legend = {
+	local_monthly_control = 0.001
+	local_unrest = -0.05
+	game_data = {
+		category = location
+	}
+}

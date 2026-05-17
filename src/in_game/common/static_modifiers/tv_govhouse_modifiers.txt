@@ -4,6 +4,52 @@ tv_grand_general_training_modifier = {
 	court_spending_cost_modifier = 0.10
 }
 
+# Regional governor random events
+tv_gov_event_customs_income = {
+	tax_income_efficiency = 0.05
+}
+
+tv_gov_event_crown_suspicion = {
+	global_monthly_control = -0.001
+}
+
+tv_gov_event_smuggling_leakage = {
+	tax_income_efficiency = -0.03
+	global_pirate_spawn_chance = 0.01
+}
+
+tv_gov_event_privateer_compact = {
+	ship_build_speed = 0.10
+	global_pirate_spawn_chance = 0.01
+}
+
+tv_gov_event_missionary_embarrassment = {
+	global_pop_conversion_speed_modifier = -0.10
+}
+
+tv_gov_event_autonomy_precedent_country = {
+	global_monthly_control = -0.001
+	global_separatism = 0.02
+}
+
+tv_gov_event_company_privileges = {
+	global_production_efficiency = 0.03
+	tax_income_efficiency = -0.02
+}
+
+tv_gov_event_settlement_drive_country = {
+	global_population_growth = 0.02
+}
+
+tv_gov_event_frontier_recruitment = {
+	global_sailors_modifier = 0.05
+}
+
+tv_gov_event_military_disorder_country = {
+	tax_income_efficiency = -0.05
+	global_production_efficiency = -0.02
+}
+
 # War Tent - Grand General tactics
 tv_govhouse_tactic_steady_advance = {
 	game_data = {

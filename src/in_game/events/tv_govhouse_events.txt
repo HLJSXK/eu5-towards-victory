@@ -448,3 +448,444 @@ tv_govhouse.42 = {
 		tv_govhouse_update_plan_modifiers_effect = yes
 	}
 }
+
+# ── Regional Governor random events ─────────────────────────────────────────
+tv_govhouse.100 = {
+	type = country_event
+	title = tv_govhouse.100.t
+	desc = tv_govhouse.100.d
+	outcome = neutral
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.100.a
+		change_gold_effect = { scale = 0.5 }
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_customs_income }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_trade_chokepoints }
+	}
+
+	option = {
+		name = tv_govhouse.100.b
+		add_government_power = government_power_weak_bonus
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_crown_suspicion }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_smuggling_network }
+	}
+}
+
+tv_govhouse.101 = {
+	type = country_event
+	title = tv_govhouse.101.t
+	desc = tv_govhouse.101.d
+	outcome = bad
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.101.a
+		add_stability = stability_weak_penalty
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_merchant_shutdown }
+	}
+
+	option = {
+		name = tv_govhouse.101.b
+		add_government_power = government_power_weak_penalty
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_smuggling_leakage }
+	}
+}
+
+tv_govhouse.102 = {
+	type = country_event
+	title = tv_govhouse.102.t
+	desc = tv_govhouse.102.d
+	outcome = good
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.102.a
+		add_prestige = 5
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_protected_native_allies }
+	}
+
+	option = {
+		name = tv_govhouse.102.b
+		add_research_progress = research_progress_weak_bonus
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_native_guides }
+	}
+}
+
+tv_govhouse.103 = {
+	type = country_event
+	title = tv_govhouse.103.t
+	desc = tv_govhouse.103.d
+	outcome = neutral
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.103.a
+		add_legitimacy = legitimacy_weak_bonus
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_autonomy_precedent_country }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_local_noble_network }
+	}
+
+	option = {
+		name = tv_govhouse.103.b
+		add_government_power = government_power_weak_bonus
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_frontier_faction }
+	}
+}
+
+tv_govhouse.104 = {
+	type = country_event
+	title = tv_govhouse.104.t
+	desc = tv_govhouse.104.d
+	outcome = bad
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.104.a
+		change_gold_effect = { scale = -1 }
+		add_sailors = { value = root.monthly_sailors multiply = -1 }
+	}
+
+	option = {
+		name = tv_govhouse.104.b
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_privateer_compact }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_pirate_coast }
+	}
+}
+
+tv_govhouse.105 = {
+	type = country_event
+	title = tv_govhouse.105.t
+	desc = tv_govhouse.105.d
+	outcome = neutral
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.105.a
+		change_gold_effect = { scale = -1 }
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_military_disorder_country }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_frontier_garrison }
+	}
+
+	option = {
+		name = tv_govhouse.105.b
+		add_government_power = government_power_weak_bonus
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_military_requisition }
+	}
+}
+
+tv_govhouse.106 = {
+	type = country_event
+	title = tv_govhouse.106.t
+	desc = tv_govhouse.106.d
+	outcome = bad
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.106.a
+		add_stability = stability_weak_penalty
+		add_manpower = { value = root.monthly_manpower multiply = -1 }
+	}
+
+	option = {
+		name = tv_govhouse.106.b
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_missionary_embarrassment }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_missionary_scandal_local }
+	}
+}
+
+tv_govhouse.107 = {
+	type = country_event
+	title = tv_govhouse.107.t
+	desc = tv_govhouse.107.d
+	outcome = good
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.107.a
+		change_gold_effect = { scale = 1 }
+		add_prestige = 5
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_gold_rush }
+	}
+}
+
+tv_govhouse.108 = {
+	type = country_event
+	title = tv_govhouse.108.t
+	desc = tv_govhouse.108.d
+	outcome = bad
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.108.a
+		add_government_power = government_power_weak_penalty
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_autonomy_precedent_country }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_autonomy_precedent }
+	}
+}
+
+tv_govhouse.109 = {
+	type = country_event
+	title = tv_govhouse.109.t
+	desc = tv_govhouse.109.d
+	outcome = bad
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.109.a
+		add_stability = stability_weak_penalty
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_plague_quarantine }
+	}
+}
+
+tv_govhouse.110 = {
+	type = country_event
+	title = tv_govhouse.110.t
+	desc = tv_govhouse.110.d
+	outcome = bad
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.110.a
+		add_government_power = government_power_weak_penalty
+		add_manpower = { value = root.monthly_manpower multiply = -2 }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_military_arrears }
+	}
+}
+
+tv_govhouse.111 = {
+	type = country_event
+	title = tv_govhouse.111.t
+	desc = tv_govhouse.111.d
+	outcome = bad
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.111.a
+		add_stability = stability_weak_penalty
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_settler_clashes }
+	}
+
+	option = {
+		name = tv_govhouse.111.b
+		change_gold_effect = { scale = -0.5 }
+		add_government_power = government_power_weak_penalty
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_autonomy_precedent }
+	}
+}
+
+tv_govhouse.112 = {
+	type = country_event
+	title = tv_govhouse.112.t
+	desc = tv_govhouse.112.d
+	outcome = neutral
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.112.a
+		add_prestige = 10
+		change_gold_effect = { scale = -1 }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_ceremonial_loyalty }
+	}
+
+	option = {
+		name = tv_govhouse.112.b
+		add_government_power = government_power_weak_bonus
+		add_prestige = prestige_weak_penalty
+	}
+}
+
+tv_govhouse.113 = {
+	type = country_event
+	title = tv_govhouse.113.t
+	desc = tv_govhouse.113.d
+	outcome = bad
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.113.a
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_missionary_embarrassment }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_new_religion_tensions }
+	}
+
+	option = {
+		name = tv_govhouse.113.b
+		add_stability = stability_weak_penalty
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_new_religion_tensions }
+	}
+}
+
+tv_govhouse.114 = {
+	type = country_event
+	title = tv_govhouse.114.t
+	desc = tv_govhouse.114.d
+	outcome = bad
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.114.a
+		add_government_power = government_power_mild_penalty
+		add_stability = stability_weak_penalty
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_garrison_loyalty }
+	}
+}
+
+tv_govhouse.115 = {
+	type = country_event
+	title = tv_govhouse.115.t
+	desc = tv_govhouse.115.d
+	outcome = neutral
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.115.a
+		add_government_power = government_power_weak_penalty
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_company_privileges }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_company_warehouses }
+	}
+
+	option = {
+		name = tv_govhouse.115.b
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_crown_suspicion }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_company_warehouses }
+	}
+}
+
+tv_govhouse.116 = {
+	type = country_event
+	title = tv_govhouse.116.t
+	desc = tv_govhouse.116.d
+	outcome = good
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.116.a
+		add_manpower = { value = root.monthly_manpower multiply = 2 }
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_settlement_drive_country }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_settler_wave }
+	}
+}
+
+tv_govhouse.117 = {
+	type = country_event
+	title = tv_govhouse.117.t
+	desc = tv_govhouse.117.d
+	outcome = good
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.117.a
+		add_research_progress = research_progress_weak_bonus
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_antiquarian_schools }
+	}
+
+	option = {
+		name = tv_govhouse.117.b
+		add_prestige = 10
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_ceremonial_loyalty }
+	}
+}
+
+tv_govhouse.118 = {
+	type = country_event
+	title = tv_govhouse.118.t
+	desc = tv_govhouse.118.d
+	outcome = neutral
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.118.a
+		add_stability = stability_weak_bonus
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_autonomy_precedent_country }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_autonomy_precedent }
+	}
+
+	option = {
+		name = tv_govhouse.118.b
+		add_government_power = government_power_weak_bonus
+		add_stability = stability_weak_penalty
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_frontier_faction }
+	}
+}
+
+tv_govhouse.119 = {
+	type = country_event
+	title = tv_govhouse.119.t
+	desc = tv_govhouse.119.d
+	outcome = neutral
+
+	immediate = {
+		tv_govhouse_select_random_governor_event_scope_effect = yes
+	}
+
+	option = {
+		name = tv_govhouse.119.a
+		add_army_tradition = army_tradition_weak_bonus
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_autonomy_precedent_country }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_frontier_hero_legend }
+	}
+
+	option = {
+		name = tv_govhouse.119.b
+		add_government_power = government_power_weak_bonus
+		add_prestige = prestige_weak_penalty
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_frontier_faction }
+	}
+}
