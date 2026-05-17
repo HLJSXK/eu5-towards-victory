@@ -464,6 +464,7 @@ tv_govhouse.100 = {
 		name = tv_govhouse.100.a
 		change_gold_effect = { scale = 0.5 }
 		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_customs_income }
+		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_ordered_tax_posts }
 		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_trade_chokepoints }
 	}
 
@@ -581,6 +582,7 @@ tv_govhouse.105 = {
 	option = {
 		name = tv_govhouse.105.a
 		change_gold_effect = { scale = -1 }
+		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_frontier_recruitment }
 		tv_govhouse_add_country_event_modifier_effect = { modifier = tv_gov_event_military_disorder_country }
 		tv_govhouse_apply_region_event_modifier_effect = { modifier = tv_gov_event_frontier_garrison }
 	}
