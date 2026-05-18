@@ -2,11 +2,11 @@
  # ── Academy of Sciences ────────────────────────────────────────────────────────
  # IO type auto-derived keys (engine looks these up by the IO type name)
  tv_academy_of_sciences: "Academy of Sciences"
- tv_academy_of_sciences_desc: "An international institution founded upon the completion of the Academy of Sciences (Phase I). Each realm maintains its own independent Academy, serving as the seat of scholarly inquiry and the gateway to the Research Mechanism."
+ tv_academy_of_sciences_desc: "An international institution founded upon the completion of the Academy of Sciences (Phase I). Each realm maintains its own independent Academy, serving as the seat of scholarly inquiry and the gateway to the [tv_research_mechanism|e]."
  tv_academy_assembly: "Academy Assembly"
  tv_academy_assembly_desc: "The Academy Assembly is where Academy members vote on scientific laws."
  diplomatic_status_tv_academy_of_sciences_name: "Academy of Sciences Member"
- diplomatic_status_tv_academy_of_sciences_tooltip: "This country has founded its own Academy of Sciences and participates in the Research Mechanism."
+ diplomatic_status_tv_academy_of_sciences_tooltip: "This country has founded its own Academy of Sciences and participates in the [tv_research_mechanism|e]."
  tv_academy_of_sciences_list_who_tt: "Academy of Sciences members"
  io_opinion_tv_academy_of_sciences: "Fellow Academy of Sciences Member"
  TV_ACADEMY_IO_LEADER: "President of the Academy"
@@ -111,9 +111,9 @@
 
  # ── IO Leader management ──────────────────────────────────────────────
  tv_appoint_academy_leader: "Appoint Chief Scientist"
- tv_appoint_academy_leader_desc: "Appoint one of our characters as the Chief Scientist of the Academy. The Chief Scientist's Administration skill drives the Concentrated Research subprocess."
+ tv_appoint_academy_leader_desc: "Appoint one of our characters as the Chief Scientist of the Academy. The Chief Scientist's Administration skill drives the [tv_concentrated_research|e] subprocess."
  tv_remove_academy_leader: "Dismiss Chief Scientist"
- tv_remove_academy_leader_desc: "Remove the current Chief Scientist. Concentrated Research will halt until a new Chief Scientist is appointed."
+ tv_remove_academy_leader_desc: "Remove the current Chief Scientist. [tv_concentrated_research|E] will halt until a new Chief Scientist is appointed."
  tv_change_academy_leader: "Replace Chief Scientist"
  tv_change_academy_leader_desc: "Replace the current Chief Scientist with another character."
  tv_select_academy_leader: "Select Chief Scientist"
@@ -138,5 +138,5 @@
 
  # ── Chief Scientist death event (tv_academy.10) ──────────────────────────────
  tv_academy.10.t: "Chief Scientist Has Died"
- tv_academy.10.d: "Our Chief Scientist has passed away. The position is now vacant; Concentrated Research will be suspended until a new Chief Scientist is appointed."
+ tv_academy.10.d: "Our Chief Scientist has passed away. The position is now vacant; [tv_concentrated_research|E] will be suspended until a new Chief Scientist is appointed."
  tv_academy.10.a: "We must appoint a new Chief Scientist."

@@ -10,9 +10,9 @@
  TV_ALLIANCE_COHESION_FORMAT: "联盟凝聚力：$VALUE|1$"
  TV_ALLIANCE_TIER_FORMAT: "联盟等级：$VALUE|0$"
  tv_alliance_cohesion:0 "联盟凝聚力"
- tv_alliance_cohesion_desc:0 "外交联盟的团结与协作程度。凝聚力越高，每月联盟等级增长越快。"
+ tv_alliance_cohesion_desc:0 "[tv_diplomatic_alliance|e]的团结与协作程度。凝聚力会在通过升级后的联盟法律时消耗，并提高[tv_alliance_tier|e]。"
  tv_alliance_tier:0 "联盟等级"
- tv_alliance_tier_desc:0 "外交联盟的当前等级，随成员共同通过法律而提升。"
+ tv_alliance_tier_desc:0 "[tv_diplomatic_alliance|e]的当前制度等级，随成员共同通过升级后的法律而提升。"
  tv_alliance_assembly_desc:0 "联盟议会是成员国审议和表决加强外交联盟法律的场所。"
 
  # ── 国家互动 ───────────────────────────────────────────────────────────
@@ -118,7 +118,7 @@
  # ── 效果提示 ────────────────────────────────────────────────────────────
  tv_create_diplomatic_alliance_tt: "组建外交联盟，所有现有支持国将成为创始成员。"
 
- tv_diplomatic_alliance_desc: "外交联盟是一个由致力于外交霸权的国家组成的宏大联盟。在倡导者的领导下，联盟协调对外政策，建立共同协议，并就成员国合作法律进行投票。"
+ tv_diplomatic_alliance_desc: "[tv_diplomatic_alliance|E]是一个由致力于外交霸权的国家组成的宏大联盟。在倡导者的领导下，联盟协调对外政策，建立共同协议，并就成员国合作法律进行投票。"
 
  # ── 法律类别描述 ────────────────────────────────────────────────────────
  tv_court_protocol_desc: "决定联盟成员之间的外交礼仪水平与合法性认可程度。"

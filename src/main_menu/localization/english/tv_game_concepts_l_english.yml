@@ -51,10 +51,10 @@
 
  # ── Towards Victory — Game Concepts ───────────────────────────────────────
  game_concept_tv_conquest_score: "Conquest Score"
- game_concept_tv_conquest_score_desc: "The Conquest Score measures the territorial extent of your realm. Each location you directly own adds 1 point; each location held by a [subject|e] or lower-ranked country adds 0.5 points. Updated monthly. Reach 2,000 to achieve the long-term [tv_victory_situation|E]."
+ game_concept_tv_conquest_score_desc: "The Conquest Score measures the territorial extent of your realm. Each location you directly own adds 1 point; each location held by a [subject|e] or lower-ranked country adds 0.5 points. Updated monthly. Reach 2,500 to achieve the long-term [tv_victory_situation|E]."
 
  game_concept_tv_prosperity_score: "Prosperity Score"
- game_concept_tv_prosperity_score_desc: "The Prosperity Score tracks the domestic development of your realm. It accumulates as the sum of your total population, development across all owned locations, and your country tax base. Updated yearly. Reach 8,000 to achieve the long-term [tv_victory_situation|E]."
+ game_concept_tv_prosperity_score_desc: "The Prosperity Score tracks the domestic development of your realm. It combines total population, development across all owned locations, and country tax base, then scales the result by country size, stability, and government power. Updated yearly. Reach 11,000 to achieve the long-term [tv_victory_situation|E]."
 
  game_concept_tv_trade_score: "Trade Score"
  game_concept_tv_trade_score_desc: "The Trade Score reflects your commercial power. It is a monthly snapshot of your country's total monthly [trade_income|e]. Reach 2,000 to achieve the long-term [tv_victory_situation|E]."
@@ -65,7 +65,7 @@
 
  game_concept_tv_cultural_influence_points: "Cultural Influence Points"
  game_concept_tv_cip: "CIP"
- game_concept_tv_cultural_influence_points_desc: "Cultural Influence Points (CIP) are earned through artistic achievement: each [work_of_art|e] created grants +3 CIP to the owner's country, and +1 CIP is earned passively each month. CIP never decrease. Reach 580 to achieve the long-term [tv_victory_situation|E]."
+ game_concept_tv_cultural_influence_points_desc: "Cultural Influence Points (CIP) are earned through artistic achievement: each [work_of_art|e] created grants +3 CIP to the owner's country, and +1 CIP is earned passively each month. CIP never decrease. Reach 1,600 to achieve the long-term [tv_victory_situation|E]."
 
  game_concept_tv_science_score: "Science Score"
  game_concept_tv_science_score_desc: "The Science Score tracks the technological progress of your realm. It is a monthly snapshot of the total number of [advances|e] your country has researched. Reach 400 to achieve the long-term [tv_victory_situation|E]."
@@ -76,10 +76,10 @@
 
  # ── Six Victory Types ──────────────────────────────────────────────────────
  game_concept_tv_conquest_victory: "Conquest Victory"
- game_concept_tv_conquest_victory_desc: "Dominate the world through territorial expansion. Your [tv_conquest_score|e] measures the size of your realm—direct holdings count fully, subject and vassal locations at half weight. Milestones at 150, 300, 500, 1,000, and 2,000 reward military capability and leave a grand legacy."
+ game_concept_tv_conquest_victory_desc: "Dominate the world through territorial expansion. Your [tv_conquest_score|e] measures the size of your realm: direct holdings count fully, subject and vassal locations at half weight. Milestones at 200, 400, 600, 1,200, and 2,500 reward military capability and leave a grand legacy."
 
  game_concept_tv_prosperity_victory: "Prosperity Victory"
- game_concept_tv_prosperity_victory_desc: "Build the wealthiest and most developed nation. Your [tv_prosperity_score|e] is a composite of total population, development across all owned locations, and country tax base. Milestones at 500, 1,000, 2,000, 4,000, and 8,000 reward domestic production, population growth, and construction power."
+ game_concept_tv_prosperity_victory_desc: "Build the wealthiest and most developed nation. Your [tv_prosperity_score|e] rewards large, stable, well-governed development rather than raw size alone. Milestones at 2,000, 3,000, 5,000, 7,000, and 11,000 reward domestic production, population growth, and construction power."
 
  game_concept_tv_trade_victory: "Trade Victory"
  game_concept_tv_trade_victory_desc: "Command the world's commerce. Your [tv_trade_score|e] is a monthly snapshot of your total monthly trade income. Milestones 3 and 5 also require leading market dominance (5 and 10 markets respectively). Rewards focus on merchant capacity, trade efficiency, and trade income multipliers."
@@ -88,10 +88,20 @@
  game_concept_tv_diplomatic_victory_desc: "Forge the world's most powerful network of alliances and influence. [tv_dvp|e] accumulate permanently through royal marriages (+3 each) and won wars (+5). Milestones at 50, 120, 220, 380, and 580 reward diplomatic reputation, alliance reliability, vassal management, and prestige."
 
  game_concept_tv_cultural_victory: "Cultural Victory"
- game_concept_tv_cultural_victory_desc: "Shape civilization through art and cultural exports. [tv_cip|e] accumulate permanently—+10 per work of art created and +1 per month passively. Milestones 2–5 also require minimum [tv_arts_intl_influence|e] (25, 50, 75, 100). Rewards enhance artist skill, prestige, and cultural tradition."
+ game_concept_tv_cultural_victory_desc: "Shape civilization through art and cultural exports. [tv_cip|e] accumulate permanently: +3 per work of art created and +1 per month passively. Milestones at 50, 200, 400, 800, and 1,600 reward artistic skill, prestige, and cultural tradition. Milestones 2 through 5 also require minimum [tv_arts_intl_influence|e] of 25, 50, 75, and 100."
 
  game_concept_tv_science_victory: "Scientific Victory"
  game_concept_tv_science_victory_desc: "Lead humanity into the age of reason. Your [tv_science_score|e] tracks total advances researched. Each milestone also requires the corresponding phase of the [tv_academy_of_sciences|e] to be constructed in your capital. Rewards accelerate research, institution spread, and production."
+
+ # ── Diplomatic Victory Unique Mechanics ───────────────────────────────────
+ game_concept_tv_diplomatic_alliance: "Diplomatic Alliance"
+ game_concept_tv_diplomatic_alliance_desc: "A non-unique international organization founded through [tv_diplomatic_victory|e]. It is led by an Advocator, uses an Alliance Assembly for policy votes, and develops through [tv_alliance_tier|e] and [tv_alliance_cohesion|e]."
+
+ game_concept_tv_alliance_tier: "Alliance Tier"
+ game_concept_tv_alliance_tier_desc: "A 0-15 [tv_diplomatic_alliance|e] variable representing the alliance's institutional development. Passing upgraded alliance laws spends [tv_alliance_cohesion|e] and increases Alliance Tier. Diplomatic Victory Milestones 2 through 5 require tiers 3, 6, 9, and 12 respectively."
+
+ game_concept_tv_alliance_cohesion: "Alliance Cohesion"
+ game_concept_tv_alliance_cohesion_desc: "A 0-100 [tv_diplomatic_alliance|e] variable measuring cooperation among alliance members. It grows each month from a base amount and from the leader country's diplomatic reputation. Upgraded alliance laws spend Cohesion to increase [tv_alliance_tier|e]."
 
  # ── Cultural Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_arts_intl_influence: "International Influence"
@@ -107,9 +117,24 @@
  game_concept_tv_arts_exhibition_desc: "An international organization uniting culturally ambitious powers. Countries automatically join upon reaching Cultural Victory Milestone 1 (50 [tv_cip|e]). Membership unlocks foreign artist tours and [tv_domestic_exhibition|e]. [tv_domestic_exhibition|E] requires at least 5 artworks, costs scaled gold x3.5, uses [tv_local_exhibition_enthusiasm|e], can expand into neighboring owned locations with additional exhibits, and pays location-multiplied [tv_cip|e] when it closes."
  # ── Scientific Victory Unique Mechanics ────────────────────────────────────
  game_concept_tv_academy_of_sciences: "Academy of Sciences"
- game_concept_tv_academy_of_sciences_desc: "A five-phase capital building that gates each Scientific Victory milestone. Phase I unlocks once your [tv_science_score|e] reaches 100; subsequent phases unlock at 150, 200, 300, and 400 respectively. Each phase must be physically constructed in your capital before the corresponding milestone can fire. The Academy is visible in every capital from the start of the game."
+ game_concept_tv_academy_of_sciences_desc: "A five-phase capital building and international organization that gates each Scientific Victory milestone. Phase I unlocks once your [tv_science_score|e] reaches 100; subsequent phases unlock at 150, 200, 300, and 400 respectively. Each phase must be physically constructed in your capital before the corresponding milestone can fire. Phase I also opens the [tv_research_mechanism|e]."
+
+ game_concept_tv_research_mechanism: "Research Mechanism"
+ game_concept_tv_research_mechanism_desc: "The operational system of the [tv_academy_of_sciences|e]. A research cycle chooses a Frontier advance target, gathers Academic Interest, completes prerequisite and literacy subprocesses, then unlocks the target through [tv_concentrated_research|e]. This is an extra route to an advance, not a lock on normal research."
+
+ game_concept_tv_concentrated_research: "Concentrated Research"
+ game_concept_tv_concentrated_research_desc: "The final subprocess of the [tv_research_mechanism|e]. It requires an appointed Chief Scientist with at least 20 Administrative skill, gains progress from that skill each month, applies a temporary research speed penalty while active, and completes when its progress reaches 100."
+
  # ── Conquest Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_govhouse: "Governor's House"
  game_concept_tv_govhouse_desc: "An international organization established at Conquest Victory Milestone 1. The founding country appoints a Grand General and can assign governors to regions within their realm. Each governor reduces construction costs and unrest while increasing maximum control in their governed region, scaled to their military attributes."
  game_concept_tv_govhouse_plan_progress: "Plan Progress"
- game_concept_tv_govhouse_plan_progress_desc: "A War Tent value accumulated by the Governor's House Grand General. Offensive war plans convert it into scaling Siege Ability and Discipline once war begins against the planned target."
+ game_concept_tv_govhouse_plan_progress_desc: "A [tv_war_tent|e] value accumulated by the Governor's House Grand General. [tv_war_plan|E]s convert it into scaling military bonuses while the relevant war condition is active."
+ game_concept_tv_war_tent: "War Tent"
+ game_concept_tv_war_tent_desc: "The Governor's House command tab for Grand General tactics and war plans. During war, the Grand General can propose a tactic for approval. Outside or during war, the player can prepare [tv_war_plan|e]s that turn [tv_govhouse_plan_progress|e] into temporary military bonuses."
+ game_concept_tv_war_plan: "War Plan"
+ game_concept_tv_war_plan_desc: "A prepared strategy from the [tv_war_tent|e]. Offensive plans name a target country and, when war begins against that target, convert [tv_govhouse_plan_progress|e] into Siege Ability and Discipline. Defensive plans activate in defensive wars and convert progress into Fort Defense and Military Tactics."
+ game_concept_tv_govhouse_power_balance: "Balance of Power"
+ game_concept_tv_govhouse_power_balance_desc: "A Governor's House value showing how much effective power belongs to the Grand General rather than the Crown. It moves monthly toward an equilibrium shaped by ruler ability, Grand General ability, and [tv_govhouse_power_consolidation|e]. Higher Grand General power unlocks harsher backlash events."
+ game_concept_tv_govhouse_power_consolidation: "Power Consolidation"
+ game_concept_tv_govhouse_power_consolidation_desc: "Personal power accumulated by the Grand General while in office. It rises over time, pushes [tv_govhouse_power_balance|e] toward the Grand General, and determines the Government Power cost to dismiss or replace a Grand General. It resets when the Grand General leaves office."

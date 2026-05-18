@@ -51,10 +51,10 @@
 
  # ── Towards Victory — Game Concepts ───────────────────────────────────────
  game_concept_tv_conquest_score: "征服分数"
- game_concept_tv_conquest_score_desc: "征服分数衡量您国家的领土规模。每个直接拥有的地点加1分；每个[subject|e]或下属国家持有的地点加0.5分。每月更新。达到2,000即可实现[tv_victory_situation|E]的长期胜利。"
+ game_concept_tv_conquest_score_desc: "征服分数衡量您国家的领土规模。每个直接拥有的地点加1分；每个[subject|e]或下属国家持有的地点加0.5分。每月更新。达到2,500即可实现[tv_victory_situation|E]的长期胜利。"
 
  game_concept_tv_prosperity_score: "繁荣分数"
- game_concept_tv_prosperity_score_desc: "繁荣分数追踪您国家的国内发展水平。它由总人口、所有拥有地点的发展度以及国家税基之和累积而成。每年更新。达到8,000即可实现[tv_victory_situation|E]的长期胜利。"
+ game_concept_tv_prosperity_score_desc: "繁荣分数追踪您国家的国内发展水平。它综合总人口、所有拥有地点的发展度与国家税基，并按国家规模、稳定度和政府权力进行修正。每年更新。达到11,000即可实现[tv_victory_situation|E]的长期胜利。"
 
  game_concept_tv_trade_score: "贸易分数"
  game_concept_tv_trade_score_desc: "贸易分数反映您的商业实力。它是您国家每月[trade_income|e]总量的月度快照。达到2,000即可实现[tv_victory_situation|E]的长期胜利。"
@@ -65,7 +65,7 @@
 
  game_concept_tv_cultural_influence_points: "文化影响力点"
  game_concept_tv_cip: "CIP"
- game_concept_tv_cultural_influence_points_desc: "文化影响力点（CIP）通过艺术成就积累：每创作一件[work_of_art|e]为拥有者国家增加3点CIP，每月还被动积累1点CIP。CIP永不减少。达到580即可实现[tv_victory_situation|E]的长期胜利。"
+ game_concept_tv_cultural_influence_points_desc: "文化影响力点（CIP）通过艺术成就积累：每创作一件[work_of_art|e]为拥有者国家增加3点CIP，每月还被动积累1点CIP。CIP永不减少。达到1,600即可实现[tv_victory_situation|E]的长期胜利。"
 
  game_concept_tv_science_score: "科技分数"
  game_concept_tv_science_score_desc: "科技分数追踪您国家的技术进步。它是您国家已研究的[advances|e]总数的月度快照。达到400即可实现[tv_victory_situation|E]的长期胜利。"
@@ -76,10 +76,10 @@
 
  # ── Six Victory Types ──────────────────────────────────────────────────────
  game_concept_tv_conquest_victory: "征服胜利"
- game_concept_tv_conquest_victory_desc: "以领土扩张主宰世界。[tv_conquest_score|e]衡量你的疆域规模——直属领地完整计算，附属国与封臣领地折半计算。里程碑设于150、300、500、1000和2000，奖励军事战力与伟大遗产。"
+ game_concept_tv_conquest_victory_desc: "以领土扩张主宰世界。[tv_conquest_score|e]衡量你的疆域规模：直属领地完整计算，附属国与封臣领地折半计算。里程碑设于200、400、600、1,200和2,500，奖励军事战力与伟大遗产。"
 
  game_concept_tv_prosperity_victory: "繁荣胜利"
- game_concept_tv_prosperity_victory_desc: "建立最富庶、发展最完善的国家。[tv_prosperity_score|e]综合考量总人口、所有领地的发展度与国家税基。里程碑设于500、1000、2000、4000和8000，奖励国内生产、人口增长与建设能力。"
+ game_concept_tv_prosperity_victory_desc: "建立最富庶、发展最完善的国家。[tv_prosperity_score|e]奖励规模庞大、稳定且治理良好的发展，而不只是单纯的领土数量。里程碑设于2,000、3,000、5,000、7,000和11,000，奖励国内生产、人口增长与建设能力。"
 
  game_concept_tv_trade_victory: "贸易胜利"
  game_concept_tv_trade_victory_desc: "掌控世界商业命脉。[tv_trade_score|e]是你每月贸易收入的月度快照。第三和第五里程碑还要求主导市场数量（分别为5和10个）。奖励着重商人容量、贸易效率与贸易收入倍增。"
@@ -88,10 +88,20 @@
  game_concept_tv_diplomatic_victory_desc: "构建世界上最强大的联盟与影响力网络。[tv_dvp|e]通过联姻（各+3）和赢得战争（+5）永久积累。里程碑设于50、120、220、380和580，奖励外交声望、联盟可靠性、封臣管理与威望。"
 
  game_concept_tv_cultural_victory: "文化胜利"
- game_concept_tv_cultural_victory_desc: "以艺术与文化输出塑造文明。[tv_cip|e]永久积累——每创作一件艺术品+10，每月被动+1。第2至5里程碑还要求达到最低[tv_arts_intl_influence|e]阈值（25、50、75、100）。奖励艺术家技能、威望与文化传统。"
+ game_concept_tv_cultural_victory_desc: "以艺术与文化输出塑造文明。[tv_cip|e]永久积累：每创作一件艺术品+3，每月被动+1。里程碑设于50、200、400、800和1,600，奖励艺术家技能、威望与文化传统。第2至5里程碑还要求最低[tv_arts_intl_influence|e]分别达到25、50、75和100。"
 
  game_concept_tv_science_victory: "科技胜利"
  game_concept_tv_science_victory_desc: "引领人类迈入理性时代。[tv_science_score|e]追踪已研究的进步总数。每个里程碑还需在首都建造[tv_academy_of_sciences|e]的相应阶段。奖励加速研究、机构传播与生产。"
+
+ # ── Diplomatic Victory Unique Mechanics ───────────────────────────────────
+ game_concept_tv_diplomatic_alliance: "外交联盟"
+ game_concept_tv_diplomatic_alliance_desc: "通过[tv_diplomatic_victory|e]建立的非唯一国际组织。它由倡导者领导，通过联盟议会进行政策投票，并依靠[tv_alliance_tier|e]与[tv_alliance_cohesion|e]发展。"
+
+ game_concept_tv_alliance_tier: "联盟等级"
+ game_concept_tv_alliance_tier_desc: "[tv_diplomatic_alliance|e]的0至15变量，代表联盟制度的发展程度。通过升级后的联盟法律会消耗[tv_alliance_cohesion|e]并提高联盟等级。外交胜利第2至5里程碑分别要求联盟等级达到3、6、9和12。"
+
+ game_concept_tv_alliance_cohesion: "联盟凝聚力"
+ game_concept_tv_alliance_cohesion_desc: "[tv_diplomatic_alliance|e]的0至100变量，衡量联盟成员之间的合作程度。它每月从基础增长和领袖国家的外交声望中增长。升级后的联盟法律会消耗凝聚力，以提高[tv_alliance_tier|e]。"
 
  # ── Cultural Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_arts_intl_influence: "国际影响力"
@@ -107,9 +117,24 @@
  game_concept_tv_arts_exhibition_desc: "联合文化雄心勃勃的国家的国际组织。国家在达到文化胜利第一里程碑（50点[tv_cip|e]）后自动加入。成员可派遣艺术家海外巡演，也可举办[tv_domestic_exhibition|e]。[tv_domestic_exhibition|E]需要至少5件艺术品，花费缩放金钱×3.5，使用[tv_local_exhibition_enthusiasm|e]维持，可投入更多展品扩大到相邻本国地点，并在结束时产出按地点数乘算的[tv_cip|e]。"
  # ── Scientific Victory Unique Mechanics ────────────────────────────────────
  game_concept_tv_academy_of_sciences: "科学院"
- game_concept_tv_academy_of_sciences_desc: "锁定各科技胜利里程碑的五阶段首都建筑。第一阶段在[tv_science_score|e]达到100时解锁；后续阶段分别在150、200、300和400时解锁。每个阶段必须在首都实际建造完毕，相应里程碑方可触发。科学院从游戏开始起便在每个首都中可见。"
+ game_concept_tv_academy_of_sciences_desc: "锁定各科技胜利里程碑的五阶段首都建筑与国际组织。第一阶段在[tv_science_score|e]达到100时解锁；后续阶段分别在150、200、300和400时解锁。每个阶段必须在首都实际建造完毕，相应里程碑方可触发。第一阶段还会开启[tv_research_mechanism|e]。"
+
+ game_concept_tv_research_mechanism: "研究机制"
+ game_concept_tv_research_mechanism_desc: "[tv_academy_of_sciences|e]的运作系统。一个研究周期会选择一项前沿进步作为目标，收集学术兴趣，完成前置条件与识字基础子流程，最后通过[tv_concentrated_research|e]解锁目标。这是获得进步的额外路线，不会锁定正常研究。"
+
+ game_concept_tv_concentrated_research: "集中研究"
+ game_concept_tv_concentrated_research_desc: "[tv_research_mechanism|e]的最终子流程。它需要一位已任命且行政能力至少20的首席科学家，每月根据其行政能力获得进度，生效期间施加临时研究速度惩罚，并在进度达到100时完成。"
+
  # ── Conquest Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_govhouse: "总督府"
  game_concept_tv_govhouse_desc: "征服胜利第一里程碑解锁的国际组织。创始国可任命大将军，并向领土内的各地区派遣总督。每位总督可降低其管辖地区内的建造费用与动乱，并提升最大控制力，效果与其军事属性成正比。"
  game_concept_tv_govhouse_plan_progress: "计划进度"
- game_concept_tv_govhouse_plan_progress_desc: "总督府战帐中由大将军积累的数值。进攻战争计划会在与计划目标开战后，将其转化为随进度提高的围城能力与训练度。"
+ game_concept_tv_govhouse_plan_progress_desc: "总督府[tv_war_tent|e]中由大将军积累的数值。[tv_war_plan|E]会在相关战争条件生效时，将它转化为随进度提高的军事加成。"
+ game_concept_tv_war_tent: "战帐"
+ game_concept_tv_war_tent_desc: "总督府中用于大将军战术与战争计划的指挥标签页。战争期间，大将军可以提出战术供你批准。战前或战时，玩家可以准备[tv_war_plan|e]，将[tv_govhouse_plan_progress|e]转化为临时军事加成。"
+ game_concept_tv_war_plan: "战争计划"
+ game_concept_tv_war_plan_desc: "来自[tv_war_tent|e]的预备战略。进攻计划会指定目标国家，并在对该目标开战后，将[tv_govhouse_plan_progress|e]转化为围城能力与训练度。防御计划会在防御战争中激活，并将进度转化为要塞防御与军事战术。"
+ game_concept_tv_govhouse_power_balance: "权力平衡"
+ game_concept_tv_govhouse_power_balance_desc: "总督府中表示实际权力有多少归属于大将军而非王室的数值。它每月向均衡值移动，而均衡值受统治者能力、大将军能力和[tv_govhouse_power_consolidation|e]影响。大将军权力越高，越会解锁严厉的反弹事件。"
+ game_concept_tv_govhouse_power_consolidation: "巩固权力"
+ game_concept_tv_govhouse_power_consolidation_desc: "大将军在任期间逐渐积累的个人权势。它会随时间上升，将[tv_govhouse_power_balance|e]推向大将军一侧，并决定罢免或更换大将军所需的政府权力花费。大将军离任时归零。"

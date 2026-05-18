@@ -7,7 +7,7 @@
  tv_research_c_progress:0 "识字基础"
  tv_research_c_progress_desc:0 "衡量本国人口为当前研究周期积累的学术识字基础。"
  tv_research_d_progress:0 "集中研究"
- tv_research_d_progress_desc:0 "衡量由首席科学家主导的集中研究进度。"
+ tv_research_d_progress_desc:0 "衡量由首席科学家主导的[tv_concentrated_research|e]进度。"
  tv_research_interest:0 "学术兴趣"
  tv_research_interest_desc:0 "衡量当前研究周期子流程A已经积累的学术好奇火花。"
  STATIC_MODIFIER_NAME_tv_concentrated_research_penalty:0 "集中研究"
@@ -101,9 +101,9 @@
  tv_abandon_research_target:0 "放弃研究目标"
  tv_abandon_research_target_desc:0 "放弃当前研究目标，所有进度将会丢失，并触发12个月的冷却。"
  tv_start_concentrated_research:0 "开展集中研究"
- tv_start_concentrated_research_desc:0 "指示首席科学家全力攻关。所有前置子流程均需完成方可启动。"
+ tv_start_concentrated_research_desc:0 "指示首席科学家开展[tv_concentrated_research|e]。所有前置子流程均需完成方可启动。"
  tv_pause_concentrated_research:0 "暂停集中研究"
- tv_pause_concentrated_research_desc:0 "暂停集中研究，保留已积累的进度，并让首席科学家暂时处理其他事务。"
+ tv_pause_concentrated_research_desc:0 "暂停[tv_concentrated_research|e]，保留已积累的进度，并让首席科学家暂时处理其他事务。"
 
  # ── 研究事件 ──────────────────────────────────────────────────────────────────
 
