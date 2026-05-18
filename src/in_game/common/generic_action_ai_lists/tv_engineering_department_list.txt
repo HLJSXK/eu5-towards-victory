@@ -1,0 +1,13 @@
+﻿tv_engineering_department_list = {
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_ENGINEERING_DEPARTMENT_MEMBER_TT
+			has_variable = tv_engineering_department_member
+		}
+	}
+	actions = {
+		tv_appoint_engineering_leader
+		tv_remove_engineering_leader
+		tv_change_engineering_leader
+	}
+}

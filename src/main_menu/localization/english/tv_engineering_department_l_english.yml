@@ -1,0 +1,78 @@
+﻿l_english:
+ # Engineering Department IO
+ tv_engineering_department: "Engineering Department"
+ tv_engineering_department_desc: "A founder-only engineering office established by a prosperous realm. It appoints a [tv_great_engineer|e] and will host the [tv_wonder_construction|e] mechanism."
+ diplomatic_status_tv_engineering_department_name: "Engineering Department Member"
+ diplomatic_status_tv_engineering_department_tooltip: "This country has founded an Engineering Department through [tv_prosperity_victory|e]."
+ tv_engineering_department_list_who_tt: "Engineering Department members"
+ io_opinion_tv_engineering_department: "Fellow Engineering Department Member"
+ TV_ENGINEERING_DEPARTMENT_LEADER: "Great Engineer"
+ TV_ENGINEERING_DEPARTMENT_LEADER_MALE: "Great Engineer"
+ TV_ENGINEERING_DEPARTMENT_LEADER_FEMALE: "Great Engineer"
+
+ # IO variables
+ tv_wonder_domestic_support: "Domestic Support"
+ tv_wonder_domestic_support_desc: "Support gathered for a future wonder project. The current implementation tracks the value as a placeholder for the debate and construction pipeline."
+ tv_wonder_survey_progress: "Survey Progress"
+ tv_wonder_survey_progress_desc: "Progress toward surveying a future wonder site."
+ tv_wonder_materials_stockpile: "Materials Stockpile"
+ tv_wonder_materials_stockpile_desc: "Materials reserved for future wonder construction."
+ TV_WONDER_DOMESTIC_SUPPORT_FORMAT: "$VAL|0$/200"
+ TV_WONDER_SURVEY_PROGRESS_FORMAT: "$VAL|0$/100"
+ TV_WONDER_MATERIALS_STOCKPILE_FORMAT: "$VAL|0$/300000"
+
+ # Engineering Department panel
+ TV_ENGINEERING_STATUS_CARD_TITLE: "Engineering Status"
+ TV_ENGINEERING_GREAT_ENGINEER_LABEL: "Great Engineer:"
+ TV_ENGINEERING_NO_GREAT_ENGINEER: "None appointed"
+ TV_ENGINEERING_WONDER_STAGE_LABEL: "Wonder Stage:"
+ TV_ENGINEERING_STAGE_CONCEPT: "Conception and Debate"
+ TV_ENGINEERING_DOMESTIC_SUPPORT_LABEL: "Domestic Support:"
+ TV_ENGINEERING_MATERIALS_LABEL: "Materials:"
+ TV_ENGINEERING_GREAT_ENGINEER_TAB: "Great Engineer"
+ TV_ENGINEERING_GREAT_ENGINEER_TAB_TOOLTIP: "Manage the Great Engineer."
+ TV_ENGINEERING_GREAT_ENGINEER_CARD_TITLE: "Great Engineer"
+ TV_ENGINEERING_WONDER_TAB: "Wonder Construction"
+ TV_ENGINEERING_WONDER_TAB_TOOLTIP: "Future wonder construction stages."
+ TV_ENGINEERING_WONDER_PIPELINE_CARD_TITLE: "Wonder Construction Pipeline"
+ TV_ENGINEERING_STAGE_SURVEY: "Survey"
+ TV_ENGINEERING_STAGE_ORGANIZATION_LOGISTICS: "Organization and Logistics"
+ TV_ENGINEERING_STAGE_CONSTRUCTION: "Construction"
+ TV_ENGINEERING_STAGE_CEREMONY: "Ceremony"
+ TV_ENGINEERING_WONDER_COMPETENCE_CARD_TITLE: "Survey Competence"
+ TV_ENGINEERING_SCALE_COMPETENCE_LABEL: "Scale Competence:"
+ TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL: "Logistics Competence:"
+ TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL: "Organization Competence:"
+
+ # Great Engineer actions
+ tv_appoint_engineering_leader: "Appoint Great Engineer"
+ tv_appoint_engineering_leader_desc: "Appoint one of our characters as Great Engineer of the Engineering Department."
+ tv_remove_engineering_leader: "Dismiss Great Engineer"
+ tv_remove_engineering_leader_desc: "Remove the current Great Engineer. Future wonder work will wait until a new Great Engineer is appointed."
+ tv_change_engineering_leader: "Replace Great Engineer"
+ tv_change_engineering_leader_desc: "Replace the current Great Engineer with another eligible character."
+ tv_select_engineering_leader: "Select Great Engineer"
+ tv_no_engineering_leader_available: "@trigger_no! No eligible characters are available."
+
+ PERFORM_tv_appoint_engineering_leader_ACTION_SETUP: "When we appoint a Great Engineer."
+ PERFORM_tv_appoint_engineering_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as Great Engineer."
+ PERFORM_tv_appoint_engineering_leader_ACTION_MAP: ""
+
+ PERFORM_tv_remove_engineering_leader_ACTION_SETUP: "When we dismiss the Great Engineer."
+ PERFORM_tv_remove_engineering_leader_ACTION_LOG: "We dismissed the Great Engineer."
+ PERFORM_tv_remove_engineering_leader_ACTION_MAP: ""
+
+ PERFORM_tv_change_engineering_leader_ACTION_SETUP: "When we replace the Great Engineer."
+ PERFORM_tv_change_engineering_leader_ACTION_LOG: "We appointed [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] as the new Great Engineer."
+ PERFORM_tv_change_engineering_leader_ACTION_MAP: ""
+
+ # Great Engineer title and events
+ character_title_tv_great_engineer: "Great Engineer"
+ character_title_tv_great_engineer_female: "Great Engineer"
+ STATIC_MODIFIER_NAME_tv_great_engineer_role_modifier: "Great Engineer"
+ tv_engineering_department.10.t: "Great Engineer Has Died"
+ tv_engineering_department.10.d: "Our Great Engineer has passed away. The Engineering Department will remain without its master builder until a successor is appointed."
+ tv_engineering_department.10.a: "We must appoint a successor."
+
+ # Prosperity M1 IO creation tooltip
+ tv_prosperity_m1_engineering_department_grant_tt: "Establishes the [tv_engineering_department|e], unlocking Great Engineer management in the International Organization interface."

@@ -1,0 +1,111 @@
+﻿# Towards Victory - Engineering Department International Organization
+# Non-unique IO; each country pursuing Prosperity Victory creates its own
+# instance at Prosperity Victory Milestone 1. Country membership flag:
+# tv_engineering_department_member.
+#
+# Leader: Great Engineer character. Selected manually by leader_country via
+# tv_appoint_engineering_leader / tv_remove_engineering_leader /
+# tv_change_engineering_leader, generated from data/io_leaders.yaml. The
+# country variable tv_great_engineer_char holds the appointed character.
+#
+# This file intentionally defines only the dependency IO and persistent
+# placeholder variables for the future wonder-construction mechanic.
+
+tv_engineering_department = {
+	has_target = no
+	has_leader_country = yes
+	leader_title_key = "TV_ENGINEERING_DEPARTMENT_LEADER"
+	use_regnal_number = no
+	leader_type = character
+	leader = {
+		leader_country ?= {
+			var:tv_great_engineer_char ?= {
+				if = {
+					limit = { is_artist = no }
+					add_to_list = leaders
+				}
+			}
+		}
+	}
+	leader_change_trigger_type = none
+	leader_change_method = none
+	disband_if_no_leader = no
+	show_on_diplomatic_map = no
+
+	# Founder-only IO. Keep the default parliament tab hidden while the wonder
+	# mechanic is being built out in custom tabs.
+	has_parliament = no
+
+	variables = {
+		tv_wonder_domestic_support = {
+			format = "TV_WONDER_DOMESTIC_SUPPORT_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 200
+			start = 0
+		}
+		tv_wonder_survey_progress = {
+			format = "TV_WONDER_SURVEY_PROGRESS_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 100
+			start = 0
+		}
+		tv_wonder_materials_stockpile = {
+			format = "TV_WONDER_MATERIALS_STOCKPILE_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 300000
+			start = 0
+		}
+	}
+
+	modifier = {
+	}
+
+	can_initiate_policy_votes = {
+		is_leader_of_international_organization = scope:recipient
+	}
+
+	on_creation = {
+		if = {
+			limit = { exists = scope:actor }
+			set_leader_country = scope:actor
+			scope:actor = {
+				set_variable = { name = tv_wonder_stage value = 0 }
+			}
+		}
+	}
+
+	create_visible_trigger = {
+		always = no
+	}
+
+	invite_visible_trigger = {
+		always = no
+	}
+
+	can_join_trigger = {
+		always = no
+	}
+
+	can_leave_trigger = {
+		always = no
+	}
+
+	auto_leave_trigger = {
+		always = no
+	}
+
+	auto_disband_trigger = {
+		total_members < 1
+	}
+
+	join_defensive_wars_always = {
+		always = no
+	}
+
+	join_offensive_wars_always = {
+		always = no
+	}
+}

@@ -1,0 +1,436 @@
+﻿# Towards Victory - Engineering Department IO Panel
+# Overview tab: wonder-construction status skeleton.
+# Resolutions tab: Great Engineer appointment, replacement, and dismissal.
+# Custom tab: future wonder-construction stages.
+
+organization_panel = {
+
+	blockoverride "organization_overview_tab_visible" {}
+
+	blockoverride "organization_panel_overview_visible" {
+		visible = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
+	}
+
+	blockoverride "organization_members_tab_down" {
+		down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+	}
+
+	blockoverride "organization_panel_members_visible" {
+		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+	}
+
+	blockoverride "scroll_overview_empty_visible" { visible = no }
+
+	blockoverride "country_header_character_visible" {
+		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
+	}
+	blockoverride "country_header_character_context" {
+		datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').GetCharacter]"
+	}
+	blockoverride "country_header_religion" {}
+	blockoverride "extra_titles" {}
+	blockoverride "country_header_names_visible" {
+		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
+	}
+	blockoverride "country_header_character_name" {
+		datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').GetCharacter]"
+		margin = { 2 0 }
+		character_label_name = {
+			margin_left = 0
+			margin_right = 10
+			blockoverride "character_name_text" {
+				raw_text = "[Character.GetNameToFit('(int32)40', '(bool)yes')]"
+			}
+		}
+	}
+
+	blockoverride "io_main_actions_icon" {
+		texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+	}
+
+	blockoverride "organization_overview_list_custom_top_extra" {
+		vbox = {
+			margin = { 10 0 }
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ENGINEERING_STATUS_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 132 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer]"
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 6
+							margin = { 4 6 }
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = {
+									text = "TV_ENGINEERING_GREAT_ENGINEER_LABEL"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[Not(Country.MakeScope.GetVariable('tv_great_engineer_char').IsSet)]"
+									text = "TV_ENGINEERING_NO_GREAT_ENGINEER"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Country.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
+									datacontext = "[Country.MakeScope.GetVariable('tv_great_engineer_char').GetCharacter]"
+									text = "[Character.GetShortNameWithNoTooltip]"
+									align = nobaseline
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = {
+									text = "TV_ENGINEERING_WONDER_STAGE_LABEL"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									text = "TV_ENGINEERING_STAGE_CONCEPT"
+									align = nobaseline
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = {
+									text = "TV_ENGINEERING_DOMESTIC_SUPPORT_LABEL"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_domestic_support')]"
+									align = nobaseline
+								}
+							}
+
+							progressbar = {
+								size = { 462 16 }
+								using = progress_bar_blue_alt
+								min = 0
+								max = 200
+								value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_domestic_support').GetValue]"
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = {
+									text = "TV_ENGINEERING_MATERIALS_LABEL"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_materials_stockpile')]"
+									align = nobaseline
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	# -- Great Engineer tab: reuse the vanilla resolutions slot ----------------
+	blockoverride "organization_resolutions_tab_visible" {
+		visible = yes
+	}
+	blockoverride "organization_resolutions_tab_text" {
+		text = "TV_ENGINEERING_GREAT_ENGINEER_TAB"
+	}
+	blockoverride "organization_resolutions_tooltip" {
+		tooltip = "TV_ENGINEERING_GREAT_ENGINEER_TAB_TOOLTIP"
+	}
+
+	blockoverride "organization_resolutions_content" {
+		margin = { 0 0 }
+
+		vbox = {
+			margin = { 10 0 }
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			ignoreinvisible = yes
+			spacing = 10
+
+			card_common = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ENGINEERING_GREAT_ENGINEER_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					io_character_card = {
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').GetCharacter]"
+						using = layoutpolicy_expanding
+						blockoverride "name_highlight" {}
+						blockoverride "character_entry_name_sort_by_highlight" {}
+					}
+				}
+			}
+
+			card_common = {
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet)]"
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ENGINEERING_GREAT_ENGINEER_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 44 }
+						vbox = {
+							margin = { 4 6 }
+							text_single = {
+								text = "TV_ENGINEERING_NO_GREAT_ENGINEER"
+								align = nobaseline|left
+							}
+						}
+					}
+				}
+			}
+
+			card_actions = {
+				minimumsize = { 500 150 }
+				maximumsize = { 500 150 }
+
+				blockoverride "card_header_text" {
+					text = "MAIN_ACTIONS"
+				}
+				blockoverride "card_header_icon" {
+					block "io_main_actions_icon" {
+						texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+					}
+				}
+
+				blockoverride "actions_override" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[Not(Player.MakeScope.GetVariable('tv_great_engineer_char').IsSet)]"
+							text = "tv_appoint_engineering_leader"
+							title = "tv_appoint_engineering_leader"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_appoint_engineering_leader"
+							}
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[Player.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
+							text = "tv_change_engineering_leader"
+							title = "tv_change_engineering_leader"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_change_engineering_leader"
+							}
+						}
+						action_button_diamond = {
+							size = { 470 30 }
+							visible = "[Player.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
+							text = "tv_remove_engineering_leader"
+							title = "tv_remove_engineering_leader"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_remove_engineering_leader"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		expand = {}
+	}
+
+	# -- Wonder construction skeleton -----------------------------------------
+	blockoverride "organization_custom_tab_visible" {
+		visible = yes
+	}
+	blockoverride "organization_custom_tab_text" {
+		text = "TV_ENGINEERING_WONDER_TAB"
+	}
+	blockoverride "organization_custom_tab_tooltip" {
+		tooltip = "TV_ENGINEERING_WONDER_TAB_TOOLTIP"
+	}
+
+	blockoverride "organization_custom_content_visible" {
+		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' )]"
+	}
+
+	blockoverride "organization_custom_content" {
+		margin_top = -5
+		spacing = 0
+		layoutpolicy_vertical = expanding
+
+		scrollarea = {
+			using = layoutpolicy_expanding
+			scrollbarpolicy_horizontal = always_off
+
+			scrollbar_vertical = {
+				using = Scrollbar_Vertical
+			}
+
+			scrollwidget = {
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					ignoreinvisible = yes
+					spacing = 10
+					margin = { 10 2 }
+
+					card_common = {
+						maximumsize = { 500 -1 }
+
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+						}
+
+						blockoverride "common_header_text" {
+							text = "TV_ENGINEERING_WONDER_PIPELINE_CARD_TITLE"
+						}
+
+						blockoverride "common_bottom_content" {
+							widget = {
+								size = { 470 214 }
+
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 6
+									margin = { 4 6 }
+
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 8
+										text_single = { size = { 32 22 } raw_text = "1" align = nobaseline|center }
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_STAGE_CONCEPT" align = nobaseline|left }
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 8
+										text_single = { size = { 32 22 } raw_text = "2" align = nobaseline|center }
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_STAGE_SURVEY" align = nobaseline|left }
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 8
+										text_single = { size = { 32 22 } raw_text = "3" align = nobaseline|center }
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_STAGE_ORGANIZATION_LOGISTICS" align = nobaseline|left }
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 8
+										text_single = { size = { 32 22 } raw_text = "4" align = nobaseline|center }
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_STAGE_CONSTRUCTION" align = nobaseline|left }
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 8
+										text_single = { size = { 32 22 } raw_text = "5" align = nobaseline|center }
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_STAGE_CEREMONY" align = nobaseline|left }
+									}
+								}
+							}
+						}
+					}
+
+					card_common = {
+						maximumsize = { 500 -1 }
+
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+						}
+
+						blockoverride "common_header_text" {
+							text = "TV_ENGINEERING_WONDER_COMPETENCE_CARD_TITLE"
+						}
+
+						blockoverride "common_bottom_content" {
+							widget = {
+								size = { 470 132 }
+
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 6
+									margin = { 4 6 }
+
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 4
+										text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" align = nobaseline }
+										expand = {}
+										text_single = { raw_text = "0%" align = nobaseline }
+									}
+									progressbar = {
+										size = { 462 16 }
+										using = progress_bar_blue_alt
+										min = 0
+										max = 100
+										value = 0
+									}
+
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 4
+										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" align = nobaseline }
+										expand = {}
+										text_single = { raw_text = "0%" align = nobaseline }
+									}
+									progressbar = {
+										size = { 462 16 }
+										using = progress_bar_blue_alt
+										min = 0
+										max = 100
+										value = 0
+									}
+
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 4
+										text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" align = nobaseline }
+										expand = {}
+										text_single = { raw_text = "0%" align = nobaseline }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

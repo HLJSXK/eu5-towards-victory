@@ -1,0 +1,18 @@
+﻿# Towards Victory - Engineering Department on_action hooks
+
+# Death cleanup: if the Great Engineer dies, clear country variable and notify.
+# root = country the character belonged to, scope:target = dead character.
+tv_engineering_department_char_death = {
+	effect = {
+		if = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_GREAT_ENGINEER_CHAR_TT
+					has_variable = tv_great_engineer_char
+				}
+				var:tv_great_engineer_char ?= scope:target
+			}
+			trigger_event_non_silently = { id = tv_engineering_department.10 }
+		}
+	}
+}

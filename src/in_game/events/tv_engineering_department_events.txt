@@ -1,0 +1,17 @@
+﻿# Towards Victory - Engineering Department events
+
+namespace = tv_engineering_department
+
+# Fired on the leader_country when the appointed Great Engineer dies.
+# The option clears tv_great_engineer_char to formally dismiss them.
+tv_engineering_department.10 = {
+	type = country_event
+	title = tv_engineering_department.10.t
+	desc = tv_engineering_department.10.d
+	outcome = bad
+
+	option = {
+		name = tv_engineering_department.10.a
+		remove_variable = tv_great_engineer_char
+	}
+}

@@ -1,0 +1,78 @@
+﻿l_simp_chinese:
+ # Engineering Department IO
+ tv_engineering_department: "工程部"
+ tv_engineering_department_desc: "由繁荣国家建立的国家工程机构。它可任命[tv_great_engineer|e]，并将在未来承载[tv_wonder_construction|e]机制。"
+ diplomatic_status_tv_engineering_department_name: "工程部成员"
+ diplomatic_status_tv_engineering_department_tooltip: "该国家已通过[tv_prosperity_victory|e]建立工程部。"
+ tv_engineering_department_list_who_tt: "工程部成员"
+ io_opinion_tv_engineering_department: "同为工程部成员"
+ TV_ENGINEERING_DEPARTMENT_LEADER: "大工程师"
+ TV_ENGINEERING_DEPARTMENT_LEADER_MALE: "大工程师"
+ TV_ENGINEERING_DEPARTMENT_LEADER_FEMALE: "大工程师"
+
+ # IO variables
+ tv_wonder_domestic_support: "国内支持度"
+ tv_wonder_domestic_support_desc: "为未来奇观工程积累的支持度。当前实现将其作为论证与建设流程的占位变量追踪。"
+ tv_wonder_survey_progress: "测绘进度"
+ tv_wonder_survey_progress_desc: "未来奇观选址测绘的进度。"
+ tv_wonder_materials_stockpile: "物资储备"
+ tv_wonder_materials_stockpile_desc: "为未来奇观建设预留的物资。"
+ TV_WONDER_DOMESTIC_SUPPORT_FORMAT: "$VAL|0$/200"
+ TV_WONDER_SURVEY_PROGRESS_FORMAT: "$VAL|0$/100"
+ TV_WONDER_MATERIALS_STOCKPILE_FORMAT: "$VAL|0$/300000"
+
+ # Engineering Department panel
+ TV_ENGINEERING_STATUS_CARD_TITLE: "工程状态"
+ TV_ENGINEERING_GREAT_ENGINEER_LABEL: "大工程师："
+ TV_ENGINEERING_NO_GREAT_ENGINEER: "尚未任命"
+ TV_ENGINEERING_WONDER_STAGE_LABEL: "奇观阶段："
+ TV_ENGINEERING_STAGE_CONCEPT: "构想与论证"
+ TV_ENGINEERING_DOMESTIC_SUPPORT_LABEL: "国内支持度："
+ TV_ENGINEERING_MATERIALS_LABEL: "物资："
+ TV_ENGINEERING_GREAT_ENGINEER_TAB: "大工程师"
+ TV_ENGINEERING_GREAT_ENGINEER_TAB_TOOLTIP: "管理大工程师。"
+ TV_ENGINEERING_GREAT_ENGINEER_CARD_TITLE: "大工程师"
+ TV_ENGINEERING_WONDER_TAB: "奇观建设"
+ TV_ENGINEERING_WONDER_TAB_TOOLTIP: "未来奇观建设阶段。"
+ TV_ENGINEERING_WONDER_PIPELINE_CARD_TITLE: "奇观建设流程"
+ TV_ENGINEERING_STAGE_SURVEY: "测绘"
+ TV_ENGINEERING_STAGE_ORGANIZATION_LOGISTICS: "组织和物流"
+ TV_ENGINEERING_STAGE_CONSTRUCTION: "建设"
+ TV_ENGINEERING_STAGE_CEREMONY: "仪式"
+ TV_ENGINEERING_WONDER_COMPETENCE_CARD_TITLE: "测绘称职度"
+ TV_ENGINEERING_SCALE_COMPETENCE_LABEL: "规模称职度："
+ TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL: "物流称职度："
+ TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL: "组织称职度："
+
+ # Great Engineer actions
+ tv_appoint_engineering_leader: "任命大工程师"
+ tv_appoint_engineering_leader_desc: "任命我国一名角色为工程部的大工程师。"
+ tv_remove_engineering_leader: "撤职大工程师"
+ tv_remove_engineering_leader_desc: "移除当前大工程师。未来奇观工作将在任命新大工程师前停滞。"
+ tv_change_engineering_leader: "更换大工程师"
+ tv_change_engineering_leader_desc: "将当前大工程师替换为另一名合格角色。"
+ tv_select_engineering_leader: "选择大工程师"
+ tv_no_engineering_leader_available: "@trigger_no! 没有可用的合格角色。"
+
+ PERFORM_tv_appoint_engineering_leader_ACTION_SETUP: "当我们任命大工程师时。"
+ PERFORM_tv_appoint_engineering_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为大工程师。"
+ PERFORM_tv_appoint_engineering_leader_ACTION_MAP: ""
+
+ PERFORM_tv_remove_engineering_leader_ACTION_SETUP: "当我们撤职大工程师时。"
+ PERFORM_tv_remove_engineering_leader_ACTION_LOG: "我们撤职了大工程师。"
+ PERFORM_tv_remove_engineering_leader_ACTION_MAP: ""
+
+ PERFORM_tv_change_engineering_leader_ACTION_SETUP: "当我们更换大工程师时。"
+ PERFORM_tv_change_engineering_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为新的大工程师。"
+ PERFORM_tv_change_engineering_leader_ACTION_MAP: ""
+
+ # Great Engineer title and events
+ character_title_tv_great_engineer: "大工程师"
+ character_title_tv_great_engineer_female: "大工程师"
+ STATIC_MODIFIER_NAME_tv_great_engineer_role_modifier: "大工程师"
+ tv_engineering_department.10.t: "大工程师逝世"
+ tv_engineering_department.10.d: "我国的大工程师已经逝世。在任命继任者之前，工程部将缺少它的工程大师。"
+ tv_engineering_department.10.a: "我们必须任命继任者。"
+
+ # Prosperity M1 IO creation tooltip
+ tv_prosperity_m1_engineering_department_grant_tt: "建立[tv_engineering_department|e]，并在国际组织界面解锁大工程师管理。"

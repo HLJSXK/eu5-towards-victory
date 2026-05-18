@@ -106,6 +106,51 @@ tv_reinitialize_mod = {
 				}
 			}
 
+			# Prosperity -> Engineering Department
+			if = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_PROSPERITY_MILESTONE_TT
+						has_variable = tv_prosperity_milestone
+					}
+				}
+				if = {
+					limit = {
+						var:tv_prosperity_milestone >= 1
+						NOT = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_engineering_department
+							}
+						}
+					}
+					if = {
+						limit = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_engineering_department_member }
+							}
+						}
+						set_variable = { name = tv_engineering_department_member value = 1 }
+					}
+					if = {
+						limit = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_wonder_stage }
+							}
+						}
+						set_variable = { name = tv_wonder_stage value = 0 }
+					}
+					create_international_organization = {
+						type = international_organization_type:tv_engineering_department
+						hidden_effect = {
+							add_country_to_international_organization = prev
+							set_leader_country = prev
+						}
+					}
+				}
+			}
+
 			# Science → Academy of Sciences
 			if = {
 				limit = {
@@ -163,6 +208,12 @@ tv_reinitialize_mod = {
 			every_international_organizations_member_of = {
 				limit = {
 					international_organization_type = international_organization_type:tv_arts_exhibition
+				}
+				set_leader_country = scope:actor
+			}
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_engineering_department
 				}
 				set_leader_country = scope:actor
 			}
