@@ -497,6 +497,16 @@ item = {
 
 Putting sibling widgets directly under `item` logs `Malformed item desc`, and can produce nearby text formatter noise while the list is rendered.
 
+When embedding `RequirementsList` directly in a panel to show `ShowTriggerConditions(...)`, do not hide its title with an empty `blockoverride "block_title" {}`. The underlying list/header stack uses tooltip header text styling that reads `ExtraTooltipInfo.GetTintColor`; outside a real tooltip context, exposing that header can spam `No context supplied ... ExtraTooltipInfo.GetTintColor` while the panel is hovered. If the list should be titleless, preserve the nested title block and hide it explicitly:
+
+```gui
+blockoverride "block_title" {
+    block "block_title" {
+        visible = no
+    }
+}
+```
+
 ### 7.2. Map Modding
 
 EU5 includes a powerful map editor for modifying the game world. This tool allows for editing the heightmap, terrain textures, and location setup. However, it has high system requirements, recommending at least 32GB of RAM. [11]

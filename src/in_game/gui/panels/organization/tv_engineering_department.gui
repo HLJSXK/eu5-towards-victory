@@ -646,13 +646,17 @@ organization_panel = {
 												margin = { 4 4 }
 												spacing = 3
 												text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" align = nobaseline|center }
-												piechart = {
-													size = { 44 44 }
-													parentanchor = hcenter
-													using = piechart_angles
-													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
-													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
-													icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/flat_icons/building_panel/build.dds" texture_density = 2 }
+												hbox = {
+													layoutpolicy_horizontal = expanding
+													expand = {}
+													piechart = {
+														size = { 44 44 }
+														using = piechart_angles
+														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
+														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+														icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/flat_icons/building_panel/build.dds" texture_density = 2 }
+													}
+													expand = {}
 												}
 												text_single = { raw_text = "0%" align = nobaseline|center }
 											}
@@ -664,13 +668,17 @@ organization_panel = {
 												margin = { 4 4 }
 												spacing = 3
 												text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" align = nobaseline|center }
-												piechart = {
-													size = { 44 44 }
-													parentanchor = hcenter
-													using = piechart_angles
-													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
-													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
-													icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
+												hbox = {
+													layoutpolicy_horizontal = expanding
+													expand = {}
+													piechart = {
+														size = { 44 44 }
+														using = piechart_angles
+														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
+														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+														icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
+													}
+													expand = {}
 												}
 												text_single = { raw_text = "0%" align = nobaseline|center }
 											}
@@ -682,13 +690,17 @@ organization_panel = {
 												margin = { 4 4 }
 												spacing = 3
 												text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" align = nobaseline|center }
-												piechart = {
-													size = { 44 44 }
-													parentanchor = hcenter
-													using = piechart_angles
-													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
-													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
-													icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/pops/laborers.dds" texture_density = 2 }
+												hbox = {
+													layoutpolicy_horizontal = expanding
+													expand = {}
+													piechart = {
+														size = { 44 44 }
+														using = piechart_angles
+														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
+														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+														icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/pops/laborers.dds" texture_density = 2 }
+													}
+													expand = {}
 												}
 												text_single = { raw_text = "0%" align = nobaseline|center }
 											}
