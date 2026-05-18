@@ -27,7 +27,7 @@ FILE_HEADER = (
     "# Do not edit directly - modify the data file and re-run the generator.\n"
     "#\n"
     "# TOWARDS VICTORY - GOVERNOR'S HOUSE LAWS\n"
-    "# Six Governor's House law groups, each with four policies.\n"
+    "# Governor's House law groups and Local Governor Function policies.\n"
     "# requires_vote = yes: Governor's House law changes use IO policy votes.\n"
 )
 
@@ -43,6 +43,7 @@ def gen_policy(policy: dict) -> str:
     pid = policy["id"]
     comment = policy.get("display_comment", "")
     modifier_lines = (policy.get("country_modifier") or "").rstrip()
+    on_activate_lines = (policy.get("on_activate") or "").rstrip()
 
     lines = []
     if comment:
@@ -51,6 +52,10 @@ def gen_policy(policy: dict) -> str:
     lines.append(T * 2 + "allow = {")
     lines.append(T * 3 + "always = yes")
     lines.append(T * 2 + "}")
+    if on_activate_lines:
+        lines.append(T * 2 + "on_activate = {")
+        lines.append(_indent_block(on_activate_lines, 3))
+        lines.append(T * 2 + "}")
     if modifier_lines:
         lines.append(T * 2 + "country_modifier = {")
         lines.append(_indent_block(modifier_lines, 3))

@@ -123,17 +123,29 @@ organization_panel = {
 												spacing = 2
 												text_single = {
 													size = { 20 22 }
-													datacontext = "[GC('max_control')]"
-													raw_text = "@max_control!"
-													tooltipwidget = {
-														using = game_concept_tooltip
-													}
+													raw_text = "@adm!"
+													tooltip = "TV_GOVHOUSE_ADMIN_FUNCTION_FORMULA_TT"
 													align = nobaseline|center
 												}
 												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_admin_bonus_type').GetValue, '(CFixedPoint)1.0')]"
 													size = { 46 22 }
-													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_max_control_pct').GetValue|+=%0]"
-													tooltip = "TV_GOVHOUSE_MAX_CONTROL_FORMULA_TT"
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_admin_bonus_value').GetValue|+=%0]"
+													tooltip = "TV_GOVHOUSE_ADMIN_CONTROL_FORMULA_TT"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_admin_bonus_type').GetValue, '(CFixedPoint)2.0')]"
+													size = { 46 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_admin_bonus_value').GetValue|+=4]"
+													tooltip = "TV_GOVHOUSE_ADMIN_DEVELOPMENT_FORMULA_TT"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_admin_bonus_type').GetValue, '(CFixedPoint)3.0')]"
+													size = { 46 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_admin_bonus_value').GetValue|+=%0]"
+													tooltip = "TV_GOVHOUSE_ADMIN_PRODUCTION_FORMULA_TT"
 													align = nobaseline|right
 												}
 											}
@@ -142,54 +154,60 @@ organization_panel = {
 												spacing = 2
 												text_single = {
 													size = { 20 22 }
-													raw_text = "@construction!"
-													tooltipwidget = {
-														ContextualTooltipType = {
-															blockoverride "title_icon" {
-																icon = {
-																	using = tooltip_title_icon_size
-																	texture = "gfx/interface/icons/modifier_types/small_foreign_building_cost_modifier.dds"
-																}
-															}
-															blockoverride "title_text" {
-																text = "MODIFIER_TYPE_NAME_local_build_buildings_cost"
-															}
-															blockoverride "concept_link" {
-																text = "[location_modifier|E]"
-															}
-															blockoverride "tooltip_content" {
-																TooltipTextBlock = {
-																	blockoverride "text" {
-																		text = "MODIFIER_TYPE_DESC_local_build_buildings_cost"
-																	}
-																}
-															}
-														}
-													}
+													raw_text = "@dip!"
+													tooltip = "TV_GOVHOUSE_DIP_FUNCTION_FORMULA_TT"
 													align = nobaseline|center
 												}
 												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_dip_bonus_type').GetValue, '(CFixedPoint)1.0')]"
 													size = { 46 22 }
-													raw_text = "[Multiply_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_build_cost_pct').GetValue, '(CFixedPoint)-1')|-=%0]"
-													tooltip = "TV_GOVHOUSE_BUILD_COST_FORMULA_TT"
+													raw_text = "[Multiply_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_dip_bonus_value').GetValue, '(CFixedPoint)-1')|-=%0]"
+													tooltip = "TV_GOVHOUSE_DIP_CONSTRUCTION_FORMULA_TT"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_dip_bonus_type').GetValue, '(CFixedPoint)2.0')]"
+													size = { 46 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_dip_bonus_value').GetValue|+=%0]"
+													tooltip = "TV_GOVHOUSE_DIP_POP_PROMOTION_FORMULA_TT"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_dip_bonus_type').GetValue, '(CFixedPoint)3.0')]"
+													size = { 46 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_dip_bonus_value').GetValue|+=%3]"
+													tooltip = "TV_GOVHOUSE_DIP_POP_GROWTH_FORMULA_TT"
 													align = nobaseline|right
 												}
 											}
 
 											hbox = {
 												spacing = 2
-												icon = {
-													size = { 18 18 }
-													datacontext = "[GC('unrest')]"
-													texture = "gfx/interface/icons/flat_icons/geography/unrest.dds"
-													tooltipwidget = {
-														using = game_concept_tooltip
-													}
+												text_single = {
+													size = { 20 22 }
+													raw_text = "@mil!"
+													tooltip = "TV_GOVHOUSE_MIL_FUNCTION_FORMULA_TT"
+													align = nobaseline|center
 												}
 												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_mil_bonus_type').GetValue, '(CFixedPoint)1.0')]"
 													size = { 46 22 }
-													raw_text = "[Multiply_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_unrest_pct').GetValue, '(CFixedPoint)-1')|-=%0]"
-													tooltip = "TV_GOVHOUSE_UNREST_FORMULA_TT"
+													raw_text = "[Multiply_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_mil_bonus_value').GetValue, '(CFixedPoint)-1')|-=%0]"
+													tooltip = "TV_GOVHOUSE_MIL_UNREST_FORMULA_TT"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_mil_bonus_type').GetValue, '(CFixedPoint)2.0')]"
+													size = { 46 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_mil_bonus_value').GetValue|+=%0]"
+													tooltip = "TV_GOVHOUSE_MIL_LEVY_FORMULA_TT"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_mil_bonus_type').GetValue, '(CFixedPoint)3.0')]"
+													size = { 46 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_mil_bonus_value').GetValue|+=%0]"
+													tooltip = "TV_GOVHOUSE_MIL_FORT_FORMULA_TT"
 													align = nobaseline|right
 												}
 											}

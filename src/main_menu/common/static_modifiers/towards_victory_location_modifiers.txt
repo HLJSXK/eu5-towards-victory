@@ -23,6 +23,48 @@ tv_governor_unrest = {
 	}
 }
 
+tv_governor_monthly_development = {
+	local_monthly_development = 1
+	game_data = {
+		category = location
+	}
+}
+
+tv_governor_production_efficiency = {
+	local_production_efficiency = 1
+	game_data = {
+		category = location
+	}
+}
+
+tv_governor_pop_promotion_speed = {
+	local_pop_promotion_speed_modifier = 1
+	game_data = {
+		category = location
+	}
+}
+
+tv_governor_population_growth = {
+	local_population_growth = 1
+	game_data = {
+		category = location
+	}
+}
+
+tv_governor_levy_size = {
+	local_army_levy_size_modifier = 1
+	game_data = {
+		category = location
+	}
+}
+
+tv_governor_fort_defense = {
+	local_defensive = 1
+	game_data = {
+		category = location
+	}
+}
+
 tv_exhibition_success_location_modifier = {
 	local_production_efficiency = -0.2
 	local_migration_attraction = 2

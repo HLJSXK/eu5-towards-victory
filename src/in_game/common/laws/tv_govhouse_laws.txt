@@ -4,7 +4,7 @@
 # Do not edit directly - modify the data file and re-run the generator.
 #
 # TOWARDS VICTORY - GOVERNOR'S HOUSE LAWS
-# Six Governor's House law groups, each with four policies.
+# Governor's House law groups and Local Governor Function policies.
 # requires_vote = yes: Governor's House law changes use IO policy votes.
 
 # ------------------------------------------------------------------------------
@@ -418,6 +418,186 @@ tv_govhouse_imperial_integration_law = {
 			global_monthly_prosperity = -0.001
 			global_monthly_control = -0.002
 			global_integration_speed_modifier = -0.20
+		}
+	}
+}
+
+# ------------------------------------------------------------------------------
+# LAW 7: Local Governor Administrative Function
+# ------------------------------------------------------------------------------
+tv_govhouse_administrative_function_law = {
+	type = international_organization
+	law_category = tv_govhouse_governor_functions
+	potential = {
+		international_organization_type = international_organization_type:tv_govhouse
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	requires_vote = yes
+	custom_tags = { forbids_no_policy }
+
+	# Control Registers (default)
+	tv_govhouse_admin_control_registers_policy = {
+		allow = {
+			always = yes
+		}
+		on_activate = {
+			hidden_effect = {
+			  leader_country ?= {
+			    tv_apply_governor_bonuses_effect = yes
+			  }
+			}
+		}
+	}
+
+	# Development Surveys
+	tv_govhouse_admin_development_surveys_policy = {
+		allow = {
+			always = yes
+		}
+		on_activate = {
+			hidden_effect = {
+			  leader_country ?= {
+			    tv_apply_governor_bonuses_effect = yes
+			  }
+			}
+		}
+	}
+
+	# Production Offices
+	tv_govhouse_admin_production_offices_policy = {
+		allow = {
+			always = yes
+		}
+		on_activate = {
+			hidden_effect = {
+			  leader_country ?= {
+			    tv_apply_governor_bonuses_effect = yes
+			  }
+			}
+		}
+	}
+}
+
+# ------------------------------------------------------------------------------
+# LAW 8: Local Governor Diplomatic Function
+# ------------------------------------------------------------------------------
+tv_govhouse_diplomatic_function_law = {
+	type = international_organization
+	law_category = tv_govhouse_governor_functions
+	potential = {
+		international_organization_type = international_organization_type:tv_govhouse
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	requires_vote = yes
+	custom_tags = { forbids_no_policy }
+
+	# Construction Charters (default)
+	tv_govhouse_dip_construction_charters_policy = {
+		allow = {
+			always = yes
+		}
+		on_activate = {
+			hidden_effect = {
+			  leader_country ?= {
+			    tv_apply_governor_bonuses_effect = yes
+			  }
+			}
+		}
+	}
+
+	# Population Advancement
+	tv_govhouse_dip_pop_advancement_policy = {
+		allow = {
+			always = yes
+		}
+		on_activate = {
+			hidden_effect = {
+			  leader_country ?= {
+			    tv_apply_governor_bonuses_effect = yes
+			  }
+			}
+		}
+	}
+
+	# Settlement Patronage
+	tv_govhouse_dip_settlement_patronage_policy = {
+		allow = {
+			always = yes
+		}
+		on_activate = {
+			hidden_effect = {
+			  leader_country ?= {
+			    tv_apply_governor_bonuses_effect = yes
+			  }
+			}
+		}
+	}
+}
+
+# ------------------------------------------------------------------------------
+# LAW 9: Local Governor Military Function
+# ------------------------------------------------------------------------------
+tv_govhouse_military_function_law = {
+	type = international_organization
+	law_category = tv_govhouse_governor_functions
+	potential = {
+		international_organization_type = international_organization_type:tv_govhouse
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	requires_vote = yes
+	custom_tags = { forbids_no_policy }
+
+	# Order Patrols (default)
+	tv_govhouse_mil_order_patrols_policy = {
+		allow = {
+			always = yes
+		}
+		on_activate = {
+			hidden_effect = {
+			  leader_country ?= {
+			    tv_apply_governor_bonuses_effect = yes
+			  }
+			}
+		}
+	}
+
+	# Frontier Levies
+	tv_govhouse_mil_frontier_levies_policy = {
+		allow = {
+			always = yes
+		}
+		on_activate = {
+			hidden_effect = {
+			  leader_country ?= {
+			    tv_apply_governor_bonuses_effect = yes
+			  }
+			}
+		}
+	}
+
+	# Fortress Engineers
+	tv_govhouse_mil_fortress_engineers_policy = {
+		allow = {
+			always = yes
+		}
+		on_activate = {
+			hidden_effect = {
+			  leader_country ?= {
+			    tv_apply_governor_bonuses_effect = yes
+			  }
+			}
 		}
 	}
 }

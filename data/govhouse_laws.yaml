@@ -1,5 +1,5 @@
 # Governor's House law categories for tv_govhouse_laws.txt.
-# Structure: 6 Governor's House laws x 4 policies each.
+# Structure: Governor's House policy laws plus Local Governor Function laws.
 # All laws use IO policy votes, following the Academy of Sciences pattern.
 #
 # DO NOT hand-edit generated output files. Run:
@@ -201,3 +201,93 @@ laws:
           global_monthly_prosperity = -0.001
           global_monthly_control = -0.002
           global_integration_speed_modifier = -0.20
+
+  - id: tv_govhouse_administrative_function_law
+    law_category: tv_govhouse_governor_functions
+    display_comment: "LAW 7: Local Governor Administrative Function"
+    policies:
+      - id: tv_govhouse_admin_control_registers_policy
+        display_comment: "Control Registers (default)"
+        default: true
+        on_activate: |
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+            }
+          }
+      - id: tv_govhouse_admin_development_surveys_policy
+        display_comment: "Development Surveys"
+        on_activate: |
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+            }
+          }
+      - id: tv_govhouse_admin_production_offices_policy
+        display_comment: "Production Offices"
+        on_activate: |
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+            }
+          }
+
+  - id: tv_govhouse_diplomatic_function_law
+    law_category: tv_govhouse_governor_functions
+    display_comment: "LAW 8: Local Governor Diplomatic Function"
+    policies:
+      - id: tv_govhouse_dip_construction_charters_policy
+        display_comment: "Construction Charters (default)"
+        default: true
+        on_activate: |
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+            }
+          }
+      - id: tv_govhouse_dip_pop_advancement_policy
+        display_comment: "Population Advancement"
+        on_activate: |
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+            }
+          }
+      - id: tv_govhouse_dip_settlement_patronage_policy
+        display_comment: "Settlement Patronage"
+        on_activate: |
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+            }
+          }
+
+  - id: tv_govhouse_military_function_law
+    law_category: tv_govhouse_governor_functions
+    display_comment: "LAW 9: Local Governor Military Function"
+    policies:
+      - id: tv_govhouse_mil_order_patrols_policy
+        display_comment: "Order Patrols (default)"
+        default: true
+        on_activate: |
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+            }
+          }
+      - id: tv_govhouse_mil_frontier_levies_policy
+        display_comment: "Frontier Levies"
+        on_activate: |
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+            }
+          }
+      - id: tv_govhouse_mil_fortress_engineers_policy
+        display_comment: "Fortress Engineers"
+        on_activate: |
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+            }
+          }

@@ -270,6 +270,42 @@ tv_govhouse = {
 
 	monthly_effect = {
 		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							international_organization_has_policy = policy:tv_govhouse_admin_control_registers_policy
+							international_organization_has_policy = policy:tv_govhouse_admin_development_surveys_policy
+							international_organization_has_policy = policy:tv_govhouse_admin_production_offices_policy
+						}
+					}
+				}
+				add_policy_to_international_organization = policy:tv_govhouse_admin_control_registers_policy
+			}
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							international_organization_has_policy = policy:tv_govhouse_dip_construction_charters_policy
+							international_organization_has_policy = policy:tv_govhouse_dip_pop_advancement_policy
+							international_organization_has_policy = policy:tv_govhouse_dip_settlement_patronage_policy
+						}
+					}
+				}
+				add_policy_to_international_organization = policy:tv_govhouse_dip_construction_charters_policy
+			}
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							international_organization_has_policy = policy:tv_govhouse_mil_order_patrols_policy
+							international_organization_has_policy = policy:tv_govhouse_mil_frontier_levies_policy
+							international_organization_has_policy = policy:tv_govhouse_mil_fortress_engineers_policy
+						}
+					}
+				}
+				add_policy_to_international_organization = policy:tv_govhouse_mil_order_patrols_policy
+			}
 			leader_country ?= {
 				if = {
 					limit = {
@@ -296,6 +332,9 @@ tv_govhouse = {
 			add_policy_to_international_organization = policy:tv_govhouse_secular_governance_policy
 			add_policy_to_international_organization = policy:tv_govhouse_regular_garrison_policy
 			add_policy_to_international_organization = policy:tv_govhouse_permanent_colony_policy
+			add_policy_to_international_organization = policy:tv_govhouse_admin_control_registers_policy
+			add_policy_to_international_organization = policy:tv_govhouse_dip_construction_charters_policy
+			add_policy_to_international_organization = policy:tv_govhouse_mil_order_patrols_policy
 		}
 	}
 

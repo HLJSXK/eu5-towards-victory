@@ -856,17 +856,20 @@ tv_govhouse_war_tent_monthly_effect = {
 #   tv_governor_list:        country variable list of governor character scopes.
 # Each representative display location may carry:
 #   tv_govhouse_display_governor_char      (character scope value)
-#   tv_govhouse_display_max_control_pct    (copied from governor)
-#   tv_govhouse_display_build_cost_pct      (copied from governor)
-#   tv_govhouse_display_unrest_pct          (copied from governor)
+#   tv_govhouse_display_admin_bonus_type   (1 control, 2 development, 3 production)
+#   tv_govhouse_display_admin_bonus_value  (copied from governor)
+#   tv_govhouse_display_dip_bonus_type     (1 construction, 2 pop promotion, 3 pop growth)
+#   tv_govhouse_display_dip_bonus_value    (copied from governor)
+#   tv_govhouse_display_mil_bonus_type     (1 unrest, 2 levy size, 3 fort defense)
+#   tv_govhouse_display_mil_bonus_value    (copied from governor)
 # Each governor character carries:
 #   tv_is_governor = 1            (presence flag)
 #   tv_governed_region            (region scope value)
 #   tv_governed_region_capital    (representative owned location, for legacy display compatibility)
-#   tv_gov_max_control_pct        (adm × 0.001 — fractional; GUI |% format → "+10%")
-#   tv_gov_build_cost_pct         (dip × 0.002 — fractional; GUI |% format → "-20%")
-#   tv_gov_unrest_pct             (mil × 0.002 — fractional; GUI |% format → "-20%")
-# Location modifiers applied: tv_governor_max_control, tv_governor_build_cost, tv_governor_unrest
+#   tv_gov_admin_bonus_type/value (chosen by Local Governor Administrative Function)
+#   tv_gov_dip_bonus_type/value   (chosen by Local Governor Diplomatic Function)
+#   tv_gov_mil_bonus_type/value   (chosen by Local Governor Military Function)
+# Location modifiers applied: one ADM, one DIP, and one MIL governor function modifier
 # Scaling: size reads pre-computed pct variable directly (no inline multiply needed)
 
 # Rebuilds the player-region backing list from currently owned locations.
@@ -878,9 +881,12 @@ tv_govhouse_refresh_region_list_effect = {
 	clear_variable_list = tv_govhouse_region_display_region_list
 	every_owned_location = {
 		remove_variable = tv_govhouse_display_governor_char
-		remove_variable = tv_govhouse_display_max_control_pct
-		remove_variable = tv_govhouse_display_build_cost_pct
-		remove_variable = tv_govhouse_display_unrest_pct
+		remove_variable = tv_govhouse_display_admin_bonus_type
+		remove_variable = tv_govhouse_display_admin_bonus_value
+		remove_variable = tv_govhouse_display_dip_bonus_type
+		remove_variable = tv_govhouse_display_dip_bonus_value
+		remove_variable = tv_govhouse_display_mil_bonus_type
+		remove_variable = tv_govhouse_display_mil_bonus_value
 		region = {
 			save_scope_as = tv_owned_region
 		}
@@ -927,9 +933,12 @@ tv_govhouse_refresh_region_list_effect = {
 			set_variable = { name = tv_governed_region_capital value = scope:tv_display_location }
 			scope:tv_display_location = {
 				set_variable = { name = tv_govhouse_display_governor_char value = scope:tv_display_governor }
-				set_variable = { name = tv_govhouse_display_max_control_pct value = scope:tv_display_governor.var:tv_gov_max_control_pct }
-				set_variable = { name = tv_govhouse_display_build_cost_pct value = scope:tv_display_governor.var:tv_gov_build_cost_pct }
-				set_variable = { name = tv_govhouse_display_unrest_pct value = scope:tv_display_governor.var:tv_gov_unrest_pct }
+				set_variable = { name = tv_govhouse_display_admin_bonus_type value = scope:tv_display_governor.var:tv_gov_admin_bonus_type }
+				set_variable = { name = tv_govhouse_display_admin_bonus_value value = scope:tv_display_governor.var:tv_gov_admin_bonus_value }
+				set_variable = { name = tv_govhouse_display_dip_bonus_type value = scope:tv_display_governor.var:tv_gov_dip_bonus_type }
+				set_variable = { name = tv_govhouse_display_dip_bonus_value value = scope:tv_display_governor.var:tv_gov_dip_bonus_value }
+				set_variable = { name = tv_govhouse_display_mil_bonus_type value = scope:tv_display_governor.var:tv_gov_mil_bonus_type }
+				set_variable = { name = tv_govhouse_display_mil_bonus_value value = scope:tv_display_governor.var:tv_gov_mil_bonus_value }
 			}
 			scope:tv_governing_country = {
 				if = {
@@ -976,23 +985,33 @@ tv_govhouse_refresh_region_list_effect = {
 	}
 }
 
+# Removes every Local Governor Function modifier from one location.
+# Scope: location.
+tv_governor_remove_function_modifiers_effect = {
+	remove_location_modifier = tv_governor_max_control
+	remove_location_modifier = tv_governor_build_cost
+	remove_location_modifier = tv_governor_unrest
+	remove_location_modifier = tv_governor_monthly_development
+	remove_location_modifier = tv_governor_production_efficiency
+	remove_location_modifier = tv_governor_pop_promotion_speed
+	remove_location_modifier = tv_governor_population_growth
+	remove_location_modifier = tv_governor_levy_size
+	remove_location_modifier = tv_governor_fort_defense
+}
+
 # Clears one governor assignment and removes its active location modifiers.
 # Scope: governor character. Caller must provide scope:tv_governing_country.
 tv_governor_clear_assignment_effect = {
 	var:tv_governed_region ?= {
 		every_location_in_region = {
 			limit = { owner ?= scope:tv_governing_country }
-			remove_location_modifier = tv_governor_max_control
-			remove_location_modifier = tv_governor_build_cost
-			remove_location_modifier = tv_governor_unrest
+			tv_governor_remove_function_modifiers_effect = yes
 		}
 	}
 	var:tv_governed_area ?= {
 		every_location_in_area = {
 			limit = { owner ?= scope:tv_governing_country }
-			remove_location_modifier = tv_governor_max_control
-			remove_location_modifier = tv_governor_build_cost
-			remove_location_modifier = tv_governor_unrest
+			tv_governor_remove_function_modifiers_effect = yes
 		}
 	}
 	remove_variable = tv_is_governor
@@ -1003,6 +1022,12 @@ tv_governor_clear_assignment_effect = {
 	remove_variable = tv_gov_max_control_pct
 	remove_variable = tv_gov_build_cost_pct
 	remove_variable = tv_gov_unrest_pct
+	remove_variable = tv_gov_admin_bonus_type
+	remove_variable = tv_gov_admin_bonus_value
+	remove_variable = tv_gov_dip_bonus_type
+	remove_variable = tv_gov_dip_bonus_value
+	remove_variable = tv_gov_mil_bonus_type
+	remove_variable = tv_gov_mil_bonus_value
 }
 
 # Applies or refreshes location modifiers and display variables for one governor.
@@ -1012,10 +1037,94 @@ tv_governor_clear_assignment_effect = {
 # tv_appoint_governor, or by save_scope_as = target in tv_apply_governor_bonuses_effect).
 tv_governor_apply_modifiers_effect = {
 	scope:target = {
-		# Refresh display variables (shared scale with size — GUI uses |% format)
-		set_variable = { name = tv_gov_max_control_pct value = { value = this.adm multiply = 0.001 } }
-		set_variable = { name = tv_gov_build_cost_pct value = { value = this.dip multiply = 0.002 } }
-		set_variable = { name = tv_gov_unrest_pct value = { value = this.mil multiply = 0.002 } }
+		# Refresh display and size variables. Each ability governs one law-selected
+		# local function; default values preserve the old Governor behavior.
+		set_variable = { name = tv_gov_admin_bonus_type value = 1 }
+		set_variable = { name = tv_gov_admin_bonus_value value = { value = this.adm multiply = 0.001 } }
+		if = {
+			limit = {
+				scope:tv_governing_country = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= scope:tv_governing_country
+						international_organization_has_policy = policy:tv_govhouse_admin_development_surveys_policy
+					}
+				}
+			}
+			set_variable = { name = tv_gov_admin_bonus_type value = 2 }
+			set_variable = { name = tv_gov_admin_bonus_value value = { value = this.adm multiply = 0.00001 } }
+		}
+		else_if = {
+			limit = {
+				scope:tv_governing_country = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= scope:tv_governing_country
+						international_organization_has_policy = policy:tv_govhouse_admin_production_offices_policy
+					}
+				}
+			}
+			set_variable = { name = tv_gov_admin_bonus_type value = 3 }
+			set_variable = { name = tv_gov_admin_bonus_value value = { value = this.adm multiply = 0.001 } }
+		}
+
+		set_variable = { name = tv_gov_dip_bonus_type value = 1 }
+		set_variable = { name = tv_gov_dip_bonus_value value = { value = this.dip multiply = 0.002 } }
+		if = {
+			limit = {
+				scope:tv_governing_country = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= scope:tv_governing_country
+						international_organization_has_policy = policy:tv_govhouse_dip_pop_advancement_policy
+					}
+				}
+			}
+			set_variable = { name = tv_gov_dip_bonus_type value = 2 }
+			set_variable = { name = tv_gov_dip_bonus_value value = { value = this.dip multiply = 0.005 } }
+		}
+		else_if = {
+			limit = {
+				scope:tv_governing_country = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= scope:tv_governing_country
+						international_organization_has_policy = policy:tv_govhouse_dip_settlement_patronage_policy
+					}
+				}
+			}
+			set_variable = { name = tv_gov_dip_bonus_type value = 3 }
+			set_variable = { name = tv_gov_dip_bonus_value value = { value = this.dip multiply = 0.00001 } }
+		}
+
+		set_variable = { name = tv_gov_mil_bonus_type value = 1 }
+		set_variable = { name = tv_gov_mil_bonus_value value = { value = this.mil multiply = 0.002 } }
+		if = {
+			limit = {
+				scope:tv_governing_country = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= scope:tv_governing_country
+						international_organization_has_policy = policy:tv_govhouse_mil_frontier_levies_policy
+					}
+				}
+			}
+			set_variable = { name = tv_gov_mil_bonus_type value = 2 }
+			set_variable = { name = tv_gov_mil_bonus_value value = { value = this.mil multiply = 0.002 } }
+		}
+		else_if = {
+			limit = {
+				scope:tv_governing_country = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= scope:tv_governing_country
+						international_organization_has_policy = policy:tv_govhouse_mil_fortress_engineers_policy
+					}
+				}
+			}
+			set_variable = { name = tv_gov_mil_bonus_type value = 3 }
+			set_variable = { name = tv_gov_mil_bonus_value value = { value = this.mil multiply = 0.005 } }
+		}
 		# Migrate pre-region governors from the old area assignment, preserving the appointment.
 		if = {
 			limit = {
@@ -1046,9 +1155,7 @@ tv_governor_apply_modifiers_effect = {
 		var:tv_governed_area ?= {
 			every_location_in_area = {
 				limit = { owner ?= scope:tv_governing_country }
-				remove_location_modifier = tv_governor_max_control
-				remove_location_modifier = tv_governor_build_cost
-				remove_location_modifier = tv_governor_unrest
+				tv_governor_remove_function_modifiers_effect = yes
 			}
 		}
 		remove_variable = tv_governed_area
@@ -1060,26 +1167,134 @@ tv_governor_apply_modifiers_effect = {
 		var:tv_governed_region ?= {
 			every_location_in_region = {
 				limit = { owner ?= scope:tv_governing_country }
-				remove_location_modifier = tv_governor_max_control
-				remove_location_modifier = tv_governor_build_cost
-				remove_location_modifier = tv_governor_unrest
-				add_location_modifier = {
-					modifier = tv_governor_max_control
-					years = -1
-					mode = add_and_extend
-					size = { value = scope:target.var:tv_gov_max_control_pct }
+				tv_governor_remove_function_modifiers_effect = yes
+				if = {
+					limit = {
+						scope:tv_governing_country = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_governing_country
+								international_organization_has_policy = policy:tv_govhouse_admin_development_surveys_policy
+							}
+						}
+					}
+					add_location_modifier = {
+						modifier = tv_governor_monthly_development
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_admin_bonus_value }
+					}
 				}
-				add_location_modifier = {
-					modifier = tv_governor_build_cost
-					years = -1
-					mode = add_and_extend
-					size = { value = scope:target.var:tv_gov_build_cost_pct }
+				else_if = {
+					limit = {
+						scope:tv_governing_country = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_governing_country
+								international_organization_has_policy = policy:tv_govhouse_admin_production_offices_policy
+							}
+						}
+					}
+					add_location_modifier = {
+						modifier = tv_governor_production_efficiency
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_admin_bonus_value }
+					}
 				}
-				add_location_modifier = {
-					modifier = tv_governor_unrest
-					years = -1
-					mode = add_and_extend
-					size = { value = scope:target.var:tv_gov_unrest_pct }
+				else = {
+					add_location_modifier = {
+						modifier = tv_governor_max_control
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_admin_bonus_value }
+					}
+				}
+
+				if = {
+					limit = {
+						scope:tv_governing_country = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_governing_country
+								international_organization_has_policy = policy:tv_govhouse_dip_pop_advancement_policy
+							}
+						}
+					}
+					add_location_modifier = {
+						modifier = tv_governor_pop_promotion_speed
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_dip_bonus_value }
+					}
+				}
+				else_if = {
+					limit = {
+						scope:tv_governing_country = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_governing_country
+								international_organization_has_policy = policy:tv_govhouse_dip_settlement_patronage_policy
+							}
+						}
+					}
+					add_location_modifier = {
+						modifier = tv_governor_population_growth
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_dip_bonus_value }
+					}
+				}
+				else = {
+					add_location_modifier = {
+						modifier = tv_governor_build_cost
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_dip_bonus_value }
+					}
+				}
+
+				if = {
+					limit = {
+						scope:tv_governing_country = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_governing_country
+								international_organization_has_policy = policy:tv_govhouse_mil_frontier_levies_policy
+							}
+						}
+					}
+					add_location_modifier = {
+						modifier = tv_governor_levy_size
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_mil_bonus_value }
+					}
+				}
+				else_if = {
+					limit = {
+						scope:tv_governing_country = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_governing_country
+								international_organization_has_policy = policy:tv_govhouse_mil_fortress_engineers_policy
+							}
+						}
+					}
+					add_location_modifier = {
+						modifier = tv_governor_fort_defense
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_mil_bonus_value }
+					}
+				}
+				else = {
+					add_location_modifier = {
+						modifier = tv_governor_unrest
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_mil_bonus_value }
+					}
 				}
 			}
 		}
@@ -1355,9 +1570,12 @@ tv_govhouse_cleanup_effect = {
 	}
 	every_owned_location = {
 		remove_variable = tv_govhouse_display_governor_char
-		remove_variable = tv_govhouse_display_max_control_pct
-		remove_variable = tv_govhouse_display_build_cost_pct
-		remove_variable = tv_govhouse_display_unrest_pct
+		remove_variable = tv_govhouse_display_admin_bonus_type
+		remove_variable = tv_govhouse_display_admin_bonus_value
+		remove_variable = tv_govhouse_display_dip_bonus_type
+		remove_variable = tv_govhouse_display_dip_bonus_value
+		remove_variable = tv_govhouse_display_mil_bonus_type
+		remove_variable = tv_govhouse_display_mil_bonus_value
 	}
 	remove_variable = tv_govhouse_region_list
 	remove_variable = tv_govhouse_region_display_list
