@@ -1021,16 +1021,6 @@ tv_wonder_monthly_survey_event_roll_effect = {
 tv_wonder_monthly_survey_effect = {
 	if = {
 		limit = { tv_wonder_survey_active_trigger = yes }
-		set_variable = { name = tv_wonder_survey_speed value = 5 }
-		if = {
-			limit = { tv_wonder_has_great_engineer_trigger = yes }
-			set_variable = { name = tv_wonder_engineer_survey_speed value = var:tv_great_engineer_char.mil }
-			change_variable = { name = tv_wonder_engineer_survey_speed multiply = 0.1 }
-			change_variable = { name = tv_wonder_survey_speed add = var:tv_wonder_engineer_survey_speed }
-			remove_variable = tv_wonder_engineer_survey_speed
-		}
-		tv_wonder_change_io_survey_progress_effect = { value = var:tv_wonder_survey_speed }
-		remove_variable = tv_wonder_survey_speed
 		every_international_organizations_member_of = {
 			limit = {
 				international_organization_type = international_organization_type:tv_engineering_department

@@ -34,22 +34,6 @@ tv_engineering_department_debate_monthly_pulse = {
 	}
 }
 
-tv_engineering_department_support_decay_pulse = {
-	trigger = {
-		has_variable = tv_engineering_department_member
-		tv_wonder_debate_complete_trigger = yes
-		tv_wonder_has_locked_wonder_trigger = yes
-		NOT = { has_variable = tv_wonder_finalized }
-	}
-	effect = {
-		tv_change_wonder_domestic_support_effect = { value = -1 }
-		if = {
-			limit = { tv_wonder_domestic_support_empty_trigger = yes }
-			trigger_event_non_silently = { id = tv_engineering_department.20 }
-		}
-	}
-}
-
 tv_engineering_department_construction_monthly_pulse = {
 	trigger = {
 		has_variable = tv_engineering_department_member

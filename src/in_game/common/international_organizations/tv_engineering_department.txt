@@ -9,8 +9,8 @@
 # country variable tv_great_engineer_char holds the appointed character.
 #
 # This file defines the dependency IO and persistent variables used by
-# Wonder Construction Phase 1. Domestic Support is active in the conception
-# and debate flow; survey and materials remain reserved for later phases.
+# Wonder Construction. Domestic Support, survey progress, and materials are
+# stored on the IO so the custom panel can show their monthly changes.
 
 tv_engineering_department = {
 	has_target = no
@@ -44,6 +44,22 @@ tv_engineering_department = {
 			min = 0
 			max = 200
 			start = 0
+			monthly_change = {
+				if = {
+					limit = {
+						leader_country ?= {
+							has_variable = tv_engineering_department_member
+							tv_wonder_debate_complete_trigger = yes
+							tv_wonder_has_locked_wonder_trigger = yes
+							NOT = { has_variable = tv_wonder_finalized }
+						}
+					}
+					subtract = {
+						desc = "TV_WONDER_DOMESTIC_SUPPORT_DECAY"
+						value = 1
+					}
+				}
+			}
 		}
 		tv_wonder_survey_progress = {
 			format = "TV_WONDER_SURVEY_PROGRESS_FORMAT"
@@ -51,6 +67,39 @@ tv_engineering_department = {
 			min = 0
 			max = 100
 			start = 0
+			monthly_change = {
+				if = {
+					limit = {
+						leader_country ?= {
+							has_variable = tv_engineering_department_member
+							tv_wonder_survey_active_trigger = yes
+						}
+					}
+					add = {
+						desc = "TV_WONDER_SURVEY_BASE_PROGRESS"
+						value = 5
+					}
+				}
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_variable = tv_engineering_department_member
+							tv_wonder_survey_active_trigger = yes
+							custom_tooltip = {
+								text = TV_HAS_GREAT_ENGINEER_CHAR_TT
+								has_variable = tv_great_engineer_char
+							}
+							var:tv_great_engineer_char ?= { is_alive = yes }
+						}
+					}
+					add = {
+						desc = "TV_WONDER_SURVEY_ENGINEER_PROGRESS"
+						value = leader_country.var:tv_great_engineer_char.mil
+						multiply = 0.1
+					}
+				}
+			}
 		}
 		tv_wonder_materials_stockpile = {
 			format = "TV_WONDER_MATERIALS_STOCKPILE_FORMAT"
@@ -66,6 +115,30 @@ tv_engineering_department = {
 
 	can_initiate_policy_votes = {
 		is_leader_of_international_organization = scope:recipient
+	}
+
+	monthly_effect = {
+		hidden_effect = {
+			if = {
+				limit = {
+					var:tv_wonder_survey_progress >= 100
+					leader_country ?= { tv_wonder_survey_active_trigger = yes }
+				}
+				leader_country ?= { tv_wonder_complete_survey_effect = yes }
+			}
+			if = {
+				limit = {
+					var:tv_wonder_domestic_support <= 0
+					leader_country ?= {
+						has_variable = tv_engineering_department_member
+						tv_wonder_debate_complete_trigger = yes
+						tv_wonder_has_locked_wonder_trigger = yes
+						NOT = { has_variable = tv_wonder_finalized }
+					}
+				}
+				leader_country ?= { trigger_event_non_silently = { id = tv_engineering_department.20 } }
+			}
+		}
 	}
 
 	on_creation = {
