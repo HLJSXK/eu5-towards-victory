@@ -51,59 +51,51 @@ tv_research_d_pulse = {
 		chance_of_no_event = {
 			value = 100
 			if = {
-				limit = { var:tv_academy_leader_char ?= { adm < 20 } }
+				limit = { tv_chief_scientist_effective_adm_less_than_20_trigger = yes }
 				add = -11
 			}
 			if = {
 				limit = {
-					var:tv_academy_leader_char ?= {
-						adm >= 20
-						adm < 50
-					}
+					tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+					tv_chief_scientist_effective_adm_less_than_50_trigger = yes
 					any_cabinet_character = { count > 0 }
 				}
 				add = -17
 			}
 			if = {
 				limit = {
-					var:tv_academy_leader_char ?= {
-						adm >= 20
-						adm < 50
-					}
+					tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+					tv_chief_scientist_effective_adm_less_than_50_trigger = yes
 					NOT = { any_cabinet_character = { count > 0 } }
 				}
 				add = -15
 			}
 			if = {
 				limit = {
-					var:tv_academy_leader_char ?= {
-						adm >= 50
-						adm < 80
-					}
+					tv_chief_scientist_effective_adm_at_least_50_trigger = yes
+					tv_chief_scientist_effective_adm_less_than_80_trigger = yes
 					any_cabinet_character = { count > 0 }
 				}
 				add = -17
 			}
 			if = {
 				limit = {
-					var:tv_academy_leader_char ?= {
-						adm >= 50
-						adm < 80
-					}
+					tv_chief_scientist_effective_adm_at_least_50_trigger = yes
+					tv_chief_scientist_effective_adm_less_than_80_trigger = yes
 					NOT = { any_cabinet_character = { count > 0 } }
 				}
 				add = -15
 			}
 			if = {
 				limit = {
-					var:tv_academy_leader_char ?= { adm >= 80 }
+					tv_chief_scientist_effective_adm_at_least_80_trigger = yes
 					any_cabinet_character = { count > 0 }
 				}
 				add = -11
 			}
 			if = {
 				limit = {
-					var:tv_academy_leader_char ?= { adm >= 80 }
+					tv_chief_scientist_effective_adm_at_least_80_trigger = yes
 					NOT = { any_cabinet_character = { count > 0 } }
 				}
 				add = -10

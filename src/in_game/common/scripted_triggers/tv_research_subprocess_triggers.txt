@@ -34,6 +34,75 @@ tv_research_can_start_d_trigger = {
 	var:tv_rm_subprocess_c ?= { this >= 2 }
 }
 
+# ── Chief Scientist effective ADM tiers ──────────────────────────────────────
+# Country-scoped. Effective ADM = real ADM + Great Scientist trait bonus while
+# the character is appointed as the Academy Chief Scientist.
+tv_chief_scientist_effective_adm_at_least_20_trigger = {
+	has_variable = tv_academy_leader_char
+	var:tv_academy_leader_char ?= {
+		is_alive = yes
+		OR = {
+			adm >= 20
+			has_trait = tv_great_scientist_1
+			has_trait = tv_great_scientist_2
+			has_trait = tv_great_scientist_3
+		}
+	}
+}
+
+tv_chief_scientist_effective_adm_at_least_50_trigger = {
+	has_variable = tv_academy_leader_char
+	var:tv_academy_leader_char ?= {
+		is_alive = yes
+		OR = {
+			adm >= 50
+			AND = {
+				adm >= 30
+				has_trait = tv_great_scientist_1
+			}
+			AND = {
+				adm >= 10
+				has_trait = tv_great_scientist_2
+			}
+			has_trait = tv_great_scientist_3
+		}
+	}
+}
+
+tv_chief_scientist_effective_adm_at_least_80_trigger = {
+	has_variable = tv_academy_leader_char
+	var:tv_academy_leader_char ?= {
+		is_alive = yes
+		OR = {
+			adm >= 80
+			AND = {
+				adm >= 60
+				has_trait = tv_great_scientist_1
+			}
+			AND = {
+				adm >= 40
+				has_trait = tv_great_scientist_2
+			}
+			AND = {
+				adm >= 20
+				has_trait = tv_great_scientist_3
+			}
+		}
+	}
+}
+
+tv_chief_scientist_effective_adm_less_than_20_trigger = {
+	NOT = { tv_chief_scientist_effective_adm_at_least_20_trigger = yes }
+}
+
+tv_chief_scientist_effective_adm_less_than_50_trigger = {
+	NOT = { tv_chief_scientist_effective_adm_at_least_50_trigger = yes }
+}
+
+tv_chief_scientist_effective_adm_less_than_80_trigger = {
+	NOT = { tv_chief_scientist_effective_adm_at_least_80_trigger = yes }
+}
+
 # ── Frontier target availability pools ────────────────────────────────────────
 tv_research_has_unresearched_age_1_frontier_trigger = {
 	NOT = { has_advance = iron_working }

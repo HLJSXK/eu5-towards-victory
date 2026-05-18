@@ -125,7 +125,7 @@ tv_start_concentrated_research = {
 		custom_tooltip = {
 			text = tv_start_d_requires_scientist_adm_20_tt
 			scope:actor = {
-				var:tv_academy_leader_char ?= { adm >= 20 }
+				tv_chief_scientist_effective_adm_at_least_20_trigger = yes
 			}
 		}
 		scope:actor = {

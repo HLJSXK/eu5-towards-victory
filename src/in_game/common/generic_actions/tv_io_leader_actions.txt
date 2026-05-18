@@ -322,6 +322,10 @@ tv_appoint_academy_leader = {
 			limit = { exists = scope:target }
 			scope:actor = {
 				set_variable = { name = tv_academy_leader_char value = scope:target }
+				tv_update_chief_scientist_effective_adm_effect = yes
+				set_variable = { name = tv_med_disp_adm value = var:tv_scientist_effective_adm }
+				set_variable = { name = tv_med_disp_dip value = var:tv_academy_leader_char.dip }
+				set_variable = { name = tv_med_disp_mil value = var:tv_academy_leader_char.mil }
 			}
 			scope:target = {
 				add_character_modifier = { modifier = tv_chief_scientist_role_modifier years = -1 mode = add_and_extend }
@@ -360,6 +364,10 @@ tv_remove_academy_leader = {
 					remove_character_modifier = tv_chief_scientist_role_modifier
 				}
 			}
+			set_variable = { name = tv_scientist_effective_adm value = 0 }
+			set_variable = { name = tv_med_disp_adm value = 0 }
+			set_variable = { name = tv_med_disp_dip value = 0 }
+			set_variable = { name = tv_med_disp_mil value = 0 }
 			remove_variable = tv_academy_leader_char
 		}
 	}
@@ -427,6 +435,10 @@ tv_change_academy_leader = {
 			limit = { exists = scope:target }
 			scope:actor = {
 				set_variable = { name = tv_academy_leader_char value = scope:target }
+				tv_update_chief_scientist_effective_adm_effect = yes
+				set_variable = { name = tv_med_disp_adm value = var:tv_scientist_effective_adm }
+				set_variable = { name = tv_med_disp_dip value = var:tv_academy_leader_char.dip }
+				set_variable = { name = tv_med_disp_mil value = var:tv_academy_leader_char.mil }
 			}
 			scope:target = {
 				add_character_modifier = { modifier = tv_chief_scientist_role_modifier years = -1 mode = add_and_extend }

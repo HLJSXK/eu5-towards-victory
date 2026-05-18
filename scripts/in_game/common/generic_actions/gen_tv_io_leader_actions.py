@@ -177,6 +177,7 @@ def gen_change(io: dict) -> str:
     selector = _char_selector_block(io)
     title_mod = io.get("title_modifier", "")
     extra_effect = _extra_effect_block(io, "on_change_effect", "\t\t\t")
+    after_effect = _extra_effect_block(io, "on_change_after_effect", "\t\t\t\t")
     remove_old_title_inner = (
         f"\t\t\tif = {{\n"
         f"\t\t\t\tlimit = {{\n"
@@ -225,6 +226,7 @@ def gen_change(io: dict) -> str:
         f"\t\t\tlimit = {{ exists = scope:target }}\n"
         f"\t\t\tscope:actor = {{\n"
         f"\t\t\t\tset_variable = {{ name = {io['leader_var']} value = scope:target }}\n"
+        f"{after_effect}"
         f"\t\t\t}}\n"
         f"{add_new_title}"
         f"\t\t}}\n"

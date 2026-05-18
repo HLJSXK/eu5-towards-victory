@@ -18,22 +18,22 @@ T = "\t"
 
 GROUP_TRIGGERS = {
     "all": [],
-    "tier1": ["var:tv_academy_leader_char ?= { adm < 20 }"],
-    "tier1_2": ["var:tv_academy_leader_char ?= { adm < 50 }"],
+    "tier1": ["tv_chief_scientist_effective_adm_less_than_20_trigger = yes"],
+    "tier1_2": ["tv_chief_scientist_effective_adm_less_than_50_trigger = yes"],
     "tier2": [
-        "var:tv_academy_leader_char ?= { adm >= 20 }",
-        "var:tv_academy_leader_char ?= { adm < 50 }",
+        "tv_chief_scientist_effective_adm_at_least_20_trigger = yes",
+        "tv_chief_scientist_effective_adm_less_than_50_trigger = yes",
     ],
     "tier2_3": [
-        "var:tv_academy_leader_char ?= { adm >= 20 }",
-        "var:tv_academy_leader_char ?= { adm < 80 }",
+        "tv_chief_scientist_effective_adm_at_least_20_trigger = yes",
+        "tv_chief_scientist_effective_adm_less_than_80_trigger = yes",
     ],
     "tier3": [
-        "var:tv_academy_leader_char ?= { adm >= 50 }",
-        "var:tv_academy_leader_char ?= { adm < 80 }",
+        "tv_chief_scientist_effective_adm_at_least_50_trigger = yes",
+        "tv_chief_scientist_effective_adm_less_than_80_trigger = yes",
     ],
-    "tier3_4": ["var:tv_academy_leader_char ?= { adm >= 50 }"],
-    "tier4": ["var:tv_academy_leader_char ?= { adm >= 80 }"],
+    "tier3_4": ["tv_chief_scientist_effective_adm_at_least_50_trigger = yes"],
+    "tier4": ["tv_chief_scientist_effective_adm_at_least_80_trigger = yes"],
 }
 
 
@@ -63,16 +63,16 @@ def render_desc(event_id: int, desc_type: str | None) -> str:
         return f"desc = tv_research.{event_id}.d"
 
     variants = [
-        ("tier1", "var:tv_academy_leader_char ?= { adm < 20 }"),
+        ("tier1", "tv_chief_scientist_effective_adm_less_than_20_trigger = yes"),
         (
             "tier2",
-            "var:tv_academy_leader_char ?= { adm >= 20 adm < 50 }",
+            "tv_chief_scientist_effective_adm_at_least_20_trigger = yes tv_chief_scientist_effective_adm_less_than_50_trigger = yes",
         ),
         (
             "tier3",
-            "var:tv_academy_leader_char ?= { adm >= 50 adm < 80 }",
+            "tv_chief_scientist_effective_adm_at_least_50_trigger = yes tv_chief_scientist_effective_adm_less_than_80_trigger = yes",
         ),
-        ("tier4", "var:tv_academy_leader_char ?= { adm >= 80 }"),
+        ("tier4", "tv_chief_scientist_effective_adm_at_least_80_trigger = yes"),
     ]
     lines = ["desc = {", T + "first_valid = {"]
     for suffix, trigger in variants:

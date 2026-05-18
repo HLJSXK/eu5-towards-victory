@@ -279,7 +279,8 @@ tv_leaderboard_monthly_pulse = {
 				}
 				var:tv_academy_leader_char ?= { is_alive = yes }
 			}
-			set_variable = { name = tv_med_disp_adm  value = var:tv_academy_leader_char.adm }
+			tv_update_chief_scientist_effective_adm_effect = yes
+			set_variable = { name = tv_med_disp_adm  value = var:tv_scientist_effective_adm }
 			set_variable = { name = tv_med_disp_dip  value = var:tv_academy_leader_char.dip }
 			set_variable = { name = tv_med_disp_mil  value = var:tv_academy_leader_char.mil }
 		}
@@ -315,7 +316,8 @@ tv_leaderboard_monthly_pulse = {
 					has_variable = tv_med_progress
 				}
 			}
-				set_local_variable = { name = med_gain  value = var:tv_academy_leader_char.adm }
+				tv_update_chief_scientist_effective_adm_effect = yes
+				set_local_variable = { name = med_gain  value = var:tv_scientist_effective_adm }
 				change_local_variable = { name = med_gain  multiply = 0.1 }
 				change_variable = { name = tv_med_progress  add = local_var:med_gain }
 				if = {

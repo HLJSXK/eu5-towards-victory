@@ -310,11 +310,7 @@ tv_research.19 = {
 
 	trigger = {
 		tv_research_can_start_d_trigger = yes
-		has_variable = tv_academy_leader_char
-		var:tv_academy_leader_char ?= {
-			is_alive = yes
-			adm >= 20
-		}
+		tv_chief_scientist_effective_adm_at_least_20_trigger = yes
 	}
 
 	option = {

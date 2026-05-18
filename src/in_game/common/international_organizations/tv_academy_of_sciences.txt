@@ -8,7 +8,7 @@
 # Leader: character (the "Chief Scientist"). Selected manually by the leader_country via
 # the Appoint / Remove / Change Leader generic actions (tv_io_leader_actions.txt).
 # The leader country variable tv_academy_leader_char holds the appointed character.
-# D-progress uses the appointed leader's adm skill.
+# D-progress uses the appointed leader's effective ADM skill.
 #
 # Verification — Step 3, Reference: hre.txt:19-44
 #   Quote: "has_leader_country = yes  leader_title_key = "HRE_LEADER"  leader_type = character
@@ -42,9 +42,9 @@ tv_academy_of_sciences = {
 	# ── IO Variables: C and D research progress ───────────────────────────────
 	# These are auto-accumulated via monthly_change; completion is detected in monthly_effect.
 	# Calibration C: average_country_literacy * 0.05 /month → 100 in ~40 months at literacy=50.
-	# Calibration D: leader_country.var:tv_academy_leader_char.adm * 0.05 /month.
-	# D only advances and completes when the Chief Scientist has at least 20 ADM.
-	# At 50 ADM, D gains 2.5/month and finishes in roughly 40 months.
+	# Calibration D: effective ADM * 0.05 /month.
+	# D only advances and completes when the Chief Scientist has at least 20 effective ADM.
+	# At 50 effective ADM, D gains 2.5/month and finishes in roughly 40 months.
 	# D halts when no leader appointed (international_organization_has_leader = no).
 	variables = {
 		tv_research_c_progress = {
@@ -97,15 +97,50 @@ tv_academy_of_sciences = {
 									text = TV_HAS_ACADEMY_LEADER_CHAR_TT
 									has_variable = tv_academy_leader_char
 								}
-								var:tv_academy_leader_char ?= {
-									is_alive = yes
-									adm >= 20
-								}
+								tv_chief_scientist_effective_adm_at_least_20_trigger = yes
 							}
 						}
 						value = leader_country.var:tv_academy_leader_char.adm
 						multiply = 0.05
 					}
+				}
+				add = {
+					desc = "TV_D_RESEARCH_TRAIT_BONUS"
+					value = 0
+					if = {
+						limit = {
+							international_organization_has_leader = yes
+							leader_country ?= {
+								var:tv_research_phase ?= 2
+								tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+								var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 }
+							}
+						}
+						value = 60
+					}
+					else_if = {
+						limit = {
+							international_organization_has_leader = yes
+							leader_country ?= {
+								var:tv_research_phase ?= 2
+								tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+								var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 }
+							}
+						}
+						value = 40
+					}
+					else_if = {
+						limit = {
+							international_organization_has_leader = yes
+							leader_country ?= {
+								var:tv_research_phase ?= 2
+								tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+								var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 }
+							}
+						}
+						value = 20
+					}
+					multiply = 0.05
 				}
 			}
 		}
@@ -147,11 +182,7 @@ tv_academy_of_sciences = {
 						has_variable = tv_research_phase
 					}
 					var:tv_research_phase ?= 2
-					has_variable = tv_academy_leader_char
-					var:tv_academy_leader_char ?= {
-						is_alive = yes
-						adm >= 20
-					}
+					tv_chief_scientist_effective_adm_at_least_20_trigger = yes
 				}
 			}
 			leader_country ?= { tv_research_concentrated_complete_effect = yes }

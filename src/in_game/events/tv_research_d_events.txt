@@ -13,19 +13,19 @@ tv_research.100 = {
 	desc = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm < 20 } }
+				trigger = { tv_chief_scientist_effective_adm_less_than_20_trigger = yes }
 				desc = tv_research.100.d_tier1
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 20 adm < 50 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_20_trigger = yes tv_chief_scientist_effective_adm_less_than_50_trigger = yes }
 				desc = tv_research.100.d_tier2
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 50 adm < 80 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_50_trigger = yes tv_chief_scientist_effective_adm_less_than_80_trigger = yes }
 				desc = tv_research.100.d_tier3
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 80 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_80_trigger = yes }
 				desc = tv_research.100.d_tier4
 			}
 		}
@@ -56,19 +56,19 @@ tv_research.101 = {
 	desc = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm < 20 } }
+				trigger = { tv_chief_scientist_effective_adm_less_than_20_trigger = yes }
 				desc = tv_research.101.d_tier1
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 20 adm < 50 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_20_trigger = yes tv_chief_scientist_effective_adm_less_than_50_trigger = yes }
 				desc = tv_research.101.d_tier2
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 50 adm < 80 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_50_trigger = yes tv_chief_scientist_effective_adm_less_than_80_trigger = yes }
 				desc = tv_research.101.d_tier3
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 80 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_80_trigger = yes }
 				desc = tv_research.101.d_tier4
 			}
 		}
@@ -99,19 +99,19 @@ tv_research.102 = {
 	desc = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm < 20 } }
+				trigger = { tv_chief_scientist_effective_adm_less_than_20_trigger = yes }
 				desc = tv_research.102.d_tier1
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 20 adm < 50 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_20_trigger = yes tv_chief_scientist_effective_adm_less_than_50_trigger = yes }
 				desc = tv_research.102.d_tier2
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 50 adm < 80 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_50_trigger = yes tv_chief_scientist_effective_adm_less_than_80_trigger = yes }
 				desc = tv_research.102.d_tier3
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 80 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_80_trigger = yes }
 				desc = tv_research.102.d_tier4
 			}
 		}
@@ -142,19 +142,19 @@ tv_research.103 = {
 	desc = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm < 20 } }
+				trigger = { tv_chief_scientist_effective_adm_less_than_20_trigger = yes }
 				desc = tv_research.103.d_tier1
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 20 adm < 50 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_20_trigger = yes tv_chief_scientist_effective_adm_less_than_50_trigger = yes }
 				desc = tv_research.103.d_tier2
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 50 adm < 80 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_50_trigger = yes tv_chief_scientist_effective_adm_less_than_80_trigger = yes }
 				desc = tv_research.103.d_tier3
 			}
 			triggered_desc = {
-				trigger = { var:tv_academy_leader_char ?= { adm >= 80 } }
+				trigger = { tv_chief_scientist_effective_adm_at_least_80_trigger = yes }
 				desc = tv_research.103.d_tier4
 			}
 		}
@@ -190,7 +190,7 @@ tv_research.104 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm < 20 }
+		tv_chief_scientist_effective_adm_less_than_20_trigger = yes
 	}
 
 	immediate = {
@@ -215,7 +215,7 @@ tv_research.105 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm < 20 }
+		tv_chief_scientist_effective_adm_less_than_20_trigger = yes
 	}
 
 	immediate = {
@@ -240,7 +240,7 @@ tv_research.106 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm < 20 }
+		tv_chief_scientist_effective_adm_less_than_20_trigger = yes
 	}
 
 	immediate = {
@@ -269,7 +269,7 @@ tv_research.107 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm < 50 }
+		tv_chief_scientist_effective_adm_less_than_50_trigger = yes
 	}
 
 	immediate = {
@@ -294,7 +294,7 @@ tv_research.108 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm < 50 }
+		tv_chief_scientist_effective_adm_less_than_50_trigger = yes
 	}
 
 	immediate = {
@@ -319,7 +319,7 @@ tv_research.109 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm < 50 }
+		tv_chief_scientist_effective_adm_less_than_50_trigger = yes
 	}
 
 	immediate = {
@@ -344,7 +344,7 @@ tv_research.110 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm < 50 }
+		tv_chief_scientist_effective_adm_less_than_50_trigger = yes
 	}
 
 	immediate = {
@@ -373,8 +373,8 @@ tv_research.111 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 20 }
-		var:tv_academy_leader_char ?= { adm < 50 }
+		tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_50_trigger = yes
 		any_cabinet_character = { count > 0 }
 	}
 
@@ -409,8 +409,8 @@ tv_research.112 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 20 }
-		var:tv_academy_leader_char ?= { adm < 50 }
+		tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_50_trigger = yes
 	}
 
 	immediate = {
@@ -439,8 +439,8 @@ tv_research.113 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 20 }
-		var:tv_academy_leader_char ?= { adm < 50 }
+		tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_50_trigger = yes
 	}
 
 	immediate = {
@@ -465,8 +465,8 @@ tv_research.114 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 20 }
-		var:tv_academy_leader_char ?= { adm < 80 }
+		tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_80_trigger = yes
 	}
 
 	immediate = {
@@ -494,8 +494,8 @@ tv_research.115 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 20 }
-		var:tv_academy_leader_char ?= { adm < 80 }
+		tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_80_trigger = yes
 	}
 
 	immediate = {
@@ -524,8 +524,8 @@ tv_research.116 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 20 }
-		var:tv_academy_leader_char ?= { adm < 80 }
+		tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_80_trigger = yes
 		any_cabinet_character = { count > 0 }
 	}
 
@@ -564,8 +564,8 @@ tv_research.117 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 20 }
-		var:tv_academy_leader_char ?= { adm < 80 }
+		tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_80_trigger = yes
 	}
 
 	immediate = {
@@ -591,8 +591,8 @@ tv_research.118 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 20 }
-		var:tv_academy_leader_char ?= { adm < 80 }
+		tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_80_trigger = yes
 	}
 
 	immediate = {
@@ -618,8 +618,8 @@ tv_research.119 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 20 }
-		var:tv_academy_leader_char ?= { adm < 80 }
+		tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_80_trigger = yes
 	}
 
 	immediate = {
@@ -649,8 +649,8 @@ tv_research.120 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 50 }
-		var:tv_academy_leader_char ?= { adm < 80 }
+		tv_chief_scientist_effective_adm_at_least_50_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_80_trigger = yes
 	}
 
 	immediate = {
@@ -675,8 +675,8 @@ tv_research.121 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 50 }
-		var:tv_academy_leader_char ?= { adm < 80 }
+		tv_chief_scientist_effective_adm_at_least_50_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_80_trigger = yes
 	}
 
 	immediate = {
@@ -705,8 +705,8 @@ tv_research.122 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 50 }
-		var:tv_academy_leader_char ?= { adm < 80 }
+		tv_chief_scientist_effective_adm_at_least_50_trigger = yes
+		tv_chief_scientist_effective_adm_less_than_80_trigger = yes
 	}
 
 	immediate = {
@@ -734,7 +734,7 @@ tv_research.123 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 50 }
+		tv_chief_scientist_effective_adm_at_least_50_trigger = yes
 		any_cabinet_character = { count > 0 }
 	}
 
@@ -764,7 +764,7 @@ tv_research.124 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 50 }
+		tv_chief_scientist_effective_adm_at_least_50_trigger = yes
 	}
 
 	immediate = {
@@ -789,7 +789,7 @@ tv_research.125 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 50 }
+		tv_chief_scientist_effective_adm_at_least_50_trigger = yes
 	}
 
 	immediate = {
@@ -818,7 +818,7 @@ tv_research.126 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 50 }
+		tv_chief_scientist_effective_adm_at_least_50_trigger = yes
 	}
 
 	immediate = {
@@ -844,7 +844,7 @@ tv_research.127 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 80 }
+		tv_chief_scientist_effective_adm_at_least_80_trigger = yes
 	}
 
 	immediate = {
@@ -869,7 +869,7 @@ tv_research.128 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 80 }
+		tv_chief_scientist_effective_adm_at_least_80_trigger = yes
 	}
 
 	immediate = {
@@ -894,7 +894,7 @@ tv_research.129 = {
 		var:tv_research_phase ?= 2
 		has_variable = tv_academy_leader_char
 		var:tv_academy_leader_char ?= { is_alive = yes }
-		var:tv_academy_leader_char ?= { adm >= 80 }
+		tv_chief_scientist_effective_adm_at_least_80_trigger = yes
 	}
 
 	immediate = {

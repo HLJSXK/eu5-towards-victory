@@ -45,11 +45,7 @@ tv_change_research_d_progress_effect = {
 					var:tv_research_d_progress >= 100
 					leader_country ?= {
 						var:tv_research_phase ?= 2
-						has_variable = tv_academy_leader_char
-						var:tv_academy_leader_char ?= {
-							is_alive = yes
-							adm >= 20
-						}
+						tv_chief_scientist_effective_adm_at_least_20_trigger = yes
 					}
 				}
 				leader_country ?= { tv_research_concentrated_complete_effect = yes }
@@ -67,6 +63,32 @@ tv_research_scientist_health_penalty_effect = {
 		}
 		else = {
 			add_trait = trait:maimed
+		}
+	}
+}
+
+# ── Chief Scientist effective ADM cache (country scope) ─────────────────────
+# Effective ADM is used by Academy work while the character is Chief Scientist.
+# Great Scientist traits add +20 / +40 / +60 to the appointed character's ADM.
+tv_update_chief_scientist_effective_adm_effect = {
+	set_variable = { name = tv_scientist_effective_adm value = 0 }
+	if = {
+		limit = {
+			has_variable = tv_academy_leader_char
+			var:tv_academy_leader_char ?= { is_alive = yes }
+		}
+		set_variable = { name = tv_scientist_effective_adm value = var:tv_academy_leader_char.adm }
+		if = {
+			limit = { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 } }
+			change_variable = { name = tv_scientist_effective_adm add = 60 }
+		}
+		else_if = {
+			limit = { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 } }
+			change_variable = { name = tv_scientist_effective_adm add = 40 }
+		}
+		else_if = {
+			limit = { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 } }
+			change_variable = { name = tv_scientist_effective_adm add = 20 }
 		}
 	}
 }

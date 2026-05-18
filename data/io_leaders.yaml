@@ -40,6 +40,21 @@ ios:
     no_leader_msg: tv_no_academy_leader_available
     title_modifier: tv_chief_scientist_role_modifier
     title_loc_key: character_title_tv_chief_scientist
+    on_appoint_effect: |
+      tv_update_chief_scientist_effective_adm_effect = yes
+      set_variable = { name = tv_med_disp_adm value = var:tv_scientist_effective_adm }
+      set_variable = { name = tv_med_disp_dip value = var:tv_academy_leader_char.dip }
+      set_variable = { name = tv_med_disp_mil value = var:tv_academy_leader_char.mil }
+    on_remove_effect: |
+      set_variable = { name = tv_scientist_effective_adm value = 0 }
+      set_variable = { name = tv_med_disp_adm value = 0 }
+      set_variable = { name = tv_med_disp_dip value = 0 }
+      set_variable = { name = tv_med_disp_mil value = 0 }
+    on_change_after_effect: |
+      tv_update_chief_scientist_effective_adm_effect = yes
+      set_variable = { name = tv_med_disp_adm value = var:tv_scientist_effective_adm }
+      set_variable = { name = tv_med_disp_dip value = var:tv_academy_leader_char.dip }
+      set_variable = { name = tv_med_disp_mil value = var:tv_academy_leader_char.mil }
     char_filter: |
       is_adult = yes
       NOT = { is_artist = yes }
