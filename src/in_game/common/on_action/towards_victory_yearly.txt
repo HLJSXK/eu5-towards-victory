@@ -49,6 +49,16 @@ on_winning_war = {
 				set_variable = { name = tv_diplomatic_victory_points value = 0 }
 			}
 			change_variable = { name = tv_diplomatic_victory_points add = 5 }
+			if = {
+				limit = {
+					has_variable = tv_engineering_department_member
+					tv_wonder_ceremony_ready_trigger = yes
+					var:tv_wonder_locked ?= 2
+					var:tv_wonder_ceremony_style ?= 2
+					has_variable = tv_wonder_ceremony_active
+				}
+				tv_wonder_on_winning_war_effect = yes
+			}
 		}
 	}
 }

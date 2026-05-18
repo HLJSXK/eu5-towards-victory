@@ -403,6 +403,16 @@
   source: "runtime error.log: tv_govhouse.40 -> tv_govhouse_approve_pending_tactic_effect -> tv_govhouse_apply_tactic_effect"
   notes: "EU5 event option tooltip generation may pre-evaluate option effects without committing earlier set_variable writes. A later visible direct var:X comparison can fetch an unset variable repeatedly while the event is open."
 
+- id: generic_action_effect_reads_newly_set_variable
+  pattern: ''
+  only_in_paths: ['generic_actions', 'scripted_effects', 'gui/panels/organization']
+  bad: "A visible generic action calls an effect that initializes variables and then compares them later in the same visible effect chain, assuming action tooltip pre-evaluation commits the earlier writes"
+  correction: "Hide action widgets until their prerequisite state exists, re-check prerequisites inside the action effect, and make reusable effects safe under pre-evaluation by using optional variable reads (var:X ?= ...) or threshold-style comparisons instead of direct var:X comparisons against variables set earlier in the same chain."
+  category: script
+  scope: any
+  source: "runtime error.log: tv_wonder_select_construction_site -> tv_wonder_update_wonder_level_effect (tv_wonder_body_units/function_units/decoration_units unset during action hover)"
+  notes: "EU5 generic action card and tooltip rendering can pre-evaluate the action effect without committing preceding set_variable writes. A helper that initializes construction variables and then immediately reads them with direct var:X comparisons can spam Failed to fetch variable / Invalid left side errors while the card is merely visible or hovered."
+
 - id: trigger_loc_missing_first_perspective
   pattern: ''
   only_in_paths: ['trigger_localization']
@@ -872,6 +882,16 @@
   scope: location
   source: "reference_game_files/game/in_game/events/situations/golden_age_of_piracy.txt:261-265"
   notes: "EU5 logs a script system error when construct_building has a cost multiplier but no reason key: 'No reason given for the cost multiplier in construct_building effect'."
+
+- id: noncapital_building_country_effects_via_capital_country_modifier
+  pattern: ''
+  only_in_paths: ['building_types']
+  bad: "Using capital_country_modifier for a building that can be finalized or created outside the capital, expecting country-wide effects everywhere"
+  correction: "Keep local effects in building modifier/raw_modifier; apply national effects separately with scripted add_country_modifier effects, or require the building to be in the capital."
+  category: modifier
+  scope: country
+  source: "reference_official_defines/types/building_types.txt:29"
+  notes: "capital_country_modifier is explicitly applied to the country only if the building is built in the capital. Engineering Department wonders may be sited outside the capital, so their national/base/ceremony effects are permanent country modifiers and the final buildings carry local effects only."
 
 - id: gui_text_missing_localization_key
   pattern: ''

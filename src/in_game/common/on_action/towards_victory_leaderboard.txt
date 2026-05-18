@@ -234,20 +234,29 @@ tv_leaderboard_monthly_pulse = {
 				}
 			}
 
-			# ── Sub-process B: passive prerequisite check (phase 1 only) ──────
+			# ── Sub-process B: live prerequisite check (phase 1 only) ─────────
 			# Institution-root targets wait for one eligible owned location; other
-			# targets retain the original automatic completion behavior.
+			# targets retain the original automatic completion behavior. B is
+			# re-evaluated monthly so completed status is revoked if prerequisites
+			# are no longer satisfied before D begins.
 			if = {
 				limit = {
 					custom_tooltip = {
 						text = TV_HAS_RESEARCH_PHASE_TT
 						has_variable = tv_research_phase
 					}
+					has_variable = tv_research_target
 					var:tv_research_phase = 1
-					NOT = { var:tv_rm_subprocess_b >= 2 }
-					tv_research_check_b_trigger = yes
 				}
-				tv_research_complete_b_effect = yes
+				if = {
+					limit = { tv_research_check_b_trigger = yes }
+					tv_research_complete_b_effect = yes
+				}
+				else = {
+					set_variable = { name = tv_research_b_done value = 0 }
+					set_variable = { name = tv_rm_subprocess_b value = 0 }
+					set_variable = { name = tv_rm_subprocess_d_ready value = 0 }
+				}
 			}
 		}
 

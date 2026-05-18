@@ -1,8 +1,8 @@
 ﻿# Towards Victory - Engineering Department IO Panel
-# Overview tab: status, conception/debate, and survey skeleton.
+# Overview tab: status, conception, and debate.
 # Header: Great Engineer appointment, replacement, and dismissal.
-# Resolutions tab: organization, logistics, and construction skeleton.
-# Custom tab: ceremony skeleton.
+# Resolutions tab: survey, organization, and logistics.
+# Custom tab: construction and ceremony.
 
 organization_panel = {
 
@@ -126,7 +126,182 @@ organization_panel = {
 		vbox = {
 			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
+			ignoreinvisible = yes
 			spacing = 10
+
+			card_common = {
+				visible = no
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ENGINEERING_SURVEY_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 232 }
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 8
+							margin = { 4 6 }
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { text = "TV_ENGINEERING_SURVEY_SITE_LABEL" align = nobaseline }
+								expand = {}
+								text_single = {
+									visible = "[And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_site').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+									text = "TV_ENGINEERING_NO_SURVEY_SITE"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_site').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+									raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_site').GetLocation.GetNameWithNoTooltip]"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet]"
+									raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').GetLocation.GetNameWithNoTooltip]"
+									align = nobaseline
+								}
+							}
+							action_button_diamond = {
+								visible = "[And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+								size = { 462 30 }
+								text = "TV_ENGINEERING_SELECT_SURVEY_SITE_BUTTON"
+								title = "tv_wonder_start_survey"
+								description = "tv_wonder_start_survey_desc"
+								actor = "[InternationalOrganizationsView.GetPlayer]"
+								left_action = {
+									action_name = "tv_wonder_start_survey"
+								}
+							}
+							action_button_diamond = {
+								visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+								size = { 462 30 }
+								text = "TV_ENGINEERING_CONFIRM_SURVEY_SITE_BUTTON"
+								title = "tv_wonder_select_construction_site"
+								description = "tv_wonder_select_construction_site_desc"
+								actor = "[InternationalOrganizationsView.GetPlayer]"
+								left_action = {
+									action_name = "tv_wonder_select_construction_site"
+								}
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { text = "TV_ENGINEERING_SURVEY_PROGRESS_LABEL" align = nobaseline }
+								expand = {}
+								text_single = {
+									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_survey_progress')]"
+									align = nobaseline
+								}
+							}
+							progressbar = {
+								size = { 462 16 }
+								using = progress_bar_green_alt
+								min = 0
+								max = 100
+								value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_survey_progress').GetValue]"
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 6
+								widget = {
+									size = { 148 96 }
+									using = bg_text_mask_container_dark_blue
+									vbox = {
+										margin = { 4 4 }
+										spacing = 3
+										text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" align = nobaseline|center }
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											expand = {}
+											widget = {
+												size = { 44 44 }
+												piechart = {
+													size = { 44 44 }
+													using = piechart_angles
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
+												}
+												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/flat_icons/building_panel/build.dds" texture_density = 2 }
+											}
+											expand = {}
+										}
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue|0]%" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 148 96 }
+									using = bg_text_mask_container_dark_blue
+									vbox = {
+										margin = { 4 4 }
+										spacing = 3
+										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" align = nobaseline|center }
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											expand = {}
+											widget = {
+												size = { 44 44 }
+												piechart = {
+													size = { 44 44 }
+													using = piechart_angles
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
+												}
+												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
+											}
+											expand = {}
+										}
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue|0]%" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 148 96 }
+									using = bg_text_mask_container_dark_blue
+									vbox = {
+										margin = { 4 4 }
+										spacing = 3
+										text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" align = nobaseline|center }
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											expand = {}
+											widget = {
+												size = { 44 44 }
+												piechart = {
+													size = { 44 44 }
+													using = piechart_angles
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
+												}
+												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/pops/laborers.dds" texture_density = 2 }
+											}
+											expand = {}
+										}
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue|0]%" align = nobaseline|center }
+									}
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { layoutpolicy_horizontal = expanding raw_text = "@build_icon! 1-6" tooltip = "TV_ENGINEERING_SURVEY_MAX_LEVEL_TT" align = nobaseline|center }
+								text_single = { layoutpolicy_horizontal = expanding raw_text = "@gold! 200%-50%" tooltip = "TV_ENGINEERING_SURVEY_COST_TT" align = nobaseline|center }
+								text_single = { layoutpolicy_horizontal = expanding raw_text = "@time! 200%-50%" tooltip = "TV_ENGINEERING_SURVEY_SPEED_TT" align = nobaseline|center }
+							}
+						}
+					}
+				}
+			}
 
 			card_common = {
 				maximumsize = { 500 -1 }
@@ -188,10 +363,7 @@ organization_panel = {
 				}
 
 				blockoverride "common_bottom_content" {
-					widget = {
-						size = { 470 470 }
-
-						vbox = {
+					vbox = {
 							layoutpolicy_horizontal = expanding
 							ignoreinvisible = yes
 							spacing = 6
@@ -389,9 +561,11 @@ organization_panel = {
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)1.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_NOBLES_1" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)2.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_NOBLES_2" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)3.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_NOBLES_3" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)4.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_NOBLES_4" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)1.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_NOBLES_1" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)2.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_NOBLES_2" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)3.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_NOBLES_3" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)4.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_NOBLES_4" align = nobaseline|left }
 										}
 									}
 									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_nobles_demand" description = "tv_wonder_accept_nobles_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_nobles_demand" } }
@@ -414,9 +588,11 @@ organization_panel = {
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)1.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_BURGHERS_1" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)2.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_BURGHERS_2" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)3.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_BURGHERS_3" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)4.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_BURGHERS_4" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)1.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_BURGHERS_1" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)2.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_BURGHERS_2" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)3.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_BURGHERS_3" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)4.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_BURGHERS_4" align = nobaseline|left }
 										}
 									}
 									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_burghers_demand" description = "tv_wonder_accept_burghers_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_burghers_demand" } }
@@ -439,9 +615,11 @@ organization_panel = {
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)1.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_CLERGY_1" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)2.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_CLERGY_2" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)3.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_CLERGY_3" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)4.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_DEMAND_CLERGY_4" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)1.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_CLERGY_1" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)2.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_CLERGY_2" align = nobaseline|left }
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)3.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_CLERGY_3" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)4.0')]" max_width = 244 autoresize = yes text = "TV_ENGINEERING_SOLUTION_CLERGY_4" align = nobaseline|left }
 										}
 									}
 									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_clergy_demand" description = "tv_wonder_accept_clergy_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_clergy_demand" } }
@@ -452,7 +630,6 @@ organization_panel = {
 						}
 					}
 				}
-			}
 
 			card_actions = {
 				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)1.0')]"
@@ -495,13 +672,13 @@ organization_panel = {
 							left_action = {
 								action_name = "tv_wonder_abandon"
 							}
-						}
 					}
 				}
 			}
+			}
 
 			card_common = {
-				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0')]"
+				visible = no
 				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
@@ -527,8 +704,13 @@ organization_panel = {
 								text_single = { text = "TV_ENGINEERING_SURVEY_SITE_LABEL" align = nobaseline }
 								expand = {}
 								text_single = {
-									visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
+									visible = "[And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_site').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
 									text = "TV_ENGINEERING_NO_SURVEY_SITE"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_site').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+									raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_site').GetLocation.GetNameWithNoTooltip]"
 									align = nobaseline
 								}
 								text_single = {
@@ -538,8 +720,20 @@ organization_panel = {
 								}
 							}
 							action_button_diamond = {
+								visible = "[And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
 								size = { 462 30 }
 								text = "TV_ENGINEERING_SELECT_SURVEY_SITE_BUTTON"
+								title = "tv_wonder_start_survey"
+								description = "tv_wonder_start_survey_desc"
+								actor = "[InternationalOrganizationsView.GetPlayer]"
+								left_action = {
+									action_name = "tv_wonder_start_survey"
+								}
+							}
+							action_button_diamond = {
+								visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+								size = { 462 30 }
+								text = "TV_ENGINEERING_CONFIRM_SURVEY_SITE_BUTTON"
 								title = "tv_wonder_select_construction_site"
 								description = "tv_wonder_select_construction_site_desc"
 								actor = "[InternationalOrganizationsView.GetPlayer]"
@@ -660,7 +854,7 @@ organization_panel = {
 	}
 
 
-	# -- Construction tab: organization, logistics, and build --------------------
+	# -- Survey and logistics tab ------------------------------------------------
 	blockoverride "organization_resolutions_tab_visible" {
 		visible = yes
 	}
@@ -682,6 +876,181 @@ organization_panel = {
 			spacing = 10
 
 			card_common = {
+				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0')]"
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ENGINEERING_SURVEY_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 232 }
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 8
+							margin = { 4 6 }
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { text = "TV_ENGINEERING_SURVEY_SITE_LABEL" align = nobaseline }
+								expand = {}
+								text_single = {
+									visible = "[And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_site').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+									text = "TV_ENGINEERING_NO_SURVEY_SITE"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_site').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+									raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_site').GetLocation.GetNameWithNoTooltip]"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet]"
+									raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').GetLocation.GetNameWithNoTooltip]"
+									align = nobaseline
+								}
+							}
+							action_button_diamond = {
+								visible = "[And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+								size = { 462 30 }
+								text = "TV_ENGINEERING_SELECT_SURVEY_SITE_BUTTON"
+								title = "tv_wonder_start_survey"
+								description = "tv_wonder_start_survey_desc"
+								actor = "[InternationalOrganizationsView.GetPlayer]"
+								left_action = {
+									action_name = "tv_wonder_start_survey"
+								}
+							}
+							action_button_diamond = {
+								visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+								size = { 462 30 }
+								text = "TV_ENGINEERING_CONFIRM_SURVEY_SITE_BUTTON"
+								title = "tv_wonder_select_construction_site"
+								description = "tv_wonder_select_construction_site_desc"
+								actor = "[InternationalOrganizationsView.GetPlayer]"
+								left_action = {
+									action_name = "tv_wonder_select_construction_site"
+								}
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { text = "TV_ENGINEERING_SURVEY_PROGRESS_LABEL" align = nobaseline }
+								expand = {}
+								text_single = {
+									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_survey_progress')]"
+									align = nobaseline
+								}
+							}
+							progressbar = {
+								size = { 462 16 }
+								using = progress_bar_green_alt
+								min = 0
+								max = 100
+								value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_survey_progress').GetValue]"
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 6
+								widget = {
+									size = { 148 96 }
+									using = bg_text_mask_container_dark_blue
+									vbox = {
+										margin = { 4 4 }
+										spacing = 3
+										text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" align = nobaseline|center }
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											expand = {}
+											widget = {
+												size = { 44 44 }
+												piechart = {
+													size = { 44 44 }
+													using = piechart_angles
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
+												}
+												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/flat_icons/building_panel/build.dds" texture_density = 2 }
+											}
+											expand = {}
+										}
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue|0]%" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 148 96 }
+									using = bg_text_mask_container_dark_blue
+									vbox = {
+										margin = { 4 4 }
+										spacing = 3
+										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" align = nobaseline|center }
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											expand = {}
+											widget = {
+												size = { 44 44 }
+												piechart = {
+													size = { 44 44 }
+													using = piechart_angles
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
+												}
+												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
+											}
+											expand = {}
+										}
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue|0]%" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 148 96 }
+									using = bg_text_mask_container_dark_blue
+									vbox = {
+										margin = { 4 4 }
+										spacing = 3
+										text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" align = nobaseline|center }
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											expand = {}
+											widget = {
+												size = { 44 44 }
+												piechart = {
+													size = { 44 44 }
+													using = piechart_angles
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
+												}
+												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/pops/laborers.dds" texture_density = 2 }
+											}
+											expand = {}
+										}
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue|0]%" align = nobaseline|center }
+									}
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { layoutpolicy_horizontal = expanding raw_text = "@build_icon! 1-6" tooltip = "TV_ENGINEERING_SURVEY_MAX_LEVEL_TT" align = nobaseline|center }
+								text_single = { layoutpolicy_horizontal = expanding raw_text = "@gold! 200%-50%" tooltip = "TV_ENGINEERING_SURVEY_COST_TT" align = nobaseline|center }
+								text_single = { layoutpolicy_horizontal = expanding raw_text = "@time! 200%-50%" tooltip = "TV_ENGINEERING_SURVEY_SPEED_TT" align = nobaseline|center }
+							}
+						}
+					}
+				}
+			}
+
+			card_common = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet]"
 				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
@@ -805,6 +1174,7 @@ organization_panel = {
 				}
 			}
 			card_common = {
+				visible = no
 				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
@@ -951,7 +1321,7 @@ organization_panel = {
 		expand = {}
 	}
 
-	# -- Ceremony tab -----------------------------------------------------------
+	# -- Construction and ceremony tab -----------------------------------------
 	blockoverride "organization_custom_tab_visible" {
 		visible = yes
 	}
@@ -988,6 +1358,150 @@ organization_panel = {
 					margin = { 10 2 }
 
 					card_common = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet]"
+						maximumsize = { 500 -1 }
+
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+						}
+
+						blockoverride "common_header_text" {
+							text = "TV_ENGINEERING_CONSTRUCTION_CARD_TITLE"
+						}
+
+						blockoverride "common_bottom_content" {
+							widget = {
+								size = { 470 340 }
+
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 6
+									margin = { 4 6 }
+
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 5
+										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_foundation" description = "tv_wonder_begin_foundation_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_foundation" } }
+										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FOUNDATION" align = nobaseline|left }
+										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 5
+										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_body" description = "tv_wonder_begin_body_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_body" } }
+										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_BODY" align = nobaseline|left }
+										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 5
+										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_function" description = "tv_wonder_begin_function_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_function" } }
+										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FUNCTION" align = nobaseline|left }
+										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+									}
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 5
+										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_decoration" description = "tv_wonder_begin_decoration_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_decoration" } }
+										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_DECORATION" align = nobaseline|left }
+										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
+										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+									}
+
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 4
+										text_single = { text = "TV_ENGINEERING_WONDER_LEVEL_LABEL" align = nobaseline }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_level').GetValue|0]" align = nobaseline }
+										expand = {}
+										text_single = { text = "TV_ENGINEERING_ACTIVE_PART_LABEL" align = nobaseline }
+										text_single = { visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').IsSet)]" text = "TV_ENGINEERING_ACTIVE_PART_NONE" align = nobaseline }
+										text_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0')]" text = "TV_ENGINEERING_ACTIVE_PART_FOUNDATION" align = nobaseline }
+										text_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0')]" text = "TV_ENGINEERING_ACTIVE_PART_BODY" align = nobaseline }
+										text_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0')]" text = "TV_ENGINEERING_ACTIVE_PART_FUNCTION" align = nobaseline }
+										text_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0')]" text = "TV_ENGINEERING_ACTIVE_PART_DECORATION" align = nobaseline }
+									}
+									progressbar = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0')]"
+										size = { 462 16 }
+										using = progress_bar_goldish
+										min = 0
+										max = 300000
+										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue]"
+										tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
+									}
+									progressbar = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0')]"
+										size = { 462 16 }
+										using = progress_bar_goldish
+										min = 0
+										max = 300000
+										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue]"
+										tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
+									}
+									progressbar = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0')]"
+										size = { 462 16 }
+										using = progress_bar_goldish
+										min = 0
+										max = 300000
+										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue]"
+										tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
+									}
+									progressbar = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0')]"
+										size = { 462 16 }
+										using = progress_bar_goldish
+										min = 0
+										max = 300000
+										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue]"
+										tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
+									}
+									text_single = {
+										visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_paused').IsSet]"
+										layoutpolicy_horizontal = expanding
+										text = "TV_ENGINEERING_CONSTRUCTION_PAUSED_TEXT"
+										align = nobaseline|left
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_ENGINEERING_CONSTRUCTION_INFO_TEXT"
+										multiline = yes
+										align = nobaseline|left
+									}
+									action_button_diamond = {
+										size = { 462 30 }
+										text = "TV_ENGINEERING_FINISH_CONSTRUCTION_BUTTON"
+										title = "tv_wonder_finish_construction"
+										description = "tv_wonder_finish_construction_desc"
+										actor = "[InternationalOrganizationsView.GetPlayer]"
+										left_action = { action_name = "tv_wonder_finish_construction" }
+									}
+								}
+							}
+						}
+					}
+
+					card_common = {
 						maximumsize = { 500 -1 }
 
 						blockoverride "common_header_icon_texture" {
@@ -1000,7 +1514,7 @@ organization_panel = {
 
 						blockoverride "common_bottom_content" {
 							widget = {
-								size = { 470 296 }
+								size = { 470 428 }
 
 								vbox = {
 									layoutpolicy_horizontal = expanding
@@ -1017,9 +1531,30 @@ organization_panel = {
 									hbox = {
 										layoutpolicy_horizontal = expanding
 										spacing = 4
-										button_regular = { size = { 150 30 } enabled = no text = "TV_ENGINEERING_CEREMONY_STYLE_1_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-										button_regular = { size = { 150 30 } enabled = no text = "TV_ENGINEERING_CEREMONY_STYLE_2_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-										button_regular = { size = { 150 30 } enabled = no text = "TV_ENGINEERING_CEREMONY_STYLE_3_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+										action_button_diamond = {
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_STYLE_1_BUTTON"
+											title = "tv_wonder_choose_ceremony_style_1"
+											description = "tv_wonder_choose_ceremony_style_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_1" }
+										}
+										action_button_diamond = {
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_STYLE_2_BUTTON"
+											title = "tv_wonder_choose_ceremony_style_2"
+											description = "tv_wonder_choose_ceremony_style_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_2" }
+										}
+										action_button_diamond = {
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_STYLE_3_BUTTON"
+											title = "tv_wonder_choose_ceremony_style_3"
+											description = "tv_wonder_choose_ceremony_style_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_3" }
+										}
 									}
 
 									hbox = {
@@ -1064,11 +1599,116 @@ organization_panel = {
 										}
 									}
 
-									button_regular = {
-										size = { 462 30 }
-										enabled = no
-										text = "TV_ENGINEERING_COMPLETE_CEREMONY_BUTTON"
-										tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
+									text_single = {
+										visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet]"
+										layoutpolicy_horizontal = expanding
+										text = "TV_ENGINEERING_CEREMONY_FINALIZED_TEXT"
+										multiline = yes
+										align = nobaseline|center
+									}
+
+									hbox = {
+										visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = { text = "TV_ENGINEERING_SELECTED_STYLE_LABEL" align = nobaseline }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue|0]" align = nobaseline }
+										expand = {}
+										text_single = { text = "TV_ENGINEERING_CEREMONY_PROGRESS_LABEL" align = nobaseline }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_progress').GetValue|0]/5" align = nobaseline }
+									}
+
+									progressbar = {
+										visible = "[Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')), And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')))]"
+										size = { 462 16 }
+										using = progress_bar_goldish
+										min = 0
+										max = 5
+										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_progress').GetValue]"
+										tooltip = "TV_ENGINEERING_CEREMONY_PROGRESS_TT"
+									}
+
+									hbox = {
+										visible = "[Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))))]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = { text = "TV_ENGINEERING_CEREMONY_MONTHS_LABEL" align = nobaseline }
+										expand = {}
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_months').GetValue|0]/12" align = nobaseline }
+									}
+
+									progressbar = {
+										visible = "[Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))))]"
+										size = { 462 16 }
+										using = progress_bar_blue_alt
+										min = 0
+										max = 12
+										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_months').GetValue]"
+										tooltip = "TV_ENGINEERING_CEREMONY_MONTHS_TT"
+									}
+
+									hbox = {
+										visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_ACTIVE_RITUAL_SACRIFICE" multiline = yes align = nobaseline|left }
+										action_button_diamond = { size = { 150 30 } text = "TV_ENGINEERING_RITUAL_ACTION_BUTTON" title = "tv_wonder_perform_royal_sacrifice" description = "tv_wonder_perform_royal_sacrifice_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_perform_royal_sacrifice" } }
+									}
+									hbox = {
+										visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_ACTIVE_RITUAL_MEDITATION" multiline = yes align = nobaseline|left }
+										action_button_diamond = { size = { 150 30 } text = "TV_ENGINEERING_START_RITUAL_BUTTON" title = "tv_wonder_start_meditation" description = "tv_wonder_start_meditation_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_start_meditation" } }
+									}
+									hbox = {
+										visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_ACTIVE_RITUAL_THEOCRACY" multiline = yes align = nobaseline|left }
+										action_button_diamond = { size = { 150 30 } text = "TV_ENGINEERING_RITUAL_ACTION_BUTTON" title = "tv_wonder_confirm_divine_investiture" description = "tv_wonder_confirm_divine_investiture_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_divine_investiture" } }
+									}
+									hbox = {
+										visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_ACTIVE_RITUAL_EMISSARIES" multiline = yes align = nobaseline|left }
+										action_button_diamond = { size = { 150 30 } text = "TV_ENGINEERING_RITUAL_ACTION_BUTTON" title = "tv_wonder_request_emissary" description = "tv_wonder_request_emissary_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_request_emissary" } }
+									}
+									hbox = {
+										visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_ACTIVE_RITUAL_TRIUMPH" multiline = yes align = nobaseline|left }
+										action_button_diamond = { size = { 150 30 } text = "TV_ENGINEERING_START_RITUAL_BUTTON" title = "tv_wonder_start_triumph_parade" description = "tv_wonder_start_triumph_parade_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_start_triumph_parade" } }
+									}
+									hbox = {
+										visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_ACTIVE_RITUAL_CIVIC" multiline = yes align = nobaseline|left }
+										action_button_diamond = { size = { 150 30 } text = "TV_ENGINEERING_START_RITUAL_BUTTON" title = "tv_wonder_start_civic_festival" description = "tv_wonder_start_civic_festival_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_start_civic_festival" } }
+									}
+									hbox = {
+										visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_ACTIVE_RITUAL_AUCTION" multiline = yes align = nobaseline|left }
+										action_button_diamond = { size = { 150 30 } text = "TV_ENGINEERING_RITUAL_ACTION_BUTTON" title = "tv_wonder_hold_golden_auction" description = "tv_wonder_hold_golden_auction_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_hold_golden_auction" } }
+									}
+									hbox = {
+										visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_ACTIVE_RITUAL_FLEET" multiline = yes align = nobaseline|left }
+										action_button_diamond = { size = { 150 30 } text = "TV_ENGINEERING_RITUAL_ACTION_BUTTON" title = "tv_wonder_confirm_fleet_review" description = "tv_wonder_confirm_fleet_review_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_fleet_review" } }
+									}
+									hbox = {
+										visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = { layoutpolicy_horizontal = expanding text = "TV_ENGINEERING_ACTIVE_RITUAL_FREE_TRADE" multiline = yes align = nobaseline|left }
+										action_button_diamond = { size = { 150 30 } text = "TV_ENGINEERING_START_RITUAL_BUTTON" title = "tv_wonder_start_free_trade_festival" description = "tv_wonder_start_free_trade_festival_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_start_free_trade_festival" } }
 									}
 								}
 							}

@@ -42,7 +42,7 @@ tv_wonder_accept_nobles_demand = {
 	ai_tick = monthly
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
-	allow = { scope:actor = { tv_wonder_in_debate_trigger = yes var:tv_wonder_nobles_demand ?= { this >= 1 } } }
+	allow = { scope:actor = { tv_wonder_in_debate_trigger = yes tv_wonder_nobles_current_demand_available_trigger = yes } }
 	effect = { scope:actor = { tv_wonder_accept_nobles_demand_effect = yes } }
 	ai_will_do = { add = -100 }
 }
@@ -78,7 +78,7 @@ tv_wonder_accept_burghers_demand = {
 	ai_tick = monthly
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
-	allow = { scope:actor = { tv_wonder_in_debate_trigger = yes var:tv_wonder_burghers_demand ?= { this >= 1 } } }
+	allow = { scope:actor = { tv_wonder_in_debate_trigger = yes tv_wonder_burghers_current_demand_available_trigger = yes } }
 	effect = { scope:actor = { tv_wonder_accept_burghers_demand_effect = yes } }
 	ai_will_do = { add = -100 }
 }
@@ -114,7 +114,7 @@ tv_wonder_accept_clergy_demand = {
 	ai_tick = monthly
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
-	allow = { scope:actor = { tv_wonder_in_debate_trigger = yes var:tv_wonder_clergy_demand ?= { this >= 1 } } }
+	allow = { scope:actor = { tv_wonder_in_debate_trigger = yes tv_wonder_clergy_current_demand_available_trigger = yes } }
 	effect = { scope:actor = { tv_wonder_accept_clergy_demand_effect = yes } }
 	ai_will_do = { add = -100 }
 }
@@ -161,12 +161,12 @@ tv_wonder_abandon = {
 	ai_tick = monthly
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
-	allow = { scope:actor = { tv_wonder_debate_complete_trigger = yes tv_wonder_has_locked_wonder_trigger = yes } }
+	allow = { scope:actor = { tv_wonder_debate_complete_trigger = yes tv_wonder_has_locked_wonder_trigger = yes NOT = { has_variable = tv_wonder_finalized } } }
 	effect = { scope:actor = { tv_wonder_abandon_effect = yes } }
 	ai_will_do = { add = -100 }
 }
 
-tv_wonder_select_construction_site = {
+tv_wonder_start_survey = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
@@ -174,7 +174,7 @@ tv_wonder_select_construction_site = {
 	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
 	allow = {
 		scope:actor = {
-			tv_wonder_can_select_construction_site_trigger = yes
+			tv_wonder_can_start_survey_trigger = yes
 			tv_wonder_has_valid_site_candidate_trigger = yes
 		}
 	}
@@ -182,8 +182,8 @@ tv_wonder_select_construction_site = {
 		looking_for_a = location
 		source = actor
 		target_flag = target
-		name = "tv_select_wonder_construction_site"
-		none_available_msg_key = "tv_no_wonder_construction_site_available"
+		name = "tv_select_wonder_survey_site"
+		none_available_msg_key = "tv_no_wonder_survey_site_available"
 		column = { data = name }
 		column = { data = population }
 		column = { data = rank }
@@ -216,7 +216,29 @@ tv_wonder_select_construction_site = {
 	effect = {
 		if = {
 			limit = { exists = scope:target }
-			scope:actor = { tv_wonder_select_construction_site_effect = yes }
+			scope:actor = { tv_wonder_start_survey_effect = yes }
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_select_construction_site = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = {
+		scope:actor = {
+			tv_wonder_can_select_construction_site_trigger = yes
+		}
+	}
+	effect = {
+		scope:actor = {
+			if = {
+				limit = { tv_wonder_can_select_construction_site_trigger = yes }
+				tv_wonder_select_construction_site_effect = yes
+			}
 		}
 	}
 	ai_will_do = { add = -100 }
@@ -377,5 +399,211 @@ tv_wonder_finish_construction = {
 	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
 	allow = { scope:actor = { tv_wonder_can_finish_construction_trigger = yes } }
 	effect = { scope:actor = { tv_wonder_finish_construction_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_choose_ceremony_style_1 = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_choose_ceremony_style_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_choose_ceremony_style_effect = { style = 1 } } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_choose_ceremony_style_2 = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_choose_ceremony_style_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_choose_ceremony_style_effect = { style = 2 } } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_choose_ceremony_style_3 = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_choose_ceremony_style_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_choose_ceremony_style_effect = { style = 3 } } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_perform_royal_sacrifice = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_perform_royal_sacrifice_trigger = yes } }
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_wonder_sacrifice_character"
+		none_available_msg_key = "tv_no_wonder_sacrifice_character_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_ruler = no
+			has_estate = estate_type:crown_estate
+		}
+	}
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = { tv_wonder_perform_royal_sacrifice_effect = yes }
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_meditation = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_meditation_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_meditation_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_confirm_divine_investiture = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_divine_investiture_ready_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_confirm_divine_investiture_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_request_emissary = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_request_emissary_trigger = yes } }
+	select_trigger = {
+		looking_for_a = country
+		interaction_source_list = {
+			scope:actor = {
+				every_neighbor_country = {
+					limit = {
+						country_type = location
+						is_rebel_country = no
+						capital = { is_discovered_by = scope:actor }
+						OR = {
+							NOT = { scope:actor = { has_variable_list = tv_wonder_emissary_countries } }
+							NOT = {
+								scope:actor = {
+									is_target_in_variable_list = {
+										name = tv_wonder_emissary_countries
+										target = prev
+									}
+								}
+							}
+						}
+					}
+					add_to_list = source
+				}
+			}
+		}
+		target_flag = target
+		allow_self = no
+		name = "tv_select_wonder_emissary_country"
+		none_available_msg_key = "tv_no_wonder_emissary_country_available"
+		column = { data = name }
+		column = { data = population }
+		column = { data = army_size }
+		visible = {
+			country_type = location
+			this != scope:actor
+			is_neighbor_of = scope:actor
+			is_rebel_country = no
+			capital = { is_discovered_by = scope:actor }
+			OR = {
+				NOT = { scope:actor = { has_variable_list = tv_wonder_emissary_countries } }
+				NOT = {
+					scope:actor = {
+						is_target_in_variable_list = {
+							name = tv_wonder_emissary_countries
+							target = root
+						}
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = { tv_wonder_request_emissary_effect = yes }
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_triumph_parade = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_triumph_parade_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_triumph_parade_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_civic_festival = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_civic_festival_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_civic_festival_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_hold_golden_auction = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_hold_golden_auction_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_hold_golden_auction_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_confirm_fleet_review = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_fleet_review_ready_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_confirm_fleet_review_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_free_trade_festival = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_free_trade_festival_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_free_trade_festival_effect = yes } }
 	ai_will_do = { add = -100 }
 }

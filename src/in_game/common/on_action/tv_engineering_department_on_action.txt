@@ -39,6 +39,7 @@ tv_engineering_department_support_decay_pulse = {
 		has_variable = tv_engineering_department_member
 		tv_wonder_debate_complete_trigger = yes
 		tv_wonder_has_locked_wonder_trigger = yes
+		NOT = { has_variable = tv_wonder_finalized }
 	}
 	effect = {
 		tv_change_wonder_domestic_support_effect = { value = -1 }
@@ -58,6 +59,31 @@ tv_engineering_department_construction_monthly_pulse = {
 	effect = {
 		hidden_effect = {
 			tv_wonder_monthly_construction_effect = yes
+		}
+	}
+}
+
+tv_engineering_department_survey_monthly_pulse = {
+	trigger = {
+		has_variable = tv_engineering_department_member
+		tv_wonder_survey_active_trigger = yes
+	}
+	effect = {
+		hidden_effect = {
+			tv_wonder_monthly_survey_effect = yes
+		}
+	}
+}
+
+tv_engineering_department_ceremony_monthly_pulse = {
+	trigger = {
+		has_variable = tv_engineering_department_member
+		tv_wonder_ceremony_ready_trigger = yes
+		has_variable = tv_wonder_ceremony_active
+	}
+	effect = {
+		hidden_effect = {
+			tv_wonder_monthly_ceremony_effect = yes
 		}
 	}
 }
