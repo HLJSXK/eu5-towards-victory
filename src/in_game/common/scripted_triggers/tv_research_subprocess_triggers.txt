@@ -114,13 +114,6 @@ tv_research_check_b_trigger = {
 			is_port = yes
 			num_pop_type:burghers >= 2.0
 			dominant_culture = owner.culture
-			owner = {
-				OR = {
-					has_discovered_area = area:azores_area
-					has_discovered_area = area:canary_islands_area
-					has_discovered_area = area:south_macaronesia_area
-				}
-			}
 		}
 	}
 	# 15: Pike and Shot -> pike_and_shot institution
