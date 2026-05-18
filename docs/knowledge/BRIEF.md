@@ -362,6 +362,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | script | international_organization | A single-member IO relies on a generic member special status to propose IO parliament issues | Do not rely on vanilla call_organization_parliament for single-member support-token meetings. The mechanic needs a different design before custom support meetings are enabled. | The vanilla call_organization_parliament picker builds its issue list through every_possible_parliament_issue and reports 'no special status wants to propose an issue' when it cannot surface one. propose_parliament_issue then initializes support from the issue special status and marks the proposer as voting yes. In a founder-only IO, self-backed support issues are brittle even with a leader status. |
 | scope | country | Reusable country milestone trigger uses root inside a nested market iterator | Use prev inside nested iterators so the target remains the currently checked country when the trigger is called from situation->every_country. | GUI ShowTriggerConditions(PlayerScope.Self) can pass because root is the player country, while the monthly situation checker calls the same trigger from a situation root. In any_market_with_merchants, prev points back to the iterated country. |
 | gui | any | Putting text_single with multiline text inside an hbox elastic column whose width is unconstrained (for example size = { -1 H }) | Give the text area an explicit width or maximum width. For paragraph-like content, wrap it in a fixed-width widget/card and use text_multi with max_width and autoresize, as vanilla IO GUI does. | In Jomini GUI, multiline text can contribute its natural text width back into hbox layout. A right-side size = { -1 H } text column in the Engineering Department proposal row expanded to 446px and pushed its parent vbox from 470px to 548.3px even though the outer card bounds were correct. |
+| script | any | Using display/alias-like goods names such as candles or luxury_cloth in production method upkeep | Use real goods database IDs: beeswax for candle upkeep, fine_cloth for luxury cloth upkeep. | Production method input keys must be exact goods IDs. Invalid goods tokens inside common/production_methods can load as 'Unexpected token' errors, as seen with candles and luxury_cloth. |
 
 ## Valid Enum Values
 
@@ -390,7 +391,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | Scripted Triggers | 596 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 735 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 1970 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 1973 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

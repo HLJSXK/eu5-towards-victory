@@ -1035,3 +1035,13 @@
   scope: any
   source: "reference_game_files/game/in_game/gui/panels/organization/common_header.gui:188-199; src/in_game/gui/panels/organization/tv_engineering_department.gui:230-293"
   notes: "In Jomini GUI, multiline text can contribute its natural text width back into hbox layout. A right-side size = { -1 H } text column in the Engineering Department proposal row expanded to 446px and pushed its parent vbox from 470px to 548.3px even though the outer card bounds were correct."
+
+- id: production_method_invalid_goods_aliases
+  pattern: '\b(candles|luxury_cloth)\s*='
+  only_in_paths: ['production_methods']
+  bad: "Using display/alias-like goods names such as candles or luxury_cloth in production method upkeep"
+  correction: "Use real goods database IDs: beeswax for candle upkeep, fine_cloth for luxury cloth upkeep."
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/common/goods/03_food.txt:319; reference_game_files/game/in_game/common/goods/02_produced_goods.txt:130"
+  notes: "Production method input keys must be exact goods IDs. Invalid goods tokens inside common/production_methods can load as 'Unexpected token' errors, as seen with candles and luxury_cloth."
