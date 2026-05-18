@@ -246,6 +246,36 @@ PERFORM_tv_change_academy_leader_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_appoint_engineering_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_remove_engineering_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_change_engineering_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
 PERFORM_tv_request_research_target_ACTION={
 \tlog=yes
 \tonmap=no

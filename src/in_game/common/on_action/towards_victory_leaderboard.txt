@@ -235,8 +235,8 @@ tv_leaderboard_monthly_pulse = {
 			}
 
 			# ── Sub-process B: passive prerequisite check (phase 1 only) ──────
-			# Phase 4 stub: tv_research_check_b_trigger = always, so B auto-completes
-			# on the first monthly tick after a research target is confirmed.
+			# Institution-root targets wait for one eligible owned location; other
+			# targets retain the original automatic completion behavior.
 			if = {
 				limit = {
 					custom_tooltip = {

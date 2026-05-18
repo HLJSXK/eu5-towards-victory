@@ -39,6 +39,8 @@ HAS_VARIABLE_TOOLTIP_KEYS = {
     "tv_arts_exhibition_member": "TV_HAS_ARTS_EXHIBITION_MEMBER_TT",
     "tv_conquest_general_char": "TV_HAS_CONQUEST_GENERAL_CHAR_TT",
     "tv_diplomatic_alliance_member": "TV_HAS_DIPLOMATIC_ALLIANCE_MEMBER_TT",
+    "tv_engineering_department_member": "TV_HAS_ENGINEERING_DEPARTMENT_MEMBER_TT",
+    "tv_great_engineer_char": "TV_HAS_GREAT_ENGINEER_CHAR_TT",
     "tv_govhouse_member": "TV_HAS_GOVHOUSE_MEMBER_TT",
 }
 

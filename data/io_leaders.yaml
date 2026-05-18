@@ -69,6 +69,19 @@ ios:
         }
       }
 
+  - id: engineering        # generates tv_appoint_engineering_leader, tv_remove_engineering_leader, tv_change_engineering_leader
+    display_name: Engineering Department
+    io_type: tv_engineering_department
+    member_var: tv_engineering_department_member
+    leader_var: tv_great_engineer_char
+    select_name: tv_select_engineering_leader
+    no_leader_msg: tv_no_engineering_leader_available
+    title_modifier: tv_great_engineer_role_modifier
+    title_loc_key: character_title_tv_great_engineer
+    char_filter: |
+      is_adult = yes
+      NOT = { is_artist = yes }
+
   - id: conquest_general  # generates tv_appoint_conquest_general_leader, tv_remove_conquest_general_leader, tv_change_conquest_general_leader
     display_name: "Governor's House - Grand General"
     io_type: tv_govhouse

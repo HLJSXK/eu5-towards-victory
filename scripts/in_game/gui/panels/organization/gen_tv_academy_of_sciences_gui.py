@@ -121,7 +121,7 @@ organization_panel = {
 
 \t\t# ── Research Status Overview ────────────────────────────────────────────────────────────────────
 \t\twidget = {
-\t\t\tsize = { 470 300 }
+\t\t\tsize = { 470 430 }
 \t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer]"
 
 \t\t\tvbox = {
@@ -248,6 +248,20 @@ GUI_SUFFIX = """\
 \t\t\t\t\tmin = 0
 \t\t\t\t\tmax = 2
 \t\t\t\t\tvalue = "[Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue]"
+\t\t\t\t}
+
+\t\t\t\ttext_single = {
+\t\t\t\t\tvisible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')))]"
+\t\t\t\t\ttext = "TV_RM_SUBPROCESS_B_REQUIREMENTS_LABEL"
+\t\t\t\t\talign = nobaseline
+\t\t\t\t}
+\t\t\t\tRequirementsList = {
+\t\t\t\t\tvisible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')))]"
+\t\t\t\t\ttextcontext = "[ShowTriggerConditions('tv_research_check_b_trigger', PlayerScope.Self)]"
+\t\t\t\t\tblockoverride "block_title" {}
+\t\t\t\t\tblockoverride "requirementslist_datamodel_is_empty" {
+\t\t\t\t\t\tvisible = no
+\t\t\t\t\t}
 \t\t\t\t}
 
 \t\t\t\t# ── Subprocess C: Literacy Foundation ─────────────────────────────────────────────────────

@@ -4,15 +4,16 @@
 # Feed into scripts/validate.py and scripts/gen_brief.py.
 #
 # Source: reference_game_files/ and reference_official_defines/
-# Verified: 2026-04-21
+# Verified: 2026-05-18
 
 location_rank:
   values:
     - rural_settlement
     - town
     - city
-  source: "reference_game_files/game/in_game/common/building_types/unique_buildings.txt"
-  notes: "Only 3 valid ranks in EU5. EU4 names (village, hamlet, metropolis) cause silent failures."
+    - megalopolis
+  source: "reference_game_files/game/in_game/common/location_ranks/00_default.txt"
+  notes: "Valid location rank type keys in EU5 1.x. EU4 names like village/hamlet/metropolis are invalid; use rural_settlement/town/city/megalopolis."
 
 government_type:
   values:
