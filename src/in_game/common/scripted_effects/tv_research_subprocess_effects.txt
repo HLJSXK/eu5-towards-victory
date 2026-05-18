@@ -93,6 +93,43 @@ tv_update_chief_scientist_effective_adm_effect = {
 	}
 }
 
+# ── Great Scientist trait progression (country scope) ───────────────────────
+# Completing concentrated research teaches the current Chief Scientist. Great
+# Scientist levels are mutually exclusive; this also cleans up any stale lower
+# level if a save/debug path ever leaves multiple levels on the same character.
+tv_upgrade_great_scientist_trait_effect = {
+	var:tv_academy_leader_char ?= {
+		if = {
+			limit = { has_trait = tv_great_scientist_3 }
+			if = {
+				limit = { has_trait = tv_great_scientist_2 }
+				remove_trait = trait:tv_great_scientist_2
+			}
+			if = {
+				limit = { has_trait = tv_great_scientist_1 }
+				remove_trait = trait:tv_great_scientist_1
+			}
+		}
+		else_if = {
+			limit = { has_trait = tv_great_scientist_2 }
+			if = {
+				limit = { has_trait = tv_great_scientist_1 }
+				remove_trait = trait:tv_great_scientist_1
+			}
+			remove_trait = trait:tv_great_scientist_2
+			add_trait = trait:tv_great_scientist_3
+		}
+		else_if = {
+			limit = { has_trait = tv_great_scientist_1 }
+			remove_trait = trait:tv_great_scientist_1
+			add_trait = trait:tv_great_scientist_2
+		}
+		else = {
+			add_trait = trait:tv_great_scientist_1
+		}
+	}
+}
+
 # ── Initialize research cycle ──────────────────────────────────────────────────
 # Called when the player confirms a research target. Starts phase 1 (A/B/C running).
 tv_research_init_cycle_effect = {
@@ -195,6 +232,7 @@ tv_research_concentrated_complete_effect = {
 	# Stop D monthly completion checks while keeping tv_research_target for the event.
 	set_variable = { name = tv_research_phase value = 0 }
 	hidden_effect = {
+		tv_upgrade_great_scientist_trait_effect = yes
 		remove_country_modifier = tv_concentrated_research_penalty
 	}
 	trigger_event_non_silently = { id = tv_research.30 }
