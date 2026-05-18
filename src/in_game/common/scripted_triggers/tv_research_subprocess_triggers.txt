@@ -9,8 +9,9 @@ tv_research_check_a_trigger = {
 
 # ── Sub-process B completion check ────────────────────────────────────────────
 # Institution-root targets require at least one owned location that satisfies the
-# matching institution's plausible birthplace conditions, with geographic gates
-# removed. Non-institution-root targets keep the old automatic completion.
+# matching institution's plausible birthplace conditions, with geographic and
+# existing-institution gates removed. Non-institution-root targets keep the old
+# automatic completion.
 tv_research_check_b_trigger = {
 	# 1: Printing Press -> printing_press institution
 	trigger_if = {
@@ -19,7 +20,6 @@ tv_research_check_b_trigger = {
 			owner ?= {
 				produced_in_country:paper > 5
 			}
-			has_institution = institution:renaissance
 			num_pop_type:burghers > 1
 			has_building = building_type:university
 			owner = {
@@ -31,7 +31,6 @@ tv_research_check_b_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_research_target ?= 7 }
 		any_owned_location = {
-			has_institution = institution:printing_press
 			has_building = building_type:university
 			average_location_literacy > 30
 			owner = {
@@ -43,7 +42,6 @@ tv_research_check_b_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_research_target ?= 8 }
 		any_owned_location = {
-			has_institution = institution:banking
 			num_pop_type:burghers > 20
 			total_building_levels > 80
 			owner = {
@@ -55,7 +53,6 @@ tv_research_check_b_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_research_target ?= 9 }
 		any_owned_location = {
-			has_institution = institution:manufactories
 			num_pop_type:burghers > 20
 			total_building_levels > 120
 			owner = {
@@ -130,7 +127,6 @@ tv_research_check_b_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_research_target ?= 15 }
 		any_owned_location = {
-			has_institution = institution:professional_armies
 			owner ?= {
 				army_tradition > 20
 				has_advance = gunpowder_advance
@@ -164,8 +160,6 @@ tv_research_check_b_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_research_target ?= 17 }
 		any_owned_location = {
-			has_institution = institution:banking
-			has_institution = institution:new_world
 			is_market_center = yes
 			OR = {
 				location_rank = location_rank:city
@@ -180,7 +174,6 @@ tv_research_check_b_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_research_target ?= 18 }
 		any_owned_location = {
-			has_institution = institution:professional_armies
 			has_building_with_at_least_one_level = gun_smith
 			has_building_with_at_least_one_level = tools_guild
 			owner = {
@@ -192,8 +185,6 @@ tv_research_check_b_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_research_target ?= 19 }
 		any_owned_location = {
-			has_institution = institution:pike_and_shot
-			has_institution = institution:artillery_institution
 			is_capital = yes
 			population > 30
 			owner = {
@@ -206,7 +197,6 @@ tv_research_check_b_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_research_target ?= 20 }
 		any_owned_location = {
-			has_institution = institution:scientific_revolution
 			has_building_with_at_least_one_level = university
 			average_location_literacy > 30
 			owner = {
@@ -218,7 +208,6 @@ tv_research_check_b_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_research_target ?= 21 }
 		any_owned_location = {
-			has_institution = institution:military_revolution
 			is_capital = yes
 			population > 200
 			owner = {

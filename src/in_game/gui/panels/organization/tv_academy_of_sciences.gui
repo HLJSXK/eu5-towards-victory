@@ -356,12 +356,12 @@ organization_panel = {
 				}
 
 				text_single = {
-					visible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')))]"
+					visible = "[Country.MakeScope.GetVariable('tv_research_target').IsSet]"
 					text = "TV_RM_SUBPROCESS_B_REQUIREMENTS_LABEL"
 					align = nobaseline
 				}
 				RequirementsList = {
-					visible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')))]"
+					visible = "[Country.MakeScope.GetVariable('tv_research_target').IsSet]"
 					textcontext = "[ShowTriggerConditions('tv_research_check_b_trigger', PlayerScope.Self)]"
 					blockoverride "block_title" {
 						block "block_title" {

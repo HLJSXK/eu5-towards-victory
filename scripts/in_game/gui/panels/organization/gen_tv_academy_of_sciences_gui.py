@@ -250,12 +250,12 @@ GUI_SUFFIX = """\
 \t\t\t\t}
 
 \t\t\t\ttext_single = {
-\t\t\t\t\tvisible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')))]"
+\t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_research_target').IsSet]"
 \t\t\t\t\ttext = "TV_RM_SUBPROCESS_B_REQUIREMENTS_LABEL"
 \t\t\t\t\talign = nobaseline
 \t\t\t\t}
 \t\t\t\tRequirementsList = {
-\t\t\t\t\tvisible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')))]"
+\t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_research_target').IsSet]"
 \t\t\t\t\ttextcontext = "[ShowTriggerConditions('tv_research_check_b_trigger', PlayerScope.Self)]"
 \t\t\t\t\tblockoverride "block_title" {
 \t\t\t\t\t\tblock "block_title" {
