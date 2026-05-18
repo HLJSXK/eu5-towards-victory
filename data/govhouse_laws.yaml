@@ -210,6 +210,7 @@ laws:
         display_comment: "Control Registers (default)"
         default: true
         on_activate: |
+          custom_tooltip = { text = tv_govhouse_admin_control_registers_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
               tv_apply_governor_bonuses_effect = yes
@@ -218,6 +219,7 @@ laws:
       - id: tv_govhouse_admin_development_surveys_policy
         display_comment: "Development Surveys"
         on_activate: |
+          custom_tooltip = { text = tv_govhouse_admin_development_surveys_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
               tv_apply_governor_bonuses_effect = yes
@@ -226,6 +228,7 @@ laws:
       - id: tv_govhouse_admin_production_offices_policy
         display_comment: "Production Offices"
         on_activate: |
+          custom_tooltip = { text = tv_govhouse_admin_production_offices_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
               tv_apply_governor_bonuses_effect = yes
@@ -240,6 +243,7 @@ laws:
         display_comment: "Construction Charters (default)"
         default: true
         on_activate: |
+          custom_tooltip = { text = tv_govhouse_dip_construction_charters_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
               tv_apply_governor_bonuses_effect = yes
@@ -248,6 +252,7 @@ laws:
       - id: tv_govhouse_dip_pop_advancement_policy
         display_comment: "Population Advancement"
         on_activate: |
+          custom_tooltip = { text = tv_govhouse_dip_pop_advancement_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
               tv_apply_governor_bonuses_effect = yes
@@ -256,6 +261,7 @@ laws:
       - id: tv_govhouse_dip_settlement_patronage_policy
         display_comment: "Settlement Patronage"
         on_activate: |
+          custom_tooltip = { text = tv_govhouse_dip_settlement_patronage_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
               tv_apply_governor_bonuses_effect = yes
@@ -270,6 +276,7 @@ laws:
         display_comment: "Order Patrols (default)"
         default: true
         on_activate: |
+          custom_tooltip = { text = tv_govhouse_mil_order_patrols_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
               tv_apply_governor_bonuses_effect = yes
@@ -278,6 +285,7 @@ laws:
       - id: tv_govhouse_mil_frontier_levies_policy
         display_comment: "Frontier Levies"
         on_activate: |
+          custom_tooltip = { text = tv_govhouse_mil_frontier_levies_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
               tv_apply_governor_bonuses_effect = yes
@@ -286,6 +294,7 @@ laws:
       - id: tv_govhouse_mil_fortress_engineers_policy
         display_comment: "Fortress Engineers"
         on_activate: |
+          custom_tooltip = { text = tv_govhouse_mil_fortress_engineers_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
               tv_apply_governor_bonuses_effect = yes
