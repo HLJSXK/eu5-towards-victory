@@ -91,14 +91,13 @@ organization_panel = {
 				blockoverride "common_bottom_content" {
 
 		# ── Research Status Overview ────────────────────────────────────────────────────────────────────
-		widget = {
-			size = { 470 430 }
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			ignoreinvisible = yes
 			datacontext = "[InternationalOrganizationsView.GetPlayer]"
-
-			vbox = {
-				layoutpolicy_horizontal = expanding
-				spacing = 4
-				margin = { 4 6 }
+			spacing = 4
+			margin = { 4 6 }
 
 				# ── Current Research Target ────────────────────────────────────────────────────────────
 				hbox = {
@@ -441,7 +440,6 @@ organization_panel = {
 					value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_d_progress').GetValue]"
 					visible = "[Country.MakeScope.GetVariable('tv_research_phase').IsSet]"
 				}
-			}
 		}
 				}
 			}

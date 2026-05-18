@@ -120,14 +120,13 @@ organization_panel = {
 \t\t\t\tblockoverride "common_bottom_content" {
 
 \t\t# ── Research Status Overview ────────────────────────────────────────────────────────────────────
-\t\twidget = {
-\t\t\tsize = { 470 430 }
+\t\tvbox = {
+\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\tlayoutpolicy_vertical = fixed
+\t\t\tignoreinvisible = yes
 \t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer]"
-
-\t\t\tvbox = {
-\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\tspacing = 4
-\t\t\t\tmargin = { 4 6 }
+\t\t\tspacing = 4
+\t\t\tmargin = { 4 6 }
 
 \t\t\t\t# ── Current Research Target ────────────────────────────────────────────────────────────
 \t\t\t\thbox = {
@@ -335,7 +334,6 @@ GUI_SUFFIX = """\
 \t\t\t\t\tvalue = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_d_progress').GetValue]"
 \t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_research_phase').IsSet]"
 \t\t\t\t}
-\t\t\t}
 \t\t}
 \t\t\t\t}
 \t\t\t}
