@@ -189,7 +189,7 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 382 }
+						size = { 470 470 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
@@ -375,12 +375,12 @@ organization_panel = {
 
 								hbox = {
 									layoutpolicy_horizontal = expanding
-									size = { 470 48 }
+									size = { 470 82 }
 									spacing = 6
 									text_single = { size = { 28 46 } raw_text = "@nobles!" align = nobaseline|center }
 									vbox = {
 										layoutpolicy_horizontal = fixed
-										size = { 256 46 }
+										size = { 256 80 }
 										using = bg_text_mask_container_dark_blue
 										ignoreinvisible = yes
 										vbox = {
@@ -400,12 +400,12 @@ organization_panel = {
 								}
 								hbox = {
 									layoutpolicy_horizontal = expanding
-									size = { 470 48 }
+									size = { 470 82 }
 									spacing = 6
 									text_single = { size = { 28 46 } raw_text = "@burghers!" align = nobaseline|center }
 									vbox = {
 										layoutpolicy_horizontal = fixed
-										size = { 256 46 }
+										size = { 256 80 }
 										using = bg_text_mask_container_dark_blue
 										ignoreinvisible = yes
 										vbox = {
@@ -425,12 +425,12 @@ organization_panel = {
 								}
 								hbox = {
 									layoutpolicy_horizontal = expanding
-									size = { 470 48 }
+									size = { 470 82 }
 									spacing = 6
 									text_single = { size = { 28 46 } raw_text = "@clergy!" align = nobaseline|center }
 									vbox = {
 										layoutpolicy_horizontal = fixed
-										size = { 256 46 }
+										size = { 256 80 }
 										using = bg_text_mask_container_dark_blue
 										ignoreinvisible = yes
 										vbox = {
