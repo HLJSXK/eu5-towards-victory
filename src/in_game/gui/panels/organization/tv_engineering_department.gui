@@ -1,6 +1,6 @@
 ﻿# Towards Victory - Engineering Department IO Panel
 # Overview tab: wonder-construction status skeleton.
-# Resolutions tab: Great Engineer appointment, replacement, and dismissal.
+# Header: Great Engineer appointment, replacement, and dismissal.
 # Custom tab: future wonder-construction stages.
 
 organization_panel = {
@@ -22,10 +22,7 @@ organization_panel = {
 	blockoverride "scroll_overview_empty_visible" { visible = no }
 
 	blockoverride "country_header_character_visible" {
-		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
-	}
-	blockoverride "country_header_character_context" {
-		datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').GetCharacter]"
+		visible = yes
 	}
 	blockoverride "country_header_religion" {}
 	blockoverride "extra_titles" {}
@@ -40,6 +37,78 @@ organization_panel = {
 			margin_right = 10
 			blockoverride "character_name_text" {
 				raw_text = "[Character.GetNameToFit('(int32)40', '(bool)yes')]"
+			}
+		}
+	}
+	blockoverride "character_widget" {
+		widget = {
+			position = { 0 -30 }
+			allow_outside = yes
+			block "portrait_io_widget" {
+				size = { 250 200 }
+			}
+
+			block "character_portrait_anchor" {
+				parentanchor = bottom
+			}
+
+			portrait_standard_full_body_center_button = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
+				block "character_right_visible" {
+					visible = yes
+				}
+				parentanchor = bottom
+
+				size = { 250 200 }
+				datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').GetCharacter]"
+			}
+
+			action_button = {
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet)]"
+				size = { 250 200 }
+				parentanchor = center
+				widgetanchor = center
+				position = { 0 0 }
+				alpha = 0
+				alwaystransparent = no
+				using = action_button_common_template
+				title = "tv_appoint_engineering_leader"
+				description = "tv_appoint_engineering_leader_desc"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = { action_name = "tv_appoint_engineering_leader" }
+			}
+
+			action_button = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
+				size = { 78 26 }
+				parentanchor = top|right
+				widgetanchor = top|right
+				position = { 0 20 }
+				using = button_regular_texture_alt_yellow
+				using = action_button_common_template
+				using = button_common_textobj_template
+				fontsize = 13
+				title = "tv_change_engineering_leader"
+				description = "tv_change_engineering_leader_desc"
+				text = "TV_ENGINEERING_CHANGE_LEADER_SHORT"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = { action_name = "tv_change_engineering_leader" }
+			}
+			action_button = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
+				size = { 78 26 }
+				parentanchor = top|right
+				widgetanchor = top|right
+				position = { 0 49 }
+				using = button_regular_texture_alt_red
+				using = action_button_common_template
+				using = button_common_textobj_template
+				fontsize = 13
+				title = "tv_remove_engineering_leader"
+				description = "tv_remove_engineering_leader_desc"
+				text = "TV_ENGINEERING_REMOVE_LEADER_SHORT"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = { action_name = "tv_remove_engineering_leader" }
 			}
 		}
 	}
@@ -172,131 +241,6 @@ organization_panel = {
 				}
 			}
 		}
-	}
-
-	# -- Great Engineer tab: reuse the vanilla resolutions slot ----------------
-	blockoverride "organization_resolutions_tab_visible" {
-		visible = yes
-	}
-	blockoverride "organization_resolutions_tab_text" {
-		text = "TV_ENGINEERING_GREAT_ENGINEER_TAB"
-	}
-	blockoverride "organization_resolutions_tooltip" {
-		tooltip = "TV_ENGINEERING_GREAT_ENGINEER_TAB_TOOLTIP"
-	}
-
-	blockoverride "organization_resolutions_content" {
-		margin = { 0 0 }
-
-		vbox = {
-			margin = { 10 0 }
-			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = fixed
-			ignoreinvisible = yes
-			spacing = 10
-
-			card_common = {
-				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
-				maximumsize = { 500 -1 }
-
-				blockoverride "common_header_icon_texture" {
-					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-				}
-
-				blockoverride "common_header_text" {
-					text = "TV_ENGINEERING_GREAT_ENGINEER_CARD_TITLE"
-				}
-
-				blockoverride "common_bottom_content" {
-					io_character_card = {
-						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').GetCharacter]"
-						using = layoutpolicy_expanding
-						blockoverride "name_highlight" {}
-						blockoverride "character_entry_name_sort_by_highlight" {}
-					}
-				}
-			}
-
-			card_common = {
-				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet)]"
-				maximumsize = { 500 -1 }
-
-				blockoverride "common_header_icon_texture" {
-					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-				}
-
-				blockoverride "common_header_text" {
-					text = "TV_ENGINEERING_GREAT_ENGINEER_CARD_TITLE"
-				}
-
-				blockoverride "common_bottom_content" {
-					widget = {
-						size = { 470 44 }
-						vbox = {
-							margin = { 4 6 }
-							text_single = {
-								text = "TV_ENGINEERING_NO_GREAT_ENGINEER"
-								align = nobaseline|left
-							}
-						}
-					}
-				}
-			}
-
-			card_actions = {
-				minimumsize = { 500 150 }
-				maximumsize = { 500 150 }
-
-				blockoverride "card_header_text" {
-					text = "MAIN_ACTIONS"
-				}
-				blockoverride "card_header_icon" {
-					block "io_main_actions_icon" {
-						texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-					}
-				}
-
-				blockoverride "actions_override" {
-					vbox = {
-						layoutpolicy_horizontal = expanding
-						spacing = 2
-
-						action_button_diamond = {
-							size = { 470 30 }
-							visible = "[Not(Player.MakeScope.GetVariable('tv_great_engineer_char').IsSet)]"
-							text = "tv_appoint_engineering_leader"
-							title = "tv_appoint_engineering_leader"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = {
-								action_name = "tv_appoint_engineering_leader"
-							}
-						}
-						action_button_diamond = {
-							size = { 470 30 }
-							visible = "[Player.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
-							text = "tv_change_engineering_leader"
-							title = "tv_change_engineering_leader"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = {
-								action_name = "tv_change_engineering_leader"
-							}
-						}
-						action_button_diamond = {
-							size = { 470 30 }
-							visible = "[Player.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
-							text = "tv_remove_engineering_leader"
-							title = "tv_remove_engineering_leader"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = {
-								action_name = "tv_remove_engineering_leader"
-							}
-						}
-					}
-				}
-			}
-		}
-
-		expand = {}
 	}
 
 	# -- Wonder construction UI skeleton --------------------------------------
@@ -649,11 +593,14 @@ organization_panel = {
 												hbox = {
 													layoutpolicy_horizontal = expanding
 													expand = {}
-													piechart = {
+													widget = {
 														size = { 44 44 }
-														using = piechart_angles
-														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
-														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+														piechart = {
+															size = { 44 44 }
+															using = piechart_angles
+															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
+															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+														}
 														icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/flat_icons/building_panel/build.dds" texture_density = 2 }
 													}
 													expand = {}
@@ -671,11 +618,14 @@ organization_panel = {
 												hbox = {
 													layoutpolicy_horizontal = expanding
 													expand = {}
-													piechart = {
+													widget = {
 														size = { 44 44 }
-														using = piechart_angles
-														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
-														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+														piechart = {
+															size = { 44 44 }
+															using = piechart_angles
+															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
+															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+														}
 														icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
 													}
 													expand = {}
@@ -693,11 +643,14 @@ organization_panel = {
 												hbox = {
 													layoutpolicy_horizontal = expanding
 													expand = {}
-													piechart = {
+													widget = {
 														size = { 44 44 }
-														using = piechart_angles
-														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
-														pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+														piechart = {
+															size = { 44 44 }
+															using = piechart_angles
+															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
+															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+														}
 														icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/pops/laborers.dds" texture_density = 2 }
 													}
 													expand = {}
