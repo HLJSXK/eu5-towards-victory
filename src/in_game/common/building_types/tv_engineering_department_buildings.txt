@@ -36,7 +36,7 @@ tv_wonder_labor_camp = {
 
 	location_potential = {
 		owner ?= {
-			var:tv_wonder_site ?= { this = root }
+			var:tv_wonder_site ?= prev
 		}
 	}
 
@@ -91,7 +91,7 @@ tv_wonder_material_depot = {
 
 	location_potential = {
 		owner ?= {
-			var:tv_wonder_site ?= { this = root }
+			var:tv_wonder_site ?= prev
 		}
 	}
 
