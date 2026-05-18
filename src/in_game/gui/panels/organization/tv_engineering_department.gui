@@ -199,34 +199,38 @@ organization_panel = {
 
 							hbox = {
 								layoutpolicy_horizontal = expanding
-								spacing = 8
+								layoutpolicy_vertical = fixed
+								size = { -1 116 }
+								spacing = 10
+								margin = { 8 8 }
+								using = bg_paper_card
+								using = bg_cabinet_card_frame
 
 								widget = {
-									size = { 118 98 }
-									vbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										text_single = {
-											text = "TV_ENGINEERING_GREAT_ENGINEER_LABEL"
-											align = nobaseline|center
-										}
-										text_single = {
-											visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet)]"
-											text = "TV_ENGINEERING_NO_GREAT_ENGINEER"
-											align = nobaseline|center
-										}
-										text_single = {
-											visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
-											datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').GetCharacter]"
-											text = "[Character.GetShortNameWithNoTooltip]"
-											align = nobaseline|center
+									size = { 76 92 }
+									allow_outside = yes
+
+									portrait_standard_head_button = {
+										using = character_portrait_bg
+										visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
+										parentanchor = center
+										widgetanchor = center
+										size = { 58 72 }
+										datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').GetCharacter]"
+
+										icon = {
+											block "character_frame_texture" {
+												texture = "gfx/interface/component_decoration/character_frames/character_frame_1.dds"
+											}
+											texture_density = 2
+											size = { 100% 100% }
 										}
 									}
 								}
 
 								widget = {
 									layoutpolicy_horizontal = expanding
-									size = { -1 98 }
+									size = { -1 92 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										ignoreinvisible = yes
