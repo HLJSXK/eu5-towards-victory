@@ -40,10 +40,7 @@ organization_panel = {
 	blockoverride "scroll_overview_empty_visible" { visible = no }
 
 	blockoverride "country_header_character_visible" {
-		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
-	}
-	blockoverride "country_header_character_context" {
-		datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').GetCharacter]"
+		visible = yes
 	}
 	blockoverride "country_header_religion" {}
 	blockoverride "extra_titles" {}
@@ -61,10 +58,83 @@ organization_panel = {
 			}
 		}
 	}
+	blockoverride "character_widget" {
+		widget = {
+			position = { 0 -30 }
+			allow_outside = yes
+			block "portrait_io_widget" {
+				size = { 250 200 }
+			}
+
+			block "character_portrait_anchor" {
+				parentanchor = bottom
+			}
+
+			portrait_standard_full_body_center_button = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
+				block "character_right_visible" {
+					visible = yes
+				}
+				parentanchor = bottom
+
+				size = { 250 200 }
+				datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').GetCharacter]"
+			}
+
+			action_button = {
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet)]"
+				size = { 250 200 }
+				parentanchor = center
+				widgetanchor = center
+				position = { 0 0 }
+				alpha = 0
+				alwaystransparent = no
+				using = action_button_common_template
+				title = "tv_appoint_arts_leader"
+				description = "tv_appoint_arts_leader_desc"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = { action_name = "tv_appoint_arts_leader" }
+			}
+
+			action_button = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
+				size = { 78 26 }
+				parentanchor = top|right
+				widgetanchor = top|right
+				position = { 0 20 }
+				using = button_regular_texture_alt_yellow
+				using = action_button_common_template
+				using = button_common_textobj_template
+				fontsize = 13
+				title = "tv_change_arts_leader"
+				description = "tv_change_arts_leader_desc"
+				text = "TV_ARTS_CHANGE_LEADER_SHORT"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = { action_name = "tv_change_arts_leader" }
+			}
+			action_button = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
+				size = { 78 26 }
+				parentanchor = top|right
+				widgetanchor = top|right
+				position = { 0 49 }
+				using = button_regular_texture_alt_red
+				using = action_button_common_template
+				using = button_common_textobj_template
+				fontsize = 13
+				title = "tv_remove_arts_leader"
+				description = "tv_remove_arts_leader_desc"
+				text = "TV_ARTS_REMOVE_LEADER_SHORT"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = { action_name = "tv_remove_arts_leader" }
+			}
+		}
+	}
 
 	blockoverride "organization_panel_extra_item" {
 		widget = {
-			size = { 230 40 }
+			visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
+			size = { 240 40 }
 			parentanchor = top|right
 			widgetanchor = top|right
 			position = { -12 16 }
@@ -80,81 +150,32 @@ organization_panel = {
 				size = { 100% 100% }
 				layoutpolicy_horizontal = expanding
 				layoutpolicy_vertical = expanding
-				margin = { 7 4 }
+				margin = { 8 5 }
 				spacing = 6
-				ignoreinvisible = yes
+				datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').GetCharacter]"
+
+				text_single = {
+					text = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_LABEL"
+					tooltip = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_TOOLTIP"
+					align = nobaseline
+				}
 
 				expand = {}
 
-				hbox = {
-					visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
-					datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').GetCharacter]"
-					spacing = 4
-
-					text_single = {
-						raw_text = "@cultural_influence!"
-						tooltip = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_TOOLTIP"
-						align = nobaseline
-					}
-					text_single = {
-						raw_text = "[Multiply_CFixedPoint(Character.GetArtistSkill, '(CFixedPoint)0.1')|+=2]"
-						tooltip = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_TOOLTIP"
-						align = nobaseline
-					}
-					text_single = {
-						text = "TV_ARTS_PER_MONTH_SUFFIX"
-						tooltip = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_TOOLTIP"
-						align = nobaseline
-					}
+				text_single = {
+					raw_text = "@cultural_influence!"
+					tooltip = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_TOOLTIP"
+					align = nobaseline
 				}
-
-				header_action_button_left = {
-					size = { 32 32 }
-					visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet)]"
-					blockoverride "button_icon_stretch_sprite" {}
-					blockoverride "header_button_frame_inner" { visible = no }
-					blockoverride "header_button_icon_size" { size = { 32 32 } }
-					blockoverride "header_button_text_layout" {}
-					blockoverride "icon_overlay" {}
-					blockoverride "icon_texture" {
-						texture = "gfx/interface/icons/text_icons/plus.dds"
-					}
-					title = "tv_appoint_arts_leader"
-					description = "tv_appoint_arts_leader_desc"
-					actor = "[InternationalOrganizationsView.GetPlayer]"
-					left_action = { action_name = "tv_appoint_arts_leader" }
+				text_single = {
+					raw_text = "[Multiply_CFixedPoint(Character.GetArtistSkill, '(CFixedPoint)0.1')|+=2]"
+					tooltip = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_TOOLTIP"
+					align = nobaseline
 				}
-				header_action_button_left = {
-					size = { 32 32 }
-					visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
-					blockoverride "button_icon_stretch_sprite" {}
-					blockoverride "header_button_frame_inner" { visible = no }
-					blockoverride "header_button_icon_size" { size = { 32 32 } }
-					blockoverride "header_button_text_layout" {}
-					blockoverride "icon_overlay" {}
-					blockoverride "icon_texture" {
-						texture = "gfx/interface/icons/cabinet_actions/change_societal_values.dds"
-					}
-					title = "tv_change_arts_leader"
-					description = "tv_change_arts_leader_desc"
-					actor = "[InternationalOrganizationsView.GetPlayer]"
-					left_action = { action_name = "tv_change_arts_leader" }
-				}
-				header_action_button_left = {
-					size = { 32 32 }
-					visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_arts_exhibition_leader_char').IsSet]"
-					blockoverride "button_icon_stretch_sprite" {}
-					blockoverride "header_button_frame_inner" { visible = no }
-					blockoverride "header_button_icon_size" { size = { 32 32 } }
-					blockoverride "header_button_text_layout" {}
-					blockoverride "icon_overlay" {}
-					blockoverride "icon_texture" {
-						texture = "gfx/interface/icons/text_icons/minus.dds"
-					}
-					title = "tv_remove_arts_leader"
-					description = "tv_remove_arts_leader_desc"
-					actor = "[InternationalOrganizationsView.GetPlayer]"
-					left_action = { action_name = "tv_remove_arts_leader" }
+				text_single = {
+					text = "TV_ARTS_PER_MONTH_SUFFIX"
+					tooltip = "TV_ARTS_CHIEF_ARTIST_INFLUENCE_EFFECT_TOOLTIP"
+					align = nobaseline
 				}
 			}
 		}

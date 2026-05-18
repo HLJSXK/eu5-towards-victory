@@ -225,7 +225,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 
 ## Manual UI Notes
 
-- `src/in_game/gui/panels/organization/tv_arts_exhibition.gui` displays the Arts Exhibition touring action, current dispatched artist count, and all currently dispatched artists from `tv_dispatched_artists_list` as `io_character_card` artist rows in the overview tab. The header shows the variable-backed Chief Artist portrait/name when appointed, a compact monthly International Influence contribution readout, and Appoint/Change/Remove Chief Artist icon buttons. The resolutions tab is renamed to Arts Exchange and contains the exchange timer, participant list, and exchange action cards. The vanilla Laws tab is available for Arts Exhibition legal policy votes. Its custom tab tracks the persistent local exhibition: owned artworks, committed exhibits, months open, rating, enthusiasm progress bar, and local exhibition actions.
+- `src/in_game/gui/panels/organization/tv_arts_exhibition.gui` displays the Arts Exhibition touring action, current dispatched artist count, and all currently dispatched artists from `tv_dispatched_artists_list` as `io_character_card` artist rows in the overview tab. The header shows the variable-backed Chief Artist portrait/name when appointed; if vacant, the portrait area remains clickable to appoint a Chief Artist, and if occupied, two small Replace/Dismiss buttons sit in the portrait area's upper-right corner. A separate monthly International Influence contribution readout remains in the header. The resolutions tab is renamed to Arts Exchange and contains the exchange timer, participant list, and exchange action cards. The vanilla Laws tab is available for Arts Exhibition legal policy votes. Its custom tab tracks the persistent local exhibition: owned artworks, committed exhibits, months open, rating, enthusiasm progress bar, and local exhibition actions.
 - `src/in_game/gui/panels/organization/tv_govhouse.gui` keeps governor region management in the overview, leaves the vanilla Laws tab available for Governor's House legal policy votes, moves Grand General portrait/balance/training controls and active training progress to the resolutions tab, and uses the custom tab for War Tent tactics, war-plan status, and plan action buttons.
 
 ## Known Anti-Patterns
@@ -364,7 +364,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | Scripted Triggers | 532 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 630 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 1390 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 1392 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 
