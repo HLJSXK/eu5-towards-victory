@@ -108,6 +108,19 @@ monthly_effect = {
 
 Vanilla IOs such as HRE and Union use this pattern. Keep `monthly_change` entries visible when the player should see an IO variable's monthly breakdown; use `hidden_effect` for non-player-facing `monthly_effect` logic.
 
+#### International Organization Trigger Iterators
+
+In scripted triggers, `any_international_organizations_member_of` is a trigger iterator. Put IO filters directly in the iterator block:
+
+```pdx
+any_international_organizations_member_of = {
+    international_organization_type = international_organization_type:tv_arts_exhibition
+    resolution_is_active = resolution:policy_vote
+}
+```
+
+Do not add an effect-style `limit = { ... }` block here. The engine treats `limit` as a trigger clause in this context and logs `Unknown trigger type: limit`. Reserve `limit = {}` for effect iterators such as `every_international_organizations_member_of` when applying effects.
+
 #### International Organization Header Controls
 
 The standard `organization_panel_default_header` shows the lower IO information row through `abilities_widget`, which vanilla overrides to `ios_information_header = {}`. When adding compact IO-specific status text or header action buttons, prefer the exposed `ios_information_header_content_extra_1`, `ios_information_header_content_extra_2`, or `ios_information_header_content_extra_3` blocks with `ios_header_content_extra_template`.

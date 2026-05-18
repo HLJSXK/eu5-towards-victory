@@ -1,0 +1,321 @@
+﻿# Towards Victory - Engineering Department effects
+# Country-scoped unless noted.
+
+tv_wonder_change_domestic_support_effect = {
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_engineering_department
+		}
+		custom_description = {
+			text = tv_wonder_change_domestic_support_text
+			value = $value$
+			change_variable = { name = tv_wonder_domestic_support add = $value$ }
+			clamp_variable = { name = tv_wonder_domestic_support min = 0 max = 200 }
+		}
+	}
+}
+
+tv_wonder_reset_io_progress_effect = {
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_engineering_department
+		}
+		set_variable = { name = tv_wonder_domestic_support value = 0 }
+		set_variable = { name = tv_wonder_survey_progress value = 0 }
+		set_variable = { name = tv_wonder_materials_stockpile value = 0 }
+	}
+}
+
+tv_wonder_clear_feasible_deck_effect = {
+	remove_variable = tv_wonder_feasible_sacred_mountain
+	remove_variable = tv_wonder_feasible_triumphal_axis
+	remove_variable = tv_wonder_feasible_great_port
+}
+
+tv_wonder_rebuild_feasible_deck_effect = {
+	tv_wonder_clear_feasible_deck_effect = yes
+	if = {
+		limit = { tv_wonder_can_build_sacred_mountain_trigger = yes }
+		set_variable = { name = tv_wonder_feasible_sacred_mountain value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_triumphal_axis_trigger = yes }
+		set_variable = { name = tv_wonder_feasible_triumphal_axis value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_great_port_trigger = yes }
+		set_variable = { name = tv_wonder_feasible_great_port value = 1 }
+	}
+}
+
+tv_wonder_set_proposal_on_great_engineer_effect = {
+	if = {
+		limit = { var:tv_wonder_proposal ?= { this >= 1 } }
+		var:tv_great_engineer_char ?= {
+			set_variable = { name = tv_wonder_engineer_proposal value = prev.var:tv_wonder_proposal }
+		}
+	}
+}
+
+tv_wonder_clear_proposal_on_great_engineer_effect = {
+	var:tv_great_engineer_char ?= {
+		remove_variable = tv_wonder_engineer_proposal
+	}
+}
+
+tv_wonder_restore_proposal_from_great_engineer_effect = {
+	var:tv_great_engineer_char ?= {
+		save_scope_as = tv_wonder_current_engineer
+	}
+	if = {
+		limit = {
+			exists = scope:tv_wonder_current_engineer
+			scope:tv_wonder_current_engineer = {
+				var:tv_wonder_engineer_proposal ?= { this >= 1 }
+			}
+		}
+		set_variable = {
+			name = tv_wonder_proposal
+			value = scope:tv_wonder_current_engineer.var:tv_wonder_engineer_proposal
+		}
+	}
+}
+
+tv_wonder_roll_new_proposal_effect = {
+	tv_wonder_clear_proposal_on_great_engineer_effect = yes
+	remove_variable = tv_wonder_proposal
+	if = {
+		limit = { tv_wonder_has_any_feasible_proposal_trigger = yes }
+		random_list = {
+			1 = {
+				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_sacred_mountain } }
+				set_variable = { name = tv_wonder_proposal value = 1 }
+			}
+			1 = {
+				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_triumphal_axis } }
+				set_variable = { name = tv_wonder_proposal value = 2 }
+			}
+			1 = {
+				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_great_port } }
+				set_variable = { name = tv_wonder_proposal value = 3 }
+			}
+		}
+		tv_wonder_set_proposal_on_great_engineer_effect = yes
+	}
+}
+
+tv_wonder_remove_current_proposal_from_deck_effect = {
+	if = {
+		limit = { var:tv_wonder_proposal ?= 1 }
+		remove_variable = tv_wonder_feasible_sacred_mountain
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 2 }
+		remove_variable = tv_wonder_feasible_triumphal_axis
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 3 }
+		remove_variable = tv_wonder_feasible_great_port
+	}
+}
+
+tv_wonder_roll_nobles_demand_effect = {
+	random_list = {
+		1 = { set_variable = { name = tv_wonder_nobles_demand value = 1 } }
+		1 = { set_variable = { name = tv_wonder_nobles_demand value = 2 } }
+		1 = { set_variable = { name = tv_wonder_nobles_demand value = 3 } }
+	}
+}
+
+tv_wonder_roll_burghers_demand_effect = {
+	random_list = {
+		1 = { set_variable = { name = tv_wonder_burghers_demand value = 1 } }
+		1 = { set_variable = { name = tv_wonder_burghers_demand value = 2 } }
+		1 = { set_variable = { name = tv_wonder_burghers_demand value = 3 } }
+	}
+}
+
+tv_wonder_roll_clergy_demand_effect = {
+	random_list = {
+		1 = { set_variable = { name = tv_wonder_clergy_demand value = 1 } }
+		1 = { set_variable = { name = tv_wonder_clergy_demand value = 2 } }
+		1 = { set_variable = { name = tv_wonder_clergy_demand value = 3 } }
+	}
+}
+
+tv_wonder_initialize_debate_demands_effect = {
+	tv_wonder_roll_nobles_demand_effect = yes
+	tv_wonder_roll_burghers_demand_effect = yes
+	tv_wonder_roll_clergy_demand_effect = yes
+}
+
+tv_engineering_on_great_engineer_appointed_effect = {
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_stage } }
+		set_variable = { name = tv_wonder_stage value = 0 }
+	}
+	if = {
+		limit = {
+			tv_wonder_in_conception_trigger = yes
+			tv_wonder_has_great_engineer_trigger = yes
+		}
+		remove_variable = tv_wonder_proposal
+		tv_wonder_restore_proposal_from_great_engineer_effect = yes
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_proposal } }
+			tv_wonder_rebuild_feasible_deck_effect = yes
+			tv_wonder_roll_new_proposal_effect = yes
+		}
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_nobles_demand } }
+			tv_wonder_initialize_debate_demands_effect = yes
+		}
+	}
+}
+
+tv_engineering_on_great_engineer_removed_effect = {
+	if = {
+		limit = { tv_wonder_in_conception_trigger = yes }
+		remove_variable = tv_wonder_proposal
+		tv_wonder_clear_feasible_deck_effect = yes
+	}
+}
+
+tv_wonder_accept_proposal_effect = {
+	if = {
+		limit = { var:tv_wonder_proposal ?= { this >= 1 } }
+		set_variable = { name = tv_wonder_locked value = var:tv_wonder_proposal }
+		remove_variable = tv_wonder_proposal
+		set_variable = { name = tv_wonder_stage value = 1 }
+		tv_wonder_reset_io_progress_effect = yes
+		tv_wonder_initialize_debate_demands_effect = yes
+	}
+}
+
+tv_wonder_refute_proposal_effect = {
+	add_prestige = -10
+	tv_wonder_remove_current_proposal_from_deck_effect = yes
+	tv_wonder_roll_new_proposal_effect = yes
+}
+
+tv_wonder_bribe_proposal_effect = {
+	change_gold_effect = { scale = -1 }
+	tv_wonder_remove_current_proposal_from_deck_effect = yes
+	tv_wonder_roll_new_proposal_effect = yes
+}
+
+tv_wonder_accept_nobles_demand_effect = {
+	if = {
+		limit = { country_has_estate = estate_type:nobles_estate }
+		add_estate_satisfaction = { type = estate_type:nobles_estate value = estate_satisfaction_weak_bonus }
+	}
+	tv_wonder_change_domestic_support_effect = { value = 20 }
+	tv_wonder_roll_nobles_demand_effect = yes
+}
+
+tv_wonder_accept_burghers_demand_effect = {
+	if = {
+		limit = { country_has_estate = estate_type:burghers_estate }
+		add_estate_satisfaction = { type = estate_type:burghers_estate value = estate_satisfaction_weak_bonus }
+	}
+	tv_wonder_change_domestic_support_effect = { value = 20 }
+	tv_wonder_roll_burghers_demand_effect = yes
+}
+
+tv_wonder_accept_clergy_demand_effect = {
+	if = {
+		limit = { country_has_estate = estate_type:clergy_estate }
+		add_estate_satisfaction = { type = estate_type:clergy_estate value = estate_satisfaction_weak_bonus }
+	}
+	tv_wonder_change_domestic_support_effect = { value = 20 }
+	tv_wonder_roll_clergy_demand_effect = yes
+}
+
+tv_wonder_refute_nobles_demand_effect = {
+	add_prestige = -10
+	tv_wonder_roll_nobles_demand_effect = yes
+}
+
+tv_wonder_refute_burghers_demand_effect = {
+	add_prestige = -10
+	tv_wonder_roll_burghers_demand_effect = yes
+}
+
+tv_wonder_refute_clergy_demand_effect = {
+	add_prestige = -10
+	tv_wonder_roll_clergy_demand_effect = yes
+}
+
+tv_wonder_bribe_nobles_demand_effect = {
+	change_gold_effect = { scale = -1 }
+	tv_wonder_roll_nobles_demand_effect = yes
+}
+
+tv_wonder_bribe_burghers_demand_effect = {
+	change_gold_effect = { scale = -1 }
+	tv_wonder_roll_burghers_demand_effect = yes
+}
+
+tv_wonder_bribe_clergy_demand_effect = {
+	change_gold_effect = { scale = -1 }
+	tv_wonder_roll_clergy_demand_effect = yes
+}
+
+tv_wonder_end_debate_effect = {
+	set_variable = { name = tv_wonder_stage value = 2 }
+	set_variable = { name = tv_wonder_debate_ended value = 1 }
+}
+
+tv_wonder_apply_estate_penalty_10_effect = {
+	if = {
+		limit = { country_has_estate = estate_type:nobles_estate }
+		add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+	}
+	if = {
+		limit = { country_has_estate = estate_type:burghers_estate }
+		add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+	}
+	if = {
+		limit = { country_has_estate = estate_type:clergy_estate }
+		add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+	}
+}
+
+tv_wonder_retire_great_engineer_effect = {
+	if = {
+		limit = { tv_wonder_has_great_engineer_trigger = yes }
+		var:tv_great_engineer_char ?= {
+			save_scope_as = tv_wonder_retiring_engineer
+			remove_character_modifier = tv_great_engineer_role_modifier
+		}
+		remove_variable = tv_great_engineer_char
+		if = {
+			limit = { exists = scope:tv_wonder_retiring_engineer }
+			scope:tv_wonder_retiring_engineer = { kill_character = this }
+		}
+	}
+	remove_variable = tv_great_engineer_char
+}
+
+tv_wonder_clear_project_state_effect = {
+	remove_variable = tv_wonder_proposal
+	remove_variable = tv_wonder_locked
+	remove_variable = tv_wonder_debate_ended
+	remove_variable = tv_wonder_nobles_demand
+	remove_variable = tv_wonder_burghers_demand
+	remove_variable = tv_wonder_clergy_demand
+	tv_wonder_clear_feasible_deck_effect = yes
+	set_variable = { name = tv_wonder_stage value = 0 }
+	tv_wonder_reset_io_progress_effect = yes
+}
+
+tv_wonder_abandon_effect = {
+	tv_wonder_apply_estate_penalty_10_effect = yes
+	tv_wonder_retire_great_engineer_effect = yes
+	add_prestige = -20
+	tv_wonder_clear_project_state_effect = yes
+}
+
+tv_wonder_forced_abort_effect = {
+	tv_wonder_abandon_effect = yes
+}

@@ -12,6 +12,91 @@ tv_engineering_department.10 = {
 
 	option = {
 		name = tv_engineering_department.10.a
+		tv_engineering_on_great_engineer_removed_effect = yes
 		remove_variable = tv_great_engineer_char
+	}
+}
+
+tv_engineering_department.20 = {
+	type = country_event
+	title = tv_engineering_department.20.t
+	desc = tv_engineering_department.20.d
+	outcome = bad
+
+	option = {
+		name = tv_engineering_department.20.a
+		tv_wonder_forced_abort_effect = yes
+	}
+}
+
+tv_engineering_department.100 = {
+	type = country_event
+	title = tv_engineering_department.100.t
+	desc = tv_engineering_department.100.d
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.100.a
+		tv_wonder_change_domestic_support_effect = { value = 20 }
+	}
+}
+
+tv_engineering_department.101 = {
+	type = country_event
+	title = tv_engineering_department.101.t
+	desc = tv_engineering_department.101.d
+	outcome = bad
+
+	option = {
+		name = tv_engineering_department.101.a
+		tv_wonder_change_domestic_support_effect = { value = -20 }
+	}
+}
+
+tv_engineering_department.102 = {
+	type = country_event
+	title = tv_engineering_department.102.t
+	desc = tv_engineering_department.102.d
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.102.a
+		tv_wonder_change_domestic_support_effect = { value = 20 }
+	}
+}
+
+tv_engineering_department.103 = {
+	type = country_event
+	title = tv_engineering_department.103.t
+	desc = tv_engineering_department.103.d
+	outcome = bad
+
+	option = {
+		name = tv_engineering_department.103.a
+		tv_wonder_change_domestic_support_effect = { value = -20 }
+	}
+}
+
+tv_engineering_department.104 = {
+	type = country_event
+	title = tv_engineering_department.104.t
+	desc = tv_engineering_department.104.d
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.104.a
+		tv_wonder_change_domestic_support_effect = { value = 20 }
+	}
+}
+
+tv_engineering_department.105 = {
+	type = country_event
+	title = tv_engineering_department.105.t
+	desc = tv_engineering_department.105.d
+	outcome = bad
+
+	option = {
+		name = tv_engineering_department.105.a
+		tv_wonder_change_domestic_support_effect = { value = -20 }
 	}
 }

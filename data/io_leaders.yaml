@@ -78,6 +78,12 @@ ios:
     no_leader_msg: tv_no_engineering_leader_available
     title_modifier: tv_great_engineer_role_modifier
     title_loc_key: character_title_tv_great_engineer
+    on_appoint_effect: |
+      tv_engineering_on_great_engineer_appointed_effect = yes
+    on_remove_effect: |
+      tv_engineering_on_great_engineer_removed_effect = yes
+    on_change_after_effect: |
+      tv_engineering_on_great_engineer_appointed_effect = yes
     char_filter: |
       is_adult = yes
       NOT = { is_artist = yes }

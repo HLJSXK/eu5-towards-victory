@@ -696,6 +696,16 @@
   source: "reference_game_files/game/in_game/common/generic_actions/unlockable_io_actions.txt:322"
   notes: "EU5 tooltip evaluator does not short-circuit inside limit = {} blocks. any_international_organizations_member_of iterates ALL IOs the country is a member of (including vanilla coalitions, sects, unions) that have no leader_country. Using = on a null scope throws 'Event target link leader_country returned an invalid object'. Also: DA and Academy IOs had empty on_creation blocks that never called set_leader_country, making leader_country permanently null and breaking the leader block entirely."
 
+- id: io_trigger_iterator_limit_invalid
+  pattern: 'any_international_organizations_member_of\s*=\s*\{\s*limit\s*='
+  only_in_paths: ['scripted_triggers']
+  bad: "limit = {} as a direct child of any_international_organizations_member_of in a scripted trigger"
+  correction: "In trigger context, put iterator filters directly in the block: any_international_organizations_member_of = { international_organization_type = international_organization_type:<io_type> ... }. Reserve limit = {} for effect iterators such as every_international_organizations_member_of."
+  category: scope
+  scope: country
+  source: "src/in_game/common/scripted_triggers/tv_arts_exhibition_triggers.txt:7-10; runtime error.log tv_engineering_department_triggers.txt:68"
+  notes: "The trigger iterator treats direct children as trigger clauses; limit is not a trigger here and logs 'Unknown trigger type: limit'."
+
 - id: tv_io_chooses_new_leader_forbidden
   pattern: 'international_organization_chooses_new_leader'
   bad: "Calling international_organization_chooses_new_leader anywhere in TV IO-related code (leader management actions, on_action, events, effects)"

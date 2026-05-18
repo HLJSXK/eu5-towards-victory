@@ -490,6 +490,7 @@ tv_appoint_engineering_leader = {
 			limit = { exists = scope:target }
 			scope:actor = {
 				set_variable = { name = tv_great_engineer_char value = scope:target }
+				tv_engineering_on_great_engineer_appointed_effect = yes
 			}
 			scope:target = {
 				add_character_modifier = { modifier = tv_great_engineer_role_modifier years = -1 mode = add_and_extend }
@@ -528,6 +529,7 @@ tv_remove_engineering_leader = {
 					remove_character_modifier = tv_great_engineer_role_modifier
 				}
 			}
+			tv_engineering_on_great_engineer_removed_effect = yes
 			remove_variable = tv_great_engineer_char
 		}
 	}
@@ -585,6 +587,7 @@ tv_change_engineering_leader = {
 			limit = { exists = scope:target }
 			scope:actor = {
 				set_variable = { name = tv_great_engineer_char value = scope:target }
+				tv_engineering_on_great_engineer_appointed_effect = yes
 			}
 			scope:target = {
 				add_character_modifier = { modifier = tv_great_engineer_role_modifier years = -1 mode = add_and_extend }

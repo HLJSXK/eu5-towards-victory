@@ -1,0 +1,78 @@
+﻿# Towards Victory - Engineering Department triggers
+# Country-scoped unless noted.
+
+tv_wonder_can_build_sacred_mountain_trigger = {
+	any_owned_location = {
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
+	}
+}
+
+tv_wonder_can_build_triumphal_axis_trigger = {
+	any_owned_location = {
+		OR = {
+			location_rank = location_rank:city
+			location_rank = location_rank:megalopolis
+		}
+	}
+}
+
+tv_wonder_can_build_great_port_trigger = {
+	any_owned_location = {
+		is_port = yes
+	}
+}
+
+tv_wonder_has_any_feasible_proposal_trigger = {
+	OR = {
+		has_variable = tv_wonder_feasible_sacred_mountain
+		has_variable = tv_wonder_feasible_triumphal_axis
+		has_variable = tv_wonder_feasible_great_port
+	}
+}
+
+tv_wonder_has_great_engineer_trigger = {
+	var:tv_great_engineer_char ?= { is_alive = yes }
+}
+
+tv_wonder_in_conception_trigger = {
+	var:tv_wonder_stage ?= 0
+}
+
+tv_wonder_in_debate_trigger = {
+	var:tv_wonder_stage ?= 1
+}
+
+tv_wonder_debate_complete_trigger = {
+	var:tv_wonder_stage ?= { this >= 2 }
+}
+
+tv_wonder_has_open_proposal_trigger = {
+	tv_wonder_in_conception_trigger = yes
+	tv_wonder_has_great_engineer_trigger = yes
+	var:tv_wonder_proposal ?= { this >= 1 }
+}
+
+tv_wonder_has_locked_wonder_trigger = {
+	var:tv_wonder_stage ?= { this >= 1 }
+	var:tv_wonder_locked ?= { this >= 1 }
+}
+
+tv_wonder_can_end_debate_trigger = {
+	tv_wonder_in_debate_trigger = yes
+	tv_wonder_has_locked_wonder_trigger = yes
+	any_international_organizations_member_of = {
+		international_organization_type = international_organization_type:tv_engineering_department
+		var:tv_wonder_domestic_support ?= { this >= 100 }
+	}
+}
+
+tv_wonder_domestic_support_empty_trigger = {
+	any_international_organizations_member_of = {
+		international_organization_type = international_organization_type:tv_engineering_department
+		var:tv_wonder_domestic_support ?= { this <= 0 }
+	}
+}

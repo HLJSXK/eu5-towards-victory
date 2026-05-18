@@ -276,6 +276,146 @@ PERFORM_tv_change_engineering_leader_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_wonder_accept_proposal_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_refute_proposal_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_bribe_proposal_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_accept_nobles_demand_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_refute_nobles_demand_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_bribe_nobles_demand_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_accept_burghers_demand_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_refute_burghers_demand_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_bribe_burghers_demand_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_accept_clergy_demand_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_refute_clergy_demand_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_bribe_clergy_demand_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_end_debate_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_abandon_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
 PERFORM_tv_request_research_target_ACTION={
 \tlog=yes
 \tonmap=no

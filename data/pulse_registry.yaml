@@ -19,6 +19,8 @@ pulses:
     - tv_govhouse_governor_events_monthly_pulse # Regional governor random events
     - tv_govhouse_war_tent_monthly_pulse # War Tent plans and tactic refresh
     - tv_arts_exchange_monthly_pulse     # Arts Exchange timer, auto-invites, and monthly events
+    - tv_engineering_department_debate_monthly_pulse # Wonder debate estate support swings
+    - tv_engineering_department_support_decay_pulse # Wonder support decay after debate
 
   yearly_country_pulse:
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home
