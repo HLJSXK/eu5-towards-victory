@@ -119,6 +119,16 @@
   source: "user-reported runtime UI behavior (2026-05-15)"
   notes: "The vanilla IO Laws tab displays InternationalOrganizationLawCategory.GetName and looks up the uppercase *_LAW_CATEGORY key for law category headers; missing keys render literally."
 
+- id: io_header_controls_in_country_header_extra
+  pattern: ''
+  only_in_paths: ['gui/panels/organization']
+  bad: "Putting visible IO header controls such as action buttons in blockoverride \"country_header_extra\" on the standard organization header"
+  correction: "Put compact IO header controls/readouts in ios_information_header_content_extra_1/2/3 with ios_header_content_extra_template, or override abilities_widget to include ios_information_header plus the controls."
+  category: gui
+  scope: international_organization
+  source: "reference_game_files/game/in_game/gui/panels/organization/common_header.gui:387; reference_game_files/game/in_game/gui/panels/organization/common_header.gui:563"
+  notes: "In the standard organization_panel_default_header path, the visible lower header row is ios_information_header inside abilities_widget. country_header_extra is outside the character/header info row and can be absent or effectively hidden in UI bounds, so interactive controls may not render where expected."
+
 - id: eu4_province_modifier_scope
   pattern: 'add_province_modifier'
   bad: "add_province_modifier (EU4 effect)"

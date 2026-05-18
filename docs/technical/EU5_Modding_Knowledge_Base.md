@@ -108,6 +108,12 @@ monthly_effect = {
 
 Vanilla IOs such as HRE and Union use this pattern. Keep `monthly_change` entries visible when the player should see an IO variable's monthly breakdown; use `hidden_effect` for non-player-facing `monthly_effect` logic.
 
+#### International Organization Header Controls
+
+The standard `organization_panel_default_header` shows the lower IO information row through `abilities_widget`, which vanilla overrides to `ios_information_header = {}`. When adding compact IO-specific status text or header action buttons, prefer the exposed `ios_information_header_content_extra_1`, `ios_information_header_content_extra_2`, or `ios_information_header_content_extra_3` blocks with `ios_header_content_extra_template`.
+
+Do not rely on `blockoverride "country_header_extra"` for visible interactive controls in this standard IO header path. That slot sits outside the `country_government_character` / `ios_information_header` row and can be absent from the visible UI bounds or hidden behind the rendered character/header content. If replacing the whole lower row is necessary, override `abilities_widget` directly and preserve `ios_information_header` inside the replacement.
+
 #### International Organization Custom Tab Scroll Areas
 
 The shared organization panel's `organization_custom_content` slot is already inside an inner vbox with `margin_top = 5`, followed by an `expand` spacer. For dynamic custom tabs that can grow past the visible area, inject the `scrollarea` directly into `organization_custom_content` instead of wrapping it in another child vbox. Override the block's `margin_top`/`spacing` when the content must sit flush to the tab top. For a bounded viewport, give the scrollarea a fixed size such as `size = { 100% 430 }`; when the tab must consume the full IO pane instead of leaving the common trailing `expand` spacer to own the lower area, set the custom-content block itself to `layoutpolicy_vertical = expanding` and set the scrollarea to `using = layoutpolicy_expanding`. In both cases, let the `scrollwidget` content establish natural height with `layoutpolicy_vertical = fixed` and `ignoreinvisible = yes`. Avoid `autoresizescrollarea` for this pattern: when active state adds more cards, it can grow the viewport with the content, leaving no useful overflow and causing the scrollarea bounds to sit lower inside the wrapper. `margin_top` directly on `scrollarea` is ignored by the engine and logs an unsupported-property error.
