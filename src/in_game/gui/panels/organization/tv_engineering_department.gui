@@ -1,7 +1,8 @@
 ﻿# Towards Victory - Engineering Department IO Panel
-# Overview tab: wonder-construction status skeleton.
+# Overview tab: status, conception/debate, and survey skeleton.
 # Header: Great Engineer appointment, replacement, and dismissal.
-# Custom tab: future wonder-construction stages.
+# Resolutions tab: organization, logistics, and construction skeleton.
+# Custom tab: ceremony skeleton.
 
 organization_panel = {
 
@@ -11,12 +12,16 @@ organization_panel = {
 		visible = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
 	}
 
+	blockoverride "organization_members_tab_visible" {
+		visible = no
+	}
+
 	blockoverride "organization_members_tab_down" {
-		down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+		down = no
 	}
 
 	blockoverride "organization_panel_members_visible" {
-		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+		visible = no
 	}
 
 	blockoverride "scroll_overview_empty_visible" { visible = no }
@@ -240,18 +245,610 @@ organization_panel = {
 					}
 				}
 			}
+
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ENGINEERING_WONDER_PIPELINE_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 116 }
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 6
+							margin = { 4 6 }
+
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								text = "TV_ENGINEERING_WONDER_PIPELINE_DESC"
+								multiline = yes
+								align = nobaseline|left
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 3
+								text_single = { size = { 86 28 } raw_text = "@build_icon! 1" tooltip = "TV_ENGINEERING_STAGE_CONCEPT" align = nobaseline|center }
+								text_single = { size = { 86 28 } raw_text = "@location! 2" tooltip = "TV_ENGINEERING_STAGE_SURVEY" align = nobaseline|center }
+								text_single = { size = { 92 28 } raw_text = "@laborers! 3" tooltip = "TV_ENGINEERING_STAGE_ORGANIZATION_LOGISTICS" align = nobaseline|center }
+								text_single = { size = { 86 28 } raw_text = "@construction! 4" tooltip = "TV_ENGINEERING_STAGE_CONSTRUCTION" align = nobaseline|center }
+								text_single = { size = { 86 28 } raw_text = "@prestige! 5" tooltip = "TV_ENGINEERING_STAGE_CEREMONY" align = nobaseline|center }
+							}
+
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								text = "TV_ENGINEERING_UI_PLACEHOLDER_NOTE"
+								multiline = yes
+								align = nobaseline|left
+							}
+						}
+					}
+				}
+			}
+
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ENGINEERING_CONCEPT_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 294 }
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 6
+							margin = { 4 6 }
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+
+								widget = {
+									size = { 118 86 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 4
+										text_single = {
+											text = "TV_ENGINEERING_GREAT_ENGINEER_LABEL"
+											align = nobaseline|center
+										}
+										text_single = {
+											visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet)]"
+											text = "TV_ENGINEERING_NO_GREAT_ENGINEER"
+											align = nobaseline|center
+										}
+										text_single = {
+											visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
+											datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').GetCharacter]"
+											text = "[Character.GetShortNameWithNoTooltip]"
+											align = nobaseline|center
+										}
+									}
+								}
+
+								widget = {
+									layoutpolicy_horizontal = expanding
+									size = { -1 86 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 4
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "TV_ENGINEERING_PROPOSAL_TEXT"
+											multiline = yes
+											align = nobaseline|left
+										}
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "TV_ENGINEERING_LOCKED_WONDER_TEXT"
+											multiline = yes
+											align = nobaseline|left
+										}
+									}
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								expand = {}
+								button_regular = {
+									size = { 92 28 }
+									enabled = no
+									text = "TV_ENGINEERING_ACCEPT_BUTTON"
+									tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
+								}
+								button_regular = {
+									size = { 92 28 }
+									enabled = no
+									text = "TV_ENGINEERING_REFUTE_BUTTON"
+									tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
+								}
+								button_regular = {
+									size = { 92 28 }
+									enabled = no
+									text = "TV_ENGINEERING_BRIBE_BUTTON"
+									tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { text = "TV_ENGINEERING_DOMESTIC_SUPPORT_LABEL" align = nobaseline }
+								expand = {}
+								text_single = {
+									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_domestic_support')]"
+									align = nobaseline
+								}
+							}
+							progressbar = {
+								size = { 462 16 }
+								using = progress_bar_blue_alt
+								min = 0
+								max = 200
+								value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_domestic_support').GetValue]"
+								tooltip = "TV_ENGINEERING_DOMESTIC_SUPPORT_BAR_TT"
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 5
+								text_single = { size = { 225 18 } text = "TV_ENGINEERING_SUPPORT_BASE_LABEL" align = nobaseline|center }
+								text_single = { size = { 225 18 } text = "TV_ENGINEERING_SUPPORT_RESERVE_LABEL" align = nobaseline|center }
+							}
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { text = "TV_ENGINEERING_ESTATE_DEMANDS_LABEL" align = nobaseline|left }
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 6
+									text_single = { size = { 28 36 } raw_text = "@nobles!" align = nobaseline|center }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										text_single = { text = "TV_ENGINEERING_DEMAND_NOBLES" multiline = yes align = nobaseline|left }
+										text_single = { text = "TV_ENGINEERING_SOLUTION_NOBLES" multiline = yes align = nobaseline|left }
+									}
+									button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+									button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+									button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+								}
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 6
+									text_single = { size = { 28 36 } raw_text = "@burghers!" align = nobaseline|center }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										text_single = { text = "TV_ENGINEERING_DEMAND_BURGHERS" multiline = yes align = nobaseline|left }
+										text_single = { text = "TV_ENGINEERING_SOLUTION_BURGHERS" multiline = yes align = nobaseline|left }
+									}
+									button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+									button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+									button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+								}
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 6
+									text_single = { size = { 28 36 } raw_text = "@clergy!" align = nobaseline|center }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										text_single = { text = "TV_ENGINEERING_DEMAND_CLERGY" multiline = yes align = nobaseline|left }
+										text_single = { text = "TV_ENGINEERING_SOLUTION_CLERGY" multiline = yes align = nobaseline|left }
+									}
+									button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+									button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+									button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+								}
+							}
+						}
+					}
+				}
+			}
+
+			card_actions = {
+				minimumsize = { 500 110 }
+				maximumsize = { 500 110 }
+
+				blockoverride "card_header_text" {
+					text = "TV_ENGINEERING_CONCEPT_ACTIONS_TITLE"
+				}
+				blockoverride "card_header_icon" {
+					block "io_main_actions_icon" {
+						texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+					}
+				}
+
+				blockoverride "actions_override" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+
+						button_regular = {
+							size = { 470 30 }
+							enabled = no
+							text = "TV_ENGINEERING_END_DEBATE_BUTTON"
+							tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
+						}
+						button_regular = {
+							size = { 470 30 }
+							enabled = no
+							text = "TV_ENGINEERING_ABANDON_WONDER_BUTTON"
+							tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
+						}
+					}
+				}
+			}
+
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ENGINEERING_SURVEY_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 232 }
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 8
+							margin = { 4 6 }
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { text = "TV_ENGINEERING_SURVEY_SITE_LABEL" align = nobaseline }
+								expand = {}
+								text_single = { text = "TV_ENGINEERING_NO_SURVEY_SITE" align = nobaseline }
+							}
+							button_regular = {
+								size = { 462 30 }
+								enabled = no
+								text = "TV_ENGINEERING_SELECT_SURVEY_SITE_BUTTON"
+								tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { text = "TV_ENGINEERING_SURVEY_PROGRESS_LABEL" align = nobaseline }
+								expand = {}
+								text_single = {
+									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_survey_progress')]"
+									align = nobaseline
+								}
+							}
+							progressbar = {
+								size = { 462 16 }
+								using = progress_bar_green_alt
+								min = 0
+								max = 100
+								value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_survey_progress').GetValue]"
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 6
+								widget = {
+									size = { 148 96 }
+									using = bg_text_mask_container_dark_blue
+									vbox = {
+										margin = { 4 4 }
+										spacing = 3
+										text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" align = nobaseline|center }
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											expand = {}
+											widget = {
+												size = { 44 44 }
+												piechart = {
+													size = { 44 44 }
+													using = piechart_angles
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+												}
+												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/flat_icons/building_panel/build.dds" texture_density = 2 }
+											}
+											expand = {}
+										}
+										text_single = { raw_text = "0%" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 148 96 }
+									using = bg_text_mask_container_dark_blue
+									vbox = {
+										margin = { 4 4 }
+										spacing = 3
+										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" align = nobaseline|center }
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											expand = {}
+											widget = {
+												size = { 44 44 }
+												piechart = {
+													size = { 44 44 }
+													using = piechart_angles
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+												}
+												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
+											}
+											expand = {}
+										}
+										text_single = { raw_text = "0%" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 148 96 }
+									using = bg_text_mask_container_dark_blue
+									vbox = {
+										margin = { 4 4 }
+										spacing = 3
+										text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" align = nobaseline|center }
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											expand = {}
+											widget = {
+												size = { 44 44 }
+												piechart = {
+													size = { 44 44 }
+													using = piechart_angles
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
+												}
+												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/pops/laborers.dds" texture_density = 2 }
+											}
+											expand = {}
+										}
+										text_single = { raw_text = "0%" align = nobaseline|center }
+									}
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { layoutpolicy_horizontal = expanding raw_text = "@build_icon! 1-6" tooltip = "TV_ENGINEERING_SURVEY_MAX_LEVEL_TT" align = nobaseline|center }
+								text_single = { layoutpolicy_horizontal = expanding raw_text = "@gold! 200%-50%" tooltip = "TV_ENGINEERING_SURVEY_COST_TT" align = nobaseline|center }
+								text_single = { layoutpolicy_horizontal = expanding raw_text = "@time! 200%-50%" tooltip = "TV_ENGINEERING_SURVEY_SPEED_TT" align = nobaseline|center }
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
-	# -- Wonder construction UI skeleton --------------------------------------
+
+	# -- Construction tab: organization, logistics, and build --------------------
+	blockoverride "organization_resolutions_tab_visible" {
+		visible = yes
+	}
+	blockoverride "organization_resolutions_tab_text" {
+		text = "TV_ENGINEERING_CONSTRUCTION_TAB"
+	}
+	blockoverride "organization_resolutions_tooltip" {
+		tooltip = "TV_ENGINEERING_CONSTRUCTION_TAB_TOOLTIP"
+	}
+
+	blockoverride "organization_resolutions_content" {
+		margin = { 0 0 }
+
+		vbox = {
+			margin = { 10 10 }
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			ignoreinvisible = yes
+			spacing = 10
+
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ENGINEERING_ORG_LOG_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 222 }
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 7
+							margin = { 4 6 }
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								button_regular = { size = { 150 30 } enabled = no text = "TV_ENGINEERING_BUILD_LABOR_CAMP_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+								button_regular = { size = { 150 30 } enabled = no text = "TV_ENGINEERING_BUILD_DEPOT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+								button_regular = { size = { 150 30 } enabled = no text = "TV_ENGINEERING_BUILD_DISPATCH_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { text = "TV_ENGINEERING_LABOR_PROGRESS_LABEL" align = nobaseline }
+								expand = {}
+								text_single = { raw_text = "0/30000" align = nobaseline }
+							}
+							progressbar = { size = { 462 16 } using = progress_bar_blue_alt min = 0 max = 30000 value = 0 tooltip = "TV_ENGINEERING_LABOR_PROGRESS_TT" }
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { size = { 72 16 } raw_text = "I" align = nobaseline|center }
+								text_single = { size = { 72 16 } raw_text = "II" align = nobaseline|center }
+								text_single = { size = { 72 16 } raw_text = "III" align = nobaseline|center }
+								text_single = { size = { 72 16 } raw_text = "IV" align = nobaseline|center }
+								text_single = { size = { 72 16 } raw_text = "V" align = nobaseline|center }
+								text_single = { size = { 72 16 } raw_text = "VI" align = nobaseline|center }
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { text = "TV_ENGINEERING_MATERIALS_LABEL" align = nobaseline }
+								expand = {}
+								text_single = {
+									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_materials_stockpile')]"
+									align = nobaseline
+								}
+							}
+							progressbar = {
+								size = { 462 16 }
+								using = progress_bar_goldish
+								min = 0
+								max = 300000
+								value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_materials_stockpile').GetValue]"
+								tooltip = "TV_ENGINEERING_MATERIALS_PROGRESS_TT"
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								text_single = { size = { 72 16 } raw_text = "60k" align = nobaseline|center }
+								text_single = { size = { 72 16 } raw_text = "120k" align = nobaseline|center }
+								text_single = { size = { 72 16 } raw_text = "180k" align = nobaseline|center }
+								text_single = { size = { 72 16 } raw_text = "240k" align = nobaseline|center }
+								text_single = { size = { 72 16 } raw_text = "300k" align = nobaseline|center }
+								text_single = { size = { 72 16 } raw_text = "cap" align = nobaseline|center }
+							}
+
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								text = "TV_ENGINEERING_ORG_LOG_HELP_TEXT"
+								multiline = yes
+								align = nobaseline|left
+							}
+						}
+					}
+				}
+			}
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ENGINEERING_CONSTRUCTION_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 470 254 }
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 6
+							margin = { 4 6 }
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 5
+								button_regular = { size = { 48 28 } enabled = no text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+								text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FOUNDATION" align = nobaseline|left }
+								text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 5
+								button_regular = { size = { 48 28 } enabled = no text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+								text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_BODY" align = nobaseline|left }
+								text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 5
+								button_regular = { size = { 48 28 } enabled = no text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+								text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FUNCTION" align = nobaseline|left }
+								text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 5
+								button_regular = { size = { 48 28 } enabled = no text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
+								text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_DECORATION" align = nobaseline|left }
+								text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
+								text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+							}
+
+							progressbar = { size = { 462 16 } using = progress_bar_goldish min = 0 max = 300000 value = 0 tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT" }
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								text = "TV_ENGINEERING_CONSTRUCTION_INFO_TEXT"
+								multiline = yes
+								align = nobaseline|left
+							}
+							button_regular = {
+								size = { 462 30 }
+								enabled = no
+								text = "TV_ENGINEERING_FINISH_CONSTRUCTION_BUTTON"
+								tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		expand = {}
+	}
+
+	# -- Ceremony tab -----------------------------------------------------------
 	blockoverride "organization_custom_tab_visible" {
 		visible = yes
 	}
 	blockoverride "organization_custom_tab_text" {
-		text = "TV_ENGINEERING_WONDER_TAB"
+		text = "TV_ENGINEERING_CEREMONY_TAB"
 	}
 	blockoverride "organization_custom_tab_tooltip" {
-		tooltip = "TV_ENGINEERING_WONDER_TAB_TOOLTIP"
+		tooltip = "TV_ENGINEERING_CEREMONY_TAB_TOOLTIP"
 	}
 
 	blockoverride "organization_custom_content_visible" {
@@ -278,573 +875,6 @@ organization_panel = {
 					ignoreinvisible = yes
 					spacing = 10
 					margin = { 10 2 }
-
-					card_common = {
-						maximumsize = { 500 -1 }
-
-						blockoverride "common_header_icon_texture" {
-							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-						}
-
-						blockoverride "common_header_text" {
-							text = "TV_ENGINEERING_WONDER_PIPELINE_CARD_TITLE"
-						}
-
-						blockoverride "common_bottom_content" {
-							widget = {
-								size = { 470 116 }
-
-								vbox = {
-									layoutpolicy_horizontal = expanding
-									spacing = 6
-									margin = { 4 6 }
-
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = "TV_ENGINEERING_WONDER_PIPELINE_DESC"
-										multiline = yes
-										align = nobaseline|left
-									}
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 3
-										text_single = { size = { 86 28 } raw_text = "@build_icon! 1" tooltip = "TV_ENGINEERING_STAGE_CONCEPT" align = nobaseline|center }
-										text_single = { size = { 86 28 } raw_text = "@location! 2" tooltip = "TV_ENGINEERING_STAGE_SURVEY" align = nobaseline|center }
-										text_single = { size = { 92 28 } raw_text = "@laborers! 3" tooltip = "TV_ENGINEERING_STAGE_ORGANIZATION_LOGISTICS" align = nobaseline|center }
-										text_single = { size = { 86 28 } raw_text = "@construction! 4" tooltip = "TV_ENGINEERING_STAGE_CONSTRUCTION" align = nobaseline|center }
-										text_single = { size = { 86 28 } raw_text = "@prestige! 5" tooltip = "TV_ENGINEERING_STAGE_CEREMONY" align = nobaseline|center }
-									}
-
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = "TV_ENGINEERING_UI_PLACEHOLDER_NOTE"
-										multiline = yes
-										align = nobaseline|left
-									}
-								}
-							}
-						}
-					}
-
-					card_common = {
-						maximumsize = { 500 -1 }
-
-						blockoverride "common_header_icon_texture" {
-							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-						}
-
-						blockoverride "common_header_text" {
-							text = "TV_ENGINEERING_CONCEPT_CARD_TITLE"
-						}
-
-						blockoverride "common_bottom_content" {
-							widget = {
-								size = { 470 294 }
-
-								vbox = {
-									layoutpolicy_horizontal = expanding
-									spacing = 6
-									margin = { 4 6 }
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 8
-
-										widget = {
-											size = { 118 86 }
-											vbox = {
-												layoutpolicy_horizontal = expanding
-												spacing = 4
-												text_single = {
-													text = "TV_ENGINEERING_GREAT_ENGINEER_LABEL"
-													align = nobaseline|center
-												}
-												text_single = {
-													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet)]"
-													text = "TV_ENGINEERING_NO_GREAT_ENGINEER"
-													align = nobaseline|center
-												}
-												text_single = {
-													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
-													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').GetCharacter]"
-													text = "[Character.GetShortNameWithNoTooltip]"
-													align = nobaseline|center
-												}
-											}
-										}
-
-										widget = {
-											layoutpolicy_horizontal = expanding
-											size = { -1 86 }
-											vbox = {
-												layoutpolicy_horizontal = expanding
-												spacing = 4
-												text_single = {
-													layoutpolicy_horizontal = expanding
-													text = "TV_ENGINEERING_PROPOSAL_TEXT"
-													multiline = yes
-													align = nobaseline|left
-												}
-												text_single = {
-													layoutpolicy_horizontal = expanding
-													text = "TV_ENGINEERING_LOCKED_WONDER_TEXT"
-													multiline = yes
-													align = nobaseline|left
-												}
-											}
-										}
-									}
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										expand = {}
-										button_regular = {
-											size = { 92 28 }
-											enabled = no
-											text = "TV_ENGINEERING_ACCEPT_BUTTON"
-											tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
-										}
-										button_regular = {
-											size = { 92 28 }
-											enabled = no
-											text = "TV_ENGINEERING_REFUTE_BUTTON"
-											tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
-										}
-										button_regular = {
-											size = { 92 28 }
-											enabled = no
-											text = "TV_ENGINEERING_BRIBE_BUTTON"
-											tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
-										}
-									}
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										text_single = { text = "TV_ENGINEERING_DOMESTIC_SUPPORT_LABEL" align = nobaseline }
-										expand = {}
-										text_single = {
-											raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_domestic_support')]"
-											align = nobaseline
-										}
-									}
-									progressbar = {
-										size = { 462 16 }
-										using = progress_bar_blue_alt
-										min = 0
-										max = 200
-										value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_domestic_support').GetValue]"
-										tooltip = "TV_ENGINEERING_DOMESTIC_SUPPORT_BAR_TT"
-									}
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 5
-										text_single = { size = { 225 18 } text = "TV_ENGINEERING_SUPPORT_BASE_LABEL" align = nobaseline|center }
-										text_single = { size = { 225 18 } text = "TV_ENGINEERING_SUPPORT_RESERVE_LABEL" align = nobaseline|center }
-									}
-
-									vbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										text_single = { text = "TV_ENGINEERING_ESTATE_DEMANDS_LABEL" align = nobaseline|left }
-
-										hbox = {
-											layoutpolicy_horizontal = expanding
-											spacing = 6
-											text_single = { size = { 28 36 } raw_text = "@nobles!" align = nobaseline|center }
-											vbox = {
-												layoutpolicy_horizontal = expanding
-												text_single = { text = "TV_ENGINEERING_DEMAND_NOBLES" multiline = yes align = nobaseline|left }
-												text_single = { text = "TV_ENGINEERING_SOLUTION_NOBLES" multiline = yes align = nobaseline|left }
-											}
-											button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-											button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-											button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-										}
-										hbox = {
-											layoutpolicy_horizontal = expanding
-											spacing = 6
-											text_single = { size = { 28 36 } raw_text = "@burghers!" align = nobaseline|center }
-											vbox = {
-												layoutpolicy_horizontal = expanding
-												text_single = { text = "TV_ENGINEERING_DEMAND_BURGHERS" multiline = yes align = nobaseline|left }
-												text_single = { text = "TV_ENGINEERING_SOLUTION_BURGHERS" multiline = yes align = nobaseline|left }
-											}
-											button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-											button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-											button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-										}
-										hbox = {
-											layoutpolicy_horizontal = expanding
-											spacing = 6
-											text_single = { size = { 28 36 } raw_text = "@clergy!" align = nobaseline|center }
-											vbox = {
-												layoutpolicy_horizontal = expanding
-												text_single = { text = "TV_ENGINEERING_DEMAND_CLERGY" multiline = yes align = nobaseline|left }
-												text_single = { text = "TV_ENGINEERING_SOLUTION_CLERGY" multiline = yes align = nobaseline|left }
-											}
-											button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-											button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-											button_regular = { size = { 54 26 } enabled = no text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-										}
-									}
-								}
-							}
-						}
-					}
-
-					card_actions = {
-						minimumsize = { 500 110 }
-						maximumsize = { 500 110 }
-
-						blockoverride "card_header_text" {
-							text = "TV_ENGINEERING_CONCEPT_ACTIONS_TITLE"
-						}
-						blockoverride "card_header_icon" {
-							block "io_main_actions_icon" {
-								texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-							}
-						}
-
-						blockoverride "actions_override" {
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 2
-
-								button_regular = {
-									size = { 470 30 }
-									enabled = no
-									text = "TV_ENGINEERING_END_DEBATE_BUTTON"
-									tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
-								}
-								button_regular = {
-									size = { 470 30 }
-									enabled = no
-									text = "TV_ENGINEERING_ABANDON_WONDER_BUTTON"
-									tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
-								}
-							}
-						}
-					}
-
-					card_common = {
-						maximumsize = { 500 -1 }
-
-						blockoverride "common_header_icon_texture" {
-							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-						}
-
-						blockoverride "common_header_text" {
-							text = "TV_ENGINEERING_SURVEY_CARD_TITLE"
-						}
-
-						blockoverride "common_bottom_content" {
-							widget = {
-								size = { 470 232 }
-
-								vbox = {
-									layoutpolicy_horizontal = expanding
-									spacing = 8
-									margin = { 4 6 }
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										text_single = { text = "TV_ENGINEERING_SURVEY_SITE_LABEL" align = nobaseline }
-										expand = {}
-										text_single = { text = "TV_ENGINEERING_NO_SURVEY_SITE" align = nobaseline }
-									}
-									button_regular = {
-										size = { 462 30 }
-										enabled = no
-										text = "TV_ENGINEERING_SELECT_SURVEY_SITE_BUTTON"
-										tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
-									}
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										text_single = { text = "TV_ENGINEERING_SURVEY_PROGRESS_LABEL" align = nobaseline }
-										expand = {}
-										text_single = {
-											raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_survey_progress')]"
-											align = nobaseline
-										}
-									}
-									progressbar = {
-										size = { 462 16 }
-										using = progress_bar_green_alt
-										min = 0
-										max = 100
-										value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_survey_progress').GetValue]"
-									}
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 6
-										widget = {
-											size = { 148 96 }
-											using = bg_text_mask_container_dark_blue
-											vbox = {
-												margin = { 4 4 }
-												spacing = 3
-												text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" align = nobaseline|center }
-												hbox = {
-													layoutpolicy_horizontal = expanding
-													expand = {}
-													widget = {
-														size = { 44 44 }
-														piechart = {
-															size = { 44 44 }
-															using = piechart_angles
-															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
-															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
-														}
-														icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/flat_icons/building_panel/build.dds" texture_density = 2 }
-													}
-													expand = {}
-												}
-												text_single = { raw_text = "0%" align = nobaseline|center }
-											}
-										}
-										widget = {
-											size = { 148 96 }
-											using = bg_text_mask_container_dark_blue
-											vbox = {
-												margin = { 4 4 }
-												spacing = 3
-												text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" align = nobaseline|center }
-												hbox = {
-													layoutpolicy_horizontal = expanding
-													expand = {}
-													widget = {
-														size = { 44 44 }
-														piechart = {
-															size = { 44 44 }
-															using = piechart_angles
-															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
-															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
-														}
-														icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
-													}
-													expand = {}
-												}
-												text_single = { raw_text = "0%" align = nobaseline|center }
-											}
-										}
-										widget = {
-											size = { 148 96 }
-											using = bg_text_mask_container_dark_blue
-											vbox = {
-												margin = { 4 4 }
-												spacing = 3
-												text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" align = nobaseline|center }
-												hbox = {
-													layoutpolicy_horizontal = expanding
-													expand = {}
-													widget = {
-														size = { 44 44 }
-														piechart = {
-															size = { 44 44 }
-															using = piechart_angles
-															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 0 color = { 0.01 0.6 0.9 1 } }
-															pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = { 0.0 0.1 0.1 1 } }
-														}
-														icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/pops/laborers.dds" texture_density = 2 }
-													}
-													expand = {}
-												}
-												text_single = { raw_text = "0%" align = nobaseline|center }
-											}
-										}
-									}
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										text_single = { layoutpolicy_horizontal = expanding raw_text = "@build_icon! 1-6" tooltip = "TV_ENGINEERING_SURVEY_MAX_LEVEL_TT" align = nobaseline|center }
-										text_single = { layoutpolicy_horizontal = expanding raw_text = "@gold! 200%-50%" tooltip = "TV_ENGINEERING_SURVEY_COST_TT" align = nobaseline|center }
-										text_single = { layoutpolicy_horizontal = expanding raw_text = "@time! 200%-50%" tooltip = "TV_ENGINEERING_SURVEY_SPEED_TT" align = nobaseline|center }
-									}
-								}
-							}
-						}
-					}
-
-					card_common = {
-						maximumsize = { 500 -1 }
-
-						blockoverride "common_header_icon_texture" {
-							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-						}
-
-						blockoverride "common_header_text" {
-							text = "TV_ENGINEERING_ORG_LOG_CARD_TITLE"
-						}
-
-						blockoverride "common_bottom_content" {
-							widget = {
-								size = { 470 222 }
-
-								vbox = {
-									layoutpolicy_horizontal = expanding
-									spacing = 7
-									margin = { 4 6 }
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										button_regular = { size = { 150 30 } enabled = no text = "TV_ENGINEERING_BUILD_LABOR_CAMP_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-										button_regular = { size = { 150 30 } enabled = no text = "TV_ENGINEERING_BUILD_DEPOT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-										button_regular = { size = { 150 30 } enabled = no text = "TV_ENGINEERING_BUILD_DISPATCH_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-									}
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										text_single = { text = "TV_ENGINEERING_LABOR_PROGRESS_LABEL" align = nobaseline }
-										expand = {}
-										text_single = { raw_text = "0/30000" align = nobaseline }
-									}
-									progressbar = { size = { 462 16 } using = progress_bar_blue_alt min = 0 max = 30000 value = 0 tooltip = "TV_ENGINEERING_LABOR_PROGRESS_TT" }
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										text_single = { size = { 72 16 } raw_text = "I" align = nobaseline|center }
-										text_single = { size = { 72 16 } raw_text = "II" align = nobaseline|center }
-										text_single = { size = { 72 16 } raw_text = "III" align = nobaseline|center }
-										text_single = { size = { 72 16 } raw_text = "IV" align = nobaseline|center }
-										text_single = { size = { 72 16 } raw_text = "V" align = nobaseline|center }
-										text_single = { size = { 72 16 } raw_text = "VI" align = nobaseline|center }
-									}
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										text_single = { text = "TV_ENGINEERING_MATERIALS_LABEL" align = nobaseline }
-										expand = {}
-										text_single = {
-											raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_materials_stockpile')]"
-											align = nobaseline
-										}
-									}
-									progressbar = {
-										size = { 462 16 }
-										using = progress_bar_goldish
-										min = 0
-										max = 300000
-										value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_materials_stockpile').GetValue]"
-										tooltip = "TV_ENGINEERING_MATERIALS_PROGRESS_TT"
-									}
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 4
-										text_single = { size = { 72 16 } raw_text = "60k" align = nobaseline|center }
-										text_single = { size = { 72 16 } raw_text = "120k" align = nobaseline|center }
-										text_single = { size = { 72 16 } raw_text = "180k" align = nobaseline|center }
-										text_single = { size = { 72 16 } raw_text = "240k" align = nobaseline|center }
-										text_single = { size = { 72 16 } raw_text = "300k" align = nobaseline|center }
-										text_single = { size = { 72 16 } raw_text = "cap" align = nobaseline|center }
-									}
-
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = "TV_ENGINEERING_ORG_LOG_HELP_TEXT"
-										multiline = yes
-										align = nobaseline|left
-									}
-								}
-							}
-						}
-					}
-
-					card_common = {
-						maximumsize = { 500 -1 }
-
-						blockoverride "common_header_icon_texture" {
-							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-						}
-
-						blockoverride "common_header_text" {
-							text = "TV_ENGINEERING_CONSTRUCTION_CARD_TITLE"
-						}
-
-						blockoverride "common_bottom_content" {
-							widget = {
-								size = { 470 254 }
-
-								vbox = {
-									layoutpolicy_horizontal = expanding
-									spacing = 6
-									margin = { 4 6 }
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 5
-										button_regular = { size = { 48 28 } enabled = no text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FOUNDATION" align = nobaseline|left }
-										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
-									}
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 5
-										button_regular = { size = { 48 28 } enabled = no text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_BODY" align = nobaseline|left }
-										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
-									}
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 5
-										button_regular = { size = { 48 28 } enabled = no text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FUNCTION" align = nobaseline|left }
-										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
-									}
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 5
-										button_regular = { size = { 48 28 } enabled = no text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT" }
-										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_DECORATION" align = nobaseline|left }
-										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
-									}
-
-									progressbar = { size = { 462 16 } using = progress_bar_goldish min = 0 max = 300000 value = 0 tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT" }
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = "TV_ENGINEERING_CONSTRUCTION_INFO_TEXT"
-										multiline = yes
-										align = nobaseline|left
-									}
-									button_regular = {
-										size = { 462 30 }
-										enabled = no
-										text = "TV_ENGINEERING_FINISH_CONSTRUCTION_BUTTON"
-										tooltip = "TV_ENGINEERING_UI_PLACEHOLDER_TT"
-									}
-								}
-							}
-						}
-					}
 
 					card_common = {
 						maximumsize = { 500 -1 }
