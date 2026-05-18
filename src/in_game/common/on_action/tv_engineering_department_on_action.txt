@@ -41,7 +41,7 @@ tv_engineering_department_support_decay_pulse = {
 		tv_wonder_has_locked_wonder_trigger = yes
 	}
 	effect = {
-		tv_wonder_change_domestic_support_effect = { value = -1 }
+		tv_change_wonder_domestic_support_effect = { value = -1 }
 		if = {
 			limit = { tv_wonder_domestic_support_empty_trigger = yes }
 			trigger_event_non_silently = { id = tv_engineering_department.20 }

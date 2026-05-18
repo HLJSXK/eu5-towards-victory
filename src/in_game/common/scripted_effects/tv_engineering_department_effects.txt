@@ -1,13 +1,13 @@
 ﻿# Towards Victory - Engineering Department effects
 # Country-scoped unless noted.
 
-tv_wonder_change_domestic_support_effect = {
+tv_change_wonder_domestic_support_effect = {
 	every_international_organizations_member_of = {
 		limit = {
 			international_organization_type = international_organization_type:tv_engineering_department
 		}
 		custom_description = {
-			text = tv_wonder_change_domestic_support_text
+			text = tv_change_wonder_domestic_support_text
 			value = $value$
 			change_variable = { name = tv_wonder_domestic_support add = $value$ }
 			clamp_variable = { name = tv_wonder_domestic_support min = 0 max = 200 }
@@ -209,7 +209,7 @@ tv_wonder_accept_nobles_demand_effect = {
 		limit = { country_has_estate = estate_type:nobles_estate }
 		add_estate_satisfaction = { type = estate_type:nobles_estate value = estate_satisfaction_weak_bonus }
 	}
-	tv_wonder_change_domestic_support_effect = { value = 20 }
+	tv_change_wonder_domestic_support_effect = { value = 20 }
 	tv_wonder_roll_nobles_demand_effect = yes
 }
 
@@ -218,7 +218,7 @@ tv_wonder_accept_burghers_demand_effect = {
 		limit = { country_has_estate = estate_type:burghers_estate }
 		add_estate_satisfaction = { type = estate_type:burghers_estate value = estate_satisfaction_weak_bonus }
 	}
-	tv_wonder_change_domestic_support_effect = { value = 20 }
+	tv_change_wonder_domestic_support_effect = { value = 20 }
 	tv_wonder_roll_burghers_demand_effect = yes
 }
 
@@ -227,7 +227,7 @@ tv_wonder_accept_clergy_demand_effect = {
 		limit = { country_has_estate = estate_type:clergy_estate }
 		add_estate_satisfaction = { type = estate_type:clergy_estate value = estate_satisfaction_weak_bonus }
 	}
-	tv_wonder_change_domestic_support_effect = { value = 20 }
+	tv_change_wonder_domestic_support_effect = { value = 20 }
 	tv_wonder_roll_clergy_demand_effect = yes
 }
 
