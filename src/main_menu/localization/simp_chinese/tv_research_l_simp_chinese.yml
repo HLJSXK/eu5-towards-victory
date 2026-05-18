@@ -65,6 +65,7 @@
  TV_RM_STATUS_COMPLETE:0 "已完成"
  TV_RM_STATUS_NOT_READY:0 "等待前置条件"
  TV_RM_STATUS_READY:0 "可以开始"
+ TV_RM_SUBPROCESS_B_REQUIREMENTS_LABEL:0 "当前条件："
 
  # ── 目标革新名称 ────────────────────────────────────────────────────────────────
  TV_RM_TARGET_PRINTING_PRESS:0 "印刷机应用"
@@ -368,7 +369,7 @@
  PERFORM_tv_treat_character_ACTION_LOG: "我们为科学院选定了治疗患者。"
  PERFORM_tv_treat_character_ACTION_MAP: ""
  tv_reinitialize_mod: "重新初始化模组"
- tv_reinitialize_mod_desc: "检索当前国家加入的艺术展览与科学院，如存在，则将其领导国家重新设为当前国家。"
+ tv_reinitialize_mod_desc: "尽可能重建缺失的胜利路径IO，并将当前国家加入的总督府、文化艺术展、工程部与科学院的领导国家重新设为当前国家。"
  PERFORM_tv_reinitialize_mod_ACTION_SETUP: "当我们重新初始化胜利之路模组时。"
  PERFORM_tv_reinitialize_mod_ACTION_LOG: "我们重新初始化了胜利之路模组。"
  PERFORM_tv_reinitialize_mod_ACTION_MAP: ""

@@ -92,7 +92,7 @@ organization_panel = {
 
 		# ── Research Status Overview ────────────────────────────────────────────────────────────────────
 		widget = {
-			size = { 470 300 }
+			size = { 470 430 }
 			datacontext = "[InternationalOrganizationsView.GetPlayer]"
 
 			vbox = {
@@ -354,6 +354,20 @@ organization_panel = {
 					min = 0
 					max = 2
 					value = "[Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue]"
+				}
+
+				text_single = {
+					visible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')))]"
+					text = "TV_RM_SUBPROCESS_B_REQUIREMENTS_LABEL"
+					align = nobaseline
+				}
+				RequirementsList = {
+					visible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')))]"
+					textcontext = "[ShowTriggerConditions('tv_research_check_b_trigger', PlayerScope.Self)]"
+					blockoverride "block_title" {}
+					blockoverride "requirementslist_datamodel_is_empty" {
+						visible = no
+					}
 				}
 
 				# ── Subprocess C: Literacy Foundation ─────────────────────────────────────────────────────

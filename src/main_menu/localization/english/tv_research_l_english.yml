@@ -65,6 +65,7 @@
  TV_RM_STATUS_COMPLETE:0 "Complete"
  TV_RM_STATUS_NOT_READY:0 "Awaiting prerequisites"
  TV_RM_STATUS_READY:0 "Ready to begin"
+ TV_RM_SUBPROCESS_B_REQUIREMENTS_LABEL:0 "Current requirements:"
 
  # ── Target Advance Names ───────────────────────────────────────────────────────
  TV_RM_TARGET_PRINTING_PRESS:0 "Printing Press"
@@ -368,7 +369,7 @@
  PERFORM_tv_treat_character_ACTION_LOG: "We selected a patient for Academy medical treatment."
  PERFORM_tv_treat_character_ACTION_MAP: ""
  tv_reinitialize_mod: "Reinitialize Mod"
- tv_reinitialize_mod_desc: "Reassigns any existing Arts Exhibition and Academy of Sciences IO instances joined by the current country so their leader country is the current country."
+ tv_reinitialize_mod_desc: "Recreates missing victory-path IOs where possible and reassigns existing Governor's House, Arts Exhibition, Engineering Department, and Academy of Sciences IO instances so their leader country is the current country."
  PERFORM_tv_reinitialize_mod_ACTION_SETUP: "When we reinitialize the Towards Victory mod."
  PERFORM_tv_reinitialize_mod_ACTION_LOG: "We reinitialized the Towards Victory mod."
  PERFORM_tv_reinitialize_mod_ACTION_MAP: ""
