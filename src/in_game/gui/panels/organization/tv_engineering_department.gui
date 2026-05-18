@@ -189,13 +189,13 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 382 }
+						layoutpolicy_horizontal = expanding
+						size = { -1 382 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
 							ignoreinvisible = yes
 							spacing = 6
-							margin = { 4 6 }
 
 							hbox = {
 								layoutpolicy_horizontal = expanding
@@ -338,7 +338,8 @@ organization_panel = {
 							}
 							progressbar = {
 								visible = "[LessThan_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_domestic_support').GetValue, '(CFixedPoint)100.0')]"
-								size = { 462 16 }
+								layoutpolicy_horizontal = expanding
+								size = { -1 16 }
 								using = progress_bar_blue_alt
 								min = 0
 								max = 100
@@ -347,7 +348,8 @@ organization_panel = {
 							}
 							progressbar = {
 								visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_domestic_support').GetValue, '(CFixedPoint)100.0')]"
-								size = { 462 16 }
+								layoutpolicy_horizontal = expanding
+								size = { -1 16 }
 								progresstexture = "gfx/interface/progressbars/progress_bar_goldish.dds"
 								noprogresstexture = "gfx/interface/progressbars/progress_bar_blue_alt.dds"
 								texture_density = 2
@@ -361,8 +363,8 @@ organization_panel = {
 							hbox = {
 								layoutpolicy_horizontal = expanding
 								spacing = 5
-								text_single = { size = { 225 18 } text = "TV_ENGINEERING_SUPPORT_BASE_LABEL" align = nobaseline|center }
-								text_single = { size = { 225 18 } text = "TV_ENGINEERING_SUPPORT_RESERVE_LABEL" align = nobaseline|center }
+								text_single = { layoutpolicy_horizontal = expanding size = { -1 18 } text = "TV_ENGINEERING_SUPPORT_BASE_LABEL" align = nobaseline|center }
+								text_single = { layoutpolicy_horizontal = expanding size = { -1 18 } text = "TV_ENGINEERING_SUPPORT_RESERVE_LABEL" align = nobaseline|center }
 							}
 
 							vbox = {
@@ -374,7 +376,7 @@ organization_panel = {
 
 								hbox = {
 									layoutpolicy_horizontal = expanding
-									size = { 462 48 }
+									size = { -1 48 }
 									spacing = 6
 									text_single = { size = { 28 46 } raw_text = "@nobles!" align = nobaseline|center }
 									vbox = {
@@ -393,7 +395,7 @@ organization_panel = {
 								}
 								hbox = {
 									layoutpolicy_horizontal = expanding
-									size = { 462 48 }
+									size = { -1 48 }
 									spacing = 6
 									text_single = { size = { 28 46 } raw_text = "@burghers!" align = nobaseline|center }
 									vbox = {
@@ -412,7 +414,7 @@ organization_panel = {
 								}
 								hbox = {
 									layoutpolicy_horizontal = expanding
-									size = { 462 48 }
+									size = { -1 48 }
 									spacing = 6
 									text_single = { size = { 28 46 } raw_text = "@clergy!" align = nobaseline|center }
 									vbox = {
