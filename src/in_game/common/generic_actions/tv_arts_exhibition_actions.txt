@@ -216,6 +216,9 @@ tv_host_domestic_exhibition = {
 				NOT = { has_variable = tv_local_exhibition_cd }
 			}
 		}
+		scope:actor = {
+			tv_chief_artist_available_for_domestic_exhibition_trigger = yes
+		}
 	}
 
 	select_trigger = {
@@ -674,6 +677,7 @@ tv_start_arts_exchange = {
 					count >= 2
 				}
 			}
+			tv_chief_artist_available_for_arts_exchange_trigger = yes
 		}
 	}
 

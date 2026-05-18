@@ -1,0 +1,101 @@
+﻿# Towards Victory - Arts Exhibition scripted triggers
+# All triggers are country-scoped unless noted.
+
+# Chief Artist busy-state helpers. These mirror the Chief Scientist busy
+# pattern: long-running Chief Artist work and Arts Exhibition law votes block
+# one another, with explicit tooltip text naming the active task.
+tv_chief_artist_busy_with_law_change_trigger = {
+	any_international_organizations_member_of = {
+		international_organization_type = international_organization_type:tv_arts_exhibition
+		resolution_is_active = resolution:policy_vote
+	}
+}
+
+tv_chief_artist_busy_with_arts_exchange_trigger = {
+	has_variable = tv_arts_exchange_active
+}
+
+tv_chief_artist_busy_with_domestic_exhibition_trigger = {
+	has_variable = tv_local_exhibition_active
+}
+
+tv_chief_artist_available_for_law_change_trigger = {
+	trigger_if = {
+		limit = { tv_chief_artist_busy_with_arts_exchange_trigger = yes }
+		custom_description = {
+			text = tv_chief_artist_busy_with_arts_exchange_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_artist_busy_with_domestic_exhibition_trigger = yes }
+		custom_description = {
+			text = tv_chief_artist_busy_with_domestic_exhibition_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_artist_busy_with_law_change_trigger = yes }
+		custom_description = {
+			text = tv_chief_artist_busy_with_law_change_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}
+
+tv_chief_artist_available_for_arts_exchange_trigger = {
+	trigger_if = {
+		limit = { tv_chief_artist_busy_with_law_change_trigger = yes }
+		custom_description = {
+			text = tv_chief_artist_busy_with_law_change_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_artist_busy_with_domestic_exhibition_trigger = yes }
+		custom_description = {
+			text = tv_chief_artist_busy_with_domestic_exhibition_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_artist_busy_with_arts_exchange_trigger = yes }
+		custom_description = {
+			text = tv_chief_artist_busy_with_arts_exchange_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}
+
+tv_chief_artist_available_for_domestic_exhibition_trigger = {
+	trigger_if = {
+		limit = { tv_chief_artist_busy_with_law_change_trigger = yes }
+		custom_description = {
+			text = tv_chief_artist_busy_with_law_change_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_artist_busy_with_arts_exchange_trigger = yes }
+		custom_description = {
+			text = tv_chief_artist_busy_with_arts_exchange_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_artist_busy_with_domestic_exhibition_trigger = yes }
+		custom_description = {
+			text = tv_chief_artist_busy_with_domestic_exhibition_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}
