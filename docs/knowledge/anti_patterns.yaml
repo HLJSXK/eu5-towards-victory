@@ -932,6 +932,15 @@
   source: "reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt:1508-1528; reference_game_files/game/in_game/common/effect_localization/scripted_effects.txt:597-610"
   notes: "Scripted effect calls can otherwise produce empty option/action tooltips even though the IO variable changes. Vanilla uses custom_description plus effect_localization for imperial, celestial, and papal authority so the tooltip shows the signed value while executing the real effect."
 
+- id: effect_localization_third_country_context_missing
+  pattern: ''
+  bad: "Using [COUNTRY.GetName] in third/third_past effect localization strings for a custom_description shown from a generic action tooltip"
+  correction: "Keep effect localization perspective strings self-contained, e.g. 'Gains $VALUE|+$ #Y $var$#!'; do not assume COUNTRY exists during action hover pre-evaluation."
+  category: localization
+  scope: any
+  source: "runtime error.log: TV_THIRD_ADD_WONDER_DOMESTIC_SUPPORT hover on tv_wonder_accept_*_demand"
+  notes: "Generic action hover pre-evaluation may select the third-person effect localization perspective without a COUNTRY promote target. [COUNTRY.GetName] then returns nullptr and logs data errors repeatedly while hovering."
+
 - id: create_art_dynamic_event_missing_type_key
   pattern: ''
   only_in_paths: ['events', 'scripted_effects']

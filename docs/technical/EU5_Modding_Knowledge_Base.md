@@ -444,6 +444,8 @@ custom_description = {
 
 The `effect_localization` entry maps the custom description to perspective-specific localization keys, including negative variants. The player-facing strings still live in `main_menu/localization`. This lets a scripted effect call display the signed IO variable change while executing the real `change_variable`.
 
+For generic action or event hover contexts, keep the third-person effect localization strings self-contained. The GUI can pre-evaluate `custom_description` text before a `COUNTRY` promote target exists, so strings such as `[COUNTRY.GetName] gains ...` in `third` or `third_past` perspectives can spam `COUNTRY.GetName` data errors while the user hovers an action button. Prefer neutral strings such as `Gains $VALUE|+$ #Y $var$#!`.
+
 #### Event-Created Artwork
 
 For event-created named artworks, do not rely on `create_art` with only `artist` and `quality`. Vanilla named artworks specify both `type = work_of_art_type:<type>` and `key = <loc_key>` inside `create_art`, with the key localized in `main_menu/localization`. Without an explicit key, dynamically created works can end up unnamed; if the real `create_art` must branch by `artist_type`, use visible `if`/`else_if` branches so the actual creation effect appears in the option tooltip.
