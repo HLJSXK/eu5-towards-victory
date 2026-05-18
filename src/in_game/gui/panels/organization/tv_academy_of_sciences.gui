@@ -364,7 +364,11 @@ organization_panel = {
 				RequirementsList = {
 					visible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')))]"
 					textcontext = "[ShowTriggerConditions('tv_research_check_b_trigger', PlayerScope.Self)]"
-					blockoverride "block_title" {}
+					blockoverride "block_title" {
+						block "block_title" {
+							visible = no
+						}
+					}
 					blockoverride "requirementslist_datamodel_is_empty" {
 						visible = no
 					}

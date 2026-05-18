@@ -258,7 +258,11 @@ GUI_SUFFIX = """\
 \t\t\t\tRequirementsList = {
 \t\t\t\t\tvisible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_b').GetValue, '(CFixedPoint)2.0')))]"
 \t\t\t\t\ttextcontext = "[ShowTriggerConditions('tv_research_check_b_trigger', PlayerScope.Self)]"
-\t\t\t\t\tblockoverride "block_title" {}
+\t\t\t\t\tblockoverride "block_title" {
+\t\t\t\t\t\tblock "block_title" {
+\t\t\t\t\t\t\tvisible = no
+\t\t\t\t\t\t}
+\t\t\t\t\t}
 \t\t\t\t\tblockoverride "requirementslist_datamodel_is_empty" {
 \t\t\t\t\t\tvisible = no
 \t\t\t\t\t}
