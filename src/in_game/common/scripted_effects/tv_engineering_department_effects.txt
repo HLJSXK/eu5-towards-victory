@@ -26,6 +26,39 @@ tv_wonder_reset_io_progress_effect = {
 	}
 }
 
+tv_wonder_clamp_materials_to_country_cap_effect = {
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_engineering_department
+		}
+		clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
+		if = {
+			limit = {
+				prev = { has_variable = tv_wonder_materials_cap }
+				var:tv_wonder_materials_stockpile > prev.var:tv_wonder_materials_cap
+			}
+			set_variable = { name = tv_wonder_materials_stockpile value = prev.var:tv_wonder_materials_cap }
+		}
+	}
+}
+
+tv_wonder_change_materials_stockpile_effect = {
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_engineering_department
+		}
+		change_variable = { name = tv_wonder_materials_stockpile add = $value$ }
+		clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
+		if = {
+			limit = {
+				prev = { has_variable = tv_wonder_materials_cap }
+				var:tv_wonder_materials_stockpile > prev.var:tv_wonder_materials_cap
+			}
+			set_variable = { name = tv_wonder_materials_stockpile value = prev.var:tv_wonder_materials_cap }
+		}
+	}
+}
+
 tv_wonder_clear_feasible_deck_effect = {
 	remove_variable = tv_wonder_feasible_sacred_mountain
 	remove_variable = tv_wonder_feasible_triumphal_axis
@@ -266,6 +299,303 @@ tv_wonder_end_debate_effect = {
 	set_variable = { name = tv_wonder_debate_ended value = 1 }
 }
 
+tv_wonder_initialize_construction_tiers_effect = {
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_scale_tier } }
+		set_variable = { name = tv_wonder_scale_tier value = 6 }
+	}
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_logistics_tier } }
+		set_variable = { name = tv_wonder_logistics_tier value = 6 }
+	}
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_organization_tier } }
+		set_variable = { name = tv_wonder_organization_tier value = 6 }
+	}
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_scale_competence } }
+		set_variable = { name = tv_wonder_scale_competence value = 100 }
+	}
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_logistics_competence } }
+		set_variable = { name = tv_wonder_logistics_competence value = 100 }
+	}
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_organization_competence } }
+		set_variable = { name = tv_wonder_organization_competence value = 100 }
+	}
+	clamp_variable = { name = tv_wonder_scale_tier min = 1 max = 6 }
+	clamp_variable = { name = tv_wonder_logistics_tier min = 1 max = 6 }
+	clamp_variable = { name = tv_wonder_organization_tier min = 1 max = 6 }
+	clamp_variable = { name = tv_wonder_scale_competence min = 0 max = 100 }
+	clamp_variable = { name = tv_wonder_logistics_competence min = 0 max = 100 }
+	clamp_variable = { name = tv_wonder_organization_competence min = 0 max = 100 }
+}
+
+tv_wonder_initialize_construction_parts_effect = {
+	if = { limit = { NOT = { has_variable = tv_wonder_foundation_units } } set_variable = { name = tv_wonder_foundation_units value = 0 } }
+	if = { limit = { NOT = { has_variable = tv_wonder_body_units } } set_variable = { name = tv_wonder_body_units value = 0 } }
+	if = { limit = { NOT = { has_variable = tv_wonder_function_units } } set_variable = { name = tv_wonder_function_units value = 0 } }
+	if = { limit = { NOT = { has_variable = tv_wonder_decoration_units } } set_variable = { name = tv_wonder_decoration_units value = 0 } }
+	if = { limit = { NOT = { has_variable = tv_wonder_foundation_progress } } set_variable = { name = tv_wonder_foundation_progress value = 0 } }
+	if = { limit = { NOT = { has_variable = tv_wonder_body_progress } } set_variable = { name = tv_wonder_body_progress value = 0 } }
+	if = { limit = { NOT = { has_variable = tv_wonder_function_progress } } set_variable = { name = tv_wonder_function_progress value = 0 } }
+	if = { limit = { NOT = { has_variable = tv_wonder_decoration_progress } } set_variable = { name = tv_wonder_decoration_progress value = 0 } }
+	if = { limit = { NOT = { has_variable = tv_wonder_level } } set_variable = { name = tv_wonder_level value = 0 } }
+}
+
+tv_wonder_update_wonder_level_effect = {
+	tv_wonder_initialize_construction_parts_effect = yes
+	set_variable = { name = tv_wonder_level value = var:tv_wonder_foundation_units }
+	if = {
+		limit = { var:tv_wonder_body_units < var:tv_wonder_level }
+		set_variable = { name = tv_wonder_level value = var:tv_wonder_body_units }
+	}
+	if = {
+		limit = { var:tv_wonder_function_units < var:tv_wonder_level }
+		set_variable = { name = tv_wonder_level value = var:tv_wonder_function_units }
+	}
+	if = {
+		limit = { var:tv_wonder_decoration_units < var:tv_wonder_level }
+		set_variable = { name = tv_wonder_level value = var:tv_wonder_decoration_units }
+	}
+	clamp_variable = { name = tv_wonder_level min = 0 max = 6 }
+}
+
+tv_wonder_update_logistics_metrics_effect = {
+	set_variable = { name = tv_wonder_laborers value = 0 }
+	set_variable = { name = tv_wonder_labor_cap value = 0 }
+	set_variable = { name = tv_wonder_depot_level value = 0 }
+	set_variable = { name = tv_wonder_materials_cap value = 0 }
+	set_variable = { name = tv_wonder_dispatch_points value = 0 }
+	set_variable = { name = tv_wonder_material_income value = 0 }
+
+	if = {
+		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		var:tv_wonder_site ?= { save_scope_as = tv_wonder_metric_site }
+		set_variable = {
+			name = tv_wonder_laborers
+			value = {
+				value = "scope:tv_wonder_metric_site.location_building_level(building_type:tv_wonder_labor_camp)"
+				multiply = 1000
+			}
+		}
+		set_variable = {
+			name = tv_wonder_labor_cap
+			value = {
+				value = var:tv_wonder_scale_tier
+				multiply = 5000
+			}
+		}
+		set_variable = {
+			name = tv_wonder_depot_level
+			value = "scope:tv_wonder_metric_site.location_building_level(building_type:tv_wonder_material_depot)"
+		}
+		set_variable = {
+			name = tv_wonder_materials_cap
+			value = {
+				value = var:tv_wonder_depot_level
+				multiply = 60000
+				max = 300000
+			}
+		}
+		set_variable = {
+			name = tv_wonder_dispatch_points
+			value = total_effective_building_levels:tv_wonder_material_dispatch_point
+		}
+		set_variable = {
+			name = tv_wonder_material_income
+			value = {
+				value = var:tv_wonder_dispatch_points
+				multiply = 10000
+			}
+		}
+		if = {
+			limit = { var:tv_wonder_materials_cap > 0 }
+			tv_wonder_change_materials_stockpile_effect = { value = var:tv_wonder_material_income }
+		}
+	}
+
+	tv_wonder_clamp_materials_to_country_cap_effect = yes
+}
+
+tv_wonder_select_construction_site_effect = {
+	if = {
+		limit = { exists = scope:target }
+		set_variable = { name = tv_wonder_site value = scope:target }
+		set_variable = { name = tv_wonder_stage value = 2 }
+		remove_variable = tv_wonder_construction_complete
+		remove_variable = tv_wonder_active_part
+		remove_variable = tv_wonder_construction_paused
+		tv_wonder_initialize_construction_tiers_effect = yes
+		tv_wonder_initialize_construction_parts_effect = yes
+		tv_wonder_update_wonder_level_effect = yes
+		tv_wonder_update_logistics_metrics_effect = yes
+	}
+}
+
+tv_wonder_construct_labor_camp_effect = {
+	if = {
+		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		var:tv_wonder_site ?= {
+			construct_building = { building_type = building_type:tv_wonder_labor_camp }
+		}
+	}
+}
+
+tv_wonder_construct_material_depot_effect = {
+	if = {
+		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		var:tv_wonder_site ?= {
+			construct_building = { building_type = building_type:tv_wonder_material_depot }
+		}
+	}
+}
+
+tv_wonder_construct_material_dispatch_point_effect = {
+	if = {
+		limit = { exists = scope:target }
+		scope:target = {
+			construct_building = { building_type = building_type:tv_wonder_material_dispatch_point }
+		}
+	}
+}
+
+tv_wonder_begin_construction_part_effect = {
+	set_variable = { name = tv_wonder_active_part value = $part$ }
+	remove_variable = tv_wonder_construction_paused
+}
+
+tv_wonder_after_unit_completed_effect = {
+	set_variable = { name = tv_wonder_previous_level value = var:tv_wonder_level }
+	tv_change_wonder_domestic_support_effect = { value = 20 }
+	trigger_event_non_silently = { id = tv_engineering_department.200 }
+	tv_wonder_update_wonder_level_effect = yes
+	if = {
+		limit = { var:tv_wonder_level > var:tv_wonder_previous_level }
+		tv_change_wonder_domestic_support_effect = { value = 20 }
+		trigger_event_non_silently = { id = tv_engineering_department.201 }
+	}
+	remove_variable = tv_wonder_previous_level
+}
+
+tv_wonder_progress_foundation_effect = {
+	if = {
+		limit = { var:tv_wonder_foundation_units < var:tv_wonder_scale_tier }
+		change_variable = { name = tv_wonder_foundation_progress add = var:tv_wonder_laborers }
+		if = {
+			limit = { var:tv_wonder_foundation_progress >= 300000 }
+			set_variable = { name = tv_wonder_foundation_progress value = 0 }
+			change_variable = { name = tv_wonder_foundation_units add = 1 }
+			set_variable = { name = tv_wonder_last_completed_part value = 1 }
+			set_variable = { name = tv_wonder_last_completed_unit value = var:tv_wonder_foundation_units }
+			tv_wonder_after_unit_completed_effect = yes
+		}
+	}
+	else = { remove_variable = tv_wonder_active_part }
+}
+
+tv_wonder_progress_body_effect = {
+	if = {
+		limit = { var:tv_wonder_body_units < var:tv_wonder_scale_tier }
+		change_variable = { name = tv_wonder_body_progress add = var:tv_wonder_laborers }
+		if = {
+			limit = { var:tv_wonder_body_progress >= 300000 }
+			set_variable = { name = tv_wonder_body_progress value = 0 }
+			change_variable = { name = tv_wonder_body_units add = 1 }
+			set_variable = { name = tv_wonder_last_completed_part value = 2 }
+			set_variable = { name = tv_wonder_last_completed_unit value = var:tv_wonder_body_units }
+			tv_wonder_after_unit_completed_effect = yes
+		}
+	}
+	else = { remove_variable = tv_wonder_active_part }
+}
+
+tv_wonder_progress_function_effect = {
+	if = {
+		limit = { var:tv_wonder_function_units < var:tv_wonder_scale_tier }
+		change_variable = { name = tv_wonder_function_progress add = var:tv_wonder_laborers }
+		if = {
+			limit = { var:tv_wonder_function_progress >= 300000 }
+			set_variable = { name = tv_wonder_function_progress value = 0 }
+			change_variable = { name = tv_wonder_function_units add = 1 }
+			set_variable = { name = tv_wonder_last_completed_part value = 3 }
+			set_variable = { name = tv_wonder_last_completed_unit value = var:tv_wonder_function_units }
+			tv_wonder_after_unit_completed_effect = yes
+		}
+	}
+	else = { remove_variable = tv_wonder_active_part }
+}
+
+tv_wonder_progress_decoration_effect = {
+	if = {
+		limit = { var:tv_wonder_decoration_units < var:tv_wonder_scale_tier }
+		change_variable = { name = tv_wonder_decoration_progress add = var:tv_wonder_laborers }
+		if = {
+			limit = { var:tv_wonder_decoration_progress >= 300000 }
+			set_variable = { name = tv_wonder_decoration_progress value = 0 }
+			change_variable = { name = tv_wonder_decoration_units add = 1 }
+			set_variable = { name = tv_wonder_last_completed_part value = 4 }
+			set_variable = { name = tv_wonder_last_completed_unit value = var:tv_wonder_decoration_units }
+			tv_wonder_after_unit_completed_effect = yes
+		}
+	}
+	else = { remove_variable = tv_wonder_active_part }
+}
+
+tv_wonder_monthly_construction_effect = {
+	tv_wonder_initialize_construction_tiers_effect = yes
+	tv_wonder_initialize_construction_parts_effect = yes
+	tv_wonder_update_logistics_metrics_effect = yes
+	if = {
+		limit = { tv_wonder_construction_active_trigger = yes }
+		if = {
+			limit = { tv_wonder_has_materials_for_month_trigger = yes }
+			remove_variable = tv_wonder_construction_paused
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_engineering_department
+				}
+				change_variable = { name = tv_wonder_materials_stockpile subtract = prev.var:tv_wonder_laborers }
+				clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
+			}
+			if = { limit = { var:tv_wonder_active_part ?= 1 } tv_wonder_progress_foundation_effect = yes }
+			if = { limit = { var:tv_wonder_active_part ?= 2 } tv_wonder_progress_body_effect = yes }
+			if = { limit = { var:tv_wonder_active_part ?= 3 } tv_wonder_progress_function_effect = yes }
+			if = { limit = { var:tv_wonder_active_part ?= 4 } tv_wonder_progress_decoration_effect = yes }
+		}
+		else = {
+			set_variable = { name = tv_wonder_construction_paused value = 1 }
+		}
+	}
+}
+
+tv_wonder_destroy_material_depot_effect = {
+	if = {
+		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		save_scope_as = tv_wonder_depot_owner
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { has_building = building_type:tv_wonder_material_depot }
+				destroy_building_forcefully = "building(building_type:tv_wonder_material_depot|scope:tv_wonder_depot_owner)"
+			}
+		}
+	}
+}
+
+tv_wonder_finish_construction_effect = {
+	if = {
+		limit = { tv_wonder_can_finish_construction_trigger = yes }
+		set_variable = { name = tv_wonder_construction_complete value = 1 }
+		set_variable = { name = tv_wonder_stage value = 4 }
+		remove_variable = tv_wonder_active_part
+		remove_variable = tv_wonder_construction_paused
+		tv_wonder_destroy_material_depot_effect = yes
+		tv_change_wonder_domestic_support_effect = { value = 20 }
+		trigger_event_non_silently = { id = tv_engineering_department.202 }
+	}
+}
+
 tv_wonder_apply_estate_penalty_10_effect = {
 	if = {
 		limit = { country_has_estate = estate_type:nobles_estate }
@@ -298,12 +628,31 @@ tv_wonder_retire_great_engineer_effect = {
 }
 
 tv_wonder_clear_project_state_effect = {
+	tv_wonder_destroy_material_depot_effect = yes
 	remove_variable = tv_wonder_proposal
 	remove_variable = tv_wonder_locked
 	remove_variable = tv_wonder_debate_ended
 	remove_variable = tv_wonder_nobles_demand
 	remove_variable = tv_wonder_burghers_demand
 	remove_variable = tv_wonder_clergy_demand
+	remove_variable = tv_wonder_site
+	remove_variable = tv_wonder_scale_tier
+	remove_variable = tv_wonder_logistics_tier
+	remove_variable = tv_wonder_organization_tier
+	remove_variable = tv_wonder_scale_competence
+	remove_variable = tv_wonder_logistics_competence
+	remove_variable = tv_wonder_organization_competence
+	remove_variable = tv_wonder_laborers
+	remove_variable = tv_wonder_labor_cap
+	remove_variable = tv_wonder_depot_level
+	remove_variable = tv_wonder_materials_cap
+	remove_variable = tv_wonder_dispatch_points
+	remove_variable = tv_wonder_material_income
+	remove_variable = tv_wonder_active_part
+	remove_variable = tv_wonder_construction_paused
+	remove_variable = tv_wonder_construction_complete
+	remove_variable = tv_wonder_last_completed_part
+	remove_variable = tv_wonder_last_completed_unit
 	tv_wonder_clear_feasible_deck_effect = yes
 	set_variable = { name = tv_wonder_stage value = 0 }
 	tv_wonder_reset_io_progress_effect = yes

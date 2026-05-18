@@ -1005,3 +1005,13 @@
   scope: country
   source: "reference_game_files/game/in_game/events/diplomacy/overextension.txt:167-168; reference_game_files/game/in_game/events/economy/trade.txt:129"
   notes: "GUI ShowTriggerConditions(PlayerScope.Self) can pass because root is the player country, while the monthly situation checker calls the same trigger from a situation root. In any_market_with_merchants, prev points back to the iterated country."
+
+- id: gui_hbox_unbounded_multiline_text_width
+  pattern: ''
+  only_in_paths: ['gui']
+  bad: "Putting text_single with multiline text inside an hbox elastic column whose width is unconstrained (for example size = { -1 H })"
+  correction: "Give the text area an explicit width or maximum width. For paragraph-like content, wrap it in a fixed-width widget/card and use text_multi with max_width and autoresize, as vanilla IO GUI does."
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/panels/organization/common_header.gui:188-199; src/in_game/gui/panels/organization/tv_engineering_department.gui:230-293"
+  notes: "In Jomini GUI, multiline text can contribute its natural text width back into hbox layout. A right-side size = { -1 H } text column in the Engineering Department proposal row expanded to 446px and pushed its parent vbox from 470px to 548.3px even though the outer card bounds were correct."

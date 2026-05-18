@@ -48,3 +48,16 @@ tv_engineering_department_support_decay_pulse = {
 		}
 	}
 }
+
+tv_engineering_department_construction_monthly_pulse = {
+	trigger = {
+		has_variable = tv_engineering_department_member
+		tv_wonder_construction_site_selected_trigger = yes
+		NOT = { has_variable = tv_wonder_construction_complete }
+	}
+	effect = {
+		hidden_effect = {
+			tv_wonder_monthly_construction_effect = yes
+		}
+	}
+}

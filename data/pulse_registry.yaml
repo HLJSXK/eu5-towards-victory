@@ -21,6 +21,7 @@ pulses:
     - tv_arts_exchange_monthly_pulse     # Arts Exchange timer, auto-invites, and monthly events
     - tv_engineering_department_debate_monthly_pulse # Wonder debate estate support swings
     - tv_engineering_department_support_decay_pulse # Wonder support decay after debate
+    - tv_engineering_department_construction_monthly_pulse # Wonder labor/material/construction monthly tick
 
   yearly_country_pulse:
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home

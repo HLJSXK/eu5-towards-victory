@@ -416,6 +416,96 @@ PERFORM_tv_wonder_abandon_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_wonder_select_construction_site_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_build_labor_camp_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_build_material_depot_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_build_material_dispatch_point_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_begin_foundation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_begin_body_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_begin_function_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_begin_decoration_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_finish_construction_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
 PERFORM_tv_request_research_target_ACTION={
 \tlog=yes
 \tonmap=no

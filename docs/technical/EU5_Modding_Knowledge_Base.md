@@ -490,6 +490,26 @@ The shared `situation_panel` template includes a default `situation_subheader_co
 
 When a widget is a direct child of `hbox` or `vbox`, the box layout owns placement and sizing. Do not set `parentanchor` on those children, and do not use percentage components in their `size` values such as `size = { 97% 72 }`. Use `layoutpolicy_horizontal`, `layoutpolicy_vertical`, stretch factors, or non-percent fixed/min/max sizing instead. For `io_character_card` in an `organization_custom_content` block, vanilla panels rely on the type's built-in `layoutpolicy_expanding` rather than adding a percentage `size` or `parentanchor`.
 
+Do not put paragraph-style localized text in an unconstrained `hbox` elastic column. A pattern like `hbox = { ... widget = { layoutpolicy_horizontal = expanding size = { -1 92 } text_single = { multiline = yes ... } } }` can let the text's natural width flow back into the row. In the Engineering Department IO, this made a child `vbox` expand to 548.3px while its parent card content was correctly bounded at 470px. Use a fixed-width text area, preferably a small card/container with `text_multi`, `max_width`, and `autoresize`:
+
+```gui
+widget = {
+    size = { 368 92 }
+    using = bg_text_mask_container_dark_blue
+    vbox = {
+        margin = { 8 8 }
+        text_multi = {
+            max_width = 352
+            autoresize = yes
+            text = "MY_PARAGRAPH_LOC_KEY"
+            align = nobaseline|left
+        }
+    }
+}
+```
+
+Vanilla IO header help text uses the same bounded `text_multi` pattern with `max_width` and `autoresize`.
+
 Standalone `io_character_card` widgets inherit `character_entry` name sort highlights. Those highlights call `FilteredSortedList.IsKeyHoveredByWidgetName`, which only works when a `FilteredSortedList` datacontext exists. For cards shown in custom IO panels, situation panels, or other non-sortable contexts, override both inherited highlight blocks:
 
 ```gui

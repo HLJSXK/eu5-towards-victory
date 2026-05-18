@@ -100,3 +100,36 @@ tv_engineering_department.105 = {
 		tv_change_wonder_domestic_support_effect = { value = -20 }
 	}
 }
+
+tv_engineering_department.200 = {
+	type = country_event
+	title = tv_engineering_department.200.t
+	desc = tv_engineering_department.200.d
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.200.a
+	}
+}
+
+tv_engineering_department.201 = {
+	type = country_event
+	title = tv_engineering_department.201.t
+	desc = tv_engineering_department.201.d
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.201.a
+	}
+}
+
+tv_engineering_department.202 = {
+	type = country_event
+	title = tv_engineering_department.202.t
+	desc = tv_engineering_department.202.d
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.202.a
+	}
+}
