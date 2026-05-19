@@ -845,24 +845,6 @@ tv_wonder_update_logistics_metrics_effect = {
 				multiply = 100
 			}
 		}
-		if = {
-			limit = { var:tv_wonder_materials_cap > 0 }
-			set_local_variable = { name = tv_wonder_material_income_to_add value = var:tv_wonder_material_income }
-			every_international_organizations_member_of = {
-				limit = {
-					international_organization_type = international_organization_type:tv_engineering_department
-				}
-				change_variable = { name = tv_wonder_materials_stockpile add = local_var:tv_wonder_material_income_to_add }
-				clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
-				if = {
-					limit = {
-						prev = { has_variable = tv_wonder_materials_cap }
-						var:tv_wonder_materials_stockpile > prev.var:tv_wonder_materials_cap
-					}
-					set_variable = { name = tv_wonder_materials_stockpile value = prev.var:tv_wonder_materials_cap }
-				}
-			}
-		}
 	}
 
 	tv_wonder_clamp_materials_to_country_cap_effect = yes

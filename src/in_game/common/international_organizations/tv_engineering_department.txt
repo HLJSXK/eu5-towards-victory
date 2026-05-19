@@ -95,6 +95,32 @@ tv_engineering_department = {
 			min = 0
 			max = 300000
 			start = 0
+			monthly_change = {
+				add = {
+					desc = "TV_WONDER_WORKING_MATERIAL_DISPATCH_POINTS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								has_variable = tv_engineering_department_member
+								tv_wonder_construction_site_selected_trigger = yes
+								NOT = { has_variable = tv_wonder_construction_complete }
+								has_variable = tv_wonder_materials_cap
+								var:tv_wonder_materials_cap > 0
+							}
+						}
+						value = {
+							value = leader_country.total_effective_building_levels:tv_wonder_material_dispatch_point
+							multiply = 100
+							max = {
+								value = leader_country.var:tv_wonder_materials_cap
+								subtract = var:tv_wonder_materials_stockpile
+							}
+							min = 0
+						}
+					}
+				}
+			}
 		}
 	}
 
