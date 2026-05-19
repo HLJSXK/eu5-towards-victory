@@ -1235,149 +1235,6 @@ organization_panel = {
 					}
 				}
 			}
-			card_common = {
-				visible = no
-				maximumsize = { 500 -1 }
-
-				blockoverride "common_header_icon_texture" {
-					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-				}
-
-				blockoverride "common_header_text" {
-					text = "TV_ENGINEERING_CONSTRUCTION_CARD_TITLE"
-				}
-
-				blockoverride "common_bottom_content" {
-					widget = {
-						size = { 470 340 }
-
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							spacing = 6
-							margin = { 4 6 }
-
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 5
-								action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_foundation" description = "tv_wonder_begin_foundation_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_foundation" } }
-								text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FOUNDATION" align = nobaseline|left }
-								text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
-							}
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 5
-								action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_body" description = "tv_wonder_begin_body_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_body" } }
-								text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_BODY" align = nobaseline|left }
-								text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
-							}
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 5
-								action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_function" description = "tv_wonder_begin_function_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_function" } }
-								text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FUNCTION" align = nobaseline|left }
-								text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
-							}
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 5
-								action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_decoration" description = "tv_wonder_begin_decoration_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_decoration" } }
-								text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_DECORATION" align = nobaseline|left }
-								text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-								text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
-							}
-
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = { text = "TV_ENGINEERING_WONDER_LEVEL_LABEL" align = nobaseline }
-								text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_level').GetValue|0]" align = nobaseline }
-								expand = {}
-								text_single = { text = "TV_ENGINEERING_ACTIVE_PART_LABEL" align = nobaseline }
-								text_single = { visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').IsSet)]" text = "TV_ENGINEERING_ACTIVE_PART_NONE" align = nobaseline }
-								text_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0')]" text = "TV_ENGINEERING_ACTIVE_PART_FOUNDATION" align = nobaseline }
-								text_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0')]" text = "TV_ENGINEERING_ACTIVE_PART_BODY" align = nobaseline }
-								text_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0')]" text = "TV_ENGINEERING_ACTIVE_PART_FUNCTION" align = nobaseline }
-								text_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0')]" text = "TV_ENGINEERING_ACTIVE_PART_DECORATION" align = nobaseline }
-							}
-							progressbar = {
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0')]"
-								size = { 462 16 }
-								using = progress_bar_goldish
-								min = 0
-								max = 300000
-								value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue]"
-								tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
-							}
-							progressbar = {
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0')]"
-								size = { 462 16 }
-								using = progress_bar_goldish
-								min = 0
-								max = 300000
-								value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue]"
-								tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
-							}
-							progressbar = {
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0')]"
-								size = { 462 16 }
-								using = progress_bar_goldish
-								min = 0
-								max = 300000
-								value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue]"
-								tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
-							}
-							progressbar = {
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0')]"
-								size = { 462 16 }
-								using = progress_bar_goldish
-								min = 0
-								max = 300000
-								value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue]"
-								tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
-							}
-							text_single = {
-								visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_paused').IsSet]"
-								layoutpolicy_horizontal = expanding
-								text = "TV_ENGINEERING_CONSTRUCTION_PAUSED_TEXT"
-								align = nobaseline|left
-							}
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								text = "TV_ENGINEERING_CONSTRUCTION_INFO_TEXT"
-								multiline = yes
-								align = nobaseline|left
-							}
-							action_button_diamond = {
-								size = { 462 30 }
-								text = "TV_ENGINEERING_FINISH_CONSTRUCTION_BUTTON"
-								title = "tv_wonder_finish_construction"
-								description = "tv_wonder_finish_construction_desc"
-								actor = "[InternationalOrganizationsView.GetPlayer]"
-								left_action = { action_name = "tv_wonder_finish_construction" }
-							}
-						}
-					}
-				}
-			}
 				}
 			}
 		}
@@ -1468,51 +1325,199 @@ organization_panel = {
 
 									hbox = {
 										layoutpolicy_horizontal = expanding
+										ignoreinvisible = yes
 										spacing = 5
 										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_foundation" description = "tv_wonder_begin_foundation_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_foundation" } }
 										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FOUNDATION" align = nobaseline|left }
-										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)1.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)1.0')]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)0.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)1.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)0.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)2.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)2.0')]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)1.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)2.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)1.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)3.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)3.0')]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)2.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)3.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)2.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)4.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)4.0')]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)3.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)4.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)3.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)5.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)5.0')]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)4.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)5.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)4.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)6.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)6.0')]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)5.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)6.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_units').GetValue, '(CFixedPoint)5.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+										}
 									}
 									hbox = {
 										layoutpolicy_horizontal = expanding
+										ignoreinvisible = yes
 										spacing = 5
 										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_body" description = "tv_wonder_begin_body_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_body" } }
 										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_BODY" align = nobaseline|left }
-										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)1.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)1.0')]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)0.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)1.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)0.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)2.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)2.0')]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)1.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)2.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)1.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)3.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)3.0')]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)2.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)3.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)2.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)4.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)4.0')]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)3.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)4.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)3.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)5.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)5.0')]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)4.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)5.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)4.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)6.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)6.0')]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)5.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)6.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_units').GetValue, '(CFixedPoint)5.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+										}
 									}
 									hbox = {
 										layoutpolicy_horizontal = expanding
+										ignoreinvisible = yes
 										spacing = 5
 										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_function" description = "tv_wonder_begin_function_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_function" } }
 										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FUNCTION" align = nobaseline|left }
-										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)1.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)1.0')]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)0.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)1.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)0.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)2.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)2.0')]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)1.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)2.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)1.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)3.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)3.0')]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)2.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)3.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)2.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)4.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)4.0')]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)3.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)4.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)3.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)5.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)5.0')]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)4.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)5.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)4.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)6.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)6.0')]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)5.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)6.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_units').GetValue, '(CFixedPoint)5.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+										}
 									}
 									hbox = {
 										layoutpolicy_horizontal = expanding
+										ignoreinvisible = yes
 										spacing = 5
 										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_decoration" description = "tv_wonder_begin_decoration_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_decoration" } }
 										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_DECORATION" align = nobaseline|left }
-										text_single = { size = { 44 28 } raw_text = "1" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "2" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "3" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "4" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "5" align = nobaseline|center }
-										text_single = { size = { 44 28 } raw_text = "6" align = nobaseline|center }
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)1.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)1.0')]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)0.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)1.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)0.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "1" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)2.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)2.0')]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)1.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)2.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)1.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "2" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)3.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)3.0')]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)2.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)3.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)2.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "3" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)4.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)4.0')]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)3.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)4.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)3.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "4" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)5.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)5.0')]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)4.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)5.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)4.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "5" }
+										}
+										widget = {
+											visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue, '(CFixedPoint)6.0')]"
+											size = { 44 28 }
+											button_regular_alt_green = { visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)6.0')]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+											button_regular_alt_yellow = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)5.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+											button_regular_alt_red = { visible = "[And(LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)6.0'), Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_units').GetValue, '(CFixedPoint)5.0'), Or(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0'), GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue, '(CFixedPoint)0.0')))))]" size = { 44 28 } fontsize = 12 raw_text = "6" }
+										}
 									}
 
 									hbox = {
