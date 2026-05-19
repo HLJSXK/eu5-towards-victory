@@ -1045,3 +1045,13 @@
   scope: any
   source: "reference_game_files/game/in_game/common/goods/03_food.txt:319; reference_game_files/game/in_game/common/goods/02_produced_goods.txt:130"
   notes: "Production method input keys must be exact goods IDs. Invalid goods tokens inside common/production_methods can load as 'Unexpected token' errors, as seen with candles and luxury_cloth."
+
+- id: building_level_not_current_employment
+  pattern: 'location_building_level\(building_type:tv_wonder_labor_camp\)'
+  only_in_paths: ['scripted_effects']
+  bad: "Using building levels multiplied by nominal employment size to determine how many workers a building actually employs"
+  correction: "Scope into the building object with ordered_buildings_in_location/random_buildings_in_location and read building_employed_amount. If downstream variables are stored as people rather than pop-size units, multiply the value by 1000."
+  category: script
+  scope: building
+  source: "reference_game_files/game/in_game/common/trigger_localization/building_triggers.txt:137; reference_game_files/game/in_game/common/scripted_effects/location_effects.txt:338; fixed in src/in_game/common/scripted_effects/tv_engineering_department_effects.txt"
+  notes: "location_building_level reports completed levels/capacity, not current staffing. For labor-sensitive mechanics such as Engineering Department construction, underfilled labor camps must contribute only their actual employed laborers."

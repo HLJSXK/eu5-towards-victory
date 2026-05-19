@@ -625,7 +625,33 @@ Multiple `custom_tooltip` blocks in `allow` are AND-combined. Each evaluates ind
 
 Do not use `has_variable = X` as a guard for `var:X = ...` inside generic action `allow` or tooltip logic. The UI evaluator may still fetch direct `var:` links from sibling trigger blocks while building tooltips. For nullable variables, use optional variable links (`var:X ?= ...`) so an absent variable returns false without logging an unset-scope error.
 
-### 10.4 on_built Scope
+### 10.4 Actual Building Employment
+
+`location_building_level(building_type:X)` reports completed levels, not current staffing. For mechanics that depend on actual workers, enter the building object from the location and read `building_employed_amount`:
+
+```
+scope:target_location = {
+    ordered_buildings_in_location = {
+        limit = { building_type = building_type:my_building }
+        order_by = building_level
+        max = 1
+        scope:target_country = {
+            set_variable = {
+                name = my_actual_workers
+                value = {
+                    value = prev.building_employed_amount
+                    multiply = 1000
+                    floor = yes
+                }
+            }
+        }
+    }
+}
+```
+
+`prev.building_employed_amount` is read from the building scope. Multiply by 1000 when the consuming mechanic stores people counts rather than pop-size units, as building `employment_size = 1` represents 1,000 workers in UI terms.
+
+### 10.5 on_built Scope
 
 `on_built` fires with root = location. Access the owning country via `location.owner = { ... }`. Source confirmed at `unique_buildings.txt:516-524` and `religion_buildings.txt:32-51`:
 
@@ -640,7 +666,7 @@ on_built = {
 }
 ```
 
-### 10.5 build_time References (verified)
+### 10.6 build_time References (verified)
 
 | Reference | Context | Source |
 |---|---|---|
@@ -649,7 +675,7 @@ on_built = {
 | `infrastructure_build_time` | Roads, irrigation | `common_buildings.txt:23` |
 | `rural_build_time` | Rural production | `common_buildings.txt:218` |
 
-### 10.6 construction_demand References (verified)
+### 10.7 construction_demand References (verified)
 
 | Reference | Context | Source |
 |---|---|---|

@@ -744,12 +744,26 @@ tv_wonder_update_logistics_metrics_effect = {
 
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		save_scope_as = tv_wonder_metric_country
 		var:tv_wonder_site ?= { save_scope_as = tv_wonder_metric_site }
-		set_variable = {
-			name = tv_wonder_laborers
-			value = {
-				value = "scope:tv_wonder_metric_site.location_building_level(building_type:tv_wonder_labor_camp)"
-				multiply = 1000
+		scope:tv_wonder_metric_site = {
+			ordered_buildings_in_location = {
+				limit = {
+					building_type = building_type:tv_wonder_labor_camp
+					owner = scope:tv_wonder_metric_country
+				}
+				order_by = building_level
+				max = 1
+				scope:tv_wonder_metric_country = {
+					set_variable = {
+						name = tv_wonder_laborers
+						value = {
+							value = prev.building_employed_amount
+							multiply = 1000
+							floor = yes
+						}
+					}
+				}
 			}
 		}
 		set_variable = {
