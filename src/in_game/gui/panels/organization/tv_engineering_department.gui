@@ -867,39 +867,49 @@ organization_panel = {
 
 	blockoverride "organization_resolutions_content" {
 		margin = { 0 0 }
+		layoutpolicy_vertical = expanding
 
-		vbox = {
-			margin = { 10 10 }
-			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = fixed
-			ignoreinvisible = yes
-			spacing = 10
+		scrollarea = {
+			using = layoutpolicy_expanding
+			scrollbarpolicy_horizontal = always_off
 
-			card_common = {
-				visible = "[LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0')]"
-				maximumsize = { 500 -1 }
+			scrollbar_vertical = {
+				using = Scrollbar_Vertical
+			}
 
-				blockoverride "common_header_icon_texture" {
-					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-				}
+			scrollwidget = {
+				vbox = {
+					margin = { 10 10 }
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					ignoreinvisible = yes
+					spacing = 10
 
-				blockoverride "common_header_text" {
-					text = "TV_ENGINEERING_SURVEY_CARD_TITLE"
-				}
+					card_common = {
+						visible = "[LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0')]"
+						maximumsize = { 500 -1 }
 
-				blockoverride "common_bottom_content" {
-					widget = {
-						size = { 470 74 }
-						text_multi = {
-							margin = { 4 6 }
-							max_width = 462
-							autoresize = yes
-							text = "TV_ENGINEERING_SURVEY_LOCKED_TEXT"
-							align = nobaseline|left
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+						}
+
+						blockoverride "common_header_text" {
+							text = "TV_ENGINEERING_SURVEY_CARD_TITLE"
+						}
+
+						blockoverride "common_bottom_content" {
+							widget = {
+								size = { 470 74 }
+								text_multi = {
+									margin = { 4 6 }
+									max_width = 462
+									autoresize = yes
+									text = "TV_ENGINEERING_SURVEY_LOCKED_TEXT"
+									align = nobaseline|left
+								}
+							}
 						}
 					}
-				}
-			}
 
 			card_common = {
 				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0')]"
@@ -1368,9 +1378,9 @@ organization_panel = {
 					}
 				}
 			}
+				}
+			}
 		}
-
-		expand = {}
 	}
 
 	# -- Construction and ceremony tab -----------------------------------------
