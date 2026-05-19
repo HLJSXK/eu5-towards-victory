@@ -12708,6 +12708,26 @@ PERFORM_tv_treat_character_ACTION={
 	message_category = society
 }
 
+PERFORM_tv_start_meditation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_stop_meditation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
 PERFORM_tv_train_grand_general_ACTION={
 	log=yes
 	onmap=no

@@ -15,3 +15,39 @@ tv_has_health_condition_trigger = {
 		has_trait = sickly
 	}
 }
+
+# Returns yes if the character has any non-health negative trait that meditation can remove.
+tv_has_meditation_negative_trait_trigger = {
+	OR = {
+		# Negative ruler traits.
+		has_trait = cruel
+		has_trait = babbling_buffoon
+		has_trait = embezzler
+		has_trait = drunkard
+		has_trait = sinner
+		has_trait = greedy
+		has_trait = naive
+		has_trait = craven
+		has_trait = loose_lips
+		has_trait = obsessive_perfectionist
+		has_trait = malevolent
+
+		# Negative cabinet traits.
+		has_trait = deceitful
+		has_trait = fickle
+		has_trait = schemer
+		has_trait = corrupt
+		has_trait = influential
+		has_trait = unmotivated
+		has_trait = abrasive
+		has_trait = arrogant
+
+		# Negative artist traits.
+		has_trait = gold_loving
+		has_trait = lazy
+		has_trait = inconspicious
+		has_trait = careless
+		has_trait = amateur
+		has_trait = idler
+	}
+}

@@ -808,6 +808,103 @@ organization_panel = {
 				}
 			}
 
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_MED_MEDITATION_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 6
+
+						text_multi = {
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_meditation_target_char').IsSet)]"
+							size = { 470 -1 }
+							autoresize = yes
+							max_width = 460
+							text = "TV_MED_MEDITATION_NO_TARGET_DESC"
+						}
+
+						io_character_card = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_meditation_target_char').IsSet]"
+							datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_meditation_target_char').GetCharacter]"
+							using = layoutpolicy_expanding
+							blockoverride "name_highlight" {}
+							blockoverride "character_entry_name_sort_by_highlight" {}
+						}
+
+						widget = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_meditation_target_char').IsSet]"
+							size = { 470 88 }
+							datacontext = "[InternationalOrganizationsView.GetPlayer]"
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 4
+								margin = { 4 6 }
+
+								progressbar = {
+									size = { 440 16 }
+									using = progress_bar_green_alt
+									min = 0
+									max = 100
+									value = "[Country.MakeScope.GetVariable('tv_meditation_progress').GetValue]"
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									text_single = {
+										text = "TV_MED_MEDITATION_PROGRESS_LABEL"
+										align = nobaseline
+									}
+									expand = {}
+									text_single = {
+										raw_text = "[Country.MakeScope.GetVariable('tv_meditation_progress').GetValue|0]%"
+										align = nobaseline
+									}
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									text_single = {
+										text = "TV_MED_MONTHLY_GAIN_LABEL"
+										align = nobaseline
+									}
+									expand = {}
+									text_single = {
+										raw_text = "[Country.MakeScope.GetVariable('tv_med_disp_adm').GetValue|0]x0.1%"
+										align = nobaseline
+									}
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									text_single = {
+										text = "TV_MED_MEDITATION_EVENT_CHANCE_LABEL"
+										align = nobaseline
+									}
+									expand = {}
+									text_single = {
+										raw_text = "10%"
+										align = nobaseline
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
 			card_actions = {
 				blockoverride "card_header_text" {
 					text = "MAIN_ACTIONS"
@@ -831,6 +928,28 @@ organization_panel = {
 							actor = "[InternationalOrganizationsView.GetPlayer]"
 							left_action = {
 								action_name = "tv_treat_character"
+							}
+						}
+
+						# Start Meditation button
+						action_button_diamond = {
+							size = { 470 30 }
+							text = "tv_start_meditation"
+							title = "tv_start_meditation"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_start_meditation"
+							}
+						}
+
+						# Stop Meditation button
+						action_button_diamond = {
+							size = { 470 30 }
+							text = "tv_stop_meditation"
+							title = "tv_stop_meditation"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = {
+								action_name = "tv_stop_meditation"
 							}
 						}
 					}

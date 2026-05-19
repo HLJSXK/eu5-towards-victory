@@ -31,3 +31,69 @@ tv_med_complete_treatment_effect = {
 	set_variable = { name = tv_med_progress  value = 0 }
 	trigger_event_non_silently = { id = tv_medicine.3 }
 }
+
+# Reset meditation state without changing the target character.
+tv_meditation_cleanup_effect = {
+	remove_variable = tv_meditation_target_char
+	set_variable = { name = tv_meditation_progress  value = 0 }
+}
+
+# Remove all meditation-cleansed negative ruler/cabinet/artist traits from the target character.
+tv_meditation_remove_negative_traits_effect = {
+	if = { limit = { has_trait = cruel }                    remove_trait = trait:cruel }
+	if = { limit = { has_trait = babbling_buffoon }         remove_trait = trait:babbling_buffoon }
+	if = { limit = { has_trait = embezzler }                remove_trait = trait:embezzler }
+	if = { limit = { has_trait = drunkard }                 remove_trait = trait:drunkard }
+	if = { limit = { has_trait = sinner }                   remove_trait = trait:sinner }
+	if = { limit = { has_trait = greedy }                   remove_trait = trait:greedy }
+	if = { limit = { has_trait = naive }                    remove_trait = trait:naive }
+	if = { limit = { has_trait = craven }                   remove_trait = trait:craven }
+	if = { limit = { has_trait = loose_lips }               remove_trait = trait:loose_lips }
+	if = { limit = { has_trait = obsessive_perfectionist }  remove_trait = trait:obsessive_perfectionist }
+	if = { limit = { has_trait = malevolent }               remove_trait = trait:malevolent }
+
+	if = { limit = { has_trait = deceitful }                remove_trait = trait:deceitful }
+	if = { limit = { has_trait = fickle }                   remove_trait = trait:fickle }
+	if = { limit = { has_trait = schemer }                  remove_trait = trait:schemer }
+	if = { limit = { has_trait = corrupt }                  remove_trait = trait:corrupt }
+	if = { limit = { has_trait = influential }              remove_trait = trait:influential }
+	if = { limit = { has_trait = unmotivated }              remove_trait = trait:unmotivated }
+	if = { limit = { has_trait = abrasive }                 remove_trait = trait:abrasive }
+	if = { limit = { has_trait = arrogant }                 remove_trait = trait:arrogant }
+
+	if = { limit = { has_trait = gold_loving }              remove_trait = trait:gold_loving }
+	if = { limit = { has_trait = lazy }                     remove_trait = trait:lazy }
+	if = { limit = { has_trait = inconspicious }            remove_trait = trait:inconspicious }
+	if = { limit = { has_trait = careless }                 remove_trait = trait:careless }
+	if = { limit = { has_trait = amateur }                  remove_trait = trait:amateur }
+	if = { limit = { has_trait = idler }                    remove_trait = trait:idler }
+}
+
+# Meditation progress helper (country scope).
+tv_change_meditation_progress_effect = {
+	custom_description = {
+		text = tv_change_meditation_progress_text
+		value = $value$
+		if = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_MEDITATION_PROGRESS_TT
+					has_variable = tv_meditation_progress
+				}
+			}
+			change_variable = { name = tv_meditation_progress  add = $value$ }
+			clamp_variable = { name = tv_meditation_progress min = 0 max = 100 }
+			if = {
+				limit = { var:tv_meditation_progress >= 100 }
+				tv_meditation_complete_effect = yes
+			}
+		}
+	}
+}
+
+# Called when meditation progress reaches 100. Trait removal and cleanup happen
+# in the event option so the player can still see the target before resolution.
+tv_meditation_complete_effect = {
+	set_variable = { name = tv_meditation_progress  value = 0 }
+	trigger_event_non_silently = { id = tv_medicine.20 }
+}

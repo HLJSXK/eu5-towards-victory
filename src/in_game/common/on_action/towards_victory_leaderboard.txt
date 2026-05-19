@@ -320,6 +320,44 @@ tv_leaderboard_monthly_pulse = {
 			}
 		}
 
+		# ── Medicine: monthly meditation processing ────────────────────────────
+		if = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_ACADEMY_IO_MEMBER_TT
+					has_variable = tv_academy_io_member
+				}
+				custom_tooltip = {
+					text = TV_HAS_MEDITATION_TARGET_CHAR_TT
+					has_variable = tv_meditation_target_char
+				}
+			}
+			# Detect natural death of meditation target.
+			if = {
+				limit = { NOT = { var:tv_meditation_target_char ?= { is_alive = yes } } }
+				trigger_event_non_silently = { id = tv_medicine.21 }
+				tv_meditation_cleanup_effect = yes
+			}
+			# Target alive: accumulate progress using the same monthly rate as treatment.
+			else_if = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_ACADEMY_LEADER_CHAR_TT
+						has_variable = tv_academy_leader_char
+					}
+					var:tv_academy_leader_char ?= { is_alive = yes }
+					custom_tooltip = {
+						text = TV_HAS_MEDITATION_PROGRESS_TT
+						has_variable = tv_meditation_progress
+					}
+				}
+				tv_update_chief_scientist_effective_adm_effect = yes
+				set_local_variable = { name = meditation_gain  value = var:tv_scientist_effective_adm }
+				change_local_variable = { name = meditation_gain  multiply = 0.1 }
+				tv_change_meditation_progress_effect = { value = local_var:meditation_gain }
+			}
+		}
+
 		# ── Diplomatic Unlock Notification Events ────────────────────────────
 		# Fire informational event when DVP reaches 50 (support system unlocked)
 		if = {

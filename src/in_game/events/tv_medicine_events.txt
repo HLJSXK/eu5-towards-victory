@@ -171,3 +171,191 @@ tv_medicine.4 = {
 		name = tv_medicine.4.a
 	}
 }
+
+# ── tv_medicine.11 — Meditation: Calm Mind ───────────────────────────────────
+tv_medicine.11 = {
+	type = country_event
+	title = tv_medicine.11.t
+	desc = tv_medicine.11.d
+	outcome = good
+
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_MEDITATION_TARGET_CHAR_TT
+			has_variable = tv_meditation_target_char
+		}
+		var:tv_meditation_target_char ?= { is_alive = yes }
+	}
+
+	immediate = {
+		var:tv_meditation_target_char ?= { save_scope_as = tv_meditation_target }
+		var:tv_academy_leader_char ?= { save_scope_as = tv_meditation_scientist }
+	}
+
+	option = {
+		name = tv_medicine.11.a
+		tv_change_meditation_progress_effect = { value = 5 }
+	}
+}
+
+# ── tv_medicine.12 — Meditation: Restless Mind ───────────────────────────────
+tv_medicine.12 = {
+	type = country_event
+	title = tv_medicine.12.t
+	desc = tv_medicine.12.d
+	outcome = bad
+
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_MEDITATION_TARGET_CHAR_TT
+			has_variable = tv_meditation_target_char
+		}
+		var:tv_meditation_target_char ?= { is_alive = yes }
+	}
+
+	immediate = {
+		var:tv_meditation_target_char ?= { save_scope_as = tv_meditation_target }
+		var:tv_academy_leader_char ?= { save_scope_as = tv_meditation_scientist }
+	}
+
+	option = {
+		name = tv_medicine.12.a
+		tv_change_meditation_progress_effect = { value = -5 }
+	}
+}
+
+# ── tv_medicine.13 — Meditation: Diplomatic Guidance ─────────────────────────
+tv_medicine.13 = {
+	type = country_event
+	title = tv_medicine.13.t
+	desc = tv_medicine.13.d
+	outcome = good
+
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_MEDITATION_TARGET_CHAR_TT
+			has_variable = tv_meditation_target_char
+		}
+		var:tv_meditation_target_char ?= { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_LEADER_CHAR_TT
+			has_variable = tv_academy_leader_char
+		}
+		var:tv_academy_leader_char ?= {
+			is_alive = yes
+			dip > 80
+		}
+	}
+
+	immediate = {
+		var:tv_meditation_target_char ?= { save_scope_as = tv_meditation_target }
+		var:tv_academy_leader_char ?= { save_scope_as = tv_meditation_scientist }
+	}
+
+	option = {
+		name = tv_medicine.13.a
+		tv_change_meditation_progress_effect = { value = 10 }
+	}
+}
+
+# ── tv_medicine.14 — Meditation: Poor Guidance ───────────────────────────────
+tv_medicine.14 = {
+	type = country_event
+	title = tv_medicine.14.t
+	desc = tv_medicine.14.d
+	outcome = bad
+
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_MEDITATION_TARGET_CHAR_TT
+			has_variable = tv_meditation_target_char
+		}
+		var:tv_meditation_target_char ?= { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_LEADER_CHAR_TT
+			has_variable = tv_academy_leader_char
+		}
+		var:tv_academy_leader_char ?= {
+			is_alive = yes
+			dip < 30
+		}
+	}
+
+	immediate = {
+		var:tv_meditation_target_char ?= { save_scope_as = tv_meditation_target }
+		var:tv_academy_leader_char ?= { save_scope_as = tv_meditation_scientist }
+	}
+
+	option = {
+		name = tv_medicine.14.a
+		tv_change_meditation_progress_effect = { value = -10 }
+	}
+}
+
+# ── tv_medicine.15 — Meditation: Inner Turmoil ───────────────────────────────
+tv_medicine.15 = {
+	type = country_event
+	title = tv_medicine.15.t
+	desc = tv_medicine.15.d
+	outcome = neutral
+
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_MEDITATION_TARGET_CHAR_TT
+			has_variable = tv_meditation_target_char
+		}
+		var:tv_meditation_target_char ?= { is_alive = yes }
+	}
+
+	immediate = {
+		var:tv_meditation_target_char ?= { save_scope_as = tv_meditation_target }
+		var:tv_academy_leader_char ?= { save_scope_as = tv_meditation_scientist }
+	}
+
+	option = {
+		name = tv_medicine.15.a
+		random_list = {
+			50 = { tv_change_meditation_progress_effect = { value = 5 } }
+			50 = { tv_change_meditation_progress_effect = { value = -5 } }
+		}
+	}
+}
+
+# ── tv_medicine.20 — Meditation Complete ─────────────────────────────────────
+tv_medicine.20 = {
+	type = country_event
+	title = tv_medicine.20.t
+	desc = tv_medicine.20.d
+	outcome = good
+
+	trigger = {
+		always = yes
+	}
+
+	immediate = {
+		var:tv_meditation_target_char ?= { save_scope_as = tv_meditation_target }
+		var:tv_academy_leader_char ?= { save_scope_as = tv_meditation_scientist }
+	}
+
+	option = {
+		name = tv_medicine.20.a
+		var:tv_meditation_target_char ?= { tv_meditation_remove_negative_traits_effect = yes }
+		hidden_effect = { tv_meditation_cleanup_effect = yes }
+	}
+}
+
+# ── tv_medicine.21 — Meditation Target Died ──────────────────────────────────
+tv_medicine.21 = {
+	type = country_event
+	title = tv_medicine.21.t
+	desc = tv_medicine.21.d
+	outcome = bad
+
+	trigger = {
+		always = yes
+	}
+
+	option = {
+		name = tv_medicine.21.a
+	}
+}

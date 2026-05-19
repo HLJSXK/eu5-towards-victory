@@ -702,6 +702,103 @@ GUI_SUFFIX = """\
 \t\t\t\t}
 \t\t\t}
 
+\t\t\tcard_common = {
+\t\t\t\tmaximumsize = { 500 -1 }
+
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_MED_MEDITATION_CARD_TITLE"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\tvbox = {
+\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\tspacing = 6
+
+\t\t\t\t\t\ttext_multi = {
+\t\t\t\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_meditation_target_char').IsSet)]"
+\t\t\t\t\t\t\tsize = { 470 -1 }
+\t\t\t\t\t\t\tautoresize = yes
+\t\t\t\t\t\t\tmax_width = 460
+\t\t\t\t\t\t\ttext = "TV_MED_MEDITATION_NO_TARGET_DESC"
+\t\t\t\t\t\t}
+
+\t\t\t\t\t\tio_character_card = {
+\t\t\t\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_meditation_target_char').IsSet]"
+\t\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_meditation_target_char').GetCharacter]"
+\t\t\t\t\t\t\tusing = layoutpolicy_expanding
+\t\t\t\t\t\t\tblockoverride "name_highlight" {}
+\t\t\t\t\t\t\tblockoverride "character_entry_name_sort_by_highlight" {}
+\t\t\t\t\t\t}
+
+\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_meditation_target_char').IsSet]"
+\t\t\t\t\t\t\tsize = { 470 88 }
+\t\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer]"
+
+\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\tmargin = { 4 6 }
+
+\t\t\t\t\t\t\t\tprogressbar = {
+\t\t\t\t\t\t\t\t\tsize = { 440 16 }
+\t\t\t\t\t\t\t\t\tusing = progress_bar_green_alt
+\t\t\t\t\t\t\t\t\tmin = 0
+\t\t\t\t\t\t\t\t\tmax = 100
+\t\t\t\t\t\t\t\t\tvalue = "[Country.MakeScope.GetVariable('tv_meditation_progress').GetValue]"
+\t\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\t\ttext = "TV_MED_MEDITATION_PROGRESS_LABEL"
+\t\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t\texpand = {}
+\t\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\t\traw_text = "[Country.MakeScope.GetVariable('tv_meditation_progress').GetValue|0]%"
+\t\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\t\ttext = "TV_MED_MONTHLY_GAIN_LABEL"
+\t\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t\texpand = {}
+\t\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\t\traw_text = "[Country.MakeScope.GetVariable('tv_med_disp_adm').GetValue|0]x0.1%"
+\t\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\t\ttext = "TV_MED_MEDITATION_EVENT_CHANCE_LABEL"
+\t\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t\texpand = {}
+\t\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\t\traw_text = "10%"
+\t\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+
 \t\t\tcard_actions = {
 \t\t\t\tblockoverride "card_header_text" {
 \t\t\t\t\ttext = "MAIN_ACTIONS"
@@ -725,6 +822,28 @@ GUI_SUFFIX = """\
 \t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
 \t\t\t\t\t\t\tleft_action = {
 \t\t\t\t\t\t\t\taction_name = "tv_treat_character"
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+
+\t\t\t\t\t\t# Start Meditation button
+\t\t\t\t\t\taction_button_diamond = {
+\t\t\t\t\t\t\tsize = { 470 30 }
+\t\t\t\t\t\t\ttext = "tv_start_meditation"
+\t\t\t\t\t\t\ttitle = "tv_start_meditation"
+\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\t\t\t\tleft_action = {
+\t\t\t\t\t\t\t\taction_name = "tv_start_meditation"
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+
+\t\t\t\t\t\t# Stop Meditation button
+\t\t\t\t\t\taction_button_diamond = {
+\t\t\t\t\t\t\tsize = { 470 30 }
+\t\t\t\t\t\t\ttext = "tv_stop_meditation"
+\t\t\t\t\t\t\ttitle = "tv_stop_meditation"
+\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\t\t\t\tleft_action = {
+\t\t\t\t\t\t\t\taction_name = "tv_stop_meditation"
 \t\t\t\t\t\t\t}
 \t\t\t\t\t\t}
 \t\t\t\t\t}

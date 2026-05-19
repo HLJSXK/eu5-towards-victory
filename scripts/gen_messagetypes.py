@@ -686,6 +686,26 @@ PERFORM_tv_treat_character_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_start_meditation_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_stop_meditation_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
 PERFORM_tv_train_grand_general_ACTION={
 \tlog=yes
 \tonmap=no

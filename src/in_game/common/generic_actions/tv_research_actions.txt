@@ -245,3 +245,111 @@ tv_treat_character = {
 		add = -100
 	}
 }
+
+# ── Start Meditation (Medicine Tab) ──────────────────────────────────────────
+# Selects a character with a negative ruler/cabinet/artist trait to begin meditation.
+# Disabled while another character is already meditating.
+tv_start_meditation = {
+	type = owncountry
+
+	sound = UI_action_religion_generic
+
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_ACADEMY_IO_MEMBER_TT
+				has_variable = tv_academy_io_member
+			}
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = tv_start_meditation_no_active_target_tt
+			scope:actor = {
+				NOT = { has_variable = tv_meditation_target_char }
+			}
+		}
+		custom_tooltip = {
+			text = tv_start_meditation_requires_scientist_tt
+			scope:actor = {
+				has_variable = tv_academy_leader_char
+			}
+			scope:actor = {
+				var:tv_academy_leader_char ?= { is_alive = yes }
+			}
+		}
+		scope:actor = {
+			tv_chief_scientist_available_for_meditation_trigger = yes
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_meditation_target"
+		none_available_msg_key = "tv_no_meditation_target_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			tv_has_meditation_negative_trait_trigger = yes
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_meditation_target_char  value = scope:target }
+				set_variable = { name = tv_meditation_progress     value = 0 }
+			}
+		}
+	}
+
+	ai_will_do = {
+		add = -100
+	}
+}
+
+# ── Stop Meditation (Medicine Tab) ───────────────────────────────────────────
+# Clears active meditation state only; no progress or trait effects are applied.
+tv_stop_meditation = {
+	type = owncountry
+
+	sound = UI_action_religion_generic
+
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_HAS_ACADEMY_IO_MEMBER_TT
+				has_variable = tv_academy_io_member
+			}
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = tv_stop_meditation_active_target_tt
+			scope:actor = {
+				has_variable = tv_meditation_target_char
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			tv_meditation_cleanup_effect = yes
+		}
+	}
+
+	ai_will_do = {
+		add = -100
+	}
+}

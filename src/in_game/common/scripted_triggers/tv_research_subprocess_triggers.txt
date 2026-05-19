@@ -447,6 +447,10 @@ tv_chief_scientist_busy_with_treatment_trigger = {
 	has_variable = tv_med_target_char
 }
 
+tv_chief_scientist_busy_with_meditation_trigger = {
+	has_variable = tv_meditation_target_char
+}
+
 tv_chief_scientist_available_for_concentrated_research_trigger = {
 	trigger_if = {
 		limit = { tv_chief_scientist_busy_with_law_change_trigger = yes }
@@ -459,6 +463,13 @@ tv_chief_scientist_available_for_concentrated_research_trigger = {
 		limit = { tv_chief_scientist_busy_with_treatment_trigger = yes }
 		custom_description = {
 			text = tv_chief_scientist_busy_with_treatment_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_meditation_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_meditation_tt
 			always = no
 		}
 	}
@@ -479,6 +490,13 @@ tv_chief_scientist_available_for_law_change_trigger = {
 		limit = { tv_chief_scientist_busy_with_treatment_trigger = yes }
 		custom_description = {
 			text = tv_chief_scientist_busy_with_treatment_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_meditation_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_meditation_tt
 			always = no
 		}
 	}
@@ -506,6 +524,40 @@ tv_chief_scientist_available_for_treatment_trigger = {
 		limit = { tv_chief_scientist_busy_with_law_change_trigger = yes }
 		custom_description = {
 			text = tv_chief_scientist_busy_with_law_change_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_meditation_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_meditation_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}
+
+tv_chief_scientist_available_for_meditation_trigger = {
+	trigger_if = {
+		limit = { tv_chief_scientist_busy_with_concentrated_research_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_concentrated_research_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_law_change_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_law_change_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_treatment_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_treatment_tt
 			always = no
 		}
 	}

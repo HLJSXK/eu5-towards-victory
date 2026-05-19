@@ -77,3 +77,39 @@ tv_med_major_accident_pulse = {
 		1 = tv_medicine.5
 	}
 }
+
+# ── Meditation event pulse ───────────────────────────────────────────────────
+# 10% monthly chance; all meditation outcomes share one random_events list.
+tv_meditation_monthly_pulse = {
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_MEDITATION_TARGET_CHAR_TT
+			has_variable = tv_meditation_target_char
+		}
+		var:tv_meditation_target_char ?= { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_LEADER_CHAR_TT
+			has_variable = tv_academy_leader_char
+		}
+		var:tv_academy_leader_char ?= { is_alive = yes }
+		custom_tooltip = {
+			text = TV_HAS_MEDITATION_PROGRESS_TT
+			has_variable = tv_meditation_progress
+		}
+	}
+	random_events = {
+		chance_to_happen = 10
+		chance_of_no_event = {
+			value = 0
+		}
+		1 = tv_medicine.11
+		1 = tv_medicine.12
+		1 = tv_medicine.13
+		1 = tv_medicine.14
+		1 = tv_medicine.15
+	}
+}
