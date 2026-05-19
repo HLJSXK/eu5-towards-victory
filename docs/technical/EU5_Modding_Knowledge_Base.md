@@ -108,6 +108,8 @@ monthly_effect = {
 
 Vanilla IOs such as HRE and Union use this pattern. Keep `monthly_change` entries visible when the player should see an IO variable's monthly breakdown; use `hidden_effect` for non-player-facing `monthly_effect` logic.
 
+`monthly_change` is evaluated from the IO variable's international-organization context. Do not reuse country-scoped scripted triggers there if they depend on `root.var:X`; nesting the call inside `leader_country ?= { ... }` does not make `root` become the country. Instead, keep country-state checks inside `leader_country ?= { ... }` and perform IO-variable comparisons from the IO scope, for example `var:stockpile >= leader_country.var:monthly_cost`.
+
 #### International Organization Trigger Iterators
 
 In scripted triggers, `any_international_organizations_member_of` is a trigger iterator. Put IO filters directly in the iterator block:

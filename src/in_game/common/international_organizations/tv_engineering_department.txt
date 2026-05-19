@@ -129,8 +129,9 @@ tv_engineering_department = {
 								has_variable = tv_engineering_department_member
 								tv_wonder_construction_active_trigger = yes
 								NOT = { has_variable = tv_wonder_construction_complete }
-								tv_wonder_has_materials_for_month_trigger = yes
+								var:tv_wonder_laborers ?= { this > 0 }
 							}
+							var:tv_wonder_materials_stockpile >= leader_country.var:tv_wonder_laborers
 						}
 						value = leader_country.var:tv_wonder_laborers
 					}

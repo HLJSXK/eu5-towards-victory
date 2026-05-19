@@ -1074,3 +1074,13 @@
   scope: building
   source: "reference_game_files/game/in_game/common/building_types/capital_buildings.txt:615-617; reference_game_files/game/in_game/common/missions/generic_traditional_economy_mission_pack.txt:173-176; fixed in src/in_game/common/scripted_triggers/tv_engineering_department_triggers.txt"
   notes: "Building max_levels can stop normal construction but a custom IO/generic-action button can still spend its scripted price unless its action and effect repeat the cap logic. Re-check inside the effect because generic action UI pre-evaluation and stale target lists can otherwise charge the player for a no-op."
+
+- id: country_trigger_reused_inside_io_monthly_change
+  pattern: ''
+  only_in_paths: ['international_organizations']
+  bad: "Calling a country-scoped scripted_trigger from an IO variable monthly_change when that trigger depends on root.var country variables"
+  correction: "Write the monthly_change condition in IO scope, or create a separate IO-scoped trigger. Use leader_country ?= { ... } for country state and compare IO variables directly against leader_country.var:X from the IO scope."
+  category: scope
+  scope: international_organization
+  source: "fixed in src/in_game/common/international_organizations/tv_engineering_department.txt; runtime report: Engineering Department construction progressed while materials stockpile never decreased"
+  notes: "monthly_change evaluates from the international organization/variable context. A nested leader_country block does not make root inside a called scripted_trigger become the country; triggers that use root.var:X can keep reading the IO root and silently return false."
