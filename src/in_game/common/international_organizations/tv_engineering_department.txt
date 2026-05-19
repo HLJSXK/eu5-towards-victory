@@ -70,18 +70,6 @@ tv_engineering_department = {
 			monthly_change = {
 				if = {
 					limit = {
-						leader_country ?= {
-							has_variable = tv_engineering_department_member
-							tv_wonder_survey_active_trigger = yes
-						}
-					}
-					add = {
-						desc = "TV_WONDER_SURVEY_BASE_PROGRESS"
-						value = 5
-					}
-				}
-				if = {
-					limit = {
 						international_organization_has_leader = yes
 						leader_country ?= {
 							has_variable = tv_engineering_department_member
@@ -119,13 +107,6 @@ tv_engineering_department = {
 
 	monthly_effect = {
 		hidden_effect = {
-			if = {
-				limit = {
-					var:tv_wonder_survey_progress >= 100
-					leader_country ?= { tv_wonder_survey_active_trigger = yes }
-				}
-				leader_country ?= { tv_wonder_complete_survey_effect = yes }
-			}
 			if = {
 				limit = {
 					var:tv_wonder_domestic_support <= 0

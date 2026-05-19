@@ -104,6 +104,43 @@ tv_wonder_change_all_survey_competence_effect = {
 	tv_wonder_change_organization_competence_effect = { value = $value$ }
 }
 
+tv_wonder_change_scale_competence_target_effect = {
+	change_variable = { name = tv_wonder_scale_competence_target add = $value$ }
+	clamp_variable = { name = tv_wonder_scale_competence_target min = 0 max = 100 }
+}
+
+tv_wonder_change_logistics_competence_target_effect = {
+	change_variable = { name = tv_wonder_logistics_competence_target add = $value$ }
+	clamp_variable = { name = tv_wonder_logistics_competence_target min = 0 max = 100 }
+}
+
+tv_wonder_change_organization_competence_target_effect = {
+	change_variable = { name = tv_wonder_organization_competence_target add = $value$ }
+	clamp_variable = { name = tv_wonder_organization_competence_target min = 0 max = 100 }
+}
+
+tv_wonder_change_all_survey_competence_target_effect = {
+	tv_wonder_change_scale_competence_target_effect = { value = $value$ }
+	tv_wonder_change_logistics_competence_target_effect = { value = $value$ }
+	tv_wonder_change_organization_competence_target_effect = { value = $value$ }
+}
+
+tv_wonder_apply_monthly_survey_competence_growth_effect = {
+	if = {
+		limit = { has_variable = tv_wonder_scale_competence_monthly_gain }
+		tv_wonder_change_scale_competence_effect = { value = var:tv_wonder_scale_competence_monthly_gain }
+	}
+	if = {
+		limit = { has_variable = tv_wonder_logistics_competence_monthly_gain }
+		tv_wonder_change_logistics_competence_effect = { value = var:tv_wonder_logistics_competence_monthly_gain }
+	}
+	if = {
+		limit = { has_variable = tv_wonder_organization_competence_monthly_gain }
+		tv_wonder_change_organization_competence_effect = { value = var:tv_wonder_organization_competence_monthly_gain }
+	}
+	tv_wonder_update_construction_tiers_from_competence_effect = yes
+}
+
 tv_wonder_clamp_materials_to_country_cap_effect = {
 	every_international_organizations_member_of = {
 		limit = {
@@ -812,9 +849,20 @@ tv_wonder_clear_current_survey_effect = {
 	remove_variable = tv_wonder_survey_speed
 	remove_variable = tv_wonder_survey_event_roll
 	remove_variable = tv_wonder_survey_competence_average
+	remove_variable = tv_wonder_scale_random_bonus
+	remove_variable = tv_wonder_logistics_random_bonus
+	remove_variable = tv_wonder_organization_random_bonus
 	remove_variable = tv_wonder_scale_competence
 	remove_variable = tv_wonder_logistics_competence
 	remove_variable = tv_wonder_organization_competence
+	remove_variable = tv_wonder_scale_competence_target
+	remove_variable = tv_wonder_logistics_competence_target
+	remove_variable = tv_wonder_organization_competence_target
+	remove_variable = tv_wonder_scale_competence_monthly_gain
+	remove_variable = tv_wonder_logistics_competence_monthly_gain
+	remove_variable = tv_wonder_organization_competence_monthly_gain
+	remove_variable = tv_wonder_site_preference_bonus
+	remove_variable = tv_wonder_engineer_bonus
 	remove_variable = tv_wonder_scale_tier
 	remove_variable = tv_wonder_logistics_tier
 	remove_variable = tv_wonder_organization_tier
@@ -934,15 +982,23 @@ tv_wonder_apply_survey_site_preference_effect = {
 		}
 		if = {
 			limit = { var:tv_wonder_survey_site ?= { topography = mountains } }
-			tv_wonder_change_all_survey_competence_effect = { value = 25 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 15 }
 		}
 		else_if = {
 			limit = { var:tv_wonder_survey_site ?= { topography = plateau } }
-			tv_wonder_change_all_survey_competence_effect = { value = 18 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 7.5 }
 		}
 		else_if = {
 			limit = { var:tv_wonder_survey_site ?= { topography = hills } }
-			tv_wonder_change_all_survey_competence_effect = { value = 12 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_survey_site ?= { vegetation = forest } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_survey_site ?= { vegetation = woods } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 	}
 	else_if = {
@@ -950,32 +1006,26 @@ tv_wonder_apply_survey_site_preference_effect = {
 			var:tv_wonder_locked ?= 2
 			tv_wonder_survey_site_selected_trigger = yes
 		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		if = {
 			limit = { var:tv_wonder_survey_site ?= { location_rank = location_rank:megalopolis } }
-			tv_wonder_change_all_survey_competence_effect = { value = 25 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
-		else_if = {
-			limit = { var:tv_wonder_survey_site ?= { location_rank = location_rank:city } }
-			tv_wonder_change_all_survey_competence_effect = { value = 18 }
-		}
+		remove_variable = tv_wonder_site_preference_bonus
 	}
 	else_if = {
 		limit = {
 			var:tv_wonder_locked ?= 3
 			tv_wonder_survey_site_selected_trigger = yes
 		}
-		if = {
-			limit = { var:tv_wonder_survey_site ?= { is_port = yes location_rank = location_rank:megalopolis } }
-			tv_wonder_change_all_survey_competence_effect = { value = 25 }
-		}
-		else_if = {
-			limit = { var:tv_wonder_survey_site ?= { is_port = yes location_rank = location_rank:city } }
-			tv_wonder_change_all_survey_competence_effect = { value = 20 }
-		}
-		else_if = {
-			limit = { var:tv_wonder_survey_site ?= { is_port = yes } }
-			tv_wonder_change_all_survey_competence_effect = { value = 15 }
-		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 25 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		remove_variable = tv_wonder_site_preference_bonus
 	}
 }
 
@@ -985,9 +1035,57 @@ tv_wonder_apply_survey_engineer_bonus_effect = {
 		set_variable = { name = tv_wonder_engineer_bonus value = var:tv_great_engineer_char.adm }
 		change_variable = { name = tv_wonder_engineer_bonus multiply = 0.1 }
 		clamp_variable = { name = tv_wonder_engineer_bonus min = 0 max = 10 }
-		tv_wonder_change_all_survey_competence_effect = { value = var:tv_wonder_engineer_bonus }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_engineer_bonus }
 		remove_variable = tv_wonder_engineer_bonus
 	}
+}
+
+tv_wonder_calculate_survey_speed_effect = {
+	set_variable = { name = tv_wonder_survey_speed value = 0 }
+	if = {
+		limit = { tv_wonder_has_great_engineer_trigger = yes }
+		set_variable = { name = tv_wonder_survey_speed value = var:tv_great_engineer_char.mil }
+		change_variable = { name = tv_wonder_survey_speed multiply = 0.1 }
+	}
+	clamp_variable = { name = tv_wonder_survey_speed min = 0 max = 100 }
+}
+
+tv_wonder_calculate_survey_competence_monthly_gains_effect = {
+	tv_wonder_calculate_survey_speed_effect = yes
+	set_variable = { name = tv_wonder_scale_competence_monthly_gain value = var:tv_wonder_scale_competence_target }
+	change_variable = { name = tv_wonder_scale_competence_monthly_gain multiply = var:tv_wonder_survey_speed }
+	change_variable = { name = tv_wonder_scale_competence_monthly_gain divide = 100 }
+	set_variable = { name = tv_wonder_logistics_competence_monthly_gain value = var:tv_wonder_logistics_competence_target }
+	change_variable = { name = tv_wonder_logistics_competence_monthly_gain multiply = var:tv_wonder_survey_speed }
+	change_variable = { name = tv_wonder_logistics_competence_monthly_gain divide = 100 }
+	set_variable = { name = tv_wonder_organization_competence_monthly_gain value = var:tv_wonder_organization_competence_target }
+	change_variable = { name = tv_wonder_organization_competence_monthly_gain multiply = var:tv_wonder_survey_speed }
+	change_variable = { name = tv_wonder_organization_competence_monthly_gain divide = 100 }
+}
+
+tv_wonder_prepare_survey_competence_targets_effect = {
+	set_variable = { name = tv_wonder_scale_competence value = 0 }
+	set_variable = { name = tv_wonder_logistics_competence value = 0 }
+	set_variable = { name = tv_wonder_organization_competence value = 0 }
+	set_variable = { name = tv_wonder_scale_competence_target value = 25 }
+	set_variable = { name = tv_wonder_logistics_competence_target value = 25 }
+	set_variable = { name = tv_wonder_organization_competence_target value = 25 }
+	set_variable = { name = tv_wonder_scale_random_bonus value = { integer_range = { min = 0 max = 25 } } }
+	set_variable = { name = tv_wonder_logistics_random_bonus value = { integer_range = { min = 0 max = 25 } } }
+	set_variable = { name = tv_wonder_organization_random_bonus value = { integer_range = { min = 0 max = 25 } } }
+	change_variable = { name = tv_wonder_scale_competence_target add = var:tv_wonder_scale_random_bonus }
+	change_variable = { name = tv_wonder_logistics_competence_target add = var:tv_wonder_logistics_random_bonus }
+	change_variable = { name = tv_wonder_organization_competence_target add = var:tv_wonder_organization_random_bonus }
+	remove_variable = tv_wonder_scale_random_bonus
+	remove_variable = tv_wonder_logistics_random_bonus
+	remove_variable = tv_wonder_organization_random_bonus
+	tv_wonder_apply_survey_site_preference_effect = yes
+	tv_wonder_apply_survey_engineer_bonus_effect = yes
+	clamp_variable = { name = tv_wonder_scale_competence_target min = 0 max = 100 }
+	clamp_variable = { name = tv_wonder_logistics_competence_target min = 0 max = 100 }
+	clamp_variable = { name = tv_wonder_organization_competence_target min = 0 max = 100 }
+	tv_wonder_calculate_survey_competence_monthly_gains_effect = yes
+	tv_wonder_update_construction_tiers_from_competence_effect = yes
 }
 
 tv_wonder_start_survey_effect = {
@@ -1009,9 +1107,7 @@ tv_wonder_start_survey_effect = {
 		}
 		else = {
 			set_variable = { name = tv_wonder_survey_active value = 1 }
-			set_variable = { name = tv_wonder_scale_competence value = 40 }
-			set_variable = { name = tv_wonder_logistics_competence value = 40 }
-			set_variable = { name = tv_wonder_organization_competence value = 40 }
+			tv_wonder_prepare_survey_competence_targets_effect = yes
 			tv_wonder_set_io_survey_progress_effect = { value = 0 }
 		}
 	}
@@ -1020,17 +1116,6 @@ tv_wonder_start_survey_effect = {
 tv_wonder_complete_survey_effect = {
 	if = {
 		limit = { tv_wonder_survey_active_trigger = yes }
-		set_variable = { name = tv_wonder_scale_random_bonus value = { integer_range = { min = 0 max = 25 } } }
-		set_variable = { name = tv_wonder_logistics_random_bonus value = { integer_range = { min = 0 max = 25 } } }
-		set_variable = { name = tv_wonder_organization_random_bonus value = { integer_range = { min = 0 max = 25 } } }
-		change_variable = { name = tv_wonder_scale_competence add = var:tv_wonder_scale_random_bonus }
-		change_variable = { name = tv_wonder_logistics_competence add = var:tv_wonder_logistics_random_bonus }
-		change_variable = { name = tv_wonder_organization_competence add = var:tv_wonder_organization_random_bonus }
-		remove_variable = tv_wonder_scale_random_bonus
-		remove_variable = tv_wonder_logistics_random_bonus
-		remove_variable = tv_wonder_organization_random_bonus
-		tv_wonder_apply_survey_site_preference_effect = yes
-		tv_wonder_apply_survey_engineer_bonus_effect = yes
 		clamp_variable = { name = tv_wonder_scale_competence min = 0 max = 100 }
 		clamp_variable = { name = tv_wonder_logistics_competence min = 0 max = 100 }
 		clamp_variable = { name = tv_wonder_organization_competence min = 0 max = 100 }
@@ -1038,6 +1123,13 @@ tv_wonder_complete_survey_effect = {
 		tv_wonder_store_survey_on_location_effect = yes
 		set_variable = { name = tv_wonder_survey_complete value = 1 }
 		remove_variable = tv_wonder_survey_active
+		remove_variable = tv_wonder_survey_speed
+		remove_variable = tv_wonder_scale_competence_target
+		remove_variable = tv_wonder_logistics_competence_target
+		remove_variable = tv_wonder_organization_competence_target
+		remove_variable = tv_wonder_scale_competence_monthly_gain
+		remove_variable = tv_wonder_logistics_competence_monthly_gain
+		remove_variable = tv_wonder_organization_competence_monthly_gain
 		tv_wonder_set_io_survey_progress_effect = { value = 100 }
 		if = {
 			limit = { tv_wonder_survey_site_selected_trigger = yes }
@@ -1072,6 +1164,7 @@ tv_wonder_monthly_survey_event_roll_effect = {
 tv_wonder_monthly_survey_effect = {
 	if = {
 		limit = { tv_wonder_survey_active_trigger = yes }
+		tv_wonder_apply_monthly_survey_competence_growth_effect = yes
 		every_international_organizations_member_of = {
 			limit = {
 				international_organization_type = international_organization_type:tv_engineering_department
@@ -1620,12 +1713,23 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_survey_speed
 	remove_variable = tv_wonder_survey_event_roll
 	remove_variable = tv_wonder_survey_competence_average
+	remove_variable = tv_wonder_scale_random_bonus
+	remove_variable = tv_wonder_logistics_random_bonus
+	remove_variable = tv_wonder_organization_random_bonus
 	remove_variable = tv_wonder_scale_tier
 	remove_variable = tv_wonder_logistics_tier
 	remove_variable = tv_wonder_organization_tier
 	remove_variable = tv_wonder_scale_competence
 	remove_variable = tv_wonder_logistics_competence
 	remove_variable = tv_wonder_organization_competence
+	remove_variable = tv_wonder_scale_competence_target
+	remove_variable = tv_wonder_logistics_competence_target
+	remove_variable = tv_wonder_organization_competence_target
+	remove_variable = tv_wonder_scale_competence_monthly_gain
+	remove_variable = tv_wonder_logistics_competence_monthly_gain
+	remove_variable = tv_wonder_organization_competence_monthly_gain
+	remove_variable = tv_wonder_site_preference_bonus
+	remove_variable = tv_wonder_engineer_bonus
 	remove_variable = tv_wonder_laborers
 	remove_variable = tv_wonder_labor_cap
 	remove_variable = tv_wonder_depot_level
