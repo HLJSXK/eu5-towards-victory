@@ -388,7 +388,7 @@ tv_research_has_unresearched_earlier_than_age_6_frontier_trigger = {
 
 # ── Target request eligibility ─────────────────────────────────────────────────
 # Player may request a research target when: member of Academy IO, no target selected,
-# selection cooldown is not active, and at least one Frontier advance is unresearched.
+# and at least one Frontier advance is unresearched.
 tv_research_can_request_target_trigger = {
 	custom_tooltip = {
 		text = TV_HAS_ACADEMY_IO_MEMBER_TT
@@ -397,10 +397,6 @@ tv_research_can_request_target_trigger = {
 	custom_tooltip = {
 		text = TV_HAS_VARIABLE_NOT_SET_TT
 		NOT = { has_variable = tv_research_target }
-	}
-	custom_tooltip = {
-		text = TV_HAS_VARIABLE_NOT_SET_TT
-		NOT = { has_variable = tv_research_selection_cd }
 	}
 	OR = {
 		tv_research_has_unresearched_age_1_frontier_trigger = yes
@@ -417,6 +413,14 @@ tv_research_has_active_target_trigger = {
 	custom_tooltip = {
 		text = TV_HAS_RESEARCH_TARGET_TT
 		has_variable = tv_research_target
+	}
+}
+
+tv_research_can_abandon_target_trigger = {
+	tv_research_has_active_target_trigger = yes
+	custom_tooltip = {
+		text = TV_RESEARCH_REQUIRES_10_PRESTIGE_TT
+		prestige >= 10
 	}
 }
 

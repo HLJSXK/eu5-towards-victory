@@ -145,7 +145,6 @@ tv_research_init_cycle_effect = {
 
 # ── Reset full research cycle (after completion or abandon) ───────────────────
 # Clears all progress variables. tv_research_target and tv_research_phase are removed.
-# tv_research_selection_cd is NOT touched here; set it separately if needed.
 tv_research_reset_cycle_effect = {
 	set_variable = { name = tv_research_phase value = 0 }
 	remove_variable = tv_research_target
@@ -163,10 +162,10 @@ tv_research_reset_cycle_effect = {
 }
 
 # ── Abandon research cycle ─────────────────────────────────────────────────────
-# Resets cycle and applies 12-month cooldown on target selection.
+# Resets cycle and costs 10 Prestige. No cooldown is applied.
 tv_research_abandon_effect = {
+	add_prestige = -10
 	tv_research_reset_cycle_effect = yes
-	set_variable = { name = tv_research_selection_cd value = 12 }
 }
 
 # ── Sub-process A complete ────────────────────────────────────────────────────

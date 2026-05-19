@@ -1,7 +1,8 @@
 # Diplomatic Alliance law categories for tv_alliance_laws.txt
 # Structure: 5 law categories × 4 policy levels each
 # Cohesion thresholds are fixed: L2=25, L3=50, L4=75 (all laws share these)
-# AI bias values are fixed by level: L2 bias=30, L3 bias=20, L4 bias=10
+# AI vote bias is generated from reform tier, opinion toward the leader,
+# and the leader country's diplomatic reputation.
 #
 # Fields per policy (L2-L4):
 #   id:               EU5 policy identifier
@@ -35,15 +36,15 @@ laws:
         display_comment: "Level 3 — Refusal of Pretenders (cohesion ≥ 50)"
         cohesion_cost: 50
         country_modifier: |
-          monthly_legitimacy = 0.5
+          monthly_legitimacy = 0.05
 
       - level: 4
         id: tv_divine_right_policy
         display_comment: "Level 4 — Divine Right Registry (cohesion ≥ 75)"
         cohesion_cost: 75
         country_modifier: |
-          monthly_legitimacy = 1
-          monthly_prestige = 0.5
+          monthly_legitimacy = 0.10
+          monthly_prestige = 0.05
 
   - id: tv_information_network
     law_category: diplomatic
@@ -132,7 +133,7 @@ laws:
         display_comment: "Level 4 — Universal Spiritual Council (cohesion ≥ 75)"
         cohesion_cost: 75
         country_modifier: |
-          monthly_prestige = 1
+          monthly_prestige = 0.10
 
   - id: tv_colonization_sphere
     law_category: socioeconomic
@@ -147,7 +148,7 @@ laws:
         display_comment: "Level 2 — Doctrine of Discovery (cohesion ≥ 25)"
         cohesion_cost: 25
         country_modifier: |
-          colonial_migration_size = 50
+          colonial_migration_size = 25
 
       - level: 3
         id: tv_demarcation_policy

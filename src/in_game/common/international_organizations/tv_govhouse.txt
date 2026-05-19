@@ -149,7 +149,7 @@ tv_govhouse = {
 					}
 					subtract = {
 						desc = "TV_GOVHOUSE_POWER_EQUILIBRIUM_BASE"
-						value = 0.10
+						value = 0.20
 					}
 					add = {
 						desc = "TV_GOVHOUSE_POWER_EQUILIBRIUM_RELATIVE_ABILITIES"
@@ -210,7 +210,7 @@ tv_govhouse = {
 						value = var:tv_govhouse_power_equilibrium
 						subtract = var:tv_govhouse_power_balance
 						min = 0
-						max = 0.01
+						max = 0.006
 					}
 				}
 				if = {
@@ -231,7 +231,7 @@ tv_govhouse = {
 						value = var:tv_govhouse_power_balance
 						subtract = var:tv_govhouse_power_equilibrium
 						min = 0
-						max = 0.01
+						max = 0.006
 					}
 				}
 				if = {
@@ -254,7 +254,7 @@ tv_govhouse = {
 						desc = "TV_GOVHOUSE_POWER_BALANCE_NO_GENERAL"
 						value = var:tv_govhouse_power_balance
 						min = 0
-						max = 0.01
+						max = 0.006
 					}
 				}
 			}
@@ -270,42 +270,6 @@ tv_govhouse = {
 
 	monthly_effect = {
 		hidden_effect = {
-			if = {
-				limit = {
-					NOT = {
-						OR = {
-							international_organization_has_policy = policy:tv_govhouse_admin_control_registers_policy
-							international_organization_has_policy = policy:tv_govhouse_admin_development_surveys_policy
-							international_organization_has_policy = policy:tv_govhouse_admin_production_offices_policy
-						}
-					}
-				}
-				add_policy_to_international_organization = policy:tv_govhouse_admin_control_registers_policy
-			}
-			if = {
-				limit = {
-					NOT = {
-						OR = {
-							international_organization_has_policy = policy:tv_govhouse_dip_construction_charters_policy
-							international_organization_has_policy = policy:tv_govhouse_dip_pop_advancement_policy
-							international_organization_has_policy = policy:tv_govhouse_dip_settlement_patronage_policy
-						}
-					}
-				}
-				add_policy_to_international_organization = policy:tv_govhouse_dip_construction_charters_policy
-			}
-			if = {
-				limit = {
-					NOT = {
-						OR = {
-							international_organization_has_policy = policy:tv_govhouse_mil_order_patrols_policy
-							international_organization_has_policy = policy:tv_govhouse_mil_frontier_levies_policy
-							international_organization_has_policy = policy:tv_govhouse_mil_fortress_engineers_policy
-						}
-					}
-				}
-				add_policy_to_international_organization = policy:tv_govhouse_mil_order_patrols_policy
-			}
 			leader_country ?= {
 				if = {
 					limit = {
@@ -324,17 +288,6 @@ tv_govhouse = {
 		if = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
-		}
-		hidden_effect = {
-			add_policy_to_international_organization = policy:tv_govhouse_trade_posts_policy
-			add_policy_to_international_organization = policy:tv_govhouse_royal_appointment_policy
-			add_policy_to_international_organization = policy:tv_govhouse_strict_direct_rule_policy
-			add_policy_to_international_organization = policy:tv_govhouse_secular_governance_policy
-			add_policy_to_international_organization = policy:tv_govhouse_regular_garrison_policy
-			add_policy_to_international_organization = policy:tv_govhouse_permanent_colony_policy
-			add_policy_to_international_organization = policy:tv_govhouse_admin_control_registers_policy
-			add_policy_to_international_organization = policy:tv_govhouse_dip_construction_charters_policy
-			add_policy_to_international_organization = policy:tv_govhouse_mil_order_patrols_policy
 		}
 	}
 

@@ -101,16 +101,6 @@ tv_arts_exhibition = {
 				set_variable = { name = tv_dispatched_artists_count value = 0 }
 			}
 		}
-		hidden_effect = {
-			add_policy_to_international_organization = policy:tv_arts_church_patronage_policy
-			add_policy_to_international_organization = policy:tv_arts_guild_system_policy
-			add_policy_to_international_organization = policy:tv_arts_glory_of_god_policy
-			add_policy_to_international_organization = policy:tv_arts_strict_censorship_policy
-			add_policy_to_international_organization = policy:tv_arts_utilitarian_city_policy
-			add_policy_to_international_organization = policy:tv_arts_manuscripts_frescoes_policy
-			add_policy_to_international_organization = policy:tv_arts_plain_ritual_policy
-			add_policy_to_international_organization = policy:tv_arts_craft_tradition_policy
-		}
 	}
 
 	create_visible_trigger = {

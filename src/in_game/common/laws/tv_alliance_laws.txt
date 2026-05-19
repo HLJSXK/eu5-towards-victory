@@ -25,6 +25,7 @@ tv_court_protocol = {
 	locked = {
 	}
 	has_levels = yes
+	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
 	# Level 1 — Ad-hoc Envoys (initial, no effect)
@@ -38,14 +39,21 @@ tv_court_protocol = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_DEFAULT_POLICY"
-				value = 10
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = 0
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 20
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -98,14 +106,21 @@ tv_court_protocol = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 30
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -100
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -130,7 +145,7 @@ tv_court_protocol = {
 			}
 		}
 		country_modifier = {
-			monthly_legitimacy = 0.5
+			monthly_legitimacy = 0.05
 		}
 		wants_propose_policy = {
 			add = {
@@ -157,14 +172,21 @@ tv_court_protocol = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 20
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -150
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -189,8 +211,8 @@ tv_court_protocol = {
 			}
 		}
 		country_modifier = {
-			monthly_legitimacy = 1
-			monthly_prestige = 0.5
+			monthly_legitimacy = 0.10
+			monthly_prestige = 0.05
 		}
 		wants_propose_policy = {
 			add = {
@@ -217,14 +239,21 @@ tv_court_protocol = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 10
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -200
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -245,6 +274,7 @@ tv_information_network = {
 	locked = {
 	}
 	has_levels = yes
+	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
 	# Level 1 — Royal Couriers Only (initial)
@@ -258,14 +288,21 @@ tv_information_network = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_DEFAULT_POLICY"
-				value = 10
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = 0
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 20
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -317,14 +354,21 @@ tv_information_network = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 30
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -100
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -376,14 +420,21 @@ tv_information_network = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 20
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -150
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -436,14 +487,21 @@ tv_information_network = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 10
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -200
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -464,6 +522,7 @@ tv_commerce_consensus = {
 	locked = {
 	}
 	has_levels = yes
+	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
 	# Level 1 — Non-Piracy Pacts (initial)
@@ -477,14 +536,21 @@ tv_commerce_consensus = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_DEFAULT_POLICY"
-				value = 10
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = 0
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 20
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -536,14 +602,21 @@ tv_commerce_consensus = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 30
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -100
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -596,14 +669,21 @@ tv_commerce_consensus = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 20
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -150
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -655,14 +735,21 @@ tv_commerce_consensus = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 10
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -200
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -683,6 +770,7 @@ tv_faith_harmony = {
 	locked = {
 	}
 	has_levels = yes
+	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
 	# Level 1 — Cuius Regio, Eius Religio (initial)
@@ -696,14 +784,21 @@ tv_faith_harmony = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_DEFAULT_POLICY"
-				value = 10
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = 0
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 20
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -755,14 +850,21 @@ tv_faith_harmony = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 30
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -100
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -814,14 +916,21 @@ tv_faith_harmony = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 20
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -150
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -846,7 +955,7 @@ tv_faith_harmony = {
 			}
 		}
 		country_modifier = {
-			monthly_prestige = 1
+			monthly_prestige = 0.10
 		}
 		wants_propose_policy = {
 			add = {
@@ -873,14 +982,21 @@ tv_faith_harmony = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 10
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -200
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -901,6 +1017,7 @@ tv_colonization_sphere = {
 	locked = {
 	}
 	has_levels = yes
+	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
 	# Level 1 — Free-for-All Colonization (initial)
@@ -914,14 +1031,21 @@ tv_colonization_sphere = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_DEFAULT_POLICY"
-				value = 10
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = 0
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 20
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -946,7 +1070,7 @@ tv_colonization_sphere = {
 			}
 		}
 		country_modifier = {
-			colonial_migration_size = 50
+			colonial_migration_size = 25
 		}
 		wants_propose_policy = {
 			add = {
@@ -973,14 +1097,21 @@ tv_colonization_sphere = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 30
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -100
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -1032,14 +1163,21 @@ tv_colonization_sphere = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 20
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -150
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}
@@ -1091,14 +1229,21 @@ tv_colonization_sphere = {
 		}
 		wants_this_policy_bias = {
 			add = {
-				desc = "TV_UPGRADE_DESIRE"
-				value = 10
+				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
+				value = -200
 			}
-		}
-		wants_keep_policy = {
-			add = {
-				desc = "TV_STATUS_QUO"
-				value = 30
+			if = {
+				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.5
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
 			}
 		}
 	}

@@ -256,21 +256,6 @@ organization_panel = {
 				}
 
 				# ── Selection Cooldown ────────────────────────────────────────────────────────────────
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 4
-					visible = "[Country.MakeScope.GetVariable('tv_research_selection_cd').IsSet]"
-					text_single = {
-						text = "TV_RM_SELECTION_CD_LABEL"
-						align = nobaseline
-					}
-					expand = {}
-					text_single = {
-						raw_text = "[Country.MakeScope.GetVariable('tv_research_selection_cd').GetValue|0]"
-						align = nobaseline
-					}
-				}
-
 				# ── Chief Scientist (appointed IO Leader character) ────────────────────────────────────
 				hbox = {
 					layoutpolicy_horizontal = expanding
@@ -450,7 +435,7 @@ organization_panel = {
 
 		# ── Action Buttons ────────────────────────────────────────────────────────────────────────────────────
 
-		# Request Research Target (disabled when cooldown active or target already set)
+		# Request Research Target
 		action_button_diamond = {
 			size = { 470 30 }
 			text = "TV_RM_REQUEST_TARGET_BTN"

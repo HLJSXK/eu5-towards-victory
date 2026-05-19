@@ -150,21 +150,6 @@ GUI_SUFFIX = """\
 \t\t\t\t}
 
 \t\t\t\t# ── Selection Cooldown ────────────────────────────────────────────────────────────────
-\t\t\t\thbox = {
-\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\tspacing = 4
-\t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_research_selection_cd').IsSet]"
-\t\t\t\t\ttext_single = {
-\t\t\t\t\t\ttext = "TV_RM_SELECTION_CD_LABEL"
-\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t}
-\t\t\t\t\texpand = {}
-\t\t\t\t\ttext_single = {
-\t\t\t\t\t\traw_text = "[Country.MakeScope.GetVariable('tv_research_selection_cd').GetValue|0]"
-\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t}
-\t\t\t\t}
-
 \t\t\t\t# ── Chief Scientist (appointed IO Leader character) ────────────────────────────────────
 \t\t\t\thbox = {
 \t\t\t\t\tlayoutpolicy_horizontal = expanding
@@ -344,7 +329,7 @@ GUI_SUFFIX = """\
 
 \t\t# ── Action Buttons ────────────────────────────────────────────────────────────────────────────────────
 
-\t\t# Request Research Target (disabled when cooldown active or target already set)
+\t\t# Request Research Target
 \t\taction_button_diamond = {
 \t\t\tsize = { 470 30 }
 \t\t\ttext = "TV_RM_REQUEST_TARGET_BTN"

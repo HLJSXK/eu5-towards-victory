@@ -536,7 +536,6 @@ tv_end_local_exhibition_effect = {
 		change_variable = { name = tv_local_exhibition_last_reward multiply = var:tv_local_exhibition_last_location_count }
 		tv_cleanup_local_exhibition_buildings_effect = yes
 		tv_return_local_exhibition_guest_artist_effect = yes
-		set_variable = { name = tv_local_exhibition_cd value = 12 }
 		tv_set_local_exhibition_enthusiasm_effect = { value = 0 }
 		if = {
 			limit = { var:tv_local_exhibition_last_rating >= 4 }
@@ -899,15 +898,15 @@ tv_prune_arts_exchange_participants_effect = {
 
 tv_roll_arts_exchange_monthly_events_effect = {
 	random_list = {
-		1 = {
+		2 = {
 			trigger = { variable_list_size = { name = tv_arts_exchange_participants value >= 2 } }
 			trigger_event_non_silently = { id = tv_arts_exhibition.401 }
 		}
-		1 = {
+		2 = {
 			trigger = { variable_list_size = { name = tv_arts_exchange_participants value >= 1 } }
 			trigger_event_non_silently = { id = tv_arts_exhibition.402 }
 		}
-		1 = {
+		2 = {
 			trigger = {
 				variable_list_size = { name = tv_arts_exchange_participants value >= 2 }
 				any_in_list = {
@@ -919,7 +918,7 @@ tv_roll_arts_exchange_monthly_events_effect = {
 			}
 			trigger_event_non_silently = { id = tv_arts_exhibition.403 }
 		}
-		1 = {
+		2 = {
 			trigger = { variable_list_size = { name = tv_arts_exchange_participants value >= 1 } }
 			trigger_event_non_silently = { id = tv_arts_exhibition.404 }
 		}
@@ -937,7 +936,7 @@ tv_roll_arts_exchange_monthly_events_effect = {
 			trigger = { has_ruler = yes }
 			trigger_event_non_silently = { id = tv_arts_exhibition.409 }
 		}
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.410 } }
+		2 = { trigger_event_non_silently = { id = tv_arts_exhibition.410 } }
 	}
 }
 

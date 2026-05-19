@@ -48,7 +48,6 @@
 
  # ── Research Mechanism UI Labels ──────────────────────────────────────────────
  TV_RM_STATUS_CARD_TITLE:0 "Research Status"
- TV_RM_SELECTION_CD_LABEL:0 "Selection cooldown (months):"
  TV_RM_CHIEF_SCIENTIST_LABEL:0 "Chief Scientist:"
  TV_ACADEMY_TARGET_ADVANCE_LABEL:0 "Research Target:"
  TV_ACADEMY_TARGET_NONE:0 "None selected"
@@ -115,7 +114,8 @@
  tv_request_research_target:0 "Request Research Topic"
  tv_request_research_target_desc:0 "Ask the Academy to propose a research avenue. A target will be selected from currently locked frontier technologies."
  tv_abandon_research_target:0 "Abandon Research Target"
- tv_abandon_research_target_desc:0 "Abandon the current research target. All progress will be lost and a 12-month cooldown will be applied."
+ tv_abandon_research_target_desc:0 "Abandon the current research target. All progress will be lost and this costs 10 Prestige."
+ TV_RESEARCH_REQUIRES_10_PRESTIGE_TT:0 "Requires at least #Y 10#! Prestige."
  tv_start_concentrated_research:0 "Begin Concentrated Research"
  tv_start_concentrated_research_desc:0 "Direct the Academy's chief scientist to undertake [tv_concentrated_research|e]. Requires all prerequisite stages to be complete."
  tv_pause_concentrated_research:0 "Pause Concentrated Research"
@@ -196,11 +196,11 @@
  tv_research.10.a_military_revolution.tt: "Our Academy will concentrate its efforts on #bold Military Revolution#! and pursue a breakthrough."
  tv_research.10.a_enlightenment.tt: "Our Academy will concentrate its efforts on #bold Enlightenment#! and pursue a breakthrough."
  tv_research.10.a_levee_en_masse.tt: "Our Academy will concentrate its efforts on #bold Levée en Masse#! and pursue a breakthrough."
- tv_research.10.b: "Veto. We are not ready for this."
+ tv_research.10.b: "Abandon the proposal."
 
  # tv_research.11 — Abandon Target Confirmation
  tv_research.11.t: "Abandon the Research Programme?"
- tv_research.11.d: "Abandoning our current research target will mean losing all progress accumulated so far. The scholars will be disheartened, and we will need time before proposing a new direction."
+ tv_research.11.d: "Abandoning our current research target will mean losing all progress accumulated so far and spending 10 Prestige."
  tv_research.11.a: "Abandon the research."
  tv_research.11.b: "Continue — I changed my mind."
 

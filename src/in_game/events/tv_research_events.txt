@@ -47,7 +47,7 @@ tv_research.1 = {
 # ── tv_research.10 — Target Selection Proposal ───────────────────────────────────
 # Fired by tv_request_research_target generic action.
 # Proposes the advance stored in tv_research_proposed_advance.
-# Player authorizes (starts cycle) or vetoes (12-month cooldown).
+# Player authorizes (starts cycle) or abandons the proposal for 10 Prestige.
 tv_research.10 = {
 	type = country_event
 	title = tv_research.10.t
@@ -269,9 +269,10 @@ tv_research.10 = {
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.b	# "Veto (12-month cooldown)"
+		name = tv_research.10.b
+		trigger = { prestige >= 10 }
+		add_prestige = -10
 		remove_variable = tv_research_proposed_advance
-		set_variable = { name = tv_research_selection_cd value = 12 }
 	}
 }
 
@@ -292,6 +293,7 @@ tv_research.11 = {
 
 	option = {
 		name = tv_research.11.a	# "Abandon the research"
+		trigger = { prestige >= 10 }
 		tv_research_abandon_effect = yes
 	}
 	option = {

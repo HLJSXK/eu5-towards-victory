@@ -53,14 +53,14 @@ tv_gov_event_military_disorder_country = {
 # War Tent - Grand General tactics
 tv_govhouse_tactic_steady_advance = {
 	game_data = {
-		category = character
+		category = country
 	}
 	land_morale_modifier = 0.05
 }
 
 tv_govhouse_tactic_careful_advance = {
 	game_data = {
-		category = character
+		category = country
 	}
 	army_movement_speed = -0.10
 	discipline = 0.05
@@ -68,7 +68,7 @@ tv_govhouse_tactic_careful_advance = {
 
 tv_govhouse_tactic_rapid_advance = {
 	game_data = {
-		category = character
+		category = country
 	}
 	army_movement_speed = 0.20
 	land_morale_modifier = 0.10
@@ -77,7 +77,7 @@ tv_govhouse_tactic_rapid_advance = {
 
 tv_govhouse_tactic_guerrilla = {
 	game_data = {
-		category = character
+		category = country
 	}
 	army_movement_speed = 0.10
 	military_tactics = 0.20
@@ -85,21 +85,21 @@ tv_govhouse_tactic_guerrilla = {
 
 tv_govhouse_tactic_siege_relief = {
 	game_data = {
-		category = character
+		category = country
 	}
 	siege_ability = 0.10
 }
 
 tv_govhouse_tactic_ambush_general = {
 	game_data = {
-		category = character
+		category = country
 	}
 	commander_combat_bonus = 1
 }
 
 tv_govhouse_tactic_surprise_general = {
 	game_data = {
-		category = character
+		category = country
 	}
 	commander_combat_bonus = 1
 }

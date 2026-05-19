@@ -194,15 +194,6 @@ tv_academy_of_sciences = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
 		}
-		hidden_effect = {
-			add_policy_to_international_organization = policy:tv_academy_research_priority_balanced_policy
-			add_policy_to_international_organization = policy:tv_academy_research_openness_closed_policy
-			add_policy_to_international_organization = policy:tv_academy_research_risk_mandatory_review_policy
-			add_policy_to_international_organization = policy:tv_academy_research_funding_private_policy
-			add_policy_to_international_organization = policy:tv_academy_technology_spread_laissez_faire_policy
-			add_policy_to_international_organization = policy:tv_academy_academic_prestige_none_policy
-			add_policy_to_international_organization = policy:tv_academy_leader_gender_male_only_policy
-		}
 	}
 
 	create_visible_trigger = {

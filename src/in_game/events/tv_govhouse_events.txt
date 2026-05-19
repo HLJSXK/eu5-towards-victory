@@ -309,15 +309,15 @@ tv_govhouse.40 = {
 		name = tv_govhouse.40.a
 		trigger = { var:tv_govhouse_pending_tactic ?= 1 }
 		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		# EU5 does not apply these army-wide combat modifiers from a general
+		# character modifier, so War Tent tactics use country modifiers instead.
 		if = {
 			limit = {
 				at_war = yes
 				has_variable = tv_conquest_general_char
 				var:tv_conquest_general_char ?= { is_alive = yes }
 			}
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_steady_advance years = -1 mode = replace }
-			}
+			add_country_modifier = { modifier = tv_govhouse_tactic_steady_advance years = -1 mode = replace }
 		}
 	}
 
@@ -331,9 +331,7 @@ tv_govhouse.40 = {
 				has_variable = tv_conquest_general_char
 				var:tv_conquest_general_char ?= { is_alive = yes }
 			}
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_careful_advance years = -1 mode = replace }
-			}
+			add_country_modifier = { modifier = tv_govhouse_tactic_careful_advance years = -1 mode = replace }
 		}
 	}
 
@@ -347,9 +345,7 @@ tv_govhouse.40 = {
 				has_variable = tv_conquest_general_char
 				var:tv_conquest_general_char ?= { is_alive = yes }
 			}
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_rapid_advance years = -1 mode = replace }
-			}
+			add_country_modifier = { modifier = tv_govhouse_tactic_rapid_advance years = -1 mode = replace }
 		}
 	}
 
@@ -363,9 +359,7 @@ tv_govhouse.40 = {
 				has_variable = tv_conquest_general_char
 				var:tv_conquest_general_char ?= { is_alive = yes }
 			}
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_ambush_general years = -1 mode = replace }
-			}
+			add_country_modifier = { modifier = tv_govhouse_tactic_ambush_general years = -1 mode = replace }
 		}
 	}
 
@@ -379,9 +373,7 @@ tv_govhouse.40 = {
 				has_variable = tv_conquest_general_char
 				var:tv_conquest_general_char ?= { is_alive = yes }
 			}
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_surprise_general years = -1 mode = replace }
-			}
+			add_country_modifier = { modifier = tv_govhouse_tactic_surprise_general years = -1 mode = replace }
 		}
 	}
 
@@ -395,9 +387,7 @@ tv_govhouse.40 = {
 				has_variable = tv_conquest_general_char
 				var:tv_conquest_general_char ?= { is_alive = yes }
 			}
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_guerrilla years = -1 mode = replace }
-			}
+			add_country_modifier = { modifier = tv_govhouse_tactic_guerrilla years = -1 mode = replace }
 		}
 	}
 
@@ -411,9 +401,7 @@ tv_govhouse.40 = {
 				has_variable = tv_conquest_general_char
 				var:tv_conquest_general_char ?= { is_alive = yes }
 			}
-			var:tv_conquest_general_char ?= {
-				add_character_modifier = { modifier = tv_govhouse_tactic_siege_relief years = -1 mode = replace }
-			}
+			add_country_modifier = { modifier = tv_govhouse_tactic_siege_relief years = -1 mode = replace }
 		}
 	}
 

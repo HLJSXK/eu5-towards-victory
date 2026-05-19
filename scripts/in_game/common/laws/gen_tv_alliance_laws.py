@@ -4,7 +4,7 @@ Generate src/in_game/common/laws/tv_alliance_laws.txt from data/alliance_laws.ya
 Pattern: 5 law categories × 4 policy levels each.
 - L1 is a minimal stub (no allow, no on_activate, no country_modifier).
 - L2-L4 share identical boilerplate; only cohesion_cost, country_modifier, and policy IDs differ.
-- wants_this_policy_bias add values are fixed: L2=30, L3=20, L4=10.
+- AI voting uses reform tier base bias, opinion toward the leader, and leader diplomatic reputation.
 """
 
 import sys
@@ -44,6 +44,37 @@ def _indent_block(text: str, depth: int) -> str:
     return "\n".join(prefix + line if line.strip() else "" for line in text.rstrip().splitlines())
 
 
+def gen_ai_vote_bias(level: int) -> list[str]:
+    base_by_tier = {
+        0: 0,
+        1: -100,
+        2: -150,
+        3: -200,
+    }
+    base = base_by_tier[level - 1]
+    lines = []
+    lines.append(T*2 + "wants_this_policy_bias = {")
+    lines.append(T*3 + "add = {")
+    lines.append(T*4 + 'desc = "TV_ALLIANCE_REFORM_BASE_BIAS"')
+    lines.append(T*4 + f"value = {base}")
+    lines.append(T*3 + "}")
+    lines.append(T*3 + "if = {")
+    lines.append(T*4 + "limit = { scope:recipient = { international_organization_has_leader = yes } }")
+    lines.append(T*4 + "add = {")
+    lines.append(T*5 + 'desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"')
+    lines.append(T*5 + 'value = "opinion(scope:recipient.leader_country)"')
+    lines.append(T*5 + "multiply = 0.5")
+    lines.append(T*4 + "}")
+    lines.append(T*4 + "add = {")
+    lines.append(T*5 + 'desc = "IO_LEADER_DIP_REP"')
+    lines.append(T*5 + "value = scope:recipient.leader_country.modifier:diplomatic_reputation")
+    lines.append(T*5 + "multiply = 5")
+    lines.append(T*4 + "}")
+    lines.append(T*3 + "}")
+    lines.append(T*2 + "}")
+    return lines
+
+
 def gen_l1(policy: dict) -> str:
     pid = policy["id"]
     comment = policy.get("display_comment", "")
@@ -58,18 +89,7 @@ def gen_l1(policy: dict) -> str:
     lines.append(T*4 + "value = 100")
     lines.append(T*3 + "}")
     lines.append(T*2 + "}")
-    lines.append(T*2 + "wants_this_policy_bias = {")
-    lines.append(T*3 + "add = {")
-    lines.append(T*4 + 'desc = "TV_DEFAULT_POLICY"')
-    lines.append(T*4 + "value = 10")
-    lines.append(T*3 + "}")
-    lines.append(T*2 + "}")
-    lines.append(T*2 + "wants_keep_policy = {")
-    lines.append(T*3 + "add = {")
-    lines.append(T*4 + 'desc = "TV_STATUS_QUO"')
-    lines.append(T*4 + "value = 20")
-    lines.append(T*3 + "}")
-    lines.append(T*2 + "}")
+    lines.extend(gen_ai_vote_bias(1))
     lines.append(T + "}")
     return "\n".join(lines)
 
@@ -81,7 +101,6 @@ def gen_lN(policy: dict, prev_policy_id: str) -> str:
     comment = policy.get("display_comment", "")
     modifier_lines = policy["country_modifier"].rstrip()
     on_activate_note = (policy.get("on_activate_note") or "").strip()
-    bias_add = 30 - (level - 2) * 10  # 30/20/10 for levels 2/3/4
 
     lines = []
     if comment:
@@ -132,18 +151,7 @@ def gen_lN(policy: dict, prev_policy_id: str) -> str:
     lines.append(T*4 + "}")
     lines.append(T*3 + "}")
     lines.append(T*2 + "}")
-    lines.append(T*2 + "wants_this_policy_bias = {")
-    lines.append(T*3 + "add = {")
-    lines.append(T*4 + 'desc = "TV_UPGRADE_DESIRE"')
-    lines.append(T*4 + f"value = {bias_add}")
-    lines.append(T*3 + "}")
-    lines.append(T*2 + "}")
-    lines.append(T*2 + "wants_keep_policy = {")
-    lines.append(T*3 + "add = {")
-    lines.append(T*4 + 'desc = "TV_STATUS_QUO"')
-    lines.append(T*4 + "value = 30")
-    lines.append(T*3 + "}")
-    lines.append(T*2 + "}")
+    lines.extend(gen_ai_vote_bias(level))
     lines.append(T + "}")
     return "\n".join(lines)
 
@@ -171,6 +179,7 @@ def gen_law(law: dict) -> str:
     lines.append(T + "locked = {")
     lines.append(T + "}")
     lines.append(T + "has_levels = yes")
+    lines.append(T + "requires_vote = yes")
     lines.append(T + "custom_tags = { forbids_no_policy }")
     lines.append("")
 

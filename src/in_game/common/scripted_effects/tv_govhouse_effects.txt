@@ -314,15 +314,13 @@ tv_training_resolve_effect = {
 # Scope for all effects in this section: country.
 
 tv_govhouse_remove_tactic_modifiers_effect = {
-	var:tv_conquest_general_char ?= {
-		remove_character_modifier = tv_govhouse_tactic_steady_advance
-		remove_character_modifier = tv_govhouse_tactic_careful_advance
-		remove_character_modifier = tv_govhouse_tactic_rapid_advance
-		remove_character_modifier = tv_govhouse_tactic_guerrilla
-		remove_character_modifier = tv_govhouse_tactic_siege_relief
-		remove_character_modifier = tv_govhouse_tactic_ambush_general
-		remove_character_modifier = tv_govhouse_tactic_surprise_general
-	}
+	remove_country_modifier = tv_govhouse_tactic_steady_advance
+	remove_country_modifier = tv_govhouse_tactic_careful_advance
+	remove_country_modifier = tv_govhouse_tactic_rapid_advance
+	remove_country_modifier = tv_govhouse_tactic_guerrilla
+	remove_country_modifier = tv_govhouse_tactic_siege_relief
+	remove_country_modifier = tv_govhouse_tactic_ambush_general
+	remove_country_modifier = tv_govhouse_tactic_surprise_general
 }
 
 tv_govhouse_clear_tactic_effect = {

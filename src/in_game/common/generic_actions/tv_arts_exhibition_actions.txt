@@ -210,12 +210,6 @@ tv_host_domestic_exhibition = {
 				NOT = { has_variable = tv_local_exhibition_active }
 			}
 		}
-		custom_tooltip = {
-			text = TV_HAS_LOCAL_EXHIBITION_CD_NOT_SET_TT
-			scope:actor = {
-				NOT = { has_variable = tv_local_exhibition_cd }
-			}
-		}
 		scope:actor = {
 			tv_chief_artist_available_for_domestic_exhibition_trigger = yes
 		}

@@ -218,22 +218,6 @@ tv_leaderboard_monthly_pulse = {
 				}
 			}
 
-			# ── Selection cooldown countdown ───────────────────────────────────
-			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_RESEARCH_SELECTION_CD_TT
-						has_variable = tv_research_selection_cd
-					}
-					var:tv_research_selection_cd >= 1
-				}
-				change_variable = { name = tv_research_selection_cd add = -1 }
-				if = {
-					limit = { var:tv_research_selection_cd <= 0 }
-					remove_variable = tv_research_selection_cd
-				}
-			}
-
 			# ── Sub-process B: live prerequisite check (phase 1 only) ─────────
 			# Institution-root targets wait for one eligible owned location; other
 			# targets retain the original automatic completion behavior. B is

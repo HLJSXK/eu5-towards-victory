@@ -244,6 +244,8 @@ var:my_general_char ?= {
 
 Use a country modifier only when the design intentionally grants the bonus country-wide and independently of the active commander.
 
+Governor's House War Tent tactics are a documented exception. Their stored-general character modifier path did not make the combat bonuses take effect, so the feature intentionally applies `tv_govhouse_tactic_*` as country-scoped modifiers and comments that this is a gameplay approximation. Do not convert that specific system back to `add_character_modifier` unless a new active-commander implementation is verified at runtime.
+
 ### 5.2. Scopes and Scope Links
 
 A **scope** refers to the specific game object (e.g., a country, a character, a location) that a script is currently focused on. **Scope links** are used to access data from or apply effects to other scopes. For example, `c:FRA.gold` would access the treasury of the country with the tag FRA.
