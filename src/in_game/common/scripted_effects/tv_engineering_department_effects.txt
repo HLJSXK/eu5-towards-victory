@@ -161,10 +161,10 @@ tv_wonder_clamp_materials_to_country_cap_effect = {
 		clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
 		if = {
 			limit = {
-				prev = { has_variable = tv_wonder_materials_cap }
-				var:tv_wonder_materials_stockpile > prev.var:tv_wonder_materials_cap
+				root = { has_variable = tv_wonder_materials_cap }
+				var:tv_wonder_materials_stockpile > root.var:tv_wonder_materials_cap
 			}
-			set_variable = { name = tv_wonder_materials_stockpile value = prev.var:tv_wonder_materials_cap }
+			set_variable = { name = tv_wonder_materials_stockpile value = root.var:tv_wonder_materials_cap }
 		}
 	}
 }
@@ -178,10 +178,10 @@ tv_wonder_change_materials_stockpile_effect = {
 		clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
 		if = {
 			limit = {
-				prev = { has_variable = tv_wonder_materials_cap }
-				var:tv_wonder_materials_stockpile > prev.var:tv_wonder_materials_cap
+				root = { has_variable = tv_wonder_materials_cap }
+				var:tv_wonder_materials_stockpile > root.var:tv_wonder_materials_cap
 			}
-			set_variable = { name = tv_wonder_materials_stockpile value = prev.var:tv_wonder_materials_cap }
+			set_variable = { name = tv_wonder_materials_stockpile value = root.var:tv_wonder_materials_cap }
 		}
 	}
 }
@@ -845,6 +845,17 @@ tv_wonder_update_logistics_metrics_effect = {
 				multiply = 100
 			}
 		}
+		if = {
+			limit = { var:tv_wonder_materials_cap > 0 }
+			set_local_variable = { name = tv_wonder_material_income_to_add value = var:tv_wonder_material_income }
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_engineering_department
+				}
+				change_variable = { name = tv_wonder_materials_stockpile add = local_var:tv_wonder_material_income_to_add }
+				clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
+			}
+		}
 	}
 
 	tv_wonder_clamp_materials_to_country_cap_effect = yes
@@ -1345,22 +1356,29 @@ tv_wonder_monthly_construction_effect = {
 	if = {
 		limit = { tv_wonder_construction_active_trigger = yes }
 		if = {
-			limit = { tv_wonder_has_materials_for_month_trigger = yes }
-			remove_variable = tv_wonder_construction_paused
-			every_international_organizations_member_of = {
-				limit = {
-					international_organization_type = international_organization_type:tv_engineering_department
+			limit = { var:tv_wonder_laborers ?= { this > 0 } }
+			set_local_variable = { name = tv_wonder_laborers_to_consume value = var:tv_wonder_laborers }
+			if = {
+				limit = { tv_wonder_has_materials_for_month_trigger = yes }
+				remove_variable = tv_wonder_construction_paused
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_engineering_department
+					}
+					change_variable = { name = tv_wonder_materials_stockpile subtract = local_var:tv_wonder_laborers_to_consume }
+					clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
 				}
-				change_variable = { name = tv_wonder_materials_stockpile subtract = prev.var:tv_wonder_laborers }
-				clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
+				if = { limit = { var:tv_wonder_active_part ?= 1 } tv_wonder_progress_foundation_effect = yes }
+				if = { limit = { var:tv_wonder_active_part ?= 2 } tv_wonder_progress_body_effect = yes }
+				if = { limit = { var:tv_wonder_active_part ?= 3 } tv_wonder_progress_function_effect = yes }
+				if = { limit = { var:tv_wonder_active_part ?= 4 } tv_wonder_progress_decoration_effect = yes }
 			}
-			if = { limit = { var:tv_wonder_active_part ?= 1 } tv_wonder_progress_foundation_effect = yes }
-			if = { limit = { var:tv_wonder_active_part ?= 2 } tv_wonder_progress_body_effect = yes }
-			if = { limit = { var:tv_wonder_active_part ?= 3 } tv_wonder_progress_function_effect = yes }
-			if = { limit = { var:tv_wonder_active_part ?= 4 } tv_wonder_progress_decoration_effect = yes }
+			else = {
+				set_variable = { name = tv_wonder_construction_paused value = 1 }
+			}
 		}
 		else = {
-			set_variable = { name = tv_wonder_construction_paused value = 1 }
+			remove_variable = tv_wonder_construction_paused
 		}
 	}
 }

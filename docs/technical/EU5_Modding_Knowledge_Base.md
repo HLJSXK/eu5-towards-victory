@@ -357,6 +357,27 @@ Confirmed: `multiply = var:X` and `divide = var:X` are both valid (verified `cmm
 
 `change_variable` does not accept `value =`. Use `set_variable = { name = my_var value = 1 }` for absolute assignment, and use `change_variable = { name = my_var add = 1 }` (or `subtract`, `multiply`, `divide`) for arithmetic. Using `value =` inside `change_variable` logs `Failed to read 'value' for 'change_variable'`.
 
+#### Cross-Scope Numeric Variables
+
+Do not use `prev.var:X` as the numeric right-hand side of comparisons or arithmetic after entering another scope. It can work as a scope reference, but in numeric contexts it may log errors such as `Invalid right side during comparison 'var'` and make the condition fail.
+
+For trigger comparisons, use `root.var:X` only when `root` is verified to be the original numeric owner:
+
+```pdx
+var:stockpile ?= {
+    this >= root.var:monthly_cost
+}
+```
+
+For effect iterators, capture the number before switching scope and use the local variable inside the iterator:
+
+```pdx
+set_local_variable = { name = monthly_cost value = var:monthly_cost }
+every_international_organizations_member_of = {
+    change_variable = { name = stockpile subtract = local_var:monthly_cost }
+}
+```
+
 ### 5.6. Ordered Global List Rebuilds
 
 When using `ordered_in_global_list` to build rank 1..N outputs, treat the output variables as a fresh snapshot each time:

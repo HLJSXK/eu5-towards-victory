@@ -578,6 +578,15 @@
   source: "reference_game_files/game/in_game/common/situations/guelphs_and_ghibellines.txt:229 (add = local_var:guelphs_total_tax)"
   notes: "prev.var:X is valid only as a scope reference (country, religion, etc.), not as a numeric value source. Using it in an add = position causes 'Variable not of the value scope type. Type: empty'. Built-in scripted values like prev.num_locations are valid inline; only prev.var:X is broken."
 
+- id: comparison_prev_var_numeric_rhs
+  pattern: '(>=|<=|>|<)\s*prev\.var:'
+  bad: "var:X ?= { this >= prev.var:some_numeric_var } or var:X > prev.var:some_numeric_var inside a trigger/effect limit"
+  correction: "Use root.var:some_numeric_var when root is verified to be the original numeric owner, or capture the value before an effect iterator with set_local_variable and compare/use local_var:name inside the switched scope."
+  category: script
+  scope: any
+  source: "runtime error.log: common/scripted_triggers/tv_engineering_department_triggers.txt:311; reference_game_files/game/in_game/common/missions/generic_capital_economy_mission_pack.txt:388 (root.var comparison)"
+  notes: "Using prev.var:X as the RHS of a numeric comparison can log 'Invalid right side during comparison 'var'' and make the condition fail every tick. In Engineering Department construction this caused the monthly material check to fail and kept the UI stuck on the materials-insufficient pause state."
+
 - id: random_list_inside_random
   pattern: 'random\s*=\s*\{[^}]*random_list'
   bad: "random = { chance = X random_list = { ... } } — nesting random_list as a child of random"

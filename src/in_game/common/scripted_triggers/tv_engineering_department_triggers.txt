@@ -308,7 +308,7 @@ tv_wonder_has_materials_for_month_trigger = {
 	any_international_organizations_member_of = {
 		international_organization_type = international_organization_type:tv_engineering_department
 		var:tv_wonder_materials_stockpile ?= {
-			this >= prev.var:tv_wonder_laborers
+			this >= root.var:tv_wonder_laborers
 		}
 	}
 }
