@@ -214,6 +214,47 @@ tv_wonder_organization_logistics_unlocked_trigger = {
 	NOT = { has_variable = tv_wonder_construction_complete }
 }
 
+tv_wonder_labor_camp_below_cap_trigger = {
+	tv_wonder_construction_site_selected_trigger = yes
+	OR = {
+		AND = { var:tv_wonder_scale_tier ?= 1 total_building_levels_including_construction:tv_wonder_labor_camp < 5 }
+		AND = { var:tv_wonder_scale_tier ?= 2 total_building_levels_including_construction:tv_wonder_labor_camp < 10 }
+		AND = { var:tv_wonder_scale_tier ?= 3 total_building_levels_including_construction:tv_wonder_labor_camp < 15 }
+		AND = { var:tv_wonder_scale_tier ?= 4 total_building_levels_including_construction:tv_wonder_labor_camp < 20 }
+		AND = { var:tv_wonder_scale_tier ?= 5 total_building_levels_including_construction:tv_wonder_labor_camp < 25 }
+		AND = { var:tv_wonder_scale_tier ?= 6 total_building_levels_including_construction:tv_wonder_labor_camp < 30 }
+	}
+}
+
+tv_wonder_material_depot_below_cap_trigger = {
+	tv_wonder_construction_site_selected_trigger = yes
+	OR = {
+		AND = { var:tv_wonder_scale_tier ?= 1 total_building_levels_including_construction:tv_wonder_material_depot < 1 }
+		AND = { var:tv_wonder_scale_tier ?= 2 total_building_levels_including_construction:tv_wonder_material_depot < 2 }
+		AND = { var:tv_wonder_scale_tier ?= 3 total_building_levels_including_construction:tv_wonder_material_depot < 3 }
+		AND = { var:tv_wonder_scale_tier ?= 4 total_building_levels_including_construction:tv_wonder_material_depot < 4 }
+		AND = { var:tv_wonder_scale_tier ?= 5 total_building_levels_including_construction:tv_wonder_material_depot < 5 }
+		AND = { var:tv_wonder_scale_tier ?= 6 total_building_levels_including_construction:tv_wonder_material_depot < 6 }
+	}
+}
+
+tv_wonder_material_dispatch_point_location_available_trigger = {
+	can_build_building = building_type:tv_wonder_material_dispatch_point
+	NOT = { has_building = building_type:tv_wonder_material_dispatch_point }
+	NOT = {
+		any_buildings_in_location = {
+			building_type = building_type:tv_wonder_material_dispatch_point
+			building_levels_under_construction >= 1
+		}
+	}
+}
+
+tv_wonder_has_available_material_dispatch_point_trigger = {
+	any_owned_location = {
+		tv_wonder_material_dispatch_point_location_available_trigger = yes
+	}
+}
+
 tv_wonder_has_organized_labor_trigger = {
 	var:tv_wonder_laborers ?= { this > 0 }
 }

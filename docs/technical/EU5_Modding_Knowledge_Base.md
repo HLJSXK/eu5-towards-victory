@@ -625,6 +625,28 @@ Multiple `custom_tooltip` blocks in `allow` are AND-combined. Each evaluates ind
 
 Do not use `has_variable = X` as a guard for `var:X = ...` inside generic action `allow` or tooltip logic. The UI evaluator may still fetch direct `var:` links from sibling trigger blocks while building tooltips. For nullable variables, use optional variable links (`var:X ?= ...`) so an absent variable returns false without logging an unset-scope error.
 
+For custom generic-action buttons that call `construct_building`, do not rely on the building type's `max_levels` or a lone `can_build_building` check. Repeat the cap logic in a reusable trigger and call it from the action `allow`, any target picker `visible`/`enabled`, and the final effect guard. Country-wide caps should count queued construction with:
+
+```
+scope:actor = {
+    total_building_levels_including_construction:my_building < 5
+}
+```
+
+For one-per-location target pickers, also filter both existing and queued copies:
+
+```
+NOT = { has_building = building_type:my_building }
+NOT = {
+    any_buildings_in_location = {
+        building_type = building_type:my_building
+        building_levels_under_construction >= 1
+    }
+}
+```
+
+Otherwise the custom action can spend its scripted price while the final construction does nothing, especially from stale target lists or after the cap was reached by an in-progress level.
+
 ### 10.4 Actual Building Employment
 
 `location_building_level(building_type:X)` reports completed levels, not current staffing. For mechanics that depend on actual workers, enter the building object from the location and read `building_employed_amount`:

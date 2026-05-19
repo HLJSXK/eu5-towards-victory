@@ -257,6 +257,7 @@ tv_wonder_build_labor_camp = {
 				text = TV_WONDER_SITE_CAN_BUILD_LABOR_CAMP_TT
 				var:tv_wonder_site ?= { can_build_building = building_type:tv_wonder_labor_camp }
 			}
+			tv_wonder_labor_camp_below_cap_trigger = yes
 		}
 	}
 	effect = { scope:actor = { tv_wonder_construct_labor_camp_effect = yes } }
@@ -276,6 +277,7 @@ tv_wonder_build_material_depot = {
 				text = TV_WONDER_SITE_CAN_BUILD_DEPOT_TT
 				var:tv_wonder_site ?= { can_build_building = building_type:tv_wonder_material_depot }
 			}
+			tv_wonder_material_depot_below_cap_trigger = yes
 		}
 	}
 	effect = { scope:actor = { tv_wonder_construct_material_depot_effect = yes } }
@@ -293,9 +295,7 @@ tv_wonder_build_material_dispatch_point = {
 			tv_wonder_organization_logistics_unlocked_trigger = yes
 			custom_tooltip = {
 				text = TV_WONDER_HAS_DISPATCH_SITE_TT
-				any_owned_location = {
-					can_build_building = building_type:tv_wonder_material_dispatch_point
-				}
+				tv_wonder_has_available_material_dispatch_point_trigger = yes
 			}
 		}
 	}
@@ -311,12 +311,18 @@ tv_wonder_build_material_dispatch_point = {
 		visible = {
 			has_owner = yes
 			owner ?= scope:actor
-			can_build_building = building_type:tv_wonder_material_dispatch_point
+			tv_wonder_material_dispatch_point_location_available_trigger = yes
+		}
+		enabled = {
+			tv_wonder_material_dispatch_point_location_available_trigger = yes
 		}
 	}
 	effect = {
 		if = {
-			limit = { exists = scope:target }
+			limit = {
+				exists = scope:target
+				scope:target = { tv_wonder_material_dispatch_point_location_available_trigger = yes }
+			}
 			scope:actor = { tv_wonder_construct_material_dispatch_point_effect = yes }
 		}
 	}

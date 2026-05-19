@@ -830,12 +830,26 @@ tv_wonder_update_logistics_metrics_effect = {
 			name = tv_wonder_material_income
 			value = {
 				value = var:tv_wonder_dispatch_points
-				multiply = 10000
+				multiply = 100
 			}
 		}
 		if = {
 			limit = { var:tv_wonder_materials_cap > 0 }
-			tv_wonder_change_materials_stockpile_effect = { value = var:tv_wonder_material_income }
+			set_local_variable = { name = tv_wonder_material_income_to_add value = var:tv_wonder_material_income }
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_engineering_department
+				}
+				change_variable = { name = tv_wonder_materials_stockpile add = local_var:tv_wonder_material_income_to_add }
+				clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
+				if = {
+					limit = {
+						prev = { has_variable = tv_wonder_materials_cap }
+						var:tv_wonder_materials_stockpile > prev.var:tv_wonder_materials_cap
+					}
+					set_variable = { name = tv_wonder_materials_stockpile value = prev.var:tv_wonder_materials_cap }
+				}
+			}
 		}
 	}
 
@@ -1214,7 +1228,10 @@ tv_wonder_select_construction_site_effect = {
 
 tv_wonder_construct_labor_camp_effect = {
 	if = {
-		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		limit = {
+			tv_wonder_construction_site_selected_trigger = yes
+			tv_wonder_labor_camp_below_cap_trigger = yes
+		}
 		var:tv_wonder_site ?= {
 			construct_building = { building_type = building_type:tv_wonder_labor_camp }
 		}
@@ -1223,7 +1240,10 @@ tv_wonder_construct_labor_camp_effect = {
 
 tv_wonder_construct_material_depot_effect = {
 	if = {
-		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		limit = {
+			tv_wonder_construction_site_selected_trigger = yes
+			tv_wonder_material_depot_below_cap_trigger = yes
+		}
 		var:tv_wonder_site ?= {
 			construct_building = { building_type = building_type:tv_wonder_material_depot }
 		}
@@ -1232,7 +1252,10 @@ tv_wonder_construct_material_depot_effect = {
 
 tv_wonder_construct_material_dispatch_point_effect = {
 	if = {
-		limit = { exists = scope:target }
+		limit = {
+			exists = scope:target
+			scope:target = { tv_wonder_material_dispatch_point_location_available_trigger = yes }
+		}
 		scope:target = {
 			construct_building = { building_type = building_type:tv_wonder_material_dispatch_point }
 		}
@@ -1377,11 +1400,14 @@ tv_wonder_finish_construction_effect = {
 tv_wonder_choose_ceremony_style_effect = {
 	if = {
 		limit = { tv_wonder_can_choose_ceremony_style_trigger = yes }
-		set_variable = { name = tv_wonder_ceremony_style value = $style$ }
-		set_variable = { name = tv_wonder_ceremony_progress value = 0 }
-		remove_variable = tv_wonder_ceremony_active
-		remove_variable = tv_wonder_ceremony_months
-		clear_variable_list = tv_wonder_emissary_countries
+		if = {
+			limit = { NOT = { var:tv_wonder_ceremony_style ?= $style$ } }
+			set_variable = { name = tv_wonder_ceremony_style value = $style$ }
+			set_variable = { name = tv_wonder_ceremony_progress value = 0 }
+			remove_variable = tv_wonder_ceremony_active
+			remove_variable = tv_wonder_ceremony_months
+			clear_variable_list = tv_wonder_emissary_countries
+		}
 	}
 }
 
