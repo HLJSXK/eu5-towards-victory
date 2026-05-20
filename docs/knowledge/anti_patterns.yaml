@@ -33,7 +33,7 @@
   notes: "Location auto_modifiers are NON-FUNCTIONAL in EU5; bake effects into static_modifier values instead"
 
 - id: location_rank_invalid_village
-  pattern: 'location_rank\s*[=?]=\s*location_rank:village'
+  pattern: 'location_rank\s*\??=\s*location_rank:village'
   bad: "location_rank:village"
   correction: "location_rank:rural_settlement"
   category: enum
@@ -42,7 +42,7 @@
   notes: "EU4 rank name; EU5 valid values are rural_settlement, town, city, megalopolis"
 
 - id: location_rank_invalid_hamlet
-  pattern: 'location_rank\s*[=?]=\s*location_rank:hamlet'
+  pattern: 'location_rank\s*\??=\s*location_rank:hamlet'
   bad: "location_rank:hamlet"
   correction: "location_rank:rural_settlement"
   category: enum
@@ -51,7 +51,7 @@
   notes: "EU4 rank name; EU5 valid values are rural_settlement, town, city, megalopolis"
 
 - id: location_rank_invalid_metropolis
-  pattern: 'location_rank\s*[=?]=\s*location_rank:metropolis'
+  pattern: 'location_rank\s*\??=\s*location_rank:metropolis'
   bad: "location_rank:metropolis"
   correction: "location_rank:megalopolis"
   category: enum

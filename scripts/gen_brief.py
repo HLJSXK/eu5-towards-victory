@@ -33,6 +33,7 @@ CODEGEN_SCRIPTS = [
     ("gen_index.py",   "reference_game_files + src/",                                  "data/index/*.txt symbol indexes",           "Run by gen_brief.py automatically"),
     ("gen_scaffold.py","--type argument",                                               "Scaffold .txt/.yml file in dir",            "When creating a new EU5 file"),
     ("ai_context.py",  "--changed / --files",                                           "Compact AI task context + risk cards",      "At AI session start or before editing a task domain"),
+    ("test_lint_rules.py", "anti_patterns.yaml + tests/fixtures/anti_patterns/",        "Fixture test report for lint regexes",      "After adding/changing detectability: lint rules"),
     ("gen_victory.py", "data/victory_paths.yaml",                                      "13 victory-path game files (see below)",    "After editing data/victory_paths.yaml"),
     ("in_game/common/customizable_localization/gen_character_title.py", "data/io_leaders.yaml", "src/in_game/common/customizable_localization/character_title.txt", "After editing IO leader title data"),
     ("validate.py",    "src/ mod files + knowledge YAML",                              "Console report (exit 0/1)",                 "Before launching game; --changed for quick check"),

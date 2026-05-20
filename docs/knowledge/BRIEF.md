@@ -229,15 +229,16 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 
 ## AI Workflow Knowledge
 
-AI workflow state is maintained as project source, not by manual human follow-up. `scripts/ai_context.py` builds the task-scoped context from changed or explicit files, generated-file metadata, `docs/knowledge/anti_patterns.yaml`, and short domain risk cards in `docs/knowledge/risk_cards/`. Current registered risk card: `generic_actions.md`, loaded for `src/in_game/common/generic_actions/` edits to surface tooltip/select-trigger pre-evaluation hazards. Anti-pattern entries use `detectability` to distinguish safe regex lint (`lint`), parser/semantic rules (`needs_parser`), and AI-facing warnings (`advisory`). `scripts/validate.py` enforces safe lint rules, emits generic-action pre-evaluation warnings, and checks that risk cards remain registered in `ai_context.py`.
+AI workflow state is maintained as project source, not by manual human follow-up. `scripts/ai_context.py` builds the task-scoped context from changed or explicit files, generated-file metadata, `docs/knowledge/anti_patterns.yaml`, and short domain risk cards in `docs/knowledge/risk_cards/`. Current registered risk cards: `generic_actions.md`, `gui.md`, `international_organizations.md`, and `on_action.md`. Anti-pattern entries use `detectability` to distinguish safe regex lint (`lint`), parser/semantic rules (`needs_parser`), and AI-facing warnings (`advisory`). `scripts/validate.py` enforces safe lint rules, emits generic-action pre-evaluation warnings, checks that risk cards remain registered in `ai_context.py`, and uses `data/validation_baseline.yaml` so existing accepted warnings stay visible while any new warning fails validation. `scripts/test_lint_rules.py` runs fixture tests from `tests/fixtures/anti_patterns/<rule_id>/` for selected lint regexes.
 
 ## Script Reference
 
 | Script | Input(s) | Output(s) | When to run |
 |---|---|---|---|
-| `scripts/validate.py --changed` | src/ mod files + data/generated_files.yaml + vanilla-copy integrity checks | Console report (exit 0/1) | Before launching game |
+| `scripts/validate.py --changed` | src/ mod files + data/generated_files.yaml + data/validation_baseline.yaml + vanilla-copy integrity checks | Console/JSON report (exit 0/1); new unbaselined warnings fail validation | Before launching game |
 | `scripts/ai_context.py --changed/--files` | git changed files or explicit paths + data/generated_files.yaml + risk cards + anti_patterns.yaml | Compact AI task context and required risk-card list | At AI session start or before editing a task domain |
 | `scripts/gen_brief.py` | anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md | docs/knowledge/BRIEF.md | After editing any knowledge YAML |
+| `scripts/test_lint_rules.py` | docs/knowledge/anti_patterns.yaml + tests/fixtures/anti_patterns/ | Fixture test report for anti-pattern lint regexes | After adding or changing `detectability: lint` rules |
 | `scripts/gen_index.py` | reference_game_files + src/ | data/index/*.txt | Run by gen_brief.py automatically |
 | `scripts/gen_scaffold.py --type X --name Y` | --type argument | Scaffold .txt/.yml file | When creating a new EU5 file |
 | `scripts/gen_messagetypes.py` | reference_game_files vanilla messagetypes.txt + TV_ENTRIES block | src/main_menu/gui/messagetypes.txt | After adding a new generic action |
@@ -268,6 +269,9 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | Domain | Card |
 | --- | --- |
 | generic_actions | `docs/knowledge/risk_cards/generic_actions.md` |
+| gui | `docs/knowledge/risk_cards/gui.md` |
+| international_organizations | `docs/knowledge/risk_cards/international_organizations.md` |
+| on_action | `docs/knowledge/risk_cards/on_action.md` |
 
 ## Known Anti-Patterns
 
@@ -427,6 +431,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | `scripts/gen_index.py` | reference_game_files + src/ | data/index/*.txt symbol indexes | Run by gen_brief.py automatically |
 | `scripts/gen_scaffold.py` | --type argument | Scaffold .txt/.yml file in dir | When creating a new EU5 file |
 | `scripts/ai_context.py` | --changed / --files | Compact AI task context + risk cards | At AI session start or before editing a task domain |
+| `scripts/test_lint_rules.py` | anti_patterns.yaml + tests/fixtures/anti_patterns/ | Fixture test report for lint regexes | After adding/changing detectability: lint rules |
 | `scripts/gen_victory.py` | data/victory_paths.yaml | 13 victory-path game files (see below) | After editing data/victory_paths.yaml |
 | `scripts/in_game/common/customizable_localization/gen_character_title.py` | data/io_leaders.yaml | src/in_game/common/customizable_localization/character_title.txt | After editing IO leader title data |
 | `scripts/validate.py` | src/ mod files + knowledge YAML | Console report (exit 0/1) | Before launching game; --changed for quick check |

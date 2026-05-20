@@ -1,0 +1,15 @@
+# Validation warning baseline.
+#
+# Warnings listed here are accepted technical debt. New warnings fail validation
+# until the AI either fixes them or adds a short rationale here.
+
+warnings:
+  - rule: generic_action_risk
+    file: src/in_game/common/generic_actions/tv_arts_exhibition_actions.txt
+    message: "missing_target_guard: tv_send_artist_abroad: effect reads `scope:target_1` but no `exists = scope:target_1` guard was found."
+    rationale: "Existing warning captured when generic action pre-evaluation checks were introduced; keep visible until the arts tour action is refactored."
+
+  - rule: generic_action_risk
+    file: src/in_game/common/generic_actions/tv_arts_exhibition_actions.txt
+    message: "missing_target_guard: tv_send_artist_abroad: effect reads `scope:target_2` but no `exists = scope:target_2` guard was found."
+    rationale: "Existing warning captured when generic action pre-evaluation checks were introduced; keep visible until the arts tour action is refactored."

@@ -74,5 +74,6 @@ Run:
 conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix --ai-report
 ```
 
-Warnings tagged `generic_action_pre_eval` are not always hard failures, but an AI agent must
-either fix them or explain why the action is safe in that specific context.
+Warnings tagged `generic_action_pre_eval` are not always hard failures, but new warnings fail
+validation unless they are fixed or explicitly added to `data/validation_baseline.yaml` with a
+rationale.

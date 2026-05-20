@@ -29,6 +29,7 @@ except ImportError:
 
 REPO_ROOT = Path(__file__).parent.parent
 KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
+VALIDATION_BASELINE_FILE = REPO_ROOT / "data" / "validation_baseline.yaml"
 MODIFIER_TYPES_FILE = (
     REPO_ROOT
     / "reference_game_files"
@@ -50,6 +51,11 @@ def load_yaml(path: Path):
         return None
     with path.open(encoding="utf-8") as f:
         return yaml.safe_load(f)
+
+
+def load_warning_baseline() -> list[dict]:
+    data = load_yaml(VALIDATION_BASELINE_FILE) or {}
+    return data.get("warnings", []) or []
 
 
 def load_modifier_whitelist() -> set[str]:
@@ -404,6 +410,21 @@ def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
                 f"[KNOWLEDGE] scripts/ai_context.py -- DOMAIN_RULES references missing risk card {card_name}"
             )
 
+    baseline = load_yaml(VALIDATION_BASELINE_FILE) or {}
+    for idx, entry in enumerate(baseline.get("warnings", []) or [], 1):
+        if not entry.get("rule"):
+            warnings.append(
+                f"[KNOWLEDGE] data/validation_baseline.yaml:warnings[{idx}] -- missing rule"
+            )
+        if not entry.get("message") and not entry.get("message_contains"):
+            warnings.append(
+                f"[KNOWLEDGE] data/validation_baseline.yaml:warnings[{idx}] -- missing message or message_contains"
+            )
+        if not entry.get("rationale"):
+            warnings.append(
+                f"[KNOWLEDGE] data/validation_baseline.yaml:warnings[{idx}] -- missing rationale"
+            )
+
 
 def _line_num(content: str, pos: int) -> int:
     return content[:pos].count("\n") + 1
@@ -560,6 +581,51 @@ def _parse_issue_structured(raw: str) -> dict:
     return {"raw": raw}
 
 
+def _normalize_report_path(path: str) -> str:
+    return path.replace("\\", "/")
+
+
+def _warning_message(parsed: dict) -> str:
+    if "message" in parsed:
+        return str(parsed["message"])
+    if "raw" in parsed:
+        return str(parsed["raw"])
+    return json.dumps(parsed, ensure_ascii=False, sort_keys=True)
+
+
+def _warning_matches_baseline(parsed: dict, baseline: list[dict]) -> bool:
+    rule = str(parsed.get("rule", ""))
+    file_name = _normalize_report_path(str(parsed.get("file", "")))
+    message = _warning_message(parsed)
+    for entry in baseline:
+        if str(entry.get("rule", "")) != rule:
+            continue
+        entry_file = _normalize_report_path(str(entry.get("file", "")))
+        if entry_file and entry_file != file_name:
+            continue
+        expected_message = entry.get("message")
+        if expected_message is not None and str(expected_message) != message:
+            continue
+        expected_contains = entry.get("message_contains")
+        if expected_contains is not None and str(expected_contains) not in message:
+            continue
+        return True
+    return False
+
+
+def split_warning_baseline(raw_warnings: list[str], baseline: list[dict]) -> tuple[list[dict], list[dict]]:
+    baselined: list[dict] = []
+    new_warnings: list[dict] = []
+    for raw in raw_warnings:
+        parsed = _parse_issue_structured(raw)
+        parsed["baselined"] = _warning_matches_baseline(parsed, baseline)
+        if parsed["baselined"]:
+            baselined.append(parsed)
+        else:
+            new_warnings.append(parsed)
+    return baselined, new_warnings
+
+
 # =============================================================================
 # MAIN
 # =============================================================================
@@ -568,6 +634,7 @@ def main():
     anti_patterns = load_yaml(KNOWLEDGE_DIR / "anti_patterns.yaml") or []
     enum_data = load_yaml(KNOWLEDGE_DIR / "valid_enums.yaml") or {}
     modifier_whitelist = load_modifier_whitelist()
+    warning_baseline = load_warning_baseline()
 
     use_changed = "--changed" in sys.argv
     ai_report = "--ai-report" in sys.argv
@@ -639,7 +706,15 @@ def main():
             return "[AUTOGEN]" in i or "[AUTOGEN_HEADER]" in i
         errors = [_parse_issue_structured(i) for i in issues if not _is_autogen_warning(i)]
         report_warnings = [_parse_issue_structured(i) for i in issues if _is_autogen_warning(i)]
-        report_warnings.extend(_parse_issue_structured(i) for i in warnings)
+        baselined_warnings, new_warnings = split_warning_baseline(warnings, warning_baseline)
+        report_warnings.extend(baselined_warnings)
+        for warning in new_warnings:
+            errors.append({
+                "rule": "new_warning",
+                "message": "Warning is not listed in data/validation_baseline.yaml; fix it or explicitly add a baseline entry with rationale.",
+                "warning": warning,
+            })
+            report_warnings.append(warning)
         print(json.dumps({
             "pass": len(errors) == 0,
             "errors": errors,
@@ -652,16 +727,28 @@ def main():
         for f in fixed:
             print(f"[FIXED] Added UTF-8 BOM: {f}")
 
+    baselined_warnings, new_warnings = split_warning_baseline(warnings, warning_baseline)
     if warnings:
         print(f"[WARN] {len(warnings)} warning(s):\n")
-        for warning in warnings:
-            print(f"  {warning}")
+        for warning in baselined_warnings:
+            print(f"  [BASELINE] {_warning_message(warning)}")
+        for warning in new_warnings:
+            print(f"  [NEW] {_warning_message(warning)}")
         print("")
 
-    if issues:
-        print(f"[FAIL] {len(issues)} issue(s) found:\n")
+    if issues or new_warnings:
+        fail_count = len(issues) + len(new_warnings)
+        print(f"[FAIL] {fail_count} issue(s) found:\n")
         for issue in issues:
             print(f"  {issue}")
+        for warning in new_warnings:
+            file_part = f"{warning.get('file')}:{warning.get('line')} -- " if warning.get("file") else ""
+            print(
+                "  [NEW_WARNING] "
+                + file_part
+                + _warning_message(warning)
+                + " (fix it or add a baseline entry with rationale)"
+            )
         sys.exit(1)
     else:
         if files:

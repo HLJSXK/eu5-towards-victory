@@ -28,10 +28,10 @@ GENERATED_REGISTRY = REPO_ROOT / "data" / "generated_files.yaml"
 
 DOMAIN_RULES = [
     ("generic_actions", "src/in_game/common/generic_actions/", "generic_actions.md"),
-    ("gui", "src/in_game/gui/", None),
-    ("international_organizations", "src/in_game/common/international_organizations/", None),
+    ("gui", "src/in_game/gui/", "gui.md"),
+    ("international_organizations", "src/in_game/common/international_organizations/", "international_organizations.md"),
     ("events", "src/in_game/events/", None),
-    ("on_action", "src/in_game/common/on_action/", None),
+    ("on_action", "src/in_game/common/on_action/", "on_action.md"),
 ]
 
 
@@ -124,7 +124,14 @@ def maintenance_notes(files: list[str]) -> list[str]:
             "For each new anti-pattern, set `detectability` to `lint`, `needs_parser`, or `advisory`; use `lint` only for narrow, tested static checks."
         )
         notes.append(
+            "For new or changed `detectability: lint` rules, add/update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `scripts/test_lint_rules.py`."
+        )
+        notes.append(
             "If a new anti-pattern belongs to an existing task domain, update that domain risk card in `docs/knowledge/risk_cards/`."
+        )
+    if "data/validation_baseline.yaml" in file_set:
+        notes.append(
+            "Validation baseline changed; ensure every accepted warning has a rationale and that new warnings were not baselined instead of fixed."
         )
     if any(path.startswith("docs/knowledge/risk_cards/") for path in files):
         notes.append(
@@ -192,16 +199,20 @@ def main() -> None:
     print("")
 
     print("## Required Reads")
+    printed_cards: set[str] = set()
     for domain, _prefix, card in DOMAIN_RULES:
-        if domain in domains and card:
+        if domain in domains and card and card not in printed_cards:
             print(f"- `docs/knowledge/risk_cards/{card}`")
+            printed_cards.add(card)
     print("- `CLAUDE.md`")
     print("- `docs/knowledge/BRIEF.md` for broad project context")
     print("")
 
+    printed_cards = set()
     for domain, _prefix, card in DOMAIN_RULES:
-        if domain in domains and card:
+        if domain in domains and card and card not in printed_cards:
             print_card(card)
+            printed_cards.add(card)
 
     rules = relevant_rules(files, domains)
     if rules:
@@ -226,6 +237,7 @@ def main() -> None:
     print("## Suggested Validation")
     print("```powershell")
     print("conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix --ai-report")
+    print("conda run --no-capture-output -n eu5 python scripts/test_lint_rules.py")
     print("```")
 
 
