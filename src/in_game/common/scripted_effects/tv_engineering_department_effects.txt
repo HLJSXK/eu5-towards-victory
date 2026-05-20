@@ -268,31 +268,31 @@ tv_wonder_roll_new_proposal_effect = {
 		limit = { tv_wonder_has_any_feasible_proposal_trigger = yes }
 		random_list = {
 			1 = {
-				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_sacred_mountain } }
+				trigger = { has_variable = tv_wonder_feasible_sacred_mountain }
 				set_variable = { name = tv_wonder_proposal value = 1 }
 			}
 			1 = {
-				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_triumphal_axis } }
+				trigger = { has_variable = tv_wonder_feasible_triumphal_axis }
 				set_variable = { name = tv_wonder_proposal value = 2 }
 			}
 			1 = {
-				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_great_port } }
+				trigger = { has_variable = tv_wonder_feasible_great_port }
 				set_variable = { name = tv_wonder_proposal value = 3 }
 			}
 			1 = {
-				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_giant_necropolis } }
+				trigger = { has_variable = tv_wonder_feasible_giant_necropolis }
 				set_variable = { name = tv_wonder_proposal value = 4 }
 			}
 			1 = {
-				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_great_lighthouse } }
+				trigger = { has_variable = tv_wonder_feasible_great_lighthouse }
 				set_variable = { name = tv_wonder_proposal value = 5 }
 			}
 			1 = {
-				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_hydraulic_workshop } }
+				trigger = { has_variable = tv_wonder_feasible_hydraulic_workshop }
 				set_variable = { name = tv_wonder_proposal value = 6 }
 			}
 			1 = {
-				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_mining_city } }
+				trigger = { has_variable = tv_wonder_feasible_mining_city }
 				set_variable = { name = tv_wonder_proposal value = 7 }
 			}
 		}
@@ -344,30 +344,66 @@ tv_wonder_reroll_proposal_after_rejection_effect = {
 tv_wonder_roll_nobles_demand_effect = {
 	random_list = {
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_nobles_privilege_agenda_available_trigger = yes } }
+			trigger = {
+				NOT = { var:tv_wonder_nobles_demand ?= 1 }
+				tv_wonder_nobles_privilege_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_nobles_demand value = 1 }
 		}
-		1 = { set_variable = { name = tv_wonder_nobles_demand value = 2 } }
-		1 = { set_variable = { name = tv_wonder_nobles_demand value = 3 } }
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_nobles_policy_agenda_available_trigger = yes } }
+			trigger = { NOT = { var:tv_wonder_nobles_demand ?= 2 } }
+			set_variable = { name = tv_wonder_nobles_demand value = 2 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_nobles_demand ?= 3 } }
+			set_variable = { name = tv_wonder_nobles_demand value = 3 }
+		}
+		1 = {
+			trigger = {
+				NOT = { var:tv_wonder_nobles_demand ?= 4 }
+				tv_wonder_nobles_policy_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_nobles_demand value = 4 }
 		}
-		1 = { set_variable = { name = tv_wonder_nobles_demand value = 5 } }
-		1 = { set_variable = { name = tv_wonder_nobles_demand value = 6 } }
-		1 = { set_variable = { name = tv_wonder_nobles_demand value = 7 } }
-		1 = { set_variable = { name = tv_wonder_nobles_demand value = 8 } }
-		1 = { set_variable = { name = tv_wonder_nobles_demand value = 9 } }
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_cabinet_loss_agenda_available_trigger = yes } }
+			trigger = { NOT = { var:tv_wonder_nobles_demand ?= 5 } }
+			set_variable = { name = tv_wonder_nobles_demand value = 5 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_nobles_demand ?= 6 } }
+			set_variable = { name = tv_wonder_nobles_demand value = 6 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_nobles_demand ?= 7 } }
+			set_variable = { name = tv_wonder_nobles_demand value = 7 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_nobles_demand ?= 8 } }
+			set_variable = { name = tv_wonder_nobles_demand value = 8 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_nobles_demand ?= 9 } }
+			set_variable = { name = tv_wonder_nobles_demand value = 9 }
+		}
+		1 = {
+			trigger = {
+				NOT = { var:tv_wonder_nobles_demand ?= 10 }
+				tv_wonder_cabinet_loss_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_nobles_demand value = 10 }
 		}
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_artist_loss_agenda_available_trigger = yes } }
+			trigger = {
+				NOT = { var:tv_wonder_nobles_demand ?= 11 }
+				tv_wonder_artist_loss_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_nobles_demand value = 11 }
 		}
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_artwork_loss_agenda_available_trigger = yes } }
+			trigger = {
+				NOT = { var:tv_wonder_nobles_demand ?= 12 }
+				tv_wonder_artwork_loss_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_nobles_demand value = 12 }
 		}
 	}
@@ -376,30 +412,66 @@ tv_wonder_roll_nobles_demand_effect = {
 tv_wonder_roll_burghers_demand_effect = {
 	random_list = {
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_burghers_privilege_agenda_available_trigger = yes } }
+			trigger = {
+				NOT = { var:tv_wonder_burghers_demand ?= 1 }
+				tv_wonder_burghers_privilege_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_burghers_demand value = 1 }
 		}
-		1 = { set_variable = { name = tv_wonder_burghers_demand value = 2 } }
-		1 = { set_variable = { name = tv_wonder_burghers_demand value = 3 } }
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_burghers_policy_agenda_available_trigger = yes } }
+			trigger = { NOT = { var:tv_wonder_burghers_demand ?= 2 } }
+			set_variable = { name = tv_wonder_burghers_demand value = 2 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_burghers_demand ?= 3 } }
+			set_variable = { name = tv_wonder_burghers_demand value = 3 }
+		}
+		1 = {
+			trigger = {
+				NOT = { var:tv_wonder_burghers_demand ?= 4 }
+				tv_wonder_burghers_policy_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_burghers_demand value = 4 }
 		}
-		1 = { set_variable = { name = tv_wonder_burghers_demand value = 5 } }
-		1 = { set_variable = { name = tv_wonder_burghers_demand value = 6 } }
-		1 = { set_variable = { name = tv_wonder_burghers_demand value = 7 } }
-		1 = { set_variable = { name = tv_wonder_burghers_demand value = 8 } }
-		1 = { set_variable = { name = tv_wonder_burghers_demand value = 9 } }
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_cabinet_loss_agenda_available_trigger = yes } }
+			trigger = { NOT = { var:tv_wonder_burghers_demand ?= 5 } }
+			set_variable = { name = tv_wonder_burghers_demand value = 5 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_burghers_demand ?= 6 } }
+			set_variable = { name = tv_wonder_burghers_demand value = 6 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_burghers_demand ?= 7 } }
+			set_variable = { name = tv_wonder_burghers_demand value = 7 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_burghers_demand ?= 8 } }
+			set_variable = { name = tv_wonder_burghers_demand value = 8 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_burghers_demand ?= 9 } }
+			set_variable = { name = tv_wonder_burghers_demand value = 9 }
+		}
+		1 = {
+			trigger = {
+				NOT = { var:tv_wonder_burghers_demand ?= 10 }
+				tv_wonder_cabinet_loss_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_burghers_demand value = 10 }
 		}
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_artist_loss_agenda_available_trigger = yes } }
+			trigger = {
+				NOT = { var:tv_wonder_burghers_demand ?= 11 }
+				tv_wonder_artist_loss_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_burghers_demand value = 11 }
 		}
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_artwork_loss_agenda_available_trigger = yes } }
+			trigger = {
+				NOT = { var:tv_wonder_burghers_demand ?= 12 }
+				tv_wonder_artwork_loss_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_burghers_demand value = 12 }
 		}
 	}
@@ -408,30 +480,66 @@ tv_wonder_roll_burghers_demand_effect = {
 tv_wonder_roll_clergy_demand_effect = {
 	random_list = {
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_clergy_privilege_agenda_available_trigger = yes } }
+			trigger = {
+				NOT = { var:tv_wonder_clergy_demand ?= 1 }
+				tv_wonder_clergy_privilege_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_clergy_demand value = 1 }
 		}
-		1 = { set_variable = { name = tv_wonder_clergy_demand value = 2 } }
-		1 = { set_variable = { name = tv_wonder_clergy_demand value = 3 } }
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_clergy_policy_agenda_available_trigger = yes } }
+			trigger = { NOT = { var:tv_wonder_clergy_demand ?= 2 } }
+			set_variable = { name = tv_wonder_clergy_demand value = 2 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_clergy_demand ?= 3 } }
+			set_variable = { name = tv_wonder_clergy_demand value = 3 }
+		}
+		1 = {
+			trigger = {
+				NOT = { var:tv_wonder_clergy_demand ?= 4 }
+				tv_wonder_clergy_policy_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_clergy_demand value = 4 }
 		}
-		1 = { set_variable = { name = tv_wonder_clergy_demand value = 5 } }
-		1 = { set_variable = { name = tv_wonder_clergy_demand value = 6 } }
-		1 = { set_variable = { name = tv_wonder_clergy_demand value = 7 } }
-		1 = { set_variable = { name = tv_wonder_clergy_demand value = 8 } }
-		1 = { set_variable = { name = tv_wonder_clergy_demand value = 9 } }
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_cabinet_loss_agenda_available_trigger = yes } }
+			trigger = { NOT = { var:tv_wonder_clergy_demand ?= 5 } }
+			set_variable = { name = tv_wonder_clergy_demand value = 5 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_clergy_demand ?= 6 } }
+			set_variable = { name = tv_wonder_clergy_demand value = 6 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_clergy_demand ?= 7 } }
+			set_variable = { name = tv_wonder_clergy_demand value = 7 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_clergy_demand ?= 8 } }
+			set_variable = { name = tv_wonder_clergy_demand value = 8 }
+		}
+		1 = {
+			trigger = { NOT = { var:tv_wonder_clergy_demand ?= 9 } }
+			set_variable = { name = tv_wonder_clergy_demand value = 9 }
+		}
+		1 = {
+			trigger = {
+				NOT = { var:tv_wonder_clergy_demand ?= 10 }
+				tv_wonder_cabinet_loss_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_clergy_demand value = 10 }
 		}
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_artist_loss_agenda_available_trigger = yes } }
+			trigger = {
+				NOT = { var:tv_wonder_clergy_demand ?= 11 }
+				tv_wonder_artist_loss_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_clergy_demand value = 11 }
 		}
 		1 = {
-			modifier = { factor = 0 NOT = { tv_wonder_artwork_loss_agenda_available_trigger = yes } }
+			trigger = {
+				NOT = { var:tv_wonder_clergy_demand ?= 12 }
+				tv_wonder_artwork_loss_agenda_available_trigger = yes
+			}
 			set_variable = { name = tv_wonder_clergy_demand value = 12 }
 		}
 	}

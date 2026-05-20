@@ -1094,3 +1094,12 @@
   scope: international_organization
   source: "fixed in src/in_game/common/international_organizations/tv_engineering_department.txt; runtime report: Engineering Department construction progressed while materials stockpile never decreased"
   notes: "monthly_change evaluates from the international organization/variable context. A nested leader_country block does not make root inside a called scripted_trigger become the country; triggers that use root.var:X can keep reading the IO root and silently return false."
+
+- id: random_list_branch_modifier_filter
+  pattern: '(?m)^\s*\d+\s*=\s*\{\s*\n\s*modifier\s*=\s*\{\s*factor\s*=\s*0'
+  bad: "Filtering random_list branches with modifier = { factor = 0 ... }"
+  correction: "Use trigger = { ... } inside each weighted random_list branch. Vanilla random_list branch eligibility uses trigger blocks; use NOT = { var:current ?= N } there when a reroll must exclude the current result."
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/common/scripted_effects/location_effects.txt:238-240; reference_game_files/game/in_game/common/missions/generic_progress_and_literacy_mission_pack.txt:160-166"
+  notes: "Engineering Department estate-demand rerolls used modifier factor zero in random_list branches. A player could bribe a demand into the artwork-loss branch and repeated same-day rerolls kept resolving to that same visible demand. Replacing branch modifiers with trigger filters and excluding the current demand makes the random pool behave like vanilla and prevents visible no-op rerolls."

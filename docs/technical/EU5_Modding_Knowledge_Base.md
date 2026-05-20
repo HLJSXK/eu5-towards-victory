@@ -123,6 +123,21 @@ any_international_organizations_member_of = {
 
 Do not add an effect-style `limit = { ... }` block here. The engine treats `limit` as a trigger clause in this context and logs `Unknown trigger type: limit`. Reserve `limit = {}` for effect iterators such as `every_international_organizations_member_of` when applying effects.
 
+#### Random List Branch Filtering
+
+Use `trigger = { ... }` inside weighted `random_list` branches when a branch should only be eligible under some condition:
+
+```pdx
+random_list = {
+    1 = {
+        trigger = { has_variable = candidate_a }
+        set_variable = selected_a
+    }
+}
+```
+
+Do not use `modifier = { factor = 0 ... }` as the branch filter. Vanilla random-list examples use branch `trigger` blocks. For player-facing rerolls, exclude the current result inside the same trigger so repeated same-day clicks cannot visibly return the same option, e.g. `NOT = { var:current_demand ?= 12 }`.
+
 #### International Organization Header Controls
 
 The standard `organization_panel_default_header` shows the lower IO information row through `abilities_widget`, which vanilla overrides to `ios_information_header = {}`. When adding compact IO-specific status text or header action buttons, prefer the exposed `ios_information_header_content_extra_1`, `ios_information_header_content_extra_2`, or `ios_information_header_content_extra_3` blocks with `ios_header_content_extra_template`.
