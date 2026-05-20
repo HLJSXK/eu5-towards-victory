@@ -89,6 +89,20 @@ conda run --no-capture-output -n eu5 python scripts/ai_context.py --files src/in
 
 The output tells the AI whether a file is generated, which risk cards apply, and which anti-pattern records are relevant. For `generic_actions`, the required card is `docs/knowledge/risk_cards/generic_actions.md`.
 
+## AI Knowledge Maintenance
+
+AI agents are responsible for maintaining the workflow files. Humans provide requirements, testing, and feedback; do not wait for a human to update knowledge files.
+
+When a new EU5 behavior or recurring AI failure is discovered:
+
+- Add or update `docs/knowledge/anti_patterns.yaml`.
+- Set `detectability` to `lint`, `needs_parser`, or `advisory`.
+- Update the relevant `docs/knowledge/risk_cards/*.md` file when the issue belongs to an existing high-risk task domain.
+- If a new high-risk domain needs a card, create it and register it in `scripts/ai_context.py` `DOMAIN_RULES`.
+- If a `needs_parser` rule becomes reliably checkable, add the checker to `scripts/validate.py` and update the anti-pattern's `detectability`.
+- Update `PROJECT_OVERVIEW.md` when a workflow script or AI domain routing changes.
+- Run `conda run --no-capture-output -n eu5 python scripts/gen_brief.py` after changing knowledge files.
+
 ## Required Behavior For Bug Fixing
 
 - When a previously implemented script/GUI expression fails, the default action is **syntax replacement based on verification**, not feature removal.

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Generate docs/knowledge/BRIEF.md from docs/knowledge/*.yaml.
-Run after editing anti_patterns.yaml or valid_enums.yaml.
+Generate docs/knowledge/BRIEF.md from docs/knowledge/*.yaml, risk cards,
+and PROJECT_OVERVIEW.md. Run after editing AI knowledge files.
 
 Usage:
   python scripts/gen_brief.py
@@ -29,7 +29,7 @@ INDEX_DIR = REPO_ROOT / "data" / "index"
 RISK_CARDS_DIR = KNOWLEDGE_DIR / "risk_cards"
 
 CODEGEN_SCRIPTS = [
-    ("gen_brief.py",   "anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md", "docs/knowledge/BRIEF.md",                  "After editing any YAML knowledge file"),
+    ("gen_brief.py",   "anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md + risk_cards/", "docs/knowledge/BRIEF.md",    "After editing any AI knowledge file"),
     ("gen_index.py",   "reference_game_files + src/",                                  "data/index/*.txt symbol indexes",           "Run by gen_brief.py automatically"),
     ("gen_scaffold.py","--type argument",                                               "Scaffold .txt/.yml file in dir",            "When creating a new EU5 file"),
     ("ai_context.py",  "--changed / --files",                                           "Compact AI task context + risk cards",      "At AI session start or before editing a task domain"),

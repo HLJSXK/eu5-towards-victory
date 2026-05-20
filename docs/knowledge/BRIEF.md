@@ -227,6 +227,10 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 
 `src/main_menu/gfx/interface/icons/laws/` contains seven Academy law icon assets copied from vanilla advance icons and six Governor's House law icon assets copied from related vanilla law icons for the original Governor's House policy groups.
 
+## AI Workflow Knowledge
+
+AI workflow state is maintained as project source, not by manual human follow-up. `scripts/ai_context.py` builds the task-scoped context from changed or explicit files, generated-file metadata, `docs/knowledge/anti_patterns.yaml`, and short domain risk cards in `docs/knowledge/risk_cards/`. Current registered risk card: `generic_actions.md`, loaded for `src/in_game/common/generic_actions/` edits to surface tooltip/select-trigger pre-evaluation hazards. Anti-pattern entries use `detectability` to distinguish safe regex lint (`lint`), parser/semantic rules (`needs_parser`), and AI-facing warnings (`advisory`). `scripts/validate.py` enforces safe lint rules, emits generic-action pre-evaluation warnings, and checks that risk cards remain registered in `ai_context.py`.
+
 ## Script Reference
 
 | Script | Input(s) | Output(s) | When to run |
@@ -419,7 +423,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 
 | Script | Input(s) | Output(s) | When to run |
 | --- | --- | --- | --- |
-| `scripts/gen_brief.py` | anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md | docs/knowledge/BRIEF.md | After editing any YAML knowledge file |
+| `scripts/gen_brief.py` | anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md + risk_cards/ | docs/knowledge/BRIEF.md | After editing any AI knowledge file |
 | `scripts/gen_index.py` | reference_game_files + src/ | data/index/*.txt symbol indexes | Run by gen_brief.py automatically |
 | `scripts/gen_scaffold.py` | --type argument | Scaffold .txt/.yml file in dir | When creating a new EU5 file |
 | `scripts/ai_context.py` | --changed / --files | Compact AI task context + risk cards | At AI session start or before editing a task domain |

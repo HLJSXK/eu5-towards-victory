@@ -107,6 +107,47 @@ def relevant_rules(files: list[str], domains: set[str], limit: int = 12) -> list
     return picked
 
 
+def maintenance_notes(files: list[str]) -> list[str]:
+    notes: list[str] = []
+    file_set = set(files)
+    touches_knowledge = any(
+        path.startswith("docs/knowledge/")
+        or path in {"CLAUDE.md", "docs/guides/AI_Tool_Workflow_Prompt.md"}
+        for path in files
+    )
+    if touches_knowledge:
+        notes.append(
+            "After changing knowledge/workflow docs, run `conda run --no-capture-output -n eu5 python scripts/gen_brief.py`."
+        )
+    if "docs/knowledge/anti_patterns.yaml" in file_set:
+        notes.append(
+            "For each new anti-pattern, set `detectability` to `lint`, `needs_parser`, or `advisory`; use `lint` only for narrow, tested static checks."
+        )
+        notes.append(
+            "If a new anti-pattern belongs to an existing task domain, update that domain risk card in `docs/knowledge/risk_cards/`."
+        )
+    if any(path.startswith("docs/knowledge/risk_cards/") for path in files):
+        notes.append(
+            "If a risk card covers a new task domain, register it in `DOMAIN_RULES` inside `scripts/ai_context.py`."
+        )
+        notes.append(
+            "Keep risk cards short and operational: required checks, safe skeletons, and validation commands rather than full history."
+        )
+    if "scripts/ai_context.py" in file_set:
+        notes.append(
+            "If `ai_context.py` behavior or domain coverage changes, update `CLAUDE.md`, `AI_Tool_Workflow_Prompt.md`, and the script table in `PROJECT_OVERVIEW.md`."
+        )
+    if "scripts/validate.py" in file_set:
+        notes.append(
+            "If `validate.py` implements a parser/check for a `needs_parser` anti-pattern, update that anti-pattern's `detectability` when it becomes a reliable lint."
+        )
+    if "docs/knowledge/PROJECT_OVERVIEW.md" in file_set:
+        notes.append(
+            "`PROJECT_OVERVIEW.md` changed; regenerate `docs/knowledge/BRIEF.md` before finishing."
+        )
+    return notes
+
+
 def print_card(card_name: str) -> None:
     card = RISK_CARDS_DIR / card_name
     if not card.exists():
@@ -173,6 +214,13 @@ def main() -> None:
                 f"- `{entry.get('id')}` [{detectability}]: "
                 f"{entry.get('bad')} -> {entry.get('correction')}"
             )
+        print("")
+
+    notes = maintenance_notes(files)
+    if notes:
+        print("## Knowledge Maintenance")
+        for note in notes:
+            print(f"- {note}")
         print("")
 
     print("## Suggested Validation")
