@@ -418,6 +418,28 @@ Monthly government power variables (for use in `set_variable = { name = X value 
 | tribe | `tribal_cohesion` |
 | steppe_horde | `horde_unity` |
 
+### 5.8. Location Rank Checks In Neighbor Iterators
+
+`any_neighbor_location` can evaluate objects that do not have a valid `location_rank`. This matters in generic action selectors because `visible` and called `effect` logic can be evaluated repeatedly while the selection window is open. A direct check such as:
+
+```pdx
+any_neighbor_location = {
+    location_rank = location_rank:city
+}
+```
+
+can log `Event target link 'location_rank' returned an invalid object`. Guard the read with `is_land = yes`, or centralize it in a helper trigger:
+
+```pdx
+my_location_is_city_trigger = {
+    trigger_if = {
+        limit = { is_land = yes }
+        location_rank = location_rank:city
+    }
+    trigger_else = { always = no }
+}
+```
+
 ## 6. Game Content Modding
 
 This section covers the modding of specific game content types.

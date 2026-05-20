@@ -1039,25 +1039,25 @@ tv_wonder_update_construction_tiers_from_competence_effect = {
 	clamp_variable = { name = tv_wonder_organization_competence min = 0 max = 100 }
 
 	set_variable = { name = tv_wonder_scale_tier value = 1 }
-	if = { limit = { var:tv_wonder_scale_competence >= 20 } set_variable = { name = tv_wonder_scale_tier value = 2 } }
-	if = { limit = { var:tv_wonder_scale_competence >= 40 } set_variable = { name = tv_wonder_scale_tier value = 3 } }
-	if = { limit = { var:tv_wonder_scale_competence >= 55 } set_variable = { name = tv_wonder_scale_tier value = 4 } }
-	if = { limit = { var:tv_wonder_scale_competence >= 70 } set_variable = { name = tv_wonder_scale_tier value = 5 } }
-	if = { limit = { var:tv_wonder_scale_competence >= 85 } set_variable = { name = tv_wonder_scale_tier value = 6 } }
+	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 20 } } set_variable = { name = tv_wonder_scale_tier value = 2 } }
+	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 40 } } set_variable = { name = tv_wonder_scale_tier value = 3 } }
+	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 55 } } set_variable = { name = tv_wonder_scale_tier value = 4 } }
+	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 70 } } set_variable = { name = tv_wonder_scale_tier value = 5 } }
+	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 85 } } set_variable = { name = tv_wonder_scale_tier value = 6 } }
 
 	set_variable = { name = tv_wonder_logistics_tier value = 1 }
-	if = { limit = { var:tv_wonder_logistics_competence >= 20 } set_variable = { name = tv_wonder_logistics_tier value = 2 } }
-	if = { limit = { var:tv_wonder_logistics_competence >= 40 } set_variable = { name = tv_wonder_logistics_tier value = 3 } }
-	if = { limit = { var:tv_wonder_logistics_competence >= 55 } set_variable = { name = tv_wonder_logistics_tier value = 4 } }
-	if = { limit = { var:tv_wonder_logistics_competence >= 70 } set_variable = { name = tv_wonder_logistics_tier value = 5 } }
-	if = { limit = { var:tv_wonder_logistics_competence >= 85 } set_variable = { name = tv_wonder_logistics_tier value = 6 } }
+	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 20 } } set_variable = { name = tv_wonder_logistics_tier value = 2 } }
+	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 40 } } set_variable = { name = tv_wonder_logistics_tier value = 3 } }
+	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 55 } } set_variable = { name = tv_wonder_logistics_tier value = 4 } }
+	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 70 } } set_variable = { name = tv_wonder_logistics_tier value = 5 } }
+	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 85 } } set_variable = { name = tv_wonder_logistics_tier value = 6 } }
 
 	set_variable = { name = tv_wonder_organization_tier value = 1 }
-	if = { limit = { var:tv_wonder_organization_competence >= 20 } set_variable = { name = tv_wonder_organization_tier value = 2 } }
-	if = { limit = { var:tv_wonder_organization_competence >= 40 } set_variable = { name = tv_wonder_organization_tier value = 3 } }
-	if = { limit = { var:tv_wonder_organization_competence >= 55 } set_variable = { name = tv_wonder_organization_tier value = 4 } }
-	if = { limit = { var:tv_wonder_organization_competence >= 70 } set_variable = { name = tv_wonder_organization_tier value = 5 } }
-	if = { limit = { var:tv_wonder_organization_competence >= 85 } set_variable = { name = tv_wonder_organization_tier value = 6 } }
+	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 20 } } set_variable = { name = tv_wonder_organization_tier value = 2 } }
+	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 40 } } set_variable = { name = tv_wonder_organization_tier value = 3 } }
+	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 55 } } set_variable = { name = tv_wonder_organization_tier value = 4 } }
+	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 70 } } set_variable = { name = tv_wonder_organization_tier value = 5 } }
+	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 85 } } set_variable = { name = tv_wonder_organization_tier value = 6 } }
 
 	set_variable = { name = tv_wonder_logistics_effect_percent value = 200 }
 	if = { limit = { var:tv_wonder_logistics_tier ?= 2 } set_variable = { name = tv_wonder_logistics_effect_percent value = 170 } }
@@ -1579,7 +1579,7 @@ tv_wonder_apply_survey_site_preference_effect = {
 			limit = {
 				var:tv_wonder_survey_site ?= {
 					any_neighbor_location = {
-						location_rank = location_rank:city
+						tv_wonder_location_is_city_trigger = yes
 					}
 				}
 			}
@@ -1589,7 +1589,7 @@ tv_wonder_apply_survey_site_preference_effect = {
 			limit = {
 				var:tv_wonder_survey_site ?= {
 					any_neighbor_location = {
-						location_rank = location_rank:town
+						tv_wonder_location_is_town_trigger = yes
 					}
 				}
 			}

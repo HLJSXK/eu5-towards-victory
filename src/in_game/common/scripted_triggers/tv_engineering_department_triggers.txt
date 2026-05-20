@@ -1,5 +1,28 @@
 ﻿# Towards Victory - Engineering Department triggers
-# Country-scoped unless noted.
+# Country-scoped unless noted. The location-rank helper triggers are location-scoped.
+
+tv_wonder_location_is_city_trigger = {
+	trigger_if = {
+		limit = { is_land = yes }
+		location_rank = location_rank:city
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_is_town_trigger = {
+	trigger_if = {
+		limit = { is_land = yes }
+		location_rank = location_rank:town
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_is_city_or_town_trigger = {
+	OR = {
+		tv_wonder_location_is_city_trigger = yes
+		tv_wonder_location_is_town_trigger = yes
+	}
+}
 
 tv_wonder_can_build_sacred_mountain_trigger = {
 	any_owned_location = {
@@ -31,10 +54,7 @@ tv_wonder_can_build_giant_necropolis_trigger = {
 		OR = {
 			topography = hills
 			any_neighbor_location = {
-				OR = {
-					location_rank = location_rank:city
-					location_rank = location_rank:town
-				}
+				tv_wonder_location_is_city_or_town_trigger = yes
 			}
 		}
 	}

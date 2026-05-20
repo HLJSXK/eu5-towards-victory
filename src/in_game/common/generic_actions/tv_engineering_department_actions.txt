@@ -215,10 +215,7 @@ tv_wonder_start_survey = {
 					OR = {
 						topography = hills
 						any_neighbor_location = {
-							OR = {
-								location_rank = location_rank:city
-								location_rank = location_rank:town
-							}
+							tv_wonder_location_is_city_or_town_trigger = yes
 						}
 					}
 				}
