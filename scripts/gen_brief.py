@@ -26,11 +26,13 @@ KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
 OUTPUT = KNOWLEDGE_DIR / "BRIEF.md"
 OVERVIEW = KNOWLEDGE_DIR / "PROJECT_OVERVIEW.md"
 INDEX_DIR = REPO_ROOT / "data" / "index"
+RISK_CARDS_DIR = KNOWLEDGE_DIR / "risk_cards"
 
 CODEGEN_SCRIPTS = [
     ("gen_brief.py",   "anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md", "docs/knowledge/BRIEF.md",                  "After editing any YAML knowledge file"),
     ("gen_index.py",   "reference_game_files + src/",                                  "data/index/*.txt symbol indexes",           "Run by gen_brief.py automatically"),
     ("gen_scaffold.py","--type argument",                                               "Scaffold .txt/.yml file in dir",            "When creating a new EU5 file"),
+    ("ai_context.py",  "--changed / --files",                                           "Compact AI task context + risk cards",      "At AI session start or before editing a task domain"),
     ("gen_victory.py", "data/victory_paths.yaml",                                      "13 victory-path game files (see below)",    "After editing data/victory_paths.yaml"),
     ("in_game/common/customizable_localization/gen_character_title.py", "data/io_leaders.yaml", "src/in_game/common/customizable_localization/character_title.txt", "After editing IO leader title data"),
     ("validate.py",    "src/ mod files + knowledge YAML",                              "Console report (exit 0/1)",                 "Before launching game; --changed for quick check"),
@@ -114,14 +116,29 @@ def main():
         lines.append("\n".join(body_lines[start:]).strip())
         lines.append("")
 
+    # ── Risk cards ───────────────────────────────────────────────────────────
+    risk_cards = sorted(RISK_CARDS_DIR.glob("*.md")) if RISK_CARDS_DIR.exists() else []
+    if risk_cards:
+        lines.append("## AI Risk Cards")
+        lines.append("")
+        lines.append("> Load the relevant card before editing files in that task domain.")
+        lines.append("")
+        lines.append(md_row("Domain", "Card"))
+        lines.append(md_row("---", "---"))
+        for card in risk_cards:
+            lines.append(md_row(card.stem, f"`docs/knowledge/risk_cards/{card.name}`"))
+        lines.append("")
+
     # ── Anti-patterns ────────────────────────────────────────────────────────
     lines.append("## Known Anti-Patterns")
     lines.append("")
-    lines.append(md_row("Category", "Scope", "Bad Form", "Correct Form", "Notes"))
-    lines.append(md_row("---", "---", "---", "---", "---"))
+    lines.append(md_row("Detectability", "Category", "Scope", "Bad Form", "Correct Form", "Notes"))
+    lines.append(md_row("---", "---", "---", "---", "---", "---"))
     for p in anti_patterns:
+        detectability = p.get("detectability") or ("lint" if p.get("pattern") else "advisory")
         lines.append(
             md_row(
+                detectability,
                 p.get("category", ""),
                 p.get("scope", ""),
                 p.get("bad", ""),

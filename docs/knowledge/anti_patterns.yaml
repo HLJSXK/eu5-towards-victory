@@ -7,6 +7,11 @@
 # Fields:
 #   id        : unique slug (no spaces)
 #   pattern   : Python regex to detect the bad form in source files
+#   detectability: lint | needs_parser | advisory
+#             lint = safe regex/static check; needs_parser = requires brace-aware
+#             or semantic analysis; advisory = human/AI warning only.
+#             Omit this field for legacy entries: non-empty pattern defaults to
+#             lint, empty pattern defaults to advisory.
 #   bad       : human-readable description of the bad form
 #   correction: what to do instead
 #   category  : modifier | enum | encoding | gui | scope | event | localization
@@ -386,6 +391,7 @@
   notes: "EqualTo_CFixedPoint and related typed comparison functions are confirmed to exist in EU5 GUI. The inline == operator does not work in visible expressions. The _scripted_widgets.info file also documents EqualTo_CFixedPoint as the canonical equality check."
 
 - id: var_comparison_unset_crash
+  detectability: needs_parser
   pattern: ''
   bad: "limit = { var:some_var >= var:other_var } when some_var may not be set on the scope"
   correction: "Add has_variable = some_var to the limit block before the var: comparison: limit = { has_variable = some_var  var:some_var >= var:other_var }"
@@ -395,6 +401,7 @@
   notes: "EU5 does NOT default unset variables to 0 in trigger comparisons; var:X on the left side of >= throws a script error and aborts the if-block. set_variable = { value = var:X } with an unset var appears to be silent (no error), so only limit comparisons need the has_variable guard."
 
 - id: event_option_effect_reads_newly_set_variable
+  detectability: needs_parser
   pattern: ''
   bad: "Event option effect sets variable X and then immediately calls a visible helper that compares var:X, assuming the option tooltip pre-evaluator sees the new value"
   correction: "Wrap the state-changing/application sequence in hidden_effect, or make the called helper guard has_variable before direct var:X comparisons. For optional option triggers, use var:X ?= N."
@@ -404,6 +411,7 @@
   notes: "EU5 event option tooltip generation may pre-evaluate option effects without committing earlier set_variable writes. A later visible direct var:X comparison can fetch an unset variable repeatedly while the event is open."
 
 - id: generic_action_effect_reads_newly_set_variable
+  detectability: needs_parser
   pattern: ''
   only_in_paths: ['generic_actions', 'scripted_effects', 'gui/panels/organization']
   bad: "A visible generic action calls an effect that initializes variables and then compares them later in the same visible effect chain, assuming action tooltip pre-evaluation commits the earlier writes"
@@ -679,6 +687,7 @@
   notes: "EU5 allows only one top-level desc block per event. A second desc block at the same level causes 'Scoped pointer has already been read' and 'There should be only one special desc' engine errors. All conditional descriptions must be nested inside a single desc = { first_valid = { ... } } block."
 
 - id: var_read_without_outer_scope_guard
+  detectability: needs_parser
   pattern: 'has_variable\s*=\s*(\w+)[\s\S]{0,300}var:\1\s*='
   only_in_paths: ['generic_actions']
   bad: "scope:actor = { has_variable = X } followed by scope:actor = { var:X = { ... } } in a generic action allow/custom_tooltip/trigger, expecting has_variable to suppress the var:X read"

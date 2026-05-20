@@ -41,6 +41,7 @@ MODIFIER_TYPES_FILE = (
 UTF8_BOM = b"\xef\xbb\xbf"
 
 issues = []
+warnings = []
 
 
 def load_yaml(path: Path):
@@ -114,6 +115,11 @@ def check_anti_patterns(path: Path, content: str, patterns: list[dict]):
     path_str = str(path).replace("\\", "/")
     for entry in patterns:
         regex = entry.get("pattern", "")
+        detectability = entry.get("detectability")
+        if detectability is None:
+            detectability = "lint" if regex else "advisory"
+        if detectability != "lint":
+            continue
         if not regex:
             continue
         only_in = entry.get("only_in_paths", [])
@@ -127,8 +133,10 @@ def check_anti_patterns(path: Path, content: str, patterns: list[dict]):
                     f"{path.relative_to(REPO_ROOT)}:{line_num} -- "
                     f"Bad: \"{entry['bad']}\" -> {entry['correction']}"
                 )
-        except re.error:
-            pass
+        except re.error as exc:
+            warnings.append(
+                f"[LINT_RULE] {entry.get('id', '<unknown>')} -- invalid regex skipped: {exc}"
+            )
 
 
 def check_enums(path: Path, content: str, enums: dict):
@@ -355,6 +363,145 @@ def check_vanilla_copy_integrity() -> None:
             )
 
 
+def _line_num(content: str, pos: int) -> int:
+    return content[:pos].count("\n") + 1
+
+
+def _find_matching_brace(content: str, open_pos: int) -> int | None:
+    """Return the matching } for content[open_pos] == {, ignoring strings/comments."""
+    depth = 0
+    in_string = False
+    in_comment = False
+    escaped = False
+    for i in range(open_pos, len(content)):
+        ch = content[i]
+        if in_comment:
+            if ch == "\n":
+                in_comment = False
+            continue
+        if in_string:
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == '"':
+                in_string = False
+            continue
+        if ch == "#":
+            in_comment = True
+        elif ch == '"':
+            in_string = True
+        elif ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return i
+    return None
+
+
+def _iter_top_level_blocks(content: str):
+    for match in re.finditer(r"(?m)^([A-Za-z]\w*)\s*=\s*\{", content):
+        open_pos = content.find("{", match.start())
+        close_pos = _find_matching_brace(content, open_pos)
+        if close_pos is None:
+            continue
+        yield match.group(1), open_pos, close_pos
+
+
+def _iter_named_blocks(content: str, start: int, end: int, name: str):
+    body = content[start + 1:end]
+    for match in re.finditer(rf"(?m)^[ \t]*{re.escape(name)}\s*=\s*\{{", body):
+        open_pos = content.find("{", start + 1 + match.start())
+        close_pos = _find_matching_brace(content, open_pos)
+        if close_pos is None or close_pos > end:
+            continue
+        yield open_pos, close_pos
+
+
+def _generic_action_warning(path: Path, line: int, action: str, code: str, message: str) -> None:
+    warnings.append(
+        f"[GENERIC_ACTION_RISK] {path.relative_to(REPO_ROOT)}:{line} -- "
+        f"{code}: {action}: {message}"
+    )
+
+
+def check_generic_action_pre_eval_risks(path: Path, content: str) -> None:
+    """Heuristic, brace-aware checks for hover/tooltip pre-evaluation hazards."""
+    rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
+    if "src/in_game/common/generic_actions/" not in rel:
+        return
+
+    hover_blocks = ["allow", "select_trigger"]
+    for action, action_open, action_close in _iter_top_level_blocks(content):
+        action_body = content[action_open + 1:action_close]
+
+        for block_name in hover_blocks:
+            for block_open, block_close in _iter_named_blocks(content, action_open, action_close, block_name):
+                block_body = content[block_open + 1:block_close]
+                guarded = set(re.findall(r"\bhas_variable\s*=\s*(\w+)", block_body))
+                for var_name in sorted(guarded):
+                    direct = re.search(rf"\bvar:{re.escape(var_name)}\s*=", block_body)
+                    if direct:
+                        _generic_action_warning(
+                            path,
+                            _line_num(content, block_open + 1 + direct.start()),
+                            action,
+                            "generic_action_pre_eval",
+                            f"`has_variable = {var_name}` and direct `var:{var_name} =` appear in the same {block_name} block; use `var:{var_name} ?=` for nullable hover-time reads.",
+                        )
+
+        target_flags = re.findall(r"\btarget_flag\s*=\s*(\w+)", action_body)
+        allowed_flags = {"target", "recipient"} | {f"target_{i}" for i in range(1, 10)}
+        for flag in target_flags:
+            if flag not in allowed_flags:
+                m = re.search(rf"\btarget_flag\s*=\s*{re.escape(flag)}\b", action_body)
+                _generic_action_warning(
+                    path,
+                    _line_num(content, action_open + 1 + (m.start() if m else 0)),
+                    action,
+                    "target_flag_name",
+                    f"`target_flag = {flag}` is not one of target/target_1/target_2; vanilla-shaped names are safest.",
+                )
+
+        effect_blocks = list(_iter_named_blocks(content, action_open, action_close, "effect"))
+        if target_flags and effect_blocks:
+            effect_text = "\n".join(content[o + 1:c] for o, c in effect_blocks)
+            for flag in sorted(set(target_flags)):
+                if re.search(rf"\bscope:{re.escape(flag)}\b", effect_text) and not re.search(
+                    rf"\bexists\s*=\s*scope:{re.escape(flag)}\b", effect_text
+                ):
+                    _generic_action_warning(
+                        path,
+                        _line_num(content, effect_blocks[0][0]),
+                        action,
+                        "missing_target_guard",
+                        f"effect reads `scope:{flag}` but no `exists = scope:{flag}` guard was found.",
+                    )
+
+        for effect_open, effect_close in effect_blocks:
+            effect_body = content[effect_open + 1:effect_close]
+            for set_match in re.finditer(
+                r"set_variable\s*=\s*\{[^{}]*\bname\s*=\s*(\w+)",
+                effect_body,
+                re.MULTILINE,
+            ):
+                var_name = set_match.group(1)
+                tail = effect_body[set_match.end():]
+                direct = re.search(
+                    rf"\bvar:{re.escape(var_name)}\s*(?:[<>]=?|=)",
+                    tail,
+                )
+                if direct:
+                    _generic_action_warning(
+                        path,
+                        _line_num(content, effect_open + 1 + set_match.end() + direct.start()),
+                        action,
+                        "visible_effect_reads_new_value",
+                        f"effect sets `{var_name}` and later reads `var:{var_name}` directly; action tooltip pre-evaluation may not commit the earlier write.",
+                    )
+
+
 def _parse_issue_structured(raw: str) -> dict:
     """Parse a raw issue string into a structured dict for --ai-report output."""
     m = re.match(r"^\[(\w+)\]\s+([^:]+):(\d+)\s+--\s+Bad:\s+\"([^\"]*)\"\s+->\s+(.+)$", raw)
@@ -428,9 +575,15 @@ def main():
             if KNOWLEDGE_DIR in path.parents:
                 continue
 
-            check_anti_patterns(path, content, anti_patterns)
-            check_enums(path, content, enum_data)
-            check_modifier_names(path, content, modifier_whitelist)
+            is_game_content = (
+                path.is_relative_to(REPO_ROOT / "src")
+                or path.is_relative_to(REPO_ROOT / "data")
+            )
+            if is_game_content:
+                check_anti_patterns(path, content, anti_patterns)
+                check_generic_action_pre_eval_risks(path, content)
+                check_enums(path, content, enum_data)
+                check_modifier_names(path, content, modifier_whitelist)
 
         check_loc_coverage()
         check_trigger_loc_coverage()
@@ -442,11 +595,12 @@ def main():
         def _is_autogen_warning(i: str) -> bool:
             return "[AUTOGEN]" in i or "[AUTOGEN_HEADER]" in i
         errors = [_parse_issue_structured(i) for i in issues if not _is_autogen_warning(i)]
-        warnings = [_parse_issue_structured(i) for i in issues if _is_autogen_warning(i)]
+        report_warnings = [_parse_issue_structured(i) for i in issues if _is_autogen_warning(i)]
+        report_warnings.extend(_parse_issue_structured(i) for i in warnings)
         print(json.dumps({
             "pass": len(errors) == 0,
             "errors": errors,
-            "warnings": warnings,
+            "warnings": report_warnings,
             "files_checked": len(files) if files else 0,
         }, ensure_ascii=False, indent=2))
         sys.exit(0 if len(errors) == 0 else 1)
@@ -454,6 +608,12 @@ def main():
     if fixed:
         for f in fixed:
             print(f"[FIXED] Added UTF-8 BOM: {f}")
+
+    if warnings:
+        print(f"[WARN] {len(warnings)} warning(s):\n")
+        for warning in warnings:
+            print(f"  {warning}")
+        print("")
 
     if issues:
         print(f"[FAIL] {len(issues)} issue(s) found:\n")
@@ -464,7 +624,8 @@ def main():
         if files:
             n = len(files)
             suffix = f", {len(fixed)} BOM(s) fixed" if fixed else ""
-            print(f"[OK] Validated {n} file(s) -- no issues found{suffix}.")
+            warning_suffix = f", {len(warnings)} warning(s)" if warnings else ""
+            print(f"[OK] Validated {n} file(s) -- no issues found{suffix}{warning_suffix}.")
         sys.exit(0)
 
 

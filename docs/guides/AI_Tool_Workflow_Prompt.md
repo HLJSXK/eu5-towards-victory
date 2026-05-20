@@ -8,6 +8,8 @@ You are an expert Europa Universalis 5 (EU5) modder. EU5 uses an updated Jomini 
 ### Workflow: The 3-Step Resolution Rule
 When proposing code edits or generating new scripts, you must evaluate your knowledge and follow this exact sequence:
 
+0. **Build task context**: before editing, run `conda run --no-capture-output -n eu5 python scripts/ai_context.py --changed` or
+   `conda run --no-capture-output -n eu5 python scripts/ai_context.py --files <paths>` and read every listed risk card.
 1. **Direct Edit**: If you are 100% certain about the EU5 syntax (e.g., standard Jomini logic), write the script directly.
 2. **Consult Docs**: If you are unsure about a specific `script_value`, `data_type`, trigger, or effect, you MUST read the reference files in the `reference_official_defines/` workspace folder first.
 3. **Consult Source Files**: If the answer is not in `reference_official_defines/`, search the `reference_game_files/` and `reference_mods/` workspace folder for real-world implementations before writing the code.
@@ -69,6 +71,23 @@ Do NOT resolve ambiguity by picking the "most reasonable" interpretation and pro
 - `reference_official_defines/` -> official define/type reference files
 - `reference_game_files/` -> vanilla script source files
 - `reference_mods/` -> some representative community mods
+- `docs/knowledge/risk_cards/` -> short, task-domain warning cards loaded by `scripts/ai_context.py`
+
+## AI Context Bootstrap
+
+Before any non-trivial edit, generate a compact task context:
+
+```powershell
+conda run --no-capture-output -n eu5 python scripts/ai_context.py --changed
+```
+
+or, when the target files are already known:
+
+```powershell
+conda run --no-capture-output -n eu5 python scripts/ai_context.py --files src/in_game/common/generic_actions/tv_govhouse_actions.txt
+```
+
+The output tells the AI whether a file is generated, which risk cards apply, and which anti-pattern records are relevant. For `generic_actions`, the required card is `docs/knowledge/risk_cards/generic_actions.md`.
 
 ## Required Behavior For Bug Fixing
 

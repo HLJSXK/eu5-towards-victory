@@ -4,6 +4,20 @@
 
 For any non-trivial task, read `docs/knowledge/BRIEF.md` first. It is a compact summary of all known EU5 gotchas, valid enums, and scope rules. This avoids re-exploring docs for patterns already discovered.
 
+Before editing files, build a task-scoped AI context:
+
+```
+conda run --no-capture-output -n eu5 python scripts/ai_context.py --changed
+```
+
+or, when target files are known:
+
+```
+conda run --no-capture-output -n eu5 python scripts/ai_context.py --files <path> [<path> ...]
+```
+
+Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action.
+
 ## Project Identity
 
 - **Mod Name:** Towards Victory (胜利条件)
@@ -184,7 +198,7 @@ For `.gui` files place these `#` comment lines at the very top, before the first
 ### Script Directory Layout
 
 Infrastructure scripts stay at `scripts/` root:
-`validate.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `gen_victory.py`, `gen_messagetypes.py`, `gen_locked_advances.py`, `check_overview.py`
+`validate.py`, `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `gen_victory.py`, `gen_messagetypes.py`, `gen_locked_advances.py`, `check_overview.py`
 
 **1:1 feature scripts** live under `scripts/` mirroring `src/`, named `gen_<target_filename_without_extension>.py`:
 ```

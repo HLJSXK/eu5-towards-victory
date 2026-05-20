@@ -228,6 +228,7 @@ They are copied from the Victory Path panel icons so shared IO title/list/toolti
 | Script | Input(s) | Output(s) | When to run |
 |---|---|---|---|
 | `scripts/validate.py --changed` | src/ mod files + data/generated_files.yaml + vanilla-copy integrity checks | Console report (exit 0/1) | Before launching game |
+| `scripts/ai_context.py --changed/--files` | git changed files or explicit paths + data/generated_files.yaml + risk cards + anti_patterns.yaml | Compact AI task context and required risk-card list | At AI session start or before editing a task domain |
 | `scripts/gen_brief.py` | anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md | docs/knowledge/BRIEF.md | After editing any knowledge YAML |
 | `scripts/gen_index.py` | reference_game_files + src/ | data/index/*.txt | Run by gen_brief.py automatically |
 | `scripts/gen_scaffold.py --type X --name Y` | --type argument | Scaffold .txt/.yml file | When creating a new EU5 file |
