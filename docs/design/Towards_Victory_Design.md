@@ -111,9 +111,9 @@ Six victory paths, each reflecting a historically meaningful way a 15th–18th c
 
 **Milestone structure:**
 
-| DVP threshold | Label | Reward category |
+| Requirement | Label | Reward category |
 |---|---|---|
-| 50 DVP | — | Diplomatic reputation, diplomatic capacity |
+| 2 diplomatic supporters | — | Diplomatic reputation, diplomatic capacity; founds Diplomatic Alliance |
 | 120 DVP | — | Alliance reliability (honor call cost, subject opinions) |
 | 220 DVP | Short-term Victory (短期胜利) | Diplomatic range, diplomatic reputation |
 | 380 DVP | — | Vassal bonuses (subject loyalty, diplomatic capacity) |

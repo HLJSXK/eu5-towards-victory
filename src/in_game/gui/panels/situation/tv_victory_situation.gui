@@ -82,7 +82,7 @@ template tv_conquest_icon_tooltip {
 		blockoverride "title_icon_texture" {
 			texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
 		}
-		blockoverride "concept_link" { text = "[situation|E]" }
+		blockoverride "concept_link" { text = "[tv_conquest_victory|E]" }
 		blockoverride "tooltip_content" {
 			TooltipTextBlock = {
 				blockoverride "text" { text = "TV_CONQUEST_DESCRIPTION" }
@@ -100,7 +100,7 @@ template tv_prosperity_icon_tooltip {
 		blockoverride "title_icon_texture" {
 			texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
 		}
-		blockoverride "concept_link" { text = "[situation|E]" }
+		blockoverride "concept_link" { text = "[tv_prosperity_victory|E]" }
 		blockoverride "tooltip_content" {
 			TooltipTextBlock = {
 				blockoverride "text" { text = "TV_PROSPERITY_DESCRIPTION" }
@@ -118,7 +118,7 @@ template tv_trade_icon_tooltip {
 		blockoverride "title_icon_texture" {
 			texture = "gfx/interface/icons/flat_icons/trade.dds"
 		}
-		blockoverride "concept_link" { text = "[situation|E]" }
+		blockoverride "concept_link" { text = "[tv_trade_victory|E]" }
 		blockoverride "tooltip_content" {
 			TooltipTextBlock = {
 				blockoverride "text" { text = "TV_TRADE_DESCRIPTION" }
@@ -136,7 +136,7 @@ template tv_diplomatic_icon_tooltip {
 		blockoverride "title_icon_texture" {
 			texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds"
 		}
-		blockoverride "concept_link" { text = "[situation|E]" }
+		blockoverride "concept_link" { text = "[tv_diplomatic_victory|E]" }
 		blockoverride "tooltip_content" {
 			TooltipTextBlock = {
 				blockoverride "text" { text = "TV_DIPLOMATIC_DESCRIPTION" }
@@ -154,7 +154,7 @@ template tv_cultural_icon_tooltip {
 		blockoverride "title_icon_texture" {
 			texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
 		}
-		blockoverride "concept_link" { text = "[situation|E]" }
+		blockoverride "concept_link" { text = "[tv_cultural_victory|E]" }
 		blockoverride "tooltip_content" {
 			TooltipTextBlock = {
 				blockoverride "text" { text = "TV_CULTURAL_DESCRIPTION" }
@@ -172,7 +172,7 @@ template tv_science_icon_tooltip {
 		blockoverride "title_icon_texture" {
 			texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
 		}
-		blockoverride "concept_link" { text = "[situation|E]" }
+		blockoverride "concept_link" { text = "[tv_science_victory|E]" }
 		blockoverride "tooltip_content" {
 			TooltipTextBlock = {
 				blockoverride "text" { text = "TV_SCIENCE_DESCRIPTION" }

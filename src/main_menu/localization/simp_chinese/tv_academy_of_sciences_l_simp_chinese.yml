@@ -2,11 +2,11 @@
  # ── 科学院 ─────────────────────────────────────────────────────────────────────
  # IO type auto-derived keys (engine looks these up by the IO type name)
  tv_academy_of_sciences: "科学院"
- tv_academy_of_sciences_desc: "在科学院（第一阶段）建成后设立的国际学术机构。每个国家均拥有独立的科学院实例，作为学术研究中心与[tv_research_mechanism|e]的运作入口。"
+ tv_academy_of_sciences_desc: "在[tv_academy_of_sciences|E]（第一阶段）建成后设立的国际学术机构。每个国家均拥有独立的科学院实例，作为学术研究中心与[tv_research_mechanism|e]的运作入口。"
  tv_academy_assembly: "科学院议会"
  tv_academy_assembly_desc: "科学院议会是科学院成员表决科学法律的场所。"
  diplomatic_status_tv_academy_of_sciences_name: "科学院成员国"
- diplomatic_status_tv_academy_of_sciences_tooltip: "该国已建立科学院并参与研究机制。"
+ diplomatic_status_tv_academy_of_sciences_tooltip: "该国已建立[tv_academy_of_sciences|E]并参与[tv_research_mechanism|e]。"
  tv_academy_of_sciences_list_who_tt: "科学院成员国"
  io_opinion_tv_academy_of_sciences: "科学院共同成员"
  TV_ACADEMY_IO_LEADER: "科学院院长"
@@ -91,8 +91,8 @@
 
  # ── 科学院加入事件（tv_academy.1）─────────────────────────────────────────────
  tv_academy.1.t: "科学院建成"
- tv_academy.1.d: "我国学者已完成科学院的建设。这一机构将成为探索之地，汇聚王国中最杰出的思想者，共同揭开自然的奥秘，推动知识的边界。"
- tv_academy.1.a: "让求知之路由此开始。"
+ tv_academy.1.d: "[tv_academy_of_sciences|E]的第一次正式会议在仍有新木气味的梁柱下开场。学者们带着仪器、批注手稿、旧日争执，以及终于拥有提问之所的危险喜悦陆续抵达。宫廷称之为机构，年轻学生却已经把它称作开端。从今天起，国家的好奇心将拥有账簿、长凳、俸禄与期限。[tv_research_mechanism|E]如今能够把零散才智转化为有纪律的计划。自然并未因此变得顺从，但它终于被传唤到场。"
+ tv_academy.1.a: "让学者入座，点亮灯火。"
  tv_science_m1_io_grant_tt: "我们将可以使用[tv_academy_of_sciences|e]机制，见国际组织界面。"
 
  # ── 局势面板 UI 标签 ─────────────────────────────────────────────────────────
@@ -111,9 +111,9 @@
 
  # ── IO 领袖管理 ───────────────────────────────────────────────────────────────
  tv_appoint_academy_leader: "任命首席科学家"
- tv_appoint_academy_leader_desc: "任命我国的一位角色担任科学院的首席科学家。首席科学家的等效行政能力驱动[tv_concentrated_research|e]子流程。"
+ tv_appoint_academy_leader_desc: "任命我国的一位角色担任[tv_academy_of_sciences|E]的[tv_chief_scientist|E]。[tv_chief_scientist|E]的[tv_effective_administrative_skill|e]驱动[tv_concentrated_research|e]子流程。"
  tv_remove_academy_leader: "解除首席科学家"
- tv_remove_academy_leader_desc: "解除现任首席科学家的职务。在任命新首席科学家之前，[tv_concentrated_research|e]将停止。"
+ tv_remove_academy_leader_desc: "解除现任[tv_chief_scientist|E]的职务。在任命新[tv_chief_scientist|E]之前，[tv_concentrated_research|e]将停止。"
  tv_change_academy_leader: "更换首席科学家"
  tv_change_academy_leader_desc: "以另一位角色替换现任首席科学家。"
  tv_select_academy_leader: "选择首席科学家"
@@ -138,5 +138,5 @@
 
  # ── 首席科学家死亡事件（tv_academy.10）──────────────────────────────────────────
  tv_academy.10.t: "首席科学家已逝世"
- tv_academy.10.d: "我们的首席科学家已经离世。该职位现已空缺；在任命新的首席科学家之前，[tv_concentrated_research|e]将暂停进行。"
- tv_academy.10.a: "我们必须任命新的首席科学家。"
+ tv_academy.10.d: "[tv_chief_scientist|E]已经离世，消息在[tv_academy_of_sciences|E]中传播得比任何钟声都更安静。助手们盖上仪器，书记合起未完成的账册，昨日还显得急迫的争论忽然失去了主持声音。[tv_concentrated_research|E]不能只靠名声继续；它需要一个活着的头脑来整理混乱。有些学生在悼念老师，也有人已经低声议论继任。科学院依然矗立，但正中的椅子空了下来。"
+ tv_academy.10.a: "找到下一位能镇住厅堂的头脑。"

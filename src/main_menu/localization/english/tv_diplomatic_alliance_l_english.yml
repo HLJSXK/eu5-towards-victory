@@ -13,24 +13,24 @@
  tv_alliance_cohesion_desc:0 "How cohesive and cooperative the [tv_diplomatic_alliance|e] is. Cohesion is spent to pass upgraded alliance laws and raise [tv_alliance_tier|e]."
  tv_alliance_tier:0 "Alliance Tier"
  tv_alliance_tier_desc:0 "The current institutional tier of the [tv_diplomatic_alliance|e], rising as members pass upgraded laws together."
- tv_alliance_assembly_desc:0 "The Alliance Assembly is where members deliberate and vote on laws that strengthen the Diplomatic Alliance."
+ tv_alliance_assembly_desc:0 "The [tv_alliance_assembly|E] is where members deliberate and vote on laws that strengthen the [tv_diplomatic_alliance|E]."
 
  # ── Country Interaction ────────────────────────────────────────────────
  tv_seek_diplomatic_support: "Seek Diplomatic Support"
- tv_seek_diplomatic_support_desc: "Request this nation's diplomatic support for our cause. Once granted, their support is permanent unless they cease to exist."
+ tv_seek_diplomatic_support_desc: "Request this nation's [tv_diplomatic_support|E] for our cause. Once granted, their support is permanent unless they cease to exist."
  TV_SAME_RELIGION: "Same Religion"
  TV_DIPLOMATIC_REPUTATION: "Diplomatic Reputation"
 
  # ── Notification Events ────────────────────────────────────────────────
- tv_diplo_alliance.1.t: "The Path of Diplomacy Opens"
- tv_diplo_alliance.1.d: "We have accumulated sufficient diplomatic prestige to begin seeking formal support from other nations. By sending envoys to friendly courts, we can build a coalition of nations willing to back our diplomatic ambitions."
- tv_diplo_alliance.1.a: "Send forth our envoys."
- tv_diplo_alliance_support_unlocked_tt: "You may now use the 'Seek Diplomatic Support' action on friendly nations."
+ tv_diplo_alliance.1.t: "Diplomatic Momentum"
+ tv_diplo_alliance.1.d: "Our reputation has begun to move ahead of our envoys, arriving in foreign courts before the official letters are opened. Yet influence alone will not found a durable [tv_diplomatic_alliance|E]. Friendly rulers must spend something more precious than compliments: they must pledge [tv_diplomatic_support|E] where rivals can see it. The chancery is already preparing lists of likely partners, old favors, marriage ties, shared enemies, and debts not yet called in. Some courts will hesitate, because a signature is easier to display than to retract. That is precisely why it matters."
+ tv_diplo_alliance.1.a: "Send envoys with velvet words and hard instructions."
+ tv_diplo_alliance_support_unlocked_tt: "Gather 2 [tv_diplomatic_support|E] pledges to found the [tv_diplomatic_alliance|E]."
 
  tv_diplo_alliance.2.t: "A Coalition Takes Shape"
- tv_diplo_alliance.2.d: "Ten nations have now pledged their diplomatic support to our cause. When we also reach the required diplomatic victory points, we shall be able to formalize this coalition into a grand Diplomatic Alliance."
- tv_diplo_alliance.2.a: "The alliance draws near."
- tv_diplo_alliance_support_met_tt: "You have gathered 10 diplomatic supporters. Reach 50 DVP to found the Diplomatic Alliance."
+ tv_diplo_alliance.2.d: "Two nations have now pledged [tv_diplomatic_support|E] to our cause, and the court no longer has to speak of possibility in lowered voices. Their signatures give our ambition a public shape, the kind that survives rumor and can be read aloud before suspicious princes. The proposed [tv_diplomatic_alliance|E] is still only ink, seals, and expectation, but ink can bind armies if enough witnesses respect it. Envoys hurry through the corridors with corrected drafts, while clerks argue over precedence and ceremonial phrasing. A coalition is taking shape, and everyone involved understands that shape will cast a shadow."
+ tv_diplo_alliance.2.a: "Lay the seals where all can see them."
+ tv_diplo_alliance_support_met_tt: "You have gathered 2 [tv_diplomatic_support|E] pledges. The [tv_diplomatic_alliance|E] can now be founded."
 
  # ── Law Category Names ─────────────────────────────────────────────────
  tv_court_protocol: "Court Protocol & Legitimacy"
@@ -101,7 +101,7 @@
  # ── Special Status ─────────────────────────────────────────────────────
  TV_ALLIANCE_ADVOCATOR_MALE: "Advocator"
  TV_ALLIANCE_ADVOCATOR_FEMALE: "Advocator"
- tv_alliance_advocator_desc: "The Advocator leads the Diplomatic Alliance and may propose new laws for member nations to vote upon."
+ tv_alliance_advocator_desc: "The [tv_alliance_advocator|E] leads the [tv_diplomatic_alliance|E] and may propose new laws for member nations to vote upon."
 
  # ── Law Category ───────────────────────────────────────────────────────
  DIPLOMATIC_LAW_CATEGORY: "Diplomatic Laws"
@@ -116,10 +116,10 @@
  MODIFIER_TYPE_DESC_tv_alliance_advocator_agenda_impact: "Modifies the impact of the Advocator's agenda on Diplomatic Alliance proceedings."
 
  # ── Effect Tooltip ──────────────────────────────────────────────────────
- tv_create_diplomatic_alliance_tt: "Found the Diplomatic Alliance, enrolling all existing supporters as founding members."
+ tv_create_diplomatic_alliance_tt: "Found the [tv_diplomatic_alliance|E], enrolling all existing supporters as founding members."
 
  # ── IO Description ─────────────────────────────────────────────────────
- tv_diplomatic_alliance_desc: "The [tv_diplomatic_alliance|E] is a grand coalition of nations united in pursuit of diplomatic supremacy. Led by its Advocator, the Alliance coordinates foreign policy, establishes shared protocols, and votes on laws governing cooperation between its members."
+ tv_diplomatic_alliance_desc: "The [tv_diplomatic_alliance|E] is a grand coalition of nations united in pursuit of diplomatic supremacy. Led by its [tv_alliance_advocator|E], the Alliance coordinates foreign policy, establishes shared protocols, and votes on laws governing cooperation between its members."
 
  # ── Law Category Descriptions ──────────────────────────────────────────
  tv_court_protocol_desc: "Determines the level of diplomatic formality and legitimacy recognition between Alliance members."
@@ -168,11 +168,11 @@
 
  # ── IO Leader management ──────────────────────────────────────────────
  tv_appoint_alliance_leader: "Appoint Advocator"
- tv_appoint_alliance_leader_desc: "Appoint one of our characters as the Advocator of the Diplomatic Alliance."
+ tv_appoint_alliance_leader_desc: "Appoint one of our characters as the [tv_alliance_advocator|E] of the [tv_diplomatic_alliance|E]."
  tv_remove_alliance_leader: "Dismiss Advocator"
- tv_remove_alliance_leader_desc: "Remove the current Advocator from office. The Diplomatic Alliance will operate without a named leader until a new Advocator is appointed."
+ tv_remove_alliance_leader_desc: "Remove the current [tv_alliance_advocator|E] from office. The [tv_diplomatic_alliance|E] will operate without a named leader until a new [tv_alliance_advocator|E] is appointed."
  tv_change_alliance_leader: "Replace Advocator"
- tv_change_alliance_leader_desc: "Replace the current Advocator with another character."
+ tv_change_alliance_leader_desc: "Replace the current [tv_alliance_advocator|E] with another character."
  tv_select_alliance_leader: "Select Advocator"
  tv_no_alliance_leader_available: "@trigger_no! No eligible characters are available."
 

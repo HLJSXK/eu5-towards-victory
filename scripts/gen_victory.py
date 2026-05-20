@@ -85,12 +85,14 @@ def gen_triggers(data: dict) -> str:
         lines.append("")
         for m in path["milestones"]:
             n = m["n"]
+            threshold = m["threshold"]
             lines.append(f"tv_{pid}_milestone_{n} = {{")
-            lines.append(f"\tcustom_tooltip = {{")
-            lines.append(f"\t\ttext = TV_{PID}_M{n}_TRIGGER_DESC")
-            lines.append(f"\t\thas_variable = {score_var}")
-            lines.append(f"\t\tvar:{score_var} >= {m['threshold']}")
-            lines.append(f"\t}}")
+            if threshold > 0:
+                lines.append(f"\tcustom_tooltip = {{")
+                lines.append(f"\t\ttext = TV_{PID}_M{n}_TRIGGER_DESC")
+                lines.append(f"\t\thas_variable = {score_var}")
+                lines.append(f"\t\tvar:{score_var} >= {threshold}")
+                lines.append(f"\t}}")
             if m.get("extra_trigger_block"):
                 lines.append(indent(m["extra_trigger_block"].rstrip(), 1))
             lines.append(f"}}")

@@ -2,8 +2,10 @@
 Generate src/in_game/common/laws/tv_alliance_laws.txt from data/alliance_laws.yaml.
 
 Pattern: 5 law categories × 4 policy levels each.
-- L1 is a minimal stub (no allow, no on_activate, no country_modifier).
+- L1 is a minimal stub (no on_activate, no country_modifier).
 - L2-L4 share identical boilerplate; only cohesion_cost, country_modifier, and policy IDs differ.
+- Policy changes are adjacent-only: no policy counts as level 0, so level N can
+  be selected only from level N-1 or N+1.
 - AI voting uses reform tier base bias, opinion toward the leader, and leader diplomatic reputation.
 """
 
@@ -32,7 +34,7 @@ FILE_HEADER = (
     "# TOWARDS VICTORY — DIPLOMATIC ALLIANCE LAWS\n"
     "# 5 law categories × 4 policy levels each\n"
     "# Cohesion thresholds: L1=0, L2=25, L3=50, L4=75\n"
-    "# Each upgrade from L1 increments tv_alliance_tier by 1\n"
+    "# tv_alliance_tier is the sum of all current policy levels above 1\n"
     "# ══════════════════════════════════════════════════════════════════════════════\n"
 )
 
@@ -46,12 +48,12 @@ def _indent_block(text: str, depth: int) -> str:
 
 def gen_ai_vote_bias(level: int) -> list[str]:
     base_by_tier = {
-        0: 0,
-        1: -100,
-        2: -150,
-        3: -200,
+        1: 0,
+        2: -100,
+        3: -150,
+        4: -200,
     }
-    base = base_by_tier[level - 1]
+    base = base_by_tier[level]
     lines = []
     lines.append(T*2 + "wants_this_policy_bias = {")
     lines.append(T*3 + "add = {")
@@ -62,8 +64,12 @@ def gen_ai_vote_bias(level: int) -> list[str]:
     lines.append(T*4 + "limit = { scope:recipient = { international_organization_has_leader = yes } }")
     lines.append(T*4 + "add = {")
     lines.append(T*5 + 'desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"')
-    lines.append(T*5 + 'value = "opinion(scope:recipient.leader_country)"')
-    lines.append(T*5 + "multiply = 0.5")
+    lines.append(T*5 + "value = {")
+    lines.append(T*6 + 'value = "opinion(scope:recipient.leader_country)"')
+    lines.append(T*6 + "multiply = 0.5")
+    lines.append(T*6 + "min = -100")
+    lines.append(T*6 + "max = 100")
+    lines.append(T*5 + "}")
     lines.append(T*4 + "}")
     lines.append(T*4 + "add = {")
     lines.append(T*5 + 'desc = "IO_LEADER_DIP_REP"')
@@ -75,7 +81,23 @@ def gen_ai_vote_bias(level: int) -> list[str]:
     return lines
 
 
-def gen_l1(policy: dict) -> str:
+def gen_adjacent_policy_allow_body(law_id: str, policies: list[dict], index: int) -> list[str]:
+    level = policies[index]["level"]
+    lines = []
+    lines.append(T*3 + "scope:recipient = {")
+    lines.append(T*4 + "OR = {")
+    if level == 1:
+        lines.append(T*5 + f"NOT = {{ international_organization_has_law = law:{law_id} }}")
+    if index > 0:
+        lines.append(T*5 + f"international_organization_has_policy = policy:{policies[index - 1]['id']}")
+    if index + 1 < len(policies):
+        lines.append(T*5 + f"international_organization_has_policy = policy:{policies[index + 1]['id']}")
+    lines.append(T*4 + "}")
+    lines.append(T*3 + "}")
+    return lines
+
+
+def gen_l1(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     pid = policy["id"]
     comment = policy.get("display_comment", "")
     lines = []
@@ -83,6 +105,9 @@ def gen_l1(policy: dict) -> str:
         lines.append(T + f"# {comment}")
     lines.append(T + f"{pid} = {{")
     lines.append(T*2 + "level = 1")
+    lines.append(T*2 + "allow = {")
+    lines.extend(gen_adjacent_policy_allow_body(law_id, policies, index))
+    lines.append(T*2 + "}")
     lines.append(T*2 + "wants_propose_policy = {")
     lines.append(T*3 + "subtract = {")
     lines.append(T*4 + 'desc = "TV_ALREADY_HAVE_BETTER"')
@@ -94,10 +119,11 @@ def gen_l1(policy: dict) -> str:
     return "\n".join(lines)
 
 
-def gen_lN(policy: dict, prev_policy_id: str) -> str:
+def gen_lN(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     pid = policy["id"]
     level = policy["level"]
     cost = policy["cohesion_cost"]
+    tier_contribution = level - 1
     comment = policy.get("display_comment", "")
     modifier_lines = policy["country_modifier"].rstrip()
     on_activate_note = (policy.get("on_activate_note") or "").strip()
@@ -108,7 +134,7 @@ def gen_lN(policy: dict, prev_policy_id: str) -> str:
     lines.append(T + f"{pid} = {{")
     lines.append(T*2 + f"level = {level}")
     lines.append(T*2 + "allow = {")
-    lines.append(T*3 + f"international_organization_has_policy = policy:{prev_policy_id}")
+    lines.extend(gen_adjacent_policy_allow_body(law_id, policies, index))
     lines.append(T*3 + "custom_tooltip = {")
     lines.append(T*4 + "text = TV_HAS_ALLIANCE_COHESION_TT")
     lines.append(T*4 + "scope:recipient = { has_variable = tv_alliance_cohesion }")
@@ -120,9 +146,20 @@ def gen_lN(policy: dict, prev_policy_id: str) -> str:
     lines.append(T*2 + "on_activate = {")
     lines.append(T*3 + "scope:recipient = {")
     lines.append(T*4 + f"change_variable = {{ name = tv_alliance_cohesion add = -{cost} }}")
-    lines.append(T*4 + "change_variable = { name = tv_alliance_tier add = 1 }")
+    lines.append(T*4 + f"change_variable = {{ name = tv_alliance_tier add = {tier_contribution} }}")
+    lines.append(T*4 + "leader_country = {")
+    lines.append(T*5 + f"change_variable = {{ name = tv_alliance_tier add = {tier_contribution} }}")
+    lines.append(T*4 + "}")
     if on_activate_note:
         lines.append(T*4 + on_activate_note)
+    lines.append(T*3 + "}")
+    lines.append(T*2 + "}")
+    lines.append(T*2 + "on_deactivate = {")
+    lines.append(T*3 + "scope:recipient = {")
+    lines.append(T*4 + f"change_variable = {{ name = tv_alliance_tier add = -{tier_contribution} }}")
+    lines.append(T*4 + "leader_country = {")
+    lines.append(T*5 + f"change_variable = {{ name = tv_alliance_tier add = -{tier_contribution} }}")
+    lines.append(T*4 + "}")
     lines.append(T*3 + "}")
     lines.append(T*2 + "}")
     lines.append(T*2 + "country_modifier = {")
@@ -186,10 +223,9 @@ def gen_law(law: dict) -> str:
     # Generate policy blocks
     for i, policy in enumerate(policies):
         if policy["level"] == 1:
-            lines.append(gen_l1(policy))
+            lines.append(gen_l1(policy, lid, policies, i))
         else:
-            prev_id = policies[i - 1]["id"]
-            lines.append(gen_lN(policy, prev_id))
+            lines.append(gen_lN(policy, lid, policies, i))
         if i < len(policies) - 1:
             lines.append("")
 

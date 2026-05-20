@@ -1,8 +1,10 @@
 # Diplomatic Alliance law categories for tv_alliance_laws.txt
 # Structure: 5 law categories × 4 policy levels each
 # Cohesion thresholds are fixed: L2=25, L3=50, L4=75 (all laws share these)
-# AI vote bias is generated from reform tier, opinion toward the leader,
-# and the leader country's diplomatic reputation.
+# Policy changes are adjacent-only. No current policy counts as level 0, so
+# level N requires current level N-1 or N+1.
+# AI vote bias is generated from reform tier, opinion toward the leader
+# clamped to -100..+100, and the leader country's diplomatic reputation.
 #
 # Fields per policy (L2-L4):
 #   id:               EU5 policy identifier

@@ -359,7 +359,7 @@ tv_leaderboard_monthly_pulse = {
 		}
 
 		# ── Diplomatic Unlock Notification Events ────────────────────────────
-		# Fire informational event when DVP reaches 50 (support system unlocked)
+		# Fire informational reminder when DVP reaches 50 and the alliance is not founded yet
 		if = {
 			limit = {
 				custom_tooltip = {
@@ -371,27 +371,27 @@ tv_leaderboard_monthly_pulse = {
 					text = TV_HAS_VARIABLE_NOT_SET_TT
 					NOT = { has_variable = tv_diplo_unlock_notified }
 				}
-				# Only fire if M1 hasn't been reached yet (support count < 10)
+				# Only fire if M1 hasn't been reached yet (support count < 2)
 				OR = {
 					custom_tooltip = {
 						text = TV_HAS_VARIABLE_NOT_SET_TT
 						NOT = { has_variable = tv_diplomatic_support_count }
 					}
-					var:tv_diplomatic_support_count < 10
+					var:tv_diplomatic_support_count < 2
 				}
 			}
 			set_variable = { name = tv_diplo_unlock_notified value = 1 }
 			trigger_event_non_silently = tv_diplo_alliance.1
 		}
 
-		# Fire informational event when support count reaches 10
+		# Fire informational event when support count reaches 2
 		if = {
 			limit = {
 				custom_tooltip = {
 					text = TV_HAS_DIPLOMATIC_SUPPORT_COUNT_TT
 					has_variable = tv_diplomatic_support_count
 				}
-				var:tv_diplomatic_support_count >= 10
+				var:tv_diplomatic_support_count >= 2
 				custom_tooltip = {
 					text = TV_HAS_VARIABLE_NOT_SET_TT
 					NOT = { has_variable = tv_diplo_support_notified }

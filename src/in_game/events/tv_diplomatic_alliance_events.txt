@@ -3,7 +3,7 @@
 
 namespace = tv_diplo_alliance
 
-# Event 1: DVP threshold reached — diplomatic support system unlocked
+# Event 1: DVP reminder — diplomatic support still needed
 tv_diplo_alliance.1 = {
 	type = country_event
 	title = tv_diplo_alliance.1.t
@@ -15,7 +15,7 @@ tv_diplo_alliance.1 = {
 	}
 }
 
-# Event 2: 10 supporters gathered — support condition met
+# Event 2: 2 supporters gathered — support condition met
 tv_diplo_alliance.2 = {
 	type = country_event
 	title = tv_diplo_alliance.2.t
