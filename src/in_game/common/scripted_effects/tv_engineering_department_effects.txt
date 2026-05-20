@@ -1658,7 +1658,7 @@ tv_wonder_apply_survey_site_preference_effect = {
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { location_rank = location_rank:megalopolis } }
+			limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }
 			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		remove_variable = tv_wonder_site_preference_bonus
@@ -1736,7 +1736,7 @@ tv_wonder_apply_survey_site_preference_effect = {
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { location_rank = location_rank:rural_settlement } }
+			limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }
 			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		remove_variable = tv_wonder_site_preference_bonus

@@ -413,16 +413,6 @@
   source: "runtime error.log: tv_wonder_select_construction_site -> tv_wonder_update_wonder_level_effect (tv_wonder_body_units/function_units/decoration_units unset during action hover)"
   notes: "EU5 generic action card and tooltip rendering can pre-evaluate the action effect without committing preceding set_variable writes. A helper that initializes construction variables and then immediately reads them with direct var:X comparisons can spam Failed to fetch variable / Invalid left side errors while the card is merely visible or hovered."
 
-- id: neighbor_location_rank_without_land_guard
-  pattern: 'any_neighbor_location\s*=\s*\{[\s\S]{0,160}location_rank\s*=\s*location_rank:'
-  only_in_paths: ['generic_actions', 'scripted_triggers', 'scripted_effects']
-  bad: "Reading location_rank directly inside any_neighbor_location when the neighbor set can include non-land or otherwise rankless location objects"
-  correction: "Guard rank checks with is_land = yes or call a helper trigger that first checks is_land, then compares location_rank."
-  category: scope
-  scope: location
-  source: "runtime error.log: tv_wonder_start_survey selector; reference_game_files/game/in_game/common/location_ranks/00_default.txt"
-  notes: "While a location-select generic action is open, EU5 evaluates visible/effect logic repeatedly. any_neighbor_location can visit objects without a valid location_rank; direct location_rank reads then log 'Event target link location_rank returned an invalid object'."
-
 - id: trigger_loc_missing_first_perspective
   pattern: ''
   only_in_paths: ['trigger_localization']

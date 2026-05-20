@@ -2,19 +2,11 @@
 # Country-scoped unless noted. The location-rank helper triggers are location-scoped.
 
 tv_wonder_location_is_city_trigger = {
-	trigger_if = {
-		limit = { is_land = yes }
-		location_rank = location_rank:city
-	}
-	trigger_else = { always = no }
+	location_rank ?= location_rank:city
 }
 
 tv_wonder_location_is_town_trigger = {
-	trigger_if = {
-		limit = { is_land = yes }
-		location_rank = location_rank:town
-	}
-	trigger_else = { always = no }
+	location_rank ?= location_rank:town
 }
 
 tv_wonder_location_is_city_or_town_trigger = {
@@ -37,8 +29,8 @@ tv_wonder_can_build_sacred_mountain_trigger = {
 tv_wonder_can_build_triumphal_axis_trigger = {
 	any_owned_location = {
 		OR = {
-			location_rank = location_rank:city
-			location_rank = location_rank:megalopolis
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 }
@@ -75,7 +67,7 @@ tv_wonder_can_build_hydraulic_workshop_trigger = {
 tv_wonder_can_build_mining_city_trigger = {
 	any_owned_location = {
 		OR = {
-			location_rank = location_rank:rural_settlement
+			location_rank ?= location_rank:rural_settlement
 			raw_material = goods:iron
 			raw_material = goods:copper
 			raw_material = goods:tin
