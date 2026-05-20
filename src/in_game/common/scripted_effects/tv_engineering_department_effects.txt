@@ -190,6 +190,10 @@ tv_wonder_clear_feasible_deck_effect = {
 	remove_variable = tv_wonder_feasible_sacred_mountain
 	remove_variable = tv_wonder_feasible_triumphal_axis
 	remove_variable = tv_wonder_feasible_great_port
+	remove_variable = tv_wonder_feasible_giant_necropolis
+	remove_variable = tv_wonder_feasible_great_lighthouse
+	remove_variable = tv_wonder_feasible_hydraulic_workshop
+	remove_variable = tv_wonder_feasible_mining_city
 }
 
 tv_wonder_rebuild_feasible_deck_effect = {
@@ -205,6 +209,22 @@ tv_wonder_rebuild_feasible_deck_effect = {
 	if = {
 		limit = { tv_wonder_can_build_great_port_trigger = yes }
 		set_variable = { name = tv_wonder_feasible_great_port value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_giant_necropolis_trigger = yes }
+		set_variable = { name = tv_wonder_feasible_giant_necropolis value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_great_lighthouse_trigger = yes }
+		set_variable = { name = tv_wonder_feasible_great_lighthouse value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_hydraulic_workshop_trigger = yes }
+		set_variable = { name = tv_wonder_feasible_hydraulic_workshop value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_mining_city_trigger = yes }
+		set_variable = { name = tv_wonder_feasible_mining_city value = 1 }
 	}
 }
 
@@ -259,6 +279,22 @@ tv_wonder_roll_new_proposal_effect = {
 				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_great_port } }
 				set_variable = { name = tv_wonder_proposal value = 3 }
 			}
+			1 = {
+				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_giant_necropolis } }
+				set_variable = { name = tv_wonder_proposal value = 4 }
+			}
+			1 = {
+				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_great_lighthouse } }
+				set_variable = { name = tv_wonder_proposal value = 5 }
+			}
+			1 = {
+				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_hydraulic_workshop } }
+				set_variable = { name = tv_wonder_proposal value = 6 }
+			}
+			1 = {
+				modifier = { factor = 0 NOT = { has_variable = tv_wonder_feasible_mining_city } }
+				set_variable = { name = tv_wonder_proposal value = 7 }
+			}
 		}
 		tv_wonder_set_proposal_on_great_engineer_effect = yes
 	}
@@ -277,6 +313,32 @@ tv_wonder_remove_current_proposal_from_deck_effect = {
 		limit = { var:tv_wonder_proposal ?= 3 }
 		remove_variable = tv_wonder_feasible_great_port
 	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 4 }
+		remove_variable = tv_wonder_feasible_giant_necropolis
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 5 }
+		remove_variable = tv_wonder_feasible_great_lighthouse
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 6 }
+		remove_variable = tv_wonder_feasible_hydraulic_workshop
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 7 }
+		remove_variable = tv_wonder_feasible_mining_city
+	}
+}
+
+tv_wonder_reroll_proposal_after_rejection_effect = {
+	tv_wonder_remove_current_proposal_from_deck_effect = yes
+	tv_wonder_roll_new_proposal_effect = yes
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_proposal } }
+		tv_wonder_rebuild_feasible_deck_effect = yes
+		tv_wonder_roll_new_proposal_effect = yes
+	}
 }
 
 tv_wonder_roll_nobles_demand_effect = {
@@ -290,6 +352,23 @@ tv_wonder_roll_nobles_demand_effect = {
 		1 = {
 			modifier = { factor = 0 NOT = { tv_wonder_nobles_policy_agenda_available_trigger = yes } }
 			set_variable = { name = tv_wonder_nobles_demand value = 4 }
+		}
+		1 = { set_variable = { name = tv_wonder_nobles_demand value = 5 } }
+		1 = { set_variable = { name = tv_wonder_nobles_demand value = 6 } }
+		1 = { set_variable = { name = tv_wonder_nobles_demand value = 7 } }
+		1 = { set_variable = { name = tv_wonder_nobles_demand value = 8 } }
+		1 = { set_variable = { name = tv_wonder_nobles_demand value = 9 } }
+		1 = {
+			modifier = { factor = 0 NOT = { tv_wonder_cabinet_loss_agenda_available_trigger = yes } }
+			set_variable = { name = tv_wonder_nobles_demand value = 10 }
+		}
+		1 = {
+			modifier = { factor = 0 NOT = { tv_wonder_artist_loss_agenda_available_trigger = yes } }
+			set_variable = { name = tv_wonder_nobles_demand value = 11 }
+		}
+		1 = {
+			modifier = { factor = 0 NOT = { tv_wonder_artwork_loss_agenda_available_trigger = yes } }
+			set_variable = { name = tv_wonder_nobles_demand value = 12 }
 		}
 	}
 }
@@ -306,6 +385,23 @@ tv_wonder_roll_burghers_demand_effect = {
 			modifier = { factor = 0 NOT = { tv_wonder_burghers_policy_agenda_available_trigger = yes } }
 			set_variable = { name = tv_wonder_burghers_demand value = 4 }
 		}
+		1 = { set_variable = { name = tv_wonder_burghers_demand value = 5 } }
+		1 = { set_variable = { name = tv_wonder_burghers_demand value = 6 } }
+		1 = { set_variable = { name = tv_wonder_burghers_demand value = 7 } }
+		1 = { set_variable = { name = tv_wonder_burghers_demand value = 8 } }
+		1 = { set_variable = { name = tv_wonder_burghers_demand value = 9 } }
+		1 = {
+			modifier = { factor = 0 NOT = { tv_wonder_cabinet_loss_agenda_available_trigger = yes } }
+			set_variable = { name = tv_wonder_burghers_demand value = 10 }
+		}
+		1 = {
+			modifier = { factor = 0 NOT = { tv_wonder_artist_loss_agenda_available_trigger = yes } }
+			set_variable = { name = tv_wonder_burghers_demand value = 11 }
+		}
+		1 = {
+			modifier = { factor = 0 NOT = { tv_wonder_artwork_loss_agenda_available_trigger = yes } }
+			set_variable = { name = tv_wonder_burghers_demand value = 12 }
+		}
 	}
 }
 
@@ -320,6 +416,23 @@ tv_wonder_roll_clergy_demand_effect = {
 		1 = {
 			modifier = { factor = 0 NOT = { tv_wonder_clergy_policy_agenda_available_trigger = yes } }
 			set_variable = { name = tv_wonder_clergy_demand value = 4 }
+		}
+		1 = { set_variable = { name = tv_wonder_clergy_demand value = 5 } }
+		1 = { set_variable = { name = tv_wonder_clergy_demand value = 6 } }
+		1 = { set_variable = { name = tv_wonder_clergy_demand value = 7 } }
+		1 = { set_variable = { name = tv_wonder_clergy_demand value = 8 } }
+		1 = { set_variable = { name = tv_wonder_clergy_demand value = 9 } }
+		1 = {
+			modifier = { factor = 0 NOT = { tv_wonder_cabinet_loss_agenda_available_trigger = yes } }
+			set_variable = { name = tv_wonder_clergy_demand value = 10 }
+		}
+		1 = {
+			modifier = { factor = 0 NOT = { tv_wonder_artist_loss_agenda_available_trigger = yes } }
+			set_variable = { name = tv_wonder_clergy_demand value = 11 }
+		}
+		1 = {
+			modifier = { factor = 0 NOT = { tv_wonder_artwork_loss_agenda_available_trigger = yes } }
+			set_variable = { name = tv_wonder_clergy_demand value = 12 }
 		}
 	}
 }
@@ -375,6 +488,22 @@ tv_wonder_accept_proposal_effect = {
 		limit = { var:tv_wonder_proposal ?= 3 }
 		custom_tooltip = { text = TV_WONDER_LOCK_GREAT_PORT_TT }
 	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 4 }
+		custom_tooltip = { text = TV_WONDER_LOCK_GIANT_NECROPOLIS_TT }
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 5 }
+		custom_tooltip = { text = TV_WONDER_LOCK_GREAT_LIGHTHOUSE_TT }
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 6 }
+		custom_tooltip = { text = TV_WONDER_LOCK_HYDRAULIC_WORKSHOP_TT }
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 7 }
+		custom_tooltip = { text = TV_WONDER_LOCK_MINING_CITY_TT }
+	}
 	hidden_effect = {
 		if = {
 			limit = { var:tv_wonder_proposal ?= { this >= 1 } }
@@ -391,8 +520,7 @@ tv_wonder_refute_proposal_effect = {
 	add_prestige = -10
 	custom_tooltip = { text = TV_WONDER_GREAT_ENGINEER_NEW_PROPOSAL_TT }
 	hidden_effect = {
-		tv_wonder_remove_current_proposal_from_deck_effect = yes
-		tv_wonder_roll_new_proposal_effect = yes
+		tv_wonder_reroll_proposal_after_rejection_effect = yes
 	}
 }
 
@@ -400,8 +528,7 @@ tv_wonder_bribe_proposal_effect = {
 	change_gold_effect = { scale = -1 }
 	custom_tooltip = { text = TV_WONDER_GREAT_ENGINEER_NEW_PROPOSAL_TT }
 	hidden_effect = {
-		tv_wonder_remove_current_proposal_from_deck_effect = yes
-		tv_wonder_roll_new_proposal_effect = yes
+		tv_wonder_reroll_proposal_after_rejection_effect = yes
 	}
 }
 
@@ -522,6 +649,103 @@ tv_wonder_change_clergy_policy_agenda_effect = {
 	}
 }
 
+tv_wonder_loss_prestige_agenda_effect = {
+	add_prestige = -10
+}
+
+tv_wonder_loss_stability_agenda_effect = {
+	add_stability = -7
+}
+
+tv_wonder_loss_legitimacy_agenda_effect = {
+	add_legitimacy = -5
+}
+
+tv_wonder_loss_other_estates_satisfaction_agenda_effect = {
+	if = {
+		limit = {
+			OR = {
+				var:tv_wonder_nobles_demand ?= 8
+				var:tv_wonder_burghers_demand ?= 8
+				var:tv_wonder_clergy_demand ?= 8
+			}
+		}
+		if = {
+			limit = { country_has_estate = estate_type:nobles_estate }
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.05 }
+		}
+		if = {
+			limit = { country_has_estate = estate_type:burghers_estate }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.05 }
+		}
+		if = {
+			limit = { country_has_estate = estate_type:clergy_estate }
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.05 }
+		}
+	}
+}
+
+tv_wonder_gain_inflation_agenda_effect = {
+	add_inflation = inflation_mild_penalty
+}
+
+tv_wonder_remove_cabinet_member_agenda_effect = {
+	random_cabinet_character = {
+		limit = { is_alive = yes }
+		save_scope_as = tv_wonder_removed_cabinet_member
+	}
+	if = {
+		limit = { exists = scope:tv_wonder_removed_cabinet_member }
+		remove_from_cabinet = scope:tv_wonder_removed_cabinet_member
+	}
+}
+
+tv_wonder_remove_artist_agenda_effect = {
+	random_artist = {
+		limit = { is_alive = yes }
+		save_scope_as = tv_wonder_removed_artist
+	}
+	if = {
+		limit = { exists = scope:tv_wonder_removed_artist }
+		scope:tv_wonder_removed_artist = { kill_character = this }
+	}
+}
+
+tv_wonder_remove_artwork_agenda_effect = {
+	random_work_of_art_in_country = { save_scope_as = tv_wonder_removed_artwork }
+	if = {
+		limit = { exists = scope:tv_wonder_removed_artwork }
+		destroy_art = scope:tv_wonder_removed_artwork
+	}
+}
+
+tv_wonder_reroll_nobles_if_matching_demand_effect = {
+	if = {
+		limit = { var:tv_wonder_nobles_demand ?= $demand$ }
+		tv_wonder_roll_nobles_demand_effect = yes
+	}
+}
+
+tv_wonder_reroll_burghers_if_matching_demand_effect = {
+	if = {
+		limit = { var:tv_wonder_burghers_demand ?= $demand$ }
+		tv_wonder_roll_burghers_demand_effect = yes
+	}
+}
+
+tv_wonder_reroll_clergy_if_matching_demand_effect = {
+	if = {
+		limit = { var:tv_wonder_clergy_demand ?= $demand$ }
+		tv_wonder_roll_clergy_demand_effect = yes
+	}
+}
+
+tv_wonder_reroll_matching_destructive_demand_effect = {
+	tv_wonder_reroll_nobles_if_matching_demand_effect = { demand = $demand$ }
+	tv_wonder_reroll_burghers_if_matching_demand_effect = { demand = $demand$ }
+	tv_wonder_reroll_clergy_if_matching_demand_effect = { demand = $demand$ }
+}
+
 tv_wonder_accept_nobles_demand_effect = {
 	if = {
 		limit = { var:tv_wonder_nobles_demand ?= 1 }
@@ -539,9 +763,62 @@ tv_wonder_accept_nobles_demand_effect = {
 		limit = { var:tv_wonder_nobles_demand ?= 4 }
 		tv_wonder_change_nobles_policy_agenda_effect = yes
 	}
+	if = {
+		limit = { var:tv_wonder_nobles_demand ?= 5 }
+		tv_wonder_loss_prestige_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_nobles_demand ?= 6 }
+		tv_wonder_loss_stability_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_nobles_demand ?= 7 }
+		tv_wonder_loss_legitimacy_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_nobles_demand ?= 8 }
+		if = {
+			limit = { country_has_estate = estate_type:burghers_estate }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.05 }
+		}
+		if = {
+			limit = { country_has_estate = estate_type:clergy_estate }
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.05 }
+		}
+	}
+	if = {
+		limit = { var:tv_wonder_nobles_demand ?= 9 }
+		tv_wonder_gain_inflation_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_nobles_demand ?= 10 }
+		tv_wonder_remove_cabinet_member_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_nobles_demand ?= 11 }
+		tv_wonder_remove_artist_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_nobles_demand ?= 12 }
+		tv_wonder_remove_artwork_agenda_effect = yes
+	}
 	tv_change_wonder_domestic_support_effect = { value = 20 }
 	hidden_effect = {
-		tv_wonder_roll_nobles_demand_effect = yes
+		if = {
+			limit = { var:tv_wonder_nobles_demand ?= 10 }
+			tv_wonder_reroll_matching_destructive_demand_effect = { demand = 10 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_nobles_demand ?= 11 }
+			tv_wonder_reroll_matching_destructive_demand_effect = { demand = 11 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_nobles_demand ?= 12 }
+			tv_wonder_reroll_matching_destructive_demand_effect = { demand = 12 }
+		}
+		else = {
+			tv_wonder_roll_nobles_demand_effect = yes
+		}
 	}
 }
 
@@ -562,9 +839,62 @@ tv_wonder_accept_burghers_demand_effect = {
 		limit = { var:tv_wonder_burghers_demand ?= 4 }
 		tv_wonder_change_burghers_policy_agenda_effect = yes
 	}
+	if = {
+		limit = { var:tv_wonder_burghers_demand ?= 5 }
+		tv_wonder_loss_prestige_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_burghers_demand ?= 6 }
+		tv_wonder_loss_stability_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_burghers_demand ?= 7 }
+		tv_wonder_loss_legitimacy_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_burghers_demand ?= 8 }
+		if = {
+			limit = { country_has_estate = estate_type:nobles_estate }
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.05 }
+		}
+		if = {
+			limit = { country_has_estate = estate_type:clergy_estate }
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.05 }
+		}
+	}
+	if = {
+		limit = { var:tv_wonder_burghers_demand ?= 9 }
+		tv_wonder_gain_inflation_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_burghers_demand ?= 10 }
+		tv_wonder_remove_cabinet_member_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_burghers_demand ?= 11 }
+		tv_wonder_remove_artist_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_burghers_demand ?= 12 }
+		tv_wonder_remove_artwork_agenda_effect = yes
+	}
 	tv_change_wonder_domestic_support_effect = { value = 20 }
 	hidden_effect = {
-		tv_wonder_roll_burghers_demand_effect = yes
+		if = {
+			limit = { var:tv_wonder_burghers_demand ?= 10 }
+			tv_wonder_reroll_matching_destructive_demand_effect = { demand = 10 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_burghers_demand ?= 11 }
+			tv_wonder_reroll_matching_destructive_demand_effect = { demand = 11 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_burghers_demand ?= 12 }
+			tv_wonder_reroll_matching_destructive_demand_effect = { demand = 12 }
+		}
+		else = {
+			tv_wonder_roll_burghers_demand_effect = yes
+		}
 	}
 }
 
@@ -585,9 +915,62 @@ tv_wonder_accept_clergy_demand_effect = {
 		limit = { var:tv_wonder_clergy_demand ?= 4 }
 		tv_wonder_change_clergy_policy_agenda_effect = yes
 	}
+	if = {
+		limit = { var:tv_wonder_clergy_demand ?= 5 }
+		tv_wonder_loss_prestige_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_clergy_demand ?= 6 }
+		tv_wonder_loss_stability_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_clergy_demand ?= 7 }
+		tv_wonder_loss_legitimacy_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_clergy_demand ?= 8 }
+		if = {
+			limit = { country_has_estate = estate_type:nobles_estate }
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.05 }
+		}
+		if = {
+			limit = { country_has_estate = estate_type:burghers_estate }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.05 }
+		}
+	}
+	if = {
+		limit = { var:tv_wonder_clergy_demand ?= 9 }
+		tv_wonder_gain_inflation_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_clergy_demand ?= 10 }
+		tv_wonder_remove_cabinet_member_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_clergy_demand ?= 11 }
+		tv_wonder_remove_artist_agenda_effect = yes
+	}
+	if = {
+		limit = { var:tv_wonder_clergy_demand ?= 12 }
+		tv_wonder_remove_artwork_agenda_effect = yes
+	}
 	tv_change_wonder_domestic_support_effect = { value = 20 }
 	hidden_effect = {
-		tv_wonder_roll_clergy_demand_effect = yes
+		if = {
+			limit = { var:tv_wonder_clergy_demand ?= 10 }
+			tv_wonder_reroll_matching_destructive_demand_effect = { demand = 10 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_clergy_demand ?= 11 }
+			tv_wonder_reroll_matching_destructive_demand_effect = { demand = 11 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_clergy_demand ?= 12 }
+			tv_wonder_reroll_matching_destructive_demand_effect = { demand = 12 }
+		}
+		else = {
+			tv_wonder_roll_clergy_demand_effect = yes
+		}
 	}
 }
 
@@ -675,6 +1058,20 @@ tv_wonder_update_construction_tiers_from_competence_effect = {
 	if = { limit = { var:tv_wonder_organization_competence >= 55 } set_variable = { name = tv_wonder_organization_tier value = 4 } }
 	if = { limit = { var:tv_wonder_organization_competence >= 70 } set_variable = { name = tv_wonder_organization_tier value = 5 } }
 	if = { limit = { var:tv_wonder_organization_competence >= 85 } set_variable = { name = tv_wonder_organization_tier value = 6 } }
+
+	set_variable = { name = tv_wonder_logistics_effect_percent value = 200 }
+	if = { limit = { var:tv_wonder_logistics_tier ?= 2 } set_variable = { name = tv_wonder_logistics_effect_percent value = 170 } }
+	if = { limit = { var:tv_wonder_logistics_tier ?= 3 } set_variable = { name = tv_wonder_logistics_effect_percent value = 140 } }
+	if = { limit = { var:tv_wonder_logistics_tier ?= 4 } set_variable = { name = tv_wonder_logistics_effect_percent value = 110 } }
+	if = { limit = { var:tv_wonder_logistics_tier ?= 5 } set_variable = { name = tv_wonder_logistics_effect_percent value = 80 } }
+	if = { limit = { var:tv_wonder_logistics_tier ?= 6 } set_variable = { name = tv_wonder_logistics_effect_percent value = 50 } }
+
+	set_variable = { name = tv_wonder_organization_effect_percent value = 200 }
+	if = { limit = { var:tv_wonder_organization_tier ?= 2 } set_variable = { name = tv_wonder_organization_effect_percent value = 170 } }
+	if = { limit = { var:tv_wonder_organization_tier ?= 3 } set_variable = { name = tv_wonder_organization_effect_percent value = 140 } }
+	if = { limit = { var:tv_wonder_organization_tier ?= 4 } set_variable = { name = tv_wonder_organization_effect_percent value = 110 } }
+	if = { limit = { var:tv_wonder_organization_tier ?= 5 } set_variable = { name = tv_wonder_organization_effect_percent value = 80 } }
+	if = { limit = { var:tv_wonder_organization_tier ?= 6 } set_variable = { name = tv_wonder_organization_effect_percent value = 50 } }
 }
 
 tv_wonder_initialize_construction_tiers_effect = {
@@ -874,6 +1271,8 @@ tv_wonder_clear_current_survey_effect = {
 	remove_variable = tv_wonder_scale_tier
 	remove_variable = tv_wonder_logistics_tier
 	remove_variable = tv_wonder_organization_tier
+	remove_variable = tv_wonder_logistics_effect_percent
+	remove_variable = tv_wonder_organization_effect_percent
 	tv_wonder_set_io_survey_progress_effect = { value = 0 }
 }
 
@@ -916,6 +1315,58 @@ tv_wonder_copy_great_port_survey_from_location_effect = {
 	}
 }
 
+tv_wonder_copy_giant_necropolis_survey_from_location_effect = {
+	if = {
+		limit = { exists = scope:tv_wonder_selected_survey_site }
+		set_variable = { name = tv_wonder_scale_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_giant_necropolis_scale_competence }
+		set_variable = { name = tv_wonder_logistics_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_giant_necropolis_logistics_competence }
+		set_variable = { name = tv_wonder_organization_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_giant_necropolis_organization_competence }
+		set_variable = { name = tv_wonder_survey_complete value = 1 }
+		remove_variable = tv_wonder_survey_active
+		tv_wonder_set_io_survey_progress_effect = { value = 100 }
+		tv_wonder_update_construction_tiers_from_competence_effect = yes
+	}
+}
+
+tv_wonder_copy_great_lighthouse_survey_from_location_effect = {
+	if = {
+		limit = { exists = scope:tv_wonder_selected_survey_site }
+		set_variable = { name = tv_wonder_scale_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_great_lighthouse_scale_competence }
+		set_variable = { name = tv_wonder_logistics_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_great_lighthouse_logistics_competence }
+		set_variable = { name = tv_wonder_organization_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_great_lighthouse_organization_competence }
+		set_variable = { name = tv_wonder_survey_complete value = 1 }
+		remove_variable = tv_wonder_survey_active
+		tv_wonder_set_io_survey_progress_effect = { value = 100 }
+		tv_wonder_update_construction_tiers_from_competence_effect = yes
+	}
+}
+
+tv_wonder_copy_hydraulic_workshop_survey_from_location_effect = {
+	if = {
+		limit = { exists = scope:tv_wonder_selected_survey_site }
+		set_variable = { name = tv_wonder_scale_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_hydraulic_workshop_scale_competence }
+		set_variable = { name = tv_wonder_logistics_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_hydraulic_workshop_logistics_competence }
+		set_variable = { name = tv_wonder_organization_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_hydraulic_workshop_organization_competence }
+		set_variable = { name = tv_wonder_survey_complete value = 1 }
+		remove_variable = tv_wonder_survey_active
+		tv_wonder_set_io_survey_progress_effect = { value = 100 }
+		tv_wonder_update_construction_tiers_from_competence_effect = yes
+	}
+}
+
+tv_wonder_copy_mining_city_survey_from_location_effect = {
+	if = {
+		limit = { exists = scope:tv_wonder_selected_survey_site }
+		set_variable = { name = tv_wonder_scale_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_mining_city_scale_competence }
+		set_variable = { name = tv_wonder_logistics_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_mining_city_logistics_competence }
+		set_variable = { name = tv_wonder_organization_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_mining_city_organization_competence }
+		set_variable = { name = tv_wonder_survey_complete value = 1 }
+		remove_variable = tv_wonder_survey_active
+		tv_wonder_set_io_survey_progress_effect = { value = 100 }
+		tv_wonder_update_construction_tiers_from_competence_effect = yes
+	}
+}
+
 tv_wonder_copy_completed_survey_from_location_effect = {
 	if = {
 		limit = {
@@ -940,6 +1391,38 @@ tv_wonder_copy_completed_survey_from_location_effect = {
 			scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_port }
 		}
 		tv_wonder_copy_great_port_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 4
+			scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_necropolis }
+		}
+		tv_wonder_copy_giant_necropolis_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 5
+			scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_lighthouse }
+		}
+		tv_wonder_copy_great_lighthouse_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 6
+			scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_hydraulic_workshop }
+		}
+		tv_wonder_copy_hydraulic_workshop_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 7
+			scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_mining_city }
+		}
+		tv_wonder_copy_mining_city_survey_from_location_effect = yes
 	}
 }
 
@@ -978,6 +1461,54 @@ tv_wonder_store_survey_on_location_effect = {
 			set_variable = { name = tv_wonder_great_port_scale_competence value = prev.var:tv_wonder_scale_competence }
 			set_variable = { name = tv_wonder_great_port_logistics_competence value = prev.var:tv_wonder_logistics_competence }
 			set_variable = { name = tv_wonder_great_port_organization_competence value = prev.var:tv_wonder_organization_competence }
+		}
+	}
+	else_if = {
+		limit = {
+			tv_wonder_survey_site_selected_trigger = yes
+			var:tv_wonder_locked ?= 4
+		}
+		var:tv_wonder_survey_site ?= {
+			set_variable = { name = tv_wonder_surveyed_giant_necropolis value = 1 }
+			set_variable = { name = tv_wonder_giant_necropolis_scale_competence value = prev.var:tv_wonder_scale_competence }
+			set_variable = { name = tv_wonder_giant_necropolis_logistics_competence value = prev.var:tv_wonder_logistics_competence }
+			set_variable = { name = tv_wonder_giant_necropolis_organization_competence value = prev.var:tv_wonder_organization_competence }
+		}
+	}
+	else_if = {
+		limit = {
+			tv_wonder_survey_site_selected_trigger = yes
+			var:tv_wonder_locked ?= 5
+		}
+		var:tv_wonder_survey_site ?= {
+			set_variable = { name = tv_wonder_surveyed_great_lighthouse value = 1 }
+			set_variable = { name = tv_wonder_great_lighthouse_scale_competence value = prev.var:tv_wonder_scale_competence }
+			set_variable = { name = tv_wonder_great_lighthouse_logistics_competence value = prev.var:tv_wonder_logistics_competence }
+			set_variable = { name = tv_wonder_great_lighthouse_organization_competence value = prev.var:tv_wonder_organization_competence }
+		}
+	}
+	else_if = {
+		limit = {
+			tv_wonder_survey_site_selected_trigger = yes
+			var:tv_wonder_locked ?= 6
+		}
+		var:tv_wonder_survey_site ?= {
+			set_variable = { name = tv_wonder_surveyed_hydraulic_workshop value = 1 }
+			set_variable = { name = tv_wonder_hydraulic_workshop_scale_competence value = prev.var:tv_wonder_scale_competence }
+			set_variable = { name = tv_wonder_hydraulic_workshop_logistics_competence value = prev.var:tv_wonder_logistics_competence }
+			set_variable = { name = tv_wonder_hydraulic_workshop_organization_competence value = prev.var:tv_wonder_organization_competence }
+		}
+	}
+	else_if = {
+		limit = {
+			tv_wonder_survey_site_selected_trigger = yes
+			var:tv_wonder_locked ?= 7
+		}
+		var:tv_wonder_survey_site ?= {
+			set_variable = { name = tv_wonder_surveyed_mining_city value = 1 }
+			set_variable = { name = tv_wonder_mining_city_scale_competence value = prev.var:tv_wonder_scale_competence }
+			set_variable = { name = tv_wonder_mining_city_logistics_competence value = prev.var:tv_wonder_logistics_competence }
+			set_variable = { name = tv_wonder_mining_city_organization_competence value = prev.var:tv_wonder_organization_competence }
 		}
 	}
 }
@@ -1033,6 +1564,73 @@ tv_wonder_apply_survey_site_preference_effect = {
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 25 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		remove_variable = tv_wonder_site_preference_bonus
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_locked ?= 4
+			tv_wonder_survey_site_selected_trigger = yes
+		}
+		if = {
+			limit = { var:tv_wonder_survey_site ?= { topography = hills } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 15 }
+		}
+		if = {
+			limit = {
+				var:tv_wonder_survey_site ?= {
+					any_neighbor_location = {
+						location_rank = location_rank:city
+					}
+				}
+			}
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+		}
+		else_if = {
+			limit = {
+				var:tv_wonder_survey_site ?= {
+					any_neighbor_location = {
+						location_rank = location_rank:town
+					}
+				}
+			}
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+		}
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_locked ?= 5
+			tv_wonder_survey_site_selected_trigger = yes
+		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 25 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		remove_variable = tv_wonder_site_preference_bonus
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_locked ?= 6
+			tv_wonder_survey_site_selected_trigger = yes
+		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		remove_variable = tv_wonder_site_preference_bonus
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_locked ?= 7
+			tv_wonder_survey_site_selected_trigger = yes
+		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		if = {
+			limit = { var:tv_wonder_survey_site ?= { location_rank = location_rank:rural_settlement } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+		}
 		remove_variable = tv_wonder_site_preference_bonus
 	}
 }
@@ -1109,6 +1707,10 @@ tv_wonder_start_survey_effect = {
 					AND = { var:tv_wonder_locked ?= 1 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_sacred_mountain } }
 					AND = { var:tv_wonder_locked ?= 2 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_triumphal_axis } }
 					AND = { var:tv_wonder_locked ?= 3 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_port } }
+					AND = { var:tv_wonder_locked ?= 4 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_necropolis } }
+					AND = { var:tv_wonder_locked ?= 5 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_lighthouse } }
+					AND = { var:tv_wonder_locked ?= 6 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_hydraulic_workshop } }
+					AND = { var:tv_wonder_locked ?= 7 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_mining_city } }
 				}
 			}
 			tv_wonder_copy_completed_survey_from_location_effect = yes
@@ -1432,6 +2034,42 @@ tv_wonder_apply_base_modifier_effect = {
 		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_great_port_level_5 years = -1 mode = add_and_extend } }
 		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_great_port_level_6 years = -1 mode = add_and_extend } }
 	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 4 }
+		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_giant_necropolis_level_1 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 2 } add_country_modifier = { modifier = tv_wonder_giant_necropolis_level_2 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 3 } add_country_modifier = { modifier = tv_wonder_giant_necropolis_level_3 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 4 } add_country_modifier = { modifier = tv_wonder_giant_necropolis_level_4 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_giant_necropolis_level_5 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_giant_necropolis_level_6 years = -1 mode = add_and_extend } }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 5 }
+		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_great_lighthouse_level_1 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 2 } add_country_modifier = { modifier = tv_wonder_great_lighthouse_level_2 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 3 } add_country_modifier = { modifier = tv_wonder_great_lighthouse_level_3 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 4 } add_country_modifier = { modifier = tv_wonder_great_lighthouse_level_4 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_great_lighthouse_level_5 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_great_lighthouse_level_6 years = -1 mode = add_and_extend } }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 6 }
+		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_level_1 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 2 } add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_level_2 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 3 } add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_level_3 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 4 } add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_level_4 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_level_5 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_level_6 years = -1 mode = add_and_extend } }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 7 }
+		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_mining_city_level_1 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 2 } add_country_modifier = { modifier = tv_wonder_mining_city_level_2 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 3 } add_country_modifier = { modifier = tv_wonder_mining_city_level_3 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 4 } add_country_modifier = { modifier = tv_wonder_mining_city_level_4 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_mining_city_level_5 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_mining_city_level_6 years = -1 mode = add_and_extend } }
+	}
 }
 
 tv_wonder_apply_ceremony_modifier_effect = {
@@ -1471,66 +2109,237 @@ tv_wonder_apply_ceremony_modifier_effect = {
 		limit = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 3 }
 		add_country_modifier = { modifier = tv_wonder_free_trade_metropolis_modifier years = -1 mode = add_and_extend }
 	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 1 }
+		add_country_modifier = { modifier = tv_wonder_dynastic_necropolis_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 2 }
+		add_country_modifier = { modifier = tv_wonder_ancestor_shrine_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 3 }
+		add_country_modifier = { modifier = tv_wonder_quiet_land_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 1 }
+		add_country_modifier = { modifier = tv_wonder_eternal_lighthouse_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 2 }
+		add_country_modifier = { modifier = tv_wonder_navigator_lighthouse_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 3 }
+		add_country_modifier = { modifier = tv_wonder_long_watch_lighthouse_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 1 }
+		add_country_modifier = { modifier = tv_wonder_water_god_workshop_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 2 }
+		add_country_modifier = { modifier = tv_wonder_hydraulic_artisan_guildhall_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 3 }
+		add_country_modifier = { modifier = tv_wonder_waterwheel_workshop_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 1 }
+		add_country_modifier = { modifier = tv_wonder_miners_oath_city_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 2 }
+		add_country_modifier = { modifier = tv_wonder_royal_mint_city_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 3 }
+		add_country_modifier = { modifier = tv_wonder_deep_shaft_city_modifier years = -1 mode = add_and_extend }
+	}
+}
+
+tv_wonder_construct_final_building_in_site_effect = {
+	construct_building = { building_type = $building$ cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+	if = {
+		limit = {
+			prev = { var:tv_wonder_final_building_extra_levels > 0 }
+		}
+		change_building_level_in_location = {
+			building = $building$
+			value = prev.var:tv_wonder_final_building_extra_levels
+			owner = prev
+		}
+	}
 }
 
 tv_wonder_construct_final_building_effect = {
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_final_building_extra_levels value = var:tv_wonder_level }
+		change_variable = { name = tv_wonder_final_building_extra_levels subtract = 1 }
+		clamp_variable = { name = tv_wonder_final_building_extra_levels min = 0 max = 5 }
 		var:tv_wonder_site ?= {
 			if = {
 				limit = { prev = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 1 } }
-				construct_building = { building_type = building_type:tv_wonder_golden_sanctuary cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+				prev = { set_variable = { name = tv_wonder_final_building value = 101 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_golden_sanctuary }
 			}
 			else_if = {
 				limit = { prev = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 2 } }
-				construct_building = { building_type = building_type:tv_wonder_ascetic_mountain cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+				prev = { set_variable = { name = tv_wonder_final_building value = 102 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_ascetic_mountain }
 			}
 			else_if = {
 				limit = { prev = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 3 } }
-				construct_building = { building_type = building_type:tv_wonder_theocratic_center cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+				prev = { set_variable = { name = tv_wonder_final_building value = 103 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_theocratic_center }
 			}
 			else_if = {
 				limit = { prev = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 1 } }
-				construct_building = { building_type = building_type:tv_wonder_sun_king_axis cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+				prev = { set_variable = { name = tv_wonder_final_building value = 201 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_sun_king_axis }
 			}
 			else_if = {
 				limit = { prev = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 2 } }
-				construct_building = { building_type = building_type:tv_wonder_military_city cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+				prev = { set_variable = { name = tv_wonder_final_building value = 202 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_military_city }
 			}
 			else_if = {
 				limit = { prev = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 3 } }
-				construct_building = { building_type = building_type:tv_wonder_civic_capital cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+				prev = { set_variable = { name = tv_wonder_final_building value = 203 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_civic_capital }
 			}
 			else_if = {
 				limit = { prev = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 1 } }
-				construct_building = { building_type = building_type:tv_wonder_golden_trade_port cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+				prev = { set_variable = { name = tv_wonder_final_building value = 301 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_golden_trade_port }
 			}
 			else_if = {
 				limit = { prev = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 2 } }
-				construct_building = { building_type = building_type:tv_wonder_imperial_naval_port cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+				prev = { set_variable = { name = tv_wonder_final_building value = 302 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_imperial_naval_port }
 			}
 			else_if = {
 				limit = { prev = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 3 } }
-				construct_building = { building_type = building_type:tv_wonder_free_trade_metropolis cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+				prev = { set_variable = { name = tv_wonder_final_building value = 303 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_free_trade_metropolis }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 1 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 401 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_dynastic_necropolis }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 2 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 402 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_ancestor_shrine }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 3 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 403 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_quiet_land }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 1 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 501 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_eternal_lighthouse }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 2 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 502 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_navigator_lighthouse }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 3 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 503 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_long_watch_lighthouse }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 1 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 601 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_water_god_workshop }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 2 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 602 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_hydraulic_artisan_guildhall }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 3 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 603 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_waterwheel_workshop }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 1 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 701 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_miners_oath_city }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 2 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 702 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_royal_mint_city }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 3 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 703 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_deep_shaft_city }
 			}
 		}
 	}
 }
 
+tv_wonder_prepare_final_support_rewards_effect = {
+	set_variable = { name = tv_wonder_final_support_reward_source value = 0 }
+	every_international_organizations_member_of = {
+		limit = { international_organization_type = international_organization_type:tv_engineering_department }
+		prev = {
+			set_variable = { name = tv_wonder_final_support_reward_source value = prev.var:tv_wonder_domestic_support }
+		}
+	}
+	clamp_variable = { name = tv_wonder_final_support_reward_source min = 0 max = 200 }
+	set_variable = { name = tv_wonder_final_stability_reward value = var:tv_wonder_final_support_reward_source }
+	change_variable = { name = tv_wonder_final_stability_reward divide = 20 }
+	set_variable = { name = tv_wonder_final_legitimacy_reward value = var:tv_wonder_final_support_reward_source }
+	change_variable = { name = tv_wonder_final_legitimacy_reward divide = 20 }
+	set_variable = { name = tv_wonder_final_prestige_reward value = var:tv_wonder_final_support_reward_source }
+	change_variable = { name = tv_wonder_final_prestige_reward divide = 10 }
+}
+
 tv_wonder_finalize_effect = {
 	if = {
 		limit = { tv_wonder_has_selected_ceremony_trigger = yes }
+		tv_wonder_prepare_final_support_rewards_effect = yes
+		set_variable = { name = tv_wonder_finalized value = 1 }
+		set_variable = { name = tv_wonder_stage value = 5 }
+		trigger_event_non_silently = { id = tv_engineering_department.500 }
+	}
+}
+
+tv_wonder_complete_finalization_effect = {
+	if = {
+		limit = { has_variable = tv_wonder_finalized }
 		tv_wonder_construct_final_building_effect = yes
 		tv_wonder_apply_base_modifier_effect = yes
 		tv_wonder_apply_ceremony_modifier_effect = yes
 		remove_country_modifier = tv_wonder_meditation_ceremony_modifier
 		remove_country_modifier = tv_wonder_civic_festival_modifier
 		remove_country_modifier = tv_wonder_free_trade_festival_modifier
-		set_variable = { name = tv_wonder_finalized value = 1 }
-		set_variable = { name = tv_wonder_stage value = 5 }
-		remove_variable = tv_wonder_ceremony_active
-		remove_variable = tv_wonder_ceremony_months
-		trigger_event_non_silently = { id = tv_engineering_department.500 }
+		remove_country_modifier = tv_wonder_ancestor_festival_modifier
+		remove_country_modifier = tv_wonder_water_festival_modifier
+		if = {
+			limit = { tv_wonder_construction_site_selected_trigger = yes }
+			var:tv_wonder_site ?= {
+				remove_location_modifier = tv_wonder_deep_drainage_location_modifier
+			}
+		}
+		custom_tooltip = tv_wonder_final_support_reward_tt
+		add_stability = { value = var:tv_wonder_final_stability_reward }
+		add_legitimacy = { value = var:tv_wonder_final_legitimacy_reward }
+		add_prestige = { value = var:tv_wonder_final_prestige_reward }
+		hidden_effect = {
+			tv_wonder_clear_project_state_effect = yes
+		}
 	}
 }
 
@@ -1667,6 +2476,118 @@ tv_wonder_start_free_trade_festival_effect = {
 	}
 }
 
+tv_wonder_complete_dynastic_burial_effect = {
+	if = {
+		limit = { tv_wonder_dynastic_burial_ready_trigger = yes }
+		tv_wonder_finalize_effect = yes
+	}
+}
+
+tv_wonder_start_ancestor_festival_effect = {
+	if = {
+		limit = { tv_wonder_can_start_ancestor_festival_trigger = yes }
+		set_variable = { name = tv_wonder_ceremony_active value = 1 }
+		set_variable = { name = tv_wonder_ceremony_months value = 0 }
+		add_country_modifier = { modifier = tv_wonder_ancestor_festival_modifier years = 1 mode = add_and_extend }
+		trigger_event_non_silently = { id = tv_engineering_department.471 }
+	}
+}
+
+tv_wonder_dedicate_quiet_land_effect = {
+	if = {
+		limit = { tv_wonder_can_dedicate_quiet_land_trigger = yes }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_quiet_land_location_modifier years = -1 mode = add_and_extend }
+		}
+		tv_wonder_finalize_effect = yes
+	}
+}
+
+tv_wonder_light_eternal_flame_effect = {
+	if = {
+		limit = { tv_wonder_can_light_eternal_flame_trigger = yes }
+		tv_wonder_finalize_effect = yes
+	}
+}
+
+tv_wonder_start_navigator_guild_effect = {
+	if = {
+		limit = { tv_wonder_can_start_navigator_guild_trigger = yes }
+		set_variable = { name = tv_wonder_ceremony_active value = 1 }
+		var:tv_wonder_site ?= {
+			construct_building = { building_type = building_type:tv_wonder_navigator_guild }
+		}
+		trigger_event_non_silently = { id = tv_engineering_department.481 }
+	}
+}
+
+tv_wonder_on_navigator_guild_built_effect = {
+	if = {
+		limit = { tv_wonder_navigator_guild_completion_ready_trigger = yes }
+		tv_wonder_finalize_effect = yes
+	}
+}
+
+tv_wonder_complete_long_watch_effect = {
+	if = {
+		limit = { tv_wonder_can_complete_long_watch_trigger = yes }
+		tv_wonder_finalize_effect = yes
+	}
+}
+
+tv_wonder_start_water_festival_effect = {
+	if = {
+		limit = { tv_wonder_can_start_water_festival_trigger = yes }
+		set_variable = { name = tv_wonder_ceremony_active value = 1 }
+		set_variable = { name = tv_wonder_ceremony_months value = 0 }
+		add_country_modifier = { modifier = tv_wonder_water_festival_modifier years = 1 mode = add_and_extend }
+		trigger_event_non_silently = { id = tv_engineering_department.491 }
+	}
+}
+
+tv_wonder_complete_hydraulic_artisan_guild_effect = {
+	if = {
+		limit = { tv_wonder_hydraulic_artisan_guild_completion_ready_trigger = yes }
+		tv_wonder_finalize_effect = yes
+	}
+}
+
+tv_wonder_complete_waterwheel_effect = {
+	if = {
+		limit = { tv_wonder_waterwheel_ready_trigger = yes }
+		tv_wonder_finalize_effect = yes
+	}
+}
+
+tv_wonder_swear_miners_rights_effect = {
+	if = {
+		limit = { tv_wonder_can_swear_miners_rights_trigger = yes }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_miners_rights_location_modifier years = -1 mode = add_and_extend }
+		}
+		tv_wonder_finalize_effect = yes
+	}
+}
+
+tv_wonder_confirm_royal_mint_effect = {
+	if = {
+		limit = { tv_wonder_royal_mint_ready_trigger = yes }
+		tv_wonder_finalize_effect = yes
+	}
+}
+
+tv_wonder_start_deep_drainage_effect = {
+	if = {
+		limit = { tv_wonder_can_start_deep_drainage_trigger = yes }
+		set_variable = { name = tv_wonder_ceremony_active value = 1 }
+		set_variable = { name = tv_wonder_ceremony_months value = 0 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_deep_drainage_location_modifier years = 1 mode = add_and_extend }
+		}
+		trigger_event_non_silently = { id = tv_engineering_department.501 }
+	}
+}
+
 tv_wonder_monthly_ceremony_effect = {
 	if = {
 		limit = {
@@ -1676,6 +2597,9 @@ tv_wonder_monthly_ceremony_effect = {
 				AND = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 2 }
 				AND = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 3 }
 				AND = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 3 }
+				AND = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 2 }
+				AND = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 1 }
+				AND = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 3 }
 			}
 		}
 		change_variable = { name = tv_wonder_ceremony_months add = 1 }
@@ -1738,6 +2662,8 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_scale_tier
 	remove_variable = tv_wonder_logistics_tier
 	remove_variable = tv_wonder_organization_tier
+	remove_variable = tv_wonder_logistics_effect_percent
+	remove_variable = tv_wonder_organization_effect_percent
 	remove_variable = tv_wonder_scale_competence
 	remove_variable = tv_wonder_logistics_competence
 	remove_variable = tv_wonder_organization_competence
@@ -1759,6 +2685,22 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_construction_paused
 	remove_variable = tv_wonder_construction_complete
 	remove_variable = tv_wonder_finalized
+	remove_variable = tv_wonder_foundation_units
+	remove_variable = tv_wonder_body_units
+	remove_variable = tv_wonder_function_units
+	remove_variable = tv_wonder_decoration_units
+	remove_variable = tv_wonder_foundation_progress
+	remove_variable = tv_wonder_body_progress
+	remove_variable = tv_wonder_function_progress
+	remove_variable = tv_wonder_decoration_progress
+	remove_variable = tv_wonder_level
+	remove_variable = tv_wonder_previous_level
+	remove_variable = tv_wonder_final_building
+	remove_variable = tv_wonder_final_building_extra_levels
+	remove_variable = tv_wonder_final_support_reward_source
+	remove_variable = tv_wonder_final_stability_reward
+	remove_variable = tv_wonder_final_legitimacy_reward
+	remove_variable = tv_wonder_final_prestige_reward
 	remove_variable = tv_wonder_ceremony_style
 	remove_variable = tv_wonder_ceremony_progress
 	remove_variable = tv_wonder_ceremony_active
@@ -1767,6 +2709,14 @@ tv_wonder_clear_project_state_effect = {
 	remove_country_modifier = tv_wonder_meditation_ceremony_modifier
 	remove_country_modifier = tv_wonder_civic_festival_modifier
 	remove_country_modifier = tv_wonder_free_trade_festival_modifier
+	remove_country_modifier = tv_wonder_ancestor_festival_modifier
+	remove_country_modifier = tv_wonder_water_festival_modifier
+	if = {
+		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		var:tv_wonder_site ?= {
+			remove_location_modifier = tv_wonder_deep_drainage_location_modifier
+		}
+	}
 	remove_variable = tv_wonder_last_completed_part
 	remove_variable = tv_wonder_last_completed_unit
 	tv_wonder_clear_feasible_deck_effect = yes

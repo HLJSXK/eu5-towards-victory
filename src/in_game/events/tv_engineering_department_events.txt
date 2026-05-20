@@ -376,6 +376,50 @@ tv_engineering_department.461 = {
 	}
 }
 
+tv_engineering_department.471 = {
+	type = country_event
+	title = tv_engineering_department.471.t
+	desc = tv_engineering_department.471.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.471.a
+	}
+}
+
+tv_engineering_department.481 = {
+	type = country_event
+	title = tv_engineering_department.481.t
+	desc = tv_engineering_department.481.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.481.a
+	}
+}
+
+tv_engineering_department.491 = {
+	type = country_event
+	title = tv_engineering_department.491.t
+	desc = tv_engineering_department.491.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.491.a
+	}
+}
+
+tv_engineering_department.501 = {
+	type = country_event
+	title = tv_engineering_department.501.t
+	desc = tv_engineering_department.501.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.501.a
+	}
+}
+
 tv_engineering_department.500 = {
 	type = country_event
 	title = tv_engineering_department.500.t
@@ -417,6 +461,54 @@ tv_engineering_department.500 = {
 				trigger = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 3 }
 				desc = tv_engineering_department.500.d_port_3
 			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_necropolis_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_necropolis_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_necropolis_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_lighthouse_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_lighthouse_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_lighthouse_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_hydraulic_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_hydraulic_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_hydraulic_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_mining_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_mining_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_mining_3
+			}
 			desc = tv_engineering_department.500.d
 		}
 	}
@@ -424,5 +516,6 @@ tv_engineering_department.500 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_complete_finalization_effect = yes
 	}
 }

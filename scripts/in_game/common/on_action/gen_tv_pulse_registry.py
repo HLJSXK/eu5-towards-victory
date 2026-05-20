@@ -21,12 +21,18 @@ VANILLA_SOURCES = {
     "monthly_country_pulse": REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "country_monthly.txt",
     "yearly_country_pulse":  REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "country_yearly.txt",
     "on_character_death":    REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "character_death_pulses.txt",
+    "on_ruler_death":        REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "_hardcoded.txt",
 }
 
 OUTPUT_FILES = {
     "monthly_country_pulse": REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "country_monthly.txt",
     "yearly_country_pulse":  REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "country_yearly.txt",
     "on_character_death":    REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "character_death_pulses.txt",
+    "on_ruler_death":        REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "ruler_death_pulses.txt",
+}
+
+EXTRACT_ONLY_PULSE = {
+    "on_ruler_death",
 }
 
 SCRIPT_REL = "scripts/in_game/common/on_action/gen_tv_pulse_registry.py"
@@ -77,6 +83,28 @@ def find_on_actions_insertion(lines: list[str], pulse_name: str) -> int:
     raise ValueError(f"on_actions block not found inside '{pulse_name}'")
 
 
+def extract_pulse_block(lines: list[str], pulse_name: str) -> list[str]:
+    """Return only the named on_action block from a multi-action vanilla file."""
+    start_idx: int | None = None
+    depth = 0
+
+    for i, raw in enumerate(lines):
+        stripped = raw.strip()
+        if start_idx is None:
+            if stripped.startswith(pulse_name) and "=" in stripped and "{" in stripped:
+                start_idx = i
+                depth = stripped.count("{") - stripped.count("}")
+                if depth <= 0:
+                    return [raw]
+            continue
+
+        depth += stripped.count("{") - stripped.count("}")
+        if depth <= 0:
+            return lines[start_idx:i + 1]
+
+    raise ValueError(f"pulse block not found or unterminated: '{pulse_name}'")
+
+
 def inject_additions(lines: list[str], insertion_idx: int, additions: list[str]) -> list[str]:
     """Insert the TV addition names before lines[insertion_idx]."""
     indent = "\t\t"
@@ -94,6 +122,8 @@ def generate_file(pulse_name: str, additions: list[str]) -> None:
     # Use utf-8-sig to strip UTF-8 BOM if present (some vanilla files start with BOM)
     text = src_path.read_text(encoding="utf-8-sig")
     lines = text.splitlines(keepends=True)
+    if pulse_name in EXTRACT_ONLY_PULSE:
+        lines = extract_pulse_block(lines, pulse_name)
 
     idx = find_on_actions_insertion(lines, pulse_name)
     lines = inject_additions(lines, idx, additions)

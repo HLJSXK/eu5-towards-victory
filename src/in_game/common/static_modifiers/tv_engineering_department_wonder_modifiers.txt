@@ -108,6 +108,144 @@ tv_wonder_great_port_level_6 = {
 	monthly_towards_naval = 0.30
 }
 
+tv_wonder_giant_necropolis_level_1 = {
+	great_power_score = 10
+	pop_join_rebel_threshold = -0.01
+	monthly_towards_traditionalist = 0.05
+}
+
+tv_wonder_giant_necropolis_level_2 = {
+	great_power_score = 20
+	pop_join_rebel_threshold = -0.02
+	monthly_towards_traditionalist = 0.10
+}
+
+tv_wonder_giant_necropolis_level_3 = {
+	great_power_score = 30
+	pop_join_rebel_threshold = -0.03
+	monthly_towards_traditionalist = 0.15
+}
+
+tv_wonder_giant_necropolis_level_4 = {
+	great_power_score = 40
+	pop_join_rebel_threshold = -0.04
+	monthly_towards_traditionalist = 0.20
+}
+
+tv_wonder_giant_necropolis_level_5 = {
+	great_power_score = 50
+	pop_join_rebel_threshold = -0.05
+	monthly_towards_traditionalist = 0.25
+}
+
+tv_wonder_giant_necropolis_level_6 = {
+	great_power_score = 60
+	pop_join_rebel_threshold = -0.06
+	monthly_towards_traditionalist = 0.30
+}
+
+tv_wonder_great_lighthouse_level_1 = {
+	great_power_score = 10
+	trade_range = 200
+	naval_range = 200
+	monthly_towards_naval = 0.05
+}
+
+tv_wonder_great_lighthouse_level_2 = {
+	great_power_score = 20
+	trade_range = 400
+	naval_range = 400
+	monthly_towards_naval = 0.10
+}
+
+tv_wonder_great_lighthouse_level_3 = {
+	great_power_score = 30
+	trade_range = 600
+	naval_range = 600
+	monthly_towards_naval = 0.15
+}
+
+tv_wonder_great_lighthouse_level_4 = {
+	great_power_score = 40
+	trade_range = 800
+	naval_range = 800
+	monthly_towards_naval = 0.20
+}
+
+tv_wonder_great_lighthouse_level_5 = {
+	great_power_score = 50
+	trade_range = 1000
+	naval_range = 1000
+	monthly_towards_naval = 0.25
+}
+
+tv_wonder_great_lighthouse_level_6 = {
+	great_power_score = 60
+	trade_range = 1200
+	naval_range = 1200
+	monthly_towards_naval = 0.30
+}
+
+tv_wonder_hydraulic_workshop_level_1 = {
+	great_power_score = 10
+	monthly_towards_free_subjects = 0.05
+}
+
+tv_wonder_hydraulic_workshop_level_2 = {
+	great_power_score = 20
+	monthly_towards_free_subjects = 0.10
+}
+
+tv_wonder_hydraulic_workshop_level_3 = {
+	great_power_score = 30
+	monthly_towards_free_subjects = 0.15
+}
+
+tv_wonder_hydraulic_workshop_level_4 = {
+	great_power_score = 40
+	monthly_towards_free_subjects = 0.20
+}
+
+tv_wonder_hydraulic_workshop_level_5 = {
+	great_power_score = 50
+	monthly_towards_free_subjects = 0.25
+}
+
+tv_wonder_hydraulic_workshop_level_6 = {
+	great_power_score = 60
+	monthly_towards_free_subjects = 0.30
+}
+
+tv_wonder_mining_city_level_1 = {
+	great_power_score = 10
+	monthly_towards_traditional_economy = 0.05
+}
+
+tv_wonder_mining_city_level_2 = {
+	great_power_score = 20
+	monthly_towards_traditional_economy = 0.10
+}
+
+tv_wonder_mining_city_level_3 = {
+	great_power_score = 30
+	monthly_towards_traditional_economy = 0.15
+}
+
+tv_wonder_mining_city_level_4 = {
+	great_power_score = 40
+	monthly_towards_traditional_economy = 0.20
+}
+
+tv_wonder_mining_city_level_5 = {
+	great_power_score = 50
+	monthly_towards_traditional_economy = 0.25
+}
+
+tv_wonder_mining_city_level_6 = {
+	great_power_score = 60
+	monthly_towards_traditional_economy = 0.30
+}
+
 tv_wonder_golden_sanctuary_modifier = {
 	global_crown_estate_power = 0.20
 }
@@ -144,6 +282,50 @@ tv_wonder_free_trade_metropolis_modifier = {
 	diplomatic_reputation = 2
 }
 
+tv_wonder_dynastic_necropolis_modifier = {
+	monthly_legitimacy = 0.10
+}
+
+tv_wonder_ancestor_shrine_modifier = {
+	stability_investment = -0.10
+}
+
+tv_wonder_quiet_land_modifier = {
+	pop_join_rebel_threshold = -0.05
+}
+
+tv_wonder_eternal_lighthouse_modifier = {
+	naval_range = 250
+}
+
+tv_wonder_navigator_lighthouse_modifier = {
+	burghers_estate_target_satisfaction = 0.025
+}
+
+tv_wonder_long_watch_lighthouse_modifier = {
+	global_maritime_presence_modifier = 0.10
+}
+
+tv_wonder_water_god_workshop_modifier = {
+}
+
+tv_wonder_hydraulic_artisan_guildhall_modifier = {
+}
+
+tv_wonder_waterwheel_workshop_modifier = {
+}
+
+tv_wonder_miners_oath_city_modifier = {
+	peasants_estate_target_satisfaction = 0.025
+}
+
+tv_wonder_royal_mint_city_modifier = {
+	minting_income_factor = 0.10
+}
+
+tv_wonder_deep_shaft_city_modifier = {
+}
+
 tv_wonder_meditation_ceremony_modifier = {
 	monthly_legitimacy = -0.50
 }
@@ -154,4 +336,12 @@ tv_wonder_civic_festival_modifier = {
 
 tv_wonder_free_trade_festival_modifier = {
 	trade_income = -0.10
+}
+
+tv_wonder_ancestor_festival_modifier = {
+	global_production_efficiency = -0.20
+}
+
+tv_wonder_water_festival_modifier = {
+	global_production_efficiency = -0.20
 }

@@ -17,6 +17,16 @@ tv_engineering_department_char_death = {
 	}
 }
 
+tv_engineering_department_ruler_death = {
+	trigger = {
+		has_variable = tv_engineering_department_member
+		tv_wonder_dynastic_burial_ready_trigger = yes
+	}
+	effect = {
+		tv_wonder_complete_dynastic_burial_effect = yes
+	}
+}
+
 tv_engineering_department_debate_monthly_pulse = {
 	trigger = {
 		has_variable = tv_engineering_department_member

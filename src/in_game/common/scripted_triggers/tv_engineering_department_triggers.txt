@@ -26,11 +26,55 @@ tv_wonder_can_build_great_port_trigger = {
 	}
 }
 
+tv_wonder_can_build_giant_necropolis_trigger = {
+	any_owned_location = {
+		OR = {
+			topography = hills
+			any_neighbor_location = {
+				OR = {
+					location_rank = location_rank:city
+					location_rank = location_rank:town
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_can_build_great_lighthouse_trigger = {
+	any_owned_location = {
+		is_port = yes
+	}
+}
+
+tv_wonder_can_build_hydraulic_workshop_trigger = {
+	any_owned_location = {
+		is_land = yes
+	}
+}
+
+tv_wonder_can_build_mining_city_trigger = {
+	any_owned_location = {
+		OR = {
+			location_rank = location_rank:rural_settlement
+			raw_material = goods:iron
+			raw_material = goods:copper
+			raw_material = goods:tin
+			raw_material = goods:lead
+			raw_material = goods:silver
+			raw_material = goods:goods_gold
+		}
+	}
+}
+
 tv_wonder_has_any_feasible_proposal_trigger = {
 	OR = {
 		has_variable = tv_wonder_feasible_sacred_mountain
 		has_variable = tv_wonder_feasible_triumphal_axis
 		has_variable = tv_wonder_feasible_great_port
+		has_variable = tv_wonder_feasible_giant_necropolis
+		has_variable = tv_wonder_feasible_great_lighthouse
+		has_variable = tv_wonder_feasible_hydraulic_workshop
+		has_variable = tv_wonder_feasible_mining_city
 	}
 }
 
@@ -91,12 +135,32 @@ tv_wonder_clergy_policy_agenda_available_trigger = {
 	}
 }
 
+tv_wonder_cabinet_loss_agenda_available_trigger = {
+	any_cabinet_character = { count > 0 }
+}
+
+tv_wonder_artist_loss_agenda_available_trigger = {
+	any_artist = { is_alive = yes }
+}
+
+tv_wonder_artwork_loss_agenda_available_trigger = {
+	any_work_of_art_in_country = { always = yes }
+}
+
 tv_wonder_nobles_current_demand_available_trigger = {
 	OR = {
 		AND = { var:tv_wonder_nobles_demand ?= 1 tv_wonder_nobles_privilege_agenda_available_trigger = yes }
 		var:tv_wonder_nobles_demand ?= 2
 		var:tv_wonder_nobles_demand ?= 3
 		AND = { var:tv_wonder_nobles_demand ?= 4 tv_wonder_nobles_policy_agenda_available_trigger = yes }
+		var:tv_wonder_nobles_demand ?= 5
+		var:tv_wonder_nobles_demand ?= 6
+		var:tv_wonder_nobles_demand ?= 7
+		var:tv_wonder_nobles_demand ?= 8
+		var:tv_wonder_nobles_demand ?= 9
+		AND = { var:tv_wonder_nobles_demand ?= 10 tv_wonder_cabinet_loss_agenda_available_trigger = yes }
+		AND = { var:tv_wonder_nobles_demand ?= 11 tv_wonder_artist_loss_agenda_available_trigger = yes }
+		AND = { var:tv_wonder_nobles_demand ?= 12 tv_wonder_artwork_loss_agenda_available_trigger = yes }
 	}
 }
 
@@ -106,6 +170,14 @@ tv_wonder_burghers_current_demand_available_trigger = {
 		var:tv_wonder_burghers_demand ?= 2
 		var:tv_wonder_burghers_demand ?= 3
 		AND = { var:tv_wonder_burghers_demand ?= 4 tv_wonder_burghers_policy_agenda_available_trigger = yes }
+		var:tv_wonder_burghers_demand ?= 5
+		var:tv_wonder_burghers_demand ?= 6
+		var:tv_wonder_burghers_demand ?= 7
+		var:tv_wonder_burghers_demand ?= 8
+		var:tv_wonder_burghers_demand ?= 9
+		AND = { var:tv_wonder_burghers_demand ?= 10 tv_wonder_cabinet_loss_agenda_available_trigger = yes }
+		AND = { var:tv_wonder_burghers_demand ?= 11 tv_wonder_artist_loss_agenda_available_trigger = yes }
+		AND = { var:tv_wonder_burghers_demand ?= 12 tv_wonder_artwork_loss_agenda_available_trigger = yes }
 	}
 }
 
@@ -115,6 +187,14 @@ tv_wonder_clergy_current_demand_available_trigger = {
 		var:tv_wonder_clergy_demand ?= 2
 		var:tv_wonder_clergy_demand ?= 3
 		AND = { var:tv_wonder_clergy_demand ?= 4 tv_wonder_clergy_policy_agenda_available_trigger = yes }
+		var:tv_wonder_clergy_demand ?= 5
+		var:tv_wonder_clergy_demand ?= 6
+		var:tv_wonder_clergy_demand ?= 7
+		var:tv_wonder_clergy_demand ?= 8
+		var:tv_wonder_clergy_demand ?= 9
+		AND = { var:tv_wonder_clergy_demand ?= 10 tv_wonder_cabinet_loss_agenda_available_trigger = yes }
+		AND = { var:tv_wonder_clergy_demand ?= 11 tv_wonder_artist_loss_agenda_available_trigger = yes }
+		AND = { var:tv_wonder_clergy_demand ?= 12 tv_wonder_artwork_loss_agenda_available_trigger = yes }
 	}
 }
 
@@ -183,6 +263,22 @@ tv_wonder_has_valid_site_candidate_trigger = {
 		AND = {
 			var:tv_wonder_locked ?= 3
 			tv_wonder_can_build_great_port_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 4
+			tv_wonder_can_build_giant_necropolis_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 5
+			tv_wonder_can_build_great_lighthouse_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 6
+			tv_wonder_can_build_hydraulic_workshop_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 7
+			tv_wonder_can_build_mining_city_trigger = yes
 		}
 	}
 }
@@ -413,5 +509,117 @@ tv_wonder_fleet_review_ready_trigger = {
 tv_wonder_can_start_free_trade_festival_trigger = {
 	tv_wonder_ceremony_style_3_trigger = yes
 	var:tv_wonder_locked ?= 3
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_dynastic_burial_ready_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 4
+}
+
+tv_wonder_can_start_ancestor_festival_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 4
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_can_dedicate_quiet_land_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 4
+}
+
+tv_wonder_can_light_eternal_flame_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 5
+}
+
+tv_wonder_can_start_navigator_guild_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 5
+	tv_wonder_construction_site_selected_trigger = yes
+	NOT = { has_variable = tv_wonder_ceremony_active }
+	var:tv_wonder_site ?= {
+		NOT = { has_building = building_type:tv_wonder_navigator_guild }
+		NOT = {
+			any_buildings_in_location = {
+				building_type = building_type:tv_wonder_navigator_guild
+				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_wonder_navigator_guild_completion_ready_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 5
+	has_variable = tv_wonder_ceremony_active
+	tv_wonder_construction_site_selected_trigger = yes
+}
+
+tv_wonder_can_complete_long_watch_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 5
+	tv_wonder_construction_site_selected_trigger = yes
+	var:tv_wonder_site ?= {
+		any_neighbor_location = { is_land = no }
+		NOT = {
+			any_neighbor_location = {
+				is_land = no
+				location_maritime_presence_power = {
+					country = root
+					value < 100
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_can_start_water_festival_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 6
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_can_enact_hydraulic_artisan_guild_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 6
+	country_has_estate = estate_type:burghers_estate
+	NOT = { has_estate_privilege = estate_privilege:tv_hydraulic_artisan_guild_privilege }
+}
+
+tv_wonder_hydraulic_artisan_guild_completion_ready_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 6
+	country_has_estate = estate_type:burghers_estate
+}
+
+tv_wonder_waterwheel_ready_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 6
+	tv_wonder_construction_site_selected_trigger = yes
+	var:tv_wonder_site ?= { prosperity >= 0.7 }
+}
+
+tv_wonder_can_swear_miners_rights_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 7
+}
+
+tv_wonder_royal_mint_ready_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 7
+	tv_wonder_construction_site_selected_trigger = yes
+	var:tv_wonder_site ?= {
+		OR = {
+			raw_material = goods:goods_gold
+			raw_material = goods:silver
+			raw_material = goods:copper
+		}
+	}
+}
+
+tv_wonder_can_start_deep_drainage_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 7
 	NOT = { has_variable = tv_wonder_ceremony_active }
 }

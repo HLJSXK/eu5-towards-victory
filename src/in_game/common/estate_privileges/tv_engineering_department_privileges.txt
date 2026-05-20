@@ -1,0 +1,26 @@
+﻿tv_hydraulic_artisan_guild_privilege = {
+	estate = burghers_estate
+
+	potential = {
+		has_variable = tv_engineering_department_member
+		tv_wonder_can_enact_hydraulic_artisan_guild_trigger = yes
+	}
+
+	allow = {
+		tv_wonder_can_enact_hydraulic_artisan_guild_trigger = yes
+	}
+
+	on_activate = {
+		tv_wonder_complete_hydraulic_artisan_guild_effect = yes
+	}
+
+	can_revoke = {
+		always = no
+	}
+
+	country_modifier = {
+		burghers_estate_target_satisfaction = 0.025
+		global_burghers_estate_power = 0.25
+		peasants_estate_target_satisfaction = -0.025
+	}
+}

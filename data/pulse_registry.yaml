@@ -34,3 +34,6 @@ pulses:
     - tv_arts_exhibition_char_death    # touring artist + Chief Artist death cleanup
     - tv_academy_char_death            # Chief Scientist death cleanup
     - tv_engineering_department_char_death # Great Engineer death cleanup
+
+  on_ruler_death:
+    - tv_engineering_department_ruler_death # Dynastic Burial wonder ceremony completion
