@@ -49,7 +49,10 @@ tv_court_protocol = {
 				value = 0
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -106,6 +109,7 @@ tv_court_protocol = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -128,7 +132,10 @@ tv_court_protocol = {
 				value = -100
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -184,6 +191,7 @@ tv_court_protocol = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -206,7 +214,10 @@ tv_court_protocol = {
 				value = -200
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -262,6 +273,7 @@ tv_court_protocol = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -284,7 +296,10 @@ tv_court_protocol = {
 				value = -300
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -343,7 +358,10 @@ tv_information_network = {
 				value = 0
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -399,6 +417,7 @@ tv_information_network = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -421,7 +440,10 @@ tv_information_network = {
 				value = -100
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -477,6 +499,7 @@ tv_information_network = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -499,7 +522,10 @@ tv_information_network = {
 				value = -200
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -555,6 +581,7 @@ tv_information_network = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -577,7 +604,10 @@ tv_information_network = {
 				value = -300
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -636,7 +666,10 @@ tv_commerce_consensus = {
 				value = 0
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -692,6 +725,7 @@ tv_commerce_consensus = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -714,7 +748,10 @@ tv_commerce_consensus = {
 				value = -100
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -771,6 +808,7 @@ tv_commerce_consensus = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -793,7 +831,10 @@ tv_commerce_consensus = {
 				value = -200
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -848,6 +889,7 @@ tv_commerce_consensus = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -870,7 +912,10 @@ tv_commerce_consensus = {
 				value = -300
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -929,7 +974,10 @@ tv_faith_harmony = {
 				value = 0
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -985,6 +1033,7 @@ tv_faith_harmony = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -1007,7 +1056,10 @@ tv_faith_harmony = {
 				value = -100
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -1063,6 +1115,7 @@ tv_faith_harmony = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -1085,7 +1138,10 @@ tv_faith_harmony = {
 				value = -200
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -1140,6 +1196,7 @@ tv_faith_harmony = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -1162,7 +1219,10 @@ tv_faith_harmony = {
 				value = -300
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -1221,7 +1281,10 @@ tv_colonization_sphere = {
 				value = 0
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -1277,6 +1340,7 @@ tv_colonization_sphere = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -1299,7 +1363,10 @@ tv_colonization_sphere = {
 				value = -100
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -1355,6 +1422,7 @@ tv_colonization_sphere = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -1377,7 +1445,10 @@ tv_colonization_sphere = {
 				value = -200
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
@@ -1432,6 +1503,7 @@ tv_colonization_sphere = {
 			}
 			if = {
 				limit = {
+					exists = scope:recipient
 					scope:recipient = {
 						OR = {
 							custom_tooltip = {
@@ -1454,7 +1526,10 @@ tv_colonization_sphere = {
 				value = -300
 			}
 			if = {
-				limit = { scope:recipient = { international_organization_has_leader = yes } }
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
 				add = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {

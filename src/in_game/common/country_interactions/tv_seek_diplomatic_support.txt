@@ -11,10 +11,12 @@
 	ai_tick_frequency = 60
 
 	potential = {
-		NOT = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_diplomatic_alliance
-				leader_country ?= this
+		scope:actor = {
+			NOT = {
+				any_international_organizations_member_of = {
+					international_organization_type = international_organization_type:tv_diplomatic_alliance
+					leader_country ?= scope:actor
+				}
 			}
 		}
 	}
