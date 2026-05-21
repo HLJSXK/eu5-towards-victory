@@ -37,9 +37,8 @@ tv_grand_general.2 = {
 }
 
 # ── Outcome 3: Trait upgrade (weight 49) ────────────────────────────────────
-# Player chooses offense / defense / tactics path. Each option upgrades that path's trait level.
-# If the chosen path is already at L3, the event should not offer that option (use trigger).
-# Routing to events 4/5 (百炼成钢/世间无双) is handled before this event fires.
+# Player chooses offense / defense / tactics path only when no path exists yet.
+# Once a path exists, only that path remains available; L3 paths route to +10 mil before this event fires.
 tv_grand_general.3 = {
 	type = country_event
 	title = tv_grand_general.3.t
@@ -52,9 +51,32 @@ tv_grand_general.3 = {
 		trigger = {
 			var:tv_conquest_general_char ?= {
 				NOT = { has_trait = tv_gg_offense_3 }
+				OR = {
+					has_trait = tv_gg_offense_1
+					has_trait = tv_gg_offense_2
+					NOT = {
+						OR = {
+							has_trait = tv_gg_offense_1
+							has_trait = tv_gg_offense_2
+							has_trait = tv_gg_offense_3
+							has_trait = tv_gg_defense_1
+							has_trait = tv_gg_defense_2
+							has_trait = tv_gg_defense_3
+							has_trait = tv_gg_tactics_1
+							has_trait = tv_gg_tactics_2
+							has_trait = tv_gg_tactics_3
+						}
+					}
+				}
 			}
 		}
 		var:tv_conquest_general_char ?= {
+			if = { limit = { has_trait = tv_gg_defense_1 } remove_trait = trait:tv_gg_defense_1 }
+			if = { limit = { has_trait = tv_gg_defense_2 } remove_trait = trait:tv_gg_defense_2 }
+			if = { limit = { has_trait = tv_gg_defense_3 } remove_trait = trait:tv_gg_defense_3 }
+			if = { limit = { has_trait = tv_gg_tactics_1 } remove_trait = trait:tv_gg_tactics_1 }
+			if = { limit = { has_trait = tv_gg_tactics_2 } remove_trait = trait:tv_gg_tactics_2 }
+			if = { limit = { has_trait = tv_gg_tactics_3 } remove_trait = trait:tv_gg_tactics_3 }
 			if = {
 				limit = { has_trait = tv_gg_offense_2 }
 				if = {
@@ -81,9 +103,39 @@ tv_grand_general.3 = {
 		trigger = {
 			var:tv_conquest_general_char ?= {
 				NOT = { has_trait = tv_gg_defense_3 }
+				NOT = {
+					OR = {
+						has_trait = tv_gg_offense_1
+						has_trait = tv_gg_offense_2
+						has_trait = tv_gg_offense_3
+					}
+				}
+				OR = {
+					has_trait = tv_gg_defense_1
+					has_trait = tv_gg_defense_2
+					NOT = {
+						OR = {
+							has_trait = tv_gg_offense_1
+							has_trait = tv_gg_offense_2
+							has_trait = tv_gg_offense_3
+							has_trait = tv_gg_defense_1
+							has_trait = tv_gg_defense_2
+							has_trait = tv_gg_defense_3
+							has_trait = tv_gg_tactics_1
+							has_trait = tv_gg_tactics_2
+							has_trait = tv_gg_tactics_3
+						}
+					}
+				}
 			}
 		}
 		var:tv_conquest_general_char ?= {
+			if = { limit = { has_trait = tv_gg_offense_1 } remove_trait = trait:tv_gg_offense_1 }
+			if = { limit = { has_trait = tv_gg_offense_2 } remove_trait = trait:tv_gg_offense_2 }
+			if = { limit = { has_trait = tv_gg_offense_3 } remove_trait = trait:tv_gg_offense_3 }
+			if = { limit = { has_trait = tv_gg_tactics_1 } remove_trait = trait:tv_gg_tactics_1 }
+			if = { limit = { has_trait = tv_gg_tactics_2 } remove_trait = trait:tv_gg_tactics_2 }
+			if = { limit = { has_trait = tv_gg_tactics_3 } remove_trait = trait:tv_gg_tactics_3 }
 			if = {
 				limit = { has_trait = tv_gg_defense_2 }
 				if = {
@@ -110,9 +162,42 @@ tv_grand_general.3 = {
 		trigger = {
 			var:tv_conquest_general_char ?= {
 				NOT = { has_trait = tv_gg_tactics_3 }
+				NOT = {
+					OR = {
+						has_trait = tv_gg_offense_1
+						has_trait = tv_gg_offense_2
+						has_trait = tv_gg_offense_3
+						has_trait = tv_gg_defense_1
+						has_trait = tv_gg_defense_2
+						has_trait = tv_gg_defense_3
+					}
+				}
+				OR = {
+					has_trait = tv_gg_tactics_1
+					has_trait = tv_gg_tactics_2
+					NOT = {
+						OR = {
+							has_trait = tv_gg_offense_1
+							has_trait = tv_gg_offense_2
+							has_trait = tv_gg_offense_3
+							has_trait = tv_gg_defense_1
+							has_trait = tv_gg_defense_2
+							has_trait = tv_gg_defense_3
+							has_trait = tv_gg_tactics_1
+							has_trait = tv_gg_tactics_2
+							has_trait = tv_gg_tactics_3
+						}
+					}
+				}
 			}
 		}
 		var:tv_conquest_general_char ?= {
+			if = { limit = { has_trait = tv_gg_offense_1 } remove_trait = trait:tv_gg_offense_1 }
+			if = { limit = { has_trait = tv_gg_offense_2 } remove_trait = trait:tv_gg_offense_2 }
+			if = { limit = { has_trait = tv_gg_offense_3 } remove_trait = trait:tv_gg_offense_3 }
+			if = { limit = { has_trait = tv_gg_defense_1 } remove_trait = trait:tv_gg_defense_1 }
+			if = { limit = { has_trait = tv_gg_defense_2 } remove_trait = trait:tv_gg_defense_2 }
+			if = { limit = { has_trait = tv_gg_defense_3 } remove_trait = trait:tv_gg_defense_3 }
 			if = {
 				limit = { has_trait = tv_gg_tactics_2 }
 				if = {

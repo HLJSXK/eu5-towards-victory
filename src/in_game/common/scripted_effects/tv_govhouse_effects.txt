@@ -276,18 +276,14 @@ tv_training_resolve_effect = {
 				if = {
 					limit = {
 						var:tv_conquest_general_char ?= {
-							has_trait = tv_gg_offense_3
-							has_trait = tv_gg_defense_3
-							has_trait = tv_gg_tactics_3
+							OR = {
+								has_trait = tv_gg_offense_3
+								has_trait = tv_gg_defense_3
+								has_trait = tv_gg_tactics_3
+							}
 						}
 					}
-					if = {
-						limit = { var:tv_conquest_general_char ?= { mil >= 100 } }
-						trigger_event_non_silently = { id = tv_grand_general.5 }
-					}
-					else = {
-						trigger_event_non_silently = { id = tv_grand_general.4 }
-					}
+					trigger_event_non_silently = { id = tv_grand_general.1 }
 				}
 				else = {
 					trigger_event_non_silently = { id = tv_grand_general.3 }
