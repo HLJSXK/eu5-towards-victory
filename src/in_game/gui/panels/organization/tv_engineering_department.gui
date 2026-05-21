@@ -130,14 +130,14 @@ organization_panel = {
 			spacing = 10
 
 			widget = {
-				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet]"
+				visible = "[Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet)]"
 				layoutpolicy_horizontal = expanding
 				size = { -1 333 }
 				maximumsize = { 500 333 }
 				alwaystransparent = yes
 
 				widget = {
-					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0'))]"
+					visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0')), And3(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)1.0')))]"
 					size = { 100% 100% }
 					background = {
 						texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_sacred_mountain.dds"
@@ -146,7 +146,7 @@ organization_panel = {
 					}
 				}
 				widget = {
-					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'))]"
+					visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0')), And3(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)2.0')))]"
 					size = { 100% 100% }
 					background = {
 						texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_triumphal_axis.dds"
@@ -155,7 +155,7 @@ organization_panel = {
 					}
 				}
 				widget = {
-					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'))]"
+					visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0')), And3(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)3.0')))]"
 					size = { 100% 100% }
 					background = {
 						texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_great_port.dds"
@@ -164,7 +164,7 @@ organization_panel = {
 					}
 				}
 				widget = {
-					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)4.0'))]"
+					visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)4.0')), And3(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)4.0')))]"
 					size = { 100% 100% }
 					background = {
 						texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_giant_necropolis.dds"
@@ -173,7 +173,7 @@ organization_panel = {
 					}
 				}
 				widget = {
-					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)5.0'))]"
+					visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)5.0')), And3(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)5.0')))]"
 					size = { 100% 100% }
 					background = {
 						texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_giant_lighthouse.dds"
@@ -182,7 +182,7 @@ organization_panel = {
 					}
 				}
 				widget = {
-					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)6.0'))]"
+					visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)6.0')), And3(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)6.0')))]"
 					size = { 100% 100% }
 					background = {
 						texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_hydraulic_workshop.dds"
@@ -191,7 +191,7 @@ organization_panel = {
 					}
 				}
 				widget = {
-					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'))]"
+					visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0')), And3(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)7.0')))]"
 					size = { 100% 100% }
 					background = {
 						texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_mining_city.dds"
@@ -200,7 +200,7 @@ organization_panel = {
 					}
 				}
 				widget = {
-					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'))]"
+					visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0')), And3(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)8.0')))]"
 					size = { 100% 100% }
 					background = {
 						texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_giant_observatory.dds"
@@ -209,7 +209,7 @@ organization_panel = {
 					}
 				}
 				widget = {
-					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'))]"
+					visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0')), And3(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)9.0')))]"
 					size = { 100% 100% }
 					background = {
 						texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_palace_of_nations.dds"

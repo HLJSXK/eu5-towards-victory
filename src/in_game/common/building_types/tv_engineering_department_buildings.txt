@@ -371,7 +371,10 @@ tv_wonder_golden_trade_port = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {}
+	modifier = {
+		local_trade_center_power = 0.20
+		local_migration_attraction = 1
+	}
 
 	possible_production_methods = {
 		tv_wonder_port_monument_maintenance
@@ -404,7 +407,10 @@ tv_wonder_imperial_naval_port = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {}
+	modifier = {
+		local_trade_center_power = 0.20
+		local_migration_attraction = 1
+	}
 
 	possible_production_methods = {
 		tv_wonder_port_monument_maintenance
@@ -437,7 +443,10 @@ tv_wonder_free_trade_metropolis = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {}
+	modifier = {
+		local_trade_center_power = 0.20
+		local_migration_attraction = 1
+	}
 
 	possible_production_methods = {
 		tv_wonder_port_monument_maintenance
@@ -538,6 +547,10 @@ tv_wonder_quiet_land = {
 
 	modifier = {}
 
+	raw_modifier = {
+		local_migration_attraction = -0.5
+	}
+
 	possible_production_methods = {
 		tv_wonder_necropolis_maintenance
 	}
@@ -569,7 +582,13 @@ tv_wonder_eternal_lighthouse = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {}
+	modifier = {
+		local_production_efficiency = 0.20
+	}
+
+	raw_modifier = {
+		local_unrest = -0.10
+	}
 
 	possible_production_methods = {
 		tv_wonder_lighthouse_flame_maintenance
@@ -602,7 +621,13 @@ tv_wonder_navigator_lighthouse = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {}
+	modifier = {
+		local_production_efficiency = 0.20
+	}
+
+	raw_modifier = {
+		local_max_control = 0.10
+	}
 
 	possible_production_methods = {
 		tv_wonder_lighthouse_maintenance
@@ -635,7 +660,13 @@ tv_wonder_long_watch_lighthouse = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {}
+	modifier = {
+		local_production_efficiency = 0.20
+	}
+
+	raw_modifier = {
+		local_build_buildings_cost = -0.50
+	}
 
 	possible_production_methods = {
 		tv_wonder_lighthouse_maintenance
@@ -668,7 +699,14 @@ tv_wonder_water_god_workshop = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {}
+	modifier = {
+		local_max_rgo_size_modifier = 0.50
+		local_raw_material_output = 0.10
+	}
+
+	raw_modifier = {
+		local_max_control = -0.05
+	}
 
 	possible_production_methods = {
 		tv_wonder_hydraulic_workshop_maintenance
@@ -701,7 +739,10 @@ tv_wonder_hydraulic_artisan_guildhall = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {}
+	modifier = {
+		local_max_rgo_size_modifier = 0.50
+		local_raw_material_output = 0.10
+	}
 
 	possible_production_methods = {
 		tv_wonder_hydraulic_workshop_maintenance
@@ -734,7 +775,14 @@ tv_wonder_waterwheel_workshop = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {}
+	modifier = {
+		local_max_rgo_size_modifier = 0.50
+		local_raw_material_output = 0.10
+	}
+
+	raw_modifier = {
+		local_production_efficiency = 0.05
+	}
 
 	possible_production_methods = {
 		tv_wonder_hydraulic_workshop_maintenance
@@ -768,6 +816,10 @@ tv_wonder_miners_oath_city = {
 	build_time = large_cultural_building_time
 
 	modifier = {}
+
+	raw_modifier = {
+		local_max_literacy = 10
+	}
 
 	possible_production_methods = {
 		tv_wonder_mining_city_maintenance
@@ -1108,7 +1160,6 @@ tv_wonder_embassy_quarter = {
 	build_time = village_build_time
 
 	modifier = {
-		diplomatic_reputation = 1
 		local_nobles_estate_power = 0.50
 	}
 
