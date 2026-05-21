@@ -17,6 +17,7 @@
  tv_local_arts_exhibition_maintenance: "展览维护"
  tv_local_arts_exhibition_price: "文艺展览会"
  tv_local_arts_exhibition_construction: "文艺展览会建设"
+ tv_send_artist_abroad_price: "派出艺术家"
  tv_host_domestic_exhibition_price: "举办国内展出"
  tv_local_exhibition_expand_price: "扩大国内展出"
  tv_local_exhibition_add_artworks_price: "增加更多展品"
@@ -27,6 +28,8 @@
  tv_invite_foreign_arts_exchange_artist_price: "邀请国外艺术家"
  MODIFIER_TYPE_NAME_tv_local_arts_exhibition_price_cost_modifier: "文艺展览会花费"
  MODIFIER_TYPE_DESC_tv_local_arts_exhibition_price_cost_modifier: "修正文艺展览会的建设花费。"
+ MODIFIER_TYPE_NAME_tv_send_artist_abroad_price_cost_modifier: "派出艺术家花费"
+ MODIFIER_TYPE_DESC_tv_send_artist_abroad_price_cost_modifier: "修正派遣艺术家前往国外展出的花费。"
  MODIFIER_TYPE_NAME_tv_host_domestic_exhibition_price_cost_modifier: "举办国内展出花费"
  MODIFIER_TYPE_DESC_tv_host_domestic_exhibition_price_cost_modifier: "修正举办[tv_domestic_exhibition|e]的花费。"
  MODIFIER_TYPE_NAME_tv_local_exhibition_expand_price_cost_modifier: "扩大国内展出花费"
@@ -145,7 +148,7 @@
 
  # 通用动作名称及说明
  tv_send_artist_abroad: "派出艺术家"
- tv_send_artist_abroad_desc: "派遣一位宫廷艺术家前往异国城市开展[tv_artist_tour|e]。巡演持续一至十年，可能提高[tv_arts_intl_influence|e]、带回故事，也可能只在异国宫廷账册里留下一行姓名。"
+ tv_send_artist_abroad_desc: "花费缩放金钱×1，派遣一位宫廷艺术家前往异国城市开展[tv_artist_tour|e]。巡演持续一至十年，可能提高[tv_arts_intl_influence|e]、带回故事，也可能只在异国宫廷账册里留下一行姓名。"
  tv_host_domestic_exhibition: "举办国内展出"
  tv_host_domestic_exhibition_desc: "在选定地点开启一场[tv_domestic_exhibition|e]。需要至少5件艺术品，花费缩放金钱，建造文艺展览会，并以80点[tv_local_exhibition_enthusiasm|e]开始。"
  tv_local_exhibition_add_artworks: "增加更多展品"
@@ -174,7 +177,7 @@
  tv_invite_foreign_arts_exchange_artist_desc: "花费缩放金钱×1.5，邀请一位国外艺术家加入当前[tv_arts_exchange|e]。先选择国家，再选择该国一位可用艺术家。"
 
  # 动作提示
- tv_send_artist_abroad_cost_tt: "花费200杜卡特（路费）。"
+ tv_send_artist_abroad_cost_tt: "花费缩放金钱×1（路费）。"
  tv_send_artist_abroad_requires_artist_tt: "需要宫廷中至少有一位可用的艺术家。"
  tv_host_domestic_exhibition_cost_tt: "花费缩放金钱×3.5（展览费用）。"
  tv_host_domestic_exhibition_requires_art_tt: "需要至少5件拥有的艺术品。"

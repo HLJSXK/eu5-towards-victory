@@ -17,6 +17,7 @@
  tv_local_arts_exhibition_maintenance: "Exhibition Maintenance"
  tv_local_arts_exhibition_price: "Arts Exhibition Fair"
  tv_local_arts_exhibition_construction: "Arts Exhibition Fair Construction"
+ tv_send_artist_abroad_price: "Send Artist Abroad"
  tv_host_domestic_exhibition_price: "Host Domestic Exhibition"
  tv_local_exhibition_expand_price: "Expand Domestic Exhibition"
  tv_local_exhibition_add_artworks_price: "Add More Exhibits"
@@ -27,6 +28,8 @@
  tv_invite_foreign_arts_exchange_artist_price: "Invite Foreign Artist"
  MODIFIER_TYPE_NAME_tv_local_arts_exhibition_price_cost_modifier: "Arts Exhibition Fair Cost"
  MODIFIER_TYPE_DESC_tv_local_arts_exhibition_price_cost_modifier: "Modifies the construction cost of the Arts Exhibition Fair."
+ MODIFIER_TYPE_NAME_tv_send_artist_abroad_price_cost_modifier: "Send Artist Abroad Cost"
+ MODIFIER_TYPE_DESC_tv_send_artist_abroad_price_cost_modifier: "Modifies the cost of sending an artist abroad."
  MODIFIER_TYPE_NAME_tv_host_domestic_exhibition_price_cost_modifier: "Host Domestic Exhibition Cost"
  MODIFIER_TYPE_DESC_tv_host_domestic_exhibition_price_cost_modifier: "Modifies the cost of hosting a [tv_domestic_exhibition|e]."
  MODIFIER_TYPE_NAME_tv_local_exhibition_expand_price_cost_modifier: "Expand Domestic Exhibition Cost"
@@ -145,7 +148,7 @@
 
  # Generic action names and descriptions
  tv_send_artist_abroad: "Send Artist Abroad"
- tv_send_artist_abroad_desc: "Dispatch one of your court artists on a [tv_artist_tour|e] in a foreign city. The tour lasts one to ten years and may raise [tv_arts_intl_influence|e], bring stories home, or leave a name behind in another court's ledgers."
+ tv_send_artist_abroad_desc: "Spend scaled gold x1 to dispatch one of your court artists on a [tv_artist_tour|e] in a foreign city. The tour lasts one to ten years and may raise [tv_arts_intl_influence|e], bring stories home, or leave a name behind in another court's ledgers."
  tv_host_domestic_exhibition: "Host Domestic Exhibition"
  tv_host_domestic_exhibition_desc: "Open a [tv_domestic_exhibition|e] in a chosen location. Requires at least 5 artworks, costs scaled gold, creates an Arts Exhibition Fair, and begins with 80 [tv_local_exhibition_enthusiasm|e]."
  tv_local_exhibition_add_artworks: "Add More Exhibits"
@@ -174,7 +177,7 @@
  tv_invite_foreign_arts_exchange_artist_desc: "Spend scaled gold x1.5 to invite a foreign artist into the current [tv_arts_exchange|e]. Select a country first, then one available artist from that country."
 
  # Generic action tooltips
- tv_send_artist_abroad_cost_tt: "Costs 200 ducats (travel expenses)."
+ tv_send_artist_abroad_cost_tt: "Costs scaled gold x1 (travel expenses)."
  tv_send_artist_abroad_requires_artist_tt: "Requires at least one available artist in your court."
  tv_host_domestic_exhibition_cost_tt: "Costs scaled gold x3.5 (exhibition expenses)."
  tv_host_domestic_exhibition_requires_art_tt: "Requires at least 5 owned artworks."

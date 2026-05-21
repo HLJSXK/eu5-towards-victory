@@ -3,7 +3,7 @@
 # scope:actor = the country performing the action
 
 # ── Send Artist Abroad ────────────────────────────────────────────────────────
-# Costs 200 ducats. 3-step: pick an artist → pick a target country → pick a
+# Costs scaled_gold = 1.0. 3-step: pick an artist → pick a target country → pick a
 # location in that country. The artist moves to the target court and begins an
 # exhibition of 1–10 years duration.
 tv_send_artist_abroad = {
@@ -14,20 +14,13 @@ tv_send_artist_abroad = {
 	ai_tick = monthly
 	ai_tick_frequency = 12
 
+	price = price:tv_send_artist_abroad_price
+
 	potential = {
 		scope:actor = {
 			custom_tooltip = {
 				text = TV_HAS_ARTS_EXHIBITION_MEMBER_TT
 				has_variable = tv_arts_exhibition_member
-			}
-		}
-	}
-
-	allow = {
-		scope:actor = {
-			custom_tooltip = {
-				text = tv_send_artist_abroad_cost_tt
-				gold >= 200
 			}
 		}
 	}
@@ -99,9 +92,10 @@ tv_send_artist_abroad = {
 
 	effect = {
 		if = {
-			limit = { exists = scope:target }
-			scope:actor = {
-				add_gold = -200
+			limit = {
+				exists = scope:target
+				exists = scope:target_1
+				exists = scope:target_2
 			}
 			hidden_effect = {
 				scope:target = {
