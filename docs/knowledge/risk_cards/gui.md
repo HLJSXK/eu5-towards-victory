@@ -35,6 +35,11 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
    image wrappers, hide the wrapper with `visible = ...` and omit
    `ignoreinvisible`.
 
+8. Pass typed objects to build-location selectors.
+   `SelectLocationToBuildDefault` and related functions need a `BuildingType` object
+   such as `BuildingItem.GetBuildingType`, not a literal building key string. If the
+   panel has no typed building context, use a generic action with a location selector.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

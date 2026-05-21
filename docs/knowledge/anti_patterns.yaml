@@ -208,6 +208,16 @@
   source: "reference_game_files/game/in_game/gui/shared/market_tooltips.gui:435"
   notes: "Exhaustive search of all reference_game_files *.gui files found zero occurrences of any string-to-Goods constructor; all goods access is typed accessor chains only"
 
+- id: gui_select_location_to_build_string
+  pattern: "SelectLocationToBuild(?:Default|WithLocation)?\\s*\\(\\s*'[^']+'"
+  only_in_paths: ['gui']
+  bad: "Passing a building key string to SelectLocationToBuildDefault / SelectLocationToBuildWithLocation in GUI"
+  correction: "Pass a BuildingType object from GUI data context, such as BuildingItem.GetBuildingType, LocationBuildingItem.GetBuilding.GetType, or BuildingType.Self. If no BuildingType object is available in the panel, route the button through a generic action with a location select_trigger."
+  category: gui
+  scope: building
+  source: "reference_game_files/game/in_game/gui/production_lateralview.gui:987; runtime report in src/in_game/gui/panels/organization/tv_engineering_department.gui"
+  notes: "The vanilla build-location GUI calls SelectLocationToBuildDefault with a typed BuildingType object. A literal string key can leave the click appearing successful only because a following PlayAudioEffect runs, while no build-location interface opens."
+
 - id: gui_goodsview_inaccessible_in_tooltip
   pattern: 'GoodsView\.GetGoods'
   bad: "datamodel = \"[GoodsView.GetGoods]\" inside a ContextualTooltipType or tooltipwidget template to iterate all goods and filter by key"
