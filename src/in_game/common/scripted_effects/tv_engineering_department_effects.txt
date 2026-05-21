@@ -2690,7 +2690,13 @@ tv_wonder_complete_finalization_effect = {
 		limit = { has_variable = tv_wonder_finalized }
 		tv_wonder_construct_final_building_effect = yes
 		tv_wonder_apply_base_modifier_effect = yes
-			tv_wonder_apply_ceremony_modifier_effect = yes
+		tv_wonder_apply_ceremony_modifier_effect = yes
+		tv_wonder_reward_current_ruler_and_engineer_effect = yes
+		custom_tooltip = tv_wonder_final_support_reward_tt
+		add_stability = { value = var:tv_wonder_final_stability_reward }
+		add_legitimacy = { value = var:tv_wonder_final_legitimacy_reward }
+		add_prestige = { value = var:tv_wonder_final_prestige_reward }
+		hidden_effect = {
 			remove_country_modifier = tv_wonder_meditation_ceremony_modifier
 			remove_country_modifier = tv_wonder_civic_festival_modifier
 			remove_country_modifier = tv_wonder_free_trade_festival_modifier
@@ -2703,12 +2709,6 @@ tv_wonder_complete_finalization_effect = {
 					remove_location_modifier = tv_wonder_deep_drainage_location_modifier
 				}
 			}
-			tv_wonder_reward_current_ruler_and_engineer_effect = yes
-			custom_tooltip = tv_wonder_final_support_reward_tt
-		add_stability = { value = var:tv_wonder_final_stability_reward }
-		add_legitimacy = { value = var:tv_wonder_final_legitimacy_reward }
-		add_prestige = { value = var:tv_wonder_final_prestige_reward }
-		hidden_effect = {
 			tv_wonder_broadcast_completion_event_effect = yes
 			tv_wonder_clear_project_state_effect = yes
 		}
