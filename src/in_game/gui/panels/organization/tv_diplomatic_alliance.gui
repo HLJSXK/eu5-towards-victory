@@ -4,6 +4,20 @@
 
 organization_panel = {
 
+	blockoverride "organization_overview_tab_visible" {}
+
+	blockoverride "organization_panel_overview_visible" {
+		visible = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
+	}
+
+	blockoverride "organization_members_tab_down" {
+		down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+	}
+
+	blockoverride "organization_panel_members_visible" {
+		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+	}
+
 	# ── Tab label overrides ────────────────────────────────────────────────
 	blockoverride "organization_laws_tab_text" {
 		text = "TV_ALLIANCE_LAWS_TAB"
@@ -45,6 +59,8 @@ organization_panel = {
 	blockoverride "io_main_actions_icon" {
 		texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds"
 	}
+
+	blockoverride "scroll_overview_empty_visible" { visible = no }
 
 	# ── Header decoration (behind character portrait) ──────────────────────
 	# Mirrors HRE io_decoration_behind_character layout:
@@ -140,9 +156,11 @@ organization_panel = {
 
 	blockoverride "organization_main_actions_extra" {
 		vbox = {
-			size = { 470 84 }
-			spacing = 4
+			layoutpolicy_horizontal = expanding
+			ignoreinvisible = yes
+			spacing = 6
 			text_multi = {
+				layoutpolicy_horizontal = expanding
 				max_width = 450
 				text = "TV_DIPLOMATIC_ALLIANCE_MEMBER_MANAGEMENT_DESC"
 			}
@@ -154,6 +172,7 @@ organization_panel = {
 				actor = "[InternationalOrganizationsView.GetPlayer]"
 				left_action = {
 					action_name = "tv_invite_to_diplomatic_alliance"
+					action_direction = "offer"
 				}
 			}
 			action_button_diamond = {
