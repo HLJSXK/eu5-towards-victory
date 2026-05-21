@@ -6,11 +6,16 @@
       "PACKY_SORA_TOKEN"
     ],
     "api_key": "",
-    "timeout_seconds": 180
+    "proxy_url": "http://127.0.0.1:7897",
+    "timeout_seconds": 180,
+    "max_attempts": 4,
+    "retry_initial_delay_seconds": 3,
+    "retry_max_delay_seconds": 30,
+    "retry_backoff_multiplier": 2
   },
   "image": {
     "model": "gpt-image-2",
-    "prompt": "A monumental 14th–18th century “Grand Necropolis Complex” designed for a grand strategy game world wonder illustration. A vast sacred burial landscape stretching across desert plains and rocky highlands, filled with colossal mausoleums, pyramid-like tombs, imperial crypt-palaces, and carved cliffside funerary temples. Endless ceremonial avenues connect dynastic tombs, ancestor shrines, and memorial obelisks. Processions of priests and mourners move through ritual pathways surrounded by incense smoke and eternal flame shrines. Architecture blends Egyptian, Persian, Mesoamerican-inspired step structures, Mughal funerary design, and medieval European royal tomb traditions into a unified sacred civilization aesthetic. The atmosphere is solemn yet divine, symbolizing eternal empire and memory. Cinematic dusk lighting, long shadows, ultra-detailed matte painting, epic historical realism, no modern elements.",
+    "prompt": "A colossal 14th–18th century “Palace of a Thousand Nations” designed for a grand strategy game world wonder illustration. A vast imperial palace-city where envoys from all civilizations converge under one ruling empire. The complex includes multiple architectural districts reflecting different cultures: European baroque wings, Ottoman domes, Persian gardens, Chinese palatial courtyards, Indian marble halls, and African-inspired ceremonial courtyards.Grand diplomatic processions move through endless courtyards, where treaties, tributes, and cultural exchanges take place. The central throne hall is monumental, symbolizing universal sovereignty. Flags of many nations line massive ceremonial avenues. Golden light bathes the entire complex, symbolizing unity under empire. Cinematic aerial perspective, ultra-detailed, epic scale, historical fantasy realism, no modern elements, Europa Universalis-style world wonder key art.",
     "size": "1536x1024",
     "quality": "high",
     "output_format": "png",
@@ -21,7 +26,7 @@
     "user": "towards_victory"
   },
   "output": {
-    "name": "giant_necropolis",
+    "name": "palace_of_nations",
     "overwrite": false,
     "keep_png": true,
     "write_metadata": true,

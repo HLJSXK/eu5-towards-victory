@@ -21,6 +21,7 @@ import os
 import re
 import struct
 import sys
+import time
 import urllib.error
 import urllib.request
 import zlib
@@ -57,6 +58,14 @@ class DecodedPng:
     width: int
     height: int
     rgb: bytes
+
+
+@dataclass(frozen=True)
+class RetrySettings:
+    max_attempts: int
+    initial_delay_seconds: float
+    max_delay_seconds: float
+    backoff_multiplier: float
 
 
 def deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
@@ -177,28 +186,105 @@ def build_payload(image_config: dict[str, Any]) -> dict[str, Any]:
     return payload
 
 
-def api_post_json(endpoint: str, api_key: str, payload: dict[str, Any], timeout: float) -> dict[str, Any]:
-    request_body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
-    request = urllib.request.Request(
-        endpoint,
-        data=request_body,
-        headers={
-            "Accept": "*/*",
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-            "User-Agent": "TowardsVictoryWonderImageHelper/1.0",
-        },
-        method="POST",
+def load_retry_settings(api_config: dict[str, Any]) -> RetrySettings:
+    max_attempts = int(api_config.get("max_attempts", 4))
+    initial_delay = float(api_config.get("retry_initial_delay_seconds", 3))
+    max_delay = float(api_config.get("retry_max_delay_seconds", 30))
+    backoff = float(api_config.get("retry_backoff_multiplier", 2))
+
+    if max_attempts < 1:
+        raise ValueError("api.max_attempts must be at least 1")
+    if initial_delay < 0:
+        raise ValueError("api.retry_initial_delay_seconds cannot be negative")
+    if max_delay < initial_delay:
+        raise ValueError("api.retry_max_delay_seconds must be >= api.retry_initial_delay_seconds")
+    if backoff < 1:
+        raise ValueError("api.retry_backoff_multiplier must be >= 1")
+
+    return RetrySettings(
+        max_attempts=max_attempts,
+        initial_delay_seconds=initial_delay,
+        max_delay_seconds=max_delay,
+        backoff_multiplier=backoff,
     )
 
-    try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            response_body = response.read()
-    except urllib.error.HTTPError as exc:
-        error_body = exc.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"Packy API request failed: HTTP {exc.code}: {error_body}") from exc
-    except urllib.error.URLError as exc:
-        raise RuntimeError(f"Packy API request failed: {exc}") from exc
+
+def load_proxy_url(api_config: dict[str, Any]) -> str:
+    proxy_url = str(api_config.get("proxy_url") or "").strip()
+    if not proxy_url:
+        return ""
+    if "://" not in proxy_url:
+        proxy_url = f"http://{proxy_url}"
+    return proxy_url
+
+
+def build_url_opener(proxy_url: str) -> urllib.request.OpenerDirector:
+    if not proxy_url:
+        return urllib.request.build_opener()
+    return urllib.request.build_opener(
+        urllib.request.ProxyHandler(
+            {
+                "http": proxy_url,
+                "https": proxy_url,
+            }
+        )
+    )
+
+
+def sleep_before_retry(label: str, attempt: int, error: Exception, retry_settings: RetrySettings) -> None:
+    delay = min(
+        retry_settings.initial_delay_seconds
+        * (retry_settings.backoff_multiplier ** max(attempt - 1, 0)),
+        retry_settings.max_delay_seconds,
+    )
+    print(
+        f"[retry] {label} failed on attempt {attempt}/{retry_settings.max_attempts}: "
+        f"{error}. Retrying in {delay:.1f}s..."
+    )
+    if delay > 0:
+        time.sleep(delay)
+
+
+def api_post_json(
+    endpoint: str,
+    api_key: str,
+    payload: dict[str, Any],
+    timeout: float,
+    retry_settings: RetrySettings,
+    opener: urllib.request.OpenerDirector,
+) -> dict[str, Any]:
+    request_body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+
+    for attempt in range(1, retry_settings.max_attempts + 1):
+        request = urllib.request.Request(
+            endpoint,
+            data=request_body,
+            headers={
+                "Accept": "*/*",
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+                "User-Agent": "TowardsVictoryWonderImageHelper/1.0",
+            },
+            method="POST",
+        )
+
+        try:
+            with opener.open(request, timeout=timeout) as response:
+                response_body = response.read()
+            break
+        except urllib.error.HTTPError as exc:
+            error_body = exc.read().decode("utf-8", errors="replace")
+            if exc.code not in {408, 409, 425, 429, 500, 502, 503, 504}:
+                raise RuntimeError(f"Packy API request failed: HTTP {exc.code}: {error_body}") from exc
+            if attempt >= retry_settings.max_attempts:
+                raise RuntimeError(f"Packy API request failed after {attempt} attempts: HTTP {exc.code}: {error_body}") from exc
+            sleep_before_retry("Packy API request", attempt, exc, retry_settings)
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            if attempt >= retry_settings.max_attempts:
+                raise RuntimeError(f"Packy API request failed after {attempt} attempts: {exc}") from exc
+            sleep_before_retry("Packy API request", attempt, exc, retry_settings)
+    else:
+        raise RuntimeError("Packy API request failed without a response")
 
     try:
         decoded = json.loads(response_body.decode("utf-8"))
@@ -211,19 +297,37 @@ def api_post_json(endpoint: str, api_key: str, payload: dict[str, Any], timeout:
     return decoded
 
 
-def download_bytes(url: str, timeout: float) -> bytes:
-    request = urllib.request.Request(url, headers={"User-Agent": "TowardsVictoryWonderImageHelper/1.0"})
-    try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            return response.read()
-    except urllib.error.HTTPError as exc:
-        error_body = exc.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"Image download failed: HTTP {exc.code}: {error_body}") from exc
-    except urllib.error.URLError as exc:
-        raise RuntimeError(f"Image download failed: {exc}") from exc
+def download_bytes(
+    url: str,
+    timeout: float,
+    retry_settings: RetrySettings,
+    opener: urllib.request.OpenerDirector,
+) -> bytes:
+    for attempt in range(1, retry_settings.max_attempts + 1):
+        request = urllib.request.Request(url, headers={"User-Agent": "TowardsVictoryWonderImageHelper/1.0"})
+        try:
+            with opener.open(request, timeout=timeout) as response:
+                return response.read()
+        except urllib.error.HTTPError as exc:
+            error_body = exc.read().decode("utf-8", errors="replace")
+            if exc.code not in {408, 409, 425, 429, 500, 502, 503, 504}:
+                raise RuntimeError(f"Image download failed: HTTP {exc.code}: {error_body}") from exc
+            if attempt >= retry_settings.max_attempts:
+                raise RuntimeError(f"Image download failed after {attempt} attempts: HTTP {exc.code}: {error_body}") from exc
+            sleep_before_retry("image download", attempt, exc, retry_settings)
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            if attempt >= retry_settings.max_attempts:
+                raise RuntimeError(f"Image download failed after {attempt} attempts: {exc}") from exc
+            sleep_before_retry("image download", attempt, exc, retry_settings)
+    raise RuntimeError("Image download failed without a response")
 
 
-def extract_png_bytes(response: dict[str, Any], timeout: float) -> tuple[bytes, str]:
+def extract_png_bytes(
+    response: dict[str, Any],
+    timeout: float,
+    retry_settings: RetrySettings,
+    opener: urllib.request.OpenerDirector,
+) -> tuple[bytes, str]:
     data = response.get("data")
     if not isinstance(data, list) or not data or not isinstance(data[0], dict):
         raise RuntimeError("Packy API response did not contain data[0]")
@@ -241,7 +345,7 @@ def extract_png_bytes(response: dict[str, Any], timeout: float) -> tuple[bytes, 
             raise RuntimeError("Packy API returned invalid b64_json image data") from exc
 
     if isinstance(item.get("url"), str):
-        return download_bytes(item["url"], timeout), revised_prompt
+        return download_bytes(item["url"], timeout, retry_settings, opener), revised_prompt
 
     raise RuntimeError("Packy API response did not contain b64_json or url image data")
 
@@ -572,6 +676,9 @@ def main() -> int:
 
     endpoint = str(api_config.get("endpoint") or DEFAULT_ENDPOINT)
     timeout = float(api_config.get("timeout_seconds", 180))
+    retry_settings = load_retry_settings(api_config)
+    proxy_url = load_proxy_url(api_config)
+    opener = build_url_opener(proxy_url)
     api_key = resolve_api_key(api_config)
     payload = build_payload(image_config)
     expected_width, expected_height = parse_size(str(payload["size"]))
@@ -597,8 +704,10 @@ def main() -> int:
 
     print(f"[request] POST {endpoint}")
     print(f"[request] model={payload['model']} size={payload['size']} quality={payload['quality']}")
-    response = api_post_json(endpoint, api_key, payload, timeout)
-    png_bytes, revised_prompt = extract_png_bytes(response, timeout)
+    if proxy_url:
+        print(f"[network] proxy={proxy_url}")
+    response = api_post_json(endpoint, api_key, payload, timeout, retry_settings, opener)
+    png_bytes, revised_prompt = extract_png_bytes(response, timeout, retry_settings, opener)
     if not png_bytes.startswith(PNG_SIGNATURE):
         raise RuntimeError("Generated image payload is not a PNG")
 
@@ -631,4 +740,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except Exception as exc:  # noqa: BLE001 - command-line helper should fail tersely.
+        print(f"[error] {exc}", file=sys.stderr)
+        if os.environ.get("TV_WONDER_IMAGE_DEBUG"):
+            raise
+        raise SystemExit(1) from None
