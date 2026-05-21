@@ -1246,7 +1246,7 @@ organization_panel = {
 			}
 
 			card_common = {
-				visible = "[And(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0'), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
 				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
