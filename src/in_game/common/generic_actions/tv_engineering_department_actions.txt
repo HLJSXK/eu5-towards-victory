@@ -323,6 +323,14 @@ tv_wonder_build_material_depot = {
 	ai_will_do = { add = -100 }
 }
 
+tv_wonder_build_material_dispatch_point = {
+	type = owncountry
+	potential = { always = no }
+	allow = { always = no }
+	effect = {}
+	ai_will_do = { add = -100 }
+}
+
 tv_wonder_begin_foundation = {
 	type = owncountry
 	sound = UI_action_religion_generic

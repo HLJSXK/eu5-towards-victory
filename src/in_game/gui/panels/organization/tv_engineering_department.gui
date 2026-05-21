@@ -1280,8 +1280,8 @@ organization_panel = {
 			card_common = {
 				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet]"
 				layoutpolicy_vertical = fixed
-				minimumsize = { 500 368 }
-				maximumsize = { 500 368 }
+				minimumsize = { 500 468 }
+				maximumsize = { 500 468 }
 
 				blockoverride "common_header_icon_texture" {
 					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
@@ -1293,7 +1293,7 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 328 }
+						size = { 470 428 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
@@ -1328,7 +1328,7 @@ organization_panel = {
 										click_mode = single
 										title = "tv_wonder_build_material_dispatch_point"
 										description = "tv_wonder_build_material_dispatch_point_desc"
-										on_action = "[SelectLocationToBuildDefault(GuiScope.sBuildingType('tv_wonder_material_dispatch_point'))]"
+										on_action = "[SelectLocationToBuildDefault('tv_wonder_material_dispatch_point')]"
 										on_action = "[PlayAudioEffect('UI_action_building_build')]"
 									}
 									tooltipwidget = { using = action_tooltip_pop_out }

@@ -456,6 +456,16 @@ PERFORM_tv_wonder_build_material_depot_ACTION={
 	message_category = society
 }
 
+PERFORM_tv_wonder_build_material_dispatch_point_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
 PERFORM_tv_wonder_begin_foundation_ACTION={
 	log=yes
 	onmap=no
