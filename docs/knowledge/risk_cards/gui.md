@@ -24,6 +24,11 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
    Some blockoverrides replace scalar properties, not widget containers. Read the template
    source before adding child widgets inside a blockoverride.
 
+6. Distinguish game concept links from plain localization keys.
+   In GUI-bound localized text, `[key|E]` requires `key` to be registered in
+   `main_menu/common/game_concepts`. For ordinary building or action names, use
+   `$key$` localization substitution.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

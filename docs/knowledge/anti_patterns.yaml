@@ -847,6 +847,17 @@
   source: "reference_game_files/game/main_menu/common/game_concepts/00_game_concepts.txt:73-75; runtime error.log: Data error in loc string 'tv_cultural_m1_io_grant_tt'"
   notes: "Unregistered custom concepts in square brackets are parsed as data-system functions. The engine logs 'Could not find data system function <concept>' and renders ERROR:<concept> in tooltip text."
 
+- id: engineering_building_loc_used_as_game_concept
+  detectability: lint
+  pattern: '\[(tv_wonder_labor_camp|tv_wonder_material_depot|tv_wonder_material_dispatch_point)\|[Ee]\]'
+  only_in_paths: ['localization']
+  bad: "Engineering Department support building localization keys used as square-bracket game concept links"
+  correction: "Use plain localization substitution such as $tv_wonder_labor_camp$ for building names, or register a real game concept before using [key|E]."
+  category: localization
+  scope: gui
+  source: "runtime error.log: pdx_gui_localize.cpp:302 in tv_engineering_department.gui; fixed in src/main_menu/localization/english/tv_engineering_department_l_english.yml"
+  notes: "These support buildings have normal localization keys, not game_concept definitions. In GUI-bound localized text, [tv_wonder_labor_camp|E] is parsed as a data-system function and logs Could not find data system function."
+
 - id: gui_no_get_area_accessor
   pattern: 'GetVariable\([^)]*\)\.GetArea\.'
   bad: "GetVariable('tv_governed_area').GetArea.GetName — navigating from a scope variable that stores an Area to call .GetName directly via .GetArea"

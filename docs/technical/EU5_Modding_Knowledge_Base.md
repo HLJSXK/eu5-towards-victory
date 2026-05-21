@@ -544,6 +544,8 @@ GUI `text = "KEY"` properties are localization lookups. If the key is missing fr
 
 Custom game concepts require both localization and a definition in `main_menu/common/game_concepts/`. A localization pair such as `game_concept_tv_foo` / `game_concept_tv_foo_desc` does not create the concept by itself. If `[tv_foo|e]` is used before `tv_foo = { texture = "..." }` is registered, the localization parser treats `tv_foo` as a data-system function and logs `Could not find data system function 'tv_foo'`.
 
+For ordinary localization keys such as building names, use `$key$` substitution instead of square-bracket game concept syntax. GUI-bound localized text can parse `[building_key|E]` as a data-system function when `building_key` is not registered as a game concept, producing `Could not find data system function '<key>'`.
+
 GUI boolean helpers are arity-specific. `And()` and `Or()` take exactly two operands; for three operands use `And3()` / `Or3()` as vanilla GUI files do, and for larger expressions nest binary helpers. A three-argument `And(a, b, c)` logs `Function 'And' expected 2 arguments, got 3` and the widget statement fails conversion.
 
 For fixed-position icon overlays, avoid percentage `position` values directly on `icon` widgets. In the Governor's House power-balance bar, `position = { 50% 0 }` on an `icon` rendered at the left edge instead of the midpoint. Use pixel positions when the parent has a fixed size, or position a `widget` wrapper with percentages and place the icon inside that wrapper. Vanilla percentage-position examples such as `progressbars.gui` use positioned `widget` wrappers.
