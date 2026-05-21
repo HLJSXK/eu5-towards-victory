@@ -529,7 +529,7 @@ tv_research.20 = {
 
 # ── tv_research.30 — Advance Unlocked Notification ───────────────────────────────
 # Fired by tv_research_concentrated_complete_effect when D finishes.
-# The option applies the unlock so the reward tooltip shows the gained advance.
+# The option applies the unlock and Chief Scientist trait reward so both are visible.
 tv_research.30 = {
 	type = country_event
 	title = tv_research.30.t
@@ -630,120 +630,200 @@ tv_research.30 = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 1 }
 		tv_unlock_advance_printing_press_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 2 }
 		tv_unlock_advance_iron_working_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 4 }
 		tv_unlock_advance_gunpowder_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 5 }
 		tv_unlock_advance_blast_furnace_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 6 }
 		tv_unlock_advance_scientific_experimentation_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 7 }
 		tv_unlock_advance_scientific_revolution_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 8 }
 		tv_unlock_advance_manufactories_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 9 }
 		tv_unlock_advance_industrialization_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 10 }
 		tv_unlock_advance_vaccination_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 11 }
 		tv_unlock_advance_renaissance_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 12 }
 		tv_unlock_advance_banking_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 13 }
 		tv_unlock_advance_professional_armies_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 14 }
 		tv_unlock_advance_new_world_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 15 }
 		tv_unlock_advance_pike_and_shot_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 16 }
 		tv_unlock_advance_confessionalism_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 17 }
 		tv_unlock_advance_global_trade_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 18 }
 		tv_unlock_advance_artillery_institution_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 19 }
 		tv_unlock_advance_military_revolution_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 20 }
 		tv_unlock_advance_enlightenment_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 21 }
 		tv_unlock_advance_levee_en_masse_effect = yes
-		hidden_effect = { tv_research_reset_cycle_effect = yes }
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
 	}
 }

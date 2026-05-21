@@ -226,13 +226,11 @@ tv_research_pause_d_effect = {
 # ── Concentrated Research complete ────────────────────────────────────────────
 # Called from IO monthly_effect when tv_research_d_progress >= 100.
 # Fires the notification event. The event option applies the selected advance unlock
-# so the reward is visible to the player, then resets the cycle for the next round.
+# and Great Scientist trait reward visibly, then resets the cycle for the next round.
 tv_research_concentrated_complete_effect = {
 	# Stop D monthly completion checks while keeping tv_research_target for the event.
 	set_variable = { name = tv_research_phase value = 0 }
 	hidden_effect = {
-		tv_upgrade_great_scientist_trait_effect = yes
-		tv_update_chief_scientist_effective_adm_effect = yes
 		remove_country_modifier = tv_concentrated_research_penalty
 	}
 	trigger_event_non_silently = { id = tv_research.30 }
