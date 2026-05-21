@@ -1047,6 +1047,7 @@ organization_panel = {
 
 					card_common = {
 						visible = "[LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0')]"
+						layoutpolicy_vertical = fixed
 						maximumsize = { 500 -1 }
 
 						blockoverride "common_header_icon_texture" {
@@ -1073,6 +1074,7 @@ organization_panel = {
 
 			card_common = {
 				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0')]"
+				layoutpolicy_vertical = fixed
 				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
@@ -1247,6 +1249,7 @@ organization_panel = {
 
 			card_common = {
 				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
+				layoutpolicy_vertical = fixed
 				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
@@ -1273,6 +1276,7 @@ organization_panel = {
 
 			card_common = {
 				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet]"
+				layoutpolicy_vertical = fixed
 				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
@@ -1453,6 +1457,7 @@ organization_panel = {
 
 					card_common = {
 						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
+						layoutpolicy_vertical = fixed
 						maximumsize = { 500 -1 }
 
 						blockoverride "common_header_icon_texture" {
@@ -1479,6 +1484,7 @@ organization_panel = {
 
 					card_common = {
 						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet]"
+						layoutpolicy_vertical = fixed
 						maximumsize = { 500 -1 }
 
 						blockoverride "common_header_icon_texture" {
@@ -1791,6 +1797,7 @@ organization_panel = {
 
 					card_common = {
 						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_complete').IsSet)]"
+						layoutpolicy_vertical = fixed
 						maximumsize = { 500 -1 }
 
 						blockoverride "common_header_icon_texture" {
@@ -1817,6 +1824,7 @@ organization_panel = {
 
 					card_common = {
 						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_complete').IsSet]"
+						layoutpolicy_vertical = fixed
 						maximumsize = { 500 -1 }
 
 						blockoverride "common_header_icon_texture" {
