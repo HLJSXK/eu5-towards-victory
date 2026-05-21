@@ -97,6 +97,17 @@
   source: "runtime UI observation in src/in_game/gui/panels/organization/tv_govhouse.gui; reference_game_files/game/main_menu/gui/shared/progressbars.gui:268-286"
   notes: "Percent position is confirmed on vanilla widget wrappers, but percent position directly on these icon overlays collapsed them to the left edge. Fixed pixel bins are reliable for fixed-width bars."
 
+- id: gui_ignoreinvisible_on_plain_widget
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Putting ignoreinvisible on a plain widget/uberwidget"
+  correction: "Use ignoreinvisible on layout containers such as hbox/vbox/scrollwidget content, not on a plain image or wrapper widget. To hide an image area, control the parent widget's visible expression and let the actual image children use their own visible expressions."
+  category: gui
+  scope: any
+  source: "runtime error.log: docs/error_log/error.log; fixed in src/in_game/gui/panels/organization/tv_engineering_department.gui"
+  notes: "A plain widget logs Property 'ignoreinvisible' not handled and Error setting properties for the uberwidget. The attribute is accepted on layout containers elsewhere in the same panel, but not on the generic image wrapper."
+
 - id: trade_efficiency_nonexistent
   pattern: '\btrade_efficiency\s*='
   bad: "trade_efficiency = <value>"

@@ -29,6 +29,12 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
    `main_menu/common/game_concepts`. For ordinary building or action names, use
    `$key$` localization substitution.
 
+7. Keep layout-only properties on layout containers.
+   `ignoreinvisible` is valid on container-style layouts such as `hbox`/`vbox`,
+   but a plain `widget`/`uberwidget` logs an unsupported-property error. For
+   image wrappers, hide the wrapper with `visible = ...` and omit
+   `ignoreinvisible`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

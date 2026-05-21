@@ -135,7 +135,6 @@ organization_panel = {
 				size = { -1 333 }
 				maximumsize = { 500 333 }
 				alwaystransparent = yes
-				ignoreinvisible = yes
 
 				widget = {
 					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0'))]"

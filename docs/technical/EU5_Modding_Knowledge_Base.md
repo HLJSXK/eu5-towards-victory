@@ -597,6 +597,8 @@ The shared `situation_panel` template includes a default `situation_subheader_co
 
 When a widget is a direct child of `hbox` or `vbox`, the box layout owns placement and sizing. Do not set `parentanchor` on those children, and do not use percentage components in their `size` values such as `size = { 97% 72 }`. Use `layoutpolicy_horizontal`, `layoutpolicy_vertical`, stretch factors, or non-percent fixed/min/max sizing instead. For `io_character_card` in an `organization_custom_content` block, vanilla panels rely on the type's built-in `layoutpolicy_expanding` rather than adding a percentage `size` or `parentanchor`.
 
+Keep `ignoreinvisible` on layout containers, not on plain `widget` wrappers. A generic image wrapper `widget` with `ignoreinvisible = yes` logs `Property 'ignoreinvisible' not handled` and fails property setup for the `uberwidget`. For conditional illustration areas, set `visible = ...` on the wrapper and put the actual images in child widgets with their own `visible` expressions.
+
 Do not put paragraph-style localized text in an unconstrained `hbox` elastic column. A pattern like `hbox = { ... widget = { layoutpolicy_horizontal = expanding size = { -1 92 } text_single = { multiline = yes ... } } }` can let the text's natural width flow back into the row. In the Engineering Department IO, this made a child `vbox` expand to 548.3px while its parent card content was correctly bounded at 470px. Use a fixed-width text area, preferably a small card/container with `text_multi`, `max_width`, and `autoresize`:
 
 ```gui
