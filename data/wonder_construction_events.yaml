@@ -1,0 +1,122 @@
+# Wonder Construction monthly random event generation data.
+# Generated outputs are owned by scripts/*/gen_tv_wonder_construction_events*.py.
+
+event_namespace: tv_engineering_department
+event_id_start: 7000
+
+engineering_tokens:
+  - id: domestic_support
+    weight: 1
+    value: 10
+    loc:
+      en: "domestic support"
+      zh: "国内支持度"
+      en_effect: "Domestic support"
+      zh_effect: "国内支持度"
+  - id: scale_competence
+    weight: 1
+    value: 5
+    loc:
+      en: "scale competence"
+      zh: "规模适性"
+      en_effect: "Scale competence"
+      zh_effect: "规模适性"
+  - id: organization_competence
+    weight: 1
+    value: 5
+    loc:
+      en: "organization competence"
+      zh: "组织适性"
+      en_effect: "Organization competence"
+      zh_effect: "组织适性"
+  - id: logistics_competence
+    weight: 1
+    value: 5
+    loc:
+      en: "logistics competence"
+      zh: "物流适性"
+      en_effect: "Logistics competence"
+      zh_effect: "物流适性"
+  - id: materials_stockpile
+    weight: 3
+    value: 5000
+    loc:
+      en: "material reserves"
+      zh: "物资储备"
+      en_effect: "Material reserves"
+      zh_effect: "物资储备"
+  - id: construction_progress
+    weight: 3
+    value: 5000
+    loc:
+      en: "construction progress"
+      zh: "建设进度"
+      en_effect: "Construction progress"
+      zh_effect: "建设进度"
+
+non_engineering_tokens:
+  - id: gold
+    weight: 2
+    loc:
+      en: "treasury funds"
+      zh: "国库资金"
+  - id: legitimacy
+    weight: 1
+    loc:
+      en: "legitimacy"
+      zh: "正统性"
+  - id: stability
+    weight: 1
+    loc:
+      en: "stability"
+      zh: "稳定度"
+  - id: prestige
+    weight: 1
+    loc:
+      en: "prestige"
+      zh: "威望"
+  - id: nobles_satisfaction
+    weight: 1
+    loc:
+      en: "noble satisfaction"
+      zh: "贵族阶层满意度"
+  - id: clergy_satisfaction
+    weight: 1
+    loc:
+      en: "clergy satisfaction"
+      zh: "教士阶层满意度"
+  - id: burghers_satisfaction
+    weight: 1
+    loc:
+      en: "burgher satisfaction"
+      zh: "市民阶层满意度"
+  - id: peasants_satisfaction
+    weight: 1
+    loc:
+      en: "peasant satisfaction"
+      zh: "平民阶层满意度"
+  - id: site_development
+    weight: 1
+    loc:
+      en: "site development"
+      zh: "建设地点发展度"
+  - id: site_prosperity
+    weight: 1
+    loc:
+      en: "site prosperity"
+      zh: "建设地点繁荣度"
+  - id: capital_development
+    weight: 1
+    loc:
+      en: "capital development"
+      zh: "首都发展度"
+  - id: capital_prosperity
+    weight: 1
+    loc:
+      en: "capital prosperity"
+      zh: "首都繁荣度"
+  - id: site_laborers
+    weight: 1
+    loc:
+      en: "site laborers"
+      zh: "建设地点劳工"

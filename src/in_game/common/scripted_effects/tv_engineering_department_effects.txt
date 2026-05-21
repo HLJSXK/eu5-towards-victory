@@ -174,14 +174,108 @@ tv_wonder_change_materials_stockpile_effect = {
 		limit = {
 			international_organization_type = international_organization_type:tv_engineering_department
 		}
-		change_variable = { name = tv_wonder_materials_stockpile add = $value$ }
-		clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
+		custom_description = {
+			text = tv_wonder_change_materials_stockpile_text
+			value = $value$
+			change_variable = { name = tv_wonder_materials_stockpile add = $value$ }
+			clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
+			if = {
+				limit = {
+					root = { has_variable = tv_wonder_materials_cap }
+					var:tv_wonder_materials_stockpile > root.var:tv_wonder_materials_cap
+				}
+				set_variable = { name = tv_wonder_materials_stockpile value = root.var:tv_wonder_materials_cap }
+			}
+		}
+	}
+}
+
+tv_wonder_change_construction_progress_effect = {
+	custom_description = {
+		text = tv_wonder_change_construction_progress_text
+		value = $value$
 		if = {
 			limit = {
-				root = { has_variable = tv_wonder_materials_cap }
-				var:tv_wonder_materials_stockpile > root.var:tv_wonder_materials_cap
+				var:tv_wonder_active_part ?= 1
+				tv_wonder_foundation_below_max_trigger = yes
 			}
-			set_variable = { name = tv_wonder_materials_stockpile value = root.var:tv_wonder_materials_cap }
+			change_variable = { name = tv_wonder_foundation_progress add = $value$ }
+			clamp_variable = { name = tv_wonder_foundation_progress min = 0 max = 300000 }
+			if = {
+				limit = { var:tv_wonder_foundation_progress >= 300000 }
+				set_variable = { name = tv_wonder_foundation_progress value = 0 }
+				change_variable = { name = tv_wonder_foundation_units add = 1 }
+				set_variable = { name = tv_wonder_last_completed_part value = 1 }
+				set_variable = { name = tv_wonder_last_completed_unit value = var:tv_wonder_foundation_units }
+				tv_wonder_after_unit_completed_effect = yes
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_wonder_active_part ?= 2
+				tv_wonder_body_below_max_trigger = yes
+			}
+			change_variable = { name = tv_wonder_body_progress add = $value$ }
+			clamp_variable = { name = tv_wonder_body_progress min = 0 max = 300000 }
+			if = {
+				limit = { var:tv_wonder_body_progress >= 300000 }
+				set_variable = { name = tv_wonder_body_progress value = 0 }
+				change_variable = { name = tv_wonder_body_units add = 1 }
+				set_variable = { name = tv_wonder_last_completed_part value = 2 }
+				set_variable = { name = tv_wonder_last_completed_unit value = var:tv_wonder_body_units }
+				tv_wonder_after_unit_completed_effect = yes
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_wonder_active_part ?= 3
+				tv_wonder_function_below_max_trigger = yes
+			}
+			change_variable = { name = tv_wonder_function_progress add = $value$ }
+			clamp_variable = { name = tv_wonder_function_progress min = 0 max = 300000 }
+			if = {
+				limit = { var:tv_wonder_function_progress >= 300000 }
+				set_variable = { name = tv_wonder_function_progress value = 0 }
+				change_variable = { name = tv_wonder_function_units add = 1 }
+				set_variable = { name = tv_wonder_last_completed_part value = 3 }
+				set_variable = { name = tv_wonder_last_completed_unit value = var:tv_wonder_function_units }
+				tv_wonder_after_unit_completed_effect = yes
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_wonder_active_part ?= 4
+				tv_wonder_decoration_below_max_trigger = yes
+			}
+			change_variable = { name = tv_wonder_decoration_progress add = $value$ }
+			clamp_variable = { name = tv_wonder_decoration_progress min = 0 max = 300000 }
+			if = {
+				limit = { var:tv_wonder_decoration_progress >= 300000 }
+				set_variable = { name = tv_wonder_decoration_progress value = 0 }
+				change_variable = { name = tv_wonder_decoration_units add = 1 }
+				set_variable = { name = tv_wonder_last_completed_part value = 4 }
+				set_variable = { name = tv_wonder_last_completed_unit value = var:tv_wonder_decoration_units }
+				tv_wonder_after_unit_completed_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_site_laborer_casualty_effect = {
+	custom_description = {
+		text = tv_wonder_site_laborer_casualty_text
+		value = $value$
+		var:tv_wonder_site ?= {
+			every_pop = {
+				limit = { pop_type = pop_type:laborers }
+				add_pop_size = {
+					value = pop_size
+					multiply = {
+						value = $value$
+						divide = -100
+					}
+				}
+			}
 		}
 	}
 }

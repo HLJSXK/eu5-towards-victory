@@ -57,6 +57,17 @@ tv_engineering_department_construction_monthly_pulse = {
 	}
 }
 
+tv_engineering_department_construction_random_events_monthly_pulse = {
+	trigger = {
+		tv_wonder_construction_random_events_active_trigger = yes
+	}
+	effect = {
+		hidden_effect = {
+			tv_wonder_construction_random_event_roll_effect = yes
+		}
+	}
+}
+
 tv_engineering_department_survey_monthly_pulse = {
 	trigger = {
 		has_variable = tv_engineering_department_member

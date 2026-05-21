@@ -264,6 +264,14 @@ tv_wonder_construction_site_selected_trigger = {
 	}
 }
 
+tv_wonder_construction_random_events_active_trigger = {
+	has_variable = tv_engineering_department_member
+	tv_wonder_construction_site_selected_trigger = yes
+	var:tv_wonder_stage ?= 3
+	NOT = { has_variable = tv_wonder_construction_complete }
+	NOT = { has_variable = tv_wonder_finalized }
+}
+
 tv_wonder_can_start_survey_trigger = {
 	tv_wonder_debate_complete_trigger = yes
 	tv_wonder_has_locked_wonder_trigger = yes
@@ -390,6 +398,38 @@ tv_wonder_has_organized_labor_trigger = {
 	var:tv_wonder_laborers ?= { this > 0 }
 }
 
+tv_wonder_domestic_support_can_increase_trigger = {
+	any_international_organizations_member_of = {
+		international_organization_type = international_organization_type:tv_engineering_department
+		var:tv_wonder_domestic_support ?= { this < 200 }
+	}
+}
+
+tv_wonder_domestic_support_can_decrease_trigger = {
+	any_international_organizations_member_of = {
+		international_organization_type = international_organization_type:tv_engineering_department
+		var:tv_wonder_domestic_support ?= { this > 0 }
+	}
+}
+
+tv_wonder_materials_stockpile_can_increase_trigger = {
+	has_variable = tv_wonder_materials_cap
+	var:tv_wonder_materials_cap > 0
+	any_international_organizations_member_of = {
+		international_organization_type = international_organization_type:tv_engineering_department
+		var:tv_wonder_materials_stockpile ?= {
+			this < root.var:tv_wonder_materials_cap
+		}
+	}
+}
+
+tv_wonder_materials_stockpile_can_decrease_trigger = {
+	any_international_organizations_member_of = {
+		international_organization_type = international_organization_type:tv_engineering_department
+		var:tv_wonder_materials_stockpile ?= { this > 0 }
+	}
+}
+
 tv_wonder_foundation_below_max_trigger = {
 	OR = {
 		AND = { var:tv_wonder_scale_tier ?= 1 var:tv_wonder_foundation_units ?= { this < 1 } }
@@ -434,6 +474,54 @@ tv_wonder_decoration_below_max_trigger = {
 	}
 }
 
+tv_wonder_active_part_can_gain_progress_trigger = {
+	tv_wonder_construction_active_trigger = yes
+	OR = {
+		AND = {
+			var:tv_wonder_active_part ?= 1
+			tv_wonder_foundation_below_max_trigger = yes
+			var:tv_wonder_foundation_progress ?= { this < 300000 }
+		}
+		AND = {
+			var:tv_wonder_active_part ?= 2
+			tv_wonder_body_below_max_trigger = yes
+			var:tv_wonder_body_progress ?= { this < 300000 }
+		}
+		AND = {
+			var:tv_wonder_active_part ?= 3
+			tv_wonder_function_below_max_trigger = yes
+			var:tv_wonder_function_progress ?= { this < 300000 }
+		}
+		AND = {
+			var:tv_wonder_active_part ?= 4
+			tv_wonder_decoration_below_max_trigger = yes
+			var:tv_wonder_decoration_progress ?= { this < 300000 }
+		}
+	}
+}
+
+tv_wonder_active_part_has_progress_trigger = {
+	tv_wonder_construction_active_trigger = yes
+	OR = {
+		AND = {
+			var:tv_wonder_active_part ?= 1
+			var:tv_wonder_foundation_progress ?= { this > 0 }
+		}
+		AND = {
+			var:tv_wonder_active_part ?= 2
+			var:tv_wonder_body_progress ?= { this > 0 }
+		}
+		AND = {
+			var:tv_wonder_active_part ?= 3
+			var:tv_wonder_function_progress ?= { this > 0 }
+		}
+		AND = {
+			var:tv_wonder_active_part ?= 4
+			var:tv_wonder_decoration_progress ?= { this > 0 }
+		}
+	}
+}
+
 tv_wonder_has_materials_for_month_trigger = {
 	var:tv_wonder_laborers ?= { this > 0 }
 	any_international_organizations_member_of = {
@@ -444,10 +532,68 @@ tv_wonder_has_materials_for_month_trigger = {
 	}
 }
 
+tv_wonder_site_has_laborer_pop_trigger = {
+	tv_wonder_construction_site_selected_trigger = yes
+	var:tv_wonder_site ?= {
+		any_pop = {
+			pop_type = pop_type:laborers
+			pop_size > 0
+		}
+	}
+}
+
 tv_wonder_construction_active_trigger = {
 	tv_wonder_organization_logistics_unlocked_trigger = yes
 	var:tv_wonder_active_part ?= { this >= 1 }
 	var:tv_wonder_active_part ?= { this <= 4 }
+}
+
+tv_great_engineer_effective_mil_at_least_20_trigger = {
+	has_variable = tv_great_engineer_char
+	var:tv_great_engineer_char ?= {
+		is_alive = yes
+		mil >= 20
+	}
+}
+
+tv_great_engineer_effective_mil_above_50_trigger = {
+	has_variable = tv_great_engineer_char
+	var:tv_great_engineer_char ?= {
+		is_alive = yes
+		mil > 50
+	}
+}
+
+tv_great_engineer_effective_mil_above_80_trigger = {
+	has_variable = tv_great_engineer_char
+	var:tv_great_engineer_char ?= {
+		is_alive = yes
+		mil > 80
+	}
+}
+
+tv_great_engineer_effective_mil_below_20_trigger = {
+	has_variable = tv_great_engineer_char
+	var:tv_great_engineer_char ?= {
+		is_alive = yes
+		mil < 20
+	}
+}
+
+tv_great_engineer_effective_mil_below_50_trigger = {
+	has_variable = tv_great_engineer_char
+	var:tv_great_engineer_char ?= {
+		is_alive = yes
+		mil < 50
+	}
+}
+
+tv_great_engineer_effective_mil_not_above_80_trigger = {
+	has_variable = tv_great_engineer_char
+	var:tv_great_engineer_char ?= {
+		is_alive = yes
+		mil <= 80
+	}
 }
 
 tv_wonder_can_finish_construction_trigger = {
