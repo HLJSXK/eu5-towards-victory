@@ -155,6 +155,12 @@ organization_panel = {
 	}
 
 	blockoverride "organization_main_actions_extra" {
+		text_multi = {
+			layoutpolicy_horizontal = expanding
+			max_width = 450
+			autoresize = yes
+			text = "TV_DIPLOMATIC_ALLIANCE_OVERVIEW_DESC"
+		}
 		vbox = {
 			layoutpolicy_horizontal = expanding
 			ignoreinvisible = yes

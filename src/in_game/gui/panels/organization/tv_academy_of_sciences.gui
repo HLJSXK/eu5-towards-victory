@@ -4,7 +4,7 @@
 # Do not edit directly — modify the data file and re-run the generator.
 # Towards Victory — Academy of Sciences IO Panel
 # Provides the interactive research mechanism UI: research target selection,
-# subprocess A/B/C/D status display, and action buttons.
+# preparation/concentrated research stage display, and action buttons.
 # The Chief Scientist (IO leader character) is shown in portrait when appointed.
 #
 # Verification — Step 3, Reference: autocephalous_patriarchate.gui:57,60
@@ -76,9 +76,14 @@ organization_panel = {
 		vbox = {
 			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			ignoreinvisible = yes
+			datacontext = "[InternationalOrganizationsView.GetPlayer]"
+			spacing = 8
 
 			card_common = {
 				maximumsize = { 500 -1 }
+				visible = "[Not(Country.MakeScope.GetVariable('tv_research_target').IsSet)]"
 
 				blockoverride "common_header_icon_texture" {
 					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
@@ -89,189 +94,220 @@ organization_panel = {
 				}
 
 				blockoverride "common_bottom_content" {
+					text_multi = {
+						layoutpolicy_horizontal = expanding
+						autoresize = yes
+						max_width = 440
+						text = "TV_RM_NO_TARGET_HINT"
+						align = center
+						margin = { 4 8 }
+					}
+				}
+			}
+
+			card_common = {
+				maximumsize = { 500 -1 }
+				visible = "[Country.MakeScope.GetVariable('tv_research_target').IsSet]"
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_RM_TARGET_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						margin = { 4 8 }
+						expand = {}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)1.0')]"
+							text = "TV_RM_TARGET_PRINTING_PRESS"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_PRINTING_PRESS_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)2.0')]"
+							text = "TV_RM_TARGET_IRON_WORKING"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_IRON_WORKING_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)4.0')]"
+							text = "TV_RM_TARGET_GUNPOWDER"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_GUNPOWDER_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)5.0')]"
+							text = "TV_RM_TARGET_BLAST_FURNACE"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_BLAST_FURNACE_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)6.0')]"
+							text = "TV_RM_TARGET_SCIENTIFIC_EXPERIMENTATION"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_SCIENTIFIC_EXPERIMENTATION_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)7.0')]"
+							text = "TV_RM_TARGET_SCIENTIFIC_REVOLUTION"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_SCIENTIFIC_REVOLUTION_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)8.0')]"
+							text = "TV_RM_TARGET_MANUFACTORIES"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_MANUFACTORIES_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)9.0')]"
+							text = "TV_RM_TARGET_INDUSTRIALIZATION"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_INDUSTRIALIZATION_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)10.0')]"
+							text = "TV_RM_TARGET_VACCINATION"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_VACCINATION_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)11.0')]"
+							text = "TV_RM_TARGET_RENAISSANCE"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_RENAISSANCE_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)12.0')]"
+							text = "TV_RM_TARGET_BANKING"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_BANKING_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)13.0')]"
+							text = "TV_RM_TARGET_PROFESSIONAL_ARMIES"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_PROFESSIONAL_ARMIES_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)14.0')]"
+							text = "TV_RM_TARGET_NEW_WORLD"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_NEW_WORLD_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)15.0')]"
+							text = "TV_RM_TARGET_PIKE_AND_SHOT"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_PIKE_AND_SHOT_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)16.0')]"
+							text = "TV_RM_TARGET_CONFESSIONALISM"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_CONFESSIONALISM_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)17.0')]"
+							text = "TV_RM_TARGET_GLOBAL_TRADE"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_GLOBAL_TRADE_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)18.0')]"
+							text = "TV_RM_TARGET_ARTILLERY_INSTITUTION"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_ARTILLERY_INSTITUTION_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)19.0')]"
+							text = "TV_RM_TARGET_MILITARY_REVOLUTION"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_MILITARY_REVOLUTION_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)20.0')]"
+							text = "TV_RM_TARGET_ENLIGHTENMENT"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_ENLIGHTENMENT_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)21.0')]"
+							text = "TV_RM_TARGET_LEVEE_EN_MASSE"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_LEVEE_EN_MASSE_TT"
+							align = center|nobaseline
+						}
+						expand = {}
+					}
+				}
+			}
+
+			card_common = {
+				maximumsize = { 500 -1 }
+				visible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0')))]"
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_RM_PREPARATION_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
 
 		# ── Research Status Overview ────────────────────────────────────────────────────────────────────
 		vbox = {
 			layoutpolicy_horizontal = expanding
 			layoutpolicy_vertical = fixed
 			ignoreinvisible = yes
-			datacontext = "[InternationalOrganizationsView.GetPlayer]"
 			spacing = 4
 			margin = { 4 6 }
-
-				# ── Current Research Target ────────────────────────────────────────────────────────────
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 4
-					text_single = {
-						text = "TV_ACADEMY_TARGET_ADVANCE_LABEL"
-						align = nobaseline
-					}
-					expand = {}
-					text_single = {
-						visible = "[Not(Country.MakeScope.GetVariable('tv_research_target').IsSet)]"
-						text = "TV_ACADEMY_TARGET_NONE"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)1.0')]"
-						text = "TV_RM_TARGET_PRINTING_PRESS"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_PRINTING_PRESS_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)2.0')]"
-						text = "TV_RM_TARGET_IRON_WORKING"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_IRON_WORKING_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)4.0')]"
-						text = "TV_RM_TARGET_GUNPOWDER"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_GUNPOWDER_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)5.0')]"
-						text = "TV_RM_TARGET_BLAST_FURNACE"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_BLAST_FURNACE_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)6.0')]"
-						text = "TV_RM_TARGET_SCIENTIFIC_EXPERIMENTATION"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_SCIENTIFIC_EXPERIMENTATION_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)7.0')]"
-						text = "TV_RM_TARGET_SCIENTIFIC_REVOLUTION"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_SCIENTIFIC_REVOLUTION_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)8.0')]"
-						text = "TV_RM_TARGET_MANUFACTORIES"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_MANUFACTORIES_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)9.0')]"
-						text = "TV_RM_TARGET_INDUSTRIALIZATION"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_INDUSTRIALIZATION_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)10.0')]"
-						text = "TV_RM_TARGET_VACCINATION"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_VACCINATION_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)11.0')]"
-						text = "TV_RM_TARGET_RENAISSANCE"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_RENAISSANCE_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)12.0')]"
-						text = "TV_RM_TARGET_BANKING"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_BANKING_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)13.0')]"
-						text = "TV_RM_TARGET_PROFESSIONAL_ARMIES"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_PROFESSIONAL_ARMIES_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)14.0')]"
-						text = "TV_RM_TARGET_NEW_WORLD"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_NEW_WORLD_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)15.0')]"
-						text = "TV_RM_TARGET_PIKE_AND_SHOT"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_PIKE_AND_SHOT_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)16.0')]"
-						text = "TV_RM_TARGET_CONFESSIONALISM"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_CONFESSIONALISM_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)17.0')]"
-						text = "TV_RM_TARGET_GLOBAL_TRADE"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_GLOBAL_TRADE_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)18.0')]"
-						text = "TV_RM_TARGET_ARTILLERY_INSTITUTION"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_ARTILLERY_INSTITUTION_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)19.0')]"
-						text = "TV_RM_TARGET_MILITARY_REVOLUTION"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_MILITARY_REVOLUTION_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)20.0')]"
-						text = "TV_RM_TARGET_ENLIGHTENMENT"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_ENLIGHTENMENT_TT"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)21.0')]"
-						text = "TV_RM_TARGET_LEVEE_EN_MASSE"
-						default_format = "#explanation_link"
-						tooltip = "TV_RM_TARGET_LEVEE_EN_MASSE_TT"
-						align = nobaseline
-					}
-				}
-
-				# ── Selection Cooldown ────────────────────────────────────────────────────────────────
-				# ── Chief Scientist (appointed IO Leader character) ────────────────────────────────────
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 4
-					visible = "[Country.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
-					text_single = {
-						text = "TV_RM_CHIEF_SCIENTIST_LABEL"
-						align = nobaseline
-					}
-					expand = {}
-					text_single = {
-						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
-						text = "[Character.GetShortNameWithNoTooltip]"
-						align = nobaseline
-					}
-				}
 
 				# ── Subprocess A: Interest Collection ─────────────────────────────────────────────────────
 				hbox = {
@@ -391,41 +427,80 @@ organization_panel = {
 					value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_c_progress').GetValue]"
 					visible = "[Country.MakeScope.GetVariable('tv_rm_subprocess_c').IsSet]"
 				}
-
-				# ── Subprocess D: Concentrated Research ─────────────────────────────────────────────────────────────────
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 4
-					text_single = {
-						text = "TV_ACADEMY_SUBPROCESS_D_LABEL"
-						align = nobaseline
-					}
-					expand = {}
-					text_single = {
-						visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0'))]"
-						text = "TV_RM_STATUS_NOT_READY"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0')]"
-						text = "TV_RM_STATUS_READY"
-						align = nobaseline
-					}
-					text_single = {
-						visible = "[Country.MakeScope.GetVariable('tv_research_phase').IsSet]"
-						raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_research_d_progress')]"
-						align = nobaseline
-					}
-				}
-				progressbar = {
-					size = { 440 16 }
-					using = progress_bar_blue_alt
-					min = 0
-					max = 100
-					value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_d_progress').GetValue]"
-					visible = "[Country.MakeScope.GetVariable('tv_research_phase').IsSet]"
-				}
 		}
+				}
+			}
+
+			card_common = {
+				maximumsize = { 500 -1 }
+				visible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0'))]"
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_RM_PREPARATION_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					text_multi = {
+						layoutpolicy_horizontal = expanding
+						autoresize = yes
+						max_width = 440
+						text = "TV_RM_PREPARATION_COMPLETE_INFO"
+						align = center
+						margin = { 4 8 }
+					}
+				}
+			}
+
+			card_common = {
+				maximumsize = { 500 -1 }
+				visible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0'))]"
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_RM_CONCENTRATED_RESEARCH_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						spacing = 4
+						margin = { 4 6 }
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							text_single = {
+								text = "TV_ACADEMY_SUBPROCESS_D_LABEL"
+								align = nobaseline
+							}
+							expand = {}
+							text_single = {
+								visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_phase').GetValue, '(CFixedPoint)2.0'))]"
+								text = "TV_RM_STATUS_READY"
+								align = nobaseline
+							}
+							text_single = {
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_phase').GetValue, '(CFixedPoint)2.0')]"
+								raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_research_d_progress')]"
+								align = nobaseline
+							}
+						}
+						progressbar = {
+							size = { 440 16 }
+							using = progress_bar_blue_alt
+							min = 0
+							max = 100
+							value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_d_progress').GetValue]"
+						}
+					}
 				}
 			}
 		}

@@ -1,8 +1,8 @@
 """
 Generate src/in_game/gui/panels/organization/tv_academy_of_sciences.gui from data/locked_advances.yaml.
 
-Only the 10-entry research target display block (the EqualTo_CFixedPoint text_single widgets)
-is generated from data. The surrounding static GUI code (subprocess status, custom tabs,
+Only the research target display entries (the EqualTo_CFixedPoint text_single widgets)
+are generated from data. The surrounding static GUI code (stage cards, custom tabs,
 action cards, IO header overrides) is stored verbatim as template prefix/suffix strings in
 this file.
 """
@@ -33,7 +33,7 @@ GUI_PREFIX = """\
 # Do not edit directly — modify the data file and re-run the generator.
 # Towards Victory — Academy of Sciences IO Panel
 # Provides the interactive research mechanism UI: research target selection,
-# subprocess A/B/C/D status display, and action buttons.
+# preparation/concentrated research stage display, and action buttons.
 # The Chief Scientist (IO leader character) is shown in portrait when appointed.
 #
 # Verification — Step 3, Reference: autocephalous_patriarchate.gui:57,60
@@ -105,9 +105,14 @@ organization_panel = {
 \t\tvbox = {
 \t\t\tmargin = { 10 0 }
 \t\t\tlayoutpolicy_horizontal = expanding
+\t\t\tlayoutpolicy_vertical = fixed
+\t\t\tignoreinvisible = yes
+\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\tspacing = 8
 
 \t\t\tcard_common = {
 \t\t\t\tmaximumsize = { 500 -1 }
+\t\t\t\tvisible = "[Not(Country.MakeScope.GetVariable('tv_research_target').IsSet)]"
 
 \t\t\t\tblockoverride "common_header_icon_texture" {
 \t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
@@ -118,54 +123,65 @@ organization_panel = {
 \t\t\t\t}
 
 \t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\ttext_multi = {
+\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\tautoresize = yes
+\t\t\t\t\t\tmax_width = 440
+\t\t\t\t\t\ttext = "TV_RM_NO_TARGET_HINT"
+\t\t\t\t\t\talign = center
+\t\t\t\t\t\tmargin = { 4 8 }
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+
+\t\t\tcard_common = {
+\t\t\t\tmaximumsize = { 500 -1 }
+\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_research_target').IsSet]"
+
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_RM_TARGET_CARD_TITLE"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\thbox = {
+\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\tmargin = { 4 8 }
+\t\t\t\t\t\texpand = {}
+"""
+
+# Generated block inserted here (one text_single entry per advance)
+
+GUI_SUFFIX = """\
+\t\t\t\t\t\texpand = {}
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+
+\t\t\tcard_common = {
+\t\t\t\tmaximumsize = { 500 -1 }
+\t\t\t\tvisible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0')))]"
+
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_RM_PREPARATION_CARD_TITLE"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_bottom_content" {
 
 \t\t# ── Research Status Overview ────────────────────────────────────────────────────────────────────
 \t\tvbox = {
 \t\t\tlayoutpolicy_horizontal = expanding
 \t\t\tlayoutpolicy_vertical = fixed
 \t\t\tignoreinvisible = yes
-\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer]"
 \t\t\tspacing = 4
 \t\t\tmargin = { 4 6 }
-
-\t\t\t\t# ── Current Research Target ────────────────────────────────────────────────────────────
-\t\t\t\thbox = {
-\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\tspacing = 4
-\t\t\t\t\ttext_single = {
-\t\t\t\t\t\ttext = "TV_ACADEMY_TARGET_ADVANCE_LABEL"
-\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t}
-\t\t\t\t\texpand = {}
-\t\t\t\t\ttext_single = {
-\t\t\t\t\t\tvisible = "[Not(Country.MakeScope.GetVariable('tv_research_target').IsSet)]"
-\t\t\t\t\t\ttext = "TV_ACADEMY_TARGET_NONE"
-\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t}
-"""
-
-# Generated block inserted here (10 text_single entries per advance)
-
-GUI_SUFFIX = """\
-\t\t\t\t}
-
-\t\t\t\t# ── Selection Cooldown ────────────────────────────────────────────────────────────────
-\t\t\t\t# ── Chief Scientist (appointed IO Leader character) ────────────────────────────────────
-\t\t\t\thbox = {
-\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\tspacing = 4
-\t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
-\t\t\t\t\ttext_single = {
-\t\t\t\t\t\ttext = "TV_RM_CHIEF_SCIENTIST_LABEL"
-\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t}
-\t\t\t\t\texpand = {}
-\t\t\t\t\ttext_single = {
-\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
-\t\t\t\t\t\ttext = "[Character.GetShortNameWithNoTooltip]"
-\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t}
-\t\t\t\t}
 
 \t\t\t\t# ── Subprocess A: Interest Collection ─────────────────────────────────────────────────────
 \t\t\t\thbox = {
@@ -285,41 +301,80 @@ GUI_SUFFIX = """\
 \t\t\t\t\tvalue = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_c_progress').GetValue]"
 \t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_rm_subprocess_c').IsSet]"
 \t\t\t\t}
-
-\t\t\t\t# ── Subprocess D: Concentrated Research ─────────────────────────────────────────────────────────────────
-\t\t\t\thbox = {
-\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\tspacing = 4
-\t\t\t\t\ttext_single = {
-\t\t\t\t\t\ttext = "TV_ACADEMY_SUBPROCESS_D_LABEL"
-\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t}
-\t\t\t\t\texpand = {}
-\t\t\t\t\ttext_single = {
-\t\t\t\t\t\tvisible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0'))]"
-\t\t\t\t\t\ttext = "TV_RM_STATUS_NOT_READY"
-\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t}
-\t\t\t\t\ttext_single = {
-\t\t\t\t\t\tvisible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0')]"
-\t\t\t\t\t\ttext = "TV_RM_STATUS_READY"
-\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t}
-\t\t\t\t\ttext_single = {
-\t\t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_research_phase').IsSet]"
-\t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_research_d_progress')]"
-\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t}
-\t\t\t\t}
-\t\t\t\tprogressbar = {
-\t\t\t\t\tsize = { 440 16 }
-\t\t\t\t\tusing = progress_bar_blue_alt
-\t\t\t\t\tmin = 0
-\t\t\t\t\tmax = 100
-\t\t\t\t\tvalue = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_d_progress').GetValue]"
-\t\t\t\t\tvisible = "[Country.MakeScope.GetVariable('tv_research_phase').IsSet]"
-\t\t\t\t}
 \t\t}
+\t\t\t\t}
+\t\t\t}
+
+\t\t\tcard_common = {
+\t\t\t\tmaximumsize = { 500 -1 }
+\t\t\t\tvisible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0'))]"
+
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_RM_PREPARATION_CARD_TITLE"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\ttext_multi = {
+\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\tautoresize = yes
+\t\t\t\t\t\tmax_width = 440
+\t\t\t\t\t\ttext = "TV_RM_PREPARATION_COMPLETE_INFO"
+\t\t\t\t\t\talign = center
+\t\t\t\t\t\tmargin = { 4 8 }
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+
+\t\t\tcard_common = {
+\t\t\t\tmaximumsize = { 500 -1 }
+\t\t\t\tvisible = "[And(Country.MakeScope.GetVariable('tv_research_target').IsSet, EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_rm_subprocess_d_ready').GetValue, '(CFixedPoint)1.0'))]"
+
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_RM_CONCENTRATED_RESEARCH_CARD_TITLE"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\tvbox = {
+\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\tmargin = { 4 6 }
+
+\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_SUBPROCESS_D_LABEL"
+\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\texpand = {}
+\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\tvisible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_phase').GetValue, '(CFixedPoint)2.0'))]"
+\t\t\t\t\t\t\t\ttext = "TV_RM_STATUS_READY"
+\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\tvisible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_phase').GetValue, '(CFixedPoint)2.0')]"
+\t\t\t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_research_d_progress')]"
+\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+\t\t\t\t\t\tprogressbar = {
+\t\t\t\t\t\t\tsize = { 440 16 }
+\t\t\t\t\t\t\tusing = progress_bar_blue_alt
+\t\t\t\t\t\t\tmin = 0
+\t\t\t\t\t\t\tmax = 100
+\t\t\t\t\t\t\tvalue = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_research_d_progress').GetValue]"
+\t\t\t\t\t\t}
+\t\t\t\t\t}
 \t\t\t\t}
 \t\t\t}
 \t\t}
@@ -862,13 +917,14 @@ def gen_target_entry(advance: dict) -> str:
     tt_key = f"{loc_key}_TT"
     float_str = f"{gui_value}.0"
     return (
-        T*5 + "text_single = {\n"
-        + T*6 + f"visible = \"[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint){float_str}')]\"\n"
-        + T*6 + f"text = \"{loc_key}\"\n"
-        + T*6 + "default_format = \"#explanation_link\"\n"
-        + T*6 + f"tooltip = \"{tt_key}\"\n"
-        + T*6 + "align = nobaseline\n"
-        + T*5 + "}"
+        T*6 + "text_single = {\n"
+        + T*7 + "size = { 440 26 }\n"
+        + T*7 + f"visible = \"[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint){float_str}')]\"\n"
+        + T*7 + f"text = \"{loc_key}\"\n"
+        + T*7 + "default_format = \"#explanation_link\"\n"
+        + T*7 + f"tooltip = \"{tt_key}\"\n"
+        + T*7 + "align = center|nobaseline\n"
+        + T*6 + "}"
     )
 
 

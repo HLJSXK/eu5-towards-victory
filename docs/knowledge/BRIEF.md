@@ -201,7 +201,7 @@ src/
 │                                          tv_diplomatic_alliance.gui  [MANUAL — custom HRE-style IO panel; 3 leader-management buttons]
 │                                          tv_arts_exhibition.gui  [MANUAL — touring overview controls, Chief Artist header controls, Arts Exchange resolutions tab, vanilla Laws tab, local exhibition tab, active exhibition action group]
 │                                          tv_engineering_department.gui  [MANUAL — Great Engineer management plus staged debate, survey, organization/logistics, construction, and ceremony/finalization UI]
-│                                          tv_academy_of_sciences.gui  [GENERATED — Research Mechanism IO panel; overview Research Status card + research actions, Chief Scientist tab effect card + leader actions, Medicine tab treatment/meditation actions]
+│                                          tv_academy_of_sciences.gui  [GENERATED — Research Mechanism IO panel; overview staged target/preparation/concentrated-research cards + research actions, Chief Scientist tab effect card + leader actions, Medicine tab treatment/meditation actions]
 └── main_menu/common/
     └── game_concepts/                    tv_game_concepts.txt  [MANUAL — custom Victory/IO concepts]
 └── main_menu/localization/
@@ -267,6 +267,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 - `src/in_game/gui/panels/organization/tv_arts_exhibition.gui` displays the Arts Exhibition touring action, current dispatched artist count, and all currently dispatched artists from `tv_dispatched_artists_list` as `io_character_card` artist rows in the overview tab. The header shows the variable-backed Chief Artist portrait/name when appointed; if vacant, the portrait area remains clickable to appoint a Chief Artist, and if occupied, two small Replace/Dismiss buttons sit in the portrait area's upper-right corner. A separate monthly International Influence contribution readout remains in the header. The resolutions tab is renamed to Arts Exchange and contains the exchange timer, participant list, and exchange action cards. The vanilla Laws tab is available for Arts Exhibition legal policy votes. Its custom tab tracks the persistent local exhibition: owned artworks, committed exhibits, months open, rating, enthusiasm progress bar, and local exhibition actions.
 - `src/in_game/gui/panels/organization/tv_govhouse.gui` keeps governor region management in the overview, leaves the vanilla Laws tab available for Governor's House legal policy votes, moves Grand General portrait/balance/training controls and active training progress to the resolutions tab, and uses the custom tab for War Tent tactics, war-plan status, and plan action buttons.
 - `src/in_game/gui/panels/organization/tv_engineering_department.gui` hides the Members tab; the header shows the variable-backed Great Engineer portrait/name when appointed, keeps the vacant portrait area clickable for appointment, and places Replace/Dismiss controls in the portrait area's upper-right corner. The overview tab contains active Conception and Debate controls. The resolutions tab is Survey and Logistics: it contains locked-stage info cards before prerequisites, the active survey card, survey result readouts, and after site confirmation the Organization/Logistics controls with material/labor readouts. The custom tab is Construction and Ceremony: it contains locked-stage info cards, construction-part buttons, active-part progress, the completion action, toggle-style ceremony selection, selected-branch-only requirement/effect details, a single bottom Hold Ceremony action that dispatches to the selected ritual, and progress readouts for multi-step/timed ceremony variants.
+- `src/in_game/gui/panels/organization/tv_academy_of_sciences.gui` is generated from `data/locked_advances.yaml`. Its overview tab stages the Research Mechanism UI: with no target it shows only an instruction card; after target approval it shows a centered Research Target card plus A/B/C preparation progress and the B requirements list; once A/B/C are complete it replaces preparation progress with a completion info card and shows the Concentrated Research progress card below. The Chief Scientist tab contains the leader portrait/effects/actions, and the Medicine tab contains treatment and meditation progress/actions.
 
 ## AI Risk Cards
 
@@ -434,7 +435,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | Scripted Triggers | 636 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 796 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2301 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 2471 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 2477 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 
