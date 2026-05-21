@@ -1319,13 +1319,19 @@ organization_panel = {
 									actor = "[InternationalOrganizationsView.GetPlayer]"
 									left_action = { action_name = "tv_wonder_build_material_depot" }
 								}
-								action_button_diamond = {
+								button_regular_alt = {
 									size = { 150 30 }
 									text = "TV_ENGINEERING_BUILD_DISPATCH_BUTTON"
-									title = "tv_wonder_build_material_dispatch_point"
-									description = "tv_wonder_build_material_dispatch_point_desc"
-									actor = "[InternationalOrganizationsView.GetPlayer]"
-									left_action = { action_name = "tv_wonder_build_material_dispatch_point" }
+									enabled = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_complete').IsSet)]"
+									action_tooltip = {
+										click_type = left
+										click_mode = single
+										title = "tv_wonder_build_material_dispatch_point"
+										description = "tv_wonder_build_material_dispatch_point_desc"
+										on_action = "[SelectLocationToBuildDefault(GuiScope.sBuildingType('tv_wonder_material_dispatch_point'))]"
+										on_action = "[PlayAudioEffect('UI_action_building_build')]"
+									}
+									tooltipwidget = { using = action_tooltip_pop_out }
 								}
 							}
 

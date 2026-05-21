@@ -323,51 +323,6 @@ tv_wonder_build_material_depot = {
 	ai_will_do = { add = -100 }
 }
 
-tv_wonder_build_material_dispatch_point = {
-	type = owncountry
-	sound = UI_action_religion_generic
-	ai_tick = monthly
-	ai_tick_frequency = 99999
-	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
-	allow = {
-		scope:actor = {
-			tv_wonder_organization_logistics_unlocked_trigger = yes
-			custom_tooltip = {
-				text = TV_WONDER_HAS_DISPATCH_SITE_TT
-				tv_wonder_has_available_material_dispatch_point_trigger = yes
-			}
-		}
-	}
-	select_trigger = {
-		looking_for_a = location
-		source = actor
-		target_flag = target
-		name = "tv_select_wonder_material_dispatch_point"
-		none_available_msg_key = "tv_no_wonder_material_dispatch_point_available"
-		column = { data = name }
-		column = { data = population }
-		column = { data = rank }
-		visible = {
-			has_owner = yes
-			owner ?= scope:actor
-			tv_wonder_material_dispatch_point_location_available_trigger = yes
-		}
-		enabled = {
-			tv_wonder_material_dispatch_point_location_available_trigger = yes
-		}
-	}
-	effect = {
-		if = {
-			limit = {
-				exists = scope:target
-				scope:target = { tv_wonder_material_dispatch_point_location_available_trigger = yes }
-			}
-			scope:actor = { tv_wonder_construct_material_dispatch_point_effect = yes }
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
 tv_wonder_begin_foundation = {
 	type = owncountry
 	sound = UI_action_religion_generic
