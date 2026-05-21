@@ -85,7 +85,7 @@
 			change_variable = { name = tv_diplomatic_support_count add = 1 }
 			if = {
 				limit = {
-					var:tv_diplomatic_support_count >= 2
+					var:tv_diplomatic_support_count ?= { this >= 2 }
 					NOT = {
 						any_international_organizations_member_of = {
 							international_organization_type = international_organization_type:tv_diplomatic_alliance
@@ -107,7 +107,7 @@
 							text = TV_HAS_VARIABLE_NOT_SET_TT
 							NOT = { has_variable = tv_diplomatic_support_count }
 						}
-						var:tv_diplomatic_support_count < 15
+						var:tv_diplomatic_support_count ?= { this < 15 }
 					}
 				}
 			}
