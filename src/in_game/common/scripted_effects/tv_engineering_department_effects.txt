@@ -2222,6 +2222,19 @@ tv_wonder_destroy_material_depot_effect = {
 	}
 }
 
+tv_wonder_destroy_labor_camp_effect = {
+	if = {
+		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		save_scope_as = tv_wonder_labor_camp_owner
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { has_building = building_type:tv_wonder_labor_camp }
+				destroy_building_forcefully = "building(building_type:tv_wonder_labor_camp|scope:tv_wonder_labor_camp_owner)"
+			}
+		}
+	}
+}
+
 tv_wonder_finish_construction_effect = {
 	if = {
 		limit = { tv_wonder_can_finish_construction_trigger = yes }
@@ -2230,6 +2243,7 @@ tv_wonder_finish_construction_effect = {
 		remove_variable = tv_wonder_active_part
 		remove_variable = tv_wonder_construction_paused
 		tv_wonder_destroy_material_depot_effect = yes
+		tv_wonder_destroy_labor_camp_effect = yes
 		tv_change_wonder_domestic_support_effect = { value = 20 }
 		trigger_event_non_silently = { id = tv_engineering_department.202 }
 	}
@@ -3113,6 +3127,7 @@ tv_wonder_retire_great_engineer_effect = {
 
 tv_wonder_clear_project_state_effect = {
 	tv_wonder_destroy_material_depot_effect = yes
+	tv_wonder_destroy_labor_camp_effect = yes
 	remove_variable = tv_wonder_proposal
 	remove_variable = tv_wonder_locked
 	remove_variable = tv_wonder_debate_ended

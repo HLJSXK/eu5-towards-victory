@@ -1164,3 +1164,13 @@
   scope: any
   source: "reference_official_defines/types/music_player_tracks.txt:1-14; reference_game_files/game/in_game/common/music_player_tracks/00_music_player_tracks.txt:1-19; reference_game_files/game/in_game/gui/music_player_lateralview.gui:133-185; reference_game_files/game/in_game/gui/shared/animation.gui:199-203; reference_game_files/game/in_game/common/on_action/_hardcoded.txt:1789-1792"
   notes: "The official type note says new songs are added in Wwise and registered by event key. Vanilla entries contain no trigger/chance/category fields beyond metadata, and the in-game music player plays registered track objects via GUI bindings. EU5 does expose Audio_PlayEvent to send a Wwise event to music_manager from GUI, and on_war_declared exists as a script hook, but current references do not expose EU4-style songs.txt conditional rules or a normal effect that directly plays a named music-player track."
+
+- id: character_modifier_country_cabinet_efficiency
+  pattern: ''
+  detectability: advisory
+  bad: "Putting country_cabinet_efficiency inside a character-scoped modifier to lower one cabinet member's efficiency"
+  correction: "Use character_cabinet_efficiency for character modifiers. Reserve country_cabinet_efficiency for country modifiers."
+  category: modifier
+  scope: character
+  source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:5924-5943"
+  notes: "country_cabinet_efficiency is a country modifier type and has no effect on a character modifier; the character-scoped equivalent is character_cabinet_efficiency."
