@@ -134,6 +134,17 @@ tv_engineering_department.202 = {
 	}
 }
 
+tv_engineering_department.203 = {
+	type = country_event
+	title = tv_engineering_department.203.t
+	desc = tv_engineering_department.203.d
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.203.a
+	}
+}
+
 tv_engineering_department.300 = {
 	type = country_event
 	title = tv_engineering_department.300.t
@@ -509,6 +520,30 @@ tv_engineering_department.500 = {
 				trigger = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 3 }
 				desc = tv_engineering_department.500.d_mining_3
 			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_observatory_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_observatory_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_observatory_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_palace_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_palace_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_palace_3
+			}
 			desc = tv_engineering_department.500.d
 		}
 	}
@@ -517,5 +552,61 @@ tv_engineering_department.500 = {
 	option = {
 		name = tv_engineering_department.500.a
 		tv_wonder_complete_finalization_effect = yes
+	}
+}
+
+tv_engineering_department.511 = {
+	type = country_event
+	title = tv_engineering_department.511.t
+	desc = tv_engineering_department.511.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.511.a
+	}
+}
+
+tv_engineering_department.521 = {
+	type = country_event
+	title = tv_engineering_department.521.t
+	desc = tv_engineering_department.521.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.521.a
+	}
+}
+
+tv_engineering_department.522 = {
+	type = country_event
+	title = tv_engineering_department.522.t
+	desc = tv_engineering_department.522.d
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.522.a
+		tv_wonder_complete_eclipse_proclamation_effect = yes
+	}
+}
+
+tv_engineering_department.531 = {
+	type = country_event
+	title = tv_engineering_department.531.t
+	desc = tv_engineering_department.531.d
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.531.a
+	}
+}
+
+tv_engineering_department.541 = {
+	type = country_event
+	title = tv_engineering_department.541.t
+	desc = tv_engineering_department.541.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.541.a
 	}
 }

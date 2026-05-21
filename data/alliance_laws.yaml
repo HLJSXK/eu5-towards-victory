@@ -4,7 +4,10 @@
 # Policy changes are adjacent-only. No current policy counts as level 0, so
 # level N requires current level N-1 or N+1.
 # AI vote bias is generated from reform tier, opinion toward the leader
-# clamped to -100..+100, and the leader country's diplomatic reputation.
+# clamped by reform level, and the leader country's diplomatic reputation.
+# L1/L2/L3/L4 bases are 0/-100/-200/-300. L2/L3/L4 opinion scales to
+# -50..+50 / -100..+100 / -150..+150, and leader diplomatic reputation adds
+# +5/+10/+15 per point.
 #
 # Fields per policy (L2-L4):
 #   id:               EU5 policy identifier

@@ -56,15 +56,15 @@ tv_court_protocol = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0
+						min = 0
+						max = 0
 					}
 				}
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 0
 				}
 			}
 		}
@@ -143,9 +143,9 @@ tv_court_protocol = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0.25
+						min = -50
+						max = 50
 					}
 				}
 				add = {
@@ -221,7 +221,7 @@ tv_court_protocol = {
 		wants_this_policy_bias = {
 			add = {
 				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
-				value = -150
+				value = -200
 			}
 			if = {
 				limit = { scope:recipient = { international_organization_has_leader = yes } }
@@ -237,7 +237,7 @@ tv_court_protocol = {
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 10
 				}
 			}
 		}
@@ -307,7 +307,7 @@ tv_court_protocol = {
 		wants_this_policy_bias = {
 			add = {
 				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
-				value = -200
+				value = -300
 			}
 			if = {
 				limit = { scope:recipient = { international_organization_has_leader = yes } }
@@ -315,15 +315,15 @@ tv_court_protocol = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0.75
+						min = -150
+						max = 150
 					}
 				}
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 15
 				}
 			}
 		}
@@ -376,15 +376,15 @@ tv_information_network = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0
+						min = 0
+						max = 0
 					}
 				}
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 0
 				}
 			}
 		}
@@ -462,9 +462,9 @@ tv_information_network = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0.25
+						min = -50
+						max = 50
 					}
 				}
 				add = {
@@ -540,7 +540,7 @@ tv_information_network = {
 		wants_this_policy_bias = {
 			add = {
 				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
-				value = -150
+				value = -200
 			}
 			if = {
 				limit = { scope:recipient = { international_organization_has_leader = yes } }
@@ -556,7 +556,7 @@ tv_information_network = {
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 10
 				}
 			}
 		}
@@ -626,7 +626,7 @@ tv_information_network = {
 		wants_this_policy_bias = {
 			add = {
 				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
-				value = -200
+				value = -300
 			}
 			if = {
 				limit = { scope:recipient = { international_organization_has_leader = yes } }
@@ -634,15 +634,15 @@ tv_information_network = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0.75
+						min = -150
+						max = 150
 					}
 				}
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 15
 				}
 			}
 		}
@@ -695,15 +695,15 @@ tv_commerce_consensus = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0
+						min = 0
+						max = 0
 					}
 				}
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 0
 				}
 			}
 		}
@@ -781,9 +781,9 @@ tv_commerce_consensus = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0.25
+						min = -50
+						max = 50
 					}
 				}
 				add = {
@@ -860,7 +860,7 @@ tv_commerce_consensus = {
 		wants_this_policy_bias = {
 			add = {
 				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
-				value = -150
+				value = -200
 			}
 			if = {
 				limit = { scope:recipient = { international_organization_has_leader = yes } }
@@ -876,7 +876,7 @@ tv_commerce_consensus = {
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 10
 				}
 			}
 		}
@@ -945,7 +945,7 @@ tv_commerce_consensus = {
 		wants_this_policy_bias = {
 			add = {
 				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
-				value = -200
+				value = -300
 			}
 			if = {
 				limit = { scope:recipient = { international_organization_has_leader = yes } }
@@ -953,15 +953,15 @@ tv_commerce_consensus = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0.75
+						min = -150
+						max = 150
 					}
 				}
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 15
 				}
 			}
 		}
@@ -1014,15 +1014,15 @@ tv_faith_harmony = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0
+						min = 0
+						max = 0
 					}
 				}
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 0
 				}
 			}
 		}
@@ -1100,9 +1100,9 @@ tv_faith_harmony = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0.25
+						min = -50
+						max = 50
 					}
 				}
 				add = {
@@ -1178,7 +1178,7 @@ tv_faith_harmony = {
 		wants_this_policy_bias = {
 			add = {
 				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
-				value = -150
+				value = -200
 			}
 			if = {
 				limit = { scope:recipient = { international_organization_has_leader = yes } }
@@ -1194,7 +1194,7 @@ tv_faith_harmony = {
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 10
 				}
 			}
 		}
@@ -1263,7 +1263,7 @@ tv_faith_harmony = {
 		wants_this_policy_bias = {
 			add = {
 				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
-				value = -200
+				value = -300
 			}
 			if = {
 				limit = { scope:recipient = { international_organization_has_leader = yes } }
@@ -1271,15 +1271,15 @@ tv_faith_harmony = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0.75
+						min = -150
+						max = 150
 					}
 				}
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 15
 				}
 			}
 		}
@@ -1332,15 +1332,15 @@ tv_colonization_sphere = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0
+						min = 0
+						max = 0
 					}
 				}
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 0
 				}
 			}
 		}
@@ -1418,9 +1418,9 @@ tv_colonization_sphere = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0.25
+						min = -50
+						max = 50
 					}
 				}
 				add = {
@@ -1496,7 +1496,7 @@ tv_colonization_sphere = {
 		wants_this_policy_bias = {
 			add = {
 				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
-				value = -150
+				value = -200
 			}
 			if = {
 				limit = { scope:recipient = { international_organization_has_leader = yes } }
@@ -1512,7 +1512,7 @@ tv_colonization_sphere = {
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 10
 				}
 			}
 		}
@@ -1581,7 +1581,7 @@ tv_colonization_sphere = {
 		wants_this_policy_bias = {
 			add = {
 				desc = "TV_ALLIANCE_REFORM_BASE_BIAS"
-				value = -200
+				value = -300
 			}
 			if = {
 				limit = { scope:recipient = { international_organization_has_leader = yes } }
@@ -1589,15 +1589,15 @@ tv_colonization_sphere = {
 					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
 					value = {
 						value = "opinion(scope:recipient.leader_country)"
-						multiply = 0.5
-						min = -100
-						max = 100
+						multiply = 0.75
+						min = -150
+						max = 150
 					}
 				}
 				add = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
-					multiply = 5
+					multiply = 15
 				}
 			}
 		}

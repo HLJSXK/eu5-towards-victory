@@ -64,7 +64,7 @@
 
  game_concept_tv_diplomatic_victory_points: "外交胜利点"
  game_concept_tv_dvp: "DVP"
- game_concept_tv_diplomatic_victory_points_desc: "外交胜利点（DVP）通过外交手段永久积累：每次达成[royal_marriage|e]为双方各增加3点DVP，赢得[war|e]为胜者增加5点DVP。DVP永不减少。达到580即可实现[tv_victory_situation|E]的长期胜利。"
+ game_concept_tv_diplomatic_victory_points_desc: "外交胜利点（DVP）通过[tv_diplomatic_alliance|e]改革路线和外交预测获得。两个国家提供[tv_diplomatic_support|e]会建立联盟并提供第一点；之后的点数来自每月[tv_alliance_tier|e]产出。里程碑设于1、50、500、2,500和15,000点DVP。"
 
  game_concept_tv_cultural_influence_points: "文化影响力点"
  game_concept_tv_cip: "CIP"
@@ -88,7 +88,7 @@
  game_concept_tv_trade_victory_desc: "掌控世界商业命脉。[tv_trade_score|e]是你每月贸易收入的月度快照。第三和第五里程碑还要求主导市场数量（分别为5和10个）。奖励着重商人容量、贸易效率与贸易收入倍增。"
 
  game_concept_tv_diplomatic_victory: "外交胜利"
- game_concept_tv_diplomatic_victory_desc: "构建世界上最强大的联盟与影响力网络。第一个里程碑需要2个[tv_diplomatic_support|e]国，并会创立[tv_diplomatic_alliance|e]。[tv_dvp|e]通过联姻（各+3）和赢得战争（+5）永久积累，后续里程碑设于120、220、380和580。"
+ game_concept_tv_diplomatic_victory_desc: "构建世界上最强大的联盟与影响力网络。第一个里程碑需要2个[tv_diplomatic_support|e]国，会创立[tv_diplomatic_alliance|e]并提供第一点[tv_dvp|e]。此后的[tv_dvp|e]每月由[tv_alliance_tier|e]产生，里程碑设于1、50、500、2,500和15,000。"
 
  game_concept_tv_cultural_victory: "文化胜利"
  game_concept_tv_cultural_victory_desc: "以艺术与文化输出塑造文明。[tv_cip|e]永久积累：每创作一件艺术品+3，每月被动+1。里程碑设于50、200、400、800和1,600，奖励艺术家技能、威望与文化传统。第2至5里程碑还要求最低[tv_arts_intl_influence|e]分别达到25、50、75和100。"
@@ -136,6 +136,12 @@
  game_concept_tv_wonder_mining_city: "矿业都市"
  game_concept_tv_wonder_mining_city_desc: "由矿井、矿场、排水工程、市场与铸币设施组成的计划型采掘城市。高发展度与乡村矿区最适合它，而仪式会决定矿井、王权与平民矿工如何分配地下财富。"
 
+ game_concept_tv_wonder_giant_observatory: "巨型天文观象台"
+ game_concept_tv_wonder_giant_observatory_desc: "由观测塔、测星廊、星表厅与仪器庭院组成的巨型观象台。丘陵、高原、山地与识字人口较多的地点最适合它，而仪式会把观天活动导向学术、航海或天象预兆。"
+
+ game_concept_tv_wonder_palace_of_nations: "万国宫城"
+ game_concept_tv_wonder_palace_of_nations_desc: "建于首都的外交宫城，将等级秩序、觐见仪式与外国存在转化为永久建筑。发展度高的大都会最适合它，而仪式会决定宫城偏向万国会议、贡礼展示或常设使馆区。"
+
  game_concept_tv_wonder_domestic_support: "国内支持度"
  game_concept_tv_wonder_domestic_support_desc: "[tv_wonder_construction|e]资源，代表精英与公众对大型奇观工程的支持。达到100即可结束初始辩论；支持度最多储存到200，并会在辩论结束后逐月衰减。"
 
@@ -153,10 +159,10 @@
  game_concept_tv_diplomatic_support_desc: "另一个国家对你的[tv_diplomatic_victory|e]事业作出的永久承诺。获得两个支持国即可开启第一里程碑，并建立[tv_diplomatic_alliance|e]。"
 
  game_concept_tv_alliance_tier: "联盟等级"
- game_concept_tv_alliance_tier_desc: "[tv_diplomatic_alliance|e]的0至15变量，代表联盟制度的发展程度。通过升级后的联盟法律会消耗[tv_alliance_cohesion|e]并提高[tv_alliance_tier|e]。[tv_diplomatic_victory|E]第2至5里程碑分别要求等级达到3、6、9和12。"
+ game_concept_tv_alliance_tier_desc: "[tv_diplomatic_alliance|e]的0至15变量，代表联盟制度的发展程度。通过升级后的联盟法律会消耗[tv_alliance_cohesion|e]并提高[tv_alliance_tier|e]。每点等级每月为创始国提供1点[tv_dvp|e]。"
 
  game_concept_tv_alliance_cohesion: "联盟凝聚力"
- game_concept_tv_alliance_cohesion_desc: "[tv_diplomatic_alliance|e]的0至100变量，衡量联盟成员之间的合作程度。它每月从基础增长和领袖国家的外交声望中增长。升级后的联盟法律会消耗凝聚力，以提高[tv_alliance_tier|e]。"
+ game_concept_tv_alliance_cohesion_desc: "[tv_diplomatic_alliance|e]的0至100变量，衡量联盟成员之间的合作程度。它每月从基础增长、领袖国家的外交声望和联盟内部和平中增长。升级后的联盟法律会消耗凝聚力，以提高[tv_alliance_tier|e]。"
 
  # ── Cultural Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_arts_intl_influence: "国际影响力"

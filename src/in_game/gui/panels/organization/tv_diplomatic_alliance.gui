@@ -139,6 +139,34 @@ organization_panel = {
 	}
 
 	blockoverride "organization_main_actions_extra" {
+		vbox = {
+			size = { 470 84 }
+			spacing = 4
+			text_multi = {
+				max_width = 450
+				text = "TV_DIPLOMATIC_ALLIANCE_MEMBER_MANAGEMENT_DESC"
+			}
+			action_button_diamond = {
+				size = { 470 30 }
+				text = "tv_invite_to_diplomatic_alliance"
+				title = "tv_invite_to_diplomatic_alliance"
+				description = "tv_invite_to_diplomatic_alliance_desc"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = {
+					action_name = "tv_invite_to_diplomatic_alliance"
+				}
+			}
+			action_button_diamond = {
+				size = { 470 30 }
+				text = "tv_expel_diplomatic_alliance_member"
+				title = "tv_expel_diplomatic_alliance_member"
+				description = "tv_expel_diplomatic_alliance_member_desc"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = {
+					action_name = "tv_expel_diplomatic_alliance_member"
+				}
+			}
+		}
 		action_button_diamond = {
 			size = { 470 30 }
 			visible = "[Not(Player.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet)]"

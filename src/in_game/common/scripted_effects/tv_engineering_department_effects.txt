@@ -194,6 +194,8 @@ tv_wonder_clear_feasible_deck_effect = {
 	remove_variable = tv_wonder_feasible_great_lighthouse
 	remove_variable = tv_wonder_feasible_hydraulic_workshop
 	remove_variable = tv_wonder_feasible_mining_city
+	remove_variable = tv_wonder_feasible_giant_observatory
+	remove_variable = tv_wonder_feasible_palace_of_nations
 }
 
 tv_wonder_rebuild_feasible_deck_effect = {
@@ -225,6 +227,14 @@ tv_wonder_rebuild_feasible_deck_effect = {
 	if = {
 		limit = { tv_wonder_can_build_mining_city_trigger = yes }
 		set_variable = { name = tv_wonder_feasible_mining_city value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_giant_observatory_trigger = yes }
+		set_variable = { name = tv_wonder_feasible_giant_observatory value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_palace_of_nations_trigger = yes }
+		set_variable = { name = tv_wonder_feasible_palace_of_nations value = 1 }
 	}
 }
 
@@ -295,6 +305,14 @@ tv_wonder_roll_new_proposal_effect = {
 				trigger = { has_variable = tv_wonder_feasible_mining_city }
 				set_variable = { name = tv_wonder_proposal value = 7 }
 			}
+			1 = {
+				trigger = { has_variable = tv_wonder_feasible_giant_observatory }
+				set_variable = { name = tv_wonder_proposal value = 8 }
+			}
+			1 = {
+				trigger = { has_variable = tv_wonder_feasible_palace_of_nations }
+				set_variable = { name = tv_wonder_proposal value = 9 }
+			}
 		}
 		tv_wonder_set_proposal_on_great_engineer_effect = yes
 	}
@@ -328,6 +346,14 @@ tv_wonder_remove_current_proposal_from_deck_effect = {
 	if = {
 		limit = { var:tv_wonder_proposal ?= 7 }
 		remove_variable = tv_wonder_feasible_mining_city
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 8 }
+		remove_variable = tv_wonder_feasible_giant_observatory
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 9 }
+		remove_variable = tv_wonder_feasible_palace_of_nations
 	}
 }
 
@@ -611,6 +637,14 @@ tv_wonder_accept_proposal_effect = {
 	if = {
 		limit = { var:tv_wonder_proposal ?= 7 }
 		custom_tooltip = { text = TV_WONDER_LOCK_MINING_CITY_TT }
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 8 }
+		custom_tooltip = { text = TV_WONDER_LOCK_GIANT_OBSERVATORY_TT }
+	}
+	if = {
+		limit = { var:tv_wonder_proposal ?= 9 }
+		custom_tooltip = { text = TV_WONDER_LOCK_PALACE_OF_NATIONS_TT }
 	}
 	hidden_effect = {
 		if = {
@@ -1127,6 +1161,7 @@ tv_wonder_bribe_clergy_demand_effect = {
 tv_wonder_end_debate_effect = {
 	set_variable = { name = tv_wonder_stage value = 2 }
 	set_variable = { name = tv_wonder_debate_ended value = 1 }
+	trigger_event_non_silently = { id = tv_engineering_department.203 }
 }
 
 tv_wonder_update_construction_tiers_from_competence_effect = {
@@ -1475,6 +1510,32 @@ tv_wonder_copy_mining_city_survey_from_location_effect = {
 	}
 }
 
+tv_wonder_copy_giant_observatory_survey_from_location_effect = {
+	if = {
+		limit = { exists = scope:tv_wonder_selected_survey_site }
+		set_variable = { name = tv_wonder_scale_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_giant_observatory_scale_competence }
+		set_variable = { name = tv_wonder_logistics_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_giant_observatory_logistics_competence }
+		set_variable = { name = tv_wonder_organization_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_giant_observatory_organization_competence }
+		set_variable = { name = tv_wonder_survey_complete value = 1 }
+		remove_variable = tv_wonder_survey_active
+		tv_wonder_set_io_survey_progress_effect = { value = 100 }
+		tv_wonder_update_construction_tiers_from_competence_effect = yes
+	}
+}
+
+tv_wonder_copy_palace_of_nations_survey_from_location_effect = {
+	if = {
+		limit = { exists = scope:tv_wonder_selected_survey_site }
+		set_variable = { name = tv_wonder_scale_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_palace_of_nations_scale_competence }
+		set_variable = { name = tv_wonder_logistics_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_palace_of_nations_logistics_competence }
+		set_variable = { name = tv_wonder_organization_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_palace_of_nations_organization_competence }
+		set_variable = { name = tv_wonder_survey_complete value = 1 }
+		remove_variable = tv_wonder_survey_active
+		tv_wonder_set_io_survey_progress_effect = { value = 100 }
+		tv_wonder_update_construction_tiers_from_competence_effect = yes
+	}
+}
+
 tv_wonder_copy_completed_survey_from_location_effect = {
 	if = {
 		limit = {
@@ -1531,6 +1592,22 @@ tv_wonder_copy_completed_survey_from_location_effect = {
 			scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_mining_city }
 		}
 		tv_wonder_copy_mining_city_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 8
+			scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_observatory }
+		}
+		tv_wonder_copy_giant_observatory_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 9
+			scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_palace_of_nations }
+		}
+		tv_wonder_copy_palace_of_nations_survey_from_location_effect = yes
 	}
 }
 
@@ -1617,6 +1694,30 @@ tv_wonder_store_survey_on_location_effect = {
 			set_variable = { name = tv_wonder_mining_city_scale_competence value = prev.var:tv_wonder_scale_competence }
 			set_variable = { name = tv_wonder_mining_city_logistics_competence value = prev.var:tv_wonder_logistics_competence }
 			set_variable = { name = tv_wonder_mining_city_organization_competence value = prev.var:tv_wonder_organization_competence }
+		}
+	}
+	else_if = {
+		limit = {
+			tv_wonder_survey_site_selected_trigger = yes
+			var:tv_wonder_locked ?= 8
+		}
+		var:tv_wonder_survey_site ?= {
+			set_variable = { name = tv_wonder_surveyed_giant_observatory value = 1 }
+			set_variable = { name = tv_wonder_giant_observatory_scale_competence value = prev.var:tv_wonder_scale_competence }
+			set_variable = { name = tv_wonder_giant_observatory_logistics_competence value = prev.var:tv_wonder_logistics_competence }
+			set_variable = { name = tv_wonder_giant_observatory_organization_competence value = prev.var:tv_wonder_organization_competence }
+		}
+	}
+	else_if = {
+		limit = {
+			tv_wonder_survey_site_selected_trigger = yes
+			var:tv_wonder_locked ?= 9
+		}
+		var:tv_wonder_survey_site ?= {
+			set_variable = { name = tv_wonder_surveyed_palace_of_nations value = 1 }
+			set_variable = { name = tv_wonder_palace_of_nations_scale_competence value = prev.var:tv_wonder_scale_competence }
+			set_variable = { name = tv_wonder_palace_of_nations_logistics_competence value = prev.var:tv_wonder_logistics_competence }
+			set_variable = { name = tv_wonder_palace_of_nations_organization_competence value = prev.var:tv_wonder_organization_competence }
 		}
 	}
 }
@@ -1741,6 +1842,40 @@ tv_wonder_apply_survey_site_preference_effect = {
 		}
 		remove_variable = tv_wonder_site_preference_bonus
 	}
+	else_if = {
+		limit = {
+			var:tv_wonder_locked ?= 8
+			tv_wonder_survey_site_selected_trigger = yes
+		}
+		if = {
+			limit = { var:tv_wonder_survey_site ?= { topography = mountains } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 15 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_survey_site ?= { topography = plateau } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 7.5 }
+		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		remove_variable = tv_wonder_site_preference_bonus
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_locked ?= 9
+			tv_wonder_survey_site_selected_trigger = yes
+		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		if = {
+			limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+		}
+		remove_variable = tv_wonder_site_preference_bonus
+	}
 }
 
 tv_wonder_apply_survey_engineer_bonus_effect = {
@@ -1816,12 +1951,14 @@ tv_wonder_start_survey_effect = {
 					AND = { var:tv_wonder_locked ?= 2 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_triumphal_axis } }
 					AND = { var:tv_wonder_locked ?= 3 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_port } }
 					AND = { var:tv_wonder_locked ?= 4 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_necropolis } }
-					AND = { var:tv_wonder_locked ?= 5 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_lighthouse } }
-					AND = { var:tv_wonder_locked ?= 6 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_hydraulic_workshop } }
-					AND = { var:tv_wonder_locked ?= 7 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_mining_city } }
+						AND = { var:tv_wonder_locked ?= 5 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_lighthouse } }
+						AND = { var:tv_wonder_locked ?= 6 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_hydraulic_workshop } }
+						AND = { var:tv_wonder_locked ?= 7 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_mining_city } }
+						AND = { var:tv_wonder_locked ?= 8 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_observatory } }
+						AND = { var:tv_wonder_locked ?= 9 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_palace_of_nations } }
+					}
 				}
-			}
-			tv_wonder_copy_completed_survey_from_location_effect = yes
+				tv_wonder_copy_completed_survey_from_location_effect = yes
 		}
 		else = {
 			set_variable = { name = tv_wonder_survey_active value = 1 }
@@ -1918,7 +2055,7 @@ tv_wonder_select_construction_site_effect = {
 		limit = { tv_wonder_survey_complete_trigger = yes }
 		var:tv_wonder_survey_site ?= { save_scope_as = tv_wonder_confirmed_survey_site }
 		set_variable = { name = tv_wonder_site value = scope:tv_wonder_confirmed_survey_site }
-		set_variable = { name = tv_wonder_stage value = 2 }
+		set_variable = { name = tv_wonder_stage value = 3 }
 		remove_variable = tv_wonder_construction_complete
 		remove_variable = tv_wonder_active_part
 		remove_variable = tv_wonder_construction_paused
@@ -2110,6 +2247,7 @@ tv_wonder_choose_ceremony_style_effect = {
 			remove_variable = tv_wonder_ceremony_active
 			remove_variable = tv_wonder_ceremony_months
 			clear_variable_list = tv_wonder_emissary_countries
+			clear_variable_list = tv_wonder_tribute_subjects
 		}
 	}
 }
@@ -2177,6 +2315,24 @@ tv_wonder_apply_base_modifier_effect = {
 		else_if = { limit = { var:tv_wonder_level ?= 4 } add_country_modifier = { modifier = tv_wonder_mining_city_level_4 years = -1 mode = add_and_extend } }
 		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_mining_city_level_5 years = -1 mode = add_and_extend } }
 		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_mining_city_level_6 years = -1 mode = add_and_extend } }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 8 }
+		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_giant_observatory_level_1 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 2 } add_country_modifier = { modifier = tv_wonder_giant_observatory_level_2 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 3 } add_country_modifier = { modifier = tv_wonder_giant_observatory_level_3 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 4 } add_country_modifier = { modifier = tv_wonder_giant_observatory_level_4 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_giant_observatory_level_5 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_giant_observatory_level_6 years = -1 mode = add_and_extend } }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 9 }
+		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_palace_of_nations_level_1 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 2 } add_country_modifier = { modifier = tv_wonder_palace_of_nations_level_2 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 3 } add_country_modifier = { modifier = tv_wonder_palace_of_nations_level_3 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 4 } add_country_modifier = { modifier = tv_wonder_palace_of_nations_level_4 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_palace_of_nations_level_5 years = -1 mode = add_and_extend } }
+		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_palace_of_nations_level_6 years = -1 mode = add_and_extend } }
 	}
 }
 
@@ -2264,6 +2420,18 @@ tv_wonder_apply_ceremony_modifier_effect = {
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 3 }
 		add_country_modifier = { modifier = tv_wonder_deep_shaft_city_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 2 }
+		add_country_modifier = { modifier = tv_wonder_nautical_almanac_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 1 }
+		add_country_modifier = { modifier = tv_wonder_congress_palace_modifier years = -1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 2 }
+		add_country_modifier = { modifier = tv_wonder_tribute_gallery_modifier years = -1 mode = add_and_extend }
 	}
 }
 
@@ -2393,6 +2561,36 @@ tv_wonder_construct_final_building_effect = {
 				prev = { set_variable = { name = tv_wonder_final_building value = 703 } }
 				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_deep_shaft_city }
 			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 1 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 801 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_star_catalog_observatory }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 2 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 802 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_nautical_almanac_observatory }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 3 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 803 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_eclipse_observatory }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 1 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 901 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_congress_palace }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 2 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 902 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_tribute_gallery }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 3 } }
+				prev = { set_variable = { name = tv_wonder_final_building value = 903 } }
+				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_embassy_palace }
+			}
 		}
 	}
 }
@@ -2414,6 +2612,19 @@ tv_wonder_prepare_final_support_rewards_effect = {
 	change_variable = { name = tv_wonder_final_prestige_reward divide = 10 }
 }
 
+tv_wonder_reward_current_ruler_and_engineer_effect = {
+	ruler ?= {
+		add_adm = 5
+		add_dip = 5
+		add_mil = 5
+	}
+	var:tv_great_engineer_char ?= {
+		add_adm = 10
+		add_dip = 10
+		add_mil = 10
+	}
+}
+
 tv_wonder_finalize_effect = {
 	if = {
 		limit = { tv_wonder_has_selected_ceremony_trigger = yes }
@@ -2429,19 +2640,21 @@ tv_wonder_complete_finalization_effect = {
 		limit = { has_variable = tv_wonder_finalized }
 		tv_wonder_construct_final_building_effect = yes
 		tv_wonder_apply_base_modifier_effect = yes
-		tv_wonder_apply_ceremony_modifier_effect = yes
-		remove_country_modifier = tv_wonder_meditation_ceremony_modifier
-		remove_country_modifier = tv_wonder_civic_festival_modifier
-		remove_country_modifier = tv_wonder_free_trade_festival_modifier
-		remove_country_modifier = tv_wonder_ancestor_festival_modifier
-		remove_country_modifier = tv_wonder_water_festival_modifier
-		if = {
-			limit = { tv_wonder_construction_site_selected_trigger = yes }
-			var:tv_wonder_site ?= {
-				remove_location_modifier = tv_wonder_deep_drainage_location_modifier
+			tv_wonder_apply_ceremony_modifier_effect = yes
+			remove_country_modifier = tv_wonder_meditation_ceremony_modifier
+			remove_country_modifier = tv_wonder_civic_festival_modifier
+			remove_country_modifier = tv_wonder_free_trade_festival_modifier
+			remove_country_modifier = tv_wonder_ancestor_festival_modifier
+			remove_country_modifier = tv_wonder_water_festival_modifier
+			remove_country_modifier = tv_wonder_star_catalog_modifier
+			if = {
+				limit = { tv_wonder_construction_site_selected_trigger = yes }
+				var:tv_wonder_site ?= {
+					remove_location_modifier = tv_wonder_deep_drainage_location_modifier
+				}
 			}
-		}
-		custom_tooltip = tv_wonder_final_support_reward_tt
+			tv_wonder_reward_current_ruler_and_engineer_effect = yes
+			custom_tooltip = tv_wonder_final_support_reward_tt
 		add_stability = { value = var:tv_wonder_final_stability_reward }
 		add_legitimacy = { value = var:tv_wonder_final_legitimacy_reward }
 		add_prestige = { value = var:tv_wonder_final_prestige_reward }
@@ -2696,6 +2909,90 @@ tv_wonder_start_deep_drainage_effect = {
 	}
 }
 
+tv_wonder_start_star_catalog_effect = {
+	if = {
+		limit = { tv_wonder_can_start_star_catalog_trigger = yes }
+		set_variable = { name = tv_wonder_ceremony_active value = 1 }
+		set_variable = { name = tv_wonder_ceremony_months value = 0 }
+		add_country_modifier = { modifier = tv_wonder_star_catalog_modifier years = 1 mode = add_and_extend }
+		trigger_event_non_silently = { id = tv_engineering_department.511 }
+	}
+}
+
+tv_wonder_confirm_nautical_almanac_effect = {
+	if = {
+		limit = { tv_wonder_nautical_almanac_ready_trigger = yes }
+		tv_wonder_finalize_effect = yes
+	}
+}
+
+tv_wonder_start_eclipse_proclamation_effect = {
+	if = {
+		limit = { tv_wonder_can_start_eclipse_proclamation_trigger = yes }
+		set_variable = { name = tv_wonder_ceremony_active value = 1 }
+		trigger_event_non_silently = { id = tv_engineering_department.521 }
+	}
+}
+
+tv_wonder_complete_eclipse_proclamation_effect = {
+	if = {
+		limit = {
+			tv_wonder_ceremony_ready_trigger = yes
+			has_variable = tv_wonder_ceremony_active
+			var:tv_wonder_locked ?= 8
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		add_prestige = 100
+		tv_wonder_finalize_effect = yes
+	}
+}
+
+tv_wonder_request_tribute_effect = {
+	if = {
+		limit = {
+			exists = scope:target
+			tv_wonder_can_request_tribute_trigger = yes
+			scope:target = { is_subject_of = root }
+			OR = {
+				NOT = { has_variable_list = tv_wonder_tribute_subjects }
+				NOT = {
+					is_target_in_variable_list = {
+						name = tv_wonder_tribute_subjects
+						target = scope:target
+					}
+				}
+			}
+		}
+		add_to_variable_list = { name = tv_wonder_tribute_subjects target = scope:target }
+		change_variable = { name = tv_wonder_ceremony_progress add = 1 }
+		if = {
+			limit = { var:tv_wonder_ceremony_progress >= 5 }
+			tv_wonder_finalize_effect = yes
+		}
+		else = {
+			trigger_event_non_silently = { id = tv_engineering_department.531 }
+		}
+	}
+}
+
+tv_wonder_start_embassy_quarter_effect = {
+	if = {
+		limit = { tv_wonder_can_start_embassy_quarter_trigger = yes }
+		set_variable = { name = tv_wonder_ceremony_active value = 1 }
+		var:tv_wonder_site ?= {
+			construct_building = { building_type = building_type:tv_wonder_embassy_quarter }
+		}
+		trigger_event_non_silently = { id = tv_engineering_department.541 }
+	}
+}
+
+tv_wonder_on_embassy_quarter_built_effect = {
+	if = {
+		limit = { tv_wonder_embassy_quarter_completion_ready_trigger = yes }
+		tv_wonder_finalize_effect = yes
+	}
+}
+
 tv_wonder_monthly_ceremony_effect = {
 	if = {
 		limit = {
@@ -2708,12 +3005,25 @@ tv_wonder_monthly_ceremony_effect = {
 				AND = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 2 }
 				AND = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 1 }
 				AND = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 3 }
+				AND = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 1 }
 			}
 		}
 		change_variable = { name = tv_wonder_ceremony_months add = 1 }
 		if = {
 			limit = { var:tv_wonder_ceremony_months >= 12 }
 			tv_wonder_finalize_effect = yes
+		}
+	}
+	if = {
+		limit = {
+			tv_wonder_ceremony_ready_trigger = yes
+			has_variable = tv_wonder_ceremony_active
+			var:tv_wonder_locked ?= 8
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		random_list = {
+			5 = { trigger_event_non_silently = { id = tv_engineering_department.522 } }
+			95 = { }
 		}
 	}
 }
@@ -2814,11 +3124,13 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_ceremony_active
 	remove_variable = tv_wonder_ceremony_months
 	clear_variable_list = tv_wonder_emissary_countries
+	clear_variable_list = tv_wonder_tribute_subjects
 	remove_country_modifier = tv_wonder_meditation_ceremony_modifier
 	remove_country_modifier = tv_wonder_civic_festival_modifier
 	remove_country_modifier = tv_wonder_free_trade_festival_modifier
 	remove_country_modifier = tv_wonder_ancestor_festival_modifier
 	remove_country_modifier = tv_wonder_water_festival_modifier
+	remove_country_modifier = tv_wonder_star_catalog_modifier
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
 		var:tv_wonder_site ?= {

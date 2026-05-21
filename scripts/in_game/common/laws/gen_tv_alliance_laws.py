@@ -50,8 +50,20 @@ def gen_ai_vote_bias(level: int) -> list[str]:
     base_by_tier = {
         1: 0,
         2: -100,
-        3: -150,
-        4: -200,
+        3: -200,
+        4: -300,
+    }
+    opinion_scale_by_tier = {
+        1: 0,
+        2: 0.25,
+        3: 0.5,
+        4: 0.75,
+    }
+    dip_rep_scale_by_tier = {
+        1: 0,
+        2: 5,
+        3: 10,
+        4: 15,
     }
     base = base_by_tier[level]
     lines = []
@@ -66,15 +78,15 @@ def gen_ai_vote_bias(level: int) -> list[str]:
     lines.append(T*5 + 'desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"')
     lines.append(T*5 + "value = {")
     lines.append(T*6 + 'value = "opinion(scope:recipient.leader_country)"')
-    lines.append(T*6 + "multiply = 0.5")
-    lines.append(T*6 + "min = -100")
-    lines.append(T*6 + "max = 100")
+    lines.append(T*6 + f"multiply = {opinion_scale_by_tier[level]}")
+    lines.append(T*6 + f"min = {-50 * (level - 1)}")
+    lines.append(T*6 + f"max = {50 * (level - 1)}")
     lines.append(T*5 + "}")
     lines.append(T*4 + "}")
     lines.append(T*4 + "add = {")
     lines.append(T*5 + 'desc = "IO_LEADER_DIP_REP"')
     lines.append(T*5 + "value = scope:recipient.leader_country.modifier:diplomatic_reputation")
-    lines.append(T*5 + "multiply = 5")
+    lines.append(T*5 + f"multiply = {dip_rep_scale_by_tier[level]}")
     lines.append(T*4 + "}")
     lines.append(T*3 + "}")
     lines.append(T*2 + "}")

@@ -18,6 +18,15 @@
  # ── Country Interaction ────────────────────────────────────────────────
  tv_seek_diplomatic_support: "Seek Diplomatic Support"
  tv_seek_diplomatic_support_desc: "Request this nation's [tv_diplomatic_support|E] for our cause. Once granted, their support is permanent unless they cease to exist."
+ tv_invite_to_diplomatic_alliance: "Invite to Diplomatic Alliance"
+ tv_invite_to_diplomatic_alliance_desc: "Invite this country to join our [tv_diplomatic_alliance|E]. Larger alliances are harder to expand."
+ tv_expel_diplomatic_alliance_member: "Expel Alliance Member"
+ tv_expel_diplomatic_alliance_member_desc: "Remove a member from our [tv_diplomatic_alliance|E]."
+ tv_select_diplomatic_alliance_member: "Select Alliance Member"
+ tv_no_diplomatic_alliance_member_available: "@trigger_no! No removable alliance members are available."
+ TV_DIPLOMATIC_ALLIANCE_MEMBER_MANAGEMENT_DESC: "Invite new countries into the alliance or expel existing members. Invitations require diplomatic acceptance; expulsions are the founder's prerogative."
+ TV_NOT_IN_DIPLOMATIC_ALLIANCE_TT: "Target is not already in a [tv_diplomatic_alliance|E]."
+ TV_ALLIANCE_SIZE: "Alliance Size"
  TV_SAME_RELIGION: "Same Religion"
  TV_DIPLOMATIC_REPUTATION: "Diplomatic Reputation"
 
@@ -138,6 +147,14 @@
  PROPOSE_tv_seek_diplomatic_support: "Would we like to ask $RECIPIENT$ to formally support our diplomatic endeavors?\n\n$INFO$"
  INCOMING_OFFER_TITLE_tv_seek_diplomatic_support: "Request for Diplomatic Support"
  INCOMING_OFFER_tv_seek_diplomatic_support: "$ACTOR$ is requesting our formal diplomatic support. Do we wish to accept?\n\n$INFO$"
+ tv_invite_to_diplomatic_alliance_act: "Invite [SCOPE.sCountry('recipient').GetName] to our Diplomatic Alliance."
+ tv_invite_to_diplomatic_alliance_effect_text: "[SCOPE.sCountry('recipient').GetName] joins [SCOPE.sCountry('actor').GetName]'s Diplomatic Alliance."
+ tv_invite_to_diplomatic_alliance_effect_text_past: "[SCOPE.sCountry('recipient').GetName] joined [SCOPE.sCountry('actor').GetName]'s Diplomatic Alliance."
+ tv_invite_to_diplomatic_alliance_reject_effect_text: "$generic_reject_request_effect_string$"
+ tv_invite_to_diplomatic_alliance_reject_effect_text_past: "$generic_reject_request_effect_string_past$"
+ PROPOSE_tv_invite_to_diplomatic_alliance: "Would we like to invite $RECIPIENT$ into our Diplomatic Alliance?\n\n$INFO$"
+ INCOMING_OFFER_TITLE_tv_invite_to_diplomatic_alliance: "Diplomatic Alliance Invitation"
+ INCOMING_OFFER_tv_invite_to_diplomatic_alliance: "$ACTOR$ invites us to join their Diplomatic Alliance. Do we wish to accept?\n\n$INFO$"
 
  # ── Diplomatic Status ──────────────────────────────────────────────────
  diplomatic_status_tv_diplomatic_alliance_name: "Member of [INTERNATIONAL_ORGANIZATION.GetLeaderCountry.GetNameWithNoTooltip]'s Diplomatic Alliance"
@@ -151,6 +168,7 @@
  # ── IO Variable Tooltip Descriptions ──────────────────────────────────
  TV_COHESION_BASE_GROWTH: "Base Growth"
  TV_COHESION_DIPLOMATIC_REP: "Diplomatic Reputation"
+ TV_COHESION_INTERNAL_PEACE: "Internal Peace"
 
  # ── Panel Tab Labels ───────────────────────────────────────────────────
  TV_ALLIANCE_LAWS_TAB: "Alliance Laws"
@@ -165,6 +183,15 @@
  ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_SETUP: "When another country seeks our diplomatic support."
  ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_LOG: "[SCOPE.sCountry('actor').GetName] sought our diplomatic support."
  ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_MAP: ""
+ WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION_SETUP: "When we invite another country into our Diplomatic Alliance."
+ WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION_LOG: "We invited [SCOPE.sCountry('target').GetNameWithNoTooltip] into our Diplomatic Alliance."
+ WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION_MAP: ""
+ ACTION_tv_invite_to_diplomatic_alliance_PERFORMED_ON_US_SETUP: "When another country invites us into their Diplomatic Alliance."
+ ACTION_tv_invite_to_diplomatic_alliance_PERFORMED_ON_US_LOG: "[SCOPE.sCountry('actor').GetName] invited us into their Diplomatic Alliance."
+ ACTION_tv_invite_to_diplomatic_alliance_PERFORMED_ON_US_MAP: ""
+ PERFORM_tv_expel_diplomatic_alliance_member_ACTION_SETUP: "When we expel a member from our Diplomatic Alliance."
+ PERFORM_tv_expel_diplomatic_alliance_member_ACTION_LOG: "We expelled [SCOPE.sCountry('target').GetNameWithNoTooltip] from our Diplomatic Alliance."
+ PERFORM_tv_expel_diplomatic_alliance_member_ACTION_MAP: ""
 
  # ── IO Leader management ──────────────────────────────────────────────
  tv_appoint_alliance_leader: "Appoint Advocator"

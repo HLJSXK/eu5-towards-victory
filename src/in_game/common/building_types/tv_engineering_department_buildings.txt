@@ -915,12 +915,229 @@ tv_wonder_deep_shaft_city = {
 
 	modifier = {
 		local_max_rgo_size_modifier = 0.50
-		local_raw_material_output = 0.15
+		local_raw_material_output = 0.10
 		local_production_efficiency = 0.05
 	}
 
 	possible_production_methods = {
 		tv_wonder_mining_city_maintenance
+	}
+}
+
+tv_wonder_star_catalog_observatory = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_max_literacy = 10
+		local_migration_attraction = 0.5
+	}
+
+	possible_production_methods = {
+		tv_wonder_sacred_monument_maintenance
+	}
+}
+
+tv_wonder_nautical_almanac_observatory = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_migration_attraction = 0.5
+	}
+
+	possible_production_methods = {
+		tv_wonder_sacred_monument_maintenance
+	}
+}
+
+tv_wonder_eclipse_observatory = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_migration_attraction = 0.5
+		local_unrest = -0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_sacred_monument_maintenance
+	}
+}
+
+tv_wonder_congress_palace = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_proximity_source = 5
+		local_nobles_estate_power = 0.10
+		local_migration_attraction = 0.5
+	}
+
+	possible_production_methods = {
+		tv_wonder_axis_monument_maintenance
+	}
+}
+
+tv_wonder_tribute_gallery = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_proximity_source = 5
+		local_migration_attraction = 0.5
+	}
+
+	possible_production_methods = {
+		tv_wonder_axis_monument_maintenance
+	}
+}
+
+tv_wonder_embassy_palace = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_proximity_source = 5
+		diplomatic_reputation = 1
+		local_nobles_estate_power = 0.50
+	}
+
+	possible_production_methods = {
+		tv_wonder_axis_monument_maintenance
 	}
 }
 
@@ -962,6 +1179,50 @@ tv_wonder_navigator_guild = {
 		hidden_effect = {
 			location.owner = {
 				tv_wonder_on_navigator_guild_built_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_embassy_quarter = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 1
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		diplomatic_reputation = 1
+		local_nobles_estate_power = 0.50
+	}
+
+	possible_production_methods = {
+		tv_wonder_axis_monument_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location.owner = {
+				tv_wonder_on_embassy_quarter_built_effect = yes
 			}
 		}
 	}

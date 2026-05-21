@@ -7,7 +7,7 @@
 
 # ── tv_research_a_pulse ────────────────────────────────────────────────────────
 # Sub-action for Sub-process A interest collection.
-# Trigger gates the whole block; random_events selects the event ~10% of months.
+# Trigger gates the whole block; one random_list selects at most one event each month.
 tv_research_a_pulse = {
 	trigger = {
 		custom_tooltip = {
@@ -21,9 +21,16 @@ tv_research_a_pulse = {
 		var:tv_research_phase = 1
 		NOT = { var:tv_rm_subprocess_a >= 2 }
 	}
-	random_events = {
-		90 = 0
-		10 = tv_research.1
+	effect = {
+		random_list = {
+			90 = { }
+			5 = { trigger_event_non_silently = { id = tv_research.1 } }
+			1 = { trigger_event_non_silently = { id = tv_research.2 } }
+			1 = { trigger_event_non_silently = { id = tv_research.3 } }
+			1 = { trigger_event_non_silently = { id = tv_research.4 } }
+			1 = { trigger_event_non_silently = { id = tv_research.5 } }
+			1 = { trigger_event_non_silently = { id = tv_research.6 } }
+		}
 	}
 }
 

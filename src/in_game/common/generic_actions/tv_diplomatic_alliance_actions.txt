@@ -1,0 +1,72 @@
+﻿# Towards Victory - Diplomatic Alliance member management actions
+
+tv_expel_diplomatic_alliance_member = {
+	type = owncountry
+	sound = UI_action_diplomacy_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:actor
+			}
+		}
+	}
+	allow = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:actor
+			}
+		}
+	}
+	select_trigger = {
+		looking_for_a = country
+		source = actor
+		target_flag = target
+		name = "tv_select_diplomatic_alliance_member"
+		none_available_msg_key = "tv_no_diplomatic_alliance_member_available"
+		column = {
+			data = name
+		}
+		visible = {
+			NOT = { this = scope:actor }
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:actor
+			}
+		}
+		enabled = {
+			NOT = { this = scope:actor }
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:actor
+			}
+		}
+		show_why_not_enabled = yes
+	}
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_diplomatic_alliance
+						leader_country ?= scope:actor
+					}
+					remove_country_from_international_organization = scope:target
+				}
+				if = {
+					limit = { has_variable = tv_diplomatic_support_count }
+					change_variable = { name = tv_diplomatic_support_count add = -1 }
+					clamp_variable = { name = tv_diplomatic_support_count min = 0 }
+				}
+			}
+			scope:target = {
+				remove_variable = tv_diplomatic_supporter_of
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}

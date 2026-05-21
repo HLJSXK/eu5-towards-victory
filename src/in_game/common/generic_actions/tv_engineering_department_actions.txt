@@ -210,38 +210,48 @@ tv_wonder_start_survey = {
 					scope:actor = { var:tv_wonder_locked ?= 3 }
 					is_port = yes
 				}
-				AND = {
-					scope:actor = { var:tv_wonder_locked ?= 4 }
-					OR = {
-						topography = hills
-						any_neighbor_location = {
-							tv_wonder_location_is_city_or_town_trigger = yes
-						}
+					AND = {
+						scope:actor = { var:tv_wonder_locked ?= 4 }
+						location_rank ?= location_rank:rural_settlement
 					}
-				}
 				AND = {
 					scope:actor = { var:tv_wonder_locked ?= 5 }
 					is_port = yes
 				}
-				AND = {
-					scope:actor = { var:tv_wonder_locked ?= 6 }
-					is_land = yes
-				}
-				AND = {
-					scope:actor = { var:tv_wonder_locked ?= 7 }
-					OR = {
+					AND = {
+						scope:actor = { var:tv_wonder_locked ?= 6 }
+						OR = {
+							has_river = yes
+							is_adjacent_to_lake = yes
+						}
+					}
+					AND = {
+						scope:actor = { var:tv_wonder_locked ?= 7 }
+						OR = {
 						location_rank ?= location_rank:rural_settlement
 						raw_material = goods:iron
 						raw_material = goods:copper
 						raw_material = goods:tin
 						raw_material = goods:lead
 						raw_material = goods:silver
-						raw_material = goods:goods_gold
+							raw_material = goods:goods_gold
+						}
+					}
+					AND = {
+						scope:actor = { var:tv_wonder_locked ?= 8 }
+						OR = {
+							topography = mountains
+							topography = plateau
+							topography = hills
+						}
+					}
+					AND = {
+						scope:actor = { var:tv_wonder_locked ?= 9 }
+						is_capital = yes
 					}
 				}
 			}
 		}
-	}
 	effect = {
 		if = {
 			limit = { exists = scope:target }
@@ -750,5 +760,109 @@ tv_wonder_start_deep_drainage = {
 	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
 	allow = { scope:actor = { tv_wonder_can_start_deep_drainage_trigger = yes } }
 	effect = { scope:actor = { tv_wonder_start_deep_drainage_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_star_catalog = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_star_catalog_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_star_catalog_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_confirm_nautical_almanac = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_nautical_almanac_ready_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_confirm_nautical_almanac_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_eclipse_proclamation = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_eclipse_proclamation_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_eclipse_proclamation_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_request_tribute = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_request_tribute_trigger = yes } }
+	select_trigger = {
+		looking_for_a = country
+		interaction_source_list = {
+			scope:actor = {
+				every_subject = {
+					limit = {
+						OR = {
+							NOT = { scope:actor = { has_variable_list = tv_wonder_tribute_subjects } }
+							NOT = {
+								scope:actor = {
+									is_target_in_variable_list = {
+										name = tv_wonder_tribute_subjects
+										target = prev
+									}
+								}
+							}
+						}
+					}
+					add_to_list = source
+				}
+			}
+		}
+		target_flag = target
+		allow_self = no
+		name = "tv_select_wonder_tribute_subject"
+		none_available_msg_key = "tv_no_wonder_tribute_subject_available"
+		column = { data = name }
+		column = { data = population }
+		column = { data = army_size }
+		visible = {
+			is_subject_of = scope:actor
+			OR = {
+				NOT = { scope:actor = { has_variable_list = tv_wonder_tribute_subjects } }
+				NOT = {
+					scope:actor = {
+						is_target_in_variable_list = {
+							name = tv_wonder_tribute_subjects
+							target = root
+						}
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = { tv_wonder_request_tribute_effect = yes }
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_embassy_quarter = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_embassy_quarter_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_embassy_quarter_effect = yes } }
 	ai_will_do = { add = -100 }
 }

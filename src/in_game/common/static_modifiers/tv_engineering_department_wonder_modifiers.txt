@@ -110,37 +110,37 @@ tv_wonder_great_port_level_6 = {
 
 tv_wonder_giant_necropolis_level_1 = {
 	great_power_score = 10
-	pop_join_rebel_threshold = -0.01
+	pop_join_rebel_threshold = 0.01
 	monthly_towards_traditionalist = 0.05
 }
 
 tv_wonder_giant_necropolis_level_2 = {
 	great_power_score = 20
-	pop_join_rebel_threshold = -0.02
+	pop_join_rebel_threshold = 0.02
 	monthly_towards_traditionalist = 0.10
 }
 
 tv_wonder_giant_necropolis_level_3 = {
 	great_power_score = 30
-	pop_join_rebel_threshold = -0.03
+	pop_join_rebel_threshold = 0.03
 	monthly_towards_traditionalist = 0.15
 }
 
 tv_wonder_giant_necropolis_level_4 = {
 	great_power_score = 40
-	pop_join_rebel_threshold = -0.04
+	pop_join_rebel_threshold = 0.04
 	monthly_towards_traditionalist = 0.20
 }
 
 tv_wonder_giant_necropolis_level_5 = {
 	great_power_score = 50
-	pop_join_rebel_threshold = -0.05
+	pop_join_rebel_threshold = 0.05
 	monthly_towards_traditionalist = 0.25
 }
 
 tv_wonder_giant_necropolis_level_6 = {
 	great_power_score = 60
-	pop_join_rebel_threshold = -0.06
+	pop_join_rebel_threshold = 0.06
 	monthly_towards_traditionalist = 0.30
 }
 
@@ -246,6 +246,78 @@ tv_wonder_mining_city_level_6 = {
 	monthly_towards_traditional_economy = 0.30
 }
 
+tv_wonder_giant_observatory_level_1 = {
+	great_power_score = 10
+	research_speed = 0.05
+	monthly_towards_innovative = 0.05
+}
+
+tv_wonder_giant_observatory_level_2 = {
+	great_power_score = 20
+	research_speed = 0.10
+	monthly_towards_innovative = 0.10
+}
+
+tv_wonder_giant_observatory_level_3 = {
+	great_power_score = 30
+	research_speed = 0.15
+	monthly_towards_innovative = 0.15
+}
+
+tv_wonder_giant_observatory_level_4 = {
+	great_power_score = 40
+	research_speed = 0.20
+	monthly_towards_innovative = 0.20
+}
+
+tv_wonder_giant_observatory_level_5 = {
+	great_power_score = 50
+	research_speed = 0.25
+	monthly_towards_innovative = 0.25
+}
+
+tv_wonder_giant_observatory_level_6 = {
+	great_power_score = 60
+	research_speed = 0.30
+	monthly_towards_innovative = 0.30
+}
+
+tv_wonder_palace_of_nations_level_1 = {
+	great_power_score = 10
+	global_distance_from_capital_speed_propagation = 0.05
+	monthly_towards_centralization = 0.05
+}
+
+tv_wonder_palace_of_nations_level_2 = {
+	great_power_score = 20
+	global_distance_from_capital_speed_propagation = 0.10
+	monthly_towards_centralization = 0.10
+}
+
+tv_wonder_palace_of_nations_level_3 = {
+	great_power_score = 30
+	global_distance_from_capital_speed_propagation = 0.15
+	monthly_towards_centralization = 0.15
+}
+
+tv_wonder_palace_of_nations_level_4 = {
+	great_power_score = 40
+	global_distance_from_capital_speed_propagation = 0.20
+	monthly_towards_centralization = 0.20
+}
+
+tv_wonder_palace_of_nations_level_5 = {
+	great_power_score = 50
+	global_distance_from_capital_speed_propagation = 0.25
+	monthly_towards_centralization = 0.25
+}
+
+tv_wonder_palace_of_nations_level_6 = {
+	great_power_score = 60
+	global_distance_from_capital_speed_propagation = 0.30
+	monthly_towards_centralization = 0.30
+}
+
 tv_wonder_golden_sanctuary_modifier = {
 	global_crown_estate_power = 0.20
 }
@@ -291,7 +363,7 @@ tv_wonder_ancestor_shrine_modifier = {
 }
 
 tv_wonder_quiet_land_modifier = {
-	pop_join_rebel_threshold = -0.05
+	pop_join_rebel_threshold = 0.05
 }
 
 tv_wonder_eternal_lighthouse_modifier = {
@@ -326,6 +398,18 @@ tv_wonder_royal_mint_city_modifier = {
 tv_wonder_deep_shaft_city_modifier = {
 }
 
+tv_wonder_nautical_almanac_modifier = {
+	exploration_mission_speed = 0.10
+}
+
+tv_wonder_congress_palace_modifier = {
+	monthly_prestige = 0.20
+}
+
+tv_wonder_tribute_gallery_modifier = {
+	subject_income_modifier = 0.05
+}
+
 tv_wonder_meditation_ceremony_modifier = {
 	monthly_legitimacy = -0.50
 }
@@ -344,4 +428,8 @@ tv_wonder_ancestor_festival_modifier = {
 
 tv_wonder_water_festival_modifier = {
 	global_production_efficiency = -0.20
+}
+
+tv_wonder_star_catalog_modifier = {
+	legislative_efficiency = -1
 }

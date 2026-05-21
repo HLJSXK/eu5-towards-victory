@@ -44,6 +44,191 @@ tv_research.1 = {
 	}
 }
 
+tv_research.2 = {
+	type = country_event
+	title = tv_research.2.t
+	desc = tv_research.2.d
+	outcome = neutral
+
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_RESEARCH_PHASE_TT
+			has_variable = tv_research_phase
+		}
+		var:tv_research_phase = 1
+		NOT = { var:tv_rm_subprocess_a >= 2 }
+	}
+
+	option = {
+		name = tv_research.2.a
+		add_prestige = -10
+		tv_change_research_interest_effect = { value = 1 }
+		if = {
+			limit = { NOT = { var:tv_rm_subprocess_a >= 1 } }
+			set_variable = { name = tv_rm_subprocess_a value = 1 }
+		}
+		if = {
+			limit = { tv_research_check_a_trigger = yes }
+			tv_research_complete_a_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.2.b
+	}
+}
+
+tv_research.3 = {
+	type = country_event
+	title = tv_research.3.t
+	desc = tv_research.3.d
+	outcome = neutral
+
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_RESEARCH_PHASE_TT
+			has_variable = tv_research_phase
+		}
+		var:tv_research_phase = 1
+		NOT = { var:tv_rm_subprocess_a >= 2 }
+	}
+
+	option = {
+		name = tv_research.3.a
+		add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+		tv_change_research_interest_effect = { value = 1 }
+		if = {
+			limit = { NOT = { var:tv_rm_subprocess_a >= 1 } }
+			set_variable = { name = tv_rm_subprocess_a value = 1 }
+		}
+		if = {
+			limit = { tv_research_check_a_trigger = yes }
+			tv_research_complete_a_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.3.b
+	}
+}
+
+tv_research.4 = {
+	type = country_event
+	title = tv_research.4.t
+	desc = tv_research.4.d
+	outcome = neutral
+
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_RESEARCH_PHASE_TT
+			has_variable = tv_research_phase
+		}
+		var:tv_research_phase = 1
+		NOT = { var:tv_rm_subprocess_a >= 2 }
+	}
+
+	option = {
+		name = tv_research.4.a
+		add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+		tv_change_research_interest_effect = { value = 1 }
+		if = {
+			limit = { NOT = { var:tv_rm_subprocess_a >= 1 } }
+			set_variable = { name = tv_rm_subprocess_a value = 1 }
+		}
+		if = {
+			limit = { tv_research_check_a_trigger = yes }
+			tv_research_complete_a_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.4.b
+	}
+}
+
+tv_research.5 = {
+	type = country_event
+	title = tv_research.5.t
+	desc = tv_research.5.d
+	outcome = neutral
+
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_RESEARCH_PHASE_TT
+			has_variable = tv_research_phase
+		}
+		var:tv_research_phase = 1
+		NOT = { var:tv_rm_subprocess_a >= 2 }
+	}
+
+	option = {
+		name = tv_research.5.a
+		add_stability = -7
+		tv_change_research_interest_effect = { value = 1 }
+		if = {
+			limit = { NOT = { var:tv_rm_subprocess_a >= 1 } }
+			set_variable = { name = tv_rm_subprocess_a value = 1 }
+		}
+		if = {
+			limit = { tv_research_check_a_trigger = yes }
+			tv_research_complete_a_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.5.b
+	}
+}
+
+tv_research.6 = {
+	type = country_event
+	title = tv_research.6.t
+	desc = tv_research.6.d
+	outcome = neutral
+
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_RESEARCH_PHASE_TT
+			has_variable = tv_research_phase
+		}
+		var:tv_research_phase = 1
+		NOT = { var:tv_rm_subprocess_a >= 2 }
+	}
+
+	option = {
+		name = tv_research.6.a
+		add_legitimacy = -5
+		tv_change_research_interest_effect = { value = 1 }
+		if = {
+			limit = { NOT = { var:tv_rm_subprocess_a >= 1 } }
+			set_variable = { name = tv_rm_subprocess_a value = 1 }
+		}
+		if = {
+			limit = { tv_research_check_a_trigger = yes }
+			tv_research_complete_a_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.6.b
+	}
+}
+
 # ── tv_research.10 — Target Selection Proposal ───────────────────────────────────
 # Fired by tv_request_research_target generic action.
 # Proposes the advance stored in tv_research_proposed_advance.

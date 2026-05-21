@@ -7,48 +7,9 @@
 # Supplemental on_action hooks for Towards Victory
 # Diplomatic and Cultural point accumulation hooks.
 
-on_royal_marriage = {
-	effect = {
-		scope:actor = {
-			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_VARIABLE_NOT_SET_TT
-						NOT = { has_variable = tv_diplomatic_victory_points }
-					}
-				}
-				set_variable = { name = tv_diplomatic_victory_points value = 0 }
-			}
-			change_variable = { name = tv_diplomatic_victory_points add = 3 }
-		}
-		scope:recipient = {
-			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_VARIABLE_NOT_SET_TT
-						NOT = { has_variable = tv_diplomatic_victory_points }
-					}
-				}
-				set_variable = { name = tv_diplomatic_victory_points value = 0 }
-			}
-			change_variable = { name = tv_diplomatic_victory_points add = 3 }
-		}
-	}
-}
-
 on_winning_war = {
 	effect = {
 		scope:winner = {
-			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_VARIABLE_NOT_SET_TT
-						NOT = { has_variable = tv_diplomatic_victory_points }
-					}
-				}
-				set_variable = { name = tv_diplomatic_victory_points value = 0 }
-			}
-			change_variable = { name = tv_diplomatic_victory_points add = 5 }
 			if = {
 				limit = {
 					has_variable = tv_engineering_department_member

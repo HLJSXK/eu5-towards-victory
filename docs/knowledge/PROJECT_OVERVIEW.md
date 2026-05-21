@@ -11,6 +11,8 @@
 
 ## Summary
 
+Current implementation update for the 2026-05-21 Engineering/Diplomatic/Research pass: Engineering Department now supports nine universal wonders, adding Giant Astronomical Observatory and Palace of Nations to the previous seven. Ending wonder debate sets `tv_wonder_stage = 2`, fires `tv_engineering_department.203`, and switches guidance to survey; finalization grants the current ruler +5 ADM/DIP/MIL and the current Great Engineer +10 ADM/DIP/MIL. Organization/Logistics help is split into separate labor camp, material depot, and dispatch point paragraphs, and ceremony toggle buttons now display actual ceremony names. Diplomatic Victory now follows `Original_Design.md`: thresholds are 1 / 50 / 500 / 2,500 / 15,000; DVP comes from Diplomatic Support, alliance creation, and monthly alliance-tier maintenance, not from royal marriages or war wins; alliance cohesion uses base +0.1, leader diplomatic reputation x0.01, and +0.05 internal peace. Research subprocess A now uses one monthly `random_list`: 90 no event, 5 existing gold-for-interest, and five 1-weight interest events trading 10 Prestige, 10% Clergy satisfaction, 10% Burghers satisfaction, 7 Stability, or 5 Legitimacy for progress.
+
 Towards Victory adds 6 generalized victory paths to EU5: Conquest, Prosperity, Trade, Diplomatic, Cultural, and Scientific. Each path has 5 milestone nodes that grant permanent buffs when reached. Progress is displayed via situation panels; milestones trigger popup events that notify the player and deliver the reward.
 
 The **Conquest Victory** path (征服胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = direct locations + 0.5 × subject-or-below locations; thresholds at 200 / 400 / 600 / 1200 / 2500.
@@ -56,6 +58,8 @@ Great Scientist traits (`tv_great_scientist_1/2/3`) are Chief Scientist-only cha
 The mod is additive-only and uses the `tv_` namespace prefix throughout.
 
 ## Core Features
+
+Current correction for this list: Diplomatic Victory Points now come from Diplomatic Support, Diplomatic Alliance creation, and monthly alliance-tier maintenance. Royal marriages and war wins no longer award DVP; any older sentence below that says otherwise is superseded by the Summary update.
 
 1. **6 Victory Situations** — One situation (`tv_victory_situation`) displays all 6 victory paths in a single panel with a top-level manual recovery button (`tv_reinitialize_mod`), a flavor text introduction (Section 1), per-path progress bars and milestone circles (Section 2), and a global leaderboard (Section 3).
 2. **Milestone Events** — Popup country events per milestone. All 30 events implemented across 6 paths: Conquest (`tv.conquest.1`–`5`), Prosperity (`tv.prosperity.1`–`5`), Trade (`tv.trade.1`–`5`), Diplomatic (`tv.diplomatic.1`–`5`), Cultural (`tv.cultural.1`–`5`), and Scientific (`tv.science.1`–`5`).

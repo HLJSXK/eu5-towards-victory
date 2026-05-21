@@ -12758,6 +12758,56 @@ PERFORM_tv_wonder_start_deep_drainage_ACTION={
 	message_category = society
 }
 
+PERFORM_tv_wonder_start_star_catalog_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_confirm_nautical_almanac_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_start_eclipse_proclamation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_request_tribute_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_start_embassy_quarter_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
 PERFORM_tv_request_research_target_ACTION={
 	log=yes
 	onmap=no
@@ -12962,6 +13012,36 @@ ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US={
 	log=yes
 	onmap=no
 	popup=yes
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+ACTION_tv_invite_to_diplomatic_alliance_PERFORMED_ON_US={
+	log=yes
+	onmap=no
+	popup=yes
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_expel_diplomatic_alliance_member_ACTION={
+	log=yes
+	onmap=no
+	popup=no
 	idle=no
 	option=yes
 	pausepopup=no

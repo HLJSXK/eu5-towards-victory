@@ -43,12 +43,7 @@ tv_wonder_can_build_great_port_trigger = {
 
 tv_wonder_can_build_giant_necropolis_trigger = {
 	any_owned_location = {
-		OR = {
-			topography = hills
-			any_neighbor_location = {
-				tv_wonder_location_is_city_or_town_trigger = yes
-			}
-		}
+		location_rank ?= location_rank:rural_settlement
 	}
 }
 
@@ -60,7 +55,10 @@ tv_wonder_can_build_great_lighthouse_trigger = {
 
 tv_wonder_can_build_hydraulic_workshop_trigger = {
 	any_owned_location = {
-		is_land = yes
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+		}
 	}
 }
 
@@ -78,6 +76,22 @@ tv_wonder_can_build_mining_city_trigger = {
 	}
 }
 
+tv_wonder_can_build_giant_observatory_trigger = {
+	any_owned_location = {
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
+	}
+}
+
+tv_wonder_can_build_palace_of_nations_trigger = {
+	any_owned_location = {
+		is_capital = yes
+	}
+}
+
 tv_wonder_has_any_feasible_proposal_trigger = {
 	OR = {
 		has_variable = tv_wonder_feasible_sacred_mountain
@@ -87,6 +101,8 @@ tv_wonder_has_any_feasible_proposal_trigger = {
 		has_variable = tv_wonder_feasible_great_lighthouse
 		has_variable = tv_wonder_feasible_hydraulic_workshop
 		has_variable = tv_wonder_feasible_mining_city
+		has_variable = tv_wonder_feasible_giant_observatory
+		has_variable = tv_wonder_feasible_palace_of_nations
 	}
 }
 
@@ -292,6 +308,14 @@ tv_wonder_has_valid_site_candidate_trigger = {
 			var:tv_wonder_locked ?= 7
 			tv_wonder_can_build_mining_city_trigger = yes
 		}
+		AND = {
+			var:tv_wonder_locked ?= 8
+			tv_wonder_can_build_giant_observatory_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 9
+			tv_wonder_can_build_palace_of_nations_trigger = yes
+		}
 	}
 }
 
@@ -490,7 +514,10 @@ tv_wonder_divine_investiture_ready_trigger = {
 
 tv_wonder_can_request_emissary_trigger = {
 	tv_wonder_ceremony_style_1_trigger = yes
-	var:tv_wonder_locked ?= 2
+	OR = {
+		var:tv_wonder_locked ?= 2
+		var:tv_wonder_locked ?= 9
+	}
 	var:tv_wonder_ceremony_progress ?= { this < 5 }
 }
 
@@ -634,4 +661,64 @@ tv_wonder_can_start_deep_drainage_trigger = {
 	tv_wonder_ceremony_style_3_trigger = yes
 	var:tv_wonder_locked ?= 7
 	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_can_start_star_catalog_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 8
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_nautical_almanac_ready_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 8
+	navy_tradition >= 10.00
+}
+
+tv_wonder_can_start_eclipse_proclamation_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 8
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_can_request_tribute_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 9
+	var:tv_wonder_ceremony_progress ?= { this < 5 }
+	any_subject = {
+		OR = {
+			NOT = { root = { has_variable_list = tv_wonder_tribute_subjects } }
+			NOT = {
+				root = {
+					is_target_in_variable_list = {
+						name = tv_wonder_tribute_subjects
+						target = prev
+					}
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_can_start_embassy_quarter_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 9
+	tv_wonder_construction_site_selected_trigger = yes
+	NOT = { has_variable = tv_wonder_ceremony_active }
+	var:tv_wonder_site ?= {
+		NOT = { has_building = building_type:tv_wonder_embassy_quarter }
+		NOT = {
+			any_buildings_in_location = {
+				building_type = building_type:tv_wonder_embassy_quarter
+				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_wonder_embassy_quarter_completion_ready_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 9
+	has_variable = tv_wonder_ceremony_active
+	tv_wonder_construction_site_selected_trigger = yes
 }

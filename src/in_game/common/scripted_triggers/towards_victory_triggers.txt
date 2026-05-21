@@ -160,6 +160,11 @@ tv_trade_milestone_5 = {
 
 tv_diplomatic_milestone_1 = {
 	custom_tooltip = {
+		text = TV_DIPLOMATIC_M1_TRIGGER_DESC
+		has_variable = tv_diplomatic_victory_points
+		var:tv_diplomatic_victory_points >= 1
+	}
+	custom_tooltip = {
 		text = TV_DIPLOMATIC_M1_EXTRA_TRIGGER_DESC
 		has_variable = tv_diplomatic_support_count
 		var:tv_diplomatic_support_count >= 2
@@ -170,12 +175,7 @@ tv_diplomatic_milestone_2 = {
 	custom_tooltip = {
 		text = TV_DIPLOMATIC_M2_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
-		var:tv_diplomatic_victory_points >= 120
-	}
-	custom_tooltip = {
-		text = TV_DIPLOMATIC_M2_EXTRA_TRIGGER_DESC
-		has_variable = tv_alliance_tier
-		var:tv_alliance_tier >= 3
+		var:tv_diplomatic_victory_points >= 50
 	}
 }
 
@@ -183,12 +183,7 @@ tv_diplomatic_milestone_3 = {
 	custom_tooltip = {
 		text = TV_DIPLOMATIC_M3_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
-		var:tv_diplomatic_victory_points >= 220
-	}
-	custom_tooltip = {
-		text = TV_DIPLOMATIC_M3_EXTRA_TRIGGER_DESC
-		has_variable = tv_alliance_tier
-		var:tv_alliance_tier >= 6
+		var:tv_diplomatic_victory_points >= 500
 	}
 }
 
@@ -196,12 +191,7 @@ tv_diplomatic_milestone_4 = {
 	custom_tooltip = {
 		text = TV_DIPLOMATIC_M4_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
-		var:tv_diplomatic_victory_points >= 380
-	}
-	custom_tooltip = {
-		text = TV_DIPLOMATIC_M4_EXTRA_TRIGGER_DESC
-		has_variable = tv_alliance_tier
-		var:tv_alliance_tier >= 9
+		var:tv_diplomatic_victory_points >= 2500
 	}
 }
 
@@ -209,12 +199,7 @@ tv_diplomatic_milestone_5 = {
 	custom_tooltip = {
 		text = TV_DIPLOMATIC_M5_TRIGGER_DESC
 		has_variable = tv_diplomatic_victory_points
-		var:tv_diplomatic_victory_points >= 580
-	}
-	custom_tooltip = {
-		text = TV_DIPLOMATIC_M5_EXTRA_TRIGGER_DESC
-		has_variable = tv_alliance_tier
-		var:tv_alliance_tier >= 12
+		var:tv_diplomatic_victory_points >= 15000
 	}
 }
 

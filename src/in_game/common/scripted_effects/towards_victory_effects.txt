@@ -614,7 +614,7 @@ tv_update_all_progress_pct_effect = {
 	}
 
 	# ── Diplomatic Victory ────────────────────────────────────────────────────
-	# piecewise: thresholds 50/120/220/380/580 → each milestone = +20%
+	# piecewise: thresholds 1/50/500/2500/15000 → each milestone = +20%
 	if = {
 		limit = {
 			custom_tooltip = {
@@ -622,44 +622,43 @@ tv_update_all_progress_pct_effect = {
 				has_variable = tv_diplomatic_victory_points
 			}
 		}
-		# Seg 1: 0–50 → 0–20
+		# Seg 1: 0-1 → 0-20
 		set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
 		change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-		change_variable = { name = tv_diplomatic_progress_pct divide = 50 }
-		# Seg 2: 50–120 → 20–40
+		# Seg 2: 1-50 → 20-40
+		if = {
+			limit = { var:tv_diplomatic_victory_points >= 1 }
+			set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
+			change_variable = { name = tv_diplomatic_progress_pct subtract = 1 }
+			change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
+			change_variable = { name = tv_diplomatic_progress_pct divide = 49 }
+			change_variable = { name = tv_diplomatic_progress_pct add = 20 }
+		}
+		# Seg 3: 50-500 → 40-60
 		if = {
 			limit = { var:tv_diplomatic_victory_points >= 50 }
 			set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
 			change_variable = { name = tv_diplomatic_progress_pct subtract = 50 }
 			change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-			change_variable = { name = tv_diplomatic_progress_pct divide = 70 }
-			change_variable = { name = tv_diplomatic_progress_pct add = 20 }
-		}
-		# Seg 3: 120–220 → 40–60
-		if = {
-			limit = { var:tv_diplomatic_victory_points >= 120 }
-			set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
-			change_variable = { name = tv_diplomatic_progress_pct subtract = 120 }
-			change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-			change_variable = { name = tv_diplomatic_progress_pct divide = 100 }
+			change_variable = { name = tv_diplomatic_progress_pct divide = 450 }
 			change_variable = { name = tv_diplomatic_progress_pct add = 40 }
 		}
-		# Seg 4: 220–380 → 60–80
+		# Seg 4: 500-2500 → 60-80
 		if = {
-			limit = { var:tv_diplomatic_victory_points >= 220 }
+			limit = { var:tv_diplomatic_victory_points >= 500 }
 			set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
-			change_variable = { name = tv_diplomatic_progress_pct subtract = 220 }
+			change_variable = { name = tv_diplomatic_progress_pct subtract = 500 }
 			change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-			change_variable = { name = tv_diplomatic_progress_pct divide = 160 }
+			change_variable = { name = tv_diplomatic_progress_pct divide = 2000 }
 			change_variable = { name = tv_diplomatic_progress_pct add = 60 }
 		}
-		# Seg 5: 380–580 → 80–100
+		# Seg 5: 2500-15000 → 80-100
 		if = {
-			limit = { var:tv_diplomatic_victory_points >= 380 }
+			limit = { var:tv_diplomatic_victory_points >= 2500 }
 			set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
-			change_variable = { name = tv_diplomatic_progress_pct subtract = 380 }
+			change_variable = { name = tv_diplomatic_progress_pct subtract = 2500 }
 			change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-			change_variable = { name = tv_diplomatic_progress_pct divide = 200 }
+			change_variable = { name = tv_diplomatic_progress_pct divide = 12500 }
 			change_variable = { name = tv_diplomatic_progress_pct add = 80 }
 		}
 		if = { limit = { var:tv_diplomatic_progress_pct > 100 } set_variable = { name = tv_diplomatic_progress_pct value = 100 } }
@@ -849,6 +848,19 @@ tv_grant_trade_milestone_5 = {
 # Diplomatic Victory
 tv_grant_diplomatic_milestone_1 = {
 	add_country_modifier = { modifier = tv_diplomatic_m1_bonus days = -1 }
+	if = {
+	    limit = {
+	        custom_tooltip = {
+	            text = TV_HAS_VARIABLE_NOT_SET_TT
+	            NOT = { has_variable = tv_diplomatic_victory_points }
+	        }
+	    }
+	    set_variable = { name = tv_diplomatic_victory_points value = 1 }
+	}
+	else_if = {
+	    limit = { var:tv_diplomatic_victory_points < 1 }
+	    set_variable = { name = tv_diplomatic_victory_points value = 1 }
+	}
 	if = {
 	    limit = {
 	        NOT = {

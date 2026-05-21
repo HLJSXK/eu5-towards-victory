@@ -470,6 +470,20 @@ organization_panel = {
 											align = nobaseline|left
 										}
 										text_multi = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)8.0')]"
+											max_width = 352
+											autoresize = yes
+											text = "TV_ENGINEERING_PROPOSAL_GIANT_OBSERVATORY_TEXT"
+											align = nobaseline|left
+										}
+										text_multi = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)9.0')]"
+											max_width = 352
+											autoresize = yes
+											text = "TV_ENGINEERING_PROPOSAL_PALACE_OF_NATIONS_TEXT"
+											align = nobaseline|left
+										}
+										text_multi = {
 											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0')]"
 											max_width = 352
 											autoresize = yes
@@ -516,6 +530,48 @@ organization_panel = {
 											max_width = 352
 											autoresize = yes
 											text = "TV_ENGINEERING_LOCKED_MINING_CITY_TEXT"
+											align = nobaseline|left
+										}
+										text_multi = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0')]"
+											max_width = 352
+											autoresize = yes
+											text = "TV_ENGINEERING_LOCKED_GIANT_OBSERVATORY_TEXT"
+											align = nobaseline|left
+										}
+										text_multi = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0')]"
+											max_width = 352
+											autoresize = yes
+											text = "TV_ENGINEERING_LOCKED_PALACE_OF_NATIONS_TEXT"
+											align = nobaseline|left
+										}
+										text_multi = {
+											visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)1.0'))]"
+											max_width = 352
+											autoresize = yes
+											text = "TV_ENGINEERING_LOCKED_DEBATE_GUIDANCE_TEXT"
+											align = nobaseline|left
+										}
+										text_multi = {
+											visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0'), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+											max_width = 352
+											autoresize = yes
+											text = "TV_ENGINEERING_LOCKED_SURVEY_GUIDANCE_TEXT"
+											align = nobaseline|left
+										}
+										text_multi = {
+											visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_complete').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet))]"
+											max_width = 352
+											autoresize = yes
+											text = "TV_ENGINEERING_LOCKED_BUILD_GUIDANCE_TEXT"
+											align = nobaseline|left
+										}
+										text_multi = {
+											visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_complete').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet)]"
+											max_width = 352
+											autoresize = yes
+											text = "TV_ENGINEERING_LOCKED_CEREMONY_GUIDANCE_TEXT"
 											align = nobaseline|left
 										}
 									}
@@ -1229,7 +1285,7 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 264 }
+						size = { 470 328 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
@@ -1329,10 +1385,25 @@ organization_panel = {
 								text_single = { size = { 72 16 } raw_text = "cap" align = nobaseline|center }
 							}
 
-							text_single = {
+							text_multi = {
 								layoutpolicy_horizontal = expanding
-								text = "TV_ENGINEERING_ORG_LOG_HELP_TEXT"
-								multiline = yes
+								max_width = 462
+								autoresize = yes
+								text = "TV_ENGINEERING_ORG_LOG_HELP_LABOR_TEXT"
+								align = nobaseline|left
+							}
+							text_multi = {
+								layoutpolicy_horizontal = expanding
+								max_width = 462
+								autoresize = yes
+								text = "TV_ENGINEERING_ORG_LOG_HELP_DEPOT_TEXT"
+								align = nobaseline|left
+							}
+							text_multi = {
+								layoutpolicy_horizontal = expanding
+								max_width = 462
+								autoresize = yes
+								text = "TV_ENGINEERING_ORG_LOG_HELP_DISPATCH_TEXT"
 								align = nobaseline|left
 							}
 						}
@@ -1774,10 +1845,12 @@ organization_panel = {
 
 									hbox = {
 										layoutpolicy_horizontal = expanding
+										ignoreinvisible = yes
 										spacing = 4
 										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0')]"
 											size = { 150 30 }
-											text = "TV_ENGINEERING_CEREMONY_STYLE_1_BUTTON"
+											text = "TV_ENGINEERING_CEREMONY_GOLDEN_SANCTUARY_BUTTON"
 											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')]"
 											title = "tv_wonder_choose_ceremony_style_1"
 											description = "tv_wonder_choose_ceremony_style_1_desc"
@@ -1785,8 +1858,89 @@ organization_panel = {
 											left_action = { action_name = "tv_wonder_choose_ceremony_style_1" }
 										}
 										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0')]"
 											size = { 150 30 }
-											text = "TV_ENGINEERING_CEREMONY_STYLE_2_BUTTON"
+											text = "TV_ENGINEERING_CEREMONY_SUN_KING_AXIS_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')]"
+											title = "tv_wonder_choose_ceremony_style_1"
+											description = "tv_wonder_choose_ceremony_style_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_1" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_GOLDEN_TRADE_PORT_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')]"
+											title = "tv_wonder_choose_ceremony_style_1"
+											description = "tv_wonder_choose_ceremony_style_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_1" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)4.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_DYNASTIC_NECROPOLIS_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')]"
+											title = "tv_wonder_choose_ceremony_style_1"
+											description = "tv_wonder_choose_ceremony_style_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_1" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)5.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_ETERNAL_LIGHTHOUSE_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')]"
+											title = "tv_wonder_choose_ceremony_style_1"
+											description = "tv_wonder_choose_ceremony_style_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_1" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)6.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_WATER_GOD_WORKSHOP_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')]"
+											title = "tv_wonder_choose_ceremony_style_1"
+											description = "tv_wonder_choose_ceremony_style_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_1" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_MINERS_OATH_CITY_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')]"
+											title = "tv_wonder_choose_ceremony_style_1"
+											description = "tv_wonder_choose_ceremony_style_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_1" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_STAR_CATALOG_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')]"
+											title = "tv_wonder_choose_ceremony_style_1"
+											description = "tv_wonder_choose_ceremony_style_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_1" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_CONGRESS_PALACE_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')]"
+											title = "tv_wonder_choose_ceremony_style_1"
+											description = "tv_wonder_choose_ceremony_style_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_1" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_ASCETIC_MOUNTAIN_BUTTON"
 											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')]"
 											title = "tv_wonder_choose_ceremony_style_2"
 											description = "tv_wonder_choose_ceremony_style_2_desc"
@@ -1794,8 +1948,169 @@ organization_panel = {
 											left_action = { action_name = "tv_wonder_choose_ceremony_style_2" }
 										}
 										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0')]"
 											size = { 150 30 }
-											text = "TV_ENGINEERING_CEREMONY_STYLE_3_BUTTON"
+											text = "TV_ENGINEERING_CEREMONY_MILITARY_CITY_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')]"
+											title = "tv_wonder_choose_ceremony_style_2"
+											description = "tv_wonder_choose_ceremony_style_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_2" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_IMPERIAL_NAVAL_PORT_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')]"
+											title = "tv_wonder_choose_ceremony_style_2"
+											description = "tv_wonder_choose_ceremony_style_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_2" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)4.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_ANCESTOR_SHRINE_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')]"
+											title = "tv_wonder_choose_ceremony_style_2"
+											description = "tv_wonder_choose_ceremony_style_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_2" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)5.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_NAVIGATOR_LIGHTHOUSE_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')]"
+											title = "tv_wonder_choose_ceremony_style_2"
+											description = "tv_wonder_choose_ceremony_style_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_2" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)6.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_HYDRAULIC_ARTISAN_GUILDHALL_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')]"
+											title = "tv_wonder_choose_ceremony_style_2"
+											description = "tv_wonder_choose_ceremony_style_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_2" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_ROYAL_MINT_CITY_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')]"
+											title = "tv_wonder_choose_ceremony_style_2"
+											description = "tv_wonder_choose_ceremony_style_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_2" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_NAUTICAL_ALMANAC_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')]"
+											title = "tv_wonder_choose_ceremony_style_2"
+											description = "tv_wonder_choose_ceremony_style_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_2" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_TRIBUTE_GALLERY_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')]"
+											title = "tv_wonder_choose_ceremony_style_2"
+											description = "tv_wonder_choose_ceremony_style_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_2" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_THEOCRATIC_CENTER_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')]"
+											title = "tv_wonder_choose_ceremony_style_3"
+											description = "tv_wonder_choose_ceremony_style_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_3" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_CIVIC_CAPITAL_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')]"
+											title = "tv_wonder_choose_ceremony_style_3"
+											description = "tv_wonder_choose_ceremony_style_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_3" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_FREE_TRADE_METROPOLIS_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')]"
+											title = "tv_wonder_choose_ceremony_style_3"
+											description = "tv_wonder_choose_ceremony_style_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_3" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)4.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_QUIET_LAND_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')]"
+											title = "tv_wonder_choose_ceremony_style_3"
+											description = "tv_wonder_choose_ceremony_style_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_3" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)5.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_LONG_WATCH_LIGHTHOUSE_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')]"
+											title = "tv_wonder_choose_ceremony_style_3"
+											description = "tv_wonder_choose_ceremony_style_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_3" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)6.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_WATERWHEEL_WORKSHOP_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')]"
+											title = "tv_wonder_choose_ceremony_style_3"
+											description = "tv_wonder_choose_ceremony_style_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_3" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_DEEP_SHAFT_CITY_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')]"
+											title = "tv_wonder_choose_ceremony_style_3"
+											description = "tv_wonder_choose_ceremony_style_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_3" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_ECLIPSE_OBSERVATORY_BUTTON"
+											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')]"
+											title = "tv_wonder_choose_ceremony_style_3"
+											description = "tv_wonder_choose_ceremony_style_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_wonder_choose_ceremony_style_3" }
+										}
+										action_button_diamond = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0')]"
+											size = { 150 30 }
+											text = "TV_ENGINEERING_CEREMONY_EMBASSY_PALACE_BUTTON"
 											down = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')]"
 											title = "tv_wonder_choose_ceremony_style_3"
 											description = "tv_wonder_choose_ceremony_style_3_desc"
@@ -1844,6 +2159,12 @@ organization_panel = {
 											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_ACTIVE_RITUAL_MINERS_RIGHTS" align = nobaseline|left }
 											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT" align = nobaseline|left }
 											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_ACTIVE_RITUAL_DEEP_DRAINAGE" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_ACTIVE_RITUAL_STAR_CATALOG" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_ACTIVE_RITUAL_NAUTICAL_ALMANAC" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_ACTIVE_RITUAL_ECLIPSE" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_ACTIVE_RITUAL_CONGRESS" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_ACTIVE_RITUAL_TRIBUTE" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_ACTIVE_RITUAL_EMBASSY_QUARTER" align = nobaseline|left }
 											text_single = {
 												visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet]"
 												text = "TV_ENGINEERING_RITUAL_EFFECT_LABEL"
@@ -1870,6 +2191,12 @@ organization_panel = {
 											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_RITUAL_MINERS_RIGHTS" align = nobaseline|left }
 											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_RITUAL_ROYAL_MINT" align = nobaseline|left }
 											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_RITUAL_DEEP_DRAINAGE" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_RITUAL_STAR_CATALOG" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_RITUAL_NAUTICAL_ALMANAC" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_RITUAL_ECLIPSE" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_RITUAL_CONGRESS" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_RITUAL_TRIBUTE" align = nobaseline|left }
+											text_multi = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]" max_width = 446 autoresize = yes text = "TV_ENGINEERING_RITUAL_EMBASSY_QUARTER" align = nobaseline|left }
 										}
 									}
 
@@ -1882,7 +2209,7 @@ organization_panel = {
 									}
 
 									hbox = {
-										visible = "[Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')), And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')))]"
+										visible = "[Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')), And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))))]"
 										layoutpolicy_horizontal = expanding
 										spacing = 6
 										text_single = { text = "TV_ENGINEERING_CEREMONY_PROGRESS_LABEL" align = nobaseline }
@@ -1891,7 +2218,7 @@ organization_panel = {
 									}
 
 									progressbar = {
-										visible = "[Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')), And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')))]"
+										visible = "[Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')), And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))))]"
 										size = { 462 16 }
 										using = progress_bar_goldish
 										min = 0
@@ -1901,7 +2228,7 @@ organization_panel = {
 									}
 
 									hbox = {
-										visible = "[Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)4.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)6.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')), And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')))))))]"
+										visible = "[Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)4.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)6.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))))))))]"
 										layoutpolicy_horizontal = expanding
 										spacing = 6
 										text_single = { text = "TV_ENGINEERING_CEREMONY_MONTHS_LABEL" align = nobaseline }
@@ -1910,7 +2237,7 @@ organization_panel = {
 									}
 
 									progressbar = {
-										visible = "[Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)4.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)6.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')), And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')))))))]"
+										visible = "[Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)2.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)3.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)4.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)6.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0')), Or(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0')), And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))))))))]"
 										size = { 462 16 }
 										using = progress_bar_blue_alt
 										min = 0
@@ -1946,6 +2273,12 @@ organization_panel = {
 										action_button_diamond = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_swear_miners_rights" description = "tv_wonder_swear_miners_rights_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_swear_miners_rights" } }
 										action_button_diamond = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_royal_mint" description = "tv_wonder_confirm_royal_mint_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_royal_mint" } }
 										action_button_diamond = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)7.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_start_deep_drainage" description = "tv_wonder_start_deep_drainage_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_start_deep_drainage" } }
+										action_button_diamond = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_start_star_catalog" description = "tv_wonder_start_star_catalog_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_start_star_catalog" } }
+										action_button_diamond = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_nautical_almanac" description = "tv_wonder_confirm_nautical_almanac_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_nautical_almanac" } }
+										action_button_diamond = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)8.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_start_eclipse_proclamation" description = "tv_wonder_start_eclipse_proclamation_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_start_eclipse_proclamation" } }
+										action_button_diamond = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_request_emissary" description = "tv_wonder_request_emissary_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_request_emissary" } }
+										action_button_diamond = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_request_tribute" description = "tv_wonder_request_tribute_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_request_tribute" } }
+										action_button_diamond = { visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)9.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_start_embassy_quarter" description = "tv_wonder_start_embassy_quarter_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_start_embassy_quarter" } }
 									}
 								}
 							}

@@ -64,7 +64,7 @@
 
  game_concept_tv_diplomatic_victory_points: "Diplomatic Victory Points"
  game_concept_tv_dvp: "DVP"
- game_concept_tv_diplomatic_victory_points_desc: "Diplomatic Victory Points (DVP) are earned permanently through statecraft: each [royal_marriage|e] concluded grants +3 DVP to both parties, and winning a [war|e] grants +5 DVP to the victor. DVP never decrease. Reach 580 to achieve the long-term [tv_victory_situation|E]."
+ game_concept_tv_diplomatic_victory_points_desc: "Diplomatic Victory Points (DVP) are earned through the [tv_diplomatic_alliance|e] reform path and diplomatic forecasting. Two countries offering [tv_diplomatic_support|e] found the alliance and grant the first point; later points come from monthly [tv_alliance_tier|e] output. Milestones are 1, 50, 500, 2,500, and 15,000 DVP."
 
  game_concept_tv_cultural_influence_points: "Cultural Influence Points"
  game_concept_tv_cip: "CIP"
@@ -88,7 +88,7 @@
  game_concept_tv_trade_victory_desc: "Command the world's commerce. Your [tv_trade_score|e] is a monthly snapshot of your total monthly trade income. Milestones 3 and 5 also require leading market dominance (5 and 10 markets respectively). Rewards focus on merchant capacity, trade efficiency, and trade income multipliers."
 
  game_concept_tv_diplomatic_victory: "Diplomatic Victory"
- game_concept_tv_diplomatic_victory_desc: "Forge the world's most powerful network of alliances and influence. The first milestone requires 2 countries offering [tv_diplomatic_support|e] and founds the [tv_diplomatic_alliance|e]. [tv_dvp|e] accumulate permanently through royal marriages (+3 each) and won wars (+5), with later milestones at 120, 220, 380, and 580."
+ game_concept_tv_diplomatic_victory_desc: "Forge the world's most powerful network of alliances and influence. The first milestone requires 2 countries offering [tv_diplomatic_support|e], founds the [tv_diplomatic_alliance|e], and grants the first [tv_dvp|e]. Further [tv_dvp|e] are generated each month from [tv_alliance_tier|e], with milestones at 1, 50, 500, 2,500, and 15,000."
 
  game_concept_tv_cultural_victory: "Cultural Victory"
  game_concept_tv_cultural_victory_desc: "Shape civilization through art and cultural exports. [tv_cip|e] accumulate permanently: +3 per work of art created and +1 per month passively. Milestones at 50, 200, 400, 800, and 1,600 reward artistic skill, prestige, and cultural tradition. Milestones 2 through 5 also require minimum [tv_arts_intl_influence|e] of 25, 50, 75, and 100."
@@ -136,6 +136,12 @@
  game_concept_tv_wonder_mining_city: "Mining City"
  game_concept_tv_wonder_mining_city_desc: "A planned extraction city of shafts, ore yards, drainage works, markets, and minting houses. High development and rural mineral frontiers suit it best, and its ceremonies decide how the mine, crown, and common workers share the underground wealth."
 
+ game_concept_tv_wonder_giant_observatory: "Giant Astronomical Observatory"
+ game_concept_tv_wonder_giant_observatory_desc: "A monumental observatory of towers, sighting galleries, catalog rooms, and instrument courts. Hills, plateaus, mountains, and literate local populations suit it best, and its ceremonies turn sky-watching toward scholarship, navigation, or omens."
+
+ game_concept_tv_wonder_palace_of_nations: "Palace of Nations"
+ game_concept_tv_wonder_palace_of_nations_desc: "A diplomatic palace raised in the capital to make hierarchy, audiences, and foreign presence permanent. Developed metropolitan ground suits it best, and its ceremonies can turn the palace toward congress, tribute, or standing embassy districts."
+
  game_concept_tv_wonder_domestic_support: "Domestic Support"
  game_concept_tv_wonder_domestic_support_desc: "A [tv_wonder_construction|e] resource representing elite and public willingness to sustain a major wonder project. Reach 100 to end the initial debate; support can be stored up to 200 and decays after the debate ends."
 
@@ -153,10 +159,10 @@
  game_concept_tv_diplomatic_support_desc: "A permanent pledge from another country backing your bid for [tv_diplomatic_victory|e]. Two supporters open the first milestone and found the [tv_diplomatic_alliance|e]."
 
  game_concept_tv_alliance_tier: "Alliance Tier"
- game_concept_tv_alliance_tier_desc: "A 0-15 [tv_diplomatic_alliance|e] variable representing the alliance's institutional development. Passing upgraded alliance laws spends [tv_alliance_cohesion|e] and increases [tv_alliance_tier|e]. [tv_diplomatic_victory|E] Milestones 2 through 5 require tiers 3, 6, 9, and 12 respectively."
+ game_concept_tv_alliance_tier_desc: "A 0-15 [tv_diplomatic_alliance|e] variable representing the alliance's institutional development. Passing upgraded alliance laws spends [tv_alliance_cohesion|e] and increases [tv_alliance_tier|e]. Each tier generates 1 [tv_dvp|e] per month for the founder."
 
  game_concept_tv_alliance_cohesion: "Alliance Cohesion"
- game_concept_tv_alliance_cohesion_desc: "A 0-100 [tv_diplomatic_alliance|e] variable measuring cooperation among alliance members. It grows each month from a base amount and from the leader country's diplomatic reputation. Upgraded alliance laws spend Cohesion to increase [tv_alliance_tier|e]."
+ game_concept_tv_alliance_cohesion_desc: "A 0-100 [tv_diplomatic_alliance|e] variable measuring cooperation among alliance members. It grows each month from base growth, the leader country's diplomatic reputation, and internal peace. Upgraded alliance laws spend Cohesion to increase [tv_alliance_tier|e]."
 
  # ── Cultural Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_arts_intl_influence: "International Influence"

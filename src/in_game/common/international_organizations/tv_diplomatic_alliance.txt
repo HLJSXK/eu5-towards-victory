@@ -48,7 +48,20 @@
 					add = {
 						desc = "TV_COHESION_DIPLOMATIC_REP"
 						value = leader_country.modifier:diplomatic_reputation
-						multiply = 0.05
+						multiply = 0.01
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							any_international_organization_member = {
+								at_war = yes
+							}
+						}
+					}
+					add = {
+						desc = "TV_COHESION_INTERNAL_PEACE"
+						value = 0.05
 					}
 				}
 			}
@@ -60,6 +73,29 @@
 	}
 
 	show_on_diplomatic_map = yes
+
+	monthly_effect = {
+		hidden_effect = {
+			leader_country ?= {
+				if = {
+					limit = {
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_NOT_SET_TT
+							NOT = { has_variable = tv_diplomatic_victory_points }
+						}
+					}
+					set_variable = { name = tv_diplomatic_victory_points value = 0 }
+				}
+			}
+			if = {
+				limit = { var:tv_alliance_tier > 0 }
+				set_local_variable = { name = tv_alliance_monthly_dvp value = var:tv_alliance_tier }
+				leader_country ?= {
+					change_variable = { name = tv_diplomatic_victory_points add = local_var:tv_alliance_monthly_dvp }
+				}
+			}
+		}
+	}
 
 	can_join_trigger = {
 		is_subject = no
@@ -80,6 +116,21 @@
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
 		}
+	}
+
+	on_joined = {
+		set_variable = { name = tv_diplomatic_alliance_member value = 1 }
+		scope:recipient = {
+			if = {
+				limit = { international_organization_has_leader = yes }
+				leader_country = { save_scope_as = tv_alliance_founder }
+				root = { set_variable = { name = tv_diplomatic_supporter_of value = scope:tv_alliance_founder } }
+			}
+		}
+	}
+
+	on_left = {
+		remove_variable = tv_diplomatic_alliance_member
 	}
 
 	create_visible_trigger = {
