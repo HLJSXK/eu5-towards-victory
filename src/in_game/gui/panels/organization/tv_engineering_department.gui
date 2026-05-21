@@ -311,54 +311,6 @@ organization_panel = {
 				}
 
 				blockoverride "common_header_text" {
-					text = "TV_ENGINEERING_WONDER_PIPELINE_CARD_TITLE"
-				}
-
-				blockoverride "common_bottom_content" {
-					widget = {
-						size = { 470 116 }
-
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							spacing = 6
-							margin = { 4 6 }
-
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								text = "TV_ENGINEERING_WONDER_PIPELINE_DESC"
-								multiline = yes
-								align = nobaseline|left
-							}
-
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 3
-								text_single = { size = { 86 28 } raw_text = "@build_icon! 1" tooltip = "TV_ENGINEERING_STAGE_CONCEPT" align = nobaseline|center }
-								text_single = { size = { 86 28 } raw_text = "@location! 2" tooltip = "TV_ENGINEERING_STAGE_SURVEY" align = nobaseline|center }
-								text_single = { size = { 92 28 } raw_text = "@laborers! 3" tooltip = "TV_ENGINEERING_STAGE_ORGANIZATION_LOGISTICS" align = nobaseline|center }
-								text_single = { size = { 86 28 } raw_text = "@construction! 4" tooltip = "TV_ENGINEERING_STAGE_CONSTRUCTION" align = nobaseline|center }
-								text_single = { size = { 86 28 } raw_text = "@prestige! 5" tooltip = "TV_ENGINEERING_STAGE_CEREMONY" align = nobaseline|center }
-							}
-
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								text = "TV_ENGINEERING_UI_PLACEHOLDER_NOTE"
-								multiline = yes
-								align = nobaseline|left
-							}
-						}
-					}
-				}
-			}
-
-			card_common = {
-				maximumsize = { 500 -1 }
-
-				blockoverride "common_header_icon_texture" {
-					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-				}
-
-				blockoverride "common_header_text" {
 					text = "TV_ENGINEERING_CONCEPT_CARD_TITLE"
 				}
 
