@@ -1,0 +1,8 @@
+tv_bad_country_interaction = {
+	type = diplomacy
+	potential = {
+		any_international_organizations_member_of = {
+			international_organization_type = international_organization_type:tv_diplomatic_alliance
+		}
+	}
+}

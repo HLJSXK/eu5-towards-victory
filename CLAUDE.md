@@ -16,7 +16,8 @@ or, when target files are known:
 conda run --no-capture-output -n eu5 python scripts/ai_context.py --files <path> [<path> ...]
 ```
 
-Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action.
+Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action. The IO risk card is also routed for IO definitions, IO laws, and country interactions that find or mutate TV international organizations.
+`src/in_game/common/laws/` is routed to the `international_organizations` risk card because IO policy scopes and AI math pre-evaluation have recurring runtime traps.
 
 ## Project Identity
 

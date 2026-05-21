@@ -565,6 +565,33 @@ def check_generic_action_pre_eval_risks(path: Path, content: str) -> None:
                     )
 
 
+def check_io_policy_ai_scope_recipient_guard(path: Path, content: str) -> None:
+    """Catch IO policy AI math that can be evaluated without a recipient IO target."""
+    rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
+    if "src/in_game/common/laws/" not in rel:
+        return
+
+    ai_math_blocks = [
+        "wants_this_policy_bias",
+        "wants_propose_policy",
+        "wants_keep_policy",
+        "reasons_to_join",
+        "diplomatic_capacity_cost",
+    ]
+    for block_name in ai_math_blocks:
+        for block_open, block_close in _iter_named_blocks(content, 0, len(content) - 1, block_name):
+            block_body = content[block_open + 1:block_close]
+            if "scope:recipient" not in block_body:
+                continue
+            has_unsafe_recipient = re.search(r"\bscope:recipient(?!\s*\?=)\b", block_body)
+            if has_unsafe_recipient and not re.search(r"\bexists\s*=\s*scope:recipient\b", block_body):
+                issues.append(
+                    f"[IO_POLICY_AI_SCOPE] {path.relative_to(REPO_ROOT)}:{_line_num(content, block_open)} -- "
+                    f"{block_name} uses `scope:recipient` without `exists = scope:recipient`; "
+                    "IO policy AI math may be pre-evaluated without a recipient event target."
+                )
+
+
 def _parse_issue_structured(raw: str) -> dict:
     """Parse a raw issue string into a structured dict for --ai-report output."""
     m = re.match(r"^\[(\w+)\]\s+([^:]+):(\d+)\s+--\s+Bad:\s+\"([^\"]*)\"\s+->\s+(.+)$", raw)
@@ -691,6 +718,7 @@ def main():
             if is_game_content:
                 check_anti_patterns(path, content, anti_patterns)
                 check_generic_action_pre_eval_risks(path, content)
+                check_io_policy_ai_scope_recipient_guard(path, content)
                 check_enums(path, content, enum_data)
                 check_modifier_names(path, content, modifier_whitelist)
 

@@ -94,6 +94,23 @@ main_menu/gfx/interface/icons/international_organizations/<io_type>.dds
 
 The filename should match the `common/international_organizations` type key, such as `tv_arts_exhibition.dds`. Without this matching texture, shared UI surfaces fall back to the generic international organization icon even if a custom organization panel displays another texture locally.
 
+#### Country Interaction Potential Scope
+
+In `common/country_interactions`, `potential` documents the acting country as `scope:actor`. Do not put country-scoped IO membership iterators directly under `potential`; wrap them in `scope:actor`:
+
+```pdx
+potential = {
+    scope:actor = {
+        any_international_organizations_member_of = {
+            international_organization_type = international_organization_type:tv_diplomatic_alliance
+            leader_country ?= scope:actor
+        }
+    }
+}
+```
+
+Direct `any_international_organizations_member_of` under `potential` can evaluate from an invalid root and log inconsistent trigger scopes (`invalid vs. country`). Vanilla `bribe_voter_for_policy` uses `scope:actor = { any_international_organizations_member_of = { ... } }` in its country interaction potential.
+
 #### International Organization Monthly Effects and Tooltips
 
 The shared IO tooltip can render visible children of an IO type's `monthly_effect` block. For internal monthly maintenance such as state repair, variable smoothing, member cleanup, or cached GUI refreshes, wrap the logic in `hidden_effect`:
@@ -168,7 +185,9 @@ on_activate = {
 
 Do not wrap those checks/effects in `scope:recipient = { ... }` unless the specific block documents `scope:recipient`. Runtime errors such as `Undefined event target 'recipient'` and `Event target link 'scope' returned an unset scope` can be caused by generated IO policies that use `scope:recipient` inside policy `allow`, `on_activate`, or `on_deactivate`.
 
-`scope:recipient` is documented for IO policy AI math blocks such as `wants_this_policy_bias`, `wants_propose_policy`, `wants_keep_policy`, `reasons_to_join`, and `diplomatic_capacity_cost`, where root is a country and recipient is the IO. Vanilla laws commonly use `scope:recipient` in those AI math blocks to read the IO or its leader.
+`scope:recipient` is documented for IO policy AI math blocks such as `wants_this_policy_bias`, `wants_propose_policy`, `wants_keep_policy`, `reasons_to_join`, and `diplomatic_capacity_cost`, where root is a country and recipient is the IO. In custom non-unique IO laws, the engine can still pre-evaluate these maths without a recipient event target. Guard direct recipient reads with `exists = scope:recipient` in the same `limit` block, or use optional `scope:recipient ?= { ... }` for trigger-only checks, before reading `scope:recipient.leader_country` or IO variables.
+
+`generic_action_ai_lists` potentials use the evaluating country as root. Inside `any_international_organizations_member_of`, `this` is the iterated IO, so `leader_country = this` compares a country to an international organization and logs a type-mismatch error. Use `exists = leader_country` plus `leader_country = root` for leader-only action lists.
 
 #### International Organization Law Votes and Special Status Power
 

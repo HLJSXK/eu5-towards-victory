@@ -734,6 +734,17 @@
   source: "src/in_game/common/scripted_triggers/tv_arts_exhibition_triggers.txt:7-10; runtime error.log tv_engineering_department_triggers.txt:68"
   notes: "The trigger iterator treats direct children as trigger clauses; limit is not a trigger here and logs 'Unknown trigger type: limit'."
 
+- id: country_interaction_potential_io_iterator_without_actor
+  pattern: 'potential\s*=\s*\{\s*(?:hidden_trigger\s*=\s*\{\s*)?(?:NOT\s*=\s*\{\s*)?any_international_organizations_member_of\s*='
+  detectability: lint
+  only_in_paths: ['country_interactions']
+  bad: "any_international_organizations_member_of directly under country_interaction potential"
+  correction: "Wrap country-scoped checks in scope:actor = { ... } inside country_interaction potential."
+  category: scope
+  scope: country
+  source: "reference_official_defines/types/country_interactions.txt:11; reference_game_files/game/in_game/common/country_interactions/bribe_vote.txt:26-33"
+  notes: "country_interaction potential does not provide a country root for this iterator; direct usage logs inconsistent trigger scopes (invalid vs. country). Official defines document scope:actor as the acting country."
+
 - id: tv_io_chooses_new_leader_forbidden
   pattern: 'international_organization_chooses_new_leader'
   bad: "Calling international_organization_chooses_new_leader anywhere in TV IO-related code (leader management actions, on_action, events, effects)"
@@ -1035,6 +1046,27 @@
   scope: international_organization
   source: "reference_game_files/game/in_game/common/laws/readme.txt:31-40; runtime error.log tv_alliance_laws.txt 2026-05-21"
   notes: "Generated Diplomatic Alliance laws wrapped IO variable checks and tier changes in scope:recipient in execution blocks. At runtime those blocks had no recipient event target, causing repeated 'Undefined event target recipient' and unset-scope errors."
+
+- id: io_policy_ai_math_scope_recipient_requires_exists
+  pattern: ''
+  detectability: needs_parser
+  bad: "Using scope:recipient inside IO policy AI math without first checking exists = scope:recipient"
+  correction: "In wants_this_policy_bias, wants_propose_policy, wants_keep_policy, reasons_to_join, and diplomatic_capacity_cost, guard direct scope:recipient reads with exists = scope:recipient or use optional scope:recipient ?= blocks."
+  category: scope
+  scope: international_organization
+  source: "reference_official_defines/types/laws.txt:39-43; reference_game_files/game/in_game/common/resolutions/policy_vote.txt:408; runtime error.log tv_alliance_laws.txt 2026-05-21"
+  notes: "Although the law readme documents recipient = IO for policy AI math, the engine can pre-evaluate these maths without a recipient event target. Unguarded scope:recipient reads caused repeated 'Undefined event target recipient' and unset-scope errors in generated Diplomatic Alliance laws."
+
+- id: generic_action_ai_list_io_leader_country_this
+  pattern: 'any_international_organizations_member_of\s*=\s*\{[^{}]*\bleader_country\s*=\s*this\b'
+  detectability: lint
+  only_in_paths: ['generic_action_ai_lists']
+  bad: "Comparing leader_country to this inside any_international_organizations_member_of in a generic_action_ai_list"
+  correction: "The AI-list potential root is the evaluating country, while this becomes the IO inside the iterator. Compare with root instead: exists = leader_country; leader_country = root."
+  category: scope
+  scope: country
+  source: "reference_game_files/game/in_game/common/generic_action_ai_lists/readme.txt:10; reference_game_files/game/in_game/common/generic_action_ai_lists/high_kingship_of_ireland_list.txt:13-15"
+  notes: "Inside the IO membership iterator, this is the international organization. leader_country = this compares a country to an international_organization and logs a type-mismatch error."
 
 - id: io_parliament_issue_without_special_status_agenda
   pattern: ''

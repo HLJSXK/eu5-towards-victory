@@ -30,6 +30,8 @@ DOMAIN_RULES = [
     ("generic_actions", "src/in_game/common/generic_actions/", "generic_actions.md"),
     ("gui", "src/in_game/gui/", "gui.md"),
     ("international_organizations", "src/in_game/common/international_organizations/", "international_organizations.md"),
+    ("international_organizations", "src/in_game/common/laws/", "international_organizations.md"),
+    ("international_organizations", "src/in_game/common/country_interactions/", "international_organizations.md"),
     ("events", "src/in_game/events/", None),
     ("on_action", "src/in_game/common/on_action/", "on_action.md"),
 ]

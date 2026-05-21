@@ -1,0 +1,10 @@
+tv_good_country_interaction = {
+	type = diplomacy
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+			}
+		}
+	}
+}

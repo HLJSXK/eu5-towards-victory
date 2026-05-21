@@ -2,7 +2,8 @@
 	potential = {
 		any_international_organizations_member_of = {
 			international_organization_type = international_organization_type:tv_diplomatic_alliance
-			leader_country = this
+			exists = leader_country
+			leader_country = root
 		}
 	}
 	actions = {

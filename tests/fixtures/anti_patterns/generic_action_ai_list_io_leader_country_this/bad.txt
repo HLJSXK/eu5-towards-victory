@@ -1,0 +1,11 @@
+tv_example_list = {
+	potential = {
+		any_international_organizations_member_of = {
+			international_organization_type = international_organization_type:tv_example
+			leader_country = this
+		}
+	}
+	actions = {
+		tv_example_action
+	}
+}

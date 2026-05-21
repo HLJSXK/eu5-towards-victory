@@ -32,6 +32,22 @@ that create, find, or mutate TV IOs.
    for documented country-root AI math blocks such as `wants_this_policy_bias` and
    `wants_propose_policy`.
 
+7. Guard IO law AI math recipient reads.
+   `wants_this_policy_bias`, `wants_propose_policy`, `wants_keep_policy`, `reasons_to_join`,
+   and `diplomatic_capacity_cost` may be pre-evaluated without a recipient event target.
+   Before direct `scope:recipient` reads, add `exists = scope:recipient` in the same limit
+   block, or use optional `scope:recipient ?= { ... }` when a trigger-only check is enough.
+
+8. Use the evaluating country in generic action AI-list IO filters.
+   `generic_action_ai_lists` potential root is the country. Inside
+   `any_international_organizations_member_of`, `this` is the IO, so leader checks should use
+   `exists = leader_country` plus `leader_country = root`, not `leader_country = this`.
+
+9. Use `scope:actor` in country interaction potential blocks.
+   In `common/country_interactions`, `potential` exposes the acting country as `scope:actor`.
+   Wrap IO membership checks in `scope:actor = { ... }`; direct country-scoped IO iterators
+   under `potential` can evaluate from an invalid root.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then inspect shared IO tooltips in game. Tooltip
