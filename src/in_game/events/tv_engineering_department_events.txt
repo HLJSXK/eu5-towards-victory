@@ -555,6 +555,57 @@ tv_engineering_department.500 = {
 	}
 }
 
+tv_engineering_department.600 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_sacred }
+				desc = tv_engineering_department.600.d_sacred
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_axis }
+				desc = tv_engineering_department.600.d_axis
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_port }
+				desc = tv_engineering_department.600.d_port
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_necropolis }
+				desc = tv_engineering_department.600.d_necropolis
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_lighthouse }
+				desc = tv_engineering_department.600.d_lighthouse
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_hydraulic }
+				desc = tv_engineering_department.600.d_hydraulic
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_mining }
+				desc = tv_engineering_department.600.d_mining
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_observatory }
+				desc = tv_engineering_department.600.d_observatory
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_palace }
+				desc = tv_engineering_department.600.d_palace
+			}
+			desc = tv_engineering_department.600.d
+		}
+	}
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
 tv_engineering_department.511 = {
 	type = country_event
 	title = tv_engineering_department.511.t

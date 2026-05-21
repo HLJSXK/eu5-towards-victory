@@ -828,10 +828,21 @@ track objects and plays them through `MusicPlayerTrack.Play`; current references
 show EU4-style `songs.txt` trigger/chance rules for country, war, date, variable, or event
 conditions.
 
-Treat automatic conditional playback as Wwise/engine-side unless a later verified script
-type exposes music triggers. EU5 script can clearly add player-visible track metadata, and
-GUI can manually play a registered track object, but no verified country/event effect was
-found that forces a specific music-player track from normal game script.
+Do not infer from this file that EU5 cannot trigger music. It can: vanilla GUI calls
+`Audio_PlayEvent('mus_culture_track_start', 'music_manager')` when entering the game.
+That is a Wwise/audio-manager event, not a `music_player_tracks` trigger rule. The
+declare-war panel's visible button is a hardcoded `DeclareWarLateralView.GetDeclareWarAction`,
+and `on_war_declared` is a hardcoded script hook with scopes for actor, recipient, and war.
+If a mod needs conditional music, the verified routes are therefore:
+
+- register the Wwise event key in `music_player_tracks` for player-visible metadata;
+- trigger a Wwise music event from GUI with `Audio_PlayEvent(<event>, 'music_manager')`;
+- use script hooks such as `on_war_declared` to set state or fire UI/events, then verify
+  whether the desired audio event can be called from that context.
+
+Current references still do not show a normal country/event effect that directly plays a
+named music-player track by track key. The safe distinction is: `music_player_tracks`
+registers tracks; Wwise/audio-manager events and hardcoded action hooks drive playback.
 
 ### 11.2 Audio Culture and Environment Tags
 

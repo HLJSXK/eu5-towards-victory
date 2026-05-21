@@ -966,6 +966,18 @@
  tv_engineering_department.500.d_palace_3: "常设使馆区在万国宫城旁开门。外国宫廷如今在首都拥有永久门槛，这意味着外交会在我们的日常天气中醒来、用餐、抱怨、恭维并讨价还价。[tv_wonder_ceremony|E]并非以离去结束，而是以让离去不再必要结束。国家给外国注意力一个地址，并把这个地址安放在自己的城墙之下。"
  tv_engineering_department.500.d: "[tv_engineering_department|E]已经完成[tv_wonder_ceremony|e]，这座纪念碑如今成为国家野心的永久标志。脚手架已经撤去，账册已经封存，公众开始进行任何工程师都无法完成的工作：决定这座奇观究竟意味着什么。有人会称其为荣耀，有人会称其为奢靡，也有人会称其为时代已变的证明。所有人都必须看见它。这本身已经是一种胜利。"
  tv_engineering_department.500.a: "让时代记住它。"
+ tv_engineering_department.600.t: "世界奇观落成"
+ tv_engineering_department.600.d_sacred: "来自[SCOPE.sCountry('tv_wonder_builder_country').GetName]的消息传来：一座[tv_wonder_sacred_mountain|E]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]升起。朝圣者、使节和抱着怀疑态度的账吏都在谈论阶台、圣所，以及被信仰驯服的石材。无论旁人称其为虔敬还是野心，这项工程已经让信仰获得了足以被远方宫廷讨论的形体。"
+ tv_engineering_department.600.d_axis: "来自[SCOPE.sCountry('tv_wonder_builder_country').GetName]的报告称，一座[tv_wonder_triumphal_axis|E]已经在[SCOPE.sLocation('tv_wonder_completed_site').GetName]落成。道路、广场、队列与石材被编排成公共权威的语法。外国观察者或许会争论它是否雅致，却无人能错过其中的信息：那里的权力已经学会沿直线行进。"
+ tv_engineering_department.600.d_port: "船只带来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成一座[tv_wonder_great_port|E]。水手如今传说着码头、货栈、典礼，以及被建筑驯入秩序的财富。商人会用利润衡量它，海军会用触及范围衡量它，而对手会不安地明白：港口也能成为纪念碑。"
+ tv_engineering_department.600.d_necropolis: "信使报告称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成一座[tv_wonder_giant_necropolis|E]。墓道与纪念厅将统治、血脉和记忆绑定为一片巨大的景观。死者不会说话，但当祖先的语言被刻得足够深时，每一座宫廷都听得懂。"
+ tv_engineering_department.600.d_lighthouse: "海员带来[SCOPE.sCountry('tv_wonder_builder_country').GetName]的消息：一座[tv_wonder_great_lighthouse|E]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]点亮。它的信标已经进入水手故事，成了由政策、劳作和顽强火焰制造的第二颗星辰。有人会称它为指引，有人会称它为警告，但每一条海岸线都有理由注意。"
+ tv_engineering_department.600.d_hydraulic: "消息流传开来：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成一座[tv_wonder_hydraulic_workshop|E]。沟渠、水轮、水闸与工坊如今让水流在公众面前表演市民秩序。它比黄金或军队安静，却足以让统治者尊重任何能让河流服从日程的国家。"
+ tv_engineering_department.600.d_mining: "来自[SCOPE.sCountry('tv_wonder_builder_country').GetName]的旅人谈起[SCOPE.sLocation('tv_wonder_completed_site').GetName]落成的[tv_wonder_mining_city|E]。矿井、熔炉、铸币、誓言与市场被牵入同一具工业城市身体。大地在仪式中被打开，而世界将注视那里会从黑暗中取出怎样的财富。"
+ tv_engineering_department.600.d_observatory: "学者与水手共同传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成一座[tv_wonder_giant_observatory|E]。塔楼与表册如今承诺，天空可以由国家的耐心来观测。敬畏仍在，只是它如今拥有了仪器、记录，以及愿意资助二者的宫廷。"
+ tv_engineering_department.600.d_palace: "使节报告称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]为一座[tv_wonder_palace_of_nations|E]举行落成礼。觐见厅、长廊和使馆门槛把外交转化为建筑。外国事务仍会焦虑而尖锐，但它如今有了一座让东道主无法被绕开的舞台。"
+ tv_engineering_department.600.d: "来自[SCOPE.sCountry('tv_wonder_builder_country').GetName]的消息传来：一座世界奇观已经在[SCOPE.sLocation('tv_wonder_completed_site').GetName]落成。关于它的花费、美感、用途与智慧，各方说法不一，但有一点无人否认：这项工程太大，已经不可能只属于当地。它进入了统治者们共同的谈话。"
+ tv_engineering_department.600.a: "世界已经听见。"
 
  # Wonder support effect localization
  TV_ADD_WONDER_DOMESTIC_SUPPORT: "获得$VALUE|+$#Y $tv_wonder_domestic_support$#!"

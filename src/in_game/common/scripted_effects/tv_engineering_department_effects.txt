@@ -2110,12 +2110,10 @@ tv_wonder_begin_construction_part_effect = {
 
 tv_wonder_after_unit_completed_effect = {
 	set_variable = { name = tv_wonder_previous_level value = var:tv_wonder_level }
-	tv_change_wonder_domestic_support_effect = { value = 20 }
 	trigger_event_non_silently = { id = tv_engineering_department.200 }
 	tv_wonder_update_wonder_level_effect = yes
 	if = {
 		limit = { var:tv_wonder_level > var:tv_wonder_previous_level }
-		tv_change_wonder_domestic_support_effect = { value = 20 }
 		trigger_event_non_silently = { id = tv_engineering_department.201 }
 	}
 	remove_variable = tv_wonder_previous_level
@@ -2625,6 +2623,58 @@ tv_wonder_reward_current_ruler_and_engineer_effect = {
 	}
 }
 
+tv_wonder_broadcast_completion_event_effect = {
+	save_scope_as = tv_wonder_builder_country
+	if = {
+		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		var:tv_wonder_site ?= { save_scope_as = tv_wonder_completed_site }
+	}
+	if = {
+		limit = { var:tv_wonder_locked ?= 1 }
+		save_scope_as = tv_wonder_completed_sacred
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 2 }
+		save_scope_as = tv_wonder_completed_axis
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 3 }
+		save_scope_as = tv_wonder_completed_port
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 4 }
+		save_scope_as = tv_wonder_completed_necropolis
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 5 }
+		save_scope_as = tv_wonder_completed_lighthouse
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 6 }
+		save_scope_as = tv_wonder_completed_hydraulic
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 7 }
+		save_scope_as = tv_wonder_completed_mining
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 8 }
+		save_scope_as = tv_wonder_completed_observatory
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 9 }
+		save_scope_as = tv_wonder_completed_palace
+	}
+	every_country = {
+		limit = {
+			exists = capital
+			exists = scope:tv_wonder_builder_country
+			exists = scope:tv_wonder_completed_site
+		}
+		trigger_event_non_silently = { id = tv_engineering_department.600 }
+	}
+}
+
 tv_wonder_finalize_effect = {
 	if = {
 		limit = { tv_wonder_has_selected_ceremony_trigger = yes }
@@ -2659,6 +2709,7 @@ tv_wonder_complete_finalization_effect = {
 		add_legitimacy = { value = var:tv_wonder_final_legitimacy_reward }
 		add_prestige = { value = var:tv_wonder_final_prestige_reward }
 		hidden_effect = {
+			tv_wonder_broadcast_completion_event_effect = yes
 			tv_wonder_clear_project_state_effect = yes
 		}
 	}
