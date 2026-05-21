@@ -410,6 +410,17 @@
   source: "runtime error.log: tv_govhouse.40 -> tv_govhouse_approve_pending_tactic_effect -> tv_govhouse_apply_tactic_effect"
   notes: "EU5 event option tooltip generation may pre-evaluate option effects without committing earlier set_variable writes. A later visible direct var:X comparison can fetch an unset variable repeatedly while the event is open."
 
+- id: event_option_temp_variable_used_by_visible_helper
+  detectability: needs_parser
+  pattern: ''
+  only_in_paths: ['events', 'scripted_effects']
+  bad: "Event option or visible event helper computes a temporary variable and a later visible helper compares var:X or uses scope.var:X as an effect value"
+  correction: "Do not rely on temporary variables written earlier in the same visible option/effect chain. Use optional checks directly against persistent state, branch over bounded values with literals, or wrap the state-changing chain in hidden_effect when the nested tooltip is not needed."
+  category: event
+  scope: any
+  source: "runtime error.log: tv_engineering_department.500 -> tv_wonder_complete_finalization_effect -> tv_wonder_construct_final_building_effect -> tv_wonder_construct_final_building_in_site_effect"
+  notes: "The event option tooltip pre-evaluator did not commit tv_wonder_final_building_extra_levels before the nested helper ran. The helper logged Invalid left side during comparison 'var', Failed to fetch variable, and Event target link 'var' returned an unset scope when it compared and reused the temporary variable."
+
 - id: generic_action_effect_reads_newly_set_variable
   detectability: needs_parser
   pattern: ''

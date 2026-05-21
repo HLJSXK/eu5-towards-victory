@@ -32,7 +32,7 @@ DOMAIN_RULES = [
     ("international_organizations", "src/in_game/common/international_organizations/", "international_organizations.md"),
     ("international_organizations", "src/in_game/common/laws/", "international_organizations.md"),
     ("international_organizations", "src/in_game/common/country_interactions/", "international_organizations.md"),
-    ("events", "src/in_game/events/", None),
+    ("events", "src/in_game/events/", "events.md"),
     ("on_action", "src/in_game/common/on_action/", "on_action.md"),
 ]
 
