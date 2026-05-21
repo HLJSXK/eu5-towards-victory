@@ -2444,6 +2444,10 @@ tv_wonder_apply_ceremony_modifier_effect = {
 		limit = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 2 }
 		add_country_modifier = { modifier = tv_wonder_tribute_gallery_modifier years = -1 mode = add_and_extend }
 	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 3 }
+		add_country_modifier = { modifier = tv_wonder_embassy_palace_modifier years = -1 mode = add_and_extend }
+	}
 }
 
 tv_wonder_construct_final_building_in_site_effect = {
@@ -2930,9 +2934,6 @@ tv_wonder_start_ancestor_festival_effect = {
 tv_wonder_dedicate_quiet_land_effect = {
 	if = {
 		limit = { tv_wonder_can_dedicate_quiet_land_trigger = yes }
-		var:tv_wonder_site ?= {
-			add_location_modifier = { modifier = tv_wonder_quiet_land_location_modifier years = -1 mode = add_and_extend }
-		}
 		tv_wonder_finalize_effect = yes
 	}
 }
@@ -2996,9 +2997,6 @@ tv_wonder_complete_waterwheel_effect = {
 tv_wonder_swear_miners_rights_effect = {
 	if = {
 		limit = { tv_wonder_can_swear_miners_rights_trigger = yes }
-		var:tv_wonder_site ?= {
-			add_location_modifier = { modifier = tv_wonder_miners_rights_location_modifier years = -1 mode = add_and_extend }
-		}
 		tv_wonder_finalize_effect = yes
 	}
 }
