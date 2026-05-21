@@ -232,6 +232,7 @@ tv_research_concentrated_complete_effect = {
 	set_variable = { name = tv_research_phase value = 0 }
 	hidden_effect = {
 		tv_upgrade_great_scientist_trait_effect = yes
+		tv_update_chief_scientist_effective_adm_effect = yes
 		remove_country_modifier = tv_concentrated_research_penalty
 	}
 	trigger_event_non_silently = { id = tv_research.30 }
