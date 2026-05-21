@@ -1,0 +1,39 @@
+{
+  "api": {
+    "endpoint": "https://www.packyapi.com/v1/images/generations",
+    "api_key_env": [
+      "PACKY_API_KEY",
+      "PACKY_SORA_TOKEN"
+    ],
+    "api_key": "",
+    "timeout_seconds": 180
+  },
+  "image": {
+    "model": "gpt-image-2",
+    "prompt": "A monumental 14th–18th century “Grand Necropolis Complex” designed for a grand strategy game world wonder illustration. A vast sacred burial landscape stretching across desert plains and rocky highlands, filled with colossal mausoleums, pyramid-like tombs, imperial crypt-palaces, and carved cliffside funerary temples. Endless ceremonial avenues connect dynastic tombs, ancestor shrines, and memorial obelisks. Processions of priests and mourners move through ritual pathways surrounded by incense smoke and eternal flame shrines. Architecture blends Egyptian, Persian, Mesoamerican-inspired step structures, Mughal funerary design, and medieval European royal tomb traditions into a unified sacred civilization aesthetic. The atmosphere is solemn yet divine, symbolizing eternal empire and memory. Cinematic dusk lighting, long shadows, ultra-detailed matte painting, epic historical realism, no modern elements.",
+    "size": "1536x1024",
+    "quality": "high",
+    "output_format": "png",
+    "response_format": "b64_json",
+    "n": 1,
+    "background": "opaque",
+    "moderation": "auto",
+    "user": "towards_victory"
+  },
+  "output": {
+    "name": "giant_necropolis",
+    "overwrite": false,
+    "keep_png": true,
+    "write_metadata": true,
+    "png_dir": "data/generated_wonders",
+    "dds_dir": "src/main_menu/gfx/interface/illustrations/towards_victory/wonders"
+  },
+  "dds": {
+    "format": "DXT1",
+    "opaque_background": [
+      0,
+      0,
+      0
+    ]
+  }
+}
