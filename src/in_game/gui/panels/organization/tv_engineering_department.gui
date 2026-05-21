@@ -261,19 +261,8 @@ organization_panel = {
 									align = nobaseline
 								}
 							}
-							action_button_diamond = {
-								visible = "[And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
-								size = { 462 30 }
-								text = "TV_ENGINEERING_SELECT_SURVEY_SITE_BUTTON"
-								title = "tv_wonder_start_survey"
-								description = "tv_wonder_start_survey_desc"
-								actor = "[InternationalOrganizationsView.GetPlayer]"
-								left_action = {
-									action_name = "tv_wonder_start_survey"
-								}
-							}
 							hbox = {
-								visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+								visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
 								layoutpolicy_horizontal = expanding
 								spacing = 6
 								action_button_diamond = {
@@ -935,19 +924,8 @@ organization_panel = {
 									align = nobaseline
 								}
 							}
-							action_button_diamond = {
-								visible = "[And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
-								size = { 462 30 }
-								text = "TV_ENGINEERING_SELECT_SURVEY_SITE_BUTTON"
-								title = "tv_wonder_start_survey"
-								description = "tv_wonder_start_survey_desc"
-								actor = "[InternationalOrganizationsView.GetPlayer]"
-								left_action = {
-									action_name = "tv_wonder_start_survey"
-								}
-							}
 							hbox = {
-								visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+								visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
 								layoutpolicy_horizontal = expanding
 								spacing = 6
 								action_button_diamond = {
@@ -1187,19 +1165,8 @@ organization_panel = {
 									align = nobaseline
 								}
 							}
-							action_button_diamond = {
-								visible = "[And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
-								size = { 462 30 }
-								text = "TV_ENGINEERING_SELECT_SURVEY_SITE_BUTTON"
-								title = "tv_wonder_start_survey"
-								description = "tv_wonder_start_survey_desc"
-								actor = "[InternationalOrganizationsView.GetPlayer]"
-								left_action = {
-									action_name = "tv_wonder_start_survey"
-								}
-							}
 							hbox = {
-								visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+								visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
 								layoutpolicy_horizontal = expanding
 								spacing = 6
 								action_button_diamond = {
