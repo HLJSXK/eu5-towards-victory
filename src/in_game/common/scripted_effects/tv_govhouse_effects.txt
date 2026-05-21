@@ -313,6 +313,13 @@ tv_training_resolve_effect = {
 # ── War Tent (战帐): tactics and war plans ──────────────────────────────────
 # Scope for all effects in this section: country.
 
+tv_govhouse_clear_capital_raid_locations_effect = {
+	every_in_list = { variable = tv_govhouse_tactic_capital_raid_locations
+		remove_location_modifier = tv_govhouse_tactic_capital_raid
+	}
+	clear_variable_list = tv_govhouse_tactic_capital_raid_locations
+}
+
 tv_govhouse_remove_tactic_modifiers_effect = {
 	remove_country_modifier = tv_govhouse_tactic_steady_advance
 	remove_country_modifier = tv_govhouse_tactic_careful_advance
@@ -321,6 +328,10 @@ tv_govhouse_remove_tactic_modifiers_effect = {
 	remove_country_modifier = tv_govhouse_tactic_siege_relief
 	remove_country_modifier = tv_govhouse_tactic_ambush_general
 	remove_country_modifier = tv_govhouse_tactic_surprise_general
+	remove_country_modifier = tv_govhouse_tactic_counterattack
+	remove_country_modifier = tv_govhouse_tactic_forced_march
+	remove_country_modifier = tv_govhouse_tactic_encirclement
+	tv_govhouse_clear_capital_raid_locations_effect = yes
 }
 
 tv_govhouse_clear_tactic_effect = {
@@ -328,6 +339,36 @@ tv_govhouse_clear_tactic_effect = {
 	remove_variable = tv_govhouse_pending_tactic
 	remove_variable = tv_govhouse_active_tactic
 	remove_variable = tv_govhouse_tactic_offered_this_war
+}
+
+tv_govhouse_apply_capital_raid_tactic_effect = {
+	save_scope_as = tv_govhouse_capital_raid_owner
+	tv_govhouse_clear_capital_raid_locations_effect = yes
+	if = {
+		limit = { at_war = yes }
+		every_country_at_war_with = {
+			save_scope_as = tv_govhouse_capital_raid_target
+			capital = {
+				province = {
+					every_location_in_province = {
+						limit = { owner ?= scope:tv_govhouse_capital_raid_target }
+						save_scope_as = tv_govhouse_capital_raid_location
+						add_location_modifier = {
+							modifier = tv_govhouse_tactic_capital_raid
+							years = -1
+							mode = replace
+						}
+						scope:tv_govhouse_capital_raid_owner = {
+							add_to_variable_list = {
+								name = tv_govhouse_tactic_capital_raid_locations
+								target = scope:tv_govhouse_capital_raid_location
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 tv_govhouse_pick_pending_tactic_effect = {
@@ -344,98 +385,50 @@ tv_govhouse_pick_pending_tactic_effect = {
 				NOT = { has_variable = tv_govhouse_pending_tactic }
 			}
 		}
-		if = {
-			limit = {
-				OR = {
-					NOT = { has_variable = tv_govhouse_active_tactic }
-					var:tv_govhouse_active_tactic ?= { this < 1 }
-					var:tv_govhouse_active_tactic ?= { this > 7 }
-				}
+		random_list = {
+			1 = {
+				trigger = { NOT = { var:tv_govhouse_active_tactic ?= 1 } }
+				set_variable = { name = tv_govhouse_pending_tactic value = 1 }
 			}
-			random_list = {
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			1 = {
+				trigger = { NOT = { var:tv_govhouse_active_tactic ?= 2 } }
+				set_variable = { name = tv_govhouse_pending_tactic value = 2 }
 			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 1 }
-			random_list = {
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			1 = {
+				trigger = { NOT = { var:tv_govhouse_active_tactic ?= 3 } }
+				set_variable = { name = tv_govhouse_pending_tactic value = 3 }
 			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 2 }
-			random_list = {
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			1 = {
+				trigger = { NOT = { var:tv_govhouse_active_tactic ?= 4 } }
+				set_variable = { name = tv_govhouse_pending_tactic value = 4 }
 			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 3 }
-			random_list = {
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			1 = {
+				trigger = { NOT = { var:tv_govhouse_active_tactic ?= 5 } }
+				set_variable = { name = tv_govhouse_pending_tactic value = 5 }
 			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 4 }
-			random_list = {
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			1 = {
+				trigger = { NOT = { var:tv_govhouse_active_tactic ?= 6 } }
+				set_variable = { name = tv_govhouse_pending_tactic value = 6 }
 			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 5 }
-			random_list = {
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			1 = {
+				trigger = { NOT = { var:tv_govhouse_active_tactic ?= 7 } }
+				set_variable = { name = tv_govhouse_pending_tactic value = 7 }
 			}
-		}
-		else_if = {
-			limit = { var:tv_govhouse_active_tactic ?= 6 }
-			random_list = {
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 7 } }
+			1 = {
+				trigger = { NOT = { var:tv_govhouse_active_tactic ?= 8 } }
+				set_variable = { name = tv_govhouse_pending_tactic value = 8 }
 			}
-		}
-		else = {
-			random_list = {
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 1 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 2 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 3 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 4 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 5 } }
-				1 = { set_variable = { name = tv_govhouse_pending_tactic value = 6 } }
+			1 = {
+				trigger = { NOT = { var:tv_govhouse_active_tactic ?= 9 } }
+				set_variable = { name = tv_govhouse_pending_tactic value = 9 }
+			}
+			1 = {
+				trigger = { NOT = { var:tv_govhouse_active_tactic ?= 10 } }
+				set_variable = { name = tv_govhouse_pending_tactic value = 10 }
+			}
+			1 = {
+				trigger = { NOT = { var:tv_govhouse_active_tactic ?= 11 } }
+				set_variable = { name = tv_govhouse_pending_tactic value = 11 }
 			}
 		}
 		set_variable = { name = tv_govhouse_tactic_offered_this_war value = 1 }
@@ -727,6 +720,13 @@ tv_govhouse_war_entry_effect = {
 		tv_govhouse_pick_pending_tactic_effect = yes
 	}
 	tv_govhouse_trigger_plan_activation_event_effect = yes
+	if = {
+		limit = {
+			at_war = yes
+			var:tv_govhouse_active_tactic ?= 8
+		}
+		tv_govhouse_apply_capital_raid_tactic_effect = yes
+	}
 }
 
 tv_govhouse_war_end_for_country_effect = {
@@ -792,6 +792,13 @@ tv_govhouse_war_end_for_country_effect = {
 	}
 	else = {
 		tv_govhouse_update_plan_modifiers_effect = yes
+		if = {
+			limit = {
+				at_war = yes
+				var:tv_govhouse_active_tactic ?= 8
+			}
+			tv_govhouse_apply_capital_raid_tactic_effect = yes
+		}
 	}
 }
 
@@ -812,6 +819,10 @@ tv_govhouse_war_tent_monthly_effect = {
 		tv_govhouse_update_plan_modifiers_effect = yes
 		if = {
 			limit = { at_war = yes }
+			if = {
+				limit = { var:tv_govhouse_active_tactic ?= 8 }
+				tv_govhouse_apply_capital_raid_tactic_effect = yes
+			}
 			if = {
 				limit = {
 					NOT = { has_variable = tv_govhouse_active_tactic }

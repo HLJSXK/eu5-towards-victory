@@ -406,6 +406,62 @@ tv_govhouse.40 = {
 	}
 
 	option = {
+		name = tv_govhouse.40.j
+		trigger = { var:tv_govhouse_pending_tactic ?= 8 }
+		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		if = {
+			limit = {
+				at_war = yes
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			tv_govhouse_apply_capital_raid_tactic_effect = yes
+		}
+	}
+
+	option = {
+		name = tv_govhouse.40.k
+		trigger = { var:tv_govhouse_pending_tactic ?= 9 }
+		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		if = {
+			limit = {
+				at_war = yes
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			add_country_modifier = { modifier = tv_govhouse_tactic_counterattack years = -1 mode = replace }
+		}
+	}
+
+	option = {
+		name = tv_govhouse.40.l
+		trigger = { var:tv_govhouse_pending_tactic ?= 10 }
+		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		if = {
+			limit = {
+				at_war = yes
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			add_country_modifier = { modifier = tv_govhouse_tactic_forced_march years = -1 mode = replace }
+		}
+	}
+
+	option = {
+		name = tv_govhouse.40.m
+		trigger = { var:tv_govhouse_pending_tactic ?= 11 }
+		hidden_effect = { tv_govhouse_approve_pending_tactic_effect = yes }
+		if = {
+			limit = {
+				at_war = yes
+				has_variable = tv_conquest_general_char
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			add_country_modifier = { modifier = tv_govhouse_tactic_encirclement years = -1 mode = replace }
+		}
+	}
+
+	option = {
 		name = tv_govhouse.40.i
 		tv_govhouse_deny_pending_tactic_effect = yes
 	}

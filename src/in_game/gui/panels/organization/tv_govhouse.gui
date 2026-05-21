@@ -1201,6 +1201,272 @@ organization_panel = {
 								}
 							}
 						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)8')]"
+							spacing = 8
+							margin = { 8 8 }
+							using = bg_paper_card
+							using = bg_cabinet_card_frame
+
+							icon = {
+								size = { 64 64 }
+								texture = "gfx/interface/icons/military_stances/aggressive_military_stance.dds"
+								tooltip = "TV_GOVHOUSE_TACTIC_CAPITAL_RAID"
+							}
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 3
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_GOVHOUSE_TACTIC_CAPITAL_RAID"
+									default_format = "#yellow_titles"
+									align = nobaseline|left
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									icon = {
+										size = { 18 20 }
+										texture = "gfx/interface/icons/modifier_types/global_defensive.dds"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_LOCAL_DEFENSIVE"
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_LOCAL_DEFENSIVE"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "-20%"
+										default_format = "#color_red;bold"
+										align = nobaseline|right
+									}
+								}
+							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)9')]"
+							spacing = 8
+							margin = { 8 8 }
+							using = bg_paper_card
+							using = bg_cabinet_card_frame
+
+							icon = {
+								size = { 64 64 }
+								texture = "gfx/interface/icons/military_stances/defensive_military_stance.dds"
+								tooltip = "TV_GOVHOUSE_TACTIC_COUNTERATTACK"
+							}
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 3
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_GOVHOUSE_TACTIC_COUNTERATTACK"
+									default_format = "#yellow_titles"
+									align = nobaseline|left
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									icon = {
+										size = { 18 20 }
+										texture = "gfx/interface/icons/modifier_types/global_defensive.dds"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_GLOBAL_DEFENSIVE"
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_GLOBAL_DEFENSIVE"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+20%"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
+							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)10')]"
+							spacing = 8
+							margin = { 8 8 }
+							using = bg_paper_card
+							using = bg_cabinet_card_frame
+
+							icon = {
+								size = { 64 64 }
+								texture = "gfx/interface/icons/military_stances/aggressive_military_stance.dds"
+								tooltip = "TV_GOVHOUSE_TACTIC_FORCED_MARCH"
+							}
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 3
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_GOVHOUSE_TACTIC_FORCED_MARCH"
+									default_format = "#yellow_titles"
+									align = nobaseline|left
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									icon = {
+										size = { 18 20 }
+										texture = "gfx/interface/icons/modifier_types/army_movement_speed.dds"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_ARMY_MOVEMENT_SPEED"
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_ARMY_MOVEMENT_SPEED"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+40%"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									icon = {
+										size = { 18 20 }
+										texture = "gfx/interface/icons/modifier_types/land_morale.dds"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_LAND_MORALE"
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_LAND_MORALE"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "-10%"
+										default_format = "#color_red;bold"
+										align = nobaseline|right
+									}
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									icon = {
+										size = { 18 20 }
+										texture = "gfx/interface/icons/modifier_types/discipline.dds"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_DISCIPLINE"
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_DISCIPLINE"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "-5%"
+										default_format = "#color_red;bold"
+										align = nobaseline|right
+									}
+								}
+							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_active_tactic').GetValue, '(CFixedPoint)11')]"
+							spacing = 8
+							margin = { 8 8 }
+							using = bg_paper_card
+							using = bg_cabinet_card_frame
+
+							icon = {
+								size = { 64 64 }
+								texture = "gfx/interface/icons/military_stances/aggressive_military_stance.dds"
+								tooltip = "TV_GOVHOUSE_TACTIC_ENCIRCLEMENT"
+							}
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 3
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_GOVHOUSE_TACTIC_ENCIRCLEMENT"
+									default_format = "#yellow_titles"
+									align = nobaseline|left
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									icon = {
+										size = { 18 20 }
+										texture = "gfx/interface/icons/modifier_types/combat_speed_modifier.dds"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_COMBAT_SPEED"
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_COMBAT_SPEED"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+20%"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+
+									icon = {
+										size = { 18 20 }
+										texture = "gfx/interface/icons/modifier_types/correct_box_chance.dds"
+										tooltip = "TV_GOVHOUSE_TACTIC_EFFECT_CORRECT_BOX_CHANCE"
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "TV_GOVHOUSE_TACTIC_EFFECT_CORRECT_BOX_CHANCE"
+										align = nobaseline|left
+									}
+									text_single = {
+										size = { 76 20 }
+										raw_text = "+10%"
+										default_format = "#color_green;bold"
+										align = nobaseline|right
+									}
+								}
+							}
+						}
 					}
 				}
 			}

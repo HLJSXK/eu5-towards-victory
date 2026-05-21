@@ -104,6 +104,30 @@ tv_govhouse_tactic_surprise_general = {
 	commander_combat_bonus = 1
 }
 
+tv_govhouse_tactic_counterattack = {
+	game_data = {
+		category = country
+	}
+	global_defensive = 0.20
+}
+
+tv_govhouse_tactic_forced_march = {
+	game_data = {
+		category = country
+	}
+	army_movement_speed = 0.40
+	land_morale_modifier = -0.10
+	discipline = -0.05
+}
+
+tv_govhouse_tactic_encirclement = {
+	game_data = {
+		category = country
+	}
+	combat_speed_modifier = 0.20
+	correct_box_chance = 0.10
+}
+
 # War Tent - scaling war-plan modifiers. The applied size carries the real value.
 tv_govhouse_offensive_plan_siege = {
 	siege_ability = 1

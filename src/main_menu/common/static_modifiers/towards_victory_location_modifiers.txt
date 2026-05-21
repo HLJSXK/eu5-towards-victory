@@ -65,6 +65,13 @@ tv_governor_fort_defense = {
 	}
 }
 
+tv_govhouse_tactic_capital_raid = {
+	local_defensive = -0.20
+	game_data = {
+		category = location
+	}
+}
+
 tv_exhibition_success_location_modifier = {
 	local_production_efficiency = -0.2
 	local_migration_attraction = 2
