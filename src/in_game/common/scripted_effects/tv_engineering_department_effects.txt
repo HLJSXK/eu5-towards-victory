@@ -2670,6 +2670,7 @@ tv_wonder_broadcast_completion_event_effect = {
 			exists = capital
 			exists = scope:tv_wonder_builder_country
 			exists = scope:tv_wonder_completed_site
+			NOT = { this = scope:tv_wonder_builder_country }
 		}
 		trigger_event_non_silently = { id = tv_engineering_department.600 }
 	}
