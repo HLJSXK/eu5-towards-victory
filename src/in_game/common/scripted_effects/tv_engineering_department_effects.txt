@@ -3142,6 +3142,11 @@ tv_wonder_clear_project_state_effect = {
 	tv_wonder_clear_feasible_deck_effect = yes
 	set_variable = { name = tv_wonder_stage value = 0 }
 	tv_wonder_reset_io_progress_effect = yes
+	if = {
+		limit = { tv_wonder_has_great_engineer_trigger = yes }
+		tv_wonder_rebuild_feasible_deck_effect = yes
+		tv_wonder_roll_new_proposal_effect = yes
+	}
 }
 
 tv_wonder_abandon_effect = {
