@@ -96,15 +96,13 @@ def gen_ai_vote_bias(level: int) -> list[str]:
 def gen_adjacent_policy_allow_body(law_id: str, policies: list[dict], index: int) -> list[str]:
     level = policies[index]["level"]
     lines = []
-    lines.append(T*3 + "scope:recipient = {")
-    lines.append(T*4 + "OR = {")
+    lines.append(T*3 + "OR = {")
     if level == 1:
-        lines.append(T*5 + f"NOT = {{ international_organization_has_law = law:{law_id} }}")
+        lines.append(T*4 + f"NOT = {{ international_organization_has_law = law:{law_id} }}")
     if index > 0:
-        lines.append(T*5 + f"international_organization_has_policy = policy:{policies[index - 1]['id']}")
+        lines.append(T*4 + f"international_organization_has_policy = policy:{policies[index - 1]['id']}")
     if index + 1 < len(policies):
-        lines.append(T*5 + f"international_organization_has_policy = policy:{policies[index + 1]['id']}")
-    lines.append(T*4 + "}")
+        lines.append(T*4 + f"international_organization_has_policy = policy:{policies[index + 1]['id']}")
     lines.append(T*3 + "}")
     return lines
 
@@ -149,29 +147,23 @@ def gen_lN(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     lines.extend(gen_adjacent_policy_allow_body(law_id, policies, index))
     lines.append(T*3 + "custom_tooltip = {")
     lines.append(T*4 + "text = TV_HAS_ALLIANCE_COHESION_TT")
-    lines.append(T*4 + "scope:recipient = { has_variable = tv_alliance_cohesion }")
+    lines.append(T*4 + "has_variable = tv_alliance_cohesion")
     lines.append(T*3 + "}")
-    lines.append(T*3 + "scope:recipient = {")
-    lines.append(T*4 + f"var:tv_alliance_cohesion >= {cost}")
-    lines.append(T*3 + "}")
+    lines.append(T*3 + f"var:tv_alliance_cohesion >= {cost}")
     lines.append(T*2 + "}")
     lines.append(T*2 + "on_activate = {")
-    lines.append(T*3 + "scope:recipient = {")
-    lines.append(T*4 + f"change_variable = {{ name = tv_alliance_cohesion add = -{cost} }}")
+    lines.append(T*3 + f"change_variable = {{ name = tv_alliance_cohesion add = -{cost} }}")
+    lines.append(T*3 + f"change_variable = {{ name = tv_alliance_tier add = {tier_contribution} }}")
+    lines.append(T*3 + "leader_country = {")
     lines.append(T*4 + f"change_variable = {{ name = tv_alliance_tier add = {tier_contribution} }}")
-    lines.append(T*4 + "leader_country = {")
-    lines.append(T*5 + f"change_variable = {{ name = tv_alliance_tier add = {tier_contribution} }}")
-    lines.append(T*4 + "}")
-    if on_activate_note:
-        lines.append(T*4 + on_activate_note)
     lines.append(T*3 + "}")
+    if on_activate_note:
+        lines.append(T*3 + on_activate_note)
     lines.append(T*2 + "}")
     lines.append(T*2 + "on_deactivate = {")
-    lines.append(T*3 + "scope:recipient = {")
+    lines.append(T*3 + f"change_variable = {{ name = tv_alliance_tier add = -{tier_contribution} }}")
+    lines.append(T*3 + "leader_country = {")
     lines.append(T*4 + f"change_variable = {{ name = tv_alliance_tier add = -{tier_contribution} }}")
-    lines.append(T*4 + "leader_country = {")
-    lines.append(T*5 + f"change_variable = {{ name = tv_alliance_tier add = -{tier_contribution} }}")
-    lines.append(T*4 + "}")
     lines.append(T*3 + "}")
     lines.append(T*2 + "}")
     lines.append(T*2 + "country_modifier = {")

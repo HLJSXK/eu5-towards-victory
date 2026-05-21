@@ -52,31 +52,11 @@ tv_reinitialize_mod = {
 						NOT = {
 							any_international_organizations_member_of = {
 								international_organization_type = international_organization_type:tv_diplomatic_alliance
-								leader_country = this
+								leader_country ?= this
 							}
 						}
 					}
-					save_scope_as = tv_founder
-					create_international_organization = {
-						type = international_organization_type:tv_diplomatic_alliance
-						add_country_to_international_organization = prev
-						set_leader_country = prev
-						save_scope_as = tv_alliance_io
-						every_country = {
-							limit = {
-								custom_tooltip = {
-									text = TV_HAS_DIPLOMATIC_SUPPORTER_OF_TT
-									has_variable = tv_diplomatic_supporter_of
-								}
-								var:tv_diplomatic_supporter_of ?= scope:tv_founder
-							}
-							scope:tv_alliance_io = {
-								add_country_to_international_organization = prev
-							}
-						}
-						set_variable = { name = tv_alliance_cohesion value = 0 }
-						set_variable = { name = tv_alliance_tier value = 0 }
-					}
+					trigger_event_non_silently = { id = tv_diplo_alliance.2 }
 				}
 			}
 

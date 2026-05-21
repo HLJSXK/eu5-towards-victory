@@ -32,11 +32,9 @@ tv_court_protocol = {
 	tv_adhoc_envoys_policy = {
 		level = 1
 		allow = {
-			scope:recipient = {
-				OR = {
-					NOT = { international_organization_has_law = law:tv_court_protocol }
-					international_organization_has_policy = policy:tv_resident_ambassadors_policy
-				}
+			OR = {
+				NOT = { international_organization_has_law = law:tv_court_protocol }
+				international_organization_has_policy = policy:tv_resident_ambassadors_policy
 			}
 		}
 		wants_propose_policy = {
@@ -74,36 +72,28 @@ tv_court_protocol = {
 	tv_resident_ambassadors_policy = {
 		level = 2
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_adhoc_envoys_policy
-					international_organization_has_policy = policy:tv_refuse_pretenders_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_adhoc_envoys_policy
+				international_organization_has_policy = policy:tv_refuse_pretenders_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 25
-			}
+			var:tv_alliance_cohesion >= 25
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_tier add = 1 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 1 }
-				}
-				# Sync tier to leader country
 			}
+			# Sync tier to leader country
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -1 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -1 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -1 }
-				}
 			}
 		}
 		country_modifier = {
@@ -161,35 +151,27 @@ tv_court_protocol = {
 	tv_refuse_pretenders_policy = {
 		level = 3
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_resident_ambassadors_policy
-					international_organization_has_policy = policy:tv_divine_right_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_resident_ambassadors_policy
+				international_organization_has_policy = policy:tv_divine_right_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 50
-			}
+			var:tv_alliance_cohesion >= 50
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_tier add = 2 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 2 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 2 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -2 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -2 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -2 }
-				}
 			}
 		}
 		country_modifier = {
@@ -247,34 +229,26 @@ tv_court_protocol = {
 	tv_divine_right_policy = {
 		level = 4
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_refuse_pretenders_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_refuse_pretenders_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 75
-			}
+			var:tv_alliance_cohesion >= 75
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -75 }
+			change_variable = { name = tv_alliance_cohesion add = -75 }
+			change_variable = { name = tv_alliance_tier add = 3 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 3 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 3 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -3 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -3 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -3 }
-				}
 			}
 		}
 		country_modifier = {
@@ -352,11 +326,9 @@ tv_information_network = {
 	tv_royal_couriers_policy = {
 		level = 1
 		allow = {
-			scope:recipient = {
-				OR = {
-					NOT = { international_organization_has_law = law:tv_information_network }
-					international_organization_has_policy = policy:tv_postal_system_policy
-				}
+			OR = {
+				NOT = { international_organization_has_law = law:tv_information_network }
+				international_organization_has_policy = policy:tv_postal_system_policy
 			}
 		}
 		wants_propose_policy = {
@@ -394,35 +366,27 @@ tv_information_network = {
 	tv_postal_system_policy = {
 		level = 2
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_royal_couriers_policy
-					international_organization_has_policy = policy:tv_cartographic_exchange_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_royal_couriers_policy
+				international_organization_has_policy = policy:tv_cartographic_exchange_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 25
-			}
+			var:tv_alliance_cohesion >= 25
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_tier add = 1 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 1 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -1 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -1 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -1 }
-				}
 			}
 		}
 		country_modifier = {
@@ -480,35 +444,27 @@ tv_information_network = {
 	tv_cartographic_exchange_policy = {
 		level = 3
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_postal_system_policy
-					international_organization_has_policy = policy:tv_intelligence_bureau_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_postal_system_policy
+				international_organization_has_policy = policy:tv_intelligence_bureau_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 50
-			}
+			var:tv_alliance_cohesion >= 50
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_tier add = 2 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 2 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 2 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -2 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -2 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -2 }
-				}
 			}
 		}
 		country_modifier = {
@@ -566,34 +522,26 @@ tv_information_network = {
 	tv_intelligence_bureau_policy = {
 		level = 4
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_cartographic_exchange_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_cartographic_exchange_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 75
-			}
+			var:tv_alliance_cohesion >= 75
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -75 }
+			change_variable = { name = tv_alliance_cohesion add = -75 }
+			change_variable = { name = tv_alliance_tier add = 3 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 3 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 3 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -3 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -3 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -3 }
-				}
 			}
 		}
 		country_modifier = {
@@ -671,11 +619,9 @@ tv_commerce_consensus = {
 	tv_non_piracy_policy = {
 		level = 1
 		allow = {
-			scope:recipient = {
-				OR = {
-					NOT = { international_organization_has_law = law:tv_commerce_consensus }
-					international_organization_has_policy = policy:tv_mfn_ports_policy
-				}
+			OR = {
+				NOT = { international_organization_has_law = law:tv_commerce_consensus }
+				international_organization_has_policy = policy:tv_mfn_ports_policy
 			}
 		}
 		wants_propose_policy = {
@@ -713,35 +659,27 @@ tv_commerce_consensus = {
 	tv_mfn_ports_policy = {
 		level = 2
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_non_piracy_policy
-					international_organization_has_policy = policy:tv_unified_measures_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_non_piracy_policy
+				international_organization_has_policy = policy:tv_unified_measures_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 25
-			}
+			var:tv_alliance_cohesion >= 25
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_tier add = 1 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 1 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -1 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -1 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -1 }
-				}
 			}
 		}
 		country_modifier = {
@@ -799,35 +737,27 @@ tv_commerce_consensus = {
 	tv_unified_measures_policy = {
 		level = 3
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_mfn_ports_policy
-					international_organization_has_policy = policy:tv_trade_monopoly_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_mfn_ports_policy
+				international_organization_has_policy = policy:tv_trade_monopoly_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 50
-			}
+			var:tv_alliance_cohesion >= 50
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_tier add = 2 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 2 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 2 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -2 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -2 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -2 }
-				}
 			}
 		}
 		country_modifier = {
@@ -886,34 +816,26 @@ tv_commerce_consensus = {
 	tv_trade_monopoly_policy = {
 		level = 4
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_unified_measures_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_unified_measures_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 75
-			}
+			var:tv_alliance_cohesion >= 75
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -75 }
+			change_variable = { name = tv_alliance_cohesion add = -75 }
+			change_variable = { name = tv_alliance_tier add = 3 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 3 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 3 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -3 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -3 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -3 }
-				}
 			}
 		}
 		country_modifier = {
@@ -990,11 +912,9 @@ tv_faith_harmony = {
 	tv_cuius_regio_policy = {
 		level = 1
 		allow = {
-			scope:recipient = {
-				OR = {
-					NOT = { international_organization_has_law = law:tv_faith_harmony }
-					international_organization_has_policy = policy:tv_pilgrim_protection_policy
-				}
+			OR = {
+				NOT = { international_organization_has_law = law:tv_faith_harmony }
+				international_organization_has_policy = policy:tv_pilgrim_protection_policy
 			}
 		}
 		wants_propose_policy = {
@@ -1032,35 +952,27 @@ tv_faith_harmony = {
 	tv_pilgrim_protection_policy = {
 		level = 2
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_cuius_regio_policy
-					international_organization_has_policy = policy:tv_joint_denunciation_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_cuius_regio_policy
+				international_organization_has_policy = policy:tv_joint_denunciation_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 25
-			}
+			var:tv_alliance_cohesion >= 25
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_tier add = 1 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 1 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -1 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -1 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -1 }
-				}
 			}
 		}
 		country_modifier = {
@@ -1118,35 +1030,27 @@ tv_faith_harmony = {
 	tv_joint_denunciation_policy = {
 		level = 3
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_pilgrim_protection_policy
-					international_organization_has_policy = policy:tv_universal_council_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_pilgrim_protection_policy
+				international_organization_has_policy = policy:tv_universal_council_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 50
-			}
+			var:tv_alliance_cohesion >= 50
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_tier add = 2 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 2 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 2 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -2 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -2 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -2 }
-				}
 			}
 		}
 		country_modifier = {
@@ -1204,34 +1108,26 @@ tv_faith_harmony = {
 	tv_universal_council_policy = {
 		level = 4
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_joint_denunciation_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_joint_denunciation_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 75
-			}
+			var:tv_alliance_cohesion >= 75
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -75 }
+			change_variable = { name = tv_alliance_cohesion add = -75 }
+			change_variable = { name = tv_alliance_tier add = 3 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 3 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 3 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -3 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -3 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -3 }
-				}
 			}
 		}
 		country_modifier = {
@@ -1308,11 +1204,9 @@ tv_colonization_sphere = {
 	tv_free_colonization_policy = {
 		level = 1
 		allow = {
-			scope:recipient = {
-				OR = {
-					NOT = { international_organization_has_law = law:tv_colonization_sphere }
-					international_organization_has_policy = policy:tv_doctrine_discovery_policy
-				}
+			OR = {
+				NOT = { international_organization_has_law = law:tv_colonization_sphere }
+				international_organization_has_policy = policy:tv_doctrine_discovery_policy
 			}
 		}
 		wants_propose_policy = {
@@ -1350,35 +1244,27 @@ tv_colonization_sphere = {
 	tv_doctrine_discovery_policy = {
 		level = 2
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_free_colonization_policy
-					international_organization_has_policy = policy:tv_demarcation_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_free_colonization_policy
+				international_organization_has_policy = policy:tv_demarcation_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 25
-			}
+			var:tv_alliance_cohesion >= 25
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_tier add = 1 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 1 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 1 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -1 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -1 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -1 }
-				}
 			}
 		}
 		country_modifier = {
@@ -1436,35 +1322,27 @@ tv_colonization_sphere = {
 	tv_demarcation_policy = {
 		level = 3
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_doctrine_discovery_policy
-					international_organization_has_policy = policy:tv_joint_ventures_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_doctrine_discovery_policy
+				international_organization_has_policy = policy:tv_joint_ventures_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 50
-			}
+			var:tv_alliance_cohesion >= 50
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_tier add = 2 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 2 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 2 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -2 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -2 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -2 }
-				}
 			}
 		}
 		country_modifier = {
@@ -1522,34 +1400,26 @@ tv_colonization_sphere = {
 	tv_joint_ventures_policy = {
 		level = 4
 		allow = {
-			scope:recipient = {
-				OR = {
-					international_organization_has_policy = policy:tv_demarcation_policy
-				}
+			OR = {
+				international_organization_has_policy = policy:tv_demarcation_policy
 			}
 			custom_tooltip = {
 				text = TV_HAS_ALLIANCE_COHESION_TT
-				scope:recipient = { has_variable = tv_alliance_cohesion }
+				has_variable = tv_alliance_cohesion
 			}
-			scope:recipient = {
-				var:tv_alliance_cohesion >= 75
-			}
+			var:tv_alliance_cohesion >= 75
 		}
 		on_activate = {
-			scope:recipient = {
-				change_variable = { name = tv_alliance_cohesion add = -75 }
+			change_variable = { name = tv_alliance_cohesion add = -75 }
+			change_variable = { name = tv_alliance_tier add = 3 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = 3 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = 3 }
-				}
 			}
 		}
 		on_deactivate = {
-			scope:recipient = {
+			change_variable = { name = tv_alliance_tier add = -3 }
+			leader_country = {
 				change_variable = { name = tv_alliance_tier add = -3 }
-				leader_country = {
-					change_variable = { name = tv_alliance_tier add = -3 }
-				}
 			}
 		}
 		country_modifier = {

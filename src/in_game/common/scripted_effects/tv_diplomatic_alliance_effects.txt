@@ -1,0 +1,46 @@
+﻿tv_create_diplomatic_alliance_effect = {
+	if = {
+		limit = {
+			NOT = {
+				any_international_organizations_member_of = {
+					international_organization_type = international_organization_type:tv_diplomatic_alliance
+					leader_country ?= this
+				}
+			}
+		}
+		custom_tooltip = { text = tv_create_diplomatic_alliance_tt }
+		hidden_effect = {
+			save_scope_as = tv_founder
+			create_international_organization = {
+				type = international_organization_type:tv_diplomatic_alliance
+				add_country_to_international_organization = prev
+				set_leader_country = prev
+				save_scope_as = tv_alliance_io
+				every_country = {
+					limit = {
+						var:tv_diplomatic_supporter_of ?= scope:tv_founder
+					}
+					scope:tv_alliance_io = {
+						add_country_to_international_organization = prev
+					}
+				}
+				set_variable = { name = tv_alliance_cohesion value = 0 }
+				set_variable = { name = tv_alliance_tier value = 0 }
+			}
+			set_variable = { name = tv_alliance_tier value = 0 }
+		}
+	}
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_NOT_SET_TT
+				NOT = { has_variable = tv_diplomatic_victory_points }
+			}
+		}
+		set_variable = { name = tv_diplomatic_victory_points value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_diplomatic_victory_points < 1 }
+		set_variable = { name = tv_diplomatic_victory_points value = 1 }
+	}
+}

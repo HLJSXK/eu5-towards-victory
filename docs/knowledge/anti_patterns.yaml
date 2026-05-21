@@ -1027,6 +1027,15 @@
   source: "reference_game_files/game/in_game/common/resolutions/policy_vote.txt:620; reference_game_files/game/in_game/common/international_organization_special_statuses/readme.txt:12; reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:14570"
   notes: "The policy_vote resolution requires country_combined_special_status_power(scope:recipient) > 0 when uses_parliament_for_law_votes_trigger is active. Without a participating special status, the law debate can open but the IO parliament page has no voter group to show."
 
+- id: io_policy_execution_scope_recipient_unset
+  pattern: ''
+  bad: "Using scope:recipient inside IO policy allow/on_activate/on_deactivate to read or mutate the IO"
+  correction: "Use the current IO root directly in policy allow/on_activate/on_deactivate. Reserve scope:recipient for documented country-root policy AI math blocks such as wants_this_policy_bias and wants_propose_policy."
+  category: scope
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/laws/readme.txt:31-40; runtime error.log tv_alliance_laws.txt 2026-05-21"
+  notes: "Generated Diplomatic Alliance laws wrapped IO variable checks and tier changes in scope:recipient in execution blocks. At runtime those blocks had no recipient event target, causing repeated 'Undefined event target recipient' and unset-scope errors."
+
 - id: io_parliament_issue_without_special_status_agenda
   pattern: ''
   bad: "Adding IO parliament issues for a special status without any valid parliament_agenda for that special status"

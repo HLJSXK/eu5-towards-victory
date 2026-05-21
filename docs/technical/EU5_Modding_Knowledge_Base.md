@@ -148,6 +148,28 @@ Do not rely on `blockoverride "country_header_extra"` for visible interactive co
 
 The shared organization panel's `organization_custom_content` slot is already inside an inner vbox with `margin_top = 5`, followed by an `expand` spacer. For dynamic custom tabs that can grow past the visible area, inject the `scrollarea` directly into `organization_custom_content` instead of wrapping it in another child vbox. Override the block's `margin_top`/`spacing` when the content must sit flush to the tab top. For a bounded viewport, give the scrollarea a fixed size such as `size = { 100% 430 }`; when the tab must consume the full IO pane instead of leaving the common trailing `expand` spacer to own the lower area, set the custom-content block itself to `layoutpolicy_vertical = expanding` and set the scrollarea to `using = layoutpolicy_expanding`. In both cases, let the `scrollwidget` content establish natural height with `layoutpolicy_vertical = fixed` and `ignoreinvisible = yes`. Avoid `autoresizescrollarea` for this pattern: when active state adds more cards, it can grow the viewport with the content, leaving no useful overflow and causing the scrollarea bounds to sit lower inside the wrapper. `margin_top` directly on `scrollarea` is ignored by the engine and logs an unsupported-property error.
 
+#### International Organization Law Block Scopes
+
+For policies under `type = international_organization` laws, scope depends on the policy sub-block. The law readme documents policy `allow` as country root, while `on_activate` / `on_deactivate` use the entity the policy applies to. In practice, IO policy execution blocks should treat the current scope as the IO when mutating IO variables or checking IO policies:
+
+```pdx
+allow = {
+    international_organization_has_policy = policy:previous_level
+    var:tv_alliance_cohesion >= 25
+}
+
+on_activate = {
+    change_variable = { name = tv_alliance_cohesion add = -25 }
+    leader_country = {
+        change_variable = { name = tv_alliance_tier add = 1 }
+    }
+}
+```
+
+Do not wrap those checks/effects in `scope:recipient = { ... }` unless the specific block documents `scope:recipient`. Runtime errors such as `Undefined event target 'recipient'` and `Event target link 'scope' returned an unset scope` can be caused by generated IO policies that use `scope:recipient` inside policy `allow`, `on_activate`, or `on_deactivate`.
+
+`scope:recipient` is documented for IO policy AI math blocks such as `wants_this_policy_bias`, `wants_propose_policy`, `wants_keep_policy`, `reasons_to_join`, and `diplomatic_capacity_cost`, where root is a country and recipient is the IO. Vanilla laws commonly use `scope:recipient` in those AI math blocks to read the IO or its leader.
+
 #### International Organization Law Votes and Special Status Power
 
 For an IO law system that routes policy changes through the parliament UI, the parliament type and the laws are only part of the setup. `requires_vote = yes` on the law and `uses_parliament_for_law_votes = yes` on the parliament type start the policy vote flow, but vote eligibility is driven by special status power.

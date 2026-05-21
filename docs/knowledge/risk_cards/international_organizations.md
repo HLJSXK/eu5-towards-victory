@@ -26,6 +26,12 @@ that create, find, or mutate TV IOs.
    IO variable `monthly_change` evaluates from IO/variable context. Do not call country-scoped
    scripted triggers that depend on `root.var` unless root is verified.
 
+6. Match scope to IO law block type.
+   In IO policy `allow`, `on_activate`, and `on_deactivate`, the current root is already the IO.
+   Do not wrap IO variable or policy checks in `scope:recipient` there. Reserve `scope:recipient`
+   for documented country-root AI math blocks such as `wants_this_policy_bias` and
+   `wants_propose_policy`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then inspect shared IO tooltips in game. Tooltip
