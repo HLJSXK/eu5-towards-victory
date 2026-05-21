@@ -25,8 +25,10 @@ tv_trade_league_create_effect = {
 		}
 		create_international_organization = {
 			type = international_organization_type:tv_trade_league
-			add_country_to_international_organization = prev
-			set_leader_country = prev
+			hidden_effect = {
+				add_country_to_international_organization = prev
+				set_leader_country = prev
+			}
 		}
 	}
 }

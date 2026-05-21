@@ -55,8 +55,10 @@ tv_trade_league_create_effect = {
 \t\t}
 \t\tcreate_international_organization = {
 \t\t\ttype = international_organization_type:tv_trade_league
-\t\t\tadd_country_to_international_organization = prev
-\t\t\tset_leader_country = prev
+\t\t\thidden_effect = {
+\t\t\t\tadd_country_to_international_organization = prev
+\t\t\t\tset_leader_country = prev
+\t\t\t}
 \t\t}
 \t}
 }

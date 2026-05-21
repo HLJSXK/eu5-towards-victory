@@ -102,6 +102,22 @@ tv_reinitialize_mod = {
 				}
 			}
 
+			# Trade -> Trade League
+			if = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_TRADE_MILESTONE_TT
+						has_variable = tv_trade_milestone
+					}
+				}
+				if = {
+					limit = {
+						var:tv_trade_milestone >= 1
+					}
+					tv_trade_league_create_effect = yes
+				}
+			}
+
 			# Science → Academy of Sciences
 			if = {
 				limit = {
@@ -165,6 +181,12 @@ tv_reinitialize_mod = {
 			every_international_organizations_member_of = {
 				limit = {
 					international_organization_type = international_organization_type:tv_engineering_department
+				}
+				set_leader_country = scope:actor
+			}
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_trade_league
 				}
 				set_leader_country = scope:actor
 			}
