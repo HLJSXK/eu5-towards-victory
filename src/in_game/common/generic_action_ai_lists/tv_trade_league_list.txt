@@ -1,0 +1,15 @@
+﻿tv_trade_league_list = {
+	potential = {
+		any_international_organizations_member_of = {
+			international_organization_type = international_organization_type:tv_trade_league
+			exists = leader_country
+			leader_country = root
+		}
+	}
+	actions = {
+		tv_appoint_trade_leader
+		tv_remove_trade_leader
+		tv_change_trade_leader
+		tv_expel_trade_league_member
+	}
+}

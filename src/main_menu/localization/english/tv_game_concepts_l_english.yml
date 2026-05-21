@@ -26,6 +26,7 @@
  TV_HAS_DISPATCHED_ARTISTS_COUNT_TT: "The dispatched artist count has been initialized."
  TV_HAS_EXHIBITION_TARGET_COUNTRY_TT: "The touring artist's host country is recorded."
  TV_HAS_GG_TRAINING_ACTIVE_TT: "[tv_grand_general|E] training is currently active."
+ TV_HAS_GRAND_MERCHANT_CHAR_TT: "A [tv_grand_merchant|E] has been appointed."
  TV_HAS_GREAT_ENGINEER_CHAR_TT: "A [tv_great_engineer|E] has been appointed."
  TV_HAS_GOVERNED_AREA_TT: "This governor has an assigned region."
  TV_HAS_GOVERNOR_LIST_TT: "The governor roster has been initialized."
@@ -50,6 +51,7 @@
  TV_HAS_SCIENCE_SCORE_TT: "[tv_science_score|E] has been initialized."
  TV_HAS_TRADE_MILESTONE_TT: "[tv_trade_victory|E] milestone state has been initialized."
  TV_HAS_TRADE_PROGRESS_PCT_TT: "[tv_trade_victory|E] progress has been calculated."
+ TV_HAS_TRADE_LEAGUE_MEMBER_TT: "This country is a member of the [tv_trade_league|E]."
  TV_HAS_TRADE_SCORE_TT: "[tv_trade_score|E] has been initialized."
 
  # ── Towards Victory — Game Concepts ───────────────────────────────────────
@@ -85,7 +87,7 @@
  game_concept_tv_prosperity_victory_desc: "Build the wealthiest and most developed nation. Your [tv_prosperity_score|e] rewards large, stable, well-governed development rather than raw size alone. Milestones at 2,000, 3,000, 5,000, 7,000, and 11,000 reward domestic production, population growth, and construction power."
 
  game_concept_tv_trade_victory: "Trade Victory"
- game_concept_tv_trade_victory_desc: "Command the world's commerce. Your [tv_trade_score|e] is a monthly snapshot of your total monthly trade income. Milestones 3 and 5 also require leading market dominance (5 and 10 markets respectively). Rewards focus on merchant capacity, trade efficiency, and trade income multipliers."
+ game_concept_tv_trade_victory_desc: "Command the world's commerce. Your [tv_trade_score|e] is a monthly snapshot of your total monthly trade income. Milestone 1 founds the [tv_trade_league|e]; Milestones 3 and 5 also require leading market dominance (5 and 10 markets respectively). Rewards focus on merchant capacity, trade efficiency, and trade income multipliers."
 
  game_concept_tv_diplomatic_victory: "Diplomatic Victory"
  game_concept_tv_diplomatic_victory_desc: "Forge the world's most powerful network of alliances and influence. The first milestone requires 2 countries offering [tv_diplomatic_support|e], founds the [tv_diplomatic_alliance|e], and grants the first [tv_dvp|e]. Further [tv_dvp|e] are generated each month from [tv_alliance_tier|e], with milestones at 1, 50, 500, 2,500, and 15,000."
@@ -144,6 +146,16 @@
 
  game_concept_tv_wonder_domestic_support: "Domestic Support"
  game_concept_tv_wonder_domestic_support_desc: "A [tv_wonder_construction|e] resource representing elite and public willingness to sustain a major wonder project. Reach 100 to end the initial debate; support can be stored up to 200 and decays after the debate ends."
+
+ # -- Trade Victory Unique Mechanics ----------------------------------------
+ game_concept_tv_trade_league: "Trade League"
+ game_concept_tv_trade_league_desc: "A non-unique international organization founded at [tv_trade_victory|e] Milestone 1. Its leader can invite or expel members, appoint a [tv_grand_merchant|e], and track commodity monopolies."
+
+ game_concept_tv_grand_merchant: "Grand Merchant"
+ game_concept_tv_grand_merchant_desc: "The appointed character who leads the [tv_trade_league|e]. Without a [tv_grand_merchant|e], the trade-chain, intelligence, and monopoly systems remain inactive."
+
+ game_concept_tv_trade_monopoly: "Trade Monopoly"
+ game_concept_tv_trade_monopoly_desc: "A [tv_trade_league|e] monopoly state for one commodity. Each month the league compares member market trade for that good against global production; reaching 50% marks the good as monopolized and raises the displayed monopoly level by 0.1."
 
  # ── Diplomatic Victory Unique Mechanics ───────────────────────────────────
  game_concept_tv_diplomatic_alliance: "Diplomatic Alliance"

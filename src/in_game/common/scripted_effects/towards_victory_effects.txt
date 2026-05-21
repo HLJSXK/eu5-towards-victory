@@ -826,6 +826,8 @@ tv_grant_prosperity_milestone_5 = {
 # Trade Victory
 tv_grant_trade_milestone_1 = {
 	add_country_modifier = { modifier = tv_trade_m1_bonus days = -1 }
+	custom_tooltip = { text = tv_trade_m1_io_grant_tt }
+	hidden_effect = { tv_trade_league_create_effect = yes }
 }
 
 tv_grant_trade_milestone_2 = {

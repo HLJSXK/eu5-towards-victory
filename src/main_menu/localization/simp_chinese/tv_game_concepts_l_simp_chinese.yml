@@ -26,6 +26,7 @@
  TV_HAS_DISPATCHED_ARTISTS_COUNT_TT: "派遣艺术家计数已初始化。"
  TV_HAS_EXHIBITION_TARGET_COUNTRY_TT: "巡演艺术家的东道国已记录。"
  TV_HAS_GG_TRAINING_ACTIVE_TT: "[tv_grand_general|E]训练当前正在进行。"
+ TV_HAS_GRAND_MERCHANT_CHAR_TT: "已任命[tv_grand_merchant|E]。"
  TV_HAS_GREAT_ENGINEER_CHAR_TT: "已任命[tv_great_engineer|E]。"
  TV_HAS_GOVERNED_AREA_TT: "该总督已分配管辖地区。"
  TV_HAS_GOVERNOR_LIST_TT: "总督名单已初始化。"
@@ -50,6 +51,7 @@
  TV_HAS_SCIENCE_SCORE_TT: "[tv_science_score|E]已初始化。"
  TV_HAS_TRADE_MILESTONE_TT: "[tv_trade_victory|E]里程碑状态已初始化。"
  TV_HAS_TRADE_PROGRESS_PCT_TT: "[tv_trade_victory|E]进度已计算。"
+ TV_HAS_TRADE_LEAGUE_MEMBER_TT: "该国家是[tv_trade_league|E]成员。"
  TV_HAS_TRADE_SCORE_TT: "[tv_trade_score|E]已初始化。"
 
  # ── Towards Victory — Game Concepts ───────────────────────────────────────
@@ -85,7 +87,7 @@
  game_concept_tv_prosperity_victory_desc: "建立最富庶、发展最完善的国家。[tv_prosperity_score|e]奖励规模庞大、稳定且治理良好的发展，而不只是单纯的领土数量。里程碑设于2,000、3,000、5,000、7,000和11,000，奖励国内生产、人口增长与建设能力。"
 
  game_concept_tv_trade_victory: "贸易胜利"
- game_concept_tv_trade_victory_desc: "掌控世界商业命脉。[tv_trade_score|e]是你每月贸易收入的月度快照。第三和第五里程碑还要求主导市场数量（分别为5和10个）。奖励着重商人容量、贸易效率与贸易收入倍增。"
+ game_concept_tv_trade_victory_desc: "掌控世界商业命脉。[tv_trade_score|e]是你每月贸易收入的月度快照。第一里程碑会建立[tv_trade_league|e]；第三和第五里程碑还要求主导市场数量（分别为5和10个）。奖励着重商人容量、贸易效率与贸易收入倍增。"
 
  game_concept_tv_diplomatic_victory: "外交胜利"
  game_concept_tv_diplomatic_victory_desc: "构建世界上最强大的联盟与影响力网络。第一个里程碑需要2个[tv_diplomatic_support|e]国，会创立[tv_diplomatic_alliance|e]并提供第一点[tv_dvp|e]。此后的[tv_dvp|e]每月由[tv_alliance_tier|e]产生，里程碑设于1、50、500、2,500和15,000。"
@@ -144,6 +146,16 @@
 
  game_concept_tv_wonder_domestic_support: "国内支持度"
  game_concept_tv_wonder_domestic_support_desc: "[tv_wonder_construction|e]资源，代表精英与公众对大型奇观工程的支持。达到100即可结束初始辩论；支持度最多储存到200，并会在辩论结束后逐月衰减。"
+
+ # -- 贸易胜利独有机制 --------------------------------------------------------
+ game_concept_tv_trade_league: "贸易联盟"
+ game_concept_tv_trade_league_desc: "[tv_trade_victory|e]第一里程碑建立的非唯一国际组织。盟主可邀请或驱逐成员、任命[tv_grand_merchant|e]，并追踪商品垄断。"
+
+ game_concept_tv_grand_merchant: "大商人"
+ game_concept_tv_grand_merchant_desc: "领导[tv_trade_league|e]的任命角色。没有[tv_grand_merchant|e]时，贸易链、商业情报和垄断系统不会激活。"
+
+ game_concept_tv_trade_monopoly: "贸易垄断"
+ game_concept_tv_trade_monopoly_desc: "[tv_trade_league|e]针对单一商品的垄断状态。每月联盟会用成员市场中的该商品贸易量对比全球产量；达到50%即视为垄断，并在显示的垄断水平上额外增加0.1。"
 
  # ── Diplomatic Victory Unique Mechanics ───────────────────────────────────
  game_concept_tv_diplomatic_alliance: "外交联盟"

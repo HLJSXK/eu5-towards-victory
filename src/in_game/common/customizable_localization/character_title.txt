@@ -239,6 +239,11 @@ character_title_prefix = {
 	}
 
 	text = {
+		localization_key = character_title_tv_grand_merchant
+		trigger = { has_character_modifier = tv_grand_merchant_role_modifier }
+	}
+
+	text = {
 		localization_key = character_title_tv_grand_general
 		trigger = { has_character_modifier = tv_grand_general_role_modifier }
 	}

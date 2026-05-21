@@ -1,0 +1,60 @@
+﻿# Towards Victory - Trade League scripted triggers
+# All triggers are country-scoped unless noted.
+
+# Grand Merchant busy-state helpers. Trade Chain and Commercial Intelligence
+# are placeholder systems for now, but the mutual-exclusion surface is defined
+# up front so future long-running tasks can set these flags and disable the
+# other Trade League systems consistently.
+tv_grand_merchant_busy_with_trade_chain_trigger = {
+	has_variable = tv_trade_chain_active
+}
+
+tv_grand_merchant_busy_with_commercial_intelligence_trigger = {
+	has_variable = tv_trade_commercial_intelligence_active
+}
+
+tv_grand_merchant_available_for_trade_chain_trigger = {
+	trigger_if = {
+		limit = { tv_grand_merchant_busy_with_commercial_intelligence_trigger = yes }
+		custom_description = {
+			text = tv_grand_merchant_busy_with_commercial_intelligence_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}
+
+tv_grand_merchant_available_for_commercial_intelligence_trigger = {
+	trigger_if = {
+		limit = { tv_grand_merchant_busy_with_trade_chain_trigger = yes }
+		custom_description = {
+			text = tv_grand_merchant_busy_with_trade_chain_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}
+
+tv_grand_merchant_available_for_monopoly_trigger = {
+	trigger_if = {
+		limit = { tv_grand_merchant_busy_with_trade_chain_trigger = yes }
+		custom_description = {
+			text = tv_grand_merchant_busy_with_trade_chain_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_grand_merchant_busy_with_commercial_intelligence_trigger = yes }
+		custom_description = {
+			text = tv_grand_merchant_busy_with_commercial_intelligence_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}

@@ -1,0 +1,125 @@
+﻿tv_invite_to_trade_league = {
+	type = diplomacy
+	category = CATEGORY_FRIENDLY_ACTIONS
+
+	cooldown = {
+		type = tv_invite_to_trade_league
+		years = 1
+	}
+
+	ai_tick = monthly
+	ai_tick_frequency = 60
+
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+		}
+	}
+
+	allow = {
+	}
+
+	select_trigger = {
+		looking_for_a = country
+		target_flag = recipient
+		name = "choose_country"
+		column = {
+			data = name
+		}
+		ai_interaction_source_list = {
+			scope:actor = {
+				every_friendly_or_high_opinion_country = {
+					add_to_list = source
+				}
+			}
+		}
+		visible = {
+		}
+		enabled = {
+			is_subject = no
+			is_rebel_country = no
+			custom_tooltip = {
+				text = TV_NOT_IN_TRADE_LEAGUE_TT
+				NOT = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_trade_league
+					}
+				}
+			}
+		}
+		show_why_not_enabled = yes
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:recipient }
+			scope:actor = {
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_trade_league
+						leader_country ?= scope:actor
+					}
+					add_country_to_international_organization = scope:recipient
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		add = 5
+	}
+
+	diplo_chance = {
+		base = -200
+		opinion = 0.5
+	}
+
+	accept = {
+		if = {
+			limit = {
+				scope:recipient = {
+					government_type = government_type:republic
+				}
+			}
+			add = {
+				desc = "TV_TRADE_LEAGUE_REPUBLIC"
+				value = 20
+			}
+		}
+		if = {
+			limit = {
+				scope:recipient = {
+					has_reform = government_reform:merchant_republic
+				}
+			}
+			add = {
+				desc = "TV_TRADE_LEAGUE_MERCHANT_REPUBLIC"
+				value = 30
+			}
+		}
+		if = {
+			limit = {
+				scope:recipient = {
+					num_locations <= 5
+				}
+			}
+			add = {
+				desc = "TV_TRADE_LEAGUE_SMALL_COUNTRY"
+				value = 20
+			}
+		}
+		add = {
+			desc = "TV_DIPLOMATIC_REPUTATION"
+			value = scope:actor.modifier:diplomatic_reputation
+			multiply = 2
+		}
+		add = {
+			desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+			value = scope:actor.monthly_trade_income
+			divide = 10
+		}
+	}
+}

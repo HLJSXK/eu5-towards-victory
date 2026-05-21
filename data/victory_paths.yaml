@@ -640,6 +640,10 @@ paths:
       }
 
     extra_loc_keys:
+      - key: tv_trade_m1_io_grant_tt
+        has_version_suffix: true
+        en: "Found the [tv_trade_league|E] and become its leader."
+        zh: "建立[tv_trade_league|E]，并成为其盟主。"
       - key: tv_trade_market_dominance_5_tt
         has_version_suffix: true
         en: "Leading [merchant|e] in at least 5 [market|e]s"
@@ -671,6 +675,10 @@ paths:
         extra_trigger_block: null
         modifier:
           merchant_maintenance_efficiency: 0.10
+        custom_grant_body: |
+          add_country_modifier = { modifier = tv_trade_m1_bonus days = -1 }
+          custom_tooltip = { text = tv_trade_m1_io_grant_tt }
+          hidden_effect = { tv_trade_league_create_effect = yes }
         modifier_name:
           en: "Merchant Efficiency"
           zh: "商人效率"

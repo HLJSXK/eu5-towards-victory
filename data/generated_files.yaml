@@ -77,6 +77,18 @@ generated:
     data:   data/locked_advances.yaml
     output: src/in_game/gui/panels/organization/tv_academy_of_sciences.gui
 
+  - script: scripts/in_game/common/international_organizations/gen_tv_trade_league.py
+    data:   data/trade_league_goods.yaml
+    output: src/in_game/common/international_organizations/tv_trade_league.txt
+
+  - script: scripts/in_game/common/scripted_effects/gen_tv_trade_league_effects.py
+    data:   data/trade_league_goods.yaml
+    output: src/in_game/common/scripted_effects/tv_trade_league_effects.txt
+
+  - script: scripts/in_game/gui/panels/organization/gen_tv_trade_league_gui.py
+    data:   data/trade_league_goods.yaml
+    output: src/in_game/gui/panels/organization/tv_trade_league.gui
+
   - script: scripts/in_game/common/laws/gen_tv_alliance_laws.py
     data:   data/alliance_laws.yaml
     output: src/in_game/common/laws/tv_alliance_laws.txt

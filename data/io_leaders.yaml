@@ -88,6 +88,19 @@ ios:
       is_adult = yes
       NOT = { is_artist = yes }
 
+  - id: trade              # generates tv_appoint_trade_leader, tv_remove_trade_leader, tv_change_trade_leader
+    display_name: Trade League
+    io_type: tv_trade_league
+    member_var: tv_trade_league_member
+    leader_var: tv_grand_merchant_char
+    select_name: tv_select_grand_merchant
+    no_leader_msg: tv_no_grand_merchant_available
+    title_modifier: tv_grand_merchant_role_modifier
+    title_loc_key: character_title_tv_grand_merchant
+    char_filter: |
+      is_adult = yes
+      NOT = { is_artist = yes }
+
   - id: conquest_general  # generates tv_appoint_conquest_general_leader, tv_remove_conquest_general_leader, tv_change_conquest_general_leader
     display_name: "Governor's House - Grand General"
     io_type: tv_govhouse

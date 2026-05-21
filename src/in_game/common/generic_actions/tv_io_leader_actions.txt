@@ -599,6 +599,152 @@ tv_change_engineering_leader = {
 }
 
 # ═════════════════════════════════════════════════════════════════════════════
+# Trade League (non-unique IO)
+# ═════════════════════════════════════════════════════════════════════════════
+
+tv_appoint_trade_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_TRADE_LEAGUE_MEMBER_TT
+			scope:actor = { has_variable = tv_trade_league_member }
+		}
+	}
+
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_grand_merchant"
+		none_available_msg_key = "tv_no_grand_merchant_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_adult = yes
+			NOT = { is_artist = yes }
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+		}
+	}
+
+	effect = {
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_grand_merchant_char value = scope:target }
+			}
+			scope:target = {
+				add_character_modifier = { modifier = tv_grand_merchant_role_modifier years = -1 mode = add_and_extend }
+			}
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_remove_trade_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_TRADE_LEAGUE_MEMBER_TT
+			scope:actor = { has_variable = tv_trade_league_member }
+		}
+	}
+
+	allow = { always = yes }
+
+	effect = {
+		scope:actor = {
+			if = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_GRAND_MERCHANT_CHAR_TT
+						has_variable = tv_grand_merchant_char
+					}
+				}
+				var:tv_grand_merchant_char ?= {
+					remove_character_modifier = tv_grand_merchant_role_modifier
+				}
+			}
+			remove_variable = tv_grand_merchant_char
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_change_trade_leader = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_TRADE_LEAGUE_MEMBER_TT
+			scope:actor = { has_variable = tv_trade_league_member }
+		}
+	}
+
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = target
+		name = "tv_select_grand_merchant"
+		none_available_msg_key = "tv_no_grand_merchant_available"
+		column = { data = character_info }
+		visible = {
+			is_alive = yes
+			is_adult = yes
+			NOT = { is_artist = yes }
+			is_ruler = no
+			is_heir = no
+			is_consort = no
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			if = {
+				limit = {
+					custom_tooltip = {
+						text = TV_HAS_GRAND_MERCHANT_CHAR_TT
+						has_variable = tv_grand_merchant_char
+					}
+				}
+				var:tv_grand_merchant_char ?= {
+					remove_character_modifier = tv_grand_merchant_role_modifier
+				}
+			}
+		}
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				set_variable = { name = tv_grand_merchant_char value = scope:target }
+			}
+			scope:target = {
+				add_character_modifier = { modifier = tv_grand_merchant_role_modifier years = -1 mode = add_and_extend }
+			}
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+# ═════════════════════════════════════════════════════════════════════════════
 # Governor's House - Grand General (non-unique IO)
 # ═════════════════════════════════════════════════════════════════════════════
 

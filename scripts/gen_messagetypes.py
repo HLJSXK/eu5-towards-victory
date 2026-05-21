@@ -276,6 +276,36 @@ PERFORM_tv_change_engineering_leader_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_appoint_trade_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = diplomacy
+}
+
+PERFORM_tv_remove_trade_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = diplomacy
+}
+
+PERFORM_tv_change_trade_leader_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = diplomacy
+}
+
 PERFORM_tv_wonder_accept_proposal_ACTION={
 \tlog=yes
 \tonmap=no
@@ -1006,7 +1036,37 @@ ACTION_tv_invite_to_diplomatic_alliance_PERFORMED_ON_US={
 \tmessage_category = diplomacy
 }
 
+WE_PERFORM_tv_invite_to_trade_league_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = diplomacy
+}
+
+ACTION_tv_invite_to_trade_league_PERFORMED_ON_US={
+\tlog=yes
+\tonmap=no
+\tpopup=yes
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = diplomacy
+}
+
 PERFORM_tv_expel_diplomatic_alliance_member_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = diplomacy
+}
+
+PERFORM_tv_expel_trade_league_member_ACTION={
 \tlog=yes
 \tonmap=no
 \tpopup=no
