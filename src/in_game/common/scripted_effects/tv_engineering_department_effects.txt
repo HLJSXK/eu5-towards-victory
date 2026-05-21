@@ -2259,7 +2259,6 @@ tv_wonder_choose_ceremony_style_effect = {
 			remove_variable = tv_wonder_ceremony_active
 			remove_variable = tv_wonder_ceremony_months
 			clear_variable_list = tv_wonder_emissary_countries
-			clear_variable_list = tv_wonder_tribute_subjects
 		}
 	}
 }
@@ -2450,12 +2449,42 @@ tv_wonder_apply_ceremony_modifier_effect = {
 tv_wonder_construct_final_building_in_site_effect = {
 	construct_building = { building_type = $building$ cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
 	if = {
-		limit = {
-			prev = { var:tv_wonder_final_building_extra_levels > 0 }
-		}
+		limit = { prev = { var:tv_wonder_level ?= 2 } }
 		change_building_level_in_location = {
 			building = $building$
-			value = prev.var:tv_wonder_final_building_extra_levels
+			value = 1
+			owner = prev
+		}
+	}
+	else_if = {
+		limit = { prev = { var:tv_wonder_level ?= 3 } }
+		change_building_level_in_location = {
+			building = $building$
+			value = 2
+			owner = prev
+		}
+	}
+	else_if = {
+		limit = { prev = { var:tv_wonder_level ?= 4 } }
+		change_building_level_in_location = {
+			building = $building$
+			value = 3
+			owner = prev
+		}
+	}
+	else_if = {
+		limit = { prev = { var:tv_wonder_level ?= 5 } }
+		change_building_level_in_location = {
+			building = $building$
+			value = 4
+			owner = prev
+		}
+	}
+	else_if = {
+		limit = { prev = { var:tv_wonder_level ?= 6 } }
+		change_building_level_in_location = {
+			building = $building$
+			value = 5
 			owner = prev
 		}
 	}
@@ -2463,10 +2492,15 @@ tv_wonder_construct_final_building_in_site_effect = {
 
 tv_wonder_construct_final_building_effect = {
 	if = {
-		limit = { tv_wonder_construction_site_selected_trigger = yes }
-		set_variable = { name = tv_wonder_final_building_extra_levels value = var:tv_wonder_level }
-		change_variable = { name = tv_wonder_final_building_extra_levels subtract = 1 }
-		clamp_variable = { name = tv_wonder_final_building_extra_levels min = 0 max = 5 }
+		limit = {
+			tv_wonder_construction_site_selected_trigger = yes
+			var:tv_wonder_locked ?= { this >= 1 }
+			var:tv_wonder_locked ?= { this <= 9 }
+			var:tv_wonder_ceremony_style ?= { this >= 1 }
+			var:tv_wonder_ceremony_style ?= { this <= 3 }
+			var:tv_wonder_level ?= { this >= 1 }
+			var:tv_wonder_level ?= { this <= 6 }
+		}
 		var:tv_wonder_site ?= {
 			if = {
 				limit = { prev = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 1 } }
@@ -2702,7 +2736,20 @@ tv_wonder_finalize_effect = {
 
 tv_wonder_complete_finalization_effect = {
 	if = {
-		limit = { has_variable = tv_wonder_finalized }
+		limit = {
+			has_variable = tv_wonder_finalized
+			tv_wonder_construction_site_selected_trigger = yes
+			var:tv_wonder_locked ?= { this >= 1 }
+			var:tv_wonder_locked ?= { this <= 9 }
+			var:tv_wonder_ceremony_style ?= { this >= 1 }
+			var:tv_wonder_ceremony_style ?= { this <= 3 }
+			var:tv_wonder_level ?= { this >= 1 }
+			var:tv_wonder_level ?= { this <= 6 }
+			has_variable = tv_wonder_final_support_reward_source
+			has_variable = tv_wonder_final_stability_reward
+			has_variable = tv_wonder_final_legitimacy_reward
+			has_variable = tv_wonder_final_prestige_reward
+		}
 		tv_wonder_construct_final_building_effect = yes
 		tv_wonder_apply_base_modifier_effect = yes
 		tv_wonder_apply_ceremony_modifier_effect = yes
@@ -3013,23 +3060,11 @@ tv_wonder_complete_eclipse_proclamation_effect = {
 	}
 }
 
-tv_wonder_request_tribute_effect = {
+tv_wonder_record_siphoned_income_effect = {
 	if = {
 		limit = {
-			exists = scope:target
-			tv_wonder_can_request_tribute_trigger = yes
-			scope:target = { is_subject_of = root }
-			OR = {
-				NOT = { has_variable_list = tv_wonder_tribute_subjects }
-				NOT = {
-					is_target_in_variable_list = {
-						name = tv_wonder_tribute_subjects
-						target = scope:target
-					}
-				}
-			}
+			tv_wonder_can_record_siphoned_income_trigger = yes
 		}
-		add_to_variable_list = { name = tv_wonder_tribute_subjects target = scope:target }
 		change_variable = { name = tv_wonder_ceremony_progress add = 1 }
 		if = {
 			limit = { var:tv_wonder_ceremony_progress >= 5 }
@@ -3191,7 +3226,6 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_ceremony_active
 	remove_variable = tv_wonder_ceremony_months
 	clear_variable_list = tv_wonder_emissary_countries
-	clear_variable_list = tv_wonder_tribute_subjects
 	remove_country_modifier = tv_wonder_meditation_ceremony_modifier
 	remove_country_modifier = tv_wonder_civic_festival_modifier
 	remove_country_modifier = tv_wonder_free_trade_festival_modifier

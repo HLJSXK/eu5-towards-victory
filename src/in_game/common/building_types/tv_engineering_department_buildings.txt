@@ -173,11 +173,7 @@ tv_wonder_golden_sanctuary = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_pop_conversion_speed_modifier = 0.10
-		local_migration_attraction = 0.5
-		local_unrest = -0.1
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_sacred_monument_maintenance
@@ -210,11 +206,7 @@ tv_wonder_ascetic_mountain = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_monthly_literacy = 0.05
-		local_migration_attraction = 0.5
-		local_unrest = -0.1
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_sacred_monument_maintenance
@@ -247,11 +239,7 @@ tv_wonder_theocratic_center = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_pop_conversion_speed_modifier = 0.10
-		local_cultural_influence = 0.05
-		local_unrest = -0.1
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_sacred_monument_maintenance
@@ -284,11 +272,7 @@ tv_wonder_sun_king_axis = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_cultural_influence = 0.10
-		local_migration_attraction = 0.5
-		local_unrest = -0.1
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_axis_monument_maintenance
@@ -321,11 +305,7 @@ tv_wonder_military_city = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_army_levy_size_modifier = 0.10
-		local_defensive = 0.10
-		local_unrest = -0.1
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_axis_monument_maintenance
@@ -358,11 +338,7 @@ tv_wonder_civic_capital = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_monthly_control = 0.001
-		local_migration_attraction = 0.5
-		local_unrest = -0.1
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_axis_monument_maintenance
@@ -395,11 +371,7 @@ tv_wonder_golden_trade_port = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_trade_center_power = 0.20
-		local_migration_attraction = 1
-		local_trades_per_burgher = 0.25
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_port_monument_maintenance
@@ -432,11 +404,7 @@ tv_wonder_imperial_naval_port = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_trade_center_power = 0.20
-		local_migration_attraction = 1
-		local_trade_protection_factor = 0.10
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_port_monument_maintenance
@@ -469,11 +437,7 @@ tv_wonder_free_trade_metropolis = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_trade_center_power = 0.20
-		local_migration_attraction = 1
-		local_market_access = 0.01
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_port_monument_maintenance
@@ -506,11 +470,7 @@ tv_wonder_dynastic_necropolis = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_migration_attraction = -0.1
-		local_unrest = -0.05
-		local_cultural_influence = 0.05
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_necropolis_maintenance
@@ -543,11 +503,7 @@ tv_wonder_ancestor_shrine = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_migration_attraction = -0.1
-		local_monthly_control = 0.001
-		local_cultural_influence = 0.05
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_necropolis_maintenance
@@ -580,11 +536,7 @@ tv_wonder_quiet_land = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_migration_attraction = -0.1
-		local_pop_join_rebel_threshold = -0.05
-		local_cultural_influence = 0.05
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_necropolis_maintenance
@@ -617,11 +569,7 @@ tv_wonder_eternal_lighthouse = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_trade_center_power = 0.10
-		building_owner_maritime_presence = 0.05
-		local_migration_attraction = 0.5
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_lighthouse_flame_maintenance
@@ -654,11 +602,7 @@ tv_wonder_navigator_lighthouse = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_trade_center_power = 0.10
-		local_burghers_estate_power = 0.10
-		local_migration_attraction = 0.5
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_lighthouse_maintenance
@@ -691,11 +635,7 @@ tv_wonder_long_watch_lighthouse = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_trade_center_power = 0.10
-		building_owner_maritime_presence = 0.10
-		local_migration_attraction = 0.5
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_lighthouse_maintenance
@@ -728,10 +668,7 @@ tv_wonder_water_god_workshop = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_production_efficiency = 0.20
-		local_unrest = -0.10
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_hydraulic_workshop_maintenance
@@ -764,11 +701,7 @@ tv_wonder_hydraulic_artisan_guildhall = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_production_efficiency = 0.20
-		local_max_control = 0.10
-		local_burghers_estate_power = 0.05
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_hydraulic_workshop_maintenance
@@ -801,10 +734,7 @@ tv_wonder_waterwheel_workshop = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_production_efficiency = 0.20
-		local_build_buildings_cost = -0.50
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_hydraulic_workshop_maintenance
@@ -837,11 +767,7 @@ tv_wonder_miners_oath_city = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_max_rgo_size_modifier = 0.50
-		local_raw_material_output = 0.10
-		local_peasants_estate_power = 0.05
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_mining_city_maintenance
@@ -874,10 +800,7 @@ tv_wonder_royal_mint_city = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_max_rgo_size_modifier = 0.50
-		local_raw_material_output = 0.10
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_mining_city_maintenance
@@ -910,11 +833,7 @@ tv_wonder_deep_shaft_city = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_max_rgo_size_modifier = 0.50
-		local_raw_material_output = 0.10
-		local_production_efficiency = 0.05
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_mining_city_maintenance
@@ -947,10 +866,7 @@ tv_wonder_star_catalog_observatory = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_max_literacy = 10
-		local_migration_attraction = 0.5
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_sacred_monument_maintenance
@@ -983,9 +899,7 @@ tv_wonder_nautical_almanac_observatory = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_migration_attraction = 0.5
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_sacred_monument_maintenance
@@ -1018,10 +932,7 @@ tv_wonder_eclipse_observatory = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_migration_attraction = 0.5
-		local_unrest = -0.1
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_sacred_monument_maintenance
@@ -1054,11 +965,7 @@ tv_wonder_congress_palace = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_proximity_source = 5
-		local_nobles_estate_power = 0.10
-		local_migration_attraction = 0.5
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_axis_monument_maintenance
@@ -1091,10 +998,7 @@ tv_wonder_tribute_gallery = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_proximity_source = 5
-		local_migration_attraction = 0.5
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_axis_monument_maintenance
@@ -1127,11 +1031,7 @@ tv_wonder_embassy_palace = {
 
 	build_time = large_cultural_building_time
 
-	modifier = {
-		local_proximity_source = 5
-		diplomatic_reputation = 1
-		local_nobles_estate_power = 0.50
-	}
+	modifier = {}
 
 	possible_production_methods = {
 		tv_wonder_axis_monument_maintenance
