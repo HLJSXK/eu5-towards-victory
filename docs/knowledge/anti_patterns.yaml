@@ -1154,3 +1154,13 @@
   scope: any
   source: "reference_game_files/game/in_game/common/scripted_effects/location_effects.txt:238-240; reference_game_files/game/in_game/common/missions/generic_progress_and_literacy_mission_pack.txt:160-166"
   notes: "Engineering Department estate-demand rerolls used modifier factor zero in random_list branches. A player could bribe a demand into the artwork-loss branch and repeated same-day rerolls kept resolving to that same visible demand. Replacing branch modifiers with trigger filters and excluding the current demand makes the random pool behave like vanilla and prevents visible no-op rerolls."
+
+- id: music_player_tracks_as_scripted_playback_rules
+  pattern: ''
+  only_in_paths: ['music_player_tracks']
+  bad: "Using common/music_player_tracks as if it can load raw audio files or define country/event/war trigger conditions for automatic music playback"
+  correction: "Register only Wwise event keys there, with optional composer/performer/soloist metadata and matching music_player localization. Treat automatic conditional playback as Wwise/engine-side unless a new verified EU5 script type exposes track triggers."
+  category: script
+  scope: any
+  source: "reference_official_defines/types/music_player_tracks.txt:1-14; reference_game_files/game/in_game/common/music_player_tracks/00_music_player_tracks.txt:1-19; reference_game_files/game/in_game/gui/music_player_lateralview.gui:133-185"
+  notes: "The official type note says new songs are added in Wwise and registered by event key. Vanilla entries contain no trigger/chance/category fields beyond metadata, and the in-game music player plays registered track objects via GUI bindings. Current references do not expose EU4-style songs.txt conditional rules."

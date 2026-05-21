@@ -806,7 +806,41 @@ on_built = {
 | `early_capital_building_construction` | Royal court, capital buildings | `capital_buildings.txt:56` |
 | `village_construction` | Irrigation systems | `common_buildings.txt:32` |
 
-## 11. References
+## 11. Music
+
+### 11.1 Music Player Tracks
+
+EU5's exposed text-side music track database lives in `in_game/common/music_player_tracks/`.
+The official type note and vanilla file both say new songs are first added in Wwise, then
+registered by their Wwise event key. The text entry supports metadata only:
+
+```
+MusicPlayer_my_event_key = {
+    composer = My_Composer_Key
+    performer = My_Performer_Key
+    soloist = My_Soloist_Key
+}
+```
+
+Add matching `music_player_l_*.yml` localization for the track key, `<track>_flavour`,
+and any composer/performer/soloist keys. The in-game music player GUI lists registered
+track objects and plays them through `MusicPlayerTrack.Play`; current references do not
+show EU4-style `songs.txt` trigger/chance rules for country, war, date, variable, or event
+conditions.
+
+Treat automatic conditional playback as Wwise/engine-side unless a later verified script
+type exposes music triggers. EU5 script can clearly add player-visible track metadata, and
+GUI can manually play a registered track object, but no verified country/event effect was
+found that forces a specific music-player track from normal game script.
+
+### 11.2 Audio Culture and Environment Tags
+
+`main_menu/music/audio_culture_types/` defines audio culture archetypes such as
+`european_sfx`, each with `priority` and `culture_tag`. Topography, vegetation, and some
+climate definitions can provide `audio_tags`, which appear to feed ambient/environmental
+audio selection rather than music-player song conditions.
+
+## 12. References
 
 [1] [Europa Universalis V - PC performance graphics benchmarks](https://en.gamegpu.com/test-gpu/rts-strategii/europa-universalis-v-test-gpu-cpu)
 [2] [Grand Jomini Modding Information Manuscript](https://forum.paradoxplaza.com/forum/threads/grand-jomini-modding-information-manuscript.1170261/)
