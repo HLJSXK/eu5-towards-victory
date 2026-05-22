@@ -19,6 +19,17 @@ conda run --no-capture-output -n eu5 python scripts/ai_context.py --files <path>
 Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action. The Events risk card is routed for event files because option tooltips can pre-evaluate visible effect chains before the player confirms a choice. The IO risk card is also routed for IO definitions, IO laws, and country interactions that find or mutate TV international organizations.
 `src/in_game/common/laws/` is routed to the `international_organizations` risk card because IO policy scopes and AI math pre-evaluation have recurring runtime traps.
 
+## Resume / Handoff Discipline
+
+When a turn includes a handoff summary, compaction summary, or explicit prior-agent progress, treat it as the current task state, not as background reading.
+
+- Trust the summary's "already read", "already verified", "already changed", and "remaining next steps" unless local evidence contradicts it.
+- First actions after a handoff should be limited to `git diff`, `git status`, reading the named target files, or running the exact validation/check command listed as next. Do not restart the normal session bootstrap just because a new model is continuing the work.
+- Do not rerun `ai_context.py`, reread broad docs, or re-verify references named in the handoff unless the summary is internally inconsistent, the target files changed since the handoff, or a validation/runtime error points directly at that area.
+- Search narrowly. In a continuation, broad `rg` over `reference_game_files`, `reference_mods`, or the whole repo requires a specific missing fact and a stated pattern; prefer file-scoped searches and the references already recorded in the handoff.
+- If code was already modified before the handoff, run validation before opening a new investigation path. Let concrete errors guide any further exploration.
+- Before resuming substantial work, restate the continuation checkpoint in one or two sentences: what is already done, what the next blocking step is, and which local check will be performed first.
+
 ## Project Identity
 
 - **Mod Name:** Towards Victory (胜利条件)
