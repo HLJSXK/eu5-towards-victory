@@ -130,6 +130,17 @@
   source: "reference_game_files/game/in_game/common/trigger_localization/common_triggers.txt:107; reference_game_files/game/in_game/common/trigger_localization/trade_triggers.txt:8"
   notes: "total_effective_goods_production_buildings counts producing building levels, not goods output; traded_in_market:<good> is a market total and double-counts shared markets when iterated once per IO member."
 
+- id: dynamic_scope_value_must_use_script_value_block
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['generic_actions', 'scripted_effects', 'gen_tv_trade_league_actions', 'gen_tv_trade_league_effects']
+  bad: "Passing a generic-action value selector or scoped variable directly as set_variable value, add_temporary_demand scale, or add_goods_supply amount"
+  correction: "Wrap dynamic numeric reads in an explicit script-value block, e.g. value = { value = scope:target_1 }, value = { value = scope:target_1 divide = 2 }, scale = { value = scope:io.var:X }, or amount = { value = scope:io.var:X }."
+  category: script
+  scope: any
+  source: "user-reported runtime behavior in Trade League virtual demand/supply actions (2026-05-22); reference_game_files/game/in_game/common/generic_actions/international_organizations.txt:275; reference_game_files/game/in_game/events/government/town_rights_events.txt:476"
+  notes: "Direct scoped numeric reads in these dynamic value slots can be interpreted as existence/truthy values and collapse to 1. The script-value block preserves the selected number and supports inline arithmetic."
+
 - id: trade_efficiency_nonexistent
   pattern: '\btrade_efficiency\s*='
   bad: "trade_efficiency = <value>"

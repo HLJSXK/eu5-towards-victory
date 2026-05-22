@@ -126,6 +126,7 @@ def load_transport_costs() -> dict[str, float]:
 
 
 TRANSPORT_COSTS = load_transport_costs()
+INDENT_4 = "\t" * 4
 INDENT_5 = "\t" * 5
 INDENT_6 = "\t" * 6
 
@@ -153,6 +154,14 @@ def actor_leader_trigger(good: str | None = None) -> str:
         "\t\t\t}\n"
         "\t\t}"
     )
+
+
+def demand_remove_block(good: str, indent: str) -> str:
+    return f"tv_trade_league_remove_virtual_demand_{good}_effect = yes"
+
+
+def demand_apply_block(good: str, indent: str) -> str:
+    return f"tv_trade_league_apply_virtual_demand_{good}_effect = yes"
 
 
 def base_action(action_id: str, body: str, selected: bool = False) -> str:
@@ -267,11 +276,12 @@ def market_value_action(good: str, action: str, title_key: str) -> str:
 \t\t\t\t\tlimit = {{
 \t\t\t\t\t\t{leader_io_limit(good, INDENT_6)}
 \t\t\t\t\t}}
+\t\t\t\t\t{demand_remove_block(good, INDENT_5) if action == "virtual_demand" else ""}
 \t\t\t\t\tset_variable = {{ name = {active_var} value = 1 }}
-\t\t\t\t\tset_variable = {{ name = {used_var} value = scope:target_1 }}
-\t\t\t\t\tset_variable = {{ name = {amount_var} value = scope:target_1 }}
-\t\t\t\t\tchange_variable = {{ name = {amount_var} divide = {cost} }}
+\t\t\t\t\tset_variable = {{ name = {used_var} value = {{ value = scope:target_1 }} }}
+\t\t\t\t\tset_variable = {{ name = {amount_var} value = {{ value = scope:target_1 divide = {cost} }} }}
 \t\t\t\t\tset_variable = {{ name = {location_var} value = scope:tv_trade_selected_market_location }}
+\t\t\t\t\t{demand_apply_block(good, INDENT_5) if action == "virtual_demand" else ""}
 \t\t\t\t}}
 \t\t\t}}
 \t\t}}
@@ -295,6 +305,16 @@ def adjust_action(good: str, action: str, direction: str) -> str:
         allow_extra = f"var:{used_var} ?= {{ this >= 1 }}"
         mutation = f"change_variable = {{ name = {used_var} subtract = 1 }}"
         amount_mutation = f"change_variable = {{ name = {amount_var} subtract = {amount_step} }}"
+    remove_existing_demand = (
+        demand_remove_block(good, INDENT_4) if action == "virtual_demand" else ""
+    )
+    reapply_demand = (
+        f"""else = {{
+\t\t\t\t\t{demand_apply_block(good, INDENT_5)}
+\t\t\t\t}}"""
+        if action == "virtual_demand"
+        else ""
+    )
     body = f"""\tpotential = {{
 \t\tscope:actor = {{
 \t\t\tany_international_organizations_member_of = {{
@@ -319,6 +339,7 @@ def adjust_action(good: str, action: str, direction: str) -> str:
 \t\t\t\t\t{leader_io_limit(good, INDENT_5)}
 \t\t\t\t\tvar:{active_var} ?= {{ this >= 1 }}
 \t\t\t\t}}
+\t\t\t\t{remove_existing_demand}
 \t\t\t\t{mutation}
 \t\t\t\t{amount_mutation}
 \t\t\t\tif = {{
@@ -328,6 +349,7 @@ def adjust_action(good: str, action: str, direction: str) -> str:
 \t\t\t\t\tset_variable = {{ name = {amount_var} value = 0 }}
 \t\t\t\t\tremove_variable = {location_var}
 \t\t\t\t}}
+\t\t\t\t{reapply_demand}
 \t\t\t}}
 \t\t}}
 \t}}"""
@@ -340,6 +362,9 @@ def cancel_action(good: str, action: str) -> str:
     used_var = f"tv_trade_{action}_used_pct_{good}"
     amount_var = f"tv_trade_{action}_amount_{good}"
     location_var = f"tv_trade_{action}_location_{good}"
+    remove_existing_demand = (
+        demand_remove_block(good, INDENT_4) if action == "virtual_demand" else ""
+    )
     body = f"""\tpotential = {{
 \t\tscope:actor = {{
 \t\t\tany_international_organizations_member_of = {{
@@ -363,6 +388,7 @@ def cancel_action(good: str, action: str) -> str:
 \t\t\t\t\t{leader_io_limit(good, INDENT_5)}
 \t\t\t\t\tvar:{active_var} ?= {{ this >= 1 }}
 \t\t\t\t}}
+\t\t\t\t{remove_existing_demand}
 \t\t\t\tset_variable = {{ name = {active_var} value = 0 }}
 \t\t\t\tset_variable = {{ name = {used_var} value = 0 }}
 \t\t\t\tset_variable = {{ name = {amount_var} value = 0 }}

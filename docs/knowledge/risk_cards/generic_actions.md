@@ -36,7 +36,13 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    tooltip logic reads `scope:target` (or another earlier target flag). Use the inherited
    chooser/source or an explicit `interaction_source_list` instead.
 
-6. Register the action outside the action file.
+6. Wrap selected numeric values in script-value blocks.
+   If a selector result or scoped variable is stored or passed to a numeric effect parameter,
+   use `value = { value = scope:target_1 }`, `scale = { value = scope:io.var:X }`, or
+   `amount = { value = scope:io.var:X }`. Direct dynamic reads in these slots can collapse
+   to `1` at runtime.
+
+7. Register the action outside the action file.
    Every new generic action also needs a `common/generic_action_ai_lists` entry and a
    `PERFORM_<action_id>_ACTION` message type.
 
@@ -84,6 +90,9 @@ validation unless they are fixed or explicitly added to `data/validation_baselin
 rationale.
 
 ## Relevant Anti-Patterns
+- `dynamic_scope_value_must_use_script_value_block` [advisory]: Dynamic selector values and
+  scoped variables used in numeric effect parameters should be wrapped in explicit script-value
+  blocks so the runtime preserves the selected number instead of treating the read as truthy.
 - `select_trigger_world_source_reads_previous_target` [needs_parser]: A later selector with
   `source = world` cannot safely read `scope:target` from an earlier selector; omit `source`,
   use a non-world source, or provide an `interaction_source_list`.

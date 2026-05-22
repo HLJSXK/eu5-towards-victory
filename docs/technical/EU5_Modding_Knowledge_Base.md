@@ -349,6 +349,28 @@ The GUI can hide this bug: `ShowTriggerConditions('trigger_name', PlayerScope.Se
 
 Script values are used for mathematical calculations and creating dynamic numerical values. They can be defined as reusable named values in the `common/script_values/` folder or created inline within other scripts. They support a wide range of arithmetic and logical operators. [6]
 
+#### Dynamic Numeric Values From Selectors
+
+When a generic action value selector, scope link, or variable chain provides a number that will be stored or passed into a numeric effect parameter, wrap it in an explicit script-value block:
+
+```pdx
+set_variable = { name = my_used_pct value = { value = scope:target_1 } }
+set_variable = { name = my_amount value = { value = scope:target_1 divide = 2 } }
+
+add_temporary_demand = {
+    type = demand:my_virtual_demand
+    scale = { value = scope:my_io.var:my_amount }
+    months = 2
+}
+
+add_goods_supply = {
+    goods = goods:horses
+    amount = { value = scope:my_io.var:my_amount }
+}
+```
+
+Do not pass these dynamic values directly as `value = scope:target_1`, `scale = scope:X.var:Y`, or `amount = scope:X.var:Y`. Runtime behavior in the Trade League virtual demand/supply actions showed those direct forms can collapse to `1`, regardless of the selected percentage. The script-value block preserves the numeric value and is also where inline arithmetic such as `divide = 2` belongs.
+
 #### Scope Navigation in Script Values — `location.` prefix rule
 
 Script values always execute in the scope they are *called from*, not from the scope implied by their name prefix. The `location.` prefix is a **scope navigation link** that transitions from an outer scope (pop, character, market, etc.) *to* a location. This means:

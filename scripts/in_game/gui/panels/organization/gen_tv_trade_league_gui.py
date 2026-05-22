@@ -675,6 +675,106 @@ def embargo_row(good: str) -> str:
 """
 
 
+def io_variable(variable: str) -> str:
+    return f"InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('{variable}')"
+
+
+def market_metric_cell(good: str, prefix: str, rank: int, field: str, label: str) -> str:
+    variable = io_variable(f"tv_trade_{prefix}_{field}_{rank}_{good}")
+    return f"""\
+\t\t\t\t\t\t\t\t\t\twidget = {{
+\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\t\t\tsize = {{ 68 20 }}
+\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 68 20 }} raw_text = "{label} [{variable}.GetValue|0]" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\t\t}}
+"""
+
+
+def market_info_row(good: str, prefix: str, rank: int) -> str:
+    market_var = io_variable(f"tv_trade_{prefix}_market_{rank}_{good}")
+    control_var = io_variable(f"tv_trade_{prefix}_control_pct_{rank}_{good}")
+    row_set_visible = f"[{market_var}.IsSet]"
+    row_empty_visible = f"[Not({market_var}.IsSet)]"
+    return f"""\
+\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\tvisible = "{row_set_visible}"
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\tsize = {{ 462 22 }}
+\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\twidget = {{
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\t\tsize = {{ 126 20 }}
+\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 126 20 }} raw_text = "@market! [{market_var}.GetLocation.GetMarket.GetNameWithNoTooltip]" align = nobaseline|left }}
+\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\twidget = {{
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\t\tsize = {{ 44 20 }}
+\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 44 20 }} raw_text = "[{control_var}.GetValue|0]%" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\t}}
+{market_metric_cell(good, prefix, rank, "produced", "P")}{market_metric_cell(good, prefix, rank, "traded", "T")}{market_metric_cell(good, prefix, rank, "supply", "S")}{market_metric_cell(good, prefix, rank, "demand", "D")}\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\tvisible = "{row_empty_visible}"
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\tsize = {{ 462 22 }}
+\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 126 20 }} text_single = {{ size = {{ 126 20 }} raw_text = "-" align = nobaseline|left }} }}
+\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 44 20 }} text_single = {{ size = {{ 44 20 }} raw_text = "-" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "-" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "-" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "-" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "-" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t}}
+"""
+
+
+def market_info_section(good: str, prefix: str, title: str) -> str:
+    rows = "".join(market_info_row(good, prefix, rank) for rank in range(1, 4))
+    return f"""\
+\t\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\tsize = {{ 462 112 }}
+\t\t\t\t\t\t\t\t\tignoreinvisible = yes
+\t\t\t\t\t\t\t\t\tspacing = 2
+\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 462 22 }} text = "{title}" align = nobaseline|center }}
+\t\t\t\t\t\t\t\t\twidget = {{
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\t\tsize = {{ 462 20 }}
+\t\t\t\t\t\t\t\t\t\tbackground = {{
+\t\t\t\t\t\t\t\t\t\t\tusing = tooltip_table_field_texture
+\t\t\t\t\t\t\t\t\t\t\talpha = 0.18
+\t\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\t\t\tsize = {{ 462 20 }}
+\t\t\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 126 20 }} text_single = {{ size = {{ 126 20 }} text = "TV_TRADE_LEAGUE_MARKET_COLUMN" align = nobaseline|left }} }}
+\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 44 20 }} text_single = {{ size = {{ 44 20 }} text = "TV_TRADE_LEAGUE_CONTROL_COLUMN" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "P" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "T" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "S" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "D" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\t}}
+{rows}\t\t\t\t\t\t\t\t}}
+"""
+
+
+def market_intelligence(good: str) -> str:
+    return (
+        market_info_section(good, "prod", "TV_TRADE_LEAGUE_PRODUCTION_MARKETS_TITLE")
+        + market_info_section(good, "node", "TV_TRADE_LEAGUE_KEY_NODES_TITLE")
+        + market_info_section(good, "consumer", "TV_TRADE_LEAGUE_CONSUMER_MARKETS_TITLE")
+    )
+
+
 def detail_card(good: str, index: int) -> str:
     visible = selected_visible(index)
     return f"""\
@@ -745,6 +845,8 @@ def detail_card(good: str, index: int) -> str:
 \t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 378 24 }} text = "TV_TRADE_LEAGUE_AVAILABLE_LEVEL" align = nobaseline|right }}
 \t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 80 24 }} raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_available_monopoly_level_pct_{good}').GetValue|0]%" align = nobaseline|right }}
 \t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 462 24 }} text = "TV_TRADE_LEAGUE_MARKET_INTELLIGENCE_TITLE" align = nobaseline|center }}
+{market_intelligence(good)}
 \t\t\t\t\t\t\t\ttext_single = {{ size = {{ 462 24 }} text = "TV_TRADE_LEAGUE_ACTION_LIST_TITLE" align = nobaseline|center }}
 {action_row(good, "virtual_demand", "TV_TRADE_LEAGUE_VIRTUAL_DEMAND", "@demand!")}
 {action_row(good, "virtual_supply", "TV_TRADE_LEAGUE_VIRTUAL_PRODUCTION", "@supply!")}
