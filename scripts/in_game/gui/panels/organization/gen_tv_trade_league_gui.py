@@ -340,7 +340,7 @@ organization_panel = {
 \t\t\t\t\tmargin = { 10 2 }
 
 \t\t\t\t\tcard_common = {
-\t\t\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_grand_merchant_char').IsSet)]"
+\t\t\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_grand_merchant_char').IsSet)]"
 \t\t\t\t\t\tmaximumsize = { 500 -1 }
 \t\t\t\t\t\tblockoverride "common_header_icon_texture" {
 \t\t\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/trade.dds"
@@ -360,9 +360,8 @@ organization_panel = {
 \t\t\t\t\t}
 
 \t\t\t\t\tcard_common = {
-\t\t\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_grand_merchant_char').IsSet]"
-\t\t\t\t\t\tminimumsize = { 500 760 }
-\t\t\t\t\t\tmaximumsize = { 500 760 }
+\t\t\t\t\t\tvisible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_grand_merchant_char').IsSet]"
+\t\t\t\t\t\tmaximumsize = { 500 -1 }
 \t\t\t\t\t\tblockoverride "common_header_icon_texture" {
 \t\t\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/trade.dds"
 \t\t\t\t\t\t}
@@ -378,17 +377,21 @@ organization_panel = {
 \t\t\t\t\t\t\t\thbox = {
 \t\t\t\t\t\t\t\t\tsize = { 462 24 }
 \t\t\t\t\t\t\t\t\tspacing = 4
-\t\t\t\t\t\t\t\t\ttext_single = { size = { 190 22 } text = "TV_TRADE_LEAGUE_GOOD_COLUMN" align = nobaseline|left }
-\t\t\t\t\t\t\t\t\ttext_single = { size = { 110 22 } raw_text = "@production_panel! $TV_TRADE_LEAGUE_WORLD_COLUMN$" align = nobaseline|right }
-\t\t\t\t\t\t\t\t\ttext_single = { size = { 110 22 } raw_text = "@trade! $TV_TRADE_LEAGUE_IO_COLUMN$" align = nobaseline|right }
-\t\t\t\t\t\t\t\t\ttext_single = { size = { 32 22 } text = "TV_TRADE_LEAGUE_MONOPOLY_COLUMN" align = nobaseline|center }
+\t\t\t\t\t\t\t\t\ttext_single = { size = { 150 22 } text = "TV_TRADE_LEAGUE_GOOD_COLUMN" align = nobaseline|left }
+\t\t\t\t\t\t\t\t\ttext_single = { size = { 82 22 } raw_text = "@production_panel! $TV_TRADE_LEAGUE_WORLD_COLUMN$" align = nobaseline|right }
+\t\t\t\t\t\t\t\t\ttext_single = { size = { 82 22 } raw_text = "@trade! $TV_TRADE_LEAGUE_IO_COLUMN$" align = nobaseline|right }
+\t\t\t\t\t\t\t\t\ttext_single = { size = { 28 22 } text = "TV_TRADE_LEAGUE_MONOPOLY_COLUMN" align = nobaseline|center }
+\t\t\t\t\t\t\t\t\ttext_single = { size = { 104 22 } text = "TV_TRADE_LEAGUE_LEVEL_COLUMN" align = nobaseline|right }
 \t\t\t\t\t\t\t\t}
 """
 
-SUFFIX = """\
+LIST_CARD_SUFFIX = """\
 \t\t\t\t\t\t\t}
 \t\t\t\t\t\t}
 \t\t\t\t\t}
+\n"""
+
+SUFFIX = """\
 \t\t\t\t}
 \t\t\t}
 \t\t}
@@ -397,53 +400,220 @@ SUFFIX = """\
 """
 
 
-def monopoly_row(good: str) -> str:
+def selected_visible(index: int) -> str:
+    return (
+        "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, "
+        f"'(CFixedPoint){index}.0')]"
+    )
+
+
+def monopoly_row(good: str, index: int) -> str:
     return f"""\
-\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\twidget = {{
 \t\t\t\t\t\t\t\t\tsize = {{ 462 26 }}
-\t\t\t\t\t\t\t\t\tspacing = 4
-\t\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 190 24 }}
-\t\t\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\t\tsize = {{ 462 26 }}
+\t\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\t\twidget = {{
+\t\t\t\t\t\t\t\t\t\t\tsize = {{ 150 24 }}
+\t\t\t\t\t\t\t\t\t\t\thbox = {{
 \t\t\t\t\t\t\t\t\t\t\tspacing = 4
 \t\t\t\t\t\t\t\t\t\t\ticon = {{
 \t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 24 24 }}
 \t\t\t\t\t\t\t\t\t\t\t\ttexture = "gfx/interface/icons/trade_goods/icon_goods_{good}.dds"
 \t\t\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 158 24 }}
+\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 118 24 }}
 \t\t\t\t\t\t\t\t\t\t\t\ttext = "{good}"
 \t\t\t\t\t\t\t\t\t\t\t\talign = nobaseline|left
 \t\t\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 110 24 }}
+\t\t\t\t\t\t\t\t\t\tsize = {{ 82 24 }}
 \t\t\t\t\t\t\t\t\t\traw_text = "@production_panel! [InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_global_{good}').GetValue|0]"
 \t\t\t\t\t\t\t\t\t\talign = nobaseline|right
 \t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 110 24 }}
+\t\t\t\t\t\t\t\t\t\tsize = {{ 82 24 }}
 \t\t\t\t\t\t\t\t\t\traw_text = "@trade! [InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_io_{good}').GetValue|0]"
 \t\t\t\t\t\t\t\t\t\talign = nobaseline|right
 \t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 32 24 }}
+\t\t\t\t\t\t\t\t\t\tsize = {{ 28 24 }}
 \t\t\t\t\t\t\t\t\t\tvisible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_{good}').GetValue, '(CFixedPoint)1.0')]"
 \t\t\t\t\t\t\t\t\t\traw_text = "@trigger_yes!"
 \t\t\t\t\t\t\t\t\t\talign = nobaseline|center
 \t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 32 24 }}
+\t\t\t\t\t\t\t\t\t\tsize = {{ 28 24 }}
 \t\t\t\t\t\t\t\t\t\tvisible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_{good}').GetValue, '(CFixedPoint)1.0'))]"
 \t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\ttext_single = {{
+\t\t\t\t\t\t\t\t\t\tsize = {{ 104 24 }}
+\t\t\t\t\t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue|0]%"
+\t\t\t\t\t\t\t\t\t\talign = nobaseline|right
+\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\taction_button = {{
+\t\t\t\t\t\t\t\t\tsize = {{ 462 26 }}
+\t\t\t\t\t\t\t\t\talpha = 0
+\t\t\t\t\t\t\t\t\talwaystransparent = no
+\t\t\t\t\t\t\t\t\tusing = action_button_common_template
+\t\t\t\t\t\t\t\t\ttitle = "tv_trade_select_monopoly_good_{good}"
+\t\t\t\t\t\t\t\t\tdescription = "tv_trade_select_monopoly_good_{good}_desc"
+\t\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\t\t\t\t\t\tleft_action = {{ action_name = "tv_trade_select_monopoly_good_{good}" }}
+\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t}}
+"""
+
+
+def action_row(good: str, action: str, title: str, icon: str) -> str:
+    amount_var = f"tv_trade_{action}_amount_{good}"
+    used_var = f"tv_trade_{action}_used_pct_{good}"
+    active_var = f"tv_trade_{action}_active_{good}"
+    location_var = f"tv_trade_{action}_location_{good}"
+    return f"""\
+\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\tvisible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('{active_var}').GetValue, '(CFixedPoint)1.0')]"
+\t\t\t\t\t\t\t\t\tsize = {{ 462 28 }}
+\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 140 26 }} raw_text = "@market! [InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('{location_var}').GetLocation.GetMarket.GetNameWithNoTooltip]" align = nobaseline|left }}
+\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 116 26 }} raw_text = "{icon} ${title}$" align = nobaseline|left }}
+\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 74 26 }} raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('{amount_var}').GetValue|0]" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 48 26 }} raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('{used_var}').GetValue|0]%" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\taction_button = {{ size = {{ 24 24 }} using = button_regular_texture_alt_yellow using = action_button_common_template using = button_common_textobj_template text = "+" title = "tv_trade_increase_{action}_{good}" description = "tv_trade_increase_{action}_{good}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = {{ action_name = "tv_trade_increase_{action}_{good}" }} }}
+\t\t\t\t\t\t\t\t\taction_button = {{ size = {{ 24 24 }} using = button_regular_texture_alt_yellow using = action_button_common_template using = button_common_textobj_template text = "-" title = "tv_trade_decrease_{action}_{good}" description = "tv_trade_decrease_{action}_{good}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = {{ action_name = "tv_trade_decrease_{action}_{good}" }} }}
+\t\t\t\t\t\t\t\t\taction_button = {{ size = {{ 28 24 }} using = button_regular_texture_alt_red using = action_button_common_template using = button_common_textobj_template text = "X" title = "tv_trade_cancel_{action}_{good}" description = "tv_trade_cancel_{action}_{good}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = {{ action_name = "tv_trade_cancel_{action}_{good}" }} }}
 \t\t\t\t\t\t\t\t}}
 """
 
 
+def embargo_row(good: str) -> str:
+    return f"""\
+\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\tvisible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_embargo_active_{good}').GetValue, '(CFixedPoint)1.0')]"
+\t\t\t\t\t\t\t\t\tsize = {{ 462 28 }}
+\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 140 26 }} raw_text = "@market! [InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_embargo_location_{good}').GetLocation.GetMarket.GetNameWithNoTooltip]" align = nobaseline|left }}
+\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 116 26 }} raw_text = "@trade_advantage! $TV_TRADE_LEAGUE_EMBARGO$" align = nobaseline|left }}
+\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 126 26 }} raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_embargo_country_{good}').GetCountry.GetNameWithFlag]" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 48 26 }} raw_text = "10%" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\taction_button = {{ size = {{ 28 24 }} using = button_regular_texture_alt_red using = action_button_common_template using = button_common_textobj_template text = "X" title = "tv_trade_cancel_embargo_{good}" description = "tv_trade_cancel_embargo_{good}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = {{ action_name = "tv_trade_cancel_embargo_{good}" }} }}
+\t\t\t\t\t\t\t\t}}
+"""
+
+
+def detail_card(good: str, index: int) -> str:
+    visible = selected_visible(index)
+    return f"""\
+\t\t\t\t\tcard_common = {{
+\t\t\t\t\t\tvisible = "{visible}"
+\t\t\t\t\t\tmaximumsize = {{ 500 -1 }}
+\t\t\t\t\t\tblockoverride "common_header_icon_texture" {{
+\t\t\t\t\t\t\ttexture = "gfx/interface/icons/trade_goods/icon_goods_{good}.dds"
+\t\t\t\t\t\t}}
+\t\t\t\t\t\tblockoverride "common_header_text" {{
+\t\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_MONOPOLY_DETAIL_TITLE"
+\t\t\t\t\t\t}}
+\t\t\t\t\t\tblockoverride "common_bottom_content" {{
+\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\tspacing = 6
+\t\t\t\t\t\t\t\tmargin = {{ 4 6 }}
+\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\tsize = {{ 462 60 }}
+\t\t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\t\ticon = {{ size = {{ 48 48 }} texture = "gfx/interface/icons/trade_goods/icon_goods_{good}.dds" }}
+\t\t\t\t\t\t\t\t\tpiechart = {{
+\t\t\t\t\t\t\t\t\t\tsize = {{ 54 54 }}
+\t\t\t\t\t\t\t\t\t\tusing = piechart_angles
+\t\t\t\t\t\t\t\t\t\ticon = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" size = {{ 97% 97% }} parentanchor = center color = {{ 0.45 0.59 0.67 1 }} alpha = 0.3 }}
+\t\t\t\t\t\t\t\t\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue)]" color = {{ 0.85 0.65 0.22 1 }} alpha = 0.8 }}
+\t\t\t\t\t\t\t\t\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_float('(float)100.0', FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue))]" color = {{ 1 1 1 0 }} }}
+\t\t\t\t\t\t\t\t\t\tusing = bg_circle_piechart
+\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\t\t\tsize = {{ 340 54 }}
+\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 340 24 }} text = "{good}" align = nobaseline|left }}
+\t\t\t\t\t\t\t\t\t\ttext_single = {{ visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_{good}').GetValue, '(CFixedPoint)1.0')]" size = {{ 340 24 }} raw_text = "@trigger_yes! [InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue|0]% $TV_TRADE_LEAGUE_MONOPOLY_COLUMN$" align = nobaseline|left }}
+\t\t\t\t\t\t\t\t\t\ttext_single = {{ visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_{good}').GetValue, '(CFixedPoint)1.0'))]" size = {{ 340 24 }} raw_text = "@trade! [InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue|0]% $TV_TRADE_LEAGUE_NOT_MONOPOLIZED$" align = nobaseline|left }}
+\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 462 24 }} text = "TV_TRADE_LEAGUE_USED_LEVEL_TITLE" align = nobaseline|center }}
+\t\t\t\t\t\t\t\tprogressbar = {{
+\t\t\t\t\t\t\t\t\tsize = {{ 462 18 }}
+\t\t\t\t\t\t\t\t\tmax = 100
+\t\t\t\t\t\t\t\t\tvalue = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue]"
+\t\t\t\t\t\t\t\t\tusing = progress_bar_goldish
+\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\tprogressbar = {{
+\t\t\t\t\t\t\t\t\tsize = {{ 462 18 }}
+\t\t\t\t\t\t\t\t\tmax = 100
+\t\t\t\t\t\t\t\t\tvalue = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_used_monopoly_level_pct_{good}').GetValue]"
+\t\t\t\t\t\t\t\t\tusing = progress_bar_blue_alt
+\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 462 24 }} raw_text = "$TV_TRADE_LEAGUE_AVAILABLE_LEVEL$: [InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_available_monopoly_level_pct_{good}').GetValue|0]%" align = nobaseline|right }}
+\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 462 24 }} text = "TV_TRADE_LEAGUE_ACTION_LIST_TITLE" align = nobaseline|center }}
+{action_row(good, "virtual_demand", "TV_TRADE_LEAGUE_VIRTUAL_DEMAND", "@demand!")}
+{action_row(good, "virtual_supply", "TV_TRADE_LEAGUE_VIRTUAL_PRODUCTION", "@supply!")}
+{embargo_row(good)}
+\t\t\t\t\t\t\t\ttext_multi = {{
+\t\t\t\t\t\t\t\t\tvisible = "[And3(Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_virtual_demand_active_{good}').GetValue, '(CFixedPoint)1.0')), Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_virtual_supply_active_{good}').GetValue, '(CFixedPoint)1.0')), Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_embargo_active_{good}').GetValue, '(CFixedPoint)1.0')))]"
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\t\tautoresize = yes
+\t\t\t\t\t\t\t\t\tmax_width = 462
+\t\t\t\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_NO_ACTIONS"
+\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t}}
+\t\t\t\t\t}}
+"""
+
+
+def action_card(good: str, index: int) -> str:
+    visible = (
+        "[And3("
+        f"EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint){index}.0'), "
+        f"GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_{good}').GetValue, '(CFixedPoint)1.0'), "
+        "InternationalOrganizationsView.GetInternationalOrganization.IsIOLeaderCountry(InternationalOrganizationsView.GetPlayer))]"
+    )
+    return f"""\
+\t\t\t\t\tcard_common = {{
+\t\t\t\t\t\tvisible = "{visible}"
+\t\t\t\t\t\tmaximumsize = {{ 500 -1 }}
+\t\t\t\t\t\tblockoverride "common_header_icon_texture" {{
+\t\t\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/trade.dds"
+\t\t\t\t\t\t}}
+\t\t\t\t\t\tblockoverride "common_header_text" {{
+\t\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_MONOPOLY_ACTIONS_TITLE"
+\t\t\t\t\t\t}}
+\t\t\t\t\t\tblockoverride "common_bottom_content" {{
+\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\tspacing = 6
+\t\t\t\t\t\t\t\tmargin = {{ 4 6 }}
+\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 462 24 }} raw_text = "$TV_TRADE_LEAGUE_AVAILABLE_LEVEL$: [InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_available_monopoly_level_pct_{good}').GetValue|0]%" align = nobaseline|right }}
+\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\tsize = {{ 462 30 }}
+\t\t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\t\taction_button = {{ size = {{ 227 28 }} using = button_regular_texture_alt_yellow using = action_button_common_template using = button_common_textobj_template text = "TV_TRADE_LEAGUE_VIRTUAL_DEMAND" title = "tv_trade_set_virtual_demand_{good}" description = "tv_trade_set_virtual_demand_{good}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = {{ action_name = "tv_trade_set_virtual_demand_{good}" }} }}
+\t\t\t\t\t\t\t\t\taction_button = {{ size = {{ 227 28 }} using = button_regular_texture_alt_yellow using = action_button_common_template using = button_common_textobj_template text = "TV_TRADE_LEAGUE_VIRTUAL_PRODUCTION" title = "tv_trade_set_virtual_supply_{good}" description = "tv_trade_set_virtual_supply_{good}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = {{ action_name = "tv_trade_set_virtual_supply_{good}" }} }}
+\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\taction_button = {{ size = {{ 462 28 }} using = button_regular_texture_alt_red using = action_button_common_template using = button_common_textobj_template text = "TV_TRADE_LEAGUE_EMBARGO" title = "tv_trade_set_embargo_{good}" description = "tv_trade_set_embargo_{good}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = {{ action_name = "tv_trade_set_embargo_{good}" }} }}
+\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t}}
+\t\t\t\t\t}}
+"""
+
+
 def generate(data: dict) -> str:
-    rows = "".join(monopoly_row(good) for good in data["goods"])
-    return HEADER + PREFIX + rows + SUFFIX
+    goods = data["goods"]
+    rows = "".join(monopoly_row(good, index) for index, good in enumerate(goods, start=1))
+    details = "".join(detail_card(good, index) for index, good in enumerate(goods, start=1))
+    actions = "".join(action_card(good, index) for index, good in enumerate(goods, start=1))
+    return HEADER + PREFIX + rows + LIST_CARD_SUFFIX + details + actions + SUFFIX
 
 
 def main() -> None:

@@ -9,9 +9,26 @@ import pathlib
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+import yaml
+
 ROOT = pathlib.Path(__file__).parent.parent
 VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
 OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
+TRADE_GOODS = ROOT / "data/trade_league_goods.yaml"
+
+TRADE_MONOPOLY_ACTION_PATTERNS = [
+    "tv_trade_select_monopoly_good_{good}",
+    "tv_trade_set_virtual_demand_{good}",
+    "tv_trade_increase_virtual_demand_{good}",
+    "tv_trade_decrease_virtual_demand_{good}",
+    "tv_trade_cancel_virtual_demand_{good}",
+    "tv_trade_set_virtual_supply_{good}",
+    "tv_trade_increase_virtual_supply_{good}",
+    "tv_trade_decrease_virtual_supply_{good}",
+    "tv_trade_cancel_virtual_supply_{good}",
+    "tv_trade_set_embargo_{good}",
+    "tv_trade_cancel_embargo_{good}",
+]
 
 TV_ENTRIES = """
 # ── Towards Victory — Generic Action Message Types ───────────────────────────
@@ -1077,11 +1094,34 @@ PERFORM_tv_expel_trade_league_member_ACTION={
 }
 """
 
+
+def trade_monopoly_message_entries() -> str:
+    with TRADE_GOODS.open(encoding="utf-8") as file:
+        goods = yaml.safe_load(file)["goods"]
+    blocks = ["\n# ---- Generated Trade League monopoly controls ----\n"]
+    for good in goods:
+        for pattern in TRADE_MONOPOLY_ACTION_PATTERNS:
+            action = pattern.format(good=good)
+            blocks.append(
+                f"""PERFORM_{action}_ACTION={{
+\tlog=no
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=no
+\tpausepopup=no
+\tmessage_category = economy
+}}
+"""
+            )
+    return "\n".join(blocks)
+
 vanilla_bytes = VANILLA.read_bytes()
 # strip BOM if present
 if vanilla_bytes.startswith(b'\xef\xbb\xbf'):
     vanilla_bytes = vanilla_bytes[3:]
 
-combined = b'\xef\xbb\xbf' + vanilla_bytes + TV_ENTRIES.encode("utf-8")
+combined_entries = TV_ENTRIES + trade_monopoly_message_entries()
+combined = b'\xef\xbb\xbf' + vanilla_bytes + combined_entries.encode("utf-8")
 OUT.write_bytes(combined)
 print(f"[OK] Written {OUT.relative_to(ROOT)} ({len(combined)} bytes)")

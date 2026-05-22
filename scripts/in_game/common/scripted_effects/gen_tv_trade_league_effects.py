@@ -6,6 +6,7 @@ calculation for every tracked good, so the effect is generated from data.
 """
 
 import sys
+import re
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -15,6 +16,7 @@ import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 DATA_FILE = REPO_ROOT / "data" / "trade_league_goods.yaml"
+GOODS_DIR = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "goods"
 OUT_FILE = (
     REPO_ROOT
     / "src"
@@ -74,9 +76,16 @@ UPDATE_SUFFIX = """\
 """
 
 
+def eu5_number(value: float) -> str:
+    text = f"{value:.5f}".rstrip("0").rstrip(".")
+    return text if text and text != "-0" else "0"
+
+
 def good_update_block(good: str) -> str:
+    cost = eu5_number(TRANSPORT_COSTS.get(good, 1.0))
     return f"""\
 \t# {good}
+\tsave_scope_as = tv_trade_monopoly_io
 \tset_local_variable = {{ name = tv_trade_global_total value = 0 }}
 \tevery_country = {{
 \t\tchange_local_variable = {{ name = tv_trade_global_total add = "total_effective_goods_production_buildings(goods:{good})" }}
@@ -99,12 +108,106 @@ def good_update_block(good: str) -> str:
 \t\tset_variable = {{ name = tv_trade_monopoly_level_{good} value = var:tv_trade_io_{good} }}
 \t\tchange_variable = {{ name = tv_trade_monopoly_level_{good} divide = var:tv_trade_global_{good} }}
 \t\tif = {{
-\t\t\tlimit = {{ var:tv_trade_monopoly_level_{good} >= 0.5 }}
+\t\t\tlimit = {{ var:tv_trade_monopoly_level_{good} >= 0.51 }}
 \t\t\tset_variable = {{ name = tv_trade_monopoly_{good} value = 1 }}
 \t\t\tchange_variable = {{ name = tv_trade_monopoly_level_{good} add = 0.1 }}
 \t\t}}
 \t}}
+\tset_variable = {{ name = tv_trade_monopoly_level_pct_{good} value = var:tv_trade_monopoly_level_{good} }}
+\tchange_variable = {{ name = tv_trade_monopoly_level_pct_{good} multiply = 100 }}
+\tif = {{
+\t\tlimit = {{ var:tv_trade_monopoly_level_pct_{good} > 100 }}
+\t\tset_variable = {{ name = tv_trade_monopoly_level_pct_{good} value = 100 }}
+\t}}
+
+\tset_variable = {{ name = tv_trade_virtual_demand_amount_{good} value = var:tv_trade_virtual_demand_used_pct_{good} }}
+\tchange_variable = {{ name = tv_trade_virtual_demand_amount_{good} divide = {cost} }}
+\tset_variable = {{ name = tv_trade_virtual_supply_amount_{good} value = var:tv_trade_virtual_supply_used_pct_{good} }}
+\tchange_variable = {{ name = tv_trade_virtual_supply_amount_{good} divide = {cost} }}
+
+\tset_variable = {{ name = tv_trade_used_monopoly_level_pct_{good} value = 0 }}
+\tif = {{
+\t\tlimit = {{ var:tv_trade_virtual_demand_active_{good} >= 1 }}
+\t\tchange_variable = {{ name = tv_trade_used_monopoly_level_pct_{good} add = var:tv_trade_virtual_demand_used_pct_{good} }}
+\t}}
+\tif = {{
+\t\tlimit = {{ var:tv_trade_virtual_supply_active_{good} >= 1 }}
+\t\tchange_variable = {{ name = tv_trade_used_monopoly_level_pct_{good} add = var:tv_trade_virtual_supply_used_pct_{good} }}
+\t}}
+\tif = {{
+\t\tlimit = {{ var:tv_trade_embargo_active_{good} >= 1 }}
+\t\tset_variable = {{ name = tv_trade_embargo_used_pct_{good} value = 10 }}
+\t\tchange_variable = {{ name = tv_trade_used_monopoly_level_pct_{good} add = 10 }}
+\t}}
+\tset_variable = {{ name = tv_trade_used_monopoly_level_{good} value = var:tv_trade_used_monopoly_level_pct_{good} }}
+\tchange_variable = {{ name = tv_trade_used_monopoly_level_{good} divide = 100 }}
+\tset_variable = {{ name = tv_trade_available_monopoly_level_pct_{good} value = var:tv_trade_monopoly_level_pct_{good} }}
+\tchange_variable = {{ name = tv_trade_available_monopoly_level_pct_{good} subtract = var:tv_trade_used_monopoly_level_pct_{good} }}
+\tif = {{
+\t\tlimit = {{ var:tv_trade_available_monopoly_level_pct_{good} < 0 }}
+\t\tset_variable = {{ name = tv_trade_available_monopoly_level_pct_{good} value = 0 }}
+\t}}
+
+\tif = {{
+\t\tlimit = {{ var:tv_trade_monopoly_{good} >= 1 }}
+\t\tif = {{
+\t\t\tlimit = {{ var:tv_trade_virtual_demand_active_{good} >= 1 }}
+\t\t\tvar:tv_trade_virtual_demand_location_{good} ?= {{
+\t\t\t\tmarket = {{
+\t\t\t\t\tadd_temporary_demand = {{ type = demand:tv_trade_virtual_demand_{good} scale = scope:tv_trade_monopoly_io.var:tv_trade_virtual_demand_amount_{good} months = 2 }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ var:tv_trade_virtual_supply_active_{good} >= 1 }}
+\t\t\tvar:tv_trade_virtual_supply_location_{good} ?= {{
+\t\t\t\tmarket = {{
+\t\t\t\t\tadd_goods_supply = {{ goods = goods:{good} amount = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_{good} }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ var:tv_trade_embargo_active_{good} >= 1 }}
+\t\t\tvar:tv_trade_embargo_country_{good} ?= {{
+\t\t\t\tsave_scope_as = tv_trade_embargo_target
+\t\t\t\tscope:tv_trade_monopoly_io.var:tv_trade_embargo_location_{good} ?= {{
+\t\t\t\t\tmarket = {{
+\t\t\t\t\t\tadd_merchant_power = {{
+\t\t\t\t\t\t\tcountry = scope:tv_trade_embargo_target
+\t\t\t\t\t\t\tkey = tv_trade_monopoly_embargo_{good}
+\t\t\t\t\t\t\tmonths = 2
+\t\t\t\t\t\t\tpower = merchant_power_severe_penalty
+\t\t\t\t\t\t}}
+\t\t\t\t\t}}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t}}
 """
+
+
+def load_transport_costs() -> dict[str, float]:
+    costs: dict[str, float] = {}
+    for path in GOODS_DIR.glob("*.txt"):
+        text = path.read_text(encoding="utf-8-sig", errors="ignore")
+        for match in re.finditer(r"(?m)^([A-Za-z0-9_]+)\s*=\s*\{", text):
+            name = match.group(1)
+            depth = 1
+            index = match.end()
+            while index < len(text) and depth:
+                char = text[index]
+                if char == "{":
+                    depth += 1
+                elif char == "}":
+                    depth -= 1
+                index += 1
+            block = text[match.end() : index - 1]
+            cost_match = re.search(r"(?m)^\s*transport_cost\s*=\s*([0-9.]+)", block)
+            costs[name] = float(cost_match.group(1)) if cost_match else 1.0
+    return costs
+
+
+TRANSPORT_COSTS = load_transport_costs()
 
 
 def generate(data: dict) -> str:

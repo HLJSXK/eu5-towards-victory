@@ -1,7 +1,7 @@
 """
 Generate src/in_game/common/international_organizations/tv_trade_league.txt.
 
-The Trade League declares four IO variables per tracked good. Keeping the
+The Trade League declares repetitive IO variables per tracked good. Keeping the
 variables generated avoids hand-maintaining a long repetitive block.
 """
 
@@ -124,18 +124,49 @@ SUFFIX = """\
 """
 
 
+def variable_entry(name: str, value_format: str = "TV_TRADE_MONOPOLY_VALUE_FORMAT") -> str:
+    return (
+        f"\t\t{name} = {{\n"
+        f"\t\t\tformat = \"{value_format}\"\n"
+        "\t\t\tmin = 0\n"
+        "\t\t\tstart = 0\n"
+        "\t\t\thidden = yes\n"
+        "\t\t}"
+    )
+
+
 def variable_block(good: str) -> str:
     entries = []
-    for suffix in ("global", "io", "monopoly", "monopoly_level"):
-        name = f"tv_trade_{suffix}_{good}"
+    plain_suffixes = (
+        "global",
+        "io",
+        "monopoly",
+        "monopoly_level",
+        "used_monopoly_level",
+    )
+    percent_suffixes = (
+        "monopoly_level_pct",
+        "used_monopoly_level_pct",
+        "available_monopoly_level_pct",
+    )
+    action_suffixes = (
+        "virtual_demand_active",
+        "virtual_demand_used_pct",
+        "virtual_demand_amount",
+        "virtual_supply_active",
+        "virtual_supply_used_pct",
+        "virtual_supply_amount",
+        "embargo_active",
+        "embargo_used_pct",
+    )
+    for suffix in plain_suffixes:
+        entries.append(variable_entry(f"tv_trade_{suffix}_{good}"))
+    for suffix in percent_suffixes:
         entries.append(
-            f"\t\t{name} = {{\n"
-            "\t\t\tformat = \"TV_TRADE_MONOPOLY_VALUE_FORMAT\"\n"
-            "\t\t\tmin = 0\n"
-            "\t\t\tstart = 0\n"
-            "\t\t\thidden = yes\n"
-            "\t\t}"
+            variable_entry(f"tv_trade_{suffix}_{good}", "TV_TRADE_MONOPOLY_PERCENT_FORMAT")
         )
+    for suffix in action_suffixes:
+        entries.append(variable_entry(f"tv_trade_{suffix}_{good}"))
     return "\n".join(entries)
 
 
