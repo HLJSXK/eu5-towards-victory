@@ -89,6 +89,17 @@ conda run --no-capture-output -n eu5 python scripts/ai_context.py --files src/in
 
 The output tells the AI whether a file is generated, which risk cards apply, and which anti-pattern records are relevant. For `generic_actions`, the required card is `docs/knowledge/risk_cards/generic_actions.md`; for event files, `docs/knowledge/risk_cards/events.md` is required because option hover can pre-evaluate visible effect chains; for IO definitions, IO laws, and country interactions that find or mutate TV IOs, `docs/knowledge/risk_cards/international_organizations.md` is required.
 
+## Resume / Handoff Discipline
+
+When continuing from a handoff summary, compaction summary, or another agent's explicit progress report, treat that summary as the current task state.
+
+- Trust "already read", "already verified", "already changed", and "remaining next steps" unless local evidence contradicts them.
+- First actions should be limited to `git diff`, `git status`, reading named target files, or running the exact validation/check command listed as next.
+- Do not rerun `ai_context.py`, reread broad docs, or re-verify references already named in the handoff unless the summary is inconsistent, files changed since the handoff, or a concrete validation/runtime error points there.
+- Search narrowly. Broad `rg` over `reference_game_files`, `reference_mods`, or the whole repository requires a specific missing fact and stated pattern.
+- If code was already modified before the handoff, run validation before opening a new investigation path. Let concrete errors guide further exploration.
+- Before resuming substantial work, restate the continuation checkpoint: what is already done, the next blocking step, and the first local check.
+
 ## AI Knowledge Maintenance
 
 AI agents are responsible for maintaining the workflow files. Humans provide requirements, testing, and feedback; do not wait for a human to update knowledge files.
@@ -130,6 +141,7 @@ The following violations occurred and informed the Mandatory Reference Categorie
 
 | Date | Violation | Root cause | Correct behavior |
 |---|---|---|---|
+| 2026-05 | Trade League monopoly table headers used `raw_text = "@production_panel! $TV_TRADE_LEAGUE_WORLD_COLUMN$"` / `raw_text = "@trade! $TV_TRADE_LEAGUE_IO_COLUMN$"`, so the UI displayed the localization keys literally | Treated `raw_text` as if it performed `$KEY$` localization substitution | Use `text = "KEY"` for static localized labels. If an inline icon is needed, place `@icon!` inside the localization value, or split dynamic raw text and localized text into separate widgets. |
 | 2026-05 | Engineering Department Organization/Logistics dispatch-point button called `SelectLocationToBuildDefault('tv_wonder_material_dispatch_point')`; clicking played the build audio but did not open the build-location interface | Passed a literal building key string where the GUI function expects a typed `BuildingType` object, and the following `PlayAudioEffect` made the click look partially successful | Pass `BuildingType` objects from GUI data contexts such as `BuildingItem.GetBuildingType`, or, from custom panels without a building-type data context, route the button through a `generic_action` with `looking_for_a = location` and a guarded `construct_building` effect. |
 | 2026-05 | Added `ignoreinvisible = yes` to a plain Engineering Department wonder-illustration `widget`, causing `Property 'ignoreinvisible' not handled` and `Error setting properties for '' (uberwidget)` at GUI load | Treated `ignoreinvisible` as a generic visibility helper instead of a layout-container property | Use `ignoreinvisible` on container layouts such as `hbox`/`vbox`, not on plain image/wrapper widgets. Hide the wrapper with `visible = ...` and give each image child its own guarded `visible` expression. |
 | 2026-05 | Engineering Department finalization event computed `tv_wonder_final_building_extra_levels`, then a nested visible helper compared and reused `prev.var:tv_wonder_final_building_extra_levels`, causing `Invalid left side during comparison 'var'`, unset variable fetches, and unset `var` scope errors while the inauguration option was evaluated | Assumed event option tooltip pre-evaluation would commit a temporary variable written earlier in the same visible effect chain | Re-check final persistent project state at the option effect boundary. For bounded derived values, branch directly from persistent state such as `tv_wonder_level` and pass literal effect values; do not pass same-chain temporary variables into visible helper comparisons or `value = scope.var:X`. |

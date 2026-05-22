@@ -28,7 +28,7 @@ def good_name(good: str) -> str:
 
 def action_entries(good: str) -> list[tuple[str, str]]:
     name = good_name(good)
-    entries = [
+    action_loc_entries = [
         (f"tv_trade_select_monopoly_good_{good}", f"选择{name}"),
         (f"tv_trade_select_monopoly_good_{good}_desc", f"显示{name}的垄断详情。"),
         (f"tv_trade_set_virtual_demand_{good}", f"虚构需求：{name}"),
@@ -52,7 +52,11 @@ def action_entries(good: str) -> list[tuple[str, str]]:
         (f"tv_trade_cancel_embargo_{good}", f"取消禁运：{name}"),
         (f"tv_trade_cancel_embargo_{good}_desc", f"移除{name}禁运行动。"),
     ]
-    actions = [key for key, _ in entries if not key.endswith("_desc")]
+    entries = [
+        (f"tv_trade_virtual_demand_{good}", f"贸易联盟虚构需求：{name}"),
+        *action_loc_entries,
+    ]
+    actions = [key for key, _ in action_loc_entries if not key.endswith("_desc")]
     for action in actions:
         entries.extend(
             [

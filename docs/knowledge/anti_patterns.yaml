@@ -108,6 +108,17 @@
   source: "runtime error.log: docs/error_log/error.log; fixed in src/in_game/gui/panels/organization/tv_engineering_department.gui"
   notes: "A plain widget logs Property 'ignoreinvisible' not handled and Error setting properties for the uberwidget. The attribute is accepted on layout containers elsewhere in the same panel, but not on the generic image wrapper."
 
+- id: gui_raw_text_localization_substitution_literal
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Putting $LOCALIZATION_KEY$ substitutions inside raw_text GUI fields"
+  correction: "Use a localized text = \"KEY\" field and put inline icons or static text in the localization value, or split dynamic raw text and localized text into separate widgets."
+  category: gui
+  scope: any
+  source: "runtime UI observation in src/in_game/gui/panels/organization/tv_trade_league.gui; fixed by using text fields for TV_TRADE_LEAGUE_WORLD_COLUMN and TV_TRADE_LEAGUE_IO_COLUMN"
+  notes: "raw_text renders the string literally; $KEY$ substitutions are not expanded, so the UI displays the key."
+
 - id: trade_efficiency_nonexistent
   pattern: '\btrade_efficiency\s*='
   bad: "trade_efficiency = <value>"

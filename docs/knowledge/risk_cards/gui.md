@@ -40,6 +40,11 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
    such as `BuildingItem.GetBuildingType`, not a literal building key string. If the
    panel has no typed building context, use a generic action with a location selector.
 
+9. Keep localization substitutions out of `raw_text`.
+   `raw_text` renders literal strings and dynamic expressions; it does not expand
+   `$LOCALIZATION_KEY$`. Use `text = "KEY"` for static localized labels, and put
+   inline icons such as `@trade!` in the localization value when needed.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

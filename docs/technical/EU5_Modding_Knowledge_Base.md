@@ -585,6 +585,8 @@ The user interface is highly moddable through `.gui` files. The system is modula
 
 GUI `text = "KEY"` properties are localization lookups. If the key is missing from `main_menu/localization`, the engine logs `Unlocalized text 'KEY'` from `pdx_gui_localize.cpp`. Correct the key to one defined by the current data/localization set, add the key for all supported languages, or use `raw_text` only when the intended display is a literal string.
 
+GUI `raw_text` does not expand `$LOCALIZATION_KEY$` substitutions. A value such as `raw_text = "@trade! $TV_TRADE_LEAGUE_IO_COLUMN$"` renders the `$TV_TRADE_LEAGUE_IO_COLUMN$` text literally. For static localized labels with icons, use `text = "TV_TRADE_LEAGUE_IO_COLUMN"` and put `@trade! ...` inside the localization value. For dynamic values that must use `raw_text`, split the localized label into a separate `text` widget if needed.
+
 Custom game concepts require both localization and a definition in `main_menu/common/game_concepts/`. A localization pair such as `game_concept_tv_foo` / `game_concept_tv_foo_desc` does not create the concept by itself. If `[tv_foo|e]` is used before `tv_foo = { texture = "..." }` is registered, the localization parser treats `tv_foo` as a data-system function and logs `Could not find data system function 'tv_foo'`.
 
 For ordinary localization keys such as building names, use `$key$` substitution instead of square-bracket game concept syntax. GUI-bound localized text can parse `[building_key|E]` as a data-system function when `building_key` is not registered as a game concept, producing `Could not find data system function '<key>'`.
