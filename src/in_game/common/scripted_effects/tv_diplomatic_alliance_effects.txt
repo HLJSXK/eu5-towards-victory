@@ -73,6 +73,10 @@ tv_diplomatic_alliance_stamp_creation_order_effect = {
 tv_diplomatic_alliance_reinitialize_membership_effect = {
 	save_scope_as = tv_diplomatic_alliance_reinit_country
 
+	clear_saved_scope = tv_diplomatic_alliance_keep_io
+	clear_saved_scope = tv_diplomatic_alliance_cleanup_io
+	clear_saved_scope = tv_diplomatic_alliance_disband_io
+	clear_saved_scope = tv_diplomatic_alliance_kept_leader
 	clear_variable_list = tv_diplomatic_alliance_reinit_disband_ios
 	clear_variable_list = tv_diplomatic_alliance_reinit_leave_ios
 
@@ -81,6 +85,24 @@ tv_diplomatic_alliance_reinitialize_membership_effect = {
 			international_organization_type = international_organization_type:tv_diplomatic_alliance
 		}
 		tv_diplomatic_alliance_stamp_creation_order_effect = yes
+	}
+
+	# Older saves may have founder alliances whose leader_country was never set.
+	# If all members either are this country or still support it, migrate that IO
+	# before choosing which self-led alliance to keep.
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_diplomatic_alliance
+			NOT = { exists = leader_country }
+			any_international_organization_member = {
+				count = all
+				OR = {
+					this = scope:tv_diplomatic_alliance_reinit_country
+					var:tv_diplomatic_supporter_of ?= scope:tv_diplomatic_alliance_reinit_country
+				}
+			}
+		}
+		set_leader_country = scope:tv_diplomatic_alliance_reinit_country
 	}
 
 	# Prefer the earliest Diplomatic Alliance led by the current country.
@@ -143,6 +165,9 @@ tv_diplomatic_alliance_reinitialize_membership_effect = {
 		}
 	}
 
+	clear_saved_scope = tv_diplomatic_alliance_cleanup_io
+	clear_saved_scope = tv_diplomatic_alliance_disband_io
+
 	every_in_list = {
 		variable = tv_diplomatic_alliance_reinit_leave_ios
 		remove_country_from_international_organization = scope:tv_diplomatic_alliance_reinit_country
@@ -156,6 +181,7 @@ tv_diplomatic_alliance_reinitialize_membership_effect = {
 	}
 	clear_variable_list = tv_diplomatic_alliance_reinit_disband_ios
 	clear_variable_list = tv_diplomatic_alliance_reinit_leave_ios
+	clear_saved_scope = tv_diplomatic_alliance_disband_io
 
 	if = {
 		limit = { exists = scope:tv_diplomatic_alliance_keep_io }
@@ -169,4 +195,6 @@ tv_diplomatic_alliance_reinitialize_membership_effect = {
 			}
 		}
 	}
+	clear_saved_scope = tv_diplomatic_alliance_keep_io
+	clear_saved_scope = tv_diplomatic_alliance_kept_leader
 }
