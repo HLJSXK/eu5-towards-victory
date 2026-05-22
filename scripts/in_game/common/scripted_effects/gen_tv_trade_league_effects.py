@@ -87,8 +87,11 @@ def good_update_block(good: str) -> str:
 \t# {good}
 \tsave_scope_as = tv_trade_monopoly_io
 \tset_local_variable = {{ name = tv_trade_world_total value = 0 }}
-\tevery_market_in_world = {{
-\t\tchange_local_variable = {{ name = tv_trade_world_total add = traded_in_market:{good} }}
+\tevery_country = {{
+\t\tevery_trade = {{
+\t\t\tlimit = {{ goods = goods:{good} }}
+\t\t\tchange_local_variable = {{ name = tv_trade_world_total add = trade_volume }}
+\t\t}}
 \t}}
 \tset_variable = {{ name = tv_trade_global_{good} value = local_var:tv_trade_world_total }}
 \tset_global_variable = {{ name = tv_trade_global_{good} value = var:tv_trade_global_{good} }}
