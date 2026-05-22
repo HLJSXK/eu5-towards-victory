@@ -34,7 +34,7 @@ GUI_PREFIX = """\
 # Towards Victory — Academy of Sciences IO Panel
 # Provides the interactive research mechanism UI: research target selection,
 # preparation/concentrated research stage display, and action buttons.
-# The Chief Scientist (IO leader character) is shown in portrait when appointed.
+# The Chief Scientist (IO leader character) is managed from the IO header.
 #
 # Verification — Step 3, Reference: autocephalous_patriarchate.gui:57,60
 #   Quote: "visible = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('patriarch').IsSet]""
@@ -71,10 +71,7 @@ organization_panel = {
 \tblockoverride "scroll_overview_empty_visible" { visible = no }
 
 \tblockoverride "country_header_character_visible" {
-\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
-\t}
-\tblockoverride "country_header_character_context" {
-\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
+\t\tvisible = yes
 \t}
 \tblockoverride "country_header_religion" {}
 \tblockoverride "extra_titles" {}
@@ -89,6 +86,78 @@ organization_panel = {
 \t\t\tmargin_right = 10
 \t\t\tblockoverride "character_name_text" {
 \t\t\t\traw_text = "[Character.GetNameToFit('(int32)40', '(bool)yes')]"
+\t\t\t}
+\t\t}
+\t}
+\tblockoverride "character_widget" {
+\t\twidget = {
+\t\t\tposition = { 0 -30 }
+\t\t\tallow_outside = yes
+\t\t\tblock "portrait_io_widget" {
+\t\t\t\tsize = { 250 200 }
+\t\t\t}
+
+\t\t\tblock "character_portrait_anchor" {
+\t\t\t\tparentanchor = bottom
+\t\t\t}
+
+\t\t\tportrait_standard_full_body_center_button = {
+\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
+\t\t\t\tblock "character_right_visible" {
+\t\t\t\t\tvisible = yes
+\t\t\t\t}
+\t\t\t\tparentanchor = bottom
+
+\t\t\t\tsize = { 250 200 }
+\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
+\t\t\t}
+
+\t\t\taction_button = {
+\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
+\t\t\t\tsize = { 250 200 }
+\t\t\t\tparentanchor = center
+\t\t\t\twidgetanchor = center
+\t\t\t\tposition = { 0 0 }
+\t\t\t\talpha = 0
+\t\t\t\talwaystransparent = no
+\t\t\t\tusing = action_button_common_template
+\t\t\t\ttitle = "tv_appoint_academy_leader"
+\t\t\t\tdescription = "tv_appoint_academy_leader_desc"
+\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\tleft_action = { action_name = "tv_appoint_academy_leader" }
+\t\t\t}
+
+\t\t\taction_button = {
+\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
+\t\t\t\tsize = { 78 26 }
+\t\t\t\tparentanchor = top|right
+\t\t\t\twidgetanchor = top|right
+\t\t\t\tposition = { 0 20 }
+\t\t\t\tusing = button_regular_texture_alt_yellow
+\t\t\t\tusing = action_button_common_template
+\t\t\t\tusing = button_common_textobj_template
+\t\t\t\tfontsize = 13
+\t\t\t\ttitle = "tv_change_academy_leader"
+\t\t\t\tdescription = "tv_change_academy_leader_desc"
+\t\t\t\ttext = "TV_ACADEMY_CHANGE_LEADER_SHORT"
+\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\tleft_action = { action_name = "tv_change_academy_leader" }
+\t\t\t}
+\t\t\taction_button = {
+\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
+\t\t\t\tsize = { 78 26 }
+\t\t\t\tparentanchor = top|right
+\t\t\t\twidgetanchor = top|right
+\t\t\t\tposition = { 0 49 }
+\t\t\t\tusing = button_regular_texture_alt_red
+\t\t\t\tusing = action_button_common_template
+\t\t\t\tusing = button_common_textobj_template
+\t\t\t\tfontsize = 13
+\t\t\t\ttitle = "tv_remove_academy_leader"
+\t\t\t\tdescription = "tv_remove_academy_leader_desc"
+\t\t\t\ttext = "TV_ACADEMY_REMOVE_LEADER_SHORT"
+\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\tleft_action = { action_name = "tv_remove_academy_leader" }
 \t\t\t}
 \t\t}
 \t}
@@ -557,57 +626,6 @@ GUI_SUFFIX = """\
 \t\t\t\t}
 \t\t\t}
 
-\t\t\tcard_actions = {
-\t\t\t\tminimumsize = { 500 150 }
-\t\t\t\tmaximumsize = { 500 150 }
-
-\t\t\t\tblockoverride "card_header_text" {
-\t\t\t\t\ttext = "MAIN_ACTIONS"
-\t\t\t\t}
-\t\t\t\tblockoverride "card_header_icon" {
-\t\t\t\t\tblock "io_main_actions_icon" {
-\t\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
-\t\t\t\t\t}
-\t\t\t\t}
-
-\t\t\t\tblockoverride "actions_override" {
-\t\t\t\t\tvbox = {
-\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\t\tspacing = 2
-
-\t\t\t\t\t\taction_button_diamond = {
-\t\t\t\t\t\t\tsize = { 470 30 }
-\t\t\t\t\t\t\tvisible = "[Not(Player.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
-\t\t\t\t\t\t\ttext = "tv_appoint_academy_leader"
-\t\t\t\t\t\t\ttitle = "tv_appoint_academy_leader"
-\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\tleft_action = {
-\t\t\t\t\t\t\t\taction_name = "tv_appoint_academy_leader"
-\t\t\t\t\t\t\t}
-\t\t\t\t\t\t}
-\t\t\t\t\t\taction_button_diamond = {
-\t\t\t\t\t\t\tsize = { 470 30 }
-\t\t\t\t\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
-\t\t\t\t\t\t\ttext = "tv_change_academy_leader"
-\t\t\t\t\t\t\ttitle = "tv_change_academy_leader"
-\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\tleft_action = {
-\t\t\t\t\t\t\t\taction_name = "tv_change_academy_leader"
-\t\t\t\t\t\t\t}
-\t\t\t\t\t\t}
-\t\t\t\t\t\taction_button_diamond = {
-\t\t\t\t\t\t\tsize = { 470 30 }
-\t\t\t\t\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
-\t\t\t\t\t\t\ttext = "tv_remove_academy_leader"
-\t\t\t\t\t\t\ttitle = "tv_remove_academy_leader"
-\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\tleft_action = {
-\t\t\t\t\t\t\t\taction_name = "tv_remove_academy_leader"
-\t\t\t\t\t\t\t}
-\t\t\t\t\t\t}
-\t\t\t\t\t}
-\t\t\t\t}
-\t\t\t}
 \t\t}
 
 \t\texpand = {}

@@ -34,10 +34,7 @@ organization_panel = {
 	}
 
 	blockoverride "country_header_character_visible" {
-		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
-	}
-	blockoverride "country_header_character_context" {
-		datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').GetCharacter]"
+		visible = yes
 	}
 	blockoverride "country_header_religion" {}
 	blockoverride "extra_titles" {}
@@ -52,6 +49,78 @@ organization_panel = {
 			margin_right = 10
 			blockoverride "character_name_text" {
 				raw_text = "[Character.GetNameToFit('(int32)40', '(bool)yes')]"
+			}
+		}
+	}
+	blockoverride "character_widget" {
+		widget = {
+			position = { 0 -30 }
+			allow_outside = yes
+			block "portrait_io_widget" {
+				size = { 250 200 }
+			}
+
+			block "character_portrait_anchor" {
+				parentanchor = bottom
+			}
+
+			portrait_standard_full_body_center_button = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
+				block "character_right_visible" {
+					visible = yes
+				}
+				parentanchor = bottom
+
+				size = { 250 200 }
+				datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').GetCharacter]"
+			}
+
+			action_button = {
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet)]"
+				size = { 250 200 }
+				parentanchor = center
+				widgetanchor = center
+				position = { 0 0 }
+				alpha = 0
+				alwaystransparent = no
+				using = action_button_common_template
+				title = "tv_appoint_alliance_leader"
+				description = "tv_appoint_alliance_leader_desc"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = { action_name = "tv_appoint_alliance_leader" }
+			}
+
+			action_button = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
+				size = { 78 26 }
+				parentanchor = top|right
+				widgetanchor = top|right
+				position = { 0 20 }
+				using = button_regular_texture_alt_yellow
+				using = action_button_common_template
+				using = button_common_textobj_template
+				fontsize = 13
+				title = "tv_change_alliance_leader"
+				description = "tv_change_alliance_leader_desc"
+				text = "TV_ALLIANCE_CHANGE_LEADER_SHORT"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = { action_name = "tv_change_alliance_leader" }
+			}
+			action_button = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
+				size = { 78 26 }
+				parentanchor = top|right
+				widgetanchor = top|right
+				position = { 0 49 }
+				using = button_regular_texture_alt_red
+				using = action_button_common_template
+				using = button_common_textobj_template
+				fontsize = 13
+				title = "tv_remove_alliance_leader"
+				description = "tv_remove_alliance_leader_desc"
+				text = "TV_ALLIANCE_REMOVE_LEADER_SHORT"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = { action_name = "tv_remove_alliance_leader" }
 			}
 		}
 	}
@@ -190,36 +259,6 @@ organization_panel = {
 				left_action = {
 					action_name = "tv_expel_diplomatic_alliance_member"
 				}
-			}
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Not(Player.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet)]"
-			text = "tv_appoint_alliance_leader"
-			title = "tv_appoint_alliance_leader"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_appoint_alliance_leader"
-			}
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
-			text = "tv_change_alliance_leader"
-			title = "tv_change_alliance_leader"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_change_alliance_leader"
-			}
-		}
-		action_button_diamond = {
-			size = { 470 30 }
-			visible = "[Player.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet]"
-			text = "tv_remove_alliance_leader"
-			title = "tv_remove_alliance_leader"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_remove_alliance_leader"
 			}
 		}
 	}
