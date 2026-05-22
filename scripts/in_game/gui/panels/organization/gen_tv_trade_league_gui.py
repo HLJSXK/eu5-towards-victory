@@ -378,7 +378,9 @@ organization_panel = {
 \t\t\t\t\t\t\t\tsize = { 462 -1 }
 \t\t\t\t\t\t\t\tspacing = 2
 \t\t\t\t\t\t\t\tmargin = { 4 6 }
+"""
 
+TABLE_HEADER = """\
 \t\t\t\t\t\t\t\twidget = {
 \t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
@@ -831,7 +833,7 @@ def generate(data: dict) -> str:
     }
     default_category = data["categories"][0]
     buttons = category_buttons(data["categories"])
-    rows = buttons + "".join(
+    rows = "".join(
         monopoly_row(
             good,
             index,
@@ -842,7 +844,7 @@ def generate(data: dict) -> str:
     )
     details = "".join(detail_card(good, index) for index, good in enumerate(goods, start=1))
     actions = "".join(action_card(good, index) for index, good in enumerate(goods, start=1))
-    return HEADER + PREFIX + rows + LIST_CARD_SUFFIX + details + actions + SUFFIX
+    return HEADER + PREFIX + buttons + TABLE_HEADER + rows + LIST_CARD_SUFFIX + details + actions + SUFFIX
 
 
 def main() -> None:
