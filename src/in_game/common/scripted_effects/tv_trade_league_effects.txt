@@ -56,6 +56,33 @@ tv_trade_league_remove_virtual_demand_horses_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_horses_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_horses ?= {
+		market = {
+			add_goods_supply = { goods = goods:horses amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_horses } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_horses value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_horses_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_horses ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_horses ?= {
+			market = {
+				add_goods_supply = { goods = goods:horses amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_horses multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_horses value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_clay_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_clay ?= {
@@ -74,6 +101,33 @@ tv_trade_league_remove_virtual_demand_clay_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_clay }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_clay
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_clay_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_clay ?= {
+		market = {
+			add_goods_supply = { goods = goods:clay amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_clay } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_clay value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_clay_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_clay ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_clay ?= {
+			market = {
+				add_goods_supply = { goods = goods:clay amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_clay multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_clay value = 0 }
 			}
 		}
 	}
@@ -102,6 +156,33 @@ tv_trade_league_remove_virtual_demand_sand_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_sand_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_sand ?= {
+		market = {
+			add_goods_supply = { goods = goods:sand amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_sand } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_sand value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_sand_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_sand ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_sand ?= {
+			market = {
+				add_goods_supply = { goods = goods:sand amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_sand multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_sand value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_coal_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_coal ?= {
@@ -120,6 +201,33 @@ tv_trade_league_remove_virtual_demand_coal_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_coal }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_coal
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_coal_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_coal ?= {
+		market = {
+			add_goods_supply = { goods = goods:coal amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_coal } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_coal value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_coal_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_coal ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_coal ?= {
+			market = {
+				add_goods_supply = { goods = goods:coal amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_coal multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_coal value = 0 }
 			}
 		}
 	}
@@ -148,6 +256,33 @@ tv_trade_league_remove_virtual_demand_iron_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_iron_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_iron ?= {
+		market = {
+			add_goods_supply = { goods = goods:iron amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_iron } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_iron value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_iron_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_iron ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_iron ?= {
+			market = {
+				add_goods_supply = { goods = goods:iron amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_iron multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_iron value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_copper_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_copper ?= {
@@ -166,6 +301,33 @@ tv_trade_league_remove_virtual_demand_copper_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_copper }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_copper
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_copper_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_copper ?= {
+		market = {
+			add_goods_supply = { goods = goods:copper amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_copper } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_copper value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_copper_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_copper ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_copper ?= {
+			market = {
+				add_goods_supply = { goods = goods:copper amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_copper multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_copper value = 0 }
 			}
 		}
 	}
@@ -194,6 +356,33 @@ tv_trade_league_remove_virtual_demand_goods_gold_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_goods_gold_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_goods_gold ?= {
+		market = {
+			add_goods_supply = { goods = goods:goods_gold amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_goods_gold } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_goods_gold value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_goods_gold_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_goods_gold ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_goods_gold ?= {
+			market = {
+				add_goods_supply = { goods = goods:goods_gold amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_goods_gold multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_goods_gold value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_silver_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_silver ?= {
@@ -212,6 +401,33 @@ tv_trade_league_remove_virtual_demand_silver_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_silver }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_silver
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_silver_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_silver ?= {
+		market = {
+			add_goods_supply = { goods = goods:silver amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_silver } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_silver value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_silver_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_silver ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_silver ?= {
+			market = {
+				add_goods_supply = { goods = goods:silver amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_silver multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_silver value = 0 }
 			}
 		}
 	}
@@ -240,6 +456,33 @@ tv_trade_league_remove_virtual_demand_stone_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_stone_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_stone ?= {
+		market = {
+			add_goods_supply = { goods = goods:stone amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_stone } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_stone value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_stone_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_stone ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_stone ?= {
+			market = {
+				add_goods_supply = { goods = goods:stone amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_stone multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_stone value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_tin_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_tin ?= {
@@ -258,6 +501,33 @@ tv_trade_league_remove_virtual_demand_tin_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_tin }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_tin
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_tin_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_tin ?= {
+		market = {
+			add_goods_supply = { goods = goods:tin amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tin } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_tin value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_tin_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_tin ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_tin ?= {
+			market = {
+				add_goods_supply = { goods = goods:tin amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tin multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_tin value = 0 }
 			}
 		}
 	}
@@ -286,6 +556,33 @@ tv_trade_league_remove_virtual_demand_lead_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_lead_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_lead ?= {
+		market = {
+			add_goods_supply = { goods = goods:lead amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_lead } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_lead value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_lead_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_lead ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_lead ?= {
+			market = {
+				add_goods_supply = { goods = goods:lead amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_lead multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_lead value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_silk_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_silk ?= {
@@ -304,6 +601,33 @@ tv_trade_league_remove_virtual_demand_silk_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_silk }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_silk
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_silk_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_silk ?= {
+		market = {
+			add_goods_supply = { goods = goods:silk amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_silk } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_silk value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_silk_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_silk ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_silk ?= {
+			market = {
+				add_goods_supply = { goods = goods:silk amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_silk multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_silk value = 0 }
 			}
 		}
 	}
@@ -332,6 +656,33 @@ tv_trade_league_remove_virtual_demand_dyes_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_dyes_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_dyes ?= {
+		market = {
+			add_goods_supply = { goods = goods:dyes amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_dyes } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_dyes value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_dyes_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_dyes ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_dyes ?= {
+			market = {
+				add_goods_supply = { goods = goods:dyes amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_dyes multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_dyes value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_incense_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_incense ?= {
@@ -350,6 +701,33 @@ tv_trade_league_remove_virtual_demand_incense_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_incense }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_incense
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_incense_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_incense ?= {
+		market = {
+			add_goods_supply = { goods = goods:incense amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_incense } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_incense value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_incense_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_incense ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_incense ?= {
+			market = {
+				add_goods_supply = { goods = goods:incense amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_incense multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_incense value = 0 }
 			}
 		}
 	}
@@ -378,6 +756,33 @@ tv_trade_league_remove_virtual_demand_tea_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_tea_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_tea ?= {
+		market = {
+			add_goods_supply = { goods = goods:tea amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tea } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_tea value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_tea_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_tea ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_tea ?= {
+			market = {
+				add_goods_supply = { goods = goods:tea amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tea multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_tea value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_cocoa_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_cocoa ?= {
@@ -396,6 +801,33 @@ tv_trade_league_remove_virtual_demand_cocoa_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_cocoa }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_cocoa
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_cocoa_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_cocoa ?= {
+		market = {
+			add_goods_supply = { goods = goods:cocoa amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cocoa } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_cocoa value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_cocoa_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_cocoa ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_cocoa ?= {
+			market = {
+				add_goods_supply = { goods = goods:cocoa amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cocoa multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_cocoa value = 0 }
 			}
 		}
 	}
@@ -424,6 +856,33 @@ tv_trade_league_remove_virtual_demand_coffee_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_coffee_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_coffee ?= {
+		market = {
+			add_goods_supply = { goods = goods:coffee amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_coffee } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_coffee value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_coffee_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_coffee ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_coffee ?= {
+			market = {
+				add_goods_supply = { goods = goods:coffee amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_coffee multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_coffee value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_fiber_crops_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_fiber_crops ?= {
@@ -442,6 +901,33 @@ tv_trade_league_remove_virtual_demand_fiber_crops_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_fiber_crops }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_fiber_crops
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_fiber_crops_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_fiber_crops ?= {
+		market = {
+			add_goods_supply = { goods = goods:fiber_crops amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fiber_crops } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_fiber_crops value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_fiber_crops_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_fiber_crops ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_fiber_crops ?= {
+			market = {
+				add_goods_supply = { goods = goods:fiber_crops amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fiber_crops multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_fiber_crops value = 0 }
 			}
 		}
 	}
@@ -470,6 +956,33 @@ tv_trade_league_remove_virtual_demand_ivory_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_ivory_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_ivory ?= {
+		market = {
+			add_goods_supply = { goods = goods:ivory amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_ivory } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_ivory value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_ivory_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_ivory ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_ivory ?= {
+			market = {
+				add_goods_supply = { goods = goods:ivory amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_ivory multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_ivory value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_lumber_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_lumber ?= {
@@ -488,6 +1001,33 @@ tv_trade_league_remove_virtual_demand_lumber_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_lumber }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_lumber
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_lumber_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_lumber ?= {
+		market = {
+			add_goods_supply = { goods = goods:lumber amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_lumber } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_lumber value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_lumber_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_lumber ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_lumber ?= {
+			market = {
+				add_goods_supply = { goods = goods:lumber amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_lumber multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_lumber value = 0 }
 			}
 		}
 	}
@@ -516,6 +1056,33 @@ tv_trade_league_remove_virtual_demand_salt_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_salt_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_salt ?= {
+		market = {
+			add_goods_supply = { goods = goods:salt amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_salt } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_salt value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_salt_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_salt ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_salt ?= {
+			market = {
+				add_goods_supply = { goods = goods:salt amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_salt multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_salt value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_medicaments_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_medicaments ?= {
@@ -534,6 +1101,33 @@ tv_trade_league_remove_virtual_demand_medicaments_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_medicaments }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_medicaments
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_medicaments_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_medicaments ?= {
+		market = {
+			add_goods_supply = { goods = goods:medicaments amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_medicaments } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_medicaments value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_medicaments_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_medicaments ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_medicaments ?= {
+			market = {
+				add_goods_supply = { goods = goods:medicaments amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_medicaments multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_medicaments value = 0 }
 			}
 		}
 	}
@@ -562,6 +1156,33 @@ tv_trade_league_remove_virtual_demand_gems_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_gems_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_gems ?= {
+		market = {
+			add_goods_supply = { goods = goods:gems amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_gems } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_gems value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_gems_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_gems ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_gems ?= {
+			market = {
+				add_goods_supply = { goods = goods:gems amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_gems multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_gems value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_pearls_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_pearls ?= {
@@ -580,6 +1201,33 @@ tv_trade_league_remove_virtual_demand_pearls_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_pearls }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_pearls
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_pearls_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_pearls ?= {
+		market = {
+			add_goods_supply = { goods = goods:pearls amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_pearls } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_pearls value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_pearls_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_pearls ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_pearls ?= {
+			market = {
+				add_goods_supply = { goods = goods:pearls amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_pearls multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_pearls value = 0 }
 			}
 		}
 	}
@@ -608,6 +1256,33 @@ tv_trade_league_remove_virtual_demand_amber_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_amber_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_amber ?= {
+		market = {
+			add_goods_supply = { goods = goods:amber amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_amber } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_amber value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_amber_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_amber ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_amber ?= {
+			market = {
+				add_goods_supply = { goods = goods:amber amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_amber multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_amber value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_saltpeter_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_saltpeter ?= {
@@ -626,6 +1301,33 @@ tv_trade_league_remove_virtual_demand_saltpeter_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_saltpeter }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_saltpeter
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_saltpeter_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_saltpeter ?= {
+		market = {
+			add_goods_supply = { goods = goods:saltpeter amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_saltpeter } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_saltpeter value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_saltpeter_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_saltpeter ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_saltpeter ?= {
+			market = {
+				add_goods_supply = { goods = goods:saltpeter amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_saltpeter multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_saltpeter value = 0 }
 			}
 		}
 	}
@@ -654,6 +1356,33 @@ tv_trade_league_remove_virtual_demand_alum_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_alum_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_alum ?= {
+		market = {
+			add_goods_supply = { goods = goods:alum amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_alum } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_alum value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_alum_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_alum ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_alum ?= {
+			market = {
+				add_goods_supply = { goods = goods:alum amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_alum multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_alum value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_wine_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_wine ?= {
@@ -672,6 +1401,33 @@ tv_trade_league_remove_virtual_demand_wine_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_wine }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_wine
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_wine_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_wine ?= {
+		market = {
+			add_goods_supply = { goods = goods:wine amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wine } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_wine value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_wine_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_wine ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_wine ?= {
+			market = {
+				add_goods_supply = { goods = goods:wine amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wine multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_wine value = 0 }
 			}
 		}
 	}
@@ -700,6 +1456,33 @@ tv_trade_league_remove_virtual_demand_elephants_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_elephants_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_elephants ?= {
+		market = {
+			add_goods_supply = { goods = goods:elephants amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_elephants } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_elephants value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_elephants_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_elephants ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_elephants ?= {
+			market = {
+				add_goods_supply = { goods = goods:elephants amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_elephants multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_elephants value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_marble_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_marble ?= {
@@ -718,6 +1501,33 @@ tv_trade_league_remove_virtual_demand_marble_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_marble }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_marble
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_marble_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_marble ?= {
+		market = {
+			add_goods_supply = { goods = goods:marble amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_marble } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_marble value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_marble_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_marble ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_marble ?= {
+			market = {
+				add_goods_supply = { goods = goods:marble amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_marble multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_marble value = 0 }
 			}
 		}
 	}
@@ -746,6 +1556,33 @@ tv_trade_league_remove_virtual_demand_mercury_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_mercury_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_mercury ?= {
+		market = {
+			add_goods_supply = { goods = goods:mercury amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_mercury } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_mercury value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_mercury_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_mercury ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_mercury ?= {
+			market = {
+				add_goods_supply = { goods = goods:mercury amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_mercury multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_mercury value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_saffron_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_saffron ?= {
@@ -764,6 +1601,33 @@ tv_trade_league_remove_virtual_demand_saffron_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_saffron }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_saffron
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_saffron_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_saffron ?= {
+		market = {
+			add_goods_supply = { goods = goods:saffron amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_saffron } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_saffron value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_saffron_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_saffron ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_saffron ?= {
+			market = {
+				add_goods_supply = { goods = goods:saffron amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_saffron multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_saffron value = 0 }
 			}
 		}
 	}
@@ -792,6 +1656,33 @@ tv_trade_league_remove_virtual_demand_pepper_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_pepper_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_pepper ?= {
+		market = {
+			add_goods_supply = { goods = goods:pepper amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_pepper } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_pepper value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_pepper_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_pepper ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_pepper ?= {
+			market = {
+				add_goods_supply = { goods = goods:pepper amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_pepper multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_pepper value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_cloves_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_cloves ?= {
@@ -810,6 +1701,33 @@ tv_trade_league_remove_virtual_demand_cloves_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_cloves }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_cloves
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_cloves_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_cloves ?= {
+		market = {
+			add_goods_supply = { goods = goods:cloves amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cloves } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_cloves value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_cloves_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_cloves ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_cloves ?= {
+			market = {
+				add_goods_supply = { goods = goods:cloves amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cloves multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_cloves value = 0 }
 			}
 		}
 	}
@@ -838,6 +1756,33 @@ tv_trade_league_remove_virtual_demand_chili_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_chili_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_chili ?= {
+		market = {
+			add_goods_supply = { goods = goods:chili amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_chili } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_chili value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_chili_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_chili ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_chili ?= {
+			market = {
+				add_goods_supply = { goods = goods:chili amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_chili multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_chili value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_cotton_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_cotton ?= {
@@ -856,6 +1801,33 @@ tv_trade_league_remove_virtual_demand_cotton_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_cotton }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_cotton
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_cotton_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_cotton ?= {
+		market = {
+			add_goods_supply = { goods = goods:cotton amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cotton } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_cotton value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_cotton_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_cotton ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_cotton ?= {
+			market = {
+				add_goods_supply = { goods = goods:cotton amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cotton multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_cotton value = 0 }
 			}
 		}
 	}
@@ -884,6 +1856,33 @@ tv_trade_league_remove_virtual_demand_sugar_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_sugar_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_sugar ?= {
+		market = {
+			add_goods_supply = { goods = goods:sugar amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_sugar } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_sugar value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_sugar_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_sugar ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_sugar ?= {
+			market = {
+				add_goods_supply = { goods = goods:sugar amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_sugar multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_sugar value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_tobacco_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_tobacco ?= {
@@ -902,6 +1901,33 @@ tv_trade_league_remove_virtual_demand_tobacco_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_tobacco }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_tobacco
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_tobacco_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_tobacco ?= {
+		market = {
+			add_goods_supply = { goods = goods:tobacco amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tobacco } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_tobacco value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_tobacco_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_tobacco ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_tobacco ?= {
+			market = {
+				add_goods_supply = { goods = goods:tobacco amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tobacco multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_tobacco value = 0 }
 			}
 		}
 	}
@@ -930,6 +1956,33 @@ tv_trade_league_remove_virtual_demand_tar_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_tar_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_tar ?= {
+		market = {
+			add_goods_supply = { goods = goods:tar amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tar } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_tar value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_tar_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_tar ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_tar ?= {
+			market = {
+				add_goods_supply = { goods = goods:tar amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tar multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_tar value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_porcelain_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_porcelain ?= {
@@ -948,6 +2001,33 @@ tv_trade_league_remove_virtual_demand_porcelain_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_porcelain }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_porcelain
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_porcelain_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_porcelain ?= {
+		market = {
+			add_goods_supply = { goods = goods:porcelain amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_porcelain } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_porcelain value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_porcelain_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_porcelain ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_porcelain ?= {
+			market = {
+				add_goods_supply = { goods = goods:porcelain amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_porcelain multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_porcelain value = 0 }
 			}
 		}
 	}
@@ -976,6 +2056,33 @@ tv_trade_league_remove_virtual_demand_naval_supplies_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_naval_supplies_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_naval_supplies ?= {
+		market = {
+			add_goods_supply = { goods = goods:naval_supplies amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_naval_supplies } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_naval_supplies value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_naval_supplies_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_naval_supplies ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_naval_supplies ?= {
+			market = {
+				add_goods_supply = { goods = goods:naval_supplies amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_naval_supplies multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_naval_supplies value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_firearms_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_firearms ?= {
@@ -994,6 +2101,33 @@ tv_trade_league_remove_virtual_demand_firearms_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_firearms }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_firearms
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_firearms_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_firearms ?= {
+		market = {
+			add_goods_supply = { goods = goods:firearms amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_firearms } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_firearms value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_firearms_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_firearms ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_firearms ?= {
+			market = {
+				add_goods_supply = { goods = goods:firearms amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_firearms multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_firearms value = 0 }
 			}
 		}
 	}
@@ -1022,6 +2156,33 @@ tv_trade_league_remove_virtual_demand_cannons_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_cannons_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_cannons ?= {
+		market = {
+			add_goods_supply = { goods = goods:cannons amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cannons } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_cannons value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_cannons_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_cannons ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_cannons ?= {
+			market = {
+				add_goods_supply = { goods = goods:cannons amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cannons multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_cannons value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_weaponry_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_weaponry ?= {
@@ -1040,6 +2201,33 @@ tv_trade_league_remove_virtual_demand_weaponry_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_weaponry }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_weaponry
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_weaponry_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_weaponry ?= {
+		market = {
+			add_goods_supply = { goods = goods:weaponry amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_weaponry } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_weaponry value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_weaponry_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_weaponry ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_weaponry ?= {
+			market = {
+				add_goods_supply = { goods = goods:weaponry amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_weaponry multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_weaponry value = 0 }
 			}
 		}
 	}
@@ -1068,6 +2256,33 @@ tv_trade_league_remove_virtual_demand_glass_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_glass_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_glass ?= {
+		market = {
+			add_goods_supply = { goods = goods:glass amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_glass } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_glass value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_glass_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_glass ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_glass ?= {
+			market = {
+				add_goods_supply = { goods = goods:glass amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_glass multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_glass value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_steel_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_steel ?= {
@@ -1086,6 +2301,33 @@ tv_trade_league_remove_virtual_demand_steel_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_steel }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_steel
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_steel_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_steel ?= {
+		market = {
+			add_goods_supply = { goods = goods:steel amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_steel } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_steel value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_steel_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_steel ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_steel ?= {
+			market = {
+				add_goods_supply = { goods = goods:steel amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_steel multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_steel value = 0 }
 			}
 		}
 	}
@@ -1114,6 +2356,33 @@ tv_trade_league_remove_virtual_demand_cloth_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_cloth_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_cloth ?= {
+		market = {
+			add_goods_supply = { goods = goods:cloth amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cloth } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_cloth value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_cloth_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_cloth ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_cloth ?= {
+			market = {
+				add_goods_supply = { goods = goods:cloth amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cloth multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_cloth value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_fine_cloth_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_fine_cloth ?= {
@@ -1132,6 +2401,33 @@ tv_trade_league_remove_virtual_demand_fine_cloth_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_fine_cloth }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_fine_cloth
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_fine_cloth_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_fine_cloth ?= {
+		market = {
+			add_goods_supply = { goods = goods:fine_cloth amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fine_cloth } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_fine_cloth value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_fine_cloth_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_fine_cloth ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_fine_cloth ?= {
+			market = {
+				add_goods_supply = { goods = goods:fine_cloth amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fine_cloth multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_fine_cloth value = 0 }
 			}
 		}
 	}
@@ -1160,6 +2456,33 @@ tv_trade_league_remove_virtual_demand_liquor_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_liquor_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_liquor ?= {
+		market = {
+			add_goods_supply = { goods = goods:liquor amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_liquor } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_liquor value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_liquor_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_liquor ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_liquor ?= {
+			market = {
+				add_goods_supply = { goods = goods:liquor amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_liquor multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_liquor value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_beer_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_beer ?= {
@@ -1178,6 +2501,33 @@ tv_trade_league_remove_virtual_demand_beer_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_beer }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_beer
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_beer_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_beer ?= {
+		market = {
+			add_goods_supply = { goods = goods:beer amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_beer } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_beer value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_beer_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_beer ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_beer ?= {
+			market = {
+				add_goods_supply = { goods = goods:beer amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_beer multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_beer value = 0 }
 			}
 		}
 	}
@@ -1206,6 +2556,33 @@ tv_trade_league_remove_virtual_demand_paper_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_paper_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_paper ?= {
+		market = {
+			add_goods_supply = { goods = goods:paper amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_paper } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_paper value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_paper_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_paper ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_paper ?= {
+			market = {
+				add_goods_supply = { goods = goods:paper amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_paper multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_paper value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_books_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_books ?= {
@@ -1224,6 +2601,33 @@ tv_trade_league_remove_virtual_demand_books_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_books }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_books
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_books_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_books ?= {
+		market = {
+			add_goods_supply = { goods = goods:books amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_books } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_books value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_books_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_books ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_books ?= {
+			market = {
+				add_goods_supply = { goods = goods:books amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_books multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_books value = 0 }
 			}
 		}
 	}
@@ -1252,6 +2656,33 @@ tv_trade_league_remove_virtual_demand_jewelry_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_jewelry_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_jewelry ?= {
+		market = {
+			add_goods_supply = { goods = goods:jewelry amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_jewelry } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_jewelry value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_jewelry_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_jewelry ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_jewelry ?= {
+			market = {
+				add_goods_supply = { goods = goods:jewelry amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_jewelry multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_jewelry value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_leather_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_leather ?= {
@@ -1270,6 +2701,33 @@ tv_trade_league_remove_virtual_demand_leather_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_leather }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_leather
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_leather_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_leather ?= {
+		market = {
+			add_goods_supply = { goods = goods:leather amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_leather } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_leather value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_leather_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_leather ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_leather ?= {
+			market = {
+				add_goods_supply = { goods = goods:leather amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_leather multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_leather value = 0 }
 			}
 		}
 	}
@@ -1298,6 +2756,33 @@ tv_trade_league_remove_virtual_demand_tools_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_tools_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_tools ?= {
+		market = {
+			add_goods_supply = { goods = goods:tools amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tools } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_tools value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_tools_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_tools ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_tools ?= {
+			market = {
+				add_goods_supply = { goods = goods:tools amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tools multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_tools value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_masonry_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_masonry ?= {
@@ -1316,6 +2801,33 @@ tv_trade_league_remove_virtual_demand_masonry_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_masonry }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_masonry
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_masonry_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_masonry ?= {
+		market = {
+			add_goods_supply = { goods = goods:masonry amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_masonry } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_masonry value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_masonry_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_masonry ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_masonry ?= {
+			market = {
+				add_goods_supply = { goods = goods:masonry amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_masonry multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_masonry value = 0 }
 			}
 		}
 	}
@@ -1344,6 +2856,33 @@ tv_trade_league_remove_virtual_demand_lacquerware_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_lacquerware_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_lacquerware ?= {
+		market = {
+			add_goods_supply = { goods = goods:lacquerware amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_lacquerware } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_lacquerware value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_lacquerware_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_lacquerware ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_lacquerware ?= {
+			market = {
+				add_goods_supply = { goods = goods:lacquerware amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_lacquerware multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_lacquerware value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_pottery_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_pottery ?= {
@@ -1362,6 +2901,33 @@ tv_trade_league_remove_virtual_demand_pottery_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_pottery }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_pottery
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_pottery_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_pottery ?= {
+		market = {
+			add_goods_supply = { goods = goods:pottery amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_pottery } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_pottery value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_pottery_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_pottery ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_pottery ?= {
+			market = {
+				add_goods_supply = { goods = goods:pottery amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_pottery multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_pottery value = 0 }
 			}
 		}
 	}
@@ -1390,6 +2956,33 @@ tv_trade_league_remove_virtual_demand_furniture_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_furniture_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_furniture ?= {
+		market = {
+			add_goods_supply = { goods = goods:furniture amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_furniture } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_furniture value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_furniture_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_furniture ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_furniture ?= {
+			market = {
+				add_goods_supply = { goods = goods:furniture amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_furniture multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_furniture value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_wool_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_wool ?= {
@@ -1408,6 +3001,33 @@ tv_trade_league_remove_virtual_demand_wool_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_wool }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_wool
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_wool_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_wool ?= {
+		market = {
+			add_goods_supply = { goods = goods:wool amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wool } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_wool value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_wool_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_wool ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_wool ?= {
+			market = {
+				add_goods_supply = { goods = goods:wool amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wool multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_wool value = 0 }
 			}
 		}
 	}
@@ -1436,6 +3056,33 @@ tv_trade_league_remove_virtual_demand_wild_game_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_wild_game_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_wild_game ?= {
+		market = {
+			add_goods_supply = { goods = goods:wild_game amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wild_game } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_wild_game value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_wild_game_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_wild_game ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_wild_game ?= {
+			market = {
+				add_goods_supply = { goods = goods:wild_game amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wild_game multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_wild_game value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_fur_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_fur ?= {
@@ -1454,6 +3101,33 @@ tv_trade_league_remove_virtual_demand_fur_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_fur }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_fur
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_fur_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_fur ?= {
+		market = {
+			add_goods_supply = { goods = goods:fur amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fur } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_fur value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_fur_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_fur ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_fur ?= {
+			market = {
+				add_goods_supply = { goods = goods:fur amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fur multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_fur value = 0 }
 			}
 		}
 	}
@@ -1482,6 +3156,33 @@ tv_trade_league_remove_virtual_demand_fish_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_fish_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_fish ?= {
+		market = {
+			add_goods_supply = { goods = goods:fish amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fish } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_fish value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_fish_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_fish ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_fish ?= {
+			market = {
+				add_goods_supply = { goods = goods:fish amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fish multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_fish value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_wheat_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_wheat ?= {
@@ -1500,6 +3201,33 @@ tv_trade_league_remove_virtual_demand_wheat_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_wheat }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_wheat
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_wheat_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_wheat ?= {
+		market = {
+			add_goods_supply = { goods = goods:wheat amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wheat } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_wheat value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_wheat_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_wheat ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_wheat ?= {
+			market = {
+				add_goods_supply = { goods = goods:wheat amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wheat multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_wheat value = 0 }
 			}
 		}
 	}
@@ -1528,6 +3256,33 @@ tv_trade_league_remove_virtual_demand_maize_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_maize_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_maize ?= {
+		market = {
+			add_goods_supply = { goods = goods:maize amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_maize } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_maize value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_maize_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_maize ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_maize ?= {
+			market = {
+				add_goods_supply = { goods = goods:maize amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_maize multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_maize value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_rice_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_rice ?= {
@@ -1546,6 +3301,33 @@ tv_trade_league_remove_virtual_demand_rice_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_rice }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_rice
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_rice_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_rice ?= {
+		market = {
+			add_goods_supply = { goods = goods:rice amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_rice } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_rice value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_rice_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_rice ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_rice ?= {
+			market = {
+				add_goods_supply = { goods = goods:rice amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_rice multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_rice value = 0 }
 			}
 		}
 	}
@@ -1574,6 +3356,33 @@ tv_trade_league_remove_virtual_demand_millet_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_millet_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_millet ?= {
+		market = {
+			add_goods_supply = { goods = goods:millet amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_millet } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_millet value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_millet_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_millet ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_millet ?= {
+			market = {
+				add_goods_supply = { goods = goods:millet amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_millet multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_millet value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_legumes_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_legumes ?= {
@@ -1592,6 +3401,33 @@ tv_trade_league_remove_virtual_demand_legumes_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_legumes }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_legumes
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_legumes_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_legumes ?= {
+		market = {
+			add_goods_supply = { goods = goods:legumes amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_legumes } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_legumes value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_legumes_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_legumes ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_legumes ?= {
+			market = {
+				add_goods_supply = { goods = goods:legumes amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_legumes multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_legumes value = 0 }
 			}
 		}
 	}
@@ -1620,6 +3456,33 @@ tv_trade_league_remove_virtual_demand_potato_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_potato_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_potato ?= {
+		market = {
+			add_goods_supply = { goods = goods:potato amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_potato } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_potato value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_potato_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_potato ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_potato ?= {
+			market = {
+				add_goods_supply = { goods = goods:potato amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_potato multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_potato value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_livestock_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_livestock ?= {
@@ -1638,6 +3501,33 @@ tv_trade_league_remove_virtual_demand_livestock_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_livestock }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_livestock
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_livestock_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_livestock ?= {
+		market = {
+			add_goods_supply = { goods = goods:livestock amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_livestock } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_livestock value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_livestock_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_livestock ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_livestock ?= {
+			market = {
+				add_goods_supply = { goods = goods:livestock amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_livestock multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_livestock value = 0 }
 			}
 		}
 	}
@@ -1666,6 +3556,33 @@ tv_trade_league_remove_virtual_demand_olives_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_olives_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_olives ?= {
+		market = {
+			add_goods_supply = { goods = goods:olives amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_olives } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_olives value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_olives_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_olives ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_olives ?= {
+			market = {
+				add_goods_supply = { goods = goods:olives amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_olives multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_olives value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_fruit_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_fruit ?= {
@@ -1684,6 +3601,33 @@ tv_trade_league_remove_virtual_demand_fruit_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_fruit }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_fruit
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_fruit_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_fruit ?= {
+		market = {
+			add_goods_supply = { goods = goods:fruit amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fruit } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_fruit value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_fruit_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_fruit ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_fruit ?= {
+			market = {
+				add_goods_supply = { goods = goods:fruit amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fruit multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_fruit value = 0 }
 			}
 		}
 	}
@@ -1712,6 +3656,33 @@ tv_trade_league_remove_virtual_demand_beeswax_effect = {
 	}
 }
 
+tv_trade_league_apply_virtual_supply_beeswax_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_beeswax ?= {
+		market = {
+			add_goods_supply = { goods = goods:beeswax amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_beeswax } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_beeswax value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_beeswax_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_beeswax ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_beeswax ?= {
+			market = {
+				add_goods_supply = { goods = goods:beeswax amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_beeswax multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_beeswax value = 0 }
+			}
+		}
+	}
+}
+
 tv_trade_league_apply_virtual_demand_slaves_goods_effect = {
 	save_scope_as = tv_trade_monopoly_io
 	var:tv_trade_virtual_demand_location_slaves_goods ?= {
@@ -1730,6 +3701,33 @@ tv_trade_league_remove_virtual_demand_slaves_goods_effect = {
 			if = {
 				limit = { has_temporary_demand = demand:tv_trade_virtual_demand_slaves_goods }
 				remove_temporary_demand = demand:tv_trade_virtual_demand_slaves_goods
+			}
+		}
+	}
+}
+
+tv_trade_league_apply_virtual_supply_slaves_goods_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	var:tv_trade_virtual_supply_location_slaves_goods ?= {
+		market = {
+			add_goods_supply = { goods = goods:slaves_goods amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_slaves_goods } }
+		}
+		scope:tv_trade_monopoly_io = {
+			set_variable = { name = tv_trade_virtual_supply_applied_slaves_goods value = 1 }
+		}
+	}
+}
+
+tv_trade_league_remove_virtual_supply_slaves_goods_effect = {
+	save_scope_as = tv_trade_monopoly_io
+	if = {
+		limit = { var:tv_trade_virtual_supply_applied_slaves_goods ?= { this >= 1 } }
+		var:tv_trade_virtual_supply_location_slaves_goods ?= {
+			market = {
+				add_goods_supply = { goods = goods:slaves_goods amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_slaves_goods multiply = -1 } }
+			}
+			scope:tv_trade_monopoly_io = {
+				set_variable = { name = tv_trade_virtual_supply_applied_slaves_goods value = 0 }
 			}
 		}
 	}
@@ -1811,6 +3809,85 @@ tv_trade_league_suspend_virtual_demands_effect = {
 		tv_trade_league_remove_virtual_demand_fruit_effect = yes
 		tv_trade_league_remove_virtual_demand_beeswax_effect = yes
 		tv_trade_league_remove_virtual_demand_slaves_goods_effect = yes
+	}
+}
+
+tv_trade_league_suspend_virtual_supplies_effect = {
+	hidden_effect = {
+		tv_trade_league_remove_virtual_supply_horses_effect = yes
+		tv_trade_league_remove_virtual_supply_clay_effect = yes
+		tv_trade_league_remove_virtual_supply_sand_effect = yes
+		tv_trade_league_remove_virtual_supply_coal_effect = yes
+		tv_trade_league_remove_virtual_supply_iron_effect = yes
+		tv_trade_league_remove_virtual_supply_copper_effect = yes
+		tv_trade_league_remove_virtual_supply_goods_gold_effect = yes
+		tv_trade_league_remove_virtual_supply_silver_effect = yes
+		tv_trade_league_remove_virtual_supply_stone_effect = yes
+		tv_trade_league_remove_virtual_supply_tin_effect = yes
+		tv_trade_league_remove_virtual_supply_lead_effect = yes
+		tv_trade_league_remove_virtual_supply_silk_effect = yes
+		tv_trade_league_remove_virtual_supply_dyes_effect = yes
+		tv_trade_league_remove_virtual_supply_incense_effect = yes
+		tv_trade_league_remove_virtual_supply_tea_effect = yes
+		tv_trade_league_remove_virtual_supply_cocoa_effect = yes
+		tv_trade_league_remove_virtual_supply_coffee_effect = yes
+		tv_trade_league_remove_virtual_supply_fiber_crops_effect = yes
+		tv_trade_league_remove_virtual_supply_ivory_effect = yes
+		tv_trade_league_remove_virtual_supply_lumber_effect = yes
+		tv_trade_league_remove_virtual_supply_salt_effect = yes
+		tv_trade_league_remove_virtual_supply_medicaments_effect = yes
+		tv_trade_league_remove_virtual_supply_gems_effect = yes
+		tv_trade_league_remove_virtual_supply_pearls_effect = yes
+		tv_trade_league_remove_virtual_supply_amber_effect = yes
+		tv_trade_league_remove_virtual_supply_saltpeter_effect = yes
+		tv_trade_league_remove_virtual_supply_alum_effect = yes
+		tv_trade_league_remove_virtual_supply_wine_effect = yes
+		tv_trade_league_remove_virtual_supply_elephants_effect = yes
+		tv_trade_league_remove_virtual_supply_marble_effect = yes
+		tv_trade_league_remove_virtual_supply_mercury_effect = yes
+		tv_trade_league_remove_virtual_supply_saffron_effect = yes
+		tv_trade_league_remove_virtual_supply_pepper_effect = yes
+		tv_trade_league_remove_virtual_supply_cloves_effect = yes
+		tv_trade_league_remove_virtual_supply_chili_effect = yes
+		tv_trade_league_remove_virtual_supply_cotton_effect = yes
+		tv_trade_league_remove_virtual_supply_sugar_effect = yes
+		tv_trade_league_remove_virtual_supply_tobacco_effect = yes
+		tv_trade_league_remove_virtual_supply_tar_effect = yes
+		tv_trade_league_remove_virtual_supply_porcelain_effect = yes
+		tv_trade_league_remove_virtual_supply_naval_supplies_effect = yes
+		tv_trade_league_remove_virtual_supply_firearms_effect = yes
+		tv_trade_league_remove_virtual_supply_cannons_effect = yes
+		tv_trade_league_remove_virtual_supply_weaponry_effect = yes
+		tv_trade_league_remove_virtual_supply_glass_effect = yes
+		tv_trade_league_remove_virtual_supply_steel_effect = yes
+		tv_trade_league_remove_virtual_supply_cloth_effect = yes
+		tv_trade_league_remove_virtual_supply_fine_cloth_effect = yes
+		tv_trade_league_remove_virtual_supply_liquor_effect = yes
+		tv_trade_league_remove_virtual_supply_beer_effect = yes
+		tv_trade_league_remove_virtual_supply_paper_effect = yes
+		tv_trade_league_remove_virtual_supply_books_effect = yes
+		tv_trade_league_remove_virtual_supply_jewelry_effect = yes
+		tv_trade_league_remove_virtual_supply_leather_effect = yes
+		tv_trade_league_remove_virtual_supply_tools_effect = yes
+		tv_trade_league_remove_virtual_supply_masonry_effect = yes
+		tv_trade_league_remove_virtual_supply_lacquerware_effect = yes
+		tv_trade_league_remove_virtual_supply_pottery_effect = yes
+		tv_trade_league_remove_virtual_supply_furniture_effect = yes
+		tv_trade_league_remove_virtual_supply_wool_effect = yes
+		tv_trade_league_remove_virtual_supply_wild_game_effect = yes
+		tv_trade_league_remove_virtual_supply_fur_effect = yes
+		tv_trade_league_remove_virtual_supply_fish_effect = yes
+		tv_trade_league_remove_virtual_supply_wheat_effect = yes
+		tv_trade_league_remove_virtual_supply_maize_effect = yes
+		tv_trade_league_remove_virtual_supply_rice_effect = yes
+		tv_trade_league_remove_virtual_supply_millet_effect = yes
+		tv_trade_league_remove_virtual_supply_legumes_effect = yes
+		tv_trade_league_remove_virtual_supply_potato_effect = yes
+		tv_trade_league_remove_virtual_supply_livestock_effect = yes
+		tv_trade_league_remove_virtual_supply_olives_effect = yes
+		tv_trade_league_remove_virtual_supply_fruit_effect = yes
+		tv_trade_league_remove_virtual_supply_beeswax_effect = yes
+		tv_trade_league_remove_virtual_supply_slaves_goods_effect = yes
 	}
 }
 
@@ -1900,15 +3977,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_horses >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_horses >= 1 }
-			var:tv_trade_virtual_supply_location_horses ?= {
-				market = {
-					add_goods_supply = { goods = goods:horses amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_horses } }
-				}
+		limit = {
+			var:tv_trade_monopoly_horses >= 1
+			var:tv_trade_virtual_supply_active_horses >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_horses ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_horses_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_horses < 1
+				var:tv_trade_virtual_supply_active_horses < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_horses_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_horses >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_horses >= 1 }
 			var:tv_trade_embargo_country_horses ?= {
@@ -2325,15 +4412,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_clay >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_clay >= 1 }
-			var:tv_trade_virtual_supply_location_clay ?= {
-				market = {
-					add_goods_supply = { goods = goods:clay amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_clay } }
-				}
+		limit = {
+			var:tv_trade_monopoly_clay >= 1
+			var:tv_trade_virtual_supply_active_clay >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_clay ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_clay_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_clay < 1
+				var:tv_trade_virtual_supply_active_clay < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_clay_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_clay >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_clay >= 1 }
 			var:tv_trade_embargo_country_clay ?= {
@@ -2750,15 +4847,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_sand >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_sand >= 1 }
-			var:tv_trade_virtual_supply_location_sand ?= {
-				market = {
-					add_goods_supply = { goods = goods:sand amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_sand } }
-				}
+		limit = {
+			var:tv_trade_monopoly_sand >= 1
+			var:tv_trade_virtual_supply_active_sand >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_sand ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_sand_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_sand < 1
+				var:tv_trade_virtual_supply_active_sand < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_sand_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_sand >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_sand >= 1 }
 			var:tv_trade_embargo_country_sand ?= {
@@ -3175,15 +5282,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_coal >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_coal >= 1 }
-			var:tv_trade_virtual_supply_location_coal ?= {
-				market = {
-					add_goods_supply = { goods = goods:coal amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_coal } }
-				}
+		limit = {
+			var:tv_trade_monopoly_coal >= 1
+			var:tv_trade_virtual_supply_active_coal >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_coal ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_coal_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_coal < 1
+				var:tv_trade_virtual_supply_active_coal < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_coal_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_coal >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_coal >= 1 }
 			var:tv_trade_embargo_country_coal ?= {
@@ -3600,15 +5717,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_iron >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_iron >= 1 }
-			var:tv_trade_virtual_supply_location_iron ?= {
-				market = {
-					add_goods_supply = { goods = goods:iron amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_iron } }
-				}
+		limit = {
+			var:tv_trade_monopoly_iron >= 1
+			var:tv_trade_virtual_supply_active_iron >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_iron ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_iron_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_iron < 1
+				var:tv_trade_virtual_supply_active_iron < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_iron_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_iron >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_iron >= 1 }
 			var:tv_trade_embargo_country_iron ?= {
@@ -4025,15 +6152,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_copper >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_copper >= 1 }
-			var:tv_trade_virtual_supply_location_copper ?= {
-				market = {
-					add_goods_supply = { goods = goods:copper amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_copper } }
-				}
+		limit = {
+			var:tv_trade_monopoly_copper >= 1
+			var:tv_trade_virtual_supply_active_copper >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_copper ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_copper_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_copper < 1
+				var:tv_trade_virtual_supply_active_copper < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_copper_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_copper >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_copper >= 1 }
 			var:tv_trade_embargo_country_copper ?= {
@@ -4450,15 +6587,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_goods_gold >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_goods_gold >= 1 }
-			var:tv_trade_virtual_supply_location_goods_gold ?= {
-				market = {
-					add_goods_supply = { goods = goods:goods_gold amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_goods_gold } }
-				}
+		limit = {
+			var:tv_trade_monopoly_goods_gold >= 1
+			var:tv_trade_virtual_supply_active_goods_gold >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_goods_gold ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_goods_gold_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_goods_gold < 1
+				var:tv_trade_virtual_supply_active_goods_gold < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_goods_gold_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_goods_gold >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_goods_gold >= 1 }
 			var:tv_trade_embargo_country_goods_gold ?= {
@@ -4875,15 +7022,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_silver >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_silver >= 1 }
-			var:tv_trade_virtual_supply_location_silver ?= {
-				market = {
-					add_goods_supply = { goods = goods:silver amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_silver } }
-				}
+		limit = {
+			var:tv_trade_monopoly_silver >= 1
+			var:tv_trade_virtual_supply_active_silver >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_silver ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_silver_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_silver < 1
+				var:tv_trade_virtual_supply_active_silver < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_silver_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_silver >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_silver >= 1 }
 			var:tv_trade_embargo_country_silver ?= {
@@ -5300,15 +7457,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_stone >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_stone >= 1 }
-			var:tv_trade_virtual_supply_location_stone ?= {
-				market = {
-					add_goods_supply = { goods = goods:stone amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_stone } }
-				}
+		limit = {
+			var:tv_trade_monopoly_stone >= 1
+			var:tv_trade_virtual_supply_active_stone >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_stone ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_stone_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_stone < 1
+				var:tv_trade_virtual_supply_active_stone < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_stone_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_stone >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_stone >= 1 }
 			var:tv_trade_embargo_country_stone ?= {
@@ -5725,15 +7892,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_tin >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_tin >= 1 }
-			var:tv_trade_virtual_supply_location_tin ?= {
-				market = {
-					add_goods_supply = { goods = goods:tin amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tin } }
-				}
+		limit = {
+			var:tv_trade_monopoly_tin >= 1
+			var:tv_trade_virtual_supply_active_tin >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_tin ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_tin_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_tin < 1
+				var:tv_trade_virtual_supply_active_tin < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_tin_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_tin >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_tin >= 1 }
 			var:tv_trade_embargo_country_tin ?= {
@@ -6150,15 +8327,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_lead >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_lead >= 1 }
-			var:tv_trade_virtual_supply_location_lead ?= {
-				market = {
-					add_goods_supply = { goods = goods:lead amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_lead } }
-				}
+		limit = {
+			var:tv_trade_monopoly_lead >= 1
+			var:tv_trade_virtual_supply_active_lead >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_lead ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_lead_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_lead < 1
+				var:tv_trade_virtual_supply_active_lead < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_lead_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_lead >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_lead >= 1 }
 			var:tv_trade_embargo_country_lead ?= {
@@ -6575,15 +8762,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_silk >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_silk >= 1 }
-			var:tv_trade_virtual_supply_location_silk ?= {
-				market = {
-					add_goods_supply = { goods = goods:silk amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_silk } }
-				}
+		limit = {
+			var:tv_trade_monopoly_silk >= 1
+			var:tv_trade_virtual_supply_active_silk >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_silk ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_silk_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_silk < 1
+				var:tv_trade_virtual_supply_active_silk < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_silk_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_silk >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_silk >= 1 }
 			var:tv_trade_embargo_country_silk ?= {
@@ -7000,15 +9197,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_dyes >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_dyes >= 1 }
-			var:tv_trade_virtual_supply_location_dyes ?= {
-				market = {
-					add_goods_supply = { goods = goods:dyes amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_dyes } }
-				}
+		limit = {
+			var:tv_trade_monopoly_dyes >= 1
+			var:tv_trade_virtual_supply_active_dyes >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_dyes ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_dyes_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_dyes < 1
+				var:tv_trade_virtual_supply_active_dyes < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_dyes_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_dyes >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_dyes >= 1 }
 			var:tv_trade_embargo_country_dyes ?= {
@@ -7425,15 +9632,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_incense >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_incense >= 1 }
-			var:tv_trade_virtual_supply_location_incense ?= {
-				market = {
-					add_goods_supply = { goods = goods:incense amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_incense } }
-				}
+		limit = {
+			var:tv_trade_monopoly_incense >= 1
+			var:tv_trade_virtual_supply_active_incense >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_incense ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_incense_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_incense < 1
+				var:tv_trade_virtual_supply_active_incense < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_incense_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_incense >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_incense >= 1 }
 			var:tv_trade_embargo_country_incense ?= {
@@ -7850,15 +10067,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_tea >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_tea >= 1 }
-			var:tv_trade_virtual_supply_location_tea ?= {
-				market = {
-					add_goods_supply = { goods = goods:tea amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tea } }
-				}
+		limit = {
+			var:tv_trade_monopoly_tea >= 1
+			var:tv_trade_virtual_supply_active_tea >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_tea ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_tea_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_tea < 1
+				var:tv_trade_virtual_supply_active_tea < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_tea_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_tea >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_tea >= 1 }
 			var:tv_trade_embargo_country_tea ?= {
@@ -8275,15 +10502,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_cocoa >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_cocoa >= 1 }
-			var:tv_trade_virtual_supply_location_cocoa ?= {
-				market = {
-					add_goods_supply = { goods = goods:cocoa amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cocoa } }
-				}
+		limit = {
+			var:tv_trade_monopoly_cocoa >= 1
+			var:tv_trade_virtual_supply_active_cocoa >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_cocoa ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_cocoa_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_cocoa < 1
+				var:tv_trade_virtual_supply_active_cocoa < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_cocoa_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_cocoa >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_cocoa >= 1 }
 			var:tv_trade_embargo_country_cocoa ?= {
@@ -8700,15 +10937,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_coffee >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_coffee >= 1 }
-			var:tv_trade_virtual_supply_location_coffee ?= {
-				market = {
-					add_goods_supply = { goods = goods:coffee amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_coffee } }
-				}
+		limit = {
+			var:tv_trade_monopoly_coffee >= 1
+			var:tv_trade_virtual_supply_active_coffee >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_coffee ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_coffee_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_coffee < 1
+				var:tv_trade_virtual_supply_active_coffee < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_coffee_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_coffee >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_coffee >= 1 }
 			var:tv_trade_embargo_country_coffee ?= {
@@ -9125,15 +11372,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_fiber_crops >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_fiber_crops >= 1 }
-			var:tv_trade_virtual_supply_location_fiber_crops ?= {
-				market = {
-					add_goods_supply = { goods = goods:fiber_crops amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fiber_crops } }
-				}
+		limit = {
+			var:tv_trade_monopoly_fiber_crops >= 1
+			var:tv_trade_virtual_supply_active_fiber_crops >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_fiber_crops ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_fiber_crops_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_fiber_crops < 1
+				var:tv_trade_virtual_supply_active_fiber_crops < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_fiber_crops_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_fiber_crops >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_fiber_crops >= 1 }
 			var:tv_trade_embargo_country_fiber_crops ?= {
@@ -9550,15 +11807,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_ivory >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_ivory >= 1 }
-			var:tv_trade_virtual_supply_location_ivory ?= {
-				market = {
-					add_goods_supply = { goods = goods:ivory amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_ivory } }
-				}
+		limit = {
+			var:tv_trade_monopoly_ivory >= 1
+			var:tv_trade_virtual_supply_active_ivory >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_ivory ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_ivory_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_ivory < 1
+				var:tv_trade_virtual_supply_active_ivory < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_ivory_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_ivory >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_ivory >= 1 }
 			var:tv_trade_embargo_country_ivory ?= {
@@ -9975,15 +12242,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_lumber >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_lumber >= 1 }
-			var:tv_trade_virtual_supply_location_lumber ?= {
-				market = {
-					add_goods_supply = { goods = goods:lumber amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_lumber } }
-				}
+		limit = {
+			var:tv_trade_monopoly_lumber >= 1
+			var:tv_trade_virtual_supply_active_lumber >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_lumber ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_lumber_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_lumber < 1
+				var:tv_trade_virtual_supply_active_lumber < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_lumber_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_lumber >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_lumber >= 1 }
 			var:tv_trade_embargo_country_lumber ?= {
@@ -10400,15 +12677,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_salt >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_salt >= 1 }
-			var:tv_trade_virtual_supply_location_salt ?= {
-				market = {
-					add_goods_supply = { goods = goods:salt amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_salt } }
-				}
+		limit = {
+			var:tv_trade_monopoly_salt >= 1
+			var:tv_trade_virtual_supply_active_salt >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_salt ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_salt_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_salt < 1
+				var:tv_trade_virtual_supply_active_salt < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_salt_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_salt >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_salt >= 1 }
 			var:tv_trade_embargo_country_salt ?= {
@@ -10825,15 +13112,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_medicaments >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_medicaments >= 1 }
-			var:tv_trade_virtual_supply_location_medicaments ?= {
-				market = {
-					add_goods_supply = { goods = goods:medicaments amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_medicaments } }
-				}
+		limit = {
+			var:tv_trade_monopoly_medicaments >= 1
+			var:tv_trade_virtual_supply_active_medicaments >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_medicaments ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_medicaments_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_medicaments < 1
+				var:tv_trade_virtual_supply_active_medicaments < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_medicaments_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_medicaments >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_medicaments >= 1 }
 			var:tv_trade_embargo_country_medicaments ?= {
@@ -11250,15 +13547,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_gems >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_gems >= 1 }
-			var:tv_trade_virtual_supply_location_gems ?= {
-				market = {
-					add_goods_supply = { goods = goods:gems amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_gems } }
-				}
+		limit = {
+			var:tv_trade_monopoly_gems >= 1
+			var:tv_trade_virtual_supply_active_gems >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_gems ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_gems_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_gems < 1
+				var:tv_trade_virtual_supply_active_gems < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_gems_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_gems >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_gems >= 1 }
 			var:tv_trade_embargo_country_gems ?= {
@@ -11675,15 +13982,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_pearls >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_pearls >= 1 }
-			var:tv_trade_virtual_supply_location_pearls ?= {
-				market = {
-					add_goods_supply = { goods = goods:pearls amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_pearls } }
-				}
+		limit = {
+			var:tv_trade_monopoly_pearls >= 1
+			var:tv_trade_virtual_supply_active_pearls >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_pearls ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_pearls_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_pearls < 1
+				var:tv_trade_virtual_supply_active_pearls < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_pearls_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_pearls >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_pearls >= 1 }
 			var:tv_trade_embargo_country_pearls ?= {
@@ -12100,15 +14417,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_amber >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_amber >= 1 }
-			var:tv_trade_virtual_supply_location_amber ?= {
-				market = {
-					add_goods_supply = { goods = goods:amber amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_amber } }
-				}
+		limit = {
+			var:tv_trade_monopoly_amber >= 1
+			var:tv_trade_virtual_supply_active_amber >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_amber ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_amber_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_amber < 1
+				var:tv_trade_virtual_supply_active_amber < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_amber_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_amber >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_amber >= 1 }
 			var:tv_trade_embargo_country_amber ?= {
@@ -12525,15 +14852,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_saltpeter >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_saltpeter >= 1 }
-			var:tv_trade_virtual_supply_location_saltpeter ?= {
-				market = {
-					add_goods_supply = { goods = goods:saltpeter amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_saltpeter } }
-				}
+		limit = {
+			var:tv_trade_monopoly_saltpeter >= 1
+			var:tv_trade_virtual_supply_active_saltpeter >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_saltpeter ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_saltpeter_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_saltpeter < 1
+				var:tv_trade_virtual_supply_active_saltpeter < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_saltpeter_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_saltpeter >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_saltpeter >= 1 }
 			var:tv_trade_embargo_country_saltpeter ?= {
@@ -12950,15 +15287,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_alum >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_alum >= 1 }
-			var:tv_trade_virtual_supply_location_alum ?= {
-				market = {
-					add_goods_supply = { goods = goods:alum amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_alum } }
-				}
+		limit = {
+			var:tv_trade_monopoly_alum >= 1
+			var:tv_trade_virtual_supply_active_alum >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_alum ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_alum_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_alum < 1
+				var:tv_trade_virtual_supply_active_alum < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_alum_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_alum >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_alum >= 1 }
 			var:tv_trade_embargo_country_alum ?= {
@@ -13375,15 +15722,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_wine >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_wine >= 1 }
-			var:tv_trade_virtual_supply_location_wine ?= {
-				market = {
-					add_goods_supply = { goods = goods:wine amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wine } }
-				}
+		limit = {
+			var:tv_trade_monopoly_wine >= 1
+			var:tv_trade_virtual_supply_active_wine >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_wine ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_wine_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_wine < 1
+				var:tv_trade_virtual_supply_active_wine < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_wine_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_wine >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_wine >= 1 }
 			var:tv_trade_embargo_country_wine ?= {
@@ -13800,15 +16157,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_elephants >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_elephants >= 1 }
-			var:tv_trade_virtual_supply_location_elephants ?= {
-				market = {
-					add_goods_supply = { goods = goods:elephants amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_elephants } }
-				}
+		limit = {
+			var:tv_trade_monopoly_elephants >= 1
+			var:tv_trade_virtual_supply_active_elephants >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_elephants ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_elephants_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_elephants < 1
+				var:tv_trade_virtual_supply_active_elephants < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_elephants_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_elephants >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_elephants >= 1 }
 			var:tv_trade_embargo_country_elephants ?= {
@@ -14225,15 +16592,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_marble >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_marble >= 1 }
-			var:tv_trade_virtual_supply_location_marble ?= {
-				market = {
-					add_goods_supply = { goods = goods:marble amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_marble } }
-				}
+		limit = {
+			var:tv_trade_monopoly_marble >= 1
+			var:tv_trade_virtual_supply_active_marble >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_marble ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_marble_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_marble < 1
+				var:tv_trade_virtual_supply_active_marble < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_marble_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_marble >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_marble >= 1 }
 			var:tv_trade_embargo_country_marble ?= {
@@ -14650,15 +17027,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_mercury >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_mercury >= 1 }
-			var:tv_trade_virtual_supply_location_mercury ?= {
-				market = {
-					add_goods_supply = { goods = goods:mercury amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_mercury } }
-				}
+		limit = {
+			var:tv_trade_monopoly_mercury >= 1
+			var:tv_trade_virtual_supply_active_mercury >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_mercury ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_mercury_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_mercury < 1
+				var:tv_trade_virtual_supply_active_mercury < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_mercury_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_mercury >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_mercury >= 1 }
 			var:tv_trade_embargo_country_mercury ?= {
@@ -15075,15 +17462,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_saffron >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_saffron >= 1 }
-			var:tv_trade_virtual_supply_location_saffron ?= {
-				market = {
-					add_goods_supply = { goods = goods:saffron amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_saffron } }
-				}
+		limit = {
+			var:tv_trade_monopoly_saffron >= 1
+			var:tv_trade_virtual_supply_active_saffron >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_saffron ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_saffron_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_saffron < 1
+				var:tv_trade_virtual_supply_active_saffron < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_saffron_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_saffron >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_saffron >= 1 }
 			var:tv_trade_embargo_country_saffron ?= {
@@ -15500,15 +17897,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_pepper >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_pepper >= 1 }
-			var:tv_trade_virtual_supply_location_pepper ?= {
-				market = {
-					add_goods_supply = { goods = goods:pepper amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_pepper } }
-				}
+		limit = {
+			var:tv_trade_monopoly_pepper >= 1
+			var:tv_trade_virtual_supply_active_pepper >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_pepper ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_pepper_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_pepper < 1
+				var:tv_trade_virtual_supply_active_pepper < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_pepper_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_pepper >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_pepper >= 1 }
 			var:tv_trade_embargo_country_pepper ?= {
@@ -15925,15 +18332,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_cloves >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_cloves >= 1 }
-			var:tv_trade_virtual_supply_location_cloves ?= {
-				market = {
-					add_goods_supply = { goods = goods:cloves amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cloves } }
-				}
+		limit = {
+			var:tv_trade_monopoly_cloves >= 1
+			var:tv_trade_virtual_supply_active_cloves >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_cloves ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_cloves_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_cloves < 1
+				var:tv_trade_virtual_supply_active_cloves < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_cloves_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_cloves >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_cloves >= 1 }
 			var:tv_trade_embargo_country_cloves ?= {
@@ -16350,15 +18767,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_chili >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_chili >= 1 }
-			var:tv_trade_virtual_supply_location_chili ?= {
-				market = {
-					add_goods_supply = { goods = goods:chili amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_chili } }
-				}
+		limit = {
+			var:tv_trade_monopoly_chili >= 1
+			var:tv_trade_virtual_supply_active_chili >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_chili ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_chili_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_chili < 1
+				var:tv_trade_virtual_supply_active_chili < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_chili_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_chili >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_chili >= 1 }
 			var:tv_trade_embargo_country_chili ?= {
@@ -16775,15 +19202,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_cotton >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_cotton >= 1 }
-			var:tv_trade_virtual_supply_location_cotton ?= {
-				market = {
-					add_goods_supply = { goods = goods:cotton amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cotton } }
-				}
+		limit = {
+			var:tv_trade_monopoly_cotton >= 1
+			var:tv_trade_virtual_supply_active_cotton >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_cotton ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_cotton_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_cotton < 1
+				var:tv_trade_virtual_supply_active_cotton < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_cotton_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_cotton >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_cotton >= 1 }
 			var:tv_trade_embargo_country_cotton ?= {
@@ -17200,15 +19637,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_sugar >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_sugar >= 1 }
-			var:tv_trade_virtual_supply_location_sugar ?= {
-				market = {
-					add_goods_supply = { goods = goods:sugar amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_sugar } }
-				}
+		limit = {
+			var:tv_trade_monopoly_sugar >= 1
+			var:tv_trade_virtual_supply_active_sugar >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_sugar ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_sugar_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_sugar < 1
+				var:tv_trade_virtual_supply_active_sugar < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_sugar_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_sugar >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_sugar >= 1 }
 			var:tv_trade_embargo_country_sugar ?= {
@@ -17625,15 +20072,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_tobacco >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_tobacco >= 1 }
-			var:tv_trade_virtual_supply_location_tobacco ?= {
-				market = {
-					add_goods_supply = { goods = goods:tobacco amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tobacco } }
-				}
+		limit = {
+			var:tv_trade_monopoly_tobacco >= 1
+			var:tv_trade_virtual_supply_active_tobacco >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_tobacco ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_tobacco_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_tobacco < 1
+				var:tv_trade_virtual_supply_active_tobacco < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_tobacco_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_tobacco >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_tobacco >= 1 }
 			var:tv_trade_embargo_country_tobacco ?= {
@@ -18050,15 +20507,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_tar >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_tar >= 1 }
-			var:tv_trade_virtual_supply_location_tar ?= {
-				market = {
-					add_goods_supply = { goods = goods:tar amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tar } }
-				}
+		limit = {
+			var:tv_trade_monopoly_tar >= 1
+			var:tv_trade_virtual_supply_active_tar >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_tar ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_tar_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_tar < 1
+				var:tv_trade_virtual_supply_active_tar < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_tar_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_tar >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_tar >= 1 }
 			var:tv_trade_embargo_country_tar ?= {
@@ -18475,15 +20942,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_porcelain >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_porcelain >= 1 }
-			var:tv_trade_virtual_supply_location_porcelain ?= {
-				market = {
-					add_goods_supply = { goods = goods:porcelain amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_porcelain } }
-				}
+		limit = {
+			var:tv_trade_monopoly_porcelain >= 1
+			var:tv_trade_virtual_supply_active_porcelain >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_porcelain ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_porcelain_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_porcelain < 1
+				var:tv_trade_virtual_supply_active_porcelain < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_porcelain_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_porcelain >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_porcelain >= 1 }
 			var:tv_trade_embargo_country_porcelain ?= {
@@ -18900,15 +21377,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_naval_supplies >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_naval_supplies >= 1 }
-			var:tv_trade_virtual_supply_location_naval_supplies ?= {
-				market = {
-					add_goods_supply = { goods = goods:naval_supplies amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_naval_supplies } }
-				}
+		limit = {
+			var:tv_trade_monopoly_naval_supplies >= 1
+			var:tv_trade_virtual_supply_active_naval_supplies >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_naval_supplies ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_naval_supplies_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_naval_supplies < 1
+				var:tv_trade_virtual_supply_active_naval_supplies < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_naval_supplies_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_naval_supplies >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_naval_supplies >= 1 }
 			var:tv_trade_embargo_country_naval_supplies ?= {
@@ -19325,15 +21812,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_firearms >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_firearms >= 1 }
-			var:tv_trade_virtual_supply_location_firearms ?= {
-				market = {
-					add_goods_supply = { goods = goods:firearms amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_firearms } }
-				}
+		limit = {
+			var:tv_trade_monopoly_firearms >= 1
+			var:tv_trade_virtual_supply_active_firearms >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_firearms ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_firearms_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_firearms < 1
+				var:tv_trade_virtual_supply_active_firearms < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_firearms_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_firearms >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_firearms >= 1 }
 			var:tv_trade_embargo_country_firearms ?= {
@@ -19750,15 +22247,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_cannons >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_cannons >= 1 }
-			var:tv_trade_virtual_supply_location_cannons ?= {
-				market = {
-					add_goods_supply = { goods = goods:cannons amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cannons } }
-				}
+		limit = {
+			var:tv_trade_monopoly_cannons >= 1
+			var:tv_trade_virtual_supply_active_cannons >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_cannons ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_cannons_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_cannons < 1
+				var:tv_trade_virtual_supply_active_cannons < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_cannons_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_cannons >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_cannons >= 1 }
 			var:tv_trade_embargo_country_cannons ?= {
@@ -20175,15 +22682,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_weaponry >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_weaponry >= 1 }
-			var:tv_trade_virtual_supply_location_weaponry ?= {
-				market = {
-					add_goods_supply = { goods = goods:weaponry amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_weaponry } }
-				}
+		limit = {
+			var:tv_trade_monopoly_weaponry >= 1
+			var:tv_trade_virtual_supply_active_weaponry >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_weaponry ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_weaponry_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_weaponry < 1
+				var:tv_trade_virtual_supply_active_weaponry < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_weaponry_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_weaponry >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_weaponry >= 1 }
 			var:tv_trade_embargo_country_weaponry ?= {
@@ -20600,15 +23117,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_glass >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_glass >= 1 }
-			var:tv_trade_virtual_supply_location_glass ?= {
-				market = {
-					add_goods_supply = { goods = goods:glass amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_glass } }
-				}
+		limit = {
+			var:tv_trade_monopoly_glass >= 1
+			var:tv_trade_virtual_supply_active_glass >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_glass ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_glass_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_glass < 1
+				var:tv_trade_virtual_supply_active_glass < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_glass_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_glass >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_glass >= 1 }
 			var:tv_trade_embargo_country_glass ?= {
@@ -21025,15 +23552,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_steel >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_steel >= 1 }
-			var:tv_trade_virtual_supply_location_steel ?= {
-				market = {
-					add_goods_supply = { goods = goods:steel amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_steel } }
-				}
+		limit = {
+			var:tv_trade_monopoly_steel >= 1
+			var:tv_trade_virtual_supply_active_steel >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_steel ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_steel_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_steel < 1
+				var:tv_trade_virtual_supply_active_steel < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_steel_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_steel >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_steel >= 1 }
 			var:tv_trade_embargo_country_steel ?= {
@@ -21450,15 +23987,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_cloth >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_cloth >= 1 }
-			var:tv_trade_virtual_supply_location_cloth ?= {
-				market = {
-					add_goods_supply = { goods = goods:cloth amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_cloth } }
-				}
+		limit = {
+			var:tv_trade_monopoly_cloth >= 1
+			var:tv_trade_virtual_supply_active_cloth >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_cloth ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_cloth_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_cloth < 1
+				var:tv_trade_virtual_supply_active_cloth < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_cloth_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_cloth >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_cloth >= 1 }
 			var:tv_trade_embargo_country_cloth ?= {
@@ -21875,15 +24422,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_fine_cloth >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_fine_cloth >= 1 }
-			var:tv_trade_virtual_supply_location_fine_cloth ?= {
-				market = {
-					add_goods_supply = { goods = goods:fine_cloth amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fine_cloth } }
-				}
+		limit = {
+			var:tv_trade_monopoly_fine_cloth >= 1
+			var:tv_trade_virtual_supply_active_fine_cloth >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_fine_cloth ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_fine_cloth_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_fine_cloth < 1
+				var:tv_trade_virtual_supply_active_fine_cloth < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_fine_cloth_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_fine_cloth >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_fine_cloth >= 1 }
 			var:tv_trade_embargo_country_fine_cloth ?= {
@@ -22300,15 +24857,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_liquor >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_liquor >= 1 }
-			var:tv_trade_virtual_supply_location_liquor ?= {
-				market = {
-					add_goods_supply = { goods = goods:liquor amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_liquor } }
-				}
+		limit = {
+			var:tv_trade_monopoly_liquor >= 1
+			var:tv_trade_virtual_supply_active_liquor >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_liquor ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_liquor_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_liquor < 1
+				var:tv_trade_virtual_supply_active_liquor < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_liquor_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_liquor >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_liquor >= 1 }
 			var:tv_trade_embargo_country_liquor ?= {
@@ -22725,15 +25292,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_beer >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_beer >= 1 }
-			var:tv_trade_virtual_supply_location_beer ?= {
-				market = {
-					add_goods_supply = { goods = goods:beer amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_beer } }
-				}
+		limit = {
+			var:tv_trade_monopoly_beer >= 1
+			var:tv_trade_virtual_supply_active_beer >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_beer ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_beer_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_beer < 1
+				var:tv_trade_virtual_supply_active_beer < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_beer_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_beer >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_beer >= 1 }
 			var:tv_trade_embargo_country_beer ?= {
@@ -23150,15 +25727,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_paper >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_paper >= 1 }
-			var:tv_trade_virtual_supply_location_paper ?= {
-				market = {
-					add_goods_supply = { goods = goods:paper amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_paper } }
-				}
+		limit = {
+			var:tv_trade_monopoly_paper >= 1
+			var:tv_trade_virtual_supply_active_paper >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_paper ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_paper_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_paper < 1
+				var:tv_trade_virtual_supply_active_paper < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_paper_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_paper >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_paper >= 1 }
 			var:tv_trade_embargo_country_paper ?= {
@@ -23575,15 +26162,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_books >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_books >= 1 }
-			var:tv_trade_virtual_supply_location_books ?= {
-				market = {
-					add_goods_supply = { goods = goods:books amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_books } }
-				}
+		limit = {
+			var:tv_trade_monopoly_books >= 1
+			var:tv_trade_virtual_supply_active_books >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_books ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_books_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_books < 1
+				var:tv_trade_virtual_supply_active_books < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_books_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_books >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_books >= 1 }
 			var:tv_trade_embargo_country_books ?= {
@@ -24000,15 +26597,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_jewelry >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_jewelry >= 1 }
-			var:tv_trade_virtual_supply_location_jewelry ?= {
-				market = {
-					add_goods_supply = { goods = goods:jewelry amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_jewelry } }
-				}
+		limit = {
+			var:tv_trade_monopoly_jewelry >= 1
+			var:tv_trade_virtual_supply_active_jewelry >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_jewelry ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_jewelry_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_jewelry < 1
+				var:tv_trade_virtual_supply_active_jewelry < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_jewelry_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_jewelry >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_jewelry >= 1 }
 			var:tv_trade_embargo_country_jewelry ?= {
@@ -24425,15 +27032,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_leather >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_leather >= 1 }
-			var:tv_trade_virtual_supply_location_leather ?= {
-				market = {
-					add_goods_supply = { goods = goods:leather amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_leather } }
-				}
+		limit = {
+			var:tv_trade_monopoly_leather >= 1
+			var:tv_trade_virtual_supply_active_leather >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_leather ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_leather_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_leather < 1
+				var:tv_trade_virtual_supply_active_leather < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_leather_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_leather >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_leather >= 1 }
 			var:tv_trade_embargo_country_leather ?= {
@@ -24850,15 +27467,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_tools >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_tools >= 1 }
-			var:tv_trade_virtual_supply_location_tools ?= {
-				market = {
-					add_goods_supply = { goods = goods:tools amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_tools } }
-				}
+		limit = {
+			var:tv_trade_monopoly_tools >= 1
+			var:tv_trade_virtual_supply_active_tools >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_tools ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_tools_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_tools < 1
+				var:tv_trade_virtual_supply_active_tools < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_tools_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_tools >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_tools >= 1 }
 			var:tv_trade_embargo_country_tools ?= {
@@ -25275,15 +27902,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_masonry >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_masonry >= 1 }
-			var:tv_trade_virtual_supply_location_masonry ?= {
-				market = {
-					add_goods_supply = { goods = goods:masonry amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_masonry } }
-				}
+		limit = {
+			var:tv_trade_monopoly_masonry >= 1
+			var:tv_trade_virtual_supply_active_masonry >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_masonry ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_masonry_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_masonry < 1
+				var:tv_trade_virtual_supply_active_masonry < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_masonry_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_masonry >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_masonry >= 1 }
 			var:tv_trade_embargo_country_masonry ?= {
@@ -25700,15 +28337,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_lacquerware >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_lacquerware >= 1 }
-			var:tv_trade_virtual_supply_location_lacquerware ?= {
-				market = {
-					add_goods_supply = { goods = goods:lacquerware amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_lacquerware } }
-				}
+		limit = {
+			var:tv_trade_monopoly_lacquerware >= 1
+			var:tv_trade_virtual_supply_active_lacquerware >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_lacquerware ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_lacquerware_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_lacquerware < 1
+				var:tv_trade_virtual_supply_active_lacquerware < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_lacquerware_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_lacquerware >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_lacquerware >= 1 }
 			var:tv_trade_embargo_country_lacquerware ?= {
@@ -26125,15 +28772,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_pottery >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_pottery >= 1 }
-			var:tv_trade_virtual_supply_location_pottery ?= {
-				market = {
-					add_goods_supply = { goods = goods:pottery amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_pottery } }
-				}
+		limit = {
+			var:tv_trade_monopoly_pottery >= 1
+			var:tv_trade_virtual_supply_active_pottery >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_pottery ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_pottery_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_pottery < 1
+				var:tv_trade_virtual_supply_active_pottery < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_pottery_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_pottery >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_pottery >= 1 }
 			var:tv_trade_embargo_country_pottery ?= {
@@ -26550,15 +29207,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_furniture >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_furniture >= 1 }
-			var:tv_trade_virtual_supply_location_furniture ?= {
-				market = {
-					add_goods_supply = { goods = goods:furniture amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_furniture } }
-				}
+		limit = {
+			var:tv_trade_monopoly_furniture >= 1
+			var:tv_trade_virtual_supply_active_furniture >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_furniture ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_furniture_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_furniture < 1
+				var:tv_trade_virtual_supply_active_furniture < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_furniture_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_furniture >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_furniture >= 1 }
 			var:tv_trade_embargo_country_furniture ?= {
@@ -26975,15 +29642,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_wool >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_wool >= 1 }
-			var:tv_trade_virtual_supply_location_wool ?= {
-				market = {
-					add_goods_supply = { goods = goods:wool amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wool } }
-				}
+		limit = {
+			var:tv_trade_monopoly_wool >= 1
+			var:tv_trade_virtual_supply_active_wool >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_wool ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_wool_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_wool < 1
+				var:tv_trade_virtual_supply_active_wool < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_wool_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_wool >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_wool >= 1 }
 			var:tv_trade_embargo_country_wool ?= {
@@ -27400,15 +30077,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_wild_game >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_wild_game >= 1 }
-			var:tv_trade_virtual_supply_location_wild_game ?= {
-				market = {
-					add_goods_supply = { goods = goods:wild_game amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wild_game } }
-				}
+		limit = {
+			var:tv_trade_monopoly_wild_game >= 1
+			var:tv_trade_virtual_supply_active_wild_game >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_wild_game ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_wild_game_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_wild_game < 1
+				var:tv_trade_virtual_supply_active_wild_game < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_wild_game_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_wild_game >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_wild_game >= 1 }
 			var:tv_trade_embargo_country_wild_game ?= {
@@ -27825,15 +30512,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_fur >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_fur >= 1 }
-			var:tv_trade_virtual_supply_location_fur ?= {
-				market = {
-					add_goods_supply = { goods = goods:fur amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fur } }
-				}
+		limit = {
+			var:tv_trade_monopoly_fur >= 1
+			var:tv_trade_virtual_supply_active_fur >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_fur ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_fur_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_fur < 1
+				var:tv_trade_virtual_supply_active_fur < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_fur_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_fur >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_fur >= 1 }
 			var:tv_trade_embargo_country_fur ?= {
@@ -28250,15 +30947,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_fish >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_fish >= 1 }
-			var:tv_trade_virtual_supply_location_fish ?= {
-				market = {
-					add_goods_supply = { goods = goods:fish amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fish } }
-				}
+		limit = {
+			var:tv_trade_monopoly_fish >= 1
+			var:tv_trade_virtual_supply_active_fish >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_fish ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_fish_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_fish < 1
+				var:tv_trade_virtual_supply_active_fish < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_fish_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_fish >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_fish >= 1 }
 			var:tv_trade_embargo_country_fish ?= {
@@ -28675,15 +31382,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_wheat >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_wheat >= 1 }
-			var:tv_trade_virtual_supply_location_wheat ?= {
-				market = {
-					add_goods_supply = { goods = goods:wheat amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_wheat } }
-				}
+		limit = {
+			var:tv_trade_monopoly_wheat >= 1
+			var:tv_trade_virtual_supply_active_wheat >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_wheat ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_wheat_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_wheat < 1
+				var:tv_trade_virtual_supply_active_wheat < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_wheat_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_wheat >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_wheat >= 1 }
 			var:tv_trade_embargo_country_wheat ?= {
@@ -29100,15 +31817,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_maize >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_maize >= 1 }
-			var:tv_trade_virtual_supply_location_maize ?= {
-				market = {
-					add_goods_supply = { goods = goods:maize amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_maize } }
-				}
+		limit = {
+			var:tv_trade_monopoly_maize >= 1
+			var:tv_trade_virtual_supply_active_maize >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_maize ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_maize_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_maize < 1
+				var:tv_trade_virtual_supply_active_maize < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_maize_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_maize >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_maize >= 1 }
 			var:tv_trade_embargo_country_maize ?= {
@@ -29525,15 +32252,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_rice >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_rice >= 1 }
-			var:tv_trade_virtual_supply_location_rice ?= {
-				market = {
-					add_goods_supply = { goods = goods:rice amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_rice } }
-				}
+		limit = {
+			var:tv_trade_monopoly_rice >= 1
+			var:tv_trade_virtual_supply_active_rice >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_rice ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_rice_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_rice < 1
+				var:tv_trade_virtual_supply_active_rice < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_rice_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_rice >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_rice >= 1 }
 			var:tv_trade_embargo_country_rice ?= {
@@ -29950,15 +32687,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_millet >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_millet >= 1 }
-			var:tv_trade_virtual_supply_location_millet ?= {
-				market = {
-					add_goods_supply = { goods = goods:millet amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_millet } }
-				}
+		limit = {
+			var:tv_trade_monopoly_millet >= 1
+			var:tv_trade_virtual_supply_active_millet >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_millet ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_millet_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_millet < 1
+				var:tv_trade_virtual_supply_active_millet < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_millet_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_millet >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_millet >= 1 }
 			var:tv_trade_embargo_country_millet ?= {
@@ -30375,15 +33122,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_legumes >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_legumes >= 1 }
-			var:tv_trade_virtual_supply_location_legumes ?= {
-				market = {
-					add_goods_supply = { goods = goods:legumes amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_legumes } }
-				}
+		limit = {
+			var:tv_trade_monopoly_legumes >= 1
+			var:tv_trade_virtual_supply_active_legumes >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_legumes ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_legumes_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_legumes < 1
+				var:tv_trade_virtual_supply_active_legumes < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_legumes_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_legumes >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_legumes >= 1 }
 			var:tv_trade_embargo_country_legumes ?= {
@@ -30800,15 +33557,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_potato >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_potato >= 1 }
-			var:tv_trade_virtual_supply_location_potato ?= {
-				market = {
-					add_goods_supply = { goods = goods:potato amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_potato } }
-				}
+		limit = {
+			var:tv_trade_monopoly_potato >= 1
+			var:tv_trade_virtual_supply_active_potato >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_potato ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_potato_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_potato < 1
+				var:tv_trade_virtual_supply_active_potato < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_potato_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_potato >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_potato >= 1 }
 			var:tv_trade_embargo_country_potato ?= {
@@ -31225,15 +33992,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_livestock >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_livestock >= 1 }
-			var:tv_trade_virtual_supply_location_livestock ?= {
-				market = {
-					add_goods_supply = { goods = goods:livestock amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_livestock } }
-				}
+		limit = {
+			var:tv_trade_monopoly_livestock >= 1
+			var:tv_trade_virtual_supply_active_livestock >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_livestock ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_livestock_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_livestock < 1
+				var:tv_trade_virtual_supply_active_livestock < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_livestock_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_livestock >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_livestock >= 1 }
 			var:tv_trade_embargo_country_livestock ?= {
@@ -31650,15 +34427,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_olives >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_olives >= 1 }
-			var:tv_trade_virtual_supply_location_olives ?= {
-				market = {
-					add_goods_supply = { goods = goods:olives amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_olives } }
-				}
+		limit = {
+			var:tv_trade_monopoly_olives >= 1
+			var:tv_trade_virtual_supply_active_olives >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_olives ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_olives_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_olives < 1
+				var:tv_trade_virtual_supply_active_olives < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_olives_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_olives >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_olives >= 1 }
 			var:tv_trade_embargo_country_olives ?= {
@@ -32075,15 +34862,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_fruit >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_fruit >= 1 }
-			var:tv_trade_virtual_supply_location_fruit ?= {
-				market = {
-					add_goods_supply = { goods = goods:fruit amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_fruit } }
-				}
+		limit = {
+			var:tv_trade_monopoly_fruit >= 1
+			var:tv_trade_virtual_supply_active_fruit >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_fruit ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_fruit_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_fruit < 1
+				var:tv_trade_virtual_supply_active_fruit < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_fruit_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_fruit >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_fruit >= 1 }
 			var:tv_trade_embargo_country_fruit ?= {
@@ -32500,15 +35297,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_beeswax >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_beeswax >= 1 }
-			var:tv_trade_virtual_supply_location_beeswax ?= {
-				market = {
-					add_goods_supply = { goods = goods:beeswax amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_beeswax } }
-				}
+		limit = {
+			var:tv_trade_monopoly_beeswax >= 1
+			var:tv_trade_virtual_supply_active_beeswax >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_beeswax ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_beeswax_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_beeswax < 1
+				var:tv_trade_virtual_supply_active_beeswax < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_beeswax_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_beeswax >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_beeswax >= 1 }
 			var:tv_trade_embargo_country_beeswax ?= {
@@ -32925,15 +35732,25 @@ tv_trade_league_update_monopolies_effect = {
 	}
 
 	if = {
-		limit = { var:tv_trade_monopoly_slaves_goods >= 1 }
-		if = {
-			limit = { var:tv_trade_virtual_supply_active_slaves_goods >= 1 }
-			var:tv_trade_virtual_supply_location_slaves_goods ?= {
-				market = {
-					add_goods_supply = { goods = goods:slaves_goods amount = { value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_slaves_goods } }
-				}
+		limit = {
+			var:tv_trade_monopoly_slaves_goods >= 1
+			var:tv_trade_virtual_supply_active_slaves_goods >= 1
+			NOT = { var:tv_trade_virtual_supply_applied_slaves_goods ?= { this >= 1 } }
+		}
+		tv_trade_league_apply_virtual_supply_slaves_goods_effect = yes
+	}
+	if = {
+		limit = {
+			OR = {
+				var:tv_trade_monopoly_slaves_goods < 1
+				var:tv_trade_virtual_supply_active_slaves_goods < 1
 			}
 		}
+		tv_trade_league_remove_virtual_supply_slaves_goods_effect = yes
+	}
+
+	if = {
+		limit = { var:tv_trade_monopoly_slaves_goods >= 1 }
 		if = {
 			limit = { var:tv_trade_embargo_active_slaves_goods >= 1 }
 			var:tv_trade_embargo_country_slaves_goods ?= {

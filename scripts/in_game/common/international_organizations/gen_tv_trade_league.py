@@ -94,6 +94,7 @@ SUFFIX = """\
 \t\t\t}
 \t\t\telse = {
 \t\t\t\ttv_trade_league_suspend_virtual_demands_effect = yes
+\t\t\t\ttv_trade_league_suspend_virtual_supplies_effect = yes
 \t\t\t}
 \t\t}
 \t}
@@ -169,6 +170,7 @@ def variable_block(good: str) -> str:
         "virtual_supply_active",
         "virtual_supply_used_pct",
         "virtual_supply_amount",
+        "virtual_supply_applied",
         "embargo_active",
         "embargo_used_pct",
     )

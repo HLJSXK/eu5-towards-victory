@@ -134,12 +134,61 @@ tv_trade_league_remove_virtual_demand_{good}_effect = {{
 """
 
 
+def supply_apply_effect(good: str) -> str:
+    return f"""\
+tv_trade_league_apply_virtual_supply_{good}_effect = {{
+\tsave_scope_as = tv_trade_monopoly_io
+\tvar:tv_trade_virtual_supply_location_{good} ?= {{
+\t\tmarket = {{
+\t\t\tadd_goods_supply = {{ goods = goods:{good} amount = {{ value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_{good} }} }}
+\t\t}}
+\t\tscope:tv_trade_monopoly_io = {{
+\t\t\tset_variable = {{ name = tv_trade_virtual_supply_applied_{good} value = 1 }}
+\t\t}}
+\t}}
+}}
+"""
+
+
+def supply_remove_effect(good: str) -> str:
+    return f"""\
+tv_trade_league_remove_virtual_supply_{good}_effect = {{
+\tsave_scope_as = tv_trade_monopoly_io
+\tif = {{
+\t\tlimit = {{ var:tv_trade_virtual_supply_applied_{good} ?= {{ this >= 1 }} }}
+\t\tvar:tv_trade_virtual_supply_location_{good} ?= {{
+\t\t\tmarket = {{
+\t\t\t\tadd_goods_supply = {{ goods = goods:{good} amount = {{ value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_{good} multiply = -1 }} }}
+\t\t\t}}
+\t\t\tscope:tv_trade_monopoly_io = {{
+\t\t\t\tset_variable = {{ name = tv_trade_virtual_supply_applied_{good} value = 0 }}
+\t\t\t}}
+\t\t}}
+\t}}
+}}
+"""
+
+
 def suspend_demands_effect(goods: list[str]) -> str:
     removals = "\n".join(
         f"\t\ttv_trade_league_remove_virtual_demand_{good}_effect = yes" for good in goods
     )
     return f"""\
 tv_trade_league_suspend_virtual_demands_effect = {{
+\thidden_effect = {{
+{removals}
+\t}}
+}}
+
+"""
+
+
+def suspend_supplies_effect(goods: list[str]) -> str:
+    removals = "\n".join(
+        f"\t\ttv_trade_league_remove_virtual_supply_{good}_effect = yes" for good in goods
+    )
+    return f"""\
+tv_trade_league_suspend_virtual_supplies_effect = {{
 \thidden_effect = {{
 {removals}
 \t}}
@@ -367,15 +416,25 @@ def good_update_block(good: str) -> str:
 \t}}
 
 \tif = {{
-\t\tlimit = {{ var:tv_trade_monopoly_{good} >= 1 }}
-\t\tif = {{
-\t\t\tlimit = {{ var:tv_trade_virtual_supply_active_{good} >= 1 }}
-\t\t\tvar:tv_trade_virtual_supply_location_{good} ?= {{
-\t\t\t\tmarket = {{
-\t\t\t\t\tadd_goods_supply = {{ goods = goods:{good} amount = {{ value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_{good} }} }}
-\t\t\t\t}}
+\t\tlimit = {{
+\t\t\tvar:tv_trade_monopoly_{good} >= 1
+\t\t\tvar:tv_trade_virtual_supply_active_{good} >= 1
+\t\t\tNOT = {{ var:tv_trade_virtual_supply_applied_{good} ?= {{ this >= 1 }} }}
+\t\t}}
+\t\ttv_trade_league_apply_virtual_supply_{good}_effect = yes
+\t}}
+\tif = {{
+\t\tlimit = {{
+\t\t\tOR = {{
+\t\t\t\tvar:tv_trade_monopoly_{good} < 1
+\t\t\t\tvar:tv_trade_virtual_supply_active_{good} < 1
 \t\t\t}}
 \t\t}}
+\t\ttv_trade_league_remove_virtual_supply_{good}_effect = yes
+\t}}
+
+\tif = {{
+\t\tlimit = {{ var:tv_trade_monopoly_{good} >= 1 }}
 \t\tif = {{
 \t\t\tlimit = {{ var:tv_trade_embargo_active_{good} >= 1 }}
 \t\t\tvar:tv_trade_embargo_country_{good} ?= {{
@@ -423,16 +482,25 @@ TRANSPORT_COSTS = load_transport_costs()
 
 def generate(data: dict) -> str:
     goods = data["goods"]
-    demand_effects = "\n".join(
-        "\n".join((demand_apply_effect(good), demand_remove_effect(good))) for good in goods
+    action_effects = "\n".join(
+        "\n".join(
+            (
+                demand_apply_effect(good),
+                demand_remove_effect(good),
+                supply_apply_effect(good),
+                supply_remove_effect(good),
+            )
+        )
+        for good in goods
     )
     updates = "\n".join(good_update_block(good) for good in goods)
     return (
         HEADER
         + CREATE_EFFECT
-        + demand_effects
+        + action_effects
         + "\n"
         + suspend_demands_effect(goods)
+        + suspend_supplies_effect(goods)
         + UPDATE_PREFIX
         + updates
         + UPDATE_SUFFIX
