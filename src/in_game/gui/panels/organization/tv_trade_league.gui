@@ -352,6 +352,10 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 24 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.28
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -368,6 +372,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)1.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -452,6 +465,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)2.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -536,6 +558,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)3.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -620,6 +651,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)4.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -704,6 +744,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)5.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -788,6 +837,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)6.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -872,6 +930,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)7.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -956,6 +1023,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)8.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1040,6 +1116,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)9.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1124,6 +1209,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)10.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1208,6 +1302,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)11.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1292,6 +1395,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)12.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1376,6 +1488,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)13.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1460,6 +1581,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)14.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1544,6 +1674,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)15.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1628,6 +1767,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)16.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1712,6 +1860,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)17.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1796,6 +1953,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)18.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1880,6 +2046,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)19.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -1964,6 +2139,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)20.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2048,6 +2232,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)21.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2132,6 +2325,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)22.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2216,6 +2418,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)23.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2300,6 +2511,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)24.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2384,6 +2604,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)25.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2468,6 +2697,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)26.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2552,6 +2790,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)27.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2636,6 +2883,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)28.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2720,6 +2976,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)29.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2804,6 +3069,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)30.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2888,6 +3162,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)31.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -2972,6 +3255,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)32.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3056,6 +3348,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)33.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3140,6 +3441,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)34.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3224,6 +3534,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)35.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3308,6 +3627,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)36.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3392,6 +3720,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)37.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3476,6 +3813,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)38.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3560,6 +3906,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)39.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3644,6 +3999,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)40.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3728,6 +4092,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)41.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3812,6 +4185,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)42.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3896,6 +4278,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)43.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -3980,6 +4371,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)44.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4064,6 +4464,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)45.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4148,6 +4557,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)46.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4232,6 +4650,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)47.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4316,6 +4743,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)48.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4400,6 +4836,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)49.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4484,6 +4929,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)50.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4568,6 +5022,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)51.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4652,6 +5115,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)52.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4736,6 +5208,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)53.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4820,6 +5301,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)54.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4904,6 +5394,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)55.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -4988,6 +5487,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)56.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5072,6 +5580,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)57.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5156,6 +5673,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)58.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5240,6 +5766,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)59.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5324,6 +5859,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)60.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5408,6 +5952,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)61.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5492,6 +6045,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)62.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5576,6 +6138,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)63.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5660,6 +6231,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)64.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5744,6 +6324,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)65.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5828,6 +6417,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)66.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5912,6 +6510,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)67.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -5996,6 +6603,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)68.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -6080,6 +6696,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)69.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -6164,6 +6789,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)70.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -6248,6 +6882,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)71.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -6332,6 +6975,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)72.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -6416,6 +7068,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)73.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
@@ -6500,6 +7161,15 @@ organization_panel = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
+									background = {
+										using = tooltip_table_field_texture
+										alpha = 0.16
+									}
+									background = {
+										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)74.0')]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
 									hbox = {
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = fixed
