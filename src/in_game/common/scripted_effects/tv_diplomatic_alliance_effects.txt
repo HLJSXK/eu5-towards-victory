@@ -4,7 +4,6 @@
 			NOT = {
 				any_international_organizations_member_of = {
 					international_organization_type = international_organization_type:tv_diplomatic_alliance
-					leader_country ?= this
 				}
 			}
 		}
@@ -16,6 +15,7 @@
 				add_country_to_international_organization = prev
 				set_leader_country = prev
 				save_scope_as = tv_alliance_io
+				tv_diplomatic_alliance_stamp_creation_order_effect = yes
 				every_country = {
 					limit = {
 						var:tv_diplomatic_supporter_of ?= scope:tv_founder
@@ -42,5 +42,110 @@
 	else_if = {
 		limit = { var:tv_diplomatic_victory_points < 1 }
 		set_variable = { name = tv_diplomatic_victory_points value = 1 }
+	}
+}
+
+tv_diplomatic_alliance_stamp_creation_order_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_VARIABLE_NOT_SET_TT
+				NOT = { has_variable = tv_alliance_creation_order }
+			}
+		}
+		if = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_NOT_SET_TT
+					NOT = { has_global_variable = tv_alliance_creation_order_counter }
+				}
+			}
+			set_global_variable = { name = tv_alliance_creation_order_counter value = 0 }
+		}
+		set_local_variable = { name = tv_alliance_next_creation_order value = global_var:tv_alliance_creation_order_counter }
+		change_local_variable = { name = tv_alliance_next_creation_order add = 1 }
+		set_variable = { name = tv_alliance_creation_order value = local_var:tv_alliance_next_creation_order }
+		set_global_variable = { name = tv_alliance_creation_order_counter value = local_var:tv_alliance_next_creation_order }
+		remove_local_variable = tv_alliance_next_creation_order
+	}
+}
+
+tv_diplomatic_alliance_reinitialize_membership_effect = {
+	save_scope_as = tv_diplomatic_alliance_reinit_country
+
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_diplomatic_alliance
+		}
+		tv_diplomatic_alliance_stamp_creation_order_effect = yes
+	}
+
+	# Prefer the earliest Diplomatic Alliance led by the current country.
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_diplomatic_alliance
+			leader_country ?= scope:tv_diplomatic_alliance_reinit_country
+		}
+		if = {
+			limit = { NOT = { exists = scope:tv_diplomatic_alliance_keep_io } }
+			save_scope_as = tv_diplomatic_alliance_keep_io
+		}
+		else_if = {
+			limit = {
+				exists = scope:tv_diplomatic_alliance_keep_io
+				var:tv_alliance_creation_order < scope:tv_diplomatic_alliance_keep_io.var:tv_alliance_creation_order
+			}
+			save_scope_as = tv_diplomatic_alliance_keep_io
+		}
+	}
+
+	# If none are self-led, keep the earliest alliance we are already in.
+	if = {
+		limit = { NOT = { exists = scope:tv_diplomatic_alliance_keep_io } }
+		every_international_organizations_member_of = {
+			limit = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+			}
+			if = {
+				limit = { NOT = { exists = scope:tv_diplomatic_alliance_keep_io } }
+				save_scope_as = tv_diplomatic_alliance_keep_io
+			}
+			else_if = {
+				limit = {
+					exists = scope:tv_diplomatic_alliance_keep_io
+					var:tv_alliance_creation_order < scope:tv_diplomatic_alliance_keep_io.var:tv_alliance_creation_order
+				}
+				save_scope_as = tv_diplomatic_alliance_keep_io
+			}
+		}
+	}
+
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_diplomatic_alliance
+			exists = scope:tv_diplomatic_alliance_keep_io
+			NOT = { this = scope:tv_diplomatic_alliance_keep_io }
+		}
+		if = {
+			limit = { leader_country ?= scope:tv_diplomatic_alliance_reinit_country }
+			save_scope_as = tv_diplomatic_alliance_disband_io
+			destroy_international_organization = { target = scope:tv_diplomatic_alliance_disband_io }
+		}
+		else = {
+			remove_country_from_international_organization = scope:tv_diplomatic_alliance_reinit_country
+		}
+	}
+
+	if = {
+		limit = { exists = scope:tv_diplomatic_alliance_keep_io }
+		set_variable = { name = tv_diplomatic_alliance_member value = 1 }
+		scope:tv_diplomatic_alliance_keep_io = {
+			leader_country ?= {
+				save_scope_as = tv_diplomatic_alliance_kept_leader
+				scope:tv_diplomatic_alliance_reinit_country = {
+					set_variable = { name = tv_diplomatic_supporter_of value = scope:tv_diplomatic_alliance_kept_leader }
+				}
+			}
+		}
 	}
 }

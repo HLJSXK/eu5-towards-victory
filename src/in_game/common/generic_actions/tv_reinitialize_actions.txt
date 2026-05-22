@@ -20,6 +20,10 @@ tv_reinitialize_mod = {
 
 	effect = {
 		scope:actor = {
+			hidden_effect = {
+				tv_diplomatic_alliance_reinitialize_membership_effect = yes
+			}
+
 			# Create missing IOs for paths where M1 was already granted but IO was never created.
 			# has_variable and var: are in separate limit blocks (nested if) to avoid the
 			# var_read_without_outer_scope_guard anti-pattern.
@@ -52,7 +56,6 @@ tv_reinitialize_mod = {
 						NOT = {
 							any_international_organizations_member_of = {
 								international_organization_type = international_organization_type:tv_diplomatic_alliance
-								leader_country ?= this
 							}
 						}
 					}
