@@ -76,3 +76,100 @@ goods:
   - fruit
   - beeswax
   - slaves_goods
+
+# UI-only groups for the Trade League monopoly tab. Every good above must appear
+# in exactly one category here.
+categories:
+  - id: basic
+    value: 1
+    action: tv_trade_select_monopoly_category_basic
+    goods:
+      - horses
+      - clay
+      - sand
+      - coal
+      - iron
+      - copper
+      - stone
+      - tin
+      - lead
+      - fiber_crops
+      - lumber
+      - salt
+      - medicaments
+      - saltpeter
+      - alum
+      - elephants
+      - marble
+      - mercury
+      - cotton
+      - tar
+      - naval_supplies
+      - steel
+      - leather
+      - tools
+      - masonry
+      - wool
+      - fur
+      - beeswax
+      - slaves_goods
+
+  - id: food
+    value: 2
+    action: tv_trade_select_monopoly_category_food
+    goods:
+      - wild_game
+      - fish
+      - wheat
+      - maize
+      - rice
+      - millet
+      - legumes
+      - potato
+      - livestock
+      - olives
+      - fruit
+
+  - id: manufactured
+    value: 3
+    action: tv_trade_select_monopoly_category_manufactured
+    goods:
+      - firearms
+      - cannons
+      - weaponry
+      - glass
+      - cloth
+      - liquor
+      - beer
+      - paper
+      - books
+      - pottery
+      - furniture
+
+  - id: luxury
+    value: 4
+    action: tv_trade_select_monopoly_category_luxury
+    goods:
+      - goods_gold
+      - silver
+      - silk
+      - dyes
+      - incense
+      - tea
+      - cocoa
+      - coffee
+      - ivory
+      - gems
+      - pearls
+      - amber
+      - wine
+      - saffron
+      - pepper
+      - cloves
+      - chili
+      - sugar
+      - tobacco
+      - porcelain
+      - fine_cloth
+      - jewelry
+      - lacquerware

@@ -26,6 +26,31 @@ def good_name(good: str) -> str:
     return f"${good}$"
 
 
+CATEGORY_LABELS = {
+    "basic": ("基础商品", "在垄断列表中显示基础商品。"),
+    "food": ("食品", "在垄断列表中显示食品。"),
+    "manufactured": ("制成品", "在垄断列表中显示制成品。"),
+    "luxury": ("奢侈品", "在垄断列表中显示奢侈品。"),
+}
+
+
+def category_entries(categories: list[dict]) -> list[tuple[str, str]]:
+    entries: list[tuple[str, str]] = []
+    for category in categories:
+        label, desc = CATEGORY_LABELS[category["id"]]
+        action = category["action"]
+        entries.extend(
+            [
+                (action, label),
+                (f"{action}_desc", desc),
+                (f"PERFORM_{action}_ACTION_SETUP", "当我们使用贸易联盟垄断控制时。"),
+                (f"PERFORM_{action}_ACTION_LOG", "我们使用了一项贸易联盟垄断控制。"),
+                (f"PERFORM_{action}_ACTION_MAP", ""),
+            ]
+        )
+    return entries
+
+
 def action_entries(good: str) -> list[tuple[str, str]]:
     name = good_name(good)
     action_loc_entries = [
@@ -77,6 +102,9 @@ def generate(data: dict) -> bytes:
         "# Do not edit directly - modify the data file and re-run the generator.",
         "",
     ]
+    for key, value in category_entries(data["categories"]):
+        escaped = value.replace('"', '\\"')
+        lines.append(f' {key}: "{escaped}"')
     for good in data["goods"]:
         for key, value in action_entries(good):
             escaped = value.replace('"', '\\"')

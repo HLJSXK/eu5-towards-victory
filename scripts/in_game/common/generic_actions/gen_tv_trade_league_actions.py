@@ -169,6 +169,22 @@ def base_action(action_id: str, body: str, selected: bool = False) -> str:
 """
 
 
+def select_category_action(category: dict, first_good_index: int) -> str:
+    body = f"""\tpotential = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\tallow = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\teffect = {{
+\t\tscope:actor = {{
+\t\t\tset_variable = {{ name = tv_trade_selected_monopoly_category value = {category["value"]} }}
+\t\t\tset_variable = {{ name = tv_trade_selected_good value = {first_good_index} }}
+\t\t}}
+\t}}"""
+    return base_action(category["action"], body, selected=True)
+
+
 def select_good_action(good: str, index: int) -> str:
     body = f"""\tpotential = {{
 \t\t{actor_leader_trigger()}
@@ -475,9 +491,35 @@ def good_actions(good: str, index: int) -> str:
     return "\n".join(blocks)
 
 
-def generate(data: dict) -> str:
+def validate_categories(data: dict) -> None:
     goods = data["goods"]
+    seen: dict[str, str] = {}
+    for category in data["categories"]:
+        if not category["goods"]:
+            raise ValueError(f"Trade League monopoly category {category['id']} has no goods")
+        for good in category["goods"]:
+            if good in seen:
+                raise ValueError(
+                    f"Trade League monopoly good {good} is in both {seen[good]} and {category['id']}"
+                )
+            seen[good] = category["id"]
+    missing = [good for good in goods if good not in seen]
+    extra = [good for good in seen if good not in goods]
+    if missing:
+        raise ValueError(f"Trade League monopoly goods missing categories: {', '.join(missing)}")
+    if extra:
+        raise ValueError(f"Trade League monopoly categories list unknown goods: {', '.join(extra)}")
+
+
+def generate(data: dict) -> str:
+    validate_categories(data)
+    goods = data["goods"]
+    good_indexes = {good: index for index, good in enumerate(goods, start=1)}
     blocks = [EXPEL_ACTION]
+    blocks.extend(
+        select_category_action(category, good_indexes[category["goods"][0]])
+        for category in data["categories"]
+    )
     blocks.extend(good_actions(good, index) for index, good in enumerate(goods, start=1))
     return HEADER + "\n".join(blocks)
 

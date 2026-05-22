@@ -1,8 +1,8 @@
 """
 Generate src/in_game/gui/panels/organization/tv_trade_league.gui.
 
-The custom monopoly tab has one row per trade good, generated from
-data/trade_league_goods.yaml.
+The custom monopoly tab has one row per trade good, grouped by the UI-only
+categories in data/trade_league_goods.yaml.
 """
 
 import sys
@@ -423,9 +423,67 @@ def selected_visible(index: int) -> str:
     )
 
 
-def monopoly_row(good: str, index: int) -> str:
+def category_selected_expr(value: int, default: bool = False) -> str:
+    variable = "InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category')"
+    selected = f"EqualTo_CFixedPoint({variable}.GetValue, '(CFixedPoint){value}.0')"
+    if default:
+        return f"Or(Not({variable}.IsSet), {selected})"
+    return f"And({variable}.IsSet, {selected})"
+
+
+def category_visible(value: int, default: bool = False) -> str:
+    return f"[{category_selected_expr(value, default)}]"
+
+
+def category_button(category: dict, default: bool = False) -> str:
+    action = category["action"]
+    visible = category_visible(category["value"], default)
     return f"""\
 \t\t\t\t\t\t\t\twidget = {{
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\tsize = {{ 111 28 }}
+\t\t\t\t\t\t\t\t\tbackground = {{
+\t\t\t\t\t\t\t\t\t\tvisible = "{visible}"
+\t\t\t\t\t\t\t\t\t\tusing = click_modifier_bg_texture
+\t\t\t\t\t\t\t\t\t\talpha = 0.34
+\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\taction_button = {{
+\t\t\t\t\t\t\t\t\t\tsize = {{ 111 28 }}
+\t\t\t\t\t\t\t\t\t\tusing = button_regular_texture_alt_yellow
+\t\t\t\t\t\t\t\t\t\tusing = action_button_common_template
+\t\t\t\t\t\t\t\t\t\tusing = button_common_textobj_template
+\t\t\t\t\t\t\t\t\t\tfontsize = 13
+\t\t\t\t\t\t\t\t\t\ttext = "{action}"
+\t\t\t\t\t\t\t\t\t\ttitle = "{action}"
+\t\t\t\t\t\t\t\t\t\tdescription = "{action}_desc"
+\t\t\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\t\t\t\t\t\t\tleft_action = {{ action_name = "{action}" }}
+\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t}}
+"""
+
+
+def category_buttons(categories: list[dict]) -> str:
+    buttons = "".join(
+        category_button(category, default=index == 0)
+        for index, category in enumerate(categories)
+    )
+    return f"""\
+\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\tsize = {{ 462 30 }}
+\t\t\t\t\t\t\t\t\tspacing = 6
+{buttons}\t\t\t\t\t\t\t\t}}
+"""
+
+
+def monopoly_row(good: str, index: int, category: dict, default_category: bool = False) -> str:
+    category_expr = category_selected_expr(category["value"], default_category)
+    return f"""\
+\t\t\t\t\t\t\t\twidget = {{
+\t\t\t\t\t\t\t\t\tvisible = "[{category_expr}]"
 \t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
 \t\t\t\t\t\t\t\t\tsize = {{ 462 26 }}
@@ -743,9 +801,45 @@ def action_card(good: str, index: int) -> str:
 """
 
 
-def generate(data: dict) -> str:
+def validate_categories(data: dict) -> None:
     goods = data["goods"]
-    rows = "".join(monopoly_row(good, index) for index, good in enumerate(goods, start=1))
+    seen: dict[str, str] = {}
+    for category in data["categories"]:
+        if not category["goods"]:
+            raise ValueError(f"Trade League monopoly category {category['id']} has no goods")
+        for good in category["goods"]:
+            if good in seen:
+                raise ValueError(
+                    f"Trade League monopoly good {good} is in both {seen[good]} and {category['id']}"
+                )
+            seen[good] = category["id"]
+    missing = [good for good in goods if good not in seen]
+    extra = [good for good in seen if good not in goods]
+    if missing:
+        raise ValueError(f"Trade League monopoly goods missing categories: {', '.join(missing)}")
+    if extra:
+        raise ValueError(f"Trade League monopoly categories list unknown goods: {', '.join(extra)}")
+
+
+def generate(data: dict) -> str:
+    validate_categories(data)
+    goods = data["goods"]
+    category_by_good = {
+        good: category
+        for category in data["categories"]
+        for good in category["goods"]
+    }
+    default_category = data["categories"][0]
+    buttons = category_buttons(data["categories"])
+    rows = buttons + "".join(
+        monopoly_row(
+            good,
+            index,
+            category_by_good[good],
+            default_category=category_by_good[good]["id"] == default_category["id"],
+        )
+        for index, good in enumerate(goods, start=1)
+    )
     details = "".join(detail_card(good, index) for index, good in enumerate(goods, start=1))
     actions = "".join(action_card(good, index) for index, good in enumerate(goods, start=1))
     return HEADER + PREFIX + rows + LIST_CARD_SUFFIX + details + actions + SUFFIX

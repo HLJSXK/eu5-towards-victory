@@ -26,6 +26,31 @@ def good_name(good: str) -> str:
     return f"${good}$"
 
 
+CATEGORY_LABELS = {
+    "basic": ("Basic Goods", "Show basic goods in the monopoly list."),
+    "food": ("Food", "Show food goods in the monopoly list."),
+    "manufactured": ("Manufactured Goods", "Show manufactured goods in the monopoly list."),
+    "luxury": ("Luxury Goods", "Show luxury goods in the monopoly list."),
+}
+
+
+def category_entries(categories: list[dict]) -> list[tuple[str, str]]:
+    entries: list[tuple[str, str]] = []
+    for category in categories:
+        label, desc = CATEGORY_LABELS[category["id"]]
+        action = category["action"]
+        entries.extend(
+            [
+                (action, label),
+                (f"{action}_desc", desc),
+                (f"PERFORM_{action}_ACTION_SETUP", "When we use a Trade League monopoly control."),
+                (f"PERFORM_{action}_ACTION_LOG", "We used a Trade League monopoly control."),
+                (f"PERFORM_{action}_ACTION_MAP", ""),
+            ]
+        )
+    return entries
+
+
 def action_entries(good: str) -> list[tuple[str, str]]:
     name = good_name(good)
     action_loc_entries = [
@@ -86,6 +111,9 @@ def generate(data: dict) -> bytes:
         "# Do not edit directly - modify the data file and re-run the generator.",
         "",
     ]
+    for key, value in category_entries(data["categories"]):
+        escaped = value.replace('"', '\\"')
+        lines.append(f' {key}: "{escaped}"')
     for good in data["goods"]:
         for key, value in action_entries(good):
             escaped = value.replace('"', '\\"')

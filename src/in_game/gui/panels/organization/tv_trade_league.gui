@@ -368,7 +368,102 @@ organization_panel = {
 										widget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 92 22 } text_single = { size = { 92 22 } text = "TV_TRADE_LEAGUE_LEVEL_COLUMN" align = nobaseline|right } }
 									}
 								}
+								hbox = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 462 30 }
+									spacing = 6
 								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 111 28 }
+									background = {
+										visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
+									action_button = {
+										size = { 111 28 }
+										using = button_regular_texture_alt_yellow
+										using = action_button_common_template
+										using = button_common_textobj_template
+										fontsize = 13
+										text = "tv_trade_select_monopoly_category_basic"
+										title = "tv_trade_select_monopoly_category_basic"
+										description = "tv_trade_select_monopoly_category_basic_desc"
+										actor = "[InternationalOrganizationsView.GetPlayer]"
+										left_action = { action_name = "tv_trade_select_monopoly_category_basic" }
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 111 28 }
+									background = {
+										visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
+									action_button = {
+										size = { 111 28 }
+										using = button_regular_texture_alt_yellow
+										using = action_button_common_template
+										using = button_common_textobj_template
+										fontsize = 13
+										text = "tv_trade_select_monopoly_category_food"
+										title = "tv_trade_select_monopoly_category_food"
+										description = "tv_trade_select_monopoly_category_food_desc"
+										actor = "[InternationalOrganizationsView.GetPlayer]"
+										left_action = { action_name = "tv_trade_select_monopoly_category_food" }
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 111 28 }
+									background = {
+										visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
+									action_button = {
+										size = { 111 28 }
+										using = button_regular_texture_alt_yellow
+										using = action_button_common_template
+										using = button_common_textobj_template
+										fontsize = 13
+										text = "tv_trade_select_monopoly_category_manufactured"
+										title = "tv_trade_select_monopoly_category_manufactured"
+										description = "tv_trade_select_monopoly_category_manufactured_desc"
+										actor = "[InternationalOrganizationsView.GetPlayer]"
+										left_action = { action_name = "tv_trade_select_monopoly_category_manufactured" }
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 111 28 }
+									background = {
+										visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
+										using = click_modifier_bg_texture
+										alpha = 0.34
+									}
+									action_button = {
+										size = { 111 28 }
+										using = button_regular_texture_alt_yellow
+										using = action_button_common_template
+										using = button_common_textobj_template
+										fontsize = 13
+										text = "tv_trade_select_monopoly_category_luxury"
+										title = "tv_trade_select_monopoly_category_luxury"
+										description = "tv_trade_select_monopoly_category_luxury_desc"
+										actor = "[InternationalOrganizationsView.GetPlayer]"
+										left_action = { action_name = "tv_trade_select_monopoly_category_luxury" }
+									}
+								}
+								}
+								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -462,6 +557,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -555,6 +651,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -648,6 +745,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -741,6 +839,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -834,6 +933,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -927,6 +1027,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -1020,6 +1121,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -1113,6 +1215,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -1206,6 +1309,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -1299,6 +1403,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -1392,6 +1497,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -1485,6 +1591,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -1578,6 +1685,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -1671,6 +1779,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -1764,6 +1873,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -1857,6 +1967,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -1950,6 +2061,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -2043,6 +2155,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -2136,6 +2249,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -2229,6 +2343,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -2322,6 +2437,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -2415,6 +2531,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -2508,6 +2625,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -2601,6 +2719,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -2694,6 +2813,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -2787,6 +2907,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -2880,6 +3001,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -2973,6 +3095,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -3066,6 +3189,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -3159,6 +3283,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -3252,6 +3377,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -3345,6 +3471,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -3438,6 +3565,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -3531,6 +3659,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -3624,6 +3753,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -3717,6 +3847,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -3810,6 +3941,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -3903,6 +4035,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -3996,6 +4129,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -4089,6 +4223,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -4182,6 +4317,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -4275,6 +4411,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -4368,6 +4505,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -4461,6 +4599,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -4554,6 +4693,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -4647,6 +4787,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -4740,6 +4881,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -4833,6 +4975,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -4926,6 +5069,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -5019,6 +5163,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -5112,6 +5257,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -5205,6 +5351,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -5298,6 +5445,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -5391,6 +5539,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -5484,6 +5633,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -5577,6 +5727,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)4.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -5670,6 +5821,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -5763,6 +5915,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -5856,6 +6009,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -5949,6 +6103,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -6042,6 +6197,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -6135,6 +6291,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -6228,6 +6385,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -6321,6 +6479,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -6414,6 +6573,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -6507,6 +6667,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -6600,6 +6761,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -6693,6 +6855,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -6786,6 +6949,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -6879,6 +7043,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -6972,6 +7137,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -7065,6 +7231,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }
@@ -7158,6 +7325,7 @@ organization_panel = {
 								}
 							}
 								widget = {
+									visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
 									size = { 462 26 }

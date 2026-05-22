@@ -70,6 +70,130 @@ tv_expel_trade_league_member = {
 }
 
 
+tv_trade_select_monopoly_category_basic = {
+	type = owncountry
+	sound = UI_action_diplomacy_generic
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+		}
+	}
+	allow = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+		}
+	}
+	effect = {
+		scope:actor = {
+			set_variable = { name = tv_trade_selected_monopoly_category value = 1 }
+			set_variable = { name = tv_trade_selected_good value = 1 }
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_trade_select_monopoly_category_food = {
+	type = owncountry
+	sound = UI_action_diplomacy_generic
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+		}
+	}
+	allow = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+		}
+	}
+	effect = {
+		scope:actor = {
+			set_variable = { name = tv_trade_selected_monopoly_category value = 2 }
+			set_variable = { name = tv_trade_selected_good value = 61 }
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_trade_select_monopoly_category_manufactured = {
+	type = owncountry
+	sound = UI_action_diplomacy_generic
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+		}
+	}
+	allow = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+		}
+	}
+	effect = {
+		scope:actor = {
+			set_variable = { name = tv_trade_selected_monopoly_category value = 3 }
+			set_variable = { name = tv_trade_selected_good value = 42 }
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_trade_select_monopoly_category_luxury = {
+	type = owncountry
+	sound = UI_action_diplomacy_generic
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+		}
+	}
+	allow = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+		}
+	}
+	effect = {
+		scope:actor = {
+			set_variable = { name = tv_trade_selected_monopoly_category value = 4 }
+			set_variable = { name = tv_trade_selected_good value = 7 }
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_trade_select_monopoly_good_horses = {
 	type = owncountry
 	sound = UI_action_diplomacy_generic

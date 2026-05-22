@@ -1097,8 +1097,39 @@ PERFORM_tv_expel_trade_league_member_ACTION={
 
 def trade_monopoly_message_entries() -> str:
     with TRADE_GOODS.open(encoding="utf-8") as file:
-        goods = yaml.safe_load(file)["goods"]
+        data = yaml.safe_load(file)
+    goods = data["goods"]
+    seen = {}
+    for category in data["categories"]:
+        if not category["goods"]:
+            raise ValueError(f"Trade League monopoly category {category['id']} has no goods")
+        for good in category["goods"]:
+            if good in seen:
+                raise ValueError(
+                    f"Trade League monopoly good {good} is in both {seen[good]} and {category['id']}"
+                )
+            seen[good] = category["id"]
+    missing = [good for good in goods if good not in seen]
+    extra = [good for good in seen if good not in goods]
+    if missing:
+        raise ValueError(f"Trade League monopoly goods missing categories: {', '.join(missing)}")
+    if extra:
+        raise ValueError(f"Trade League monopoly categories list unknown goods: {', '.join(extra)}")
     blocks = ["\n# ---- Generated Trade League monopoly controls ----\n"]
+    for category in data["categories"]:
+        action = category["action"]
+        blocks.append(
+            f"""PERFORM_{action}_ACTION={{
+\tlog=no
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=no
+\tpausepopup=no
+\tmessage_category = economy
+}}
+"""
+        )
     for good in goods:
         for pattern in TRADE_MONOPOLY_ACTION_PATTERNS:
             action = pattern.format(good=good)

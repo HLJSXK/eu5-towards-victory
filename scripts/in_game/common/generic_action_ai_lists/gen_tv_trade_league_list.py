@@ -54,15 +54,38 @@ ACTION_PATTERNS = [
 ]
 
 
-def action_names(goods: list[str]) -> list[str]:
+def action_names(data: dict) -> list[str]:
+    goods = data["goods"]
     names = list(BASE_ACTIONS)
+    names.extend(category["action"] for category in data["categories"])
     for good in goods:
         names.extend(pattern.format(good=good) for pattern in ACTION_PATTERNS)
     return names
 
 
+def validate_categories(data: dict) -> None:
+    goods = data["goods"]
+    seen: dict[str, str] = {}
+    for category in data["categories"]:
+        if not category["goods"]:
+            raise ValueError(f"Trade League monopoly category {category['id']} has no goods")
+        for good in category["goods"]:
+            if good in seen:
+                raise ValueError(
+                    f"Trade League monopoly good {good} is in both {seen[good]} and {category['id']}"
+                )
+            seen[good] = category["id"]
+    missing = [good for good in goods if good not in seen]
+    extra = [good for good in seen if good not in goods]
+    if missing:
+        raise ValueError(f"Trade League monopoly goods missing categories: {', '.join(missing)}")
+    if extra:
+        raise ValueError(f"Trade League monopoly categories list unknown goods: {', '.join(extra)}")
+
+
 def generate(data: dict) -> str:
-    actions = "\n".join(f"\t\t{action}" for action in action_names(data["goods"]))
+    validate_categories(data)
+    actions = "\n".join(f"\t\t{action}" for action in action_names(data))
     return (
         HEADER
         + "tv_trade_league_list = {\n"
