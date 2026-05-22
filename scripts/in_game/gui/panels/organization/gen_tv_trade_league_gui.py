@@ -383,6 +383,10 @@ organization_panel = {
 \t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
 \t\t\t\t\t\t\t\t\tsize = { 462 24 }
+\t\t\t\t\t\t\t\t\tbackground = {
+\t\t\t\t\t\t\t\t\t\tusing = tooltip_table_field_texture
+\t\t\t\t\t\t\t\t\t\talpha = 0.28
+\t\t\t\t\t\t\t\t\t}
 \t\t\t\t\t\t\t\t\thbox = {
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
@@ -425,6 +429,15 @@ def monopoly_row(good: str, index: int) -> str:
 \t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
 \t\t\t\t\t\t\t\t\tsize = {{ 462 26 }}
+\t\t\t\t\t\t\t\t\tbackground = {{
+\t\t\t\t\t\t\t\t\t\tusing = tooltip_table_field_texture
+\t\t\t\t\t\t\t\t\t\talpha = 0.16
+\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\tbackground = {{
+\t\t\t\t\t\t\t\t\t\tvisible = "{selected_visible(index)}"
+\t\t\t\t\t\t\t\t\t\tusing = click_modifier_bg_texture
+\t\t\t\t\t\t\t\t\t\talpha = 0.34
+\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\thbox = {{
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed

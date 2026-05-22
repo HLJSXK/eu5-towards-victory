@@ -48,6 +48,14 @@ that create, find, or mutate TV IOs.
    Wrap IO membership checks in `scope:actor = { ... }`; direct country-scoped IO iterators
    under `potential` can evaluate from an invalid root.
 
+10. Use real goods quantity metrics for IO trade systems.
+   For world goods production totals, use `produced_in_world:<good>`. For an IO's member-owned
+   goods trade, iterate `every_international_organization_member = { every_trade = { ... } }`,
+   filter with `goods = goods:<good>`, and sum `trade_volume`. Do not substitute
+   `total_effective_goods_production_buildings(goods:<good>)` or member `every_market_present_in_country`
+   plus `traded_in_market:<good>`; those count building levels or full market totals instead of
+   member-owned goods quantities.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then inspect shared IO tooltips in game. Tooltip

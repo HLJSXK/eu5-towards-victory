@@ -304,6 +304,28 @@ Use a country modifier only when the design intentionally grants the bonus count
 
 Governor's House War Tent tactics are a documented exception. Their stored-general character modifier path did not make the combat bonuses take effect, so the feature intentionally applies `tv_govhouse_tactic_*` as country-scoped modifiers and comments that this is a gameplay approximation. Do not convert that specific system back to `add_character_modifier` unless a new active-commander implementation is verified at runtime.
 
+#### Goods Production and Trade Quantity Metrics
+
+Use the goods-specific world trigger value when a mechanic needs actual global output for one good:
+
+```pdx
+set_variable = { name = my_world_horses value = "produced_in_world:horses" }
+```
+
+Do not use `total_effective_goods_production_buildings(goods:<good>)` for this purpose. That country-scope function measures effective building levels that produce the good, not the world goods quantity.
+
+For a country's own trade in a good, iterate its trade objects and read `trade_volume`:
+
+```pdx
+set_local_variable = { name = member_trade_total value = 0 }
+every_trade = {
+    limit = { goods = goods:horses }
+    change_local_variable = { name = member_trade_total add = trade_volume }
+}
+```
+
+For IO member trade totals, wrap the same trade-object loop in `every_international_organization_member`. Avoid summing `traded_in_market:<good>` from `every_market_present_in_country` when the design asks for member-owned trade; `traded_in_market:<good>` is the whole market's traded quantity and shared markets can be counted once per member.
+
 ### 5.2. Scopes and Scope Links
 
 A **scope** refers to the specific game object (e.g., a country, a character, a location) that a script is currently focused on. **Scope links** are used to access data from or apply effects to other scopes. For example, `c:FRA.gold` would access the treasury of the country with the tag FRA.

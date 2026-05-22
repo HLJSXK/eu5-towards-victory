@@ -119,6 +119,17 @@
   source: "runtime UI observation in src/in_game/gui/panels/organization/tv_trade_league.gui; fixed by using text fields for TV_TRADE_LEAGUE_WORLD_COLUMN and TV_TRADE_LEAGUE_IO_COLUMN"
   notes: "raw_text renders the string literally; $KEY$ substitutions are not expanded, so the UI displays the key."
 
+- id: trade_monopoly_wrong_goods_metrics
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['tv_trade_league_effects', 'gen_tv_trade_league_effects']
+  bad: "Trade League monopoly production/trade totals computed from effective production building levels or member-present market totals"
+  correction: "Use produced_in_world:<good> for global goods production, and sum each IO member country's every_trade entries filtered by goods = goods:<good> with trade_volume for member-owned goods trade."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/trigger_localization/common_triggers.txt:107; reference_game_files/game/in_game/common/trigger_localization/trade_triggers.txt:8"
+  notes: "total_effective_goods_production_buildings counts producing building levels, not goods output; traded_in_market:<good> is a market total and double-counts shared markets when iterated once per IO member."
+
 - id: trade_efficiency_nonexistent
   pattern: '\btrade_efficiency\s*='
   bad: "trade_efficiency = <value>"
