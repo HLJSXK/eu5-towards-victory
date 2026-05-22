@@ -147,6 +147,15 @@
  game_concept_tv_wonder_domestic_support: "国内支持度"
  game_concept_tv_wonder_domestic_support_desc: "[tv_wonder_construction|e]资源，代表精英与公众对大型奇观工程的支持。达到100即可结束初始辩论；支持度最多储存到200，并会在辩论结束后逐月衰减。"
 
+ game_concept_tv_wonder_scale_competence: "规模适性"
+ game_concept_tv_wonder_scale_competence_desc: "[tv_wonder_survey|e]读数，衡量选址能否承载奇观预期的尺度、轴线、地基与公共入口，而不至于把设计压成尴尬的形状。"
+
+ game_concept_tv_wonder_organization_competence: "组织适性"
+ game_concept_tv_wonder_organization_competence_desc: "[tv_wonder_survey|e]读数，衡量劳役名册、工头、工坊与施工阶段能否听命于同一张计划，而不是被互相竞争的号令拉扯。"
+
+ game_concept_tv_wonder_logistics_competence: "物流适性"
+ game_concept_tv_wonder_logistics_competence_desc: "[tv_wonder_survey|e]读数，衡量道路、仓库、车队、港口、桥梁与交接点能否让[tv_wonder_materials|e]在匠人需要时抵达工地。"
+
  # -- 贸易胜利独有机制 --------------------------------------------------------
  game_concept_tv_trade_league: "贸易联盟"
  game_concept_tv_trade_league_desc: "[tv_trade_victory|e]第一里程碑建立的非唯一国际组织。盟主可邀请或驱逐成员、任命[tv_grand_merchant|e]，并追踪商品垄断。"
@@ -202,19 +211,19 @@
  game_concept_tv_academy_of_sciences_desc: "锁定各科技胜利里程碑的五阶段首都建筑与国际组织。第一阶段在[tv_science_score|e]达到100时解锁；后续阶段分别在150、200、300和400时解锁。每个阶段必须在首都实际建造完毕，相应里程碑方可触发。第一阶段还会开启[tv_research_mechanism|e]。"
 
  game_concept_tv_chief_scientist: "首席科学家"
- game_concept_tv_chief_scientist_desc: "主持[tv_academy_of_sciences|e]的任命学者。其[tv_effective_administrative_skill|e]推动[tv_concentrated_research|e]、[tv_academy_medical_treatment|e]、[tv_academy_meditation|e]以及多类科学院事件。"
+ game_concept_tv_chief_scientist_desc: "主持[tv_academy_of_sciences|e]的任命学者。其[tv_effective_administrative_skill|e]推动[tv_concentrated_research|e]、[tv_academy_medical_treatment|e]、[tv_academy_meditation|e]以及多类[tv_academy_of_sciences|E]事件。"
 
  game_concept_tv_research_mechanism: "研究机制"
  game_concept_tv_research_mechanism_desc: "[tv_academy_of_sciences|e]的运作系统。一个研究周期会选择一项前沿[tv_research_target|e]，收集[tv_research_interest|e]，完成前置条件与[tv_literacy_foundation|e]子流程，最后通过[tv_concentrated_research|e]解锁目标。这是获得进步的额外路线，不会锁定正常研究。"
 
  game_concept_tv_research_target: "研究目标"
- game_concept_tv_research_target_desc: "[tv_research_mechanism|e]当前选定的锁定进步。目标确定后，科学院必须积累[tv_research_interest|e]、完成前置研究、打下[tv_literacy_foundation|e]，并结束[tv_concentrated_research|e]，该目标才会解锁。"
+ game_concept_tv_research_target_desc: "[tv_research_mechanism|e]当前选定的锁定进步。目标确定后，[tv_academy_of_sciences|E]必须积累[tv_research_interest|e]、完成前置研究、打下[tv_literacy_foundation|e]，并结束[tv_concentrated_research|e]，该目标才会解锁。"
 
  game_concept_tv_research_interest: "学术兴趣"
  game_concept_tv_research_interest_desc: "[tv_research_mechanism|e]的第一项子流程，代表宫廷中的好奇心、学者间的议论，以及愿意把注意力投入当前[tv_research_target|e]的赞助者。"
 
  game_concept_tv_literacy_foundation: "识字基础"
- game_concept_tv_literacy_foundation_desc: "[tv_research_mechanism|e]中的人口学习子流程。它衡量是否已有足够读者、书记、教师与工坊使用者，能把新进步带出科学院高墙。"
+ game_concept_tv_literacy_foundation_desc: "[tv_research_mechanism|e]中的人口学习子流程。它衡量是否已有足够读者、书记、教师与工坊使用者，能把新进步带出[tv_academy_of_sciences|E]高墙。"
 
  game_concept_tv_effective_administrative_skill: "等效行政能力"
  game_concept_tv_effective_administrative_skill_desc: "[tv_chief_scientist|e]在[tv_academy_of_sciences|e]工作中发挥的实际行政能力。大科学家特质可使其高于角色原本的行政能力；数值越高，[tv_concentrated_research|e]越可能进入更安全的事件池。"
@@ -236,7 +245,7 @@
  game_concept_tv_local_governor: "地方总督"
  game_concept_tv_local_governor_desc: "由[tv_govhouse|e]派往某一地区治理的角色。[tv_local_governor|E]根据[tv_govhouse|e]法律及个人能力，为该地区提供建造、动乱、控制、生产、人口或防御加成。"
  game_concept_tv_govhouse_plan_progress: "计划进度"
- game_concept_tv_govhouse_plan_progress_desc: "总督府[tv_war_tent|e]中由[tv_grand_general|e]积累的数值。[tv_war_plan|E]会在相关战争条件生效时，将它转化为随进度提高的军事加成。"
+ game_concept_tv_govhouse_plan_progress_desc: "[tv_govhouse|E]的[tv_war_tent|e]中由[tv_grand_general|e]积累的数值。[tv_war_plan|E]会在相关战争条件生效时，将它转化为随进度提高的军事加成。"
  game_concept_tv_war_tent: "战帐"
  game_concept_tv_war_tent_desc: "[tv_govhouse|e]中用于[tv_grand_general|e]战术与[tv_war_plan|e]的指挥标签页。战争期间，[tv_grand_general|e]可以提出战术供你批准。战前或战时，玩家可以准备[tv_war_plan|e]，将[tv_govhouse_plan_progress|e]转化为临时军事加成。"
  game_concept_tv_war_plan: "战争计划"

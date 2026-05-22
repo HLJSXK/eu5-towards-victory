@@ -277,6 +277,225 @@ KIND_OPTIONS = {
     },
 }
 
+EN_ENGINEERING_TITLE_FLAVOR = {
+    "domestic_support": {
+        "gain2_title": "The Streets Applaud the Site",
+        "gain1_title": "Street Talk Turns",
+        "swing_title": "Opinion at the Scaffold Wavers",
+        "engineer_gain2_title": "[tv_great_engineer|E] Wins the Street",
+        "engineer_gain1_title": "[tv_great_engineer|E] Calms the Rumor",
+        "engineer_swing_title": "[tv_great_engineer|E] Courts the Crowd",
+        "trade_title": "Public Backing",
+        "choice_title": "Public Doubt",
+    },
+    "scale_competence": {
+        "gain2_title": "A Wider Line on the Earth",
+        "gain1_title": "The Measure Is Corrected",
+        "swing_title": "The Plan Outgrows the Page",
+        "engineer_gain2_title": "[tv_great_engineer|E] Redraws the Grand Line",
+        "engineer_gain1_title": "[tv_great_engineer|E] Sets the Measure",
+        "engineer_swing_title": "[tv_great_engineer|E] Enlarges the Plan",
+        "trade_title": "A Broader Design",
+        "choice_title": "A Narrower Monument",
+    },
+    "organization_competence": {
+        "gain2_title": "Names and Orders Fall Into Place",
+        "gain1_title": "The Yard Learns Its Rhythm",
+        "swing_title": "Orders Change Under the Awning",
+        "engineer_gain2_title": "[tv_great_engineer|E] Rebuilds the Schedule",
+        "engineer_gain1_title": "[tv_great_engineer|E] Straightens the Rolls",
+        "engineer_swing_title": "[tv_great_engineer|E] Rewrites the Shift",
+        "trade_title": "Sharper Orders",
+        "choice_title": "Muddled Rosters",
+    },
+    "logistics_competence": {
+        "gain2_title": "Roads and Carts Find Their Rhythm",
+        "gain1_title": "Ruts Find a Better Road",
+        "swing_title": "The Route Turns Through Mud",
+        "engineer_gain2_title": "[tv_great_engineer|E] Opens the Road",
+        "engineer_gain1_title": "[tv_great_engineer|E] Clears the Convoy",
+        "engineer_swing_title": "[tv_great_engineer|E] Takes the Risky Road",
+        "trade_title": "A Clearer Road",
+        "choice_title": "Delayed Convoys",
+    },
+    "materials_stockpile": {
+        "gain2_title": "Storehouses Full by Morning",
+        "gain1_title": "The Yard Finds Surplus",
+        "swing_title": "Abacuses at the Storehouse Door",
+        "engineer_gain2_title": "[tv_great_engineer|E] Expands the Storeyards",
+        "engineer_gain1_title": "[tv_great_engineer|E] Revives the Stores",
+        "engineer_swing_title": "[tv_great_engineer|E] Recounts the Stock",
+        "trade_title": "Fuller Stores",
+        "choice_title": "Thinning Piles",
+    },
+    "construction_progress": {
+        "gain2_title": "Stone Rises Past the Mark",
+        "gain1_title": "Hammers Draw Completion Near",
+        "swing_title": "A New Method Hangs in the Air",
+        "engineer_gain2_title": "[tv_great_engineer|E] Drives the Main Works",
+        "engineer_gain1_title": "[tv_great_engineer|E] Fits the Critical Joint",
+        "engineer_swing_title": "[tv_great_engineer|E] Tests a Faster Method",
+        "trade_title": "A Sudden Advance",
+        "choice_title": "Lost Progress",
+    },
+}
+
+EN_NON_ENGINEERING_TITLE_FLAVOR = {
+    "gold": {
+        "trade_title": "Treasury Doors Open",
+        "choice_title": "Silver Runs Thin",
+        "strain_title": "A New Gap in the Treasury",
+        "crisis_title": "Silence at the Treasury Door",
+        "engineer_loss1_title": "[tv_great_engineer|E] Miscounts the Coin",
+        "engineer_loss2_title": "[tv_great_engineer|E] Breaks the Ledger",
+    },
+    "legitimacy": {
+        "trade_title": "Royal Authority Is Pledged",
+        "choice_title": "Mandate Wears Thin",
+        "strain_title": "Dust on the Royal Seal",
+        "crisis_title": "Mandate Cracks Before the Site",
+        "engineer_loss1_title": "[tv_great_engineer|E] Forgets the Court",
+        "engineer_loss2_title": "[tv_great_engineer|E] Wounds the Crown",
+    },
+    "stability": {
+        "trade_title": "Villages Give Way",
+        "choice_title": "Order Loosens",
+        "strain_title": "Quiet Towns Are Disturbed",
+        "crisis_title": "Order Splinters in the Levy",
+        "engineer_loss1_title": "[tv_great_engineer|E] Misreads the Villages",
+        "engineer_loss2_title": "[tv_great_engineer|E] Unsettles the Country",
+    },
+    "prestige": {
+        "trade_title": "Reputation Is Spent",
+        "choice_title": "Prestige Gathers Dust",
+        "strain_title": "The Court Loses Color",
+        "crisis_title": "Honor Falters in Public",
+        "engineer_loss1_title": "[tv_great_engineer|E] Speaks Too Soon",
+        "engineer_loss2_title": "[tv_great_engineer|E] Makes a Spectacle",
+    },
+    "nobles_satisfaction": {
+        "trade_title": "Noble Patience Is Borrowed",
+        "choice_title": "Noble Murmurs",
+        "strain_title": "Cold Words at Noble Tables",
+        "crisis_title": "Noble Patience Is Chiseled Through",
+        "engineer_loss1_title": "[tv_great_engineer|E] Slights the Nobles",
+        "engineer_loss2_title": "[tv_great_engineer|E] Angers the Houses",
+    },
+    "clergy_satisfaction": {
+        "trade_title": "The Altars Are Asked to Yield",
+        "choice_title": "Clerical Unease",
+        "strain_title": "Frowns Before the Altar",
+        "crisis_title": "Patience Runs Out in the Vestry",
+        "engineer_loss1_title": "[tv_great_engineer|E] Disturbs the Calendar",
+        "engineer_loss2_title": "[tv_great_engineer|E] Offends the Clergy",
+    },
+    "burghers_satisfaction": {
+        "trade_title": "The Market Lends Its Streets",
+        "choice_title": "Merchant Complaints",
+        "strain_title": "Thinner Ledgers in the Market",
+        "crisis_title": "Anger Reaches the Streets",
+        "engineer_loss1_title": "[tv_great_engineer|E] Blocks the Market",
+        "engineer_loss2_title": "[tv_great_engineer|E] Provokes the Burghers",
+    },
+    "peasants_satisfaction": {
+        "trade_title": "Village Shoulders Are Borrowed",
+        "choice_title": "Tired Villages",
+        "strain_title": "Heavier Backs in the Villages",
+        "crisis_title": "Rural Anger Will Not Stay Quiet",
+        "engineer_loss1_title": "[tv_great_engineer|E] Underestimates the Villages",
+        "engineer_loss2_title": "[tv_great_engineer|E] Breaks the Villages",
+    },
+    "site_development": {
+        "trade_title": "The Site Gives Stone and Space",
+        "choice_title": "The Site Is Hollowed",
+        "strain_title": "The Site Gives Up Its Streets",
+        "crisis_title": "The Site Falls Back",
+        "engineer_loss1_title": "[tv_great_engineer|E] Cuts the Wrong Streets",
+        "engineer_loss2_title": "[tv_great_engineer|E] Injures the Site",
+    },
+    "site_prosperity": {
+        "trade_title": "Local Trade Is Bent Toward the Works",
+        "choice_title": "The Site Cools",
+        "strain_title": "The Site Grows Quieter",
+        "crisis_title": "The Site's Prosperity Is Smothered",
+        "engineer_loss1_title": "[tv_great_engineer|E] Crowds the Site's Livelihoods",
+        "engineer_loss2_title": "[tv_great_engineer|E] Snuffs Out the Site's Markets",
+    },
+    "capital_development": {
+        "trade_title": "Capital Works Are Reassigned",
+        "choice_title": "The Capital Gives Up Its Frame",
+        "strain_title": "Capital Projects Make Way",
+        "crisis_title": "The Capital Pays in Stone",
+        "engineer_loss1_title": "[tv_great_engineer|E] Misuses the Capital",
+        "engineer_loss2_title": "[tv_great_engineer|E] Hollows the Capital's Plans",
+    },
+    "capital_prosperity": {
+        "trade_title": "The Capital's Markets Are Turned",
+        "choice_title": "The Capital Cools",
+        "strain_title": "Quieter Streets in the Capital",
+        "crisis_title": "The Royal City's Trade Is Pressed Low",
+        "engineer_loss1_title": "[tv_great_engineer|E] Disturbs the Royal City",
+        "engineer_loss2_title": "[tv_great_engineer|E] Dims the Capital's Prosperity",
+    },
+    "site_laborers": {
+        "trade_title": "Labor Is Driven Harder",
+        "choice_title": "Laborers Fall",
+        "strain_title": "Names Added to the Injury Roll",
+        "crisis_title": "Sweat Crosses Into Blood",
+        "engineer_loss1_title": "[tv_great_engineer|E] Misjudges the Labor Limit",
+        "engineer_loss2_title": "[tv_great_engineer|E] Causes Casualties",
+    },
+}
+
+ENGINEERING_CONCEPT_REF_EN = {
+    "domestic_support": "[tv_wonder_domestic_support|E]",
+    "scale_competence": "[tv_wonder_scale_competence|E]",
+    "organization_competence": "[tv_wonder_organization_competence|E]",
+    "logistics_competence": "[tv_wonder_logistics_competence|E]",
+    "materials_stockpile": "[tv_wonder_materials|E]",
+    "construction_progress": "[tv_wonder_construction|E] progress",
+}
+
+NON_ENGINEERING_CONCEPT_REF_EN = {
+    "gold": "[gold|E]",
+    "legitimacy": "[legitimacy|E]",
+    "stability": "[stability|E]",
+    "prestige": "[prestige|E]",
+    "nobles_satisfaction": "[estate_satisfaction|E] among the nobles",
+    "clergy_satisfaction": "[estate_satisfaction|E] among the clergy",
+    "burghers_satisfaction": "[estate_satisfaction|E] among the burghers",
+    "peasants_satisfaction": "[estate_satisfaction|E] among the peasants",
+    "site_development": "[development|E] at the site",
+    "site_prosperity": "[prosperity|E] at the site",
+    "capital_development": "[development|E] in the capital",
+    "capital_prosperity": "[prosperity|E] in the capital",
+    "site_laborers": "the laboring [population|E] at the site",
+}
+
+EN_CONCEPT_REPLACEMENTS = [
+    ("Engineering Department", "[tv_engineering_department|E]"),
+]
+
+ZH_CONCEPT_REPLACEMENTS = [
+    ("国内支持度", "[tv_wonder_domestic_support|E]"),
+    ("规模适性", "[tv_wonder_scale_competence|E]"),
+    ("组织适性", "[tv_wonder_organization_competence|E]"),
+    ("物流适性", "[tv_wonder_logistics_competence|E]"),
+    ("物资储备", "[tv_wonder_materials|E]"),
+    ("建设进度", "[tv_wonder_construction|E]进度"),
+    ("大工程师", "[tv_great_engineer|E]"),
+    ("稳定度", "[stability|E]"),
+    ("正统性", "[legitimacy|E]"),
+    ("威望", "[prestige|E]"),
+    ("发展度", "[development|E]"),
+    ("繁荣度", "[prosperity|E]"),
+    ("贵族阶层满意度", "贵族的[estate_satisfaction|E]"),
+    ("教士阶层满意度", "教士的[estate_satisfaction|E]"),
+    ("市民阶层满意度", "市民的[estate_satisfaction|E]"),
+    ("平民阶层满意度", "平民的[estate_satisfaction|E]"),
+    ("国库资金", "[gold|E]"),
+]
+
 ENGINEER_SCOPE_ZH = "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName]"
 ENGINEER_NOTE_80_ZH = "#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于80。#!"
 ENGINEER_NOTE_50_ZH = "#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于50。#!"
@@ -1082,6 +1301,60 @@ def zh_non_engineering_flavor(token: dict) -> dict:
     return ZH_NON_ENGINEERING_FLAVOR[token["id"]]
 
 
+def apply_zh_concept_format(text: str) -> str:
+    for old, new in ZH_CONCEPT_REPLACEMENTS:
+        text = text.replace(old, new)
+    return text
+
+
+def apply_en_concept_format(text: str) -> str:
+    for old, new in EN_CONCEPT_REPLACEMENTS:
+        text = text.replace(old, new)
+    return text
+
+
+def en_engineering_title_flavor(token: dict) -> dict:
+    return EN_ENGINEERING_TITLE_FLAVOR[token["id"]]
+
+
+def en_non_engineering_title_flavor(token: dict) -> dict:
+    return EN_NON_ENGINEERING_TITLE_FLAVOR[token["id"]]
+
+
+def format_title_en(event: dict) -> str:
+    kind = event["kind"]
+    eng = en_engineering_title_flavor(event["eng"]) if event.get("eng") else None
+    noneng = en_non_engineering_title_flavor(event["noneng"]) if event.get("noneng") else None
+
+    if kind == "gain_engineering_2":
+        core = eng["gain2_title"]
+    elif kind == "gain_engineering_1":
+        core = eng["gain1_title"]
+    elif kind == "trade_noneng_for_eng":
+        core = f"{noneng['trade_title']} for {eng['trade_title']}"
+    elif kind == "swing_engineering_1":
+        core = eng["swing_title"]
+    elif kind == "choose_eng_or_noneng_loss":
+        core = f"{eng['choice_title']} or {noneng['choice_title']}"
+    elif kind == "lose_noneng_1":
+        core = noneng["strain_title"]
+    elif kind == "lose_noneng_2":
+        core = noneng["crisis_title"]
+    elif kind == "engineer_gain_engineering_2":
+        core = eng["engineer_gain2_title"]
+    elif kind == "engineer_gain_engineering_1":
+        core = eng["engineer_gain1_title"]
+    elif kind == "engineer_swing_engineering_1":
+        core = eng["engineer_swing_title"]
+    elif kind == "engineer_lose_noneng_1":
+        core = noneng["engineer_loss1_title"]
+    elif kind == "engineer_lose_noneng_2":
+        core = noneng["engineer_loss2_title"]
+    else:
+        raise ValueError(f"Unhandled wonder event kind: {kind}")
+    return f"[tv_wonder_construction|E]：{core}"
+
+
 def format_title_zh(event: dict) -> str:
     kind = event["kind"]
     eng = zh_engineering_flavor(event["eng"]) if event.get("eng") else None
@@ -1113,7 +1386,7 @@ def format_title_zh(event: dict) -> str:
         core = noneng["engineer_loss2_title"]
     else:
         raise ValueError(f"Unhandled wonder event kind: {kind}")
-    return f"奇观建设：{core}"
+    return apply_zh_concept_format(f"[tv_wonder_construction|E]：{core}")
 
 
 def format_desc_zh(event: dict) -> str:
@@ -1266,28 +1539,28 @@ def build_events(data: dict) -> list[dict]:
 def format_title(event: dict, lang: str) -> str:
     if lang == "zh":
         return format_title_zh(event)
+    if lang == "en":
+        return format_title_en(event)
     template = KIND_TITLE[event["kind"]][lang]
     eng = eng_name(event["eng"], lang) if event.get("eng") else ""
     noneng = noneng_name(event["noneng"], lang) if event.get("noneng") else ""
     core = template.format(eng=eng, eng_effect=eng, noneng=noneng)
-    if lang == "en":
-        return f"Wonder Construction: {core}"
     return f"奇观建设：{core}"
 
 
 def format_desc(event: dict, lang: str) -> str:
     if lang == "zh":
-        return format_desc_zh(event)
+        return apply_zh_concept_format(format_desc_zh(event))
     template = KIND_DESC[event["kind"]][lang]
-    eng = eng_name(event["eng"], lang).lower() if lang == "en" and event.get("eng") else eng_name(event["eng"], lang) if event.get("eng") else ""
-    noneng = noneng_name(event["noneng"], lang) if event.get("noneng") else ""
-    return template.format(eng=eng, noneng=noneng)
+    eng = ENGINEERING_CONCEPT_REF_EN[event["eng"]["id"]] if lang == "en" and event.get("eng") else eng_name(event["eng"], lang) if event.get("eng") else ""
+    noneng = NON_ENGINEERING_CONCEPT_REF_EN[event["noneng"]["id"]] if lang == "en" and event.get("noneng") else noneng_name(event["noneng"], lang) if event.get("noneng") else ""
+    return apply_en_concept_format(template.format(eng=eng, noneng=noneng))
 
 
 def option_loc(event_or_kind: dict | str, suffix: str, lang: str) -> str:
     if isinstance(event_or_kind, dict):
         if lang == "zh":
-            return option_loc_zh(event_or_kind, suffix)
+            return apply_zh_concept_format(option_loc_zh(event_or_kind, suffix))
         kind = event_or_kind["kind"]
     else:
         kind = event_or_kind

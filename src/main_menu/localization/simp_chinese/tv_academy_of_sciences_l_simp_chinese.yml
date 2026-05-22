@@ -2,14 +2,14 @@
  # ── 科学院 ─────────────────────────────────────────────────────────────────────
  # IO type auto-derived keys (engine looks these up by the IO type name)
  tv_academy_of_sciences: "科学院"
- tv_academy_of_sciences_desc: "在[tv_academy_of_sciences|E]（第一阶段）建成后设立的国际学术机构。每个国家均拥有独立的科学院实例，作为学术研究中心与[tv_research_mechanism|e]的运作入口。"
- tv_academy_assembly: "科学院议会"
- tv_academy_assembly_desc: "科学院议会是科学院成员表决科学法律的场所。"
- diplomatic_status_tv_academy_of_sciences_name: "科学院成员国"
+ tv_academy_of_sciences_desc: "在[tv_academy_of_sciences|E]（第一阶段）建成后设立的国际学术机构。每个国家均拥有独立的[tv_academy_of_sciences|E]实例，作为学术研究中心与[tv_research_mechanism|e]的运作入口。"
+ tv_academy_assembly: "[tv_academy_of_sciences|E]议会"
+ tv_academy_assembly_desc: "[tv_academy_of_sciences|E]议会是[tv_academy_of_sciences|E]成员表决科学法律的场所。"
+ diplomatic_status_tv_academy_of_sciences_name: "[tv_academy_of_sciences|E]成员国"
  diplomatic_status_tv_academy_of_sciences_tooltip: "该国已建立[tv_academy_of_sciences|E]并参与[tv_research_mechanism|e]。"
- tv_academy_of_sciences_list_who_tt: "科学院成员国"
- io_opinion_tv_academy_of_sciences: "科学院共同成员"
- TV_ACADEMY_IO_LEADER: "科学院院长"
+ tv_academy_of_sciences_list_who_tt: "[tv_academy_of_sciences|E]成员国"
+ io_opinion_tv_academy_of_sciences: "[tv_academy_of_sciences|E]共同成员"
+ TV_ACADEMY_IO_LEADER: "[tv_academy_of_sciences|E]院长"
 
  # ── 科学院法律 ───────────────────────────────────────────────────────────────
  tv_science_factions: "科学派系"
@@ -19,9 +19,9 @@
  TV_ACADEMY_LEADERSHIP_LAW_CATEGORY: "领袖"
 
  tv_academy_research_priority_law: "科研优先权"
- tv_academy_research_priority_law_desc: "科学院的公开课程与拨款秩序，会告诉学者哪些问题值得耐心、荣誉与经费。不同取向会改变发现的速度，也会改变国家愿意为知识承担的代价。"
+ tv_academy_research_priority_law_desc: "[tv_academy_of_sciences|E]的公开课程与拨款秩序，会告诉学者哪些问题值得耐心、荣誉与经费。不同取向会改变发现的速度，也会改变国家愿意为知识承担的代价。"
  tv_academy_research_priority_balanced_policy: "平衡"
- tv_academy_research_priority_balanced_policy_desc: "自然哲学、器械工艺与医学同享讲堂、预算和名誉。没有任何一派获得足以重塑科学院的支配权。"
+ tv_academy_research_priority_balanced_policy_desc: "自然哲学、器械工艺与医学同享讲堂、预算和名誉。没有任何一派获得足以重塑[tv_academy_of_sciences|E]的支配权。"
  tv_academy_research_priority_theory_policy: "理论优先"
  tv_academy_research_priority_theory_policy_desc: "几何、天文与自然法则填满黑板和讲义。发现首先从原理中来，但建造者必须满足学者对精密规格的昂贵要求。"
  tv_academy_research_priority_application_policy: "应用优先"
@@ -30,9 +30,9 @@
  tv_academy_research_priority_medicine_policy_desc: "解剖师、药剂师与医院改革者决定议程。这些工作昂贵且缓慢，却让国家学会以有纪律的照护抵抗疫病。"
 
  tv_academy_research_openness_law: "科研开放度"
- tv_academy_research_openness_law_desc: "每一份手稿都必须决定归属：国家档案、学派藏书、印刷商之手，还是越过边境的通信网络。本法决定科学院知识如何进入世界。"
+ tv_academy_research_openness_law_desc: "每一份手稿都必须决定归属：国家档案、学派藏书、印刷商之手，还是越过边境的通信网络。本法决定[tv_academy_of_sciences|E]知识如何进入世界。"
  tv_academy_research_openness_closed_policy: "国家封闭"
- tv_academy_research_openness_closed_policy_desc: "账簿、图纸和通信都封存在官印之下。较少的流言能逃出科学院，宫廷也更容易维持国家的稳定。"
+ tv_academy_research_openness_closed_policy_desc: "账簿、图纸和通信都封存在官印之下。较少的流言能逃出[tv_academy_of_sciences|E]，宫廷也更容易维持国家的稳定。"
  tv_academy_research_openness_school_control_policy: "学派管控"
  tv_academy_research_openness_school_control_policy_desc: "受承认的学派以近似行会的纪律守护方法。各阶层赞许这种秩序，但许可、门墙和大师的嫉妒会拖慢发现。"
  tv_academy_research_openness_school_free_policy: "学派自由"
@@ -41,22 +41,22 @@
  tv_academy_research_openness_international_policy_desc: "外国来信与本国论文被放在同一张桌上审读，来访学者也能获得座席。国家在学术共同体中更受尊敬，竞争者却会以更深的疑心注视每一次交流。"
 
  tv_academy_research_risk_law: "科研风险管理"
- tv_academy_research_risk_law_desc: "发现从不完全温顺。科学院必须决定，大胆主张究竟是应被约束的危险、应被修正的错误，还是过于稀有而不该窒息的机会。"
+ tv_academy_research_risk_law_desc: "发现从不完全温顺。[tv_academy_of_sciences|E]必须决定，大胆主张究竟是应被约束的危险、应被修正的错误，还是过于稀有而不该窒息的机会。"
  tv_academy_research_risk_mandatory_review_policy: "强制审查"
  tv_academy_research_risk_mandatory_review_policy_desc: "每一项危险主张都要先经过教士与学者的审查，才可获得公开印章。这一程序安抚了信仰与学问的守护者。"
  tv_academy_research_risk_conservative_policy: "保守稳妥"
  tv_academy_research_risk_conservative_policy_desc: "实验被重复，器械被校准，结论只有在经得住墨迹和质询时才会写下。谨慎本身成为稳定进步的引擎。"
  tv_academy_research_risk_high_breakthrough_policy: "鼓励高风险突破"
- tv_academy_research_risk_high_breakthrough_policy_desc: "若干上锁房间留给大胆头脑、危险器具和体面讲师不愿承认的理论。科学院可能跃进，但教士盟友会因此不安。"
+ tv_academy_research_risk_high_breakthrough_policy_desc: "若干上锁房间留给大胆头脑、危险器具和体面讲师不愿承认的理论。[tv_academy_of_sciences|E]可能跃进，但教士盟友会因此不安。"
 
  tv_academy_research_funding_law: "科研资源分配"
- tv_academy_research_funding_law_desc: "科学追随白银，正如墨水追随笔尖。通过指定赞助者，科学院决定哪些利益会塑造实验室、藏书室与任命席位。"
+ tv_academy_research_funding_law_desc: "科学追随白银，正如墨水追随笔尖。通过指定赞助者，[tv_academy_of_sciences|E]决定哪些利益会塑造实验室、藏书室与任命席位。"
  tv_academy_research_funding_private_policy: "私人赞助"
- tv_academy_research_funding_private_policy_desc: "贵族家族捐设讲席、珍奇柜和受宠学者。他们的馈赠稳定学术生活，也让贵族赞助人在科学院中拥有更响亮的声音。"
+ tv_academy_research_funding_private_policy_desc: "贵族家族捐设讲席、珍奇柜和受宠学者。他们的馈赠稳定学术生活，也让贵族赞助人在[tv_academy_of_sciences|E]中拥有更响亮的声音。"
  tv_academy_research_funding_guild_policy: "行会赞助"
  tv_academy_research_funding_guild_policy_desc: "行会厅送来资金、学徒和作坊中的难题。实践需求使研究更锋利，但生产会在委员会和检验制度下变得迟缓。"
  tv_academy_research_funding_royal_policy: "皇家优先"
- tv_academy_research_funding_royal_policy_desc: "王室将科学院变成国家事务。项目在王权命令下推进更快，而宫廷也必须为这种指挥权支付可观开支。"
+ tv_academy_research_funding_royal_policy_desc: "王室将[tv_academy_of_sciences|E]变成国家事务。项目在王权命令下推进更快，而宫廷也必须为这种指挥权支付可观开支。"
  tv_academy_research_funding_international_policy: "国际合作"
  tv_academy_research_funding_international_policy_desc: "外国器械、访问院士和共同订阅维持着实验室的灯火。国家加入更广阔的学术共和国，同时也成为更显眼的竞争者。"
 
@@ -67,10 +67,10 @@
  tv_academy_technology_spread_private_policy: "私有化科研"
  tv_academy_technology_spread_private_policy_desc: "赞助人和公司将发现视作受保护的财产。作坊主人受益于独占方法，市民利益也随每一项被许可的秘密而上升。"
  tv_academy_technology_spread_state_standard_policy: "国家标准化"
- tv_academy_technology_spread_state_standard_policy_desc: "科学院先写下被批准的表格、度量和流程，然后才推动采用。国家获得更整齐的方法和更强研究能力，宫廷则必须供养相应官僚。"
+ tv_academy_technology_spread_state_standard_policy_desc: "[tv_academy_of_sciences|E]先写下被批准的表格、度量和流程，然后才推动采用。国家获得更整齐的方法和更强研究能力，宫廷则必须供养相应官僚。"
 
  tv_academy_academic_prestige_law: "学术声望"
- tv_academy_academic_prestige_law_desc: "一个赞美学问的国家，必须决定赞美究竟值什么。科学院可以给予沉默、头衔、金钱或学术名誉，每一种都以不同方式占据公众想象。"
+ tv_academy_academic_prestige_law_desc: "一个赞美学问的国家，必须决定赞美究竟值什么。[tv_academy_of_sciences|E]可以给予沉默、头衔、金钱或学术名誉，每一种都以不同方式占据公众想象。"
  tv_academy_academic_prestige_none_policy: "无奖励"
  tv_academy_academic_prestige_none_policy_desc: "发现只写入会议记录，不举行典礼，也不发放钱袋。工作本身就是奖赏，新的利益集团也无从围绕荣誉聚集。"
  tv_academy_academic_prestige_titles_policy: "头衔与爵位奖励"
@@ -78,25 +78,25 @@
  tv_academy_academic_prestige_money_policy: "金钱奖励"
  tv_academy_academic_prestige_money_policy_desc: "已解决的难题和受赞颂的论文，可从宫廷获得直接赏金。学者会更快回应金钱，国库也会感到每一次胜利的重量。"
  tv_academy_academic_prestige_reputation_policy: "学术声望"
- tv_academy_academic_prestige_reputation_policy_desc: "科学院以奖章、刊印名声和属于学者而非外交家的仪式支付报酬。研究会加速，但公共荣光被转向内部消耗。"
+ tv_academy_academic_prestige_reputation_policy_desc: "[tv_academy_of_sciences|E]以奖章、刊印名声和属于学者而非外交家的仪式支付报酬。研究会加速，但公共荣光被转向内部消耗。"
 
  tv_academy_leader_gender_law: "领袖性别限制"
- tv_academy_leader_gender_law_desc: "科学院决定首席科学家一职是否仍仅限男性，或允许任何合格学者担任。"
+ tv_academy_leader_gender_law_desc: "[tv_academy_of_sciences|E]决定首席科学家一职是否仍仅限男性，或允许任何合格学者担任。"
  tv_academy_leader_gender_male_only_policy: "仅男性"
  tv_academy_leader_gender_male_only_policy_desc: "首席科学家必须为男性。此政策生效时，女性角色不能被选择担任该职位。"
  tv_academy_leader_gender_male_only_policy_effect_tt: "领袖只能选择男性。"
  tv_academy_leader_gender_unrestricted_policy: "无限制"
- tv_academy_leader_gender_unrestricted_policy_desc: "科学院以学识与贡献评判候选人，而非性别。任何符合其他条件的角色均可被选择为首席科学家。"
+ tv_academy_leader_gender_unrestricted_policy_desc: "[tv_academy_of_sciences|E]以学识与贡献评判候选人，而非性别。任何符合其他条件的角色均可被选择为首席科学家。"
  tv_academy_leader_gender_unrestricted_policy_effect_tt: "领袖选择无性别限制。"
 
  # ── 科学院加入事件（tv_academy.1）─────────────────────────────────────────────
- tv_academy.1.t: "科学院：科学院建成"
+ tv_academy.1.t: "[tv_academy_of_sciences|E]：第一厅堂启幕"
  tv_academy.1.d: "[tv_academy_of_sciences|E]的第一次正式会议在仍有新木气味的梁柱下开场。学者们带着仪器、批注手稿、旧日争执，以及终于拥有提问之所的危险喜悦陆续抵达。宫廷称之为机构，年轻学生却已经把它称作开端。从今天起，国家的好奇心将拥有账簿、长凳、俸禄与期限。[tv_research_mechanism|E]如今能够把零散才智转化为有纪律的计划。自然并未因此变得顺从，但它终于被传唤到场。"
  tv_academy.1.a: "让学者入座，点亮灯火。"
  tv_science_m1_io_grant_tt: "我们将可以使用[tv_academy_of_sciences|e]机制，见国际组织界面。"
 
  # ── 局势面板 UI 标签 ─────────────────────────────────────────────────────────
- TV_ACADEMY_IO_HEADER: "科学院"
+ TV_ACADEMY_IO_HEADER: "[tv_academy_of_sciences|E]"
  TV_ACADEMY_JOINED_LABEL: "已建立："
  TV_ACADEMY_JOINED_YES: "是"
  TV_ACADEMY_JOINED_NO: "否"
@@ -105,9 +105,9 @@
  # ── 科学院建筑维护生产方式 ───────────────────────────────────────────────────
  tv_academy_1_maintenance: "学者维护"
  tv_academy_2_maintenance: "研究所维护"
- tv_academy_3_maintenance: "科学院维护"
- tv_academy_4_maintenance: "皇家科学院维护"
- tv_academy_5_maintenance: "帝国科学院维护"
+ tv_academy_3_maintenance: "[tv_academy_of_sciences|E]维护"
+ tv_academy_4_maintenance: "皇家[tv_academy_of_sciences|E]维护"
+ tv_academy_5_maintenance: "帝国[tv_academy_of_sciences|E]维护"
 
  # ── IO 领袖管理 ───────────────────────────────────────────────────────────────
  tv_appoint_academy_leader: "任命首席科学家"
@@ -119,16 +119,16 @@
  tv_select_academy_leader: "选择首席科学家"
  tv_no_academy_leader_available: "@trigger_no! 没有符合条件的角色可供选择。"
 
- PERFORM_tv_appoint_academy_leader_ACTION_SETUP: "当我们任命科学院首席科学家时。"
- PERFORM_tv_appoint_academy_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为科学院首席科学家。"
+ PERFORM_tv_appoint_academy_leader_ACTION_SETUP: "当我们任命[tv_academy_of_sciences|E]首席科学家时。"
+ PERFORM_tv_appoint_academy_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为[tv_academy_of_sciences|E]首席科学家。"
  PERFORM_tv_appoint_academy_leader_ACTION_MAP: ""
 
- PERFORM_tv_remove_academy_leader_ACTION_SETUP: "当我们解除科学院首席科学家职务时。"
- PERFORM_tv_remove_academy_leader_ACTION_LOG: "我们解除了科学院首席科学家的职务。"
+ PERFORM_tv_remove_academy_leader_ACTION_SETUP: "当我们解除[tv_academy_of_sciences|E]首席科学家职务时。"
+ PERFORM_tv_remove_academy_leader_ACTION_LOG: "我们解除了[tv_academy_of_sciences|E]首席科学家的职务。"
  PERFORM_tv_remove_academy_leader_ACTION_MAP: ""
 
- PERFORM_tv_change_academy_leader_ACTION_SETUP: "当我们更换科学院首席科学家时。"
- PERFORM_tv_change_academy_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为科学院新任首席科学家。"
+ PERFORM_tv_change_academy_leader_ACTION_SETUP: "当我们更换[tv_academy_of_sciences|E]首席科学家时。"
+ PERFORM_tv_change_academy_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为[tv_academy_of_sciences|E]新任首席科学家。"
  PERFORM_tv_change_academy_leader_ACTION_MAP: ""
 
  # ── 科学院领袖角色头衔前缀 ──────────────────────────────────────────────────────
@@ -137,6 +137,6 @@
  STATIC_MODIFIER_NAME_tv_chief_scientist_role_modifier: "首席科学家"
 
  # ── 首席科学家死亡事件（tv_academy.10）──────────────────────────────────────────
- tv_academy.10.t: "科学院：首席科学家已逝世"
- tv_academy.10.d: "[tv_chief_scientist|E]已经离世，消息在[tv_academy_of_sciences|E]中传播得比任何钟声都更安静。助手们盖上仪器，书记合起未完成的账册，昨日还显得急迫的争论忽然失去了主持声音。[tv_concentrated_research|E]不能只靠名声继续；它需要一个活着的头脑来整理混乱。有些学生在悼念老师，也有人已经低声议论继任。科学院依然矗立，但正中的椅子空了下来。"
+ tv_academy.10.t: "[tv_academy_of_sciences|E]：[tv_chief_scientist|E]已逝世"
+ tv_academy.10.d: "[tv_chief_scientist|E]已经离世，消息在[tv_academy_of_sciences|E]中传播得比任何钟声都更安静。助手们盖上仪器，书记合起未完成的账册，昨日还显得急迫的争论忽然失去了主持声音。[tv_concentrated_research|E]不能只靠名声继续；它需要一个活着的头脑来整理混乱。有些学生在悼念老师，也有人已经低声议论继任。[tv_academy_of_sciences|E]依然矗立，但正中的椅子空了下来。"
  tv_academy.10.a: "找到下一位能镇住厅堂的头脑。"
