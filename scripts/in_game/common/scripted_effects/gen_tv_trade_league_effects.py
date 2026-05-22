@@ -69,9 +69,11 @@ tv_trade_league_create_effect = {
 
 UPDATE_PREFIX = """\
 tv_trade_league_update_monopolies_effect = {
+\thidden_effect = {
 """
 
 UPDATE_SUFFIX = """\
+\t}
 }
 """
 
@@ -134,11 +136,13 @@ tv_trade_league_remove_virtual_demand_{good}_effect = {{
 
 def suspend_demands_effect(goods: list[str]) -> str:
     removals = "\n".join(
-        f"\ttv_trade_league_remove_virtual_demand_{good}_effect = yes" for good in goods
+        f"\t\ttv_trade_league_remove_virtual_demand_{good}_effect = yes" for good in goods
     )
     return f"""\
 tv_trade_league_suspend_virtual_demands_effect = {{
+\thidden_effect = {{
 {removals}
+\t}}
 }}
 
 """
