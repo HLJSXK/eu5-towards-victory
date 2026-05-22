@@ -394,11 +394,12 @@ TABLE_HEADER = """\
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
 \t\t\t\t\t\t\t\t\t\tsize = { 462 24 }
 \t\t\t\t\t\t\t\t\t\tspacing = 4
-\t\t\t\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 90 22 } text_single = { size = { 90 22 } text = "TV_TRADE_LEAGUE_GOOD_COLUMN" align = nobaseline|left } }
-\t\t\t\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 88 22 } text_single = { size = { 88 22 } text = "TV_TRADE_LEAGUE_WORLD_COLUMN" align = nobaseline|right } }
-\t\t\t\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 88 22 } text_single = { size = { 88 22 } text = "TV_TRADE_LEAGUE_IO_COLUMN" align = nobaseline|right } }
-\t\t\t\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 88 22 } text_single = { size = { 88 22 } text = "TV_TRADE_LEAGUE_MONOPOLY_COLUMN" align = nobaseline|center } }
-\t\t\t\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 92 22 } text_single = { size = { 92 22 } text = "TV_TRADE_LEAGUE_LEVEL_COLUMN" align = nobaseline|right } }
+\t\t\t\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 86 22 } text_single = { size = { 86 22 } text = "TV_TRADE_LEAGUE_GOOD_COLUMN" align = nobaseline|left } }
+\t\t\t\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 72 22 } text_single = { size = { 72 22 } text = "TV_TRADE_LEAGUE_ORIGIN_CONTROL_COLUMN" align = nobaseline|right } }
+\t\t\t\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 72 22 } text_single = { size = { 72 22 } text = "TV_TRADE_LEAGUE_NODE_CONTROL_COLUMN" align = nobaseline|right } }
+\t\t\t\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 72 22 } text_single = { size = { 72 22 } text = "TV_TRADE_LEAGUE_CONSUMER_CONTROL_COLUMN" align = nobaseline|right } }
+\t\t\t\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 62 22 } text_single = { size = { 62 22 } text = "TV_TRADE_LEAGUE_MONOPOLY_COLUMN" align = nobaseline|center } }
+\t\t\t\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 78 22 } text_single = { size = { 78 22 } text = "TV_TRADE_LEAGUE_LEVEL_COLUMN" align = nobaseline|right } }
 \t\t\t\t\t\t\t\t\t}
 \t\t\t\t\t\t\t\t}
 """
@@ -506,11 +507,11 @@ def monopoly_row(good: str, index: int, category: dict, default_category: bool =
 \t\t\t\t\t\t\t\t\t\twidget = {{
 \t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 90 24 }}
+\t\t\t\t\t\t\t\t\t\t\tsize = {{ 86 24 }}
 \t\t\t\t\t\t\t\t\t\t\thbox = {{
 \t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 90 24 }}
+\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 86 24 }}
 \t\t\t\t\t\t\t\t\t\t\t\tspacing = 2
 \t\t\t\t\t\t\t\t\t\t\ticon = {{
 \t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 20 20 }}
@@ -526,29 +527,39 @@ def monopoly_row(good: str, index: int, category: dict, default_category: bool =
 \t\t\t\t\t\t\t\t\twidget = {{
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 88 24 }}
+\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
 \t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 88 24 }}
-\t\t\t\t\t\t\t\t\t\t\traw_text = "@production_panel! [InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_global_{good}').GetValue|0]"
+\t\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
+\t\t\t\t\t\t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_origin_control_pct_{good}').GetValue|0]%"
 \t\t\t\t\t\t\t\t\t\t\talign = nobaseline|right
 \t\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\twidget = {{
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 88 24 }}
+\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
 \t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 88 24 }}
-\t\t\t\t\t\t\t\t\t\t\traw_text = "@trade! [InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_io_{good}').GetValue|0]"
+\t\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
+\t\t\t\t\t\t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_node_control_pct_{good}').GetValue|0]%"
 \t\t\t\t\t\t\t\t\t\t\talign = nobaseline|right
 \t\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\twidget = {{
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 88 24 }}
+\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
 \t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 88 24 }}
+\t\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
+\t\t\t\t\t\t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_consumer_control_pct_{good}').GetValue|0]%"
+\t\t\t\t\t\t\t\t\t\t\talign = nobaseline|right
+\t\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\twidget = {{
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\t\tsize = {{ 62 24 }}
+\t\t\t\t\t\t\t\t\t\ttext_single = {{
+\t\t\t\t\t\t\t\t\t\t\tsize = {{ 62 24 }}
 \t\t\t\t\t\t\t\t\t\t\tvisible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_{good}').GetValue, '(CFixedPoint)1.0')]"
 \t\t\t\t\t\t\t\t\t\t\traw_text = "@trigger_yes!"
 \t\t\t\t\t\t\t\t\t\t\talign = nobaseline|center
@@ -557,9 +568,9 @@ def monopoly_row(good: str, index: int, category: dict, default_category: bool =
 \t\t\t\t\t\t\t\t\twidget = {{
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 92 24 }}
+\t\t\t\t\t\t\t\t\t\tsize = {{ 78 24 }}
 \t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 92 24 }}
+\t\t\t\t\t\t\t\t\t\t\tsize = {{ 78 24 }}
 \t\t\t\t\t\t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue|0]%"
 \t\t\t\t\t\t\t\t\t\t\talign = nobaseline|right
 \t\t\t\t\t\t\t\t\t\t}}
@@ -679,14 +690,14 @@ def io_variable(variable: str) -> str:
     return f"InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('{variable}')"
 
 
-def market_metric_cell(good: str, prefix: str, rank: int, field: str, label: str) -> str:
+def market_metric_cell(good: str, prefix: str, rank: int, field: str) -> str:
     variable = io_variable(f"tv_trade_{prefix}_{field}_{rank}_{good}")
     return f"""\
 \t\t\t\t\t\t\t\t\t\twidget = {{
 \t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
 \t\t\t\t\t\t\t\t\t\t\tsize = {{ 68 20 }}
-\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 68 20 }} raw_text = "{label} [{variable}.GetValue|0]" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 68 20 }} raw_text = "[{variable}.GetValue|0]" align = nobaseline|right }}
 \t\t\t\t\t\t\t\t\t\t}}
 """
 
@@ -694,6 +705,8 @@ def market_metric_cell(good: str, prefix: str, rank: int, field: str, label: str
 def market_info_row(good: str, prefix: str, rank: int) -> str:
     market_var = io_variable(f"tv_trade_{prefix}_market_{rank}_{good}")
     control_var = io_variable(f"tv_trade_{prefix}_control_pct_{rank}_{good}")
+    route_total_field = "total_import" if prefix == "consumer" else "total_export"
+    route_io_field = "io_import" if prefix == "consumer" else "io_export"
     row_set_visible = f"[{market_var}.IsSet]"
     row_empty_visible = f"[Not({market_var}.IsSet)]"
     return f"""\
@@ -715,7 +728,7 @@ def market_info_row(good: str, prefix: str, rank: int) -> str:
 \t\t\t\t\t\t\t\t\t\tsize = {{ 44 20 }}
 \t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 44 20 }} raw_text = "[{control_var}.GetValue|0]%" align = nobaseline|right }}
 \t\t\t\t\t\t\t\t\t}}
-{market_metric_cell(good, prefix, rank, "produced", "P")}{market_metric_cell(good, prefix, rank, "traded", "T")}{market_metric_cell(good, prefix, rank, "supply", "S")}{market_metric_cell(good, prefix, rank, "demand", "D")}\t\t\t\t\t\t\t\t}}
+{market_metric_cell(good, prefix, rank, "local_demand")}{market_metric_cell(good, prefix, rank, "local_production")}{market_metric_cell(good, prefix, rank, route_total_field)}{market_metric_cell(good, prefix, rank, route_io_field)}\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\thbox = {{
 \t\t\t\t\t\t\t\t\tvisible = "{row_empty_visible}"
 \t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
@@ -734,6 +747,16 @@ def market_info_row(good: str, prefix: str, rank: int) -> str:
 
 def market_info_section(good: str, prefix: str, title: str) -> str:
     rows = "".join(market_info_row(good, prefix, rank) for rank in range(1, 4))
+    route_total_column = (
+        "TV_TRADE_LEAGUE_TOTAL_IMPORT_COLUMN"
+        if prefix == "consumer"
+        else "TV_TRADE_LEAGUE_TOTAL_EXPORT_COLUMN"
+    )
+    route_io_column = (
+        "TV_TRADE_LEAGUE_IO_IMPORT_COLUMN"
+        if prefix == "consumer"
+        else "TV_TRADE_LEAGUE_IO_EXPORT_COLUMN"
+    )
     return f"""\
 \t\t\t\t\t\t\t\tvbox = {{
 \t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
@@ -757,10 +780,10 @@ def market_info_section(good: str, prefix: str, title: str) -> str:
 \t\t\t\t\t\t\t\t\t\t\tspacing = 4
 \t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 126 20 }} text_single = {{ size = {{ 126 20 }} text = "TV_TRADE_LEAGUE_MARKET_COLUMN" align = nobaseline|left }} }}
 \t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 44 20 }} text_single = {{ size = {{ 44 20 }} text = "TV_TRADE_LEAGUE_CONTROL_COLUMN" align = nobaseline|right }} }}
-\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "P" align = nobaseline|right }} }}
-\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "T" align = nobaseline|right }} }}
-\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "S" align = nobaseline|right }} }}
-\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} raw_text = "D" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} text = "TV_TRADE_LEAGUE_LOCAL_DEMAND_COLUMN" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} text = "TV_TRADE_LEAGUE_LOCAL_PRODUCTION_COLUMN" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} text = "{route_total_column}" align = nobaseline|right }} }}
+\t\t\t\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 68 20 }} text_single = {{ size = {{ 68 20 }} text = "{route_io_column}" align = nobaseline|right }} }}
 \t\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\t}}
 {rows}\t\t\t\t\t\t\t\t}}
@@ -769,7 +792,7 @@ def market_info_section(good: str, prefix: str, title: str) -> str:
 
 def market_intelligence(good: str) -> str:
     return (
-        market_info_section(good, "prod", "TV_TRADE_LEAGUE_PRODUCTION_MARKETS_TITLE")
+        market_info_section(good, "origin", "TV_TRADE_LEAGUE_PRODUCTION_MARKETS_TITLE")
         + market_info_section(good, "node", "TV_TRADE_LEAGUE_KEY_NODES_TITLE")
         + market_info_section(good, "consumer", "TV_TRADE_LEAGUE_CONSUMER_MARKETS_TITLE")
     )

@@ -123,12 +123,12 @@
   pattern: ''
   detectability: advisory
   only_in_paths: ['tv_trade_league_effects', 'gen_tv_trade_league_effects']
-  bad: "Trade League monopoly production/trade totals computed from effective production building levels or member-present market totals"
-  correction: "Use produced_in_world:<good> for global goods production, and sum each IO member country's every_trade entries filtered by goods = goods:<good> with trade_volume for member-owned goods trade."
+  bad: "Trade League monopoly control computed from produced/traded/supply market proxies or old global-vs-IO goods totals"
+  correction: "Use annual top-3 origin/node/consumer market markers, then compute control from market every_export/every_import routes filtered by goods = goods:<good> and summed with trade_volume."
   category: script
   scope: international_organization
-  source: "reference_game_files/game/in_game/common/trigger_localization/common_triggers.txt:107; reference_game_files/game/in_game/common/trigger_localization/trade_triggers.txt:8"
-  notes: "total_effective_goods_production_buildings counts producing building levels, not goods output; traded_in_market:<good> is a market total and double-counts shared markets when iterated once per IO member."
+  source: "user-reported runtime behavior in Trade League monopoly metrics (2026-05-22); reference_game_files/game/in_game/events/economy/slave_trade.txt:43-48; reference_game_files/game/in_game/events/government/republic_factions.txt:148"
+  notes: "produced_in_market:<good> and goods_demand_in_market(goods:<good>) are valid only for the requested origin/consumer ranking inputs; traded_in_market and goods_supply_in_market are not route volume. Export control uses market every_export trade_volume; consumer control uses market every_import trade_volume."
 
 - id: dynamic_scope_value_must_use_script_value_block
   pattern: ''

@@ -24,14 +24,16 @@ OUT_FILE = (
     / "tv_trade_league.txt"
 )
 
-TOP_MARKET_PREFIXES = ("prod", "node", "consumer")
-TOP_MARKET_NUMERIC_FIELDS = (
+MARKET_PREFIXES = ("origin", "node", "consumer")
+MARKET_NUMERIC_FIELDS = (
     "score",
+    "local_production",
+    "local_demand",
+    "total_export",
+    "total_import",
+    "io_export",
+    "io_import",
     "control_pct",
-    "produced",
-    "traded",
-    "supply",
-    "demand",
 )
 
 HEADER = """\
@@ -152,16 +154,15 @@ def variable_entry(name: str, value_format: str = "TV_TRADE_MONOPOLY_VALUE_FORMA
 def variable_block(good: str) -> str:
     entries = []
     plain_suffixes = (
-        "global",
-        "io",
         "monopoly",
-        "monopoly_level",
-        "used_monopoly_level",
     )
     percent_suffixes = (
         "monopoly_level_pct",
         "used_monopoly_level_pct",
         "available_monopoly_level_pct",
+        "origin_control_pct",
+        "node_control_pct",
+        "consumer_control_pct",
     )
     action_suffixes = (
         "virtual_demand_active",
@@ -182,9 +183,9 @@ def variable_block(good: str) -> str:
         )
     for suffix in action_suffixes:
         entries.append(variable_entry(f"tv_trade_{suffix}_{good}"))
-    for prefix in TOP_MARKET_PREFIXES:
+    for prefix in MARKET_PREFIXES:
         for rank in range(1, 4):
-            for field in TOP_MARKET_NUMERIC_FIELDS:
+            for field in MARKET_NUMERIC_FIELDS:
                 value_format = (
                     "TV_TRADE_MONOPOLY_PERCENT_FORMAT"
                     if field == "control_pct"

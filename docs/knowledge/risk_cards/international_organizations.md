@@ -48,13 +48,14 @@ that create, find, or mutate TV IOs.
    Wrap IO membership checks in `scope:actor = { ... }`; direct country-scoped IO iterators
    under `potential` can evaluate from an invalid root.
 
-10. Use real goods quantity metrics for IO trade systems.
-   For world goods production totals, use `produced_in_world:<good>`. For an IO's member-owned
-   goods trade, iterate `every_international_organization_member = { every_trade = { ... } }`,
-   filter with `goods = goods:<good>`, and sum `trade_volume`. Do not substitute
-   `total_effective_goods_production_buildings(goods:<good>)` or member `every_market_present_in_country`
-   plus `traded_in_market:<good>`; those count building levels or full market totals instead of
-   member-owned goods quantities.
+10. Use route `trade_volume` for Trade League market control.
+   For the Trade League monopoly system, annual global refresh may rank origin markets by
+   `produced_in_market:<good>` and consumer markets by `goods_demand_in_market(goods:<good>)`,
+   but route control itself must come from market export/import iterators. Sum market
+   `every_export` entries filtered by `goods = goods:<good>` for origin/node export control,
+   and market `every_import` entries for consumer import control, reading `trade_volume`.
+   Do not substitute `traded_in_market:<good>`, `goods_supply_in_market`, or member-present
+   market totals; those are market availability/proxy values, not member-owned route volume.
 
 ## Validation
 

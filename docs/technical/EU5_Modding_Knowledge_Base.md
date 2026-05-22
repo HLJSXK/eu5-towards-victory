@@ -326,6 +326,8 @@ every_trade = {
 
 For IO member trade totals, wrap the same trade-object loop in `every_international_organization_member`. Avoid summing `traded_in_market:<good>` from `every_market_present_in_country` when the design asks for member-owned trade; `traded_in_market:<good>` is the whole market's traded quantity and shared markets can be counted once per member.
 
+When a mechanic needs market route control rather than a country's own trade, iterate the market's route groups and read `trade_volume` from the export/import entries. This is the required pattern for Trade League monopoly control: origin and node slots use market `every_export` routes filtered by `goods = goods:<good>`, while consumer slots use market `every_import` routes. `produced_in_market:<good>` and `goods_demand_in_market(goods:<good>)` are useful ranking inputs for origin and consumer markets, but `traded_in_market:<good>` and `goods_supply_in_market` are not reliable route-volume proxies.
+
 ### 5.2. Scopes and Scope Links
 
 A **scope** refers to the specific game object (e.g., a country, a character, a location) that a script is currently focused on. **Scope links** are used to access data from or apply effects to other scopes. For example, `c:FRA.gold` would access the treasury of the country with the tag FRA.

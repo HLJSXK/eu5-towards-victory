@@ -1,8 +1,13 @@
 """
 Generate src/in_game/common/scripted_effects/tv_trade_league_effects.txt.
 
-The monthly monopoly update repeats the same production, trade, and monopoly
-calculation for every tracked good, so the effect is generated from data.
+The Trade League monopoly system has two generated refresh layers:
+
+- a global 365-day marker refresh that finds the top origin, node, and consumer
+  markets for each good and stores those marker locations plus denominators in
+  global variables;
+- a monthly per-IO refresh that reuses those marker markets, sums only the IO
+  members' export/import trade_volume there, and derives the monopoly flag.
 """
 
 import sys
@@ -67,9 +72,36 @@ tv_trade_league_create_effect = {
 
 """
 
+REFRESH_IF_NEEDED_EFFECT = """\
+tv_trade_league_refresh_monopoly_markets_if_needed_effect = {
+\thidden_effect = {
+\t\tif = {
+\t\t\tlimit = {
+\t\t\t\tNOT = { has_global_variable = tv_trade_monopoly_markets_refresh_cooldown }
+\t\t\t}
+\t\t\ttv_trade_league_refresh_monopoly_markets_effect = yes
+\t\t\tset_global_variable = { name = tv_trade_monopoly_markets_refresh_cooldown value = yes days = 365 }
+\t\t}
+\t}
+}
+
+"""
+
+GLOBAL_REFRESH_PREFIX = """\
+tv_trade_league_refresh_monopoly_markets_effect = {
+\thidden_effect = {
+"""
+
+GLOBAL_REFRESH_SUFFIX = """\
+\t}
+}
+
+"""
+
 UPDATE_PREFIX = """\
 tv_trade_league_update_monopolies_effect = {
 \thidden_effect = {
+\t\ttv_trade_league_refresh_monopoly_markets_if_needed_effect = yes
 """
 
 UPDATE_SUFFIX = """\
@@ -77,25 +109,20 @@ UPDATE_SUFFIX = """\
 }
 """
 
-TOP_MARKET_PREFIXES = ("prod", "node", "consumer")
-TOP_MARKET_NUMERIC_FIELDS = (
+MARKET_PREFIXES = ("origin", "node", "consumer")
+STATIC_MARKET_FIELDS = (
     "score",
-    "control_pct",
-    "produced",
-    "traded",
-    "supply",
-    "demand",
+    "local_production",
+    "local_demand",
+    "total_export",
+    "total_import",
 )
-TOP_MARKET_CANDIDATE_FIELDS = (
-    "score",
+MONTHLY_MARKET_FIELDS = STATIC_MARKET_FIELDS + (
+    "io_export",
+    "io_import",
     "control_pct",
-    "produced",
-    "traded",
-    "supply",
-    "demand",
-    "total",
-    "io",
 )
+CANDIDATE_FIELDS = STATIC_MARKET_FIELDS
 
 
 def eu5_number(value: float) -> str:
@@ -197,36 +224,58 @@ tv_trade_league_suspend_virtual_supplies_effect = {{
 """
 
 
-def top_market_var(prefix: str, field: str, rank: int, good: str) -> str:
-    return f"tv_trade_{prefix}_{field}_{rank}_{good}"
-
-
-def top_market_location_var(prefix: str, rank: int, good: str) -> str:
+def market_var(prefix: str, rank: int, good: str) -> str:
     return f"tv_trade_{prefix}_market_{rank}_{good}"
 
 
-def clear_top_market_block(good: str) -> str:
-    lines = []
-    for prefix in TOP_MARKET_PREFIXES:
+def market_field_var(prefix: str, field: str, rank: int, good: str) -> str:
+    return f"tv_trade_{prefix}_{field}_{rank}_{good}"
+
+
+def aggregate_control_var(prefix: str, good: str) -> str:
+    return f"tv_trade_{prefix}_control_pct_{good}"
+
+
+def clear_io_markets_block(good: str, indent: str = "\t") -> str:
+    lines: list[str] = []
+    for prefix in MARKET_PREFIXES:
         for rank in range(1, 4):
-            lines.append(f"\tremove_variable = {top_market_location_var(prefix, rank, good)}")
-            for field in TOP_MARKET_NUMERIC_FIELDS:
+            lines.append(f"{indent}remove_variable = {market_var(prefix, rank, good)}")
+            for field in MONTHLY_MARKET_FIELDS:
                 lines.append(
-                    f"\tset_variable = {{ name = {top_market_var(prefix, field, rank, good)} value = 0 }}"
+                    f"{indent}set_variable = {{ name = {market_field_var(prefix, field, rank, good)} value = 0 }}"
                 )
-    for field in TOP_MARKET_CANDIDATE_FIELDS:
-        lines.append(f"\tremove_variable = tv_trade_market_candidate_{field}")
+    for prefix in MARKET_PREFIXES:
+        lines.append(
+            f"{indent}set_variable = {{ name = {aggregate_control_var(prefix, good)} value = 0 }}"
+        )
+    for field in CANDIDATE_FIELDS:
+        lines.append(f"{indent}remove_variable = tv_trade_market_candidate_{field}")
     return "\n".join(lines)
 
 
-def copy_top_market_rank(prefix: str, src_rank: int, dst_rank: int, good: str, indent: str) -> str:
+def clear_global_markets_block(good: str, indent: str = "\t") -> str:
+    lines: list[str] = [
+        f"{indent}remove_global_variable = tv_trade_global_{good}",
+    ]
+    for prefix in MARKET_PREFIXES:
+        for rank in range(1, 4):
+            lines.append(f"{indent}remove_global_variable = {market_var(prefix, rank, good)}")
+            for field in STATIC_MARKET_FIELDS:
+                lines.append(
+                    f"{indent}set_global_variable = {{ name = {market_field_var(prefix, field, rank, good)} value = 0 }}"
+                )
+    return "\n".join(lines)
+
+
+def copy_io_rank(prefix: str, src_rank: int, dst_rank: int, good: str, indent: str) -> str:
     lines = []
-    for field in TOP_MARKET_NUMERIC_FIELDS:
+    for field in STATIC_MARKET_FIELDS:
         lines.append(
-            f"{indent}set_variable = {{ name = {top_market_var(prefix, field, dst_rank, good)} value = var:{top_market_var(prefix, field, src_rank, good)} }}"
+            f"{indent}set_variable = {{ name = {market_field_var(prefix, field, dst_rank, good)} value = var:{market_field_var(prefix, field, src_rank, good)} }}"
         )
-    src_market = top_market_location_var(prefix, src_rank, good)
-    dst_market = top_market_location_var(prefix, dst_rank, good)
+    src_market = market_var(prefix, src_rank, good)
+    dst_market = market_var(prefix, dst_rank, good)
     lines.extend(
         [
             f"{indent}if = {{",
@@ -238,140 +287,200 @@ def copy_top_market_rank(prefix: str, src_rank: int, dst_rank: int, good: str, i
     return "\n".join(lines)
 
 
-def assign_candidate_to_rank(prefix: str, rank: int, good: str, indent: str) -> str:
+def assign_candidate_to_io_rank(prefix: str, rank: int, good: str, indent: str) -> str:
     lines = [
-        f"{indent}set_variable = {{ name = {top_market_location_var(prefix, rank, good)} value = scope:tv_trade_candidate_market_location }}"
+        f"{indent}set_variable = {{ name = {market_var(prefix, rank, good)} value = scope:tv_trade_candidate_market_location }}",
     ]
-    for field in TOP_MARKET_NUMERIC_FIELDS:
+    for field in STATIC_MARKET_FIELDS:
         lines.append(
-            f"{indent}set_variable = {{ name = {top_market_var(prefix, field, rank, good)} value = var:tv_trade_market_candidate_{field} }}"
+            f"{indent}set_variable = {{ name = {market_field_var(prefix, field, rank, good)} value = var:tv_trade_market_candidate_{field} }}"
         )
     return "\n".join(lines)
 
 
-def insert_candidate_block(prefix: str, good: str, indent: str) -> str:
-    score_1 = top_market_var(prefix, "score", 1, good)
-    score_2 = top_market_var(prefix, "score", 2, good)
-    score_3 = top_market_var(prefix, "score", 3, good)
+def insert_candidate_io_block(prefix: str, good: str, indent: str) -> str:
+    score_1 = market_field_var(prefix, "score", 1, good)
+    score_2 = market_field_var(prefix, "score", 2, good)
+    score_3 = market_field_var(prefix, "score", 3, good)
     inner = indent + "\t"
     return f"""{indent}if = {{
-{indent}\tlimit = {{ var:tv_trade_market_candidate_score > var:{score_1} }}
-{copy_top_market_rank(prefix, 2, 3, good, inner)}
-{copy_top_market_rank(prefix, 1, 2, good, inner)}
-{assign_candidate_to_rank(prefix, 1, good, inner)}
+{indent}\tlimit = {{
+{indent}\t\tvar:tv_trade_market_candidate_score > 0
+{indent}\t\tvar:tv_trade_market_candidate_score > var:{score_1}
+{indent}\t}}
+{copy_io_rank(prefix, 2, 3, good, inner)}
+{copy_io_rank(prefix, 1, 2, good, inner)}
+{assign_candidate_to_io_rank(prefix, 1, good, inner)}
 {indent}}}
 {indent}else_if = {{
-{indent}\tlimit = {{ var:tv_trade_market_candidate_score > var:{score_2} }}
-{copy_top_market_rank(prefix, 2, 3, good, inner)}
-{assign_candidate_to_rank(prefix, 2, good, inner)}
+{indent}\tlimit = {{
+{indent}\t\tvar:tv_trade_market_candidate_score > 0
+{indent}\t\tvar:tv_trade_market_candidate_score > var:{score_2}
+{indent}\t}}
+{copy_io_rank(prefix, 2, 3, good, inner)}
+{assign_candidate_to_io_rank(prefix, 2, good, inner)}
 {indent}}}
 {indent}else_if = {{
-{indent}\tlimit = {{ var:tv_trade_market_candidate_score > var:{score_3} }}
-{assign_candidate_to_rank(prefix, 3, good, inner)}
+{indent}\tlimit = {{
+{indent}\t\tvar:tv_trade_market_candidate_score > 0
+{indent}\t\tvar:tv_trade_market_candidate_score > var:{score_3}
+{indent}\t}}
+{assign_candidate_to_io_rank(prefix, 3, good, inner)}
 {indent}}}"""
 
 
-def candidate_stats_block(good: str) -> str:
-    return f"""\t\tscope:tv_trade_monopoly_io = {{
-\t\t\tset_variable = {{ name = tv_trade_market_candidate_produced value = {{ value = scope:tv_trade_candidate_market.produced_in_market:{good} }} }}
-\t\t\tset_variable = {{ name = tv_trade_market_candidate_traded value = {{ value = scope:tv_trade_candidate_market.traded_in_market:{good} }} }}
-\t\t\tset_variable = {{ name = tv_trade_market_candidate_supply value = {{ value = "scope:tv_trade_candidate_market.goods_supply_in_market(goods:{good})" }} }}
-\t\t\tset_variable = {{ name = tv_trade_market_candidate_demand value = {{ value = "scope:tv_trade_candidate_market.goods_demand_in_market(goods:{good})" }} }}
-\t\t}}"""
-
-
-def route_control_block(good: str, iterator: str) -> str:
-    return f"""\t\tset_local_variable = {{ name = tv_trade_candidate_total value = 0 }}
-\t\tset_local_variable = {{ name = tv_trade_candidate_io value = 0 }}
-\t\t{iterator} = {{
+def candidate_static_stats_block(good: str) -> str:
+    return f"""\t\tset_local_variable = {{ name = tv_trade_candidate_total_export value = 0 }}
+\t\tset_local_variable = {{ name = tv_trade_candidate_total_import value = 0 }}
+\t\tevery_export = {{
 \t\t\tlimit = {{ goods = goods:{good} }}
-\t\t\tchange_local_variable = {{ name = tv_trade_candidate_total add = trade_volume }}
-\t\t\tif = {{
-\t\t\t\tlimit = {{ owner ?= {{ is_member_of_international_organization = scope:tv_trade_monopoly_io }} }}
-\t\t\t\tchange_local_variable = {{ name = tv_trade_candidate_io add = trade_volume }}
-\t\t\t}}
+\t\t\tchange_local_variable = {{ name = tv_trade_candidate_total_export add = trade_volume }}
+\t\t}}
+\t\tevery_import = {{
+\t\t\tlimit = {{ goods = goods:{good} }}
+\t\t\tchange_local_variable = {{ name = tv_trade_candidate_total_import add = trade_volume }}
 \t\t}}
 \t\tscope:tv_trade_monopoly_io = {{
-\t\t\tset_variable = {{ name = tv_trade_market_candidate_total value = local_var:tv_trade_candidate_total }}
-\t\t\tset_variable = {{ name = tv_trade_market_candidate_io value = local_var:tv_trade_candidate_io }}
-\t\t\tset_variable = {{ name = tv_trade_market_candidate_control_pct value = 0 }}
-\t\t\tif = {{
-\t\t\t\tlimit = {{ var:tv_trade_market_candidate_total > 0 }}
-\t\t\t\tset_variable = {{ name = tv_trade_market_candidate_control_pct value = var:tv_trade_market_candidate_io }}
-\t\t\t\tchange_variable = {{ name = tv_trade_market_candidate_control_pct multiply = 100 }}
-\t\t\t\tchange_variable = {{ name = tv_trade_market_candidate_control_pct divide = var:tv_trade_market_candidate_total }}
-\t\t\t}}
+\t\t\tset_variable = {{ name = tv_trade_market_candidate_local_production value = {{ value = scope:tv_trade_candidate_market.produced_in_market:{good} }} }}
+\t\t\tset_variable = {{ name = tv_trade_market_candidate_local_demand value = {{ value = "scope:tv_trade_candidate_market.goods_demand_in_market(goods:{good})" }} }}
+\t\t\tset_variable = {{ name = tv_trade_market_candidate_total_export value = local_var:tv_trade_candidate_total_export }}
+\t\t\tset_variable = {{ name = tv_trade_market_candidate_total_import value = local_var:tv_trade_candidate_total_import }}
 \t\t}}"""
 
 
-def top_market_update_block(good: str) -> str:
-    return f"""\t# Market intelligence for {good}
-{clear_top_market_block(good)}
+def annual_good_refresh_block(good: str) -> str:
+    return f"""\
+\t# Annual market markers for {good}
+{clear_io_markets_block(good)}
+{clear_global_markets_block(good)}
+\tsave_scope_as = tv_trade_monopoly_io
 \tevery_market_in_world = {{
 \t\tsave_scope_as = tv_trade_candidate_market
 \t\tlocation = {{ save_scope_as = tv_trade_candidate_market_location }}
-{candidate_stats_block(good)}
-{route_control_block(good, "every_export")}
+{candidate_static_stats_block(good)}
 \t\tscope:tv_trade_monopoly_io = {{
-\t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_produced }}
-{insert_candidate_block("prod", good, "\t\t\t")}
-\t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_total }}
-{insert_candidate_block("node", good, "\t\t\t")}
+\t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_local_production }}
+{insert_candidate_io_block("origin", good, "\t\t\t")}
+\t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_total_export }}
+{insert_candidate_io_block("node", good, "\t\t\t")}
+\t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_local_demand }}
+{insert_candidate_io_block("consumer", good, "\t\t\t")}
 \t\t}}
-{route_control_block(good, "every_import")}
-\t\tscope:tv_trade_monopoly_io = {{
-\t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_demand }}
-{insert_candidate_block("consumer", good, "\t\t\t")}
-\t\t}}
+\t\tremove_local_variable = tv_trade_candidate_total_export
+\t\tremove_local_variable = tv_trade_candidate_total_import
 \t}}
-\tremove_local_variable = tv_trade_candidate_total
-\tremove_local_variable = tv_trade_candidate_io
+{copy_io_markers_to_global_block(good)}
 """
 
 
-def good_update_block(good: str) -> str:
-    cost = eu5_number(TRANSPORT_COSTS.get(good, 1.0))
+def copy_io_markers_to_global_block(good: str, indent: str = "\t") -> str:
+    lines: list[str] = []
+    for prefix in MARKET_PREFIXES:
+        for rank in range(1, 4):
+            slot_market = market_var(prefix, rank, good)
+            lines.extend(
+                [
+                    f"{indent}if = {{",
+                    f"{indent}\tlimit = {{ has_variable = {slot_market} }}",
+                    f"{indent}\tset_global_variable = {{ name = {slot_market} value = var:{slot_market} }}",
+                    f"{indent}}}",
+                ]
+            )
+            for field in STATIC_MARKET_FIELDS:
+                slot_field = market_field_var(prefix, field, rank, good)
+                lines.append(
+                    f"{indent}set_global_variable = {{ name = {slot_field} value = var:{slot_field} }}"
+                )
+    return "\n".join(lines)
+
+
+def copy_global_slot_to_io_block(prefix: str, rank: int, good: str, indent: str = "\t") -> str:
+    slot_market = market_var(prefix, rank, good)
+    lines: list[str] = [
+        f"{indent}remove_variable = {slot_market}",
+    ]
+    for field in MONTHLY_MARKET_FIELDS:
+        lines.append(
+            f"{indent}set_variable = {{ name = {market_field_var(prefix, field, rank, good)} value = 0 }}"
+        )
+    lines.extend(
+        [
+            f"{indent}if = {{",
+            f"{indent}\tlimit = {{ has_global_variable = {slot_market} }}",
+            f"{indent}\tset_variable = {{ name = {slot_market} value = global_var:{slot_market} }}",
+        ]
+    )
+    for field in STATIC_MARKET_FIELDS:
+        slot_field = market_field_var(prefix, field, rank, good)
+        lines.extend(
+            [
+                f"{indent}\tif = {{",
+                f"{indent}\t\tlimit = {{ has_global_variable = {slot_field} }}",
+                f"{indent}\t\tset_variable = {{ name = {slot_field} value = global_var:{slot_field} }}",
+                f"{indent}\t}}",
+            ]
+        )
+    lines.append(f"{indent}}}")
+    return "\n".join(lines)
+
+
+def monthly_control_block(good: str, prefix: str, rank: int) -> str:
+    if prefix == "consumer":
+        iterator = "every_import"
+        denominator_field = "total_import"
+        io_field = "io_import"
+    else:
+        iterator = "every_export"
+        denominator_field = "total_export"
+        io_field = "io_export"
+
+    slot_market = market_var(prefix, rank, good)
+    denominator_var = market_field_var(prefix, denominator_field, rank, good)
+    io_var = market_field_var(prefix, io_field, rank, good)
+    control_var = market_field_var(prefix, "control_pct", rank, good)
+
+    return f"""{copy_global_slot_to_io_block(prefix, rank, good)}
+\tvar:{slot_market} ?= {{
+\t\tmarket = {{
+\t\t\tset_local_variable = {{ name = tv_trade_slot_io_total value = 0 }}
+\t\t\t{iterator} = {{
+\t\t\t\tlimit = {{ goods = goods:{good} }}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ owner ?= {{ is_member_of_international_organization = scope:tv_trade_monopoly_io }} }}
+\t\t\t\t\tchange_local_variable = {{ name = tv_trade_slot_io_total add = trade_volume }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t\tscope:tv_trade_monopoly_io = {{
+\t\t\t\tset_variable = {{ name = {io_var} value = local_var:tv_trade_slot_io_total }}
+\t\t\t\tset_variable = {{ name = {control_var} value = 0 }}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ var:{denominator_var} > 0 }}
+\t\t\t\t\tset_variable = {{ name = {control_var} value = var:{io_var} }}
+\t\t\t\t\tchange_variable = {{ name = {control_var} multiply = 100 }}
+\t\t\t\t\tchange_variable = {{ name = {control_var} divide = var:{denominator_var} }}
+\t\t\t\t\tif = {{
+\t\t\t\t\t\tlimit = {{ var:{control_var} > 100 }}
+\t\t\t\t\t\tset_variable = {{ name = {control_var} value = 100 }}
+\t\t\t\t\t}}
+\t\t\t\t}}
+\t\t\t}}
+\t\t\tremove_local_variable = tv_trade_slot_io_total
+\t\t}}
+\t}}"""
+
+
+def aggregate_control_block(good: str, prefix: str) -> str:
+    aggregate_var = aggregate_control_var(prefix, good)
+    return f"""\tset_variable = {{ name = {aggregate_var} value = 0 }}
+\tchange_variable = {{ name = {aggregate_var} add = var:{market_field_var(prefix, "control_pct", 1, good)} }}
+\tchange_variable = {{ name = {aggregate_var} add = var:{market_field_var(prefix, "control_pct", 2, good)} }}
+\tchange_variable = {{ name = {aggregate_var} add = var:{market_field_var(prefix, "control_pct", 3, good)} }}
+\tchange_variable = {{ name = {aggregate_var} divide = 3 }}
+"""
+
+
+def action_accounting_block(good: str, cost: str) -> str:
     return f"""\
-\t# {good}
-\tsave_scope_as = tv_trade_monopoly_io
-\tset_local_variable = {{ name = tv_trade_world_total value = 0 }}
-\tevery_country = {{
-\t\tevery_trade = {{
-\t\t\tlimit = {{ goods = goods:{good} }}
-\t\t\tchange_local_variable = {{ name = tv_trade_world_total add = trade_volume }}
-\t\t}}
-\t}}
-\tset_variable = {{ name = tv_trade_global_{good} value = local_var:tv_trade_world_total }}
-\tset_global_variable = {{ name = tv_trade_global_{good} value = var:tv_trade_global_{good} }}
-
-\tset_local_variable = {{ name = tv_trade_io_total value = 0 }}
-\tevery_international_organization_member = {{
-\t\tevery_trade = {{
-\t\t\tlimit = {{ goods = goods:{good} }}
-\t\t\tchange_local_variable = {{ name = tv_trade_io_total add = trade_volume }}
-\t\t}}
-\t}}
-\tset_variable = {{ name = tv_trade_io_{good} value = local_var:tv_trade_io_total }}
-
-\tset_variable = {{ name = tv_trade_monopoly_{good} value = 0 }}
-\tset_variable = {{ name = tv_trade_monopoly_level_{good} value = 0 }}
-\tif = {{
-\t\tlimit = {{ var:tv_trade_global_{good} > 0 }}
-\t\tset_variable = {{ name = tv_trade_monopoly_level_{good} value = var:tv_trade_io_{good} }}
-\t\tchange_variable = {{ name = tv_trade_monopoly_level_{good} divide = var:tv_trade_global_{good} }}
-\t\tif = {{
-\t\t\tlimit = {{ var:tv_trade_monopoly_level_{good} >= 0.51 }}
-\t\t\tset_variable = {{ name = tv_trade_monopoly_{good} value = 1 }}
-\t\t\tchange_variable = {{ name = tv_trade_monopoly_level_{good} add = 0.1 }}
-\t\t}}
-\t}}
-\tset_variable = {{ name = tv_trade_monopoly_level_pct_{good} value = var:tv_trade_monopoly_level_{good} }}
-\tchange_variable = {{ name = tv_trade_monopoly_level_pct_{good} multiply = 100 }}
-\tif = {{
-\t\tlimit = {{ var:tv_trade_monopoly_level_pct_{good} > 100 }}
-\t\tset_variable = {{ name = tv_trade_monopoly_level_pct_{good} value = 100 }}
-\t}}
-
 \tset_variable = {{ name = tv_trade_virtual_demand_amount_{good} value = {{ value = var:tv_trade_virtual_demand_used_pct_{good} divide = {cost} }} }}
 \tset_variable = {{ name = tv_trade_virtual_supply_amount_{good} value = {{ value = var:tv_trade_virtual_supply_used_pct_{good} divide = {cost} }} }}
 
@@ -389,15 +498,17 @@ def good_update_block(good: str) -> str:
 \t\tset_variable = {{ name = tv_trade_embargo_used_pct_{good} value = 10 }}
 \t\tchange_variable = {{ name = tv_trade_used_monopoly_level_pct_{good} add = 10 }}
 \t}}
-\tset_variable = {{ name = tv_trade_used_monopoly_level_{good} value = var:tv_trade_used_monopoly_level_pct_{good} }}
-\tchange_variable = {{ name = tv_trade_used_monopoly_level_{good} divide = 100 }}
 \tset_variable = {{ name = tv_trade_available_monopoly_level_pct_{good} value = var:tv_trade_monopoly_level_pct_{good} }}
 \tchange_variable = {{ name = tv_trade_available_monopoly_level_pct_{good} subtract = var:tv_trade_used_monopoly_level_pct_{good} }}
 \tif = {{
 \t\tlimit = {{ var:tv_trade_available_monopoly_level_pct_{good} < 0 }}
 \t\tset_variable = {{ name = tv_trade_available_monopoly_level_pct_{good} value = 0 }}
 \t}}
+"""
 
+
+def action_application_block(good: str) -> str:
+    return f"""\
 \tif = {{
 \t\tlimit = {{
 \t\t\tvar:tv_trade_monopoly_{good} >= 1
@@ -452,7 +563,38 @@ def good_update_block(good: str) -> str:
 \t\t\t}}
 \t\t}}
 \t}}
-{top_market_update_block(good)}
+"""
+
+
+def monthly_good_update_block(good: str) -> str:
+    cost = eu5_number(TRANSPORT_COSTS.get(good, 1.0))
+    controls = "\n".join(
+        monthly_control_block(good, prefix, rank)
+        for prefix in MARKET_PREFIXES
+        for rank in range(1, 4)
+    )
+    aggregates = "".join(aggregate_control_block(good, prefix) for prefix in MARKET_PREFIXES)
+    return f"""\
+\t# {good}
+\tsave_scope_as = tv_trade_monopoly_io
+\tremove_variable = tv_trade_global_{good}
+\tremove_variable = tv_trade_io_{good}
+\tremove_variable = tv_trade_monopoly_level_{good}
+\tremove_variable = tv_trade_used_monopoly_level_{good}
+\tset_variable = {{ name = tv_trade_monopoly_{good} value = 0 }}
+\tset_variable = {{ name = tv_trade_monopoly_level_pct_{good} value = 0 }}
+{controls}
+{aggregates}\tset_variable = {{ name = tv_trade_monopoly_level_pct_{good} value = var:tv_trade_origin_control_pct_{good} }}
+\tchange_variable = {{ name = tv_trade_monopoly_level_pct_{good} add = var:tv_trade_node_control_pct_{good} }}
+\tchange_variable = {{ name = tv_trade_monopoly_level_pct_{good} add = var:tv_trade_consumer_control_pct_{good} }}
+\tchange_variable = {{ name = tv_trade_monopoly_level_pct_{good} divide = 3 }}
+\tif = {{
+\t\tlimit = {{ var:tv_trade_monopoly_level_pct_{good} >= 51 }}
+\t\tset_variable = {{ name = tv_trade_monopoly_{good} value = 1 }}
+\t}}
+
+{action_accounting_block(good, cost)}
+{action_application_block(good)}
 """
 
 
@@ -493,7 +635,8 @@ def generate(data: dict) -> str:
         )
         for good in goods
     )
-    updates = "\n".join(good_update_block(good) for good in goods)
+    annual_updates = "\n".join(annual_good_refresh_block(good) for good in goods)
+    monthly_updates = "\n".join(monthly_good_update_block(good) for good in goods)
     return (
         HEADER
         + CREATE_EFFECT
@@ -501,8 +644,12 @@ def generate(data: dict) -> str:
         + "\n"
         + suspend_demands_effect(goods)
         + suspend_supplies_effect(goods)
+        + REFRESH_IF_NEEDED_EFFECT
+        + GLOBAL_REFRESH_PREFIX
+        + annual_updates
+        + GLOBAL_REFRESH_SUFFIX
         + UPDATE_PREFIX
-        + updates
+        + monthly_updates
         + UPDATE_SUFFIX
     )
 
