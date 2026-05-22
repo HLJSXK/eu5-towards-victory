@@ -1,8 +1,9 @@
 """
 Generate src/in_game/common/generic_actions/tv_trade_league_actions.txt.
 
-Trade League monopoly controls are repetitive per good, so the generic actions
-are generated from data/trade_league_goods.yaml.
+Trade League monopoly controls use fixed GUI-facing actions. The generated
+actions dispatch by the selected-good variable into per-good script branches
+from data/trade_league_goods.yaml.
 """
 
 import sys
@@ -103,6 +104,7 @@ tv_expel_trade_league_member = {
 
 VIRTUAL_ACTION_COST_PCT = 5
 EMBARGO_COST_PCT = 30
+DISPLAY_ROW_COUNT = 15
 INDENT_4 = "\t" * 4
 INDENT_5 = "\t" * 5
 INDENT_6 = "\t" * 6
@@ -197,7 +199,9 @@ def select_category_action(category: dict, first_good_index: int) -> str:
 \teffect = {{
 \t\tscope:actor = {{
 \t\t\tset_variable = {{ name = tv_trade_selected_monopoly_category value = {category["value"]} }}
+\t\t\tset_variable = {{ name = tv_trade_selected_monopoly_page value = 1 }}
 \t\t\tset_variable = {{ name = tv_trade_selected_good value = {first_good_index} }}
+\t\t\ttv_trade_league_refresh_monopoly_display_effect = yes
 \t\t}}
 \t}}"""
     return base_action(category["action"], body, selected=True)
@@ -496,6 +500,490 @@ def cancel_embargo_action(good: str) -> str:
     return base_action(f"tv_trade_cancel_embargo_{good}", body)
 
 
+def good_index_map(goods: list[str]) -> dict[str, int]:
+    return {good: index for index, good in enumerate(goods, start=1)}
+
+
+def selected_condition(index: int, indent: str) -> str:
+    return f"{indent}var:tv_trade_selected_good ?= {index}"
+
+
+def selected_action_available_block(good: str, action: str, cost: int, indent: str) -> str:
+    active_var = f"tv_trade_{action}_active_{good}"
+    return f"""\
+{indent}OR = {{
+{indent}\tvar:tv_trade_available_monopoly_level_pct_{good} ?= {{ this >= {cost} }}
+{indent}\tvar:{active_var} ?= {{ this >= 1 }}
+{indent}}}"""
+
+
+def selected_allow_branch(good: str, index: int, extra: str, indent: str) -> str:
+    inner_indent = indent + "\t"
+    extra_block = f"\n{extra}" if extra else ""
+    return f"""\
+{indent}AND = {{
+{selected_condition(index, inner_indent)}
+{indent}\tvar:tv_trade_monopoly_{good} ?= {{ this >= 1 }}{extra_block}
+{indent}}}"""
+
+
+def selected_allow_or(goods: list[str], indexes: dict[str, int], extra_for_good, indent: str) -> str:
+    branches = "\n".join(
+        selected_allow_branch(good, indexes[good], extra_for_good(good, indent + "\t"), indent + "\t")
+        for good in goods
+    )
+    return f"""\
+{indent}OR = {{
+{branches}
+{indent}}}"""
+
+
+def selected_effect_branch(
+    good: str,
+    index: int,
+    lines: list[str],
+    indent: str,
+    first: bool,
+    extra_limits: list[str] | None = None,
+) -> str:
+    keyword = "if" if first else "else_if"
+    extra_limit_text = ""
+    if extra_limits:
+        extra_limit_text = "\n" + "\n".join(extra_limits)
+    body = "\n".join(lines)
+    limit_indent = indent + "\t\t"
+    return f"""\
+{indent}{keyword} = {{
+{indent}\tlimit = {{
+{actor_leader_limit(good, limit_indent)}
+{selected_condition(index, limit_indent)}{extra_limit_text}
+{indent}\t}}
+{body}
+{indent}}}"""
+
+
+def selected_recalculate_lines(good: str, indent: str) -> list[str]:
+    return [
+        f"{indent}tv_trade_league_recalculate_action_accounting_{good}_effect = yes",
+        f"{indent}tv_trade_league_refresh_monopoly_display_effect = yes",
+    ]
+
+
+def page_action(direction: str) -> str:
+    if direction == "previous":
+        action_id = "tv_trade_previous_monopoly_page"
+        mutation = "change_variable = { name = tv_trade_selected_monopoly_page subtract = 1 }"
+    else:
+        action_id = "tv_trade_next_monopoly_page"
+        mutation = "change_variable = { name = tv_trade_selected_monopoly_page add = 1 }"
+    body = f"""\tpotential = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\tallow = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\teffect = {{
+\t\tscope:actor = {{
+\t\t\ttv_trade_league_refresh_monopoly_page_limits_effect = yes
+\t\t\t{mutation}
+\t\t\ttv_trade_league_select_first_displayed_monopoly_good_effect = yes
+\t\t\ttv_trade_league_refresh_monopoly_display_effect = yes
+\t\t}}
+\t}}"""
+    return base_action(action_id, body, selected=True)
+
+
+def row_select_action(row: int) -> str:
+    visible_var = f"tv_trade_display_row_{row}_visible"
+    good_index_var = f"tv_trade_display_row_{row}_good_index"
+    body = f"""\tpotential = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\tallow = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+\t\t\tvar:{visible_var} ?= {{ this >= 1 }}
+\t\t}}
+\t}}
+\teffect = {{
+\t\tscope:actor = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{visible_var} ?= {{ this >= 1 }} }}
+\t\t\t\tset_variable = {{ name = tv_trade_selected_good value = var:{good_index_var} }}
+\t\t\t\ttv_trade_league_refresh_selected_good_projection_effect = yes
+\t\t\t}}
+\t\t}}
+\t}}"""
+    return base_action(f"tv_trade_select_monopoly_row_{row}", body, selected=True)
+
+
+def selected_monopoly_value_max(goods: list[str], indexes: dict[str, int], action: str) -> str:
+    branches: list[str] = []
+    for good in goods:
+        active_var = f"tv_trade_{action}_active_{good}"
+        used_var = f"tv_trade_{action}_used_pct_{good}"
+        branches.append(
+            f"""\t\t\tif = {{
+\t\t\t\tlimit = {{ var:tv_trade_selected_good ?= {indexes[good]} }}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ var:tv_trade_available_monopoly_level_pct_{good} ?= {{ this > 0 }} }}
+\t\t\t\t\tadd = var:tv_trade_available_monopoly_level_pct_{good}
+\t\t\t\t}}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ var:{active_var} ?= {{ this >= 1 }} }}
+\t\t\t\t\tadd = var:{used_var}
+\t\t\t\t}}
+\t\t\t}}"""
+        )
+    return f"""\
+\t\tmax = {{
+\t\t\tvalue = 0
+\t\t\tscope:actor = {{
+{chr(10).join(branches)}
+\t\t\t}}
+\t\t}}"""
+
+
+def selected_market_value_action(goods: list[str], indexes: dict[str, int], action: str, title_key: str) -> str:
+    action_id = f"tv_trade_set_selected_{action}"
+
+    def allow_extra(good: str, indent: str) -> str:
+        return selected_action_available_block(good, action, VIRTUAL_ACTION_COST_PCT, indent)
+
+    effect_branches: list[str] = []
+    for branch_index, good in enumerate(goods):
+        location_var = f"tv_trade_{action}_location_{good}"
+        active_var = f"tv_trade_{action}_active_{good}"
+        used_var = f"tv_trade_{action}_used_pct_{good}"
+        amount_var = f"tv_trade_{action}_amount_{good}"
+        branch_indent = "\t\t\t\t"
+        lines = [
+            f"{branch_indent}{removable_action_remove_block(good, action, branch_indent)}",
+            f"{branch_indent}set_variable = {{ name = {active_var} value = 1 }}",
+            f"{branch_indent}set_variable = {{ name = {used_var} value = {{ value = scope:target_1 }} }}",
+            f"{branch_indent}set_variable = {{ name = {amount_var} value = {{ value = scope:target_1 divide = {VIRTUAL_ACTION_COST_PCT} }} }}",
+            f"{branch_indent}set_variable = {{ name = {location_var} value = scope:tv_trade_selected_market_location }}",
+            f"{branch_indent}{removable_action_apply_block(good, action, branch_indent)}",
+            *selected_recalculate_lines(good, branch_indent),
+        ]
+        effect_branches.append(
+            selected_effect_branch(
+                good,
+                indexes[good],
+                lines,
+                "\t\t\t",
+                branch_index == 0,
+                [selected_action_available_block(good, action, VIRTUAL_ACTION_COST_PCT, "\t\t\t\t\t")],
+            )
+        )
+    allow_or = selected_allow_or(goods, indexes, allow_extra, "\t\t\t")
+    value_max = selected_monopoly_value_max(goods, indexes, action)
+    body = f"""\tpotential = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\tallow = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+{allow_or}
+\t\t}}
+\t}}
+\tselect_trigger = {{
+\t\tlooking_for_a = market
+\t\ttarget_flag = target
+\t\tname = "{title_key}"
+\t\tnone_available_msg_key = "tv_trade_no_monopoly_market_available"
+\t\tcolumn = {{ data = name }}
+\t\tvisible = {{ in_trade_range_of = scope:actor }}
+\t\tenabled = {{ in_trade_range_of = scope:actor }}
+\t\tshow_why_not_enabled = yes
+\t}}
+\tselect_trigger = {{
+\t\tlooking_for_a = value
+\t\ttarget_flag = target_1
+\t\tname = "tv_trade_select_monopoly_level"
+\t\tmin = {VIRTUAL_ACTION_COST_PCT}
+{value_max}
+\t\tstep = {VIRTUAL_ACTION_COST_PCT}
+\t\tdefault = {VIRTUAL_ACTION_COST_PCT}
+\t}}
+\teffect = {{
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\texists = scope:target
+\t\t\t\texists = scope:target_1
+\t\t\t}}
+\t\t\tscope:target = {{
+\t\t\t\tlocation = {{ save_scope_as = tv_trade_selected_market_location }}
+\t\t\t}}
+\t\t\tscope:actor = {{
+{chr(10).join(effect_branches)}
+\t\t\t}}
+\t\t}}
+\t}}"""
+    return base_action(action_id, body)
+
+
+def selected_adjust_action(goods: list[str], indexes: dict[str, int], action: str, direction: str) -> str:
+    action_id = f"tv_trade_{direction}_selected_{action}"
+
+    def allow_extra(good: str, indent: str) -> str:
+        if direction == "increase":
+            return f"{indent}var:tv_trade_available_monopoly_level_pct_{good} ?= {{ this >= {VIRTUAL_ACTION_COST_PCT} }}"
+        return f"{indent}var:tv_trade_{action}_used_pct_{good} ?= {{ this >= {VIRTUAL_ACTION_COST_PCT} }}"
+
+    effect_branches: list[str] = []
+    for branch_index, good in enumerate(goods):
+        active_var = f"tv_trade_{action}_active_{good}"
+        used_var = f"tv_trade_{action}_used_pct_{good}"
+        amount_var = f"tv_trade_{action}_amount_{good}"
+        location_var = f"tv_trade_{action}_location_{good}"
+        if direction == "increase":
+            mutation = f"change_variable = {{ name = {used_var} add = {VIRTUAL_ACTION_COST_PCT} }}"
+            amount_mutation = f"change_variable = {{ name = {amount_var} add = 1 }}"
+        else:
+            mutation = f"change_variable = {{ name = {used_var} subtract = {VIRTUAL_ACTION_COST_PCT} }}"
+            amount_mutation = f"change_variable = {{ name = {amount_var} subtract = 1 }}"
+        branch_indent = "\t\t\t\t"
+        reapply_block = removable_action_apply_block(good, action, branch_indent + "\t")
+        lines = [
+            f"{branch_indent}{removable_action_remove_block(good, action, branch_indent)}",
+            f"{branch_indent}{mutation}",
+            f"{branch_indent}{amount_mutation}",
+            f"{branch_indent}if = {{",
+            f"{branch_indent}\tlimit = {{ var:{used_var} <= 0 }}",
+            f"{branch_indent}\tset_variable = {{ name = {active_var} value = 0 }}",
+            f"{branch_indent}\tset_variable = {{ name = {used_var} value = 0 }}",
+            f"{branch_indent}\tset_variable = {{ name = {amount_var} value = 0 }}",
+            f"{branch_indent}\tremove_variable = {location_var}",
+            f"{branch_indent}}}",
+            f"{branch_indent}else = {{",
+            f"{branch_indent}\t{reapply_block}",
+            f"{branch_indent}}}",
+            *selected_recalculate_lines(good, branch_indent),
+        ]
+        effect_branches.append(
+            selected_effect_branch(
+                good,
+                indexes[good],
+                lines,
+                "\t\t\t",
+                branch_index == 0,
+                [
+                    f"\t\t\t\t\tvar:{active_var} ?= {{ this >= 1 }}",
+                    allow_extra(good, "\t\t\t\t\t"),
+                ],
+            )
+        )
+
+    def branch_extra(good: str, indent: str) -> str:
+        active_var = f"tv_trade_{action}_active_{good}"
+        return "\n".join([f"{indent}var:{active_var} ?= {{ this >= 1 }}", allow_extra(good, indent)])
+
+    allow_or = selected_allow_or(goods, indexes, branch_extra, "\t\t\t")
+    body = f"""\tpotential = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\tallow = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+{allow_or}
+\t\t}}
+\t}}
+\teffect = {{
+\t\tscope:actor = {{
+{chr(10).join(effect_branches)}
+\t\t}}
+\t}}"""
+    return base_action(action_id, body)
+
+
+def selected_cancel_action(goods: list[str], indexes: dict[str, int], action: str) -> str:
+    action_id = f"tv_trade_cancel_selected_{action}"
+
+    def branch_extra(good: str, indent: str) -> str:
+        return f"{indent}var:tv_trade_{action}_active_{good} ?= {{ this >= 1 }}"
+
+    effect_branches: list[str] = []
+    for branch_index, good in enumerate(goods):
+        active_var = f"tv_trade_{action}_active_{good}"
+        used_var = f"tv_trade_{action}_used_pct_{good}"
+        amount_var = f"tv_trade_{action}_amount_{good}"
+        location_var = f"tv_trade_{action}_location_{good}"
+        branch_indent = "\t\t\t\t"
+        lines = [
+            f"{branch_indent}{removable_action_remove_block(good, action, branch_indent)}",
+            f"{branch_indent}set_variable = {{ name = {active_var} value = 0 }}",
+            f"{branch_indent}set_variable = {{ name = {used_var} value = 0 }}",
+            f"{branch_indent}set_variable = {{ name = {amount_var} value = 0 }}",
+            f"{branch_indent}remove_variable = {location_var}",
+            *selected_recalculate_lines(good, branch_indent),
+        ]
+        effect_branches.append(
+            selected_effect_branch(
+                good,
+                indexes[good],
+                lines,
+                "\t\t\t",
+                branch_index == 0,
+                [f"\t\t\t\t\tvar:{active_var} ?= {{ this >= 1 }}"],
+            )
+        )
+    allow_or = selected_allow_or(goods, indexes, branch_extra, "\t\t\t")
+    body = f"""\tpotential = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\tallow = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+{allow_or}
+\t\t}}
+\t}}
+\teffect = {{
+\t\tscope:actor = {{
+{chr(10).join(effect_branches)}
+\t\t}}
+\t}}"""
+    return base_action(action_id, body)
+
+
+def selected_embargo_action(goods: list[str], indexes: dict[str, int]) -> str:
+    def allow_extra(good: str, indent: str) -> str:
+        return selected_action_available_block(good, "embargo", EMBARGO_COST_PCT, indent)
+
+    effect_branches: list[str] = []
+    for branch_index, good in enumerate(goods):
+        branch_indent = "\t\t\t\t"
+        lines = [
+            f"{branch_indent}set_variable = {{ name = tv_trade_embargo_active_{good} value = 1 }}",
+            f"{branch_indent}set_variable = {{ name = tv_trade_embargo_used_pct_{good} value = {EMBARGO_COST_PCT} }}",
+            f"{branch_indent}set_variable = {{ name = tv_trade_embargo_location_{good} value = scope:tv_trade_embargo_market_location }}",
+            f"{branch_indent}set_variable = {{ name = tv_trade_embargo_country_{good} value = scope:target_1 }}",
+            *selected_recalculate_lines(good, branch_indent),
+        ]
+        effect_branches.append(
+            selected_effect_branch(
+                good,
+                indexes[good],
+                lines,
+                "\t\t\t",
+                branch_index == 0,
+                [selected_action_available_block(good, "embargo", EMBARGO_COST_PCT, "\t\t\t\t\t")],
+            )
+        )
+    allow_or = selected_allow_or(goods, indexes, allow_extra, "\t\t\t")
+    body = f"""\tpotential = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\tallow = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+{allow_or}
+\t\t}}
+\t}}
+\tselect_trigger = {{
+\t\tlooking_for_a = market
+\t\ttarget_flag = target
+\t\tname = "tv_trade_select_embargo_market"
+\t\tnone_available_msg_key = "tv_trade_no_monopoly_market_available"
+\t\tcolumn = {{ data = name }}
+\t\tvisible = {{ in_trade_range_of = scope:actor }}
+\t\tenabled = {{ in_trade_range_of = scope:actor }}
+\t\tshow_why_not_enabled = yes
+\t}}
+\tselect_trigger = {{
+\t\tlooking_for_a = country
+\t\ttarget_flag = target_1
+\t\tallow_self = no
+\t\tname = "tv_trade_select_embargo_country"
+\t\tnone_available_msg_key = "tv_trade_no_embargo_country_available"
+\t\tcolumn = {{ data = name }}
+\t\tvisible = {{
+\t\t\texists = scope:target
+\t\t\tany_owned_location = {{ market = scope:target }}
+\t\t}}
+\t\tenabled = {{
+\t\t\texists = scope:target
+\t\t\tany_owned_location = {{ market = scope:target }}
+\t\t}}
+\t\tshow_why_not_enabled = yes
+\t}}
+\teffect = {{
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\texists = scope:target
+\t\t\t\texists = scope:target_1
+\t\t\t}}
+\t\t\tscope:target = {{
+\t\t\t\tlocation = {{ save_scope_as = tv_trade_embargo_market_location }}
+\t\t\t}}
+\t\t\tscope:actor = {{
+{chr(10).join(effect_branches)}
+\t\t\t}}
+\t\t}}
+\t}}"""
+    return base_action("tv_trade_set_selected_embargo", body)
+
+
+def selected_cancel_embargo_action(goods: list[str], indexes: dict[str, int]) -> str:
+    def branch_extra(good: str, indent: str) -> str:
+        return f"{indent}var:tv_trade_embargo_active_{good} ?= {{ this >= 1 }}"
+
+    effect_branches: list[str] = []
+    for branch_index, good in enumerate(goods):
+        branch_indent = "\t\t\t\t"
+        lines = [
+            f"{branch_indent}set_variable = {{ name = tv_trade_embargo_active_{good} value = 0 }}",
+            f"{branch_indent}set_variable = {{ name = tv_trade_embargo_used_pct_{good} value = 0 }}",
+            f"{branch_indent}remove_variable = tv_trade_embargo_location_{good}",
+            f"{branch_indent}remove_variable = tv_trade_embargo_country_{good}",
+            *selected_recalculate_lines(good, branch_indent),
+        ]
+        effect_branches.append(
+            selected_effect_branch(
+                good,
+                indexes[good],
+                lines,
+                "\t\t\t",
+                branch_index == 0,
+                [f"\t\t\t\t\tvar:tv_trade_embargo_active_{good} ?= {{ this >= 1 }}"],
+            )
+        )
+    allow_or = selected_allow_or(goods, indexes, branch_extra, "\t\t\t")
+    body = f"""\tpotential = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\tallow = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+{allow_or}
+\t\t}}
+\t}}
+\teffect = {{
+\t\tscope:actor = {{
+{chr(10).join(effect_branches)}
+\t\t}}
+\t}}"""
+    return base_action("tv_trade_cancel_selected_embargo", body)
+
+
+def fixed_selected_actions(goods: list[str], indexes: dict[str, int]) -> list[str]:
+    return [
+        page_action("previous"),
+        page_action("next"),
+        *(row_select_action(row) for row in range(1, DISPLAY_ROW_COUNT + 1)),
+        selected_market_value_action(goods, indexes, "virtual_demand", "tv_trade_select_virtual_demand_market"),
+        selected_adjust_action(goods, indexes, "virtual_demand", "increase"),
+        selected_adjust_action(goods, indexes, "virtual_demand", "decrease"),
+        selected_cancel_action(goods, indexes, "virtual_demand"),
+        selected_market_value_action(goods, indexes, "virtual_supply", "tv_trade_select_virtual_supply_market"),
+        selected_adjust_action(goods, indexes, "virtual_supply", "increase"),
+        selected_adjust_action(goods, indexes, "virtual_supply", "decrease"),
+        selected_cancel_action(goods, indexes, "virtual_supply"),
+        selected_embargo_action(goods, indexes),
+        selected_cancel_embargo_action(goods, indexes),
+    ]
+
+
 def good_actions(good: str, index: int) -> str:
     blocks = [
         select_good_action(good, index),
@@ -536,13 +1024,13 @@ def validate_categories(data: dict) -> None:
 def generate(data: dict) -> str:
     validate_categories(data)
     goods = data["goods"]
-    good_indexes = {good: index for index, good in enumerate(goods, start=1)}
+    good_indexes = good_index_map(goods)
     blocks = [EXPEL_ACTION]
     blocks.extend(
         select_category_action(category, good_indexes[category["goods"][0]])
         for category in data["categories"]
     )
-    blocks.extend(good_actions(good, index) for index, good in enumerate(goods, start=1))
+    blocks.extend(fixed_selected_actions(goods, good_indexes))
     return HEADER + "\n".join(blocks)
 
 

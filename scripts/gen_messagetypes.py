@@ -16,18 +16,22 @@ VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
 OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
 TRADE_GOODS = ROOT / "data/trade_league_goods.yaml"
 
-TRADE_MONOPOLY_ACTION_PATTERNS = [
-    "tv_trade_select_monopoly_good_{good}",
-    "tv_trade_set_virtual_demand_{good}",
-    "tv_trade_increase_virtual_demand_{good}",
-    "tv_trade_decrease_virtual_demand_{good}",
-    "tv_trade_cancel_virtual_demand_{good}",
-    "tv_trade_set_virtual_supply_{good}",
-    "tv_trade_increase_virtual_supply_{good}",
-    "tv_trade_decrease_virtual_supply_{good}",
-    "tv_trade_cancel_virtual_supply_{good}",
-    "tv_trade_set_embargo_{good}",
-    "tv_trade_cancel_embargo_{good}",
+DISPLAY_ROW_COUNT = 15
+
+TRADE_MONOPOLY_ACTIONS = [
+    "tv_trade_previous_monopoly_page",
+    "tv_trade_next_monopoly_page",
+    *(f"tv_trade_select_monopoly_row_{row}" for row in range(1, DISPLAY_ROW_COUNT + 1)),
+    "tv_trade_set_selected_virtual_demand",
+    "tv_trade_increase_selected_virtual_demand",
+    "tv_trade_decrease_selected_virtual_demand",
+    "tv_trade_cancel_selected_virtual_demand",
+    "tv_trade_set_selected_virtual_supply",
+    "tv_trade_increase_selected_virtual_supply",
+    "tv_trade_decrease_selected_virtual_supply",
+    "tv_trade_cancel_selected_virtual_supply",
+    "tv_trade_set_selected_embargo",
+    "tv_trade_cancel_selected_embargo",
 ]
 
 TV_ENTRIES = """
@@ -1130,11 +1134,9 @@ def trade_monopoly_message_entries() -> str:
 }}
 """
         )
-    for good in goods:
-        for pattern in TRADE_MONOPOLY_ACTION_PATTERNS:
-            action = pattern.format(good=good)
-            blocks.append(
-                f"""PERFORM_{action}_ACTION={{
+    for action in TRADE_MONOPOLY_ACTIONS:
+        blocks.append(
+            f"""PERFORM_{action}_ACTION={{
 \tlog=no
 \tonmap=no
 \tpopup=no
@@ -1144,7 +1146,7 @@ def trade_monopoly_message_entries() -> str:
 \tmessage_category = economy
 }}
 """
-            )
+        )
     return "\n".join(blocks)
 
 vanilla_bytes = VANILLA.read_bytes()

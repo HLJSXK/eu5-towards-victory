@@ -23,6 +23,7 @@ OUT_FILE = (
 
 VIRTUAL_ACTION_COST_PCT = 5
 EMBARGO_COST_PCT = 30
+DISPLAY_ROW_COUNT = 15
 
 
 def good_name(good: str) -> str:
@@ -54,46 +55,69 @@ def category_entries(categories: list[dict]) -> list[tuple[str, str]]:
     return entries
 
 
-def action_entries(good: str) -> list[tuple[str, str]]:
-    name = good_name(good)
-    action_loc_entries = [
-        (f"tv_trade_select_monopoly_good_{good}", f"选择{name}"),
-        (f"tv_trade_select_monopoly_good_{good}_desc", f"显示{name}的垄断详情。"),
-        (f"tv_trade_set_virtual_demand_{good}", f"虚构需求：{name}"),
-        (f"tv_trade_set_virtual_demand_{good}_desc", f"分配垄断水平，在选定市场创造临时{name}需求。"),
-        (f"tv_trade_increase_virtual_demand_{good}", f"增加虚构需求：{name}"),
-        (f"tv_trade_increase_virtual_demand_{good}_desc", f"为{name}虚构需求额外使用{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
-        (f"tv_trade_decrease_virtual_demand_{good}", f"减少虚构需求：{name}"),
-        (f"tv_trade_decrease_virtual_demand_{good}_desc", f"从{name}虚构需求释放{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
-        (f"tv_trade_cancel_virtual_demand_{good}", f"取消虚构需求：{name}"),
-        (f"tv_trade_cancel_virtual_demand_{good}_desc", f"移除{name}虚构需求行动。"),
-        (f"tv_trade_set_virtual_supply_{good}", f"虚构生产：{name}"),
-        (f"tv_trade_set_virtual_supply_{good}_desc", f"分配垄断水平，在选定市场创造临时{name}生产。"),
-        (f"tv_trade_increase_virtual_supply_{good}", f"增加虚构生产：{name}"),
-        (f"tv_trade_increase_virtual_supply_{good}_desc", f"为{name}虚构生产额外使用{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
-        (f"tv_trade_decrease_virtual_supply_{good}", f"减少虚构生产：{name}"),
-        (f"tv_trade_decrease_virtual_supply_{good}_desc", f"从{name}虚构生产释放{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
-        (f"tv_trade_cancel_virtual_supply_{good}", f"取消虚构生产：{name}"),
-        (f"tv_trade_cancel_virtual_supply_{good}_desc", f"移除{name}虚构生产行动。"),
-        (f"tv_trade_set_embargo_{good}", f"禁运：{name}"),
-        (f"tv_trade_set_embargo_{good}_desc", f"消耗{EMBARGO_COST_PCT}%垄断水平，使一个国家在选定市场获得-50贸易优势。"),
-        (f"tv_trade_cancel_embargo_{good}", f"取消禁运：{name}"),
-        (f"tv_trade_cancel_embargo_{good}_desc", f"移除{name}禁运行动。"),
+def perform_entries(action: str) -> list[tuple[str, str]]:
+    return [
+        (f"PERFORM_{action}_ACTION_SETUP", "当我们使用贸易联盟垄断控制时。"),
+        (f"PERFORM_{action}_ACTION_LOG", "我们使用了一项贸易联盟垄断控制。"),
+        (f"PERFORM_{action}_ACTION_MAP", ""),
     ]
-    entries = [
-        (f"tv_trade_virtual_demand_{good}", f"贸易联盟虚构需求：{name}"),
-        *action_loc_entries,
+
+
+def fixed_action_entries() -> list[tuple[str, str]]:
+    entries: list[tuple[str, str]] = [
+        ("TV_TRADE_LEAGUE_PREVIOUS_PAGE_SHORT", "<"),
+        ("TV_TRADE_LEAGUE_NEXT_PAGE_SHORT", ">"),
+        ("tv_trade_previous_monopoly_page", "上一页"),
+        ("tv_trade_previous_monopoly_page_desc", "显示上一页商品。"),
+        ("tv_trade_next_monopoly_page", "下一页"),
+        ("tv_trade_next_monopoly_page_desc", "显示下一页商品。"),
+        ("tv_trade_select_monopoly_row_desc", "显示此商品的垄断详情。"),
+        ("tv_trade_set_selected_virtual_demand", "虚构需求"),
+        ("tv_trade_set_selected_virtual_demand_desc", "分配垄断水平，在选定市场创造当前商品的临时需求。"),
+        ("tv_trade_increase_selected_virtual_demand", "增加虚构需求"),
+        ("tv_trade_increase_selected_virtual_demand_desc", f"为当前商品的虚构需求额外使用{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
+        ("tv_trade_decrease_selected_virtual_demand", "减少虚构需求"),
+        ("tv_trade_decrease_selected_virtual_demand_desc", f"从当前商品的虚构需求释放{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
+        ("tv_trade_cancel_selected_virtual_demand", "取消虚构需求"),
+        ("tv_trade_cancel_selected_virtual_demand_desc", "移除当前商品的虚构需求行动。"),
+        ("tv_trade_set_selected_virtual_supply", "虚构生产"),
+        ("tv_trade_set_selected_virtual_supply_desc", "分配垄断水平，在选定市场创造当前商品的临时生产。"),
+        ("tv_trade_increase_selected_virtual_supply", "增加虚构生产"),
+        ("tv_trade_increase_selected_virtual_supply_desc", f"为当前商品的虚构生产额外使用{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
+        ("tv_trade_decrease_selected_virtual_supply", "减少虚构生产"),
+        ("tv_trade_decrease_selected_virtual_supply_desc", f"从当前商品的虚构生产释放{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
+        ("tv_trade_cancel_selected_virtual_supply", "取消虚构生产"),
+        ("tv_trade_cancel_selected_virtual_supply_desc", "移除当前商品的虚构生产行动。"),
+        ("tv_trade_set_selected_embargo", "禁运"),
+        ("tv_trade_set_selected_embargo_desc", f"消耗{EMBARGO_COST_PCT}%垄断水平，使一个国家在选定市场获得-50贸易优势。"),
+        ("tv_trade_cancel_selected_embargo", "取消禁运"),
+        ("tv_trade_cancel_selected_embargo_desc", "移除当前商品的禁运行动。"),
     ]
-    actions = [key for key, _ in action_loc_entries if not key.endswith("_desc")]
+    for row in range(1, DISPLAY_ROW_COUNT + 1):
+        entries.append((f"tv_trade_select_monopoly_row_{row}", "选择商品"))
+    actions = [
+        "tv_trade_previous_monopoly_page",
+        "tv_trade_next_monopoly_page",
+        *(f"tv_trade_select_monopoly_row_{row}" for row in range(1, DISPLAY_ROW_COUNT + 1)),
+        "tv_trade_set_selected_virtual_demand",
+        "tv_trade_increase_selected_virtual_demand",
+        "tv_trade_decrease_selected_virtual_demand",
+        "tv_trade_cancel_selected_virtual_demand",
+        "tv_trade_set_selected_virtual_supply",
+        "tv_trade_increase_selected_virtual_supply",
+        "tv_trade_decrease_selected_virtual_supply",
+        "tv_trade_cancel_selected_virtual_supply",
+        "tv_trade_set_selected_embargo",
+        "tv_trade_cancel_selected_embargo",
+    ]
     for action in actions:
-        entries.extend(
-            [
-                (f"PERFORM_{action}_ACTION_SETUP", "当我们使用贸易联盟垄断控制时。"),
-                (f"PERFORM_{action}_ACTION_LOG", "我们使用了一项贸易联盟垄断控制。"),
-                (f"PERFORM_{action}_ACTION_MAP", ""),
-            ]
-        )
+        entries.extend(perform_entries(action))
     return entries
+
+
+def demand_modifier_entries(good: str) -> list[tuple[str, str]]:
+    name = good_name(good)
+    return [(f"tv_trade_virtual_demand_{good}", f"贸易联盟虚构需求：{name}")]
 
 
 def generate(data: dict) -> bytes:
@@ -108,8 +132,11 @@ def generate(data: dict) -> bytes:
     for key, value in category_entries(data["categories"]):
         escaped = value.replace('"', '\\"')
         lines.append(f' {key}: "{escaped}"')
+    for key, value in fixed_action_entries():
+        escaped = value.replace('"', '\\"')
+        lines.append(f' {key}: "{escaped}"')
     for good in data["goods"]:
-        for key, value in action_entries(good):
+        for key, value in demand_modifier_entries(good):
             escaped = value.replace('"', '\\"')
             lines.append(f' {key}: "{escaped}"')
     text = "\n".join(lines) + "\n"

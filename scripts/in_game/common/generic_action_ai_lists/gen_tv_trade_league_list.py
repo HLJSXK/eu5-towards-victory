@@ -39,27 +39,29 @@ BASE_ACTIONS = [
     "tv_expel_trade_league_member",
 ]
 
-ACTION_PATTERNS = [
-    "tv_trade_select_monopoly_good_{good}",
-    "tv_trade_set_virtual_demand_{good}",
-    "tv_trade_increase_virtual_demand_{good}",
-    "tv_trade_decrease_virtual_demand_{good}",
-    "tv_trade_cancel_virtual_demand_{good}",
-    "tv_trade_set_virtual_supply_{good}",
-    "tv_trade_increase_virtual_supply_{good}",
-    "tv_trade_decrease_virtual_supply_{good}",
-    "tv_trade_cancel_virtual_supply_{good}",
-    "tv_trade_set_embargo_{good}",
-    "tv_trade_cancel_embargo_{good}",
+DISPLAY_ROW_COUNT = 15
+
+FIXED_MONOPOLY_ACTIONS = [
+    "tv_trade_previous_monopoly_page",
+    "tv_trade_next_monopoly_page",
+    *(f"tv_trade_select_monopoly_row_{row}" for row in range(1, DISPLAY_ROW_COUNT + 1)),
+    "tv_trade_set_selected_virtual_demand",
+    "tv_trade_increase_selected_virtual_demand",
+    "tv_trade_decrease_selected_virtual_demand",
+    "tv_trade_cancel_selected_virtual_demand",
+    "tv_trade_set_selected_virtual_supply",
+    "tv_trade_increase_selected_virtual_supply",
+    "tv_trade_decrease_selected_virtual_supply",
+    "tv_trade_cancel_selected_virtual_supply",
+    "tv_trade_set_selected_embargo",
+    "tv_trade_cancel_selected_embargo",
 ]
 
 
 def action_names(data: dict) -> list[str]:
-    goods = data["goods"]
     names = list(BASE_ACTIONS)
     names.extend(category["action"] for category in data["categories"])
-    for good in goods:
-        names.extend(pattern.format(good=good) for pattern in ACTION_PATTERNS)
+    names.extend(FIXED_MONOPOLY_ACTIONS)
     return names
 
 
