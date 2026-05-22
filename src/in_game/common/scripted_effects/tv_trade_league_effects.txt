@@ -36,7 +36,11 @@ tv_trade_league_create_effect = {
 tv_trade_league_update_monopolies_effect = {
 	# horses
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_horses value = "produced_in_world:horses" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:horses }
+	}
+	set_variable = { name = tv_trade_global_horses value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_horses value = var:tv_trade_global_horses }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -133,7 +137,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# clay
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_clay value = "produced_in_world:clay" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:clay }
+	}
+	set_variable = { name = tv_trade_global_clay value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_clay value = var:tv_trade_global_clay }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -230,7 +238,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# sand
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_sand value = "produced_in_world:sand" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:sand }
+	}
+	set_variable = { name = tv_trade_global_sand value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_sand value = var:tv_trade_global_sand }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -327,7 +339,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# coal
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_coal value = "produced_in_world:coal" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:coal }
+	}
+	set_variable = { name = tv_trade_global_coal value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_coal value = var:tv_trade_global_coal }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -424,7 +440,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# iron
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_iron value = "produced_in_world:iron" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:iron }
+	}
+	set_variable = { name = tv_trade_global_iron value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_iron value = var:tv_trade_global_iron }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -521,7 +541,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# copper
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_copper value = "produced_in_world:copper" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:copper }
+	}
+	set_variable = { name = tv_trade_global_copper value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_copper value = var:tv_trade_global_copper }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -618,7 +642,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# goods_gold
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_goods_gold value = "produced_in_world:goods_gold" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:goods_gold }
+	}
+	set_variable = { name = tv_trade_global_goods_gold value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_goods_gold value = var:tv_trade_global_goods_gold }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -715,7 +743,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# silver
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_silver value = "produced_in_world:silver" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:silver }
+	}
+	set_variable = { name = tv_trade_global_silver value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_silver value = var:tv_trade_global_silver }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -812,7 +844,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# stone
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_stone value = "produced_in_world:stone" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:stone }
+	}
+	set_variable = { name = tv_trade_global_stone value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_stone value = var:tv_trade_global_stone }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -909,7 +945,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# tin
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_tin value = "produced_in_world:tin" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:tin }
+	}
+	set_variable = { name = tv_trade_global_tin value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_tin value = var:tv_trade_global_tin }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -1006,7 +1046,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# lead
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_lead value = "produced_in_world:lead" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:lead }
+	}
+	set_variable = { name = tv_trade_global_lead value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_lead value = var:tv_trade_global_lead }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -1103,7 +1147,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# silk
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_silk value = "produced_in_world:silk" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:silk }
+	}
+	set_variable = { name = tv_trade_global_silk value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_silk value = var:tv_trade_global_silk }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -1200,7 +1248,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# dyes
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_dyes value = "produced_in_world:dyes" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:dyes }
+	}
+	set_variable = { name = tv_trade_global_dyes value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_dyes value = var:tv_trade_global_dyes }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -1297,7 +1349,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# incense
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_incense value = "produced_in_world:incense" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:incense }
+	}
+	set_variable = { name = tv_trade_global_incense value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_incense value = var:tv_trade_global_incense }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -1394,7 +1450,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# tea
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_tea value = "produced_in_world:tea" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:tea }
+	}
+	set_variable = { name = tv_trade_global_tea value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_tea value = var:tv_trade_global_tea }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -1491,7 +1551,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# cocoa
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_cocoa value = "produced_in_world:cocoa" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:cocoa }
+	}
+	set_variable = { name = tv_trade_global_cocoa value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_cocoa value = var:tv_trade_global_cocoa }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -1588,7 +1652,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# coffee
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_coffee value = "produced_in_world:coffee" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:coffee }
+	}
+	set_variable = { name = tv_trade_global_coffee value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_coffee value = var:tv_trade_global_coffee }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -1685,7 +1753,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# fiber_crops
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_fiber_crops value = "produced_in_world:fiber_crops" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:fiber_crops }
+	}
+	set_variable = { name = tv_trade_global_fiber_crops value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_fiber_crops value = var:tv_trade_global_fiber_crops }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -1782,7 +1854,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# ivory
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_ivory value = "produced_in_world:ivory" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:ivory }
+	}
+	set_variable = { name = tv_trade_global_ivory value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_ivory value = var:tv_trade_global_ivory }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -1879,7 +1955,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# lumber
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_lumber value = "produced_in_world:lumber" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:lumber }
+	}
+	set_variable = { name = tv_trade_global_lumber value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_lumber value = var:tv_trade_global_lumber }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -1976,7 +2056,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# salt
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_salt value = "produced_in_world:salt" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:salt }
+	}
+	set_variable = { name = tv_trade_global_salt value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_salt value = var:tv_trade_global_salt }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -2073,7 +2157,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# medicaments
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_medicaments value = "produced_in_world:medicaments" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:medicaments }
+	}
+	set_variable = { name = tv_trade_global_medicaments value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_medicaments value = var:tv_trade_global_medicaments }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -2170,7 +2258,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# gems
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_gems value = "produced_in_world:gems" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:gems }
+	}
+	set_variable = { name = tv_trade_global_gems value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_gems value = var:tv_trade_global_gems }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -2267,7 +2359,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# pearls
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_pearls value = "produced_in_world:pearls" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:pearls }
+	}
+	set_variable = { name = tv_trade_global_pearls value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_pearls value = var:tv_trade_global_pearls }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -2364,7 +2460,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# amber
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_amber value = "produced_in_world:amber" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:amber }
+	}
+	set_variable = { name = tv_trade_global_amber value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_amber value = var:tv_trade_global_amber }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -2461,7 +2561,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# saltpeter
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_saltpeter value = "produced_in_world:saltpeter" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:saltpeter }
+	}
+	set_variable = { name = tv_trade_global_saltpeter value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_saltpeter value = var:tv_trade_global_saltpeter }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -2558,7 +2662,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# alum
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_alum value = "produced_in_world:alum" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:alum }
+	}
+	set_variable = { name = tv_trade_global_alum value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_alum value = var:tv_trade_global_alum }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -2655,7 +2763,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# wine
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_wine value = "produced_in_world:wine" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:wine }
+	}
+	set_variable = { name = tv_trade_global_wine value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_wine value = var:tv_trade_global_wine }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -2752,7 +2864,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# elephants
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_elephants value = "produced_in_world:elephants" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:elephants }
+	}
+	set_variable = { name = tv_trade_global_elephants value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_elephants value = var:tv_trade_global_elephants }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -2849,7 +2965,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# marble
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_marble value = "produced_in_world:marble" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:marble }
+	}
+	set_variable = { name = tv_trade_global_marble value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_marble value = var:tv_trade_global_marble }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -2946,7 +3066,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# mercury
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_mercury value = "produced_in_world:mercury" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:mercury }
+	}
+	set_variable = { name = tv_trade_global_mercury value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_mercury value = var:tv_trade_global_mercury }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -3043,7 +3167,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# saffron
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_saffron value = "produced_in_world:saffron" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:saffron }
+	}
+	set_variable = { name = tv_trade_global_saffron value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_saffron value = var:tv_trade_global_saffron }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -3140,7 +3268,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# pepper
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_pepper value = "produced_in_world:pepper" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:pepper }
+	}
+	set_variable = { name = tv_trade_global_pepper value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_pepper value = var:tv_trade_global_pepper }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -3237,7 +3369,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# cloves
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_cloves value = "produced_in_world:cloves" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:cloves }
+	}
+	set_variable = { name = tv_trade_global_cloves value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_cloves value = var:tv_trade_global_cloves }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -3334,7 +3470,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# chili
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_chili value = "produced_in_world:chili" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:chili }
+	}
+	set_variable = { name = tv_trade_global_chili value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_chili value = var:tv_trade_global_chili }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -3431,7 +3571,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# cotton
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_cotton value = "produced_in_world:cotton" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:cotton }
+	}
+	set_variable = { name = tv_trade_global_cotton value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_cotton value = var:tv_trade_global_cotton }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -3528,7 +3672,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# sugar
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_sugar value = "produced_in_world:sugar" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:sugar }
+	}
+	set_variable = { name = tv_trade_global_sugar value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_sugar value = var:tv_trade_global_sugar }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -3625,7 +3773,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# tobacco
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_tobacco value = "produced_in_world:tobacco" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:tobacco }
+	}
+	set_variable = { name = tv_trade_global_tobacco value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_tobacco value = var:tv_trade_global_tobacco }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -3722,7 +3874,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# tar
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_tar value = "produced_in_world:tar" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:tar }
+	}
+	set_variable = { name = tv_trade_global_tar value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_tar value = var:tv_trade_global_tar }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -3819,7 +3975,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# porcelain
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_porcelain value = "produced_in_world:porcelain" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:porcelain }
+	}
+	set_variable = { name = tv_trade_global_porcelain value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_porcelain value = var:tv_trade_global_porcelain }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -3916,7 +4076,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# naval_supplies
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_naval_supplies value = "produced_in_world:naval_supplies" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:naval_supplies }
+	}
+	set_variable = { name = tv_trade_global_naval_supplies value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_naval_supplies value = var:tv_trade_global_naval_supplies }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -4013,7 +4177,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# firearms
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_firearms value = "produced_in_world:firearms" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:firearms }
+	}
+	set_variable = { name = tv_trade_global_firearms value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_firearms value = var:tv_trade_global_firearms }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -4110,7 +4278,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# cannons
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_cannons value = "produced_in_world:cannons" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:cannons }
+	}
+	set_variable = { name = tv_trade_global_cannons value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_cannons value = var:tv_trade_global_cannons }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -4207,7 +4379,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# weaponry
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_weaponry value = "produced_in_world:weaponry" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:weaponry }
+	}
+	set_variable = { name = tv_trade_global_weaponry value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_weaponry value = var:tv_trade_global_weaponry }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -4304,7 +4480,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# glass
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_glass value = "produced_in_world:glass" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:glass }
+	}
+	set_variable = { name = tv_trade_global_glass value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_glass value = var:tv_trade_global_glass }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -4401,7 +4581,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# steel
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_steel value = "produced_in_world:steel" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:steel }
+	}
+	set_variable = { name = tv_trade_global_steel value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_steel value = var:tv_trade_global_steel }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -4498,7 +4682,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# cloth
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_cloth value = "produced_in_world:cloth" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:cloth }
+	}
+	set_variable = { name = tv_trade_global_cloth value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_cloth value = var:tv_trade_global_cloth }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -4595,7 +4783,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# fine_cloth
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_fine_cloth value = "produced_in_world:fine_cloth" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:fine_cloth }
+	}
+	set_variable = { name = tv_trade_global_fine_cloth value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_fine_cloth value = var:tv_trade_global_fine_cloth }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -4692,7 +4884,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# liquor
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_liquor value = "produced_in_world:liquor" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:liquor }
+	}
+	set_variable = { name = tv_trade_global_liquor value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_liquor value = var:tv_trade_global_liquor }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -4789,7 +4985,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# beer
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_beer value = "produced_in_world:beer" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:beer }
+	}
+	set_variable = { name = tv_trade_global_beer value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_beer value = var:tv_trade_global_beer }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -4886,7 +5086,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# paper
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_paper value = "produced_in_world:paper" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:paper }
+	}
+	set_variable = { name = tv_trade_global_paper value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_paper value = var:tv_trade_global_paper }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -4983,7 +5187,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# books
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_books value = "produced_in_world:books" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:books }
+	}
+	set_variable = { name = tv_trade_global_books value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_books value = var:tv_trade_global_books }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -5080,7 +5288,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# jewelry
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_jewelry value = "produced_in_world:jewelry" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:jewelry }
+	}
+	set_variable = { name = tv_trade_global_jewelry value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_jewelry value = var:tv_trade_global_jewelry }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -5177,7 +5389,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# leather
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_leather value = "produced_in_world:leather" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:leather }
+	}
+	set_variable = { name = tv_trade_global_leather value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_leather value = var:tv_trade_global_leather }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -5274,7 +5490,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# tools
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_tools value = "produced_in_world:tools" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:tools }
+	}
+	set_variable = { name = tv_trade_global_tools value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_tools value = var:tv_trade_global_tools }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -5371,7 +5591,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# masonry
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_masonry value = "produced_in_world:masonry" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:masonry }
+	}
+	set_variable = { name = tv_trade_global_masonry value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_masonry value = var:tv_trade_global_masonry }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -5468,7 +5692,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# lacquerware
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_lacquerware value = "produced_in_world:lacquerware" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:lacquerware }
+	}
+	set_variable = { name = tv_trade_global_lacquerware value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_lacquerware value = var:tv_trade_global_lacquerware }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -5565,7 +5793,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# pottery
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_pottery value = "produced_in_world:pottery" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:pottery }
+	}
+	set_variable = { name = tv_trade_global_pottery value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_pottery value = var:tv_trade_global_pottery }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -5662,7 +5894,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# furniture
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_furniture value = "produced_in_world:furniture" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:furniture }
+	}
+	set_variable = { name = tv_trade_global_furniture value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_furniture value = var:tv_trade_global_furniture }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -5759,7 +5995,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# wool
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_wool value = "produced_in_world:wool" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:wool }
+	}
+	set_variable = { name = tv_trade_global_wool value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_wool value = var:tv_trade_global_wool }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -5856,7 +6096,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# wild_game
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_wild_game value = "produced_in_world:wild_game" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:wild_game }
+	}
+	set_variable = { name = tv_trade_global_wild_game value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_wild_game value = var:tv_trade_global_wild_game }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -5953,7 +6197,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# fur
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_fur value = "produced_in_world:fur" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:fur }
+	}
+	set_variable = { name = tv_trade_global_fur value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_fur value = var:tv_trade_global_fur }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -6050,7 +6298,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# fish
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_fish value = "produced_in_world:fish" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:fish }
+	}
+	set_variable = { name = tv_trade_global_fish value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_fish value = var:tv_trade_global_fish }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -6147,7 +6399,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# wheat
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_wheat value = "produced_in_world:wheat" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:wheat }
+	}
+	set_variable = { name = tv_trade_global_wheat value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_wheat value = var:tv_trade_global_wheat }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -6244,7 +6500,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# maize
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_maize value = "produced_in_world:maize" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:maize }
+	}
+	set_variable = { name = tv_trade_global_maize value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_maize value = var:tv_trade_global_maize }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -6341,7 +6601,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# rice
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_rice value = "produced_in_world:rice" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:rice }
+	}
+	set_variable = { name = tv_trade_global_rice value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_rice value = var:tv_trade_global_rice }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -6438,7 +6702,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# millet
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_millet value = "produced_in_world:millet" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:millet }
+	}
+	set_variable = { name = tv_trade_global_millet value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_millet value = var:tv_trade_global_millet }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -6535,7 +6803,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# legumes
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_legumes value = "produced_in_world:legumes" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:legumes }
+	}
+	set_variable = { name = tv_trade_global_legumes value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_legumes value = var:tv_trade_global_legumes }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -6632,7 +6904,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# potato
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_potato value = "produced_in_world:potato" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:potato }
+	}
+	set_variable = { name = tv_trade_global_potato value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_potato value = var:tv_trade_global_potato }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -6729,7 +7005,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# livestock
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_livestock value = "produced_in_world:livestock" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:livestock }
+	}
+	set_variable = { name = tv_trade_global_livestock value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_livestock value = var:tv_trade_global_livestock }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -6826,7 +7106,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# olives
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_olives value = "produced_in_world:olives" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:olives }
+	}
+	set_variable = { name = tv_trade_global_olives value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_olives value = var:tv_trade_global_olives }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -6923,7 +7207,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# fruit
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_fruit value = "produced_in_world:fruit" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:fruit }
+	}
+	set_variable = { name = tv_trade_global_fruit value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_fruit value = var:tv_trade_global_fruit }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -7020,7 +7308,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# beeswax
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_beeswax value = "produced_in_world:beeswax" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:beeswax }
+	}
+	set_variable = { name = tv_trade_global_beeswax value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_beeswax value = var:tv_trade_global_beeswax }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }
@@ -7117,7 +7409,11 @@ tv_trade_league_update_monopolies_effect = {
 
 	# slaves_goods
 	save_scope_as = tv_trade_monopoly_io
-	set_variable = { name = tv_trade_global_slaves_goods value = "produced_in_world:slaves_goods" }
+	set_local_variable = { name = tv_trade_world_total value = 0 }
+	every_market_in_world = {
+		change_local_variable = { name = tv_trade_world_total add = traded_in_market:slaves_goods }
+	}
+	set_variable = { name = tv_trade_global_slaves_goods value = local_var:tv_trade_world_total }
 	set_global_variable = { name = tv_trade_global_slaves_goods value = var:tv_trade_global_slaves_goods }
 
 	set_local_variable = { name = tv_trade_io_total value = 0 }

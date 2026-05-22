@@ -31,7 +31,12 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    Use `target`, `target_1`, and `target_2`. Custom names such as `selected_artist` have caused
    unset-scope errors in multi-step actions.
 
-5. Register the action outside the action file.
+5. Keep later selectors in the same chooser when they read earlier targets.
+   Do not put `source = world` on a later `select_trigger` if its `visible`, `enabled`, or
+   tooltip logic reads `scope:target` (or another earlier target flag). Use the inherited
+   chooser/source or an explicit `interaction_source_list` instead.
+
+6. Register the action outside the action file.
    Every new generic action also needs a `common/generic_action_ai_lists` entry and a
    `PERFORM_<action_id>_ACTION` message type.
 
@@ -77,3 +82,8 @@ conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix 
 Warnings tagged `generic_action_pre_eval` are not always hard failures, but new warnings fail
 validation unless they are fixed or explicitly added to `data/validation_baseline.yaml` with a
 rationale.
+
+## Relevant Anti-Patterns
+- `select_trigger_world_source_reads_previous_target` [needs_parser]: A later selector with
+  `source = world` cannot safely read `scope:target` from an earlier selector; omit `source`,
+  use a non-world source, or provide an `interaction_source_list`.

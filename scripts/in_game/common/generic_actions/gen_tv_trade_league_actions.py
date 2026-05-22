@@ -384,7 +384,6 @@ def embargo_action(good: str) -> str:
 \t}}
 \tselect_trigger = {{
 \t\tlooking_for_a = country
-\t\tsource = world
 \t\ttarget_flag = target_1
 \t\tallow_self = no
 \t\tname = "tv_trade_select_embargo_country"

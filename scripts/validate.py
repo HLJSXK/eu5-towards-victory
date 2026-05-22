@@ -527,6 +527,29 @@ def check_generic_action_pre_eval_risks(path: Path, content: str) -> None:
                     f"`target_flag = {flag}` is not one of target/target_1/target_2; vanilla-shaped names are safest.",
                 )
 
+        seen_target_flags: set[str] = set()
+        for block_open, block_close in _iter_named_blocks(content, action_open, action_close, "select_trigger"):
+            block_body = content[block_open + 1:block_close]
+            prior_refs = [
+                flag
+                for flag in sorted(seen_target_flags)
+                if re.search(rf"\bscope:{re.escape(flag)}\b", block_body)
+            ]
+            if prior_refs and re.search(r"\bsource\s*=\s*world\b", block_body):
+                source_match = re.search(r"\bsource\s*=\s*world\b", block_body)
+                _generic_action_warning(
+                    path,
+                    _line_num(content, block_open + 1 + (source_match.start() if source_match else 0)),
+                    action,
+                    "world_source_reads_previous_target",
+                    "`source = world` appears in a later select_trigger that reads "
+                    f"previous target flag(s) {', '.join(prior_refs)}; keep the selector in the same "
+                    "interaction-target chooser by omitting source or using a non-world source.",
+                )
+            flag_match = re.search(r"\btarget_flag\s*=\s*(\w+)", block_body)
+            if flag_match:
+                seen_target_flags.add(flag_match.group(1))
+
         effect_blocks = list(_iter_named_blocks(content, action_open, action_close, "effect"))
         if target_flags and effect_blocks:
             effect_text = "\n".join(content[o + 1:c] for o, c in effect_blocks)

@@ -622,6 +622,16 @@
   source: "reference_game_files/game/in_game/common/generic_actions/make_unit_available_for_hire.txt (target / target_1 / target_2 pattern)"
   notes: "Custom target_flag names (e.g. selected_artist) in multi-step generic actions cause 'Undefined event target' / 'scope returned unset scope' errors at runtime. Engine appears to only reliably resolve target, target_1, target_2 for scope: lookups in effects. Missing exists guard causes THIRD_MOVE_CHARACTER_EFFECT loc failures when AI path skips selections."
 
+- id: select_trigger_world_source_reads_previous_target
+  pattern: ''
+  detectability: needs_parser
+  bad: "A later select_trigger uses source = world while visible/enabled/effect-preview logic reads scope:target or another earlier target_flag"
+  correction: "Do not use source = world on a selector that depends on earlier selections. Omit source, use an inherited/actor source, or build an interaction_source_list so the chooser retains the previous target flags."
+  category: scope
+  scope: any
+  source: "src/in_game/common/generic_actions/tv_trade_league_actions.txt (Trade League embargo country selector fix, 2026-05); reference_game_files/game/in_game/common/country_interactions/force_embargo.txt:33-36"
+  notes: "Trade League embargo selected a market, then opened a country selector with source = world and filtered countries by any_owned_location = { market = scope:target }. The selector showed no countries and logged 'Asking for a flag that's not in the interaction target chooser specified'. Removing source = world kept the later selector in the same interaction-target chooser so scope:target remained available."
+
 - id: io_link_invalid_same_tick_creation
   pattern: ''
   bad: "international_organization:type_key used in the same effect call that creates the IO via create_international_organization"

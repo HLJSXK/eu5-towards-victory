@@ -402,6 +402,13 @@ When a generic action has multiple `select_trigger` steps, EU5 **pre-evaluates t
 
 The `exists = scope:<name>` trigger is the vanilla pattern for this (confirmed in `assign_governor.txt` and `assume_fort_command.txt`). The errors appear in `error.log` as "Undefined event target" or "Failed to fetch variable" but the effect still fires correctly once all selections are complete.
 
+If a later selector filters on a previous selection, keep it in the same interaction-target
+chooser. A later `select_trigger` with `source = world` can lose access to earlier flags such
+as `scope:target`; when its `visible`/`enabled` block asks for that flag, the engine can show
+an empty chooser and log `Asking for a flag that's not in the interaction target chooser
+specified`. Omit `source = world`, use a non-world source, or build an `interaction_source_list`
+when the selector depends on earlier selections.
+
 #### Generic Action AI Lists
 
 Every generic action should be explicitly listed in `in_game/common/generic_action_ai_lists/`. Vanilla's readme says unlisted actions are put into the global list, and EU5 logs a performance warning such as `Action X is not explicitly listed in an ai list!`.
