@@ -6,8 +6,11 @@ The Trade League monopoly system has two generated refresh layers:
 - a global 365-day marker refresh that finds the top origin, node, and consumer
   markets for each good and stores those marker locations plus denominators in
   global variables;
-- a monthly per-IO refresh that reuses those marker markets, sums only the IO
-  members' export/import trade_volume there, and derives the monopoly flag.
+- a country monthly pulse wrapper that checks whether the country leads a Trade
+  League IO, then calls the IO-scoped monthly refresh;
+- a monthly per-IO refresh that enters the IO leader country, reuses those
+  marker markets, sums only the IO members' export/import trade_volume there,
+  and stores the monopoly/action variables on the leader country.
 """
 
 import sys
@@ -87,9 +90,45 @@ tv_trade_league_refresh_monopoly_markets_if_needed_effect = {
 
 """
 
+COUNTRY_MONTHLY_PULSE_EFFECT = """\
+tv_trade_league_country_monthly_pulse_effect = {
+\thidden_effect = {
+\t\tsave_scope_as = tv_trade_league_pulse_country
+\t\tevery_international_organizations_member_of = {
+\t\t\tlimit = {
+\t\t\t\tinternational_organization_type = international_organization_type:tv_trade_league
+\t\t\t\tleader_country ?= scope:tv_trade_league_pulse_country
+\t\t\t}
+\t\t\tif = {
+\t\t\t\tlimit = {
+\t\t\t\t\tinternational_organization_has_leader = yes
+\t\t\t\t\tleader_country ?= {
+\t\t\t\t\t\tcustom_tooltip = {
+\t\t\t\t\t\t\ttext = TV_HAS_GRAND_MERCHANT_CHAR_TT
+\t\t\t\t\t\t\thas_variable = tv_grand_merchant_char
+\t\t\t\t\t\t}
+\t\t\t\t\t\tvar:tv_grand_merchant_char ?= { is_alive = yes }
+\t\t\t\t\t\ttv_grand_merchant_available_for_monopoly_trigger = yes
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t\ttv_trade_league_update_monopolies_effect = yes
+\t\t\t}
+\t\t\telse = {
+\t\t\t\tleader_country ?= {
+\t\t\t\t\ttv_trade_league_suspend_virtual_demands_effect = yes
+\t\t\t\t\ttv_trade_league_suspend_virtual_supplies_effect = yes
+\t\t\t\t}
+\t\t\t}
+\t\t}
+\t}
+}
+
+"""
+
 GLOBAL_REFRESH_PREFIX = """\
 tv_trade_league_refresh_monopoly_markets_effect = {
 \thidden_effect = {
+\t\tsave_scope_as = tv_trade_monopoly_leader
 """
 
 GLOBAL_REFRESH_SUFFIX = """\
@@ -101,10 +140,14 @@ GLOBAL_REFRESH_SUFFIX = """\
 UPDATE_PREFIX = """\
 tv_trade_league_update_monopolies_effect = {
 \thidden_effect = {
-\t\ttv_trade_league_refresh_monopoly_markets_if_needed_effect = yes
+\t\tsave_scope_as = tv_trade_monopoly_io
+\t\tleader_country ?= {
+\t\t\tsave_scope_as = tv_trade_monopoly_leader
+\t\t\ttv_trade_league_refresh_monopoly_markets_if_needed_effect = yes
 """
 
 UPDATE_SUFFIX = """\
+\t\t}
 \t}
 }
 """
@@ -133,12 +176,12 @@ def eu5_number(value: float) -> str:
 def demand_apply_effect(good: str) -> str:
     return f"""\
 tv_trade_league_apply_virtual_demand_{good}_effect = {{
-\tsave_scope_as = tv_trade_monopoly_io
+\tsave_scope_as = tv_trade_monopoly_leader
 \tvar:tv_trade_virtual_demand_location_{good} ?= {{
 \t\tmarket = {{
 \t\t\tif = {{
 \t\t\t\tlimit = {{ NOT = {{ has_temporary_demand = demand:tv_trade_virtual_demand_{good} }} }}
-\t\t\t\tadd_temporary_demand = {{ type = demand:tv_trade_virtual_demand_{good} scale = {{ value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_demand_amount_{good} }} months = -1 }}
+\t\t\t\tadd_temporary_demand = {{ type = demand:tv_trade_virtual_demand_{good} scale = {{ value = scope:tv_trade_monopoly_leader.var:tv_trade_virtual_demand_amount_{good} }} months = -1 }}
 \t\t\t}}
 \t\t}}
 \t}}
@@ -164,12 +207,12 @@ tv_trade_league_remove_virtual_demand_{good}_effect = {{
 def supply_apply_effect(good: str) -> str:
     return f"""\
 tv_trade_league_apply_virtual_supply_{good}_effect = {{
-\tsave_scope_as = tv_trade_monopoly_io
+\tsave_scope_as = tv_trade_monopoly_leader
 \tvar:tv_trade_virtual_supply_location_{good} ?= {{
 \t\tmarket = {{
-\t\t\tadd_goods_supply = {{ goods = goods:{good} amount = {{ value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_{good} }} }}
+\t\t\tadd_goods_supply = {{ goods = goods:{good} amount = {{ value = scope:tv_trade_monopoly_leader.var:tv_trade_virtual_supply_amount_{good} }} }}
 \t\t}}
-\t\tscope:tv_trade_monopoly_io = {{
+\t\tscope:tv_trade_monopoly_leader = {{
 \t\t\tset_variable = {{ name = tv_trade_virtual_supply_applied_{good} value = 1 }}
 \t\t}}
 \t}}
@@ -180,14 +223,14 @@ tv_trade_league_apply_virtual_supply_{good}_effect = {{
 def supply_remove_effect(good: str) -> str:
     return f"""\
 tv_trade_league_remove_virtual_supply_{good}_effect = {{
-\tsave_scope_as = tv_trade_monopoly_io
+\tsave_scope_as = tv_trade_monopoly_leader
 \tif = {{
 \t\tlimit = {{ var:tv_trade_virtual_supply_applied_{good} ?= {{ this >= 1 }} }}
 \t\tvar:tv_trade_virtual_supply_location_{good} ?= {{
 \t\t\tmarket = {{
-\t\t\t\tadd_goods_supply = {{ goods = goods:{good} amount = {{ value = scope:tv_trade_monopoly_io.var:tv_trade_virtual_supply_amount_{good} multiply = -1 }} }}
+\t\t\t\tadd_goods_supply = {{ goods = goods:{good} amount = {{ value = scope:tv_trade_monopoly_leader.var:tv_trade_virtual_supply_amount_{good} multiply = -1 }} }}
 \t\t\t}}
-\t\t\tscope:tv_trade_monopoly_io = {{
+\t\t\tscope:tv_trade_monopoly_leader = {{
 \t\t\t\tset_variable = {{ name = tv_trade_virtual_supply_applied_{good} value = 0 }}
 \t\t\t}}
 \t\t}}
@@ -340,7 +383,7 @@ def candidate_static_stats_block(good: str) -> str:
 \t\t\tlimit = {{ goods = goods:{good} }}
 \t\t\tchange_local_variable = {{ name = tv_trade_candidate_total_import add = trade_volume }}
 \t\t}}
-\t\tscope:tv_trade_monopoly_io = {{
+\t\tscope:tv_trade_monopoly_leader = {{
 \t\t\tset_variable = {{ name = tv_trade_market_candidate_local_production value = {{ value = scope:tv_trade_candidate_market.produced_in_market:{good} }} }}
 \t\t\tset_variable = {{ name = tv_trade_market_candidate_local_demand value = {{ value = "scope:tv_trade_candidate_market.goods_demand_in_market(goods:{good})" }} }}
 \t\t\tset_variable = {{ name = tv_trade_market_candidate_total_export value = local_var:tv_trade_candidate_total_export }}
@@ -353,12 +396,11 @@ def annual_good_refresh_block(good: str) -> str:
 \t# Annual market markers for {good}
 {clear_io_markets_block(good)}
 {clear_global_markets_block(good)}
-\tsave_scope_as = tv_trade_monopoly_io
 \tevery_market_in_world = {{
 \t\tsave_scope_as = tv_trade_candidate_market
 \t\tlocation = {{ save_scope_as = tv_trade_candidate_market_location }}
 {candidate_static_stats_block(good)}
-\t\tscope:tv_trade_monopoly_io = {{
+\t\tscope:tv_trade_monopoly_leader = {{
 \t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_local_production }}
 {insert_candidate_io_block("origin", good, "\t\t\t")}
 \t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_total_export }}
@@ -450,7 +492,7 @@ def monthly_control_block(good: str, prefix: str, rank: int) -> str:
 \t\t\t\t\tchange_local_variable = {{ name = tv_trade_slot_io_total add = trade_volume }}
 \t\t\t\t}}
 \t\t\t}}
-\t\t\tscope:tv_trade_monopoly_io = {{
+\t\t\tscope:tv_trade_monopoly_leader = {{
 \t\t\t\tset_variable = {{ name = {io_var} value = local_var:tv_trade_slot_io_total }}
 \t\t\t\tset_variable = {{ name = {control_var} value = 0 }}
 \t\t\t\tif = {{
@@ -550,7 +592,7 @@ def action_application_block(good: str) -> str:
 \t\t\tlimit = {{ var:tv_trade_embargo_active_{good} >= 1 }}
 \t\t\tvar:tv_trade_embargo_country_{good} ?= {{
 \t\t\t\tsave_scope_as = tv_trade_embargo_target
-\t\t\t\tscope:tv_trade_monopoly_io.var:tv_trade_embargo_location_{good} ?= {{
+\t\t\t\tscope:tv_trade_monopoly_leader.var:tv_trade_embargo_location_{good} ?= {{
 \t\t\t\t\tmarket = {{
 \t\t\t\t\t\tadd_merchant_power = {{
 \t\t\t\t\t\t\tcountry = scope:tv_trade_embargo_target
@@ -576,7 +618,6 @@ def monthly_good_update_block(good: str) -> str:
     aggregates = "".join(aggregate_control_block(good, prefix) for prefix in MARKET_PREFIXES)
     return f"""\
 \t# {good}
-\tsave_scope_as = tv_trade_monopoly_io
 \tremove_variable = tv_trade_global_{good}
 \tremove_variable = tv_trade_io_{good}
 \tremove_variable = tv_trade_monopoly_level_{good}
@@ -645,6 +686,7 @@ def generate(data: dict) -> str:
         + suspend_demands_effect(goods)
         + suspend_supplies_effect(goods)
         + REFRESH_IF_NEEDED_EFFECT
+        + COUNTRY_MONTHLY_PULSE_EFFECT
         + GLOBAL_REFRESH_PREFIX
         + annual_updates
         + GLOBAL_REFRESH_SUFFIX

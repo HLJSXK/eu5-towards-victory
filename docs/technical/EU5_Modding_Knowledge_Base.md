@@ -125,6 +125,8 @@ monthly_effect = {
 
 Vanilla IOs such as HRE and Union use this pattern. Keep `monthly_change` entries visible when the player should see an IO variable's monthly breakdown; use `hidden_effect` for non-player-facing `monthly_effect` logic.
 
+High-cardinality generated maintenance can still be too expensive on an IO type even when hidden. The Trade League monopoly system is the current exception: do not put its per-good monopoly refresh in `tv_trade_league.monthly_effect`. Dispatch it from `monthly_country_pulse`, save the current country scope, iterate `every_international_organizations_member_of` filtered to `tv_trade_league` and `leader_country ?= <saved country>`, then call the IO-scoped refresh from inside the matching IO.
+
 `monthly_change` is evaluated from the IO variable's international-organization context. Do not reuse country-scoped scripted triggers there if they depend on `root.var:X`; nesting the call inside `leader_country ?= { ... }` does not make `root` become the country. Instead, keep country-state checks inside `leader_country ?= { ... }` and perform IO-variable comparisons from the IO scope, for example `var:stockpile >= leader_country.var:monthly_cost`.
 
 #### International Organization Trigger Iterators

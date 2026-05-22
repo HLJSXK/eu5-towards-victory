@@ -1,8 +1,10 @@
 """
 Generate src/in_game/common/international_organizations/tv_trade_league.txt.
 
-The Trade League declares repetitive IO variables per tracked good. Keeping the
-variables generated avoids hand-maintaining a long repetitive block.
+Trade League monopoly/action state is stored on the leader country at runtime,
+and monthly maintenance is dispatched from country monthly pulse instead of the
+IO type. Do not declare the repetitive per-good variables or monthly logic on
+the IO itself: both caused severe stutter in-game.
 """
 
 import sys
@@ -22,18 +24,6 @@ OUT_FILE = (
     / "common"
     / "international_organizations"
     / "tv_trade_league.txt"
-)
-
-MARKET_PREFIXES = ("origin", "node", "consumer")
-MARKET_NUMERIC_FIELDS = (
-    "score",
-    "local_production",
-    "local_demand",
-    "total_export",
-    "total_import",
-    "io_export",
-    "io_import",
-    "control_pct",
 )
 
 HEADER = """\
@@ -71,36 +61,9 @@ tv_trade_league = {
 \thas_parliament = no
 \tshow_on_diplomatic_map = yes
 \tspecial_statuses_implemented = { tv_trade_league_member_status }
-
-\tvariables = {
 """
 
 SUFFIX = """\
-\t}
-
-\tmonthly_effect = {
-\t\thidden_effect = {
-\t\t\tif = {
-\t\t\t\tlimit = {
-\t\t\t\t\tinternational_organization_has_leader = yes
-\t\t\t\t\tleader_country ?= {
-\t\t\t\t\t\tcustom_tooltip = {
-\t\t\t\t\t\t\ttext = TV_HAS_GRAND_MERCHANT_CHAR_TT
-\t\t\t\t\t\t\thas_variable = tv_grand_merchant_char
-\t\t\t\t\t\t}
-\t\t\t\t\t\tvar:tv_grand_merchant_char ?= { is_alive = yes }
-\t\t\t\t\t\ttv_grand_merchant_available_for_monopoly_trigger = yes
-\t\t\t\t\t}
-\t\t\t\t}
-\t\t\t\ttv_trade_league_update_monopolies_effect = yes
-\t\t\t}
-\t\t\telse = {
-\t\t\t\ttv_trade_league_suspend_virtual_demands_effect = yes
-\t\t\t\ttv_trade_league_suspend_virtual_supplies_effect = yes
-\t\t\t}
-\t\t}
-\t}
-
 \tcan_join_trigger = {
 \t\tis_subject = no
 \t\tis_rebel_country = no
@@ -140,70 +103,8 @@ SUFFIX = """\
 """
 
 
-def variable_entry(name: str, value_format: str = "TV_TRADE_MONOPOLY_VALUE_FORMAT") -> str:
-    return (
-        f"\t\t{name} = {{\n"
-        f"\t\t\tformat = \"{value_format}\"\n"
-        "\t\t\tmin = 0\n"
-        "\t\t\tstart = 0\n"
-        "\t\t\thidden = yes\n"
-        "\t\t}"
-    )
-
-
-def variable_block(good: str) -> str:
-    entries = []
-    plain_suffixes = (
-        "monopoly",
-    )
-    percent_suffixes = (
-        "monopoly_level_pct",
-        "used_monopoly_level_pct",
-        "available_monopoly_level_pct",
-        "origin_control_pct",
-        "node_control_pct",
-        "consumer_control_pct",
-    )
-    action_suffixes = (
-        "virtual_demand_active",
-        "virtual_demand_used_pct",
-        "virtual_demand_amount",
-        "virtual_supply_active",
-        "virtual_supply_used_pct",
-        "virtual_supply_amount",
-        "virtual_supply_applied",
-        "embargo_active",
-        "embargo_used_pct",
-    )
-    for suffix in plain_suffixes:
-        entries.append(variable_entry(f"tv_trade_{suffix}_{good}"))
-    for suffix in percent_suffixes:
-        entries.append(
-            variable_entry(f"tv_trade_{suffix}_{good}", "TV_TRADE_MONOPOLY_PERCENT_FORMAT")
-        )
-    for suffix in action_suffixes:
-        entries.append(variable_entry(f"tv_trade_{suffix}_{good}"))
-    for prefix in MARKET_PREFIXES:
-        for rank in range(1, 4):
-            for field in MARKET_NUMERIC_FIELDS:
-                value_format = (
-                    "TV_TRADE_MONOPOLY_PERCENT_FORMAT"
-                    if field == "control_pct"
-                    else "TV_TRADE_MONOPOLY_VALUE_FORMAT"
-                )
-                entries.append(
-                    variable_entry(
-                        f"tv_trade_{prefix}_{field}_{rank}_{good}",
-                        value_format,
-                    )
-                )
-    return "\n".join(entries)
-
-
 def generate(data: dict) -> str:
-    goods = data["goods"]
-    body = "\n".join(variable_block(good) for good in goods)
-    return HEADER + PREFIX + body + "\n" + SUFFIX
+    return HEADER + PREFIX + "\n" + SUFFIX
 
 
 def main() -> None:

@@ -57,6 +57,20 @@ that create, find, or mutate TV IOs.
    Do not substitute `traded_in_market:<good>`, `goods_supply_in_market`, or member-present
    market totals; those are market availability/proxy values, not member-owned route volume.
 
+11. Keep Trade League bulk monopoly state off IO variables.
+   The generated per-good monopoly/action state is intentionally stored on `leader_country`,
+   while the IO is saved as a named scope only for membership checks. Do not reintroduce a
+   giant `variables = {}` block on `tv_trade_league`; initializing those IO variables caused
+   severe runtime stutter. GUI reads should go through
+   `GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable(...)`.
+
+12. Keep Trade League generated monopoly maintenance off the IO monthly_effect.
+   Even hidden IO monthly maintenance for the per-good Trade League monopoly refresh caused
+   severe runtime stutter. Register a named country monthly pulse through `data/pulse_registry.yaml`,
+   save the country scope, iterate that country's `every_international_organizations_member_of`
+   filtered to `tv_trade_league` plus `leader_country ?= <saved country>`, and only then call the
+   IO-scoped refresh effect.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then inspect shared IO tooltips in game. Tooltip

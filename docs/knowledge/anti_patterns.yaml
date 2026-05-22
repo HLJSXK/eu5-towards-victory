@@ -130,6 +130,28 @@
   source: "user-reported runtime behavior in Trade League monopoly metrics (2026-05-22); reference_game_files/game/in_game/events/economy/slave_trade.txt:43-48; reference_game_files/game/in_game/events/government/republic_factions.txt:148"
   notes: "produced_in_market:<good> and goods_demand_in_market(goods:<good>) are valid only for the requested origin/consumer ranking inputs; traded_in_market and goods_supply_in_market are not route volume. Export control uses market every_export trade_volume; consumer control uses market every_import trade_volume."
 
+- id: trade_league_bulk_state_on_io_variables
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['tv_trade_league.txt', 'gen_tv_trade_league.py', 'gen_tv_trade_league_gui.py', 'gen_tv_trade_league_actions.py', 'gen_tv_trade_league_effects.py']
+  bad: "Declaring or reading generated per-good Trade League monopoly/action state as IO variables"
+  correction: "Store generated monopoly/action variables on the Trade League leader country; the country monthly pulse should enter the matching leader-owned IO for membership checks, then enter leader_country for state writes, and GUI should read GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable(...)."
+  category: script
+  scope: international_organization
+  source: "user-reported runtime stutter from initializing thousands of Trade League IO variables (2026-05-22)"
+  notes: "The IO type should remain a light shell with leader/member behavior. Global annual marker variables remain global; per-IO/per-good state lives on the leader country."
+
+- id: trade_league_bulk_maintenance_on_io_monthly_effect
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['tv_trade_league.txt', 'gen_tv_trade_league.py', 'gen_tv_trade_league_effects.py', 'pulse_registry.yaml']
+  bad: "Running generated per-good Trade League monopoly maintenance from the Trade League IO type's monthly_effect"
+  correction: "Leave the Trade League IO type without monthly_effect. Register a named monthly_country_pulse hook, save the current country scope, iterate every_international_organizations_member_of filtered to tv_trade_league and leader_country ?= the saved country, then call the IO-scoped monopoly refresh from inside that IO."
+  category: script
+  scope: international_organization
+  source: "user-reported runtime stutter from Trade League IO monthly_effect maintenance (2026-05-22)"
+  notes: "For this generated high-cardinality system, even hidden IO monthly maintenance was too expensive. A country pulse turns the work into a cheap country membership/leader check before the heavy IO refresh runs."
+
 - id: dynamic_scope_value_must_use_script_value_block
   pattern: ''
   detectability: advisory

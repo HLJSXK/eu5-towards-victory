@@ -141,19 +141,32 @@ def leader_io_limit(good: str | None = None, indent: str = "\t\t\t\t") -> str:
         "international_organization_type = international_organization_type:tv_trade_league",
         "leader_country ?= scope:actor",
     ]
-    if good is not None:
-        lines.append(f"var:tv_trade_monopoly_{good} ?= {{ this >= 1 }}")
     return f"\n{indent}".join(lines)
 
 
 def actor_leader_trigger(good: str | None = None) -> str:
-    return (
-        "scope:actor = {\n"
-        "\t\t\tany_international_organizations_member_of = {\n"
-        f"\t\t\t\t{leader_io_limit(good)}\n"
-        "\t\t\t}\n"
-        "\t\t}"
-    )
+    lines = [
+        "scope:actor = {",
+        "\t\t\tany_international_organizations_member_of = {",
+        f"\t\t\t\t{leader_io_limit()}",
+        "\t\t\t}",
+    ]
+    if good is not None:
+        lines.append(f"\t\t\tvar:tv_trade_monopoly_{good} ?= {{ this >= 1 }}")
+    lines.append("\t\t}")
+    return "\n".join(lines)
+
+
+def actor_leader_limit(good: str | None = None, indent: str = "\t\t\t") -> str:
+    inner_indent = indent + "\t"
+    lines = [
+        f"{indent}any_international_organizations_member_of = {{",
+        f"{indent}\t{leader_io_limit(indent=inner_indent)}",
+        f"{indent}}}",
+    ]
+    if good is not None:
+        lines.append(f"{indent}var:tv_trade_monopoly_{good} ?= {{ this >= 1 }}")
+    return "\n".join(lines)
 
 
 def demand_remove_block(good: str, indent: str) -> str:
@@ -240,15 +253,13 @@ def monopoly_value_max(good: str, action: str) -> str:
 \t\tmax = {{
 \t\t\tvalue = 0
 \t\t\tscope:actor = {{
-\t\t\t\tevery_international_organizations_member_of = {{
-\t\t\t\t\tlimit = {{
-\t\t\t\t\t\t{leader_io_limit(good, INDENT_6)}
-\t\t\t\t\t}}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ var:tv_trade_available_monopoly_level_pct_{good} ?= {{ this > 0 }} }}
 \t\t\t\t\tadd = var:tv_trade_available_monopoly_level_pct_{good}
-\t\t\t\t\tif = {{
-\t\t\t\t\t\tlimit = {{ var:{active_var} >= 1 }}
-\t\t\t\t\t\tadd = var:{used_var}
-\t\t\t\t\t}}
+\t\t\t\t}}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ var:{active_var} ?= {{ this >= 1 }} }}
+\t\t\t\t\tadd = var:{used_var}
 \t\t\t\t}}
 \t\t\t}}
 \t\t}}"""
@@ -296,9 +307,9 @@ def market_value_action(good: str, action: str, title_key: str) -> str:
 \t\t\t\tlocation = {{ save_scope_as = tv_trade_selected_market_location }}
 \t\t\t}}
 \t\t\tscope:actor = {{
-\t\t\t\tevery_international_organizations_member_of = {{
+\t\t\t\tif = {{
 \t\t\t\t\tlimit = {{
-\t\t\t\t\t\t{leader_io_limit(good, INDENT_6)}
+{actor_leader_limit(good, INDENT_6)}
 \t\t\t\t\t}}
 \t\t\t\t\t{removable_action_remove_block(good, action, INDENT_5)}
 \t\t\t\t\tset_variable = {{ name = {active_var} value = 1 }}
@@ -340,26 +351,22 @@ def adjust_action(good: str, action: str, direction: str) -> str:
     )
     body = f"""\tpotential = {{
 \t\tscope:actor = {{
-\t\t\tany_international_organizations_member_of = {{
-\t\t\t\t{leader_io_limit(good)}
-\t\t\t\tvar:{active_var} ?= {{ this >= 1 }}
-\t\t\t}}
+{actor_leader_limit(good)}
+\t\t\tvar:{active_var} ?= {{ this >= 1 }}
 \t\t}}
 \t}}
 \tallow = {{
 \t\tscope:actor = {{
-\t\t\tany_international_organizations_member_of = {{
-\t\t\t\t{leader_io_limit(good)}
-\t\t\t\tvar:{active_var} ?= {{ this >= 1 }}
-\t\t\t\t{allow_extra}
-\t\t\t}}
+{actor_leader_limit(good)}
+\t\t\tvar:{active_var} ?= {{ this >= 1 }}
+\t\t\t{allow_extra}
 \t\t}}
 \t}}
 \teffect = {{
 \t\tscope:actor = {{
-\t\t\tevery_international_organizations_member_of = {{
+\t\t\tif = {{
 \t\t\t\tlimit = {{
-\t\t\t\t\t{leader_io_limit(good, INDENT_5)}
+{actor_leader_limit(good, INDENT_5)}
 \t\t\t\t\tvar:{active_var} ?= {{ this >= 1 }}
 \t\t\t\t}}
 \t\t\t\t{remove_existing_action}
@@ -388,25 +395,21 @@ def cancel_action(good: str, action: str) -> str:
     remove_existing_action = removable_action_remove_block(good, action, INDENT_4)
     body = f"""\tpotential = {{
 \t\tscope:actor = {{
-\t\t\tany_international_organizations_member_of = {{
-\t\t\t\t{leader_io_limit(good)}
-\t\t\t\tvar:{active_var} ?= {{ this >= 1 }}
-\t\t\t}}
+{actor_leader_limit(good)}
+\t\t\tvar:{active_var} ?= {{ this >= 1 }}
 \t\t}}
 \t}}
 \tallow = {{
 \t\tscope:actor = {{
-\t\t\tany_international_organizations_member_of = {{
-\t\t\t\t{leader_io_limit(good)}
-\t\t\t\tvar:{active_var} ?= {{ this >= 1 }}
-\t\t\t}}
+{actor_leader_limit(good)}
+\t\t\tvar:{active_var} ?= {{ this >= 1 }}
 \t\t}}
 \t}}
 \teffect = {{
 \t\tscope:actor = {{
-\t\t\tevery_international_organizations_member_of = {{
+\t\t\tif = {{
 \t\t\t\tlimit = {{
-\t\t\t\t\t{leader_io_limit(good, INDENT_5)}
+{actor_leader_limit(good, INDENT_5)}
 \t\t\t\t\tvar:{active_var} ?= {{ this >= 1 }}
 \t\t\t\t}}
 \t\t\t\t{remove_existing_action}
@@ -427,11 +430,12 @@ def embargo_action(good: str) -> str:
 \tallow = {{
 \t\tscope:actor = {{
 \t\t\tany_international_organizations_member_of = {{
-\t\t\t\t{leader_io_limit(good)}
-\t\t\t\tOR = {{
-\t\t\t\t\tvar:tv_trade_available_monopoly_level_pct_{good} ?= {{ this >= 10 }}
-\t\t\t\t\tvar:tv_trade_embargo_active_{good} ?= {{ this >= 1 }}
-\t\t\t\t}}
+\t\t\t\t{leader_io_limit()}
+\t\t\t}}
+\t\t\tvar:tv_trade_monopoly_{good} ?= {{ this >= 1 }}
+\t\t\tOR = {{
+\t\t\t\tvar:tv_trade_available_monopoly_level_pct_{good} ?= {{ this >= 10 }}
+\t\t\t\tvar:tv_trade_embargo_active_{good} ?= {{ this >= 1 }}
 \t\t\t}}
 \t\t}}
 \t}}
@@ -472,9 +476,9 @@ def embargo_action(good: str) -> str:
 \t\t\t\tlocation = {{ save_scope_as = tv_trade_embargo_market_location }}
 \t\t\t}}
 \t\t\tscope:actor = {{
-\t\t\t\tevery_international_organizations_member_of = {{
+\t\t\t\tif = {{
 \t\t\t\t\tlimit = {{
-\t\t\t\t\t\t{leader_io_limit(good, INDENT_6)}
+{actor_leader_limit(good, INDENT_6)}
 \t\t\t\t\t}}
 \t\t\t\t\tset_variable = {{ name = tv_trade_embargo_active_{good} value = 1 }}
 \t\t\t\t\tset_variable = {{ name = tv_trade_embargo_used_pct_{good} value = 10 }}
@@ -490,25 +494,21 @@ def embargo_action(good: str) -> str:
 def cancel_embargo_action(good: str) -> str:
     body = f"""\tpotential = {{
 \t\tscope:actor = {{
-\t\t\tany_international_organizations_member_of = {{
-\t\t\t\t{leader_io_limit(good)}
-\t\t\t\tvar:tv_trade_embargo_active_{good} ?= {{ this >= 1 }}
-\t\t\t}}
+{actor_leader_limit(good)}
+\t\t\tvar:tv_trade_embargo_active_{good} ?= {{ this >= 1 }}
 \t\t}}
 \t}}
 \tallow = {{
 \t\tscope:actor = {{
-\t\t\tany_international_organizations_member_of = {{
-\t\t\t\t{leader_io_limit(good)}
-\t\t\t\tvar:tv_trade_embargo_active_{good} ?= {{ this >= 1 }}
-\t\t\t}}
+{actor_leader_limit(good)}
+\t\t\tvar:tv_trade_embargo_active_{good} ?= {{ this >= 1 }}
 \t\t}}
 \t}}
 \teffect = {{
 \t\tscope:actor = {{
-\t\t\tevery_international_organizations_member_of = {{
+\t\t\tif = {{
 \t\t\t\tlimit = {{
-\t\t\t\t\t{leader_io_limit(good, INDENT_5)}
+{actor_leader_limit(good, INDENT_5)}
 \t\t\t\t\tvar:tv_trade_embargo_active_{good} ?= {{ this >= 1 }}
 \t\t\t\t}}
 \t\t\t\tset_variable = {{ name = tv_trade_embargo_active_{good} value = 0 }}
