@@ -21,6 +21,9 @@ OUT_FILE = (
     / "tv_trade_league_monopoly_l_simp_chinese.yml"
 )
 
+VIRTUAL_ACTION_COST_PCT = 5
+EMBARGO_COST_PCT = 30
+
 
 def good_name(good: str) -> str:
     return f"${good}$"
@@ -59,21 +62,21 @@ def action_entries(good: str) -> list[tuple[str, str]]:
         (f"tv_trade_set_virtual_demand_{good}", f"虚构需求：{name}"),
         (f"tv_trade_set_virtual_demand_{good}_desc", f"分配垄断水平，在选定市场创造临时{name}需求。"),
         (f"tv_trade_increase_virtual_demand_{good}", f"增加虚构需求：{name}"),
-        (f"tv_trade_increase_virtual_demand_{good}_desc", f"为{name}虚构需求额外使用1点垄断水平。"),
+        (f"tv_trade_increase_virtual_demand_{good}_desc", f"为{name}虚构需求额外使用{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
         (f"tv_trade_decrease_virtual_demand_{good}", f"减少虚构需求：{name}"),
-        (f"tv_trade_decrease_virtual_demand_{good}_desc", f"从{name}虚构需求释放1点垄断水平。"),
+        (f"tv_trade_decrease_virtual_demand_{good}_desc", f"从{name}虚构需求释放{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
         (f"tv_trade_cancel_virtual_demand_{good}", f"取消虚构需求：{name}"),
         (f"tv_trade_cancel_virtual_demand_{good}_desc", f"移除{name}虚构需求行动。"),
         (f"tv_trade_set_virtual_supply_{good}", f"虚构生产：{name}"),
         (f"tv_trade_set_virtual_supply_{good}_desc", f"分配垄断水平，在选定市场创造临时{name}生产。"),
         (f"tv_trade_increase_virtual_supply_{good}", f"增加虚构生产：{name}"),
-        (f"tv_trade_increase_virtual_supply_{good}_desc", f"为{name}虚构生产额外使用1点垄断水平。"),
+        (f"tv_trade_increase_virtual_supply_{good}_desc", f"为{name}虚构生产额外使用{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
         (f"tv_trade_decrease_virtual_supply_{good}", f"减少虚构生产：{name}"),
-        (f"tv_trade_decrease_virtual_supply_{good}_desc", f"从{name}虚构生产释放1点垄断水平。"),
+        (f"tv_trade_decrease_virtual_supply_{good}_desc", f"从{name}虚构生产释放{VIRTUAL_ACTION_COST_PCT}%垄断水平。"),
         (f"tv_trade_cancel_virtual_supply_{good}", f"取消虚构生产：{name}"),
         (f"tv_trade_cancel_virtual_supply_{good}_desc", f"移除{name}虚构生产行动。"),
         (f"tv_trade_set_embargo_{good}", f"禁运：{name}"),
-        (f"tv_trade_set_embargo_{good}_desc", f"消耗10点垄断水平，使一个国家在选定市场获得-50贸易优势。"),
+        (f"tv_trade_set_embargo_{good}_desc", f"消耗{EMBARGO_COST_PCT}%垄断水平，使一个国家在选定市场获得-50贸易优势。"),
         (f"tv_trade_cancel_embargo_{good}", f"取消禁运：{name}"),
         (f"tv_trade_cancel_embargo_{good}_desc", f"移除{name}禁运行动。"),
     ]

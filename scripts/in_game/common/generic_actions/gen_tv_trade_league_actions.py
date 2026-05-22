@@ -6,7 +6,6 @@ are generated from data/trade_league_goods.yaml.
 """
 
 import sys
-import re
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -16,7 +15,6 @@ import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 DATA_FILE = REPO_ROOT / "data" / "trade_league_goods.yaml"
-GOODS_DIR = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "goods"
 OUT_FILE = (
     REPO_ROOT
     / "src"
@@ -103,37 +101,11 @@ tv_expel_trade_league_member = {
 
 """
 
-
-def load_transport_costs() -> dict[str, float]:
-    costs: dict[str, float] = {}
-    for path in GOODS_DIR.glob("*.txt"):
-        text = path.read_text(encoding="utf-8-sig", errors="ignore")
-        for match in re.finditer(r"(?m)^([A-Za-z0-9_]+)\s*=\s*\{", text):
-            name = match.group(1)
-            depth = 1
-            index = match.end()
-            while index < len(text) and depth:
-                char = text[index]
-                if char == "{":
-                    depth += 1
-                elif char == "}":
-                    depth -= 1
-                index += 1
-            block = text[match.end() : index - 1]
-            cost_match = re.search(r"(?m)^\s*transport_cost\s*=\s*([0-9.]+)", block)
-            costs[name] = float(cost_match.group(1)) if cost_match else 1.0
-    return costs
-
-
-TRANSPORT_COSTS = load_transport_costs()
+VIRTUAL_ACTION_COST_PCT = 5
+EMBARGO_COST_PCT = 30
 INDENT_4 = "\t" * 4
 INDENT_5 = "\t" * 5
 INDENT_6 = "\t" * 6
-
-
-def eu5_number(value: float) -> str:
-    text = f"{value:.5f}".rstrip("0").rstrip(".")
-    return text if text and text != "-0" else "0"
 
 
 def leader_io_limit(good: str | None = None, indent: str = "\t\t\t\t") -> str:
@@ -271,12 +243,17 @@ def market_value_action(good: str, action: str, title_key: str) -> str:
     active_var = f"tv_trade_{action}_active_{good}"
     used_var = f"tv_trade_{action}_used_pct_{good}"
     amount_var = f"tv_trade_{action}_amount_{good}"
-    cost = eu5_number(TRANSPORT_COSTS.get(good, 1.0))
     body = f"""\tpotential = {{
 \t\t{actor_leader_trigger(good)}
 \t}}
 \tallow = {{
-\t\t{actor_leader_trigger(good)}
+\t\tscope:actor = {{
+{actor_leader_limit(good)}
+\t\t\tOR = {{
+\t\t\t\tvar:tv_trade_available_monopoly_level_pct_{good} ?= {{ this >= {VIRTUAL_ACTION_COST_PCT} }}
+\t\t\t\tvar:{active_var} ?= {{ this >= 1 }}
+\t\t\t}}
+\t\t}}
 \t}}
 \tselect_trigger = {{
 \t\tlooking_for_a = market
@@ -292,10 +269,10 @@ def market_value_action(good: str, action: str, title_key: str) -> str:
 \t\tlooking_for_a = value
 \t\ttarget_flag = target_1
 \t\tname = "tv_trade_select_monopoly_level"
-\t\tmin = 1
+\t\tmin = {VIRTUAL_ACTION_COST_PCT}
 {monopoly_value_max(good, action)}
-\t\tstep = 1
-\t\tdefault = 1
+\t\tstep = {VIRTUAL_ACTION_COST_PCT}
+\t\tdefault = {VIRTUAL_ACTION_COST_PCT}
 \t}}
 \teffect = {{
 \t\tif = {{
@@ -314,7 +291,7 @@ def market_value_action(good: str, action: str, title_key: str) -> str:
 \t\t\t\t\t{removable_action_remove_block(good, action, INDENT_5)}
 \t\t\t\t\tset_variable = {{ name = {active_var} value = 1 }}
 \t\t\t\t\tset_variable = {{ name = {used_var} value = {{ value = scope:target_1 }} }}
-\t\t\t\t\tset_variable = {{ name = {amount_var} value = {{ value = scope:target_1 divide = {cost} }} }}
+\t\t\t\t\tset_variable = {{ name = {amount_var} value = {{ value = scope:target_1 divide = {VIRTUAL_ACTION_COST_PCT} }} }}
 \t\t\t\t\tset_variable = {{ name = {location_var} value = scope:tv_trade_selected_market_location }}
 \t\t\t\t\t{removable_action_apply_block(good, action, INDENT_5)}
 \t\t\t\t}}
@@ -330,16 +307,14 @@ def adjust_action(good: str, action: str, direction: str) -> str:
     used_var = f"tv_trade_{action}_used_pct_{good}"
     amount_var = f"tv_trade_{action}_amount_{good}"
     location_var = f"tv_trade_{action}_location_{good}"
-    cost = TRANSPORT_COSTS.get(good, 1.0)
-    amount_step = eu5_number(1 / cost)
     if direction == "increase":
-        allow_extra = f"var:tv_trade_available_monopoly_level_pct_{good} ?= {{ this >= 1 }}"
-        mutation = f"change_variable = {{ name = {used_var} add = 1 }}"
-        amount_mutation = f"change_variable = {{ name = {amount_var} add = {amount_step} }}"
+        allow_extra = f"var:tv_trade_available_monopoly_level_pct_{good} ?= {{ this >= {VIRTUAL_ACTION_COST_PCT} }}"
+        mutation = f"change_variable = {{ name = {used_var} add = {VIRTUAL_ACTION_COST_PCT} }}"
+        amount_mutation = f"change_variable = {{ name = {amount_var} add = 1 }}"
     else:
-        allow_extra = f"var:{used_var} ?= {{ this >= 1 }}"
-        mutation = f"change_variable = {{ name = {used_var} subtract = 1 }}"
-        amount_mutation = f"change_variable = {{ name = {amount_var} subtract = {amount_step} }}"
+        allow_extra = f"var:{used_var} ?= {{ this >= {VIRTUAL_ACTION_COST_PCT} }}"
+        mutation = f"change_variable = {{ name = {used_var} subtract = {VIRTUAL_ACTION_COST_PCT} }}"
+        amount_mutation = f"change_variable = {{ name = {amount_var} subtract = 1 }}"
     remove_existing_action = removable_action_remove_block(good, action, INDENT_4)
     reapply_block = removable_action_apply_block(good, action, INDENT_5)
     reapply_action = (
@@ -434,7 +409,7 @@ def embargo_action(good: str) -> str:
 \t\t\t}}
 \t\t\tvar:tv_trade_monopoly_{good} ?= {{ this >= 1 }}
 \t\t\tOR = {{
-\t\t\t\tvar:tv_trade_available_monopoly_level_pct_{good} ?= {{ this >= 10 }}
+\t\t\t\tvar:tv_trade_available_monopoly_level_pct_{good} ?= {{ this >= {EMBARGO_COST_PCT} }}
 \t\t\t\tvar:tv_trade_embargo_active_{good} ?= {{ this >= 1 }}
 \t\t\t}}
 \t\t}}
@@ -481,7 +456,7 @@ def embargo_action(good: str) -> str:
 {actor_leader_limit(good, INDENT_6)}
 \t\t\t\t\t}}
 \t\t\t\t\tset_variable = {{ name = tv_trade_embargo_active_{good} value = 1 }}
-\t\t\t\t\tset_variable = {{ name = tv_trade_embargo_used_pct_{good} value = 10 }}
+\t\t\t\t\tset_variable = {{ name = tv_trade_embargo_used_pct_{good} value = {EMBARGO_COST_PCT} }}
 \t\t\t\t\tset_variable = {{ name = tv_trade_embargo_location_{good} value = scope:tv_trade_embargo_market_location }}
 \t\t\t\t\tset_variable = {{ name = tv_trade_embargo_country_{good} value = scope:target_1 }}
 \t\t\t\t}}

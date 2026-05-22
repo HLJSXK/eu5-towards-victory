@@ -33,6 +33,9 @@ HEADER = """\
 
 """
 
+MONOPOLY_DISPLAY_MAX_PCT = 300
+EMBARGO_COST_PCT = 30
+
 PREFIX = """\
 organization_panel = {
 
@@ -679,7 +682,7 @@ def embargo_row(good: str) -> str:
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
 \t\t\t\t\t\t\t\t\t\tsize = {{ 48 26 }}
-\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 48 26 }} raw_text = "10%" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 48 26 }} raw_text = "{EMBARGO_COST_PCT}%" align = nobaseline|right }}
 \t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\taction_button = {{ size = {{ 28 24 }} using = button_regular_texture_alt_red using = action_button_common_template using = button_common_textobj_template text = "X" title = "tv_trade_cancel_embargo_{good}" description = "tv_trade_cancel_embargo_{good}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = {{ action_name = "tv_trade_cancel_embargo_{good}" }} }}
 \t\t\t\t\t\t\t\t}}
@@ -827,7 +830,7 @@ def detail_card(good: str, index: int) -> str:
 \t\t\t\t\t\t\t\t\t\tusing = piechart_angles
 \t\t\t\t\t\t\t\t\t\ticon = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" size = {{ 97% 97% }} parentanchor = center color = {{ 0.45 0.59 0.67 1 }} alpha = 0.3 }}
 \t\t\t\t\t\t\t\t\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue)]" color = {{ 0.85 0.65 0.22 1 }} alpha = 0.8 }}
-\t\t\t\t\t\t\t\t\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_float('(float)100.0', FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue))]" color = {{ 1 1 1 0 }} }}
+\t\t\t\t\t\t\t\t\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_float('(float){MONOPOLY_DISPLAY_MAX_PCT}.0', FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue))]" color = {{ 1 1 1 0 }} }}
 \t\t\t\t\t\t\t\t\t\tusing = bg_circle_piechart
 \t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\tvbox = {{
@@ -855,13 +858,13 @@ def detail_card(good: str, index: int) -> str:
 \t\t\t\t\t\t\t\ttext_single = {{ size = {{ 462 24 }} text = "TV_TRADE_LEAGUE_USED_LEVEL_TITLE" align = nobaseline|center }}
 \t\t\t\t\t\t\t\tprogressbar = {{
 \t\t\t\t\t\t\t\t\tsize = {{ 462 18 }}
-\t\t\t\t\t\t\t\t\tmax = 100
+\t\t\t\t\t\t\t\t\tmax = {MONOPOLY_DISPLAY_MAX_PCT}
 \t\t\t\t\t\t\t\t\tvalue = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue]"
 \t\t\t\t\t\t\t\t\tusing = progress_bar_goldish
 \t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\tprogressbar = {{
 \t\t\t\t\t\t\t\t\tsize = {{ 462 18 }}
-\t\t\t\t\t\t\t\t\tmax = 100
+\t\t\t\t\t\t\t\t\tmax = {MONOPOLY_DISPLAY_MAX_PCT}
 \t\t\t\t\t\t\t\t\tvalue = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_used_monopoly_level_pct_{good}').GetValue]"
 \t\t\t\t\t\t\t\t\tusing = progress_bar_blue_alt
 \t\t\t\t\t\t\t\t}}

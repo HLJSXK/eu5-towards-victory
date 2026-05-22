@@ -21,6 +21,9 @@ OUT_FILE = (
     / "tv_trade_league_monopoly_l_english.yml"
 )
 
+VIRTUAL_ACTION_COST_PCT = 5
+EMBARGO_COST_PCT = 30
+
 
 def good_name(good: str) -> str:
     return f"${good}$"
@@ -62,9 +65,9 @@ def action_entries(good: str) -> list[tuple[str, str]]:
             f"Allocate monopoly level to create temporary {name} demand in a selected market.",
         ),
         (f"tv_trade_increase_virtual_demand_{good}", f"Increase Virtual Demand: {name}"),
-        (f"tv_trade_increase_virtual_demand_{good}_desc", f"Use 1 more monopoly level on virtual {name} demand."),
+        (f"tv_trade_increase_virtual_demand_{good}_desc", f"Use {VIRTUAL_ACTION_COST_PCT}% more monopoly level on virtual {name} demand."),
         (f"tv_trade_decrease_virtual_demand_{good}", f"Decrease Virtual Demand: {name}"),
-        (f"tv_trade_decrease_virtual_demand_{good}_desc", f"Release 1 monopoly level from virtual {name} demand."),
+        (f"tv_trade_decrease_virtual_demand_{good}_desc", f"Release {VIRTUAL_ACTION_COST_PCT}% monopoly level from virtual {name} demand."),
         (f"tv_trade_cancel_virtual_demand_{good}", f"Cancel Virtual Demand: {name}"),
         (f"tv_trade_cancel_virtual_demand_{good}_desc", f"Remove the virtual {name} demand action."),
         (f"tv_trade_set_virtual_supply_{good}", f"Virtual Production: {name}"),
@@ -73,15 +76,15 @@ def action_entries(good: str) -> list[tuple[str, str]]:
             f"Allocate monopoly level to create temporary {name} production in a selected market.",
         ),
         (f"tv_trade_increase_virtual_supply_{good}", f"Increase Virtual Production: {name}"),
-        (f"tv_trade_increase_virtual_supply_{good}_desc", f"Use 1 more monopoly level on virtual {name} production."),
+        (f"tv_trade_increase_virtual_supply_{good}_desc", f"Use {VIRTUAL_ACTION_COST_PCT}% more monopoly level on virtual {name} production."),
         (f"tv_trade_decrease_virtual_supply_{good}", f"Decrease Virtual Production: {name}"),
-        (f"tv_trade_decrease_virtual_supply_{good}_desc", f"Release 1 monopoly level from virtual {name} production."),
+        (f"tv_trade_decrease_virtual_supply_{good}_desc", f"Release {VIRTUAL_ACTION_COST_PCT}% monopoly level from virtual {name} production."),
         (f"tv_trade_cancel_virtual_supply_{good}", f"Cancel Virtual Production: {name}"),
         (f"tv_trade_cancel_virtual_supply_{good}_desc", f"Remove the virtual {name} production action."),
         (f"tv_trade_set_embargo_{good}", f"Embargo: {name}"),
         (
             f"tv_trade_set_embargo_{good}_desc",
-            f"Spend 10 monopoly level to give a country -50 trade advantage in a selected market.",
+            f"Spend {EMBARGO_COST_PCT}% monopoly level to give a country -50 trade advantage in a selected market.",
         ),
         (f"tv_trade_cancel_embargo_{good}", f"Cancel Embargo: {name}"),
         (f"tv_trade_cancel_embargo_{good}_desc", f"Remove the {name} embargo action."),

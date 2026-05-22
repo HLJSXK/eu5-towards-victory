@@ -37293,14 +37293,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_horses value = var:tv_trade_origin_control_pct_horses }
 	change_variable = { name = tv_trade_monopoly_level_pct_horses add = var:tv_trade_node_control_pct_horses }
 	change_variable = { name = tv_trade_monopoly_level_pct_horses add = var:tv_trade_consumer_control_pct_horses }
-	change_variable = { name = tv_trade_monopoly_level_pct_horses divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_horses >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_horses >= 100 }
 		set_variable = { name = tv_trade_monopoly_horses value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_horses value = { value = var:tv_trade_virtual_demand_used_pct_horses divide = 2 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_horses value = { value = var:tv_trade_virtual_supply_used_pct_horses divide = 2 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_horses value = { value = var:tv_trade_virtual_demand_used_pct_horses divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_horses value = { value = var:tv_trade_virtual_supply_used_pct_horses divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_horses value = 0 }
 	if = {
@@ -37313,8 +37312,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_horses >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_horses value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_horses add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_horses value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_horses add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_horses value = var:tv_trade_monopoly_level_pct_horses }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_horses subtract = var:tv_trade_used_monopoly_level_pct_horses }
@@ -37944,14 +37943,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_clay value = var:tv_trade_origin_control_pct_clay }
 	change_variable = { name = tv_trade_monopoly_level_pct_clay add = var:tv_trade_node_control_pct_clay }
 	change_variable = { name = tv_trade_monopoly_level_pct_clay add = var:tv_trade_consumer_control_pct_clay }
-	change_variable = { name = tv_trade_monopoly_level_pct_clay divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_clay >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_clay >= 100 }
 		set_variable = { name = tv_trade_monopoly_clay value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_clay value = { value = var:tv_trade_virtual_demand_used_pct_clay divide = 2 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_clay value = { value = var:tv_trade_virtual_supply_used_pct_clay divide = 2 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_clay value = { value = var:tv_trade_virtual_demand_used_pct_clay divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_clay value = { value = var:tv_trade_virtual_supply_used_pct_clay divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_clay value = 0 }
 	if = {
@@ -37964,8 +37962,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_clay >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_clay value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_clay add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_clay value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_clay add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_clay value = var:tv_trade_monopoly_level_pct_clay }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_clay subtract = var:tv_trade_used_monopoly_level_pct_clay }
@@ -38595,14 +38593,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_sand value = var:tv_trade_origin_control_pct_sand }
 	change_variable = { name = tv_trade_monopoly_level_pct_sand add = var:tv_trade_node_control_pct_sand }
 	change_variable = { name = tv_trade_monopoly_level_pct_sand add = var:tv_trade_consumer_control_pct_sand }
-	change_variable = { name = tv_trade_monopoly_level_pct_sand divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_sand >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_sand >= 100 }
 		set_variable = { name = tv_trade_monopoly_sand value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_sand value = { value = var:tv_trade_virtual_demand_used_pct_sand divide = 2 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_sand value = { value = var:tv_trade_virtual_supply_used_pct_sand divide = 2 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_sand value = { value = var:tv_trade_virtual_demand_used_pct_sand divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_sand value = { value = var:tv_trade_virtual_supply_used_pct_sand divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_sand value = 0 }
 	if = {
@@ -38615,8 +38612,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_sand >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_sand value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_sand add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_sand value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_sand add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_sand value = var:tv_trade_monopoly_level_pct_sand }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_sand subtract = var:tv_trade_used_monopoly_level_pct_sand }
@@ -39246,14 +39243,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_coal value = var:tv_trade_origin_control_pct_coal }
 	change_variable = { name = tv_trade_monopoly_level_pct_coal add = var:tv_trade_node_control_pct_coal }
 	change_variable = { name = tv_trade_monopoly_level_pct_coal add = var:tv_trade_consumer_control_pct_coal }
-	change_variable = { name = tv_trade_monopoly_level_pct_coal divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_coal >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_coal >= 100 }
 		set_variable = { name = tv_trade_monopoly_coal value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_coal value = { value = var:tv_trade_virtual_demand_used_pct_coal divide = 2 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_coal value = { value = var:tv_trade_virtual_supply_used_pct_coal divide = 2 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_coal value = { value = var:tv_trade_virtual_demand_used_pct_coal divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_coal value = { value = var:tv_trade_virtual_supply_used_pct_coal divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_coal value = 0 }
 	if = {
@@ -39266,8 +39262,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_coal >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_coal value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_coal add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_coal value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_coal add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_coal value = var:tv_trade_monopoly_level_pct_coal }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_coal subtract = var:tv_trade_used_monopoly_level_pct_coal }
@@ -39897,14 +39893,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_iron value = var:tv_trade_origin_control_pct_iron }
 	change_variable = { name = tv_trade_monopoly_level_pct_iron add = var:tv_trade_node_control_pct_iron }
 	change_variable = { name = tv_trade_monopoly_level_pct_iron add = var:tv_trade_consumer_control_pct_iron }
-	change_variable = { name = tv_trade_monopoly_level_pct_iron divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_iron >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_iron >= 100 }
 		set_variable = { name = tv_trade_monopoly_iron value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_iron value = { value = var:tv_trade_virtual_demand_used_pct_iron divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_iron value = { value = var:tv_trade_virtual_supply_used_pct_iron divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_iron value = { value = var:tv_trade_virtual_demand_used_pct_iron divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_iron value = { value = var:tv_trade_virtual_supply_used_pct_iron divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_iron value = 0 }
 	if = {
@@ -39917,8 +39912,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_iron >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_iron value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_iron add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_iron value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_iron add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_iron value = var:tv_trade_monopoly_level_pct_iron }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_iron subtract = var:tv_trade_used_monopoly_level_pct_iron }
@@ -40548,14 +40543,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_copper value = var:tv_trade_origin_control_pct_copper }
 	change_variable = { name = tv_trade_monopoly_level_pct_copper add = var:tv_trade_node_control_pct_copper }
 	change_variable = { name = tv_trade_monopoly_level_pct_copper add = var:tv_trade_consumer_control_pct_copper }
-	change_variable = { name = tv_trade_monopoly_level_pct_copper divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_copper >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_copper >= 100 }
 		set_variable = { name = tv_trade_monopoly_copper value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_copper value = { value = var:tv_trade_virtual_demand_used_pct_copper divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_copper value = { value = var:tv_trade_virtual_supply_used_pct_copper divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_copper value = { value = var:tv_trade_virtual_demand_used_pct_copper divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_copper value = { value = var:tv_trade_virtual_supply_used_pct_copper divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_copper value = 0 }
 	if = {
@@ -40568,8 +40562,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_copper >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_copper value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_copper add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_copper value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_copper add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_copper value = var:tv_trade_monopoly_level_pct_copper }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_copper subtract = var:tv_trade_used_monopoly_level_pct_copper }
@@ -41199,14 +41193,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_goods_gold value = var:tv_trade_origin_control_pct_goods_gold }
 	change_variable = { name = tv_trade_monopoly_level_pct_goods_gold add = var:tv_trade_node_control_pct_goods_gold }
 	change_variable = { name = tv_trade_monopoly_level_pct_goods_gold add = var:tv_trade_consumer_control_pct_goods_gold }
-	change_variable = { name = tv_trade_monopoly_level_pct_goods_gold divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_goods_gold >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_goods_gold >= 100 }
 		set_variable = { name = tv_trade_monopoly_goods_gold value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_goods_gold value = { value = var:tv_trade_virtual_demand_used_pct_goods_gold divide = 2 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_goods_gold value = { value = var:tv_trade_virtual_supply_used_pct_goods_gold divide = 2 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_goods_gold value = { value = var:tv_trade_virtual_demand_used_pct_goods_gold divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_goods_gold value = { value = var:tv_trade_virtual_supply_used_pct_goods_gold divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_goods_gold value = 0 }
 	if = {
@@ -41219,8 +41212,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_goods_gold >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_goods_gold value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_goods_gold add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_goods_gold value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_goods_gold add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_goods_gold value = var:tv_trade_monopoly_level_pct_goods_gold }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_goods_gold subtract = var:tv_trade_used_monopoly_level_pct_goods_gold }
@@ -41850,14 +41843,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_silver value = var:tv_trade_origin_control_pct_silver }
 	change_variable = { name = tv_trade_monopoly_level_pct_silver add = var:tv_trade_node_control_pct_silver }
 	change_variable = { name = tv_trade_monopoly_level_pct_silver add = var:tv_trade_consumer_control_pct_silver }
-	change_variable = { name = tv_trade_monopoly_level_pct_silver divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_silver >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_silver >= 100 }
 		set_variable = { name = tv_trade_monopoly_silver value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_silver value = { value = var:tv_trade_virtual_demand_used_pct_silver divide = 2 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_silver value = { value = var:tv_trade_virtual_supply_used_pct_silver divide = 2 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_silver value = { value = var:tv_trade_virtual_demand_used_pct_silver divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_silver value = { value = var:tv_trade_virtual_supply_used_pct_silver divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_silver value = 0 }
 	if = {
@@ -41870,8 +41862,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_silver >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_silver value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_silver add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_silver value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_silver add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_silver value = var:tv_trade_monopoly_level_pct_silver }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_silver subtract = var:tv_trade_used_monopoly_level_pct_silver }
@@ -42501,14 +42493,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_stone value = var:tv_trade_origin_control_pct_stone }
 	change_variable = { name = tv_trade_monopoly_level_pct_stone add = var:tv_trade_node_control_pct_stone }
 	change_variable = { name = tv_trade_monopoly_level_pct_stone add = var:tv_trade_consumer_control_pct_stone }
-	change_variable = { name = tv_trade_monopoly_level_pct_stone divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_stone >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_stone >= 100 }
 		set_variable = { name = tv_trade_monopoly_stone value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_stone value = { value = var:tv_trade_virtual_demand_used_pct_stone divide = 2 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_stone value = { value = var:tv_trade_virtual_supply_used_pct_stone divide = 2 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_stone value = { value = var:tv_trade_virtual_demand_used_pct_stone divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_stone value = { value = var:tv_trade_virtual_supply_used_pct_stone divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_stone value = 0 }
 	if = {
@@ -42521,8 +42512,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_stone >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_stone value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_stone add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_stone value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_stone add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_stone value = var:tv_trade_monopoly_level_pct_stone }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_stone subtract = var:tv_trade_used_monopoly_level_pct_stone }
@@ -43152,14 +43143,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_tin value = var:tv_trade_origin_control_pct_tin }
 	change_variable = { name = tv_trade_monopoly_level_pct_tin add = var:tv_trade_node_control_pct_tin }
 	change_variable = { name = tv_trade_monopoly_level_pct_tin add = var:tv_trade_consumer_control_pct_tin }
-	change_variable = { name = tv_trade_monopoly_level_pct_tin divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_tin >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_tin >= 100 }
 		set_variable = { name = tv_trade_monopoly_tin value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_tin value = { value = var:tv_trade_virtual_demand_used_pct_tin divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_tin value = { value = var:tv_trade_virtual_supply_used_pct_tin divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_tin value = { value = var:tv_trade_virtual_demand_used_pct_tin divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_tin value = { value = var:tv_trade_virtual_supply_used_pct_tin divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_tin value = 0 }
 	if = {
@@ -43172,8 +43162,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_tin >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_tin value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_tin add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_tin value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_tin add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_tin value = var:tv_trade_monopoly_level_pct_tin }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_tin subtract = var:tv_trade_used_monopoly_level_pct_tin }
@@ -43803,14 +43793,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_lead value = var:tv_trade_origin_control_pct_lead }
 	change_variable = { name = tv_trade_monopoly_level_pct_lead add = var:tv_trade_node_control_pct_lead }
 	change_variable = { name = tv_trade_monopoly_level_pct_lead add = var:tv_trade_consumer_control_pct_lead }
-	change_variable = { name = tv_trade_monopoly_level_pct_lead divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_lead >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_lead >= 100 }
 		set_variable = { name = tv_trade_monopoly_lead value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_lead value = { value = var:tv_trade_virtual_demand_used_pct_lead divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_lead value = { value = var:tv_trade_virtual_supply_used_pct_lead divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_lead value = { value = var:tv_trade_virtual_demand_used_pct_lead divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_lead value = { value = var:tv_trade_virtual_supply_used_pct_lead divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_lead value = 0 }
 	if = {
@@ -43823,8 +43812,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_lead >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_lead value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_lead add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_lead value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_lead add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_lead value = var:tv_trade_monopoly_level_pct_lead }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_lead subtract = var:tv_trade_used_monopoly_level_pct_lead }
@@ -44454,14 +44443,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_silk value = var:tv_trade_origin_control_pct_silk }
 	change_variable = { name = tv_trade_monopoly_level_pct_silk add = var:tv_trade_node_control_pct_silk }
 	change_variable = { name = tv_trade_monopoly_level_pct_silk add = var:tv_trade_consumer_control_pct_silk }
-	change_variable = { name = tv_trade_monopoly_level_pct_silk divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_silk >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_silk >= 100 }
 		set_variable = { name = tv_trade_monopoly_silk value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_silk value = { value = var:tv_trade_virtual_demand_used_pct_silk divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_silk value = { value = var:tv_trade_virtual_supply_used_pct_silk divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_silk value = { value = var:tv_trade_virtual_demand_used_pct_silk divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_silk value = { value = var:tv_trade_virtual_supply_used_pct_silk divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_silk value = 0 }
 	if = {
@@ -44474,8 +44462,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_silk >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_silk value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_silk add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_silk value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_silk add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_silk value = var:tv_trade_monopoly_level_pct_silk }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_silk subtract = var:tv_trade_used_monopoly_level_pct_silk }
@@ -45105,14 +45093,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_dyes value = var:tv_trade_origin_control_pct_dyes }
 	change_variable = { name = tv_trade_monopoly_level_pct_dyes add = var:tv_trade_node_control_pct_dyes }
 	change_variable = { name = tv_trade_monopoly_level_pct_dyes add = var:tv_trade_consumer_control_pct_dyes }
-	change_variable = { name = tv_trade_monopoly_level_pct_dyes divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_dyes >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_dyes >= 100 }
 		set_variable = { name = tv_trade_monopoly_dyes value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_dyes value = { value = var:tv_trade_virtual_demand_used_pct_dyes divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_dyes value = { value = var:tv_trade_virtual_supply_used_pct_dyes divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_dyes value = { value = var:tv_trade_virtual_demand_used_pct_dyes divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_dyes value = { value = var:tv_trade_virtual_supply_used_pct_dyes divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_dyes value = 0 }
 	if = {
@@ -45125,8 +45112,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_dyes >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_dyes value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_dyes add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_dyes value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_dyes add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_dyes value = var:tv_trade_monopoly_level_pct_dyes }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_dyes subtract = var:tv_trade_used_monopoly_level_pct_dyes }
@@ -45756,14 +45743,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_incense value = var:tv_trade_origin_control_pct_incense }
 	change_variable = { name = tv_trade_monopoly_level_pct_incense add = var:tv_trade_node_control_pct_incense }
 	change_variable = { name = tv_trade_monopoly_level_pct_incense add = var:tv_trade_consumer_control_pct_incense }
-	change_variable = { name = tv_trade_monopoly_level_pct_incense divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_incense >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_incense >= 100 }
 		set_variable = { name = tv_trade_monopoly_incense value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_incense value = { value = var:tv_trade_virtual_demand_used_pct_incense divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_incense value = { value = var:tv_trade_virtual_supply_used_pct_incense divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_incense value = { value = var:tv_trade_virtual_demand_used_pct_incense divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_incense value = { value = var:tv_trade_virtual_supply_used_pct_incense divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_incense value = 0 }
 	if = {
@@ -45776,8 +45762,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_incense >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_incense value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_incense add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_incense value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_incense add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_incense value = var:tv_trade_monopoly_level_pct_incense }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_incense subtract = var:tv_trade_used_monopoly_level_pct_incense }
@@ -46407,14 +46393,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_tea value = var:tv_trade_origin_control_pct_tea }
 	change_variable = { name = tv_trade_monopoly_level_pct_tea add = var:tv_trade_node_control_pct_tea }
 	change_variable = { name = tv_trade_monopoly_level_pct_tea add = var:tv_trade_consumer_control_pct_tea }
-	change_variable = { name = tv_trade_monopoly_level_pct_tea divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_tea >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_tea >= 100 }
 		set_variable = { name = tv_trade_monopoly_tea value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_tea value = { value = var:tv_trade_virtual_demand_used_pct_tea divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_tea value = { value = var:tv_trade_virtual_supply_used_pct_tea divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_tea value = { value = var:tv_trade_virtual_demand_used_pct_tea divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_tea value = { value = var:tv_trade_virtual_supply_used_pct_tea divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_tea value = 0 }
 	if = {
@@ -46427,8 +46412,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_tea >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_tea value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_tea add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_tea value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_tea add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_tea value = var:tv_trade_monopoly_level_pct_tea }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_tea subtract = var:tv_trade_used_monopoly_level_pct_tea }
@@ -47058,14 +47043,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_cocoa value = var:tv_trade_origin_control_pct_cocoa }
 	change_variable = { name = tv_trade_monopoly_level_pct_cocoa add = var:tv_trade_node_control_pct_cocoa }
 	change_variable = { name = tv_trade_monopoly_level_pct_cocoa add = var:tv_trade_consumer_control_pct_cocoa }
-	change_variable = { name = tv_trade_monopoly_level_pct_cocoa divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_cocoa >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_cocoa >= 100 }
 		set_variable = { name = tv_trade_monopoly_cocoa value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_cocoa value = { value = var:tv_trade_virtual_demand_used_pct_cocoa divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_cocoa value = { value = var:tv_trade_virtual_supply_used_pct_cocoa divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_cocoa value = { value = var:tv_trade_virtual_demand_used_pct_cocoa divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_cocoa value = { value = var:tv_trade_virtual_supply_used_pct_cocoa divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_cocoa value = 0 }
 	if = {
@@ -47078,8 +47062,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_cocoa >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_cocoa value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_cocoa add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_cocoa value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_cocoa add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_cocoa value = var:tv_trade_monopoly_level_pct_cocoa }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_cocoa subtract = var:tv_trade_used_monopoly_level_pct_cocoa }
@@ -47709,14 +47693,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_coffee value = var:tv_trade_origin_control_pct_coffee }
 	change_variable = { name = tv_trade_monopoly_level_pct_coffee add = var:tv_trade_node_control_pct_coffee }
 	change_variable = { name = tv_trade_monopoly_level_pct_coffee add = var:tv_trade_consumer_control_pct_coffee }
-	change_variable = { name = tv_trade_monopoly_level_pct_coffee divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_coffee >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_coffee >= 100 }
 		set_variable = { name = tv_trade_monopoly_coffee value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_coffee value = { value = var:tv_trade_virtual_demand_used_pct_coffee divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_coffee value = { value = var:tv_trade_virtual_supply_used_pct_coffee divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_coffee value = { value = var:tv_trade_virtual_demand_used_pct_coffee divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_coffee value = { value = var:tv_trade_virtual_supply_used_pct_coffee divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_coffee value = 0 }
 	if = {
@@ -47729,8 +47712,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_coffee >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_coffee value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_coffee add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_coffee value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_coffee add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_coffee value = var:tv_trade_monopoly_level_pct_coffee }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_coffee subtract = var:tv_trade_used_monopoly_level_pct_coffee }
@@ -48360,14 +48343,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_fiber_crops value = var:tv_trade_origin_control_pct_fiber_crops }
 	change_variable = { name = tv_trade_monopoly_level_pct_fiber_crops add = var:tv_trade_node_control_pct_fiber_crops }
 	change_variable = { name = tv_trade_monopoly_level_pct_fiber_crops add = var:tv_trade_consumer_control_pct_fiber_crops }
-	change_variable = { name = tv_trade_monopoly_level_pct_fiber_crops divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_fiber_crops >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_fiber_crops >= 100 }
 		set_variable = { name = tv_trade_monopoly_fiber_crops value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_fiber_crops value = { value = var:tv_trade_virtual_demand_used_pct_fiber_crops divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_fiber_crops value = { value = var:tv_trade_virtual_supply_used_pct_fiber_crops divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_fiber_crops value = { value = var:tv_trade_virtual_demand_used_pct_fiber_crops divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_fiber_crops value = { value = var:tv_trade_virtual_supply_used_pct_fiber_crops divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_fiber_crops value = 0 }
 	if = {
@@ -48380,8 +48362,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_fiber_crops >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_fiber_crops value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_fiber_crops add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_fiber_crops value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_fiber_crops add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_fiber_crops value = var:tv_trade_monopoly_level_pct_fiber_crops }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_fiber_crops subtract = var:tv_trade_used_monopoly_level_pct_fiber_crops }
@@ -49011,14 +48993,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_ivory value = var:tv_trade_origin_control_pct_ivory }
 	change_variable = { name = tv_trade_monopoly_level_pct_ivory add = var:tv_trade_node_control_pct_ivory }
 	change_variable = { name = tv_trade_monopoly_level_pct_ivory add = var:tv_trade_consumer_control_pct_ivory }
-	change_variable = { name = tv_trade_monopoly_level_pct_ivory divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_ivory >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_ivory >= 100 }
 		set_variable = { name = tv_trade_monopoly_ivory value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_ivory value = { value = var:tv_trade_virtual_demand_used_pct_ivory divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_ivory value = { value = var:tv_trade_virtual_supply_used_pct_ivory divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_ivory value = { value = var:tv_trade_virtual_demand_used_pct_ivory divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_ivory value = { value = var:tv_trade_virtual_supply_used_pct_ivory divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_ivory value = 0 }
 	if = {
@@ -49031,8 +49012,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_ivory >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_ivory value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_ivory add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_ivory value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_ivory add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_ivory value = var:tv_trade_monopoly_level_pct_ivory }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_ivory subtract = var:tv_trade_used_monopoly_level_pct_ivory }
@@ -49662,14 +49643,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_lumber value = var:tv_trade_origin_control_pct_lumber }
 	change_variable = { name = tv_trade_monopoly_level_pct_lumber add = var:tv_trade_node_control_pct_lumber }
 	change_variable = { name = tv_trade_monopoly_level_pct_lumber add = var:tv_trade_consumer_control_pct_lumber }
-	change_variable = { name = tv_trade_monopoly_level_pct_lumber divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_lumber >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_lumber >= 100 }
 		set_variable = { name = tv_trade_monopoly_lumber value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_lumber value = { value = var:tv_trade_virtual_demand_used_pct_lumber divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_lumber value = { value = var:tv_trade_virtual_supply_used_pct_lumber divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_lumber value = { value = var:tv_trade_virtual_demand_used_pct_lumber divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_lumber value = { value = var:tv_trade_virtual_supply_used_pct_lumber divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_lumber value = 0 }
 	if = {
@@ -49682,8 +49662,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_lumber >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_lumber value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_lumber add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_lumber value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_lumber add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_lumber value = var:tv_trade_monopoly_level_pct_lumber }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_lumber subtract = var:tv_trade_used_monopoly_level_pct_lumber }
@@ -50313,14 +50293,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_salt value = var:tv_trade_origin_control_pct_salt }
 	change_variable = { name = tv_trade_monopoly_level_pct_salt add = var:tv_trade_node_control_pct_salt }
 	change_variable = { name = tv_trade_monopoly_level_pct_salt add = var:tv_trade_consumer_control_pct_salt }
-	change_variable = { name = tv_trade_monopoly_level_pct_salt divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_salt >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_salt >= 100 }
 		set_variable = { name = tv_trade_monopoly_salt value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_salt value = { value = var:tv_trade_virtual_demand_used_pct_salt divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_salt value = { value = var:tv_trade_virtual_supply_used_pct_salt divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_salt value = { value = var:tv_trade_virtual_demand_used_pct_salt divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_salt value = { value = var:tv_trade_virtual_supply_used_pct_salt divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_salt value = 0 }
 	if = {
@@ -50333,8 +50312,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_salt >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_salt value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_salt add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_salt value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_salt add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_salt value = var:tv_trade_monopoly_level_pct_salt }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_salt subtract = var:tv_trade_used_monopoly_level_pct_salt }
@@ -50964,14 +50943,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_medicaments value = var:tv_trade_origin_control_pct_medicaments }
 	change_variable = { name = tv_trade_monopoly_level_pct_medicaments add = var:tv_trade_node_control_pct_medicaments }
 	change_variable = { name = tv_trade_monopoly_level_pct_medicaments add = var:tv_trade_consumer_control_pct_medicaments }
-	change_variable = { name = tv_trade_monopoly_level_pct_medicaments divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_medicaments >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_medicaments >= 100 }
 		set_variable = { name = tv_trade_monopoly_medicaments value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_medicaments value = { value = var:tv_trade_virtual_demand_used_pct_medicaments divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_medicaments value = { value = var:tv_trade_virtual_supply_used_pct_medicaments divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_medicaments value = { value = var:tv_trade_virtual_demand_used_pct_medicaments divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_medicaments value = { value = var:tv_trade_virtual_supply_used_pct_medicaments divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_medicaments value = 0 }
 	if = {
@@ -50984,8 +50962,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_medicaments >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_medicaments value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_medicaments add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_medicaments value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_medicaments add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_medicaments value = var:tv_trade_monopoly_level_pct_medicaments }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_medicaments subtract = var:tv_trade_used_monopoly_level_pct_medicaments }
@@ -51615,14 +51593,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_gems value = var:tv_trade_origin_control_pct_gems }
 	change_variable = { name = tv_trade_monopoly_level_pct_gems add = var:tv_trade_node_control_pct_gems }
 	change_variable = { name = tv_trade_monopoly_level_pct_gems add = var:tv_trade_consumer_control_pct_gems }
-	change_variable = { name = tv_trade_monopoly_level_pct_gems divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_gems >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_gems >= 100 }
 		set_variable = { name = tv_trade_monopoly_gems value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_gems value = { value = var:tv_trade_virtual_demand_used_pct_gems divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_gems value = { value = var:tv_trade_virtual_supply_used_pct_gems divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_gems value = { value = var:tv_trade_virtual_demand_used_pct_gems divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_gems value = { value = var:tv_trade_virtual_supply_used_pct_gems divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_gems value = 0 }
 	if = {
@@ -51635,8 +51612,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_gems >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_gems value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_gems add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_gems value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_gems add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_gems value = var:tv_trade_monopoly_level_pct_gems }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_gems subtract = var:tv_trade_used_monopoly_level_pct_gems }
@@ -52266,14 +52243,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_pearls value = var:tv_trade_origin_control_pct_pearls }
 	change_variable = { name = tv_trade_monopoly_level_pct_pearls add = var:tv_trade_node_control_pct_pearls }
 	change_variable = { name = tv_trade_monopoly_level_pct_pearls add = var:tv_trade_consumer_control_pct_pearls }
-	change_variable = { name = tv_trade_monopoly_level_pct_pearls divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_pearls >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_pearls >= 100 }
 		set_variable = { name = tv_trade_monopoly_pearls value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_pearls value = { value = var:tv_trade_virtual_demand_used_pct_pearls divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_pearls value = { value = var:tv_trade_virtual_supply_used_pct_pearls divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_pearls value = { value = var:tv_trade_virtual_demand_used_pct_pearls divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_pearls value = { value = var:tv_trade_virtual_supply_used_pct_pearls divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_pearls value = 0 }
 	if = {
@@ -52286,8 +52262,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_pearls >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_pearls value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_pearls add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_pearls value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_pearls add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_pearls value = var:tv_trade_monopoly_level_pct_pearls }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_pearls subtract = var:tv_trade_used_monopoly_level_pct_pearls }
@@ -52917,14 +52893,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_amber value = var:tv_trade_origin_control_pct_amber }
 	change_variable = { name = tv_trade_monopoly_level_pct_amber add = var:tv_trade_node_control_pct_amber }
 	change_variable = { name = tv_trade_monopoly_level_pct_amber add = var:tv_trade_consumer_control_pct_amber }
-	change_variable = { name = tv_trade_monopoly_level_pct_amber divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_amber >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_amber >= 100 }
 		set_variable = { name = tv_trade_monopoly_amber value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_amber value = { value = var:tv_trade_virtual_demand_used_pct_amber divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_amber value = { value = var:tv_trade_virtual_supply_used_pct_amber divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_amber value = { value = var:tv_trade_virtual_demand_used_pct_amber divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_amber value = { value = var:tv_trade_virtual_supply_used_pct_amber divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_amber value = 0 }
 	if = {
@@ -52937,8 +52912,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_amber >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_amber value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_amber add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_amber value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_amber add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_amber value = var:tv_trade_monopoly_level_pct_amber }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_amber subtract = var:tv_trade_used_monopoly_level_pct_amber }
@@ -53568,14 +53543,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_saltpeter value = var:tv_trade_origin_control_pct_saltpeter }
 	change_variable = { name = tv_trade_monopoly_level_pct_saltpeter add = var:tv_trade_node_control_pct_saltpeter }
 	change_variable = { name = tv_trade_monopoly_level_pct_saltpeter add = var:tv_trade_consumer_control_pct_saltpeter }
-	change_variable = { name = tv_trade_monopoly_level_pct_saltpeter divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_saltpeter >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_saltpeter >= 100 }
 		set_variable = { name = tv_trade_monopoly_saltpeter value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_saltpeter value = { value = var:tv_trade_virtual_demand_used_pct_saltpeter divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_saltpeter value = { value = var:tv_trade_virtual_supply_used_pct_saltpeter divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_saltpeter value = { value = var:tv_trade_virtual_demand_used_pct_saltpeter divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_saltpeter value = { value = var:tv_trade_virtual_supply_used_pct_saltpeter divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_saltpeter value = 0 }
 	if = {
@@ -53588,8 +53562,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_saltpeter >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_saltpeter value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_saltpeter add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_saltpeter value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_saltpeter add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_saltpeter value = var:tv_trade_monopoly_level_pct_saltpeter }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_saltpeter subtract = var:tv_trade_used_monopoly_level_pct_saltpeter }
@@ -54219,14 +54193,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_alum value = var:tv_trade_origin_control_pct_alum }
 	change_variable = { name = tv_trade_monopoly_level_pct_alum add = var:tv_trade_node_control_pct_alum }
 	change_variable = { name = tv_trade_monopoly_level_pct_alum add = var:tv_trade_consumer_control_pct_alum }
-	change_variable = { name = tv_trade_monopoly_level_pct_alum divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_alum >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_alum >= 100 }
 		set_variable = { name = tv_trade_monopoly_alum value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_alum value = { value = var:tv_trade_virtual_demand_used_pct_alum divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_alum value = { value = var:tv_trade_virtual_supply_used_pct_alum divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_alum value = { value = var:tv_trade_virtual_demand_used_pct_alum divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_alum value = { value = var:tv_trade_virtual_supply_used_pct_alum divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_alum value = 0 }
 	if = {
@@ -54239,8 +54212,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_alum >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_alum value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_alum add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_alum value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_alum add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_alum value = var:tv_trade_monopoly_level_pct_alum }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_alum subtract = var:tv_trade_used_monopoly_level_pct_alum }
@@ -54870,14 +54843,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_wine value = var:tv_trade_origin_control_pct_wine }
 	change_variable = { name = tv_trade_monopoly_level_pct_wine add = var:tv_trade_node_control_pct_wine }
 	change_variable = { name = tv_trade_monopoly_level_pct_wine add = var:tv_trade_consumer_control_pct_wine }
-	change_variable = { name = tv_trade_monopoly_level_pct_wine divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_wine >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_wine >= 100 }
 		set_variable = { name = tv_trade_monopoly_wine value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_wine value = { value = var:tv_trade_virtual_demand_used_pct_wine divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_wine value = { value = var:tv_trade_virtual_supply_used_pct_wine divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_wine value = { value = var:tv_trade_virtual_demand_used_pct_wine divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_wine value = { value = var:tv_trade_virtual_supply_used_pct_wine divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_wine value = 0 }
 	if = {
@@ -54890,8 +54862,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_wine >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_wine value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_wine add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_wine value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_wine add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_wine value = var:tv_trade_monopoly_level_pct_wine }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_wine subtract = var:tv_trade_used_monopoly_level_pct_wine }
@@ -55521,9 +55493,8 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_elephants value = var:tv_trade_origin_control_pct_elephants }
 	change_variable = { name = tv_trade_monopoly_level_pct_elephants add = var:tv_trade_node_control_pct_elephants }
 	change_variable = { name = tv_trade_monopoly_level_pct_elephants add = var:tv_trade_consumer_control_pct_elephants }
-	change_variable = { name = tv_trade_monopoly_level_pct_elephants divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_elephants >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_elephants >= 100 }
 		set_variable = { name = tv_trade_monopoly_elephants value = 1 }
 	}
 
@@ -55541,8 +55512,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_elephants >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_elephants value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_elephants add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_elephants value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_elephants add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_elephants value = var:tv_trade_monopoly_level_pct_elephants }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_elephants subtract = var:tv_trade_used_monopoly_level_pct_elephants }
@@ -56172,14 +56143,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_marble value = var:tv_trade_origin_control_pct_marble }
 	change_variable = { name = tv_trade_monopoly_level_pct_marble add = var:tv_trade_node_control_pct_marble }
 	change_variable = { name = tv_trade_monopoly_level_pct_marble add = var:tv_trade_consumer_control_pct_marble }
-	change_variable = { name = tv_trade_monopoly_level_pct_marble divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_marble >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_marble >= 100 }
 		set_variable = { name = tv_trade_monopoly_marble value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_marble value = { value = var:tv_trade_virtual_demand_used_pct_marble divide = 3 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_marble value = { value = var:tv_trade_virtual_supply_used_pct_marble divide = 3 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_marble value = { value = var:tv_trade_virtual_demand_used_pct_marble divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_marble value = { value = var:tv_trade_virtual_supply_used_pct_marble divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_marble value = 0 }
 	if = {
@@ -56192,8 +56162,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_marble >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_marble value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_marble add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_marble value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_marble add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_marble value = var:tv_trade_monopoly_level_pct_marble }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_marble subtract = var:tv_trade_used_monopoly_level_pct_marble }
@@ -56823,14 +56793,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_mercury value = var:tv_trade_origin_control_pct_mercury }
 	change_variable = { name = tv_trade_monopoly_level_pct_mercury add = var:tv_trade_node_control_pct_mercury }
 	change_variable = { name = tv_trade_monopoly_level_pct_mercury add = var:tv_trade_consumer_control_pct_mercury }
-	change_variable = { name = tv_trade_monopoly_level_pct_mercury divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_mercury >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_mercury >= 100 }
 		set_variable = { name = tv_trade_monopoly_mercury value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_mercury value = { value = var:tv_trade_virtual_demand_used_pct_mercury divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_mercury value = { value = var:tv_trade_virtual_supply_used_pct_mercury divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_mercury value = { value = var:tv_trade_virtual_demand_used_pct_mercury divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_mercury value = { value = var:tv_trade_virtual_supply_used_pct_mercury divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_mercury value = 0 }
 	if = {
@@ -56843,8 +56812,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_mercury >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_mercury value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_mercury add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_mercury value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_mercury add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_mercury value = var:tv_trade_monopoly_level_pct_mercury }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_mercury subtract = var:tv_trade_used_monopoly_level_pct_mercury }
@@ -57474,14 +57443,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_saffron value = var:tv_trade_origin_control_pct_saffron }
 	change_variable = { name = tv_trade_monopoly_level_pct_saffron add = var:tv_trade_node_control_pct_saffron }
 	change_variable = { name = tv_trade_monopoly_level_pct_saffron add = var:tv_trade_consumer_control_pct_saffron }
-	change_variable = { name = tv_trade_monopoly_level_pct_saffron divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_saffron >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_saffron >= 100 }
 		set_variable = { name = tv_trade_monopoly_saffron value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_saffron value = { value = var:tv_trade_virtual_demand_used_pct_saffron divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_saffron value = { value = var:tv_trade_virtual_supply_used_pct_saffron divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_saffron value = { value = var:tv_trade_virtual_demand_used_pct_saffron divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_saffron value = { value = var:tv_trade_virtual_supply_used_pct_saffron divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_saffron value = 0 }
 	if = {
@@ -57494,8 +57462,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_saffron >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_saffron value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_saffron add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_saffron value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_saffron add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_saffron value = var:tv_trade_monopoly_level_pct_saffron }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_saffron subtract = var:tv_trade_used_monopoly_level_pct_saffron }
@@ -58125,14 +58093,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_pepper value = var:tv_trade_origin_control_pct_pepper }
 	change_variable = { name = tv_trade_monopoly_level_pct_pepper add = var:tv_trade_node_control_pct_pepper }
 	change_variable = { name = tv_trade_monopoly_level_pct_pepper add = var:tv_trade_consumer_control_pct_pepper }
-	change_variable = { name = tv_trade_monopoly_level_pct_pepper divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_pepper >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_pepper >= 100 }
 		set_variable = { name = tv_trade_monopoly_pepper value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_pepper value = { value = var:tv_trade_virtual_demand_used_pct_pepper divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_pepper value = { value = var:tv_trade_virtual_supply_used_pct_pepper divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_pepper value = { value = var:tv_trade_virtual_demand_used_pct_pepper divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_pepper value = { value = var:tv_trade_virtual_supply_used_pct_pepper divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_pepper value = 0 }
 	if = {
@@ -58145,8 +58112,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_pepper >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_pepper value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_pepper add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_pepper value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_pepper add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_pepper value = var:tv_trade_monopoly_level_pct_pepper }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_pepper subtract = var:tv_trade_used_monopoly_level_pct_pepper }
@@ -58776,14 +58743,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_cloves value = var:tv_trade_origin_control_pct_cloves }
 	change_variable = { name = tv_trade_monopoly_level_pct_cloves add = var:tv_trade_node_control_pct_cloves }
 	change_variable = { name = tv_trade_monopoly_level_pct_cloves add = var:tv_trade_consumer_control_pct_cloves }
-	change_variable = { name = tv_trade_monopoly_level_pct_cloves divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_cloves >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_cloves >= 100 }
 		set_variable = { name = tv_trade_monopoly_cloves value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_cloves value = { value = var:tv_trade_virtual_demand_used_pct_cloves divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_cloves value = { value = var:tv_trade_virtual_supply_used_pct_cloves divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_cloves value = { value = var:tv_trade_virtual_demand_used_pct_cloves divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_cloves value = { value = var:tv_trade_virtual_supply_used_pct_cloves divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_cloves value = 0 }
 	if = {
@@ -58796,8 +58762,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_cloves >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_cloves value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_cloves add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_cloves value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_cloves add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_cloves value = var:tv_trade_monopoly_level_pct_cloves }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_cloves subtract = var:tv_trade_used_monopoly_level_pct_cloves }
@@ -59427,14 +59393,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_chili value = var:tv_trade_origin_control_pct_chili }
 	change_variable = { name = tv_trade_monopoly_level_pct_chili add = var:tv_trade_node_control_pct_chili }
 	change_variable = { name = tv_trade_monopoly_level_pct_chili add = var:tv_trade_consumer_control_pct_chili }
-	change_variable = { name = tv_trade_monopoly_level_pct_chili divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_chili >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_chili >= 100 }
 		set_variable = { name = tv_trade_monopoly_chili value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_chili value = { value = var:tv_trade_virtual_demand_used_pct_chili divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_chili value = { value = var:tv_trade_virtual_supply_used_pct_chili divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_chili value = { value = var:tv_trade_virtual_demand_used_pct_chili divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_chili value = { value = var:tv_trade_virtual_supply_used_pct_chili divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_chili value = 0 }
 	if = {
@@ -59447,8 +59412,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_chili >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_chili value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_chili add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_chili value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_chili add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_chili value = var:tv_trade_monopoly_level_pct_chili }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_chili subtract = var:tv_trade_used_monopoly_level_pct_chili }
@@ -60078,14 +60043,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_cotton value = var:tv_trade_origin_control_pct_cotton }
 	change_variable = { name = tv_trade_monopoly_level_pct_cotton add = var:tv_trade_node_control_pct_cotton }
 	change_variable = { name = tv_trade_monopoly_level_pct_cotton add = var:tv_trade_consumer_control_pct_cotton }
-	change_variable = { name = tv_trade_monopoly_level_pct_cotton divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_cotton >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_cotton >= 100 }
 		set_variable = { name = tv_trade_monopoly_cotton value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_cotton value = { value = var:tv_trade_virtual_demand_used_pct_cotton divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_cotton value = { value = var:tv_trade_virtual_supply_used_pct_cotton divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_cotton value = { value = var:tv_trade_virtual_demand_used_pct_cotton divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_cotton value = { value = var:tv_trade_virtual_supply_used_pct_cotton divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_cotton value = 0 }
 	if = {
@@ -60098,8 +60062,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_cotton >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_cotton value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_cotton add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_cotton value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_cotton add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_cotton value = var:tv_trade_monopoly_level_pct_cotton }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_cotton subtract = var:tv_trade_used_monopoly_level_pct_cotton }
@@ -60729,14 +60693,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_sugar value = var:tv_trade_origin_control_pct_sugar }
 	change_variable = { name = tv_trade_monopoly_level_pct_sugar add = var:tv_trade_node_control_pct_sugar }
 	change_variable = { name = tv_trade_monopoly_level_pct_sugar add = var:tv_trade_consumer_control_pct_sugar }
-	change_variable = { name = tv_trade_monopoly_level_pct_sugar divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_sugar >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_sugar >= 100 }
 		set_variable = { name = tv_trade_monopoly_sugar value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_sugar value = { value = var:tv_trade_virtual_demand_used_pct_sugar divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_sugar value = { value = var:tv_trade_virtual_supply_used_pct_sugar divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_sugar value = { value = var:tv_trade_virtual_demand_used_pct_sugar divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_sugar value = { value = var:tv_trade_virtual_supply_used_pct_sugar divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_sugar value = 0 }
 	if = {
@@ -60749,8 +60712,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_sugar >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_sugar value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_sugar add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_sugar value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_sugar add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_sugar value = var:tv_trade_monopoly_level_pct_sugar }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_sugar subtract = var:tv_trade_used_monopoly_level_pct_sugar }
@@ -61380,14 +61343,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_tobacco value = var:tv_trade_origin_control_pct_tobacco }
 	change_variable = { name = tv_trade_monopoly_level_pct_tobacco add = var:tv_trade_node_control_pct_tobacco }
 	change_variable = { name = tv_trade_monopoly_level_pct_tobacco add = var:tv_trade_consumer_control_pct_tobacco }
-	change_variable = { name = tv_trade_monopoly_level_pct_tobacco divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_tobacco >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_tobacco >= 100 }
 		set_variable = { name = tv_trade_monopoly_tobacco value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_tobacco value = { value = var:tv_trade_virtual_demand_used_pct_tobacco divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_tobacco value = { value = var:tv_trade_virtual_supply_used_pct_tobacco divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_tobacco value = { value = var:tv_trade_virtual_demand_used_pct_tobacco divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_tobacco value = { value = var:tv_trade_virtual_supply_used_pct_tobacco divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_tobacco value = 0 }
 	if = {
@@ -61400,8 +61362,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_tobacco >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_tobacco value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_tobacco add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_tobacco value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_tobacco add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_tobacco value = var:tv_trade_monopoly_level_pct_tobacco }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_tobacco subtract = var:tv_trade_used_monopoly_level_pct_tobacco }
@@ -62031,14 +61993,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_tar value = var:tv_trade_origin_control_pct_tar }
 	change_variable = { name = tv_trade_monopoly_level_pct_tar add = var:tv_trade_node_control_pct_tar }
 	change_variable = { name = tv_trade_monopoly_level_pct_tar add = var:tv_trade_consumer_control_pct_tar }
-	change_variable = { name = tv_trade_monopoly_level_pct_tar divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_tar >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_tar >= 100 }
 		set_variable = { name = tv_trade_monopoly_tar value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_tar value = { value = var:tv_trade_virtual_demand_used_pct_tar divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_tar value = { value = var:tv_trade_virtual_supply_used_pct_tar divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_tar value = { value = var:tv_trade_virtual_demand_used_pct_tar divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_tar value = { value = var:tv_trade_virtual_supply_used_pct_tar divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_tar value = 0 }
 	if = {
@@ -62051,8 +62012,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_tar >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_tar value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_tar add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_tar value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_tar add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_tar value = var:tv_trade_monopoly_level_pct_tar }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_tar subtract = var:tv_trade_used_monopoly_level_pct_tar }
@@ -62682,14 +62643,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_porcelain value = var:tv_trade_origin_control_pct_porcelain }
 	change_variable = { name = tv_trade_monopoly_level_pct_porcelain add = var:tv_trade_node_control_pct_porcelain }
 	change_variable = { name = tv_trade_monopoly_level_pct_porcelain add = var:tv_trade_consumer_control_pct_porcelain }
-	change_variable = { name = tv_trade_monopoly_level_pct_porcelain divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_porcelain >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_porcelain >= 100 }
 		set_variable = { name = tv_trade_monopoly_porcelain value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_porcelain value = { value = var:tv_trade_virtual_demand_used_pct_porcelain divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_porcelain value = { value = var:tv_trade_virtual_supply_used_pct_porcelain divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_porcelain value = { value = var:tv_trade_virtual_demand_used_pct_porcelain divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_porcelain value = { value = var:tv_trade_virtual_supply_used_pct_porcelain divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_porcelain value = 0 }
 	if = {
@@ -62702,8 +62662,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_porcelain >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_porcelain value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_porcelain add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_porcelain value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_porcelain add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_porcelain value = var:tv_trade_monopoly_level_pct_porcelain }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_porcelain subtract = var:tv_trade_used_monopoly_level_pct_porcelain }
@@ -63333,14 +63293,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_naval_supplies value = var:tv_trade_origin_control_pct_naval_supplies }
 	change_variable = { name = tv_trade_monopoly_level_pct_naval_supplies add = var:tv_trade_node_control_pct_naval_supplies }
 	change_variable = { name = tv_trade_monopoly_level_pct_naval_supplies add = var:tv_trade_consumer_control_pct_naval_supplies }
-	change_variable = { name = tv_trade_monopoly_level_pct_naval_supplies divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_naval_supplies >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_naval_supplies >= 100 }
 		set_variable = { name = tv_trade_monopoly_naval_supplies value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_naval_supplies value = { value = var:tv_trade_virtual_demand_used_pct_naval_supplies divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_naval_supplies value = { value = var:tv_trade_virtual_supply_used_pct_naval_supplies divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_naval_supplies value = { value = var:tv_trade_virtual_demand_used_pct_naval_supplies divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_naval_supplies value = { value = var:tv_trade_virtual_supply_used_pct_naval_supplies divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_naval_supplies value = 0 }
 	if = {
@@ -63353,8 +63312,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_naval_supplies >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_naval_supplies value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_naval_supplies add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_naval_supplies value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_naval_supplies add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_naval_supplies value = var:tv_trade_monopoly_level_pct_naval_supplies }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_naval_supplies subtract = var:tv_trade_used_monopoly_level_pct_naval_supplies }
@@ -63984,14 +63943,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_firearms value = var:tv_trade_origin_control_pct_firearms }
 	change_variable = { name = tv_trade_monopoly_level_pct_firearms add = var:tv_trade_node_control_pct_firearms }
 	change_variable = { name = tv_trade_monopoly_level_pct_firearms add = var:tv_trade_consumer_control_pct_firearms }
-	change_variable = { name = tv_trade_monopoly_level_pct_firearms divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_firearms >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_firearms >= 100 }
 		set_variable = { name = tv_trade_monopoly_firearms value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_firearms value = { value = var:tv_trade_virtual_demand_used_pct_firearms divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_firearms value = { value = var:tv_trade_virtual_supply_used_pct_firearms divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_firearms value = { value = var:tv_trade_virtual_demand_used_pct_firearms divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_firearms value = { value = var:tv_trade_virtual_supply_used_pct_firearms divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_firearms value = 0 }
 	if = {
@@ -64004,8 +63962,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_firearms >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_firearms value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_firearms add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_firearms value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_firearms add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_firearms value = var:tv_trade_monopoly_level_pct_firearms }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_firearms subtract = var:tv_trade_used_monopoly_level_pct_firearms }
@@ -64635,14 +64593,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_cannons value = var:tv_trade_origin_control_pct_cannons }
 	change_variable = { name = tv_trade_monopoly_level_pct_cannons add = var:tv_trade_node_control_pct_cannons }
 	change_variable = { name = tv_trade_monopoly_level_pct_cannons add = var:tv_trade_consumer_control_pct_cannons }
-	change_variable = { name = tv_trade_monopoly_level_pct_cannons divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_cannons >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_cannons >= 100 }
 		set_variable = { name = tv_trade_monopoly_cannons value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_cannons value = { value = var:tv_trade_virtual_demand_used_pct_cannons divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_cannons value = { value = var:tv_trade_virtual_supply_used_pct_cannons divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_cannons value = { value = var:tv_trade_virtual_demand_used_pct_cannons divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_cannons value = { value = var:tv_trade_virtual_supply_used_pct_cannons divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_cannons value = 0 }
 	if = {
@@ -64655,8 +64612,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_cannons >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_cannons value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_cannons add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_cannons value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_cannons add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_cannons value = var:tv_trade_monopoly_level_pct_cannons }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_cannons subtract = var:tv_trade_used_monopoly_level_pct_cannons }
@@ -65286,14 +65243,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_weaponry value = var:tv_trade_origin_control_pct_weaponry }
 	change_variable = { name = tv_trade_monopoly_level_pct_weaponry add = var:tv_trade_node_control_pct_weaponry }
 	change_variable = { name = tv_trade_monopoly_level_pct_weaponry add = var:tv_trade_consumer_control_pct_weaponry }
-	change_variable = { name = tv_trade_monopoly_level_pct_weaponry divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_weaponry >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_weaponry >= 100 }
 		set_variable = { name = tv_trade_monopoly_weaponry value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_weaponry value = { value = var:tv_trade_virtual_demand_used_pct_weaponry divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_weaponry value = { value = var:tv_trade_virtual_supply_used_pct_weaponry divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_weaponry value = { value = var:tv_trade_virtual_demand_used_pct_weaponry divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_weaponry value = { value = var:tv_trade_virtual_supply_used_pct_weaponry divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_weaponry value = 0 }
 	if = {
@@ -65306,8 +65262,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_weaponry >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_weaponry value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_weaponry add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_weaponry value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_weaponry add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_weaponry value = var:tv_trade_monopoly_level_pct_weaponry }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_weaponry subtract = var:tv_trade_used_monopoly_level_pct_weaponry }
@@ -65937,14 +65893,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_glass value = var:tv_trade_origin_control_pct_glass }
 	change_variable = { name = tv_trade_monopoly_level_pct_glass add = var:tv_trade_node_control_pct_glass }
 	change_variable = { name = tv_trade_monopoly_level_pct_glass add = var:tv_trade_consumer_control_pct_glass }
-	change_variable = { name = tv_trade_monopoly_level_pct_glass divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_glass >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_glass >= 100 }
 		set_variable = { name = tv_trade_monopoly_glass value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_glass value = { value = var:tv_trade_virtual_demand_used_pct_glass divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_glass value = { value = var:tv_trade_virtual_supply_used_pct_glass divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_glass value = { value = var:tv_trade_virtual_demand_used_pct_glass divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_glass value = { value = var:tv_trade_virtual_supply_used_pct_glass divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_glass value = 0 }
 	if = {
@@ -65957,8 +65912,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_glass >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_glass value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_glass add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_glass value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_glass add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_glass value = var:tv_trade_monopoly_level_pct_glass }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_glass subtract = var:tv_trade_used_monopoly_level_pct_glass }
@@ -66588,14 +66543,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_steel value = var:tv_trade_origin_control_pct_steel }
 	change_variable = { name = tv_trade_monopoly_level_pct_steel add = var:tv_trade_node_control_pct_steel }
 	change_variable = { name = tv_trade_monopoly_level_pct_steel add = var:tv_trade_consumer_control_pct_steel }
-	change_variable = { name = tv_trade_monopoly_level_pct_steel divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_steel >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_steel >= 100 }
 		set_variable = { name = tv_trade_monopoly_steel value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_steel value = { value = var:tv_trade_virtual_demand_used_pct_steel divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_steel value = { value = var:tv_trade_virtual_supply_used_pct_steel divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_steel value = { value = var:tv_trade_virtual_demand_used_pct_steel divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_steel value = { value = var:tv_trade_virtual_supply_used_pct_steel divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_steel value = 0 }
 	if = {
@@ -66608,8 +66562,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_steel >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_steel value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_steel add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_steel value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_steel add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_steel value = var:tv_trade_monopoly_level_pct_steel }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_steel subtract = var:tv_trade_used_monopoly_level_pct_steel }
@@ -67239,14 +67193,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_cloth value = var:tv_trade_origin_control_pct_cloth }
 	change_variable = { name = tv_trade_monopoly_level_pct_cloth add = var:tv_trade_node_control_pct_cloth }
 	change_variable = { name = tv_trade_monopoly_level_pct_cloth add = var:tv_trade_consumer_control_pct_cloth }
-	change_variable = { name = tv_trade_monopoly_level_pct_cloth divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_cloth >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_cloth >= 100 }
 		set_variable = { name = tv_trade_monopoly_cloth value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_cloth value = { value = var:tv_trade_virtual_demand_used_pct_cloth divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_cloth value = { value = var:tv_trade_virtual_supply_used_pct_cloth divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_cloth value = { value = var:tv_trade_virtual_demand_used_pct_cloth divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_cloth value = { value = var:tv_trade_virtual_supply_used_pct_cloth divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_cloth value = 0 }
 	if = {
@@ -67259,8 +67212,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_cloth >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_cloth value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_cloth add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_cloth value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_cloth add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_cloth value = var:tv_trade_monopoly_level_pct_cloth }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_cloth subtract = var:tv_trade_used_monopoly_level_pct_cloth }
@@ -67890,14 +67843,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_fine_cloth value = var:tv_trade_origin_control_pct_fine_cloth }
 	change_variable = { name = tv_trade_monopoly_level_pct_fine_cloth add = var:tv_trade_node_control_pct_fine_cloth }
 	change_variable = { name = tv_trade_monopoly_level_pct_fine_cloth add = var:tv_trade_consumer_control_pct_fine_cloth }
-	change_variable = { name = tv_trade_monopoly_level_pct_fine_cloth divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_fine_cloth >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_fine_cloth >= 100 }
 		set_variable = { name = tv_trade_monopoly_fine_cloth value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_fine_cloth value = { value = var:tv_trade_virtual_demand_used_pct_fine_cloth divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_fine_cloth value = { value = var:tv_trade_virtual_supply_used_pct_fine_cloth divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_fine_cloth value = { value = var:tv_trade_virtual_demand_used_pct_fine_cloth divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_fine_cloth value = { value = var:tv_trade_virtual_supply_used_pct_fine_cloth divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_fine_cloth value = 0 }
 	if = {
@@ -67910,8 +67862,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_fine_cloth >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_fine_cloth value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_fine_cloth add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_fine_cloth value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_fine_cloth add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_fine_cloth value = var:tv_trade_monopoly_level_pct_fine_cloth }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_fine_cloth subtract = var:tv_trade_used_monopoly_level_pct_fine_cloth }
@@ -68541,14 +68493,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_liquor value = var:tv_trade_origin_control_pct_liquor }
 	change_variable = { name = tv_trade_monopoly_level_pct_liquor add = var:tv_trade_node_control_pct_liquor }
 	change_variable = { name = tv_trade_monopoly_level_pct_liquor add = var:tv_trade_consumer_control_pct_liquor }
-	change_variable = { name = tv_trade_monopoly_level_pct_liquor divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_liquor >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_liquor >= 100 }
 		set_variable = { name = tv_trade_monopoly_liquor value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_liquor value = { value = var:tv_trade_virtual_demand_used_pct_liquor divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_liquor value = { value = var:tv_trade_virtual_supply_used_pct_liquor divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_liquor value = { value = var:tv_trade_virtual_demand_used_pct_liquor divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_liquor value = { value = var:tv_trade_virtual_supply_used_pct_liquor divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_liquor value = 0 }
 	if = {
@@ -68561,8 +68512,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_liquor >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_liquor value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_liquor add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_liquor value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_liquor add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_liquor value = var:tv_trade_monopoly_level_pct_liquor }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_liquor subtract = var:tv_trade_used_monopoly_level_pct_liquor }
@@ -69192,14 +69143,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_beer value = var:tv_trade_origin_control_pct_beer }
 	change_variable = { name = tv_trade_monopoly_level_pct_beer add = var:tv_trade_node_control_pct_beer }
 	change_variable = { name = tv_trade_monopoly_level_pct_beer add = var:tv_trade_consumer_control_pct_beer }
-	change_variable = { name = tv_trade_monopoly_level_pct_beer divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_beer >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_beer >= 100 }
 		set_variable = { name = tv_trade_monopoly_beer value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_beer value = { value = var:tv_trade_virtual_demand_used_pct_beer divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_beer value = { value = var:tv_trade_virtual_supply_used_pct_beer divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_beer value = { value = var:tv_trade_virtual_demand_used_pct_beer divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_beer value = { value = var:tv_trade_virtual_supply_used_pct_beer divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_beer value = 0 }
 	if = {
@@ -69212,8 +69162,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_beer >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_beer value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_beer add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_beer value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_beer add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_beer value = var:tv_trade_monopoly_level_pct_beer }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_beer subtract = var:tv_trade_used_monopoly_level_pct_beer }
@@ -69843,14 +69793,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_paper value = var:tv_trade_origin_control_pct_paper }
 	change_variable = { name = tv_trade_monopoly_level_pct_paper add = var:tv_trade_node_control_pct_paper }
 	change_variable = { name = tv_trade_monopoly_level_pct_paper add = var:tv_trade_consumer_control_pct_paper }
-	change_variable = { name = tv_trade_monopoly_level_pct_paper divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_paper >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_paper >= 100 }
 		set_variable = { name = tv_trade_monopoly_paper value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_paper value = { value = var:tv_trade_virtual_demand_used_pct_paper divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_paper value = { value = var:tv_trade_virtual_supply_used_pct_paper divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_paper value = { value = var:tv_trade_virtual_demand_used_pct_paper divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_paper value = { value = var:tv_trade_virtual_supply_used_pct_paper divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_paper value = 0 }
 	if = {
@@ -69863,8 +69812,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_paper >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_paper value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_paper add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_paper value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_paper add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_paper value = var:tv_trade_monopoly_level_pct_paper }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_paper subtract = var:tv_trade_used_monopoly_level_pct_paper }
@@ -70494,14 +70443,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_books value = var:tv_trade_origin_control_pct_books }
 	change_variable = { name = tv_trade_monopoly_level_pct_books add = var:tv_trade_node_control_pct_books }
 	change_variable = { name = tv_trade_monopoly_level_pct_books add = var:tv_trade_consumer_control_pct_books }
-	change_variable = { name = tv_trade_monopoly_level_pct_books divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_books >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_books >= 100 }
 		set_variable = { name = tv_trade_monopoly_books value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_books value = { value = var:tv_trade_virtual_demand_used_pct_books divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_books value = { value = var:tv_trade_virtual_supply_used_pct_books divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_books value = { value = var:tv_trade_virtual_demand_used_pct_books divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_books value = { value = var:tv_trade_virtual_supply_used_pct_books divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_books value = 0 }
 	if = {
@@ -70514,8 +70462,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_books >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_books value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_books add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_books value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_books add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_books value = var:tv_trade_monopoly_level_pct_books }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_books subtract = var:tv_trade_used_monopoly_level_pct_books }
@@ -71145,14 +71093,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_jewelry value = var:tv_trade_origin_control_pct_jewelry }
 	change_variable = { name = tv_trade_monopoly_level_pct_jewelry add = var:tv_trade_node_control_pct_jewelry }
 	change_variable = { name = tv_trade_monopoly_level_pct_jewelry add = var:tv_trade_consumer_control_pct_jewelry }
-	change_variable = { name = tv_trade_monopoly_level_pct_jewelry divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_jewelry >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_jewelry >= 100 }
 		set_variable = { name = tv_trade_monopoly_jewelry value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_jewelry value = { value = var:tv_trade_virtual_demand_used_pct_jewelry divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_jewelry value = { value = var:tv_trade_virtual_supply_used_pct_jewelry divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_jewelry value = { value = var:tv_trade_virtual_demand_used_pct_jewelry divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_jewelry value = { value = var:tv_trade_virtual_supply_used_pct_jewelry divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_jewelry value = 0 }
 	if = {
@@ -71165,8 +71112,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_jewelry >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_jewelry value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_jewelry add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_jewelry value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_jewelry add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_jewelry value = var:tv_trade_monopoly_level_pct_jewelry }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_jewelry subtract = var:tv_trade_used_monopoly_level_pct_jewelry }
@@ -71796,14 +71743,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_leather value = var:tv_trade_origin_control_pct_leather }
 	change_variable = { name = tv_trade_monopoly_level_pct_leather add = var:tv_trade_node_control_pct_leather }
 	change_variable = { name = tv_trade_monopoly_level_pct_leather add = var:tv_trade_consumer_control_pct_leather }
-	change_variable = { name = tv_trade_monopoly_level_pct_leather divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_leather >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_leather >= 100 }
 		set_variable = { name = tv_trade_monopoly_leather value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_leather value = { value = var:tv_trade_virtual_demand_used_pct_leather divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_leather value = { value = var:tv_trade_virtual_supply_used_pct_leather divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_leather value = { value = var:tv_trade_virtual_demand_used_pct_leather divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_leather value = { value = var:tv_trade_virtual_supply_used_pct_leather divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_leather value = 0 }
 	if = {
@@ -71816,8 +71762,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_leather >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_leather value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_leather add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_leather value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_leather add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_leather value = var:tv_trade_monopoly_level_pct_leather }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_leather subtract = var:tv_trade_used_monopoly_level_pct_leather }
@@ -72447,14 +72393,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_tools value = var:tv_trade_origin_control_pct_tools }
 	change_variable = { name = tv_trade_monopoly_level_pct_tools add = var:tv_trade_node_control_pct_tools }
 	change_variable = { name = tv_trade_monopoly_level_pct_tools add = var:tv_trade_consumer_control_pct_tools }
-	change_variable = { name = tv_trade_monopoly_level_pct_tools divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_tools >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_tools >= 100 }
 		set_variable = { name = tv_trade_monopoly_tools value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_tools value = { value = var:tv_trade_virtual_demand_used_pct_tools divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_tools value = { value = var:tv_trade_virtual_supply_used_pct_tools divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_tools value = { value = var:tv_trade_virtual_demand_used_pct_tools divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_tools value = { value = var:tv_trade_virtual_supply_used_pct_tools divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_tools value = 0 }
 	if = {
@@ -72467,8 +72412,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_tools >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_tools value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_tools add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_tools value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_tools add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_tools value = var:tv_trade_monopoly_level_pct_tools }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_tools subtract = var:tv_trade_used_monopoly_level_pct_tools }
@@ -73098,14 +73043,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_masonry value = var:tv_trade_origin_control_pct_masonry }
 	change_variable = { name = tv_trade_monopoly_level_pct_masonry add = var:tv_trade_node_control_pct_masonry }
 	change_variable = { name = tv_trade_monopoly_level_pct_masonry add = var:tv_trade_consumer_control_pct_masonry }
-	change_variable = { name = tv_trade_monopoly_level_pct_masonry divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_masonry >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_masonry >= 100 }
 		set_variable = { name = tv_trade_monopoly_masonry value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_masonry value = { value = var:tv_trade_virtual_demand_used_pct_masonry divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_masonry value = { value = var:tv_trade_virtual_supply_used_pct_masonry divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_masonry value = { value = var:tv_trade_virtual_demand_used_pct_masonry divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_masonry value = { value = var:tv_trade_virtual_supply_used_pct_masonry divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_masonry value = 0 }
 	if = {
@@ -73118,8 +73062,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_masonry >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_masonry value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_masonry add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_masonry value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_masonry add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_masonry value = var:tv_trade_monopoly_level_pct_masonry }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_masonry subtract = var:tv_trade_used_monopoly_level_pct_masonry }
@@ -73749,14 +73693,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_lacquerware value = var:tv_trade_origin_control_pct_lacquerware }
 	change_variable = { name = tv_trade_monopoly_level_pct_lacquerware add = var:tv_trade_node_control_pct_lacquerware }
 	change_variable = { name = tv_trade_monopoly_level_pct_lacquerware add = var:tv_trade_consumer_control_pct_lacquerware }
-	change_variable = { name = tv_trade_monopoly_level_pct_lacquerware divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_lacquerware >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_lacquerware >= 100 }
 		set_variable = { name = tv_trade_monopoly_lacquerware value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_lacquerware value = { value = var:tv_trade_virtual_demand_used_pct_lacquerware divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_lacquerware value = { value = var:tv_trade_virtual_supply_used_pct_lacquerware divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_lacquerware value = { value = var:tv_trade_virtual_demand_used_pct_lacquerware divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_lacquerware value = { value = var:tv_trade_virtual_supply_used_pct_lacquerware divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_lacquerware value = 0 }
 	if = {
@@ -73769,8 +73712,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_lacquerware >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_lacquerware value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_lacquerware add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_lacquerware value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_lacquerware add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_lacquerware value = var:tv_trade_monopoly_level_pct_lacquerware }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_lacquerware subtract = var:tv_trade_used_monopoly_level_pct_lacquerware }
@@ -74400,14 +74343,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_pottery value = var:tv_trade_origin_control_pct_pottery }
 	change_variable = { name = tv_trade_monopoly_level_pct_pottery add = var:tv_trade_node_control_pct_pottery }
 	change_variable = { name = tv_trade_monopoly_level_pct_pottery add = var:tv_trade_consumer_control_pct_pottery }
-	change_variable = { name = tv_trade_monopoly_level_pct_pottery divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_pottery >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_pottery >= 100 }
 		set_variable = { name = tv_trade_monopoly_pottery value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_pottery value = { value = var:tv_trade_virtual_demand_used_pct_pottery divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_pottery value = { value = var:tv_trade_virtual_supply_used_pct_pottery divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_pottery value = { value = var:tv_trade_virtual_demand_used_pct_pottery divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_pottery value = { value = var:tv_trade_virtual_supply_used_pct_pottery divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_pottery value = 0 }
 	if = {
@@ -74420,8 +74362,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_pottery >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_pottery value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_pottery add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_pottery value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_pottery add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_pottery value = var:tv_trade_monopoly_level_pct_pottery }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_pottery subtract = var:tv_trade_used_monopoly_level_pct_pottery }
@@ -75051,14 +74993,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_furniture value = var:tv_trade_origin_control_pct_furniture }
 	change_variable = { name = tv_trade_monopoly_level_pct_furniture add = var:tv_trade_node_control_pct_furniture }
 	change_variable = { name = tv_trade_monopoly_level_pct_furniture add = var:tv_trade_consumer_control_pct_furniture }
-	change_variable = { name = tv_trade_monopoly_level_pct_furniture divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_furniture >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_furniture >= 100 }
 		set_variable = { name = tv_trade_monopoly_furniture value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_furniture value = { value = var:tv_trade_virtual_demand_used_pct_furniture divide = 0.5 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_furniture value = { value = var:tv_trade_virtual_supply_used_pct_furniture divide = 0.5 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_furniture value = { value = var:tv_trade_virtual_demand_used_pct_furniture divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_furniture value = { value = var:tv_trade_virtual_supply_used_pct_furniture divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_furniture value = 0 }
 	if = {
@@ -75071,8 +75012,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_furniture >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_furniture value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_furniture add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_furniture value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_furniture add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_furniture value = var:tv_trade_monopoly_level_pct_furniture }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_furniture subtract = var:tv_trade_used_monopoly_level_pct_furniture }
@@ -75702,14 +75643,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_wool value = var:tv_trade_origin_control_pct_wool }
 	change_variable = { name = tv_trade_monopoly_level_pct_wool add = var:tv_trade_node_control_pct_wool }
 	change_variable = { name = tv_trade_monopoly_level_pct_wool add = var:tv_trade_consumer_control_pct_wool }
-	change_variable = { name = tv_trade_monopoly_level_pct_wool divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_wool >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_wool >= 100 }
 		set_variable = { name = tv_trade_monopoly_wool value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_wool value = { value = var:tv_trade_virtual_demand_used_pct_wool divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_wool value = { value = var:tv_trade_virtual_supply_used_pct_wool divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_wool value = { value = var:tv_trade_virtual_demand_used_pct_wool divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_wool value = { value = var:tv_trade_virtual_supply_used_pct_wool divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_wool value = 0 }
 	if = {
@@ -75722,8 +75662,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_wool >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_wool value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_wool add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_wool value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_wool add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_wool value = var:tv_trade_monopoly_level_pct_wool }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_wool subtract = var:tv_trade_used_monopoly_level_pct_wool }
@@ -76353,14 +76293,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_wild_game value = var:tv_trade_origin_control_pct_wild_game }
 	change_variable = { name = tv_trade_monopoly_level_pct_wild_game add = var:tv_trade_node_control_pct_wild_game }
 	change_variable = { name = tv_trade_monopoly_level_pct_wild_game add = var:tv_trade_consumer_control_pct_wild_game }
-	change_variable = { name = tv_trade_monopoly_level_pct_wild_game divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_wild_game >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_wild_game >= 100 }
 		set_variable = { name = tv_trade_monopoly_wild_game value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_wild_game value = { value = var:tv_trade_virtual_demand_used_pct_wild_game divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_wild_game value = { value = var:tv_trade_virtual_supply_used_pct_wild_game divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_wild_game value = { value = var:tv_trade_virtual_demand_used_pct_wild_game divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_wild_game value = { value = var:tv_trade_virtual_supply_used_pct_wild_game divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_wild_game value = 0 }
 	if = {
@@ -76373,8 +76312,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_wild_game >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_wild_game value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_wild_game add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_wild_game value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_wild_game add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_wild_game value = var:tv_trade_monopoly_level_pct_wild_game }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_wild_game subtract = var:tv_trade_used_monopoly_level_pct_wild_game }
@@ -77004,14 +76943,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_fur value = var:tv_trade_origin_control_pct_fur }
 	change_variable = { name = tv_trade_monopoly_level_pct_fur add = var:tv_trade_node_control_pct_fur }
 	change_variable = { name = tv_trade_monopoly_level_pct_fur add = var:tv_trade_consumer_control_pct_fur }
-	change_variable = { name = tv_trade_monopoly_level_pct_fur divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_fur >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_fur >= 100 }
 		set_variable = { name = tv_trade_monopoly_fur value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_fur value = { value = var:tv_trade_virtual_demand_used_pct_fur divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_fur value = { value = var:tv_trade_virtual_supply_used_pct_fur divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_fur value = { value = var:tv_trade_virtual_demand_used_pct_fur divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_fur value = { value = var:tv_trade_virtual_supply_used_pct_fur divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_fur value = 0 }
 	if = {
@@ -77024,8 +76962,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_fur >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_fur value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_fur add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_fur value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_fur add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_fur value = var:tv_trade_monopoly_level_pct_fur }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_fur subtract = var:tv_trade_used_monopoly_level_pct_fur }
@@ -77655,14 +77593,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_fish value = var:tv_trade_origin_control_pct_fish }
 	change_variable = { name = tv_trade_monopoly_level_pct_fish add = var:tv_trade_node_control_pct_fish }
 	change_variable = { name = tv_trade_monopoly_level_pct_fish add = var:tv_trade_consumer_control_pct_fish }
-	change_variable = { name = tv_trade_monopoly_level_pct_fish divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_fish >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_fish >= 100 }
 		set_variable = { name = tv_trade_monopoly_fish value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_fish value = { value = var:tv_trade_virtual_demand_used_pct_fish divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_fish value = { value = var:tv_trade_virtual_supply_used_pct_fish divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_fish value = { value = var:tv_trade_virtual_demand_used_pct_fish divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_fish value = { value = var:tv_trade_virtual_supply_used_pct_fish divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_fish value = 0 }
 	if = {
@@ -77675,8 +77612,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_fish >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_fish value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_fish add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_fish value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_fish add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_fish value = var:tv_trade_monopoly_level_pct_fish }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_fish subtract = var:tv_trade_used_monopoly_level_pct_fish }
@@ -78306,14 +78243,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_wheat value = var:tv_trade_origin_control_pct_wheat }
 	change_variable = { name = tv_trade_monopoly_level_pct_wheat add = var:tv_trade_node_control_pct_wheat }
 	change_variable = { name = tv_trade_monopoly_level_pct_wheat add = var:tv_trade_consumer_control_pct_wheat }
-	change_variable = { name = tv_trade_monopoly_level_pct_wheat divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_wheat >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_wheat >= 100 }
 		set_variable = { name = tv_trade_monopoly_wheat value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_wheat value = { value = var:tv_trade_virtual_demand_used_pct_wheat divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_wheat value = { value = var:tv_trade_virtual_supply_used_pct_wheat divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_wheat value = { value = var:tv_trade_virtual_demand_used_pct_wheat divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_wheat value = { value = var:tv_trade_virtual_supply_used_pct_wheat divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_wheat value = 0 }
 	if = {
@@ -78326,8 +78262,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_wheat >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_wheat value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_wheat add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_wheat value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_wheat add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_wheat value = var:tv_trade_monopoly_level_pct_wheat }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_wheat subtract = var:tv_trade_used_monopoly_level_pct_wheat }
@@ -78957,14 +78893,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_maize value = var:tv_trade_origin_control_pct_maize }
 	change_variable = { name = tv_trade_monopoly_level_pct_maize add = var:tv_trade_node_control_pct_maize }
 	change_variable = { name = tv_trade_monopoly_level_pct_maize add = var:tv_trade_consumer_control_pct_maize }
-	change_variable = { name = tv_trade_monopoly_level_pct_maize divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_maize >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_maize >= 100 }
 		set_variable = { name = tv_trade_monopoly_maize value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_maize value = { value = var:tv_trade_virtual_demand_used_pct_maize divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_maize value = { value = var:tv_trade_virtual_supply_used_pct_maize divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_maize value = { value = var:tv_trade_virtual_demand_used_pct_maize divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_maize value = { value = var:tv_trade_virtual_supply_used_pct_maize divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_maize value = 0 }
 	if = {
@@ -78977,8 +78912,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_maize >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_maize value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_maize add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_maize value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_maize add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_maize value = var:tv_trade_monopoly_level_pct_maize }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_maize subtract = var:tv_trade_used_monopoly_level_pct_maize }
@@ -79608,14 +79543,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_rice value = var:tv_trade_origin_control_pct_rice }
 	change_variable = { name = tv_trade_monopoly_level_pct_rice add = var:tv_trade_node_control_pct_rice }
 	change_variable = { name = tv_trade_monopoly_level_pct_rice add = var:tv_trade_consumer_control_pct_rice }
-	change_variable = { name = tv_trade_monopoly_level_pct_rice divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_rice >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_rice >= 100 }
 		set_variable = { name = tv_trade_monopoly_rice value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_rice value = { value = var:tv_trade_virtual_demand_used_pct_rice divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_rice value = { value = var:tv_trade_virtual_supply_used_pct_rice divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_rice value = { value = var:tv_trade_virtual_demand_used_pct_rice divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_rice value = { value = var:tv_trade_virtual_supply_used_pct_rice divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_rice value = 0 }
 	if = {
@@ -79628,8 +79562,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_rice >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_rice value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_rice add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_rice value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_rice add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_rice value = var:tv_trade_monopoly_level_pct_rice }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_rice subtract = var:tv_trade_used_monopoly_level_pct_rice }
@@ -80259,14 +80193,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_millet value = var:tv_trade_origin_control_pct_millet }
 	change_variable = { name = tv_trade_monopoly_level_pct_millet add = var:tv_trade_node_control_pct_millet }
 	change_variable = { name = tv_trade_monopoly_level_pct_millet add = var:tv_trade_consumer_control_pct_millet }
-	change_variable = { name = tv_trade_monopoly_level_pct_millet divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_millet >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_millet >= 100 }
 		set_variable = { name = tv_trade_monopoly_millet value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_millet value = { value = var:tv_trade_virtual_demand_used_pct_millet divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_millet value = { value = var:tv_trade_virtual_supply_used_pct_millet divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_millet value = { value = var:tv_trade_virtual_demand_used_pct_millet divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_millet value = { value = var:tv_trade_virtual_supply_used_pct_millet divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_millet value = 0 }
 	if = {
@@ -80279,8 +80212,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_millet >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_millet value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_millet add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_millet value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_millet add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_millet value = var:tv_trade_monopoly_level_pct_millet }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_millet subtract = var:tv_trade_used_monopoly_level_pct_millet }
@@ -80910,14 +80843,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_legumes value = var:tv_trade_origin_control_pct_legumes }
 	change_variable = { name = tv_trade_monopoly_level_pct_legumes add = var:tv_trade_node_control_pct_legumes }
 	change_variable = { name = tv_trade_monopoly_level_pct_legumes add = var:tv_trade_consumer_control_pct_legumes }
-	change_variable = { name = tv_trade_monopoly_level_pct_legumes divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_legumes >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_legumes >= 100 }
 		set_variable = { name = tv_trade_monopoly_legumes value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_legumes value = { value = var:tv_trade_virtual_demand_used_pct_legumes divide = 2 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_legumes value = { value = var:tv_trade_virtual_supply_used_pct_legumes divide = 2 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_legumes value = { value = var:tv_trade_virtual_demand_used_pct_legumes divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_legumes value = { value = var:tv_trade_virtual_supply_used_pct_legumes divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_legumes value = 0 }
 	if = {
@@ -80930,8 +80862,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_legumes >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_legumes value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_legumes add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_legumes value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_legumes add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_legumes value = var:tv_trade_monopoly_level_pct_legumes }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_legumes subtract = var:tv_trade_used_monopoly_level_pct_legumes }
@@ -81561,14 +81493,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_potato value = var:tv_trade_origin_control_pct_potato }
 	change_variable = { name = tv_trade_monopoly_level_pct_potato add = var:tv_trade_node_control_pct_potato }
 	change_variable = { name = tv_trade_monopoly_level_pct_potato add = var:tv_trade_consumer_control_pct_potato }
-	change_variable = { name = tv_trade_monopoly_level_pct_potato divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_potato >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_potato >= 100 }
 		set_variable = { name = tv_trade_monopoly_potato value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_potato value = { value = var:tv_trade_virtual_demand_used_pct_potato divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_potato value = { value = var:tv_trade_virtual_supply_used_pct_potato divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_potato value = { value = var:tv_trade_virtual_demand_used_pct_potato divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_potato value = { value = var:tv_trade_virtual_supply_used_pct_potato divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_potato value = 0 }
 	if = {
@@ -81581,8 +81512,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_potato >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_potato value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_potato add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_potato value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_potato add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_potato value = var:tv_trade_monopoly_level_pct_potato }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_potato subtract = var:tv_trade_used_monopoly_level_pct_potato }
@@ -82212,14 +82143,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_livestock value = var:tv_trade_origin_control_pct_livestock }
 	change_variable = { name = tv_trade_monopoly_level_pct_livestock add = var:tv_trade_node_control_pct_livestock }
 	change_variable = { name = tv_trade_monopoly_level_pct_livestock add = var:tv_trade_consumer_control_pct_livestock }
-	change_variable = { name = tv_trade_monopoly_level_pct_livestock divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_livestock >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_livestock >= 100 }
 		set_variable = { name = tv_trade_monopoly_livestock value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_livestock value = { value = var:tv_trade_virtual_demand_used_pct_livestock divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_livestock value = { value = var:tv_trade_virtual_supply_used_pct_livestock divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_livestock value = { value = var:tv_trade_virtual_demand_used_pct_livestock divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_livestock value = { value = var:tv_trade_virtual_supply_used_pct_livestock divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_livestock value = 0 }
 	if = {
@@ -82232,8 +82162,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_livestock >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_livestock value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_livestock add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_livestock value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_livestock add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_livestock value = var:tv_trade_monopoly_level_pct_livestock }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_livestock subtract = var:tv_trade_used_monopoly_level_pct_livestock }
@@ -82863,14 +82793,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_olives value = var:tv_trade_origin_control_pct_olives }
 	change_variable = { name = tv_trade_monopoly_level_pct_olives add = var:tv_trade_node_control_pct_olives }
 	change_variable = { name = tv_trade_monopoly_level_pct_olives add = var:tv_trade_consumer_control_pct_olives }
-	change_variable = { name = tv_trade_monopoly_level_pct_olives divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_olives >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_olives >= 100 }
 		set_variable = { name = tv_trade_monopoly_olives value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_olives value = { value = var:tv_trade_virtual_demand_used_pct_olives divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_olives value = { value = var:tv_trade_virtual_supply_used_pct_olives divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_olives value = { value = var:tv_trade_virtual_demand_used_pct_olives divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_olives value = { value = var:tv_trade_virtual_supply_used_pct_olives divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_olives value = 0 }
 	if = {
@@ -82883,8 +82812,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_olives >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_olives value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_olives add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_olives value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_olives add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_olives value = var:tv_trade_monopoly_level_pct_olives }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_olives subtract = var:tv_trade_used_monopoly_level_pct_olives }
@@ -83514,14 +83443,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_fruit value = var:tv_trade_origin_control_pct_fruit }
 	change_variable = { name = tv_trade_monopoly_level_pct_fruit add = var:tv_trade_node_control_pct_fruit }
 	change_variable = { name = tv_trade_monopoly_level_pct_fruit add = var:tv_trade_consumer_control_pct_fruit }
-	change_variable = { name = tv_trade_monopoly_level_pct_fruit divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_fruit >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_fruit >= 100 }
 		set_variable = { name = tv_trade_monopoly_fruit value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_fruit value = { value = var:tv_trade_virtual_demand_used_pct_fruit divide = 2 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_fruit value = { value = var:tv_trade_virtual_supply_used_pct_fruit divide = 2 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_fruit value = { value = var:tv_trade_virtual_demand_used_pct_fruit divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_fruit value = { value = var:tv_trade_virtual_supply_used_pct_fruit divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_fruit value = 0 }
 	if = {
@@ -83534,8 +83462,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_fruit >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_fruit value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_fruit add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_fruit value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_fruit add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_fruit value = var:tv_trade_monopoly_level_pct_fruit }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_fruit subtract = var:tv_trade_used_monopoly_level_pct_fruit }
@@ -84165,14 +84093,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_beeswax value = var:tv_trade_origin_control_pct_beeswax }
 	change_variable = { name = tv_trade_monopoly_level_pct_beeswax add = var:tv_trade_node_control_pct_beeswax }
 	change_variable = { name = tv_trade_monopoly_level_pct_beeswax add = var:tv_trade_consumer_control_pct_beeswax }
-	change_variable = { name = tv_trade_monopoly_level_pct_beeswax divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_beeswax >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_beeswax >= 100 }
 		set_variable = { name = tv_trade_monopoly_beeswax value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_beeswax value = { value = var:tv_trade_virtual_demand_used_pct_beeswax divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_beeswax value = { value = var:tv_trade_virtual_supply_used_pct_beeswax divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_beeswax value = { value = var:tv_trade_virtual_demand_used_pct_beeswax divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_beeswax value = { value = var:tv_trade_virtual_supply_used_pct_beeswax divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_beeswax value = 0 }
 	if = {
@@ -84185,8 +84112,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_beeswax >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_beeswax value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_beeswax add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_beeswax value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_beeswax add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_beeswax value = var:tv_trade_monopoly_level_pct_beeswax }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_beeswax subtract = var:tv_trade_used_monopoly_level_pct_beeswax }
@@ -84816,14 +84743,13 @@ tv_trade_league_update_monopolies_effect = {
 	set_variable = { name = tv_trade_monopoly_level_pct_slaves_goods value = var:tv_trade_origin_control_pct_slaves_goods }
 	change_variable = { name = tv_trade_monopoly_level_pct_slaves_goods add = var:tv_trade_node_control_pct_slaves_goods }
 	change_variable = { name = tv_trade_monopoly_level_pct_slaves_goods add = var:tv_trade_consumer_control_pct_slaves_goods }
-	change_variable = { name = tv_trade_monopoly_level_pct_slaves_goods divide = 3 }
 	if = {
-		limit = { var:tv_trade_monopoly_level_pct_slaves_goods >= 51 }
+		limit = { var:tv_trade_monopoly_level_pct_slaves_goods >= 100 }
 		set_variable = { name = tv_trade_monopoly_slaves_goods value = 1 }
 	}
 
-	set_variable = { name = tv_trade_virtual_demand_amount_slaves_goods value = { value = var:tv_trade_virtual_demand_used_pct_slaves_goods divide = 1 } }
-	set_variable = { name = tv_trade_virtual_supply_amount_slaves_goods value = { value = var:tv_trade_virtual_supply_used_pct_slaves_goods divide = 1 } }
+	set_variable = { name = tv_trade_virtual_demand_amount_slaves_goods value = { value = var:tv_trade_virtual_demand_used_pct_slaves_goods divide = 5 } }
+	set_variable = { name = tv_trade_virtual_supply_amount_slaves_goods value = { value = var:tv_trade_virtual_supply_used_pct_slaves_goods divide = 5 } }
 
 	set_variable = { name = tv_trade_used_monopoly_level_pct_slaves_goods value = 0 }
 	if = {
@@ -84836,8 +84762,8 @@ tv_trade_league_update_monopolies_effect = {
 	}
 	if = {
 		limit = { var:tv_trade_embargo_active_slaves_goods >= 1 }
-		set_variable = { name = tv_trade_embargo_used_pct_slaves_goods value = 10 }
-		change_variable = { name = tv_trade_used_monopoly_level_pct_slaves_goods add = 10 }
+		set_variable = { name = tv_trade_embargo_used_pct_slaves_goods value = 30 }
+		change_variable = { name = tv_trade_used_monopoly_level_pct_slaves_goods add = 30 }
 	}
 	set_variable = { name = tv_trade_available_monopoly_level_pct_slaves_goods value = var:tv_trade_monopoly_level_pct_slaves_goods }
 	change_variable = { name = tv_trade_available_monopoly_level_pct_slaves_goods subtract = var:tv_trade_used_monopoly_level_pct_slaves_goods }

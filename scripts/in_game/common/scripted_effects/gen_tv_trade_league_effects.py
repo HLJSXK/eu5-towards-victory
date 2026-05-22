@@ -14,7 +14,6 @@ The Trade League monopoly system has two generated refresh layers:
 """
 
 import sys
-import re
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -24,7 +23,6 @@ import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 DATA_FILE = REPO_ROOT / "data" / "trade_league_goods.yaml"
-GOODS_DIR = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "goods"
 OUT_FILE = (
     REPO_ROOT
     / "src"
@@ -153,6 +151,9 @@ UPDATE_SUFFIX = """\
 """
 
 MARKET_PREFIXES = ("origin", "node", "consumer")
+MONOPOLY_THRESHOLD_PCT = 100
+EMBARGO_COST_PCT = 30
+VIRTUAL_ACTION_COST_PCT = 5
 STATIC_MARKET_FIELDS = (
     "score",
     "local_production",
@@ -166,11 +167,6 @@ MONTHLY_MARKET_FIELDS = STATIC_MARKET_FIELDS + (
     "control_pct",
 )
 CANDIDATE_FIELDS = STATIC_MARKET_FIELDS
-
-
-def eu5_number(value: float) -> str:
-    text = f"{value:.5f}".rstrip("0").rstrip(".")
-    return text if text and text != "-0" else "0"
 
 
 def demand_apply_effect(good: str) -> str:
@@ -521,10 +517,10 @@ def aggregate_control_block(good: str, prefix: str) -> str:
 """
 
 
-def action_accounting_block(good: str, cost: str) -> str:
+def action_accounting_block(good: str) -> str:
     return f"""\
-\tset_variable = {{ name = tv_trade_virtual_demand_amount_{good} value = {{ value = var:tv_trade_virtual_demand_used_pct_{good} divide = {cost} }} }}
-\tset_variable = {{ name = tv_trade_virtual_supply_amount_{good} value = {{ value = var:tv_trade_virtual_supply_used_pct_{good} divide = {cost} }} }}
+\tset_variable = {{ name = tv_trade_virtual_demand_amount_{good} value = {{ value = var:tv_trade_virtual_demand_used_pct_{good} divide = {VIRTUAL_ACTION_COST_PCT} }} }}
+\tset_variable = {{ name = tv_trade_virtual_supply_amount_{good} value = {{ value = var:tv_trade_virtual_supply_used_pct_{good} divide = {VIRTUAL_ACTION_COST_PCT} }} }}
 
 \tset_variable = {{ name = tv_trade_used_monopoly_level_pct_{good} value = 0 }}
 \tif = {{
@@ -537,8 +533,8 @@ def action_accounting_block(good: str, cost: str) -> str:
 \t}}
 \tif = {{
 \t\tlimit = {{ var:tv_trade_embargo_active_{good} >= 1 }}
-\t\tset_variable = {{ name = tv_trade_embargo_used_pct_{good} value = 10 }}
-\t\tchange_variable = {{ name = tv_trade_used_monopoly_level_pct_{good} add = 10 }}
+\t\tset_variable = {{ name = tv_trade_embargo_used_pct_{good} value = {EMBARGO_COST_PCT} }}
+\t\tchange_variable = {{ name = tv_trade_used_monopoly_level_pct_{good} add = {EMBARGO_COST_PCT} }}
 \t}}
 \tset_variable = {{ name = tv_trade_available_monopoly_level_pct_{good} value = var:tv_trade_monopoly_level_pct_{good} }}
 \tchange_variable = {{ name = tv_trade_available_monopoly_level_pct_{good} subtract = var:tv_trade_used_monopoly_level_pct_{good} }}
@@ -609,7 +605,6 @@ def action_application_block(good: str) -> str:
 
 
 def monthly_good_update_block(good: str) -> str:
-    cost = eu5_number(TRANSPORT_COSTS.get(good, 1.0))
     controls = "\n".join(
         monthly_control_block(good, prefix, rank)
         for prefix in MARKET_PREFIXES
@@ -628,39 +623,14 @@ def monthly_good_update_block(good: str) -> str:
 {aggregates}\tset_variable = {{ name = tv_trade_monopoly_level_pct_{good} value = var:tv_trade_origin_control_pct_{good} }}
 \tchange_variable = {{ name = tv_trade_monopoly_level_pct_{good} add = var:tv_trade_node_control_pct_{good} }}
 \tchange_variable = {{ name = tv_trade_monopoly_level_pct_{good} add = var:tv_trade_consumer_control_pct_{good} }}
-\tchange_variable = {{ name = tv_trade_monopoly_level_pct_{good} divide = 3 }}
 \tif = {{
-\t\tlimit = {{ var:tv_trade_monopoly_level_pct_{good} >= 51 }}
+\t\tlimit = {{ var:tv_trade_monopoly_level_pct_{good} >= {MONOPOLY_THRESHOLD_PCT} }}
 \t\tset_variable = {{ name = tv_trade_monopoly_{good} value = 1 }}
 \t}}
 
-{action_accounting_block(good, cost)}
+{action_accounting_block(good)}
 {action_application_block(good)}
 """
-
-
-def load_transport_costs() -> dict[str, float]:
-    costs: dict[str, float] = {}
-    for path in GOODS_DIR.glob("*.txt"):
-        text = path.read_text(encoding="utf-8-sig", errors="ignore")
-        for match in re.finditer(r"(?m)^([A-Za-z0-9_]+)\s*=\s*\{", text):
-            name = match.group(1)
-            depth = 1
-            index = match.end()
-            while index < len(text) and depth:
-                char = text[index]
-                if char == "{":
-                    depth += 1
-                elif char == "}":
-                    depth -= 1
-                index += 1
-            block = text[match.end() : index - 1]
-            cost_match = re.search(r"(?m)^\s*transport_cost\s*=\s*([0-9.]+)", block)
-            costs[name] = float(cost_match.group(1)) if cost_match else 1.0
-    return costs
-
-
-TRANSPORT_COSTS = load_transport_costs()
 
 
 def generate(data: dict) -> str:
