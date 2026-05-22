@@ -18,3 +18,18 @@ tv_research_cabinet_member_distracted = {
 	}
 	character_cabinet_efficiency = -0.50
 }
+
+tv_meditating_character_modifier = {
+	game_data = {
+		category = character
+	}
+	blocked_from_being_leader = yes
+	character_cabinet_efficiency = -0.50
+}
+
+tv_meditating_ruler_country_modifier = {
+	game_data = {
+		category = country
+	}
+	monthly_legitimacy = -0.20
+}

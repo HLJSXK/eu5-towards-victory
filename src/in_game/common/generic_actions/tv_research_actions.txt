@@ -306,6 +306,13 @@ tv_start_meditation = {
 			scope:actor = {
 				set_variable = { name = tv_meditation_target_char  value = scope:target }
 				set_variable = { name = tv_meditation_progress     value = 0 }
+				if = {
+					limit = { scope:target = { is_ruler = yes } }
+					add_country_modifier = { modifier = tv_meditating_ruler_country_modifier years = -1 mode = add_and_extend }
+				}
+			}
+			scope:target = {
+				add_character_modifier = { modifier = tv_meditating_character_modifier years = -1 mode = add_and_extend }
 			}
 		}
 	}

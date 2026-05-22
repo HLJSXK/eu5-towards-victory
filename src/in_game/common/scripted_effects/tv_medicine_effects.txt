@@ -32,8 +32,18 @@ tv_med_complete_treatment_effect = {
 	trigger_event_non_silently = { id = tv_medicine.3 }
 }
 
-# Reset meditation state without changing the target character.
+# Reset meditation state and remove temporary balance modifiers.
 tv_meditation_cleanup_effect = {
+	var:tv_meditation_target_char ?= {
+		if = {
+			limit = { has_character_modifier = tv_meditating_character_modifier }
+			remove_character_modifier = tv_meditating_character_modifier
+		}
+	}
+	if = {
+		limit = { has_country_modifier = tv_meditating_ruler_country_modifier }
+		remove_country_modifier = tv_meditating_ruler_country_modifier
+	}
 	remove_variable = tv_meditation_target_char
 	set_variable = { name = tv_meditation_progress  value = 0 }
 }
