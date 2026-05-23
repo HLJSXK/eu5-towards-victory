@@ -2304,7 +2304,8 @@ tv_wonder_after_unit_completed_effect = {
 	set_variable = { name = tv_wonder_previous_level value = var:tv_wonder_level }
 	tv_wonder_construct_module_for_last_completed_part_effect = yes
 	tv_wonder_combine_completed_modules_effect = yes
-	tv_wonder_sync_units_from_buildings_effect = yes
+	# The unit variable was already incremented by the completion path; keep that
+	# immediate UI state instead of waiting for next month's building scan.
 	trigger_event_non_silently = { id = tv_engineering_department.200 }
 	tv_wonder_update_wonder_level_effect = yes
 	if = {
