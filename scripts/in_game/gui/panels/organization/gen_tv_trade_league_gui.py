@@ -56,6 +56,13 @@ organization_panel = {
 \t\ttooltip = "TV_TRADE_LEAGUE_INTELLIGENCE_TAB_TOOLTIP"
 \t}
 
+\tblockoverride "organization_laws_tab_visible" {
+\t\tvisible = yes
+\t}
+\tblockoverride "organization_laws_tab_text" {
+\t\ttext = "TV_TRADE_LEAGUE_LAWS_TAB"
+\t}
+
 \tblockoverride "scroll_overview_empty_visible" { visible = no }
 
 \tblockoverride "country_header_character_visible" {

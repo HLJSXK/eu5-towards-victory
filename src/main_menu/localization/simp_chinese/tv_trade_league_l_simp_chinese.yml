@@ -21,6 +21,7 @@
  TV_TRADE_LEAGUE_LEADER_TRADE_INCOME: "盟主贸易收入"
  tv_grand_merchant_busy_with_trade_chain_tt: "[tv_grand_merchant|E]正忙于维护贸易链。"
  tv_grand_merchant_busy_with_commercial_intelligence_tt: "[tv_grand_merchant|E]正忙于搜集商业情报。"
+ tv_grand_merchant_busy_with_law_change_tt: "[tv_grand_merchant|E]正忙于推动[tv_trade_league|E]法律变更。"
  dip_tv_invite_to_trade_league_CATEGORY: "CATEGORY_FRIENDLY_ACTIONS"
  tv_invite_to_trade_league_act: "邀请[SCOPE.sCountry('recipient').GetName]加入我们的[tv_trade_league|E]。"
  tv_invite_to_trade_league_effect_text: "[SCOPE.sCountry('recipient').GetName]加入了[SCOPE.sCountry('actor').GetName]的[tv_trade_league|E]。"
@@ -37,6 +38,7 @@
  io_opinion_tv_trade_league: "同在[tv_trade_league|E]中"
 
  TV_TRADE_LEAGUE_GRAND_MERCHANT_CARD_TITLE: "大商人"
+ TV_TRADE_LEAGUE_LAWS_TAB: "贸易法律"
  TV_TRADE_LEAGUE_NO_GRAND_MERCHANT: "尚未任命大商人。贸易链、商业情报和垄断系统均未激活。"
  TV_TRADE_LEAGUE_MEMBER_MANAGEMENT_CARD_TITLE: "成员管理"
  TV_TRADE_LEAGUE_MEMBER_MANAGEMENT_DESC: "邀请国家加入[tv_trade_league|E]，或驱逐现有成员。非盟主成员失去10%商人容量；盟主每有一个成员获得2%商人容量。"
@@ -106,6 +108,27 @@
  character_title_tv_grand_merchant: "大商人"
  character_title_tv_grand_merchant_female: "大商人"
  STATIC_MODIFIER_NAME_tv_grand_merchant_role_modifier: "大商人"
+
+ tv_trade_league_laws: "[tv_trade_league|E]法律"
+ TV_TRADE_LEAGUE_LAWS_LAW_CATEGORY: "[tv_trade_league|E]法律"
+
+ tv_trade_focus_law: "贸易重心"
+ tv_trade_focus_law_desc: "[tv_trade_league|E]决定共同的贸易取向：维持平衡，侧重进口，或侧重出口。"
+ tv_trade_focus_balanced_policy: "平衡"
+ tv_trade_focus_balanced_policy_desc: "联盟贸易在进口与出口之间保持均衡。"
+ tv_trade_focus_import_policy: "注重进口"
+ tv_trade_focus_import_policy_desc: "成员市场优先保障进口渠道，提高进口效率，但削弱出口效率。"
+ tv_trade_focus_export_policy: "注重出口"
+ tv_trade_focus_export_policy_desc: "成员市场优先推动出口渠道，提高出口效率，但削弱进口效率。"
+
+ tv_trade_leader_rights_law: "盟主权益"
+ tv_trade_leader_rights_law_desc: "[tv_trade_league|E]规定商人容量是在盟主与成员间保持平等、向成员倾斜，还是优先保障盟主。"
+ tv_trade_leader_rights_equal_policy: "平等"
+ tv_trade_leader_rights_equal_policy_desc: "盟主与成员维持现有商人容量分配。"
+ tv_trade_leader_rights_leader_policy: "领袖"
+ tv_trade_leader_rights_leader_policy_desc: "盟主让渡部分商人容量，使成员国获得更多商业空间。"
+ tv_trade_leader_rights_priority_policy: "贸易优先权"
+ tv_trade_leader_rights_priority_policy_desc: "盟主保留更多商人容量，非盟主成员的商人容量相应降低。"
 
  WE_PERFORM_tv_invite_to_trade_league_ACTION_SETUP: "当我们邀请其他国家加入[tv_trade_league|E]时。"
  WE_PERFORM_tv_invite_to_trade_league_ACTION_LOG: "我们邀请[SCOPE.sCountry('target').GetNameWithNoTooltip]加入了我们的[tv_trade_league|E]。"

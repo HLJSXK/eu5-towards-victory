@@ -21,6 +21,7 @@
  TV_TRADE_LEAGUE_LEADER_TRADE_INCOME: "Leader Trade Income"
  tv_grand_merchant_busy_with_trade_chain_tt: "The [tv_grand_merchant|E] is busy maintaining the trade chain."
  tv_grand_merchant_busy_with_commercial_intelligence_tt: "The [tv_grand_merchant|E] is busy gathering commercial intelligence."
+ tv_grand_merchant_busy_with_law_change_tt: "The [tv_grand_merchant|E] is busy proposing a [tv_trade_league|E] law change."
  dip_tv_invite_to_trade_league_CATEGORY: "CATEGORY_FRIENDLY_ACTIONS"
  tv_invite_to_trade_league_act: "Invite [SCOPE.sCountry('recipient').GetName] to our [tv_trade_league|E]."
  tv_invite_to_trade_league_effect_text: "[SCOPE.sCountry('recipient').GetName] joins [SCOPE.sCountry('actor').GetName]'s [tv_trade_league|E]."
@@ -37,6 +38,7 @@
  io_opinion_tv_trade_league: "In [tv_trade_league|E] Together"
 
  TV_TRADE_LEAGUE_GRAND_MERCHANT_CARD_TITLE: "Grand Merchant"
+ TV_TRADE_LEAGUE_LAWS_TAB: "Trade Laws"
  TV_TRADE_LEAGUE_NO_GRAND_MERCHANT: "No Grand Merchant has been appointed. Trade-chain, intelligence, and monopoly systems are inactive."
  TV_TRADE_LEAGUE_MEMBER_MANAGEMENT_CARD_TITLE: "Member Management"
  TV_TRADE_LEAGUE_MEMBER_MANAGEMENT_DESC: "Invite countries into the [tv_trade_league|E] or expel existing members. Non-leading members lose 10% merchant capacity; the leader gains 2% merchant capacity per member."
@@ -106,6 +108,27 @@
  character_title_tv_grand_merchant: "Grand Merchant"
  character_title_tv_grand_merchant_female: "Grand Merchant"
  STATIC_MODIFIER_NAME_tv_grand_merchant_role_modifier: "Grand Merchant"
+
+ tv_trade_league_laws: "[tv_trade_league|E] Laws"
+ TV_TRADE_LEAGUE_LAWS_LAW_CATEGORY: "[tv_trade_league|E] Laws"
+
+ tv_trade_focus_law: "Trade Focus"
+ tv_trade_focus_law_desc: "The [tv_trade_league|E] sets its shared commercial posture: balanced exchange, stronger import channels, or stronger export channels."
+ tv_trade_focus_balanced_policy: "Balanced"
+ tv_trade_focus_balanced_policy_desc: "League trade remains evenly tuned between importing and exporting."
+ tv_trade_focus_import_policy: "Import Focus"
+ tv_trade_focus_import_policy_desc: "Member markets favor incoming goods, improving import efficiency at the cost of export efficiency."
+ tv_trade_focus_export_policy: "Export Focus"
+ tv_trade_focus_export_policy_desc: "Member markets favor outbound goods, improving export efficiency at the cost of import efficiency."
+
+ tv_trade_leader_rights_law: "Leader Privileges"
+ tv_trade_leader_rights_law_desc: "The league defines whether commercial capacity is shared evenly, tilted toward members, or reserved for the leader."
+ tv_trade_leader_rights_equal_policy: "Equal"
+ tv_trade_leader_rights_equal_policy_desc: "The leader and members keep their existing merchant capacity balance."
+ tv_trade_leader_rights_leader_policy: "Leader"
+ tv_trade_leader_rights_leader_policy_desc: "The leader yields merchant capacity so member countries can expand their own commercial reach."
+ tv_trade_leader_rights_priority_policy: "Trade Priority"
+ tv_trade_leader_rights_priority_policy_desc: "The leader reserves extra merchant capacity, reducing the capacity available to non-leading members."
 
  WE_PERFORM_tv_invite_to_trade_league_ACTION_SETUP: "When we invite another country into our [tv_trade_league|E]."
  WE_PERFORM_tv_invite_to_trade_league_ACTION_LOG: "We invited [SCOPE.sCountry('target').GetNameWithNoTooltip] into our [tv_trade_league|E]."

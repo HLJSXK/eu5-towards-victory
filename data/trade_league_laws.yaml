@@ -1,0 +1,46 @@
+# Trade League laws for tv_trade_league_laws.txt.
+# These laws use simple IO policy votes and mostly apply direct member-country
+# modifiers.
+#
+# DO NOT hand-edit generated output files. Run:
+#   conda run --no-capture-output -n eu5 python scripts/in_game/common/laws/gen_tv_trade_league_laws.py
+
+law_category: tv_trade_league_laws
+io_type: tv_trade_league
+
+laws:
+  - id: tv_trade_focus_law
+    display_comment: "LAW 1: Trade Focus"
+    policies:
+      - id: tv_trade_focus_balanced_policy
+        display_comment: "Balanced (default)"
+        default: true
+      - id: tv_trade_focus_import_policy
+        display_comment: "Import Focus"
+        country_modifier: |
+          import_efficiency = 0.025
+          export_efficiency = -0.025
+      - id: tv_trade_focus_export_policy
+        display_comment: "Export Focus"
+        country_modifier: |
+          import_efficiency = -0.025
+          export_efficiency = 0.025
+
+  - id: tv_trade_leader_rights_law
+    display_comment: "LAW 2: Leader Rights"
+    policies:
+      - id: tv_trade_leader_rights_equal_policy
+        display_comment: "Equal Rights (default)"
+        default: true
+      - id: tv_trade_leader_rights_leader_policy
+        display_comment: "Leader"
+        leader_modifier: |
+          global_merchant_capacity_modifier = -0.20
+        non_leader_modifier: |
+          global_merchant_capacity_modifier = 0.05
+      - id: tv_trade_leader_rights_priority_policy
+        display_comment: "Trade Priority"
+        leader_modifier: |
+          global_merchant_capacity_modifier = 0.20
+        non_leader_modifier: |
+          global_merchant_capacity_modifier = -0.05
