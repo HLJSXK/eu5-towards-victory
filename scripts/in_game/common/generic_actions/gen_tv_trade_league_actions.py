@@ -104,7 +104,7 @@ tv_expel_trade_league_member = {
 
 VIRTUAL_ACTION_COST_PCT = 5
 EMBARGO_COST_PCT = 30
-DISPLAY_ROW_COUNT = 15
+DISPLAY_ROW_COUNT = 10
 INDENT_4 = "\t" * 4
 INDENT_5 = "\t" * 5
 INDENT_6 = "\t" * 6

@@ -5892,19 +5892,19 @@ tv_trade_league_refresh_monopoly_page_limits_effect = {
 		set_variable = { name = tv_trade_selected_monopoly_page_max value = 1 }
 		if = {
 			limit = { var:tv_trade_selected_monopoly_category ?= 1 }
-			set_variable = { name = tv_trade_selected_monopoly_page_max value = 2 }
+			set_variable = { name = tv_trade_selected_monopoly_page_max value = 3 }
 		}
 		else_if = {
 			limit = { var:tv_trade_selected_monopoly_category ?= 2 }
-			set_variable = { name = tv_trade_selected_monopoly_page_max value = 1 }
+			set_variable = { name = tv_trade_selected_monopoly_page_max value = 2 }
 		}
 		else_if = {
 			limit = { var:tv_trade_selected_monopoly_category ?= 3 }
-			set_variable = { name = tv_trade_selected_monopoly_page_max value = 1 }
+			set_variable = { name = tv_trade_selected_monopoly_page_max value = 2 }
 		}
 		else_if = {
 			limit = { var:tv_trade_selected_monopoly_category ?= 4 }
-			set_variable = { name = tv_trade_selected_monopoly_page_max value = 2 }
+			set_variable = { name = tv_trade_selected_monopoly_page_max value = 3 }
 		}
 		if = {
 			limit = { var:tv_trade_selected_monopoly_page < 1 }
@@ -5932,7 +5932,14 @@ tv_trade_league_select_first_displayed_monopoly_good_effect = {
 				var:tv_trade_selected_monopoly_category ?= 1
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
-			set_variable = { name = tv_trade_selected_good value = 29 }
+			set_variable = { name = tv_trade_selected_good value = 20 }
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 1
+				var:tv_trade_selected_monopoly_page ?= 3
+			}
+			set_variable = { name = tv_trade_selected_good value = 41 }
 		}
 		else_if = {
 			limit = {
@@ -5943,10 +5950,24 @@ tv_trade_league_select_first_displayed_monopoly_good_effect = {
 		}
 		else_if = {
 			limit = {
+				var:tv_trade_selected_monopoly_category ?= 2
+				var:tv_trade_selected_monopoly_page ?= 2
+			}
+			set_variable = { name = tv_trade_selected_good value = 72 }
+		}
+		else_if = {
+			limit = {
 				var:tv_trade_selected_monopoly_category ?= 3
 				var:tv_trade_selected_monopoly_page ?= 1
 			}
 			set_variable = { name = tv_trade_selected_good value = 42 }
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 3
+				var:tv_trade_selected_monopoly_page ?= 2
+			}
+			set_variable = { name = tv_trade_selected_good value = 51 }
 		}
 		else_if = {
 			limit = {
@@ -5960,7 +5981,14 @@ tv_trade_league_select_first_displayed_monopoly_good_effect = {
 				var:tv_trade_selected_monopoly_category ?= 4
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
-			set_variable = { name = tv_trade_selected_good value = 34 }
+			set_variable = { name = tv_trade_selected_good value = 24 }
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 4
+				var:tv_trade_selected_monopoly_page ?= 3
+			}
+			set_variable = { name = tv_trade_selected_good value = 57 }
 		}
 		tv_trade_league_refresh_selected_good_projection_effect = yes
 	}
@@ -40265,46 +40293,6 @@ tv_trade_league_refresh_monopoly_display_effect = {
 		set_variable = { name = tv_trade_display_row_10_consumer_pct value = 0 }
 		set_variable = { name = tv_trade_display_row_10_monopoly value = 0 }
 		set_variable = { name = tv_trade_display_row_10_monopoly_level_pct value = 0 }
-		remove_variable = tv_trade_display_row_11_good
-		set_variable = { name = tv_trade_display_row_11_visible value = 0 }
-		set_variable = { name = tv_trade_display_row_11_good_index value = 0 }
-		set_variable = { name = tv_trade_display_row_11_origin_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_11_node_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_11_consumer_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_11_monopoly value = 0 }
-		set_variable = { name = tv_trade_display_row_11_monopoly_level_pct value = 0 }
-		remove_variable = tv_trade_display_row_12_good
-		set_variable = { name = tv_trade_display_row_12_visible value = 0 }
-		set_variable = { name = tv_trade_display_row_12_good_index value = 0 }
-		set_variable = { name = tv_trade_display_row_12_origin_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_12_node_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_12_consumer_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_12_monopoly value = 0 }
-		set_variable = { name = tv_trade_display_row_12_monopoly_level_pct value = 0 }
-		remove_variable = tv_trade_display_row_13_good
-		set_variable = { name = tv_trade_display_row_13_visible value = 0 }
-		set_variable = { name = tv_trade_display_row_13_good_index value = 0 }
-		set_variable = { name = tv_trade_display_row_13_origin_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_13_node_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_13_consumer_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_13_monopoly value = 0 }
-		set_variable = { name = tv_trade_display_row_13_monopoly_level_pct value = 0 }
-		remove_variable = tv_trade_display_row_14_good
-		set_variable = { name = tv_trade_display_row_14_visible value = 0 }
-		set_variable = { name = tv_trade_display_row_14_good_index value = 0 }
-		set_variable = { name = tv_trade_display_row_14_origin_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_14_node_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_14_consumer_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_14_monopoly value = 0 }
-		set_variable = { name = tv_trade_display_row_14_monopoly_level_pct value = 0 }
-		remove_variable = tv_trade_display_row_15_good
-		set_variable = { name = tv_trade_display_row_15_visible value = 0 }
-		set_variable = { name = tv_trade_display_row_15_good_index value = 0 }
-		set_variable = { name = tv_trade_display_row_15_origin_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_15_node_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_15_consumer_pct value = 0 }
-		set_variable = { name = tv_trade_display_row_15_monopoly value = 0 }
-		set_variable = { name = tv_trade_display_row_15_monopoly_level_pct value = 0 }
 		if = {
 			limit = {
 				var:tv_trade_selected_monopoly_category ?= 1
@@ -40346,33 +40334,68 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_1_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_1_good_index value = 29 }
-			goods:elephants = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_1_good_index value = 20 }
+			goods:lumber = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_1_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_1_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_elephants }
-				set_variable = { name = tv_trade_display_row_1_origin_pct value = var:tv_trade_origin_control_pct_elephants }
+				limit = { has_variable = tv_trade_origin_control_pct_lumber }
+				set_variable = { name = tv_trade_display_row_1_origin_pct value = var:tv_trade_origin_control_pct_lumber }
 			}
 			set_variable = { name = tv_trade_display_row_1_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_elephants }
-				set_variable = { name = tv_trade_display_row_1_node_pct value = var:tv_trade_node_control_pct_elephants }
+				limit = { has_variable = tv_trade_node_control_pct_lumber }
+				set_variable = { name = tv_trade_display_row_1_node_pct value = var:tv_trade_node_control_pct_lumber }
 			}
 			set_variable = { name = tv_trade_display_row_1_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_elephants }
-				set_variable = { name = tv_trade_display_row_1_consumer_pct value = var:tv_trade_consumer_control_pct_elephants }
+				limit = { has_variable = tv_trade_consumer_control_pct_lumber }
+				set_variable = { name = tv_trade_display_row_1_consumer_pct value = var:tv_trade_consumer_control_pct_lumber }
 			}
 			set_variable = { name = tv_trade_display_row_1_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_elephants }
-				set_variable = { name = tv_trade_display_row_1_monopoly value = var:tv_trade_monopoly_elephants }
+				limit = { has_variable = tv_trade_monopoly_lumber }
+				set_variable = { name = tv_trade_display_row_1_monopoly value = var:tv_trade_monopoly_lumber }
 			}
 			set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_elephants }
-				set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_elephants }
+				limit = { has_variable = tv_trade_monopoly_level_pct_lumber }
+				set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_lumber }
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 1
+				var:tv_trade_selected_monopoly_page ?= 3
+			}
+			set_variable = { name = tv_trade_display_row_1_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_1_good_index value = 41 }
+			goods:naval_supplies = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_1_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_1_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_naval_supplies }
+				set_variable = { name = tv_trade_display_row_1_origin_pct value = var:tv_trade_origin_control_pct_naval_supplies }
+			}
+			set_variable = { name = tv_trade_display_row_1_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_naval_supplies }
+				set_variable = { name = tv_trade_display_row_1_node_pct value = var:tv_trade_node_control_pct_naval_supplies }
+			}
+			set_variable = { name = tv_trade_display_row_1_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_naval_supplies }
+				set_variable = { name = tv_trade_display_row_1_consumer_pct value = var:tv_trade_consumer_control_pct_naval_supplies }
+			}
+			set_variable = { name = tv_trade_display_row_1_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_naval_supplies }
+				set_variable = { name = tv_trade_display_row_1_monopoly value = var:tv_trade_monopoly_naval_supplies }
+			}
+			set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_naval_supplies }
+				set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_naval_supplies }
 			}
 		}
 		else_if = {
@@ -40412,6 +40435,41 @@ tv_trade_league_refresh_monopoly_display_effect = {
 		}
 		else_if = {
 			limit = {
+				var:tv_trade_selected_monopoly_category ?= 2
+				var:tv_trade_selected_monopoly_page ?= 2
+			}
+			set_variable = { name = tv_trade_display_row_1_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_1_good_index value = 72 }
+			goods:fruit = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_1_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_1_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_fruit }
+				set_variable = { name = tv_trade_display_row_1_origin_pct value = var:tv_trade_origin_control_pct_fruit }
+			}
+			set_variable = { name = tv_trade_display_row_1_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_fruit }
+				set_variable = { name = tv_trade_display_row_1_node_pct value = var:tv_trade_node_control_pct_fruit }
+			}
+			set_variable = { name = tv_trade_display_row_1_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_fruit }
+				set_variable = { name = tv_trade_display_row_1_consumer_pct value = var:tv_trade_consumer_control_pct_fruit }
+			}
+			set_variable = { name = tv_trade_display_row_1_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_fruit }
+				set_variable = { name = tv_trade_display_row_1_monopoly value = var:tv_trade_monopoly_fruit }
+			}
+			set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_fruit }
+				set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_fruit }
+			}
+		}
+		else_if = {
+			limit = {
 				var:tv_trade_selected_monopoly_category ?= 3
 				var:tv_trade_selected_monopoly_page ?= 1
 			}
@@ -40443,6 +40501,41 @@ tv_trade_league_refresh_monopoly_display_effect = {
 			if = {
 				limit = { has_variable = tv_trade_monopoly_level_pct_firearms }
 				set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_firearms }
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 3
+				var:tv_trade_selected_monopoly_page ?= 2
+			}
+			set_variable = { name = tv_trade_display_row_1_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_1_good_index value = 51 }
+			goods:paper = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_1_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_1_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_paper }
+				set_variable = { name = tv_trade_display_row_1_origin_pct value = var:tv_trade_origin_control_pct_paper }
+			}
+			set_variable = { name = tv_trade_display_row_1_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_paper }
+				set_variable = { name = tv_trade_display_row_1_node_pct value = var:tv_trade_node_control_pct_paper }
+			}
+			set_variable = { name = tv_trade_display_row_1_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_paper }
+				set_variable = { name = tv_trade_display_row_1_consumer_pct value = var:tv_trade_consumer_control_pct_paper }
+			}
+			set_variable = { name = tv_trade_display_row_1_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_paper }
+				set_variable = { name = tv_trade_display_row_1_monopoly value = var:tv_trade_monopoly_paper }
+			}
+			set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_paper }
+				set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_paper }
 			}
 		}
 		else_if = {
@@ -40486,33 +40579,68 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_1_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_1_good_index value = 34 }
-			goods:cloves = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_1_good_index value = 24 }
+			goods:pearls = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_1_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_1_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_cloves }
-				set_variable = { name = tv_trade_display_row_1_origin_pct value = var:tv_trade_origin_control_pct_cloves }
+				limit = { has_variable = tv_trade_origin_control_pct_pearls }
+				set_variable = { name = tv_trade_display_row_1_origin_pct value = var:tv_trade_origin_control_pct_pearls }
 			}
 			set_variable = { name = tv_trade_display_row_1_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_cloves }
-				set_variable = { name = tv_trade_display_row_1_node_pct value = var:tv_trade_node_control_pct_cloves }
+				limit = { has_variable = tv_trade_node_control_pct_pearls }
+				set_variable = { name = tv_trade_display_row_1_node_pct value = var:tv_trade_node_control_pct_pearls }
 			}
 			set_variable = { name = tv_trade_display_row_1_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_cloves }
-				set_variable = { name = tv_trade_display_row_1_consumer_pct value = var:tv_trade_consumer_control_pct_cloves }
+				limit = { has_variable = tv_trade_consumer_control_pct_pearls }
+				set_variable = { name = tv_trade_display_row_1_consumer_pct value = var:tv_trade_consumer_control_pct_pearls }
 			}
 			set_variable = { name = tv_trade_display_row_1_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_cloves }
-				set_variable = { name = tv_trade_display_row_1_monopoly value = var:tv_trade_monopoly_cloves }
+				limit = { has_variable = tv_trade_monopoly_pearls }
+				set_variable = { name = tv_trade_display_row_1_monopoly value = var:tv_trade_monopoly_pearls }
 			}
 			set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_cloves }
-				set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_cloves }
+				limit = { has_variable = tv_trade_monopoly_level_pct_pearls }
+				set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_pearls }
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 4
+				var:tv_trade_selected_monopoly_page ?= 3
+			}
+			set_variable = { name = tv_trade_display_row_1_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_1_good_index value = 57 }
+			goods:lacquerware = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_1_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_1_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_lacquerware }
+				set_variable = { name = tv_trade_display_row_1_origin_pct value = var:tv_trade_origin_control_pct_lacquerware }
+			}
+			set_variable = { name = tv_trade_display_row_1_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_lacquerware }
+				set_variable = { name = tv_trade_display_row_1_node_pct value = var:tv_trade_node_control_pct_lacquerware }
+			}
+			set_variable = { name = tv_trade_display_row_1_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_lacquerware }
+				set_variable = { name = tv_trade_display_row_1_consumer_pct value = var:tv_trade_consumer_control_pct_lacquerware }
+			}
+			set_variable = { name = tv_trade_display_row_1_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_lacquerware }
+				set_variable = { name = tv_trade_display_row_1_monopoly value = var:tv_trade_monopoly_lacquerware }
+			}
+			set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_lacquerware }
+				set_variable = { name = tv_trade_display_row_1_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_lacquerware }
 			}
 		}
 		if = {
@@ -40556,33 +40684,68 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_2_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_2_good_index value = 30 }
-			goods:marble = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_2_good_index value = 21 }
+			goods:salt = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_2_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_2_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_marble }
-				set_variable = { name = tv_trade_display_row_2_origin_pct value = var:tv_trade_origin_control_pct_marble }
+				limit = { has_variable = tv_trade_origin_control_pct_salt }
+				set_variable = { name = tv_trade_display_row_2_origin_pct value = var:tv_trade_origin_control_pct_salt }
 			}
 			set_variable = { name = tv_trade_display_row_2_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_marble }
-				set_variable = { name = tv_trade_display_row_2_node_pct value = var:tv_trade_node_control_pct_marble }
+				limit = { has_variable = tv_trade_node_control_pct_salt }
+				set_variable = { name = tv_trade_display_row_2_node_pct value = var:tv_trade_node_control_pct_salt }
 			}
 			set_variable = { name = tv_trade_display_row_2_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_marble }
-				set_variable = { name = tv_trade_display_row_2_consumer_pct value = var:tv_trade_consumer_control_pct_marble }
+				limit = { has_variable = tv_trade_consumer_control_pct_salt }
+				set_variable = { name = tv_trade_display_row_2_consumer_pct value = var:tv_trade_consumer_control_pct_salt }
 			}
 			set_variable = { name = tv_trade_display_row_2_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_marble }
-				set_variable = { name = tv_trade_display_row_2_monopoly value = var:tv_trade_monopoly_marble }
+				limit = { has_variable = tv_trade_monopoly_salt }
+				set_variable = { name = tv_trade_display_row_2_monopoly value = var:tv_trade_monopoly_salt }
 			}
 			set_variable = { name = tv_trade_display_row_2_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_marble }
-				set_variable = { name = tv_trade_display_row_2_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_marble }
+				limit = { has_variable = tv_trade_monopoly_level_pct_salt }
+				set_variable = { name = tv_trade_display_row_2_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_salt }
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 1
+				var:tv_trade_selected_monopoly_page ?= 3
+			}
+			set_variable = { name = tv_trade_display_row_2_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_2_good_index value = 46 }
+			goods:steel = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_2_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_2_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_steel }
+				set_variable = { name = tv_trade_display_row_2_origin_pct value = var:tv_trade_origin_control_pct_steel }
+			}
+			set_variable = { name = tv_trade_display_row_2_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_steel }
+				set_variable = { name = tv_trade_display_row_2_node_pct value = var:tv_trade_node_control_pct_steel }
+			}
+			set_variable = { name = tv_trade_display_row_2_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_steel }
+				set_variable = { name = tv_trade_display_row_2_consumer_pct value = var:tv_trade_consumer_control_pct_steel }
+			}
+			set_variable = { name = tv_trade_display_row_2_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_steel }
+				set_variable = { name = tv_trade_display_row_2_monopoly value = var:tv_trade_monopoly_steel }
+			}
+			set_variable = { name = tv_trade_display_row_2_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_steel }
+				set_variable = { name = tv_trade_display_row_2_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_steel }
 			}
 		}
 		else_if = {
@@ -40657,6 +40820,41 @@ tv_trade_league_refresh_monopoly_display_effect = {
 		}
 		else_if = {
 			limit = {
+				var:tv_trade_selected_monopoly_category ?= 3
+				var:tv_trade_selected_monopoly_page ?= 2
+			}
+			set_variable = { name = tv_trade_display_row_2_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_2_good_index value = 52 }
+			goods:books = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_2_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_2_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_books }
+				set_variable = { name = tv_trade_display_row_2_origin_pct value = var:tv_trade_origin_control_pct_books }
+			}
+			set_variable = { name = tv_trade_display_row_2_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_books }
+				set_variable = { name = tv_trade_display_row_2_node_pct value = var:tv_trade_node_control_pct_books }
+			}
+			set_variable = { name = tv_trade_display_row_2_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_books }
+				set_variable = { name = tv_trade_display_row_2_consumer_pct value = var:tv_trade_consumer_control_pct_books }
+			}
+			set_variable = { name = tv_trade_display_row_2_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_books }
+				set_variable = { name = tv_trade_display_row_2_monopoly value = var:tv_trade_monopoly_books }
+			}
+			set_variable = { name = tv_trade_display_row_2_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_books }
+				set_variable = { name = tv_trade_display_row_2_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_books }
+			}
+		}
+		else_if = {
+			limit = {
 				var:tv_trade_selected_monopoly_category ?= 4
 				var:tv_trade_selected_monopoly_page ?= 1
 			}
@@ -40696,33 +40894,33 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_2_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_2_good_index value = 35 }
-			goods:chili = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_2_good_index value = 25 }
+			goods:amber = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_2_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_2_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_chili }
-				set_variable = { name = tv_trade_display_row_2_origin_pct value = var:tv_trade_origin_control_pct_chili }
+				limit = { has_variable = tv_trade_origin_control_pct_amber }
+				set_variable = { name = tv_trade_display_row_2_origin_pct value = var:tv_trade_origin_control_pct_amber }
 			}
 			set_variable = { name = tv_trade_display_row_2_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_chili }
-				set_variable = { name = tv_trade_display_row_2_node_pct value = var:tv_trade_node_control_pct_chili }
+				limit = { has_variable = tv_trade_node_control_pct_amber }
+				set_variable = { name = tv_trade_display_row_2_node_pct value = var:tv_trade_node_control_pct_amber }
 			}
 			set_variable = { name = tv_trade_display_row_2_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_chili }
-				set_variable = { name = tv_trade_display_row_2_consumer_pct value = var:tv_trade_consumer_control_pct_chili }
+				limit = { has_variable = tv_trade_consumer_control_pct_amber }
+				set_variable = { name = tv_trade_display_row_2_consumer_pct value = var:tv_trade_consumer_control_pct_amber }
 			}
 			set_variable = { name = tv_trade_display_row_2_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_chili }
-				set_variable = { name = tv_trade_display_row_2_monopoly value = var:tv_trade_monopoly_chili }
+				limit = { has_variable = tv_trade_monopoly_amber }
+				set_variable = { name = tv_trade_display_row_2_monopoly value = var:tv_trade_monopoly_amber }
 			}
 			set_variable = { name = tv_trade_display_row_2_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_chili }
-				set_variable = { name = tv_trade_display_row_2_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_chili }
+				limit = { has_variable = tv_trade_monopoly_level_pct_amber }
+				set_variable = { name = tv_trade_display_row_2_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_amber }
 			}
 		}
 		if = {
@@ -40766,33 +40964,68 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_3_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_3_good_index value = 31 }
-			goods:mercury = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_3_good_index value = 22 }
+			goods:medicaments = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_3_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_3_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_mercury }
-				set_variable = { name = tv_trade_display_row_3_origin_pct value = var:tv_trade_origin_control_pct_mercury }
+				limit = { has_variable = tv_trade_origin_control_pct_medicaments }
+				set_variable = { name = tv_trade_display_row_3_origin_pct value = var:tv_trade_origin_control_pct_medicaments }
 			}
 			set_variable = { name = tv_trade_display_row_3_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_mercury }
-				set_variable = { name = tv_trade_display_row_3_node_pct value = var:tv_trade_node_control_pct_mercury }
+				limit = { has_variable = tv_trade_node_control_pct_medicaments }
+				set_variable = { name = tv_trade_display_row_3_node_pct value = var:tv_trade_node_control_pct_medicaments }
 			}
 			set_variable = { name = tv_trade_display_row_3_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_mercury }
-				set_variable = { name = tv_trade_display_row_3_consumer_pct value = var:tv_trade_consumer_control_pct_mercury }
+				limit = { has_variable = tv_trade_consumer_control_pct_medicaments }
+				set_variable = { name = tv_trade_display_row_3_consumer_pct value = var:tv_trade_consumer_control_pct_medicaments }
 			}
 			set_variable = { name = tv_trade_display_row_3_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_mercury }
-				set_variable = { name = tv_trade_display_row_3_monopoly value = var:tv_trade_monopoly_mercury }
+				limit = { has_variable = tv_trade_monopoly_medicaments }
+				set_variable = { name = tv_trade_display_row_3_monopoly value = var:tv_trade_monopoly_medicaments }
 			}
 			set_variable = { name = tv_trade_display_row_3_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_mercury }
-				set_variable = { name = tv_trade_display_row_3_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_mercury }
+				limit = { has_variable = tv_trade_monopoly_level_pct_medicaments }
+				set_variable = { name = tv_trade_display_row_3_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_medicaments }
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 1
+				var:tv_trade_selected_monopoly_page ?= 3
+			}
+			set_variable = { name = tv_trade_display_row_3_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_3_good_index value = 54 }
+			goods:leather = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_3_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_3_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_leather }
+				set_variable = { name = tv_trade_display_row_3_origin_pct value = var:tv_trade_origin_control_pct_leather }
+			}
+			set_variable = { name = tv_trade_display_row_3_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_leather }
+				set_variable = { name = tv_trade_display_row_3_node_pct value = var:tv_trade_node_control_pct_leather }
+			}
+			set_variable = { name = tv_trade_display_row_3_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_leather }
+				set_variable = { name = tv_trade_display_row_3_consumer_pct value = var:tv_trade_consumer_control_pct_leather }
+			}
+			set_variable = { name = tv_trade_display_row_3_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_leather }
+				set_variable = { name = tv_trade_display_row_3_monopoly value = var:tv_trade_monopoly_leather }
+			}
+			set_variable = { name = tv_trade_display_row_3_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_leather }
+				set_variable = { name = tv_trade_display_row_3_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_leather }
 			}
 		}
 		else_if = {
@@ -40867,6 +41100,41 @@ tv_trade_league_refresh_monopoly_display_effect = {
 		}
 		else_if = {
 			limit = {
+				var:tv_trade_selected_monopoly_category ?= 3
+				var:tv_trade_selected_monopoly_page ?= 2
+			}
+			set_variable = { name = tv_trade_display_row_3_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_3_good_index value = 58 }
+			goods:pottery = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_3_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_3_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_pottery }
+				set_variable = { name = tv_trade_display_row_3_origin_pct value = var:tv_trade_origin_control_pct_pottery }
+			}
+			set_variable = { name = tv_trade_display_row_3_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_pottery }
+				set_variable = { name = tv_trade_display_row_3_node_pct value = var:tv_trade_node_control_pct_pottery }
+			}
+			set_variable = { name = tv_trade_display_row_3_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_pottery }
+				set_variable = { name = tv_trade_display_row_3_consumer_pct value = var:tv_trade_consumer_control_pct_pottery }
+			}
+			set_variable = { name = tv_trade_display_row_3_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_pottery }
+				set_variable = { name = tv_trade_display_row_3_monopoly value = var:tv_trade_monopoly_pottery }
+			}
+			set_variable = { name = tv_trade_display_row_3_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_pottery }
+				set_variable = { name = tv_trade_display_row_3_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_pottery }
+			}
+		}
+		else_if = {
+			limit = {
 				var:tv_trade_selected_monopoly_category ?= 4
 				var:tv_trade_selected_monopoly_page ?= 1
 			}
@@ -40906,33 +41174,33 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_3_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_3_good_index value = 37 }
-			goods:sugar = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_3_good_index value = 28 }
+			goods:wine = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_3_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_3_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_sugar }
-				set_variable = { name = tv_trade_display_row_3_origin_pct value = var:tv_trade_origin_control_pct_sugar }
+				limit = { has_variable = tv_trade_origin_control_pct_wine }
+				set_variable = { name = tv_trade_display_row_3_origin_pct value = var:tv_trade_origin_control_pct_wine }
 			}
 			set_variable = { name = tv_trade_display_row_3_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_sugar }
-				set_variable = { name = tv_trade_display_row_3_node_pct value = var:tv_trade_node_control_pct_sugar }
+				limit = { has_variable = tv_trade_node_control_pct_wine }
+				set_variable = { name = tv_trade_display_row_3_node_pct value = var:tv_trade_node_control_pct_wine }
 			}
 			set_variable = { name = tv_trade_display_row_3_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_sugar }
-				set_variable = { name = tv_trade_display_row_3_consumer_pct value = var:tv_trade_consumer_control_pct_sugar }
+				limit = { has_variable = tv_trade_consumer_control_pct_wine }
+				set_variable = { name = tv_trade_display_row_3_consumer_pct value = var:tv_trade_consumer_control_pct_wine }
 			}
 			set_variable = { name = tv_trade_display_row_3_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_sugar }
-				set_variable = { name = tv_trade_display_row_3_monopoly value = var:tv_trade_monopoly_sugar }
+				limit = { has_variable = tv_trade_monopoly_wine }
+				set_variable = { name = tv_trade_display_row_3_monopoly value = var:tv_trade_monopoly_wine }
 			}
 			set_variable = { name = tv_trade_display_row_3_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_sugar }
-				set_variable = { name = tv_trade_display_row_3_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_sugar }
+				limit = { has_variable = tv_trade_monopoly_level_pct_wine }
+				set_variable = { name = tv_trade_display_row_3_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_wine }
 			}
 		}
 		if = {
@@ -40976,33 +41244,68 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_4_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_4_good_index value = 36 }
-			goods:cotton = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_4_good_index value = 26 }
+			goods:saltpeter = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_4_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_4_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_cotton }
-				set_variable = { name = tv_trade_display_row_4_origin_pct value = var:tv_trade_origin_control_pct_cotton }
+				limit = { has_variable = tv_trade_origin_control_pct_saltpeter }
+				set_variable = { name = tv_trade_display_row_4_origin_pct value = var:tv_trade_origin_control_pct_saltpeter }
 			}
 			set_variable = { name = tv_trade_display_row_4_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_cotton }
-				set_variable = { name = tv_trade_display_row_4_node_pct value = var:tv_trade_node_control_pct_cotton }
+				limit = { has_variable = tv_trade_node_control_pct_saltpeter }
+				set_variable = { name = tv_trade_display_row_4_node_pct value = var:tv_trade_node_control_pct_saltpeter }
 			}
 			set_variable = { name = tv_trade_display_row_4_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_cotton }
-				set_variable = { name = tv_trade_display_row_4_consumer_pct value = var:tv_trade_consumer_control_pct_cotton }
+				limit = { has_variable = tv_trade_consumer_control_pct_saltpeter }
+				set_variable = { name = tv_trade_display_row_4_consumer_pct value = var:tv_trade_consumer_control_pct_saltpeter }
 			}
 			set_variable = { name = tv_trade_display_row_4_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_cotton }
-				set_variable = { name = tv_trade_display_row_4_monopoly value = var:tv_trade_monopoly_cotton }
+				limit = { has_variable = tv_trade_monopoly_saltpeter }
+				set_variable = { name = tv_trade_display_row_4_monopoly value = var:tv_trade_monopoly_saltpeter }
 			}
 			set_variable = { name = tv_trade_display_row_4_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_cotton }
-				set_variable = { name = tv_trade_display_row_4_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_cotton }
+				limit = { has_variable = tv_trade_monopoly_level_pct_saltpeter }
+				set_variable = { name = tv_trade_display_row_4_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_saltpeter }
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 1
+				var:tv_trade_selected_monopoly_page ?= 3
+			}
+			set_variable = { name = tv_trade_display_row_4_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_4_good_index value = 56 }
+			goods:masonry = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_4_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_4_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_masonry }
+				set_variable = { name = tv_trade_display_row_4_origin_pct value = var:tv_trade_origin_control_pct_masonry }
+			}
+			set_variable = { name = tv_trade_display_row_4_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_masonry }
+				set_variable = { name = tv_trade_display_row_4_node_pct value = var:tv_trade_node_control_pct_masonry }
+			}
+			set_variable = { name = tv_trade_display_row_4_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_masonry }
+				set_variable = { name = tv_trade_display_row_4_consumer_pct value = var:tv_trade_consumer_control_pct_masonry }
+			}
+			set_variable = { name = tv_trade_display_row_4_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_masonry }
+				set_variable = { name = tv_trade_display_row_4_monopoly value = var:tv_trade_monopoly_masonry }
+			}
+			set_variable = { name = tv_trade_display_row_4_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_masonry }
+				set_variable = { name = tv_trade_display_row_4_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_masonry }
 			}
 		}
 		else_if = {
@@ -41077,6 +41380,41 @@ tv_trade_league_refresh_monopoly_display_effect = {
 		}
 		else_if = {
 			limit = {
+				var:tv_trade_selected_monopoly_category ?= 3
+				var:tv_trade_selected_monopoly_page ?= 2
+			}
+			set_variable = { name = tv_trade_display_row_4_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_4_good_index value = 59 }
+			goods:furniture = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_4_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_4_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_furniture }
+				set_variable = { name = tv_trade_display_row_4_origin_pct value = var:tv_trade_origin_control_pct_furniture }
+			}
+			set_variable = { name = tv_trade_display_row_4_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_furniture }
+				set_variable = { name = tv_trade_display_row_4_node_pct value = var:tv_trade_node_control_pct_furniture }
+			}
+			set_variable = { name = tv_trade_display_row_4_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_furniture }
+				set_variable = { name = tv_trade_display_row_4_consumer_pct value = var:tv_trade_consumer_control_pct_furniture }
+			}
+			set_variable = { name = tv_trade_display_row_4_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_furniture }
+				set_variable = { name = tv_trade_display_row_4_monopoly value = var:tv_trade_monopoly_furniture }
+			}
+			set_variable = { name = tv_trade_display_row_4_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_furniture }
+				set_variable = { name = tv_trade_display_row_4_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_furniture }
+			}
+		}
+		else_if = {
+			limit = {
 				var:tv_trade_selected_monopoly_category ?= 4
 				var:tv_trade_selected_monopoly_page ?= 1
 			}
@@ -41116,33 +41454,33 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_4_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_4_good_index value = 38 }
-			goods:tobacco = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_4_good_index value = 32 }
+			goods:saffron = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_4_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_4_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_tobacco }
-				set_variable = { name = tv_trade_display_row_4_origin_pct value = var:tv_trade_origin_control_pct_tobacco }
+				limit = { has_variable = tv_trade_origin_control_pct_saffron }
+				set_variable = { name = tv_trade_display_row_4_origin_pct value = var:tv_trade_origin_control_pct_saffron }
 			}
 			set_variable = { name = tv_trade_display_row_4_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_tobacco }
-				set_variable = { name = tv_trade_display_row_4_node_pct value = var:tv_trade_node_control_pct_tobacco }
+				limit = { has_variable = tv_trade_node_control_pct_saffron }
+				set_variable = { name = tv_trade_display_row_4_node_pct value = var:tv_trade_node_control_pct_saffron }
 			}
 			set_variable = { name = tv_trade_display_row_4_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_tobacco }
-				set_variable = { name = tv_trade_display_row_4_consumer_pct value = var:tv_trade_consumer_control_pct_tobacco }
+				limit = { has_variable = tv_trade_consumer_control_pct_saffron }
+				set_variable = { name = tv_trade_display_row_4_consumer_pct value = var:tv_trade_consumer_control_pct_saffron }
 			}
 			set_variable = { name = tv_trade_display_row_4_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_tobacco }
-				set_variable = { name = tv_trade_display_row_4_monopoly value = var:tv_trade_monopoly_tobacco }
+				limit = { has_variable = tv_trade_monopoly_saffron }
+				set_variable = { name = tv_trade_display_row_4_monopoly value = var:tv_trade_monopoly_saffron }
 			}
 			set_variable = { name = tv_trade_display_row_4_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_tobacco }
-				set_variable = { name = tv_trade_display_row_4_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_tobacco }
+				limit = { has_variable = tv_trade_monopoly_level_pct_saffron }
+				set_variable = { name = tv_trade_display_row_4_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_saffron }
 			}
 		}
 		if = {
@@ -41186,33 +41524,68 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_5_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_5_good_index value = 39 }
-			goods:tar = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_5_good_index value = 27 }
+			goods:alum = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_5_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_5_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_tar }
-				set_variable = { name = tv_trade_display_row_5_origin_pct value = var:tv_trade_origin_control_pct_tar }
+				limit = { has_variable = tv_trade_origin_control_pct_alum }
+				set_variable = { name = tv_trade_display_row_5_origin_pct value = var:tv_trade_origin_control_pct_alum }
 			}
 			set_variable = { name = tv_trade_display_row_5_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_tar }
-				set_variable = { name = tv_trade_display_row_5_node_pct value = var:tv_trade_node_control_pct_tar }
+				limit = { has_variable = tv_trade_node_control_pct_alum }
+				set_variable = { name = tv_trade_display_row_5_node_pct value = var:tv_trade_node_control_pct_alum }
 			}
 			set_variable = { name = tv_trade_display_row_5_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_tar }
-				set_variable = { name = tv_trade_display_row_5_consumer_pct value = var:tv_trade_consumer_control_pct_tar }
+				limit = { has_variable = tv_trade_consumer_control_pct_alum }
+				set_variable = { name = tv_trade_display_row_5_consumer_pct value = var:tv_trade_consumer_control_pct_alum }
 			}
 			set_variable = { name = tv_trade_display_row_5_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_tar }
-				set_variable = { name = tv_trade_display_row_5_monopoly value = var:tv_trade_monopoly_tar }
+				limit = { has_variable = tv_trade_monopoly_alum }
+				set_variable = { name = tv_trade_display_row_5_monopoly value = var:tv_trade_monopoly_alum }
 			}
 			set_variable = { name = tv_trade_display_row_5_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_tar }
-				set_variable = { name = tv_trade_display_row_5_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_tar }
+				limit = { has_variable = tv_trade_monopoly_level_pct_alum }
+				set_variable = { name = tv_trade_display_row_5_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_alum }
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 1
+				var:tv_trade_selected_monopoly_page ?= 3
+			}
+			set_variable = { name = tv_trade_display_row_5_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_5_good_index value = 60 }
+			goods:wool = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_5_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_5_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_wool }
+				set_variable = { name = tv_trade_display_row_5_origin_pct value = var:tv_trade_origin_control_pct_wool }
+			}
+			set_variable = { name = tv_trade_display_row_5_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_wool }
+				set_variable = { name = tv_trade_display_row_5_node_pct value = var:tv_trade_node_control_pct_wool }
+			}
+			set_variable = { name = tv_trade_display_row_5_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_wool }
+				set_variable = { name = tv_trade_display_row_5_consumer_pct value = var:tv_trade_consumer_control_pct_wool }
+			}
+			set_variable = { name = tv_trade_display_row_5_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_wool }
+				set_variable = { name = tv_trade_display_row_5_monopoly value = var:tv_trade_monopoly_wool }
+			}
+			set_variable = { name = tv_trade_display_row_5_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_wool }
+				set_variable = { name = tv_trade_display_row_5_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_wool }
 			}
 		}
 		else_if = {
@@ -41326,33 +41699,33 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_5_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_5_good_index value = 40 }
-			goods:porcelain = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_5_good_index value = 33 }
+			goods:pepper = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_5_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_5_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_porcelain }
-				set_variable = { name = tv_trade_display_row_5_origin_pct value = var:tv_trade_origin_control_pct_porcelain }
+				limit = { has_variable = tv_trade_origin_control_pct_pepper }
+				set_variable = { name = tv_trade_display_row_5_origin_pct value = var:tv_trade_origin_control_pct_pepper }
 			}
 			set_variable = { name = tv_trade_display_row_5_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_porcelain }
-				set_variable = { name = tv_trade_display_row_5_node_pct value = var:tv_trade_node_control_pct_porcelain }
+				limit = { has_variable = tv_trade_node_control_pct_pepper }
+				set_variable = { name = tv_trade_display_row_5_node_pct value = var:tv_trade_node_control_pct_pepper }
 			}
 			set_variable = { name = tv_trade_display_row_5_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_porcelain }
-				set_variable = { name = tv_trade_display_row_5_consumer_pct value = var:tv_trade_consumer_control_pct_porcelain }
+				limit = { has_variable = tv_trade_consumer_control_pct_pepper }
+				set_variable = { name = tv_trade_display_row_5_consumer_pct value = var:tv_trade_consumer_control_pct_pepper }
 			}
 			set_variable = { name = tv_trade_display_row_5_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_porcelain }
-				set_variable = { name = tv_trade_display_row_5_monopoly value = var:tv_trade_monopoly_porcelain }
+				limit = { has_variable = tv_trade_monopoly_pepper }
+				set_variable = { name = tv_trade_display_row_5_monopoly value = var:tv_trade_monopoly_pepper }
 			}
 			set_variable = { name = tv_trade_display_row_5_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_porcelain }
-				set_variable = { name = tv_trade_display_row_5_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_porcelain }
+				limit = { has_variable = tv_trade_monopoly_level_pct_pepper }
+				set_variable = { name = tv_trade_display_row_5_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_pepper }
 			}
 		}
 		if = {
@@ -41396,33 +41769,68 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_6_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_6_good_index value = 41 }
-			goods:naval_supplies = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_6_good_index value = 29 }
+			goods:elephants = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_6_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_6_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_naval_supplies }
-				set_variable = { name = tv_trade_display_row_6_origin_pct value = var:tv_trade_origin_control_pct_naval_supplies }
+				limit = { has_variable = tv_trade_origin_control_pct_elephants }
+				set_variable = { name = tv_trade_display_row_6_origin_pct value = var:tv_trade_origin_control_pct_elephants }
 			}
 			set_variable = { name = tv_trade_display_row_6_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_naval_supplies }
-				set_variable = { name = tv_trade_display_row_6_node_pct value = var:tv_trade_node_control_pct_naval_supplies }
+				limit = { has_variable = tv_trade_node_control_pct_elephants }
+				set_variable = { name = tv_trade_display_row_6_node_pct value = var:tv_trade_node_control_pct_elephants }
 			}
 			set_variable = { name = tv_trade_display_row_6_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_naval_supplies }
-				set_variable = { name = tv_trade_display_row_6_consumer_pct value = var:tv_trade_consumer_control_pct_naval_supplies }
+				limit = { has_variable = tv_trade_consumer_control_pct_elephants }
+				set_variable = { name = tv_trade_display_row_6_consumer_pct value = var:tv_trade_consumer_control_pct_elephants }
 			}
 			set_variable = { name = tv_trade_display_row_6_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_naval_supplies }
-				set_variable = { name = tv_trade_display_row_6_monopoly value = var:tv_trade_monopoly_naval_supplies }
+				limit = { has_variable = tv_trade_monopoly_elephants }
+				set_variable = { name = tv_trade_display_row_6_monopoly value = var:tv_trade_monopoly_elephants }
 			}
 			set_variable = { name = tv_trade_display_row_6_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_naval_supplies }
-				set_variable = { name = tv_trade_display_row_6_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_naval_supplies }
+				limit = { has_variable = tv_trade_monopoly_level_pct_elephants }
+				set_variable = { name = tv_trade_display_row_6_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_elephants }
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 1
+				var:tv_trade_selected_monopoly_page ?= 3
+			}
+			set_variable = { name = tv_trade_display_row_6_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_6_good_index value = 62 }
+			goods:fur = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_6_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_6_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_fur }
+				set_variable = { name = tv_trade_display_row_6_origin_pct value = var:tv_trade_origin_control_pct_fur }
+			}
+			set_variable = { name = tv_trade_display_row_6_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_fur }
+				set_variable = { name = tv_trade_display_row_6_node_pct value = var:tv_trade_node_control_pct_fur }
+			}
+			set_variable = { name = tv_trade_display_row_6_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_fur }
+				set_variable = { name = tv_trade_display_row_6_consumer_pct value = var:tv_trade_consumer_control_pct_fur }
+			}
+			set_variable = { name = tv_trade_display_row_6_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_fur }
+				set_variable = { name = tv_trade_display_row_6_monopoly value = var:tv_trade_monopoly_fur }
+			}
+			set_variable = { name = tv_trade_display_row_6_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_fur }
+				set_variable = { name = tv_trade_display_row_6_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_fur }
 			}
 		}
 		else_if = {
@@ -41536,33 +41944,33 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_6_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_6_good_index value = 57 }
-			goods:lacquerware = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_6_good_index value = 34 }
+			goods:cloves = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_6_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_6_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_lacquerware }
-				set_variable = { name = tv_trade_display_row_6_origin_pct value = var:tv_trade_origin_control_pct_lacquerware }
+				limit = { has_variable = tv_trade_origin_control_pct_cloves }
+				set_variable = { name = tv_trade_display_row_6_origin_pct value = var:tv_trade_origin_control_pct_cloves }
 			}
 			set_variable = { name = tv_trade_display_row_6_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_lacquerware }
-				set_variable = { name = tv_trade_display_row_6_node_pct value = var:tv_trade_node_control_pct_lacquerware }
+				limit = { has_variable = tv_trade_node_control_pct_cloves }
+				set_variable = { name = tv_trade_display_row_6_node_pct value = var:tv_trade_node_control_pct_cloves }
 			}
 			set_variable = { name = tv_trade_display_row_6_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_lacquerware }
-				set_variable = { name = tv_trade_display_row_6_consumer_pct value = var:tv_trade_consumer_control_pct_lacquerware }
+				limit = { has_variable = tv_trade_consumer_control_pct_cloves }
+				set_variable = { name = tv_trade_display_row_6_consumer_pct value = var:tv_trade_consumer_control_pct_cloves }
 			}
 			set_variable = { name = tv_trade_display_row_6_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_lacquerware }
-				set_variable = { name = tv_trade_display_row_6_monopoly value = var:tv_trade_monopoly_lacquerware }
+				limit = { has_variable = tv_trade_monopoly_cloves }
+				set_variable = { name = tv_trade_display_row_6_monopoly value = var:tv_trade_monopoly_cloves }
 			}
 			set_variable = { name = tv_trade_display_row_6_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_lacquerware }
-				set_variable = { name = tv_trade_display_row_6_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_lacquerware }
+				limit = { has_variable = tv_trade_monopoly_level_pct_cloves }
+				set_variable = { name = tv_trade_display_row_6_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_cloves }
 			}
 		}
 		if = {
@@ -41606,33 +42014,68 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_7_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_7_good_index value = 46 }
-			goods:steel = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_7_good_index value = 30 }
+			goods:marble = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_7_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_7_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_steel }
-				set_variable = { name = tv_trade_display_row_7_origin_pct value = var:tv_trade_origin_control_pct_steel }
+				limit = { has_variable = tv_trade_origin_control_pct_marble }
+				set_variable = { name = tv_trade_display_row_7_origin_pct value = var:tv_trade_origin_control_pct_marble }
 			}
 			set_variable = { name = tv_trade_display_row_7_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_steel }
-				set_variable = { name = tv_trade_display_row_7_node_pct value = var:tv_trade_node_control_pct_steel }
+				limit = { has_variable = tv_trade_node_control_pct_marble }
+				set_variable = { name = tv_trade_display_row_7_node_pct value = var:tv_trade_node_control_pct_marble }
 			}
 			set_variable = { name = tv_trade_display_row_7_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_steel }
-				set_variable = { name = tv_trade_display_row_7_consumer_pct value = var:tv_trade_consumer_control_pct_steel }
+				limit = { has_variable = tv_trade_consumer_control_pct_marble }
+				set_variable = { name = tv_trade_display_row_7_consumer_pct value = var:tv_trade_consumer_control_pct_marble }
 			}
 			set_variable = { name = tv_trade_display_row_7_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_steel }
-				set_variable = { name = tv_trade_display_row_7_monopoly value = var:tv_trade_monopoly_steel }
+				limit = { has_variable = tv_trade_monopoly_marble }
+				set_variable = { name = tv_trade_display_row_7_monopoly value = var:tv_trade_monopoly_marble }
 			}
 			set_variable = { name = tv_trade_display_row_7_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_steel }
-				set_variable = { name = tv_trade_display_row_7_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_steel }
+				limit = { has_variable = tv_trade_monopoly_level_pct_marble }
+				set_variable = { name = tv_trade_display_row_7_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_marble }
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 1
+				var:tv_trade_selected_monopoly_page ?= 3
+			}
+			set_variable = { name = tv_trade_display_row_7_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_7_good_index value = 73 }
+			goods:beeswax = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_7_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_7_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_beeswax }
+				set_variable = { name = tv_trade_display_row_7_origin_pct value = var:tv_trade_origin_control_pct_beeswax }
+			}
+			set_variable = { name = tv_trade_display_row_7_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_beeswax }
+				set_variable = { name = tv_trade_display_row_7_node_pct value = var:tv_trade_node_control_pct_beeswax }
+			}
+			set_variable = { name = tv_trade_display_row_7_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_beeswax }
+				set_variable = { name = tv_trade_display_row_7_consumer_pct value = var:tv_trade_consumer_control_pct_beeswax }
+			}
+			set_variable = { name = tv_trade_display_row_7_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_beeswax }
+				set_variable = { name = tv_trade_display_row_7_monopoly value = var:tv_trade_monopoly_beeswax }
+			}
+			set_variable = { name = tv_trade_display_row_7_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_beeswax }
+				set_variable = { name = tv_trade_display_row_7_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_beeswax }
 			}
 		}
 		else_if = {
@@ -41740,6 +42183,41 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				set_variable = { name = tv_trade_display_row_7_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_cocoa }
 			}
 		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 4
+				var:tv_trade_selected_monopoly_page ?= 2
+			}
+			set_variable = { name = tv_trade_display_row_7_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_7_good_index value = 35 }
+			goods:chili = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_7_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_7_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_chili }
+				set_variable = { name = tv_trade_display_row_7_origin_pct value = var:tv_trade_origin_control_pct_chili }
+			}
+			set_variable = { name = tv_trade_display_row_7_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_chili }
+				set_variable = { name = tv_trade_display_row_7_node_pct value = var:tv_trade_node_control_pct_chili }
+			}
+			set_variable = { name = tv_trade_display_row_7_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_chili }
+				set_variable = { name = tv_trade_display_row_7_consumer_pct value = var:tv_trade_consumer_control_pct_chili }
+			}
+			set_variable = { name = tv_trade_display_row_7_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_chili }
+				set_variable = { name = tv_trade_display_row_7_monopoly value = var:tv_trade_monopoly_chili }
+			}
+			set_variable = { name = tv_trade_display_row_7_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_chili }
+				set_variable = { name = tv_trade_display_row_7_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_chili }
+			}
+		}
 		if = {
 			limit = {
 				var:tv_trade_selected_monopoly_category ?= 1
@@ -41781,33 +42259,68 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_8_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_8_good_index value = 54 }
-			goods:leather = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_8_good_index value = 31 }
+			goods:mercury = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_8_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_8_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_leather }
-				set_variable = { name = tv_trade_display_row_8_origin_pct value = var:tv_trade_origin_control_pct_leather }
+				limit = { has_variable = tv_trade_origin_control_pct_mercury }
+				set_variable = { name = tv_trade_display_row_8_origin_pct value = var:tv_trade_origin_control_pct_mercury }
 			}
 			set_variable = { name = tv_trade_display_row_8_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_leather }
-				set_variable = { name = tv_trade_display_row_8_node_pct value = var:tv_trade_node_control_pct_leather }
+				limit = { has_variable = tv_trade_node_control_pct_mercury }
+				set_variable = { name = tv_trade_display_row_8_node_pct value = var:tv_trade_node_control_pct_mercury }
 			}
 			set_variable = { name = tv_trade_display_row_8_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_leather }
-				set_variable = { name = tv_trade_display_row_8_consumer_pct value = var:tv_trade_consumer_control_pct_leather }
+				limit = { has_variable = tv_trade_consumer_control_pct_mercury }
+				set_variable = { name = tv_trade_display_row_8_consumer_pct value = var:tv_trade_consumer_control_pct_mercury }
 			}
 			set_variable = { name = tv_trade_display_row_8_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_leather }
-				set_variable = { name = tv_trade_display_row_8_monopoly value = var:tv_trade_monopoly_leather }
+				limit = { has_variable = tv_trade_monopoly_mercury }
+				set_variable = { name = tv_trade_display_row_8_monopoly value = var:tv_trade_monopoly_mercury }
 			}
 			set_variable = { name = tv_trade_display_row_8_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_leather }
-				set_variable = { name = tv_trade_display_row_8_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_leather }
+				limit = { has_variable = tv_trade_monopoly_level_pct_mercury }
+				set_variable = { name = tv_trade_display_row_8_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_mercury }
+			}
+		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 1
+				var:tv_trade_selected_monopoly_page ?= 3
+			}
+			set_variable = { name = tv_trade_display_row_8_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_8_good_index value = 74 }
+			goods:slaves_goods = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_8_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_8_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_slaves_goods }
+				set_variable = { name = tv_trade_display_row_8_origin_pct value = var:tv_trade_origin_control_pct_slaves_goods }
+			}
+			set_variable = { name = tv_trade_display_row_8_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_slaves_goods }
+				set_variable = { name = tv_trade_display_row_8_node_pct value = var:tv_trade_node_control_pct_slaves_goods }
+			}
+			set_variable = { name = tv_trade_display_row_8_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_slaves_goods }
+				set_variable = { name = tv_trade_display_row_8_consumer_pct value = var:tv_trade_consumer_control_pct_slaves_goods }
+			}
+			set_variable = { name = tv_trade_display_row_8_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_slaves_goods }
+				set_variable = { name = tv_trade_display_row_8_monopoly value = var:tv_trade_monopoly_slaves_goods }
+			}
+			set_variable = { name = tv_trade_display_row_8_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_slaves_goods }
+				set_variable = { name = tv_trade_display_row_8_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_slaves_goods }
 			}
 		}
 		else_if = {
@@ -41915,6 +42428,41 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				set_variable = { name = tv_trade_display_row_8_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_coffee }
 			}
 		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 4
+				var:tv_trade_selected_monopoly_page ?= 2
+			}
+			set_variable = { name = tv_trade_display_row_8_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_8_good_index value = 37 }
+			goods:sugar = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_8_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_8_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_sugar }
+				set_variable = { name = tv_trade_display_row_8_origin_pct value = var:tv_trade_origin_control_pct_sugar }
+			}
+			set_variable = { name = tv_trade_display_row_8_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_sugar }
+				set_variable = { name = tv_trade_display_row_8_node_pct value = var:tv_trade_node_control_pct_sugar }
+			}
+			set_variable = { name = tv_trade_display_row_8_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_sugar }
+				set_variable = { name = tv_trade_display_row_8_consumer_pct value = var:tv_trade_consumer_control_pct_sugar }
+			}
+			set_variable = { name = tv_trade_display_row_8_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_sugar }
+				set_variable = { name = tv_trade_display_row_8_monopoly value = var:tv_trade_monopoly_sugar }
+			}
+			set_variable = { name = tv_trade_display_row_8_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_sugar }
+				set_variable = { name = tv_trade_display_row_8_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_sugar }
+			}
+		}
 		if = {
 			limit = {
 				var:tv_trade_selected_monopoly_category ?= 1
@@ -41956,33 +42504,33 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_9_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_9_good_index value = 56 }
-			goods:masonry = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_9_good_index value = 36 }
+			goods:cotton = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_9_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_9_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_masonry }
-				set_variable = { name = tv_trade_display_row_9_origin_pct value = var:tv_trade_origin_control_pct_masonry }
+				limit = { has_variable = tv_trade_origin_control_pct_cotton }
+				set_variable = { name = tv_trade_display_row_9_origin_pct value = var:tv_trade_origin_control_pct_cotton }
 			}
 			set_variable = { name = tv_trade_display_row_9_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_masonry }
-				set_variable = { name = tv_trade_display_row_9_node_pct value = var:tv_trade_node_control_pct_masonry }
+				limit = { has_variable = tv_trade_node_control_pct_cotton }
+				set_variable = { name = tv_trade_display_row_9_node_pct value = var:tv_trade_node_control_pct_cotton }
 			}
 			set_variable = { name = tv_trade_display_row_9_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_masonry }
-				set_variable = { name = tv_trade_display_row_9_consumer_pct value = var:tv_trade_consumer_control_pct_masonry }
+				limit = { has_variable = tv_trade_consumer_control_pct_cotton }
+				set_variable = { name = tv_trade_display_row_9_consumer_pct value = var:tv_trade_consumer_control_pct_cotton }
 			}
 			set_variable = { name = tv_trade_display_row_9_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_masonry }
-				set_variable = { name = tv_trade_display_row_9_monopoly value = var:tv_trade_monopoly_masonry }
+				limit = { has_variable = tv_trade_monopoly_cotton }
+				set_variable = { name = tv_trade_display_row_9_monopoly value = var:tv_trade_monopoly_cotton }
 			}
 			set_variable = { name = tv_trade_display_row_9_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_masonry }
-				set_variable = { name = tv_trade_display_row_9_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_masonry }
+				limit = { has_variable = tv_trade_monopoly_level_pct_cotton }
+				set_variable = { name = tv_trade_display_row_9_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_cotton }
 			}
 		}
 		else_if = {
@@ -42090,6 +42638,41 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				set_variable = { name = tv_trade_display_row_9_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_ivory }
 			}
 		}
+		else_if = {
+			limit = {
+				var:tv_trade_selected_monopoly_category ?= 4
+				var:tv_trade_selected_monopoly_page ?= 2
+			}
+			set_variable = { name = tv_trade_display_row_9_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_9_good_index value = 38 }
+			goods:tobacco = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_9_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_9_origin_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_origin_control_pct_tobacco }
+				set_variable = { name = tv_trade_display_row_9_origin_pct value = var:tv_trade_origin_control_pct_tobacco }
+			}
+			set_variable = { name = tv_trade_display_row_9_node_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_node_control_pct_tobacco }
+				set_variable = { name = tv_trade_display_row_9_node_pct value = var:tv_trade_node_control_pct_tobacco }
+			}
+			set_variable = { name = tv_trade_display_row_9_consumer_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_consumer_control_pct_tobacco }
+				set_variable = { name = tv_trade_display_row_9_consumer_pct value = var:tv_trade_consumer_control_pct_tobacco }
+			}
+			set_variable = { name = tv_trade_display_row_9_monopoly value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_tobacco }
+				set_variable = { name = tv_trade_display_row_9_monopoly value = var:tv_trade_monopoly_tobacco }
+			}
+			set_variable = { name = tv_trade_display_row_9_monopoly_level_pct value = 0 }
+			if = {
+				limit = { has_variable = tv_trade_monopoly_level_pct_tobacco }
+				set_variable = { name = tv_trade_display_row_9_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_tobacco }
+			}
+		}
 		if = {
 			limit = {
 				var:tv_trade_selected_monopoly_category ?= 1
@@ -42131,33 +42714,33 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
 			set_variable = { name = tv_trade_display_row_10_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_10_good_index value = 60 }
-			goods:wool = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_10_good_index value = 39 }
+			goods:tar = { save_scope_as = tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_10_good value = scope:tv_trade_projection_good }
 			set_variable = { name = tv_trade_display_row_10_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_wool }
-				set_variable = { name = tv_trade_display_row_10_origin_pct value = var:tv_trade_origin_control_pct_wool }
+				limit = { has_variable = tv_trade_origin_control_pct_tar }
+				set_variable = { name = tv_trade_display_row_10_origin_pct value = var:tv_trade_origin_control_pct_tar }
 			}
 			set_variable = { name = tv_trade_display_row_10_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_wool }
-				set_variable = { name = tv_trade_display_row_10_node_pct value = var:tv_trade_node_control_pct_wool }
+				limit = { has_variable = tv_trade_node_control_pct_tar }
+				set_variable = { name = tv_trade_display_row_10_node_pct value = var:tv_trade_node_control_pct_tar }
 			}
 			set_variable = { name = tv_trade_display_row_10_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_wool }
-				set_variable = { name = tv_trade_display_row_10_consumer_pct value = var:tv_trade_consumer_control_pct_wool }
+				limit = { has_variable = tv_trade_consumer_control_pct_tar }
+				set_variable = { name = tv_trade_display_row_10_consumer_pct value = var:tv_trade_consumer_control_pct_tar }
 			}
 			set_variable = { name = tv_trade_display_row_10_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_wool }
-				set_variable = { name = tv_trade_display_row_10_monopoly value = var:tv_trade_monopoly_wool }
+				limit = { has_variable = tv_trade_monopoly_tar }
+				set_variable = { name = tv_trade_display_row_10_monopoly value = var:tv_trade_monopoly_tar }
 			}
 			set_variable = { name = tv_trade_display_row_10_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_wool }
-				set_variable = { name = tv_trade_display_row_10_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_wool }
+				limit = { has_variable = tv_trade_monopoly_level_pct_tar }
+				set_variable = { name = tv_trade_display_row_10_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_tar }
 			}
 		}
 		else_if = {
@@ -42265,634 +42848,39 @@ tv_trade_league_refresh_monopoly_display_effect = {
 				set_variable = { name = tv_trade_display_row_10_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_gems }
 			}
 		}
-		if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 1
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_11_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_11_good_index value = 20 }
-			goods:lumber = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_11_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_11_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_lumber }
-				set_variable = { name = tv_trade_display_row_11_origin_pct value = var:tv_trade_origin_control_pct_lumber }
-			}
-			set_variable = { name = tv_trade_display_row_11_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_lumber }
-				set_variable = { name = tv_trade_display_row_11_node_pct value = var:tv_trade_node_control_pct_lumber }
-			}
-			set_variable = { name = tv_trade_display_row_11_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_lumber }
-				set_variable = { name = tv_trade_display_row_11_consumer_pct value = var:tv_trade_consumer_control_pct_lumber }
-			}
-			set_variable = { name = tv_trade_display_row_11_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_lumber }
-				set_variable = { name = tv_trade_display_row_11_monopoly value = var:tv_trade_monopoly_lumber }
-			}
-			set_variable = { name = tv_trade_display_row_11_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_lumber }
-				set_variable = { name = tv_trade_display_row_11_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_lumber }
-			}
-		}
 		else_if = {
 			limit = {
-				var:tv_trade_selected_monopoly_category ?= 1
+				var:tv_trade_selected_monopoly_category ?= 4
 				var:tv_trade_selected_monopoly_page ?= 2
 			}
-			set_variable = { name = tv_trade_display_row_11_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_11_good_index value = 62 }
-			goods:fur = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_11_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_11_origin_pct value = 0 }
+			set_variable = { name = tv_trade_display_row_10_visible value = 1 }
+			set_variable = { name = tv_trade_display_row_10_good_index value = 40 }
+			goods:porcelain = { save_scope_as = tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_10_good value = scope:tv_trade_projection_good }
+			set_variable = { name = tv_trade_display_row_10_origin_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_fur }
-				set_variable = { name = tv_trade_display_row_11_origin_pct value = var:tv_trade_origin_control_pct_fur }
+				limit = { has_variable = tv_trade_origin_control_pct_porcelain }
+				set_variable = { name = tv_trade_display_row_10_origin_pct value = var:tv_trade_origin_control_pct_porcelain }
 			}
-			set_variable = { name = tv_trade_display_row_11_node_pct value = 0 }
+			set_variable = { name = tv_trade_display_row_10_node_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_node_control_pct_fur }
-				set_variable = { name = tv_trade_display_row_11_node_pct value = var:tv_trade_node_control_pct_fur }
+				limit = { has_variable = tv_trade_node_control_pct_porcelain }
+				set_variable = { name = tv_trade_display_row_10_node_pct value = var:tv_trade_node_control_pct_porcelain }
 			}
-			set_variable = { name = tv_trade_display_row_11_consumer_pct value = 0 }
+			set_variable = { name = tv_trade_display_row_10_consumer_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_fur }
-				set_variable = { name = tv_trade_display_row_11_consumer_pct value = var:tv_trade_consumer_control_pct_fur }
+				limit = { has_variable = tv_trade_consumer_control_pct_porcelain }
+				set_variable = { name = tv_trade_display_row_10_consumer_pct value = var:tv_trade_consumer_control_pct_porcelain }
 			}
-			set_variable = { name = tv_trade_display_row_11_monopoly value = 0 }
+			set_variable = { name = tv_trade_display_row_10_monopoly value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_fur }
-				set_variable = { name = tv_trade_display_row_11_monopoly value = var:tv_trade_monopoly_fur }
+				limit = { has_variable = tv_trade_monopoly_porcelain }
+				set_variable = { name = tv_trade_display_row_10_monopoly value = var:tv_trade_monopoly_porcelain }
 			}
-			set_variable = { name = tv_trade_display_row_11_monopoly_level_pct value = 0 }
+			set_variable = { name = tv_trade_display_row_10_monopoly_level_pct value = 0 }
 			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_fur }
-				set_variable = { name = tv_trade_display_row_11_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_fur }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 2
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_11_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_11_good_index value = 72 }
-			goods:fruit = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_11_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_11_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_fruit }
-				set_variable = { name = tv_trade_display_row_11_origin_pct value = var:tv_trade_origin_control_pct_fruit }
-			}
-			set_variable = { name = tv_trade_display_row_11_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_fruit }
-				set_variable = { name = tv_trade_display_row_11_node_pct value = var:tv_trade_node_control_pct_fruit }
-			}
-			set_variable = { name = tv_trade_display_row_11_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_fruit }
-				set_variable = { name = tv_trade_display_row_11_consumer_pct value = var:tv_trade_consumer_control_pct_fruit }
-			}
-			set_variable = { name = tv_trade_display_row_11_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_fruit }
-				set_variable = { name = tv_trade_display_row_11_monopoly value = var:tv_trade_monopoly_fruit }
-			}
-			set_variable = { name = tv_trade_display_row_11_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_fruit }
-				set_variable = { name = tv_trade_display_row_11_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_fruit }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 3
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_11_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_11_good_index value = 51 }
-			goods:paper = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_11_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_11_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_paper }
-				set_variable = { name = tv_trade_display_row_11_origin_pct value = var:tv_trade_origin_control_pct_paper }
-			}
-			set_variable = { name = tv_trade_display_row_11_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_paper }
-				set_variable = { name = tv_trade_display_row_11_node_pct value = var:tv_trade_node_control_pct_paper }
-			}
-			set_variable = { name = tv_trade_display_row_11_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_paper }
-				set_variable = { name = tv_trade_display_row_11_consumer_pct value = var:tv_trade_consumer_control_pct_paper }
-			}
-			set_variable = { name = tv_trade_display_row_11_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_paper }
-				set_variable = { name = tv_trade_display_row_11_monopoly value = var:tv_trade_monopoly_paper }
-			}
-			set_variable = { name = tv_trade_display_row_11_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_paper }
-				set_variable = { name = tv_trade_display_row_11_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_paper }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 4
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_11_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_11_good_index value = 24 }
-			goods:pearls = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_11_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_11_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_pearls }
-				set_variable = { name = tv_trade_display_row_11_origin_pct value = var:tv_trade_origin_control_pct_pearls }
-			}
-			set_variable = { name = tv_trade_display_row_11_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_pearls }
-				set_variable = { name = tv_trade_display_row_11_node_pct value = var:tv_trade_node_control_pct_pearls }
-			}
-			set_variable = { name = tv_trade_display_row_11_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_pearls }
-				set_variable = { name = tv_trade_display_row_11_consumer_pct value = var:tv_trade_consumer_control_pct_pearls }
-			}
-			set_variable = { name = tv_trade_display_row_11_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_pearls }
-				set_variable = { name = tv_trade_display_row_11_monopoly value = var:tv_trade_monopoly_pearls }
-			}
-			set_variable = { name = tv_trade_display_row_11_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_pearls }
-				set_variable = { name = tv_trade_display_row_11_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_pearls }
-			}
-		}
-		if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 1
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_12_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_12_good_index value = 21 }
-			goods:salt = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_12_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_12_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_salt }
-				set_variable = { name = tv_trade_display_row_12_origin_pct value = var:tv_trade_origin_control_pct_salt }
-			}
-			set_variable = { name = tv_trade_display_row_12_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_salt }
-				set_variable = { name = tv_trade_display_row_12_node_pct value = var:tv_trade_node_control_pct_salt }
-			}
-			set_variable = { name = tv_trade_display_row_12_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_salt }
-				set_variable = { name = tv_trade_display_row_12_consumer_pct value = var:tv_trade_consumer_control_pct_salt }
-			}
-			set_variable = { name = tv_trade_display_row_12_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_salt }
-				set_variable = { name = tv_trade_display_row_12_monopoly value = var:tv_trade_monopoly_salt }
-			}
-			set_variable = { name = tv_trade_display_row_12_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_salt }
-				set_variable = { name = tv_trade_display_row_12_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_salt }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 1
-				var:tv_trade_selected_monopoly_page ?= 2
-			}
-			set_variable = { name = tv_trade_display_row_12_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_12_good_index value = 73 }
-			goods:beeswax = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_12_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_12_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_beeswax }
-				set_variable = { name = tv_trade_display_row_12_origin_pct value = var:tv_trade_origin_control_pct_beeswax }
-			}
-			set_variable = { name = tv_trade_display_row_12_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_beeswax }
-				set_variable = { name = tv_trade_display_row_12_node_pct value = var:tv_trade_node_control_pct_beeswax }
-			}
-			set_variable = { name = tv_trade_display_row_12_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_beeswax }
-				set_variable = { name = tv_trade_display_row_12_consumer_pct value = var:tv_trade_consumer_control_pct_beeswax }
-			}
-			set_variable = { name = tv_trade_display_row_12_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_beeswax }
-				set_variable = { name = tv_trade_display_row_12_monopoly value = var:tv_trade_monopoly_beeswax }
-			}
-			set_variable = { name = tv_trade_display_row_12_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_beeswax }
-				set_variable = { name = tv_trade_display_row_12_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_beeswax }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 3
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_12_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_12_good_index value = 52 }
-			goods:books = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_12_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_12_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_books }
-				set_variable = { name = tv_trade_display_row_12_origin_pct value = var:tv_trade_origin_control_pct_books }
-			}
-			set_variable = { name = tv_trade_display_row_12_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_books }
-				set_variable = { name = tv_trade_display_row_12_node_pct value = var:tv_trade_node_control_pct_books }
-			}
-			set_variable = { name = tv_trade_display_row_12_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_books }
-				set_variable = { name = tv_trade_display_row_12_consumer_pct value = var:tv_trade_consumer_control_pct_books }
-			}
-			set_variable = { name = tv_trade_display_row_12_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_books }
-				set_variable = { name = tv_trade_display_row_12_monopoly value = var:tv_trade_monopoly_books }
-			}
-			set_variable = { name = tv_trade_display_row_12_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_books }
-				set_variable = { name = tv_trade_display_row_12_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_books }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 4
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_12_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_12_good_index value = 25 }
-			goods:amber = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_12_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_12_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_amber }
-				set_variable = { name = tv_trade_display_row_12_origin_pct value = var:tv_trade_origin_control_pct_amber }
-			}
-			set_variable = { name = tv_trade_display_row_12_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_amber }
-				set_variable = { name = tv_trade_display_row_12_node_pct value = var:tv_trade_node_control_pct_amber }
-			}
-			set_variable = { name = tv_trade_display_row_12_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_amber }
-				set_variable = { name = tv_trade_display_row_12_consumer_pct value = var:tv_trade_consumer_control_pct_amber }
-			}
-			set_variable = { name = tv_trade_display_row_12_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_amber }
-				set_variable = { name = tv_trade_display_row_12_monopoly value = var:tv_trade_monopoly_amber }
-			}
-			set_variable = { name = tv_trade_display_row_12_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_amber }
-				set_variable = { name = tv_trade_display_row_12_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_amber }
-			}
-		}
-		if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 1
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_13_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_13_good_index value = 22 }
-			goods:medicaments = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_13_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_13_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_medicaments }
-				set_variable = { name = tv_trade_display_row_13_origin_pct value = var:tv_trade_origin_control_pct_medicaments }
-			}
-			set_variable = { name = tv_trade_display_row_13_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_medicaments }
-				set_variable = { name = tv_trade_display_row_13_node_pct value = var:tv_trade_node_control_pct_medicaments }
-			}
-			set_variable = { name = tv_trade_display_row_13_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_medicaments }
-				set_variable = { name = tv_trade_display_row_13_consumer_pct value = var:tv_trade_consumer_control_pct_medicaments }
-			}
-			set_variable = { name = tv_trade_display_row_13_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_medicaments }
-				set_variable = { name = tv_trade_display_row_13_monopoly value = var:tv_trade_monopoly_medicaments }
-			}
-			set_variable = { name = tv_trade_display_row_13_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_medicaments }
-				set_variable = { name = tv_trade_display_row_13_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_medicaments }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 1
-				var:tv_trade_selected_monopoly_page ?= 2
-			}
-			set_variable = { name = tv_trade_display_row_13_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_13_good_index value = 74 }
-			goods:slaves_goods = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_13_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_13_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_slaves_goods }
-				set_variable = { name = tv_trade_display_row_13_origin_pct value = var:tv_trade_origin_control_pct_slaves_goods }
-			}
-			set_variable = { name = tv_trade_display_row_13_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_slaves_goods }
-				set_variable = { name = tv_trade_display_row_13_node_pct value = var:tv_trade_node_control_pct_slaves_goods }
-			}
-			set_variable = { name = tv_trade_display_row_13_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_slaves_goods }
-				set_variable = { name = tv_trade_display_row_13_consumer_pct value = var:tv_trade_consumer_control_pct_slaves_goods }
-			}
-			set_variable = { name = tv_trade_display_row_13_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_slaves_goods }
-				set_variable = { name = tv_trade_display_row_13_monopoly value = var:tv_trade_monopoly_slaves_goods }
-			}
-			set_variable = { name = tv_trade_display_row_13_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_slaves_goods }
-				set_variable = { name = tv_trade_display_row_13_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_slaves_goods }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 3
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_13_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_13_good_index value = 58 }
-			goods:pottery = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_13_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_13_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_pottery }
-				set_variable = { name = tv_trade_display_row_13_origin_pct value = var:tv_trade_origin_control_pct_pottery }
-			}
-			set_variable = { name = tv_trade_display_row_13_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_pottery }
-				set_variable = { name = tv_trade_display_row_13_node_pct value = var:tv_trade_node_control_pct_pottery }
-			}
-			set_variable = { name = tv_trade_display_row_13_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_pottery }
-				set_variable = { name = tv_trade_display_row_13_consumer_pct value = var:tv_trade_consumer_control_pct_pottery }
-			}
-			set_variable = { name = tv_trade_display_row_13_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_pottery }
-				set_variable = { name = tv_trade_display_row_13_monopoly value = var:tv_trade_monopoly_pottery }
-			}
-			set_variable = { name = tv_trade_display_row_13_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_pottery }
-				set_variable = { name = tv_trade_display_row_13_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_pottery }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 4
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_13_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_13_good_index value = 28 }
-			goods:wine = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_13_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_13_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_wine }
-				set_variable = { name = tv_trade_display_row_13_origin_pct value = var:tv_trade_origin_control_pct_wine }
-			}
-			set_variable = { name = tv_trade_display_row_13_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_wine }
-				set_variable = { name = tv_trade_display_row_13_node_pct value = var:tv_trade_node_control_pct_wine }
-			}
-			set_variable = { name = tv_trade_display_row_13_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_wine }
-				set_variable = { name = tv_trade_display_row_13_consumer_pct value = var:tv_trade_consumer_control_pct_wine }
-			}
-			set_variable = { name = tv_trade_display_row_13_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_wine }
-				set_variable = { name = tv_trade_display_row_13_monopoly value = var:tv_trade_monopoly_wine }
-			}
-			set_variable = { name = tv_trade_display_row_13_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_wine }
-				set_variable = { name = tv_trade_display_row_13_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_wine }
-			}
-		}
-		if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 1
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_14_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_14_good_index value = 26 }
-			goods:saltpeter = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_14_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_14_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_saltpeter }
-				set_variable = { name = tv_trade_display_row_14_origin_pct value = var:tv_trade_origin_control_pct_saltpeter }
-			}
-			set_variable = { name = tv_trade_display_row_14_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_saltpeter }
-				set_variable = { name = tv_trade_display_row_14_node_pct value = var:tv_trade_node_control_pct_saltpeter }
-			}
-			set_variable = { name = tv_trade_display_row_14_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_saltpeter }
-				set_variable = { name = tv_trade_display_row_14_consumer_pct value = var:tv_trade_consumer_control_pct_saltpeter }
-			}
-			set_variable = { name = tv_trade_display_row_14_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_saltpeter }
-				set_variable = { name = tv_trade_display_row_14_monopoly value = var:tv_trade_monopoly_saltpeter }
-			}
-			set_variable = { name = tv_trade_display_row_14_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_saltpeter }
-				set_variable = { name = tv_trade_display_row_14_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_saltpeter }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 3
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_14_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_14_good_index value = 59 }
-			goods:furniture = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_14_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_14_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_furniture }
-				set_variable = { name = tv_trade_display_row_14_origin_pct value = var:tv_trade_origin_control_pct_furniture }
-			}
-			set_variable = { name = tv_trade_display_row_14_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_furniture }
-				set_variable = { name = tv_trade_display_row_14_node_pct value = var:tv_trade_node_control_pct_furniture }
-			}
-			set_variable = { name = tv_trade_display_row_14_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_furniture }
-				set_variable = { name = tv_trade_display_row_14_consumer_pct value = var:tv_trade_consumer_control_pct_furniture }
-			}
-			set_variable = { name = tv_trade_display_row_14_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_furniture }
-				set_variable = { name = tv_trade_display_row_14_monopoly value = var:tv_trade_monopoly_furniture }
-			}
-			set_variable = { name = tv_trade_display_row_14_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_furniture }
-				set_variable = { name = tv_trade_display_row_14_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_furniture }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 4
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_14_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_14_good_index value = 32 }
-			goods:saffron = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_14_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_14_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_saffron }
-				set_variable = { name = tv_trade_display_row_14_origin_pct value = var:tv_trade_origin_control_pct_saffron }
-			}
-			set_variable = { name = tv_trade_display_row_14_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_saffron }
-				set_variable = { name = tv_trade_display_row_14_node_pct value = var:tv_trade_node_control_pct_saffron }
-			}
-			set_variable = { name = tv_trade_display_row_14_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_saffron }
-				set_variable = { name = tv_trade_display_row_14_consumer_pct value = var:tv_trade_consumer_control_pct_saffron }
-			}
-			set_variable = { name = tv_trade_display_row_14_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_saffron }
-				set_variable = { name = tv_trade_display_row_14_monopoly value = var:tv_trade_monopoly_saffron }
-			}
-			set_variable = { name = tv_trade_display_row_14_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_saffron }
-				set_variable = { name = tv_trade_display_row_14_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_saffron }
-			}
-		}
-		if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 1
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_15_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_15_good_index value = 27 }
-			goods:alum = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_15_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_15_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_alum }
-				set_variable = { name = tv_trade_display_row_15_origin_pct value = var:tv_trade_origin_control_pct_alum }
-			}
-			set_variable = { name = tv_trade_display_row_15_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_alum }
-				set_variable = { name = tv_trade_display_row_15_node_pct value = var:tv_trade_node_control_pct_alum }
-			}
-			set_variable = { name = tv_trade_display_row_15_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_alum }
-				set_variable = { name = tv_trade_display_row_15_consumer_pct value = var:tv_trade_consumer_control_pct_alum }
-			}
-			set_variable = { name = tv_trade_display_row_15_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_alum }
-				set_variable = { name = tv_trade_display_row_15_monopoly value = var:tv_trade_monopoly_alum }
-			}
-			set_variable = { name = tv_trade_display_row_15_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_alum }
-				set_variable = { name = tv_trade_display_row_15_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_alum }
-			}
-		}
-		else_if = {
-			limit = {
-				var:tv_trade_selected_monopoly_category ?= 4
-				var:tv_trade_selected_monopoly_page ?= 1
-			}
-			set_variable = { name = tv_trade_display_row_15_visible value = 1 }
-			set_variable = { name = tv_trade_display_row_15_good_index value = 33 }
-			goods:pepper = { save_scope_as = tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_15_good value = scope:tv_trade_projection_good }
-			set_variable = { name = tv_trade_display_row_15_origin_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_origin_control_pct_pepper }
-				set_variable = { name = tv_trade_display_row_15_origin_pct value = var:tv_trade_origin_control_pct_pepper }
-			}
-			set_variable = { name = tv_trade_display_row_15_node_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_node_control_pct_pepper }
-				set_variable = { name = tv_trade_display_row_15_node_pct value = var:tv_trade_node_control_pct_pepper }
-			}
-			set_variable = { name = tv_trade_display_row_15_consumer_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_consumer_control_pct_pepper }
-				set_variable = { name = tv_trade_display_row_15_consumer_pct value = var:tv_trade_consumer_control_pct_pepper }
-			}
-			set_variable = { name = tv_trade_display_row_15_monopoly value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_pepper }
-				set_variable = { name = tv_trade_display_row_15_monopoly value = var:tv_trade_monopoly_pepper }
-			}
-			set_variable = { name = tv_trade_display_row_15_monopoly_level_pct value = 0 }
-			if = {
-				limit = { has_variable = tv_trade_monopoly_level_pct_pepper }
-				set_variable = { name = tv_trade_display_row_15_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_pepper }
+				limit = { has_variable = tv_trade_monopoly_level_pct_porcelain }
+				set_variable = { name = tv_trade_display_row_10_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_porcelain }
 			}
 		}
 		tv_trade_league_refresh_selected_good_projection_effect = yes

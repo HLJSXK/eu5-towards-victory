@@ -39,7 +39,7 @@ BASE_ACTIONS = [
     "tv_expel_trade_league_member",
 ]
 
-DISPLAY_ROW_COUNT = 15
+DISPLAY_ROW_COUNT = 10
 
 FIXED_MONOPOLY_ACTIONS = [
     "tv_trade_previous_monopoly_page",

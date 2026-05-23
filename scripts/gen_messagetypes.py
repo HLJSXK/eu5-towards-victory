@@ -16,7 +16,7 @@ VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
 OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
 TRADE_GOODS = ROOT / "data/trade_league_goods.yaml"
 
-DISPLAY_ROW_COUNT = 15
+DISPLAY_ROW_COUNT = 10
 
 TRADE_MONOPOLY_ACTIONS = [
     "tv_trade_previous_monopoly_page",

@@ -23,7 +23,7 @@ OUT_FILE = (
 
 VIRTUAL_ACTION_COST_PCT = 5
 EMBARGO_COST_PCT = 30
-DISPLAY_ROW_COUNT = 15
+DISPLAY_ROW_COUNT = 10
 
 
 def good_name(good: str) -> str:
