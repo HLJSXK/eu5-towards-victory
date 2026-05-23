@@ -525,6 +525,7 @@ tv_wonder_request_emissary = {
 						is_rebel_country = no
 						capital = { is_discovered_by = scope:actor }
 						OR = {
+							scope:actor = { NOT = { has_variable = tv_wonder_ceremony_progress } }
 							NOT = { scope:actor = { has_variable_list = tv_wonder_emissary_countries } }
 							NOT = {
 								scope:actor = {
@@ -554,6 +555,7 @@ tv_wonder_request_emissary = {
 			is_rebel_country = no
 			capital = { is_discovered_by = scope:actor }
 			OR = {
+				scope:actor = { NOT = { has_variable = tv_wonder_ceremony_progress } }
 				NOT = { scope:actor = { has_variable_list = tv_wonder_emissary_countries } }
 				NOT = {
 					scope:actor = {

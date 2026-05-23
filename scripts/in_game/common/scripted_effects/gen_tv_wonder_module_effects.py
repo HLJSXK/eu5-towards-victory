@@ -313,15 +313,18 @@ def main() -> None:
             building = f"tv_wonder_{wonder['key']}_{part['key']}"
             part_key = part["key"]
             for level in range(1, 7):
-                lines.append(f"{T}{T}{T}{T}if = {{")
-                lines.append(f"{T}{T}{T}{T}{T}limit = {{")
-                lines.append(f"{T}{T}{T}{T}{T}{T}prev = {{")
-                lines.append(f"{T}{T}{T}{T}{T}{T}{T}var:tv_wonder_{part_key}_units ?= {{ this >= {level} }}")
-                lines.append(f"{T}{T}{T}{T}{T}{T}{T}var:tv_wonder_level ?= {{ this < {level} }}")
-                lines.append(f"{T}{T}{T}{T}{T}{T}}}")
-                lines.append(f"{T}{T}{T}{T}{T}}}")
-                lines.extend([f"{T}{T}{T}{T}{line}" for line in add_building_level("always = yes", building)])
-                lines.append(f"{T}{T}{T}{T}}}")
+                for completed_level in range(0, level):
+                    module_level = level - completed_level
+                    lines.append(f"{T}{T}{T}{T}if = {{")
+                    lines.append(f"{T}{T}{T}{T}{T}limit = {{")
+                    lines.append(f"{T}{T}{T}{T}{T}{T}prev = {{")
+                    lines.append(f"{T}{T}{T}{T}{T}{T}{T}var:tv_wonder_{part_key}_units ?= {{ this >= {level} }}")
+                    lines.append(f"{T}{T}{T}{T}{T}{T}{T}var:tv_wonder_level ?= {completed_level}")
+                    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+                    lines.append(f"{T}{T}{T}{T}{T}{T}NOT = {{ {loc_level(building, '>=', module_level)} }}")
+                    lines.append(f"{T}{T}{T}{T}{T}}}")
+                    lines.extend([f"{T}{T}{T}{T}{line}" for line in add_building_level("always = yes", building)])
+                    lines.append(f"{T}{T}{T}{T}}}")
         lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
