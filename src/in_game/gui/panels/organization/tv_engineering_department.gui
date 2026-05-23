@@ -425,9 +425,33 @@ organization_panel = {
 							hbox = {
 								layoutpolicy_horizontal = expanding
 								spacing = 4
-								text_single = { layoutpolicy_horizontal = expanding raw_text = "@build_icon! [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" tooltip = "TV_ENGINEERING_SURVEY_MAX_LEVEL_TT" align = nobaseline|center }
-								text_single = { layoutpolicy_horizontal = expanding raw_text = "@gold! [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_effect_percent').GetValue|0]%" tooltip = "TV_ENGINEERING_SURVEY_COST_TT" align = nobaseline|center }
-								text_single = { layoutpolicy_horizontal = expanding raw_text = "@time! [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_effect_percent').GetValue|0]%" tooltip = "TV_ENGINEERING_SURVEY_SPEED_TT" align = nobaseline|center }
+								widget = {
+									size = { 150 48 }
+									vbox = {
+										spacing = 1
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_LABEL" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_TEXT" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 150 48 }
+									vbox = {
+										spacing = 1
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_LABEL" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_progress_percent').GetValue|0]" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_TEXT" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 150 48 }
+									vbox = {
+										spacing = 1
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_LABEL" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_TEXT" align = nobaseline|center }
+									}
+								}
 							}
 						}
 					}
@@ -1064,9 +1088,33 @@ organization_panel = {
 							hbox = {
 								layoutpolicy_horizontal = expanding
 								spacing = 4
-								text_single = { layoutpolicy_horizontal = expanding raw_text = "@build_icon! [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" tooltip = "TV_ENGINEERING_SURVEY_MAX_LEVEL_TT" align = nobaseline|center }
-								text_single = { layoutpolicy_horizontal = expanding raw_text = "@gold! [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_effect_percent').GetValue|0]%" tooltip = "TV_ENGINEERING_SURVEY_COST_TT" align = nobaseline|center }
-								text_single = { layoutpolicy_horizontal = expanding raw_text = "@time! [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_effect_percent').GetValue|0]%" tooltip = "TV_ENGINEERING_SURVEY_SPEED_TT" align = nobaseline|center }
+								widget = {
+									size = { 150 48 }
+									vbox = {
+										spacing = 1
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_LABEL" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_TEXT" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 150 48 }
+									vbox = {
+										spacing = 1
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_LABEL" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_progress_percent').GetValue|0]" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_TEXT" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 150 48 }
+									vbox = {
+										spacing = 1
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_LABEL" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_TEXT" align = nobaseline|center }
+									}
+								}
 							}
 						}
 					}
@@ -1305,9 +1353,33 @@ organization_panel = {
 							hbox = {
 								layoutpolicy_horizontal = expanding
 								spacing = 4
-								text_single = { layoutpolicy_horizontal = expanding raw_text = "@build_icon! [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" tooltip = "TV_ENGINEERING_SURVEY_MAX_LEVEL_TT" align = nobaseline|center }
-								text_single = { layoutpolicy_horizontal = expanding raw_text = "@gold! [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_effect_percent').GetValue|0]%" tooltip = "TV_ENGINEERING_SURVEY_COST_TT" align = nobaseline|center }
-								text_single = { layoutpolicy_horizontal = expanding raw_text = "@time! [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_effect_percent').GetValue|0]%" tooltip = "TV_ENGINEERING_SURVEY_SPEED_TT" align = nobaseline|center }
+								widget = {
+									size = { 150 48 }
+									vbox = {
+										spacing = 1
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_LABEL" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_TEXT" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 150 48 }
+									vbox = {
+										spacing = 1
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_LABEL" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_progress_percent').GetValue|0]" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_TEXT" align = nobaseline|center }
+									}
+								}
+								widget = {
+									size = { 150 48 }
+									vbox = {
+										spacing = 1
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_LABEL" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_TEXT" align = nobaseline|center }
+									}
+								}
 							}
 						}
 					}
@@ -1369,7 +1441,7 @@ organization_panel = {
 								layoutpolicy_horizontal = expanding
 								spacing = 4
 								action_button_diamond = {
-									size = { 150 30 }
+									size = { 230 30 }
 									text = "TV_ENGINEERING_BUILD_LABOR_CAMP_BUTTON"
 									title = "tv_wonder_build_labor_camp"
 									description = "tv_wonder_build_labor_camp_desc"
@@ -1377,15 +1449,7 @@ organization_panel = {
 									left_action = { action_name = "tv_wonder_build_labor_camp" }
 								}
 								action_button_diamond = {
-									size = { 150 30 }
-									text = "TV_ENGINEERING_BUILD_DEPOT_BUTTON"
-									title = "tv_wonder_build_material_depot"
-									description = "tv_wonder_build_material_depot_desc"
-									actor = "[InternationalOrganizationsView.GetPlayer]"
-									left_action = { action_name = "tv_wonder_build_material_depot" }
-								}
-								action_button_diamond = {
-									size = { 150 30 }
+									size = { 230 30 }
 									text = "TV_ENGINEERING_BUILD_DISPATCH_BUTTON"
 									title = "tv_wonder_build_material_dispatch_point"
 									description = "tv_wonder_build_material_dispatch_point_desc"
@@ -1399,13 +1463,13 @@ organization_panel = {
 								spacing = 4
 								text_single = { text = "TV_ENGINEERING_LABOR_PROGRESS_LABEL" align = nobaseline }
 								expand = {}
-								text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_laborers').GetValue|0]/30000" align = nobaseline }
+								text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_laborers').GetValue|0]/[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_labor_cap').GetValue|0]" align = nobaseline }
 							}
 							progressbar = {
 								size = { 462 16 }
 								using = progress_bar_blue_alt
 								min = 0
-								max = 30000
+								max = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_labor_cap_display').GetValue]"
 								value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_laborers').GetValue]"
 								tooltip = "TV_ENGINEERING_LABOR_PROGRESS_TT"
 							}
@@ -1423,39 +1487,11 @@ organization_panel = {
 							hbox = {
 								layoutpolicy_horizontal = expanding
 								spacing = 4
-								text_single = { text = "TV_ENGINEERING_MATERIALS_LABEL" align = nobaseline }
+								text_single = { text = "TV_ENGINEERING_DISPATCH_POINTS_LABEL" align = nobaseline }
+								text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_dispatch_points').GetValue|1]" align = nobaseline }
 								expand = {}
-								text_single = {
-									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_materials_stockpile')]"
-									align = nobaseline
-								}
-							}
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = { text = "TV_ENGINEERING_MATERIAL_CAP_LABEL" align = nobaseline }
-								text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_materials_cap').GetValue|0]" align = nobaseline }
-								expand = {}
-								text_single = { text = "TV_ENGINEERING_MATERIAL_INCOME_LABEL" align = nobaseline }
+								text_single = { text = "TV_ENGINEERING_MATERIAL_OUTPUT_LABEL" align = nobaseline }
 								text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_material_income').GetValue|0]" align = nobaseline }
-							}
-							progressbar = {
-								size = { 462 16 }
-								using = progress_bar_goldish
-								min = 0
-								max = 300000
-								value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_materials_stockpile').GetValue]"
-								tooltip = "TV_ENGINEERING_MATERIALS_PROGRESS_TT"
-							}
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = { size = { 72 16 } raw_text = "60k" align = nobaseline|center }
-								text_single = { size = { 72 16 } raw_text = "120k" align = nobaseline|center }
-								text_single = { size = { 72 16 } raw_text = "180k" align = nobaseline|center }
-								text_single = { size = { 72 16 } raw_text = "240k" align = nobaseline|center }
-								text_single = { size = { 72 16 } raw_text = "300k" align = nobaseline|center }
-								text_single = { size = { 72 16 } raw_text = "cap" align = nobaseline|center }
 							}
 
 							text_multi = {
@@ -1463,13 +1499,6 @@ organization_panel = {
 								max_width = 462
 								autoresize = yes
 								text = "TV_ENGINEERING_ORG_LOG_HELP_LABOR_TEXT"
-								align = nobaseline|left
-							}
-							text_multi = {
-								layoutpolicy_horizontal = expanding
-								max_width = 462
-								autoresize = yes
-								text = "TV_ENGINEERING_ORG_LOG_HELP_DEPOT_TEXT"
 								align = nobaseline|left
 							}
 							text_multi = {
@@ -1842,12 +1871,6 @@ organization_panel = {
 											text = "TV_ENGINEERING_CONSTRUCTION_PERCENT_TEXT"
 											align = nobaseline|right
 										}
-									}
-									text_single = {
-										visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_paused').IsSet]"
-										layoutpolicy_horizontal = expanding
-										text = "TV_ENGINEERING_CONSTRUCTION_PAUSED_TEXT"
-										align = nobaseline|left
 									}
 									text_single = {
 										layoutpolicy_horizontal = expanding

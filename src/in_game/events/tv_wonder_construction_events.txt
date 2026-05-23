@@ -125,7 +125,7 @@ tv_engineering_department.7004 = {
 		name = tv_engineering_department.7004.a
 		if = {
 			limit = { tv_wonder_construction_event_7004_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = 10000 }
+			tv_wonder_change_construction_progress_effect = { value = 10000 }
 		}
 	}
 }
@@ -150,7 +150,7 @@ tv_engineering_department.7005 = {
 		name = tv_engineering_department.7005.a
 		if = {
 			limit = { tv_wonder_construction_event_7005_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = 10000 }
+			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
 }
@@ -175,7 +175,7 @@ tv_engineering_department.7006 = {
 		name = tv_engineering_department.7006.a
 		if = {
 			limit = { tv_wonder_construction_event_7006_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = 10 }
+			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
 }
@@ -200,7 +200,7 @@ tv_engineering_department.7007 = {
 		name = tv_engineering_department.7007.a
 		if = {
 			limit = { tv_wonder_construction_event_7007_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = 5 }
+			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
 }
@@ -225,7 +225,7 @@ tv_engineering_department.7008 = {
 		name = tv_engineering_department.7008.a
 		if = {
 			limit = { tv_wonder_construction_event_7008_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = 5 }
+			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
 }
@@ -250,7 +250,7 @@ tv_engineering_department.7009 = {
 		name = tv_engineering_department.7009.a
 		if = {
 			limit = { tv_wonder_construction_event_7009_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = 5 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 }
@@ -260,7 +260,7 @@ tv_engineering_department.7010 = {
 	type = country_event
 	title = tv_engineering_department.7010.t
 	desc = tv_engineering_department.7010.d
-	outcome = good
+	outcome = neutral
 
 	trigger = {
 		tv_wonder_construction_event_7010_eligible_trigger = yes
@@ -275,8 +275,12 @@ tv_engineering_department.7010 = {
 		name = tv_engineering_department.7010.a
 		if = {
 			limit = { tv_wonder_construction_event_7010_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			change_gold_effect = { scale = -1 }
+			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
+	}
+	option = {
+		name = tv_engineering_department.7010.b
 	}
 }
 
@@ -285,7 +289,7 @@ tv_engineering_department.7011 = {
 	type = country_event
 	title = tv_engineering_department.7011.t
 	desc = tv_engineering_department.7011.d
-	outcome = good
+	outcome = neutral
 
 	trigger = {
 		tv_wonder_construction_event_7011_eligible_trigger = yes
@@ -300,8 +304,12 @@ tv_engineering_department.7011 = {
 		name = tv_engineering_department.7011.a
 		if = {
 			limit = { tv_wonder_construction_event_7011_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			add_legitimacy = -5
+			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
+	}
+	option = {
+		name = tv_engineering_department.7011.b
 	}
 }
 
@@ -325,7 +333,7 @@ tv_engineering_department.7012 = {
 		name = tv_engineering_department.7012.a
 		if = {
 			limit = { tv_wonder_construction_event_7012_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
+			add_stability = -7
 			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
@@ -354,7 +362,7 @@ tv_engineering_department.7013 = {
 		name = tv_engineering_department.7013.a
 		if = {
 			limit = { tv_wonder_construction_event_7013_eligible_trigger = yes }
-			add_legitimacy = -5
+			add_prestige = -10
 			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
@@ -383,7 +391,7 @@ tv_engineering_department.7014 = {
 		name = tv_engineering_department.7014.a
 		if = {
 			limit = { tv_wonder_construction_event_7014_eligible_trigger = yes }
-			add_stability = -7
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
 			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
@@ -412,7 +420,7 @@ tv_engineering_department.7015 = {
 		name = tv_engineering_department.7015.a
 		if = {
 			limit = { tv_wonder_construction_event_7015_eligible_trigger = yes }
-			add_prestige = -10
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
 			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
@@ -441,7 +449,7 @@ tv_engineering_department.7016 = {
 		name = tv_engineering_department.7016.a
 		if = {
 			limit = { tv_wonder_construction_event_7016_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
 			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
@@ -470,7 +478,7 @@ tv_engineering_department.7017 = {
 		name = tv_engineering_department.7017.a
 		if = {
 			limit = { tv_wonder_construction_event_7017_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
 			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
@@ -499,7 +507,7 @@ tv_engineering_department.7018 = {
 		name = tv_engineering_department.7018.a
 		if = {
 			limit = { tv_wonder_construction_event_7018_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_development = -0.25 }
 			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
@@ -528,7 +536,7 @@ tv_engineering_department.7019 = {
 		name = tv_engineering_department.7019.a
 		if = {
 			limit = { tv_wonder_construction_event_7019_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
 			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
@@ -557,7 +565,7 @@ tv_engineering_department.7020 = {
 		name = tv_engineering_department.7020.a
 		if = {
 			limit = { tv_wonder_construction_event_7020_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
+			capital ?= { change_development = -0.25 }
 			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
@@ -586,7 +594,7 @@ tv_engineering_department.7021 = {
 		name = tv_engineering_department.7021.a
 		if = {
 			limit = { tv_wonder_construction_event_7021_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			capital ?= { change_prosperity = -0.2 }
 			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
@@ -615,7 +623,7 @@ tv_engineering_department.7022 = {
 		name = tv_engineering_department.7022.a
 		if = {
 			limit = { tv_wonder_construction_event_7022_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
 			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
@@ -644,8 +652,8 @@ tv_engineering_department.7023 = {
 		name = tv_engineering_department.7023.a
 		if = {
 			limit = { tv_wonder_construction_event_7023_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
-			tv_change_wonder_domestic_support_effect = { value = 10 }
+			change_gold_effect = { scale = -1 }
+			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
 	option = {
@@ -673,8 +681,8 @@ tv_engineering_department.7024 = {
 		name = tv_engineering_department.7024.a
 		if = {
 			limit = { tv_wonder_construction_event_7024_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
-			tv_change_wonder_domestic_support_effect = { value = 10 }
+			add_legitimacy = -5
+			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
 	option = {
@@ -702,7 +710,7 @@ tv_engineering_department.7025 = {
 		name = tv_engineering_department.7025.a
 		if = {
 			limit = { tv_wonder_construction_event_7025_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
+			add_stability = -7
 			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
@@ -731,7 +739,7 @@ tv_engineering_department.7026 = {
 		name = tv_engineering_department.7026.a
 		if = {
 			limit = { tv_wonder_construction_event_7026_eligible_trigger = yes }
-			add_legitimacy = -5
+			add_prestige = -10
 			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
@@ -760,7 +768,7 @@ tv_engineering_department.7027 = {
 		name = tv_engineering_department.7027.a
 		if = {
 			limit = { tv_wonder_construction_event_7027_eligible_trigger = yes }
-			add_stability = -7
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
 			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
@@ -789,7 +797,7 @@ tv_engineering_department.7028 = {
 		name = tv_engineering_department.7028.a
 		if = {
 			limit = { tv_wonder_construction_event_7028_eligible_trigger = yes }
-			add_prestige = -10
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
 			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
@@ -818,7 +826,7 @@ tv_engineering_department.7029 = {
 		name = tv_engineering_department.7029.a
 		if = {
 			limit = { tv_wonder_construction_event_7029_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
 			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
@@ -847,7 +855,7 @@ tv_engineering_department.7030 = {
 		name = tv_engineering_department.7030.a
 		if = {
 			limit = { tv_wonder_construction_event_7030_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
 			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
@@ -876,7 +884,7 @@ tv_engineering_department.7031 = {
 		name = tv_engineering_department.7031.a
 		if = {
 			limit = { tv_wonder_construction_event_7031_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_development = -0.25 }
 			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
@@ -905,7 +913,7 @@ tv_engineering_department.7032 = {
 		name = tv_engineering_department.7032.a
 		if = {
 			limit = { tv_wonder_construction_event_7032_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
 			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
@@ -934,7 +942,7 @@ tv_engineering_department.7033 = {
 		name = tv_engineering_department.7033.a
 		if = {
 			limit = { tv_wonder_construction_event_7033_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
+			capital ?= { change_development = -0.25 }
 			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
@@ -963,7 +971,7 @@ tv_engineering_department.7034 = {
 		name = tv_engineering_department.7034.a
 		if = {
 			limit = { tv_wonder_construction_event_7034_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			capital ?= { change_prosperity = -0.2 }
 			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
@@ -992,7 +1000,7 @@ tv_engineering_department.7035 = {
 		name = tv_engineering_department.7035.a
 		if = {
 			limit = { tv_wonder_construction_event_7035_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
 			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
@@ -1021,8 +1029,8 @@ tv_engineering_department.7036 = {
 		name = tv_engineering_department.7036.a
 		if = {
 			limit = { tv_wonder_construction_event_7036_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
-			tv_wonder_change_scale_competence_effect = { value = 5 }
+			change_gold_effect = { scale = -1 }
+			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
 	option = {
@@ -1050,8 +1058,8 @@ tv_engineering_department.7037 = {
 		name = tv_engineering_department.7037.a
 		if = {
 			limit = { tv_wonder_construction_event_7037_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
-			tv_wonder_change_scale_competence_effect = { value = 5 }
+			add_legitimacy = -5
+			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
 	option = {
@@ -1079,7 +1087,7 @@ tv_engineering_department.7038 = {
 		name = tv_engineering_department.7038.a
 		if = {
 			limit = { tv_wonder_construction_event_7038_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
+			add_stability = -7
 			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
@@ -1108,7 +1116,7 @@ tv_engineering_department.7039 = {
 		name = tv_engineering_department.7039.a
 		if = {
 			limit = { tv_wonder_construction_event_7039_eligible_trigger = yes }
-			add_legitimacy = -5
+			add_prestige = -10
 			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
@@ -1137,7 +1145,7 @@ tv_engineering_department.7040 = {
 		name = tv_engineering_department.7040.a
 		if = {
 			limit = { tv_wonder_construction_event_7040_eligible_trigger = yes }
-			add_stability = -7
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
 			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
@@ -1166,7 +1174,7 @@ tv_engineering_department.7041 = {
 		name = tv_engineering_department.7041.a
 		if = {
 			limit = { tv_wonder_construction_event_7041_eligible_trigger = yes }
-			add_prestige = -10
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
 			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
@@ -1195,7 +1203,7 @@ tv_engineering_department.7042 = {
 		name = tv_engineering_department.7042.a
 		if = {
 			limit = { tv_wonder_construction_event_7042_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
 			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
@@ -1224,7 +1232,7 @@ tv_engineering_department.7043 = {
 		name = tv_engineering_department.7043.a
 		if = {
 			limit = { tv_wonder_construction_event_7043_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
 			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
@@ -1253,7 +1261,7 @@ tv_engineering_department.7044 = {
 		name = tv_engineering_department.7044.a
 		if = {
 			limit = { tv_wonder_construction_event_7044_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_development = -0.25 }
 			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
@@ -1282,7 +1290,7 @@ tv_engineering_department.7045 = {
 		name = tv_engineering_department.7045.a
 		if = {
 			limit = { tv_wonder_construction_event_7045_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
 			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
@@ -1311,7 +1319,7 @@ tv_engineering_department.7046 = {
 		name = tv_engineering_department.7046.a
 		if = {
 			limit = { tv_wonder_construction_event_7046_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
+			capital ?= { change_development = -0.25 }
 			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
@@ -1340,7 +1348,7 @@ tv_engineering_department.7047 = {
 		name = tv_engineering_department.7047.a
 		if = {
 			limit = { tv_wonder_construction_event_7047_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			capital ?= { change_prosperity = -0.2 }
 			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
@@ -1369,7 +1377,7 @@ tv_engineering_department.7048 = {
 		name = tv_engineering_department.7048.a
 		if = {
 			limit = { tv_wonder_construction_event_7048_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
 			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
@@ -1398,8 +1406,8 @@ tv_engineering_department.7049 = {
 		name = tv_engineering_department.7049.a
 		if = {
 			limit = { tv_wonder_construction_event_7049_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
-			tv_wonder_change_organization_competence_effect = { value = 5 }
+			change_gold_effect = { scale = -1 }
+			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
 	option = {
@@ -1427,8 +1435,8 @@ tv_engineering_department.7050 = {
 		name = tv_engineering_department.7050.a
 		if = {
 			limit = { tv_wonder_construction_event_7050_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
-			tv_wonder_change_organization_competence_effect = { value = 5 }
+			add_legitimacy = -5
+			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
 	option = {
@@ -1456,7 +1464,7 @@ tv_engineering_department.7051 = {
 		name = tv_engineering_department.7051.a
 		if = {
 			limit = { tv_wonder_construction_event_7051_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
+			add_stability = -7
 			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
@@ -1485,7 +1493,7 @@ tv_engineering_department.7052 = {
 		name = tv_engineering_department.7052.a
 		if = {
 			limit = { tv_wonder_construction_event_7052_eligible_trigger = yes }
-			add_legitimacy = -5
+			add_prestige = -10
 			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
@@ -1514,7 +1522,7 @@ tv_engineering_department.7053 = {
 		name = tv_engineering_department.7053.a
 		if = {
 			limit = { tv_wonder_construction_event_7053_eligible_trigger = yes }
-			add_stability = -7
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
 			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
@@ -1543,7 +1551,7 @@ tv_engineering_department.7054 = {
 		name = tv_engineering_department.7054.a
 		if = {
 			limit = { tv_wonder_construction_event_7054_eligible_trigger = yes }
-			add_prestige = -10
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
 			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
@@ -1572,7 +1580,7 @@ tv_engineering_department.7055 = {
 		name = tv_engineering_department.7055.a
 		if = {
 			limit = { tv_wonder_construction_event_7055_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
 			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
@@ -1601,7 +1609,7 @@ tv_engineering_department.7056 = {
 		name = tv_engineering_department.7056.a
 		if = {
 			limit = { tv_wonder_construction_event_7056_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
 			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
@@ -1630,7 +1638,7 @@ tv_engineering_department.7057 = {
 		name = tv_engineering_department.7057.a
 		if = {
 			limit = { tv_wonder_construction_event_7057_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_development = -0.25 }
 			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
@@ -1659,7 +1667,7 @@ tv_engineering_department.7058 = {
 		name = tv_engineering_department.7058.a
 		if = {
 			limit = { tv_wonder_construction_event_7058_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
 			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
@@ -1688,7 +1696,7 @@ tv_engineering_department.7059 = {
 		name = tv_engineering_department.7059.a
 		if = {
 			limit = { tv_wonder_construction_event_7059_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
+			capital ?= { change_development = -0.25 }
 			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
@@ -1717,7 +1725,7 @@ tv_engineering_department.7060 = {
 		name = tv_engineering_department.7060.a
 		if = {
 			limit = { tv_wonder_construction_event_7060_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			capital ?= { change_prosperity = -0.2 }
 			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
@@ -1746,7 +1754,7 @@ tv_engineering_department.7061 = {
 		name = tv_engineering_department.7061.a
 		if = {
 			limit = { tv_wonder_construction_event_7061_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
 			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
@@ -1775,8 +1783,8 @@ tv_engineering_department.7062 = {
 		name = tv_engineering_department.7062.a
 		if = {
 			limit = { tv_wonder_construction_event_7062_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
-			tv_wonder_change_logistics_competence_effect = { value = 5 }
+			change_gold_effect = { scale = -1 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -1804,8 +1812,8 @@ tv_engineering_department.7063 = {
 		name = tv_engineering_department.7063.a
 		if = {
 			limit = { tv_wonder_construction_event_7063_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
-			tv_wonder_change_logistics_competence_effect = { value = 5 }
+			add_legitimacy = -5
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -1833,8 +1841,8 @@ tv_engineering_department.7064 = {
 		name = tv_engineering_department.7064.a
 		if = {
 			limit = { tv_wonder_construction_event_7064_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			add_stability = -7
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -1862,8 +1870,8 @@ tv_engineering_department.7065 = {
 		name = tv_engineering_department.7065.a
 		if = {
 			limit = { tv_wonder_construction_event_7065_eligible_trigger = yes }
-			add_legitimacy = -5
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			add_prestige = -10
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -1891,8 +1899,8 @@ tv_engineering_department.7066 = {
 		name = tv_engineering_department.7066.a
 		if = {
 			limit = { tv_wonder_construction_event_7066_eligible_trigger = yes }
-			add_stability = -7
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -1920,8 +1928,8 @@ tv_engineering_department.7067 = {
 		name = tv_engineering_department.7067.a
 		if = {
 			limit = { tv_wonder_construction_event_7067_eligible_trigger = yes }
-			add_prestige = -10
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -1949,8 +1957,8 @@ tv_engineering_department.7068 = {
 		name = tv_engineering_department.7068.a
 		if = {
 			limit = { tv_wonder_construction_event_7068_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -1978,8 +1986,8 @@ tv_engineering_department.7069 = {
 		name = tv_engineering_department.7069.a
 		if = {
 			limit = { tv_wonder_construction_event_7069_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -2007,8 +2015,8 @@ tv_engineering_department.7070 = {
 		name = tv_engineering_department.7070.a
 		if = {
 			limit = { tv_wonder_construction_event_7070_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			var:tv_wonder_site ?= { change_development = -0.25 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -2036,8 +2044,8 @@ tv_engineering_department.7071 = {
 		name = tv_engineering_department.7071.a
 		if = {
 			limit = { tv_wonder_construction_event_7071_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -2065,8 +2073,8 @@ tv_engineering_department.7072 = {
 		name = tv_engineering_department.7072.a
 		if = {
 			limit = { tv_wonder_construction_event_7072_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			capital ?= { change_development = -0.25 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -2094,8 +2102,8 @@ tv_engineering_department.7073 = {
 		name = tv_engineering_department.7073.a
 		if = {
 			limit = { tv_wonder_construction_event_7073_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			capital ?= { change_prosperity = -0.2 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -2123,8 +2131,8 @@ tv_engineering_department.7074 = {
 		name = tv_engineering_department.7074.a
 		if = {
 			limit = { tv_wonder_construction_event_7074_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 	option = {
@@ -2152,12 +2160,11 @@ tv_engineering_department.7075 = {
 		name = tv_engineering_department.7075.a
 		if = {
 			limit = { tv_wonder_construction_event_7075_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			random_list = {
+				50 = { tv_change_wonder_domestic_support_effect = { value = 10 } }
+				50 = { tv_change_wonder_domestic_support_effect = { value = -10 } }
+			}
 		}
-	}
-	option = {
-		name = tv_engineering_department.7075.b
 	}
 }
 
@@ -2181,12 +2188,11 @@ tv_engineering_department.7076 = {
 		name = tv_engineering_department.7076.a
 		if = {
 			limit = { tv_wonder_construction_event_7076_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			random_list = {
+				50 = { tv_wonder_change_scale_competence_effect = { value = 5 } }
+				50 = { tv_wonder_change_scale_competence_effect = { value = -5 } }
+			}
 		}
-	}
-	option = {
-		name = tv_engineering_department.7076.b
 	}
 }
 
@@ -2210,12 +2216,11 @@ tv_engineering_department.7077 = {
 		name = tv_engineering_department.7077.a
 		if = {
 			limit = { tv_wonder_construction_event_7077_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			random_list = {
+				50 = { tv_wonder_change_organization_competence_effect = { value = 5 } }
+				50 = { tv_wonder_change_organization_competence_effect = { value = -5 } }
+			}
 		}
-	}
-	option = {
-		name = tv_engineering_department.7077.b
 	}
 }
 
@@ -2239,12 +2244,11 @@ tv_engineering_department.7078 = {
 		name = tv_engineering_department.7078.a
 		if = {
 			limit = { tv_wonder_construction_event_7078_eligible_trigger = yes }
-			add_legitimacy = -5
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			random_list = {
+				50 = { tv_wonder_change_logistics_competence_effect = { value = 5 } }
+				50 = { tv_wonder_change_logistics_competence_effect = { value = -5 } }
+			}
 		}
-	}
-	option = {
-		name = tv_engineering_department.7078.b
 	}
 }
 
@@ -2268,12 +2272,11 @@ tv_engineering_department.7079 = {
 		name = tv_engineering_department.7079.a
 		if = {
 			limit = { tv_wonder_construction_event_7079_eligible_trigger = yes }
-			add_stability = -7
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			random_list = {
+				50 = { tv_wonder_change_construction_progress_effect = { value = 5000 } }
+				50 = { tv_wonder_change_construction_progress_effect = { value = -5000 } }
+			}
 		}
-	}
-	option = {
-		name = tv_engineering_department.7079.b
 	}
 }
 
@@ -2282,7 +2285,7 @@ tv_engineering_department.7080 = {
 	type = country_event
 	title = tv_engineering_department.7080.t
 	desc = tv_engineering_department.7080.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7080_eligible_trigger = yes
@@ -2297,12 +2300,15 @@ tv_engineering_department.7080 = {
 		name = tv_engineering_department.7080.a
 		if = {
 			limit = { tv_wonder_construction_event_7080_eligible_trigger = yes }
-			add_prestige = -10
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			tv_change_wonder_domestic_support_effect = { value = -10 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7080.b
+		if = {
+			limit = { tv_wonder_construction_event_7080_eligible_trigger = yes }
+			change_gold_effect = { scale = -1 }
+		}
 	}
 }
 
@@ -2311,7 +2317,7 @@ tv_engineering_department.7081 = {
 	type = country_event
 	title = tv_engineering_department.7081.t
 	desc = tv_engineering_department.7081.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7081_eligible_trigger = yes
@@ -2326,12 +2332,15 @@ tv_engineering_department.7081 = {
 		name = tv_engineering_department.7081.a
 		if = {
 			limit = { tv_wonder_construction_event_7081_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			tv_change_wonder_domestic_support_effect = { value = -10 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7081.b
+		if = {
+			limit = { tv_wonder_construction_event_7081_eligible_trigger = yes }
+			add_legitimacy = -5
+		}
 	}
 }
 
@@ -2340,7 +2349,7 @@ tv_engineering_department.7082 = {
 	type = country_event
 	title = tv_engineering_department.7082.t
 	desc = tv_engineering_department.7082.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7082_eligible_trigger = yes
@@ -2355,12 +2364,15 @@ tv_engineering_department.7082 = {
 		name = tv_engineering_department.7082.a
 		if = {
 			limit = { tv_wonder_construction_event_7082_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			tv_change_wonder_domestic_support_effect = { value = -10 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7082.b
+		if = {
+			limit = { tv_wonder_construction_event_7082_eligible_trigger = yes }
+			add_stability = -7
+		}
 	}
 }
 
@@ -2369,7 +2381,7 @@ tv_engineering_department.7083 = {
 	type = country_event
 	title = tv_engineering_department.7083.t
 	desc = tv_engineering_department.7083.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7083_eligible_trigger = yes
@@ -2384,12 +2396,15 @@ tv_engineering_department.7083 = {
 		name = tv_engineering_department.7083.a
 		if = {
 			limit = { tv_wonder_construction_event_7083_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			tv_change_wonder_domestic_support_effect = { value = -10 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7083.b
+		if = {
+			limit = { tv_wonder_construction_event_7083_eligible_trigger = yes }
+			add_prestige = -10
+		}
 	}
 }
 
@@ -2398,7 +2413,7 @@ tv_engineering_department.7084 = {
 	type = country_event
 	title = tv_engineering_department.7084.t
 	desc = tv_engineering_department.7084.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7084_eligible_trigger = yes
@@ -2413,12 +2428,15 @@ tv_engineering_department.7084 = {
 		name = tv_engineering_department.7084.a
 		if = {
 			limit = { tv_wonder_construction_event_7084_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			tv_change_wonder_domestic_support_effect = { value = -10 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7084.b
+		if = {
+			limit = { tv_wonder_construction_event_7084_eligible_trigger = yes }
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+		}
 	}
 }
 
@@ -2427,7 +2445,7 @@ tv_engineering_department.7085 = {
 	type = country_event
 	title = tv_engineering_department.7085.t
 	desc = tv_engineering_department.7085.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7085_eligible_trigger = yes
@@ -2442,12 +2460,15 @@ tv_engineering_department.7085 = {
 		name = tv_engineering_department.7085.a
 		if = {
 			limit = { tv_wonder_construction_event_7085_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			tv_change_wonder_domestic_support_effect = { value = -10 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7085.b
+		if = {
+			limit = { tv_wonder_construction_event_7085_eligible_trigger = yes }
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+		}
 	}
 }
 
@@ -2456,7 +2477,7 @@ tv_engineering_department.7086 = {
 	type = country_event
 	title = tv_engineering_department.7086.t
 	desc = tv_engineering_department.7086.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7086_eligible_trigger = yes
@@ -2471,12 +2492,15 @@ tv_engineering_department.7086 = {
 		name = tv_engineering_department.7086.a
 		if = {
 			limit = { tv_wonder_construction_event_7086_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			tv_change_wonder_domestic_support_effect = { value = -10 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7086.b
+		if = {
+			limit = { tv_wonder_construction_event_7086_eligible_trigger = yes }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+		}
 	}
 }
 
@@ -2485,7 +2509,7 @@ tv_engineering_department.7087 = {
 	type = country_event
 	title = tv_engineering_department.7087.t
 	desc = tv_engineering_department.7087.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7087_eligible_trigger = yes
@@ -2500,12 +2524,15 @@ tv_engineering_department.7087 = {
 		name = tv_engineering_department.7087.a
 		if = {
 			limit = { tv_wonder_construction_event_7087_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			tv_change_wonder_domestic_support_effect = { value = -10 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7087.b
+		if = {
+			limit = { tv_wonder_construction_event_7087_eligible_trigger = yes }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+		}
 	}
 }
 
@@ -2514,7 +2541,7 @@ tv_engineering_department.7088 = {
 	type = country_event
 	title = tv_engineering_department.7088.t
 	desc = tv_engineering_department.7088.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7088_eligible_trigger = yes
@@ -2529,12 +2556,15 @@ tv_engineering_department.7088 = {
 		name = tv_engineering_department.7088.a
 		if = {
 			limit = { tv_wonder_construction_event_7088_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			tv_change_wonder_domestic_support_effect = { value = -10 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7088.b
+		if = {
+			limit = { tv_wonder_construction_event_7088_eligible_trigger = yes }
+			var:tv_wonder_site ?= { change_development = -0.25 }
+		}
 	}
 }
 
@@ -2543,7 +2573,7 @@ tv_engineering_department.7089 = {
 	type = country_event
 	title = tv_engineering_department.7089.t
 	desc = tv_engineering_department.7089.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7089_eligible_trigger = yes
@@ -2558,12 +2588,15 @@ tv_engineering_department.7089 = {
 		name = tv_engineering_department.7089.a
 		if = {
 			limit = { tv_wonder_construction_event_7089_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
+			tv_change_wonder_domestic_support_effect = { value = -10 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7089.b
+		if = {
+			limit = { tv_wonder_construction_event_7089_eligible_trigger = yes }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+		}
 	}
 }
 
@@ -2572,7 +2605,7 @@ tv_engineering_department.7090 = {
 	type = country_event
 	title = tv_engineering_department.7090.t
 	desc = tv_engineering_department.7090.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7090_eligible_trigger = yes
@@ -2587,10 +2620,14 @@ tv_engineering_department.7090 = {
 		name = tv_engineering_department.7090.a
 		if = {
 			limit = { tv_wonder_construction_event_7090_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_change_wonder_domestic_support_effect = { value = 10 } }
-				50 = { tv_change_wonder_domestic_support_effect = { value = -10 } }
-			}
+			tv_change_wonder_domestic_support_effect = { value = -10 }
+		}
+	}
+	option = {
+		name = tv_engineering_department.7090.b
+		if = {
+			limit = { tv_wonder_construction_event_7090_eligible_trigger = yes }
+			capital ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -2600,7 +2637,7 @@ tv_engineering_department.7091 = {
 	type = country_event
 	title = tv_engineering_department.7091.t
 	desc = tv_engineering_department.7091.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7091_eligible_trigger = yes
@@ -2615,10 +2652,14 @@ tv_engineering_department.7091 = {
 		name = tv_engineering_department.7091.a
 		if = {
 			limit = { tv_wonder_construction_event_7091_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_wonder_change_scale_competence_effect = { value = 5 } }
-				50 = { tv_wonder_change_scale_competence_effect = { value = -5 } }
-			}
+			tv_change_wonder_domestic_support_effect = { value = -10 }
+		}
+	}
+	option = {
+		name = tv_engineering_department.7091.b
+		if = {
+			limit = { tv_wonder_construction_event_7091_eligible_trigger = yes }
+			capital ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -2628,7 +2669,7 @@ tv_engineering_department.7092 = {
 	type = country_event
 	title = tv_engineering_department.7092.t
 	desc = tv_engineering_department.7092.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7092_eligible_trigger = yes
@@ -2643,10 +2684,14 @@ tv_engineering_department.7092 = {
 		name = tv_engineering_department.7092.a
 		if = {
 			limit = { tv_wonder_construction_event_7092_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_wonder_change_organization_competence_effect = { value = 5 } }
-				50 = { tv_wonder_change_organization_competence_effect = { value = -5 } }
-			}
+			tv_change_wonder_domestic_support_effect = { value = -10 }
+		}
+	}
+	option = {
+		name = tv_engineering_department.7092.b
+		if = {
+			limit = { tv_wonder_construction_event_7092_eligible_trigger = yes }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
 		}
 	}
 }
@@ -2656,7 +2701,7 @@ tv_engineering_department.7093 = {
 	type = country_event
 	title = tv_engineering_department.7093.t
 	desc = tv_engineering_department.7093.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7093_eligible_trigger = yes
@@ -2671,10 +2716,14 @@ tv_engineering_department.7093 = {
 		name = tv_engineering_department.7093.a
 		if = {
 			limit = { tv_wonder_construction_event_7093_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_wonder_change_logistics_competence_effect = { value = 5 } }
-				50 = { tv_wonder_change_logistics_competence_effect = { value = -5 } }
-			}
+			tv_wonder_change_scale_competence_effect = { value = -5 }
+		}
+	}
+	option = {
+		name = tv_engineering_department.7093.b
+		if = {
+			limit = { tv_wonder_construction_event_7093_eligible_trigger = yes }
+			change_gold_effect = { scale = -1 }
 		}
 	}
 }
@@ -2684,7 +2733,7 @@ tv_engineering_department.7094 = {
 	type = country_event
 	title = tv_engineering_department.7094.t
 	desc = tv_engineering_department.7094.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7094_eligible_trigger = yes
@@ -2699,10 +2748,14 @@ tv_engineering_department.7094 = {
 		name = tv_engineering_department.7094.a
 		if = {
 			limit = { tv_wonder_construction_event_7094_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_wonder_change_materials_stockpile_effect = { value = 5000 } }
-				50 = { tv_wonder_change_materials_stockpile_effect = { value = -5000 } }
-			}
+			tv_wonder_change_scale_competence_effect = { value = -5 }
+		}
+	}
+	option = {
+		name = tv_engineering_department.7094.b
+		if = {
+			limit = { tv_wonder_construction_event_7094_eligible_trigger = yes }
+			add_legitimacy = -5
 		}
 	}
 }
@@ -2712,7 +2765,7 @@ tv_engineering_department.7095 = {
 	type = country_event
 	title = tv_engineering_department.7095.t
 	desc = tv_engineering_department.7095.d
-	outcome = neutral
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7095_eligible_trigger = yes
@@ -2727,10 +2780,14 @@ tv_engineering_department.7095 = {
 		name = tv_engineering_department.7095.a
 		if = {
 			limit = { tv_wonder_construction_event_7095_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_wonder_change_construction_progress_effect = { value = 5000 } }
-				50 = { tv_wonder_change_construction_progress_effect = { value = -5000 } }
-			}
+			tv_wonder_change_scale_competence_effect = { value = -5 }
+		}
+	}
+	option = {
+		name = tv_engineering_department.7095.b
+		if = {
+			limit = { tv_wonder_construction_event_7095_eligible_trigger = yes }
+			add_stability = -7
 		}
 	}
 }
@@ -2755,14 +2812,14 @@ tv_engineering_department.7096 = {
 		name = tv_engineering_department.7096.a
 		if = {
 			limit = { tv_wonder_construction_event_7096_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_scale_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7096.b
 		if = {
 			limit = { tv_wonder_construction_event_7096_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
+			add_prestige = -10
 		}
 	}
 }
@@ -2787,14 +2844,14 @@ tv_engineering_department.7097 = {
 		name = tv_engineering_department.7097.a
 		if = {
 			limit = { tv_wonder_construction_event_7097_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_scale_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7097.b
 		if = {
 			limit = { tv_wonder_construction_event_7097_eligible_trigger = yes }
-			add_legitimacy = -5
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
 		}
 	}
 }
@@ -2819,14 +2876,14 @@ tv_engineering_department.7098 = {
 		name = tv_engineering_department.7098.a
 		if = {
 			limit = { tv_wonder_construction_event_7098_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_scale_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7098.b
 		if = {
 			limit = { tv_wonder_construction_event_7098_eligible_trigger = yes }
-			add_stability = -7
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
 		}
 	}
 }
@@ -2851,14 +2908,14 @@ tv_engineering_department.7099 = {
 		name = tv_engineering_department.7099.a
 		if = {
 			limit = { tv_wonder_construction_event_7099_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_scale_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7099.b
 		if = {
 			limit = { tv_wonder_construction_event_7099_eligible_trigger = yes }
-			add_prestige = -10
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
 		}
 	}
 }
@@ -2883,14 +2940,14 @@ tv_engineering_department.7100 = {
 		name = tv_engineering_department.7100.a
 		if = {
 			limit = { tv_wonder_construction_event_7100_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_scale_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7100.b
 		if = {
 			limit = { tv_wonder_construction_event_7100_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
 		}
 	}
 }
@@ -2915,14 +2972,14 @@ tv_engineering_department.7101 = {
 		name = tv_engineering_department.7101.a
 		if = {
 			limit = { tv_wonder_construction_event_7101_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_scale_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7101.b
 		if = {
 			limit = { tv_wonder_construction_event_7101_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -2947,14 +3004,14 @@ tv_engineering_department.7102 = {
 		name = tv_engineering_department.7102.a
 		if = {
 			limit = { tv_wonder_construction_event_7102_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_scale_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7102.b
 		if = {
 			limit = { tv_wonder_construction_event_7102_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -2979,14 +3036,14 @@ tv_engineering_department.7103 = {
 		name = tv_engineering_department.7103.a
 		if = {
 			limit = { tv_wonder_construction_event_7103_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_scale_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7103.b
 		if = {
 			limit = { tv_wonder_construction_event_7103_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			capital ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -3011,14 +3068,14 @@ tv_engineering_department.7104 = {
 		name = tv_engineering_department.7104.a
 		if = {
 			limit = { tv_wonder_construction_event_7104_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_scale_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7104.b
 		if = {
 			limit = { tv_wonder_construction_event_7104_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
+			capital ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -3043,14 +3100,14 @@ tv_engineering_department.7105 = {
 		name = tv_engineering_department.7105.a
 		if = {
 			limit = { tv_wonder_construction_event_7105_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_scale_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7105.b
 		if = {
 			limit = { tv_wonder_construction_event_7105_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
 		}
 	}
 }
@@ -3075,14 +3132,14 @@ tv_engineering_department.7106 = {
 		name = tv_engineering_department.7106.a
 		if = {
 			limit = { tv_wonder_construction_event_7106_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7106.b
 		if = {
 			limit = { tv_wonder_construction_event_7106_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
+			change_gold_effect = { scale = -1 }
 		}
 	}
 }
@@ -3107,14 +3164,14 @@ tv_engineering_department.7107 = {
 		name = tv_engineering_department.7107.a
 		if = {
 			limit = { tv_wonder_construction_event_7107_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7107.b
 		if = {
 			limit = { tv_wonder_construction_event_7107_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
+			add_legitimacy = -5
 		}
 	}
 }
@@ -3139,14 +3196,14 @@ tv_engineering_department.7108 = {
 		name = tv_engineering_department.7108.a
 		if = {
 			limit = { tv_wonder_construction_event_7108_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = -10 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7108.b
 		if = {
 			limit = { tv_wonder_construction_event_7108_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
+			add_stability = -7
 		}
 	}
 }
@@ -3171,14 +3228,14 @@ tv_engineering_department.7109 = {
 		name = tv_engineering_department.7109.a
 		if = {
 			limit = { tv_wonder_construction_event_7109_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7109.b
 		if = {
 			limit = { tv_wonder_construction_event_7109_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
+			add_prestige = -10
 		}
 	}
 }
@@ -3203,14 +3260,14 @@ tv_engineering_department.7110 = {
 		name = tv_engineering_department.7110.a
 		if = {
 			limit = { tv_wonder_construction_event_7110_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7110.b
 		if = {
 			limit = { tv_wonder_construction_event_7110_eligible_trigger = yes }
-			add_legitimacy = -5
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
 		}
 	}
 }
@@ -3235,14 +3292,14 @@ tv_engineering_department.7111 = {
 		name = tv_engineering_department.7111.a
 		if = {
 			limit = { tv_wonder_construction_event_7111_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7111.b
 		if = {
 			limit = { tv_wonder_construction_event_7111_eligible_trigger = yes }
-			add_stability = -7
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
 		}
 	}
 }
@@ -3267,14 +3324,14 @@ tv_engineering_department.7112 = {
 		name = tv_engineering_department.7112.a
 		if = {
 			limit = { tv_wonder_construction_event_7112_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7112.b
 		if = {
 			limit = { tv_wonder_construction_event_7112_eligible_trigger = yes }
-			add_prestige = -10
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
 		}
 	}
 }
@@ -3299,14 +3356,14 @@ tv_engineering_department.7113 = {
 		name = tv_engineering_department.7113.a
 		if = {
 			limit = { tv_wonder_construction_event_7113_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7113.b
 		if = {
 			limit = { tv_wonder_construction_event_7113_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
 		}
 	}
 }
@@ -3331,14 +3388,14 @@ tv_engineering_department.7114 = {
 		name = tv_engineering_department.7114.a
 		if = {
 			limit = { tv_wonder_construction_event_7114_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7114.b
 		if = {
 			limit = { tv_wonder_construction_event_7114_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -3363,14 +3420,14 @@ tv_engineering_department.7115 = {
 		name = tv_engineering_department.7115.a
 		if = {
 			limit = { tv_wonder_construction_event_7115_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7115.b
 		if = {
 			limit = { tv_wonder_construction_event_7115_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -3395,14 +3452,14 @@ tv_engineering_department.7116 = {
 		name = tv_engineering_department.7116.a
 		if = {
 			limit = { tv_wonder_construction_event_7116_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7116.b
 		if = {
 			limit = { tv_wonder_construction_event_7116_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			capital ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -3427,14 +3484,14 @@ tv_engineering_department.7117 = {
 		name = tv_engineering_department.7117.a
 		if = {
 			limit = { tv_wonder_construction_event_7117_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7117.b
 		if = {
 			limit = { tv_wonder_construction_event_7117_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
+			capital ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -3459,14 +3516,14 @@ tv_engineering_department.7118 = {
 		name = tv_engineering_department.7118.a
 		if = {
 			limit = { tv_wonder_construction_event_7118_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_organization_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7118.b
 		if = {
 			limit = { tv_wonder_construction_event_7118_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
 		}
 	}
 }
@@ -3491,14 +3548,14 @@ tv_engineering_department.7119 = {
 		name = tv_engineering_department.7119.a
 		if = {
 			limit = { tv_wonder_construction_event_7119_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7119.b
 		if = {
 			limit = { tv_wonder_construction_event_7119_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
+			change_gold_effect = { scale = -1 }
 		}
 	}
 }
@@ -3523,14 +3580,14 @@ tv_engineering_department.7120 = {
 		name = tv_engineering_department.7120.a
 		if = {
 			limit = { tv_wonder_construction_event_7120_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7120.b
 		if = {
 			limit = { tv_wonder_construction_event_7120_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
+			add_legitimacy = -5
 		}
 	}
 }
@@ -3555,14 +3612,14 @@ tv_engineering_department.7121 = {
 		name = tv_engineering_department.7121.a
 		if = {
 			limit = { tv_wonder_construction_event_7121_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7121.b
 		if = {
 			limit = { tv_wonder_construction_event_7121_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
+			add_stability = -7
 		}
 	}
 }
@@ -3587,14 +3644,14 @@ tv_engineering_department.7122 = {
 		name = tv_engineering_department.7122.a
 		if = {
 			limit = { tv_wonder_construction_event_7122_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7122.b
 		if = {
 			limit = { tv_wonder_construction_event_7122_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
+			add_prestige = -10
 		}
 	}
 }
@@ -3619,14 +3676,14 @@ tv_engineering_department.7123 = {
 		name = tv_engineering_department.7123.a
 		if = {
 			limit = { tv_wonder_construction_event_7123_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7123.b
 		if = {
 			limit = { tv_wonder_construction_event_7123_eligible_trigger = yes }
-			add_legitimacy = -5
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
 		}
 	}
 }
@@ -3651,14 +3708,14 @@ tv_engineering_department.7124 = {
 		name = tv_engineering_department.7124.a
 		if = {
 			limit = { tv_wonder_construction_event_7124_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7124.b
 		if = {
 			limit = { tv_wonder_construction_event_7124_eligible_trigger = yes }
-			add_stability = -7
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
 		}
 	}
 }
@@ -3683,14 +3740,14 @@ tv_engineering_department.7125 = {
 		name = tv_engineering_department.7125.a
 		if = {
 			limit = { tv_wonder_construction_event_7125_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7125.b
 		if = {
 			limit = { tv_wonder_construction_event_7125_eligible_trigger = yes }
-			add_prestige = -10
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
 		}
 	}
 }
@@ -3715,14 +3772,14 @@ tv_engineering_department.7126 = {
 		name = tv_engineering_department.7126.a
 		if = {
 			limit = { tv_wonder_construction_event_7126_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7126.b
 		if = {
 			limit = { tv_wonder_construction_event_7126_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
 		}
 	}
 }
@@ -3747,14 +3804,14 @@ tv_engineering_department.7127 = {
 		name = tv_engineering_department.7127.a
 		if = {
 			limit = { tv_wonder_construction_event_7127_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7127.b
 		if = {
 			limit = { tv_wonder_construction_event_7127_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -3779,14 +3836,14 @@ tv_engineering_department.7128 = {
 		name = tv_engineering_department.7128.a
 		if = {
 			limit = { tv_wonder_construction_event_7128_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7128.b
 		if = {
 			limit = { tv_wonder_construction_event_7128_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -3811,14 +3868,14 @@ tv_engineering_department.7129 = {
 		name = tv_engineering_department.7129.a
 		if = {
 			limit = { tv_wonder_construction_event_7129_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7129.b
 		if = {
 			limit = { tv_wonder_construction_event_7129_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			capital ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -3843,14 +3900,14 @@ tv_engineering_department.7130 = {
 		name = tv_engineering_department.7130.a
 		if = {
 			limit = { tv_wonder_construction_event_7130_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7130.b
 		if = {
 			limit = { tv_wonder_construction_event_7130_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
+			capital ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -3875,14 +3932,14 @@ tv_engineering_department.7131 = {
 		name = tv_engineering_department.7131.a
 		if = {
 			limit = { tv_wonder_construction_event_7131_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_logistics_competence_effect = { value = -5 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7131.b
 		if = {
 			limit = { tv_wonder_construction_event_7131_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
 		}
 	}
 }
@@ -3907,14 +3964,14 @@ tv_engineering_department.7132 = {
 		name = tv_engineering_department.7132.a
 		if = {
 			limit = { tv_wonder_construction_event_7132_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7132.b
 		if = {
 			limit = { tv_wonder_construction_event_7132_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
+			change_gold_effect = { scale = -1 }
 		}
 	}
 }
@@ -3939,14 +3996,14 @@ tv_engineering_department.7133 = {
 		name = tv_engineering_department.7133.a
 		if = {
 			limit = { tv_wonder_construction_event_7133_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7133.b
 		if = {
 			limit = { tv_wonder_construction_event_7133_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
+			add_legitimacy = -5
 		}
 	}
 }
@@ -3971,14 +4028,14 @@ tv_engineering_department.7134 = {
 		name = tv_engineering_department.7134.a
 		if = {
 			limit = { tv_wonder_construction_event_7134_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7134.b
 		if = {
 			limit = { tv_wonder_construction_event_7134_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
+			add_stability = -7
 		}
 	}
 }
@@ -4003,14 +4060,14 @@ tv_engineering_department.7135 = {
 		name = tv_engineering_department.7135.a
 		if = {
 			limit = { tv_wonder_construction_event_7135_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7135.b
 		if = {
 			limit = { tv_wonder_construction_event_7135_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
+			add_prestige = -10
 		}
 	}
 }
@@ -4035,14 +4092,14 @@ tv_engineering_department.7136 = {
 		name = tv_engineering_department.7136.a
 		if = {
 			limit = { tv_wonder_construction_event_7136_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7136.b
 		if = {
 			limit = { tv_wonder_construction_event_7136_eligible_trigger = yes }
-			add_legitimacy = -5
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
 		}
 	}
 }
@@ -4067,14 +4124,14 @@ tv_engineering_department.7137 = {
 		name = tv_engineering_department.7137.a
 		if = {
 			limit = { tv_wonder_construction_event_7137_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7137.b
 		if = {
 			limit = { tv_wonder_construction_event_7137_eligible_trigger = yes }
-			add_stability = -7
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
 		}
 	}
 }
@@ -4099,14 +4156,14 @@ tv_engineering_department.7138 = {
 		name = tv_engineering_department.7138.a
 		if = {
 			limit = { tv_wonder_construction_event_7138_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7138.b
 		if = {
 			limit = { tv_wonder_construction_event_7138_eligible_trigger = yes }
-			add_prestige = -10
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
 		}
 	}
 }
@@ -4131,14 +4188,14 @@ tv_engineering_department.7139 = {
 		name = tv_engineering_department.7139.a
 		if = {
 			limit = { tv_wonder_construction_event_7139_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7139.b
 		if = {
 			limit = { tv_wonder_construction_event_7139_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
 		}
 	}
 }
@@ -4163,14 +4220,14 @@ tv_engineering_department.7140 = {
 		name = tv_engineering_department.7140.a
 		if = {
 			limit = { tv_wonder_construction_event_7140_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7140.b
 		if = {
 			limit = { tv_wonder_construction_event_7140_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -4195,14 +4252,14 @@ tv_engineering_department.7141 = {
 		name = tv_engineering_department.7141.a
 		if = {
 			limit = { tv_wonder_construction_event_7141_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7141.b
 		if = {
 			limit = { tv_wonder_construction_event_7141_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -4227,14 +4284,14 @@ tv_engineering_department.7142 = {
 		name = tv_engineering_department.7142.a
 		if = {
 			limit = { tv_wonder_construction_event_7142_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7142.b
 		if = {
 			limit = { tv_wonder_construction_event_7142_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			capital ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -4259,14 +4316,14 @@ tv_engineering_department.7143 = {
 		name = tv_engineering_department.7143.a
 		if = {
 			limit = { tv_wonder_construction_event_7143_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7143.b
 		if = {
 			limit = { tv_wonder_construction_event_7143_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
+			capital ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -4291,14 +4348,14 @@ tv_engineering_department.7144 = {
 		name = tv_engineering_department.7144.a
 		if = {
 			limit = { tv_wonder_construction_event_7144_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
+			tv_wonder_change_construction_progress_effect = { value = -5000 }
 		}
 	}
 	option = {
 		name = tv_engineering_department.7144.b
 		if = {
 			limit = { tv_wonder_construction_event_7144_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
 		}
 	}
 }
@@ -4323,14 +4380,7 @@ tv_engineering_department.7145 = {
 		name = tv_engineering_department.7145.a
 		if = {
 			limit = { tv_wonder_construction_event_7145_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7145.b
-		if = {
-			limit = { tv_wonder_construction_event_7145_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
+			change_gold_effect = { scale = -1 }
 		}
 	}
 }
@@ -4355,14 +4405,7 @@ tv_engineering_department.7146 = {
 		name = tv_engineering_department.7146.a
 		if = {
 			limit = { tv_wonder_construction_event_7146_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7146.b
-		if = {
-			limit = { tv_wonder_construction_event_7146_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
+			add_legitimacy = -5
 		}
 	}
 }
@@ -4387,14 +4430,7 @@ tv_engineering_department.7147 = {
 		name = tv_engineering_department.7147.a
 		if = {
 			limit = { tv_wonder_construction_event_7147_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = -5 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7147.b
-		if = {
-			limit = { tv_wonder_construction_event_7147_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
+			add_stability = -7
 		}
 	}
 }
@@ -4419,14 +4455,7 @@ tv_engineering_department.7148 = {
 		name = tv_engineering_department.7148.a
 		if = {
 			limit = { tv_wonder_construction_event_7148_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7148.b
-		if = {
-			limit = { tv_wonder_construction_event_7148_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
+			add_prestige = -10
 		}
 	}
 }
@@ -4451,14 +4480,7 @@ tv_engineering_department.7149 = {
 		name = tv_engineering_department.7149.a
 		if = {
 			limit = { tv_wonder_construction_event_7149_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7149.b
-		if = {
-			limit = { tv_wonder_construction_event_7149_eligible_trigger = yes }
-			add_legitimacy = -5
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
 		}
 	}
 }
@@ -4483,14 +4505,7 @@ tv_engineering_department.7150 = {
 		name = tv_engineering_department.7150.a
 		if = {
 			limit = { tv_wonder_construction_event_7150_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7150.b
-		if = {
-			limit = { tv_wonder_construction_event_7150_eligible_trigger = yes }
-			add_stability = -7
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
 		}
 	}
 }
@@ -4515,14 +4530,7 @@ tv_engineering_department.7151 = {
 		name = tv_engineering_department.7151.a
 		if = {
 			limit = { tv_wonder_construction_event_7151_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7151.b
-		if = {
-			limit = { tv_wonder_construction_event_7151_eligible_trigger = yes }
-			add_prestige = -10
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
 		}
 	}
 }
@@ -4547,14 +4555,7 @@ tv_engineering_department.7152 = {
 		name = tv_engineering_department.7152.a
 		if = {
 			limit = { tv_wonder_construction_event_7152_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7152.b
-		if = {
-			limit = { tv_wonder_construction_event_7152_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
 		}
 	}
 }
@@ -4579,14 +4580,7 @@ tv_engineering_department.7153 = {
 		name = tv_engineering_department.7153.a
 		if = {
 			limit = { tv_wonder_construction_event_7153_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7153.b
-		if = {
-			limit = { tv_wonder_construction_event_7153_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -4611,14 +4605,7 @@ tv_engineering_department.7154 = {
 		name = tv_engineering_department.7154.a
 		if = {
 			limit = { tv_wonder_construction_event_7154_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7154.b
-		if = {
-			limit = { tv_wonder_construction_event_7154_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -4643,14 +4630,7 @@ tv_engineering_department.7155 = {
 		name = tv_engineering_department.7155.a
 		if = {
 			limit = { tv_wonder_construction_event_7155_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7155.b
-		if = {
-			limit = { tv_wonder_construction_event_7155_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			capital ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -4675,14 +4655,7 @@ tv_engineering_department.7156 = {
 		name = tv_engineering_department.7156.a
 		if = {
 			limit = { tv_wonder_construction_event_7156_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7156.b
-		if = {
-			limit = { tv_wonder_construction_event_7156_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
+			capital ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -4707,14 +4680,7 @@ tv_engineering_department.7157 = {
 		name = tv_engineering_department.7157.a
 		if = {
 			limit = { tv_wonder_construction_event_7157_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7157.b
-		if = {
-			limit = { tv_wonder_construction_event_7157_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
 		}
 	}
 }
@@ -4739,14 +4705,7 @@ tv_engineering_department.7158 = {
 		name = tv_engineering_department.7158.a
 		if = {
 			limit = { tv_wonder_construction_event_7158_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7158.b
-		if = {
-			limit = { tv_wonder_construction_event_7158_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
+			change_gold_effect = { scale = -2 }
 		}
 	}
 }
@@ -4771,14 +4730,7 @@ tv_engineering_department.7159 = {
 		name = tv_engineering_department.7159.a
 		if = {
 			limit = { tv_wonder_construction_event_7159_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7159.b
-		if = {
-			limit = { tv_wonder_construction_event_7159_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
+			add_legitimacy = -10
 		}
 	}
 }
@@ -4803,14 +4755,7 @@ tv_engineering_department.7160 = {
 		name = tv_engineering_department.7160.a
 		if = {
 			limit = { tv_wonder_construction_event_7160_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7160.b
-		if = {
-			limit = { tv_wonder_construction_event_7160_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
+			add_stability = -14
 		}
 	}
 }
@@ -4835,14 +4780,7 @@ tv_engineering_department.7161 = {
 		name = tv_engineering_department.7161.a
 		if = {
 			limit = { tv_wonder_construction_event_7161_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7161.b
-		if = {
-			limit = { tv_wonder_construction_event_7161_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
+			add_prestige = -20
 		}
 	}
 }
@@ -4867,14 +4805,7 @@ tv_engineering_department.7162 = {
 		name = tv_engineering_department.7162.a
 		if = {
 			limit = { tv_wonder_construction_event_7162_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7162.b
-		if = {
-			limit = { tv_wonder_construction_event_7162_eligible_trigger = yes }
-			add_legitimacy = -5
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.20 }
 		}
 	}
 }
@@ -4899,14 +4830,7 @@ tv_engineering_department.7163 = {
 		name = tv_engineering_department.7163.a
 		if = {
 			limit = { tv_wonder_construction_event_7163_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7163.b
-		if = {
-			limit = { tv_wonder_construction_event_7163_eligible_trigger = yes }
-			add_stability = -7
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.20 }
 		}
 	}
 }
@@ -4931,14 +4855,7 @@ tv_engineering_department.7164 = {
 		name = tv_engineering_department.7164.a
 		if = {
 			limit = { tv_wonder_construction_event_7164_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7164.b
-		if = {
-			limit = { tv_wonder_construction_event_7164_eligible_trigger = yes }
-			add_prestige = -10
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.20 }
 		}
 	}
 }
@@ -4963,14 +4880,7 @@ tv_engineering_department.7165 = {
 		name = tv_engineering_department.7165.a
 		if = {
 			limit = { tv_wonder_construction_event_7165_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7165.b
-		if = {
-			limit = { tv_wonder_construction_event_7165_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.40 }
 		}
 	}
 }
@@ -4995,14 +4905,7 @@ tv_engineering_department.7166 = {
 		name = tv_engineering_department.7166.a
 		if = {
 			limit = { tv_wonder_construction_event_7166_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7166.b
-		if = {
-			limit = { tv_wonder_construction_event_7166_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_development = -0.50 }
 		}
 	}
 }
@@ -5027,14 +4930,7 @@ tv_engineering_department.7167 = {
 		name = tv_engineering_department.7167.a
 		if = {
 			limit = { tv_wonder_construction_event_7167_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7167.b
-		if = {
-			limit = { tv_wonder_construction_event_7167_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			var:tv_wonder_site ?= { change_prosperity = -0.4 }
 		}
 	}
 }
@@ -5059,14 +4955,7 @@ tv_engineering_department.7168 = {
 		name = tv_engineering_department.7168.a
 		if = {
 			limit = { tv_wonder_construction_event_7168_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7168.b
-		if = {
-			limit = { tv_wonder_construction_event_7168_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			capital ?= { change_development = -0.50 }
 		}
 	}
 }
@@ -5091,14 +4980,7 @@ tv_engineering_department.7169 = {
 		name = tv_engineering_department.7169.a
 		if = {
 			limit = { tv_wonder_construction_event_7169_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7169.b
-		if = {
-			limit = { tv_wonder_construction_event_7169_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
+			capital ?= { change_prosperity = -0.4 }
 		}
 	}
 }
@@ -5123,14 +5005,7 @@ tv_engineering_department.7170 = {
 		name = tv_engineering_department.7170.a
 		if = {
 			limit = { tv_wonder_construction_event_7170_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7170.b
-		if = {
-			limit = { tv_wonder_construction_event_7170_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			tv_wonder_site_laborer_casualty_effect = { value = 20 }
 		}
 	}
 }
@@ -5140,7 +5015,7 @@ tv_engineering_department.7171 = {
 	type = country_event
 	title = tv_engineering_department.7171.t
 	desc = tv_engineering_department.7171.d
-	outcome = bad
+	outcome = good
 
 	trigger = {
 		tv_wonder_construction_event_7171_eligible_trigger = yes
@@ -5155,14 +5030,7 @@ tv_engineering_department.7171 = {
 		name = tv_engineering_department.7171.a
 		if = {
 			limit = { tv_wonder_construction_event_7171_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7171.b
-		if = {
-			limit = { tv_wonder_construction_event_7171_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
+			tv_change_wonder_domestic_support_effect = { value = 20 }
 		}
 	}
 }
@@ -5172,7 +5040,7 @@ tv_engineering_department.7172 = {
 	type = country_event
 	title = tv_engineering_department.7172.t
 	desc = tv_engineering_department.7172.d
-	outcome = bad
+	outcome = good
 
 	trigger = {
 		tv_wonder_construction_event_7172_eligible_trigger = yes
@@ -5187,14 +5055,7 @@ tv_engineering_department.7172 = {
 		name = tv_engineering_department.7172.a
 		if = {
 			limit = { tv_wonder_construction_event_7172_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7172.b
-		if = {
-			limit = { tv_wonder_construction_event_7172_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
+			tv_wonder_change_scale_competence_effect = { value = 10 }
 		}
 	}
 }
@@ -5204,7 +5065,7 @@ tv_engineering_department.7173 = {
 	type = country_event
 	title = tv_engineering_department.7173.t
 	desc = tv_engineering_department.7173.d
-	outcome = bad
+	outcome = good
 
 	trigger = {
 		tv_wonder_construction_event_7173_eligible_trigger = yes
@@ -5219,14 +5080,7 @@ tv_engineering_department.7173 = {
 		name = tv_engineering_department.7173.a
 		if = {
 			limit = { tv_wonder_construction_event_7173_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = -5000 }
-		}
-	}
-	option = {
-		name = tv_engineering_department.7173.b
-		if = {
-			limit = { tv_wonder_construction_event_7173_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
+			tv_wonder_change_organization_competence_effect = { value = 10 }
 		}
 	}
 }
@@ -5236,7 +5090,7 @@ tv_engineering_department.7174 = {
 	type = country_event
 	title = tv_engineering_department.7174.t
 	desc = tv_engineering_department.7174.d
-	outcome = bad
+	outcome = good
 
 	trigger = {
 		tv_wonder_construction_event_7174_eligible_trigger = yes
@@ -5251,7 +5105,7 @@ tv_engineering_department.7174 = {
 		name = tv_engineering_department.7174.a
 		if = {
 			limit = { tv_wonder_construction_event_7174_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
+			tv_wonder_change_logistics_competence_effect = { value = 10 }
 		}
 	}
 }
@@ -5261,7 +5115,7 @@ tv_engineering_department.7175 = {
 	type = country_event
 	title = tv_engineering_department.7175.t
 	desc = tv_engineering_department.7175.d
-	outcome = bad
+	outcome = good
 
 	trigger = {
 		tv_wonder_construction_event_7175_eligible_trigger = yes
@@ -5276,7 +5130,7 @@ tv_engineering_department.7175 = {
 		name = tv_engineering_department.7175.a
 		if = {
 			limit = { tv_wonder_construction_event_7175_eligible_trigger = yes }
-			add_legitimacy = -5
+			tv_wonder_change_construction_progress_effect = { value = 10000 }
 		}
 	}
 }
@@ -5286,7 +5140,7 @@ tv_engineering_department.7176 = {
 	type = country_event
 	title = tv_engineering_department.7176.t
 	desc = tv_engineering_department.7176.d
-	outcome = bad
+	outcome = good
 
 	trigger = {
 		tv_wonder_construction_event_7176_eligible_trigger = yes
@@ -5301,7 +5155,7 @@ tv_engineering_department.7176 = {
 		name = tv_engineering_department.7176.a
 		if = {
 			limit = { tv_wonder_construction_event_7176_eligible_trigger = yes }
-			add_stability = -7
+			tv_change_wonder_domestic_support_effect = { value = 10 }
 		}
 	}
 }
@@ -5311,7 +5165,7 @@ tv_engineering_department.7177 = {
 	type = country_event
 	title = tv_engineering_department.7177.t
 	desc = tv_engineering_department.7177.d
-	outcome = bad
+	outcome = good
 
 	trigger = {
 		tv_wonder_construction_event_7177_eligible_trigger = yes
@@ -5326,7 +5180,7 @@ tv_engineering_department.7177 = {
 		name = tv_engineering_department.7177.a
 		if = {
 			limit = { tv_wonder_construction_event_7177_eligible_trigger = yes }
-			add_prestige = -10
+			tv_wonder_change_scale_competence_effect = { value = 5 }
 		}
 	}
 }
@@ -5336,7 +5190,7 @@ tv_engineering_department.7178 = {
 	type = country_event
 	title = tv_engineering_department.7178.t
 	desc = tv_engineering_department.7178.d
-	outcome = bad
+	outcome = good
 
 	trigger = {
 		tv_wonder_construction_event_7178_eligible_trigger = yes
@@ -5351,7 +5205,7 @@ tv_engineering_department.7178 = {
 		name = tv_engineering_department.7178.a
 		if = {
 			limit = { tv_wonder_construction_event_7178_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
+			tv_wonder_change_organization_competence_effect = { value = 5 }
 		}
 	}
 }
@@ -5361,7 +5215,7 @@ tv_engineering_department.7179 = {
 	type = country_event
 	title = tv_engineering_department.7179.t
 	desc = tv_engineering_department.7179.d
-	outcome = bad
+	outcome = good
 
 	trigger = {
 		tv_wonder_construction_event_7179_eligible_trigger = yes
@@ -5376,7 +5230,7 @@ tv_engineering_department.7179 = {
 		name = tv_engineering_department.7179.a
 		if = {
 			limit = { tv_wonder_construction_event_7179_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
+			tv_wonder_change_logistics_competence_effect = { value = 5 }
 		}
 	}
 }
@@ -5386,7 +5240,7 @@ tv_engineering_department.7180 = {
 	type = country_event
 	title = tv_engineering_department.7180.t
 	desc = tv_engineering_department.7180.d
-	outcome = bad
+	outcome = good
 
 	trigger = {
 		tv_wonder_construction_event_7180_eligible_trigger = yes
@@ -5401,7 +5255,7 @@ tv_engineering_department.7180 = {
 		name = tv_engineering_department.7180.a
 		if = {
 			limit = { tv_wonder_construction_event_7180_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
+			tv_wonder_change_construction_progress_effect = { value = 5000 }
 		}
 	}
 }
@@ -5411,7 +5265,7 @@ tv_engineering_department.7181 = {
 	type = country_event
 	title = tv_engineering_department.7181.t
 	desc = tv_engineering_department.7181.d
-	outcome = bad
+	outcome = neutral
 
 	trigger = {
 		tv_wonder_construction_event_7181_eligible_trigger = yes
@@ -5426,7 +5280,10 @@ tv_engineering_department.7181 = {
 		name = tv_engineering_department.7181.a
 		if = {
 			limit = { tv_wonder_construction_event_7181_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
+			random_list = {
+				50 = { tv_change_wonder_domestic_support_effect = { value = 10 } }
+				50 = { tv_change_wonder_domestic_support_effect = { value = -10 } }
+			}
 		}
 	}
 }
@@ -5436,7 +5293,7 @@ tv_engineering_department.7182 = {
 	type = country_event
 	title = tv_engineering_department.7182.t
 	desc = tv_engineering_department.7182.d
-	outcome = bad
+	outcome = neutral
 
 	trigger = {
 		tv_wonder_construction_event_7182_eligible_trigger = yes
@@ -5451,7 +5308,10 @@ tv_engineering_department.7182 = {
 		name = tv_engineering_department.7182.a
 		if = {
 			limit = { tv_wonder_construction_event_7182_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
+			random_list = {
+				50 = { tv_wonder_change_scale_competence_effect = { value = 5 } }
+				50 = { tv_wonder_change_scale_competence_effect = { value = -5 } }
+			}
 		}
 	}
 }
@@ -5461,7 +5321,7 @@ tv_engineering_department.7183 = {
 	type = country_event
 	title = tv_engineering_department.7183.t
 	desc = tv_engineering_department.7183.d
-	outcome = bad
+	outcome = neutral
 
 	trigger = {
 		tv_wonder_construction_event_7183_eligible_trigger = yes
@@ -5476,7 +5336,10 @@ tv_engineering_department.7183 = {
 		name = tv_engineering_department.7183.a
 		if = {
 			limit = { tv_wonder_construction_event_7183_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
+			random_list = {
+				50 = { tv_wonder_change_organization_competence_effect = { value = 5 } }
+				50 = { tv_wonder_change_organization_competence_effect = { value = -5 } }
+			}
 		}
 	}
 }
@@ -5486,7 +5349,7 @@ tv_engineering_department.7184 = {
 	type = country_event
 	title = tv_engineering_department.7184.t
 	desc = tv_engineering_department.7184.d
-	outcome = bad
+	outcome = neutral
 
 	trigger = {
 		tv_wonder_construction_event_7184_eligible_trigger = yes
@@ -5501,7 +5364,10 @@ tv_engineering_department.7184 = {
 		name = tv_engineering_department.7184.a
 		if = {
 			limit = { tv_wonder_construction_event_7184_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
+			random_list = {
+				50 = { tv_wonder_change_logistics_competence_effect = { value = 5 } }
+				50 = { tv_wonder_change_logistics_competence_effect = { value = -5 } }
+			}
 		}
 	}
 }
@@ -5511,7 +5377,7 @@ tv_engineering_department.7185 = {
 	type = country_event
 	title = tv_engineering_department.7185.t
 	desc = tv_engineering_department.7185.d
-	outcome = bad
+	outcome = neutral
 
 	trigger = {
 		tv_wonder_construction_event_7185_eligible_trigger = yes
@@ -5526,7 +5392,10 @@ tv_engineering_department.7185 = {
 		name = tv_engineering_department.7185.a
 		if = {
 			limit = { tv_wonder_construction_event_7185_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
+			random_list = {
+				50 = { tv_wonder_change_construction_progress_effect = { value = 5000 } }
+				50 = { tv_wonder_change_construction_progress_effect = { value = -5000 } }
+			}
 		}
 	}
 }
@@ -5551,7 +5420,7 @@ tv_engineering_department.7186 = {
 		name = tv_engineering_department.7186.a
 		if = {
 			limit = { tv_wonder_construction_event_7186_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
+			change_gold_effect = { scale = -1 }
 		}
 	}
 }
@@ -5576,7 +5445,7 @@ tv_engineering_department.7187 = {
 		name = tv_engineering_department.7187.a
 		if = {
 			limit = { tv_wonder_construction_event_7187_eligible_trigger = yes }
-			change_gold_effect = { scale = -2 }
+			add_legitimacy = -5
 		}
 	}
 }
@@ -5601,7 +5470,7 @@ tv_engineering_department.7188 = {
 		name = tv_engineering_department.7188.a
 		if = {
 			limit = { tv_wonder_construction_event_7188_eligible_trigger = yes }
-			add_legitimacy = -10
+			add_stability = -7
 		}
 	}
 }
@@ -5626,7 +5495,7 @@ tv_engineering_department.7189 = {
 		name = tv_engineering_department.7189.a
 		if = {
 			limit = { tv_wonder_construction_event_7189_eligible_trigger = yes }
-			add_stability = -14
+			add_prestige = -10
 		}
 	}
 }
@@ -5651,7 +5520,7 @@ tv_engineering_department.7190 = {
 		name = tv_engineering_department.7190.a
 		if = {
 			limit = { tv_wonder_construction_event_7190_eligible_trigger = yes }
-			add_prestige = -20
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
 		}
 	}
 }
@@ -5676,7 +5545,7 @@ tv_engineering_department.7191 = {
 		name = tv_engineering_department.7191.a
 		if = {
 			limit = { tv_wonder_construction_event_7191_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.20 }
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
 		}
 	}
 }
@@ -5701,7 +5570,7 @@ tv_engineering_department.7192 = {
 		name = tv_engineering_department.7192.a
 		if = {
 			limit = { tv_wonder_construction_event_7192_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.20 }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
 		}
 	}
 }
@@ -5726,7 +5595,7 @@ tv_engineering_department.7193 = {
 		name = tv_engineering_department.7193.a
 		if = {
 			limit = { tv_wonder_construction_event_7193_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.20 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
 		}
 	}
 }
@@ -5751,7 +5620,7 @@ tv_engineering_department.7194 = {
 		name = tv_engineering_department.7194.a
 		if = {
 			limit = { tv_wonder_construction_event_7194_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.40 }
+			var:tv_wonder_site ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -5776,7 +5645,7 @@ tv_engineering_department.7195 = {
 		name = tv_engineering_department.7195.a
 		if = {
 			limit = { tv_wonder_construction_event_7195_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.50 }
+			var:tv_wonder_site ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -5801,7 +5670,7 @@ tv_engineering_department.7196 = {
 		name = tv_engineering_department.7196.a
 		if = {
 			limit = { tv_wonder_construction_event_7196_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.4 }
+			capital ?= { change_development = -0.25 }
 		}
 	}
 }
@@ -5826,7 +5695,7 @@ tv_engineering_department.7197 = {
 		name = tv_engineering_department.7197.a
 		if = {
 			limit = { tv_wonder_construction_event_7197_eligible_trigger = yes }
-			capital ?= { change_development = -0.50 }
+			capital ?= { change_prosperity = -0.2 }
 		}
 	}
 }
@@ -5851,7 +5720,7 @@ tv_engineering_department.7198 = {
 		name = tv_engineering_department.7198.a
 		if = {
 			limit = { tv_wonder_construction_event_7198_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.4 }
+			tv_wonder_site_laborer_casualty_effect = { value = 10 }
 		}
 	}
 }
@@ -5876,7 +5745,7 @@ tv_engineering_department.7199 = {
 		name = tv_engineering_department.7199.a
 		if = {
 			limit = { tv_wonder_construction_event_7199_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 20 }
+			change_gold_effect = { scale = -2 }
 		}
 	}
 }
@@ -5886,7 +5755,7 @@ tv_engineering_department.7200 = {
 	type = country_event
 	title = tv_engineering_department.7200.t
 	desc = tv_engineering_department.7200.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7200_eligible_trigger = yes
@@ -5901,7 +5770,7 @@ tv_engineering_department.7200 = {
 		name = tv_engineering_department.7200.a
 		if = {
 			limit = { tv_wonder_construction_event_7200_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = 20 }
+			add_legitimacy = -10
 		}
 	}
 }
@@ -5911,7 +5780,7 @@ tv_engineering_department.7201 = {
 	type = country_event
 	title = tv_engineering_department.7201.t
 	desc = tv_engineering_department.7201.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7201_eligible_trigger = yes
@@ -5926,7 +5795,7 @@ tv_engineering_department.7201 = {
 		name = tv_engineering_department.7201.a
 		if = {
 			limit = { tv_wonder_construction_event_7201_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = 10 }
+			add_stability = -14
 		}
 	}
 }
@@ -5936,7 +5805,7 @@ tv_engineering_department.7202 = {
 	type = country_event
 	title = tv_engineering_department.7202.t
 	desc = tv_engineering_department.7202.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7202_eligible_trigger = yes
@@ -5951,7 +5820,7 @@ tv_engineering_department.7202 = {
 		name = tv_engineering_department.7202.a
 		if = {
 			limit = { tv_wonder_construction_event_7202_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = 10 }
+			add_prestige = -20
 		}
 	}
 }
@@ -5961,7 +5830,7 @@ tv_engineering_department.7203 = {
 	type = country_event
 	title = tv_engineering_department.7203.t
 	desc = tv_engineering_department.7203.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7203_eligible_trigger = yes
@@ -5976,7 +5845,7 @@ tv_engineering_department.7203 = {
 		name = tv_engineering_department.7203.a
 		if = {
 			limit = { tv_wonder_construction_event_7203_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = 10 }
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.20 }
 		}
 	}
 }
@@ -5986,7 +5855,7 @@ tv_engineering_department.7204 = {
 	type = country_event
 	title = tv_engineering_department.7204.t
 	desc = tv_engineering_department.7204.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7204_eligible_trigger = yes
@@ -6001,7 +5870,7 @@ tv_engineering_department.7204 = {
 		name = tv_engineering_department.7204.a
 		if = {
 			limit = { tv_wonder_construction_event_7204_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = 10000 }
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.20 }
 		}
 	}
 }
@@ -6011,7 +5880,7 @@ tv_engineering_department.7205 = {
 	type = country_event
 	title = tv_engineering_department.7205.t
 	desc = tv_engineering_department.7205.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7205_eligible_trigger = yes
@@ -6026,7 +5895,7 @@ tv_engineering_department.7205 = {
 		name = tv_engineering_department.7205.a
 		if = {
 			limit = { tv_wonder_construction_event_7205_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = 10000 }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.20 }
 		}
 	}
 }
@@ -6036,7 +5905,7 @@ tv_engineering_department.7206 = {
 	type = country_event
 	title = tv_engineering_department.7206.t
 	desc = tv_engineering_department.7206.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7206_eligible_trigger = yes
@@ -6051,7 +5920,7 @@ tv_engineering_department.7206 = {
 		name = tv_engineering_department.7206.a
 		if = {
 			limit = { tv_wonder_construction_event_7206_eligible_trigger = yes }
-			tv_change_wonder_domestic_support_effect = { value = 10 }
+			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.40 }
 		}
 	}
 }
@@ -6061,7 +5930,7 @@ tv_engineering_department.7207 = {
 	type = country_event
 	title = tv_engineering_department.7207.t
 	desc = tv_engineering_department.7207.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7207_eligible_trigger = yes
@@ -6076,7 +5945,7 @@ tv_engineering_department.7207 = {
 		name = tv_engineering_department.7207.a
 		if = {
 			limit = { tv_wonder_construction_event_7207_eligible_trigger = yes }
-			tv_wonder_change_scale_competence_effect = { value = 5 }
+			var:tv_wonder_site ?= { change_development = -0.50 }
 		}
 	}
 }
@@ -6086,7 +5955,7 @@ tv_engineering_department.7208 = {
 	type = country_event
 	title = tv_engineering_department.7208.t
 	desc = tv_engineering_department.7208.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7208_eligible_trigger = yes
@@ -6101,7 +5970,7 @@ tv_engineering_department.7208 = {
 		name = tv_engineering_department.7208.a
 		if = {
 			limit = { tv_wonder_construction_event_7208_eligible_trigger = yes }
-			tv_wonder_change_organization_competence_effect = { value = 5 }
+			var:tv_wonder_site ?= { change_prosperity = -0.4 }
 		}
 	}
 }
@@ -6111,7 +5980,7 @@ tv_engineering_department.7209 = {
 	type = country_event
 	title = tv_engineering_department.7209.t
 	desc = tv_engineering_department.7209.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7209_eligible_trigger = yes
@@ -6126,7 +5995,7 @@ tv_engineering_department.7209 = {
 		name = tv_engineering_department.7209.a
 		if = {
 			limit = { tv_wonder_construction_event_7209_eligible_trigger = yes }
-			tv_wonder_change_logistics_competence_effect = { value = 5 }
+			capital ?= { change_development = -0.50 }
 		}
 	}
 }
@@ -6136,7 +6005,7 @@ tv_engineering_department.7210 = {
 	type = country_event
 	title = tv_engineering_department.7210.t
 	desc = tv_engineering_department.7210.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7210_eligible_trigger = yes
@@ -6151,7 +6020,7 @@ tv_engineering_department.7210 = {
 		name = tv_engineering_department.7210.a
 		if = {
 			limit = { tv_wonder_construction_event_7210_eligible_trigger = yes }
-			tv_wonder_change_materials_stockpile_effect = { value = 5000 }
+			capital ?= { change_prosperity = -0.4 }
 		}
 	}
 }
@@ -6161,7 +6030,7 @@ tv_engineering_department.7211 = {
 	type = country_event
 	title = tv_engineering_department.7211.t
 	desc = tv_engineering_department.7211.d
-	outcome = good
+	outcome = bad
 
 	trigger = {
 		tv_wonder_construction_event_7211_eligible_trigger = yes
@@ -6176,824 +6045,6 @@ tv_engineering_department.7211 = {
 		name = tv_engineering_department.7211.a
 		if = {
 			limit = { tv_wonder_construction_event_7211_eligible_trigger = yes }
-			tv_wonder_change_construction_progress_effect = { value = 5000 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7212 ----------------------------------------------
-tv_engineering_department.7212 = {
-	type = country_event
-	title = tv_engineering_department.7212.t
-	desc = tv_engineering_department.7212.d
-	outcome = neutral
-
-	trigger = {
-		tv_wonder_construction_event_7212_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7212.a
-		if = {
-			limit = { tv_wonder_construction_event_7212_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_change_wonder_domestic_support_effect = { value = 10 } }
-				50 = { tv_change_wonder_domestic_support_effect = { value = -10 } }
-			}
-		}
-	}
-}
-
-# -- tv_engineering_department.7213 ----------------------------------------------
-tv_engineering_department.7213 = {
-	type = country_event
-	title = tv_engineering_department.7213.t
-	desc = tv_engineering_department.7213.d
-	outcome = neutral
-
-	trigger = {
-		tv_wonder_construction_event_7213_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7213.a
-		if = {
-			limit = { tv_wonder_construction_event_7213_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_wonder_change_scale_competence_effect = { value = 5 } }
-				50 = { tv_wonder_change_scale_competence_effect = { value = -5 } }
-			}
-		}
-	}
-}
-
-# -- tv_engineering_department.7214 ----------------------------------------------
-tv_engineering_department.7214 = {
-	type = country_event
-	title = tv_engineering_department.7214.t
-	desc = tv_engineering_department.7214.d
-	outcome = neutral
-
-	trigger = {
-		tv_wonder_construction_event_7214_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7214.a
-		if = {
-			limit = { tv_wonder_construction_event_7214_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_wonder_change_organization_competence_effect = { value = 5 } }
-				50 = { tv_wonder_change_organization_competence_effect = { value = -5 } }
-			}
-		}
-	}
-}
-
-# -- tv_engineering_department.7215 ----------------------------------------------
-tv_engineering_department.7215 = {
-	type = country_event
-	title = tv_engineering_department.7215.t
-	desc = tv_engineering_department.7215.d
-	outcome = neutral
-
-	trigger = {
-		tv_wonder_construction_event_7215_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7215.a
-		if = {
-			limit = { tv_wonder_construction_event_7215_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_wonder_change_logistics_competence_effect = { value = 5 } }
-				50 = { tv_wonder_change_logistics_competence_effect = { value = -5 } }
-			}
-		}
-	}
-}
-
-# -- tv_engineering_department.7216 ----------------------------------------------
-tv_engineering_department.7216 = {
-	type = country_event
-	title = tv_engineering_department.7216.t
-	desc = tv_engineering_department.7216.d
-	outcome = neutral
-
-	trigger = {
-		tv_wonder_construction_event_7216_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7216.a
-		if = {
-			limit = { tv_wonder_construction_event_7216_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_wonder_change_materials_stockpile_effect = { value = 5000 } }
-				50 = { tv_wonder_change_materials_stockpile_effect = { value = -5000 } }
-			}
-		}
-	}
-}
-
-# -- tv_engineering_department.7217 ----------------------------------------------
-tv_engineering_department.7217 = {
-	type = country_event
-	title = tv_engineering_department.7217.t
-	desc = tv_engineering_department.7217.d
-	outcome = neutral
-
-	trigger = {
-		tv_wonder_construction_event_7217_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7217.a
-		if = {
-			limit = { tv_wonder_construction_event_7217_eligible_trigger = yes }
-			random_list = {
-				50 = { tv_wonder_change_construction_progress_effect = { value = 5000 } }
-				50 = { tv_wonder_change_construction_progress_effect = { value = -5000 } }
-			}
-		}
-	}
-}
-
-# -- tv_engineering_department.7218 ----------------------------------------------
-tv_engineering_department.7218 = {
-	type = country_event
-	title = tv_engineering_department.7218.t
-	desc = tv_engineering_department.7218.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7218_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7218.a
-		if = {
-			limit = { tv_wonder_construction_event_7218_eligible_trigger = yes }
-			change_gold_effect = { scale = -1 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7219 ----------------------------------------------
-tv_engineering_department.7219 = {
-	type = country_event
-	title = tv_engineering_department.7219.t
-	desc = tv_engineering_department.7219.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7219_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7219.a
-		if = {
-			limit = { tv_wonder_construction_event_7219_eligible_trigger = yes }
-			add_legitimacy = -5
-		}
-	}
-}
-
-# -- tv_engineering_department.7220 ----------------------------------------------
-tv_engineering_department.7220 = {
-	type = country_event
-	title = tv_engineering_department.7220.t
-	desc = tv_engineering_department.7220.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7220_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7220.a
-		if = {
-			limit = { tv_wonder_construction_event_7220_eligible_trigger = yes }
-			add_stability = -7
-		}
-	}
-}
-
-# -- tv_engineering_department.7221 ----------------------------------------------
-tv_engineering_department.7221 = {
-	type = country_event
-	title = tv_engineering_department.7221.t
-	desc = tv_engineering_department.7221.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7221_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7221.a
-		if = {
-			limit = { tv_wonder_construction_event_7221_eligible_trigger = yes }
-			add_prestige = -10
-		}
-	}
-}
-
-# -- tv_engineering_department.7222 ----------------------------------------------
-tv_engineering_department.7222 = {
-	type = country_event
-	title = tv_engineering_department.7222.t
-	desc = tv_engineering_department.7222.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7222_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7222.a
-		if = {
-			limit = { tv_wonder_construction_event_7222_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7223 ----------------------------------------------
-tv_engineering_department.7223 = {
-	type = country_event
-	title = tv_engineering_department.7223.t
-	desc = tv_engineering_department.7223.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7223_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7223.a
-		if = {
-			limit = { tv_wonder_construction_event_7223_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7224 ----------------------------------------------
-tv_engineering_department.7224 = {
-	type = country_event
-	title = tv_engineering_department.7224.t
-	desc = tv_engineering_department.7224.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7224_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7224.a
-		if = {
-			limit = { tv_wonder_construction_event_7224_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7225 ----------------------------------------------
-tv_engineering_department.7225 = {
-	type = country_event
-	title = tv_engineering_department.7225.t
-	desc = tv_engineering_department.7225.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7225_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7225.a
-		if = {
-			limit = { tv_wonder_construction_event_7225_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7226 ----------------------------------------------
-tv_engineering_department.7226 = {
-	type = country_event
-	title = tv_engineering_department.7226.t
-	desc = tv_engineering_department.7226.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7226_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7226.a
-		if = {
-			limit = { tv_wonder_construction_event_7226_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.25 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7227 ----------------------------------------------
-tv_engineering_department.7227 = {
-	type = country_event
-	title = tv_engineering_department.7227.t
-	desc = tv_engineering_department.7227.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7227_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7227.a
-		if = {
-			limit = { tv_wonder_construction_event_7227_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.2 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7228 ----------------------------------------------
-tv_engineering_department.7228 = {
-	type = country_event
-	title = tv_engineering_department.7228.t
-	desc = tv_engineering_department.7228.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7228_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7228.a
-		if = {
-			limit = { tv_wonder_construction_event_7228_eligible_trigger = yes }
-			capital ?= { change_development = -0.25 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7229 ----------------------------------------------
-tv_engineering_department.7229 = {
-	type = country_event
-	title = tv_engineering_department.7229.t
-	desc = tv_engineering_department.7229.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7229_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7229.a
-		if = {
-			limit = { tv_wonder_construction_event_7229_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.2 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7230 ----------------------------------------------
-tv_engineering_department.7230 = {
-	type = country_event
-	title = tv_engineering_department.7230.t
-	desc = tv_engineering_department.7230.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7230_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7230.a
-		if = {
-			limit = { tv_wonder_construction_event_7230_eligible_trigger = yes }
-			tv_wonder_site_laborer_casualty_effect = { value = 10 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7231 ----------------------------------------------
-tv_engineering_department.7231 = {
-	type = country_event
-	title = tv_engineering_department.7231.t
-	desc = tv_engineering_department.7231.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7231_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7231.a
-		if = {
-			limit = { tv_wonder_construction_event_7231_eligible_trigger = yes }
-			change_gold_effect = { scale = -2 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7232 ----------------------------------------------
-tv_engineering_department.7232 = {
-	type = country_event
-	title = tv_engineering_department.7232.t
-	desc = tv_engineering_department.7232.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7232_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7232.a
-		if = {
-			limit = { tv_wonder_construction_event_7232_eligible_trigger = yes }
-			add_legitimacy = -10
-		}
-	}
-}
-
-# -- tv_engineering_department.7233 ----------------------------------------------
-tv_engineering_department.7233 = {
-	type = country_event
-	title = tv_engineering_department.7233.t
-	desc = tv_engineering_department.7233.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7233_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7233.a
-		if = {
-			limit = { tv_wonder_construction_event_7233_eligible_trigger = yes }
-			add_stability = -14
-		}
-	}
-}
-
-# -- tv_engineering_department.7234 ----------------------------------------------
-tv_engineering_department.7234 = {
-	type = country_event
-	title = tv_engineering_department.7234.t
-	desc = tv_engineering_department.7234.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7234_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7234.a
-		if = {
-			limit = { tv_wonder_construction_event_7234_eligible_trigger = yes }
-			add_prestige = -20
-		}
-	}
-}
-
-# -- tv_engineering_department.7235 ----------------------------------------------
-tv_engineering_department.7235 = {
-	type = country_event
-	title = tv_engineering_department.7235.t
-	desc = tv_engineering_department.7235.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7235_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7235.a
-		if = {
-			limit = { tv_wonder_construction_event_7235_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.20 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7236 ----------------------------------------------
-tv_engineering_department.7236 = {
-	type = country_event
-	title = tv_engineering_department.7236.t
-	desc = tv_engineering_department.7236.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7236_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7236.a
-		if = {
-			limit = { tv_wonder_construction_event_7236_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.20 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7237 ----------------------------------------------
-tv_engineering_department.7237 = {
-	type = country_event
-	title = tv_engineering_department.7237.t
-	desc = tv_engineering_department.7237.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7237_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7237.a
-		if = {
-			limit = { tv_wonder_construction_event_7237_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.20 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7238 ----------------------------------------------
-tv_engineering_department.7238 = {
-	type = country_event
-	title = tv_engineering_department.7238.t
-	desc = tv_engineering_department.7238.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7238_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7238.a
-		if = {
-			limit = { tv_wonder_construction_event_7238_eligible_trigger = yes }
-			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.40 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7239 ----------------------------------------------
-tv_engineering_department.7239 = {
-	type = country_event
-	title = tv_engineering_department.7239.t
-	desc = tv_engineering_department.7239.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7239_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7239.a
-		if = {
-			limit = { tv_wonder_construction_event_7239_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_development = -0.50 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7240 ----------------------------------------------
-tv_engineering_department.7240 = {
-	type = country_event
-	title = tv_engineering_department.7240.t
-	desc = tv_engineering_department.7240.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7240_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7240.a
-		if = {
-			limit = { tv_wonder_construction_event_7240_eligible_trigger = yes }
-			var:tv_wonder_site ?= { change_prosperity = -0.4 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7241 ----------------------------------------------
-tv_engineering_department.7241 = {
-	type = country_event
-	title = tv_engineering_department.7241.t
-	desc = tv_engineering_department.7241.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7241_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7241.a
-		if = {
-			limit = { tv_wonder_construction_event_7241_eligible_trigger = yes }
-			capital ?= { change_development = -0.50 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7242 ----------------------------------------------
-tv_engineering_department.7242 = {
-	type = country_event
-	title = tv_engineering_department.7242.t
-	desc = tv_engineering_department.7242.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7242_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7242.a
-		if = {
-			limit = { tv_wonder_construction_event_7242_eligible_trigger = yes }
-			capital ?= { change_prosperity = -0.4 }
-		}
-	}
-}
-
-# -- tv_engineering_department.7243 ----------------------------------------------
-tv_engineering_department.7243 = {
-	type = country_event
-	title = tv_engineering_department.7243.t
-	desc = tv_engineering_department.7243.d
-	outcome = bad
-
-	trigger = {
-		tv_wonder_construction_event_7243_eligible_trigger = yes
-	}
-
-	immediate = {
-		var:tv_great_engineer_char ?= { save_scope_as = tv_wonder_event_engineer }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_site }
-	}
-
-	option = {
-		name = tv_engineering_department.7243.a
-		if = {
-			limit = { tv_wonder_construction_event_7243_eligible_trigger = yes }
 			tv_wonder_site_laborer_casualty_effect = { value = 20 }
 		}
 	}

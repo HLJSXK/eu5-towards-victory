@@ -26,8 +26,6 @@ def eng_positive_trigger(token_id: str) -> list[str]:
         return ["var:tv_wonder_organization_competence ?= { this < 100 }"]
     if token_id == "logistics_competence":
         return ["var:tv_wonder_logistics_competence ?= { this < 100 }"]
-    if token_id == "materials_stockpile":
-        return ["tv_wonder_materials_stockpile_can_increase_trigger = yes"]
     if token_id == "construction_progress":
         return ["tv_wonder_active_part_can_gain_progress_trigger = yes"]
     raise ValueError(f"Unhandled engineering token: {token_id}")
@@ -42,8 +40,6 @@ def eng_negative_trigger(token_id: str) -> list[str]:
         return ["var:tv_wonder_organization_competence ?= { this > 0 }"]
     if token_id == "logistics_competence":
         return ["var:tv_wonder_logistics_competence ?= { this > 0 }"]
-    if token_id == "materials_stockpile":
-        return ["tv_wonder_materials_stockpile_can_decrease_trigger = yes"]
     if token_id == "construction_progress":
         return ["tv_wonder_active_part_has_progress_trigger = yes"]
     raise ValueError(f"Unhandled engineering token: {token_id}")

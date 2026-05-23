@@ -46,20 +46,16 @@ tv_wonder_labor_camp_maintenance = {
 	lumber = 6
 	tools = 2
 	wheat = 4
+	tv_wonder_materials = 20
 	category = building_maintenance
 }
 
-tv_wonder_material_depot_maintenance = {
-	lumber = 4
-	masonry = 3
-	tools = 3
-	category = building_maintenance
-}
-
-tv_wonder_material_dispatch_point_maintenance = {
-	lumber = 4
-	masonry = 2
-	tools = 4
+tv_wonder_material_dispatch_point_production = {
+	lumber = 8
+	stone = 4
+	masonry = 4
+	produced = tv_wonder_materials
+	output = 5.2
 	category = building_maintenance
 }
 

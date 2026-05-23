@@ -23,7 +23,6 @@ ENG_EFFECTS = {
     "scale_competence": "tv_wonder_change_scale_competence_effect = { value = VALUE }",
     "organization_competence": "tv_wonder_change_organization_competence_effect = { value = VALUE }",
     "logistics_competence": "tv_wonder_change_logistics_competence_effect = { value = VALUE }",
-    "materials_stockpile": "tv_wonder_change_materials_stockpile_effect = { value = VALUE }",
     "construction_progress": "tv_wonder_change_construction_progress_effect = { value = VALUE }",
 }
 

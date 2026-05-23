@@ -60,7 +60,6 @@ tv_wonder_reset_io_progress_effect = {
 		}
 		set_variable = { name = tv_wonder_domestic_support value = 0 }
 		set_variable = { name = tv_wonder_survey_progress value = 0 }
-		set_variable = { name = tv_wonder_materials_stockpile value = 0 }
 		set_variable = { name = tv_wonder_construction_progress value = 0 }
 	}
 }
@@ -155,43 +154,6 @@ tv_wonder_apply_monthly_survey_competence_growth_effect = {
 	tv_wonder_update_construction_tiers_from_competence_effect = yes
 }
 
-tv_wonder_clamp_materials_to_country_cap_effect = {
-	every_international_organizations_member_of = {
-		limit = {
-			international_organization_type = international_organization_type:tv_engineering_department
-		}
-		clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
-		if = {
-			limit = {
-				root = { has_variable = tv_wonder_materials_cap }
-				var:tv_wonder_materials_stockpile > root.var:tv_wonder_materials_cap
-			}
-			set_variable = { name = tv_wonder_materials_stockpile value = root.var:tv_wonder_materials_cap }
-		}
-	}
-}
-
-tv_wonder_change_materials_stockpile_effect = {
-	every_international_organizations_member_of = {
-		limit = {
-			international_organization_type = international_organization_type:tv_engineering_department
-		}
-		custom_description = {
-			text = tv_wonder_change_materials_stockpile_text
-			value = $value$
-			change_variable = { name = tv_wonder_materials_stockpile add = $value$ }
-			clamp_variable = { name = tv_wonder_materials_stockpile min = 0 max = 300000 }
-			if = {
-				limit = {
-					root = { has_variable = tv_wonder_materials_cap }
-					var:tv_wonder_materials_stockpile > root.var:tv_wonder_materials_cap
-				}
-				set_variable = { name = tv_wonder_materials_stockpile value = root.var:tv_wonder_materials_cap }
-			}
-		}
-	}
-}
-
 tv_wonder_set_io_construction_progress_effect = {
 	every_international_organizations_member_of = {
 		limit = {
@@ -232,6 +194,7 @@ tv_wonder_change_construction_progress_effect = {
 
 tv_wonder_update_construction_progress_display_effect = {
 	tv_wonder_set_required_progress_effect = yes
+	tv_wonder_update_logistics_metrics_effect = yes
 	set_variable = { name = tv_wonder_current_unit_progress value = 0 }
 	every_international_organizations_member_of = {
 		limit = {
@@ -270,18 +233,18 @@ tv_wonder_update_construction_progress_display_effect = {
 	if = {
 		limit = {
 			var:tv_wonder_remaining_progress > 0
-			var:tv_wonder_laborers ?= { this > 0 }
+			var:tv_wonder_monthly_construction_progress ?= { this > 0 }
 		}
 		set_variable = {
 			name = tv_wonder_remaining_months
 			value = {
 				value = var:tv_wonder_remaining_progress
-				divide = var:tv_wonder_laborers
+				divide = var:tv_wonder_monthly_construction_progress
 				floor = yes
 			}
 		}
 		set_variable = { name = tv_wonder_remaining_months_floor_check value = var:tv_wonder_remaining_months }
-		change_variable = { name = tv_wonder_remaining_months_floor_check multiply = var:tv_wonder_laborers }
+		change_variable = { name = tv_wonder_remaining_months_floor_check multiply = var:tv_wonder_monthly_construction_progress }
 		if = {
 			limit = { var:tv_wonder_remaining_months_floor_check < var:tv_wonder_remaining_progress }
 			change_variable = { name = tv_wonder_remaining_months add = 1 }
@@ -1378,37 +1341,40 @@ tv_wonder_update_construction_tiers_from_competence_effect = {
 	set_variable = { name = tv_wonder_scale_tier value = 1 }
 	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 20 } } set_variable = { name = tv_wonder_scale_tier value = 2 } }
 	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 40 } } set_variable = { name = tv_wonder_scale_tier value = 3 } }
-	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 55 } } set_variable = { name = tv_wonder_scale_tier value = 4 } }
-	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 70 } } set_variable = { name = tv_wonder_scale_tier value = 5 } }
-	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 85 } } set_variable = { name = tv_wonder_scale_tier value = 6 } }
+	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 60 } } set_variable = { name = tv_wonder_scale_tier value = 4 } }
+	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 80 } } set_variable = { name = tv_wonder_scale_tier value = 5 } }
+	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 100 } } set_variable = { name = tv_wonder_scale_tier value = 6 } }
 
 	set_variable = { name = tv_wonder_logistics_tier value = 1 }
 	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 20 } } set_variable = { name = tv_wonder_logistics_tier value = 2 } }
 	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 40 } } set_variable = { name = tv_wonder_logistics_tier value = 3 } }
-	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 55 } } set_variable = { name = tv_wonder_logistics_tier value = 4 } }
-	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 70 } } set_variable = { name = tv_wonder_logistics_tier value = 5 } }
-	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 85 } } set_variable = { name = tv_wonder_logistics_tier value = 6 } }
+	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 60 } } set_variable = { name = tv_wonder_logistics_tier value = 4 } }
+	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 80 } } set_variable = { name = tv_wonder_logistics_tier value = 5 } }
+	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 100 } } set_variable = { name = tv_wonder_logistics_tier value = 6 } }
 
 	set_variable = { name = tv_wonder_organization_tier value = 1 }
 	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 20 } } set_variable = { name = tv_wonder_organization_tier value = 2 } }
 	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 40 } } set_variable = { name = tv_wonder_organization_tier value = 3 } }
-	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 55 } } set_variable = { name = tv_wonder_organization_tier value = 4 } }
-	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 70 } } set_variable = { name = tv_wonder_organization_tier value = 5 } }
-	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 85 } } set_variable = { name = tv_wonder_organization_tier value = 6 } }
+	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 60 } } set_variable = { name = tv_wonder_organization_tier value = 4 } }
+	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 80 } } set_variable = { name = tv_wonder_organization_tier value = 5 } }
+	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 100 } } set_variable = { name = tv_wonder_organization_tier value = 6 } }
 
-	set_variable = { name = tv_wonder_logistics_effect_percent value = 200 }
-	if = { limit = { var:tv_wonder_logistics_tier ?= 2 } set_variable = { name = tv_wonder_logistics_effect_percent value = 170 } }
-	if = { limit = { var:tv_wonder_logistics_tier ?= 3 } set_variable = { name = tv_wonder_logistics_effect_percent value = 140 } }
-	if = { limit = { var:tv_wonder_logistics_tier ?= 4 } set_variable = { name = tv_wonder_logistics_effect_percent value = 110 } }
-	if = { limit = { var:tv_wonder_logistics_tier ?= 5 } set_variable = { name = tv_wonder_logistics_effect_percent value = 80 } }
-	if = { limit = { var:tv_wonder_logistics_tier ?= 6 } set_variable = { name = tv_wonder_logistics_effect_percent value = 50 } }
+	set_variable = {
+		name = tv_wonder_organization_site_level_cap
+		value = {
+			value = var:tv_wonder_organization_competence
+			divide = 5
+			floor = yes
+		}
+	}
+	clamp_variable = { name = tv_wonder_organization_site_level_cap min = 0 max = 20 }
 
-	set_variable = { name = tv_wonder_organization_effect_percent value = 200 }
-	if = { limit = { var:tv_wonder_organization_tier ?= 2 } set_variable = { name = tv_wonder_organization_effect_percent value = 170 } }
-	if = { limit = { var:tv_wonder_organization_tier ?= 3 } set_variable = { name = tv_wonder_organization_effect_percent value = 140 } }
-	if = { limit = { var:tv_wonder_organization_tier ?= 4 } set_variable = { name = tv_wonder_organization_effect_percent value = 110 } }
-	if = { limit = { var:tv_wonder_organization_tier ?= 5 } set_variable = { name = tv_wonder_organization_effect_percent value = 80 } }
-	if = { limit = { var:tv_wonder_organization_tier ?= 6 } set_variable = { name = tv_wonder_organization_effect_percent value = 50 } }
+	set_variable = { name = tv_wonder_logistics_progress_percent value = var:tv_wonder_logistics_competence }
+	change_variable = { name = tv_wonder_logistics_progress_percent add = 50 }
+	clamp_variable = { name = tv_wonder_logistics_progress_percent min = 50 max = 150 }
+
+	set_variable = { name = tv_wonder_logistics_effect_percent value = var:tv_wonder_logistics_progress_percent }
+	set_variable = { name = tv_wonder_organization_effect_percent value = var:tv_wonder_organization_site_level_cap }
 }
 
 tv_wonder_initialize_construction_tiers_effect = {
@@ -1516,54 +1482,46 @@ tv_wonder_update_wonder_level_effect = {
 tv_wonder_update_logistics_metrics_effect = {
 	set_variable = { name = tv_wonder_laborers value = 0 }
 	set_variable = { name = tv_wonder_labor_cap value = 0 }
-	set_variable = { name = tv_wonder_depot_level value = 0 }
-	set_variable = { name = tv_wonder_materials_cap value = 0 }
+	set_variable = { name = tv_wonder_labor_cap_display value = 1 }
+	set_variable = { name = tv_wonder_monthly_construction_progress value = 0 }
 	set_variable = { name = tv_wonder_dispatch_points value = 0 }
 	set_variable = { name = tv_wonder_material_income value = 0 }
 
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
-		save_scope_as = tv_wonder_metric_country
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_metric_site }
-		scope:tv_wonder_metric_site = {
-			ordered_buildings_in_location = {
-				limit = {
-					building_type = building_type:tv_wonder_labor_camp
-					owner = scope:tv_wonder_metric_country
-				}
-				order_by = building_level
-				max = 1
-				scope:tv_wonder_metric_country = {
-					set_variable = {
-						name = tv_wonder_laborers
-						value = {
-							value = prev.building_employed_amount
-							multiply = 1000
-							floor = yes
-						}
-					}
-				}
+		set_variable = {
+			name = tv_wonder_laborers
+			value = {
+				value = total_effective_building_levels:tv_wonder_labor_camp
+				multiply = 1000
+				floor = yes
 			}
 		}
 		set_variable = {
 			name = tv_wonder_labor_cap
 			value = {
-				value = var:tv_wonder_scale_tier
-				multiply = 5000
+				value = 0
+				if = {
+					limit = { has_variable = tv_wonder_organization_site_level_cap }
+					add = var:tv_wonder_organization_site_level_cap
+				}
+				multiply = 1000
 			}
 		}
-		set_variable = {
-			name = tv_wonder_depot_level
-			value = "scope:tv_wonder_metric_site.location_building_level(building_type:tv_wonder_material_depot)"
+		set_variable = { name = tv_wonder_labor_cap_display value = var:tv_wonder_labor_cap }
+		clamp_variable = { name = tv_wonder_labor_cap_display min = 1 max = 20000 }
+		if = {
+			limit = { var:tv_wonder_laborers > var:tv_wonder_labor_cap }
+			set_variable = { name = tv_wonder_laborers value = var:tv_wonder_labor_cap }
 		}
 		set_variable = {
-			name = tv_wonder_materials_cap
+			name = tv_wonder_monthly_construction_progress
 			value = {
-				value = var:tv_wonder_depot_level
-				multiply = 60000
-				max = 300000
+				value = var:tv_wonder_laborers
+				floor = yes
 			}
 		}
+		clamp_variable = { name = tv_wonder_monthly_construction_progress min = 0 max = 30000 }
 		set_variable = {
 			name = tv_wonder_dispatch_points
 			value = total_effective_building_levels:tv_wonder_material_dispatch_point
@@ -1572,12 +1530,10 @@ tv_wonder_update_logistics_metrics_effect = {
 			name = tv_wonder_material_income
 			value = {
 				value = var:tv_wonder_dispatch_points
-				multiply = 100
+				multiply = 5.2
 			}
 		}
 	}
-
-	tv_wonder_clamp_materials_to_country_cap_effect = yes
 }
 
 tv_wonder_clear_current_survey_effect = {
@@ -1606,6 +1562,9 @@ tv_wonder_clear_current_survey_effect = {
 	remove_variable = tv_wonder_organization_tier
 	remove_variable = tv_wonder_logistics_effect_percent
 	remove_variable = tv_wonder_organization_effect_percent
+	remove_variable = tv_wonder_logistics_progress_percent
+	remove_variable = tv_wonder_organization_site_level_cap
+	remove_variable = tv_wonder_monthly_construction_progress
 	tv_wonder_set_io_survey_progress_effect = { value = 0 }
 }
 
@@ -2287,18 +2246,6 @@ tv_wonder_construct_labor_camp_effect = {
 	}
 }
 
-tv_wonder_construct_material_depot_effect = {
-	if = {
-		limit = {
-			tv_wonder_construction_site_selected_trigger = yes
-			tv_wonder_material_depot_below_cap_trigger = yes
-		}
-		var:tv_wonder_site ?= {
-			construct_building = { building_type = building_type:tv_wonder_material_depot }
-		}
-	}
-}
-
 tv_wonder_construct_material_dispatch_point_effect = {
 	if = {
 		limit = {
@@ -2429,20 +2376,8 @@ tv_wonder_monthly_construction_effect = {
 	tv_wonder_update_logistics_metrics_effect = yes
 	if = {
 		limit = { tv_wonder_construction_active_trigger = yes }
-		if = {
-			limit = { var:tv_wonder_laborers ?= { this > 0 } }
-			if = {
-				limit = { tv_wonder_has_materials_for_month_trigger = yes }
-				remove_variable = tv_wonder_construction_paused
-				tv_wonder_check_construction_unit_completion_effect = yes
-			}
-			else = {
-				set_variable = { name = tv_wonder_construction_paused value = 1 }
-			}
-		}
-		else = {
-			remove_variable = tv_wonder_construction_paused
-		}
+		remove_variable = tv_wonder_construction_paused
+		tv_wonder_check_construction_unit_completion_effect = yes
 	}
 	else_if = {
 		limit = {
@@ -2466,19 +2401,6 @@ tv_wonder_monthly_construction_effect = {
 	tv_wonder_update_construction_progress_display_effect = yes
 }
 
-tv_wonder_destroy_material_depot_effect = {
-	if = {
-		limit = { tv_wonder_construction_site_selected_trigger = yes }
-		save_scope_as = tv_wonder_depot_owner
-		var:tv_wonder_site ?= {
-			if = {
-				limit = { has_building = building_type:tv_wonder_material_depot }
-				destroy_building_forcefully = "building(building_type:tv_wonder_material_depot|scope:tv_wonder_depot_owner)"
-			}
-		}
-	}
-}
-
 tv_wonder_destroy_labor_camp_effect = {
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
@@ -2499,7 +2421,6 @@ tv_wonder_finish_construction_effect = {
 		set_variable = { name = tv_wonder_stage value = 4 }
 		remove_variable = tv_wonder_active_part
 		remove_variable = tv_wonder_construction_paused
-		tv_wonder_destroy_material_depot_effect = yes
 		tv_wonder_destroy_labor_camp_effect = yes
 		tv_change_wonder_domestic_support_effect = { value = 20 }
 		trigger_event_non_silently = { id = tv_engineering_department.202 }
@@ -3508,7 +3429,6 @@ tv_wonder_reinitialize_building_state_effect = {
 }
 
 tv_wonder_clear_project_state_effect = {
-	tv_wonder_destroy_material_depot_effect = yes
 	tv_wonder_destroy_labor_camp_effect = yes
 	remove_variable = tv_wonder_proposal
 	remove_variable = tv_wonder_proposal_mode
@@ -3536,6 +3456,8 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_organization_tier
 	remove_variable = tv_wonder_logistics_effect_percent
 	remove_variable = tv_wonder_organization_effect_percent
+	remove_variable = tv_wonder_logistics_progress_percent
+	remove_variable = tv_wonder_organization_site_level_cap
 	remove_variable = tv_wonder_scale_competence
 	remove_variable = tv_wonder_logistics_competence
 	remove_variable = tv_wonder_organization_competence
@@ -3549,8 +3471,8 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_engineer_bonus
 	remove_variable = tv_wonder_laborers
 	remove_variable = tv_wonder_labor_cap
-	remove_variable = tv_wonder_depot_level
-	remove_variable = tv_wonder_materials_cap
+	remove_variable = tv_wonder_labor_cap_display
+	remove_variable = tv_wonder_monthly_construction_progress
 	remove_variable = tv_wonder_dispatch_points
 	remove_variable = tv_wonder_material_income
 	remove_variable = tv_wonder_active_part

@@ -109,7 +109,7 @@
  game_concept_tv_wonder_survey_desc: "The site-assessment stage of [tv_wonder_construction|e]. Survey progress rises monthly from the [tv_great_engineer|e]'s Military skill, reveals Scale, Logistics, and Organization competence, and lets the country confirm a construction site once the readings are complete."
 
  game_concept_tv_wonder_materials: "Wonder Materials"
- game_concept_tv_wonder_materials_desc: "The stockpile consumed by active [tv_wonder_construction|e]. Labor camps turn workers into construction progress, material depots set the storage cap, and dispatch points across the realm feed the stockpile each month."
+ game_concept_tv_wonder_materials_desc: "A produced market good used to maintain $tv_wonder_labor_camp$ during active [tv_wonder_construction|e]. Dispatch points convert basic construction goods into [tv_wonder_materials|e], so supply and price are handled through the normal market."
 
  game_concept_tv_wonder_ceremony: "Wonder Ceremony"
  game_concept_tv_wonder_ceremony_desc: "The final dedication of a completed [tv_wonder_construction|e] project. The chosen ceremony branch determines the monument's final building, permanent country modifier, and last burst of prestige, stability, and legitimacy from remaining [tv_wonder_domestic_support|e]."
@@ -157,13 +157,13 @@
  game_concept_tv_wonder_domestic_support_desc: "A [tv_wonder_construction|e] resource representing elite and public willingness to sustain a major wonder project. Reach 100 to end the initial debate; support can be stored up to 200 and decays after the debate ends."
 
  game_concept_tv_wonder_scale_competence: "Scale Competence"
- game_concept_tv_wonder_scale_competence_desc: "A [tv_wonder_survey|e] reading for how well the chosen site can carry the wonder's intended size, axes, foundations, and public approach without forcing the design into an awkward shape."
+ game_concept_tv_wonder_scale_competence_desc: "A [tv_wonder_survey|e] reading for how well the chosen site can carry the wonder's intended size, axes, foundations, and public approach without forcing the design into an awkward shape. It sets maximum wonder level at 20%, 40%, 60%, 80%, and 100%, with level 6 requiring 100%."
 
  game_concept_tv_wonder_organization_competence: "Organization Competence"
- game_concept_tv_wonder_organization_competence_desc: "A [tv_wonder_survey|e] reading for how cleanly labor rosters, foremen, workshops, and construction stages can be made to answer one plan instead of many competing orders."
+ game_concept_tv_wonder_organization_competence_desc: "A [tv_wonder_survey|e] reading for how cleanly labor rosters, foremen, workshops, and construction stages can be made to answer one plan instead of many competing orders. It linearly sets the maximum Wonder Worksite level from 0 to 20."
 
  game_concept_tv_wonder_logistics_competence: "Logistics Competence"
- game_concept_tv_wonder_logistics_competence_desc: "A [tv_wonder_survey|e] reading for roads, depots, carts, ports, bridges, and handover points that determine whether [tv_wonder_materials|e] reach the site when the masons need them."
+ game_concept_tv_wonder_logistics_competence_desc: "A [tv_wonder_survey|e] reading for roads, carts, ports, bridges, and handover points that determine whether [tv_wonder_materials|e] reach the site when the masons need them."
 
  # -- Trade Victory Unique Mechanics ----------------------------------------
  game_concept_tv_trade_league: "Trade League"

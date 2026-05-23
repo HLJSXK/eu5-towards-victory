@@ -108,8 +108,8 @@
  game_concept_tv_wonder_survey: "奇观测绘"
  game_concept_tv_wonder_survey_desc: "[tv_wonder_construction|e]的工地评估阶段。测绘进度每月由[tv_great_engineer|e]的军事能力推动，并揭示规模、物流与组织三项称职度；读数完成后，国家即可确认建设地点。"
 
- game_concept_tv_wonder_materials: "奇观物资"
- game_concept_tv_wonder_materials_desc: "[tv_wonder_construction|e]正在消耗的物资储备。劳工营地将工人转化为建设进度，物资集散地决定仓储上限，各地派出点则每月向储备补充材料。"
+ game_concept_tv_wonder_materials: "奇观建材"
+ game_concept_tv_wonder_materials_desc: "一种用于维护$tv_wonder_labor_camp$的市场商品。各地派出点把基础建筑商品加工成[tv_wonder_materials|e]，其供给与价格由普通市场处理。"
 
  game_concept_tv_wonder_ceremony: "奇观仪式"
  game_concept_tv_wonder_ceremony_desc: "[tv_wonder_construction|e]完工后的最终献成。所选仪式分支决定纪念碑的最终建筑、永久国家修正，并根据剩余[tv_wonder_domestic_support|e]给予最后一轮威望、稳定度与正统性奖励。"
@@ -157,13 +157,13 @@
  game_concept_tv_wonder_domestic_support_desc: "[tv_wonder_construction|e]资源，代表精英与公众对大型奇观工程的支持。达到100即可结束初始辩论；支持度最多储存到200，并会在辩论结束后逐月衰减。"
 
  game_concept_tv_wonder_scale_competence: "规模适性"
- game_concept_tv_wonder_scale_competence_desc: "[tv_wonder_survey|e]读数，衡量选址能否承载奇观预期的尺度、轴线、地基与公共入口，而不至于把设计压成尴尬的形状。"
+ game_concept_tv_wonder_scale_competence_desc: "[tv_wonder_survey|e]读数，衡量选址能否承载奇观预期的尺度、轴线、地基与公共入口，而不至于把设计压成尴尬的形状。它以20%、40%、60%、80%、100%为分界决定奇观最大等级，6级奇观需要100%适性。"
 
  game_concept_tv_wonder_organization_competence: "组织适性"
- game_concept_tv_wonder_organization_competence_desc: "[tv_wonder_survey|e]读数，衡量劳役名册、工头、工坊与施工阶段能否听命于同一张计划，而不是被互相竞争的号令拉扯。"
+ game_concept_tv_wonder_organization_competence_desc: "[tv_wonder_survey|e]读数，衡量劳役名册、工头、工坊与施工阶段能否听命于同一张计划，而不是被互相竞争的号令拉扯。它以0%到100%线性决定0到20级奇观工地最大等级。"
 
  game_concept_tv_wonder_logistics_competence: "物流适性"
- game_concept_tv_wonder_logistics_competence_desc: "[tv_wonder_survey|e]读数，衡量道路、仓库、车队、港口、桥梁与交接点能否让[tv_wonder_materials|e]在匠人需要时抵达工地。"
+ game_concept_tv_wonder_logistics_competence_desc: "[tv_wonder_survey|e]读数，衡量道路、车队、港口、桥梁与交接点能否让[tv_wonder_materials|e]在匠人需要时抵达工地。"
 
  # -- 贸易胜利独有机制 --------------------------------------------------------
  game_concept_tv_trade_league: "贸易联盟"

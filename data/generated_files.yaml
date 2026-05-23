@@ -121,6 +121,10 @@ generated:
     data:   data/academy_laws.yaml
     output: src/in_game/common/laws/tv_academy_laws.txt
 
+  - script: scripts/in_game/common/laws/gen_tv_trade_league_laws.py
+    data:   data/trade_league_laws.yaml
+    output: src/in_game/common/laws/tv_trade_league_laws.txt
+
   - script: scripts/in_game/common/laws/gen_tv_govhouse_laws.py
     data:   data/govhouse_laws.yaml
     output: src/in_game/common/laws/tv_govhouse_laws.txt
