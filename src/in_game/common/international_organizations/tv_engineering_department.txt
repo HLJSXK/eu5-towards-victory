@@ -9,8 +9,9 @@
 # country variable tv_great_engineer_char holds the appointed character.
 #
 # This file defines the dependency IO and persistent variables used by
-# Wonder Construction. Domestic Support, survey progress, and materials are
-# stored on the IO so the custom panel can show their monthly changes.
+# Wonder Construction. Domestic Support, survey progress, materials, and active
+# construction progress are stored on the IO so the custom panel can show their
+# monthly changes.
 
 tv_engineering_department = {
 	has_target = no
@@ -138,6 +139,31 @@ tv_engineering_department = {
 				}
 			}
 		}
+		tv_wonder_construction_progress = {
+			format = "TV_WONDER_CONSTRUCTION_PROGRESS_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 300000
+			start = 0
+			monthly_change = {
+				add = {
+					desc = "TV_WONDER_ACTIVE_CONSTRUCTION_PROGRESS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								has_variable = tv_engineering_department_member
+								tv_wonder_active_part_can_gain_progress_trigger = yes
+								NOT = { has_variable = tv_wonder_construction_complete }
+								var:tv_wonder_laborers ?= { this > 0 }
+							}
+							var:tv_wonder_materials_stockpile >= leader_country.var:tv_wonder_laborers
+						}
+						value = leader_country.var:tv_wonder_laborers
+					}
+				}
+			}
+		}
 	}
 
 	modifier = {
@@ -159,7 +185,18 @@ tv_engineering_department = {
 						NOT = { has_variable = tv_wonder_finalized }
 					}
 				}
-				leader_country ?= { trigger_event_non_silently = { id = tv_engineering_department.20 } }
+				if = {
+					limit = {
+						leader_country ?= {
+							var:tv_wonder_level ?= { this >= 1 }
+							tv_wonder_can_finish_construction_trigger = yes
+						}
+					}
+					leader_country ?= { tv_wonder_finish_construction_effect = yes }
+				}
+				else = {
+					leader_country ?= { trigger_event_non_silently = { id = tv_engineering_department.20 } }
+				}
 			}
 		}
 	}

@@ -1,0 +1,153 @@
+wonders:
+  - id: 1
+    key: sacred_mountain
+    concept: tv_wonder_sacred_mountain
+    size: small
+    category: cultural_category
+    pop_type: clergy
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Sacred Mountain"
+      zh: "圣山奇观"
+    final_buildings:
+      1: tv_wonder_golden_sanctuary
+      2: tv_wonder_ascetic_mountain
+      3: tv_wonder_theocratic_center
+  - id: 2
+    key: triumphal_axis
+    concept: tv_wonder_triumphal_axis
+    size: large
+    category: government_category
+    pop_type: nobles
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Triumphal Axis"
+      zh: "凯旋轴线"
+    final_buildings:
+      1: tv_wonder_sun_king_axis
+      2: tv_wonder_military_city
+      3: tv_wonder_civic_capital
+  - id: 3
+    key: great_port
+    concept: tv_wonder_great_port
+    size: medium
+    category: infrastructure_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Great Port"
+      zh: "巨港"
+    final_buildings:
+      1: tv_wonder_golden_trade_port
+      2: tv_wonder_imperial_naval_port
+      3: tv_wonder_free_trade_metropolis
+  - id: 4
+    key: giant_necropolis
+    concept: tv_wonder_giant_necropolis
+    size: medium
+    category: cultural_category
+    pop_type: nobles
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Giant Necropolis Complex"
+      zh: "巨型陵墓园区"
+    final_buildings:
+      1: tv_wonder_dynastic_necropolis
+      2: tv_wonder_ancestor_shrine
+      3: tv_wonder_quiet_land
+  - id: 5
+    key: great_lighthouse
+    concept: tv_wonder_great_lighthouse
+    size: small
+    category: infrastructure_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Great Lighthouse"
+      zh: "巨型灯塔"
+    final_buildings:
+      1: tv_wonder_eternal_lighthouse
+      2: tv_wonder_navigator_lighthouse
+      3: tv_wonder_long_watch_lighthouse
+  - id: 6
+    key: hydraulic_workshop
+    concept: tv_wonder_hydraulic_workshop
+    size: medium
+    category: infrastructure_category
+    pop_type: laborers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Hydraulic Workshop Complex"
+      zh: "水利工坊复合体"
+    final_buildings:
+      1: tv_wonder_water_god_workshop
+      2: tv_wonder_hydraulic_artisan_guildhall
+      3: tv_wonder_waterwheel_workshop
+  - id: 7
+    key: mining_city
+    concept: tv_wonder_mining_city
+    size: large
+    category: infrastructure_category
+    pop_type: laborers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Mining City"
+      zh: "矿业都市"
+    final_buildings:
+      1: tv_wonder_miners_oath_city
+      2: tv_wonder_royal_mint_city
+      3: tv_wonder_deep_shaft_city
+  - id: 8
+    key: giant_observatory
+    concept: tv_wonder_giant_observatory
+    size: small
+    category: cultural_category
+    pop_type: clergy
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Giant Observatory"
+      zh: "巨型天文观象台"
+    final_buildings:
+      1: tv_wonder_star_catalog_observatory
+      2: tv_wonder_nautical_almanac_observatory
+      3: tv_wonder_eclipse_observatory
+  - id: 9
+    key: palace_of_nations
+    concept: tv_wonder_palace_of_nations
+    size: medium
+    category: government_category
+    pop_type: nobles
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Palace of Nations"
+      zh: "万国宫城"
+    final_buildings:
+      1: tv_wonder_congress_palace
+      2: tv_wonder_tribute_gallery
+      3: tv_wonder_embassy_palace
+
+parts:
+  - key: foundation
+    loc:
+      en: "Foundation"
+      zh: "基础"
+  - key: body
+    loc:
+      en: "Main Structure"
+      zh: "主体"
+  - key: function
+    loc:
+      en: "Functional Works"
+      zh: "功能"
+  - key: decoration
+    loc:
+      en: "Crowning Decoration"
+      zh: "封顶装饰"
+
+sizes:
+  small:
+    progress: 100000
+  medium:
+    progress: 200000
+  large:
+    progress: 300000

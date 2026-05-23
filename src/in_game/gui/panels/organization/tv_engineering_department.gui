@@ -31,6 +31,44 @@ organization_panel = {
 	}
 	blockoverride "country_header_religion" {}
 	blockoverride "extra_titles" {}
+	blockoverride "country_header_extra" {
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			margin = { 10 10 }
+			spacing = 8
+
+			vbox = {
+				visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_complete').IsSet))]"
+				size = { 360 46 }
+				spacing = 3
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = { text = "TV_ENGINEERING_HEADER_CONSTRUCTION_PROGRESS" align = nobaseline|left }
+					text_single = { raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_construction_progress')]" align = nobaseline|left }
+					expand = {}
+					text_single = {
+						datacontext = "[InternationalOrganizationsView.GetPlayer]"
+						text = "TV_ENGINEERING_CONSTRUCTION_PERCENT_TEXT"
+						align = nobaseline|right
+					}
+				}
+				progressbar = {
+					layoutpolicy_horizontal = expanding
+					size = { -1 12 }
+					using = progress_bar_goldish
+					min = 0
+					max = 100
+					value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_progress_pct').GetValue]"
+					tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
+				}
+			}
+
+			expand = {}
+		}
+	}
 	blockoverride "country_header_names_visible" {
 		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
 	}
@@ -465,68 +503,44 @@ organization_panel = {
 											text = "TV_ENGINEERING_PROPOSAL_NONE_TEXT"
 											align = nobaseline|left
 										}
-										text_multi = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)1.0')]"
-											max_width = 352
-											autoresize = yes
-											text = "TV_ENGINEERING_PROPOSAL_SACRED_MOUNTAIN_TEXT"
-											align = nobaseline|left
+										vbox = {
+											visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_mode').IsSet)]"
+											ignoreinvisible = yes
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)1.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_SACRED_MOUNTAIN_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)2.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_TRIUMPHAL_AXIS_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)3.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_GREAT_PORT_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)4.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_GIANT_NECROPOLIS_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)5.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_GREAT_LIGHTHOUSE_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)6.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_HYDRAULIC_WORKSHOP_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)7.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_MINING_CITY_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)8.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_GIANT_OBSERVATORY_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)9.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_PALACE_OF_NATIONS_TEXT" align = nobaseline|left }
 										}
-										text_multi = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)2.0')]"
-											max_width = 352
-											autoresize = yes
-											text = "TV_ENGINEERING_PROPOSAL_TRIUMPHAL_AXIS_TEXT"
-											align = nobaseline|left
+										vbox = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_mode').GetValue, '(CFixedPoint)1.0')]"
+											ignoreinvisible = yes
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)1.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_RESUME_SACRED_MOUNTAIN_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)2.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_RESUME_TRIUMPHAL_AXIS_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)3.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_RESUME_GREAT_PORT_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)4.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_RESUME_GIANT_NECROPOLIS_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)5.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_RESUME_GREAT_LIGHTHOUSE_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)6.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_RESUME_HYDRAULIC_WORKSHOP_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)7.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_RESUME_MINING_CITY_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)8.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_RESUME_GIANT_OBSERVATORY_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)9.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_RESUME_PALACE_OF_NATIONS_TEXT" align = nobaseline|left }
 										}
-										text_multi = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)3.0')]"
-											max_width = 352
-											autoresize = yes
-											text = "TV_ENGINEERING_PROPOSAL_GREAT_PORT_TEXT"
-											align = nobaseline|left
-										}
-										text_multi = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)4.0')]"
-											max_width = 352
-											autoresize = yes
-											text = "TV_ENGINEERING_PROPOSAL_GIANT_NECROPOLIS_TEXT"
-											align = nobaseline|left
-										}
-										text_multi = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)5.0')]"
-											max_width = 352
-											autoresize = yes
-											text = "TV_ENGINEERING_PROPOSAL_GREAT_LIGHTHOUSE_TEXT"
-											align = nobaseline|left
-										}
-										text_multi = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)6.0')]"
-											max_width = 352
-											autoresize = yes
-											text = "TV_ENGINEERING_PROPOSAL_HYDRAULIC_WORKSHOP_TEXT"
-											align = nobaseline|left
-										}
-										text_multi = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)7.0')]"
-											max_width = 352
-											autoresize = yes
-											text = "TV_ENGINEERING_PROPOSAL_MINING_CITY_TEXT"
-											align = nobaseline|left
-										}
-										text_multi = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)8.0')]"
-											max_width = 352
-											autoresize = yes
-											text = "TV_ENGINEERING_PROPOSAL_GIANT_OBSERVATORY_TEXT"
-											align = nobaseline|left
-										}
-										text_multi = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)9.0')]"
-											max_width = 352
-											autoresize = yes
-											text = "TV_ENGINEERING_PROPOSAL_PALACE_OF_NATIONS_TEXT"
-											align = nobaseline|left
+										vbox = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_mode').GetValue, '(CFixedPoint)2.0')]"
+											ignoreinvisible = yes
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)1.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_EXPAND_SACRED_MOUNTAIN_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)2.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_EXPAND_TRIUMPHAL_AXIS_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)3.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_EXPAND_GREAT_PORT_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)4.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_EXPAND_GIANT_NECROPOLIS_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)5.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_EXPAND_GREAT_LIGHTHOUSE_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)6.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_EXPAND_HYDRAULIC_WORKSHOP_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)7.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_EXPAND_MINING_CITY_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)8.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_EXPAND_GIANT_OBSERVATORY_TEXT" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, '(CFixedPoint)9.0')]" max_width = 352 autoresize = yes text = "TV_ENGINEERING_PROPOSAL_EXPAND_PALACE_OF_NATIONS_TEXT" align = nobaseline|left }
 										}
 										text_multi = {
 											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)1.0')]"
@@ -1510,6 +1524,19 @@ organization_panel = {
 					spacing = 10
 					margin = { 10 2 }
 
+					widget = {
+						layoutpolicy_horizontal = expanding
+						size = { 500 48 }
+						using = bg_text_mask_container_dark_blue
+						text_multi = {
+							margin = { 8 6 }
+							max_width = 484
+							autoresize = yes
+							text = "TV_ENGINEERING_CONSTRUCTION_EXPANSION_HINT"
+							align = nobaseline|left
+						}
+					}
+
 					card_common = {
 						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
 						layoutpolicy_vertical = fixed
@@ -1792,40 +1819,29 @@ organization_panel = {
 										text_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0')]" text = "TV_ENGINEERING_ACTIVE_PART_DECORATION" align = nobaseline }
 									}
 									progressbar = {
-										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)1.0')]"
+										visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').IsSet]"
 										size = { 462 16 }
 										using = progress_bar_goldish
 										min = 0
-										max = 300000
-										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_foundation_progress').GetValue]"
+										max = 100
+										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_progress_pct').GetValue]"
 										tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
 									}
-									progressbar = {
-										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)2.0')]"
-										size = { 462 16 }
-										using = progress_bar_goldish
-										min = 0
-										max = 300000
-										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_body_progress').GetValue]"
-										tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
-									}
-									progressbar = {
-										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)3.0')]"
-										size = { 462 16 }
-										using = progress_bar_goldish
-										min = 0
-										max = 300000
-										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_function_progress').GetValue]"
-										tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
-									}
-									progressbar = {
-										visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0')]"
-										size = { 462 16 }
-										using = progress_bar_goldish
-										min = 0
-										max = 300000
-										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_decoration_progress').GetValue]"
-										tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
+									hbox = {
+										visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').IsSet]"
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+										text_single = {
+											datacontext = "[InternationalOrganizationsView.GetPlayer]"
+											layoutpolicy_horizontal = expanding
+											text = "TV_ENGINEERING_CONSTRUCTION_REMAINING_TEXT"
+											align = nobaseline|left
+										}
+										text_single = {
+											datacontext = "[InternationalOrganizationsView.GetPlayer]"
+											text = "TV_ENGINEERING_CONSTRUCTION_PERCENT_TEXT"
+											align = nobaseline|right
+										}
 									}
 									text_single = {
 										visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_paused').IsSet]"
@@ -1911,6 +1927,7 @@ organization_panel = {
 									}
 
 									hbox = {
+										visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_locked').IsSet)]"
 										layoutpolicy_horizontal = expanding
 										ignoreinvisible = yes
 										spacing = 4
@@ -2184,6 +2201,15 @@ organization_panel = {
 											actor = "[InternationalOrganizationsView.GetPlayer]"
 											left_action = { action_name = "tv_wonder_choose_ceremony_style_3" }
 										}
+									}
+
+									text_multi = {
+										visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_locked').IsSet]"
+										layoutpolicy_horizontal = expanding
+										max_width = 462
+										autoresize = yes
+										text = "TV_ENGINEERING_CEREMONY_LOCKED_BY_EXPANSION_TEXT"
+										align = nobaseline|left
 									}
 
 									widget = {

@@ -480,45 +480,27 @@ tv_wonder_active_part_can_gain_progress_trigger = {
 		AND = {
 			var:tv_wonder_active_part ?= 1
 			tv_wonder_foundation_below_max_trigger = yes
-			var:tv_wonder_foundation_progress ?= { this < 300000 }
 		}
 		AND = {
 			var:tv_wonder_active_part ?= 2
 			tv_wonder_body_below_max_trigger = yes
-			var:tv_wonder_body_progress ?= { this < 300000 }
 		}
 		AND = {
 			var:tv_wonder_active_part ?= 3
 			tv_wonder_function_below_max_trigger = yes
-			var:tv_wonder_function_progress ?= { this < 300000 }
 		}
 		AND = {
 			var:tv_wonder_active_part ?= 4
 			tv_wonder_decoration_below_max_trigger = yes
-			var:tv_wonder_decoration_progress ?= { this < 300000 }
 		}
 	}
 }
 
 tv_wonder_active_part_has_progress_trigger = {
 	tv_wonder_construction_active_trigger = yes
-	OR = {
-		AND = {
-			var:tv_wonder_active_part ?= 1
-			var:tv_wonder_foundation_progress ?= { this > 0 }
-		}
-		AND = {
-			var:tv_wonder_active_part ?= 2
-			var:tv_wonder_body_progress ?= { this > 0 }
-		}
-		AND = {
-			var:tv_wonder_active_part ?= 3
-			var:tv_wonder_function_progress ?= { this > 0 }
-		}
-		AND = {
-			var:tv_wonder_active_part ?= 4
-			var:tv_wonder_decoration_progress ?= { this > 0 }
-		}
+	any_international_organizations_member_of = {
+		international_organization_type = international_organization_type:tv_engineering_department
+		var:tv_wonder_construction_progress ?= { this > 0 }
 	}
 }
 
@@ -633,6 +615,7 @@ tv_wonder_ceremony_style_3_trigger = {
 tv_wonder_can_choose_ceremony_style_trigger = {
 	tv_wonder_ceremony_ready_trigger = yes
 	NOT = { has_variable = tv_wonder_ceremony_active }
+	NOT = { has_variable = tv_wonder_ceremony_locked }
 }
 
 tv_wonder_can_perform_royal_sacrifice_trigger = {

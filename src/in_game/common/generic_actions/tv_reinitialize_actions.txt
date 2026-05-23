@@ -187,6 +187,7 @@ tv_reinitialize_mod = {
 				}
 				set_leader_country = scope:actor
 			}
+			tv_wonder_reinitialize_building_state_effect = yes
 			every_international_organizations_member_of = {
 				limit = {
 					international_organization_type = international_organization_type:tv_trade_league
