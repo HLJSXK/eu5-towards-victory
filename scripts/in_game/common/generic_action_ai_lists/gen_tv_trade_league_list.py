@@ -40,11 +40,17 @@ BASE_ACTIONS = [
 ]
 
 DISPLAY_ROW_COUNT = 10
+INTELLIGENCE_ROW_COUNT = 10
 
 FIXED_MONOPOLY_ACTIONS = [
     "tv_trade_previous_monopoly_page",
     "tv_trade_next_monopoly_page",
     *(f"tv_trade_select_monopoly_row_{row}" for row in range(1, DISPLAY_ROW_COUNT + 1)),
+    "tv_trade_previous_intelligence_page",
+    "tv_trade_next_intelligence_page",
+    *(f"tv_trade_select_intelligence_row_{row}" for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
+    "tv_trade_start_intelligence_network",
+    "tv_trade_cancel_intelligence_network",
     "tv_trade_set_selected_virtual_demand",
     "tv_trade_increase_selected_virtual_demand",
     "tv_trade_decrease_selected_virtual_demand",

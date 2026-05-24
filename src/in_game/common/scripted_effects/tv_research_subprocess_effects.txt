@@ -408,6 +408,7 @@ tv_research_confirm_target_effect = {
 		limit = { has_variable = tv_research_proposed_advance }
 		set_variable = { name = tv_research_target value = var:tv_research_proposed_advance }
 		remove_variable = tv_research_proposed_advance
+		remove_variable = tv_research_completed_target_notice
 		tv_research_init_cycle_effect = yes
 	}
 }

@@ -416,6 +416,91 @@ tv_research_has_active_target_trigger = {
 	}
 }
 
+tv_research_target_already_researched_trigger = {
+	OR = {
+		AND = {
+			var:tv_research_target ?= 1
+			has_advance = printing_press_advance
+		}
+		AND = {
+			var:tv_research_target ?= 2
+			has_advance = iron_working
+		}
+		AND = {
+			var:tv_research_target ?= 4
+			has_advance = gunpowder_advance
+		}
+		AND = {
+			var:tv_research_target ?= 5
+			has_advance = blast_furnace
+		}
+		AND = {
+			var:tv_research_target ?= 6
+			has_advance = scientific_experimentation
+		}
+		AND = {
+			var:tv_research_target ?= 7
+			has_advance = scientific_revolution_advance
+		}
+		AND = {
+			var:tv_research_target ?= 8
+			has_advance = manufactories_advance
+		}
+		AND = {
+			var:tv_research_target ?= 9
+			has_advance = industrialization_advance
+		}
+		AND = {
+			var:tv_research_target ?= 10
+			has_advance = vaccination_advance
+		}
+		AND = {
+			var:tv_research_target ?= 11
+			has_advance = renaissance_advance
+		}
+		AND = {
+			var:tv_research_target ?= 12
+			has_advance = banking_advance
+		}
+		AND = {
+			var:tv_research_target ?= 13
+			has_advance = professional_armies_advance
+		}
+		AND = {
+			var:tv_research_target ?= 14
+			has_advance = new_world_advance
+		}
+		AND = {
+			var:tv_research_target ?= 15
+			has_advance = pike_and_shot_advance
+		}
+		AND = {
+			var:tv_research_target ?= 16
+			has_advance = confessionalism_advance
+		}
+		AND = {
+			var:tv_research_target ?= 17
+			has_advance = global_trade_advance
+		}
+		AND = {
+			var:tv_research_target ?= 18
+			has_advance = artillery_institution_advance
+		}
+		AND = {
+			var:tv_research_target ?= 19
+			has_advance = military_revolution_advance
+		}
+		AND = {
+			var:tv_research_target ?= 20
+			has_advance = enlightenment_advance
+		}
+		AND = {
+			var:tv_research_target ?= 21
+			has_advance = levee_en_masse_advance
+		}
+	}
+}
+
 tv_research_can_abandon_target_trigger = {
 	tv_research_has_active_target_trigger = yes
 	custom_tooltip = {

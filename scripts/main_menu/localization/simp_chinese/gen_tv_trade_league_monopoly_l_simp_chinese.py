@@ -24,6 +24,7 @@ OUT_FILE = (
 VIRTUAL_ACTION_COST_PCT = 5
 EMBARGO_COST_PCT = 30
 DISPLAY_ROW_COUNT = 10
+INTELLIGENCE_ROW_COUNT = 10
 
 
 def good_name(good: str) -> str:
@@ -72,6 +73,15 @@ def fixed_action_entries() -> list[tuple[str, str]]:
         ("tv_trade_next_monopoly_page", "下一页"),
         ("tv_trade_next_monopoly_page_desc", "显示下一页商品。"),
         ("tv_trade_select_monopoly_row_desc", "显示此商品的垄断详情。"),
+        ("tv_trade_previous_intelligence_page", "上一页"),
+        ("tv_trade_previous_intelligence_page_desc", "显示上一页情报。"),
+        ("tv_trade_next_intelligence_page", "下一页"),
+        ("tv_trade_next_intelligence_page_desc", "显示下一页情报。"),
+        ("tv_trade_select_intelligence_row_desc", "显示此市场的情报详情。"),
+        ("tv_trade_start_intelligence_network", "建立情报网"),
+        ("tv_trade_start_intelligence_network_desc", "派遣大商人在所选市场建立情报网。"),
+        ("tv_trade_cancel_intelligence_network", "取消情报网"),
+        ("tv_trade_cancel_intelligence_network_desc", "停止当前贸易联盟情报网建设。"),
         ("tv_trade_set_selected_virtual_demand", "虚构需求"),
         ("tv_trade_set_selected_virtual_demand_desc", "分配垄断水平，在选定市场创造当前商品的临时需求。"),
         ("tv_trade_increase_selected_virtual_demand", "增加虚构需求"),
@@ -95,10 +105,17 @@ def fixed_action_entries() -> list[tuple[str, str]]:
     ]
     for row in range(1, DISPLAY_ROW_COUNT + 1):
         entries.append((f"tv_trade_select_monopoly_row_{row}", "选择商品"))
+    for row in range(1, INTELLIGENCE_ROW_COUNT + 1):
+        entries.append((f"tv_trade_select_intelligence_row_{row}", "选择市场"))
     actions = [
         "tv_trade_previous_monopoly_page",
         "tv_trade_next_monopoly_page",
         *(f"tv_trade_select_monopoly_row_{row}" for row in range(1, DISPLAY_ROW_COUNT + 1)),
+        "tv_trade_previous_intelligence_page",
+        "tv_trade_next_intelligence_page",
+        *(f"tv_trade_select_intelligence_row_{row}" for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
+        "tv_trade_start_intelligence_network",
+        "tv_trade_cancel_intelligence_network",
         "tv_trade_set_selected_virtual_demand",
         "tv_trade_increase_selected_virtual_demand",
         "tv_trade_decrease_selected_virtual_demand",

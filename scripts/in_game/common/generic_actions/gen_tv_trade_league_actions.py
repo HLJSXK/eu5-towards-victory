@@ -105,6 +105,7 @@ tv_expel_trade_league_member = {
 VIRTUAL_ACTION_COST_PCT = 5
 EMBARGO_COST_PCT = 30
 DISPLAY_ROW_COUNT = 10
+INTELLIGENCE_ROW_COUNT = 10
 INDENT_4 = "\t" * 4
 INDENT_5 = "\t" * 5
 INDENT_6 = "\t" * 6
@@ -114,6 +115,13 @@ def leader_io_limit(good: str | None = None, indent: str = "\t\t\t\t") -> str:
     lines = [
         "international_organization_type = international_organization_type:tv_trade_league",
         "leader_country ?= scope:actor",
+    ]
+    return f"\n{indent}".join(lines)
+
+
+def member_io_limit(indent: str = "\t\t\t\t") -> str:
+    lines = [
+        "international_organization_type = international_organization_type:tv_trade_league",
     ]
     return f"\n{indent}".join(lines)
 
@@ -131,6 +139,17 @@ def actor_leader_trigger(good: str | None = None) -> str:
     return "\n".join(lines)
 
 
+def actor_member_trigger() -> str:
+    lines = [
+        "scope:actor = {",
+        "\t\t\tany_international_organizations_member_of = {",
+        f"\t\t\t\t{member_io_limit()}",
+        "\t\t\t}",
+        "\t\t}",
+    ]
+    return "\n".join(lines)
+
+
 def actor_leader_limit(good: str | None = None, indent: str = "\t\t\t") -> str:
     inner_indent = indent + "\t"
     lines = [
@@ -140,6 +159,16 @@ def actor_leader_limit(good: str | None = None, indent: str = "\t\t\t") -> str:
     ]
     if good is not None:
         lines.append(f"{indent}var:tv_trade_monopoly_{good} ?= {{ this >= 1 }}")
+    return "\n".join(lines)
+
+
+def actor_member_limit(indent: str = "\t\t\t") -> str:
+    inner_indent = indent + "\t"
+    lines = [
+        f"{indent}any_international_organizations_member_of = {{",
+        f"{indent}\t{member_io_limit(indent=inner_indent)}",
+        f"{indent}}}",
+    ]
     return "\n".join(lines)
 
 
@@ -191,10 +220,10 @@ def base_action(action_id: str, body: str, selected: bool = False) -> str:
 
 def select_category_action(category: dict, first_good_index: int) -> str:
     body = f"""\tpotential = {{
-\t\t{actor_leader_trigger()}
+\t\t{actor_member_trigger()}
 \t}}
 \tallow = {{
-\t\t{actor_leader_trigger()}
+\t\t{actor_member_trigger()}
 \t}}
 \teffect = {{
 \t\tscope:actor = {{
@@ -209,14 +238,15 @@ def select_category_action(category: dict, first_good_index: int) -> str:
 
 def select_good_action(good: str, index: int) -> str:
     body = f"""\tpotential = {{
-\t\t{actor_leader_trigger()}
+\t\t{actor_member_trigger()}
 \t}}
 \tallow = {{
-\t\t{actor_leader_trigger()}
+\t\t{actor_member_trigger()}
 \t}}
 \teffect = {{
 \t\tscope:actor = {{
 \t\t\tset_variable = {{ name = tv_trade_selected_good value = {index} }}
+\t\t\ttv_trade_league_refresh_selected_good_projection_effect = yes
 \t\t}}
 \t}}"""
     return base_action(f"tv_trade_select_monopoly_good_{good}", body, selected=True)
@@ -298,6 +328,8 @@ def market_value_action(good: str, action: str, title_key: str) -> str:
 \t\t\t\t\tset_variable = {{ name = {amount_var} value = {{ value = scope:target_1 divide = {VIRTUAL_ACTION_COST_PCT} }} }}
 \t\t\t\t\tset_variable = {{ name = {location_var} value = scope:tv_trade_selected_market_location }}
 \t\t\t\t\t{removable_action_apply_block(good, action, INDENT_5)}
+\t\t\t\t\ttv_trade_league_recalculate_action_accounting_{good}_effect = yes
+\t\t\t\t\ttv_trade_league_refresh_monopoly_members_display_effect = yes
 \t\t\t\t}}
 \t\t\t}}
 \t\t}}
@@ -359,6 +391,8 @@ def adjust_action(good: str, action: str, direction: str) -> str:
 \t\t\t\t\tremove_variable = {location_var}
 \t\t\t\t}}
 \t\t\t\t{reapply_action}
+\t\t\t\ttv_trade_league_recalculate_action_accounting_{good}_effect = yes
+\t\t\t\ttv_trade_league_refresh_monopoly_members_display_effect = yes
 \t\t\t}}
 \t\t}}
 \t}}"""
@@ -396,6 +430,8 @@ def cancel_action(good: str, action: str) -> str:
 \t\t\t\tset_variable = {{ name = {used_var} value = 0 }}
 \t\t\t\tset_variable = {{ name = {amount_var} value = 0 }}
 \t\t\t\tremove_variable = {location_var}
+\t\t\t\ttv_trade_league_recalculate_action_accounting_{good}_effect = yes
+\t\t\t\ttv_trade_league_refresh_monopoly_members_display_effect = yes
 \t\t\t}}
 \t\t}}
 \t}}"""
@@ -463,6 +499,8 @@ def embargo_action(good: str) -> str:
 \t\t\t\t\tset_variable = {{ name = tv_trade_embargo_used_pct_{good} value = {EMBARGO_COST_PCT} }}
 \t\t\t\t\tset_variable = {{ name = tv_trade_embargo_location_{good} value = scope:tv_trade_embargo_market_location }}
 \t\t\t\t\tset_variable = {{ name = tv_trade_embargo_country_{good} value = scope:target_1 }}
+\t\t\t\t\ttv_trade_league_recalculate_action_accounting_{good}_effect = yes
+\t\t\t\t\ttv_trade_league_refresh_monopoly_members_display_effect = yes
 \t\t\t\t}}
 \t\t\t}}
 \t\t}}
@@ -494,6 +532,8 @@ def cancel_embargo_action(good: str) -> str:
 \t\t\t\tset_variable = {{ name = tv_trade_embargo_used_pct_{good} value = 0 }}
 \t\t\t\tremove_variable = tv_trade_embargo_location_{good}
 \t\t\t\tremove_variable = tv_trade_embargo_country_{good}
+\t\t\t\ttv_trade_league_recalculate_action_accounting_{good}_effect = yes
+\t\t\t\ttv_trade_league_refresh_monopoly_members_display_effect = yes
 \t\t\t}}
 \t\t}}
 \t}}"""
@@ -565,7 +605,7 @@ def selected_effect_branch(
 def selected_recalculate_lines(good: str, indent: str) -> list[str]:
     return [
         f"{indent}tv_trade_league_recalculate_action_accounting_{good}_effect = yes",
-        f"{indent}tv_trade_league_refresh_monopoly_display_effect = yes",
+        f"{indent}tv_trade_league_refresh_monopoly_members_display_effect = yes",
     ]
 
 
@@ -577,10 +617,10 @@ def page_action(direction: str) -> str:
         action_id = "tv_trade_next_monopoly_page"
         mutation = "change_variable = { name = tv_trade_selected_monopoly_page add = 1 }"
     body = f"""\tpotential = {{
-\t\t{actor_leader_trigger()}
+\t\t{actor_member_trigger()}
 \t}}
 \tallow = {{
-\t\t{actor_leader_trigger()}
+\t\t{actor_member_trigger()}
 \t}}
 \teffect = {{
 \t\tscope:actor = {{
@@ -597,11 +637,11 @@ def row_select_action(row: int) -> str:
     visible_var = f"tv_trade_display_row_{row}_visible"
     good_index_var = f"tv_trade_display_row_{row}_good_index"
     body = f"""\tpotential = {{
-\t\t{actor_leader_trigger()}
+\t\t{actor_member_trigger()}
 \t}}
 \tallow = {{
 \t\tscope:actor = {{
-{actor_leader_limit()}
+{actor_member_limit()}
 \t\t\tvar:{visible_var} ?= {{ this >= 1 }}
 \t\t}}
 \t}}
@@ -615,6 +655,109 @@ def row_select_action(row: int) -> str:
 \t\t}}
 \t}}"""
     return base_action(f"tv_trade_select_monopoly_row_{row}", body, selected=True)
+
+
+def intelligence_page_action(direction: str) -> str:
+    if direction == "previous":
+        action_id = "tv_trade_previous_intelligence_page"
+        mutation = "change_variable = { name = tv_trade_intelligence_page subtract = 1 }"
+    else:
+        action_id = "tv_trade_next_intelligence_page"
+        mutation = "change_variable = { name = tv_trade_intelligence_page add = 1 }"
+    body = f"""\tpotential = {{
+\t\t{actor_member_trigger()}
+\t}}
+\tallow = {{
+\t\t{actor_member_trigger()}
+\t}}
+\teffect = {{
+\t\tscope:actor = {{
+\t\t\ttv_trade_league_refresh_intelligence_page_limits_effect = yes
+\t\t\t{mutation}
+\t\t\ttv_trade_league_select_first_displayed_intelligence_market_effect = yes
+\t\t\ttv_trade_league_refresh_intelligence_display_effect = yes
+\t\t}}
+\t}}"""
+    return base_action(action_id, body, selected=True)
+
+
+def intelligence_row_select_action(row: int) -> str:
+    visible_var = f"tv_trade_intelligence_row_{row}_visible"
+    slot_var = f"tv_trade_intelligence_row_{row}_slot"
+    body = f"""\tpotential = {{
+\t\t{actor_member_trigger()}
+\t}}
+\tallow = {{
+\t\tscope:actor = {{
+{actor_member_limit()}
+\t\t\tvar:{visible_var} ?= {{ this >= 1 }}
+\t\t}}
+\t}}
+\teffect = {{
+\t\tscope:actor = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{visible_var} ?= {{ this >= 1 }} }}
+\t\t\t\tset_variable = {{ name = tv_trade_selected_intelligence_slot value = var:{slot_var} }}
+\t\t\t\ttv_trade_league_refresh_selected_intelligence_projection_effect = yes
+\t\t\t}}
+\t\t}}
+\t}}"""
+    return base_action(f"tv_trade_select_intelligence_row_{row}", body, selected=True)
+
+
+def intelligence_start_action() -> str:
+    body = f"""\tpotential = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\tallow = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+\t\t\thas_variable = tv_trade_selected_intelligence_market
+\t\t\tNOT = {{ has_variable = tv_trade_intelligence_active_market }}
+\t\t\ttv_grand_merchant_available_for_commercial_intelligence_trigger = yes
+\t\t}}
+\t}}
+\teffect = {{
+\t\tscope:actor = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{
+{actor_leader_limit(indent=INDENT_5)}
+\t\t\t\t\thas_variable = tv_trade_selected_intelligence_market
+\t\t\t\t}}
+\t\t\t\tset_variable = {{ name = tv_trade_intelligence_active_market value = var:tv_trade_selected_intelligence_market }}
+\t\t\t\tset_variable = {{ name = tv_trade_commercial_intelligence_active value = 1 }}
+\t\t\t\ttv_trade_league_refresh_intelligence_members_display_effect = yes
+\t\t\t}}
+\t\t}}
+\t}}"""
+    return base_action("tv_trade_start_intelligence_network", body)
+
+
+def intelligence_cancel_action() -> str:
+    body = f"""\tpotential = {{
+\t\t{actor_leader_trigger()}
+\t}}
+\tallow = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+\t\t\thas_variable = tv_trade_intelligence_active_market
+\t\t}}
+\t}}
+\teffect = {{
+\t\tscope:actor = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{
+{actor_leader_limit(indent=INDENT_5)}
+\t\t\t\t\thas_variable = tv_trade_intelligence_active_market
+\t\t\t\t}}
+\t\t\t\tremove_variable = tv_trade_intelligence_active_market
+\t\t\t\tremove_variable = tv_trade_commercial_intelligence_active
+\t\t\t\tremove_variable = tv_trade_intelligence_active_slot
+\t\t\t\ttv_trade_league_refresh_intelligence_members_display_effect = yes
+\t\t\t}}
+\t\t}}
+\t}}"""
+    return base_action("tv_trade_cancel_intelligence_network", body)
 
 
 def selected_monopoly_value_max(goods: list[str], indexes: dict[str, int], action: str) -> str:
@@ -971,6 +1114,11 @@ def fixed_selected_actions(goods: list[str], indexes: dict[str, int]) -> list[st
         page_action("previous"),
         page_action("next"),
         *(row_select_action(row) for row in range(1, DISPLAY_ROW_COUNT + 1)),
+        intelligence_page_action("previous"),
+        intelligence_page_action("next"),
+        *(intelligence_row_select_action(row) for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
+        intelligence_start_action(),
+        intelligence_cancel_action(),
         selected_market_value_action(goods, indexes, "virtual_demand", "tv_trade_select_virtual_demand_market"),
         selected_adjust_action(goods, indexes, "virtual_demand", "increase"),
         selected_adjust_action(goods, indexes, "virtual_demand", "decrease"),

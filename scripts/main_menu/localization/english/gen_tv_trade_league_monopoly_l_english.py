@@ -24,6 +24,7 @@ OUT_FILE = (
 VIRTUAL_ACTION_COST_PCT = 5
 EMBARGO_COST_PCT = 30
 DISPLAY_ROW_COUNT = 10
+INTELLIGENCE_ROW_COUNT = 10
 
 
 def good_name(good: str) -> str:
@@ -72,6 +73,15 @@ def fixed_action_entries() -> list[tuple[str, str]]:
         ("tv_trade_next_monopoly_page", "Next Page"),
         ("tv_trade_next_monopoly_page_desc", "Show the next commodity page."),
         ("tv_trade_select_monopoly_row_desc", "Show monopoly details for this commodity."),
+        ("tv_trade_previous_intelligence_page", "Previous Page"),
+        ("tv_trade_previous_intelligence_page_desc", "Show the previous intelligence page."),
+        ("tv_trade_next_intelligence_page", "Next Page"),
+        ("tv_trade_next_intelligence_page_desc", "Show the next intelligence page."),
+        ("tv_trade_select_intelligence_row_desc", "Show intelligence details for this market."),
+        ("tv_trade_start_intelligence_network", "Build Intelligence Network"),
+        ("tv_trade_start_intelligence_network_desc", "Assign the Grand Merchant to build an intelligence network in the selected market."),
+        ("tv_trade_cancel_intelligence_network", "Cancel Intelligence Network"),
+        ("tv_trade_cancel_intelligence_network_desc", "Stop building the active Trade League intelligence network."),
         ("tv_trade_set_selected_virtual_demand", "Virtual Demand"),
         (
             "tv_trade_set_selected_virtual_demand_desc",
@@ -116,10 +126,17 @@ def fixed_action_entries() -> list[tuple[str, str]]:
     ]
     for row in range(1, DISPLAY_ROW_COUNT + 1):
         entries.append((f"tv_trade_select_monopoly_row_{row}", "Select Commodity"))
+    for row in range(1, INTELLIGENCE_ROW_COUNT + 1):
+        entries.append((f"tv_trade_select_intelligence_row_{row}", "Select Market"))
     actions = [
         "tv_trade_previous_monopoly_page",
         "tv_trade_next_monopoly_page",
         *(f"tv_trade_select_monopoly_row_{row}" for row in range(1, DISPLAY_ROW_COUNT + 1)),
+        "tv_trade_previous_intelligence_page",
+        "tv_trade_next_intelligence_page",
+        *(f"tv_trade_select_intelligence_row_{row}" for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
+        "tv_trade_start_intelligence_network",
+        "tv_trade_cancel_intelligence_network",
         "tv_trade_set_selected_virtual_demand",
         "tv_trade_increase_selected_virtual_demand",
         "tv_trade_decrease_selected_virtual_demand",

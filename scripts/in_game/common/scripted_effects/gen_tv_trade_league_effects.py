@@ -106,6 +106,31 @@ tv_trade_league_country_monthly_pulse_effect = {
 \t\t\t\t\t\t\thas_variable = tv_grand_merchant_char
 \t\t\t\t\t\t}
 \t\t\t\t\t\tvar:tv_grand_merchant_char ?= { is_alive = yes }
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t\tsave_scope_as = tv_trade_monopoly_io
+\t\t\t\tleader_country ?= {
+\t\t\t\t\tsave_scope_as = tv_trade_monopoly_leader
+\t\t\t\t\ttv_trade_league_update_intelligence_effect = yes
+\t\t\t\t\ttv_trade_league_refresh_intelligence_members_display_effect = yes
+\t\t\t\t}
+\t\t\t}
+\t\t\telse = {
+\t\t\t\tleader_country ?= {
+\t\t\t\t\tremove_variable = tv_trade_intelligence_active_market
+\t\t\t\t\tremove_variable = tv_trade_commercial_intelligence_active
+\t\t\t\t\tremove_variable = tv_trade_intelligence_active_slot
+\t\t\t\t}
+\t\t\t}
+\t\t\tif = {
+\t\t\t\tlimit = {
+\t\t\t\t\tinternational_organization_has_leader = yes
+\t\t\t\t\tleader_country ?= {
+\t\t\t\t\t\tcustom_tooltip = {
+\t\t\t\t\t\t\ttext = TV_HAS_GRAND_MERCHANT_CHAR_TT
+\t\t\t\t\t\t\thas_variable = tv_grand_merchant_char
+\t\t\t\t\t\t}
+\t\t\t\t\t\tvar:tv_grand_merchant_char ?= { is_alive = yes }
 \t\t\t\t\t\ttv_grand_merchant_available_for_monopoly_trigger = yes
 \t\t\t\t\t}
 \t\t\t\t}
@@ -145,7 +170,7 @@ tv_trade_league_update_monopolies_effect = {
 """
 
 UPDATE_SUFFIX = """\
-\t\t\ttv_trade_league_refresh_monopoly_display_effect = yes
+\t\t\ttv_trade_league_refresh_monopoly_members_display_effect = yes
 \t\t}
 \t}
 }
@@ -156,6 +181,10 @@ MONOPOLY_THRESHOLD_PCT = 100
 EMBARGO_COST_PCT = 30
 VIRTUAL_ACTION_COST_PCT = 5
 DISPLAY_ROW_COUNT = 10
+INTELLIGENCE_ROW_COUNT = 10
+INTELLIGENCE_MAX_MARKETS = 300
+INTELLIGENCE_MAX_STRENGTH_PCT = 100
+INTELLIGENCE_PAGE_COUNT = (INTELLIGENCE_MAX_MARKETS + INTELLIGENCE_ROW_COUNT - 1) // INTELLIGENCE_ROW_COUNT
 STATIC_MARKET_FIELDS = (
     "score",
     "local_production",
@@ -314,12 +343,36 @@ def copy_numeric_variable(source: str, target: str, indent: str) -> str:
 {indent}}}"""
 
 
+def copy_numeric_variable_from_scope(source_scope: str, source: str, target: str, indent: str) -> str:
+    return f"""\
+{set_numeric_zero(target, indent)}
+{indent}if = {{
+{indent}\tlimit = {{
+{indent}\t\texists = scope:{source_scope}
+{indent}\t\tscope:{source_scope} = {{ has_variable = {source} }}
+{indent}\t}}
+{indent}\tset_variable = {{ name = {target} value = scope:{source_scope}.var:{source} }}
+{indent}}}"""
+
+
 def copy_scope_variable(source: str, target: str, indent: str) -> str:
     return f"""\
 {indent}remove_variable = {target}
 {indent}if = {{
 {indent}\tlimit = {{ has_variable = {source} }}
 {indent}\tset_variable = {{ name = {target} value = var:{source} }}
+{indent}}}"""
+
+
+def copy_scope_variable_from_scope(source_scope: str, source: str, target: str, indent: str) -> str:
+    return f"""\
+{indent}remove_variable = {target}
+{indent}if = {{
+{indent}\tlimit = {{
+{indent}\t\texists = scope:{source_scope}
+{indent}\t\tscope:{source_scope} = {{ has_variable = {source} }}
+{indent}\t}}
+{indent}\tset_variable = {{ name = {target} value = scope:{source_scope}.var:{source} }}
 {indent}}}"""
 
 
@@ -338,13 +391,26 @@ def clear_display_row_block(row: int, indent: str = "\t") -> str:
     return "\n".join(lines)
 
 
-def copy_good_to_display_row_block(good: str, row: int, index: int, indent: str) -> str:
+def copy_good_to_display_row_block(
+    good: str,
+    row: int,
+    index: int,
+    indent: str,
+    source_scope: str | None = None,
+) -> str:
+    copy_numeric = (
+        lambda source, target, copy_indent: copy_numeric_variable_from_scope(
+            source_scope, source, target, copy_indent
+        )
+        if source_scope is not None
+        else copy_numeric_variable(source, target, copy_indent)
+    )
     copies = [
-        copy_numeric_variable(f"tv_trade_origin_control_pct_{good}", f"tv_trade_display_row_{row}_origin_pct", indent),
-        copy_numeric_variable(f"tv_trade_node_control_pct_{good}", f"tv_trade_display_row_{row}_node_pct", indent),
-        copy_numeric_variable(f"tv_trade_consumer_control_pct_{good}", f"tv_trade_display_row_{row}_consumer_pct", indent),
-        copy_numeric_variable(f"tv_trade_monopoly_{good}", f"tv_trade_display_row_{row}_monopoly", indent),
-        copy_numeric_variable(f"tv_trade_monopoly_level_pct_{good}", f"tv_trade_display_row_{row}_monopoly_level_pct", indent),
+        copy_numeric(f"tv_trade_origin_control_pct_{good}", f"tv_trade_display_row_{row}_origin_pct", indent),
+        copy_numeric(f"tv_trade_node_control_pct_{good}", f"tv_trade_display_row_{row}_node_pct", indent),
+        copy_numeric(f"tv_trade_consumer_control_pct_{good}", f"tv_trade_display_row_{row}_consumer_pct", indent),
+        copy_numeric(f"tv_trade_monopoly_{good}", f"tv_trade_display_row_{row}_monopoly", indent),
+        copy_numeric(f"tv_trade_monopoly_level_pct_{good}", f"tv_trade_display_row_{row}_monopoly_level_pct", indent),
     ]
     return "\n".join(
         [
@@ -371,23 +437,42 @@ def clear_selected_projection_block(goods: list[str], indent: str = "\t") -> str
     return "\n".join(lines)
 
 
-def copy_good_to_selected_projection_block(good: str, index: int, indent: str) -> str:
+def copy_good_to_selected_projection_block(
+    good: str,
+    index: int,
+    indent: str,
+    source_scope: str | None = None,
+) -> str:
+    copy_numeric = (
+        lambda source, target, copy_indent: copy_numeric_variable_from_scope(
+            source_scope, source, target, copy_indent
+        )
+        if source_scope is not None
+        else copy_numeric_variable(source, target, copy_indent)
+    )
+    copy_scope = (
+        lambda source, target, copy_indent: copy_scope_variable_from_scope(
+            source_scope, source, target, copy_indent
+        )
+        if source_scope is not None
+        else copy_scope_variable(source, target, copy_indent)
+    )
     lines = [
         f"{indent}set_variable = {{ name = tv_trade_selected_good_index value = {index} }}",
         set_goods_scope_variable("tv_trade_selected_good_scope", good, indent),
     ]
     lines.extend(
-        copy_numeric_variable(source.format(good=good), target, indent)
+        copy_numeric(source.format(good=good), target, indent)
         for target, source in SELECTED_NUMERIC_PROJECTIONS
     )
     lines.extend(
-        copy_scope_variable(source.format(good=good), target, indent)
+        copy_scope(source.format(good=good), target, indent)
         for target, source in SELECTED_SCOPE_PROJECTIONS
     )
     for prefix in MARKET_PREFIXES:
         for rank in range(1, 4):
             lines.append(
-                copy_scope_variable(
+                copy_scope(
                     market_var(prefix, rank, good),
                     f"tv_trade_selected_{prefix}_market_{rank}",
                     indent,
@@ -395,7 +480,7 @@ def copy_good_to_selected_projection_block(good: str, index: int, indent: str) -
             )
             for field in MARKET_DETAIL_FIELDS:
                 lines.append(
-                    copy_numeric_variable(
+                    copy_numeric(
                         market_field_var(prefix, field, rank, good),
                         f"tv_trade_selected_{prefix}_{field}_{rank}",
                         indent,
@@ -476,12 +561,16 @@ def selected_projection_effect(goods: list[str]) -> str:
         branches.append(
             f"""\t\t{keyword} = {{
 \t\t\tlimit = {{ var:tv_trade_selected_good ?= {indexes[good]} }}
-{copy_good_to_selected_projection_block(good, indexes[good], "\t\t\t")}
+{copy_good_to_selected_projection_block(good, indexes[good], "\t\t\t", "tv_trade_monopoly_display_source")}
 \t\t}}"""
         )
     return f"""\
 tv_trade_league_refresh_selected_good_projection_effect = {{
 \thidden_effect = {{
+\t\tany_international_organizations_member_of = {{
+\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
+\t\t\tleader_country ?= {{ save_scope_as = tv_trade_monopoly_display_source }}
+\t\t}}
 \t\tif = {{
 \t\t\tlimit = {{ NOT = {{ has_variable = tv_trade_selected_good }} }}
 \t\t\tset_variable = {{ name = tv_trade_selected_good value = 1 }}
@@ -512,13 +601,17 @@ def display_projection_effect(data: dict) -> str:
 \t\t\t\tvar:tv_trade_selected_monopoly_category ?= {category["value"]}
 \t\t\t\tvar:tv_trade_selected_monopoly_page ?= {page}
 \t\t\t}}
-{copy_good_to_display_row_block(good, row, indexes[good], "\t\t\t")}
+{copy_good_to_display_row_block(good, row, indexes[good], "\t\t\t", "tv_trade_monopoly_display_source")}
 \t\t}}"""
                 )
         row_branches.append(chr(10).join(branches))
     return f"""\
 tv_trade_league_refresh_monopoly_display_effect = {{
 \thidden_effect = {{
+\t\tany_international_organizations_member_of = {{
+\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
+\t\t\tleader_country ?= {{ save_scope_as = tv_trade_monopoly_display_source }}
+\t\t}}
 \t\ttv_trade_league_refresh_monopoly_page_limits_effect = yes
 {clear_rows}
 {chr(10).join(row_branches)}
@@ -526,6 +619,459 @@ tv_trade_league_refresh_monopoly_display_effect = {{
 \t}}
 }}
 """
+
+
+def display_members_projection_effect() -> str:
+    return """\
+tv_trade_league_refresh_monopoly_members_display_effect = {
+\thidden_effect = {
+\t\tsave_scope_as = tv_trade_monopoly_refresh_leader
+\t\tevery_international_organizations_member_of = {
+\t\t\tlimit = {
+\t\t\t\tinternational_organization_type = international_organization_type:tv_trade_league
+\t\t\t\tleader_country ?= scope:tv_trade_monopoly_refresh_leader
+\t\t\t}
+\t\t\tevery_international_organization_member = {
+\t\t\t\ttv_trade_league_refresh_monopoly_display_effect = yes
+\t\t\t}
+\t\t}
+\t}
+}
+"""
+
+
+def intelligence_clear_slots_effect() -> str:
+    lines: list[str] = [
+        "\tremove_variable = tv_trade_intelligence_active_slot",
+        "\tset_variable = { name = tv_trade_intelligence_market_count value = 0 }",
+    ]
+    for slot in range(1, INTELLIGENCE_MAX_MARKETS + 1):
+        lines.extend(
+            [
+                f"\tremove_variable = tv_trade_intelligence_market_location_{slot}",
+                f"\tset_variable = {{ name = tv_trade_intelligence_io_power_{slot} value = 0 }}",
+                f"\tset_variable = {{ name = tv_trade_intelligence_active_{slot} value = 0 }}",
+            ]
+        )
+        for rank in range(1, 4):
+            lines.extend(
+                [
+                    f"\tremove_variable = tv_trade_intelligence_top_country_{rank}_{slot}",
+                    f"\tset_variable = {{ name = tv_trade_intelligence_top_power_{rank}_{slot} value = 0 }}",
+                ]
+            )
+    return "\n".join(lines)
+
+
+def intelligence_active_slots_effect() -> str:
+    lines: list[str] = []
+    for slot in range(1, INTELLIGENCE_MAX_MARKETS + 1):
+        lines.extend(
+            [
+                f"\t\tset_variable = {{ name = tv_trade_intelligence_active_{slot} value = 0 }}",
+                "\t\tif = {",
+                "\t\t\tlimit = {",
+                "\t\t\t\thas_variable = tv_trade_intelligence_active_market",
+                f"\t\t\t\thas_variable = tv_trade_intelligence_market_location_{slot}",
+                f"\t\t\t\tvar:tv_trade_intelligence_active_market ?= var:tv_trade_intelligence_market_location_{slot}",
+                "\t\t\t}",
+                f"\t\t\tset_variable = {{ name = tv_trade_intelligence_active_{slot} value = 1 }}",
+                f"\t\t\tset_variable = {{ name = tv_trade_intelligence_active_slot value = {slot} }}",
+                "\t\t}",
+            ]
+        )
+    return f"""\
+tv_trade_league_refresh_intelligence_active_slots_effect = {{
+\thidden_effect = {{
+{chr(10).join(lines)}
+\t}}
+}}
+"""
+
+
+def intelligence_copy_top_rank(slot: int, src_rank: int, dst_rank: int, indent: str) -> str:
+    src_country = f"tv_trade_intelligence_top_country_{src_rank}_{slot}"
+    dst_country = f"tv_trade_intelligence_top_country_{dst_rank}_{slot}"
+    src_power = f"tv_trade_intelligence_top_power_{src_rank}_{slot}"
+    dst_power = f"tv_trade_intelligence_top_power_{dst_rank}_{slot}"
+    return f"""{indent}remove_variable = {dst_country}
+{indent}if = {{
+{indent}\tlimit = {{ has_variable = {src_country} }}
+{indent}\tset_variable = {{ name = {dst_country} value = var:{src_country} }}
+{indent}}}
+{indent}set_variable = {{ name = {dst_power} value = var:{src_power} }}"""
+
+
+def intelligence_assign_candidate_rank(slot: int, rank: int, indent: str) -> str:
+    return f"""{indent}set_variable = {{ name = tv_trade_intelligence_top_country_{rank}_{slot} value = scope:tv_trade_intelligence_candidate_country }}
+{indent}set_variable = {{ name = tv_trade_intelligence_top_power_{rank}_{slot} value = var:tv_trade_intelligence_candidate_power }}"""
+
+
+def intelligence_insert_candidate_block(slot: int, indent: str) -> str:
+    top_1 = f"tv_trade_intelligence_top_power_1_{slot}"
+    top_2 = f"tv_trade_intelligence_top_power_2_{slot}"
+    top_3 = f"tv_trade_intelligence_top_power_3_{slot}"
+    inner = indent + "\t"
+    return f"""{indent}if = {{
+{indent}\tlimit = {{
+{indent}\t\tvar:tv_trade_intelligence_candidate_power > 0
+{indent}\t\tvar:tv_trade_intelligence_candidate_power > var:{top_1}
+{indent}\t}}
+{intelligence_copy_top_rank(slot, 2, 3, inner)}
+{intelligence_copy_top_rank(slot, 1, 2, inner)}
+{intelligence_assign_candidate_rank(slot, 1, inner)}
+{indent}}}
+{indent}else_if = {{
+{indent}\tlimit = {{
+{indent}\t\tvar:tv_trade_intelligence_candidate_power > 0
+{indent}\t\tvar:tv_trade_intelligence_candidate_power > var:{top_2}
+{indent}\t}}
+{intelligence_copy_top_rank(slot, 2, 3, inner)}
+{intelligence_assign_candidate_rank(slot, 2, inner)}
+{indent}}}
+{indent}else_if = {{
+{indent}\tlimit = {{
+{indent}\t\tvar:tv_trade_intelligence_candidate_power > 0
+{indent}\t\tvar:tv_trade_intelligence_candidate_power > var:{top_3}
+{indent}\t}}
+{intelligence_assign_candidate_rank(slot, 3, inner)}
+{indent}}}"""
+
+
+def intelligence_slot_update_block(slot: int, indent: str) -> str:
+    strength = f"tv_trade_intelligence_strength_pct_{slot}"
+    location = f"tv_trade_intelligence_market_location_{slot}"
+    io_power = f"tv_trade_intelligence_io_power_{slot}"
+    active = f"tv_trade_intelligence_active_{slot}"
+    return f"""{indent}set_variable = {{ name = {location} value = scope:tv_trade_intelligence_market_location }}
+{indent}if = {{
+{indent}\tlimit = {{ NOT = {{ has_variable = {strength} }} }}
+{indent}\tset_variable = {{ name = {strength} value = 0 }}
+{indent}}}
+{indent}set_variable = {{ name = {active} value = 0 }}
+{indent}if = {{
+{indent}\tlimit = {{
+{indent}\t\thas_variable = tv_trade_intelligence_active_market
+{indent}\t\tvar:tv_trade_intelligence_active_market ?= scope:tv_trade_intelligence_market_location
+{indent}\t}}
+{indent}\tset_variable = {{ name = {active} value = 1 }}
+{indent}\tset_variable = {{ name = tv_trade_intelligence_active_slot value = {slot} }}
+{indent}\tchange_variable = {{ name = {strength} add = var:tv_trade_intelligence_monthly_gain }}
+{indent}}}
+{indent}else = {{
+{indent}\tchange_variable = {{ name = {strength} subtract = 1 }}
+{indent}}}
+{indent}if = {{
+{indent}\tlimit = {{ var:{strength} < 0 }}
+{indent}\tset_variable = {{ name = {strength} value = 0 }}
+{indent}}}
+{indent}if = {{
+{indent}\tlimit = {{ var:{strength} > {INTELLIGENCE_MAX_STRENGTH_PCT} }}
+{indent}\tset_variable = {{ name = {strength} value = {INTELLIGENCE_MAX_STRENGTH_PCT} }}
+{indent}}}
+{indent}scope:tv_trade_monopoly_io = {{
+{indent}\tevery_international_organization_member = {{
+{indent}\t\tscope:tv_trade_intelligence_market = {{
+{indent}\t\t\tadd_merchant_power = {{
+{indent}\t\t\t\tcountry = prev
+{indent}\t\t\t\tkey = tv_trade_intelligence_network
+{indent}\t\t\t\tmonths = 2
+{indent}\t\t\t\tpower = {{ value = scope:tv_trade_intelligence_leader.var:{strength} floor = yes }}
+{indent}\t\t\t}}
+{indent}\t\t}}
+{indent}\t}}
+{indent}}}
+{indent}set_variable = {{ name = {io_power} value = 0 }}
+{indent}set_variable = {{ name = tv_trade_intelligence_candidate_power value = 0 }}
+{indent}remove_variable = tv_trade_intelligence_candidate_country
+{indent}remove_variable = tv_trade_intelligence_top_country_1_{slot}
+{indent}remove_variable = tv_trade_intelligence_top_country_2_{slot}
+{indent}remove_variable = tv_trade_intelligence_top_country_3_{slot}
+{indent}set_variable = {{ name = tv_trade_intelligence_top_power_1_{slot} value = 0 }}
+{indent}set_variable = {{ name = tv_trade_intelligence_top_power_2_{slot} value = 0 }}
+{indent}set_variable = {{ name = tv_trade_intelligence_top_power_3_{slot} value = 0 }}
+{indent}scope:tv_trade_intelligence_market = {{
+{indent}\tevery_merchant_in_market = {{
+{indent}\t\tsave_scope_as = tv_trade_intelligence_candidate_country
+{indent}\t\tscope:tv_trade_intelligence_leader = {{
+{indent}\t\t\tset_variable = {{ name = tv_trade_intelligence_candidate_power value = {{ value = "scope:tv_trade_intelligence_market.merchant_power_in_market(scope:tv_trade_intelligence_candidate_country)" }} }}
+{indent}\t\t\tif = {{
+{indent}\t\t\t\tlimit = {{ scope:tv_trade_intelligence_candidate_country = {{ is_member_of_international_organization = scope:tv_trade_monopoly_io }} }}
+{indent}\t\t\t\tchange_variable = {{ name = {io_power} add = var:tv_trade_intelligence_candidate_power }}
+{indent}\t\t\t}}
+{intelligence_insert_candidate_block(slot, indent + "\t\t\t")}
+{indent}\t\t}}
+{indent}\t}}
+{indent}}}"""
+
+
+def intelligence_monthly_update_effect() -> str:
+    branches: list[str] = []
+    for slot in range(1, INTELLIGENCE_MAX_MARKETS + 1):
+        keyword = "if" if slot == 1 else "else_if"
+        branches.append(
+            f"""\t\t\t{keyword} = {{
+\t\t\t\tlimit = {{ var:tv_trade_intelligence_market_count ?= {slot} }}
+{intelligence_slot_update_block(slot, "\t\t\t\t")}
+\t\t\t}}"""
+        )
+    return f"""\
+tv_trade_league_update_intelligence_effect = {{
+\thidden_effect = {{
+\t\tsave_scope_as = tv_trade_intelligence_leader
+\t\tset_variable = {{ name = tv_trade_intelligence_monthly_gain value = var:tv_grand_merchant_char.dip }}
+\t\tchange_variable = {{ name = tv_trade_intelligence_monthly_gain divide = 100 }}
+{intelligence_clear_slots_effect()}
+\tevery_market_in_world = {{
+\t\tsave_scope_as = tv_trade_intelligence_market
+\t\tlocation = {{ save_scope_as = tv_trade_intelligence_market_location }}
+\t\tscope:tv_trade_intelligence_leader = {{
+\t\t\tchange_variable = {{ name = tv_trade_intelligence_market_count add = 1 }}
+{chr(10).join(branches)}
+\t\t}}
+\t}}
+\t\ttv_trade_league_refresh_intelligence_active_slots_effect = yes
+\t}}
+}}
+"""
+
+
+def clear_intelligence_display_row_block(row: int, indent: str = "\t") -> str:
+    variables = [
+        f"tv_trade_intelligence_row_{row}_visible",
+        f"tv_trade_intelligence_row_{row}_slot",
+        f"tv_trade_intelligence_row_{row}_io_power",
+        f"tv_trade_intelligence_row_{row}_strength_pct",
+        f"tv_trade_intelligence_row_{row}_active",
+    ]
+    lines = [f"{indent}remove_variable = tv_trade_intelligence_row_{row}_market"]
+    lines.extend(set_numeric_zero(variable, indent) for variable in variables)
+    return "\n".join(lines)
+
+
+def copy_intelligence_slot_to_display_row_block(slot: int, row: int, indent: str) -> str:
+    source = "tv_trade_intelligence_display_source"
+    lines = [
+        f"{indent}set_variable = {{ name = tv_trade_intelligence_row_{row}_visible value = 1 }}",
+        f"{indent}set_variable = {{ name = tv_trade_intelligence_row_{row}_slot value = {slot} }}",
+        copy_scope_variable_from_scope(source, f"tv_trade_intelligence_market_location_{slot}", f"tv_trade_intelligence_row_{row}_market", indent),
+        copy_numeric_variable_from_scope(source, f"tv_trade_intelligence_io_power_{slot}", f"tv_trade_intelligence_row_{row}_io_power", indent),
+        copy_numeric_variable_from_scope(source, f"tv_trade_intelligence_strength_pct_{slot}", f"tv_trade_intelligence_row_{row}_strength_pct", indent),
+        copy_numeric_variable_from_scope(source, f"tv_trade_intelligence_active_{slot}", f"tv_trade_intelligence_row_{row}_active", indent),
+    ]
+    return "\n".join(lines)
+
+
+def intelligence_page_limits_effect() -> str:
+    threshold_lines: list[str] = []
+    for page in range(2, INTELLIGENCE_PAGE_COUNT + 1):
+        threshold = (page - 1) * INTELLIGENCE_ROW_COUNT
+        threshold_lines.append(
+            f"""\t\tif = {{
+\t\t\tlimit = {{ scope:tv_trade_intelligence_display_source = {{ var:tv_trade_intelligence_market_count ?= {{ this > {threshold} }} }} }}
+\t\t\tset_variable = {{ name = tv_trade_intelligence_page_max value = {page} }}
+\t\t}}"""
+        )
+    return f"""\
+tv_trade_league_refresh_intelligence_page_limits_effect = {{
+\thidden_effect = {{
+\t\tany_international_organizations_member_of = {{
+\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
+\t\t\tleader_country ?= {{ save_scope_as = tv_trade_intelligence_display_source }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ NOT = {{ has_variable = tv_trade_intelligence_page }} }}
+\t\t\tset_variable = {{ name = tv_trade_intelligence_page value = 1 }}
+\t\t}}
+\t\tset_variable = {{ name = tv_trade_intelligence_page_max value = 1 }}
+{chr(10).join(threshold_lines)}
+\t\tif = {{
+\t\t\tlimit = {{ var:tv_trade_intelligence_page < 1 }}
+\t\t\tset_variable = {{ name = tv_trade_intelligence_page value = 1 }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ var:tv_trade_intelligence_page > var:tv_trade_intelligence_page_max }}
+\t\t\tset_variable = {{ name = tv_trade_intelligence_page value = var:tv_trade_intelligence_page_max }}
+\t\t}}
+\t}}
+}}
+"""
+
+
+def clear_selected_intelligence_projection_block(indent: str = "\t") -> str:
+    lines = [
+        f"{indent}remove_variable = tv_trade_selected_intelligence_market",
+        set_numeric_zero("tv_trade_selected_intelligence_slot", indent),
+        set_numeric_zero("tv_trade_selected_intelligence_io_power", indent),
+        set_numeric_zero("tv_trade_selected_intelligence_strength_pct", indent),
+        set_numeric_zero("tv_trade_selected_intelligence_active", indent),
+    ]
+    for rank in range(1, 4):
+        lines.append(f"{indent}remove_variable = tv_trade_selected_intelligence_top_country_{rank}")
+        lines.append(set_numeric_zero(f"tv_trade_selected_intelligence_top_power_{rank}", indent))
+    return "\n".join(lines)
+
+
+def copy_intelligence_slot_to_selected_projection_block(slot: int, indent: str) -> str:
+    source = "tv_trade_intelligence_display_source"
+    lines = [
+        f"{indent}set_variable = {{ name = tv_trade_selected_intelligence_slot value = {slot} }}",
+        copy_scope_variable_from_scope(source, f"tv_trade_intelligence_market_location_{slot}", "tv_trade_selected_intelligence_market", indent),
+        copy_numeric_variable_from_scope(source, f"tv_trade_intelligence_io_power_{slot}", "tv_trade_selected_intelligence_io_power", indent),
+        copy_numeric_variable_from_scope(source, f"tv_trade_intelligence_strength_pct_{slot}", "tv_trade_selected_intelligence_strength_pct", indent),
+        copy_numeric_variable_from_scope(source, f"tv_trade_intelligence_active_{slot}", "tv_trade_selected_intelligence_active", indent),
+    ]
+    for rank in range(1, 4):
+        lines.extend(
+            [
+                copy_scope_variable_from_scope(
+                    source,
+                    f"tv_trade_intelligence_top_country_{rank}_{slot}",
+                    f"tv_trade_selected_intelligence_top_country_{rank}",
+                    indent,
+                ),
+                copy_numeric_variable_from_scope(
+                    source,
+                    f"tv_trade_intelligence_top_power_{rank}_{slot}",
+                    f"tv_trade_selected_intelligence_top_power_{rank}",
+                    indent,
+                ),
+            ]
+        )
+    return "\n".join(lines)
+
+
+def intelligence_selected_projection_effect() -> str:
+    branches: list[str] = []
+    for slot in range(1, INTELLIGENCE_MAX_MARKETS + 1):
+        keyword = "if" if slot == 1 else "else_if"
+        branches.append(
+            f"""\t\t{keyword} = {{
+\t\t\tlimit = {{
+\t\t\t\tvar:tv_trade_selected_intelligence_slot ?= {slot}
+\t\t\t\tscope:tv_trade_intelligence_display_source = {{ has_variable = tv_trade_intelligence_market_location_{slot} }}
+\t\t\t}}
+{copy_intelligence_slot_to_selected_projection_block(slot, "\t\t\t")}
+\t\t}}"""
+        )
+    return f"""\
+tv_trade_league_refresh_selected_intelligence_projection_effect = {{
+\thidden_effect = {{
+\t\tany_international_organizations_member_of = {{
+\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
+\t\t\tleader_country ?= {{ save_scope_as = tv_trade_intelligence_display_source }}
+\t\t}}
+{clear_selected_intelligence_projection_block("\t\t")}
+{chr(10).join(branches)}
+\t}}
+}}
+"""
+
+
+def intelligence_select_first_displayed_effect() -> str:
+    branches: list[str] = []
+    for page in range(1, INTELLIGENCE_PAGE_COUNT + 1):
+        slot = (page - 1) * INTELLIGENCE_ROW_COUNT + 1
+        keyword = "if" if page == 1 else "else_if"
+        branches.append(
+            f"""\t\t{keyword} = {{
+\t\t\tlimit = {{
+\t\t\t\tvar:tv_trade_intelligence_page ?= {page}
+\t\t\t\tscope:tv_trade_intelligence_display_source = {{ has_variable = tv_trade_intelligence_market_location_{slot} }}
+\t\t\t}}
+\t\t\tset_variable = {{ name = tv_trade_selected_intelligence_slot value = {slot} }}
+\t\t}}"""
+        )
+    return f"""\
+tv_trade_league_select_first_displayed_intelligence_market_effect = {{
+\thidden_effect = {{
+\t\tany_international_organizations_member_of = {{
+\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
+\t\t\tleader_country ?= {{ save_scope_as = tv_trade_intelligence_display_source }}
+\t\t}}
+\t\ttv_trade_league_refresh_intelligence_page_limits_effect = yes
+{chr(10).join(branches)}
+\t\ttv_trade_league_refresh_selected_intelligence_projection_effect = yes
+\t}}
+}}
+"""
+
+
+def intelligence_display_projection_effect() -> str:
+    clear_rows = "\n".join(
+        clear_intelligence_display_row_block(row, "\t\t")
+        for row in range(1, INTELLIGENCE_ROW_COUNT + 1)
+    )
+    row_branches: list[str] = []
+    for row in range(1, INTELLIGENCE_ROW_COUNT + 1):
+        branches: list[str] = []
+        for page in range(1, INTELLIGENCE_PAGE_COUNT + 1):
+            slot = (page - 1) * INTELLIGENCE_ROW_COUNT + row
+            keyword = "if" if page == 1 else "else_if"
+            branches.append(
+                f"""\t\t{keyword} = {{
+\t\t\tlimit = {{
+\t\t\t\tvar:tv_trade_intelligence_page ?= {page}
+\t\t\t\tscope:tv_trade_intelligence_display_source = {{ has_variable = tv_trade_intelligence_market_location_{slot} }}
+\t\t\t}}
+{copy_intelligence_slot_to_display_row_block(slot, row, "\t\t\t")}
+\t\t}}"""
+            )
+        row_branches.append(chr(10).join(branches))
+    return f"""\
+tv_trade_league_refresh_intelligence_display_effect = {{
+\thidden_effect = {{
+\t\tany_international_organizations_member_of = {{
+\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
+\t\t\tleader_country ?= {{ save_scope_as = tv_trade_intelligence_display_source }}
+\t\t}}
+\t\ttv_trade_league_refresh_intelligence_page_limits_effect = yes
+{clear_rows}
+{chr(10).join(row_branches)}
+\t\tif = {{
+\t\t\tlimit = {{ NOT = {{ has_variable = tv_trade_selected_intelligence_slot }} }}
+\t\t\ttv_trade_league_select_first_displayed_intelligence_market_effect = yes
+\t\t}}
+\t\telse = {{
+\t\t\ttv_trade_league_refresh_selected_intelligence_projection_effect = yes
+\t\t}}
+\t}}
+}}
+"""
+
+
+def intelligence_members_projection_effect() -> str:
+    return """\
+tv_trade_league_refresh_intelligence_members_display_effect = {
+\thidden_effect = {
+\t\tsave_scope_as = tv_trade_intelligence_refresh_leader
+\t\ttv_trade_league_refresh_intelligence_active_slots_effect = yes
+\t\tevery_international_organizations_member_of = {
+\t\t\tlimit = {
+\t\t\t\tinternational_organization_type = international_organization_type:tv_trade_league
+\t\t\t\tleader_country ?= scope:tv_trade_intelligence_refresh_leader
+\t\t\t}
+\t\t\tevery_international_organization_member = {
+\t\t\t\ttv_trade_league_refresh_intelligence_display_effect = yes
+\t\t\t}
+\t\t}
+\t}
+}
+"""
+
+
+def intelligence_projection_effects() -> str:
+    return "\n".join(
+        (
+            intelligence_active_slots_effect(),
+            intelligence_monthly_update_effect(),
+            intelligence_page_limits_effect(),
+            intelligence_select_first_displayed_effect(),
+            intelligence_selected_projection_effect(),
+            intelligence_display_projection_effect(),
+            intelligence_members_projection_effect(),
+        )
+    )
 
 
 def suspend_demands_effect(goods: list[str]) -> str:
@@ -946,6 +1492,8 @@ def generate(data: dict) -> str:
             select_first_displayed_good_effect(data["categories"], good_index_map(goods)),
             selected_projection_effect(goods),
             display_projection_effect(data),
+            display_members_projection_effect(),
+            intelligence_projection_effects(),
         )
     )
     annual_updates = "\n".join(annual_good_refresh_block(good) for good in goods)

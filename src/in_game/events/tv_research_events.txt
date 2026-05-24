@@ -10,7 +10,94 @@ namespace = tv_research
 tv_research.1 = {
 	type = country_event
 	title = tv_research.1.t
-	desc = tv_research.1.d
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 1 }
+				desc = tv_research.1.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 2 }
+				desc = tv_research.1.d_iron_working
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 4 }
+				desc = tv_research.1.d_gunpowder
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 5 }
+				desc = tv_research.1.d_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 6 }
+				desc = tv_research.1.d_scientific_experimentation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 7 }
+				desc = tv_research.1.d_scientific_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 8 }
+				desc = tv_research.1.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 9 }
+				desc = tv_research.1.d_industrialization
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 10 }
+				desc = tv_research.1.d_vaccination
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 11 }
+				desc = tv_research.1.d_renaissance
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 12 }
+				desc = tv_research.1.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 13 }
+				desc = tv_research.1.d_professional_armies
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 14 }
+				desc = tv_research.1.d_new_world
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 15 }
+				desc = tv_research.1.d_pike_and_shot
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 16 }
+				desc = tv_research.1.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 17 }
+				desc = tv_research.1.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 18 }
+				desc = tv_research.1.d_artillery_institution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 19 }
+				desc = tv_research.1.d_military_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 20 }
+				desc = tv_research.1.d_enlightenment
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 21 }
+				desc = tv_research.1.d_levee_en_masse
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = tv_research.1.d
+			}
+		}
+	}
 	outcome = neutral
 
 	trigger = {
@@ -47,7 +134,94 @@ tv_research.1 = {
 tv_research.2 = {
 	type = country_event
 	title = tv_research.2.t
-	desc = tv_research.2.d
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 1 }
+				desc = tv_research.2.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 2 }
+				desc = tv_research.2.d_iron_working
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 4 }
+				desc = tv_research.2.d_gunpowder
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 5 }
+				desc = tv_research.2.d_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 6 }
+				desc = tv_research.2.d_scientific_experimentation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 7 }
+				desc = tv_research.2.d_scientific_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 8 }
+				desc = tv_research.2.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 9 }
+				desc = tv_research.2.d_industrialization
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 10 }
+				desc = tv_research.2.d_vaccination
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 11 }
+				desc = tv_research.2.d_renaissance
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 12 }
+				desc = tv_research.2.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 13 }
+				desc = tv_research.2.d_professional_armies
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 14 }
+				desc = tv_research.2.d_new_world
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 15 }
+				desc = tv_research.2.d_pike_and_shot
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 16 }
+				desc = tv_research.2.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 17 }
+				desc = tv_research.2.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 18 }
+				desc = tv_research.2.d_artillery_institution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 19 }
+				desc = tv_research.2.d_military_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 20 }
+				desc = tv_research.2.d_enlightenment
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 21 }
+				desc = tv_research.2.d_levee_en_masse
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = tv_research.2.d
+			}
+		}
+	}
 	outcome = neutral
 
 	trigger = {
@@ -84,7 +258,94 @@ tv_research.2 = {
 tv_research.3 = {
 	type = country_event
 	title = tv_research.3.t
-	desc = tv_research.3.d
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 1 }
+				desc = tv_research.3.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 2 }
+				desc = tv_research.3.d_iron_working
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 4 }
+				desc = tv_research.3.d_gunpowder
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 5 }
+				desc = tv_research.3.d_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 6 }
+				desc = tv_research.3.d_scientific_experimentation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 7 }
+				desc = tv_research.3.d_scientific_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 8 }
+				desc = tv_research.3.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 9 }
+				desc = tv_research.3.d_industrialization
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 10 }
+				desc = tv_research.3.d_vaccination
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 11 }
+				desc = tv_research.3.d_renaissance
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 12 }
+				desc = tv_research.3.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 13 }
+				desc = tv_research.3.d_professional_armies
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 14 }
+				desc = tv_research.3.d_new_world
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 15 }
+				desc = tv_research.3.d_pike_and_shot
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 16 }
+				desc = tv_research.3.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 17 }
+				desc = tv_research.3.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 18 }
+				desc = tv_research.3.d_artillery_institution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 19 }
+				desc = tv_research.3.d_military_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 20 }
+				desc = tv_research.3.d_enlightenment
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 21 }
+				desc = tv_research.3.d_levee_en_masse
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = tv_research.3.d
+			}
+		}
+	}
 	outcome = neutral
 
 	trigger = {
@@ -121,7 +382,94 @@ tv_research.3 = {
 tv_research.4 = {
 	type = country_event
 	title = tv_research.4.t
-	desc = tv_research.4.d
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 1 }
+				desc = tv_research.4.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 2 }
+				desc = tv_research.4.d_iron_working
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 4 }
+				desc = tv_research.4.d_gunpowder
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 5 }
+				desc = tv_research.4.d_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 6 }
+				desc = tv_research.4.d_scientific_experimentation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 7 }
+				desc = tv_research.4.d_scientific_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 8 }
+				desc = tv_research.4.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 9 }
+				desc = tv_research.4.d_industrialization
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 10 }
+				desc = tv_research.4.d_vaccination
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 11 }
+				desc = tv_research.4.d_renaissance
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 12 }
+				desc = tv_research.4.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 13 }
+				desc = tv_research.4.d_professional_armies
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 14 }
+				desc = tv_research.4.d_new_world
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 15 }
+				desc = tv_research.4.d_pike_and_shot
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 16 }
+				desc = tv_research.4.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 17 }
+				desc = tv_research.4.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 18 }
+				desc = tv_research.4.d_artillery_institution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 19 }
+				desc = tv_research.4.d_military_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 20 }
+				desc = tv_research.4.d_enlightenment
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 21 }
+				desc = tv_research.4.d_levee_en_masse
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = tv_research.4.d
+			}
+		}
+	}
 	outcome = neutral
 
 	trigger = {
@@ -158,7 +506,94 @@ tv_research.4 = {
 tv_research.5 = {
 	type = country_event
 	title = tv_research.5.t
-	desc = tv_research.5.d
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 1 }
+				desc = tv_research.5.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 2 }
+				desc = tv_research.5.d_iron_working
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 4 }
+				desc = tv_research.5.d_gunpowder
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 5 }
+				desc = tv_research.5.d_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 6 }
+				desc = tv_research.5.d_scientific_experimentation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 7 }
+				desc = tv_research.5.d_scientific_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 8 }
+				desc = tv_research.5.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 9 }
+				desc = tv_research.5.d_industrialization
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 10 }
+				desc = tv_research.5.d_vaccination
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 11 }
+				desc = tv_research.5.d_renaissance
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 12 }
+				desc = tv_research.5.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 13 }
+				desc = tv_research.5.d_professional_armies
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 14 }
+				desc = tv_research.5.d_new_world
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 15 }
+				desc = tv_research.5.d_pike_and_shot
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 16 }
+				desc = tv_research.5.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 17 }
+				desc = tv_research.5.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 18 }
+				desc = tv_research.5.d_artillery_institution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 19 }
+				desc = tv_research.5.d_military_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 20 }
+				desc = tv_research.5.d_enlightenment
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 21 }
+				desc = tv_research.5.d_levee_en_masse
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = tv_research.5.d
+			}
+		}
+	}
 	outcome = neutral
 
 	trigger = {
@@ -195,7 +630,94 @@ tv_research.5 = {
 tv_research.6 = {
 	type = country_event
 	title = tv_research.6.t
-	desc = tv_research.6.d
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 1 }
+				desc = tv_research.6.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 2 }
+				desc = tv_research.6.d_iron_working
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 4 }
+				desc = tv_research.6.d_gunpowder
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 5 }
+				desc = tv_research.6.d_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 6 }
+				desc = tv_research.6.d_scientific_experimentation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 7 }
+				desc = tv_research.6.d_scientific_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 8 }
+				desc = tv_research.6.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 9 }
+				desc = tv_research.6.d_industrialization
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 10 }
+				desc = tv_research.6.d_vaccination
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 11 }
+				desc = tv_research.6.d_renaissance
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 12 }
+				desc = tv_research.6.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 13 }
+				desc = tv_research.6.d_professional_armies
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 14 }
+				desc = tv_research.6.d_new_world
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 15 }
+				desc = tv_research.6.d_pike_and_shot
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 16 }
+				desc = tv_research.6.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 17 }
+				desc = tv_research.6.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 18 }
+				desc = tv_research.6.d_artillery_institution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 19 }
+				desc = tv_research.6.d_military_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 20 }
+				desc = tv_research.6.d_enlightenment
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 21 }
+				desc = tv_research.6.d_levee_en_masse
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = tv_research.6.d
+			}
+		}
+	}
 	outcome = neutral
 
 	trigger = {
@@ -334,121 +856,121 @@ tv_research.10 = {
 	}
 
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_printing_press
 		trigger = { var:tv_research_proposed_advance ?= 1 }
 		custom_tooltip = tv_research.10.a_printing_press.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_iron_working
 		trigger = { var:tv_research_proposed_advance ?= 2 }
 		custom_tooltip = tv_research.10.a_iron_working.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_gunpowder
 		trigger = { var:tv_research_proposed_advance ?= 4 }
 		custom_tooltip = tv_research.10.a_gunpowder.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_blast_furnace
 		trigger = { var:tv_research_proposed_advance ?= 5 }
 		custom_tooltip = tv_research.10.a_blast_furnace.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_scientific_experimentation
 		trigger = { var:tv_research_proposed_advance ?= 6 }
 		custom_tooltip = tv_research.10.a_scientific_experimentation.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_scientific_revolution
 		trigger = { var:tv_research_proposed_advance ?= 7 }
 		custom_tooltip = tv_research.10.a_scientific_revolution.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_manufactories
 		trigger = { var:tv_research_proposed_advance ?= 8 }
 		custom_tooltip = tv_research.10.a_manufactories.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_industrialization
 		trigger = { var:tv_research_proposed_advance ?= 9 }
 		custom_tooltip = tv_research.10.a_industrialization.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_vaccination
 		trigger = { var:tv_research_proposed_advance ?= 10 }
 		custom_tooltip = tv_research.10.a_vaccination.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_renaissance
 		trigger = { var:tv_research_proposed_advance ?= 11 }
 		custom_tooltip = tv_research.10.a_renaissance.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_banking
 		trigger = { var:tv_research_proposed_advance ?= 12 }
 		custom_tooltip = tv_research.10.a_banking.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_professional_armies
 		trigger = { var:tv_research_proposed_advance ?= 13 }
 		custom_tooltip = tv_research.10.a_professional_armies.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_new_world
 		trigger = { var:tv_research_proposed_advance ?= 14 }
 		custom_tooltip = tv_research.10.a_new_world.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_pike_and_shot
 		trigger = { var:tv_research_proposed_advance ?= 15 }
 		custom_tooltip = tv_research.10.a_pike_and_shot.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_confessionalism
 		trigger = { var:tv_research_proposed_advance ?= 16 }
 		custom_tooltip = tv_research.10.a_confessionalism.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_global_trade
 		trigger = { var:tv_research_proposed_advance ?= 17 }
 		custom_tooltip = tv_research.10.a_global_trade.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_artillery_institution
 		trigger = { var:tv_research_proposed_advance ?= 18 }
 		custom_tooltip = tv_research.10.a_artillery_institution.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_military_revolution
 		trigger = { var:tv_research_proposed_advance ?= 19 }
 		custom_tooltip = tv_research.10.a_military_revolution.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_enlightenment
 		trigger = { var:tv_research_proposed_advance ?= 20 }
 		custom_tooltip = tv_research.10.a_enlightenment.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a	# "Authorize the investigation"
+		name = tv_research.10.a_levee_en_masse
 		trigger = { var:tv_research_proposed_advance ?= 21 }
 		custom_tooltip = tv_research.10.a_levee_en_masse.tt
 		tv_research_confirm_target_effect = yes
@@ -825,5 +1347,124 @@ tv_research.30 = {
 			tv_update_chief_scientist_effective_adm_effect = yes
 			tv_research_reset_cycle_effect = yes
 		}
+	}
+}
+
+# ── tv_research.31 — Target Already Researched Notification ────────────────────
+# Fired monthly if the selected target is completed through the normal technology
+# path before concentrated research unlocks it. The cycle is reset immediately.
+tv_research.31 = {
+	type = country_event
+	title = tv_research.31.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 1 }
+				desc = tv_research.31.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 2 }
+				desc = tv_research.31.d_iron_working
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 4 }
+				desc = tv_research.31.d_gunpowder
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 5 }
+				desc = tv_research.31.d_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 6 }
+				desc = tv_research.31.d_scientific_experimentation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 7 }
+				desc = tv_research.31.d_scientific_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 8 }
+				desc = tv_research.31.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 9 }
+				desc = tv_research.31.d_industrialization
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 10 }
+				desc = tv_research.31.d_vaccination
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 11 }
+				desc = tv_research.31.d_renaissance
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 12 }
+				desc = tv_research.31.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 13 }
+				desc = tv_research.31.d_professional_armies
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 14 }
+				desc = tv_research.31.d_new_world
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 15 }
+				desc = tv_research.31.d_pike_and_shot
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 16 }
+				desc = tv_research.31.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 17 }
+				desc = tv_research.31.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 18 }
+				desc = tv_research.31.d_artillery_institution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 19 }
+				desc = tv_research.31.d_military_revolution
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 20 }
+				desc = tv_research.31.d_enlightenment
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 21 }
+				desc = tv_research.31.d_levee_en_masse
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = tv_research.31.d
+			}
+		}
+	}
+	outcome = neutral
+
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_RESEARCH_TARGET_TT
+			has_variable = tv_research_target
+		}
+		custom_tooltip = {
+			text = TV_HAS_RESEARCH_PHASE_TT
+			has_variable = tv_research_phase
+		}
+		var:tv_research_phase >= 1
+		tv_research_target_already_researched_trigger = yes
+	}
+
+	immediate = {
+		set_variable = { name = tv_research_completed_target_notice value = var:tv_research_target }
+		tv_research_reset_cycle_effect = yes
+	}
+
+	option = {
+		name = tv_research.31.a
 	}
 }

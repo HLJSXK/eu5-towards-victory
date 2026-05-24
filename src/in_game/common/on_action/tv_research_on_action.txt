@@ -5,6 +5,31 @@
 # monthly_country_pulse logic is owned by towards_victory_leaderboard.txt to avoid
 # EU5 singleton on_action overrides for duplicate effect blocks.
 
+# ── tv_research_target_completed_pulse ─────────────────────────────────────────
+# Cancels an active target if the country finishes that advance through the normal
+# research path before concentrated research completes it.
+tv_research_target_completed_pulse = {
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
+			has_variable = tv_academy_io_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_RESEARCH_TARGET_TT
+			has_variable = tv_research_target
+		}
+		custom_tooltip = {
+			text = TV_HAS_RESEARCH_PHASE_TT
+			has_variable = tv_research_phase
+		}
+		var:tv_research_phase >= 1
+		tv_research_target_already_researched_trigger = yes
+	}
+	effect = {
+		trigger_event_non_silently = { id = tv_research.31 }
+	}
+}
+
 # ── tv_research_a_pulse ────────────────────────────────────────────────────────
 # Sub-action for Sub-process A interest collection.
 # Trigger gates the whole block; one random_list selects at most one event each month.
