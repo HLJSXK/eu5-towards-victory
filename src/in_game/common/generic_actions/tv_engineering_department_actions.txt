@@ -244,13 +244,50 @@ tv_wonder_start_survey = {
 							topography = hills
 						}
 					}
-					AND = {
-						scope:actor = { var:tv_wonder_locked ?= 9 }
-						is_capital = yes
-					}
+				AND = {
+					scope:actor = { var:tv_wonder_locked ?= 9 }
+					is_capital = yes
+				}
+				AND = {
+					scope:actor = { var:tv_wonder_locked ?= 10 }
+					NOT = { location_rank ?= location_rank:rural_settlement }
+				}
+				AND = {
+					scope:actor = { var:tv_wonder_locked ?= 11 }
+					dominant_religion = owner.religion
+				}
+				AND = {
+					scope:actor = { var:tv_wonder_locked ?= 12 }
+					always = yes
+				}
+				AND = {
+					scope:actor = { var:tv_wonder_locked ?= 13 }
+					has_river = yes
+				}
+				AND = {
+					scope:actor = { var:tv_wonder_locked ?= 14 }
+					is_port = yes
+				}
+				AND = {
+					scope:actor = { var:tv_wonder_locked ?= 15 }
+					NOT = { location_rank ?= location_rank:rural_settlement }
+				}
+				AND = {
+					scope:actor = { var:tv_wonder_locked ?= 16 }
+					NOT = { location_rank ?= location_rank:city }
+					NOT = { location_rank ?= location_rank:megalopolis }
+				}
+				AND = {
+					scope:actor = { var:tv_wonder_locked ?= 17 }
+					NOT = { location_rank ?= location_rank:rural_settlement }
+				}
+				AND = {
+					scope:actor = { var:tv_wonder_locked ?= 18 }
+					is_capital = yes
 				}
 			}
 		}
+	}
 	effect = {
 		if = {
 			limit = { exists = scope:target }
@@ -783,5 +820,302 @@ tv_wonder_start_embassy_quarter = {
 	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
 	allow = { scope:actor = { tv_wonder_can_start_embassy_quarter_trigger = yes } }
 	effect = { scope:actor = { tv_wonder_start_embassy_quarter_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_scholars_convocation = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_scholars_convocation_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_scholars_convocation_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_confirm_public_lectures = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_public_lectures_ready_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_confirm_public_lectures_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_collegiate_charter = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_collegiate_charter_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_collegiate_charter_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_dome_consecration = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_dome_consecration_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_dome_consecration_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_hold_pilgrim_treasury = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_hold_pilgrim_treasury_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_hold_pilgrim_treasury_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_confirm_celestial_synod = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_celestial_synod_ready_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_confirm_celestial_synod_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_perform_beacon_rite = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_perform_beacon_rite_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_perform_beacon_rite_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_pilgrim_stair = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_pilgrim_stair_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_pilgrim_stair_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_temple_school = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_temple_school_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_temple_school_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_confirm_bridge_opening = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_bridge_opening_ready_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_confirm_bridge_opening_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_river_fair = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_river_fair_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_river_fair_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_canal_authority = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_canal_authority_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_canal_authority_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_hold_keel_laying = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_hold_keel_laying_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_hold_keel_laying_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_confirm_fleet_muster = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_fleet_muster_ready_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_confirm_fleet_muster_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_admiralty_yard = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_admiralty_yard_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_admiralty_yard_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_bastion_trial = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_bastion_trial_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_bastion_trial_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_confirm_siege_games = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_siege_games_ready_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_confirm_siege_games_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_arsenal_quarter = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_arsenal_quarter_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_arsenal_quarter_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_hold_frontier_muster = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_hold_frontier_muster_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_hold_frontier_muster_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_signal_fires = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_signal_fires_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_signal_fires_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_swear_wall_oath = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_swear_wall_oath_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_swear_wall_oath_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_confirm_muster_of_arms = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_confirm_muster_of_arms_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_confirm_muster_of_arms_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_hold_foundry_contracts = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_hold_foundry_contracts_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_hold_foundry_contracts_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_master_armourers = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_master_armourers_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_master_armourers_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_national_catalog = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_national_catalog_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_national_catalog_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_hold_copyists_endowment = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_hold_copyists_endowment_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_hold_copyists_endowment_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_start_legal_deposit = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_can_start_legal_deposit_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_start_legal_deposit_effect = yes } }
 	ai_will_do = { add = -100 }
 }

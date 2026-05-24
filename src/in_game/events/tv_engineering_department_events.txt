@@ -433,6 +433,160 @@ tv_engineering_department.501 = {
 	}
 }
 
+tv_engineering_department.551 = {
+	type = country_event
+	title = tv_engineering_department.551.t
+	desc = tv_engineering_department.551.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.551.a
+	}
+}
+
+tv_engineering_department.552 = {
+	type = country_event
+	title = tv_engineering_department.552.t
+	desc = tv_engineering_department.552.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.552.a
+	}
+}
+
+tv_engineering_department.561 = {
+	type = country_event
+	title = tv_engineering_department.561.t
+	desc = tv_engineering_department.561.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.561.a
+	}
+}
+
+tv_engineering_department.571 = {
+	type = country_event
+	title = tv_engineering_department.571.t
+	desc = tv_engineering_department.571.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.571.a
+	}
+}
+
+tv_engineering_department.572 = {
+	type = country_event
+	title = tv_engineering_department.572.t
+	desc = tv_engineering_department.572.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.572.a
+	}
+}
+
+tv_engineering_department.581 = {
+	type = country_event
+	title = tv_engineering_department.581.t
+	desc = tv_engineering_department.581.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.581.a
+	}
+}
+
+tv_engineering_department.582 = {
+	type = country_event
+	title = tv_engineering_department.582.t
+	desc = tv_engineering_department.582.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.582.a
+	}
+}
+
+tv_engineering_department.591 = {
+	type = country_event
+	title = tv_engineering_department.591.t
+	desc = tv_engineering_department.591.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.591.a
+	}
+}
+
+tv_engineering_department.601 = {
+	type = country_event
+	title = tv_engineering_department.601.t
+	desc = tv_engineering_department.601.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.601.a
+	}
+}
+
+tv_engineering_department.602 = {
+	type = country_event
+	title = tv_engineering_department.602.t
+	desc = tv_engineering_department.602.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.602.a
+	}
+}
+
+tv_engineering_department.611 = {
+	type = country_event
+	title = tv_engineering_department.611.t
+	desc = tv_engineering_department.611.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.611.a
+	}
+}
+
+tv_engineering_department.621 = {
+	type = country_event
+	title = tv_engineering_department.621.t
+	desc = tv_engineering_department.621.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.621.a
+	}
+}
+
+tv_engineering_department.631 = {
+	type = country_event
+	title = tv_engineering_department.631.t
+	desc = tv_engineering_department.631.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.631.a
+	}
+}
+
+tv_engineering_department.632 = {
+	type = country_event
+	title = tv_engineering_department.632.t
+	desc = tv_engineering_department.632.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.632.a
+	}
+}
+
 tv_engineering_department.500 = {
 	type = country_event
 	title = tv_engineering_department.500.t
@@ -546,6 +700,114 @@ tv_engineering_department.500 = {
 				trigger = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 3 }
 				desc = tv_engineering_department.500.d_palace_3
 			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_university_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_university_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_university_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_sky_dome_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_sky_dome_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_sky_dome_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_tower_temple_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_tower_temple_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_tower_temple_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_river_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_river_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_river_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_shipyard_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_shipyard_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_shipyard_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_star_fortress_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_star_fortress_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_star_fortress_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_great_wall_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_great_wall_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_great_wall_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_armory_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_armory_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_armory_3
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_library_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_library_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_library_3
+			}
 			desc = tv_engineering_department.500.d
 		}
 	}
@@ -597,6 +859,42 @@ tv_engineering_department.600 = {
 			triggered_desc = {
 				trigger = { exists = scope:tv_wonder_completed_palace }
 				desc = tv_engineering_department.600.d_palace
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_university }
+				desc = tv_engineering_department.600.d_university
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_sky_dome }
+				desc = tv_engineering_department.600.d_sky_dome
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_tower_temple }
+				desc = tv_engineering_department.600.d_tower_temple
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_river }
+				desc = tv_engineering_department.600.d_river
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_shipyard }
+				desc = tv_engineering_department.600.d_shipyard
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_star_fortress }
+				desc = tv_engineering_department.600.d_star_fortress
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_great_wall }
+				desc = tv_engineering_department.600.d_great_wall
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_armory }
+				desc = tv_engineering_department.600.d_armory
+			}
+			triggered_desc = {
+				trigger = { exists = scope:tv_wonder_completed_library }
+				desc = tv_engineering_department.600.d_library
 			}
 			desc = tv_engineering_department.600.d
 		}

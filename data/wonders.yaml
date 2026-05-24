@@ -125,6 +125,132 @@ wonders:
       1: tv_wonder_congress_palace
       2: tv_wonder_tribute_gallery
       3: tv_wonder_embassy_palace
+  - id: 10
+    key: university_city
+    concept: tv_wonder_university_city
+    size: medium
+    category: cultural_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "University City"
+      zh: "大学城"
+    final_buildings:
+      1: tv_wonder_scholars_convocation
+      2: tv_wonder_public_lectures
+      3: tv_wonder_collegiate_charter
+  - id: 11
+    key: sky_dome_grand_temple
+    concept: tv_wonder_sky_dome_grand_temple
+    size: medium
+    category: cultural_category
+    pop_type: clergy
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Sky Dome Grand Temple"
+      zh: "天穹大圣殿"
+    final_buildings:
+      1: tv_wonder_dome_consecration
+      2: tv_wonder_pilgrim_treasury
+      3: tv_wonder_celestial_synod
+  - id: 12
+    key: giant_tower_temple
+    concept: tv_wonder_giant_tower_temple
+    size: small
+    category: cultural_category
+    pop_type: clergy
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Giant Tower Temple"
+      zh: "巨塔式神庙"
+    final_buildings:
+      1: tv_wonder_beacon_rite_temple
+      2: tv_wonder_pilgrim_stair_temple
+      3: tv_wonder_temple_school_tower
+  - id: 13
+    key: river_extension
+    concept: tv_wonder_river_extension
+    size: small
+    category: infrastructure_category
+    pop_type: laborers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "River Extension"
+      zh: "河道拓宽工程"
+    final_buildings:
+      1: tv_wonder_bridge_opening
+      2: tv_wonder_river_fair
+      3: tv_wonder_canal_authority
+  - id: 14
+    key: national_shipyard
+    concept: tv_wonder_national_shipyard
+    size: medium
+    category: infrastructure_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "National Shipyard"
+      zh: "国家船坞"
+    final_buildings:
+      1: tv_wonder_keel_laying_yard
+      2: tv_wonder_fleet_muster_yard
+      3: tv_wonder_admiralty_yard
+  - id: 15
+    key: star_fortress_city
+    concept: tv_wonder_star_fortress_city
+    size: medium
+    category: military_category
+    pop_type: soldiers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Star Fortress City"
+      zh: "星型要塞城"
+    final_buildings:
+      1: tv_wonder_bastion_trial_fortress
+      2: tv_wonder_siege_games_fortress
+      3: tv_wonder_arsenal_quarter_fortress
+  - id: 16
+    key: great_wall
+    concept: tv_wonder_great_wall
+    size: medium
+    category: military_category
+    pop_type: soldiers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Great Wall"
+      zh: "长城"
+    final_buildings:
+      1: tv_wonder_frontier_muster_wall
+      2: tv_wonder_signal_fires_wall
+      3: tv_wonder_wall_oath
+  - id: 17
+    key: giant_armory
+    concept: tv_wonder_giant_armory
+    size: medium
+    category: military_category
+    pop_type: soldiers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Giant Armory"
+      zh: "巨型军械库"
+    final_buildings:
+      1: tv_wonder_muster_of_arms
+      2: tv_wonder_foundry_contracts
+      3: tv_wonder_master_armourers
+  - id: 18
+    key: library_of_nation
+    concept: tv_wonder_library_of_nation
+    size: medium
+    category: cultural_category
+    pop_type: clergy
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Library of Nation"
+      zh: "国家图书馆"
+    final_buildings:
+      1: tv_wonder_national_catalog_library
+      2: tv_wonder_copyists_endowment_library
+      3: tv_wonder_legal_deposit_library
 
 parts:
   - key: foundation

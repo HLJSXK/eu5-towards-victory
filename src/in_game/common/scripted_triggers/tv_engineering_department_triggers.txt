@@ -91,6 +91,64 @@ tv_wonder_can_build_palace_of_nations_trigger = {
 	}
 }
 
+tv_wonder_can_build_university_city_trigger = {
+	any_owned_location = {
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
+}
+
+tv_wonder_can_build_sky_dome_grand_temple_trigger = {
+	any_owned_location = {
+		dominant_religion = owner.religion
+	}
+}
+
+tv_wonder_can_build_giant_tower_temple_trigger = {
+	any_owned_location = {
+		always = yes
+	}
+}
+
+tv_wonder_can_build_river_extension_trigger = {
+	any_owned_location = {
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+		}
+	}
+}
+
+tv_wonder_can_build_national_shipyard_trigger = {
+	any_owned_location = {
+		is_port = yes
+	}
+}
+
+tv_wonder_can_build_star_fortress_city_trigger = {
+	any_owned_location = {
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
+}
+
+tv_wonder_can_build_great_wall_trigger = {
+	any_owned_location = {
+		NOT = { location_rank ?= location_rank:city }
+		NOT = { location_rank ?= location_rank:megalopolis }
+	}
+}
+
+tv_wonder_can_build_giant_armory_trigger = {
+	any_owned_location = {
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
+}
+
+tv_wonder_can_build_library_of_nation_trigger = {
+	any_owned_location = {
+		is_capital = yes
+	}
+}
+
 tv_wonder_has_any_feasible_proposal_trigger = {
 	OR = {
 		has_variable = tv_wonder_feasible_sacred_mountain
@@ -102,6 +160,15 @@ tv_wonder_has_any_feasible_proposal_trigger = {
 		has_variable = tv_wonder_feasible_mining_city
 		has_variable = tv_wonder_feasible_giant_observatory
 		has_variable = tv_wonder_feasible_palace_of_nations
+		has_variable = tv_wonder_feasible_university_city
+		has_variable = tv_wonder_feasible_sky_dome_grand_temple
+		has_variable = tv_wonder_feasible_giant_tower_temple
+		has_variable = tv_wonder_feasible_river_extension
+		has_variable = tv_wonder_feasible_national_shipyard
+		has_variable = tv_wonder_feasible_star_fortress_city
+		has_variable = tv_wonder_feasible_great_wall
+		has_variable = tv_wonder_feasible_giant_armory
+		has_variable = tv_wonder_feasible_library_of_nation
 	}
 }
 
@@ -322,6 +389,42 @@ tv_wonder_has_valid_site_candidate_trigger = {
 		AND = {
 			var:tv_wonder_locked ?= 9
 			tv_wonder_can_build_palace_of_nations_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 10
+			tv_wonder_can_build_university_city_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 11
+			tv_wonder_can_build_sky_dome_grand_temple_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 12
+			tv_wonder_can_build_giant_tower_temple_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 13
+			tv_wonder_can_build_river_extension_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 14
+			tv_wonder_can_build_national_shipyard_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 15
+			tv_wonder_can_build_star_fortress_city_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 16
+			tv_wonder_can_build_great_wall_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 17
+			tv_wonder_can_build_giant_armory_trigger = yes
+		}
+		AND = {
+			var:tv_wonder_locked ?= 18
+			tv_wonder_can_build_library_of_nation_trigger = yes
 		}
 	}
 }
@@ -802,6 +905,307 @@ tv_wonder_can_start_embassy_quarter_trigger = {
 tv_wonder_embassy_quarter_completion_ready_trigger = {
 	tv_wonder_ceremony_style_3_trigger = yes
 	var:tv_wonder_locked ?= 9
+	has_variable = tv_wonder_ceremony_active
+	tv_wonder_construction_site_selected_trigger = yes
+}
+
+tv_wonder_can_start_scholars_convocation_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 10
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_public_lectures_ready_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 10
+	tv_wonder_construction_site_selected_trigger = yes
+	var:tv_wonder_site ?= { average_location_literacy >= 50 }
+}
+
+tv_wonder_can_start_collegiate_charter_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 10
+	tv_wonder_construction_site_selected_trigger = yes
+	NOT = { has_variable = tv_wonder_ceremony_active }
+	var:tv_wonder_site ?= {
+		NOT = { has_building = building_type:tv_wonder_collegiate_hall }
+		NOT = {
+			any_buildings_in_location = {
+				building_type = building_type:tv_wonder_collegiate_hall
+				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_wonder_collegiate_charter_completion_ready_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 10
+	has_variable = tv_wonder_ceremony_active
+	tv_wonder_construction_site_selected_trigger = yes
+}
+
+tv_wonder_can_start_dome_consecration_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 11
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_can_hold_pilgrim_treasury_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 11
+	OR = {
+		NOT = { has_variable = tv_wonder_ceremony_progress }
+		var:tv_wonder_ceremony_progress ?= { this < 5 }
+	}
+}
+
+tv_wonder_celestial_synod_ready_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 11
+	any_cabinet_character = { count > 0 }
+}
+
+tv_wonder_can_perform_beacon_rite_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 12
+}
+
+tv_wonder_can_start_pilgrim_stair_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 12
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_can_start_temple_school_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 12
+	tv_wonder_construction_site_selected_trigger = yes
+	NOT = { has_variable = tv_wonder_ceremony_active }
+	var:tv_wonder_site ?= {
+		NOT = { has_building = building_type:tv_wonder_temple_school }
+		NOT = {
+			any_buildings_in_location = {
+				building_type = building_type:tv_wonder_temple_school
+				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_wonder_temple_school_completion_ready_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 12
+	has_variable = tv_wonder_ceremony_active
+	tv_wonder_construction_site_selected_trigger = yes
+}
+
+tv_wonder_bridge_opening_ready_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 13
+	tv_wonder_construction_site_selected_trigger = yes
+	var:tv_wonder_site ?= {
+		any_neighbor_location = {
+			has_owner = yes
+			owner = root
+		}
+	}
+}
+
+tv_wonder_can_start_river_fair_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 13
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_can_start_canal_authority_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 13
+	tv_wonder_construction_site_selected_trigger = yes
+	NOT = { has_variable = tv_wonder_ceremony_active }
+	var:tv_wonder_site ?= {
+		NOT = { has_building = building_type:tv_wonder_canal_office }
+		NOT = {
+			any_buildings_in_location = {
+				building_type = building_type:tv_wonder_canal_office
+				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_wonder_canal_authority_completion_ready_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 13
+	has_variable = tv_wonder_ceremony_active
+	tv_wonder_construction_site_selected_trigger = yes
+}
+
+tv_wonder_can_hold_keel_laying_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 14
+	OR = {
+		NOT = { has_variable = tv_wonder_ceremony_progress }
+		var:tv_wonder_ceremony_progress ?= { this < 5 }
+	}
+}
+
+tv_wonder_fleet_muster_ready_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 14
+	total_sub_unit_count:navy_heavy_ship > 49
+}
+
+tv_wonder_can_start_admiralty_yard_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 14
+	tv_wonder_construction_site_selected_trigger = yes
+	NOT = { has_variable = tv_wonder_ceremony_active }
+	var:tv_wonder_site ?= {
+		NOT = { has_building = building_type:tv_wonder_admiralty_office }
+		NOT = {
+			any_buildings_in_location = {
+				building_type = building_type:tv_wonder_admiralty_office
+				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_wonder_admiralty_yard_completion_ready_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 14
+	has_variable = tv_wonder_ceremony_active
+	tv_wonder_construction_site_selected_trigger = yes
+}
+
+tv_wonder_can_start_bastion_trial_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 15
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_siege_games_ready_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 15
+	max_manpower > 5
+}
+
+tv_wonder_can_start_arsenal_quarter_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 15
+	tv_wonder_construction_site_selected_trigger = yes
+	NOT = { has_variable = tv_wonder_ceremony_active }
+	var:tv_wonder_site ?= {
+		NOT = { has_building = building_type:tv_wonder_fortress_arsenal_quarter }
+		NOT = {
+			any_buildings_in_location = {
+				building_type = building_type:tv_wonder_fortress_arsenal_quarter
+				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_wonder_arsenal_quarter_completion_ready_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 15
+	has_variable = tv_wonder_ceremony_active
+	tv_wonder_construction_site_selected_trigger = yes
+}
+
+tv_wonder_can_hold_frontier_muster_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 16
+	OR = {
+		NOT = { has_variable = tv_wonder_ceremony_progress }
+		var:tv_wonder_ceremony_progress ?= { this < 5 }
+	}
+}
+
+tv_wonder_can_start_signal_fires_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 16
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_can_swear_wall_oath_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 16
+}
+
+tv_wonder_can_confirm_muster_of_arms_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 17
+	max_manpower > 5
+}
+
+tv_wonder_can_hold_foundry_contracts_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 17
+	OR = {
+		NOT = { has_variable = tv_wonder_ceremony_progress }
+		var:tv_wonder_ceremony_progress ?= { this < 5 }
+	}
+}
+
+tv_wonder_can_start_master_armourers_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 17
+	tv_wonder_construction_site_selected_trigger = yes
+	NOT = { has_variable = tv_wonder_ceremony_active }
+	var:tv_wonder_site ?= {
+		NOT = { has_building = building_type:tv_wonder_master_armourers_hall }
+		NOT = {
+			any_buildings_in_location = {
+				building_type = building_type:tv_wonder_master_armourers_hall
+				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_wonder_master_armourers_completion_ready_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 17
+	has_variable = tv_wonder_ceremony_active
+	tv_wonder_construction_site_selected_trigger = yes
+}
+
+tv_wonder_can_start_national_catalog_trigger = {
+	tv_wonder_ceremony_style_1_trigger = yes
+	var:tv_wonder_locked ?= 18
+	NOT = { has_variable = tv_wonder_ceremony_active }
+}
+
+tv_wonder_can_hold_copyists_endowment_trigger = {
+	tv_wonder_ceremony_style_2_trigger = yes
+	var:tv_wonder_locked ?= 18
+	OR = {
+		NOT = { has_variable = tv_wonder_ceremony_progress }
+		var:tv_wonder_ceremony_progress ?= { this < 5 }
+	}
+}
+
+tv_wonder_can_start_legal_deposit_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 18
+	tv_wonder_construction_site_selected_trigger = yes
+	NOT = { has_variable = tv_wonder_ceremony_active }
+	var:tv_wonder_site ?= {
+		NOT = { has_building = building_type:tv_wonder_legal_deposit_office }
+		NOT = {
+			any_buildings_in_location = {
+				building_type = building_type:tv_wonder_legal_deposit_office
+				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_wonder_legal_deposit_completion_ready_trigger = {
+	tv_wonder_ceremony_style_3_trigger = yes
+	var:tv_wonder_locked ?= 18
 	has_variable = tv_wonder_ceremony_active
 	tv_wonder_construction_site_selected_trigger = yes
 }
