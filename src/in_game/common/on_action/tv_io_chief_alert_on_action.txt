@@ -8,3 +8,13 @@
 		}
 	}
 }
+
+cmf_on_callback = {
+	on_actions = { tv_io_chief_alert_on_cmf_callback }
+}
+
+tv_io_chief_alert_on_cmf_callback = {
+	effect = {
+		tv_handle_io_chief_alert_callback_effect = yes
+	}
+}
