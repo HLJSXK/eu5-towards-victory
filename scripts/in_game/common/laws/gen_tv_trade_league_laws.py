@@ -4,7 +4,8 @@ data/trade_league_laws.yaml.
 
 Pattern: Trade League IO laws. Policies may define country_modifier,
 leader_modifier, and non_leader_modifier blocks and keep IO policy votes
-enabled.
+enabled. Three-level policies generate Trade League AI vote bias from level,
+opinion toward the leader, leader diplomatic reputation, and leader trade income.
 """
 
 import argparse
@@ -30,7 +31,7 @@ FILE_HEADER = (
     "# Do not edit directly - modify the data file and re-run the generator.\n"
     "#\n"
     "# TOWARDS VICTORY - TRADE LEAGUE LAWS\n"
-    "# Two simple Trade League law groups with vote-gated policies.\n"
+    "# Three-level Trade League law groups with vote-gated policies.\n"
     "# requires_vote = yes: Trade League law changes use IO policy votes.\n"
 )
 
@@ -42,14 +43,84 @@ def _indent_block(text: str, depth: int) -> str:
     return "\n".join(prefix + line if line.strip() else "" for line in text.rstrip().splitlines())
 
 
+def gen_ai_vote_bias(level: int) -> list[str]:
+    base_by_level = {
+        1: 200,
+        2: 100,
+        3: 0,
+    }
+    opinion_scale_by_level = {
+        1: 0,
+        2: 0.25,
+        3: 0.5,
+    }
+    opinion_cap_by_level = {
+        1: 0,
+        2: 50,
+        3: 100,
+    }
+    dip_rep_scale_by_level = {
+        1: 0,
+        2: 2,
+        3: 5,
+    }
+    trade_income_scale_by_level = {
+        1: 0,
+        2: 5,
+        3: 10,
+    }
+
+    lines = []
+    lines.append(T * 2 + "wants_this_policy_bias = {")
+    lines.append(T * 3 + "add = {")
+    lines.append(T * 4 + 'desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"')
+    lines.append(T * 4 + f"value = {base_by_level[level]}")
+    lines.append(T * 3 + "}")
+
+    if level > 1:
+        opinion_cap = opinion_cap_by_level[level]
+        lines.append(T * 3 + "if = {")
+        lines.append(T * 4 + "limit = {")
+        lines.append(T * 5 + "exists = scope:recipient")
+        lines.append(T * 5 + "scope:recipient = { international_organization_has_leader = yes }")
+        lines.append(T * 4 + "}")
+        lines.append(T * 4 + "add = {")
+        lines.append(T * 5 + 'desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"')
+        lines.append(T * 5 + "value = {")
+        lines.append(T * 6 + 'value = "opinion(scope:recipient.leader_country)"')
+        lines.append(T * 6 + f"multiply = {opinion_scale_by_level[level]}")
+        lines.append(T * 6 + f"min = -{opinion_cap}")
+        lines.append(T * 6 + f"max = {opinion_cap}")
+        lines.append(T * 5 + "}")
+        lines.append(T * 4 + "}")
+        lines.append(T * 4 + "add = {")
+        lines.append(T * 5 + 'desc = "IO_LEADER_DIP_REP"')
+        lines.append(T * 5 + "value = scope:recipient.leader_country.modifier:diplomatic_reputation")
+        lines.append(T * 5 + f"multiply = {dip_rep_scale_by_level[level]}")
+        lines.append(T * 4 + "}")
+        lines.append(T * 4 + "add = {")
+        lines.append(T * 5 + 'desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"')
+        lines.append(T * 5 + "value = scope:recipient.leader_country.monthly_trade_income")
+        lines.append(T * 5 + "divide = 100")
+        lines.append(T * 5 + f"multiply = {trade_income_scale_by_level[level]}")
+        lines.append(T * 4 + "}")
+        lines.append(T * 3 + "}")
+
+    lines.append(T * 2 + "}")
+    return lines
+
+
 def gen_policy(policy: dict) -> str:
     pid = policy["id"]
+    level = policy.get("level")
     comment = policy.get("display_comment", "")
 
     lines = []
     if comment:
         lines.append(T + f"# {comment}")
     lines.append(T + f"{pid} = {{")
+    if level is not None:
+        lines.append(T * 2 + f"level = {level}")
     lines.append(T * 2 + "allow = {")
     lines.append(T * 3 + "always = yes")
     lines.append(T * 2 + "}")
@@ -59,6 +130,8 @@ def gen_policy(policy: dict) -> str:
             lines.append(T * 2 + f"{block_name} = {{")
             lines.append(_indent_block(modifier_lines, 3))
             lines.append(T * 2 + "}")
+    if level is not None:
+        lines.extend(gen_ai_vote_bias(level))
     lines.append(T + "}")
     return "\n".join(lines)
 
@@ -84,6 +157,8 @@ def gen_law(law: dict, default_law_category: str, io_type: str) -> str:
     lines.append(T + "}")
     lines.append(T + "locked = {")
     lines.append(T + "}")
+    if any(policy.get("level") is not None for policy in policies):
+        lines.append(T + "has_levels = yes")
     lines.append(T + "requires_vote = yes")
     lines.append(T + "custom_tags = { forbids_no_policy }")
     lines.append("")

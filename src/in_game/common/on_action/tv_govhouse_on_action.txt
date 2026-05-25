@@ -41,6 +41,37 @@ tv_govhouse_training_monthly_pulse = {
 	}
 }
 
+# Monthly roll for Grand General loyalty events. The three events share a
+# single 5% country-level roll and only run while a living Grand General exists.
+tv_govhouse_loyalty_monthly_pulse = {
+	effect = {
+		if = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_GOVHOUSE_MEMBER_TT
+					has_variable = tv_govhouse_member
+				}
+				custom_tooltip = {
+					text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+					has_variable = tv_conquest_general_char
+				}
+				var:tv_conquest_general_char ?= { is_alive = yes }
+			}
+			tv_govhouse_initialize_grand_general_loyalty_effect = yes
+			random_list = {
+				95 = {}
+				5 = {
+					random_list = {
+						1 = { trigger_event_non_silently = { id = tv_grand_general.9 } }
+						1 = { trigger_event_non_silently = { id = tv_grand_general.10 } }
+						1 = { trigger_event_non_silently = { id = tv_grand_general.11 } }
+					}
+				}
+			}
+		}
+	}
+}
+
 # Monthly roll for Governor's House balance-of-power backlash events.
 # Each eligible event has weight 1 out of 300 and only one event can fire.
 tv_govhouse_negative_monthly_pulse = {

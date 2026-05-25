@@ -1,0 +1,46 @@
+﻿tv_missing_io_chief_alert_trigger = {
+	OR = {
+		AND = {
+			has_variable = tv_arts_exhibition_member
+			OR = {
+				NOT = { has_variable = tv_arts_exhibition_leader_char }
+				NOT = { var:tv_arts_exhibition_leader_char ?= { is_alive = yes } }
+			}
+		}
+		AND = {
+			has_variable = tv_diplomatic_alliance_member
+			OR = {
+				NOT = { has_variable = tv_diplomatic_alliance_leader_char }
+				NOT = { var:tv_diplomatic_alliance_leader_char ?= { is_alive = yes } }
+			}
+		}
+		AND = {
+			has_variable = tv_academy_io_member
+			OR = {
+				NOT = { has_variable = tv_academy_leader_char }
+				NOT = { var:tv_academy_leader_char ?= { is_alive = yes } }
+			}
+		}
+		AND = {
+			has_variable = tv_engineering_department_member
+			OR = {
+				NOT = { has_variable = tv_great_engineer_char }
+				NOT = { var:tv_great_engineer_char ?= { is_alive = yes } }
+			}
+		}
+		AND = {
+			has_variable = tv_trade_league_member
+			OR = {
+				NOT = { has_variable = tv_grand_merchant_char }
+				NOT = { var:tv_grand_merchant_char ?= { is_alive = yes } }
+			}
+		}
+		AND = {
+			has_variable = tv_govhouse_member
+			OR = {
+				NOT = { has_variable = tv_conquest_general_char }
+				NOT = { var:tv_conquest_general_char ?= { is_alive = yes } }
+			}
+		}
+	}
+}

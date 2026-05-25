@@ -1,0 +1,18 @@
+﻿tv_sync_missing_io_chief_alert_effect = {
+	if = {
+		limit = { tv_missing_io_chief_alert_trigger = yes }
+		cmf_show_alert = {
+			alert = tv_missing_io_chief_alert
+		}
+	}
+	else_if = {
+		limit = {
+			cmf_is_alert_active = {
+				alert = tv_missing_io_chief_alert
+			}
+		}
+		cmf_remove_alert = {
+			alert = tv_missing_io_chief_alert
+		}
+	}
+}

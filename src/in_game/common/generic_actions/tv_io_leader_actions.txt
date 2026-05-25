@@ -37,6 +37,10 @@ tv_appoint_arts_leader = {
 			text = TV_HAS_VARIABLE_NOT_SET_TT
 			NOT = { has_variable = tv_on_exhibition }
 			}
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -47,9 +51,17 @@ tv_appoint_arts_leader = {
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = {
+				if = {
+					limit = { has_variable = tv_arts_exhibition_leader_char }
+					var:tv_arts_exhibition_leader_char ?= {
+						remove_variable = tv_io_chief_role
+						remove_character_modifier = tv_chief_artist_role_modifier
+					}
+				}
 				set_variable = { name = tv_arts_exhibition_leader_char value = scope:target }
 			}
 			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 				add_character_modifier = { modifier = tv_chief_artist_role_modifier years = -1 mode = add_and_extend }
 			}
 		}
@@ -76,13 +88,9 @@ tv_remove_arts_leader = {
 	effect = {
 		scope:actor = {
 			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_ARTS_EXHIBITION_LEADER_CHAR_TT
-						has_variable = tv_arts_exhibition_leader_char
-					}
-				}
+				limit = { has_variable = tv_arts_exhibition_leader_char }
 				var:tv_arts_exhibition_leader_char ?= {
+					remove_variable = tv_io_chief_role
 					remove_character_modifier = tv_chief_artist_role_modifier
 				}
 			}
@@ -123,6 +131,10 @@ tv_change_arts_leader = {
 			text = TV_HAS_VARIABLE_NOT_SET_TT
 			NOT = { has_variable = tv_on_exhibition }
 			}
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -132,13 +144,9 @@ tv_change_arts_leader = {
 	effect = {
 		scope:actor = {
 			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_ARTS_EXHIBITION_LEADER_CHAR_TT
-						has_variable = tv_arts_exhibition_leader_char
-					}
-				}
+				limit = { has_variable = tv_arts_exhibition_leader_char }
 				var:tv_arts_exhibition_leader_char ?= {
+					remove_variable = tv_io_chief_role
 					remove_character_modifier = tv_chief_artist_role_modifier
 				}
 			}
@@ -149,6 +157,7 @@ tv_change_arts_leader = {
 				set_variable = { name = tv_arts_exhibition_leader_char value = scope:target }
 			}
 			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 				add_character_modifier = { modifier = tv_chief_artist_role_modifier years = -1 mode = add_and_extend }
 			}
 		}
@@ -186,6 +195,10 @@ tv_appoint_alliance_leader = {
 		visible = {
 			is_alive = yes
 			is_adult = yes
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -196,7 +209,16 @@ tv_appoint_alliance_leader = {
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = {
+				if = {
+					limit = { has_variable = tv_diplomatic_alliance_leader_char }
+					var:tv_diplomatic_alliance_leader_char ?= {
+						remove_variable = tv_io_chief_role
+					}
+				}
 				set_variable = { name = tv_diplomatic_alliance_leader_char value = scope:target }
+			}
+			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 			}
 		}
 	}
@@ -221,6 +243,12 @@ tv_remove_alliance_leader = {
 
 	effect = {
 		scope:actor = {
+			if = {
+				limit = { has_variable = tv_diplomatic_alliance_leader_char }
+				var:tv_diplomatic_alliance_leader_char ?= {
+					remove_variable = tv_io_chief_role
+				}
+			}
 			remove_variable = tv_diplomatic_alliance_leader_char
 		}
 	}
@@ -253,6 +281,10 @@ tv_change_alliance_leader = {
 		visible = {
 			is_alive = yes
 			is_adult = yes
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -260,10 +292,21 @@ tv_change_alliance_leader = {
 	}
 
 	effect = {
+		scope:actor = {
+			if = {
+				limit = { has_variable = tv_diplomatic_alliance_leader_char }
+				var:tv_diplomatic_alliance_leader_char ?= {
+					remove_variable = tv_io_chief_role
+				}
+			}
+		}
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = {
 				set_variable = { name = tv_diplomatic_alliance_leader_char value = scope:target }
+			}
+			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 			}
 		}
 	}
@@ -311,6 +354,10 @@ tv_appoint_academy_leader = {
 			}
 			}
 			}
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -321,6 +368,13 @@ tv_appoint_academy_leader = {
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = {
+				if = {
+					limit = { has_variable = tv_academy_leader_char }
+					var:tv_academy_leader_char ?= {
+						remove_variable = tv_io_chief_role
+						remove_character_modifier = tv_chief_scientist_role_modifier
+					}
+				}
 				set_variable = { name = tv_academy_leader_char value = scope:target }
 				tv_update_chief_scientist_effective_adm_effect = yes
 				set_variable = { name = tv_med_disp_adm value = var:tv_scientist_effective_adm }
@@ -328,6 +382,7 @@ tv_appoint_academy_leader = {
 				set_variable = { name = tv_med_disp_mil value = var:tv_academy_leader_char.mil }
 			}
 			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 				add_character_modifier = { modifier = tv_chief_scientist_role_modifier years = -1 mode = add_and_extend }
 			}
 		}
@@ -354,13 +409,9 @@ tv_remove_academy_leader = {
 	effect = {
 		scope:actor = {
 			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_ACADEMY_LEADER_CHAR_TT
-						has_variable = tv_academy_leader_char
-					}
-				}
+				limit = { has_variable = tv_academy_leader_char }
 				var:tv_academy_leader_char ?= {
+					remove_variable = tv_io_chief_role
 					remove_character_modifier = tv_chief_scientist_role_modifier
 				}
 			}
@@ -411,6 +462,10 @@ tv_change_academy_leader = {
 			}
 			}
 			}
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -420,13 +475,9 @@ tv_change_academy_leader = {
 	effect = {
 		scope:actor = {
 			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_ACADEMY_LEADER_CHAR_TT
-						has_variable = tv_academy_leader_char
-					}
-				}
+				limit = { has_variable = tv_academy_leader_char }
 				var:tv_academy_leader_char ?= {
+					remove_variable = tv_io_chief_role
 					remove_character_modifier = tv_chief_scientist_role_modifier
 				}
 			}
@@ -441,6 +492,7 @@ tv_change_academy_leader = {
 				set_variable = { name = tv_med_disp_mil value = var:tv_academy_leader_char.mil }
 			}
 			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 				add_character_modifier = { modifier = tv_chief_scientist_role_modifier years = -1 mode = add_and_extend }
 			}
 		}
@@ -479,6 +531,10 @@ tv_appoint_engineering_leader = {
 			is_alive = yes
 			is_adult = yes
 			NOT = { is_artist = yes }
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -489,10 +545,18 @@ tv_appoint_engineering_leader = {
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = {
+				if = {
+					limit = { has_variable = tv_great_engineer_char }
+					var:tv_great_engineer_char ?= {
+						remove_variable = tv_io_chief_role
+						remove_character_modifier = tv_great_engineer_role_modifier
+					}
+				}
 				set_variable = { name = tv_great_engineer_char value = scope:target }
 				tv_engineering_on_great_engineer_appointed_effect = yes
 			}
 			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 				add_character_modifier = { modifier = tv_great_engineer_role_modifier years = -1 mode = add_and_extend }
 			}
 		}
@@ -519,13 +583,9 @@ tv_remove_engineering_leader = {
 	effect = {
 		scope:actor = {
 			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_GREAT_ENGINEER_CHAR_TT
-						has_variable = tv_great_engineer_char
-					}
-				}
+				limit = { has_variable = tv_great_engineer_char }
 				var:tv_great_engineer_char ?= {
+					remove_variable = tv_io_chief_role
 					remove_character_modifier = tv_great_engineer_role_modifier
 				}
 			}
@@ -563,6 +623,10 @@ tv_change_engineering_leader = {
 			is_alive = yes
 			is_adult = yes
 			NOT = { is_artist = yes }
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -572,13 +636,9 @@ tv_change_engineering_leader = {
 	effect = {
 		scope:actor = {
 			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_GREAT_ENGINEER_CHAR_TT
-						has_variable = tv_great_engineer_char
-					}
-				}
+				limit = { has_variable = tv_great_engineer_char }
 				var:tv_great_engineer_char ?= {
+					remove_variable = tv_io_chief_role
 					remove_character_modifier = tv_great_engineer_role_modifier
 				}
 			}
@@ -590,6 +650,7 @@ tv_change_engineering_leader = {
 				tv_engineering_on_great_engineer_appointed_effect = yes
 			}
 			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 				add_character_modifier = { modifier = tv_great_engineer_role_modifier years = -1 mode = add_and_extend }
 			}
 		}
@@ -628,6 +689,10 @@ tv_appoint_trade_leader = {
 			is_alive = yes
 			is_adult = yes
 			NOT = { is_artist = yes }
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -638,9 +703,17 @@ tv_appoint_trade_leader = {
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = {
+				if = {
+					limit = { has_variable = tv_grand_merchant_char }
+					var:tv_grand_merchant_char ?= {
+						remove_variable = tv_io_chief_role
+						remove_character_modifier = tv_grand_merchant_role_modifier
+					}
+				}
 				set_variable = { name = tv_grand_merchant_char value = scope:target }
 			}
 			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 				add_character_modifier = { modifier = tv_grand_merchant_role_modifier years = -1 mode = add_and_extend }
 			}
 		}
@@ -667,13 +740,9 @@ tv_remove_trade_leader = {
 	effect = {
 		scope:actor = {
 			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_GRAND_MERCHANT_CHAR_TT
-						has_variable = tv_grand_merchant_char
-					}
-				}
+				limit = { has_variable = tv_grand_merchant_char }
 				var:tv_grand_merchant_char ?= {
+					remove_variable = tv_io_chief_role
 					remove_character_modifier = tv_grand_merchant_role_modifier
 				}
 			}
@@ -710,6 +779,10 @@ tv_change_trade_leader = {
 			is_alive = yes
 			is_adult = yes
 			NOT = { is_artist = yes }
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -719,13 +792,9 @@ tv_change_trade_leader = {
 	effect = {
 		scope:actor = {
 			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_GRAND_MERCHANT_CHAR_TT
-						has_variable = tv_grand_merchant_char
-					}
-				}
+				limit = { has_variable = tv_grand_merchant_char }
 				var:tv_grand_merchant_char ?= {
+					remove_variable = tv_io_chief_role
 					remove_character_modifier = tv_grand_merchant_role_modifier
 				}
 			}
@@ -736,6 +805,7 @@ tv_change_trade_leader = {
 				set_variable = { name = tv_grand_merchant_char value = scope:target }
 			}
 			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 				add_character_modifier = { modifier = tv_grand_merchant_role_modifier years = -1 mode = add_and_extend }
 			}
 		}
@@ -775,6 +845,10 @@ tv_appoint_conquest_general_leader = {
 			is_adult = yes
 			is_female = no
 			is_artist = no
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -785,10 +859,18 @@ tv_appoint_conquest_general_leader = {
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = {
+				if = {
+					limit = { has_variable = tv_conquest_general_char }
+					var:tv_conquest_general_char ?= {
+						remove_variable = tv_io_chief_role
+						remove_character_modifier = tv_grand_general_role_modifier
+					}
+				}
 				set_variable = { name = tv_conquest_general_char value = scope:target }
-				tv_govhouse_reset_power_consolidation_effect = yes
+				tv_govhouse_on_grand_general_appointed_effect = yes
 			}
 			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 				add_character_modifier = { modifier = tv_grand_general_role_modifier years = -1 mode = add_and_extend }
 			}
 		}
@@ -815,17 +897,14 @@ tv_remove_conquest_general_leader = {
 	effect = {
 		scope:actor = {
 			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
-						has_variable = tv_conquest_general_char
-					}
-				}
+				limit = { has_variable = tv_conquest_general_char }
 				var:tv_conquest_general_char ?= {
+					remove_variable = tv_io_chief_role
 					remove_character_modifier = tv_grand_general_role_modifier
 				}
 			}
 			tv_govhouse_pay_grand_general_replacement_cost_effect = yes
+			remove_variable = tv_gg_loyalty_value
 			hidden_effect = {
 			  tv_training_clear_effect = yes
 			  tv_govhouse_clear_war_tent_effect = yes
@@ -865,6 +944,10 @@ tv_change_conquest_general_leader = {
 			is_adult = yes
 			is_female = no
 			is_artist = no
+			custom_tooltip = {
+				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
+				NOT = { has_variable = tv_io_chief_role }
+			}
 			is_ruler = no
 			is_heir = no
 			is_consort = no
@@ -874,17 +957,14 @@ tv_change_conquest_general_leader = {
 	effect = {
 		scope:actor = {
 			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
-						has_variable = tv_conquest_general_char
-					}
-				}
+				limit = { has_variable = tv_conquest_general_char }
 				var:tv_conquest_general_char ?= {
+					remove_variable = tv_io_chief_role
 					remove_character_modifier = tv_grand_general_role_modifier
 				}
 			}
 			tv_govhouse_pay_grand_general_replacement_cost_effect = yes
+			remove_variable = tv_gg_loyalty_value
 			hidden_effect = {
 			  tv_training_clear_effect = yes
 			  tv_govhouse_clear_war_tent_effect = yes
@@ -895,8 +975,10 @@ tv_change_conquest_general_leader = {
 			limit = { exists = scope:target }
 			scope:actor = {
 				set_variable = { name = tv_conquest_general_char value = scope:target }
+				tv_govhouse_on_grand_general_appointed_effect = yes
 			}
 			scope:target = {
+				set_variable = { name = tv_io_chief_role value = 1 }
 				add_character_modifier = { modifier = tv_grand_general_role_modifier years = -1 mode = add_and_extend }
 			}
 		}

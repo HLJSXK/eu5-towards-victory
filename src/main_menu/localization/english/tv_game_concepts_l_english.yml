@@ -2,6 +2,14 @@
  # ── Generic trigger tooltips ──────────────────────────────────────────────
  TV_HAS_VARIABLE_SET_TT: "Required state is available."
  TV_HAS_VARIABLE_NOT_SET_TT: "Required state is not active."
+ TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT: "This character is not already serving as a TV IO chief."
+
+ # CMF alerts
+ tv_missing_io_chief_alert: "tv_missing_io_chief_alert"
+ tv_missing_io_chief_alert_color: "orange"
+ tv_missing_io_chief_alert_icon: "@characters!"
+ tv_missing_io_chief_alert_name: "Unappointed IO Chief"
+ tv_missing_io_chief_alert_tooltip: "One of your Towards Victory international organizations lacks its chief great person. Open the organization panel and appoint a chief to reactivate its systems."
 
  # Specific has_variable trigger tooltips
  TV_HAS_ACADEMY_IO_MEMBER_TT: "This country is a member of the [tv_academy_of_sciences|E]."
@@ -109,7 +117,7 @@
  game_concept_tv_wonder_survey_desc: "The site-assessment stage of [tv_wonder_construction|e]. Survey progress rises monthly from the [tv_great_engineer|e]'s Military skill, reveals Scale, Logistics, and Organization competence, and lets the country confirm a construction site once the readings are complete."
 
  game_concept_tv_wonder_materials: "Wonder Materials"
- game_concept_tv_wonder_materials_desc: "A produced market good used to maintain $tv_wonder_labor_camp$ during active [tv_wonder_construction|e]. Dispatch points convert basic construction goods into [tv_wonder_materials|e], so supply and price are handled through the normal market."
+ game_concept_tv_wonder_materials_desc: "A produced market good used to maintain $tv_wonder_labor_camp$ during active [tv_wonder_construction|e]. Wonder Material Workshops convert basic construction goods into [tv_wonder_materials|e], so supply and price are handled through the normal market."
 
  game_concept_tv_wonder_ceremony: "Wonder Ceremony"
  game_concept_tv_wonder_ceremony_desc: "The final dedication of a completed [tv_wonder_construction|e] project. The chosen ceremony branch determines the monument's final building, permanent country modifier, and last burst of prestige, stability, and legitimacy from remaining [tv_wonder_domestic_support|e]."

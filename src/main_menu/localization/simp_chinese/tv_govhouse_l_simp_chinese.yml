@@ -188,6 +188,8 @@
  TV_GOVHOUSE_POWER_EQUILIBRIUM_BASE: "基础均衡点"
  TV_GOVHOUSE_POWER_EQUILIBRIUM_RELATIVE_ABILITIES: "统治者与[tv_grand_general|E]的相对属性"
  TV_GOVHOUSE_POWER_EQUILIBRIUM_CONSOLIDATION: "[tv_govhouse_power_consolidation|E]"
+ TV_GOVHOUSE_POWER_EQUILIBRIUM_GENERAL_LOYALTY: "[tv_grand_general|E]忠诚度"
+ tv_grand_general_loyalty_change_text: "[tv_grand_general|E]忠诚度"
  TV_GOVHOUSE_POWER_BALANCE_BELOW_EQUILIBRIUM: "小于均衡点"
  TV_GOVHOUSE_POWER_BALANCE_ABOVE_EQUILIBRIUM: "大于均衡点"
  TV_GOVHOUSE_POWER_BALANCE_NO_GENERAL: "未任命[tv_grand_general|E]"
@@ -228,6 +230,19 @@
  tv_grand_general.8.t: "[tv_grand_general|E]：折损将才"
  tv_grand_general.8.d: "命运残酷。训练中的一次意外夺走了我们的[tv_grand_general|E]，而其潜力尚未完全绽放。前一刻，校场还是精进之地；下一刻，它便成了一座满是惊愕见证人的法庭。所有假定其未来指挥的计划，如今都显得突然愚蠢，仿佛墨水本身伸得太远。[tv_war_tent|e]必须学会在听不到预期声音的情况下说话。曾经可能发生的一切，如今成了无人能使用的军事秘密。"
  tv_grand_general.8.a: "我们将铭记他的功勋，继续前行。"
+
+ tv_grand_general.9.t: "[tv_grand_general|E]：冷淡军书"
+ tv_grand_general.9.d: "[tv_grand_general|E]送来的军书礼数周全，却没有半分热意。命令是正确的，要求也合乎情理，只是字里行间的沉默清楚得令人难安。或许是一次怠慢、一次拖延，或一次私下盘算，使其对王室的忠诚冷却了几分。"
+ tv_grand_general.9.a: "信任总是从细处变薄。"
+
+ tv_grand_general.10.t: "[tv_grand_general|E]：同心之事"
+ tv_grand_general.10.d: "[tv_grand_general|E]毫无讨价还价地回应了一项棘手要求。军帐中的军官提起王室时比往常更为笃定，连彼此猜疑的大臣也不得不承认，服从仍可以被塑造成一种体面。"
+ tv_grand_general.10.a: "让这份信任被记住。"
+
+ tv_grand_general.11.t: "[tv_grand_general|E]：索要赏赐"
+ tv_grand_general.11.d: "[tv_grand_general|E]要求一笔看得见的赏赐：用于供养亲随、酬谢军官，也用于证明王室确实看见了他的功劳。这笔钱尚不至于伤筋动骨，但若拒绝，在他眼中恐怕不像节俭，更像猜忌。"
+ tv_grand_general.11.a: "支付赏赐。"
+ tv_grand_general.11.b: "拒绝要求。"
 
  # ── 总督死亡事件 ──────────────────────────────────────────────────────────────
  tv_govhouse.1.t: "[tv_local_governor|E]：总督已逝世"
@@ -410,6 +425,7 @@
  TV_GOVHOUSE_BUILD_COST_LABEL: "建造花费"
  TV_GOVHOUSE_UNREST_LABEL: "动乱抑制"
  TV_GOVHOUSE_GOVERNED_AREA_LABEL: "管辖地区"
+ TV_GOVHOUSE_INTEGRATION_FORMULA_TT: "总督行政能力 x 0.1%本地整合速度。"
  TV_GOVHOUSE_ADMIN_FUNCTION_FORMULA_TT: "行政职能：所选法律决定行政能力提供哪一项本地加成。"
  TV_GOVHOUSE_DIP_FUNCTION_FORMULA_TT: "外交职能：所选法律决定外交能力提供哪一项本地加成。"
  TV_GOVHOUSE_MIL_FUNCTION_FORMULA_TT: "军事职能：所选法律决定军事能力提供哪一项本地加成。"
@@ -426,6 +442,7 @@
  TV_GOVHOUSE_BUILD_COST_FORMULA_TT: "$TV_GOVHOUSE_DIP_CONSTRUCTION_FORMULA_TT$"
  TV_GOVHOUSE_UNREST_FORMULA_TT: "$TV_GOVHOUSE_MIL_UNREST_FORMULA_TT$"
 
+ STATIC_MODIFIER_NAME_tv_governor_integration_speed: "总督：整合"
  STATIC_MODIFIER_NAME_tv_governor_max_control: "总督：地方控制"
  STATIC_MODIFIER_NAME_tv_governor_build_cost: "总督：建造"
  STATIC_MODIFIER_NAME_tv_governor_unrest: "总督：秩序"

@@ -4,13 +4,13 @@
 # Do not edit directly - modify the data file and re-run the generator.
 #
 # TOWARDS VICTORY - TRADE LEAGUE LAWS
-# Two simple Trade League law groups with vote-gated policies.
+# Three-level Trade League law groups with vote-gated policies.
 # requires_vote = yes: Trade League law changes use IO policy votes.
 
 # ------------------------------------------------------------------------------
-# LAW 1: Trade Focus
+# LAW 1: Customs Union
 # ------------------------------------------------------------------------------
-tv_trade_focus_law = {
+tv_trade_customs_union_law = {
 	type = international_organization
 	law_category = tv_trade_league_laws
 	potential = {
@@ -21,43 +21,125 @@ tv_trade_focus_law = {
 	}
 	locked = {
 	}
+	has_levels = yes
 	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
-	# Balanced (default)
-	tv_trade_focus_balanced_policy = {
-		allow = {
-			always = yes
-		}
-	}
-
-	# Import Focus
-	tv_trade_focus_import_policy = {
+	# Level 1 - Shared Tariff Ledgers
+	tv_trade_customs_ledgers_policy = {
+		level = 1
 		allow = {
 			always = yes
 		}
 		country_modifier = {
 			import_efficiency = 0.025
-			export_efficiency = -0.025
+			export_efficiency = 0.025
+			global_monthly_control = -0.001
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 200
+			}
 		}
 	}
 
-	# Export Focus
-	tv_trade_focus_export_policy = {
+	# Level 2 - League Customs Bureau
+	tv_trade_customs_bureau_policy = {
+		level = 2
 		allow = {
 			always = yes
 		}
 		country_modifier = {
-			import_efficiency = -0.025
-			export_efficiency = 0.025
+			import_efficiency = 0.0375
+			export_efficiency = 0.0375
+			global_monthly_control = -0.001
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 100
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.25
+						min = -50
+						max = 50
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 2
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+					value = scope:recipient.leader_country.monthly_trade_income
+					divide = 100
+					multiply = 5
+				}
+			}
+		}
+	}
+
+	# Level 3 - Compulsory Tariff Code
+	tv_trade_customs_code_policy = {
+		level = 3
+		allow = {
+			always = yes
+		}
+		country_modifier = {
+			import_efficiency = 0.075
+			export_efficiency = 0.075
+			global_monthly_control = -0.001
+			global_burghers_estate_power = 0.25
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 0
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+					value = scope:recipient.leader_country.monthly_trade_income
+					divide = 100
+					multiply = 10
+				}
+			}
 		}
 	}
 }
 
 # ------------------------------------------------------------------------------
-# LAW 2: Leader Rights
+# LAW 2: Maritime Convoys
 # ------------------------------------------------------------------------------
-tv_trade_leader_rights_law = {
+tv_trade_maritime_convoys_law = {
 	type = international_organization
 	law_category = tv_trade_league_laws
 	potential = {
@@ -68,39 +150,504 @@ tv_trade_leader_rights_law = {
 	}
 	locked = {
 	}
+	has_levels = yes
 	requires_vote = yes
 	custom_tags = { forbids_no_policy }
 
-	# Equal Rights (default)
-	tv_trade_leader_rights_equal_policy = {
+	# Level 1 - Licensed Private Convoys
+	tv_trade_private_convoys_policy = {
+		level = 1
 		allow = {
 			always = yes
+		}
+		country_modifier = {
+			trade_sea_efficiency = 0.05
+			naval_range_modifier = 0.05
+			global_sailors_modifier = -0.05
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 200
+			}
 		}
 	}
 
-	# Leader
-	tv_trade_leader_rights_leader_policy = {
+	# Level 2 - League Escort Offices
+	tv_trade_league_escorts_policy = {
+		level = 2
 		allow = {
 			always = yes
 		}
-		leader_modifier = {
-			global_merchant_capacity_modifier = -0.20
+		country_modifier = {
+			trade_sea_efficiency = 0.075
+			naval_range_modifier = 0.075
+			global_sailors_modifier = -0.05
 		}
-		non_leader_modifier = {
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 100
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.25
+						min = -50
+						max = 50
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 2
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+					value = scope:recipient.leader_country.monthly_trade_income
+					divide = 100
+					multiply = 5
+				}
+			}
+		}
+	}
+
+	# Level 3 - Armed Convoy Mandate
+	tv_trade_armed_convoys_policy = {
+		level = 3
+		allow = {
+			always = yes
+		}
+		country_modifier = {
+			trade_sea_efficiency = 0.15
+			naval_range_modifier = 0.15
+			global_sailors_modifier = -0.05
+			navy_maintenance_efficiency = -0.05
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 0
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+					value = scope:recipient.leader_country.monthly_trade_income
+					divide = 100
+					multiply = 10
+				}
+			}
+		}
+	}
+}
+
+# ------------------------------------------------------------------------------
+# LAW 3: Merchant Courts
+# ------------------------------------------------------------------------------
+tv_trade_merchant_courts_law = {
+	type = international_organization
+	law_category = tv_trade_league_laws
+	potential = {
+		international_organization_type = international_organization_type:tv_trade_league
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	requires_vote = yes
+	custom_tags = { forbids_no_policy }
+
+	# Level 1 - Port Arbitration Panels
+	tv_trade_arbitration_panels_policy = {
+		level = 1
+		allow = {
+			always = yes
+		}
+		country_modifier = {
 			global_merchant_capacity_modifier = 0.05
+			trade_land_efficiency = 0.05
+			court_spending_cost_modifier = 0.10
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 200
+			}
 		}
 	}
 
-	# Trade Priority
-	tv_trade_leader_rights_priority_policy = {
+	# Level 2 - League Merchant Courts
+	tv_trade_league_courts_policy = {
+		level = 2
 		allow = {
 			always = yes
 		}
-		leader_modifier = {
-			global_merchant_capacity_modifier = 0.20
+		country_modifier = {
+			global_merchant_capacity_modifier = 0.075
+			trade_land_efficiency = 0.075
+			court_spending_cost_modifier = 0.10
 		}
-		non_leader_modifier = {
-			global_merchant_capacity_modifier = -0.05
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 100
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.25
+						min = -50
+						max = 50
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 2
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+					value = scope:recipient.leader_country.monthly_trade_income
+					divide = 100
+					multiply = 5
+				}
+			}
+		}
+	}
+
+	# Level 3 - Binding Commercial Code
+	tv_trade_commercial_code_policy = {
+		level = 3
+		allow = {
+			always = yes
+		}
+		country_modifier = {
+			global_merchant_capacity_modifier = 0.15
+			trade_land_efficiency = 0.15
+			court_spending_cost_modifier = 0.10
+			diplomatic_reputation = -1
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 0
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+					value = scope:recipient.leader_country.monthly_trade_income
+					divide = 100
+					multiply = 10
+				}
+			}
+		}
+	}
+}
+
+# ------------------------------------------------------------------------------
+# LAW 4: Staple Monopolies
+# ------------------------------------------------------------------------------
+tv_trade_staple_monopolies_law = {
+	type = international_organization
+	law_category = tv_trade_league_laws
+	potential = {
+		international_organization_type = international_organization_type:tv_trade_league
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	requires_vote = yes
+	custom_tags = { forbids_no_policy }
+
+	# Level 1 - Registered Staple Markets
+	tv_trade_registered_staples_policy = {
+		level = 1
+		allow = {
+			always = yes
+		}
+		country_modifier = {
+			global_trade_center_power = 0.05
+			trade_income = 0.025
+			import_efficiency = -0.025
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 200
+			}
+		}
+	}
+
+	# Level 2 - League Staple Charters
+	tv_trade_league_staples_policy = {
+		level = 2
+		allow = {
+			always = yes
+		}
+		country_modifier = {
+			global_trade_center_power = 0.075
+			trade_income = 0.0375
+			import_efficiency = -0.025
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 100
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.25
+						min = -50
+						max = 50
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 2
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+					value = scope:recipient.leader_country.monthly_trade_income
+					divide = 100
+					multiply = 5
+				}
+			}
+		}
+	}
+
+	# Level 3 - Exclusive Staple Rights
+	tv_trade_exclusive_staples_policy = {
+		level = 3
+		allow = {
+			always = yes
+		}
+		country_modifier = {
+			global_trade_center_power = 0.15
+			trade_income = 0.075
+			import_efficiency = -0.025
+			global_estate_target_satisfaction = -0.025
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 0
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+					value = scope:recipient.leader_country.monthly_trade_income
+					divide = 100
+					multiply = 10
+				}
+			}
+		}
+	}
+}
+
+# ------------------------------------------------------------------------------
+# LAW 5: Investment Code
+# ------------------------------------------------------------------------------
+tv_trade_investment_code_law = {
+	type = international_organization
+	law_category = tv_trade_league_laws
+	potential = {
+		international_organization_type = international_organization_type:tv_trade_league
+	}
+	allow = {
+		always = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	requires_vote = yes
+	custom_tags = { forbids_no_policy }
+
+	# Level 1 - Counting-House Loans
+	tv_trade_counting_house_loans_policy = {
+		level = 1
+		allow = {
+			always = yes
+		}
+		country_modifier = {
+			global_foreign_build_buildings_cost = -0.05
+			global_production_efficiency = 0.025
+			global_bureaucracy_maintenance_cost_modifier = 0.05
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 200
+			}
+		}
+	}
+
+	# Level 2 - Joint-Stock Charters
+	tv_trade_joint_stock_charters_policy = {
+		level = 2
+		allow = {
+			always = yes
+		}
+		country_modifier = {
+			global_foreign_build_buildings_cost = -0.075
+			global_production_efficiency = 0.0375
+			global_bureaucracy_maintenance_cost_modifier = 0.05
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 100
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.25
+						min = -50
+						max = 50
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 2
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+					value = scope:recipient.leader_country.monthly_trade_income
+					divide = 100
+					multiply = 5
+				}
+			}
+		}
+	}
+
+	# Level 3 - Permanent Foreign Factories
+	tv_trade_permanent_factories_policy = {
+		level = 3
+		allow = {
+			always = yes
+		}
+		country_modifier = {
+			global_foreign_build_buildings_cost = -0.15
+			global_production_efficiency = 0.075
+			global_bureaucracy_maintenance_cost_modifier = 0.05
+			global_max_control = -0.025
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_TRADE_LEAGUE_LAW_LEVEL_BASE_BIAS"
+				value = 0
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = { international_organization_has_leader = yes }
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+					value = scope:recipient.leader_country.monthly_trade_income
+					divide = 100
+					multiply = 10
+				}
+			}
 		}
 	}
 }

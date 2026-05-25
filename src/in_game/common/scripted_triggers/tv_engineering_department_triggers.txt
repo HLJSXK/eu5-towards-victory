@@ -299,7 +299,12 @@ tv_wonder_debate_complete_trigger = {
 tv_wonder_has_open_proposal_trigger = {
 	tv_wonder_in_conception_trigger = yes
 	tv_wonder_has_great_engineer_trigger = yes
-	var:tv_wonder_proposal ?= { this >= 1 }
+	OR = {
+		var:tv_wonder_proposal ?= { this >= 1 }
+		var:tv_wonder_proposal_slot_1 ?= { this >= 1 }
+		var:tv_wonder_proposal_slot_2 ?= { this >= 1 }
+		var:tv_wonder_proposal_slot_3 ?= { this >= 1 }
+	}
 }
 
 tv_wonder_has_locked_wonder_trigger = {
@@ -467,13 +472,6 @@ tv_wonder_labor_camp_below_cap_trigger = {
 
 tv_wonder_material_dispatch_point_location_available_trigger = {
 	can_build_building = building_type:tv_wonder_material_dispatch_point
-	NOT = { has_building = building_type:tv_wonder_material_dispatch_point }
-	NOT = {
-		any_buildings_in_location = {
-			building_type = building_type:tv_wonder_material_dispatch_point
-			building_levels_under_construction >= 1
-		}
-	}
 }
 
 tv_wonder_has_available_material_dispatch_point_trigger = {

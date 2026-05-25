@@ -56,6 +56,84 @@ tv_govhouse_reduce_power_balance_effect = {
 	}
 }
 
+tv_govhouse_sync_grand_general_loyalty_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+				has_variable = tv_conquest_general_char
+			}
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				has_variable = tv_gg_loyalty
+			}
+		}
+		var:tv_conquest_general_char ?= {
+			save_temporary_scope_as = tv_govhouse_loyalty_general
+		}
+		set_variable = { name = tv_gg_loyalty_value value = scope:tv_govhouse_loyalty_general.var:tv_gg_loyalty }
+	}
+	else = {
+		remove_variable = tv_gg_loyalty_value
+	}
+}
+
+tv_govhouse_initialize_grand_general_loyalty_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+				has_variable = tv_conquest_general_char
+			}
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				NOT = { has_variable = tv_gg_loyalty }
+			}
+		}
+		var:tv_conquest_general_char ?= {
+			if = {
+				limit = { has_estate = estate_type:nobles_estate }
+				set_variable = { name = tv_gg_loyalty value = 0 }
+			}
+			else_if = {
+				limit = {
+					OR = {
+						has_estate = estate_type:burghers_estate
+						has_estate = estate_type:clergy_estate
+					}
+				}
+				set_variable = { name = tv_gg_loyalty value = 0.10 }
+			}
+			else_if = {
+				limit = { has_estate = estate_type:crown_estate }
+				set_variable = { name = tv_gg_loyalty value = 0.30 }
+			}
+			else = {
+				set_variable = { name = tv_gg_loyalty value = 0.20 }
+			}
+		}
+	}
+	tv_govhouse_sync_grand_general_loyalty_effect = yes
+}
+
+tv_govhouse_on_grand_general_appointed_effect = {
+	tv_govhouse_reset_power_consolidation_effect = yes
+	tv_govhouse_initialize_grand_general_loyalty_effect = yes
+}
+
+tv_govhouse_change_grand_general_loyalty_effect = {
+	tv_govhouse_initialize_grand_general_loyalty_effect = yes
+	var:tv_conquest_general_char ?= {
+		custom_description = {
+			text = tv_grand_general_loyalty_change_text
+			value = $value$
+			change_variable = { name = tv_gg_loyalty add = $value$ }
+			clamp_variable = { name = tv_gg_loyalty min = 0 max = 1 }
+		}
+	}
+	tv_govhouse_sync_grand_general_loyalty_effect = yes
+}
+
 # Pays the dismissal/replacement price for the current Grand General.
 # At 100% power consolidation this costs 20 government power.
 # Scope: leader country / Governor's House owner.
@@ -861,6 +939,7 @@ tv_govhouse_war_tent_monthly_effect = {
 #   tv_governor_list:        country variable list of governor character scopes.
 # Each representative display location may carry:
 #   tv_govhouse_display_governor_char      (character scope value)
+#   tv_govhouse_display_integration_bonus_value
 #   tv_govhouse_display_admin_bonus_type   (1 control, 2 development, 3 production)
 #   tv_govhouse_display_admin_bonus_value  (copied from governor)
 #   tv_govhouse_display_dip_bonus_type     (1 construction, 2 pop promotion, 3 pop growth)
@@ -871,6 +950,7 @@ tv_govhouse_war_tent_monthly_effect = {
 #   tv_is_governor = 1            (presence flag)
 #   tv_governed_region            (region scope value)
 #   tv_governed_region_capital    (representative owned location, for legacy display compatibility)
+#   tv_gov_integration_bonus_value (ADM x 0.001 local integration speed)
 #   tv_gov_admin_bonus_type/value (chosen by Local Governor Administrative Function)
 #   tv_gov_dip_bonus_type/value   (chosen by Local Governor Diplomatic Function)
 #   tv_gov_mil_bonus_type/value   (chosen by Local Governor Military Function)
@@ -886,6 +966,7 @@ tv_govhouse_refresh_region_list_effect = {
 	clear_variable_list = tv_govhouse_region_display_region_list
 	every_owned_location = {
 		remove_variable = tv_govhouse_display_governor_char
+		remove_variable = tv_govhouse_display_integration_bonus_value
 		remove_variable = tv_govhouse_display_admin_bonus_type
 		remove_variable = tv_govhouse_display_admin_bonus_value
 		remove_variable = tv_govhouse_display_dip_bonus_type
@@ -938,6 +1019,7 @@ tv_govhouse_refresh_region_list_effect = {
 			set_variable = { name = tv_governed_region_capital value = scope:tv_display_location }
 			scope:tv_display_location = {
 				set_variable = { name = tv_govhouse_display_governor_char value = scope:tv_display_governor }
+				set_variable = { name = tv_govhouse_display_integration_bonus_value value = scope:tv_display_governor.var:tv_gov_integration_bonus_value }
 				set_variable = { name = tv_govhouse_display_admin_bonus_type value = scope:tv_display_governor.var:tv_gov_admin_bonus_type }
 				set_variable = { name = tv_govhouse_display_admin_bonus_value value = scope:tv_display_governor.var:tv_gov_admin_bonus_value }
 				set_variable = { name = tv_govhouse_display_dip_bonus_type value = scope:tv_display_governor.var:tv_gov_dip_bonus_type }
@@ -993,6 +1075,7 @@ tv_govhouse_refresh_region_list_effect = {
 # Removes every Local Governor Function modifier from one location.
 # Scope: location.
 tv_governor_remove_function_modifiers_effect = {
+	remove_location_modifier = tv_governor_integration_speed
 	remove_location_modifier = tv_governor_max_control
 	remove_location_modifier = tv_governor_build_cost
 	remove_location_modifier = tv_governor_unrest
@@ -1024,6 +1107,7 @@ tv_governor_clear_assignment_effect = {
 	remove_variable = tv_governed_region_capital
 	remove_variable = tv_governed_area
 	remove_variable = tv_governed_area_capital
+	remove_variable = tv_gov_integration_bonus_value
 	remove_variable = tv_gov_max_control_pct
 	remove_variable = tv_gov_build_cost_pct
 	remove_variable = tv_gov_unrest_pct
@@ -1044,6 +1128,7 @@ tv_governor_apply_modifiers_effect = {
 	scope:target = {
 		# Refresh display and size variables. Each ability governs one law-selected
 		# local function; default values preserve the old Governor behavior.
+		set_variable = { name = tv_gov_integration_bonus_value value = { value = this.adm multiply = 0.001 } }
 		set_variable = { name = tv_gov_admin_bonus_type value = 1 }
 		set_variable = { name = tv_gov_admin_bonus_value value = { value = this.adm multiply = 0.001 } }
 		if = {
@@ -1173,6 +1258,12 @@ tv_governor_apply_modifiers_effect = {
 			every_location_in_region = {
 				limit = { owner ?= scope:tv_governing_country }
 				tv_governor_remove_function_modifiers_effect = yes
+				add_location_modifier = {
+					modifier = tv_governor_integration_speed
+					years = -1
+					mode = add_and_extend
+					size = { value = scope:target.var:tv_gov_integration_bonus_value }
+				}
 				if = {
 					limit = {
 						scope:tv_governing_country = {

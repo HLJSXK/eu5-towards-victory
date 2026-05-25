@@ -46,6 +46,8 @@ HAS_VARIABLE_TOOLTIP_KEYS = {
     "tv_trade_league_member": "TV_HAS_TRADE_LEAGUE_MEMBER_TT",
 }
 
+COMMON_IO_CHIEF_ROLE_VAR = "tv_io_chief_role"
+
 
 def _has_variable_tooltip(var_name: str) -> str:
     return HAS_VARIABLE_TOOLTIP_KEYS.get(var_name, "TV_HAS_VARIABLE_SET_TT")
@@ -67,6 +69,10 @@ def _char_selector_block(io: dict) -> str:
     if char_filter:
         for line in char_filter.splitlines():
             lines.append(f"\t\t\t{line.strip()}")
+    lines.append("\t\t\tcustom_tooltip = {")
+    lines.append("\t\t\t\ttext = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT")
+    lines.append(f"\t\t\t\tNOT = {{ has_variable = {COMMON_IO_CHIEF_ROLE_VAR} }}")
+    lines.append("\t\t\t}")
     lines.append("\t\t\tis_ruler = no")
     lines.append("\t\t\tis_heir = no")
     lines.append("\t\t\tis_consort = no")
@@ -89,15 +95,42 @@ def _extra_effect_block(io: dict, key: str, indent: str) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _clear_current_leader_role_block(io: dict, indent: str) -> str:
+    """Remove the common IO-chief marker and optional title modifier from the current leader."""
+    title_mod = io.get("title_modifier", "")
+    lines = [
+        f"{indent}if = {{",
+        f"{indent}\tlimit = {{ has_variable = {io['leader_var']} }}",
+        f"{indent}\tvar:{io['leader_var']} ?= {{",
+        f"{indent}\t\tremove_variable = {COMMON_IO_CHIEF_ROLE_VAR}",
+    ]
+    if title_mod:
+        lines.append(f"{indent}\t\tremove_character_modifier = {title_mod}")
+    lines.extend([
+        f"{indent}\t}}",
+        f"{indent}}}",
+    ])
+    return "\n".join(lines) + "\n"
+
+
+def _set_new_leader_role_block(io: dict, indent: str) -> str:
+    """Mark the selected character as an IO chief and apply the optional title modifier."""
+    title_mod = io.get("title_modifier", "")
+    lines = [
+        f"{indent}scope:target = {{",
+        f"{indent}\tset_variable = {{ name = {COMMON_IO_CHIEF_ROLE_VAR} value = 1 }}",
+    ]
+    if title_mod:
+        lines.append(f"{indent}\tadd_character_modifier = {{ modifier = {title_mod} years = -1 mode = add_and_extend }}")
+    lines.append(f"{indent}}}")
+    return "\n".join(lines) + "\n"
+
+
 def gen_appoint(io: dict) -> str:
     selector = _char_selector_block(io)
-    title_mod = io.get("title_modifier", "")
     extra_effect = _extra_effect_block(io, "on_appoint_effect", "\t\t\t\t")
-    title_effect = (
-        f"\t\t\tscope:target = {{\n"
-        f"\t\t\t\tadd_character_modifier = {{ modifier = {title_mod} years = -1 mode = add_and_extend }}\n"
-        f"\t\t\t}}\n"
-    ) if title_mod else ""
+    clear_existing_role = _clear_current_leader_role_block(io, "\t\t\t\t")
+    new_role_effect = _set_new_leader_role_block(io, "\t\t\t")
     return (
         f"tv_appoint_{io['id']}_leader = {{\n"
         f"\ttype = owncountry\n"
@@ -120,10 +153,11 @@ def gen_appoint(io: dict) -> str:
         f"\t\tif = {{\n"
         f"\t\t\tlimit = {{ exists = scope:target }}\n"
         f"\t\t\tscope:actor = {{\n"
+        f"{clear_existing_role}"
         f"\t\t\t\tset_variable = {{ name = {io['leader_var']} value = scope:target }}\n"
         f"{extra_effect}"
         f"\t\t\t}}\n"
-        f"{title_effect}"
+        f"{new_role_effect}"
         f"\t\t}}\n"
         f"\t}}\n"
         f"\n"
@@ -133,21 +167,8 @@ def gen_appoint(io: dict) -> str:
 
 
 def gen_remove(io: dict) -> str:
-    title_mod = io.get("title_modifier", "")
     extra_effect = _extra_effect_block(io, "on_remove_effect", "\t\t\t")
-    title_effect = (
-        f"\t\t\tif = {{\n"
-        f"\t\t\t\tlimit = {{\n"
-        f"\t\t\t\t\tcustom_tooltip = {{\n"
-        f"\t\t\t\t\t\ttext = {_has_variable_tooltip(io['leader_var'])}\n"
-        f"\t\t\t\t\t\thas_variable = {io['leader_var']}\n"
-        f"\t\t\t\t\t}}\n"
-        f"\t\t\t\t}}\n"
-        f"\t\t\t\tvar:{io['leader_var']} ?= {{\n"
-        f"\t\t\t\t\tremove_character_modifier = {title_mod}\n"
-        f"\t\t\t\t}}\n"
-        f"\t\t\t}}\n"
-    ) if title_mod else ""
+    clear_existing_role = _clear_current_leader_role_block(io, "\t\t\t")
     return (
         f"tv_remove_{io['id']}_leader = {{\n"
         f"\ttype = owncountry\n"
@@ -166,7 +187,7 @@ def gen_remove(io: dict) -> str:
         f"\n"
         f"\teffect = {{\n"
         f"\t\tscope:actor = {{\n"
-        f"{title_effect}"
+        f"{clear_existing_role}"
         f"{extra_effect}"
         f"\t\t\tremove_variable = {io['leader_var']}\n"
         f"\t\t}}\n"
@@ -179,33 +200,16 @@ def gen_remove(io: dict) -> str:
 
 def gen_change(io: dict) -> str:
     selector = _char_selector_block(io)
-    title_mod = io.get("title_modifier", "")
     extra_effect = _extra_effect_block(io, "on_change_effect", "\t\t\t")
     after_effect = _extra_effect_block(io, "on_change_after_effect", "\t\t\t\t")
-    remove_old_title_inner = (
-        f"\t\t\tif = {{\n"
-        f"\t\t\t\tlimit = {{\n"
-        f"\t\t\t\t\tcustom_tooltip = {{\n"
-        f"\t\t\t\t\t\ttext = {_has_variable_tooltip(io['leader_var'])}\n"
-        f"\t\t\t\t\t\thas_variable = {io['leader_var']}\n"
-        f"\t\t\t\t\t}}\n"
-        f"\t\t\t\t}}\n"
-        f"\t\t\t\tvar:{io['leader_var']} ?= {{\n"
-        f"\t\t\t\t\tremove_character_modifier = {title_mod}\n"
-        f"\t\t\t\t}}\n"
-        f"\t\t\t}}\n"
-    ) if title_mod else ""
+    clear_existing_role = _clear_current_leader_role_block(io, "\t\t\t")
     pre_change_actor_effect = (
         f"\t\tscope:actor = {{\n"
-        f"{remove_old_title_inner}"
+        f"{clear_existing_role}"
         f"{extra_effect}"
         f"\t\t}}\n"
-    ) if (remove_old_title_inner or extra_effect) else ""
-    add_new_title = (
-        f"\t\t\tscope:target = {{\n"
-        f"\t\t\t\tadd_character_modifier = {{ modifier = {title_mod} years = -1 mode = add_and_extend }}\n"
-        f"\t\t\t}}\n"
-    ) if title_mod else ""
+    )
+    add_new_role = _set_new_leader_role_block(io, "\t\t\t")
     return (
         f"tv_change_{io['id']}_leader = {{\n"
         f"\ttype = owncountry\n"
@@ -232,7 +236,7 @@ def gen_change(io: dict) -> str:
         f"\t\t\t\tset_variable = {{ name = {io['leader_var']} value = scope:target }}\n"
         f"{after_effect}"
         f"\t\t\t}}\n"
-        f"{add_new_title}"
+        f"{add_new_role}"
         f"\t\t}}\n"
         f"\t}}\n"
         f"\n"

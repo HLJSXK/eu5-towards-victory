@@ -314,6 +314,15 @@ tv_wonder_clear_feasible_deck_effect = {
 	remove_variable = tv_wonder_proposal_site
 }
 
+tv_wonder_clear_current_proposal_effect = {
+	remove_variable = tv_wonder_proposal
+	remove_variable = tv_wonder_proposal_slot_1
+	remove_variable = tv_wonder_proposal_slot_2
+	remove_variable = tv_wonder_proposal_slot_3
+	remove_variable = tv_wonder_proposal_mode
+	remove_variable = tv_wonder_proposal_site
+}
+
 tv_wonder_rebuild_feasible_deck_effect = {
 	tv_wonder_clear_feasible_deck_effect = yes
 	if = {
@@ -397,11 +406,35 @@ tv_wonder_set_proposal_on_great_engineer_effect = {
 			set_variable = { name = tv_wonder_engineer_proposal value = prev.var:tv_wonder_proposal }
 		}
 	}
+	tv_wonder_set_proposal_slots_on_great_engineer_effect = yes
+}
+
+tv_wonder_set_proposal_slots_on_great_engineer_effect = {
+	var:tv_great_engineer_char ?= {
+		if = {
+			limit = { prev = { var:tv_wonder_proposal_slot_1 ?= { this >= 1 } } }
+			set_variable = { name = tv_wonder_engineer_proposal_slot_1 value = prev.var:tv_wonder_proposal_slot_1 }
+		}
+		else = { remove_variable = tv_wonder_engineer_proposal_slot_1 }
+		if = {
+			limit = { prev = { var:tv_wonder_proposal_slot_2 ?= { this >= 1 } } }
+			set_variable = { name = tv_wonder_engineer_proposal_slot_2 value = prev.var:tv_wonder_proposal_slot_2 }
+		}
+		else = { remove_variable = tv_wonder_engineer_proposal_slot_2 }
+		if = {
+			limit = { prev = { var:tv_wonder_proposal_slot_3 ?= { this >= 1 } } }
+			set_variable = { name = tv_wonder_engineer_proposal_slot_3 value = prev.var:tv_wonder_proposal_slot_3 }
+		}
+		else = { remove_variable = tv_wonder_engineer_proposal_slot_3 }
+	}
 }
 
 tv_wonder_clear_proposal_on_great_engineer_effect = {
 	var:tv_great_engineer_char ?= {
 		remove_variable = tv_wonder_engineer_proposal
+		remove_variable = tv_wonder_engineer_proposal_slot_1
+		remove_variable = tv_wonder_engineer_proposal_slot_2
+		remove_variable = tv_wonder_engineer_proposal_slot_3
 	}
 }
 
@@ -421,94 +454,176 @@ tv_wonder_restore_proposal_from_great_engineer_effect = {
 			value = scope:tv_wonder_current_engineer.var:tv_wonder_engineer_proposal
 		}
 	}
+	if = {
+		limit = { scope:tv_wonder_current_engineer = { var:tv_wonder_engineer_proposal_slot_1 ?= { this >= 1 } } }
+		set_variable = { name = tv_wonder_proposal_slot_1 value = scope:tv_wonder_current_engineer.var:tv_wonder_engineer_proposal_slot_1 }
+	}
+	if = {
+		limit = { scope:tv_wonder_current_engineer = { var:tv_wonder_engineer_proposal_slot_2 ?= { this >= 1 } } }
+		set_variable = { name = tv_wonder_proposal_slot_2 value = scope:tv_wonder_current_engineer.var:tv_wonder_engineer_proposal_slot_2 }
+	}
+	if = {
+		limit = { scope:tv_wonder_current_engineer = { var:tv_wonder_engineer_proposal_slot_3 ?= { this >= 1 } } }
+		set_variable = { name = tv_wonder_proposal_slot_3 value = scope:tv_wonder_current_engineer.var:tv_wonder_engineer_proposal_slot_3 }
+	}
+}
+
+tv_wonder_roll_random_feasible_proposal_effect = {
+	remove_variable = tv_wonder_proposal
+	random_list = {
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_sacred_mountain }
+			set_variable = { name = tv_wonder_proposal value = 1 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_triumphal_axis }
+			set_variable = { name = tv_wonder_proposal value = 2 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_great_port }
+			set_variable = { name = tv_wonder_proposal value = 3 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_giant_necropolis }
+			set_variable = { name = tv_wonder_proposal value = 4 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_great_lighthouse }
+			set_variable = { name = tv_wonder_proposal value = 5 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_hydraulic_workshop }
+			set_variable = { name = tv_wonder_proposal value = 6 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_mining_city }
+			set_variable = { name = tv_wonder_proposal value = 7 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_giant_observatory }
+			set_variable = { name = tv_wonder_proposal value = 8 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_palace_of_nations }
+			set_variable = { name = tv_wonder_proposal value = 9 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_university_city }
+			set_variable = { name = tv_wonder_proposal value = 10 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_sky_dome_grand_temple }
+			set_variable = { name = tv_wonder_proposal value = 11 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_giant_tower_temple }
+			set_variable = { name = tv_wonder_proposal value = 12 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_river_extension }
+			set_variable = { name = tv_wonder_proposal value = 13 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_national_shipyard }
+			set_variable = { name = tv_wonder_proposal value = 14 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_star_fortress_city }
+			set_variable = { name = tv_wonder_proposal value = 15 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_great_wall }
+			set_variable = { name = tv_wonder_proposal value = 16 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_giant_armory }
+			set_variable = { name = tv_wonder_proposal value = 17 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_library_of_nation }
+			set_variable = { name = tv_wonder_proposal value = 18 }
+		}
+	}
+}
+
+tv_wonder_copy_current_proposal_to_slot_1_effect = {
+	if = {
+		limit = { var:tv_wonder_proposal ?= { this >= 1 } }
+		set_variable = { name = tv_wonder_proposal_slot_1 value = var:tv_wonder_proposal }
+	}
+}
+
+tv_wonder_copy_current_proposal_to_slot_2_effect = {
+	if = {
+		limit = { var:tv_wonder_proposal ?= { this >= 1 } }
+		set_variable = { name = tv_wonder_proposal_slot_2 value = var:tv_wonder_proposal }
+	}
+}
+
+tv_wonder_copy_current_proposal_to_slot_3_effect = {
+	if = {
+		limit = { var:tv_wonder_proposal ?= { this >= 1 } }
+		set_variable = { name = tv_wonder_proposal_slot_3 value = var:tv_wonder_proposal }
+	}
+}
+
+tv_wonder_select_proposal_slot_1_effect = {
+	if = {
+		limit = { var:tv_wonder_proposal_slot_1 ?= { this >= 1 } }
+		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_1 }
+		tv_wonder_set_proposal_on_great_engineer_effect = yes
+	}
+}
+
+tv_wonder_select_proposal_slot_2_effect = {
+	if = {
+		limit = { var:tv_wonder_proposal_slot_2 ?= { this >= 1 } }
+		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_2 }
+		tv_wonder_set_proposal_on_great_engineer_effect = yes
+	}
+}
+
+tv_wonder_select_proposal_slot_3_effect = {
+	if = {
+		limit = { var:tv_wonder_proposal_slot_3 ?= { this >= 1 } }
+		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_3 }
+		tv_wonder_set_proposal_on_great_engineer_effect = yes
+	}
 }
 
 tv_wonder_roll_new_proposal_effect = {
 	tv_wonder_clear_proposal_on_great_engineer_effect = yes
-	remove_variable = tv_wonder_proposal
-	remove_variable = tv_wonder_proposal_mode
-	remove_variable = tv_wonder_proposal_site
+	tv_wonder_clear_current_proposal_effect = yes
 	tv_wonder_scan_priority_proposal_effect = yes
+	if = {
+		limit = {
+			has_variable = tv_wonder_priority_found
+			var:tv_wonder_proposal ?= { this >= 1 }
+		}
+		tv_wonder_set_proposal_on_great_engineer_effect = yes
+	}
 	if = {
 		limit = {
 			NOT = { has_variable = tv_wonder_priority_found }
 			tv_wonder_has_any_feasible_proposal_trigger = yes
 		}
-		random_list = {
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_sacred_mountain }
-				set_variable = { name = tv_wonder_proposal value = 1 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_triumphal_axis }
-				set_variable = { name = tv_wonder_proposal value = 2 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_great_port }
-				set_variable = { name = tv_wonder_proposal value = 3 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_giant_necropolis }
-				set_variable = { name = tv_wonder_proposal value = 4 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_great_lighthouse }
-				set_variable = { name = tv_wonder_proposal value = 5 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_hydraulic_workshop }
-				set_variable = { name = tv_wonder_proposal value = 6 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_mining_city }
-				set_variable = { name = tv_wonder_proposal value = 7 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_giant_observatory }
-				set_variable = { name = tv_wonder_proposal value = 8 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_palace_of_nations }
-				set_variable = { name = tv_wonder_proposal value = 9 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_university_city }
-				set_variable = { name = tv_wonder_proposal value = 10 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_sky_dome_grand_temple }
-				set_variable = { name = tv_wonder_proposal value = 11 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_giant_tower_temple }
-				set_variable = { name = tv_wonder_proposal value = 12 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_river_extension }
-				set_variable = { name = tv_wonder_proposal value = 13 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_national_shipyard }
-				set_variable = { name = tv_wonder_proposal value = 14 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_star_fortress_city }
-				set_variable = { name = tv_wonder_proposal value = 15 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_great_wall }
-				set_variable = { name = tv_wonder_proposal value = 16 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_giant_armory }
-				set_variable = { name = tv_wonder_proposal value = 17 }
-			}
-			1 = {
-				trigger = { has_variable = tv_wonder_feasible_library_of_nation }
-				set_variable = { name = tv_wonder_proposal value = 18 }
-			}
+		tv_wonder_roll_random_feasible_proposal_effect = yes
+		tv_wonder_copy_current_proposal_to_slot_1_effect = yes
+		tv_wonder_remove_current_proposal_from_deck_effect = yes
+		if = {
+			limit = { tv_wonder_has_any_feasible_proposal_trigger = yes }
+			tv_wonder_roll_random_feasible_proposal_effect = yes
+			tv_wonder_copy_current_proposal_to_slot_2_effect = yes
+			tv_wonder_remove_current_proposal_from_deck_effect = yes
 		}
-		tv_wonder_set_proposal_on_great_engineer_effect = yes
+		if = {
+			limit = { tv_wonder_has_any_feasible_proposal_trigger = yes }
+			tv_wonder_roll_random_feasible_proposal_effect = yes
+			tv_wonder_copy_current_proposal_to_slot_3_effect = yes
+			tv_wonder_remove_current_proposal_from_deck_effect = yes
+		}
+		remove_variable = tv_wonder_proposal
+		tv_wonder_set_proposal_slots_on_great_engineer_effect = yes
 	}
 }
 
@@ -592,13 +707,11 @@ tv_wonder_remove_current_proposal_from_deck_effect = {
 }
 
 tv_wonder_reroll_proposal_after_rejection_effect = {
-	tv_wonder_remove_current_proposal_from_deck_effect = yes
-	tv_wonder_roll_new_proposal_effect = yes
 	if = {
-		limit = { NOT = { has_variable = tv_wonder_proposal } }
-		tv_wonder_rebuild_feasible_deck_effect = yes
-		tv_wonder_roll_new_proposal_effect = yes
+		limit = { has_variable = tv_wonder_proposal_mode }
+		tv_wonder_remove_current_proposal_from_deck_effect = yes
 	}
+	tv_wonder_roll_new_proposal_effect = yes
 }
 
 tv_wonder_prepare_priority_project_effect = {
@@ -854,13 +967,10 @@ tv_engineering_on_great_engineer_appointed_effect = {
 			tv_wonder_in_conception_trigger = yes
 			tv_wonder_has_great_engineer_trigger = yes
 		}
-		remove_variable = tv_wonder_proposal
+		tv_wonder_clear_current_proposal_effect = yes
 		tv_wonder_restore_proposal_from_great_engineer_effect = yes
-		if = {
-			limit = { NOT = { has_variable = tv_wonder_proposal } }
-			tv_wonder_rebuild_feasible_deck_effect = yes
-			tv_wonder_roll_new_proposal_effect = yes
-		}
+		tv_wonder_rebuild_feasible_deck_effect = yes
+		tv_wonder_roll_new_proposal_effect = yes
 		if = {
 			limit = { NOT = { has_variable = tv_wonder_nobles_demand } }
 			tv_wonder_initialize_debate_demands_effect = yes
@@ -871,7 +981,7 @@ tv_engineering_on_great_engineer_appointed_effect = {
 tv_engineering_on_great_engineer_removed_effect = {
 	if = {
 		limit = { tv_wonder_in_conception_trigger = yes }
-		remove_variable = tv_wonder_proposal
+		tv_wonder_clear_current_proposal_effect = yes
 		tv_wonder_clear_feasible_deck_effect = yes
 	}
 }
@@ -957,9 +1067,7 @@ tv_wonder_accept_proposal_effect = {
 				limit = { has_variable = tv_wonder_proposal_mode }
 				tv_wonder_prepare_priority_project_effect = yes
 			}
-			remove_variable = tv_wonder_proposal
-			remove_variable = tv_wonder_proposal_mode
-			remove_variable = tv_wonder_proposal_site
+			tv_wonder_clear_current_proposal_effect = yes
 			remove_variable = tv_wonder_priority_found
 			set_variable = { name = tv_wonder_stage value = 1 }
 			tv_wonder_reset_io_progress_effect = yes
@@ -1683,7 +1791,7 @@ tv_wonder_update_logistics_metrics_effect = {
 			name = tv_wonder_material_income
 			value = {
 				value = var:tv_wonder_dispatch_points
-				multiply = 5.2
+				multiply = 1
 			}
 		}
 	}
@@ -2856,11 +2964,11 @@ tv_wonder_apply_survey_site_support_effect = {
 	change_variable = { name = tv_wonder_survey_competence_average divide = 3 }
 	if = {
 		limit = { var:tv_wonder_survey_competence_average >= 75 }
-		tv_change_wonder_domestic_support_effect = { value = 100 }
+		tv_change_wonder_domestic_support_effect = { value = 40 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_survey_competence_average >= 50 }
-		tv_change_wonder_domestic_support_effect = { value = 50 }
+		tv_change_wonder_domestic_support_effect = { value = 20 }
 	}
 	remove_variable = tv_wonder_survey_competence_average
 }
@@ -4796,9 +4904,7 @@ tv_wonder_reinitialize_building_state_effect = {
 
 tv_wonder_clear_project_state_effect = {
 	tv_wonder_destroy_labor_camp_effect = yes
-	remove_variable = tv_wonder_proposal
-	remove_variable = tv_wonder_proposal_mode
-	remove_variable = tv_wonder_proposal_site
+	tv_wonder_clear_current_proposal_effect = yes
 	remove_variable = tv_wonder_priority_found
 	remove_variable = tv_wonder_priority_declined
 	remove_variable = tv_wonder_resume_project

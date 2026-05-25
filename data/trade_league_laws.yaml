@@ -1,6 +1,13 @@
 # Trade League laws for tv_trade_league_laws.txt.
-# These laws use simple IO policy votes and mostly apply direct member-country
-# modifiers.
+# Each law has three strength levels. Level 1 trades roughly one benefit package
+# for one cost; level 2 gives about 1.5x the same benefits for the same cost;
+# level 3 gives about 3x the same benefits for two distinct costs.
+#
+# AI voting uses the user's requested formula:
+# - base weights for levels 1/2/3 are 200/100/0
+# - leader opinion affects levels 2/3 by -50..+50 / -100..+100
+# - leader diplomatic reputation adds +2/+5 per point to levels 2/3
+# - leader monthly trade income adds +5/+10 per 100 income to levels 2/3.
 #
 # DO NOT hand-edit generated output files. Run:
 #   conda run --no-capture-output -n eu5 python scripts/in_game/common/laws/gen_tv_trade_league_laws.py
@@ -9,38 +16,137 @@ law_category: tv_trade_league_laws
 io_type: tv_trade_league
 
 laws:
-  - id: tv_trade_focus_law
-    display_comment: "LAW 1: Trade Focus"
+  - id: tv_trade_customs_union_law
+    display_comment: "LAW 1: Customs Union"
     policies:
-      - id: tv_trade_focus_balanced_policy
-        display_comment: "Balanced (default)"
+      - level: 1
+        id: tv_trade_customs_ledgers_policy
+        display_comment: "Level 1 - Shared Tariff Ledgers"
         default: true
-      - id: tv_trade_focus_import_policy
-        display_comment: "Import Focus"
         country_modifier: |
           import_efficiency = 0.025
-          export_efficiency = -0.025
-      - id: tv_trade_focus_export_policy
-        display_comment: "Export Focus"
-        country_modifier: |
-          import_efficiency = -0.025
           export_efficiency = 0.025
+          global_monthly_control = -0.001
+      - level: 2
+        id: tv_trade_customs_bureau_policy
+        display_comment: "Level 2 - League Customs Bureau"
+        country_modifier: |
+          import_efficiency = 0.0375
+          export_efficiency = 0.0375
+          global_monthly_control = -0.001
+      - level: 3
+        id: tv_trade_customs_code_policy
+        display_comment: "Level 3 - Compulsory Tariff Code"
+        country_modifier: |
+          import_efficiency = 0.075
+          export_efficiency = 0.075
+          global_monthly_control = -0.001
+          global_burghers_estate_power = 0.25
 
-  - id: tv_trade_leader_rights_law
-    display_comment: "LAW 2: Leader Rights"
+  - id: tv_trade_maritime_convoys_law
+    display_comment: "LAW 2: Maritime Convoys"
     policies:
-      - id: tv_trade_leader_rights_equal_policy
-        display_comment: "Equal Rights (default)"
+      - level: 1
+        id: tv_trade_private_convoys_policy
+        display_comment: "Level 1 - Licensed Private Convoys"
         default: true
-      - id: tv_trade_leader_rights_leader_policy
-        display_comment: "Leader"
-        leader_modifier: |
-          global_merchant_capacity_modifier = -0.20
-        non_leader_modifier: |
+        country_modifier: |
+          trade_sea_efficiency = 0.05
+          naval_range_modifier = 0.05
+          global_sailors_modifier = -0.05
+      - level: 2
+        id: tv_trade_league_escorts_policy
+        display_comment: "Level 2 - League Escort Offices"
+        country_modifier: |
+          trade_sea_efficiency = 0.075
+          naval_range_modifier = 0.075
+          global_sailors_modifier = -0.05
+      - level: 3
+        id: tv_trade_armed_convoys_policy
+        display_comment: "Level 3 - Armed Convoy Mandate"
+        country_modifier: |
+          trade_sea_efficiency = 0.15
+          naval_range_modifier = 0.15
+          global_sailors_modifier = -0.05
+          navy_maintenance_efficiency = -0.05
+
+  - id: tv_trade_merchant_courts_law
+    display_comment: "LAW 3: Merchant Courts"
+    policies:
+      - level: 1
+        id: tv_trade_arbitration_panels_policy
+        display_comment: "Level 1 - Port Arbitration Panels"
+        default: true
+        country_modifier: |
           global_merchant_capacity_modifier = 0.05
-      - id: tv_trade_leader_rights_priority_policy
-        display_comment: "Trade Priority"
-        leader_modifier: |
-          global_merchant_capacity_modifier = 0.20
-        non_leader_modifier: |
-          global_merchant_capacity_modifier = -0.05
+          trade_land_efficiency = 0.05
+          court_spending_cost_modifier = 0.10
+      - level: 2
+        id: tv_trade_league_courts_policy
+        display_comment: "Level 2 - League Merchant Courts"
+        country_modifier: |
+          global_merchant_capacity_modifier = 0.075
+          trade_land_efficiency = 0.075
+          court_spending_cost_modifier = 0.10
+      - level: 3
+        id: tv_trade_commercial_code_policy
+        display_comment: "Level 3 - Binding Commercial Code"
+        country_modifier: |
+          global_merchant_capacity_modifier = 0.15
+          trade_land_efficiency = 0.15
+          court_spending_cost_modifier = 0.10
+          diplomatic_reputation = -1
+
+  - id: tv_trade_staple_monopolies_law
+    display_comment: "LAW 4: Staple Monopolies"
+    policies:
+      - level: 1
+        id: tv_trade_registered_staples_policy
+        display_comment: "Level 1 - Registered Staple Markets"
+        default: true
+        country_modifier: |
+          global_trade_center_power = 0.05
+          trade_income = 0.025
+          import_efficiency = -0.025
+      - level: 2
+        id: tv_trade_league_staples_policy
+        display_comment: "Level 2 - League Staple Charters"
+        country_modifier: |
+          global_trade_center_power = 0.075
+          trade_income = 0.0375
+          import_efficiency = -0.025
+      - level: 3
+        id: tv_trade_exclusive_staples_policy
+        display_comment: "Level 3 - Exclusive Staple Rights"
+        country_modifier: |
+          global_trade_center_power = 0.15
+          trade_income = 0.075
+          import_efficiency = -0.025
+          global_estate_target_satisfaction = -0.025
+
+  - id: tv_trade_investment_code_law
+    display_comment: "LAW 5: Investment Code"
+    policies:
+      - level: 1
+        id: tv_trade_counting_house_loans_policy
+        display_comment: "Level 1 - Counting-House Loans"
+        default: true
+        country_modifier: |
+          global_foreign_build_buildings_cost = -0.05
+          global_production_efficiency = 0.025
+          global_bureaucracy_maintenance_cost_modifier = 0.05
+      - level: 2
+        id: tv_trade_joint_stock_charters_policy
+        display_comment: "Level 2 - Joint-Stock Charters"
+        country_modifier: |
+          global_foreign_build_buildings_cost = -0.075
+          global_production_efficiency = 0.0375
+          global_bureaucracy_maintenance_cost_modifier = 0.05
+      - level: 3
+        id: tv_trade_permanent_factories_policy
+        display_comment: "Level 3 - Permanent Foreign Factories"
+        country_modifier: |
+          global_foreign_build_buildings_cost = -0.15
+          global_production_efficiency = 0.075
+          global_bureaucracy_maintenance_cost_modifier = 0.05
+          global_max_control = -0.025

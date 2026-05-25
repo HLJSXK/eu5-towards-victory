@@ -343,6 +343,36 @@ PERFORM_tv_wonder_accept_proposal_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_wonder_select_proposal_slot_1_ACTION={
+\tlog=no
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=no
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_select_proposal_slot_2_ACTION={
+\tlog=no
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=no
+\tpausepopup=no
+\tmessage_category = society
+}
+
+PERFORM_tv_wonder_select_proposal_slot_3_ACTION={
+\tlog=no
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=no
+\tpausepopup=no
+\tmessage_category = society
+}
+
 PERFORM_tv_wonder_refute_proposal_ACTION={
 \tlog=yes
 \tonmap=no

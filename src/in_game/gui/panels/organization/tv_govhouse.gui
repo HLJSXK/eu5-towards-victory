@@ -121,6 +121,25 @@ organization_panel = {
 
 											hbox = {
 												spacing = 2
+												icon = {
+													size = { 20 20 }
+													texture = "gfx/interface/icons/modifier_types/province_integration_speed.dds"
+													tooltip = "TV_GOVHOUSE_INTEGRATION_FORMULA_TT"
+												}
+												text_single = {
+													size = { 46 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_integration_bonus_value').GetValue|+=%1]"
+													tooltip = "TV_GOVHOUSE_INTEGRATION_FORMULA_TT"
+													align = nobaseline|right
+												}
+											}
+
+											widget = {
+												size = { 18 1 }
+											}
+
+											hbox = {
+												spacing = 2
 												ignoreinvisible = yes
 												icon = {
 													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_admin_bonus_type').GetValue, '(CFixedPoint)1.0')]"

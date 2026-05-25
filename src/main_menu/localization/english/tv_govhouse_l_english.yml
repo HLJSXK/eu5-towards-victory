@@ -189,6 +189,8 @@
  TV_GOVHOUSE_POWER_EQUILIBRIUM_BASE: "Base equilibrium"
  TV_GOVHOUSE_POWER_EQUILIBRIUM_RELATIVE_ABILITIES: "Relative abilities of Ruler and [tv_grand_general|E]"
  TV_GOVHOUSE_POWER_EQUILIBRIUM_CONSOLIDATION: "[tv_govhouse_power_consolidation|E]"
+ TV_GOVHOUSE_POWER_EQUILIBRIUM_GENERAL_LOYALTY: "[tv_grand_general|E] loyalty"
+ tv_grand_general_loyalty_change_text: "[tv_grand_general|E] loyalty"
  TV_GOVHOUSE_POWER_BALANCE_BELOW_EQUILIBRIUM: "Below equilibrium"
  TV_GOVHOUSE_POWER_BALANCE_ABOVE_EQUILIBRIUM: "Above equilibrium"
  TV_GOVHOUSE_POWER_BALANCE_NO_GENERAL: "No [tv_grand_general|E]"
@@ -229,6 +231,19 @@
  tv_grand_general.8.t: "[tv_grand_general|E]：A General Lost"
  tv_grand_general.8.d: "Fate is cruel. An accident during training has taken our [tv_grand_general|E] from us before their potential could be fully realized. One moment the yard was a place of improvement; the next it was a court of stunned witnesses. Plans that assumed their future command now look suddenly foolish, as if ink itself had overreached. The [tv_war_tent|e] must learn to speak without the voice it expected to hear. What might have been is now a military secret no one can use."
  tv_grand_general.8.a: "We shall honour their memory and continue."
+
+ tv_grand_general.9.t: "[tv_grand_general|E]: A Cold Dispatch"
+ tv_grand_general.9.d: "A dispatch from the [tv_grand_general|E] reaches the court with every courtesy intact and every warmth removed. The orders are correct, the requests are reasonable, and the silence between the lines is unmistakable. Some slight, delay, or private calculation has cooled their loyalty to the Crown."
+ tv_grand_general.9.a: "Trust thins by small degrees."
+
+ tv_grand_general.10.t: "[tv_grand_general|E]: Shared Purpose"
+ tv_grand_general.10.d: "The [tv_grand_general|E] has answered a difficult request without bargaining for advantage. Officers report that the command tent speaks of the Crown with unusual steadiness, and even rival ministers admit that obedience can still be made honorable."
+ tv_grand_general.10.a: "Let that confidence be remembered."
+
+ tv_grand_general.11.t: "[tv_grand_general|E]: A Reward Expected"
+ tv_grand_general.11.d: "The [tv_grand_general|E] asks for a visible reward: pay for retainers, gifts for officers, and enough royal favor to prove that service is noticed. The sum is not ruinous, but refusal would be read less as thrift than as distrust."
+ tv_grand_general.11.a: "Pay the reward."
+ tv_grand_general.11.b: "Refuse the demand."
 
  # ── Governor death event ────────────────────────────────────────────────────
  tv_govhouse.1.t: "[tv_local_governor|E]：A Governor Has Died"
@@ -411,6 +426,7 @@
  TV_GOVHOUSE_BUILD_COST_LABEL: "Construction Cost"
  TV_GOVHOUSE_UNREST_LABEL: "Unrest Reduction"
  TV_GOVHOUSE_GOVERNED_AREA_LABEL: "Governed Region"
+ TV_GOVHOUSE_INTEGRATION_FORMULA_TT: "Governor Administrative skill x 0.1% local integration speed."
  TV_GOVHOUSE_ADMIN_FUNCTION_FORMULA_TT: "Administrative Function: the selected law decides which local bonus Administrative skill provides."
  TV_GOVHOUSE_DIP_FUNCTION_FORMULA_TT: "Diplomatic Function: the selected law decides which local bonus Diplomatic skill provides."
  TV_GOVHOUSE_MIL_FUNCTION_FORMULA_TT: "Military Function: the selected law decides which local bonus Military skill provides."
@@ -427,6 +443,7 @@
  TV_GOVHOUSE_BUILD_COST_FORMULA_TT: "$TV_GOVHOUSE_DIP_CONSTRUCTION_FORMULA_TT$"
  TV_GOVHOUSE_UNREST_FORMULA_TT: "$TV_GOVHOUSE_MIL_UNREST_FORMULA_TT$"
 
+ STATIC_MODIFIER_NAME_tv_governor_integration_speed: "Governor: Integration"
  STATIC_MODIFIER_NAME_tv_governor_max_control: "Governor: Local Control"
  STATIC_MODIFIER_NAME_tv_governor_build_cost: "Governor: Construction"
  STATIC_MODIFIER_NAME_tv_governor_unrest: "Governor: Order"

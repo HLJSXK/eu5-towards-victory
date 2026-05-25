@@ -8,6 +8,7 @@
 pulses:
   monthly_country_pulse:
     - tv_leaderboard_monthly_pulse    # leaderboard + touring artist roll + research/medicine/diplo inline
+    - tv_io_chief_alert_monthly_pulse # CMF alert for missing TV IO chief great people
     - tv_local_exhibition_monthly_pulse # Domestic Exhibition timer and monthly events
     - tv_research_target_completed_pulse # cancel focused research when target is unlocked normally
     - tv_research_a_pulse             # sub-process A random events
@@ -17,6 +18,7 @@ pulses:
     - tv_med_major_accident_pulse     # medicine major accident events
     - tv_meditation_monthly_pulse     # medicine meditation events
     - tv_govhouse_training_monthly_pulse # Grand General training timer
+    - tv_govhouse_loyalty_monthly_pulse # Grand General loyalty random events
     - tv_govhouse_negative_monthly_pulse # Governor's House balance-of-power backlash events
     - tv_govhouse_governor_events_monthly_pulse # Regional governor random events
     - tv_govhouse_war_tent_monthly_pulse # War Tent plans and tactic refresh

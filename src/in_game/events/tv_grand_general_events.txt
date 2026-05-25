@@ -296,3 +296,48 @@ tv_grand_general.8 = {
 		}
 	}
 }
+
+# ── Loyalty 1: confidence frays (-5%) ───────────────────────────────────────
+tv_grand_general.9 = {
+	type = country_event
+	title = tv_grand_general.9.t
+	desc = tv_grand_general.9.d
+	outcome = negative
+
+	option = {
+		name = tv_grand_general.9.a
+		tv_govhouse_change_grand_general_loyalty_effect = { value = -0.05 }
+	}
+}
+
+# ── Loyalty 2: trust is reinforced (+5%) ────────────────────────────────────
+tv_grand_general.10 = {
+	type = country_event
+	title = tv_grand_general.10.t
+	desc = tv_grand_general.10.d
+	outcome = positive
+
+	option = {
+		name = tv_grand_general.10.a
+		tv_govhouse_change_grand_general_loyalty_effect = { value = 0.05 }
+	}
+}
+
+# ── Loyalty 3: reward demanded (+5% if paid, -5% otherwise) ─────────────────
+tv_grand_general.11 = {
+	type = country_event
+	title = tv_grand_general.11.t
+	desc = tv_grand_general.11.d
+	outcome = neutral
+
+	option = {
+		name = tv_grand_general.11.a
+		change_gold_effect = { scale = -1 }
+		tv_govhouse_change_grand_general_loyalty_effect = { value = 0.05 }
+	}
+
+	option = {
+		name = tv_grand_general.11.b
+		tv_govhouse_change_grand_general_loyalty_effect = { value = -0.05 }
+	}
+}

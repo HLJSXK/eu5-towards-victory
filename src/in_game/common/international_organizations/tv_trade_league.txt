@@ -32,8 +32,11 @@ tv_trade_league = {
 	special_statuses_implemented = { tv_trade_league_member_status }
 
 	laws = {
-		tv_trade_focus_law = tv_trade_focus_balanced_policy
-		tv_trade_leader_rights_law = tv_trade_leader_rights_equal_policy
+		tv_trade_customs_union_law = tv_trade_customs_ledgers_policy
+		tv_trade_maritime_convoys_law = tv_trade_private_convoys_policy
+		tv_trade_merchant_courts_law = tv_trade_arbitration_panels_policy
+		tv_trade_staple_monopolies_law = tv_trade_registered_staples_policy
+		tv_trade_investment_code_law = tv_trade_counting_house_loans_policy
 	}
 
 	can_initiate_policy_votes = {

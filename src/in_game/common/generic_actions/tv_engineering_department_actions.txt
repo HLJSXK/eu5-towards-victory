@@ -6,8 +6,41 @@ tv_wonder_accept_proposal = {
 	ai_tick = monthly
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
-	allow = { scope:actor = { tv_wonder_has_open_proposal_trigger = yes } }
+	allow = { scope:actor = { tv_wonder_has_open_proposal_trigger = yes var:tv_wonder_proposal ?= { this >= 1 } } }
 	effect = { scope:actor = { tv_wonder_accept_proposal_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_select_proposal_slot_1 = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_has_open_proposal_trigger = yes var:tv_wonder_proposal_slot_1 ?= { this >= 1 } } }
+	effect = { scope:actor = { hidden_effect = { tv_wonder_select_proposal_slot_1_effect = yes } } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_select_proposal_slot_2 = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_has_open_proposal_trigger = yes var:tv_wonder_proposal_slot_2 ?= { this >= 1 } } }
+	effect = { scope:actor = { hidden_effect = { tv_wonder_select_proposal_slot_2_effect = yes } } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_select_proposal_slot_3 = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_has_open_proposal_trigger = yes var:tv_wonder_proposal_slot_3 ?= { this >= 1 } } }
+	effect = { scope:actor = { hidden_effect = { tv_wonder_select_proposal_slot_3_effect = yes } } }
 	ai_will_do = { add = -100 }
 }
 
