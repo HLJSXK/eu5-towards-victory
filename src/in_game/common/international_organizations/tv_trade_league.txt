@@ -30,14 +30,7 @@ tv_trade_league = {
 	has_parliament = no
 	show_on_diplomatic_map = yes
 	special_statuses_implemented = { tv_trade_league_member_status }
-
-	laws = {
-		tv_trade_customs_union_law = tv_trade_customs_ledgers_policy
-		tv_trade_maritime_convoys_law = tv_trade_private_convoys_policy
-		tv_trade_merchant_courts_law = tv_trade_arbitration_panels_policy
-		tv_trade_staple_monopolies_law = tv_trade_registered_staples_policy
-		tv_trade_investment_code_law = tv_trade_counting_house_loans_policy
-	}
+	# Trade League starts with no enacted laws; the law groups are voted in later.
 
 	can_initiate_policy_votes = {
 		is_leader_of_international_organization = scope:recipient

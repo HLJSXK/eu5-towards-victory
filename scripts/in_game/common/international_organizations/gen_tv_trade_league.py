@@ -4,7 +4,9 @@ Generate src/in_game/common/international_organizations/tv_trade_league.txt.
 Trade League monopoly/action state is stored on the leader country at runtime,
 and monthly maintenance is dispatched from country monthly pulse instead of the
 IO type. Do not declare the repetitive per-good variables or monthly logic on
-the IO itself: both caused severe stutter in-game.
+the IO itself: both caused severe stutter in-game. The IO starts with no
+enacted laws; law groups are added later through policy votes, not seeded at
+creation.
 """
 
 import sys
@@ -64,6 +66,7 @@ tv_trade_league = {
 \thas_parliament = no
 \tshow_on_diplomatic_map = yes
 \tspecial_statuses_implemented = { tv_trade_league_member_status }
+\t# Trade League starts with no enacted laws; the law groups are voted in later.
 """
 
 SUFFIX = """\
@@ -111,19 +114,20 @@ SUFFIX = """\
 """
 
 
-def gen_initial_laws(law_data: dict) -> str:
-    lines = [T + "laws = {"]
+def validate_no_default_policies(law_data: dict) -> None:
     for law in law_data["laws"]:
-        defaults = [policy for policy in law["policies"] if policy.get("default")]
-        if len(defaults) != 1:
-            raise ValueError(f"{law['id']} must define exactly one default policy")
-        lines.append(T * 2 + f"{law['id']} = {defaults[0]['id']}")
-    lines.append(T + "}")
-    return "\n".join(lines)
+        defaults = [policy["id"] for policy in law["policies"] if policy.get("default")]
+        if defaults:
+            joined = ", ".join(defaults)
+            raise ValueError(
+                f"{law['id']} must not declare default policies ({joined}); "
+                "Trade League starts with no enacted laws"
+            )
 
 
 def generate(data: dict, law_data: dict) -> str:
-    return HEADER + PREFIX + "\n" + gen_initial_laws(law_data) + "\n\n" + SUFFIX
+    validate_no_default_policies(law_data)
+    return HEADER + PREFIX + "\n" + SUFFIX
 
 
 def main() -> None:

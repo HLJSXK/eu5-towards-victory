@@ -65,11 +65,16 @@ that create, find, or mutate TV IOs.
    `GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable(...)`.
 
 12. Keep Trade League generated monopoly maintenance off the IO monthly_effect.
-   Even hidden IO monthly maintenance for the per-good Trade League monopoly refresh caused
-   severe runtime stutter. Register a named country monthly pulse through `data/pulse_registry.yaml`,
-   save the country scope, iterate that country's `every_international_organizations_member_of`
-   filtered to `tv_trade_league` plus `leader_country ?= <saved country>`, and only then call the
-   IO-scoped refresh effect.
+    Even hidden IO monthly maintenance for the per-good Trade League monopoly refresh caused
+    severe runtime stutter. Register a named country monthly pulse through `data/pulse_registry.yaml`,
+    save the country scope, iterate that country's `every_international_organizations_member_of`
+    filtered to `tv_trade_league` plus `leader_country ?= <saved country>`, and only then call the
+    IO-scoped refresh effect.
+
+13. Do not seed TV IOs with enacted laws at creation.
+    All TV IOs start lawless unless a design document explicitly says otherwise. For Trade League,
+    leave the IO definition without a `laws = { ... }` block that maps laws to default policies;
+    law groups are enacted later through policy votes.
 
 ## Validation
 

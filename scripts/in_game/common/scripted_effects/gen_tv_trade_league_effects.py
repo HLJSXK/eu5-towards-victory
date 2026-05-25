@@ -626,6 +626,7 @@ def display_members_projection_effect() -> str:
 tv_trade_league_refresh_monopoly_members_display_effect = {
 \thidden_effect = {
 \t\tsave_scope_as = tv_trade_monopoly_refresh_leader
+\t\ttv_trade_league_refresh_monopoly_display_effect = yes
 \t\tevery_international_organizations_member_of = {
 \t\t\tlimit = {
 \t\t\t\tinternational_organization_type = international_organization_type:tv_trade_league
@@ -1046,6 +1047,7 @@ tv_trade_league_refresh_intelligence_members_display_effect = {
 \thidden_effect = {
 \t\tsave_scope_as = tv_trade_intelligence_refresh_leader
 \t\ttv_trade_league_refresh_intelligence_active_slots_effect = yes
+\t\ttv_trade_league_refresh_intelligence_display_effect = yes
 \t\tevery_international_organizations_member_of = {
 \t\t\tlimit = {
 \t\t\t\tinternational_organization_type = international_organization_type:tv_trade_league
@@ -1358,10 +1360,31 @@ def aggregate_control_block(good: str, prefix: str) -> str:
 
 def action_accounting_block(good: str) -> str:
     return f"""\
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_variable = tv_trade_virtual_demand_active_{good} }} }}
+\t\tset_variable = {{ name = tv_trade_virtual_demand_active_{good} value = 0 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_variable = tv_trade_virtual_demand_used_pct_{good} }} }}
+\t\tset_variable = {{ name = tv_trade_virtual_demand_used_pct_{good} value = 0 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_variable = tv_trade_virtual_supply_active_{good} }} }}
+\t\tset_variable = {{ name = tv_trade_virtual_supply_active_{good} value = 0 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_variable = tv_trade_virtual_supply_used_pct_{good} }} }}
+\t\tset_variable = {{ name = tv_trade_virtual_supply_used_pct_{good} value = 0 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_variable = tv_trade_embargo_active_{good} }} }}
+\t\tset_variable = {{ name = tv_trade_embargo_active_{good} value = 0 }}
+\t}}
 \tset_variable = {{ name = tv_trade_virtual_demand_amount_{good} value = {{ value = var:tv_trade_virtual_demand_used_pct_{good} divide = {VIRTUAL_ACTION_COST_PCT} }} }}
 \tset_variable = {{ name = tv_trade_virtual_supply_amount_{good} value = {{ value = var:tv_trade_virtual_supply_used_pct_{good} divide = {VIRTUAL_ACTION_COST_PCT} }} }}
 
 \tset_variable = {{ name = tv_trade_used_monopoly_level_pct_{good} value = 0 }}
+\tset_variable = {{ name = tv_trade_embargo_used_pct_{good} value = 0 }}
 \tif = {{
 \t\tlimit = {{ var:tv_trade_virtual_demand_active_{good} >= 1 }}
 \t\tchange_variable = {{ name = tv_trade_used_monopoly_level_pct_{good} add = var:tv_trade_virtual_demand_used_pct_{good} }}

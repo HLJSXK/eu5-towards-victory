@@ -1,18 +1,63 @@
-﻿tv_sync_missing_io_chief_alert_effect = {
+tv_sync_missing_io_chief_alert_effect = {
 	if = {
-		limit = { tv_missing_io_chief_alert_trigger = yes }
-		cmf_show_alert = {
-			alert = tv_missing_io_chief_alert
-		}
+		limit = { tv_missing_arts_exhibition_chief_alert_trigger = yes }
+		cmf_show_alert = { alert = tv_missing_arts_exhibition_chief_alert }
 	}
 	else_if = {
-		limit = {
-			cmf_is_alert_active = {
-				alert = tv_missing_io_chief_alert
-			}
-		}
-		cmf_remove_alert = {
-			alert = tv_missing_io_chief_alert
-		}
+		limit = { cmf_is_alert_active = { alert = tv_missing_arts_exhibition_chief_alert } }
+		cmf_remove_alert = { alert = tv_missing_arts_exhibition_chief_alert }
+	}
+
+	if = {
+		limit = { tv_missing_diplomatic_alliance_chief_alert_trigger = yes }
+		cmf_show_alert = { alert = tv_missing_diplomatic_alliance_chief_alert }
+	}
+	else_if = {
+		limit = { cmf_is_alert_active = { alert = tv_missing_diplomatic_alliance_chief_alert } }
+		cmf_remove_alert = { alert = tv_missing_diplomatic_alliance_chief_alert }
+	}
+
+	if = {
+		limit = { tv_missing_academy_chief_alert_trigger = yes }
+		cmf_show_alert = { alert = tv_missing_academy_chief_alert }
+	}
+	else_if = {
+		limit = { cmf_is_alert_active = { alert = tv_missing_academy_chief_alert } }
+		cmf_remove_alert = { alert = tv_missing_academy_chief_alert }
+	}
+
+	if = {
+		limit = { tv_missing_engineering_department_chief_alert_trigger = yes }
+		cmf_show_alert = { alert = tv_missing_engineering_department_chief_alert }
+	}
+	else_if = {
+		limit = { cmf_is_alert_active = { alert = tv_missing_engineering_department_chief_alert } }
+		cmf_remove_alert = { alert = tv_missing_engineering_department_chief_alert }
+	}
+
+	if = {
+		limit = { tv_missing_trade_league_chief_alert_trigger = yes }
+		cmf_show_alert = { alert = tv_missing_trade_league_chief_alert }
+	}
+	else_if = {
+		limit = { cmf_is_alert_active = { alert = tv_missing_trade_league_chief_alert } }
+		cmf_remove_alert = { alert = tv_missing_trade_league_chief_alert }
+	}
+
+	if = {
+		limit = { tv_missing_govhouse_chief_alert_trigger = yes }
+		cmf_show_alert = { alert = tv_missing_govhouse_chief_alert }
+	}
+	else_if = {
+		limit = { cmf_is_alert_active = { alert = tv_missing_govhouse_chief_alert } }
+		cmf_remove_alert = { alert = tv_missing_govhouse_chief_alert }
+	}
+}
+
+tv_sync_missing_io_chief_alert_bridge_effect = {
+	if = {
+		limit = { has_variable = tv_pending_io_chief_alert_io }
+		set_variable = { name = tv_io_chief_alert_open_requested value = scope:tv_pending_io_chief_alert_io }
+		remove_variable = tv_pending_io_chief_alert_io
 	}
 }

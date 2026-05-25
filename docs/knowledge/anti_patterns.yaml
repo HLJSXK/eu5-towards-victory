@@ -152,6 +152,17 @@
   source: "user-reported runtime stutter from Trade League IO monthly_effect maintenance (2026-05-22)"
   notes: "For this generated high-cardinality system, even hidden IO monthly maintenance was too expensive. A country pulse turns the work into a cheap country membership/leader check before the heavy IO refresh runs."
 
+- id: tv_io_initial_laws_seeded
+  pattern: '(?:^\s*default:\s*true\s*$|(?s:tv_trade_league\s*=\s*\{.*?\blaws\s*=\s*\{\s*\w))'
+  detectability: lint
+  only_in_paths: ['trade_league_laws.yaml', 'tv_trade_league.txt']
+  bad: "TV IO type starts with enacted laws or generated default policies"
+  correction: "Keep TV IOs lawless at creation unless a design document explicitly says otherwise. For Trade League, do not emit a laws block with policy mappings in the IO type; laws are enacted later through policy votes."
+  category: script
+  scope: international_organization
+  source: "user design clarification (2026-05-25); reference_game_files/game/main_menu/setup/start/15_international_organizations.txt:288"
+  notes: "AI generated default level-1 Trade League policies into tv_trade_league's IO definition. This violated the design that all TV IOs start with no laws. Vanilla setup shows an IO can explicitly start with laws = {  }."
+
 - id: dynamic_scope_value_must_use_script_value_block
   pattern: ''
   detectability: advisory

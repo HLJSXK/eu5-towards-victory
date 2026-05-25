@@ -128,7 +128,7 @@ organization_panel = {
 												}
 												text_single = {
 													size = { 46 22 }
-													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_integration_bonus_value').GetValue|+=%1]"
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_integration_bonus_value').GetValue|+=3]"
 													tooltip = "TV_GOVHOUSE_INTEGRATION_FORMULA_TT"
 													align = nobaseline|right
 												}
@@ -424,6 +424,35 @@ organization_panel = {
 								size = { 22 22 }
 								raw_text = "@mil!"
 								tooltip = "TV_GOVHOUSE_TRAINING_PROGRESS_TOOLTIP"
+								align = nobaseline|center
+							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_gg_loyalty_value').IsSet]"
+							margin = { 8 0 }
+							spacing = 6
+
+							text_single = {
+								size = { 130 22 }
+								text = "TV_GOVHOUSE_POWER_EQUILIBRIUM_GENERAL_LOYALTY"
+								align = nobaseline|left
+							}
+
+							progressbar = {
+								size = { 278 16 }
+								min = 0
+								max = 1
+								value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_gg_loyalty_value').GetValue]"
+								using = progress_bar_green_alt
+								tooltip = "TV_GOVHOUSE_POWER_EQUILIBRIUM_GENERAL_LOYALTY"
+							}
+
+							text_single = {
+								size = { 22 22 }
+								raw_text = "@loyalty!"
+								tooltip = "TV_GOVHOUSE_POWER_EQUILIBRIUM_GENERAL_LOYALTY"
 								align = nobaseline|center
 							}
 						}

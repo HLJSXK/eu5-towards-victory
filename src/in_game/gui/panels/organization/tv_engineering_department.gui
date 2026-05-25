@@ -352,10 +352,11 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 260 }
+						size = { 470 330 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
+							ignoreinvisible = yes
 							spacing = 8
 							margin = { 4 6 }
 
@@ -432,7 +433,7 @@ organization_panel = {
 									vbox = {
 										margin = { 4 4 }
 										spacing = 3
-										text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" max_width = 140 align = nobaseline|center }
 										hbox = {
 											layoutpolicy_horizontal = expanding
 											expand = {}
@@ -457,7 +458,7 @@ organization_panel = {
 									vbox = {
 										margin = { 4 4 }
 										spacing = 3
-										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" max_width = 140 align = nobaseline|center }
 										hbox = {
 											layoutpolicy_horizontal = expanding
 											expand = {}
@@ -482,7 +483,7 @@ organization_panel = {
 									vbox = {
 										margin = { 4 4 }
 										spacing = 3
-										text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" max_width = 140 align = nobaseline|center }
 										hbox = {
 											layoutpolicy_horizontal = expanding
 											expand = {}
@@ -507,30 +508,33 @@ organization_panel = {
 								layoutpolicy_horizontal = expanding
 								spacing = 4
 								widget = {
-									size = { 150 48 }
+									size = { 154 66 }
 									vbox = {
+										margin = { 2 2 }
 										spacing = 1
-										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_LABEL" align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" align = nobaseline|center }
-										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_TEXT" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_LABEL" max_width = 150 align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" max_width = 150 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_TEXT" max_width = 150 align = nobaseline|center }
 									}
 								}
 								widget = {
-									size = { 150 48 }
+									size = { 154 66 }
 									vbox = {
+										margin = { 2 2 }
 										spacing = 1
-										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_LABEL" align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_progress_percent').GetValue|0]" align = nobaseline|center }
-										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_TEXT" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_LABEL" max_width = 150 align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_progress_percent').GetValue|0]" max_width = 150 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_TEXT" max_width = 150 align = nobaseline|center }
 									}
 								}
 								widget = {
-									size = { 150 48 }
+									size = { 154 66 }
 									vbox = {
+										margin = { 2 2 }
 										spacing = 1
-										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_LABEL" align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]" align = nobaseline|center }
-										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_TEXT" align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_LABEL" max_width = 150 align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]" max_width = 150 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_TEXT" max_width = 150 align = nobaseline|center }
 									}
 								}
 							}
@@ -1177,8 +1181,9 @@ organization_panel = {
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
-							spacing = 8
-							margin = { 4 6 }
+							ignoreinvisible = yes
+							spacing = 4
+							margin = { 4 4 }
 
 							hbox = {
 								layoutpolicy_horizontal = expanding
@@ -1248,78 +1253,78 @@ organization_panel = {
 								layoutpolicy_horizontal = expanding
 								spacing = 6
 								widget = {
-									size = { 148 96 }
+									size = { 148 88 }
 									using = bg_text_mask_container_dark_blue
 									vbox = {
-										margin = { 4 4 }
-										spacing = 3
-										text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" align = nobaseline|center }
+										margin = { 3 3 }
+										spacing = 2
+										text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" max_width = 140 fontsize = 13 align = nobaseline|center }
 										hbox = {
 											layoutpolicy_horizontal = expanding
 											expand = {}
 											widget = {
-												size = { 44 44 }
+												size = { 40 40 }
 												piechart = {
-													size = { 44 44 }
+													size = { 40 40 }
 													using = piechart_angles
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
 												}
-												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/flat_icons/building_panel/build.dds" texture_density = 2 }
+												icon = { parentanchor = center size = { 22 22 } texture = "gfx/interface/icons/flat_icons/building_panel/build.dds" texture_density = 2 }
 											}
 											expand = {}
 										}
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue|0]%" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue|0]%" fontsize = 13 align = nobaseline|center }
 									}
 								}
 								widget = {
-									size = { 148 96 }
+									size = { 148 88 }
 									using = bg_text_mask_container_dark_blue
 									vbox = {
-										margin = { 4 4 }
-										spacing = 3
-										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" align = nobaseline|center }
+										margin = { 3 3 }
+										spacing = 2
+										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" max_width = 140 fontsize = 13 align = nobaseline|center }
 										hbox = {
 											layoutpolicy_horizontal = expanding
 											expand = {}
 											widget = {
-												size = { 44 44 }
+												size = { 40 40 }
 												piechart = {
-													size = { 44 44 }
+													size = { 40 40 }
 													using = piechart_angles
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
 												}
-												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
+												icon = { parentanchor = center size = { 22 22 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
 											}
 											expand = {}
 										}
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue|0]%" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue|0]%" fontsize = 13 align = nobaseline|center }
 									}
 								}
 								widget = {
-									size = { 148 96 }
+									size = { 148 88 }
 									using = bg_text_mask_container_dark_blue
 									vbox = {
-										margin = { 4 4 }
-										spacing = 3
-										text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" align = nobaseline|center }
+										margin = { 3 3 }
+										spacing = 2
+										text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" max_width = 140 fontsize = 13 align = nobaseline|center }
 										hbox = {
 											layoutpolicy_horizontal = expanding
 											expand = {}
 											widget = {
-												size = { 44 44 }
+												size = { 40 40 }
 												piechart = {
-													size = { 44 44 }
+													size = { 40 40 }
 													using = piechart_angles
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
 												}
-												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/pops/laborers.dds" texture_density = 2 }
+												icon = { parentanchor = center size = { 22 22 } texture = "gfx/interface/icons/pops/laborers.dds" texture_density = 2 }
 											}
 											expand = {}
 										}
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue|0]%" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue|0]%" fontsize = 13 align = nobaseline|center }
 									}
 								}
 							}
@@ -1328,30 +1333,33 @@ organization_panel = {
 								layoutpolicy_horizontal = expanding
 								spacing = 4
 								widget = {
-									size = { 150 48 }
+									size = { 150 54 }
 									vbox = {
-										spacing = 1
-										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_LABEL" align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" align = nobaseline|center }
-										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_TEXT" align = nobaseline|center }
+										margin = { 2 0 }
+										spacing = 0
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_LABEL" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_TEXT" max_width = 146 fontsize = 13 align = nobaseline|center }
 									}
 								}
 								widget = {
-									size = { 150 48 }
+									size = { 150 54 }
 									vbox = {
-										spacing = 1
-										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_LABEL" align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_progress_percent').GetValue|0]" align = nobaseline|center }
-										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_TEXT" align = nobaseline|center }
+										margin = { 2 0 }
+										spacing = 0
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_LABEL" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_progress_percent').GetValue|0]" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_TEXT" max_width = 146 fontsize = 13 align = nobaseline|center }
 									}
 								}
 								widget = {
-									size = { 150 48 }
+									size = { 150 54 }
 									vbox = {
-										spacing = 1
-										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_LABEL" align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]" align = nobaseline|center }
-										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_TEXT" align = nobaseline|center }
+										margin = { 2 0 }
+										spacing = 0
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_LABEL" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_TEXT" max_width = 146 fontsize = 13 align = nobaseline|center }
 									}
 								}
 							}
@@ -1442,8 +1450,9 @@ organization_panel = {
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
-							spacing = 8
-							margin = { 4 6 }
+							ignoreinvisible = yes
+							spacing = 4
+							margin = { 4 4 }
 
 							hbox = {
 								layoutpolicy_horizontal = expanding
@@ -1513,78 +1522,78 @@ organization_panel = {
 								layoutpolicy_horizontal = expanding
 								spacing = 6
 								widget = {
-									size = { 148 96 }
+									size = { 148 88 }
 									using = bg_text_mask_container_dark_blue
 									vbox = {
-										margin = { 4 4 }
-										spacing = 3
-										text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" align = nobaseline|center }
+										margin = { 3 3 }
+										spacing = 2
+										text_single = { text = "TV_ENGINEERING_SCALE_COMPETENCE_LABEL" max_width = 140 fontsize = 13 align = nobaseline|center }
 										hbox = {
 											layoutpolicy_horizontal = expanding
 											expand = {}
 											widget = {
-												size = { 44 44 }
+												size = { 40 40 }
 												piechart = {
-													size = { 44 44 }
+													size = { 40 40 }
 													using = piechart_angles
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
 												}
-												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/flat_icons/building_panel/build.dds" texture_density = 2 }
+												icon = { parentanchor = center size = { 22 22 } texture = "gfx/interface/icons/flat_icons/building_panel/build.dds" texture_density = 2 }
 											}
 											expand = {}
 										}
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue|0]%" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_competence').GetValue|0]%" fontsize = 13 align = nobaseline|center }
 									}
 								}
 								widget = {
-									size = { 148 96 }
+									size = { 148 88 }
 									using = bg_text_mask_container_dark_blue
 									vbox = {
-										margin = { 4 4 }
-										spacing = 3
-										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" align = nobaseline|center }
+										margin = { 3 3 }
+										spacing = 2
+										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" max_width = 140 fontsize = 13 align = nobaseline|center }
 										hbox = {
 											layoutpolicy_horizontal = expanding
 											expand = {}
 											widget = {
-												size = { 44 44 }
+												size = { 40 40 }
 												piechart = {
-													size = { 44 44 }
+													size = { 40 40 }
 													using = piechart_angles
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
 												}
-												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
+												icon = { parentanchor = center size = { 22 22 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
 											}
 											expand = {}
 										}
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue|0]%" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue|0]%" fontsize = 13 align = nobaseline|center }
 									}
 								}
 								widget = {
-									size = { 148 96 }
+									size = { 148 88 }
 									using = bg_text_mask_container_dark_blue
 									vbox = {
-										margin = { 4 4 }
-										spacing = 3
-										text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" align = nobaseline|center }
+										margin = { 3 3 }
+										spacing = 2
+										text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" max_width = 140 fontsize = 13 align = nobaseline|center }
 										hbox = {
 											layoutpolicy_horizontal = expanding
 											expand = {}
 											widget = {
-												size = { 44 44 }
+												size = { 40 40 }
 												piechart = {
-													size = { 44 44 }
+													size = { 40 40 }
 													using = piechart_angles
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
 													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
 												}
-												icon = { parentanchor = center size = { 24 24 } texture = "gfx/interface/icons/pops/laborers.dds" texture_density = 2 }
+												icon = { parentanchor = center size = { 22 22 } texture = "gfx/interface/icons/pops/laborers.dds" texture_density = 2 }
 											}
 											expand = {}
 										}
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue|0]%" align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue|0]%" fontsize = 13 align = nobaseline|center }
 									}
 								}
 							}
@@ -1593,30 +1602,33 @@ organization_panel = {
 								layoutpolicy_horizontal = expanding
 								spacing = 4
 								widget = {
-									size = { 150 48 }
+									size = { 150 54 }
 									vbox = {
-										spacing = 1
-										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_LABEL" align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" align = nobaseline|center }
-										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_TEXT" align = nobaseline|center }
+										margin = { 2 0 }
+										spacing = 0
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_LABEL" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_TEXT" max_width = 146 fontsize = 13 align = nobaseline|center }
 									}
 								}
 								widget = {
-									size = { 150 48 }
+									size = { 150 54 }
 									vbox = {
-										spacing = 1
-										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_LABEL" align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_progress_percent').GetValue|0]" align = nobaseline|center }
-										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_TEXT" align = nobaseline|center }
+										margin = { 2 0 }
+										spacing = 0
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_LABEL" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_progress_percent').GetValue|0]" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_TEXT" max_width = 146 fontsize = 13 align = nobaseline|center }
 									}
 								}
 								widget = {
-									size = { 150 48 }
+									size = { 150 54 }
 									vbox = {
-										spacing = 1
-										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_LABEL" align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]" align = nobaseline|center }
-										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_TEXT" align = nobaseline|center }
+										margin = { 2 0 }
+										spacing = 0
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_LABEL" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_TEXT" max_width = 146 fontsize = 13 align = nobaseline|center }
 									}
 								}
 							}
