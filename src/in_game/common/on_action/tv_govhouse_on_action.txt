@@ -247,6 +247,23 @@ tv_govhouse_war_tent_monthly_pulse = {
 	}
 }
 
+# Annual reassessment for autonomous local Governor tasks.
+tv_govhouse_governor_tasks_yearly_pulse = {
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			has_variable = tv_govhouse_member
+		}
+		custom_tooltip = {
+			text = TV_HAS_GOVERNOR_LIST_TT
+			has_variable = tv_governor_list
+		}
+	}
+	effect = {
+		tv_govhouse_select_governor_tasks_yearly_effect = yes
+	}
+}
+
 # Death cleanup: if the Grand General dies, clear country variables and notify.
 tv_govhouse_char_death = {
 	effect = {

@@ -939,7 +939,8 @@ tv_govhouse_war_tent_monthly_effect = {
 #   tv_governor_list:        country variable list of governor character scopes.
 # Each representative display location may carry:
 #   tv_govhouse_display_governor_char      (character scope value)
-#   tv_govhouse_display_integration_bonus_value
+#   tv_govhouse_display_task_type          (1 prosperity, 2 integration, 3 culture, 4 religion, 5 recruitment, 6 order)
+#   tv_govhouse_display_task_value         (copied from governor)
 #   tv_govhouse_display_admin_bonus_type   (1 control, 2 development, 3 production)
 #   tv_govhouse_display_admin_bonus_value  (copied from governor)
 #   tv_govhouse_display_dip_bonus_type     (1 construction, 2 pop promotion, 3 pop growth)
@@ -950,11 +951,12 @@ tv_govhouse_war_tent_monthly_effect = {
 #   tv_is_governor = 1            (presence flag)
 #   tv_governed_region            (region scope value)
 #   tv_governed_region_capital    (representative owned location, for legacy display compatibility)
-#   tv_gov_integration_bonus_value (ADM x 0.001 local integration speed)
+#   tv_gov_current_task           (1 prosperity, 2 integration, 3 culture, 4 religion, 5 recruitment, 6 order)
+#   tv_gov_current_task_value     (active task effect size)
 #   tv_gov_admin_bonus_type/value (chosen by Local Governor Administrative Function)
 #   tv_gov_dip_bonus_type/value   (chosen by Local Governor Diplomatic Function)
 #   tv_gov_mil_bonus_type/value   (chosen by Local Governor Military Function)
-# Location modifiers applied: one ADM, one DIP, and one MIL governor function modifier
+# Location modifiers applied: one current task, one ADM, one DIP, and one MIL governor function modifier
 # Scaling: size reads pre-computed pct variable directly (no inline multiply needed)
 
 # Rebuilds the player-region backing list from currently owned locations.
@@ -966,7 +968,8 @@ tv_govhouse_refresh_region_list_effect = {
 	clear_variable_list = tv_govhouse_region_display_region_list
 	every_owned_location = {
 		remove_variable = tv_govhouse_display_governor_char
-		remove_variable = tv_govhouse_display_integration_bonus_value
+		remove_variable = tv_govhouse_display_task_type
+		remove_variable = tv_govhouse_display_task_value
 		remove_variable = tv_govhouse_display_admin_bonus_type
 		remove_variable = tv_govhouse_display_admin_bonus_value
 		remove_variable = tv_govhouse_display_dip_bonus_type
@@ -1019,7 +1022,8 @@ tv_govhouse_refresh_region_list_effect = {
 			set_variable = { name = tv_governed_region_capital value = scope:tv_display_location }
 			scope:tv_display_location = {
 				set_variable = { name = tv_govhouse_display_governor_char value = scope:tv_display_governor }
-				set_variable = { name = tv_govhouse_display_integration_bonus_value value = scope:tv_display_governor.var:tv_gov_integration_bonus_value }
+				set_variable = { name = tv_govhouse_display_task_type value = scope:tv_display_governor.var:tv_gov_current_task }
+				set_variable = { name = tv_govhouse_display_task_value value = scope:tv_display_governor.var:tv_gov_current_task_value }
 				set_variable = { name = tv_govhouse_display_admin_bonus_type value = scope:tv_display_governor.var:tv_gov_admin_bonus_type }
 				set_variable = { name = tv_govhouse_display_admin_bonus_value value = scope:tv_display_governor.var:tv_gov_admin_bonus_value }
 				set_variable = { name = tv_govhouse_display_dip_bonus_type value = scope:tv_display_governor.var:tv_gov_dip_bonus_type }
@@ -1076,6 +1080,11 @@ tv_govhouse_refresh_region_list_effect = {
 # Scope: location.
 tv_governor_remove_function_modifiers_effect = {
 	remove_location_modifier = tv_governor_integration_speed
+	remove_location_modifier = tv_governor_task_restore_prosperity
+	remove_location_modifier = tv_governor_task_convert_culture
+	remove_location_modifier = tv_governor_task_convert_religion
+	remove_location_modifier = tv_governor_task_strengthen_recruitment
+	remove_location_modifier = tv_governor_task_strengthen_order
 	remove_location_modifier = tv_governor_max_control
 	remove_location_modifier = tv_governor_build_cost
 	remove_location_modifier = tv_governor_unrest
@@ -1107,7 +1116,21 @@ tv_governor_clear_assignment_effect = {
 	remove_variable = tv_governed_region_capital
 	remove_variable = tv_governed_area
 	remove_variable = tv_governed_area_capital
-	remove_variable = tv_gov_integration_bonus_value
+	remove_variable = tv_gov_current_task
+	remove_variable = tv_gov_current_task_value
+	remove_variable = tv_gov_task_restore_prosperity_value
+	remove_variable = tv_gov_task_integrate_region_value
+	remove_variable = tv_gov_task_convert_culture_value
+	remove_variable = tv_gov_task_convert_religion_value
+	remove_variable = tv_gov_task_strengthen_recruitment_value
+	remove_variable = tv_gov_task_strengthen_order_value
+	remove_variable = tv_gov_weight_restore_prosperity
+	remove_variable = tv_gov_weight_integrate_region
+	remove_variable = tv_gov_weight_convert_culture
+	remove_variable = tv_gov_weight_convert_religion
+	remove_variable = tv_gov_weight_strengthen_recruitment
+	remove_variable = tv_gov_weight_strengthen_order
+	remove_variable = tv_gov_weight_best
 	remove_variable = tv_gov_max_control_pct
 	remove_variable = tv_gov_build_cost_pct
 	remove_variable = tv_gov_unrest_pct
@@ -1119,6 +1142,129 @@ tv_governor_clear_assignment_effect = {
 	remove_variable = tv_gov_mil_bonus_value
 }
 
+# Recomputes the autonomous task that one local Governor considers most valuable.
+# Scope: governor character. Caller must provide scope:tv_governing_country.
+tv_governor_select_yearly_task_effect = {
+	save_scope_as = tv_task_governor
+	set_variable = { name = tv_gov_task_restore_prosperity_value value = { value = this.adm multiply = 0.0005 } }
+	set_variable = { name = tv_gov_task_integrate_region_value value = { value = this.adm multiply = 0.001 } }
+	set_variable = { name = tv_gov_task_convert_culture_value value = { value = this.dip multiply = 0.1 } }
+	set_variable = { name = tv_gov_task_convert_religion_value value = { value = this.dip multiply = 0.1 } }
+	set_variable = { name = tv_gov_task_strengthen_recruitment_value value = { value = this.mil multiply = 0.005 } }
+	set_variable = { name = tv_gov_task_strengthen_order_value value = { value = this.mil multiply = 0.05 } }
+
+	set_variable = { name = tv_gov_weight_restore_prosperity value = 0 }
+	set_variable = { name = tv_gov_weight_integrate_region value = 0 }
+	set_variable = { name = tv_gov_weight_convert_culture value = 0 }
+	set_variable = { name = tv_gov_weight_convert_religion value = 0 }
+	set_variable = { name = tv_gov_weight_strengthen_recruitment value = 0 }
+	set_variable = { name = tv_gov_weight_strengthen_order value = 0 }
+	set_variable = { name = tv_gov_task_location_count value = 0 }
+	set_variable = { name = tv_gov_task_unintegrated_count value = 0 }
+	set_variable = { name = tv_gov_task_integrated_noncore_count value = 0 }
+	set_variable = { name = tv_gov_task_prosperity_sum value = 0 }
+
+	var:tv_governed_region ?= {
+		every_location_in_region = {
+			limit = { owner ?= scope:tv_governing_country }
+			save_scope_as = tv_task_location
+			scope:tv_task_governor = {
+				change_variable = { name = tv_gov_task_location_count add = 1 }
+				change_variable = { name = tv_gov_task_prosperity_sum add = scope:tv_task_location.prosperity }
+			}
+			if = {
+				limit = {
+					OR = {
+						integration_level = conquered
+						integration_level = colonized
+					}
+				}
+				scope:tv_task_governor = {
+					change_variable = { name = tv_gov_task_unintegrated_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = { is_core_of = scope:tv_governing_country }
+				}
+				scope:tv_task_governor = {
+					change_variable = { name = tv_gov_task_integrated_noncore_count add = 1 }
+				}
+			}
+		}
+	}
+
+	if = {
+		limit = { var:tv_gov_task_location_count > 0 }
+		change_variable = { name = tv_gov_task_prosperity_sum divide = var:tv_gov_task_location_count }
+		change_variable = { name = tv_gov_task_prosperity_sum divide = 100 }
+		set_variable = { name = tv_gov_weight_restore_prosperity value = var:tv_gov_task_prosperity_sum }
+		change_variable = { name = tv_gov_weight_restore_prosperity multiply = -1 }
+		if = {
+			limit = { var:tv_gov_weight_restore_prosperity < 0 }
+			set_variable = { name = tv_gov_weight_restore_prosperity value = 0 }
+		}
+
+		set_variable = { name = tv_gov_weight_integrate_region value = var:tv_gov_task_unintegrated_count }
+		change_variable = { name = tv_gov_weight_integrate_region divide = var:tv_gov_task_location_count }
+
+		if = {
+			limit = { var:tv_gov_task_unintegrated_count = 0 }
+			set_variable = { name = tv_gov_weight_convert_culture value = var:tv_gov_task_integrated_noncore_count }
+			change_variable = { name = tv_gov_weight_convert_culture divide = var:tv_gov_task_location_count }
+			if = {
+				limit = { scope:tv_governing_country = { societal_value:spiritualist_vs_humanist < 0 } }
+				set_variable = { name = tv_gov_weight_convert_religion value = { value = scope:tv_governing_country.societal_value:spiritualist_vs_humanist multiply = -0.01 } }
+			}
+			set_variable = { name = tv_gov_weight_strengthen_order value = 0.2 }
+		}
+	}
+
+	if = {
+		limit = { scope:tv_governing_country = { at_war = yes } }
+		set_variable = { name = tv_gov_weight_strengthen_recruitment value = 0.5 }
+	}
+
+	set_variable = { name = tv_gov_current_task value = 1 }
+	set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_restore_prosperity }
+	set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_restore_prosperity_value }
+	if = {
+		limit = { var:tv_gov_weight_integrate_region > var:tv_gov_weight_best }
+		set_variable = { name = tv_gov_current_task value = 2 }
+		set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_integrate_region }
+		set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_integrate_region_value }
+	}
+	if = {
+		limit = { var:tv_gov_weight_convert_culture > var:tv_gov_weight_best }
+		set_variable = { name = tv_gov_current_task value = 3 }
+		set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_convert_culture }
+		set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_culture_value }
+	}
+	if = {
+		limit = { var:tv_gov_weight_convert_religion > var:tv_gov_weight_best }
+		set_variable = { name = tv_gov_current_task value = 4 }
+		set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_convert_religion }
+		set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_religion_value }
+	}
+	if = {
+		limit = { var:tv_gov_weight_strengthen_recruitment > var:tv_gov_weight_best }
+		set_variable = { name = tv_gov_current_task value = 5 }
+		set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_strengthen_recruitment }
+		set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_recruitment_value }
+	}
+	if = {
+		limit = { var:tv_gov_weight_strengthen_order > var:tv_gov_weight_best }
+		set_variable = { name = tv_gov_current_task value = 6 }
+		set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_strengthen_order }
+		set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_order_value }
+	}
+
+	remove_variable = tv_gov_task_location_count
+	remove_variable = tv_gov_task_unintegrated_count
+	remove_variable = tv_gov_task_integrated_noncore_count
+	remove_variable = tv_gov_task_prosperity_sum
+}
+
 # Applies or refreshes location modifiers and display variables for one governor.
 # Scope: country. scope:target = governor character. scope:tv_governing_country = owning country.
 # Caller must save_scope_as = tv_governing_country before calling this effect.
@@ -1128,7 +1274,45 @@ tv_governor_apply_modifiers_effect = {
 	scope:target = {
 		# Refresh display and size variables. Each ability governs one law-selected
 		# local function; default values preserve the old Governor behavior.
-		set_variable = { name = tv_gov_integration_bonus_value value = { value = this.adm multiply = 0.001 } }
+		set_variable = { name = tv_gov_task_restore_prosperity_value value = { value = this.adm multiply = 0.0005 } }
+		set_variable = { name = tv_gov_task_integrate_region_value value = { value = this.adm multiply = 0.001 } }
+		set_variable = { name = tv_gov_task_convert_culture_value value = { value = this.dip multiply = 0.1 } }
+		set_variable = { name = tv_gov_task_convert_religion_value value = { value = this.dip multiply = 0.1 } }
+		set_variable = { name = tv_gov_task_strengthen_recruitment_value value = { value = this.mil multiply = 0.005 } }
+		set_variable = { name = tv_gov_task_strengthen_order_value value = { value = this.mil multiply = 0.05 } }
+		if = {
+			limit = { NOT = { has_variable = tv_gov_current_task } }
+			tv_governor_select_yearly_task_effect = yes
+		}
+		if = {
+			limit = { var:tv_gov_current_task = 1 }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_restore_prosperity_value }
+		}
+		else_if = {
+			limit = { var:tv_gov_current_task = 2 }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_integrate_region_value }
+		}
+		else_if = {
+			limit = { var:tv_gov_current_task = 3 }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_culture_value }
+		}
+		else_if = {
+			limit = { var:tv_gov_current_task = 4 }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_religion_value }
+		}
+		else_if = {
+			limit = { var:tv_gov_current_task = 5 }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_recruitment_value }
+		}
+		else_if = {
+			limit = { var:tv_gov_current_task = 6 }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_order_value }
+		}
+		else = {
+			set_variable = { name = tv_gov_current_task value = 1 }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_restore_prosperity_value }
+		}
+
 		set_variable = { name = tv_gov_admin_bonus_type value = 1 }
 		set_variable = { name = tv_gov_admin_bonus_value value = { value = this.adm multiply = 0.001 } }
 		if = {
@@ -1258,11 +1442,59 @@ tv_governor_apply_modifiers_effect = {
 			every_location_in_region = {
 				limit = { owner ?= scope:tv_governing_country }
 				tv_governor_remove_function_modifiers_effect = yes
-				add_location_modifier = {
-					modifier = tv_governor_integration_speed
-					years = -1
-					mode = add_and_extend
-					size = { value = scope:target.var:tv_gov_integration_bonus_value }
+				if = {
+					limit = { scope:target = { var:tv_gov_current_task = 1 } }
+					add_location_modifier = {
+						modifier = tv_governor_task_restore_prosperity
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_current_task_value }
+					}
+				}
+				else_if = {
+					limit = { scope:target = { var:tv_gov_current_task = 2 } }
+					add_location_modifier = {
+						modifier = tv_governor_integration_speed
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_current_task_value }
+					}
+				}
+				else_if = {
+					limit = { scope:target = { var:tv_gov_current_task = 3 } }
+					add_location_modifier = {
+						modifier = tv_governor_task_convert_culture
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_current_task_value }
+					}
+				}
+				else_if = {
+					limit = { scope:target = { var:tv_gov_current_task = 4 } }
+					add_location_modifier = {
+						modifier = tv_governor_task_convert_religion
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_current_task_value }
+					}
+				}
+				else_if = {
+					limit = { scope:target = { var:tv_gov_current_task = 5 } }
+					add_location_modifier = {
+						modifier = tv_governor_task_strengthen_recruitment
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_current_task_value }
+					}
+				}
+				else_if = {
+					limit = { scope:target = { var:tv_gov_current_task = 6 } }
+					add_location_modifier = {
+						modifier = tv_governor_task_strengthen_order
+						years = -1
+						mode = add_and_extend
+						size = { value = scope:target.var:tv_gov_current_task_value }
+					}
 				}
 				if = {
 					limit = {
@@ -1440,6 +1672,32 @@ tv_apply_governor_bonuses_effect = {
 			}
 		}
 		else = {
+			save_scope_as = target
+			scope:tv_governing_country = {
+				tv_governor_apply_modifiers_effect = yes
+			}
+		}
+	}
+	tv_govhouse_refresh_region_list_effect = yes
+}
+
+# Annual autonomous local Governor task reassessment.
+# Scope: country.
+tv_govhouse_select_governor_tasks_yearly_effect = {
+	save_scope_as = tv_governing_country
+	tv_govhouse_refresh_region_list_effect = yes
+	every_in_list = { variable = tv_governor_list
+		if = {
+			limit = {
+				is_alive = yes
+				has_variable = tv_governed_region
+				var:tv_governed_region ?= {
+					any_location_in_region = {
+						owner ?= scope:tv_governing_country
+					}
+				}
+			}
+			tv_governor_select_yearly_task_effect = yes
 			save_scope_as = target
 			scope:tv_governing_country = {
 				tv_governor_apply_modifiers_effect = yes
@@ -1666,6 +1924,8 @@ tv_govhouse_cleanup_effect = {
 	}
 	every_owned_location = {
 		remove_variable = tv_govhouse_display_governor_char
+		remove_variable = tv_govhouse_display_task_type
+		remove_variable = tv_govhouse_display_task_value
 		remove_variable = tv_govhouse_display_admin_bonus_type
 		remove_variable = tv_govhouse_display_admin_bonus_value
 		remove_variable = tv_govhouse_display_dip_bonus_type
