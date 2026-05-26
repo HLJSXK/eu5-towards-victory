@@ -251,6 +251,300 @@ wonders:
       1: tv_wonder_national_catalog_library
       2: tv_wonder_copyists_endowment_library
       3: tv_wonder_legal_deposit_library
+  - id: 19
+    key: large_canal_system
+    concept: tv_wonder_large_canal_system
+    size: large
+    category: infrastructure_category
+    pop_type: laborers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Large Canal System"
+      zh: "大型水渠体系"
+    final_buildings:
+      1: tv_wonder_irrigation_canal_system
+      2: tv_wonder_grain_transport_canal_system
+      3: tv_wonder_flood_control_canal_system
+  - id: 20
+    key: mountain_terrace_network
+    concept: tv_wonder_mountain_terrace_network
+    size: medium
+    category: infrastructure_category
+    pop_type: laborers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Mountain Terrace Network"
+      zh: "山地梯田网络"
+    final_buildings:
+      1: tv_wonder_grain_terraces
+      2: tv_wonder_cash_crop_terraces
+      3: tv_wonder_sacred_mountain_terraces
+  - id: 21
+    key: giant_dam_project
+    concept: tv_wonder_giant_dam_project
+    size: large
+    category: infrastructure_category
+    pop_type: laborers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Giant Dam Project"
+      zh: "巨型堤坝工程"
+    final_buildings:
+      1: tv_wonder_estuary_flood_dam
+      2: tv_wonder_marsh_reclamation_dam
+      3: tv_wonder_water_powered_workshops
+  - id: 22
+    key: royal_granary_system
+    concept: tv_wonder_royal_granary_system
+    size: medium
+    category: infrastructure_category
+    pop_type: laborers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Royal Granary System"
+      zh: "皇家粮仓体系"
+    final_buildings:
+      1: tv_wonder_grain_price_granaries
+      2: tv_wonder_wartime_granaries
+      3: tv_wonder_disaster_relief_granaries
+  - id: 23
+    key: imperial_post_road_network
+    concept: tv_wonder_imperial_post_road_network
+    size: large
+    category: infrastructure_category
+    pop_type: laborers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Imperial Post Road Network"
+      zh: "帝国驿道网络"
+    final_buildings:
+      1: tv_wonder_military_post_roads
+      2: tv_wonder_trade_post_roads
+      3: tv_wonder_royal_tour_avenue
+  - id: 24
+    key: canal_hub_city
+    concept: tv_wonder_canal_hub_city
+    size: medium
+    category: infrastructure_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Canal Hub City"
+      zh: "运河枢纽城"
+    final_buildings:
+      1: tv_wonder_grain_transport_hub
+      2: tv_wonder_financial_warehouse_hub
+      3: tv_wonder_industrial_workshop_belt
+  - id: 25
+    key: frontier_colonization_belt
+    concept: tv_wonder_frontier_colonization_belt
+    size: large
+    category: infrastructure_category
+    pop_type: laborers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Frontier Colonization Belt"
+      zh: "边疆垦殖带"
+    final_buildings:
+      1: tv_wonder_military_colony_belt
+      2: tv_wonder_settler_reclamation_belt
+      3: tv_wonder_religious_colonization_belt
+  - id: 26
+    key: coastal_beacon_network
+    concept: tv_wonder_coastal_beacon_network
+    size: medium
+    category: military_category
+    pop_type: soldiers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Coastal Beacon Network"
+      zh: "海岸烽火网络"
+    final_buildings:
+      1: tv_wonder_beacon_communication_network
+      2: tv_wonder_coastal_battery_network
+      3: tv_wonder_customs_patrol_network
+  - id: 27
+    key: knightly_fortress_order
+    concept: tv_wonder_knightly_fortress_order
+    size: medium
+    category: military_category
+    pop_type: nobles
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Knightly Fortress Order"
+      zh: "骑士要塞团"
+    final_buildings:
+      1: tv_wonder_crusader_knightly_order
+      2: tv_wonder_frontier_lord_order
+      3: tv_wonder_mercenary_fortress_system
+  - id: 28
+    key: war_college_system
+    concept: tv_wonder_war_college_system
+    size: small
+    category: military_category
+    pop_type: soldiers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "War College System"
+      zh: "战争学院体系"
+    final_buildings:
+      1: tv_wonder_firearms_tactics_college
+      2: tv_wonder_cavalry_tradition_college
+      3: tv_wonder_naval_command_college
+  - id: 29
+    key: great_clock_bell_system
+    concept: tv_wonder_great_clock_bell_system
+    size: small
+    category: cultural_category
+    pop_type: clergy
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Great Clock and Bell System"
+      zh: "巨钟与报时体系"
+    final_buildings:
+      1: tv_wonder_worship_clock_bells
+      2: tv_wonder_curfew_clock_bells
+      3: tv_wonder_astronomical_calendar_bells
+  - id: 30
+    key: royal_art_district
+    concept: tv_wonder_royal_art_district
+    size: medium
+    category: cultural_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Royal Art District"
+      zh: "皇家艺术园区"
+    final_buildings:
+      1: tv_wonder_court_art_district
+      2: tv_wonder_folk_art_district
+      3: tv_wonder_foreign_style_district
+  - id: 31
+    key: grand_theater_festival_district
+    concept: tv_wonder_grand_theater_festival_district
+    size: small
+    category: cultural_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Grand Theater and Festival District"
+      zh: "大剧场与庆典区"
+    final_buildings:
+      1: tv_wonder_court_theater
+      2: tv_wonder_religious_theater
+      3: tv_wonder_popular_festival_ground
+  - id: 32
+    key: world_embassy_quarter
+    concept: tv_wonder_world_embassy_quarter
+    size: small
+    category: government_category
+    pop_type: nobles
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Embassy Quarter"
+      zh: "万国使馆区"
+    final_buildings:
+      1: tv_wonder_trade_diplomacy_embassies
+      2: tv_wonder_intelligence_embassies
+      3: tv_wonder_religious_diplomacy_embassies
+  - id: 33
+    key: law_code_stele_project
+    concept: tv_wonder_law_code_stele_project
+    size: small
+    category: government_category
+    pop_type: nobles
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Law Code Stele Project"
+      zh: "法典石碑工程"
+    final_buildings:
+      1: tv_wonder_religious_law_steles
+      2: tv_wonder_written_law_steles
+      3: tv_wonder_imperial_edict_steles
+  - id: 34
+    key: world_market
+    concept: tv_wonder_world_market
+    size: medium
+    category: infrastructure_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "World Market"
+      zh: "万国大市场"
+    final_buildings:
+      1: tv_wonder_luxury_goods_market
+      2: tv_wonder_grain_market
+      3: tv_wonder_entrepot_market
+  - id: 35
+    key: royal_mint_system
+    concept: tv_wonder_royal_mint_system
+    size: medium
+    category: government_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Royal Mint System"
+      zh: "皇家铸币体系"
+    final_buildings:
+      1: tv_wonder_silver_gold_standard_mint
+      2: tv_wonder_copper_coinage_mint
+      3: tv_wonder_international_settlement_mint
+  - id: 36
+    key: guild_alliance
+    concept: tv_wonder_guild_alliance
+    size: small
+    category: infrastructure_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Guild Alliance"
+      zh: "商业行会联盟"
+    final_buildings:
+      1: tv_wonder_artisan_guild_alliance
+      2: tv_wonder_overseas_merchant_guilds
+      3: tv_wonder_financial_guilds
+  - id: 37
+    key: maritime_trade_station_network
+    concept: tv_wonder_maritime_trade_station_network
+    size: large
+    category: infrastructure_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Maritime Trade Station Network"
+      zh: "海上贸易站网络"
+    final_buildings:
+      1: tv_wonder_spice_trade_stations
+      2: tv_wonder_slave_trade_stations
+      3: tv_wonder_colonial_supply_stations
+  - id: 38
+    key: giant_workshop_complex
+    concept: tv_wonder_giant_workshop_complex
+    size: large
+    category: infrastructure_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "Giant Workshop Complex"
+      zh: "巨型工坊复合体"
+    final_buildings:
+      1: tv_wonder_textile_workshop_complex
+      2: tv_wonder_military_workshop_complex
+      3: tv_wonder_luxury_craft_workshop_complex
+  - id: 39
+    key: world_monument_group
+    concept: tv_wonder_world_monument_group
+    size: large
+    category: cultural_category
+    pop_type: nobles
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "World Monument Group"
+      zh: "万国纪念碑群"
+    final_buildings:
+      1: tv_wonder_conquest_monument_group
+      2: tv_wonder_national_unity_monument_group
+      3: tv_wonder_world_exposition_monument_group
 
 parts:
   - key: foundation

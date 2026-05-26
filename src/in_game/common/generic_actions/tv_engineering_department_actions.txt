@@ -318,6 +318,10 @@ tv_wonder_start_survey = {
 					scope:actor = { var:tv_wonder_locked ?= 18 }
 					is_capital = yes
 				}
+				AND = {
+					scope:actor = { var:tv_wonder_locked ?= { this >= 19 } }
+					tv_wonder_location_can_host_new_locked_wonder_trigger = yes
+				}
 			}
 		}
 	}

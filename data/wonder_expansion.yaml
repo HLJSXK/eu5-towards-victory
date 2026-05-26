@@ -1,0 +1,899 @@
+designs:
+  large_canal_system:
+    status: "已实现"
+    positioning: "农业、运输、防灾"
+    site: "河流或湖泊沿岸。"
+    preference: "河流/湖泊 +10%，乡村 +5%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+0.03 中央集权价值观倾向、+0.001 月度繁荣；所在地提升发展和交通。"
+    branches:
+      1:
+        zh: "灌溉优先"
+        en: "Irrigation Priority"
+        completion: "确认灌溉优先方案后立即完成落成仪式。"
+        effect: "+5% 全局原料产出。"
+      2:
+        zh: "漕运优先"
+        en: "Grain Transport Priority"
+        completion: "确认漕运优先方案后立即完成落成仪式。"
+        effect: "+5% 贸易收入。"
+      3:
+        zh: "防洪优先"
+        en: "Flood Control Priority"
+        completion: "确认防洪优先方案后立即完成落成仪式。"
+        effect: "+5% 人口加入叛军阈值。"
+  mountain_terrace_network:
+    status: "已实现"
+    positioning: "高地开发、人口承载"
+    site: "山地、高原或丘陵。"
+    preference: "山地 +15%，高原 +7.5%，丘陵 +5%，乡村 +5%。"
+    base_effect: "每级：国家 +10 列强分数、+2% 全局原料产出、+0.001 月度繁荣；所在地提升原产雇佣和原料产出。"
+    branches:
+      1:
+        zh: "粮食梯田"
+        en: "Grain Terraces"
+        completion: "确认粮食梯田方案后立即完成落成仪式。"
+        effect: "+5% 全局原料产出。"
+      2:
+        zh: "经济作物梯田"
+        en: "Cash-Crop Terraces"
+        completion: "确认经济作物梯田方案后立即完成落成仪式。"
+        effect: "+4% 贸易收入。"
+      3:
+        zh: "圣山梯田"
+        en: "Sacred Mountain Terraces"
+        completion: "确认圣山梯田方案后立即完成落成仪式。"
+        effect: "+1 正统信仰容忍。"
+  giant_dam_project:
+    status: "已实现"
+    positioning: "防洪、控河、权力象征"
+    site: "河流、湖泊沿岸或港口。"
+    preference: "河流/湖泊 +10%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+0.03 中央集权价值观倾向、+2% 全局生产效率；所在地提升防御和生产。"
+    branches:
+      1:
+        zh: "河口防洪"
+        en: "Estuary Flood Defense"
+        completion: "确认河口防洪方案后立即完成落成仪式。"
+        effect: "+0.003 全局月度繁荣。"
+      2:
+        zh: "沼泽开垦"
+        en: "Marsh Reclamation"
+        completion: "确认沼泽开垦方案后立即完成落成仪式。"
+        effect: "+4% 全局原料产出。"
+      3:
+        zh: "水力驱动工坊"
+        en: "Water-Powered Workshops"
+        completion: "确认水力驱动工坊方案后立即完成落成仪式。"
+        effect: "+5% 全局生产效率。"
+  royal_granary_system:
+    status: "已实现"
+    positioning: "抗饥荒、国家调控"
+    site: "任意非荒芜的己方地点。"
+    preference: "乡村 +5%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+2% 人口加入叛军阈值、+0.001 月度繁荣；所在地提升稳定和迁入吸引力。"
+    branches:
+      1:
+        zh: "平抑粮价"
+        en: "Grain Price Stabilization"
+        completion: "确认平抑粮价方案后立即完成落成仪式。"
+        effect: "+4% 税收收入效率。"
+      2:
+        zh: "战时储备"
+        en: "Wartime Reserves"
+        completion: "确认战时储备方案后立即完成落成仪式。"
+        effect: "+8% 全局人力。"
+      3:
+        zh: "赈灾体系"
+        en: "Disaster Relief System"
+        completion: "确认赈灾体系方案后立即完成落成仪式。"
+        effect: "+5% 人口加入叛军阈值。"
+  imperial_post_road_network:
+    status: "已实现"
+    positioning: "行政、通信、军队调动"
+    site: "任意己方地点。"
+    preference: "发展度提供称职度；城市和大都会额外加成。"
+    base_effect: "每级：国家 +10 列强分数、+5% 临近度速度、+2% 陆军移动速度；所在地提升交通和发展。"
+    branches:
+      1:
+        zh: "军事驿道"
+        en: "Military Post Roads"
+        completion: "确认军事驿道方案后立即完成落成仪式。"
+        effect: "+5% 陆军移动速度。"
+      2:
+        zh: "商贸驿道"
+        en: "Trade Post Roads"
+        completion: "确认商贸驿道方案后立即完成落成仪式。"
+        effect: "+5% 贸易收入。"
+      3:
+        zh: "皇家巡游大道"
+        en: "Royal Tour Avenue"
+        completion: "确认皇家巡游大道方案后立即完成落成仪式。"
+        effect: "+0.10 每月正统性。"
+  canal_hub_city:
+    status: "已实现"
+    positioning: "区域贸易与物流"
+    site: "河流、湖泊沿岸或港口，且不能为乡村。"
+    preference: "河流/湖泊 +10%，城市 +5%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+2% 贸易收入、+2% 全局生产效率；所在地提升市场和工坊。"
+    branches:
+      1:
+        zh: "漕运中心"
+        en: "Grain Transport Hub"
+        completion: "确认漕运中心方案后立即完成落成仪式。"
+        effect: "+4% 贸易收入。"
+      2:
+        zh: "金融货栈"
+        en: "Financial Warehouse Hub"
+        completion: "确认金融货栈方案后立即完成落成仪式。"
+        effect: "+5% 铸币收入。"
+      3:
+        zh: "工业工坊带"
+        en: "Industrial Workshop Belt"
+        completion: "确认工业工坊带方案后立即完成落成仪式。"
+        effect: "+5% 全局生产效率。"
+  frontier_colonization_belt:
+    status: "已实现"
+    positioning: "殖民、边疆稳定"
+    site: "乡村或边疆开发地点。"
+    preference: "乡村 +10%，丘陵/森林/树林提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+2% 全局人口皈依速度、+2% 全局人力；所在地提升迁入和开垦。"
+    branches:
+      1:
+        zh: "军屯殖民"
+        en: "Military Colony Belt"
+        completion: "确认军屯殖民方案后立即完成落成仪式。"
+        effect: "+8% 全局人力。"
+      2:
+        zh: "移民垦荒"
+        en: "Settler Reclamation Belt"
+        completion: "确认移民垦荒方案后立即完成落成仪式。"
+        effect: "+0.004 全局月度繁荣。"
+      3:
+        zh: "宗教拓殖"
+        en: "Religious Colonization Belt"
+        completion: "确认宗教拓殖方案后立即完成落成仪式。"
+        effect: "+5% 全局人口皈依速度。"
+  coastal_beacon_network:
+    status: "已实现"
+    positioning: "海盗预警、海防"
+    site: "港口或海岸地点。"
+    preference: "港口 +15%，当地港口适宜度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+2% 海军士气、+2% 海上存在；所在地提升海岸防御。"
+    branches:
+      1:
+        zh: "烽火通讯"
+        en: "Beacon Communication"
+        completion: "确认烽火通讯方案后立即完成落成仪式。"
+        effect: "+4% 陆军移动速度。"
+      2:
+        zh: "炮台防御"
+        en: "Coastal Battery Defense"
+        completion: "确认炮台防御方案后立即完成落成仪式。"
+        effect: "+5% 海军士气。"
+      3:
+        zh: "海关巡查"
+        en: "Customs Patrol"
+        completion: "确认海关巡查方案后立即完成落成仪式。"
+        effect: "+4% 贸易收入。"
+  knightly_fortress_order:
+    status: "已实现"
+    positioning: "军事贵族与边疆秩序"
+    site: "非乡村地点，或拥有要塞的地点。"
+    preference: "要塞 +5%，山地/高原提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+2% 陆军士气、+0.03 传统价值观倾向；所在地提升防御和贵族影响。"
+    branches:
+      1:
+        zh: "圣战骑士团"
+        en: "Crusader Knightly Order"
+        completion: "确认圣战骑士团方案后立即完成落成仪式。"
+        effect: "+5% 陆军士气。"
+      2:
+        zh: "边疆领主团"
+        en: "Frontier Lord Order"
+        completion: "确认边疆领主团方案后立即完成落成仪式。"
+        effect: "+6% 全局人力。"
+      3:
+        zh: "雇佣军体系"
+        en: "Mercenary Fortress System"
+        completion: "确认雇佣军体系方案后立即完成落成仪式。"
+        effect: "+1.5% 训练度。"
+  war_college_system:
+    status: "已实现"
+    positioning: "军事理论与军官培养"
+    site: "城市、大都会或拥有军械库的地点。"
+    preference: "城市/大都会 +5%，军械库 +5%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+2% 陆军士气、+1% 攻城能力；所在地提升军事人才培养。"
+    branches:
+      1:
+        zh: "火器战术"
+        en: "Firearms Tactics"
+        completion: "确认火器战术方案后立即完成落成仪式。"
+        effect: "+5% 攻城能力。"
+      2:
+        zh: "骑兵传统"
+        en: "Cavalry Tradition"
+        completion: "确认骑兵传统方案后立即完成落成仪式。"
+        effect: "+4% 陆军士气。"
+      3:
+        zh: "海军指挥"
+        en: "Naval Command"
+        completion: "确认海军指挥方案后立即完成落成仪式。"
+        effect: "+4% 海军士气。"
+  great_clock_bell_system:
+    status: "已实现"
+    positioning: "宗教秩序、城市时间"
+    site: "非乡村地点。"
+    preference: "城市/大都会 +5%，修道院或大教堂额外加成。"
+    base_effect: "每级：国家 +10 列强分数、+0.03 属灵价值观倾向、+0.002 全局月度识字率；所在地提升文化传统和皈依。"
+    branches:
+      1:
+        zh: "礼拜报时"
+        en: "Worship Timekeeping"
+        completion: "确认礼拜报时方案后立即完成落成仪式。"
+        effect: "+1 正统信仰容忍。"
+      2:
+        zh: "城市宵禁"
+        en: "Urban Curfew"
+        completion: "确认城市宵禁方案后立即完成落成仪式。"
+        effect: "+4% 人口加入叛军阈值。"
+      3:
+        zh: "天文历法"
+        en: "Astronomical Calendar"
+        completion: "确认天文历法方案后立即完成落成仪式。"
+        effect: "+4% 研究速度。"
+  royal_art_district:
+    status: "已实现"
+    positioning: "文化繁荣"
+    site: "城市、大都会或首都。"
+    preference: "首都 +10%，城市/大都会 +5%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+0.03 创新价值观倾向、+2% 全局人口晋升速度；所在地提升文化传统与影响。"
+    branches:
+      1:
+        zh: "宫廷艺术"
+        en: "Court Art"
+        completion: "确认宫廷艺术方案后立即完成落成仪式。"
+        effect: "+0.10 每月威望。"
+      2:
+        zh: "民间艺术"
+        en: "Folk Art"
+        completion: "确认民间艺术方案后立即完成落成仪式。"
+        effect: "+4% 人口加入叛军阈值。"
+      3:
+        zh: "外来风格融合"
+        en: "Foreign Style Synthesis"
+        completion: "确认外来风格融合方案后立即完成落成仪式。"
+        effect: "+1 外交声誉。"
+  grand_theater_festival_district:
+    status: "已实现"
+    positioning: "公共文化"
+    site: "非乡村地点。"
+    preference: "城市/大都会 +5%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+0.03 每月威望、+1% 人口加入叛军阈值；所在地提升文化和稳定。"
+    branches:
+      1:
+        zh: "宫廷戏剧"
+        en: "Court Theater"
+        completion: "确认宫廷戏剧方案后立即完成落成仪式。"
+        effect: "+0.08 每月威望。"
+      2:
+        zh: "宗教戏剧"
+        en: "Religious Theater"
+        completion: "确认宗教戏剧方案后立即完成落成仪式。"
+        effect: "+4% 全局人口皈依速度。"
+      3:
+        zh: "群众节庆"
+        en: "Popular Festival Ground"
+        completion: "确认群众节庆方案后立即完成落成仪式。"
+        effect: "+0.003 全局月度繁荣。"
+  world_embassy_quarter:
+    status: "已实现"
+    positioning: "外交影响力"
+    site: "首都或非乡村地点。"
+    preference: "首都 +10%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+0.2 外交声誉、+1% 贸易收入；所在地提升文化影响和贸易中心力。"
+    branches:
+      1:
+        zh: "商贸外交"
+        en: "Trade Diplomacy"
+        completion: "确认商贸外交方案后立即完成落成仪式。"
+        effect: "+4% 贸易收入、+1 外交声誉。"
+      2:
+        zh: "情报外交"
+        en: "Intelligence Diplomacy"
+        completion: "确认情报外交方案后立即完成落成仪式。"
+        effect: "+1 外交声誉。"
+      3:
+        zh: "宗教外交"
+        en: "Religious Diplomacy"
+        completion: "确认宗教外交方案后立即完成落成仪式。"
+        effect: "+1 正统信仰容忍、+1 外交声誉。"
+  law_code_stele_project:
+    status: "已实现"
+    positioning: "法统与治理"
+    site: "任意己方地点。"
+    preference: "首都 +10%，城市/大都会 +5%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+0.03 每月正统性、-1% 稳定度投资花费；所在地提升秩序和法统。"
+    branches:
+      1:
+        zh: "宗教法"
+        en: "Religious Law"
+        completion: "确认宗教法方案后立即完成落成仪式。"
+        effect: "+3% 教士满意均衡点。"
+      2:
+        zh: "成文法"
+        en: "Written Law"
+        completion: "确认成文法方案后立即完成落成仪式。"
+        effect: "-5% 稳定度投资花费。"
+      3:
+        zh: "皇权敕令"
+        en: "Imperial Edicts"
+        completion: "确认皇权敕令方案后立即完成落成仪式。"
+        effect: "+0.10 每月正统性。"
+  world_market:
+    status: "已实现"
+    positioning: "区域贸易中心"
+    site: "城市、大都会或港口。"
+    preference: "港口 +10%，城市/大都会 +5%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+3% 贸易收入、+0.001 月度繁荣；所在地提升贸易中心力和迁入。"
+    branches:
+      1:
+        zh: "奢侈品贸易"
+        en: "Luxury Goods Trade"
+        completion: "确认奢侈品贸易方案后立即完成落成仪式。"
+        effect: "+6% 贸易收入。"
+      2:
+        zh: "粮食贸易"
+        en: "Grain Trade"
+        completion: "确认粮食贸易方案后立即完成落成仪式。"
+        effect: "+0.004 全局月度繁荣。"
+      3:
+        zh: "国际转口"
+        en: "International Entrepot"
+        completion: "确认国际转口方案后立即完成落成仪式。"
+        effect: "+150 贸易范围。"
+  royal_mint_system:
+    status: "已实现"
+    positioning: "金融与税收"
+    site: "城市、大都会，或金、银、铜产地。"
+    preference: "金/银/铜产地 +15%，城市/大都会 +5%。"
+    base_effect: "每级：国家 +10 列强分数、+3% 铸币收入、+1% 税收效率；所在地提升贸易与生产。"
+    branches:
+      1:
+        zh: "金银本位"
+        en: "Silver-Gold Standard"
+        completion: "确认金银本位方案后立即完成落成仪式。"
+        effect: "+8% 铸币收入。"
+      2:
+        zh: "铜币流通"
+        en: "Copper Coinage"
+        completion: "确认铜币流通方案后立即完成落成仪式。"
+        effect: "+4% 税收收入效率。"
+      3:
+        zh: "国际结算"
+        en: "International Settlement"
+        completion: "确认国际结算方案后立即完成落成仪式。"
+        effect: "+1 外交声誉、+4% 贸易收入。"
+  guild_alliance:
+    status: "已实现"
+    positioning: "城市商业组织"
+    site: "非乡村地点。"
+    preference: "城市/大都会 +5%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+3% 全局生产效率、+1% 贸易收入；所在地提升生产和市民影响。"
+    branches:
+      1:
+        zh: "手工业联盟"
+        en: "Artisan Guild Alliance"
+        completion: "确认手工业联盟方案后立即完成落成仪式。"
+        effect: "+5% 全局生产效率。"
+      2:
+        zh: "远洋商帮"
+        en: "Overseas Merchant Guilds"
+        completion: "确认远洋商帮方案后立即完成落成仪式。"
+        effect: "+5% 贸易收入。"
+      3:
+        zh: "金融同业"
+        en: "Financial Guilds"
+        completion: "确认金融同业方案后立即完成落成仪式。"
+        effect: "+5% 铸币收入。"
+  maritime_trade_station_network:
+    status: "已实现"
+    positioning: "全球贸易扩张"
+    site: "港口。"
+    preference: "港口 +15%，港口适宜度和发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+50 贸易范围、+2% 贸易收入；所在地提升贸易与造船。"
+    branches:
+      1:
+        zh: "香料贸易"
+        en: "Spice Trade"
+        completion: "确认香料贸易方案后立即完成落成仪式。"
+        effect: "+6% 贸易收入。"
+      2:
+        zh: "奴隶贸易"
+        en: "Slave Trade"
+        completion: "确认奴隶贸易方案后立即完成落成仪式。"
+        effect: "+5% 全局原料产出，但 -3% 人口加入叛军阈值。"
+      3:
+        zh: "殖民补给"
+        en: "Colonial Supply"
+        completion: "确认殖民补给方案后立即完成落成仪式。"
+        effect: "+150 海军范围。"
+  giant_workshop_complex:
+    status: "已实现"
+    positioning: "手工业集中化"
+    site: "非乡村地点。"
+    preference: "城市/大都会 +5%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +10 列强分数、+4% 全局生产效率、+1% 全局人口晋升速度；所在地提升生产和人口晋升。"
+    branches:
+      1:
+        zh: "纺织制造"
+        en: "Textile Manufacturing"
+        completion: "确认纺织制造方案后立即完成落成仪式。"
+        effect: "+5% 全局生产效率。"
+      2:
+        zh: "军工制造"
+        en: "Military Manufacturing"
+        completion: "确认军工制造方案后立即完成落成仪式。"
+        effect: "+5% 全局人力、+3% 攻城能力。"
+      3:
+        zh: "奢侈品工艺"
+        en: "Luxury Craftsmanship"
+        completion: "确认奢侈品工艺方案后立即完成落成仪式。"
+        effect: "+4% 贸易收入、+0.05 每月威望。"
+  world_monument_group:
+    status: "已实现"
+    positioning: "文明象征与历史记忆"
+    site: "首都、城市或大都会。"
+    preference: "首都 +10%，城市/大都会 +5%，发展度提供额外称职度。"
+    base_effect: "每级：国家 +15 列强分数、+0.05 每月威望；所在地提升文化传统与影响。"
+    branches:
+      1:
+        zh: "征服纪念"
+        en: "Conquest Memorial"
+        completion: "确认征服纪念方案后立即完成落成仪式。"
+        effect: "+0.10 每月威望、+3% 陆军士气。"
+      2:
+        zh: "民族统一"
+        en: "National Unity"
+        completion: "确认民族统一方案后立即完成落成仪式。"
+        effect: "+0.10 每月正统性、+3% 人口加入叛军阈值。"
+      3:
+        zh: "世界博览"
+        en: "World Exposition"
+        completion: "确认世界博览方案后立即完成落成仪式。"
+        effect: "+1 外交声誉、+0.05 每月威望。"
+
+buildings:
+  large_canal_system:
+    base_local:
+      local_monthly_development_modifier: 0.05
+      local_distance_from_capital_speed_propagation: 0.10
+    final_local:
+      tv_wonder_irrigation_canal_system:
+        local_monthly_development_modifier: 0.05
+      tv_wonder_grain_transport_canal_system:
+        local_distance_from_capital_speed_propagation: 0.10
+      tv_wonder_flood_control_canal_system:
+        local_unrest: -0.05
+  mountain_terrace_network:
+    base_local:
+      local_max_rgo_size_modifier: 0.25
+      local_raw_material_output: 0.05
+    final_local:
+      tv_wonder_grain_terraces:
+        local_max_rgo_size_modifier: 0.20
+      tv_wonder_cash_crop_terraces:
+        local_raw_material_output: 0.10
+      tv_wonder_sacred_mountain_terraces:
+        local_clergy_estate_power: 0.25
+  giant_dam_project:
+    base_local:
+      local_defensive: 0.10
+      local_production_efficiency: 0.10
+    final_local:
+      tv_wonder_estuary_flood_dam:
+        local_defensive: 0.10
+      tv_wonder_marsh_reclamation_dam:
+        local_max_rgo_size_modifier: 0.15
+      tv_wonder_water_powered_workshops:
+        local_production_efficiency: 0.20
+  royal_granary_system:
+    base_local:
+      local_migration_attraction: 1
+      local_unrest: -0.05
+    final_local:
+      tv_wonder_grain_price_granaries:
+        local_unrest: -0.05
+      tv_wonder_wartime_granaries:
+        local_garrison_size: 250
+      tv_wonder_disaster_relief_granaries:
+        local_migration_attraction: 1
+  imperial_post_road_network:
+    base_local:
+      local_distance_from_capital_speed_propagation: 0.15
+      local_monthly_development_modifier: 0.05
+    final_local:
+      tv_wonder_military_post_roads:
+        local_manpower_modifier: 0.15
+      tv_wonder_trade_post_roads:
+        local_trade_center_power: 0.15
+      tv_wonder_royal_tour_avenue:
+        local_nobles_estate_power: 0.25
+  canal_hub_city:
+    base_local:
+      local_trade_center_power: 0.20
+      local_production_efficiency: 0.10
+    final_local:
+      tv_wonder_grain_transport_hub:
+        local_distance_from_capital_speed_propagation: 0.10
+      tv_wonder_financial_warehouse_hub:
+        local_trade_center_power: 0.20
+      tv_wonder_industrial_workshop_belt:
+        local_production_efficiency: 0.20
+  frontier_colonization_belt:
+    base_local:
+      local_migration_attraction: 2
+      local_max_rgo_size_modifier: 0.15
+    final_local:
+      tv_wonder_military_colony_belt:
+        local_manpower_modifier: 0.20
+      tv_wonder_settler_reclamation_belt:
+        local_migration_attraction: 2
+      tv_wonder_religious_colonization_belt:
+        local_pop_conversion_speed: 20
+  coastal_beacon_network:
+    base_local:
+      local_defensive: 0.15
+      local_garrison_size: 150
+    final_local:
+      tv_wonder_beacon_communication_network:
+        local_distance_from_capital_speed_propagation: 0.10
+      tv_wonder_coastal_battery_network:
+        local_defensive: 0.15
+        local_garrison_size: 250
+      tv_wonder_customs_patrol_network:
+        local_trade_center_power: 0.10
+  knightly_fortress_order:
+    base_local:
+      local_defensive: 0.15
+      local_nobles_estate_power: 0.25
+    final_local:
+      tv_wonder_crusader_knightly_order:
+        local_clergy_estate_power: 0.25
+      tv_wonder_frontier_lord_order:
+        local_nobles_estate_power: 0.25
+      tv_wonder_mercenary_fortress_system:
+        local_manpower_modifier: 0.15
+  war_college_system:
+    base_local:
+      local_manpower_modifier: 0.15
+      local_pop_promotion_speed: 5
+    final_local:
+      tv_wonder_firearms_tactics_college:
+        local_manpower_modifier: 0.10
+      tv_wonder_cavalry_tradition_college:
+        local_nobles_estate_power: 0.20
+      tv_wonder_naval_command_college:
+        local_ship_build_speed: 0.10
+  great_clock_bell_system:
+    base_local:
+      local_cultural_tradition: 0.5
+      local_pop_conversion_speed: 10
+    final_local:
+      tv_wonder_worship_clock_bells:
+        local_pop_conversion_speed: 20
+      tv_wonder_curfew_clock_bells:
+        local_unrest: -0.05
+      tv_wonder_astronomical_calendar_bells:
+        local_max_literacy: 5
+  royal_art_district:
+    base_local:
+      local_cultural_tradition: 0.8
+      local_cultural_influence: 0.8
+    final_local:
+      tv_wonder_court_art_district:
+        local_nobles_estate_power: 0.20
+      tv_wonder_folk_art_district:
+        local_cultural_tradition: 1
+      tv_wonder_foreign_style_district:
+        local_cultural_influence: 1
+  grand_theater_festival_district:
+    base_local:
+      local_cultural_tradition: 0.6
+      local_unrest: -0.05
+    final_local:
+      tv_wonder_court_theater:
+        local_nobles_estate_power: 0.15
+      tv_wonder_religious_theater:
+        local_pop_conversion_speed: 15
+      tv_wonder_popular_festival_ground:
+        local_unrest: -0.05
+  world_embassy_quarter:
+    base_local:
+      local_cultural_influence: 0.5
+      local_trade_center_power: 0.10
+    final_local:
+      tv_wonder_trade_diplomacy_embassies:
+        local_trade_center_power: 0.15
+      tv_wonder_intelligence_embassies:
+        local_nobles_estate_power: 0.15
+      tv_wonder_religious_diplomacy_embassies:
+        local_clergy_estate_power: 0.15
+  law_code_stele_project:
+    base_local:
+      local_unrest: -0.05
+      local_cultural_tradition: 0.4
+    final_local:
+      tv_wonder_religious_law_steles:
+        local_clergy_estate_power: 0.20
+      tv_wonder_written_law_steles:
+        local_max_control: 0.05
+      tv_wonder_imperial_edict_steles:
+        local_nobles_estate_power: 0.20
+  world_market:
+    base_local:
+      local_trade_center_power: 0.25
+      local_migration_attraction: 1
+    final_local:
+      tv_wonder_luxury_goods_market:
+        local_trade_center_power: 0.20
+      tv_wonder_grain_market:
+        local_unrest: -0.05
+      tv_wonder_entrepot_market:
+        local_distance_from_capital_speed_propagation: 0.10
+  royal_mint_system:
+    base_local:
+      local_trade_center_power: 0.15
+      local_production_efficiency: 0.10
+    final_local:
+      tv_wonder_silver_gold_standard_mint:
+        local_trade_center_power: 0.10
+      tv_wonder_copper_coinage_mint:
+        local_production_efficiency: 0.10
+      tv_wonder_international_settlement_mint:
+        local_trade_center_power: 0.15
+  guild_alliance:
+    base_local:
+      local_production_efficiency: 0.15
+      local_burghers_estate_power: 0.25
+    final_local:
+      tv_wonder_artisan_guild_alliance:
+        local_production_efficiency: 0.15
+      tv_wonder_overseas_merchant_guilds:
+        local_trade_center_power: 0.15
+      tv_wonder_financial_guilds:
+        local_burghers_estate_power: 0.25
+  maritime_trade_station_network:
+    base_local:
+      local_trade_center_power: 0.20
+      local_ship_build_speed: 0.10
+    final_local:
+      tv_wonder_spice_trade_stations:
+        local_trade_center_power: 0.20
+      tv_wonder_slave_trade_stations:
+        local_migration_attraction: -0.5
+      tv_wonder_colonial_supply_stations:
+        local_ship_build_speed: 0.15
+  giant_workshop_complex:
+    base_local:
+      local_production_efficiency: 0.25
+      local_pop_promotion_speed: 5
+    final_local:
+      tv_wonder_textile_workshop_complex:
+        local_production_efficiency: 0.20
+      tv_wonder_military_workshop_complex:
+        local_manpower_modifier: 0.15
+      tv_wonder_luxury_craft_workshop_complex:
+        local_cultural_influence: 0.8
+  world_monument_group:
+    base_local:
+      local_cultural_tradition: 0.8
+      local_cultural_influence: 0.8
+    final_local:
+      tv_wonder_conquest_monument_group:
+        local_manpower_modifier: 0.10
+      tv_wonder_national_unity_monument_group:
+        local_unrest: -0.05
+      tv_wonder_world_exposition_monument_group:
+        local_cultural_influence: 1
+
+base_modifiers:
+  large_canal_system:
+    monthly_towards_centralization: 0.03
+    global_monthly_prosperity: 0.001
+  mountain_terrace_network:
+    global_raw_material_output: 0.02
+    global_monthly_prosperity: 0.001
+  giant_dam_project:
+    monthly_towards_centralization: 0.03
+    global_production_efficiency: 0.02
+  royal_granary_system:
+    pop_join_rebel_threshold: 0.02
+    global_monthly_prosperity: 0.001
+  imperial_post_road_network:
+    global_distance_from_capital_speed_propagation: 0.05
+    army_movement_speed: 0.02
+  canal_hub_city:
+    trade_income: 0.02
+    global_production_efficiency: 0.02
+  frontier_colonization_belt:
+    global_pop_conversion_speed_modifier: 0.02
+    global_manpower_modifier: 0.02
+  coastal_beacon_network:
+    naval_morale_modifier: 0.02
+    global_maritime_presence_modifier: 0.02
+  knightly_fortress_order:
+    land_morale_modifier: 0.02
+    monthly_towards_traditionalist: 0.03
+  war_college_system:
+    land_morale_modifier: 0.02
+    siege_ability: 0.01
+  great_clock_bell_system:
+    monthly_towards_spiritualist: 0.03
+    global_monthly_literacy: 0.002
+  royal_art_district:
+    monthly_towards_innovative: 0.03
+    global_pop_promotion_speed_modifier: 0.02
+  grand_theater_festival_district:
+    monthly_prestige: 0.03
+    pop_join_rebel_threshold: 0.01
+  world_embassy_quarter:
+    diplomatic_reputation: 0.2
+    trade_income: 0.01
+  law_code_stele_project:
+    monthly_legitimacy: 0.03
+    stability_investment: -0.01
+  world_market:
+    trade_income: 0.03
+    global_monthly_prosperity: 0.001
+  royal_mint_system:
+    minting_income_factor: 0.03
+    tax_income_efficiency: 0.01
+  guild_alliance:
+    global_production_efficiency: 0.03
+    trade_income: 0.01
+  maritime_trade_station_network:
+    trade_range: 50
+    trade_income: 0.02
+  giant_workshop_complex:
+    global_production_efficiency: 0.04
+    global_pop_promotion_speed_modifier: 0.01
+  world_monument_group:
+    monthly_prestige: 0.05
+    great_power_score: 5
+
+ceremony_modifiers:
+  tv_wonder_irrigation_canal_system:
+    global_raw_material_output: 0.05
+  tv_wonder_grain_transport_canal_system:
+    trade_income: 0.05
+  tv_wonder_flood_control_canal_system:
+    pop_join_rebel_threshold: 0.05
+  tv_wonder_grain_terraces:
+    global_raw_material_output: 0.05
+  tv_wonder_cash_crop_terraces:
+    trade_income: 0.04
+  tv_wonder_sacred_mountain_terraces:
+    tolerance_own: 1
+  tv_wonder_estuary_flood_dam:
+    global_monthly_prosperity: 0.003
+  tv_wonder_marsh_reclamation_dam:
+    global_raw_material_output: 0.04
+  tv_wonder_water_powered_workshops:
+    global_production_efficiency: 0.05
+  tv_wonder_grain_price_granaries:
+    tax_income_efficiency: 0.04
+  tv_wonder_wartime_granaries:
+    global_manpower_modifier: 0.08
+  tv_wonder_disaster_relief_granaries:
+    pop_join_rebel_threshold: 0.05
+  tv_wonder_military_post_roads:
+    army_movement_speed: 0.05
+  tv_wonder_trade_post_roads:
+    trade_income: 0.05
+  tv_wonder_royal_tour_avenue:
+    monthly_legitimacy: 0.10
+  tv_wonder_grain_transport_hub:
+    trade_income: 0.04
+  tv_wonder_financial_warehouse_hub:
+    minting_income_factor: 0.05
+  tv_wonder_industrial_workshop_belt:
+    global_production_efficiency: 0.05
+  tv_wonder_military_colony_belt:
+    global_manpower_modifier: 0.08
+  tv_wonder_settler_reclamation_belt:
+    global_monthly_prosperity: 0.004
+  tv_wonder_religious_colonization_belt:
+    global_pop_conversion_speed_modifier: 0.05
+  tv_wonder_beacon_communication_network:
+    army_movement_speed: 0.04
+  tv_wonder_coastal_battery_network:
+    naval_morale_modifier: 0.05
+  tv_wonder_customs_patrol_network:
+    trade_income: 0.04
+  tv_wonder_crusader_knightly_order:
+    land_morale_modifier: 0.05
+  tv_wonder_frontier_lord_order:
+    global_manpower_modifier: 0.06
+  tv_wonder_mercenary_fortress_system:
+    discipline: 0.015
+  tv_wonder_firearms_tactics_college:
+    siege_ability: 0.05
+  tv_wonder_cavalry_tradition_college:
+    land_morale_modifier: 0.04
+  tv_wonder_naval_command_college:
+    naval_morale_modifier: 0.04
+  tv_wonder_worship_clock_bells:
+    tolerance_own: 1
+  tv_wonder_curfew_clock_bells:
+    pop_join_rebel_threshold: 0.04
+  tv_wonder_astronomical_calendar_bells:
+    research_speed: 0.04
+  tv_wonder_court_art_district:
+    monthly_prestige: 0.10
+  tv_wonder_folk_art_district:
+    pop_join_rebel_threshold: 0.04
+  tv_wonder_foreign_style_district:
+    diplomatic_reputation: 1
+  tv_wonder_court_theater:
+    monthly_prestige: 0.08
+  tv_wonder_religious_theater:
+    global_pop_conversion_speed_modifier: 0.04
+  tv_wonder_popular_festival_ground:
+    global_monthly_prosperity: 0.003
+  tv_wonder_trade_diplomacy_embassies:
+    trade_income: 0.04
+    diplomatic_reputation: 1
+  tv_wonder_intelligence_embassies:
+    diplomatic_reputation: 1
+  tv_wonder_religious_diplomacy_embassies:
+    tolerance_own: 1
+    diplomatic_reputation: 1
+  tv_wonder_religious_law_steles:
+    clergy_estate_target_satisfaction: 0.03
+  tv_wonder_written_law_steles:
+    stability_investment: -0.05
+  tv_wonder_imperial_edict_steles:
+    monthly_legitimacy: 0.10
+  tv_wonder_luxury_goods_market:
+    trade_income: 0.06
+  tv_wonder_grain_market:
+    global_monthly_prosperity: 0.004
+  tv_wonder_entrepot_market:
+    trade_range: 150
+  tv_wonder_silver_gold_standard_mint:
+    minting_income_factor: 0.08
+  tv_wonder_copper_coinage_mint:
+    tax_income_efficiency: 0.04
+  tv_wonder_international_settlement_mint:
+    diplomatic_reputation: 1
+    trade_income: 0.04
+  tv_wonder_artisan_guild_alliance:
+    global_production_efficiency: 0.05
+  tv_wonder_overseas_merchant_guilds:
+    trade_income: 0.05
+  tv_wonder_financial_guilds:
+    minting_income_factor: 0.05
+  tv_wonder_spice_trade_stations:
+    trade_income: 0.06
+  tv_wonder_slave_trade_stations:
+    global_raw_material_output: 0.05
+    pop_join_rebel_threshold: -0.03
+  tv_wonder_colonial_supply_stations:
+    naval_range: 150
+  tv_wonder_textile_workshop_complex:
+    global_production_efficiency: 0.05
+  tv_wonder_military_workshop_complex:
+    global_manpower_modifier: 0.05
+    siege_ability: 0.03
+  tv_wonder_luxury_craft_workshop_complex:
+    trade_income: 0.04
+    monthly_prestige: 0.05
+  tv_wonder_conquest_monument_group:
+    monthly_prestige: 0.10
+    land_morale_modifier: 0.03
+  tv_wonder_national_unity_monument_group:
+    monthly_legitimacy: 0.10
+    pop_join_rebel_threshold: 0.03
+  tv_wonder_world_exposition_monument_group:
+    diplomatic_reputation: 1
+    monthly_prestige: 0.05

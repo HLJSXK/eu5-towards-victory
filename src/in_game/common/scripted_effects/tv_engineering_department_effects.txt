@@ -312,6 +312,7 @@ tv_wonder_clear_feasible_deck_effect = {
 	remove_variable = tv_wonder_priority_found
 	remove_variable = tv_wonder_proposal_mode
 	remove_variable = tv_wonder_proposal_site
+	tv_wonder_new_clear_feasible_deck_effect = yes
 }
 
 tv_wonder_clear_current_proposal_effect = {
@@ -397,6 +398,7 @@ tv_wonder_rebuild_feasible_deck_effect = {
 		limit = { tv_wonder_can_build_library_of_nation_trigger = yes }
 		set_variable = { name = tv_wonder_feasible_library_of_nation value = 1 }
 	}
+	tv_wonder_new_rebuild_feasible_deck_effect = yes
 }
 
 tv_wonder_set_proposal_on_great_engineer_effect = {
@@ -542,6 +544,90 @@ tv_wonder_roll_random_feasible_proposal_effect = {
 		1 = {
 			trigger = { has_variable = tv_wonder_feasible_library_of_nation }
 			set_variable = { name = tv_wonder_proposal value = 18 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_large_canal_system }
+			set_variable = { name = tv_wonder_proposal value = 19 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_mountain_terrace_network }
+			set_variable = { name = tv_wonder_proposal value = 20 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_giant_dam_project }
+			set_variable = { name = tv_wonder_proposal value = 21 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_royal_granary_system }
+			set_variable = { name = tv_wonder_proposal value = 22 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_imperial_post_road_network }
+			set_variable = { name = tv_wonder_proposal value = 23 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_canal_hub_city }
+			set_variable = { name = tv_wonder_proposal value = 24 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_frontier_colonization_belt }
+			set_variable = { name = tv_wonder_proposal value = 25 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_coastal_beacon_network }
+			set_variable = { name = tv_wonder_proposal value = 26 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_knightly_fortress_order }
+			set_variable = { name = tv_wonder_proposal value = 27 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_war_college_system }
+			set_variable = { name = tv_wonder_proposal value = 28 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_great_clock_bell_system }
+			set_variable = { name = tv_wonder_proposal value = 29 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_royal_art_district }
+			set_variable = { name = tv_wonder_proposal value = 30 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_grand_theater_festival_district }
+			set_variable = { name = tv_wonder_proposal value = 31 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_world_embassy_quarter }
+			set_variable = { name = tv_wonder_proposal value = 32 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_law_code_stele_project }
+			set_variable = { name = tv_wonder_proposal value = 33 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_world_market }
+			set_variable = { name = tv_wonder_proposal value = 34 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_royal_mint_system }
+			set_variable = { name = tv_wonder_proposal value = 35 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_guild_alliance }
+			set_variable = { name = tv_wonder_proposal value = 36 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_maritime_trade_station_network }
+			set_variable = { name = tv_wonder_proposal value = 37 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_giant_workshop_complex }
+			set_variable = { name = tv_wonder_proposal value = 38 }
+		}
+		1 = {
+			trigger = { has_variable = tv_wonder_feasible_world_monument_group }
+			set_variable = { name = tv_wonder_proposal value = 39 }
 		}
 	}
 }
@@ -704,6 +790,7 @@ tv_wonder_remove_current_proposal_from_deck_effect = {
 		limit = { var:tv_wonder_proposal ?= 18 }
 		remove_variable = tv_wonder_feasible_library_of_nation
 	}
+	tv_wonder_new_remove_current_proposal_from_deck_effect = yes
 }
 
 tv_wonder_reroll_proposal_after_rejection_effect = {
@@ -1059,6 +1146,7 @@ tv_wonder_accept_proposal_effect = {
 		limit = { var:tv_wonder_proposal ?= 18 }
 		custom_tooltip = { text = TV_WONDER_LOCK_LIBRARY_OF_NATION_TT }
 	}
+	tv_wonder_new_accept_proposal_tooltip_effect = yes
 	hidden_effect = {
 		if = {
 			limit = { var:tv_wonder_proposal ?= { this >= 1 } }
@@ -2208,6 +2296,7 @@ tv_wonder_copy_completed_survey_from_location_effect = {
 		}
 		tv_wonder_copy_library_of_nation_survey_from_location_effect = yes
 	}
+	tv_wonder_new_copy_completed_survey_from_location_effect = yes
 }
 
 tv_wonder_store_survey_on_location_effect = {
@@ -2445,6 +2534,7 @@ tv_wonder_store_survey_on_location_effect = {
 			set_variable = { name = tv_wonder_library_of_nation_scale_tier value = prev.var:tv_wonder_scale_tier }
 		}
 	}
+	tv_wonder_new_store_survey_on_location_effect = yes
 }
 
 tv_wonder_apply_survey_site_preference_effect = {
@@ -2790,6 +2880,7 @@ tv_wonder_apply_survey_site_preference_effect = {
 		}
 		remove_variable = tv_wonder_site_preference_bonus
 	}
+	tv_wonder_new_apply_survey_site_preference_effect = yes
 }
 
 tv_wonder_apply_survey_engineer_bonus_effect = {
@@ -2876,9 +2967,10 @@ tv_wonder_start_survey_effect = {
 						AND = { var:tv_wonder_locked ?= 13 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_river_extension } }
 						AND = { var:tv_wonder_locked ?= 14 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_national_shipyard } }
 						AND = { var:tv_wonder_locked ?= 15 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_star_fortress_city } }
-						AND = { var:tv_wonder_locked ?= 16 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_wall } }
-						AND = { var:tv_wonder_locked ?= 17 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_armory } }
-						AND = { var:tv_wonder_locked ?= 18 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_library_of_nation } }
+					AND = { var:tv_wonder_locked ?= 16 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_wall } }
+					AND = { var:tv_wonder_locked ?= 17 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_armory } }
+					AND = { var:tv_wonder_locked ?= 18 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_library_of_nation } }
+					tv_wonder_new_selected_survey_already_cached_trigger = yes
 					}
 				}
 				tv_wonder_copy_completed_survey_from_location_effect = yes
@@ -3393,6 +3485,7 @@ tv_wonder_apply_base_modifier_effect = {
 		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_library_of_nation_level_5 years = -1 mode = add_and_extend } }
 		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_library_of_nation_level_6 years = -1 mode = add_and_extend } }
 	}
+	tv_wonder_new_apply_base_modifier_effect = yes
 }
 
 tv_wonder_apply_ceremony_modifier_effect = {
@@ -3604,6 +3697,7 @@ tv_wonder_apply_ceremony_modifier_effect = {
 		limit = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 3 }
 		add_country_modifier = { modifier = tv_wonder_legal_deposit_library_modifier years = -1 mode = add_and_extend }
 	}
+	tv_wonder_new_apply_ceremony_modifier_effect = yes
 }
 
 tv_wonder_construct_final_building_in_site_effect = {
@@ -3952,6 +4046,7 @@ tv_wonder_construct_final_building_effect = {
 			}
 		}
 	}
+	tv_wonder_new_construct_final_building_effect = yes
 }
 
 tv_wonder_prepare_final_support_rewards_effect = {
@@ -4114,6 +4209,7 @@ tv_wonder_broadcast_completion_event_effect = {
 		limit = { var:tv_wonder_locked ?= 18 }
 		save_scope_as = tv_wonder_completed_library
 	}
+	tv_wonder_new_broadcast_completion_event_effect = yes
 	every_country = {
 		limit = {
 			exists = capital
@@ -4141,7 +4237,7 @@ tv_wonder_complete_finalization_effect = {
 			has_variable = tv_wonder_finalized
 			tv_wonder_construction_site_selected_trigger = yes
 			var:tv_wonder_locked ?= { this >= 1 }
-			var:tv_wonder_locked ?= { this <= 18 }
+			var:tv_wonder_locked ?= { this <= 39 }
 			var:tv_wonder_ceremony_style ?= { this >= 1 }
 			var:tv_wonder_ceremony_style ?= { this <= 3 }
 			var:tv_wonder_level ?= { this >= 1 }
@@ -4995,6 +5091,7 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_last_completed_part
 	remove_variable = tv_wonder_last_completed_unit
 	tv_wonder_clear_feasible_deck_effect = yes
+	tv_wonder_new_clear_project_state_effect = yes
 	set_variable = { name = tv_wonder_stage value = 0 }
 	tv_wonder_reset_io_progress_effect = yes
 	if = {

@@ -169,6 +169,7 @@ tv_wonder_has_any_feasible_proposal_trigger = {
 		has_variable = tv_wonder_feasible_great_wall
 		has_variable = tv_wonder_feasible_giant_armory
 		has_variable = tv_wonder_feasible_library_of_nation
+		tv_wonder_new_has_any_feasible_proposal_trigger = yes
 	}
 }
 
@@ -431,6 +432,7 @@ tv_wonder_has_valid_site_candidate_trigger = {
 			var:tv_wonder_locked ?= 18
 			tv_wonder_can_build_library_of_nation_trigger = yes
 		}
+		tv_wonder_new_has_valid_site_candidate_trigger = yes
 	}
 }
 

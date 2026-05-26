@@ -32,6 +32,7 @@ pulses:
 
   yearly_country_pulse:
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home
+    - tv_govhouse_governor_tasks_yearly_pulse # autonomous regional governor task reassessment
 
   on_character_death:
     - tv_govhouse_char_death           # Grand General death cleanup

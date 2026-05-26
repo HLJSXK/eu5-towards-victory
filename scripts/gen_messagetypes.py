@@ -1123,6 +1123,16 @@ PERFORM_tv_wonder_start_legal_deposit_ACTION={
 	message_category = society
 }
 
+PERFORM_tv_wonder_confirm_new_ceremony_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
 PERFORM_tv_request_research_target_ACTION={
 \tlog=yes
 \tonmap=no
