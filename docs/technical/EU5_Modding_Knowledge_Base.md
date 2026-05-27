@@ -142,6 +142,20 @@ any_international_organizations_member_of = {
 
 Do not add an effect-style `limit = { ... }` block here. The engine treats `limit` as a trigger clause in this context and logs `Unknown trigger type: limit`. Reserve `limit = {}` for effect iterators such as `every_international_organizations_member_of` when applying effects.
 
+The inverse is also true in scripted effects: `any_international_organizations_member_of` is not an effect iterator. If an effect needs to enter matching IO scopes, use:
+
+```pdx
+every_international_organizations_member_of = {
+    limit = {
+        international_organization_type = international_organization_type:tv_trade_league
+        leader_country ?= scope:saved_country
+    }
+    # effect body here
+}
+```
+
+Using `any_international_organizations_member_of = { limit = { ... } ... }` directly in an effect body logs `Unknown effect any_international_organizations_member_of`.
+
 #### Random List Branch Filtering
 
 Use `trigger = { ... }` inside weighted `random_list` branches when a branch should only be eligible under some condition:
@@ -645,6 +659,8 @@ GUI `raw_text` does not expand `$LOCALIZATION_KEY$` substitutions. A value such 
 Custom game concepts require both localization and a definition in `main_menu/common/game_concepts/`. A localization pair such as `game_concept_tv_foo` / `game_concept_tv_foo_desc` does not create the concept by itself. If `[tv_foo|e]` is used before `tv_foo = { texture = "..." }` is registered, the localization parser treats `tv_foo` as a data-system function and logs `Could not find data system function 'tv_foo'`.
 
 For ordinary localization keys such as building names, use `$key$` substitution instead of square-bracket game concept syntax. GUI-bound localized text can parse `[building_key|E]` as a data-system function when `building_key` is not registered as a game concept, producing `Could not find data system function '<key>'`.
+
+`MakeScope.GetVariable('x')` returns a GUI variable wrapper, not an arbitrary typed object constructor. Do not chain `.GetGoods` or `.GetInternationalOrganization` from it. Goods icons/names must come from a real typed goods datacontext such as `Trade.GetGoods` or `GoodsMarketEntry.GetGoods`, or from static generated branches keyed by a saved numeric goods id. `OpenInternationalOrganizationView(...)` likewise needs a typed `InternationalOrganization` object from a verified GUI chain such as `InternationalOrganization.Self`, `OrgItem.GetOrg.Self`, or `GetUniqueInternationalOrganization('hre').Self`; a saved script variable cannot be promoted with `.GetInternationalOrganization`.
 
 GUI boolean helpers are arity-specific. `And()` and `Or()` take exactly two operands; for three operands use `And3()` / `Or3()` as vanilla GUI files do, and for larger expressions nest binary helpers. A three-argument `And(a, b, c)` logs `Function 'And' expected 2 arguments, got 3` and the widget statement fails conversion.
 

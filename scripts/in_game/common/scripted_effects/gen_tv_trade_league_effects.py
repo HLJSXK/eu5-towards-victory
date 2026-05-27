@@ -376,6 +376,18 @@ def copy_scope_variable_from_scope(source_scope: str, source: str, target: str, 
 {indent}}}"""
 
 
+def save_matching_trade_league_leader_effect(source_name: str, indent: str) -> str:
+    return f"""\
+{indent}save_scope_as = tv_trade_projection_reader
+{indent}every_international_organizations_member_of = {{
+{indent}\tlimit = {{
+{indent}\t\tinternational_organization_type = international_organization_type:tv_trade_league
+{indent}\t\tleader_country ?= scope:tv_trade_projection_reader
+{indent}\t}}
+{indent}\tleader_country ?= {{ save_scope_as = {source_name} }}
+{indent}}}"""
+
+
 def clear_display_row_block(row: int, indent: str = "\t") -> str:
     variables = [
         f"tv_trade_display_row_{row}_visible",
@@ -567,10 +579,7 @@ def selected_projection_effect(goods: list[str]) -> str:
     return f"""\
 tv_trade_league_refresh_selected_good_projection_effect = {{
 \thidden_effect = {{
-\t\tany_international_organizations_member_of = {{
-\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
-\t\t\tleader_country ?= {{ save_scope_as = tv_trade_monopoly_display_source }}
-\t\t}}
+{save_matching_trade_league_leader_effect("tv_trade_monopoly_display_source", "\t\t")}
 \t\tif = {{
 \t\t\tlimit = {{ NOT = {{ has_variable = tv_trade_selected_good }} }}
 \t\t\tset_variable = {{ name = tv_trade_selected_good value = 1 }}
@@ -608,10 +617,7 @@ def display_projection_effect(data: dict) -> str:
     return f"""\
 tv_trade_league_refresh_monopoly_display_effect = {{
 \thidden_effect = {{
-\t\tany_international_organizations_member_of = {{
-\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
-\t\t\tleader_country ?= {{ save_scope_as = tv_trade_monopoly_display_source }}
-\t\t}}
+{save_matching_trade_league_leader_effect("tv_trade_monopoly_display_source", "\t\t")}
 \t\ttv_trade_league_refresh_monopoly_page_limits_effect = yes
 {clear_rows}
 {chr(10).join(row_branches)}
@@ -876,10 +882,7 @@ def intelligence_page_limits_effect() -> str:
     return f"""\
 tv_trade_league_refresh_intelligence_page_limits_effect = {{
 \thidden_effect = {{
-\t\tany_international_organizations_member_of = {{
-\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
-\t\t\tleader_country ?= {{ save_scope_as = tv_trade_intelligence_display_source }}
-\t\t}}
+{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", "\t\t")}
 \t\tif = {{
 \t\t\tlimit = {{ NOT = {{ has_variable = tv_trade_intelligence_page }} }}
 \t\t\tset_variable = {{ name = tv_trade_intelligence_page value = 1 }}
@@ -958,10 +961,7 @@ def intelligence_selected_projection_effect() -> str:
     return f"""\
 tv_trade_league_refresh_selected_intelligence_projection_effect = {{
 \thidden_effect = {{
-\t\tany_international_organizations_member_of = {{
-\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
-\t\t\tleader_country ?= {{ save_scope_as = tv_trade_intelligence_display_source }}
-\t\t}}
+{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", "\t\t")}
 {clear_selected_intelligence_projection_block("\t\t")}
 {chr(10).join(branches)}
 \t}}
@@ -986,10 +986,7 @@ def intelligence_select_first_displayed_effect() -> str:
     return f"""\
 tv_trade_league_select_first_displayed_intelligence_market_effect = {{
 \thidden_effect = {{
-\t\tany_international_organizations_member_of = {{
-\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
-\t\t\tleader_country ?= {{ save_scope_as = tv_trade_intelligence_display_source }}
-\t\t}}
+{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", "\t\t")}
 \t\ttv_trade_league_refresh_intelligence_page_limits_effect = yes
 {chr(10).join(branches)}
 \t\ttv_trade_league_refresh_selected_intelligence_projection_effect = yes
@@ -1022,10 +1019,7 @@ def intelligence_display_projection_effect() -> str:
     return f"""\
 tv_trade_league_refresh_intelligence_display_effect = {{
 \thidden_effect = {{
-\t\tany_international_organizations_member_of = {{
-\t\t\tlimit = {{ international_organization_type = international_organization_type:tv_trade_league }}
-\t\t\tleader_country ?= {{ save_scope_as = tv_trade_intelligence_display_source }}
-\t\t}}
+{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", "\t\t")}
 \t\ttv_trade_league_refresh_intelligence_page_limits_effect = yes
 {clear_rows}
 {chr(10).join(row_branches)}

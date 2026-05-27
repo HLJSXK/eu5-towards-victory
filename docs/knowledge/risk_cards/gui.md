@@ -45,6 +45,13 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
    `$LOCALIZATION_KEY$`. Use `text = "KEY"` for static localized labels, and put
    inline icons such as `@trade!` in the localization value when needed.
 
+10. Do not promote GUI variables into typed objects with invented accessors.
+    `MakeScope.GetVariable('x')` does not expose `.GetGoods` or
+    `.GetInternationalOrganization`. For goods, use a typed datamodel accessor
+    such as `Trade.GetGoods`/`GoodsMarketEntry.GetGoods`, or static branches keyed
+    by a numeric id. For IO panels, pass a typed InternationalOrganization object
+    from an existing view/datamodel chain.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

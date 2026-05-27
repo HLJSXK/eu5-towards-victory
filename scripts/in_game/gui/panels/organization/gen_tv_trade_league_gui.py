@@ -944,6 +944,17 @@ def projected_var(variable: str) -> str:
     return f"InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{variable}')"
 
 
+def projected_selected_good_visible(index: int) -> str:
+    return (
+        "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, "
+        f"'(CFixedPoint){index}.0')]"
+    )
+
+
+def projected_row_good_visible(row_index: str, index: int) -> str:
+    return f"[EqualTo_CFixedPoint({row_index}.GetValue, '(CFixedPoint){index}.0')]"
+
+
 def projected_leader_var(variable: str) -> str:
     return f"InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('{variable}')"
 
@@ -1329,9 +1340,28 @@ def intelligence_content() -> str:
 """
 
 
-def projected_monopoly_row(row: int) -> str:
+def projected_row_good_entries(goods: list[str], row_index: str) -> str:
+    entries: list[str] = []
+    for index, good in enumerate(goods, start=1):
+        visible = projected_row_good_visible(row_index, index)
+        entries.append(
+            f"""\
+\t\t\t\t\t\t\t\t\t\t\t\ticon = {{
+\t\t\t\t\t\t\t\t\t\t\t\t\tvisible = "{visible}"
+\t\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 20 20 }}
+\t\t\t\t\t\t\t\t\t\t\t\t\ttexture = "gfx/interface/icons/trade_goods/icon_goods_{good}.dds"
+\t\t\t\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{
+\t\t\t\t\t\t\t\t\t\t\t\t\tvisible = "{visible}"
+\t\t\t\t\t\t\t\t\t\t\t\t\ttext = "{good}"
+\t\t\t\t\t\t\t\t\t\t\t\t\talign = nobaseline|left
+\t\t\t\t\t\t\t\t\t\t\t\t}}"""
+        )
+    return "\n".join(entries)
+
+
+def projected_monopoly_row(row: int, goods: list[str]) -> str:
     row_visible = projected_var(f"tv_trade_display_row_{row}_visible")
-    row_good = projected_var(f"tv_trade_display_row_{row}_good")
     row_index = projected_var(f"tv_trade_display_row_{row}_good_index")
     selected = projected_var("tv_trade_selected_good")
     selected_bg = f"[EqualTo_CFixedPoint({row_index}.GetValue, {selected}.GetValue)]"
@@ -1365,14 +1395,7 @@ def projected_monopoly_row(row: int) -> str:
 \t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
 \t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 86 24 }}
 \t\t\t\t\t\t\t\t\t\t\t\tspacing = 2
-\t\t\t\t\t\t\t\t\t\t\t\ticon = {{
-\t\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 20 20 }}
-\t\t\t\t\t\t\t\t\t\t\t\t\ttexture = "[GetGoodsIcon({row_good}.GetGoods)]"
-\t\t\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\t\t\ttext = "[{row_good}.GetGoods.GetNameWithNoTooltip]"
-\t\t\t\t\t\t\t\t\t\t\t\t\talign = nobaseline|left
-\t\t\t\t\t\t\t\t\t\t\t\t}}
+{projected_row_good_entries(goods, row_index)}
 \t\t\t\t\t\t\t\t\t\t\t\texpand = {{}}
 \t\t\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\t\t}}
@@ -1559,8 +1582,26 @@ def projected_market_intelligence() -> str:
     )
 
 
-def projected_detail_card() -> str:
-    good = projected_var("tv_trade_selected_good_scope")
+def projected_detail_icon_entries(goods: list[str]) -> str:
+    entries: list[str] = []
+    for index, good in enumerate(goods, start=1):
+        entries.append(
+            f"""\t\t\t\t\t\t\t\t\ticon = {{ visible = "{projected_selected_good_visible(index)}" size = {{ 48 48 }} texture = "gfx/interface/icons/trade_goods/icon_goods_{good}.dds" }}"""
+        )
+    return "\n".join(entries)
+
+
+def projected_detail_name_entries(goods: list[str]) -> str:
+    entries: list[str] = []
+    for index, good in enumerate(goods, start=1):
+        entries.append(
+            f"""\t\t\t\t\t\t\t\t\t\ttext_single = {{ visible = "{projected_selected_good_visible(index)}" size = {{ 340 24 }} text = "{good}" align = nobaseline|left }}"""
+        )
+    return "\n".join(entries)
+
+
+def projected_detail_card(goods: list[str]) -> str:
+    selected = projected_var("tv_trade_selected_good")
     monopoly = projected_var("tv_trade_selected_monopoly")
     monopoly_pct = projected_var("tv_trade_selected_monopoly_level_pct")
     used_pct = projected_var("tv_trade_selected_used_monopoly_level_pct")
@@ -1570,10 +1611,10 @@ def projected_detail_card() -> str:
     embargo_active = projected_var("tv_trade_selected_embargo_active")
     return f"""\
 \t\t\t\t\tcard_common = {{
-\t\t\t\t\t\tvisible = "[{good}.IsSet]"
+\t\t\t\t\t\tvisible = "[{selected}.IsSet]"
 \t\t\t\t\t\tmaximumsize = {{ 500 -1 }}
 \t\t\t\t\t\tblockoverride "common_header_icon_texture" {{
-\t\t\t\t\t\t\ttexture = "[GetGoodsIcon({good}.GetGoods)]"
+\t\t\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/trade.dds"
 \t\t\t\t\t\t}}
 \t\t\t\t\t\tblockoverride "common_header_text" {{
 \t\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_MONOPOLY_DETAIL_TITLE"
@@ -1586,7 +1627,7 @@ def projected_detail_card() -> str:
 \t\t\t\t\t\t\t\thbox = {{
 \t\t\t\t\t\t\t\t\tsize = {{ 462 60 }}
 \t\t\t\t\t\t\t\t\tspacing = 8
-\t\t\t\t\t\t\t\t\ticon = {{ size = {{ 48 48 }} texture = "[GetGoodsIcon({good}.GetGoods)]" }}
+{projected_detail_icon_entries(goods)}
 \t\t\t\t\t\t\t\t\tpiechart = {{
 \t\t\t\t\t\t\t\t\t\tsize = {{ 54 54 }}
 \t\t\t\t\t\t\t\t\t\tusing = piechart_angles
@@ -1598,7 +1639,7 @@ def projected_detail_card() -> str:
 \t\t\t\t\t\t\t\t\tvbox = {{
 \t\t\t\t\t\t\t\t\t\tsize = {{ 340 54 }}
 \t\t\t\t\t\t\t\t\t\tignoreinvisible = yes
-\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 340 24 }} text = "[{good}.GetGoods.GetNameWithNoTooltip]" align = nobaseline|left }}
+{projected_detail_name_entries(goods)}
 \t\t\t\t\t\t\t\t\t\thbox = {{
 \t\t\t\t\t\t\t\t\t\t\tvisible = "[GreaterThanOrEqualTo_CFixedPoint({monopoly}.GetValue, '(CFixedPoint)1.0')]"
 \t\t\t\t\t\t\t\t\t\t\tsize = {{ 340 24 }}
@@ -1690,7 +1731,7 @@ def projected_action_card() -> str:
 def projected_generate(data: dict) -> str:
     validate_categories(data)
     buttons = projected_category_buttons(data["categories"])
-    rows = "".join(projected_monopoly_row(row) for row in range(1, DISPLAY_ROW_COUNT + 1))
+    rows = "".join(projected_monopoly_row(row, data["goods"]) for row in range(1, DISPLAY_ROW_COUNT + 1))
     return (
         HEADER
         + PREFIX
@@ -1701,7 +1742,7 @@ def projected_generate(data: dict) -> str:
         + TABLE_HEADER
         + rows
         + LIST_CARD_SUFFIX
-        + projected_detail_card()
+        + projected_detail_card(data["goods"])
         + projected_action_card()
         + SUFFIX
     )

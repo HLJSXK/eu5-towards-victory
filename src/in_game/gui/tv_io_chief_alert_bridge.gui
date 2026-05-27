@@ -6,7 +6,6 @@
 
 	state = {
 		name = _show
-		on_start = "[OpenInternationalOrganizationView(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetInternationalOrganization)]"
 		on_start = "[GetScriptedGui('tv_clear_io_chief_alert_open_request').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 	}
 }

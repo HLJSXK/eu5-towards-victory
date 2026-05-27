@@ -76,6 +76,11 @@ that create, find, or mutate TV IOs.
     leave the IO definition without a `laws = { ... }` block that maps laws to default policies;
     law groups are enacted later through policy votes.
 
+14. Match IO membership iterators to trigger/effect context.
+    `any_international_organizations_member_of` is trigger syntax. In effect bodies,
+    use `every_international_organizations_member_of = { limit = { ... } ... }`
+    when you need to enter matching IO scopes and run effects.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then inspect shared IO tooltips in game. Tooltip
