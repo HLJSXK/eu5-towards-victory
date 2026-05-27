@@ -1,0 +1,35 @@
+{
+  "payload": {
+    "model": "gpt-image-2",
+    "prompt": "Create a Europa Universalis V DDS icon asset.\nSubject: Luxurious white marble wonder materials with subtle gray veining, bronze-gold trim, and a premium carved-stone look.\nReference image: use the uploaded DDS only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.\nDistinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.\nComposition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.\nOutput targets:\n- trade_good_icon: 100x100\n- trade_good_illustration: 1080x457\nStyle rules:\nMatch the palette, brush feel, lighting, icon density, and framing discipline of the provided reference DDS. Keep the final subject and icon meaning driven by the user's request, not the reference subject.\nExtra composition rules:\nUse the reference only as a loose style guide. Keep the same marble material family and premium finish, but make the result visibly distinct at a glance by changing the silhouette, block arrangement, crop, and ornament placement. Do not mirror the reference composition or reuse its exact outline.",
+    "size": "1024x1024",
+    "quality": "high",
+    "output_format": "png",
+    "n": 1,
+    "response_format": "url",
+    "background": "opaque",
+    "moderation": "auto",
+    "user": "towards_victory"
+  },
+  "created": 1779880974,
+  "final_prompt": "Create a Europa Universalis V DDS icon asset.\nSubject: Luxurious white marble wonder materials with subtle gray veining, bronze-gold trim, and a premium carved-stone look.\nReference image: use the uploaded DDS only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.\nDistinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.\nComposition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.\nOutput targets:\n- trade_good_icon: 100x100\n- trade_good_illustration: 1080x457\nStyle rules:\nMatch the palette, brush feel, lighting, icon density, and framing discipline of the provided reference DDS. Keep the final subject and icon meaning driven by the user's request, not the reference subject.\nExtra composition rules:\nUse the reference only as a loose style guide. Keep the same marble material family and premium finish, but make the result visibly distinct at a glance by changing the silhouette, block arrangement, crop, and ornament placement. Do not mirror the reference composition or reuse its exact outline.",
+  "revised_prompt": "Create a square 1024x1024 game asset illustration in the visual family of a Europa Universalis-style DDS trade good icon. Subject: luxurious white marble wonder materials — a centered cluster of premium carved white marble architectural blocks and ornate stone fragments with subtle gray veining, polished edges, and elegant bronze-gold trim accents. Make it feel like high-value monumental building material, not raw rock. Use the uploaded DDS only as loose style guidance for palette, brushwork, lighting direction, surface treatment, painterly rendering, icon density, and framing discipline. Do NOT copy the reference subject, exact composition, silhouette, ornament placement, crop, or outline. Make it visibly distinct at a glance through different block shapes, layered arrangement, carved bevels, decorative inlays, and altered cropping. Keep the main subject centered, readable, high-contrast, and cleanly isolated on a transparent or plain dark-neutral-free background look suitable for later DDS export. No letters, no logo, no watermark, no UI. Painterly Paradox grand-strategy icon feeling, premium materials, crisp highlight planes, soft occlusion shadows, subtle worn stone texture, bronze-gold filigree bands, refined marble luxury.",
+  "targets": [
+    {
+      "name": "trade_good_icon",
+      "path": "src/main_menu/gfx/interface/icons/trade_goods/icon_goods_tv_wonder_materials.dds",
+      "width": 100,
+      "height": 100,
+      "resize": "cover",
+      "dds_format": "DXT5"
+    },
+    {
+      "name": "trade_good_illustration",
+      "path": "src/main_menu/gfx/interface/icons/trade_goods/illustrations/icon_goods_tv_wonder_materials.dds",
+      "width": 1080,
+      "height": 457,
+      "resize": "cover",
+      "dds_format": "DXT5"
+    }
+  ]
+}

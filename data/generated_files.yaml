@@ -153,6 +153,10 @@ generated:
     data:   data/pulse_registry.yaml
     output: src/in_game/common/on_action/ruler_death_pulses.txt
 
+  - script: scripts/in_game/common/on_action/gen_tv_cmf_suppressions.py
+    data:   data/cmf_warning_suppressions.yaml + data/trade_league_goods.yaml + data/locked_advances.yaml
+    output: src/in_game/common/on_action/tv_cmf_suppressions.txt
+
   - script: scripts/in_game/events/gen_tv_research_d_events.py
     data:   data/research_d_events.yaml
     output: src/in_game/events/tv_research_d_events.txt

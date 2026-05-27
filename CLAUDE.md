@@ -213,7 +213,7 @@ For `.gui` files place these `#` comment lines at the very top, before the first
 Infrastructure scripts stay at `scripts/` root:
 `validate.py`, `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `gen_victory.py`, `gen_messagetypes.py`, `gen_locked_advances.py`, `check_overview.py`
 
-One-off asset helpers also stay at repository/script root. `scripts/generate_dds_icon.py` reads `generate_dds_icon_config.json` plus optional `generate_dds_icon.local.json`, can refine a short prompt, can upload style-reference DDS/PNG files, and writes configured DDS icon targets. Use the `conda run --no-capture-output -n eu5 python scripts/generate_dds_icon.py` form when running it.
+One-off asset helpers also stay at repository/script root. `scripts/generate_dds_icon.py` reads `generate_dds_icon_config.json` plus optional `generate_dds_icon.local.json`, selects one target (`trade_good_icon` or `trade_good_illustration`), can refine a short prompt, uploads that target's same-type style-reference DDS/PNG files, and writes one configured DDS target with enforced dimensions/file-size limits. Use the `conda run --no-capture-output -n eu5 python scripts/generate_dds_icon.py` form when running it.
 
 **1:1 feature scripts** live under `scripts/` mirroring `src/`, named `gen_<target_filename_without_extension>.py`:
 ```

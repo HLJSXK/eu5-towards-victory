@@ -208,6 +208,7 @@ src/
 │   │                                      tv_medicine_on_action.txt  [MANUAL — tv_med_discovery_pulse (1%) and tv_med_accident_pulse (5%) sub-actions]
 │   │                                      tv_trade_league_on_action.txt  [MANUAL - Trade League leader-country monthly monopoly maintenance pulse]
 │   │                                      tv_io_chief_alert_on_action.txt  [MANUAL — monthly CMF alert sync and cmf_on_callback click handling]
+│   │                                      tv_cmf_suppressions.txt  [GENERATED - unreachable CMF suppression block for intentional static warning noise]
 │   ├── events/                            towards_victory_{conquest,prosperity,trade,diplomatic,cultural,science}_events.txt (one namespace per category — EU5 event IDs must be `<ns>.<int>` with exactly one dot)
 │   │                                      tv_academy_join_events.txt  [MANUAL — legacy namespace tv_academy; no longer fired by Phase I building]
 │   │                                      tv_research_events.txt  [MANUAL — namespace tv_research; events .1/.10/.11/.19/.20/.30]
@@ -256,6 +257,8 @@ Governor's House War Tent file notes: `src/in_game/common/scripted_effects/tv_go
 
 ### Main Menu Graphics
 
+`src/main_menu/common/modifier_icons/` contains TV modifier type icon mappings. `towards_victory_modifier_icons.txt` maps custom price, goods, and IO special-status modifier types to close vanilla `gfx/interface/icons/modifier_types/*.dds` assets, so the engine can resolve their UI icons without custom DDS files.
+
 `src/main_menu/gfx/interface/icons/international_organizations/` contains the six TV IO `GetIcon` assets:
 `tv_govhouse.dds`, `tv_diplomatic_alliance.dds`, `tv_arts_exhibition.dds`, `tv_academy_of_sciences.dds`, `tv_engineering_department.dds`, and `tv_trade_league.dds`.
 `tv_trade_league.dds` reuses the Trade Victory `gfx/interface/icons/flat_icons/trade.dds` asset under the IO type key. These assets keep shared IO title/list/tooltip UI from falling back to the generic international organization icon.
@@ -264,7 +267,7 @@ Governor's House War Tent file notes: `src/in_game/common/scripted_effects/tv_go
 
 `src/main_menu/gfx/interface/illustrations/towards_victory/wonders/` contains the Engineering Department wonder illustration assets. The Engineering Department overview tab displays the matching illustration for the current Great Engineer proposal before lock-in, then keeps displaying the locked target wonder during later construction stages. The illustration area is hidden only when there is no proposal and no locked target wonder.
 
-`src/main_menu/gfx/interface/icons/trade_goods/` and `src/main_menu/gfx/interface/icons/trade_goods/illustrations/` currently hold the `tv_wonder_materials` trade-good icon pair. The repository now also includes a reusable DDS icon generation workflow in `scripts/generate_dds_icon.py` plus `generate_dds_icon_config.json`: it can refine a short natural-language request into a production prompt, optionally upload one or more reference DDS files as style references, then write one or more DDS targets at the requested sizes and formats.
+`src/main_menu/gfx/interface/icons/trade_goods/` and `src/main_menu/gfx/interface/icons/trade_goods/illustrations/` currently hold the `tv_wonder_materials` trade-good icon pair. The repository now also includes a reusable DDS icon generation workflow in `scripts/generate_dds_icon.py` plus `generate_dds_icon_config.json`: it selects exactly one generation target (`trade_good_icon` or `trade_good_illustration`), refines a short natural-language request into a target-aware production prompt, uploads that target's same-type style reference DDS/PNG files, then writes one DDS output with enforced dimensions and file-size limits.
 
 ## AI Workflow Knowledge
 
@@ -284,7 +287,7 @@ Wonder Construction random events are data-driven from `data/wonder_construction
 | `scripts/test_lint_rules.py` | docs/knowledge/anti_patterns.yaml + tests/fixtures/anti_patterns/ | Fixture test report for anti-pattern lint regexes | After adding or changing `detectability: lint` rules |
 | `scripts/gen_index.py` | reference_game_files + src/ | data/index/*.txt | Run by gen_brief.py automatically |
 | `scripts/gen_scaffold.py --type X --name Y` | --type argument | Scaffold .txt/.yml file | When creating a new EU5 file |
-| `scripts/generate_dds_icon.py` | generate_dds_icon_config.json + optional generate_dds_icon.local.json + optional style DDS/PNG references | data/generated_icons/*.png/json + configured DDS targets | When creating new EU5 DDS icon assets from a prompt and style reference |
+| `scripts/generate_dds_icon.py` | generate_dds_icon_config.json + optional generate_dds_icon.local.json + selected target style DDS/PNG references | data/generated_icons/*_<target>.png/json + one configured DDS target | When creating or regenerating a trade-good icon or trade-good illustration from a prompt and same-type style reference |
 | `scripts/gen_messagetypes.py` | reference_game_files vanilla messagetypes.txt + TV_ENTRIES block | src/main_menu/gui/messagetypes.txt | After adding a new generic action |
 | `scripts/gen_victory.py` | data/victory_paths.yaml | 13 generated files (triggers, effects, modifiers, situations, yearly, 6× events, 2× loc) | After editing data/victory_paths.yaml |
 | `scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py` | data/io_leaders.yaml | src/in_game/common/generic_actions/tv_io_leader_actions.txt | After adding/changing an IO or its leader actions |
@@ -316,6 +319,7 @@ Wonder Construction random events are data-driven from `data/wonder_construction
 | `scripts/in_game/common/laws/gen_tv_govhouse_laws.py` | data/govhouse_laws.yaml | src/in_game/common/laws/tv_govhouse_laws.txt | After editing Governor's House law choices |
 | `scripts/in_game/common/laws/gen_tv_arts_exhibition_laws.py` | data/arts_exhibition_laws.yaml | src/in_game/common/laws/tv_arts_exhibition_laws.txt | After editing Arts Exhibition law choices |
 | `scripts/in_game/common/on_action/gen_tv_pulse_registry.py` | data/pulse_registry.yaml + vanilla pulse files | src/in_game/common/on_action/country_monthly.txt, country_yearly.txt, character_death_pulses.txt, ruler_death_pulses.txt | After adding/changing singleton pulse hooks |
+| `scripts/in_game/common/on_action/gen_tv_cmf_suppressions.py` | data/cmf_warning_suppressions.yaml + data/trade_league_goods.yaml + data/locked_advances.yaml | src/in_game/common/on_action/tv_cmf_suppressions.txt | After adding/removing intentional CMF static-analysis warning suppressions |
 | `scripts/in_game/events/gen_tv_research_d_events.py` | data/research_d_events.yaml | src/in_game/events/tv_research_d_events.txt | After changing Concentrated Research random event definitions |
 | `scripts/in_game/events/gen_tv_wonder_construction_events.py` | data/wonder_construction_events.yaml | src/in_game/events/tv_wonder_construction_events.txt | After changing Wonder Construction random event definitions |
 | `scripts/in_game/common/scripted_effects/gen_tv_wonder_construction_event_effects.py` | data/wonder_construction_events.yaml | src/in_game/common/scripted_effects/tv_wonder_construction_event_effects.txt | After changing Wonder Construction random event weights |

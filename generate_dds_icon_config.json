@@ -15,14 +15,15 @@
     "retry_max_delay_seconds": 30,
     "retry_backoff_multiplier": 2
   },
+  "generation_target": "trade_good_icon",
   "prompt_refinement": {
     "enabled": true,
-    "style_rules": "Match the palette, brush feel, lighting, icon density, and framing discipline of the provided reference DDS. Keep the final subject and icon meaning driven by the user's request, not the reference subject."
+    "style_rules": "Match the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the user's request, not the reference subject.",
+    "composition_rules": "Use the reference only as a style guide. Keep the result in the same visual family, but make it visibly distinct at a glance by changing the silhouette, crop, object arrangement, and ornament placement. Do not mirror the reference composition or reuse its exact outline."
   },
   "image": {
     "model": "gpt-image-2",
-    "natural_prompt": "Describe the icon you want here. The script will refine this into a final image prompt.",
-    "size": "1024x1024",
+    "natural_prompt": "Luxurious white marble wonder materials with subtle gray veining, bronze-gold trim, and a premium carved-stone look.",
     "quality": "high",
     "output_format": "png",
     "response_format": "url",
@@ -33,46 +34,44 @@
   },
   "style_reference": {
     "required": true,
-    "notes": "Set paths to one or more vanilla same-type DDS/PNG assets before generation; the reference controls style only, not subject.",
-    "paths": [],
+    "notes": "Each output target must provide one or more same-type DDS/PNG references. The reference controls style only; the generated content follows image.natural_prompt.",
     "upload_field_name": "image",
     "write_converted_pngs": true,
     "temporary_png_dir": "data/generated_icons/_style_refs"
   },
   "output": {
-    "name": "icon_goods_tv_example",
-    "overwrite": false,
+    "name": "icon_goods_tv_wonder_materials",
+    "artifact_stem": "{name}_{target}",
+    "overwrite": true,
     "keep_png": true,
     "write_metadata": true,
     "png_dir": "data/generated_icons",
     "metadata_dir": "data/generated_icons",
-    "targets": [
-      {
-        "name": "trade_good_icon",
-        "path": "src/main_menu/gfx/interface/icons/trade_goods/icon_goods_tv_example.dds",
-        "width": 100,
-        "height": 100,
+    "targets": {
+      "trade_good_icon": {
+        "path": "src/main_menu/gfx/interface/icons/trade_goods/{name}.dds",
+        "width": 128,
+        "height": 128,
         "resize": "cover",
         "dds_format": "DXT5",
-        "opaque_background": [
-          0,
-          0,
-          0
+        "max_file_size_bytes": 100000,
+        "image_size": "1024x1024",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/01_icon_goods_marble.png"
         ]
       },
-      {
-        "name": "trade_good_illustration",
-        "path": "src/main_menu/gfx/interface/icons/trade_goods/illustrations/icon_goods_tv_example.dds",
+      "trade_good_illustration": {
+        "path": "src/main_menu/gfx/interface/icons/trade_goods/illustrations/{name}.dds",
         "width": 1080,
-        "height": 457,
+        "height": 440,
         "resize": "cover",
         "dds_format": "DXT5",
-        "opaque_background": [
-          0,
-          0,
-          0
+        "max_file_size_bytes": 1000000,
+        "image_size": "2160x880",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/trade_goods/illustrations/icon_goods_tv_wonder_materials.dds"
         ]
       }
-    ]
+    }
   }
 }

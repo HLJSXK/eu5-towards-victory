@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Generate EU5 DDS icons through Packyapi Images API from a natural-language
-prompt and an optional style DDS/PNG.
+Generate EU5 trade-good DDS assets through Packyapi Images API from a
+natural-language prompt and target-specific style DDS/PNG references.
 
 Usage:
   1. Edit generate_dds_icon_config.json.
@@ -9,13 +9,14 @@ Usage:
      generate_dds_icon.local.json.
   3. Run: conda run --no-capture-output -n eu5 python scripts/generate_dds_icon.py
 
-The script expands a short asset idea into a production prompt, uploads one
-style-reference image when configured, writes the generated PNG, and converts
-it into one or more DDS targets with the requested dimensions.
+The script expands a short asset idea into a production prompt for one selected
+target, uploads that target's style-reference images, writes the generated PNG,
+and converts it into one DDS target with enforced dimensions and byte limits.
 """
 
 from __future__ import annotations
 
+import argparse
 import base64
 import binascii
 import json
@@ -47,6 +48,47 @@ DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_icons"
 DEFAULT_REF_DIR = DEFAULT_PNG_DIR / "_style_refs"
 DEFAULT_STYLE_UPLOAD_FIELD = "image"
 
+TARGET_PRESETS: dict[str, dict[str, Any]] = {
+    "trade_good_icon": {
+        "label": "trade goods Icon",
+        "path": "src/main_menu/gfx/interface/icons/trade_goods/{name}.dds",
+        "width": 128,
+        "height": 128,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "max_file_size_bytes": 100_000,
+        "image_size": "1024x1024",
+        "prompt_requirements": (
+            "This is a compact trade-goods inventory icon. Make the silhouette bold, centered, "
+            "and readable at 128x128; avoid landscape scenery and fine narrative detail."
+        ),
+    },
+    "trade_good_illustration": {
+        "label": "trade goods Icon illustration",
+        "path": "src/main_menu/gfx/interface/icons/trade_goods/illustrations/{name}.dds",
+        "width": 1080,
+        "height": 440,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "max_file_size_bytes": 1_000_000,
+        "image_size": "2160x880",
+        "prompt_requirements": (
+            "This is a wide trade-goods illustration. Compose for a 1080x440 banner crop with "
+            "a clear focal subject, supporting environment, and no tiny UI-icon-style object pile."
+        ),
+    },
+}
+
+TARGET_ALIASES = {
+    "icon": "trade_good_icon",
+    "trade_goods_icon": "trade_good_icon",
+    "trade_good_icons": "trade_good_icon",
+    "illustration": "trade_good_illustration",
+    "trade_goods_illustration": "trade_good_illustration",
+    "trade_goods_icon_illustration": "trade_good_illustration",
+    "trade_good_icon_illustration": "trade_good_illustration",
+}
+
 
 @dataclass(frozen=True)
 class RetrySettings:
@@ -62,6 +104,22 @@ class UploadFile:
     filename: str
     content_type: str
     data: bytes
+
+
+@dataclass(frozen=True)
+class TargetSpec:
+    name: str
+    label: str
+    path: Path
+    width: int
+    height: int
+    resize: str
+    dds_format: str
+    opaque_background: tuple[int, int, int]
+    max_file_size_bytes: int
+    image_size: str
+    prompt_requirements: str
+    style_reference_paths: tuple[str, ...]
 
 
 def deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
@@ -140,6 +198,230 @@ def parse_rgb(value: Any, key: str = "opaque_background") -> tuple[int, int, int
     if any(item < 0 or item > 255 for item in result):
         raise ValueError(f"{key} values must be between 0 and 255")
     return result  # type: ignore[return-value]
+
+
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate one configured EU5 trade-good DDS asset.")
+    parser.add_argument(
+        "--target",
+        help=(
+            "Generation target to write. Supported values: "
+            f"{', '.join(sorted(TARGET_PRESETS))}. Aliases like icon and illustration are accepted."
+        ),
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Validate config, references, prompt, and payload without calling the API or writing output art.",
+    )
+    parser.add_argument(
+        "--list-targets",
+        action="store_true",
+        help="Print supported generation targets and exit.",
+    )
+    return parser.parse_args(argv)
+
+
+def display_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
+
+
+def format_bytes(value: int) -> str:
+    return f"{value:,} bytes"
+
+
+def expand_template(value: str, asset_name: str, target_name: str) -> str:
+    return value.replace("{name}", asset_name).replace("{target}", target_name)
+
+
+def normalize_target_name(value: Any) -> str:
+    raw = str(value or "").strip()
+    if not raw:
+        return ""
+    key = safe_slug(raw)
+    return TARGET_ALIASES.get(key, key)
+
+
+def parse_path_list(value: Any, key: str) -> list[str]:
+    if value in (None, ""):
+        return []
+    if isinstance(value, str):
+        return [value]
+    if not isinstance(value, list) or not all(isinstance(item, str) for item in value):
+        raise ValueError(f"{key} must be a string or list of strings")
+    return value
+
+
+def configured_target_names(output_config: dict[str, Any]) -> list[str]:
+    targets = output_config.get("targets", {})
+    names: list[str] = []
+    if isinstance(targets, dict):
+        names = [normalize_target_name(key) for key in targets]
+    elif isinstance(targets, list):
+        for index, target in enumerate(targets, start=1):
+            if not isinstance(target, dict):
+                raise ValueError(f"output.targets[{index}] must be a JSON object")
+            names.append(normalize_target_name(target.get("name") or f"target_{index}"))
+    elif targets not in ({}, [], None):
+        raise ValueError("output.targets must be an object keyed by target name or a legacy target list")
+    return [name for name in names if name]
+
+
+def select_target_name(config: dict[str, Any], output_config: dict[str, Any], cli_target: str | None) -> str:
+    raw_target = cli_target or config.get("generation_target") or output_config.get("target")
+    if raw_target:
+        target_name = normalize_target_name(raw_target)
+    else:
+        names = sorted(set(configured_target_names(output_config)))
+        if len(names) == 1:
+            target_name = names[0]
+        else:
+            valid = ", ".join(sorted(TARGET_PRESETS))
+            raise ValueError(
+                "Set generation_target (or pass --target) so the helper writes exactly one DDS target. "
+                f"Supported targets: {valid}"
+            )
+
+    if target_name not in TARGET_PRESETS:
+        valid = ", ".join(sorted(TARGET_PRESETS))
+        raise ValueError(f"Unsupported generation target {raw_target!r}. Supported targets: {valid}")
+    return target_name
+
+
+def target_override(output_config: dict[str, Any], target_name: str) -> dict[str, Any]:
+    targets = output_config.get("targets", {})
+    if not targets:
+        return {}
+    if isinstance(targets, dict):
+        for key, value in targets.items():
+            if normalize_target_name(key) == target_name:
+                if not isinstance(value, dict):
+                    raise ValueError(f"output.targets.{key} must be a JSON object")
+                return value
+        return {}
+    if isinstance(targets, list):
+        for index, value in enumerate(targets, start=1):
+            if not isinstance(value, dict):
+                raise ValueError(f"output.targets[{index}] must be a JSON object")
+            if normalize_target_name(value.get("name") or f"target_{index}") == target_name:
+                return value
+        return {}
+    raise ValueError("output.targets must be an object keyed by target name or a legacy target list")
+
+
+def parse_max_file_size_bytes(target_config: dict[str, Any]) -> int:
+    if "max_file_size_bytes" in target_config:
+        return int(target_config["max_file_size_bytes"])
+    if "max_bytes" in target_config:
+        return int(target_config["max_bytes"])
+    if "max_file_size_kb" in target_config:
+        return int(float(target_config["max_file_size_kb"]) * 1000)
+    if "max_file_size_mb" in target_config:
+        return int(float(target_config["max_file_size_mb"]) * 1_000_000)
+    return 0
+
+
+def target_style_reference_paths(
+    target_config: dict[str, Any],
+    style_config: dict[str, Any],
+    target_name: str,
+    asset_name: str,
+) -> tuple[str, ...]:
+    raw_paths: Any = target_config.get("style_reference_paths")
+    if raw_paths is None and isinstance(target_config.get("style_reference"), dict):
+        raw_paths = target_config["style_reference"].get("paths")
+
+    if raw_paths is None and isinstance(style_config.get("paths_by_target"), dict):
+        for key, value in style_config["paths_by_target"].items():
+            if normalize_target_name(key) == target_name:
+                raw_paths = value
+                break
+
+    if raw_paths is None and isinstance(style_config.get("targets"), dict):
+        for key, value in style_config["targets"].items():
+            if normalize_target_name(key) == target_name:
+                if not isinstance(value, dict):
+                    raise ValueError(f"style_reference.targets.{key} must be a JSON object")
+                raw_paths = value.get("paths")
+                break
+
+    if raw_paths is None:
+        raw_paths = style_config.get("paths", [])
+
+    paths = parse_path_list(raw_paths, f"style reference paths for target {target_name}")
+    return tuple(expand_template(path, asset_name, target_name) for path in paths)
+
+
+def load_target_spec(
+    config: dict[str, Any],
+    output_config: dict[str, Any],
+    style_config: dict[str, Any],
+    cli_target: str | None,
+) -> TargetSpec:
+    target_name = select_target_name(config, output_config, cli_target)
+    asset_name = safe_slug(str(output_config.get("name") or "generated_icon"))
+    preset = TARGET_PRESETS[target_name]
+    target_config = deep_merge(preset, target_override(output_config, target_name))
+
+    width = int(target_config.get("width") or preset["width"])
+    height = int(target_config.get("height") or preset["height"])
+    expected_size = (int(preset["width"]), int(preset["height"]))
+    if (width, height) != expected_size:
+        raise ValueError(
+            f"{target_name} must be {expected_size[0]}x{expected_size[1]}, "
+            f"but config requested {width}x{height}"
+        )
+
+    max_file_size_bytes = parse_max_file_size_bytes(target_config)
+    expected_max = int(preset["max_file_size_bytes"])
+    if max_file_size_bytes <= 0:
+        raise ValueError(f"{target_name} must set max_file_size_bytes")
+    if max_file_size_bytes > expected_max:
+        raise ValueError(
+            f"{target_name} max_file_size_bytes cannot exceed {format_bytes(expected_max)}; "
+            f"config requested {format_bytes(max_file_size_bytes)}"
+        )
+
+    dds_format = str(target_config.get("dds_format") or preset["dds_format"]).upper()
+    if dds_format not in {"DXT1", "DXT5"}:
+        raise ValueError("dds_format must be DXT1 or DXT5")
+    resize = str(target_config.get("resize") or preset["resize"]).lower().strip()
+    if resize not in {"cover", "contain", "stretch"}:
+        raise ValueError("resize mode must be cover, contain, or stretch")
+
+    image_size = str(target_config.get("image_size") or preset["image_size"])
+    if image_size != "auto":
+        parse_size(image_size)
+
+    path_template = str(target_config.get("path") or preset["path"])
+    path = resolve_repo_path(expand_template(path_template, asset_name, target_name))
+    style_reference_paths = target_style_reference_paths(target_config, style_config, target_name, asset_name)
+
+    return TargetSpec(
+        name=target_name,
+        label=str(target_config.get("label") or preset["label"]),
+        path=path,
+        width=width,
+        height=height,
+        resize=resize,
+        dds_format=dds_format,
+        opaque_background=parse_rgb(
+            target_config.get("opaque_background", output_config.get("opaque_background", [0, 0, 0]))
+        ),
+        max_file_size_bytes=max_file_size_bytes,
+        image_size=image_size,
+        prompt_requirements=str(target_config.get("prompt_requirements") or preset["prompt_requirements"]),
+        style_reference_paths=style_reference_paths,
+    )
+
+
+def apply_target_image_settings(image_config: dict[str, Any], target: TargetSpec) -> dict[str, Any]:
+    configured = dict(image_config)
+    configured["size"] = target.image_size
+    return configured
 
 
 def resolve_api_key(api_config: dict[str, Any]) -> str:
@@ -383,7 +665,7 @@ def extract_image_bytes(
 def refine_prompt(
     prompt_config: dict[str, Any],
     image_config: dict[str, Any],
-    output_config: dict[str, Any],
+    target: TargetSpec,
 ) -> str:
     prompt = str(image_config.get("prompt") or image_config.get("natural_prompt") or "").strip()
     if not prompt:
@@ -396,24 +678,14 @@ def refine_prompt(
     composition_rules = str(prompt_config.get("composition_rules") or "").strip()
     negative_prompt = str(image_config.get("negative_prompt") or "").strip()
 
-    targets = output_config.get("targets", [])
-    target_summary: list[str] = []
-    if isinstance(targets, list):
-        for target in targets:
-            if isinstance(target, dict):
-                name = str(target.get("name") or target.get("path") or "unnamed target")
-                width = target.get("width")
-                height = target.get("height")
-                target_summary.append(f"- {name}: {width}x{height}")
-    target_text = "\n".join(target_summary) if target_summary else "- single DDS target"
-
     parts = [
-        "Create a Europa Universalis V DDS icon asset.",
+        f"Create a Europa Universalis V {target.label} DDS asset.",
         f"Subject: {prompt}",
-        "Reference image: use the uploaded DDS only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject or any text.",
+        "Reference image: use the uploaded target-specific reference image only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.",
+        "Distinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.",
         "Composition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.",
-        "Output targets:",
-        target_text,
+        f"Target format: final DDS target is exactly {target.width}x{target.height} and must stay under {format_bytes(target.max_file_size_bytes)}.",
+        f"Target-specific requirement: {target.prompt_requirements}",
     ]
     if style_rules:
         parts.extend(["Style rules:", style_rules])
@@ -469,20 +741,24 @@ def build_generation_payload(image_config: dict[str, Any], final_prompt: str) ->
     return payload
 
 
-def collect_style_references(style_config: dict[str, Any]) -> list[UploadFile]:
-    paths = style_config.get("paths", [])
-    if isinstance(paths, str):
-        paths = [paths]
-    if not isinstance(paths, list) or not all(isinstance(item, str) for item in paths):
-        raise ValueError("style_reference.paths must be a string or list of strings")
-    if bool(style_config.get("required", False)) and not paths:
-        raise ValueError("style_reference.paths must include at least one vanilla DDS/PNG when required is true")
+def collect_style_references(
+    style_config: dict[str, Any],
+    target: TargetSpec,
+    dry_run: bool,
+) -> list[UploadFile]:
+    paths = list(target.style_reference_paths)
+    if not paths:
+        raise ValueError(
+            f"{target.name} requires at least one target-specific DDS/PNG style reference. "
+            "Set output.targets.<target>.style_reference_paths or style_reference.paths_by_target."
+        )
 
     ref_dir = resolve_repo_path(style_config.get("temporary_png_dir"), DEFAULT_REF_DIR)
     upload_field = str(style_config.get("upload_field_name") or DEFAULT_STYLE_UPLOAD_FIELD)
     if upload_field != DEFAULT_STYLE_UPLOAD_FIELD:
         raise ValueError('Packy image edits require style_reference.upload_field_name = "image"')
-    ref_dir.mkdir(parents=True, exist_ok=True)
+    if bool(style_config.get("write_converted_pngs", True)) and not dry_run:
+        ref_dir.mkdir(parents=True, exist_ok=True)
     uploads: list[UploadFile] = []
     for index, raw_path in enumerate(paths, start=1):
         path = resolve_repo_path(raw_path)
@@ -490,12 +766,12 @@ def collect_style_references(style_config: dict[str, Any]) -> list[UploadFile]:
             raise FileNotFoundError(f"Missing style reference: {path}")
         image = read_image_rgba(path)
         png_bytes = encode_png_rgba(image)
-        png_name = f"{index:02d}_{safe_slug(path.stem)}.png"
-        if bool(style_config.get("write_converted_pngs", True)):
+        png_name = f"{index:02d}_{target.name}_{safe_slug(path.stem)}.png"
+        if bool(style_config.get("write_converted_pngs", True)) and not dry_run:
             (ref_dir / png_name).write_bytes(png_bytes)
-            print(f"[style] converted {path.relative_to(REPO_ROOT)} -> {(ref_dir / png_name).relative_to(REPO_ROOT)}")
+            print(f"[style] converted {display_path(path)} -> {display_path(ref_dir / png_name)}")
         else:
-            print(f"[style] converted {path.relative_to(REPO_ROOT)} for upload")
+            print(f"[style] converted {display_path(path)} for upload")
         uploads.append(
             UploadFile(
                 field_name=upload_field,
@@ -533,61 +809,67 @@ def call_image_api(
     return api_post_json(endpoint, api_key, payload, timeout, retry_settings, opener)
 
 
-def target_name(target: dict[str, Any], index: int) -> str:
-    raw = str(target.get("name") or target.get("path") or f"target_{index}").replace("\\", "/")
-    return safe_slug(raw.rsplit("/", 1)[-1].removesuffix(".dds"), default=f"target_{index}")
+def output_asset_name(output_config: dict[str, Any]) -> str:
+    return safe_slug(str(output_config.get("name") or "generated_icon"))
 
 
-def write_generated_png(png_bytes: bytes, output_config: dict[str, Any]) -> Path:
+def output_artifact_stem(output_config: dict[str, Any], target: TargetSpec) -> str:
+    asset_name = output_asset_name(output_config)
+    template = str(output_config.get("artifact_stem") or "{name}_{target}")
+    return safe_slug(expand_template(template, asset_name, target.name), default=asset_name)
+
+
+def write_generated_png(png_bytes: bytes, output_config: dict[str, Any], target: TargetSpec) -> Path:
     if not png_bytes.startswith(PNG_SIGNATURE):
         raise RuntimeError("Generated image payload is not a PNG")
     png_dir = resolve_repo_path(output_config.get("png_dir"), DEFAULT_PNG_DIR)
-    name = safe_slug(str(output_config.get("name") or "generated_icon"))
-    png_path = png_dir / f"{name}.png"
+    png_path = png_dir / f"{output_artifact_stem(output_config, target)}.png"
     if png_path.exists() and not bool(output_config.get("overwrite", False)):
         raise FileExistsError(f"refusing to overwrite existing PNG: {png_path}")
     png_path.parent.mkdir(parents=True, exist_ok=True)
     png_path.write_bytes(png_bytes)
-    print(f"[png] {png_path.relative_to(REPO_ROOT)}")
+    print(f"[png] {display_path(png_path)}")
     return png_path
 
 
-def write_targets(output_config: dict[str, Any], source_png_path: Path) -> list[dict[str, Any]]:
-    targets = output_config.get("targets", [])
-    if not isinstance(targets, list) or not targets:
-        raise ValueError("output.targets must be a non-empty list")
-
+def write_target(output_config: dict[str, Any], source_png_path: Path, target: TargetSpec) -> dict[str, Any]:
     overwrite = bool(output_config.get("overwrite", False))
     source_image = read_image_rgba(source_png_path)
-    written: list[dict[str, Any]] = []
-    for index, target in enumerate(targets, start=1):
-        if not isinstance(target, dict):
-            raise ValueError("each output target must be a JSON object")
-        dds_path = resolve_repo_path(str(target.get("path") or ""))
-        width = int(target.get("width") or source_image.width)
-        height = int(target.get("height") or source_image.height)
-        resize_mode = str(target.get("resize") or "cover")
-        dds_format = str(target.get("dds_format") or output_config.get("dds_format") or "DXT5").upper()
-        background = parse_rgb(target.get("opaque_background", output_config.get("opaque_background", [0, 0, 0])))
-        target_image = resize_rgba(source_image, width, height, resize_mode)
-        write_dds(target_image, dds_path, dds_format=dds_format, overwrite=overwrite, opaque_background=background)
-        rel_path = dds_path.relative_to(REPO_ROOT)
-        print(f"[dds] {rel_path} ({width}x{height} {dds_format}, resize={resize_mode})")
-        written.append(
-            {
-                "name": target_name(target, index),
-                "path": str(rel_path).replace("\\", "/"),
-                "width": width,
-                "height": height,
-                "resize": resize_mode,
-                "dds_format": dds_format,
-            }
+    target_image = resize_rgba(source_image, target.width, target.height, target.resize)
+    write_dds(
+        target_image,
+        target.path,
+        dds_format=target.dds_format,
+        overwrite=overwrite,
+        opaque_background=target.opaque_background,
+    )
+    file_size = target.path.stat().st_size
+    if file_size > target.max_file_size_bytes:
+        raise RuntimeError(
+            f"{target.name} output is {format_bytes(file_size)}, above the "
+            f"{format_bytes(target.max_file_size_bytes)} limit: {target.path}"
         )
-    return written
+    print(
+        f"[dds] {display_path(target.path)} "
+        f"({target.width}x{target.height} {target.dds_format}, resize={target.resize}, "
+        f"{format_bytes(file_size)} <= {format_bytes(target.max_file_size_bytes)})"
+    )
+    return {
+        "name": target.name,
+        "label": target.label,
+        "path": display_path(target.path).replace("\\", "/"),
+        "width": target.width,
+        "height": target.height,
+        "resize": target.resize,
+        "dds_format": target.dds_format,
+        "file_size_bytes": file_size,
+        "max_file_size_bytes": target.max_file_size_bytes,
+    }
 
 
 def write_metadata(
     output_config: dict[str, Any],
+    target: TargetSpec,
     image_payload: dict[str, Any],
     image_response: dict[str, Any],
     final_prompt: str,
@@ -597,10 +879,10 @@ def write_metadata(
     if not bool(output_config.get("write_metadata", True)):
         return
     metadata_dir = resolve_repo_path(output_config.get("metadata_dir"), DEFAULT_PNG_DIR)
-    name = safe_slug(str(output_config.get("name") or "generated_icon"))
-    metadata_path = metadata_dir / f"{name}.json"
+    metadata_path = metadata_dir / f"{output_artifact_stem(output_config, target)}.json"
     metadata_path.parent.mkdir(parents=True, exist_ok=True)
     metadata = {
+        "generation_target": target.name,
         "payload": image_payload,
         "created": image_response.get("created"),
         "final_prompt": final_prompt,
@@ -608,16 +890,27 @@ def write_metadata(
         "targets": written_targets,
     }
     metadata_path.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"[metadata] {metadata_path.relative_to(REPO_ROOT)}")
+    print(f"[metadata] {display_path(metadata_path)}")
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(sys.argv[1:] if argv is None else argv)
+    if args.list_targets:
+        for name, preset in TARGET_PRESETS.items():
+            print(
+                f"{name}: {preset['label']} "
+                f"({preset['width']}x{preset['height']}, <= {format_bytes(int(preset['max_file_size_bytes']))})"
+            )
+        return 0
+
     config = load_config()
     api_config = require_object(config, "api")
     prompt_config = require_object(config, "prompt_refinement")
     image_config = require_object(config, "image")
     style_config = require_object(config, "style_reference")
     output_config = require_object(config, "output")
+    target = load_target_spec(config, output_config, style_config, args.target)
+    image_config = apply_target_image_settings(image_config, target)
 
     timeout = float(api_config.get("timeout_seconds", 180))
     retry_settings = load_retry_settings(api_config)
@@ -625,14 +918,25 @@ def main() -> int:
     opener = build_url_opener(proxy_url)
     if proxy_url:
         print(f"[network] proxy={proxy_url}")
-    style_uploads = collect_style_references(style_config)
-    api_key = resolve_api_key(api_config)
+    print(
+        f"[target] {target.name}: {target.width}x{target.height}, "
+        f"request_size={target.image_size}, max={format_bytes(target.max_file_size_bytes)}"
+    )
+    print(f"[target] output={display_path(target.path)}")
+    style_uploads = collect_style_references(style_config, target, dry_run=bool(args.dry_run))
 
-    final_prompt = refine_prompt(prompt_config, image_config, output_config)
+    final_prompt = refine_prompt(prompt_config, image_config, target)
     print("[prompt] final prompt:")
     print(final_prompt)
 
     image_payload = build_generation_payload(image_config, final_prompt)
+    if args.dry_run:
+        print("[dry-run] payload:")
+        print(json.dumps(image_payload, ensure_ascii=False, indent=2))
+        print("[dry-run] skipped API request and output writes")
+        return 0
+
+    api_key = resolve_api_key(api_config)
     image_response = call_image_api(
         api_config,
         style_config,
@@ -644,9 +948,9 @@ def main() -> int:
         opener,
     )
     png_bytes, revised_prompt = extract_image_bytes(image_response, timeout, retry_settings, opener)
-    png_path = write_generated_png(png_bytes, output_config)
-    written_targets = write_targets(output_config, png_path)
-    write_metadata(output_config, image_payload, image_response, final_prompt, revised_prompt, written_targets)
+    png_path = write_generated_png(png_bytes, output_config, target)
+    written_target = write_target(output_config, png_path, target)
+    write_metadata(output_config, target, image_payload, image_response, final_prompt, revised_prompt, [written_target])
     if not bool(output_config.get("keep_png", True)):
         png_path.unlink(missing_ok=True)
         print("[png] removed because output.keep_png is false")

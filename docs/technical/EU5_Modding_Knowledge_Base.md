@@ -308,6 +308,18 @@ my_action_price_cost_modifier = {
 
 Define the modifier type in `main_menu/common/modifier_type_definitions/`, and localize all three keys in every supported language: `my_action_price`, `MODIFIER_TYPE_NAME_my_action_price_cost_modifier`, and `MODIFIER_TYPE_DESC_my_action_price_cost_modifier`. If the modifier type is missing, the engine logs `Missing modifier type for price. <price_key>_cost_modifier`.
 
+#### Modifier Type Icons
+
+Modifier type definitions do not define their own UI icons. EU5 loads modifier icon mappings from `main_menu/common/modifier_icons/*.txt`. Any mod-defined modifier type that can appear in UI should have a same-key icon mapping:
+
+```pdx
+my_action_price_cost_modifier = {
+    positive = "gfx/interface/icons/modifier_types/hire_advisor_cost_modifier.dds"
+}
+```
+
+Use vanilla DDS paths directly when a close icon already exists. If the mapping is missing, startup logs `Missing Icon for Modifier : <modifier_type_key>` even though the modifier type itself is valid.
+
 #### Character Static Modifiers for Commander Effects
 
 Character-scoped static modifiers can carry military leader effects. Vanilla examples include `general_mil` with `discipline` and `army_movement_speed`, and `horde_battle_plans` with `military_tactics` and `army_movement_speed`. General traits also use the same modifier types.

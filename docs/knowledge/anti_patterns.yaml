@@ -1127,6 +1127,17 @@
   source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:9391-9415; runtime error.log: modifier_type.cpp:1147"
   notes: "EU5 automatically tries to use these modifier type names for every goods database entry. A custom goods key without the family logs 'Modifier type definition <name> must exist in DB'."
 
+- id: custom_modifier_type_missing_modifier_icon
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['modifier_type_definitions']
+  bad: "Defining a custom modifier type without a matching common/modifier_icons entry"
+  correction: "For every mod-defined modifier type, add a same-key entry in main_menu/common/modifier_icons with at least positive = \"gfx/interface/icons/modifier_types/<vanilla_or_custom_icon>.dds\". Reuse a close vanilla icon when no custom asset is needed."
+  category: modifier
+  scope: any
+  source: "reference_game_files/game/main_menu/common/modifier_icons/00_modifier_icons.txt:7; runtime error.log: modifier_type.cpp:1248"
+  notes: "EU5 loads modifier icon mappings separately from modifier_type_definitions. A valid custom modifier type can still log 'Missing Icon for Modifier : <name>' at startup until common/modifier_icons maps the key to a DDS."
+
 - id: generic_action_missing_message_type
   pattern: ''
   only_in_paths: ['generic_actions']
