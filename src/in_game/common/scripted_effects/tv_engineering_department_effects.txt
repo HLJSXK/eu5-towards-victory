@@ -5135,7 +5135,9 @@ tv_wonder_abandon_effect = {
 	tv_wonder_apply_estate_penalty_10_effect = yes
 	tv_wonder_retire_great_engineer_effect = yes
 	add_prestige = -20
-	tv_wonder_clear_project_state_effect = yes
+	hidden_effect = {
+		tv_wonder_clear_project_state_effect = yes
+	}
 }
 
 tv_wonder_forced_abort_effect = {
