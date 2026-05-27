@@ -1,0 +1,28 @@
+# CMF suppressions for intentional Jomini variable/static-analysis warnings.
+# The generator expands structured warning families from existing data files and
+# appends the singletons listed here.
+
+include_trade_league_generated_variables: true
+include_locked_advance_unlock_variables: true
+
+extra_suppressions:
+  - tv_best_milestone
+  - tv_best_path
+  - tv_best_score
+  - tv_gov_build_cost_pct
+  - tv_gov_max_control_pct
+  - tv_gov_unrest_pct
+  - tv_governed_area
+  - tv_governed_area_capital
+  - tv_local_exhibition_expand_done
+  - tv_local_exhibition_secondary_location
+  - tv_med_disp_adm
+  - tv_med_disp_dip
+  - tv_med_disp_mil
+  - tv_pending_io_chief_alert_io
+  - tv_wonder_body_progress
+  - tv_wonder_construction_paused
+  - tv_wonder_decoration_progress
+  - tv_wonder_final_building_extra_levels
+  - tv_wonder_foundation_progress
+  - tv_wonder_function_progress
