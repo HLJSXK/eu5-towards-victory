@@ -88,6 +88,12 @@ that create, find, or mutate TV IOs.
     `game_data = { category = internationalorganization }`. Missing definitions can
     trigger startup DB assertions even when the status is not explicitly using parliament.
 
+16. Define member opinion biases for every TV IO type.
+    Each IO type should have a matching `io_opinion_<io_type>` entry under
+    `in_game/common/biases/` and the same key localized in both supported languages.
+    Missing the bias logs a startup warning that the organization needs an opinion of
+    other members.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then inspect shared IO tooltips in game. Tooltip

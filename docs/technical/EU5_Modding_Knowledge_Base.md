@@ -94,6 +94,18 @@ main_menu/gfx/interface/icons/international_organizations/<io_type>.dds
 
 The filename should match the `common/international_organizations` type key, such as `tv_arts_exhibition.dds`. Without this matching texture, shared UI surfaces fall back to the generic international organization icon even if a custom organization panel displays another texture locally.
 
+#### International Organization Member Opinion Biases
+
+The IO type readme documents automatic opinion and trust modifiers for fellow members. For each mod-defined IO type, define a matching `io_opinion_<io_type>` entry under `in_game/common/biases/` and localize the same key in `main_menu/localization`.
+
+```pdx
+io_opinion_tv_trade_league = {
+    value = 10
+}
+```
+
+If the bias is missing, startup logs can report that the international organization type needs an opinion of other members. Existing TV IOs usually use small positive values such as 10, while stronger alliance-like systems may use a higher value by design.
+
 #### Country Interaction Potential Scope
 
 In `common/country_interactions`, `potential` documents the acting country as `scope:actor`. Do not put country-scoped IO membership iterators directly under `potential`; wrap them in `scope:actor`:

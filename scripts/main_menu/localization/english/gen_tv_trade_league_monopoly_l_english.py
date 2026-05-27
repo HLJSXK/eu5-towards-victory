@@ -126,8 +126,10 @@ def fixed_action_entries() -> list[tuple[str, str]]:
     ]
     for row in range(1, DISPLAY_ROW_COUNT + 1):
         entries.append((f"tv_trade_select_monopoly_row_{row}", "Select Commodity"))
+        entries.append((f"tv_trade_select_monopoly_row_{row}_desc", "Show monopoly details for this commodity."))
     for row in range(1, INTELLIGENCE_ROW_COUNT + 1):
         entries.append((f"tv_trade_select_intelligence_row_{row}", "Select Market"))
+        entries.append((f"tv_trade_select_intelligence_row_{row}_desc", "Show intelligence details for this market."))
     actions = [
         "tv_trade_previous_monopoly_page",
         "tv_trade_next_monopoly_page",

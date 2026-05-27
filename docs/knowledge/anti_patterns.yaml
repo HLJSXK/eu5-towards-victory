@@ -163,6 +163,17 @@
   source: "user design clarification (2026-05-25); reference_game_files/game/main_menu/setup/start/15_international_organizations.txt:288"
   notes: "AI generated default level-1 Trade League policies into tv_trade_league's IO definition. This violated the design that all TV IOs start with no laws. Vanilla setup shows an IO can explicitly start with laws = {  }."
 
+- id: tv_io_missing_opinion_bias
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['international_organizations', 'biases']
+  bad: "Defining a TV international organization without a matching io_opinion_<io_type> bias"
+  correction: "Add src/in_game/common/biases/<io_type>_biases.txt with io_opinion_<io_type> = { value = <opinion> } and localize the same key."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/international_organizations/readme.txt:6"
+  notes: "EU5 applies automatic member opinions through io_opinion_<key>; missing the bias logs 'International Organization Type needs an opinion of other members'."
+
 - id: dynamic_scope_value_must_use_script_value_block
   pattern: ''
   detectability: advisory
