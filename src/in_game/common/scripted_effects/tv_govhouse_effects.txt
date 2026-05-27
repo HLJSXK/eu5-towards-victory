@@ -1200,10 +1200,7 @@ tv_governor_select_yearly_task_effect = {
 			}
 			if = {
 				limit = {
-					OR = {
-						NOT = { dominant_religion = scope:tv_governing_country.religion }
-						local_religious_unity < 1.0
-					}
+					NOT = { dominant_religion = scope:tv_governing_country.religion }
 				}
 				scope:tv_task_governor = {
 					change_variable = { name = tv_gov_task_religion_need_count add = 1 }
@@ -1229,15 +1226,8 @@ tv_governor_select_yearly_task_effect = {
 			limit = { var:tv_gov_task_unintegrated_count = 0 }
 			set_variable = { name = tv_gov_weight_convert_culture value = var:tv_gov_task_integrated_noncore_count }
 			change_variable = { name = tv_gov_weight_convert_culture divide = var:tv_gov_task_location_count }
-			if = {
-				limit = {
-					var:tv_gov_task_religion_need_count > 0
-					scope:tv_governing_country = { societal_value:spiritualist_vs_humanist < 0 }
-				}
-				set_variable = { name = tv_gov_weight_convert_religion value = { value = scope:tv_governing_country.societal_value:spiritualist_vs_humanist multiply = -0.01 } }
-				change_variable = { name = tv_gov_weight_convert_religion multiply = var:tv_gov_task_religion_need_count }
-				change_variable = { name = tv_gov_weight_convert_religion divide = var:tv_gov_task_location_count }
-			}
+			set_variable = { name = tv_gov_weight_convert_religion value = var:tv_gov_task_religion_need_count }
+			change_variable = { name = tv_gov_weight_convert_religion divide = var:tv_gov_task_location_count }
 			set_variable = { name = tv_gov_weight_strengthen_order value = 0.2 }
 		}
 	}

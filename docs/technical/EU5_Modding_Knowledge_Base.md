@@ -589,7 +589,13 @@ Monthly government power variables (for use in `set_variable = { name = X value 
 | tribe | `tribal_cohesion` |
 | steppe_horde | `horde_unity` |
 
-### 5.8. Optional Location Rank Checks In Selectors
+### 5.8. Location Prosperity Scale
+
+Location `prosperity` reads are signed fractional values, not 0..100 percent points. Vanilla checks include `prosperity < 1`, `prosperity >= 0.75`, and `prosperity < -0.1`. When deriving a recovery priority from average prosperity, use the raw average directly; for example, `max(0, -average_prosperity)` makes negative prosperity compete on the same 0.x scale as other weights.
+
+Do not divide an already-read `prosperity` value by 100 before comparing, storing, or using it as a weight. That extra scaling can make the resulting value too small to ever beat normal priority weights.
+
+### 5.9. Optional Location Rank Checks In Selectors
 
 Generic action selectors can repeatedly evaluate `visible` and called `effect` logic while the selection window is open. In that context, location iterators such as `any_neighbor_location` may visit objects that do not have a valid `location_rank`. A direct check such as:
 
@@ -608,6 +614,23 @@ my_location_is_city_trigger = {
 ```
 
 Do not rely on `trigger_if = { limit = { is_land = yes } ... }` to protect a direct `location_rank = ...` read in selector/tooltip contexts; the evaluator may still prefetch the direct link.
+
+### 5.10. Religion Conversion Targeting
+
+Vanilla `promote_religion` treats a province as a valid conversion target when any contained location either has a dominant religion different from its owner or has incomplete local religious unity:
+
+```pdx
+OR = {
+    NOT = { dominant_religion = owner.religion }
+    local_religious_unity < 1.0
+}
+```
+
+Source: `reference_game_files/game/in_game/common/cabinet_actions/promote_religion.txt:73-76`.
+
+For direct cabinet-action/province eligibility, do not treat `dominant_religion != owner.religion` as the whole conversion-need check. A location can have the state religion as its dominant religion while still containing minority non-state-religion pops, and `local_pop_conversion_speed` can still be useful there.
+
+For broader regional priority heuristics, follow the mechanic's design intent rather than blindly copying the vanilla OR. Governor's House autonomous religion conversion intentionally uses only the share of owned locations whose dominant religion is not the governing country's religion, ignoring minority cleanup once the state religion is dominant.
 
 ## 6. Game Content Modding
 

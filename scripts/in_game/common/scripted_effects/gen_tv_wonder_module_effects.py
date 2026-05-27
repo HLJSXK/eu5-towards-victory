@@ -146,6 +146,28 @@ def main() -> None:
     parts = data["parts"]
     lines = HEADER[:]
 
+    lines.append("tv_wonder_clear_current_base_modifiers_effect = {")
+    for idx, wonder in enumerate(wonders):
+        head = "if" if idx == 0 else "else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
+        for level in range(1, 7):
+            lines.append(f"{T}{T}remove_country_modifier = tv_wonder_{wonder['key']}_level_{level}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_clear_current_ceremony_modifiers_effect = {")
+    for idx, wonder in enumerate(wonders):
+        head = "if" if idx == 0 else "else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
+        for building in wonder["final_buildings"].values():
+            lines.append(f"{T}{T}remove_country_modifier = {building}_modifier")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
     lines.append("tv_wonder_set_required_progress_effect = {")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_unit_required_progress value = 300000 }}")
     for wonder in wonders:
@@ -348,18 +370,37 @@ def main() -> None:
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_ensure_helper_building_from_final_buildings_effect = {")
+    lines.append("tv_wonder_destroy_intermediate_buildings_at_location_effect = {")
+    lines.append(f"{T}prev = {{ save_scope_as = tv_wonder_module_owner }}")
     for wonder in wonders:
         helper = f"tv_wonder_{wonder['key']}"
-        for final_building in wonder["final_buildings"].values():
-            for level in range(1, 7):
-                lines.append(f"{T}while = {{")
-                lines.append(f"{T}{T}limit = {{")
-                lines.append(f"{T}{T}{T}{loc_level(final_building, '>=', level)}")
-                lines.append(f"{T}{T}{T}NOT = {{ {loc_level(helper, '>=', level)} }}")
-                lines.append(f"{T}{T}}}")
-                lines.extend([f"{T}{T}{line}" for line in add_building_level("always = yes", helper)])
-                lines.append(f"{T}}}")
+        module_names = [f"tv_wonder_{wonder['key']}_{part['key']}" for part in parts]
+        final_names = list(wonder["final_buildings"].values())
+        lines.append(f"{T}if = {{")
+        lines.append(f"{T}{T}limit = {{")
+        lines.extend(any_building_block(final_names, 3))
+        lines.append(f"{T}{T}}}")
+        for building in [helper, *module_names]:
+            lines.append(f"{T}{T}if = {{")
+            lines.append(f"{T}{T}{T}limit = {{ has_building = building_type:{building} }}")
+            lines.append(f"{T}{T}{T}destroy_building_forcefully = \"building(building_type:{building}|scope:tv_wonder_module_owner)\"")
+            lines.append(f"{T}{T}}}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_destroy_intermediate_buildings_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
+    lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
+    lines.append(f"{T}{T}{T}tv_wonder_destroy_intermediate_buildings_at_location_effect = yes")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_ensure_helper_building_from_final_buildings_effect = {")
+    lines.append(f"{T}# Final buildings are authoritative after inauguration; helper buildings stay construction-only.")
     lines.append("}")
     lines.append("")
 
@@ -379,15 +420,11 @@ def main() -> None:
         lines.append(f"{T}{T}{T}if = {{")
         lines.append(f"{T}{T}{T}{T}limit = {{")
         lines.append(f"{T}{T}{T}{T}{T}NOT = {{ prev = {{ has_variable = tv_wonder_priority_found }} }}")
+        lines.append(f"{T}{T}{T}{T}{T}NOT = {{ tv_wonder_location_has_any_wonder_final_building_trigger = yes }}")
         lines.append(f"{T}{T}{T}{T}{T}OR = {{")
         for module in module_names:
             lines.append(f"{T}{T}{T}{T}{T}{T}has_building = building_type:{module}")
-        lines.append(f"{T}{T}{T}{T}{T}{T}AND = {{")
-        lines.append(f"{T}{T}{T}{T}{T}{T}{T}has_building = building_type:{helper}")
-        lines.append(f"{T}{T}{T}{T}{T}{T}{T}NOT = {{")
-        lines.extend(any_building_block(final_names, 8))
-        lines.append(f"{T}{T}{T}{T}{T}{T}{T}}}")
-        lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}{T}{T}{T}has_building = building_type:{helper}")
         lines.append(f"{T}{T}{T}{T}{T}}}")
         lines.append(f"{T}{T}{T}{T}}}")
         lines.extend(proposal_setter(wonder, 1, 4))

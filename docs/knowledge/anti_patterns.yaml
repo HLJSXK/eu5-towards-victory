@@ -119,6 +119,16 @@
   source: "runtime UI observation in src/in_game/gui/panels/organization/tv_trade_league.gui; fixed by using text fields for TV_TRADE_LEAGUE_WORLD_COLUMN and TV_TRADE_LEAGUE_IO_COLUMN"
   notes: "raw_text renders the string literally; $KEY$ substitutions are not expanded, so the UI displays the key."
 
+- id: prosperity_value_is_fractional
+  pattern: ''
+  detectability: advisory
+  bad: "Treating location prosperity reads as 0..100 percent points, such as dividing an average prosperity value by 100 before using it as a weight"
+  correction: "Use the raw signed fractional prosperity value. For recovery priorities, negate the average directly and clamp below 0."
+  category: script
+  scope: location
+  source: "reference_game_files/game/in_game/events/government/societal_values.txt:12373; reference_game_files/game/in_game/events/exploration/exploration_monthly_events.txt:235"
+  notes: "Vanilla checks use fractional thresholds such as prosperity < 1 and prosperity < -0.1; an extra divide by 100 makes prosperity-derived weights too small to compete."
+
 - id: trade_monopoly_wrong_goods_metrics
   pattern: ''
   detectability: advisory
@@ -1370,6 +1380,16 @@
   scope: any
   source: "reference_official_defines/types/music_player_tracks.txt:1-14; reference_game_files/game/in_game/common/music_player_tracks/00_music_player_tracks.txt:1-19; reference_game_files/game/in_game/gui/music_player_lateralview.gui:133-185; reference_game_files/game/in_game/gui/shared/animation.gui:199-203; reference_game_files/game/in_game/common/on_action/_hardcoded.txt:1789-1792"
   notes: "The official type note says new songs are added in Wwise and registered by event key. Vanilla entries contain no trigger/chance/category fields beyond metadata, and the in-game music player plays registered track objects via GUI bindings. EU5 does expose Audio_PlayEvent to send a Wwise event to music_manager from GUI, and on_war_declared exists as a script hook, but current references do not expose EU4-style songs.txt conditional rules or a normal effect that directly plays a named music-player track."
+
+- id: religion_conversion_need_scope_mismatch
+  pattern: ''
+  detectability: advisory
+  bad: "Applying vanilla promote_religion's full target condition to a regional priority heuristic without checking the mechanic's design intent"
+  correction: "Use the full vanilla OR when mirroring cabinet-action province eligibility. For Governor's House autonomous conversion priority, use only the share of owned locations whose dominant_religion differs from the governing country's religion."
+  category: script
+  scope: location
+  source: "reference_game_files/game/in_game/common/cabinet_actions/promote_religion.txt:73-76"
+  notes: "Vanilla promote_religion can still work on minority non-state-religion pops when local_religious_unity is below 100%. The Governor's House design intentionally ignores that cleanup case so regional governors only prioritize locations where the non-state religion is still dominant."
 
 - id: character_modifier_country_cabinet_efficiency
   pattern: ''

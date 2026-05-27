@@ -18,6 +18,7 @@ tv_wonder_location_is_city_or_town_trigger = {
 
 tv_wonder_can_build_sacred_mountain_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		OR = {
 			topography = mountains
 			topography = plateau
@@ -28,6 +29,7 @@ tv_wonder_can_build_sacred_mountain_trigger = {
 
 tv_wonder_can_build_triumphal_axis_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		OR = {
 			location_rank ?= location_rank:city
 			location_rank ?= location_rank:megalopolis
@@ -37,24 +39,28 @@ tv_wonder_can_build_triumphal_axis_trigger = {
 
 tv_wonder_can_build_great_port_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		is_port = yes
 	}
 }
 
 tv_wonder_can_build_giant_necropolis_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		location_rank ?= location_rank:rural_settlement
 	}
 }
 
 tv_wonder_can_build_great_lighthouse_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		is_port = yes
 	}
 }
 
 tv_wonder_can_build_hydraulic_workshop_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		OR = {
 			has_river = yes
 			is_adjacent_to_lake = yes
@@ -64,6 +70,7 @@ tv_wonder_can_build_hydraulic_workshop_trigger = {
 
 tv_wonder_can_build_mining_city_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		OR = {
 			raw_material = goods:iron
 			raw_material = goods:copper
@@ -77,6 +84,7 @@ tv_wonder_can_build_mining_city_trigger = {
 
 tv_wonder_can_build_giant_observatory_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		OR = {
 			topography = mountains
 			topography = plateau
@@ -87,30 +95,35 @@ tv_wonder_can_build_giant_observatory_trigger = {
 
 tv_wonder_can_build_palace_of_nations_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		is_capital = yes
 	}
 }
 
 tv_wonder_can_build_university_city_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 }
 
 tv_wonder_can_build_sky_dome_grand_temple_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		dominant_religion = owner.religion
 	}
 }
 
 tv_wonder_can_build_giant_tower_temple_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		always = yes
 	}
 }
 
 tv_wonder_can_build_river_extension_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		OR = {
 			has_river = yes
 			is_adjacent_to_lake = yes
@@ -120,18 +133,21 @@ tv_wonder_can_build_river_extension_trigger = {
 
 tv_wonder_can_build_national_shipyard_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		is_port = yes
 	}
 }
 
 tv_wonder_can_build_star_fortress_city_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 }
 
 tv_wonder_can_build_great_wall_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		NOT = { location_rank ?= location_rank:city }
 		NOT = { location_rank ?= location_rank:megalopolis }
 	}
@@ -139,12 +155,14 @@ tv_wonder_can_build_great_wall_trigger = {
 
 tv_wonder_can_build_giant_armory_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 }
 
 tv_wonder_can_build_library_of_nation_trigger = {
 	any_owned_location = {
+		NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 		is_capital = yes
 	}
 }
@@ -356,6 +374,20 @@ tv_wonder_can_start_survey_trigger = {
 tv_wonder_can_select_construction_site_trigger = {
 	tv_wonder_can_start_survey_trigger = yes
 	tv_wonder_survey_complete_trigger = yes
+	OR = {
+		AND = {
+			has_variable = tv_wonder_resume_project
+			var:tv_wonder_survey_site ?= {
+				tv_wonder_location_is_valid_priority_project_for_locked_wonder_trigger = yes
+			}
+		}
+		AND = {
+			NOT = { has_variable = tv_wonder_resume_project }
+			var:tv_wonder_survey_site ?= {
+				NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
+			}
+		}
+	}
 }
 
 tv_wonder_has_valid_site_candidate_trigger = {

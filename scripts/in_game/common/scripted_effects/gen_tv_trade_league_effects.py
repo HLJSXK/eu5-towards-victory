@@ -378,11 +378,9 @@ def copy_scope_variable_from_scope(source_scope: str, source: str, target: str, 
 
 def save_matching_trade_league_leader_effect(source_name: str, indent: str) -> str:
     return f"""\
-{indent}save_scope_as = tv_trade_projection_reader
 {indent}every_international_organizations_member_of = {{
 {indent}\tlimit = {{
 {indent}\t\tinternational_organization_type = international_organization_type:tv_trade_league
-{indent}\t\tleader_country ?= scope:tv_trade_projection_reader
 {indent}\t}}
 {indent}\tleader_country ?= {{ save_scope_as = {source_name} }}
 {indent}}}"""

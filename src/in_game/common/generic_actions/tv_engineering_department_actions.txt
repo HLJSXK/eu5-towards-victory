@@ -223,6 +223,7 @@ tv_wonder_start_survey = {
 		visible = {
 			has_owner = yes
 			owner ?= scope:actor
+			NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
 			OR = {
 				AND = {
 					scope:actor = { var:tv_wonder_locked ?= 1 }

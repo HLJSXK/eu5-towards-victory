@@ -7550,11 +7550,9 @@ tv_trade_league_select_first_displayed_monopoly_good_effect = {
 
 tv_trade_league_refresh_selected_good_projection_effect = {
 	hidden_effect = {
-		save_scope_as = tv_trade_projection_reader
 		every_international_organizations_member_of = {
 			limit = {
 				international_organization_type = international_organization_type:tv_trade_league
-				leader_country ?= scope:tv_trade_projection_reader
 			}
 			leader_country ?= { save_scope_as = tv_trade_monopoly_display_source }
 		}
@@ -61976,11 +61974,9 @@ tv_trade_league_refresh_selected_good_projection_effect = {
 
 tv_trade_league_refresh_monopoly_display_effect = {
 	hidden_effect = {
-		save_scope_as = tv_trade_projection_reader
 		every_international_organizations_member_of = {
 			limit = {
 				international_organization_type = international_organization_type:tv_trade_league
-				leader_country ?= scope:tv_trade_projection_reader
 			}
 			leader_country ?= { save_scope_as = tv_trade_monopoly_display_source }
 		}
@@ -102710,11 +102706,9 @@ tv_trade_league_update_intelligence_effect = {
 
 tv_trade_league_refresh_intelligence_page_limits_effect = {
 	hidden_effect = {
-		save_scope_as = tv_trade_projection_reader
 		every_international_organizations_member_of = {
 			limit = {
 				international_organization_type = international_organization_type:tv_trade_league
-				leader_country ?= scope:tv_trade_projection_reader
 			}
 			leader_country ?= { save_scope_as = tv_trade_intelligence_display_source }
 		}
@@ -102852,11 +102846,9 @@ tv_trade_league_refresh_intelligence_page_limits_effect = {
 
 tv_trade_league_select_first_displayed_intelligence_market_effect = {
 	hidden_effect = {
-		save_scope_as = tv_trade_projection_reader
 		every_international_organizations_member_of = {
 			limit = {
 				international_organization_type = international_organization_type:tv_trade_league
-				leader_country ?= scope:tv_trade_projection_reader
 			}
 			leader_country ?= { save_scope_as = tv_trade_intelligence_display_source }
 		}
@@ -103077,11 +103069,9 @@ tv_trade_league_select_first_displayed_intelligence_market_effect = {
 
 tv_trade_league_refresh_selected_intelligence_projection_effect = {
 	hidden_effect = {
-		save_scope_as = tv_trade_projection_reader
 		every_international_organizations_member_of = {
 			limit = {
 				international_organization_type = international_organization_type:tv_trade_league
-				leader_country ?= scope:tv_trade_projection_reader
 			}
 			leader_country ?= { save_scope_as = tv_trade_intelligence_display_source }
 		}
@@ -129201,11 +129191,9 @@ tv_trade_league_refresh_selected_intelligence_projection_effect = {
 
 tv_trade_league_refresh_intelligence_display_effect = {
 	hidden_effect = {
-		save_scope_as = tv_trade_projection_reader
 		every_international_organizations_member_of = {
 			limit = {
 				international_organization_type = international_organization_type:tv_trade_league
-				leader_country ?= scope:tv_trade_projection_reader
 			}
 			leader_country ?= { save_scope_as = tv_trade_intelligence_display_source }
 		}

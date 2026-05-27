@@ -656,6 +656,10 @@ tv_wonder_copy_current_proposal_to_slot_3_effect = {
 tv_wonder_select_proposal_slot_1_effect = {
 	if = {
 		limit = { var:tv_wonder_proposal_slot_1 ?= { this >= 1 } }
+		remove_variable = tv_wonder_proposal_mode
+		remove_variable = tv_wonder_proposal_site
+		remove_variable = tv_wonder_priority_found
+		remove_variable = tv_wonder_resume_project
 		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_1 }
 		tv_wonder_set_proposal_on_great_engineer_effect = yes
 	}
@@ -664,6 +668,10 @@ tv_wonder_select_proposal_slot_1_effect = {
 tv_wonder_select_proposal_slot_2_effect = {
 	if = {
 		limit = { var:tv_wonder_proposal_slot_2 ?= { this >= 1 } }
+		remove_variable = tv_wonder_proposal_mode
+		remove_variable = tv_wonder_proposal_site
+		remove_variable = tv_wonder_priority_found
+		remove_variable = tv_wonder_resume_project
 		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_2 }
 		tv_wonder_set_proposal_on_great_engineer_effect = yes
 	}
@@ -672,6 +680,10 @@ tv_wonder_select_proposal_slot_2_effect = {
 tv_wonder_select_proposal_slot_3_effect = {
 	if = {
 		limit = { var:tv_wonder_proposal_slot_3 ?= { this >= 1 } }
+		remove_variable = tv_wonder_proposal_mode
+		remove_variable = tv_wonder_proposal_site
+		remove_variable = tv_wonder_priority_found
+		remove_variable = tv_wonder_resume_project
 		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_3 }
 		tv_wonder_set_proposal_on_great_engineer_effect = yes
 	}
@@ -680,6 +692,7 @@ tv_wonder_select_proposal_slot_3_effect = {
 tv_wonder_roll_new_proposal_effect = {
 	tv_wonder_clear_proposal_on_great_engineer_effect = yes
 	tv_wonder_clear_current_proposal_effect = yes
+	remove_variable = tv_wonder_resume_project
 	tv_wonder_scan_priority_proposal_effect = yes
 	if = {
 		limit = {
@@ -803,7 +816,12 @@ tv_wonder_reroll_proposal_after_rejection_effect = {
 
 tv_wonder_prepare_priority_project_effect = {
 	if = {
-		limit = { has_variable = tv_wonder_proposal_site }
+		limit = {
+			has_variable = tv_wonder_proposal_site
+			var:tv_wonder_proposal_site ?= {
+				tv_wonder_location_is_valid_priority_project_for_locked_wonder_trigger = yes
+			}
+		}
 		var:tv_wonder_proposal_site ?= { save_scope_as = tv_wonder_selected_survey_site }
 		set_variable = { name = tv_wonder_survey_site value = scope:tv_wonder_selected_survey_site }
 		set_variable = { name = tv_wonder_survey_complete value = 1 }
@@ -1150,6 +1168,7 @@ tv_wonder_accept_proposal_effect = {
 	hidden_effect = {
 		if = {
 			limit = { var:tv_wonder_proposal ?= { this >= 1 } }
+			tv_wonder_clear_current_survey_effect = yes
 			set_variable = { name = tv_wonder_locked value = var:tv_wonder_proposal }
 			if = {
 				limit = { has_variable = tv_wonder_proposal_mode }
@@ -1886,6 +1905,7 @@ tv_wonder_update_logistics_metrics_effect = {
 }
 
 tv_wonder_clear_current_survey_effect = {
+	remove_variable = tv_wonder_resume_project
 	remove_variable = tv_wonder_survey_site
 	remove_variable = tv_wonder_survey_active
 	remove_variable = tv_wonder_survey_complete
@@ -2944,7 +2964,10 @@ tv_wonder_prepare_survey_competence_targets_effect = {
 
 tv_wonder_start_survey_effect = {
 	if = {
-		limit = { exists = scope:target }
+		limit = {
+			exists = scope:target
+			scope:target = { NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes } }
+		}
 		tv_wonder_clear_current_survey_effect = yes
 		scope:target = { save_scope_as = tv_wonder_selected_survey_site }
 		set_variable = { name = tv_wonder_survey_site value = scope:target }
@@ -3323,6 +3346,7 @@ tv_wonder_initialize_ceremony_runtime_state_effect = {
 }
 
 tv_wonder_apply_base_modifier_effect = {
+	tv_wonder_clear_current_base_modifiers_effect = yes
 	if = {
 		limit = { var:tv_wonder_locked ?= 1 }
 		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_sacred_mountain_level_1 years = -1 mode = add_and_extend } }
@@ -3489,6 +3513,7 @@ tv_wonder_apply_base_modifier_effect = {
 }
 
 tv_wonder_apply_ceremony_modifier_effect = {
+	tv_wonder_clear_current_ceremony_modifiers_effect = yes
 	if = {
 		limit = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 1 }
 		add_country_modifier = { modifier = tv_wonder_golden_sanctuary_modifier years = -1 mode = add_and_extend }
@@ -4276,6 +4301,7 @@ tv_wonder_complete_finalization_effect = {
 					remove_location_modifier = tv_wonder_deep_drainage_location_modifier
 				}
 			}
+			tv_wonder_destroy_intermediate_buildings_effect = yes
 			tv_wonder_broadcast_completion_event_effect = yes
 			tv_wonder_clear_project_state_effect = yes
 		}
@@ -4979,6 +5005,10 @@ tv_wonder_retire_great_engineer_effect = {
 tv_wonder_reinitialize_building_state_effect = {
 	every_owned_location = {
 		tv_wonder_combine_completed_modules_at_location_effect = yes
+		if = {
+			limit = { prev = { NOT = { tv_wonder_construction_site_selected_trigger = yes } } }
+			tv_wonder_destroy_intermediate_buildings_at_location_effect = yes
+		}
 		tv_wonder_ensure_helper_building_from_final_buildings_effect = yes
 	}
 	if = {
