@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Generate EU5 DDS icons through Packyapi from a natural-language prompt and an
-optional style DDS.
+Generate EU5 DDS icons through Packyapi Images API from a natural-language
+prompt and an optional style DDS/PNG.
 
 Usage:
   1. Edit generate_dds_icon_config.json.
@@ -200,6 +200,20 @@ def build_url_opener(proxy_url: str) -> urllib.request.OpenerDirector:
     return urllib.request.build_opener(
         urllib.request.ProxyHandler({"http": proxy_url, "https": proxy_url})
     )
+
+
+def validate_images_endpoint(endpoint: str, expected_tail: str) -> None:
+    normalized = endpoint.strip().rstrip("/")
+    if not normalized:
+        raise ValueError("api image endpoint must be non-empty")
+    unsupported_markers = ("/responses", "/chat/completions", "/completions")
+    if any(marker in normalized for marker in unsupported_markers):
+        raise ValueError(
+            "Packy gpt-image-2 image generation must use the Images API, "
+            "not Responses API or Chat Completions API"
+        )
+    if not normalized.endswith(expected_tail):
+        print(f"[warning] endpoint does not end with {expected_tail}: {endpoint}")
 
 
 def sleep_before_retry(label: str, attempt: int, error: Exception, retry_settings: RetrySettings) -> None:
@@ -427,12 +441,29 @@ def build_generation_payload(image_config: dict[str, Any], final_prompt: str) ->
 
     if not isinstance(payload["prompt"], str) or not payload["prompt"].strip():
         raise ValueError("image prompt must be non-empty")
+    if payload["model"] != "gpt-image-2":
+        raise ValueError("image.model must be gpt-image-2 for Packyapi")
     if payload["n"] != 1:
-        raise ValueError("This helper supports image.n = 1")
+        raise ValueError("Packy gpt-image-2 only supports image.n = 1")
     if payload["output_format"] != "png":
         raise ValueError("This helper expects image.output_format = png")
+    if payload["response_format"] not in {"url", "b64_json"}:
+        raise ValueError("image.response_format must be url or b64_json")
     if payload["quality"] not in {"low", "medium", "high", "auto"}:
         raise ValueError("image.quality must be low, medium, high, or auto")
+    if payload.get("background") == "transparent":
+        raise ValueError("Packy gpt-image-2 does not support transparent background")
+    if image_config.get("stream"):
+        raise ValueError("Packy gpt-image-2 does not support image.stream")
+    if "partial_images" in image_config:
+        raise ValueError("Packy gpt-image-2 does not support image.partial_images")
+    if "style" in image_config:
+        raise ValueError("Packy gpt-image-2 does not need the legacy image.style parameter")
+    if "output_compression" in payload:
+        compression = int(payload["output_compression"])
+        if compression < 0 or compression > 100:
+            raise ValueError("image.output_compression must be between 0 and 100")
+        payload["output_compression"] = compression
     if str(payload["size"]) != "auto":
         parse_size(str(payload["size"]))
     return payload
@@ -449,6 +480,8 @@ def collect_style_references(style_config: dict[str, Any]) -> list[UploadFile]:
 
     ref_dir = resolve_repo_path(style_config.get("temporary_png_dir"), DEFAULT_REF_DIR)
     upload_field = str(style_config.get("upload_field_name") or DEFAULT_STYLE_UPLOAD_FIELD)
+    if upload_field != DEFAULT_STYLE_UPLOAD_FIELD:
+        raise ValueError('Packy image edits require style_reference.upload_field_name = "image"')
     ref_dir.mkdir(parents=True, exist_ok=True)
     uploads: list[UploadFile] = []
     for index, raw_path in enumerate(paths, start=1):
@@ -488,11 +521,13 @@ def call_image_api(
         image_payload = dict(payload)
         image_payload["input_fidelity"] = str(style_config.get("input_fidelity") or "high")
         endpoint = str(api_config.get("edits_endpoint") or api_config.get("endpoint") or DEFAULT_EDITS_ENDPOINT)
+        validate_images_endpoint(endpoint, "/v1/images/edits")
         print(f"[request] POST {endpoint}")
         print(f"[request] model={image_payload['model']} size={image_payload['size']} quality={image_payload['quality']} references={len(style_uploads)}")
         return api_post_multipart(endpoint, api_key, image_payload, style_uploads, timeout, retry_settings, opener)
 
     endpoint = str(api_config.get("generations_endpoint") or api_config.get("endpoint") or DEFAULT_GENERATIONS_ENDPOINT)
+    validate_images_endpoint(endpoint, "/v1/images/generations")
     print(f"[request] POST {endpoint}")
     print(f"[request] model={payload['model']} size={payload['size']} quality={payload['quality']} references=0")
     return api_post_json(endpoint, api_key, payload, timeout, retry_settings, opener)

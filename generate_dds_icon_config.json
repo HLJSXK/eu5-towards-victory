@@ -1,11 +1,11 @@
 {
   "api": {
-    "endpoint": "https://api.openai.com/v1/images/edits",
-    "generations_endpoint": "https://api.openai.com/v1/images/generations",
-    "edits_endpoint": "https://api.openai.com/v1/images/edits",
-    "responses_endpoint": "https://api.openai.com/v1/responses",
+    "endpoint": "https://www.packyapi.com/v1/images/edits",
+    "generations_endpoint": "https://www.packyapi.com/v1/images/generations",
+    "edits_endpoint": "https://www.packyapi.com/v1/images/edits",
     "api_key_env": [
-      "OPENAI_API_KEY"
+      "PACKY_API_KEY",
+      "PACKY_SORA_TOKEN"
     ],
     "api_key": "",
     "proxy_url": "",
@@ -17,16 +17,15 @@
   },
   "prompt_refinement": {
     "enabled": true,
-    "model": "gpt-5.5",
-    "instructions": "You are an art director for Europa Universalis V mod assets. Turn the user's short natural-language request into one production-ready image prompt. Preserve the requested subject, icon meaning, and composition constraints. The output must be a single final prompt with no commentary, no bullets, and no quotation marks around the whole answer.",
-    "max_output_tokens": 500,
     "style_rules": "Match the palette, brush feel, lighting, icon density, and framing discipline of the provided reference DDS. Keep the final subject and icon meaning driven by the user's request, not the reference subject."
   },
   "image": {
+    "model": "gpt-image-2",
     "natural_prompt": "Describe the icon you want here. The script will refine this into a final image prompt.",
     "size": "1024x1024",
     "quality": "high",
     "output_format": "png",
+    "response_format": "url",
     "n": 1,
     "background": "opaque",
     "moderation": "auto",
