@@ -48,8 +48,6 @@ def generate() -> str:
         branch_names = ", ".join(branch["en"] for branch in branch_list)
         code = display_key(key)
 
-        lines.append(loc_line(concept, name))
-        lines.append(loc_line(f"{concept}_desc", f"A {design['positioning']} wonder. Site logic: {design['site']} Ceremony branches: {branch_names}."))
         lines.append(loc_line(f"game_concept_{concept}", name))
         lines.append(loc_line(f"game_concept_{concept}_desc", f"A {name} is a [tv_wonder_construction|e] project focused on {design['positioning']}. It prefers {design['site']} Its ceremonies can emphasize {branch_names}."))
         lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"Brief: [{concept}|E], a [{size_concept}|E] project for {design['positioning']}."))

@@ -48,8 +48,6 @@ def generate() -> str:
         branch_names = "、".join(branch["zh"] for branch in branch_list)
         code = display_key(key)
 
-        lines.append(loc_line(concept, name))
-        lines.append(loc_line(f"{concept}_desc", f"一项定位于{design['positioning']}的奇观。选址逻辑：{design['site']}仪式分支：{branch_names}。"))
         lines.append(loc_line(f"game_concept_{concept}", name))
         lines.append(loc_line(f"game_concept_{concept}_desc", f"{name}是一项侧重{design['positioning']}的[tv_wonder_construction|e]项目。它偏好{design['site']}仪式可转向{branch_names}。"))
         lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"简报：[{concept}|E]，定位于{design['positioning']}的[{size_concept}|E]工程。"))
