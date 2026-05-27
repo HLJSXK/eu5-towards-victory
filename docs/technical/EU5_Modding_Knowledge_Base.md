@@ -106,6 +106,20 @@ io_opinion_tv_trade_league = {
 
 If the bias is missing, startup logs can report that the international organization type needs an opinion of other members. Existing TV IOs usually use small positive values such as 10, while stronger alliance-like systems may use a higher value by design.
 
+#### Production Method Base Profit
+
+EU5 checks production-method base profit at startup using each involved good's `default_market_price`. If the output value is too high relative to the input value, the engine logs an error from `production_methods.cpp` that the production method has too high base profit and should be no more than 30%.
+
+When tuning a recipe, compute:
+
+```
+input value = sum(input amount * input good default_market_price)
+output value = output amount * produced good default_market_price
+profit = (output value - input value) / input value
+```
+
+Keep `profit < 0.30`. For example, a recipe that outputs one 5-value good needs input value greater than 3.8462. The Wonder Material Workshop uses 1.54 lumber, 0.77 stone, and 0.77 masonry for one `tv_wonder_materials`, giving 3.85 input value and about 29.87% base profit.
+
 #### Country Interaction Potential Scope
 
 In `common/country_interactions`, `potential` documents the acting country as `scope:actor`. Do not put country-scoped IO membership iterators directly under `potential`; wrap them in `scope:actor`:
@@ -345,6 +359,14 @@ Use a country modifier only when the design intentionally grants the bonus count
 Governor's House War Tent tactics are a documented exception. Their stored-general character modifier path did not make the combat bonuses take effect, so the feature intentionally applies `tv_govhouse_tactic_*` as country-scoped modifiers and comments that this is a gameplay approximation. Do not convert that specific system back to `add_character_modifier` unless a new active-commander implementation is verified at runtime.
 
 #### Goods Production and Trade Quantity Metrics
+
+Custom goods should use their own named color key. Reusing a vanilla goods color such as `color = goods_masonry` can load, but the engine logs:
+
+```text
+Goods <custom_good> has same color as <vanilla_good>
+```
+
+Define a unique color in `src/main_menu/common/named_colors/` and reference that key from the goods definition, for example `color = goods_tv_wonder_materials`.
 
 Use the goods-specific world trigger value when a mechanic needs actual global output for one good:
 

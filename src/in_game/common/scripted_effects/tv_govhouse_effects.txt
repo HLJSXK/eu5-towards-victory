@@ -361,7 +361,13 @@ tv_training_resolve_effect = {
 							}
 						}
 					}
-					trigger_event_non_silently = { id = tv_grand_general.1 }
+					if = {
+						limit = { var:tv_conquest_general_char ?= { mil >= 100 } }
+						trigger_event_non_silently = { id = tv_grand_general.5 }
+					}
+					else = {
+						trigger_event_non_silently = { id = tv_grand_general.4 }
+					}
 				}
 				else = {
 					trigger_event_non_silently = { id = tv_grand_general.3 }

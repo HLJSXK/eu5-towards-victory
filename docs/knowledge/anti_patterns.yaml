@@ -1127,6 +1127,17 @@
   source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:9391-9415; runtime error.log: modifier_type.cpp:1147"
   notes: "EU5 automatically tries to use these modifier type names for every goods database entry. A custom goods key without the family logs 'Modifier type definition <name> must exist in DB'."
 
+- id: custom_goods_reuses_vanilla_goods_color
+  pattern: 'color\s*=\s*goods_(?!tv_)'
+  detectability: advisory
+  only_in_paths: ['goods']
+  bad: "Defining a custom goods key with a vanilla goods color such as color = goods_masonry"
+  correction: "Create a unique named color for the custom good in main_menu/common/named_colors, then reference it from the goods definition, e.g. color = goods_tv_wonder_materials."
+  category: script
+  scope: any
+  source: "runtime error.log: utility.h:242"
+  notes: "EU5 logs 'Goods <custom_good> has same color as <vanilla_good>' when two goods resolve to the same named color/value. Custom goods should have their own goods_<id> color key."
+
 - id: custom_modifier_type_missing_modifier_icon
   pattern: ''
   detectability: advisory
@@ -1299,6 +1310,17 @@
   scope: any
   source: "reference_game_files/game/in_game/common/goods/03_food.txt:319; reference_game_files/game/in_game/common/goods/02_produced_goods.txt:130"
   notes: "Production method input keys must be exact goods IDs. Invalid goods tokens inside common/production_methods can load as 'Unexpected token' errors, as seen with candles and luxury_cloth."
+
+- id: production_method_base_profit_too_high
+  pattern: ''
+  detectability: needs_parser
+  only_in_paths: ['production_methods']
+  bad: "Production method base input/output values produce profit above 30%"
+  correction: "Compute recipe value from goods default_market_price and keep base profit below 30%, usually by slightly increasing inputs or reducing output/default output price."
+  category: script
+  scope: any
+  source: "runtime error.log: production_methods.cpp:429"
+  notes: "EU5 logs a startup error when a production_method's base profit exceeds 30%, e.g. tv_wonder_material_dispatch_point_production at 33.33%. A recipe worth 5 output needs input value greater than 3.8462 to be just under 30% profit."
 
 - id: building_level_not_current_employment
   pattern: 'location_building_level\(building_type:tv_wonder_labor_camp\)'
