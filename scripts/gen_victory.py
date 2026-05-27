@@ -325,9 +325,16 @@ def gen_on_actions(data: dict) -> str:
     lines = [HEADER, ""]
     lines.append("# Supplemental on_action hooks for Towards Victory")
     lines.append("# Diplomatic and Cultural point accumulation hooks.")
+    lines.append("# Hardcoded vanilla on_actions delegate to TV-owned callbacks so singleton effect blocks do not collide.")
     lines.append("")
     for hook in data.get("on_actions", []):
-        lines.append(f"{hook['hook']} = {{")
+        hook_name = hook["hook"]
+        callback = hook.get("callback", f"tv_{hook_name}_callback")
+        lines.append(f"{hook_name} = {{")
+        lines.append(f"\ton_actions = {{ {callback} }}")
+        lines.append(f"}}")
+        lines.append("")
+        lines.append(f"{callback} = {{")
         lines.append(f"\teffect = {{")
         lines.append(indent(hook["effect_body"].rstrip(), 2))
         lines.append(f"\t}}")

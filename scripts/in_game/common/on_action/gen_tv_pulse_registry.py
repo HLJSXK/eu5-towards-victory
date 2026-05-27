@@ -2,6 +2,10 @@
 Generate vanilla singleton pulse files by copying them verbatim and injecting
 Towards Victory custom on_action names into their on_actions = {} blocks.
 
+Hardcoded hooks from _hardcoded.txt are delegate-only: the generated mod file
+must not copy vanilla events/effects, because duplicate singleton effect blocks
+make Jomini keep only the most recent effect.
+
 Usage:
     conda run --no-capture-output -n eu5 python scripts/in_game/common/on_action/gen_tv_pulse_registry.py
 """
@@ -31,7 +35,7 @@ OUTPUT_FILES = {
     "on_ruler_death":        REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "ruler_death_pulses.txt",
 }
 
-EXTRACT_ONLY_PULSE = {
+DELEGATE_ONLY_PULSE = {
     "on_ruler_death",
 }
 
@@ -114,6 +118,22 @@ def inject_additions(lines: list[str], insertion_idx: int, additions: list[str])
     return lines[:insertion_idx] + added + lines[insertion_idx:]
 
 
+def build_delegate_block(pulse_name: str, additions: list[str]) -> list[str]:
+    """Build a small hardcoded-hook bridge that calls TV-owned on_actions."""
+    lines = [
+        f"{pulse_name} = {{\n",
+        "\ton_actions = {\n",
+        "\t\t# Towards Victory additions\n",
+    ]
+    for name in additions:
+        lines.append(f"\t\t{name}\n")
+    lines.extend([
+        "\t}\n",
+        "}\n",
+    ])
+    return lines
+
+
 def generate_file(pulse_name: str, additions: list[str]) -> None:
     src_path = VANILLA_SOURCES[pulse_name]
     out_path = OUTPUT_FILES[pulse_name]
@@ -122,11 +142,12 @@ def generate_file(pulse_name: str, additions: list[str]) -> None:
     # Use utf-8-sig to strip UTF-8 BOM if present (some vanilla files start with BOM)
     text = src_path.read_text(encoding="utf-8-sig")
     lines = text.splitlines(keepends=True)
-    if pulse_name in EXTRACT_ONLY_PULSE:
-        lines = extract_pulse_block(lines, pulse_name)
-
-    idx = find_on_actions_insertion(lines, pulse_name)
-    lines = inject_additions(lines, idx, additions)
+    if pulse_name in DELEGATE_ONLY_PULSE:
+        extract_pulse_block(lines, pulse_name)
+        lines = build_delegate_block(pulse_name, additions)
+    else:
+        idx = find_on_actions_insertion(lines, pulse_name)
+        lines = inject_additions(lines, idx, additions)
 
     header = HEADER_TEMPLATE.format(script=SCRIPT_REL, data=DATA_REL)
     output = header + "".join(lines)

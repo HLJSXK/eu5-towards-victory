@@ -1840,7 +1840,8 @@ paths:
 
 # ─────────────────────────────────────────────────────────────────────────────
 # ON-ACTION HOOKS
-# 1对1: effect_body stored verbatim; generator wraps in hook = { effect = { ... } }
+# 1-to-1: effect_body stored verbatim; generator wraps it in a TV-owned callback.
+# Vanilla hardcoded hooks receive only on_actions = { callback } delegates.
 # ─────────────────────────────────────────────────────────────────────────────
 on_actions:
   - hook: on_winning_war

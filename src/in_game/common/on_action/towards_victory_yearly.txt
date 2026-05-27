@@ -6,8 +6,13 @@
 
 # Supplemental on_action hooks for Towards Victory
 # Diplomatic and Cultural point accumulation hooks.
+# Hardcoded vanilla on_actions delegate to TV-owned callbacks so singleton effect blocks do not collide.
 
 on_winning_war = {
+	on_actions = { tv_on_winning_war_callback }
+}
+
+tv_on_winning_war_callback = {
 	effect = {
 		scope:winner = {
 			if = {
@@ -25,6 +30,10 @@ on_winning_war = {
 }
 
 on_work_of_art_created = {
+	on_actions = { tv_on_work_of_art_created_callback }
+}
+
+tv_on_work_of_art_created_callback = {
 	effect = {
 		root.owner ?= {
 		  tv_change_cultural_influence_points_effect = { value = 3 }

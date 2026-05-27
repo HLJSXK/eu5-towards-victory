@@ -2,6 +2,10 @@
 # Handles: on_annex cleanup, monthly cohesion growth, informational event triggers
 
 on_annex = {
+	on_actions = { tv_diplomatic_alliance_on_annex }
+}
+
+tv_diplomatic_alliance_on_annex = {
 	effect = {
 		# When a supporter is annexed, decrement the support count on the country they supported
 		scope:target = {

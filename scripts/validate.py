@@ -39,6 +39,15 @@ MODIFIER_TYPES_FILE = (
     / "modifier_type_definitions"
     / "00_modifier_types.txt"
 )
+HARD_CODED_ON_ACTIONS_FILE = (
+    REPO_ROOT
+    / "reference_game_files"
+    / "game"
+    / "in_game"
+    / "common"
+    / "on_action"
+    / "_hardcoded.txt"
+)
 UTF8_BOM = b"\xef\xbb\xbf"
 VALIDATED_SUFFIXES = {".txt", ".gui", ".yml", ".yaml", ".md", ".py"}
 
@@ -482,6 +491,33 @@ def _iter_named_blocks(content: str, start: int, end: int, name: str):
         yield open_pos, close_pos
 
 
+def _brace_delta(line: str) -> int:
+    """Return brace depth delta for a single line, ignoring comments."""
+    code = line.split("#", 1)[0]
+    return code.count("{") - code.count("}")
+
+
+def _has_direct_child_block(body: str, name: str) -> bool:
+    """True when body contains a direct child block with the given name."""
+    depth = 0
+    pattern = re.compile(rf"^\s*{re.escape(name)}\s*=\s*\{{")
+    for line in body.splitlines():
+        if depth == 0 and pattern.match(line):
+            return True
+        depth += _brace_delta(line)
+        if depth < 0:
+            depth = 0
+    return False
+
+
+def load_hardcoded_on_actions() -> set[str]:
+    """Return the vanilla hardcoded on_action names that should not gain a second effect block."""
+    if not HARD_CODED_ON_ACTIONS_FILE.exists():
+        return set()
+    content = HARD_CODED_ON_ACTIONS_FILE.read_text(encoding="utf-8-sig")
+    return {name for name, _, _ in _iter_top_level_blocks(content)}
+
+
 def _generic_action_warning(path: Path, line: int, action: str, code: str, message: str) -> None:
     warnings.append(
         f"[GENERIC_ACTION_RISK] {path.relative_to(REPO_ROOT)}:{line} -- "
@@ -615,6 +651,22 @@ def check_io_policy_ai_scope_recipient_guard(path: Path, content: str) -> None:
                 )
 
 
+def check_on_action_singleton_effect_delegate(path: Path, content: str, hardcoded_on_actions: set[str]) -> None:
+    """Catch additive mod files that stack a second direct effect onto a vanilla hardcoded on_action."""
+    rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
+    if "src/in_game/common/on_action/" not in rel:
+        return
+    for block_name, open_pos, close_pos in _iter_top_level_blocks(content):
+        if block_name not in hardcoded_on_actions:
+            continue
+        body = content[open_pos + 1:close_pos]
+        if _has_direct_child_block(body, "effect"):
+            issues.append(
+                f"[ON_ACTION] {path.relative_to(REPO_ROOT)}:{_line_num(content, open_pos)} -- "
+                f"{block_name} defines a direct top-level effect block; extend hardcoded vanilla hooks via `on_actions = {{ tv_* }}` delegation instead of stacking another `effect`."
+            )
+
+
 def _parse_issue_structured(raw: str) -> dict:
     """Parse a raw issue string into a structured dict for --ai-report output."""
     m = re.match(r"^\[(\w+)\]\s+([^:]+):(\d+)\s+--\s+Bad:\s+\"([^\"]*)\"\s+->\s+(.+)$", raw)
@@ -684,6 +736,7 @@ def main():
     anti_patterns = load_yaml(KNOWLEDGE_DIR / "anti_patterns.yaml") or []
     enum_data = load_yaml(KNOWLEDGE_DIR / "valid_enums.yaml") or {}
     modifier_whitelist = load_modifier_whitelist()
+    hardcoded_on_actions = load_hardcoded_on_actions()
     warning_baseline = load_warning_baseline()
 
     use_changed = "--changed" in sys.argv
@@ -742,6 +795,7 @@ def main():
                 check_anti_patterns(path, content, anti_patterns)
                 check_generic_action_pre_eval_risks(path, content)
                 check_io_policy_ai_scope_recipient_guard(path, content)
+                check_on_action_singleton_effect_delegate(path, content, hardcoded_on_actions)
                 check_enums(path, content, enum_data)
                 check_modifier_names(path, content, modifier_whitelist)
 

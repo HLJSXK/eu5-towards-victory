@@ -1,6 +1,10 @@
 ﻿# Towards Victory - Governor's House War Tent war hooks
 
 on_war_declared = {
+	on_actions = { tv_govhouse_war_tent_on_war_declared }
+}
+
+tv_govhouse_war_tent_on_war_declared = {
 	effect = {
 		scope:war = {
 			every_attacker = {
@@ -14,12 +18,20 @@ on_war_declared = {
 }
 
 on_join_war = {
+	on_actions = { tv_govhouse_war_tent_on_join_war }
+}
+
+tv_govhouse_war_tent_on_join_war = {
 	effect = {
 		tv_govhouse_war_entry_effect = yes
 	}
 }
 
 on_ending_war = {
+	on_actions = { tv_govhouse_war_tent_on_ending_war }
+}
+
+tv_govhouse_war_tent_on_ending_war = {
 	effect = {
 		scope:war = {
 			every_attacker = {

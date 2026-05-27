@@ -645,13 +645,14 @@
   notes: "This is an engine-enforced convention, not optional. Even if no modifier currently applies the discount, the modifier_type definition must be present. The naming is exact: price 'tv_academy_1_price' requires modifier type 'tv_academy_1_price_cost_modifier'. These appear unused but are implicitly consumed by the price loading system."
 
 - id: on_action_effect_block_singleton
+  detectability: needs_parser
   pattern: ''
-  bad: "Defining monthly_country_pulse = { effect = { ... } } in more than one on_action file within the same mod"
-  correction: "Consolidate all effect = { } content for the same on_action key into a single file. Alternatively, use on_actions = { sub_action_name } dispatch from each file and define each sub_action separately."
+  bad: "Defining a direct effect block on a vanilla hardcoded on_action hook inside a mod file when the same hook already exists in the vanilla _hardcoded on_action table"
+  correction: "Extend hardcoded vanilla hooks with on_actions = { tv_named_callback } delegation and put the TV logic in the named callback's own effect block. Do not add a second direct effect block to the hardcoded hook itself."
   category: script
   scope: any
-  source: "reference_mods/3686272563/in_game/common/on_action/country_monthly.txt:3 (singleton comment)"
-  notes: "EU5 on_action loading is singleton per on_action key for effect = { } blocks: only the last file loaded alphabetically wins. Two mod files each defining monthly_country_pulse = { effect = { ... } } means only one effect block ever runs. Confirmed: _yearly.txt (y) overrides _leaderboard.txt (l), silently discarding the leaderboard update."
+  source: "reference_game_files/game/in_game/common/on_action/_hardcoded.txt:497, 1182, 1436, 1575, 1790, 3175, 4833"
+  notes: "Hardcoded on_action hooks are singleton by key for top-level effect blocks. A mod file that adds another direct effect to the same hardcoded hook will not merge the bodies; Jomini keeps the most recent effect and silently drops the earlier one. Use an on_actions delegate to route TV logic into a separate named on_action."
 
 - id: ordered_in_global_list_limit_unguarded_var
   pattern: ''

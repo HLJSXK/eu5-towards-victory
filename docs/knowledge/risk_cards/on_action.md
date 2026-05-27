@@ -8,9 +8,12 @@ Load this card before editing `common/on_action/` files or adding monthly/yearly
    EU5 on_action keys with direct `effect = { ... }` bodies do not merge safely across files.
    Use the pulse registry generator for shared country/monthly/yearly/death hooks.
 
-2. Preserve vanilla-copy generated files.
+2. Preserve vanilla-copy generated files and hardcoded hook bridges.
    Generated pulse files copy vanilla content and insert TV-owned additions. Do not hand-edit
-   copied vanilla sections; update `data/pulse_registry.yaml` and rerun the generator.
+   copied vanilla sections; update `data/pulse_registry.yaml` and rerun the generator. For
+   vanilla hardcoded hooks such as `on_winning_war`, `on_work_of_art_created`, `on_annex`,
+   `on_war_declared`, `on_join_war`, `on_ending_war`, and `on_ruler_death`, add TV logic via
+   `on_actions = { tv_*_callback }` delegation instead of a second direct `effect`.
 
 3. Verify root/prev assumptions.
    On_action callbacks often run from global, country, character, or situation roots. Capture
@@ -29,3 +32,4 @@ Load this card before editing `common/on_action/` files or adding monthly/yearly
 
 Run the relevant generator when editing registry data, then `validate.py --changed --fix --ai-report`.
 For copied vanilla pulse files, `validate.py` checks that non-TV vanilla content remains unchanged.
+It also flags direct top-level `effect` blocks on the hardcoded vanilla hooks above.

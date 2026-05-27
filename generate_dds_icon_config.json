@@ -1,0 +1,79 @@
+{
+  "api": {
+    "endpoint": "https://api.openai.com/v1/images/edits",
+    "generations_endpoint": "https://api.openai.com/v1/images/generations",
+    "edits_endpoint": "https://api.openai.com/v1/images/edits",
+    "responses_endpoint": "https://api.openai.com/v1/responses",
+    "api_key_env": [
+      "OPENAI_API_KEY"
+    ],
+    "api_key": "",
+    "proxy_url": "",
+    "timeout_seconds": 180,
+    "max_attempts": 4,
+    "retry_initial_delay_seconds": 3,
+    "retry_max_delay_seconds": 30,
+    "retry_backoff_multiplier": 2
+  },
+  "prompt_refinement": {
+    "enabled": true,
+    "model": "gpt-5.5",
+    "instructions": "You are an art director for Europa Universalis V mod assets. Turn the user's short natural-language request into one production-ready image prompt. Preserve the requested subject, icon meaning, and composition constraints. The output must be a single final prompt with no commentary, no bullets, and no quotation marks around the whole answer.",
+    "max_output_tokens": 500,
+    "style_rules": "Match the palette, brush feel, lighting, icon density, and framing discipline of the provided reference DDS. Keep the final subject and icon meaning driven by the user's request, not the reference subject."
+  },
+  "image": {
+    "natural_prompt": "Describe the icon you want here. The script will refine this into a final image prompt.",
+    "size": "1024x1024",
+    "quality": "high",
+    "output_format": "png",
+    "n": 1,
+    "background": "opaque",
+    "moderation": "auto",
+    "user": "towards_victory"
+  },
+  "style_reference": {
+    "required": true,
+    "notes": "Set paths to one or more vanilla same-type DDS/PNG assets before generation; the reference controls style only, not subject.",
+    "paths": [],
+    "upload_field_name": "image",
+    "write_converted_pngs": true,
+    "temporary_png_dir": "data/generated_icons/_style_refs"
+  },
+  "output": {
+    "name": "icon_goods_tv_example",
+    "overwrite": false,
+    "keep_png": true,
+    "write_metadata": true,
+    "png_dir": "data/generated_icons",
+    "metadata_dir": "data/generated_icons",
+    "targets": [
+      {
+        "name": "trade_good_icon",
+        "path": "src/main_menu/gfx/interface/icons/trade_goods/icon_goods_tv_example.dds",
+        "width": 100,
+        "height": 100,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "opaque_background": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "trade_good_illustration",
+        "path": "src/main_menu/gfx/interface/icons/trade_goods/illustrations/icon_goods_tv_example.dds",
+        "width": 1080,
+        "height": 457,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "opaque_background": [
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  }
+}

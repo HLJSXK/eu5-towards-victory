@@ -611,6 +611,26 @@ If a visible option helper needs a derived numeric value, prefer branching from 
 
 Generic action widgets can hit the same problem while the action card or tooltip is merely visible. If an action effect initializes variables and then calls a visible helper that compares those same variables, action hover pre-evaluation may read them before the initialization is committed. Hide action widgets until their prerequisite state exists, repeat important prerequisites inside the action effect, and write reusable helpers with `var:X ?= ...` or threshold-style comparisons instead of direct reads of values that are only set earlier in the same chain.
 
+### 6.2 On Action Hook Extension
+
+Vanilla hardcoded on_actions such as `on_annex`, `on_winning_war`, `on_join_war`, `on_ending_war`, `on_war_declared`, `on_ruler_death`, and `on_work_of_art_created` already define direct `effect = { ... }` bodies in `_hardcoded.txt`. A mod file that defines the same hook with another direct `effect` does not append to the vanilla body; Jomini logs "There is more than one 'effect' defined using most recent" and keeps only the latest effect block.
+
+Extend those hooks with an `on_actions` delegate and keep the mod logic in a named callback:
+
+```txt
+on_war_declared = {
+    on_actions = { tv_example_on_war_declared }
+}
+
+tv_example_on_war_declared = {
+    effect = {
+        # TV logic here, with the same scopes as the parent hook.
+    }
+}
+```
+
+For singleton pulse files that are copied from vanilla, use the pulse registry generator rather than hand-editing the generated output.
+
 #### Scripted Effects That Change IO Variables
 
 If a reusable `scripted_effect` changes an International Organization type variable and callers need to show the gain/loss in their option or action tooltip, do not leave the IO-scope `change_variable` bare inside the helper. Wrap the real effect in `custom_description` and register that `text` key under `in_game/common/effect_localization/`.
