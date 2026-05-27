@@ -1,0 +1,31 @@
+{
+  "generation_target": "trade_good_illustration",
+  "payload": {
+    "model": "gpt-image-2",
+    "prompt": "Create a Europa Universalis V trade goods Icon illustration DDS asset.\nSubject: Luxurious white marble wonder materials with subtle gray veining, bronze-gold trim, and a premium carved-stone look.\nReference image: use the uploaded target-specific reference image only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.\nDistinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.\nComposition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.\nTarget format: final DDS target is exactly 1080x440 and must stay under 1,000,000 bytes.\nTarget-specific requirement: This is a wide trade-goods illustration. Compose for a 1080x440 banner crop with a clear focal subject, supporting environment, and no tiny UI-icon-style object pile.\nStyle rules:\nMatch the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the user's request, not the reference subject.\nExtra composition rules:\nUse the reference only as a style guide. Keep the result in the same visual family, but make it visibly distinct at a glance by changing the silhouette, crop, object arrangement, and ornament placement. Do not mirror the reference composition or reuse its exact outline.",
+    "size": "2160x880",
+    "quality": "high",
+    "output_format": "png",
+    "n": 1,
+    "response_format": "url",
+    "background": "opaque",
+    "moderation": "auto",
+    "user": "towards_victory"
+  },
+  "created": 1779883220,
+  "final_prompt": "Create a Europa Universalis V trade goods Icon illustration DDS asset.\nSubject: Luxurious white marble wonder materials with subtle gray veining, bronze-gold trim, and a premium carved-stone look.\nReference image: use the uploaded target-specific reference image only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.\nDistinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.\nComposition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.\nTarget format: final DDS target is exactly 1080x440 and must stay under 1,000,000 bytes.\nTarget-specific requirement: This is a wide trade-goods illustration. Compose for a 1080x440 banner crop with a clear focal subject, supporting environment, and no tiny UI-icon-style object pile.\nStyle rules:\nMatch the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the user's request, not the reference subject.\nExtra composition rules:\nUse the reference only as a style guide. Keep the result in the same visual family, but make it visibly distinct at a glance by changing the silhouette, crop, object arrangement, and ornament placement. Do not mirror the reference composition or reuse its exact outline.",
+  "revised_prompt": "Create a wide painterly trade-goods illustration for Europa Universalis V at 2160x880 (safe center crop for 1080x440 DDS banner). Subject: luxurious white marble wonder materials — premium white marble blocks and carved architectural stone with subtle gray veining, bronze-gold trim accents, and an elegant high-value carved-stone look. Use the uploaded reference image ONLY as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do NOT copy its subject, exact composition, silhouette, ornament placement, or any text.\n\nCompose a visibly distinct scene at a glance: centered focal grouping of refined marble goods on a broad stone platform in a sunlit quarry-workshop environment, with one tall carved marble slab or ornamental column section as the main centerpiece, supported by polished marble blocks, carved capitals, and trimmed stone pieces arranged in a clean, readable banner composition. Add subtle bronze-gold edging, clamps, or decorative inlays to communicate luxury. Include supporting environment such as quarry walls, calm water, scaffolding or workshop architecture in the distance, but keep them secondary. No tiny object pile.\n\nVisual style: same visual family as the reference—soft painterly brush feel, warm sunlight, cool shadows, tasteful atmospheric depth, realistic stone surfaces, restrained icon density, strong readability, centered high-contrast subject. Keep the subject meaning driven by luxury marble materials, not the reference subject. Change shape language, crop, object arrangement, and decorative accents so it does not mirror the reference. Avoid a hanging slab crane composition. No watermark, no letters, no logo, no UI elements.",
+  "targets": [
+    {
+      "name": "trade_good_illustration",
+      "label": "trade goods Icon illustration",
+      "path": "src/main_menu/gfx/interface/icons/trade_goods/illustrations/icon_goods_tv_wonder_materials.dds",
+      "width": 1080,
+      "height": 440,
+      "resize": "cover",
+      "dds_format": "DXT5",
+      "file_size_bytes": 475328,
+      "max_file_size_bytes": 1000000
+    }
+  ]
+}

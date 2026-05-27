@@ -1,0 +1,31 @@
+{
+  "generation_target": "trade_good_icon",
+  "payload": {
+    "model": "gpt-image-2",
+    "prompt": "Create a Europa Universalis V trade goods Icon DDS asset.\nSubject: Luxurious white marble wonder materials with subtle gray veining, bronze-gold trim, and a premium carved-stone look.\nReference image: use the uploaded target-specific reference image only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.\nDistinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.\nComposition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.\nTarget format: final DDS target is exactly 128x128 and must stay under 100,000 bytes.\nTarget-specific requirement: This is a compact trade-goods inventory icon. Make the silhouette bold, centered, and readable at 128x128; avoid landscape scenery and fine narrative detail.\nStyle rules:\nMatch the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the user's request, not the reference subject.\nExtra composition rules:\nUse the reference only as a style guide. Keep the result in the same visual family, but make it visibly distinct at a glance by changing the silhouette, crop, object arrangement, and ornament placement. Do not mirror the reference composition or reuse its exact outline.",
+    "size": "1024x1024",
+    "quality": "high",
+    "output_format": "png",
+    "n": 1,
+    "response_format": "url",
+    "background": "opaque",
+    "moderation": "auto",
+    "user": "towards_victory"
+  },
+  "created": 1779883006,
+  "final_prompt": "Create a Europa Universalis V trade goods Icon DDS asset.\nSubject: Luxurious white marble wonder materials with subtle gray veining, bronze-gold trim, and a premium carved-stone look.\nReference image: use the uploaded target-specific reference image only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.\nDistinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.\nComposition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.\nTarget format: final DDS target is exactly 128x128 and must stay under 100,000 bytes.\nTarget-specific requirement: This is a compact trade-goods inventory icon. Make the silhouette bold, centered, and readable at 128x128; avoid landscape scenery and fine narrative detail.\nStyle rules:\nMatch the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the user's request, not the reference subject.\nExtra composition rules:\nUse the reference only as a style guide. Keep the result in the same visual family, but make it visibly distinct at a glance by changing the silhouette, crop, object arrangement, and ornament placement. Do not mirror the reference composition or reuse its exact outline.",
+  "revised_prompt": "Create a 1024x1024 game inventory icon illustration for a Europa Universalis V trade good DDS asset. Use the uploaded reference image ONLY as style guidance for palette, painterly brushwork, lighting, surface treatment, value contrast, and tight centered icon framing. Do NOT copy the reference subject, exact composition, silhouette, ornament placement, or any text.\n\nSubject: luxurious white marble wonder materials — a bold, centered cluster of premium carved stone fragments and architectural marble pieces, with subtle cool-gray veining and tasteful bronze-gold trim/inlays. Make it feel expensive, refined, and clearly different from the reference at a glance.\n\nDistinct silhouette: instead of rough stacked rocks, use a visibly different arrangement such as a large carved marble corner block, a beveled decorative slab, and a broken ornamental ring or column-cap fragment, arranged in a compact triangular cluster with strong readable negative space. Keep the silhouette chunky, simple, and highly legible at 128x128.\n\nStyle: same visual family as the reference icon—clean painterly strategy-game resource icon, soft but directional lighting, crisp readable forms, restrained detail density, high contrast, subtle edge highlights, minimal background presence.\n\nComposition rules: centered main subject, close crop, no landscape, no story scene, no extra props, no watermark, no letters, no logo, no UI chrome. Keep the background plain and unobtrusive so the marble cluster reads clearly. Premium carved-stone look, polished but still material-rich, with carefully placed bronze-gold accents.\n\nImportant: make the result visibly distinct from the reference by changing shape language, crop, object arrangement, and decorative accents. Same style family, different subject silhouette.",
+  "targets": [
+    {
+      "name": "trade_good_icon",
+      "label": "trade goods Icon",
+      "path": "src/main_menu/gfx/interface/icons/trade_goods/icon_goods_tv_wonder_materials.dds",
+      "width": 128,
+      "height": 128,
+      "resize": "cover",
+      "dds_format": "DXT5",
+      "file_size_bytes": 16512,
+      "max_file_size_bytes": 100000
+    }
+  ]
+}

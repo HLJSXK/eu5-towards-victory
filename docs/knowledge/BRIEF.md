@@ -261,6 +261,8 @@ Governor's House War Tent file notes: `src/in_game/common/scripted_effects/tv_go
 
 ### Main Menu Graphics
 
+`src/main_menu/common/modifier_icons/` contains TV modifier type icon mappings. `towards_victory_modifier_icons.txt` maps custom price, goods, and IO special-status modifier types to close vanilla `gfx/interface/icons/modifier_types/*.dds` assets, so the engine can resolve their UI icons without custom DDS files.
+
 `src/main_menu/gfx/interface/icons/international_organizations/` contains the six TV IO `GetIcon` assets:
 `tv_govhouse.dds`, `tv_diplomatic_alliance.dds`, `tv_arts_exhibition.dds`, `tv_academy_of_sciences.dds`, `tv_engineering_department.dds`, and `tv_trade_league.dds`.
 `tv_trade_league.dds` reuses the Trade Victory `gfx/interface/icons/flat_icons/trade.dds` asset under the IO type key. These assets keep shared IO title/list/tooltip UI from falling back to the generic international organization icon.
