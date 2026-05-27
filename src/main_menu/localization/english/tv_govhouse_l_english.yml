@@ -445,7 +445,7 @@
  TV_GOVHOUSE_TASK_CONVERT_RELIGION_ACTIVE: "In progress: Convert Religion"
  TV_GOVHOUSE_TASK_STRENGTHEN_RECRUITMENT_ACTIVE: "In progress: Strengthen Recruitment"
  TV_GOVHOUSE_TASK_STRENGTHEN_ORDER_ACTIVE: "In progress: Strengthen Order"
- TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_TT: "Autonomous Governor Task\n@prosperity! $MODIFIER_TYPE_NAME_local_monthly_prosperity$: Governor Administrative skill x 0.05%.\nWeight: inverse of average prosperity in the governed region."
+ TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_TT: "Autonomous Governor Task\n@prosperity! $MODIFIER_TYPE_NAME_local_monthly_prosperity$: Governor Administrative skill x 0.05%.\nWeight: negative average prosperity in the governed region, minimum 0."
  TV_GOVHOUSE_TASK_INTEGRATE_REGION_TT: "Autonomous Governor Task\n@province_integration_speed! $MODIFIER_TYPE_NAME_local_integration_speed$: Governor Administrative skill x 0.001.\nWeight: share of unintegrated owned locations in the governed region."
  TV_GOVHOUSE_TASK_CONVERT_CULTURE_TT: "Autonomous Governor Task\n@pop_assimilation_speed! $MODIFIER_TYPE_NAME_local_pop_assimilation_speed$: Governor Diplomatic skill x 0.1.\nWeight: share of integrated non-core owned locations. Becomes 0 if any owned location is unintegrated."
  TV_GOVHOUSE_TASK_CONVERT_RELIGION_TT: "Autonomous Governor Task\n@religion! $MODIFIER_TYPE_NAME_local_pop_conversion_speed$: Governor Diplomatic skill x 0.1.\nWeight: national spiritualist tendency. Becomes 0 if any owned location is unintegrated."

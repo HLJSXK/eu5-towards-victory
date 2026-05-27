@@ -1203,7 +1203,6 @@ tv_governor_select_yearly_task_effect = {
 	if = {
 		limit = { var:tv_gov_task_location_count > 0 }
 		change_variable = { name = tv_gov_task_prosperity_sum divide = var:tv_gov_task_location_count }
-		change_variable = { name = tv_gov_task_prosperity_sum divide = 100 }
 		set_variable = { name = tv_gov_weight_restore_prosperity value = var:tv_gov_task_prosperity_sum }
 		change_variable = { name = tv_gov_weight_restore_prosperity multiply = -1 }
 		if = {

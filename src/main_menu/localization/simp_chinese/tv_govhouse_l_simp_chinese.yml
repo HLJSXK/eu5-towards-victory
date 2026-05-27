@@ -444,7 +444,7 @@
  TV_GOVHOUSE_TASK_CONVERT_RELIGION_ACTIVE: "正在进行：转换宗教"
  TV_GOVHOUSE_TASK_STRENGTHEN_RECRUITMENT_ACTIVE: "正在进行：加强征兵"
  TV_GOVHOUSE_TASK_STRENGTHEN_ORDER_ACTIVE: "正在进行：强化秩序"
- TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_TT: "地方总督自主任务\n@prosperity!$MODIFIER_TYPE_NAME_local_monthly_prosperity$：总督行政能力 x 0.05%。\n权重：管辖地区平均繁荣度的相反数。"
+ TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_TT: "地方总督自主任务\n@prosperity!$MODIFIER_TYPE_NAME_local_monthly_prosperity$：总督行政能力 x 0.05%。\n权重：管辖地区平均繁荣度的相反数，最低为0。"
  TV_GOVHOUSE_TASK_INTEGRATE_REGION_TT: "地方总督自主任务\n@province_integration_speed!$MODIFIER_TYPE_NAME_local_integration_speed$：总督行政能力 x 0.001。\n权重：管辖地区中未整合直属地点占比。"
  TV_GOVHOUSE_TASK_CONVERT_CULTURE_TT: "地方总督自主任务\n@pop_assimilation_speed!$MODIFIER_TYPE_NAME_local_pop_assimilation_speed$：总督外交能力 x 0.1。\n权重：已整合但非核心直属地点占比；若任意直属地点未整合，权重为0。"
  TV_GOVHOUSE_TASK_CONVERT_RELIGION_TT: "地方总督自主任务\n@religion!$MODIFIER_TYPE_NAME_local_pop_conversion_speed$：总督外交能力 x 0.1。\n权重：国家属灵倾向；若任意直属地点未整合，权重为0。"
