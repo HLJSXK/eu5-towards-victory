@@ -1190,6 +1190,15 @@
   source: "reference_game_files/game/in_game/common/resolutions/policy_vote.txt:620; reference_game_files/game/in_game/common/international_organization_special_statuses/readme.txt:12; reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:14570"
   notes: "The policy_vote resolution requires country_combined_special_status_power(scope:recipient) > 0 when uses_parliament_for_law_votes_trigger is active. Without a participating special status, the law debate can open but the IO parliament page has no voter group to show."
 
+- id: io_special_status_missing_parliament_modifier_types
+  pattern: ''
+  bad: "Defining a custom IO special status without the matching auto-requested parliament modifier type pair"
+  correction: "For every custom IO special status key that can be implemented on an international organization, define <status>_can_participate_in_parliament as boolean and <status>_agenda_impact as percent in main_menu/common/modifier_type_definitions with game_data category = internationalorganization."
+  category: modifier
+  scope: international_organization
+  source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:14570-14582; runtime error.log tv_trade_league_member_status 2026-05-27"
+  notes: "EU5 automatically tries to resolve these modifier type names for custom IO special statuses; missing definitions produce startup DB assertions such as 'Modifier type definition <status>_can_participate_in_parliament must exist in DB'."
+
 - id: io_policy_execution_scope_recipient_unset
   pattern: ''
   bad: "Using scope:recipient inside IO policy allow/on_activate/on_deactivate to read or mutate the IO"

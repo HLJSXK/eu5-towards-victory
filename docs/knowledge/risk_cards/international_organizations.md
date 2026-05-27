@@ -81,6 +81,13 @@ that create, find, or mutate TV IOs.
     use `every_international_organizations_member_of = { limit = { ... } ... }`
     when you need to enter matching IO scopes and run effects.
 
+15. Define custom special-status parliament modifier type pairs.
+    Every custom IO special status key that can be implemented by an IO needs
+    `<status>_can_participate_in_parliament` and `<status>_agenda_impact` in
+    `main_menu/common/modifier_type_definitions`, both with
+    `game_data = { category = internationalorganization }`. Missing definitions can
+    trigger startup DB assertions even when the status is not explicitly using parliament.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then inspect shared IO tooltips in game. Tooltip
