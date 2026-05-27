@@ -1071,6 +1071,17 @@
   source: "src/main_menu/common/modifier_type_definitions/towards_victory_modifier_types.txt:41; runtime error.log: price_database.cpp:116"
   notes: "EU5 automatically looks for a cost modifier type named <price_key>_cost_modifier for each price. If it is absent, the engine logs 'Missing modifier type for price'."
 
+- id: custom_goods_missing_modifier_type_family
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['goods']
+  bad: "Defining a custom goods key without the matching auto-requested modifier type family"
+  correction: "For every custom goods ID, add ban_exports_of_<good>, ban_imports_of_<good>, local_<good>_output_modifier, global_<good>_output_modifier, can_extract_<good>, <good>_impacts_inflation, <good>_used_for_minting, and global_<good>_pop_demand in main_menu/common/modifier_type_definitions, matching vanilla goods categories and boolean/percent flags."
+  category: modifier
+  scope: country
+  source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:9391-9415; runtime error.log: modifier_type.cpp:1147"
+  notes: "EU5 automatically tries to use these modifier type names for every goods database entry. A custom goods key without the family logs 'Modifier type definition <name> must exist in DB'."
+
 - id: generic_action_missing_message_type
   pattern: ''
   only_in_paths: ['generic_actions']
