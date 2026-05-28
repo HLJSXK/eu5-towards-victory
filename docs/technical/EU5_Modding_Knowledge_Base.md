@@ -472,6 +472,12 @@ hides effect text, but the pre-evaluator can still walk into nested `scripted_ef
 Any helper reached from a generic action must not assume variables written earlier in that same
 effect chain exist during hover.
 
+Cleanup-only helpers are still different from player-facing effects: if the button is only
+clearing variables, removing list entries, stripping stale modifiers, or rebuilding display
+state, call that helper from `hidden_effect = { ... }` so the cleanup is not rendered as tooltip
+content. `scripts/validate.py` keeps a registered hidden-only helper list for recurring traps
+such as `tv_governor_remove_effect`.
+
 **Required guards:**
 
 1. Wrap the entire effect body in an existence check for all required named scopes:

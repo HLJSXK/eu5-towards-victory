@@ -28,22 +28,27 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    make the helper use `has_variable` / `var:X ?= ...` before direct comparisons, or guard the
    helper so it runs only after persistent prerequisite state exists.
 
-4. Keep selection target names vanilla-shaped.
+4. Hide cleanup-only helper calls.
+   If a generic action effect only clears variables, removes list entries, strips stale modifiers,
+   or rebuilds display state, call that helper from `hidden_effect = { ... }`. Registered
+   cleanup helpers such as `tv_governor_remove_effect` are enforced by `scripts/validate.py`.
+
+5. Keep selection target names vanilla-shaped.
    Use `target`, `target_1`, and `target_2`. Custom names such as `selected_artist` have caused
    unset-scope errors in multi-step actions.
 
-5. Keep later selectors in the same chooser when they read earlier targets.
+6. Keep later selectors in the same chooser when they read earlier targets.
    Do not put `source = world` on a later `select_trigger` if its `visible`, `enabled`, or
    tooltip logic reads `scope:target` (or another earlier target flag). Use the inherited
    chooser/source or an explicit `interaction_source_list` instead.
 
-6. Wrap selected numeric values in script-value blocks.
+7. Wrap selected numeric values in script-value blocks.
    If a selector result or scoped variable is stored or passed to a numeric effect parameter,
    use `value = { value = scope:target_1 }`, `scale = { value = scope:io.var:X }`, or
    `amount = { value = scope:io.var:X }`. Direct dynamic reads in these slots can collapse
    to `1` at runtime.
 
-7. Register the action outside the action file.
+8. Register the action outside the action file.
    Every new generic action also needs a `common/generic_action_ai_lists` entry and a
    `PERFORM_<action_id>_ACTION` message type.
 
@@ -100,3 +105,6 @@ rationale.
 - `generic_action_hidden_effect_not_hover_boundary` [advisory]: A `hidden_effect` inside a
   generic action can still be evaluated while a select-trigger candidate is merely hovered; make
   helper reads safe with optional variable links or persistent-state guards.
+- `generic_action_cleanup_effect_must_be_hidden` [needs_parser]: Cleanup-only helper calls from
+  generic action effects should be inside `hidden_effect`; `validate.py` enforces the registered
+  high-risk helper list.

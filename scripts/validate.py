@@ -50,6 +50,16 @@ HARD_CODED_ON_ACTIONS_FILE = (
 )
 UTF8_BOM = b"\xef\xbb\xbf"
 VALIDATED_SUFFIXES = {".txt", ".gui", ".yml", ".yaml", ".md", ".py"}
+GENERIC_ACTION_HIDDEN_ONLY_EFFECTS = {
+    "tv_governor_remove_effect": (
+        "dismisses a regional governor by clearing variables/lists and rebuilding display state; "
+        "wrap the call in `hidden_effect = { ... }` so action tooltip rendering does not evaluate the cleanup chain."
+    ),
+    "tv_governor_clear_assignment_effect": (
+        "clears governor assignment variables and location modifiers; wrap the call in "
+        "`hidden_effect = { ... }` when reached from a generic action."
+    ),
+}
 
 issues = []
 warnings = []
@@ -603,6 +613,21 @@ def check_generic_action_pre_eval_risks(path: Path, content: str) -> None:
 
         for effect_open, effect_close in effect_blocks:
             effect_body = content[effect_open + 1:effect_close]
+            hidden_ranges = list(_iter_named_blocks(content, effect_open, effect_close, "hidden_effect"))
+            for effect_name, reason in GENERIC_ACTION_HIDDEN_ONLY_EFFECTS.items():
+                for cleanup_match in re.finditer(rf"\b{re.escape(effect_name)}\s*=\s*yes\b", effect_body):
+                    absolute_pos = effect_open + 1 + cleanup_match.start()
+                    line_start = effect_body.rfind("\n", 0, cleanup_match.start()) + 1
+                    line_prefix = effect_body[line_start:cleanup_match.start()]
+                    if line_prefix.lstrip().startswith("#"):
+                        continue
+                    if any(hidden_open < absolute_pos < hidden_close for hidden_open, hidden_close in hidden_ranges):
+                        continue
+                    issues.append(
+                        f"[GENERIC_ACTION_HIDDEN_EFFECT] {path.relative_to(REPO_ROOT)}:{_line_num(content, absolute_pos)} -- "
+                        f"{action}: `{effect_name}` is a state-cleanup helper called from a visible generic action effect; {reason}"
+                    )
+
             for set_match in re.finditer(
                 r"set_variable\s*=\s*\{[^{}]*\bname\s*=\s*(\w+)",
                 effect_body,

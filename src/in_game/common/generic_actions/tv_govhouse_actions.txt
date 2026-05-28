@@ -213,7 +213,9 @@ tv_remove_governor = {
 
 	effect = {
 		scope:actor = {
-			tv_governor_remove_effect = yes
+			hidden_effect = {
+				tv_governor_remove_effect = yes
+			}
 		}
 	}
 

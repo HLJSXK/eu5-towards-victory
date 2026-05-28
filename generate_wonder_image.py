@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """
-Generate a Towards Victory wonder illustration through Packy gpt-image-2.
+Generate Towards Victory wonder illustrations through Packy gpt-image-2.
 
 Usage:
   1. Edit generate_wonder_image_config.json.
   2. Set PACKY_API_KEY, or put api.api_key in generate_wonder_image.local.json.
   3. Run: python generate_wonder_image.py
 
-The script intentionally has no command-line arguments. The generated PNG is
-decoded and written as a DXT1 DDS file without requiring ImageMagick, texconv,
-Pillow, or other third-party packages.
+The script intentionally has no command-line arguments. It reads a batch of
+image tasks from the JSON config, skips tasks whose output already exists when
+overwrite is false, and writes generated PNGs as DXT1 DDS files without
+requiring ImageMagick, texconv, Pillow, or other third-party packages.
 """
 
 from __future__ import annotations
@@ -105,10 +106,24 @@ def resolve_repo_path(value: str | None, default_path: Path) -> Path:
     return REPO_ROOT / path
 
 
+def pretty_repo_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
+
+
 def require_object(config: dict[str, Any], key: str) -> dict[str, Any]:
     value = config.get(key, {})
     if not isinstance(value, dict):
         raise ValueError(f"{key} must be a JSON object")
+    return value
+
+
+def require_list(config: dict[str, Any], key: str) -> list[Any]:
+    value = config.get(key, [])
+    if not isinstance(value, list):
+        raise ValueError(f"{key} must be a JSON array")
     return value
 
 
@@ -184,6 +199,35 @@ def build_payload(image_config: dict[str, Any]) -> dict[str, Any]:
 
     parse_size(str(payload["size"]))
     return payload
+
+
+def load_task_config(config: dict[str, Any]) -> list[dict[str, Any]]:
+    defaults = require_object(config, "defaults") if "defaults" in config else {}
+    if "images" in config:
+        image_entries = require_list(config, "images")
+    else:
+        legacy_image = require_object(config, "image")
+        legacy_output = require_object(config, "output")
+        image_entries = [deep_merge(defaults, deep_merge(legacy_image, legacy_output))]
+
+    tasks: list[dict[str, Any]] = []
+    for index, entry in enumerate(image_entries, start=1):
+        if not isinstance(entry, dict):
+            raise ValueError(f"images[{index}] must be a JSON object")
+        task = deep_merge(defaults, entry)
+        if "output" in task and isinstance(task["output"], dict):
+            task = deep_merge(task, task["output"])
+        name = str(task.get("name") or "").strip()
+        prompt = str(task.get("prompt") or "").strip()
+        if not name:
+            raise ValueError(f"images[{index}].name must be set")
+        if not prompt:
+            raise ValueError(f"images[{index}].prompt must be a non-empty string")
+        tasks.append(task)
+
+    if not tasks:
+        raise ValueError("images must contain at least one task")
+    return tasks
 
 
 def load_retry_settings(api_config: dict[str, Any]) -> RetrySettings:
@@ -670,9 +714,8 @@ def write_metadata(path: Path, payload: dict[str, Any], response: dict[str, Any]
 def main() -> int:
     config = load_config()
     api_config = require_object(config, "api")
-    image_config = require_object(config, "image")
-    output_config = require_object(config, "output")
     dds_config = require_object(config, "dds")
+    tasks = load_task_config(config)
 
     endpoint = str(api_config.get("endpoint") or DEFAULT_ENDPOINT)
     timeout = float(api_config.get("timeout_seconds", 180))
@@ -680,61 +723,80 @@ def main() -> int:
     proxy_url = load_proxy_url(api_config)
     opener = build_url_opener(proxy_url)
     api_key = resolve_api_key(api_config)
-    payload = build_payload(image_config)
-    expected_width, expected_height = parse_size(str(payload["size"]))
-
-    stem = wonder_file_stem(output_config)
-    png_dir = resolve_repo_path(output_config.get("png_dir"), DEFAULT_PNG_DIR)
-    dds_dir = resolve_repo_path(output_config.get("dds_dir"), DEFAULT_WONDERS_DIR)
-    png_path = png_dir / f"{stem}.png"
-    dds_path = dds_dir / f"{stem}.dds"
-    metadata_path = png_dir / f"{stem}.json"
-    keep_png = bool(output_config.get("keep_png", True))
-    overwrite = bool(output_config.get("overwrite", False))
-    write_metadata_enabled = bool(output_config.get("write_metadata", True))
     dds_format = str(dds_config.get("format", "DXT1")).upper()
     if dds_format != "DXT1":
         raise ValueError("dds.format currently supports only DXT1")
     background = parse_background(dds_config.get("opaque_background", [0, 0, 0]))
 
-    if dds_path.exists() and not overwrite:
-        raise FileExistsError(f"Refusing to overwrite existing DDS: {dds_path}")
-    if png_path.exists() and not overwrite:
-        raise FileExistsError(f"Refusing to overwrite existing PNG: {png_path}")
-
-    print(f"[request] POST {endpoint}")
-    print(f"[request] model={payload['model']} size={payload['size']} quality={payload['quality']}")
     if proxy_url:
         print(f"[network] proxy={proxy_url}")
-    response = api_post_json(endpoint, api_key, payload, timeout, retry_settings, opener)
-    png_bytes, revised_prompt = extract_png_bytes(response, timeout, retry_settings, opener)
-    if not png_bytes.startswith(PNG_SIGNATURE):
-        raise RuntimeError("Generated image payload is not a PNG")
 
-    png_path.parent.mkdir(parents=True, exist_ok=True)
-    png_path.write_bytes(png_bytes)
-    print(f"[png] {png_path.relative_to(REPO_ROOT)}")
+    task_total = len(tasks)
+    for index, task in enumerate(tasks, start=1):
+        name = str(task.get("name") or "").strip()
+        overwrite = bool(task.get("overwrite", False))
+        enabled = bool(task.get("enabled", True))
+        stem = wonder_file_stem({"name": name})
 
-    decoded = decode_png_rgb(png_bytes, background)
-    if (decoded.width, decoded.height) != (expected_width, expected_height):
-        raise RuntimeError(
-            "Generated PNG size does not match requested size: "
-            f"{decoded.width}x{decoded.height} != {expected_width}x{expected_height}"
+        png_dir = resolve_repo_path(task.get("png_dir"), DEFAULT_PNG_DIR)
+        dds_dir = resolve_repo_path(task.get("dds_dir"), DEFAULT_WONDERS_DIR)
+        png_path = png_dir / f"{stem}.png"
+        dds_path = dds_dir / f"{stem}.dds"
+        metadata_path = png_dir / f"{stem}.json"
+        existing_paths = [path for path in (dds_path, png_path, metadata_path) if path.exists()]
+        dds_exists = dds_path.exists()
+
+        if not enabled:
+            print(f"[skip {index}/{task_total}] {stem}: disabled")
+            continue
+        if dds_exists and not overwrite:
+            rel_paths = ", ".join(pretty_repo_path(path) for path in existing_paths)
+            print(f"[skip {index}/{task_total}] {stem}: existing output found ({rel_paths}); overwrite=false")
+            continue
+
+        payload = build_payload(task)
+        expected_width, expected_height = parse_size(str(payload["size"]))
+        keep_png = bool(task.get("keep_png", True))
+        write_metadata_enabled = bool(task.get("write_metadata", True))
+
+        if existing_paths:
+            rel_paths = ", ".join(pretty_repo_path(path) for path in existing_paths)
+            print(f"[overwrite {index}/{task_total}] {stem}: {rel_paths}")
+
+        print(f"[request {index}/{task_total}] {stem} -> POST {endpoint}")
+        print(
+            f"[request {index}/{task_total}] model={payload['model']} "
+            f"size={payload['size']} quality={payload['quality']}"
         )
+        response = api_post_json(endpoint, api_key, payload, timeout, retry_settings, opener)
+        png_bytes, revised_prompt = extract_png_bytes(response, timeout, retry_settings, opener)
+        if not png_bytes.startswith(PNG_SIGNATURE):
+            raise RuntimeError("Generated image payload is not a PNG")
 
-    write_dxt1_dds(decoded, dds_path, overwrite=overwrite)
-    print(f"[dds] {dds_path.relative_to(REPO_ROOT)}")
+        png_path.parent.mkdir(parents=True, exist_ok=True)
+        png_path.write_bytes(png_bytes)
+        print(f"[png] {pretty_repo_path(png_path)}")
 
-    if write_metadata_enabled:
-        write_metadata(metadata_path, payload, response, revised_prompt)
-        print(f"[metadata] {metadata_path.relative_to(REPO_ROOT)}")
+        decoded = decode_png_rgb(png_bytes, background)
+        if (decoded.width, decoded.height) != (expected_width, expected_height):
+            raise RuntimeError(
+                "Generated PNG size does not match requested size: "
+                f"{decoded.width}x{decoded.height} != {expected_width}x{expected_height}"
+            )
 
-    if revised_prompt:
-        print(f"[revised_prompt] {revised_prompt}")
+        write_dxt1_dds(decoded, dds_path, overwrite=overwrite)
+        print(f"[dds] {pretty_repo_path(dds_path)}")
 
-    if not keep_png:
-        png_path.unlink(missing_ok=True)
-        print("[png] removed because output.keep_png is false")
+        if write_metadata_enabled:
+            write_metadata(metadata_path, payload, response, revised_prompt)
+            print(f"[metadata] {pretty_repo_path(metadata_path)}")
+
+        if revised_prompt:
+            print(f"[revised_prompt] {revised_prompt}")
+
+        if not keep_png:
+            png_path.unlink(missing_ok=True)
+            print("[png] removed because output.keep_png is false")
 
     return 0
 

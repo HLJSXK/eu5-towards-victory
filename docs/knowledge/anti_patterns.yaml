@@ -195,6 +195,17 @@
   source: "user-reported runtime behavior in Trade League virtual demand/supply actions (2026-05-22); reference_game_files/game/in_game/common/generic_actions/international_organizations.txt:275; reference_game_files/game/in_game/events/government/town_rights_events.txt:476"
   notes: "Direct scoped numeric reads in these dynamic value slots can be interpreted as existence/truthy values and collapse to 1. The script-value block preserves the selected number and supports inline arithmetic."
 
+- id: generic_action_cleanup_effect_must_be_hidden
+  pattern: ''
+  detectability: needs_parser
+  only_in_paths: ['generic_actions']
+  bad: "Calling cleanup-only scripted effects from a visible generic action effect"
+  correction: "Wrap cleanup/rebuild-only helper calls in hidden_effect = { ... }. scripts/validate.py enforces the registered high-risk helper list, including tv_governor_remove_effect."
+  category: script
+  scope: any
+  source: "runtime tooltip pre-evaluation errors from Governor's House regional governor dismissal; fixed in src/in_game/common/generic_actions/tv_govhouse_actions.txt"
+  notes: "Generic action effect tooltips can pre-evaluate cleanup helpers, causing variable/list cleanup chains to run through unsafe reads while merely hovering the button. Hidden output is required for these internal maintenance effects."
+
 - id: trade_efficiency_nonexistent
   pattern: '\btrade_efficiency\s*='
   bad: "trade_efficiency = <value>"
