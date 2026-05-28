@@ -202,9 +202,48 @@ laws:
           global_monthly_control = -0.002
           global_integration_speed_modifier = -0.20
 
+  - id: tv_govhouse_grand_general_power_law
+    law_category: tv_govhouse_grand_general
+    display_comment: "LAW 7: Grand General Power"
+    policies:
+      - id: tv_govhouse_general_marching_orders_policy
+        display_comment: "Marching Orders (default)"
+        default: true
+        on_activate: |
+          custom_tooltip = { text = tv_govhouse_general_marching_orders_policy_effect_tt }
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_apply_active_tactic_modifier_effect = yes
+              tv_govhouse_update_plan_modifiers_effect = yes
+            }
+          }
+      - id: tv_govhouse_general_garrison_orders_policy
+        display_comment: "Garrison Orders"
+        on_activate: |
+          custom_tooltip = { text = tv_govhouse_general_garrison_orders_policy_effect_tt }
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_apply_active_tactic_modifier_effect = yes
+              tv_govhouse_update_plan_modifiers_effect = yes
+            }
+          }
+      - id: tv_govhouse_general_supreme_command_policy
+        display_comment: "Supreme Command"
+        on_activate: |
+          custom_tooltip = { text = tv_govhouse_general_supreme_command_policy_effect_tt }
+          hidden_effect = {
+            leader_country ?= {
+              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_apply_active_tactic_modifier_effect = yes
+              tv_govhouse_update_plan_modifiers_effect = yes
+            }
+          }
+
   - id: tv_govhouse_administrative_function_law
     law_category: tv_govhouse_governor_functions
-    display_comment: "LAW 7: Local Governor Administrative Function"
+    display_comment: "LAW 8: Local Governor Administrative Function"
     policies:
       - id: tv_govhouse_admin_control_registers_policy
         display_comment: "Control Registers (default)"
@@ -237,7 +276,7 @@ laws:
 
   - id: tv_govhouse_diplomatic_function_law
     law_category: tv_govhouse_governor_functions
-    display_comment: "LAW 8: Local Governor Diplomatic Function"
+    display_comment: "LAW 9: Local Governor Diplomatic Function"
     policies:
       - id: tv_govhouse_dip_construction_charters_policy
         display_comment: "Construction Charters (default)"
@@ -270,7 +309,7 @@ laws:
 
   - id: tv_govhouse_military_function_law
     law_category: tv_govhouse_governor_functions
-    display_comment: "LAW 9: Local Governor Military Function"
+    display_comment: "LAW 10: Local Governor Military Function"
     policies:
       - id: tv_govhouse_mil_order_patrols_policy
         display_comment: "Order Patrols (default)"
@@ -298,5 +337,65 @@ laws:
           hidden_effect = {
             leader_country ?= {
               tv_apply_governor_bonuses_effect = yes
+            }
+          }
+
+  - id: tv_govhouse_governor_duty_tendency_law
+    law_category: tv_govhouse_governor_functions
+    display_comment: "LAW 11: Local Governor Duty Tendency"
+    policies:
+      - id: tv_govhouse_duty_restore_policy
+        display_comment: "Focus Restoration (default)"
+        default: true
+        on_activate: |
+          custom_tooltip = { text = tv_govhouse_duty_restore_policy_effect_tt }
+          hidden_effect = {
+            leader_country ?= {
+              tv_govhouse_select_governor_tasks_yearly_effect = yes
+            }
+          }
+      - id: tv_govhouse_duty_integrate_policy
+        display_comment: "Focus Integration"
+        on_activate: |
+          custom_tooltip = { text = tv_govhouse_duty_integrate_policy_effect_tt }
+          hidden_effect = {
+            leader_country ?= {
+              tv_govhouse_select_governor_tasks_yearly_effect = yes
+            }
+          }
+      - id: tv_govhouse_duty_religious_unity_policy
+        display_comment: "Focus Religious Unity"
+        on_activate: |
+          custom_tooltip = { text = tv_govhouse_duty_religious_unity_policy_effect_tt }
+          hidden_effect = {
+            leader_country ?= {
+              tv_govhouse_select_governor_tasks_yearly_effect = yes
+            }
+          }
+      - id: tv_govhouse_duty_cultural_unity_policy
+        display_comment: "Focus Cultural Unity"
+        on_activate: |
+          custom_tooltip = { text = tv_govhouse_duty_cultural_unity_policy_effect_tt }
+          hidden_effect = {
+            leader_country ?= {
+              tv_govhouse_select_governor_tasks_yearly_effect = yes
+            }
+          }
+      - id: tv_govhouse_duty_recruitment_policy
+        display_comment: "Focus Recruitment"
+        on_activate: |
+          custom_tooltip = { text = tv_govhouse_duty_recruitment_policy_effect_tt }
+          hidden_effect = {
+            leader_country ?= {
+              tv_govhouse_select_governor_tasks_yearly_effect = yes
+            }
+          }
+      - id: tv_govhouse_duty_order_policy
+        display_comment: "Focus Order"
+        on_activate: |
+          custom_tooltip = { text = tv_govhouse_duty_order_policy_effect_tt }
+          hidden_effect = {
+            leader_country ?= {
+              tv_govhouse_select_governor_tasks_yearly_effect = yes
             }
           }
