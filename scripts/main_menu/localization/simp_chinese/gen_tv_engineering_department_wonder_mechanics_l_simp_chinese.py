@@ -11,6 +11,7 @@ from wonder_mechanics_lib import (
     ceremony_modifier_for_style,
     ceremony_styles,
     final_building_for_style,
+    level_static_modifier_loc,
     load_all_wonder_mechanics_data,
     load_manual_game_concept_ids,
     loc_line,
@@ -102,6 +103,14 @@ def generate() -> str:
             lines.append(loc_line(f"{building_key}_desc", f"{name}已经保留下来的{part_name}模块。"))
         lines.append(loc_line(f"tv_wonder_{key}", name))
         lines.append(loc_line(f"tv_wonder_{key}_desc", f"尚未落成、但已作为完整工程保存下来的{name}。"))
+
+        for level in range(1, 7):
+            lines.append(
+                loc_line(
+                    f"STATIC_MODIFIER_NAME_tv_wonder_{key}_level_{level}",
+                    level_static_modifier_loc(concept, level),
+                )
+            )
 
         for style in ceremony_styles(wonder):
             building = final_building_for_style(wonder, style)

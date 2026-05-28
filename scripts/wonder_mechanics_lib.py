@@ -21,6 +21,14 @@ WONDER_MECHANICS_MIN_ID = ALL_WONDER_MIN_ID
 WONDER_MECHANICS_MAX_ID = UNIQUE_WONDER_MAX_ID
 PARTS = ["foundation", "body", "function", "decoration"]
 GAME_CONCEPT_DECL_RE = re.compile(r"^([A-Za-z0-9_]+)\s*=\s*\{$")
+ROMAN_NUMERALS = {
+    1: "I",
+    2: "II",
+    3: "III",
+    4: "IV",
+    5: "V",
+    6: "VI",
+}
 
 
 def load_yaml(path: Path) -> dict:
@@ -178,6 +186,13 @@ def all_final_buildings(wonders: list[dict]) -> list[str]:
 
 def loc_line(key: str, value: str) -> str:
     return f' {key}:0 "{q(value)}"'
+
+
+def level_static_modifier_loc(concept: str, level: int) -> str:
+    numeral = ROMAN_NUMERALS.get(level)
+    if numeral is None:
+        raise ValueError(f"Unsupported wonder level for localization: {level}")
+    return f"[{concept}|E] {numeral}"
 
 
 def final_building_for_style(wonder: dict, style: int) -> str:
