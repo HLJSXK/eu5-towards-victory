@@ -138,6 +138,244 @@ organization_panel = {
 
 			card_common = {
 				maximumsize = { 500 -1 }
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/trade.dds"
+				}
+				blockoverride "common_header_text" {
+					text = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
+				}
+				blockoverride "common_bottom_content" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 6
+						margin = { 4 6 }
+						hbox = {
+							size = { 462 56 }
+							spacing = 4
+							margin = { 2 0 }
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_1').GetValue)]"
+											direction = vertical
+										}
+									}
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_2').GetValue)]"
+											direction = vertical
+										}
+									}
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_3').GetValue)]"
+											direction = vertical
+										}
+									}
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_4').GetValue)]"
+											direction = vertical
+										}
+									}
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_5').GetValue)]"
+											direction = vertical
+										}
+									}
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_6').GetValue)]"
+											direction = vertical
+										}
+									}
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_7').GetValue)]"
+											direction = vertical
+										}
+									}
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_8').GetValue)]"
+											direction = vertical
+										}
+									}
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_9').GetValue)]"
+											direction = vertical
+										}
+									}
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_10').GetValue)]"
+											direction = vertical
+										}
+									}
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_11').GetValue)]"
+											direction = vertical
+										}
+									}
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 22 56 }
+										background = {
+											using = tooltip_table_field_texture
+											alpha = 0.16
+										}
+										progressbar = {
+											parentanchor = bottom|hcenter
+											size = { 8 52 }
+											using = progress_bar_green_alt
+											min = 0
+											max = 100
+											value = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_income_chart_pct_12').GetValue)]"
+											direction = vertical
+										}
+									}
+						}
+					}
+				}
+			}
+
+			card_common = {
+				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
 					texture = "gfx/interface/icons/flat_icons/trade.dds"
