@@ -375,7 +375,7 @@ organization_panel = {
 											text_single = {
 												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)3.0')]"
 												size = { 62 22 }
-												raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=1]"
+												raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=4]"
 												tooltip = "TV_GOVHOUSE_TASK_CONVERT_CULTURE_TT"
 												align = nobaseline|right
 											}
