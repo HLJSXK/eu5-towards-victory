@@ -28,7 +28,6 @@ pulses:
     - tv_engineering_department_survey_monthly_pulse # Wonder survey completion checks and survey events
     - tv_engineering_department_construction_monthly_pulse # Wonder labor/material/construction monthly tick
     - tv_engineering_department_construction_random_events_monthly_pulse # Wonder construction monthly random events
-    - tv_engineering_department_ceremony_monthly_pulse # Wonder timed ceremony rituals
     - tv_trade_league_monthly_pulse # Trade League leader-country monopoly maintenance
 
   yearly_country_pulse:
@@ -43,4 +42,4 @@ pulses:
     - tv_engineering_department_char_death # Great Engineer death cleanup
 
   on_ruler_death:
-    - tv_engineering_department_ruler_death # Dynastic Burial wonder ceremony completion
+    []

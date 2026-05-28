@@ -1,4 +1,400 @@
 designs:
+  sacred_mountain:
+    status: "已实现"
+    positioning: "高地圣所、宗教权威"
+    site: "山地、高原或丘陵。"
+    preference: "山地 +15%，高原 +7.5%，森林 +10%，树林 +5%。"
+    base_effect: "每级：国家 +10 列强分数、+20% 全局人口皈依速度、+1 正统信仰容忍、+0.05 属灵价值观倾向。"
+    branches:
+      1:
+        zh: "王室献祭"
+        en: "Royal Sacrifice"
+        completion: "确认王室献祭方案后立即完成落成仪式。"
+        effect: "+20% 王室阶级力量。"
+      2:
+        zh: "冥想仪式"
+        en: "Meditation Ceremony"
+        completion: "确认冥想仪式方案后立即完成落成仪式。"
+        effect: "+5% 研究速度。"
+      3:
+        zh: "神授仪式"
+        en: "Divine Investiture"
+        completion: "确认神授仪式方案后立即完成落成仪式。"
+        effect: "+5% 教士满意均衡点。"
+  triumphal_axis:
+    status: "已实现"
+    positioning: "王权展示、城市秩序"
+    site: "城市或大都会。"
+    preference: "发展度提供称职度，大都会额外 +5%。"
+    base_effect: "每级：国家 +10 列强分数、+0.10 每月正统性、+0.05 中央集权价值观倾向。"
+    branches:
+      1:
+        zh: "外国使节觐见"
+        en: "Foreign Emissaries"
+        completion: "确认外国使节觐见方案后立即完成落成仪式。"
+        effect: "+0.20 每月威望。"
+      2:
+        zh: "凯旋阅兵"
+        en: "Triumph Parade"
+        completion: "确认凯旋阅兵方案后立即完成落成仪式。"
+        effect: "+10% 陆军士气。"
+      3:
+        zh: "公民庆典"
+        en: "Civic Festival"
+        completion: "确认公民庆典方案后立即完成落成仪式。"
+        effect: "+5% 人口加入叛军阈值。"
+  great_port:
+    status: "已实现"
+    positioning: "海港贸易、舰队仪式"
+    site: "港口。"
+    preference: "港口适宜度提供称职度。"
+    base_effect: "每级：国家 +10 列强分数、+0.05 海军价值观倾向；所在地提升港口适宜度、贸易中心力和迁入吸引力。"
+    branches:
+      1:
+        zh: "黄金拍卖"
+        en: "Golden Auction"
+        completion: "确认黄金拍卖方案后立即完成落成仪式。"
+        effect: "+10% 贸易收入。"
+      2:
+        zh: "舰队检阅"
+        en: "Fleet Review"
+        completion: "确认舰队检阅方案后立即完成落成仪式。"
+        effect: "+10% 海军士气。"
+      3:
+        zh: "自由贸易节"
+        en: "Free Trade Festival"
+        completion: "确认自由贸易节方案后立即完成落成仪式。"
+        effect: "+2 外交声誉。"
+  giant_necropolis:
+    status: "已实现"
+    positioning: "王朝记忆、祖先祭仪"
+    site: "乡村地点。"
+    preference: "丘陵 +15%，相邻城市 +10%，相邻城镇 +5%。"
+    base_effect: "每级：国家 +10 列强分数、-2% 人口加入叛军阈值、+0.05 传统价值观倾向。"
+    branches:
+      1:
+        zh: "王朝合葬"
+        en: "Dynastic Burial"
+        completion: "确认王朝合葬方案后立即完成落成仪式。"
+        effect: "+0.10 每月正统性。"
+      2:
+        zh: "祖先祭仪"
+        en: "Ancestor Festival"
+        completion: "确认祖先祭仪方案后立即完成落成仪式。"
+        effect: "-10% 稳定度投资花费。"
+      3:
+        zh: "寂静之地"
+        en: "Quiet Land"
+        completion: "确认寂静之地方案后立即完成落成仪式。"
+        effect: "-5% 人口加入叛军阈值。"
+  great_lighthouse:
+    status: "已实现"
+    positioning: "航海标识、海上控制"
+    site: "港口。"
+    preference: "港口适宜度提供称职度。"
+    base_effect: "每级：国家 +10 列强分数、+200 贸易范围、+200 海军范围、+0.05 海军价值观倾向。"
+    branches:
+      1:
+        zh: "长明火祭"
+        en: "Eternal Flame"
+        completion: "确认长明火祭方案后立即完成落成仪式。"
+        effect: "+250 海军范围。"
+      2:
+        zh: "领航员行会"
+        en: "Navigator Guild"
+        completion: "确认领航员行会方案后立即完成落成仪式。"
+        effect: "+2.5% 市民满意均衡点。"
+      3:
+        zh: "长夜守望"
+        en: "Long Watch"
+        completion: "确认长夜守望方案后立即完成落成仪式。"
+        effect: "+10% 海上存在。"
+  hydraulic_workshop:
+    status: "已实现"
+    positioning: "水利工坊、生产组织"
+    site: "河流或湖泊沿岸。"
+    preference: "总建筑等级提供称职度。"
+    base_effect: "每级：国家 +10 列强分数、+0.05 自由民价值观倾向；所在地提升生产效率。"
+    branches:
+      1:
+        zh: "水神大祭"
+        en: "Water Festival"
+        completion: "确认水神大祭方案后立即完成落成仪式。"
+        effect: "-10% 本地叛乱度。"
+      2:
+        zh: "工匠行会法"
+        en: "Artisan Guild Charter"
+        completion: "确认工匠行会法方案后立即完成落成仪式。"
+        effect: "+10% 本地最大控制力。"
+      3:
+        zh: "水轮工坊"
+        en: "Waterwheel Workshop"
+        completion: "确认水轮工坊方案后立即完成落成仪式。"
+        effect: "-50% 本地建设花费。"
+  mining_city:
+    status: "已实现"
+    positioning: "采矿都市、金属财政"
+    site: "铁、铜、锡、铅、银或金产地。"
+    preference: "发展度提供称职度，乡村额外 +5%。"
+    base_effect: "每级：国家 +10 列强分数、+0.05 传统经济价值观倾向；所在地提升原产雇佣和原料产出。"
+    branches:
+      1:
+        zh: "矿工权利宣誓"
+        en: "Miners' Rights"
+        completion: "确认矿工权利宣誓方案后立即完成落成仪式。"
+        effect: "+2.5% 平民满意均衡点。"
+      2:
+        zh: "王家铸币厂"
+        en: "Royal Mint"
+        completion: "确认王家铸币厂方案后立即完成落成仪式。"
+        effect: "+10% 铸币收入。"
+      3:
+        zh: "深井排水"
+        en: "Deep Drainage"
+        completion: "确认深井排水方案后立即完成落成仪式。"
+        effect: "+5% 本地生产效率。"
+  giant_observatory:
+    status: "已实现"
+    positioning: "天文观测、航海历算"
+    site: "山地、高原或丘陵。"
+    preference: "山地 +15%，高原 +7.5%，平均识字率提供称职度。"
+    base_effect: "每级：国家 +10 列强分数、+5% 研究速度、+0.05 创新价值观倾向。"
+    branches:
+      1:
+        zh: "星表编纂"
+        en: "Star Catalog"
+        completion: "确认星表编纂方案后立即完成落成仪式。"
+        effect: "+10 本地最大识字率。"
+      2:
+        zh: "航海历书"
+        en: "Nautical Almanac"
+        completion: "确认航海历书方案后立即完成落成仪式。"
+        effect: "+10% 每月探索进度。"
+      3:
+        zh: "日食宣告"
+        en: "Eclipse Proclamation"
+        completion: "确认日食宣告方案后立即完成落成仪式。"
+        effect: "无永久修正，但日食事件提供 +100 威望。"
+  palace_of_nations:
+    status: "已实现"
+    positioning: "外交朝会、贡礼体系"
+    site: "首都。"
+    preference: "发展度提供称职度，大都会额外 +5%。"
+    base_effect: "每级：国家 +10 列强分数、+5% 临近度速度、+0.05 中央集权价值观倾向。"
+    branches:
+      1:
+        zh: "万国朝会"
+        en: "Congress of Nations"
+        completion: "确认万国朝会方案后立即完成落成仪式。"
+        effect: "+0.20 每月威望。"
+      2:
+        zh: "贡礼长廊"
+        en: "Tribute Gallery"
+        completion: "确认贡礼长廊方案后立即完成落成仪式。"
+        effect: "+5% 附属国收入贡献。"
+      3:
+        zh: "常设使馆区"
+        en: "Embassy Quarter"
+        completion: "确认常设使馆区方案后立即完成落成仪式。"
+        effect: "+1 外交声誉。"
+  university_city:
+    status: "已实现"
+    positioning: "学识城市、高等教育"
+    site: "非乡村地点。"
+    preference: "城市/大都会 +5%，平均识字率提供称职度。"
+    base_effect: "每级：国家 +10 列强分数、+0.05 创新价值观倾向；所在地提升人口晋升速度和最大识字率。"
+    branches:
+      1:
+        zh: "学者大会"
+        en: "Scholars Convocation"
+        completion: "确认学者大会方案后立即完成落成仪式。"
+        effect: "+5% 研究速度。"
+      2:
+        zh: "公开讲学"
+        en: "Public Lectures"
+        completion: "确认公开讲学方案后立即完成落成仪式。"
+        effect: "+0.01 全局每月识字率。"
+      3:
+        zh: "学院特许状"
+        en: "Collegiate Charter"
+        completion: "确认学院特许状方案后立即完成落成仪式。"
+        effect: "+5% 全局人口升级速度修正。"
+  sky_dome_grand_temple:
+    status: "已实现"
+    positioning: "正信礼仪、圣殿组织"
+    site: "正信占优地点。"
+    preference: "修道院 +5%，大教堂 +5%，正信占优 +15%。"
+    base_effect: "每级：国家 +10 列强分数、-10% 稳定度投资花费、+5 全局人口皈依速度、+0.05 属灵价值观倾向。"
+    branches:
+      1:
+        zh: "穹顶祝圣"
+        en: "Dome Consecration"
+        completion: "确认穹顶祝圣方案后立即完成落成仪式。"
+        effect: "+1 正信容忍。"
+      2:
+        zh: "朝圣金库"
+        en: "Pilgrim Treasury"
+        completion: "确认朝圣金库方案后立即完成落成仪式。"
+        effect: "+5% 税收收入效率。"
+      3:
+        zh: "天穹宗会"
+        en: "Celestial Synod"
+        completion: "确认天穹宗会方案后立即完成落成仪式。"
+        effect: "+5% 教士满意均衡点。"
+  giant_tower_temple:
+    status: "已实现"
+    positioning: "塔庙、朝圣阶梯"
+    site: "任意己方地点。"
+    preference: "修道院 +5%，大教堂 +5%，正信占优 +15%。"
+    base_effect: "每级：国家 +10 列强分数、+0.05 属灵价值观倾向；所在地提升同化和皈依。"
+    branches:
+      1:
+        zh: "灯火仪式"
+        en: "Beacon Rite"
+        completion: "确认灯火仪式方案后立即完成落成仪式。"
+        effect: "+0.10 每月威望。"
+      2:
+        zh: "朝圣阶梯"
+        en: "Pilgrim Stair"
+        completion: "确认朝圣阶梯方案后立即完成落成仪式。"
+        effect: "-5% 稳定度投资花费。"
+      3:
+        zh: "神庙学校"
+        en: "Temple School"
+        completion: "确认神庙学校方案后立即完成落成仪式。"
+        effect: "+5% 全局皈依速度修正。"
+  river_extension:
+    status: "已实现"
+    positioning: "河道拓宽、交通节点"
+    site: "河流或湖泊沿岸。"
+    preference: "发展度提供称职度，桥梁基础设施 +5%，相邻开桥典礼奇观 +10%。"
+    base_effect: "每级：国家 +10 列强分数；所在地提升行政传导、发展和皈依。"
+    branches:
+      1:
+        zh: "开桥典礼"
+        en: "Bridge Opening"
+        completion: "确认开桥典礼方案后立即完成落成仪式。"
+        effect: "+5% 陆军移动速度。"
+      2:
+        zh: "河市节"
+        en: "River Fair"
+        completion: "确认河市节方案后立即完成落成仪式。"
+        effect: "+5% 贸易收入。"
+      3:
+        zh: "运河署"
+        en: "Canal Authority"
+        completion: "确认运河署方案后立即完成落成仪式。"
+        effect: "+3% 全局生产效率。"
+  national_shipyard:
+    status: "已实现"
+    positioning: "造船基地、舰队整备"
+    site: "港口。"
+    preference: "港口适宜度与发展度提供称职度。"
+    base_effect: "每级：国家 +10 列强分数、+0.05 海军价值观倾向；所在地提升造船速度、并行造船能力和港口适宜度。"
+    branches:
+      1:
+        zh: "铺龙骨礼"
+        en: "Keel Laying"
+        completion: "确认铺龙骨礼方案后立即完成落成仪式。"
+        effect: "+10% 船只建造速度。"
+      2:
+        zh: "舰队集结"
+        en: "Fleet Muster"
+        completion: "确认舰队集结方案后立即完成落成仪式。"
+        effect: "+5% 海军士气。"
+      3:
+        zh: "海军署船坞"
+        en: "Admiralty Yard"
+        completion: "确认海军署船坞方案后立即完成落成仪式。"
+        effect: "+100 海军范围。"
+  star_fortress_city:
+    status: "已实现"
+    positioning: "城市防御、要塞试验"
+    site: "非乡村地点。"
+    preference: "山地 +15%，高原 +7.5%，要塞 +5%，城市/大都会 +5%。"
+    base_effect: "每级：国家 +10 列强分数、+0.05 防御价值观倾向；所在地提升防御、驻军和要塞等级。"
+    branches:
+      1:
+        zh: "棱堡试验"
+        en: "Bastion Trial"
+        completion: "确认棱堡试验方案后立即完成落成仪式。"
+        effect: "+10% 全局驻军规模。"
+      2:
+        zh: "围城演习"
+        en: "Siege Games"
+        completion: "确认围城演习方案后立即完成落成仪式。"
+        effect: "+5% 攻城能力。"
+      3:
+        zh: "军械城区"
+        en: "Arsenal Quarter"
+        completion: "确认军械城区方案后立即完成落成仪式。"
+        effect: "+1 要塞上限。"
+  great_wall:
+    status: "已实现"
+    positioning: "边疆防线、烽火警戒"
+    site: "非城市、非大都会地点。"
+    preference: "山地 +15%，高原 +7.5%，要塞 +5%，乡村 +5%。"
+    base_effect: "每级：国家 +10 列强分数、+0.05 防御价值观倾向；所在地提升防御、驻军和要塞等级。"
+    branches:
+      1:
+        zh: "边疆集结"
+        en: "Frontier Muster"
+        completion: "确认边疆集结方案后立即完成落成仪式。"
+        effect: "+10% 全局人力。"
+      2:
+        zh: "烽火传警"
+        en: "Signal Fires"
+        completion: "确认烽火传警方案后立即完成落成仪式。"
+        effect: "+5% 陆军移动速度。"
+      3:
+        zh: "长城誓言"
+        en: "Wall Oath"
+        completion: "确认长城誓言方案后立即完成落成仪式。"
+        effect: "+5% 陆军士气。"
+  giant_armory:
+    status: "已实现"
+    positioning: "军械生产、武备集结"
+    site: "非乡村地点。"
+    preference: "军械库 +5%，城市/大都会 +5%，发展度提供称职度。"
+    base_effect: "每级：国家 +10 列强分数、+20 最大人力、+0.05 进攻价值观倾向；所在地提升本地人力。"
+    branches:
+      1:
+        zh: "武备集结"
+        en: "Muster of Arms"
+        completion: "确认武备集结方案后立即完成落成仪式。"
+        effect: "+5% 陆军士气。"
+      2:
+        zh: "铸造契约"
+        en: "Foundry Contracts"
+        completion: "确认铸造契约方案后立即完成落成仪式。"
+        effect: "+5% 全局生产效率。"
+      3:
+        zh: "大师甲匠"
+        en: "Master Armourers"
+        completion: "确认大师甲匠方案后立即完成落成仪式。"
+        effect: "+2.5% 训练度。"
+  library_of_nation:
+    status: "已实现"
+    positioning: "国家学库、知识治理"
+    site: "首都。"
+    preference: "发展度提供称职度，城市 +5%，大都会 +10%。"
+    base_effect: "每级：国家 +10 列强分数、+5 全局人口晋升速度、+0.05 创新价值观倾向。"
+    branches:
+      1:
+        zh: "国家目录"
+        en: "National Catalog"
+        completion: "确认国家目录方案后立即完成落成仪式。"
+        effect: "+5% 研究速度。"
+      2:
+        zh: "抄写员基金"
+        en: "Copyists Endowment"
+        completion: "确认抄写员基金方案后立即完成落成仪式。"
+        effect: "+0.01 全局每月识字率。"
+      3:
+        zh: "法定缴存"
+        en: "Legal Deposit"
+        completion: "确认法定缴存方案后立即完成落成仪式。"
+        effect: "+5% 全局人口升级速度修正。"
   large_canal_system:
     status: "已实现"
     positioning: "农业、运输、防灾"

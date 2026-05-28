@@ -7,10 +7,10 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import load_new_wonder_data, render_header
+from wonder_mechanics_lib import load_all_wonder_mechanics_data, render_header
 
-OUT_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_engineering_department_wonder_expansion_concepts.txt"
-SCRIPT_REL = "scripts/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_expansion_concepts.py"
+OUT_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_engineering_department_wonder_mechanics_concepts.txt"
+SCRIPT_REL = "scripts/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py"
 
 ICONS = {
     "infrastructure_category": "gfx/interface/icons/location_icons/new/prosperity.dds",
@@ -21,7 +21,7 @@ ICONS = {
 
 
 def generate() -> str:
-    wonders, _ = load_new_wonder_data()
+    wonders, _ = load_all_wonder_mechanics_data()
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
         texture = ICONS.get(wonder["category"], ICONS["infrastructure_category"])

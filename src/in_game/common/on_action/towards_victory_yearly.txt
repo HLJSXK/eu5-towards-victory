@@ -8,27 +8,6 @@
 # Diplomatic and Cultural point accumulation hooks.
 # Hardcoded vanilla on_actions delegate to TV-owned callbacks so singleton effect blocks do not collide.
 
-on_winning_war = {
-	on_actions = { tv_on_winning_war_callback }
-}
-
-tv_on_winning_war_callback = {
-	effect = {
-		scope:winner = {
-			if = {
-				limit = {
-					has_variable = tv_engineering_department_member
-					tv_wonder_ceremony_ready_trigger = yes
-					var:tv_wonder_locked ?= 2
-					var:tv_wonder_ceremony_style ?= 2
-					has_variable = tv_wonder_ceremony_active
-				}
-				tv_wonder_on_winning_war_effect = yes
-			}
-		}
-	}
-}
-
 on_work_of_art_created = {
 	on_actions = { tv_on_work_of_art_created_callback }
 }

@@ -7,7 +7,7 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import (
+from wonder_mechanics_lib import (
     ceremony_styles,
     final_building_for_style,
     final_building_maintenance,
@@ -16,8 +16,8 @@ from wonder_expansion_lib import (
     render_header,
 )
 
-OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "building_types" / "tv_engineering_department_wonder_expansion_buildings.txt"
-SCRIPT_REL = "scripts/in_game/common/building_types/gen_tv_engineering_department_wonder_expansion_buildings.py"
+OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "building_types" / "tv_engineering_department_wonder_mechanics_buildings.txt"
+SCRIPT_REL = "scripts/in_game/common/building_types/gen_tv_engineering_department_wonder_mechanics_buildings.py"
 T = "\t"
 
 
@@ -97,10 +97,10 @@ def building_block(name: str, wonder: dict, modifiers: dict, maintenance: str, a
 
 
 def generate() -> str:
-    wonders, expansion = load_all_wonder_mechanics()
+    wonders, mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
-        building_design = expansion["buildings"][mechanic_key(wonder)]
+        building_design = mechanics["buildings"][mechanic_key(wonder)]
         base_local = building_design.get("base_local", {})
         final_local = building_design.get("final_local", {})
         for style in ceremony_styles(wonder):

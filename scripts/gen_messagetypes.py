@@ -1,4 +1,4 @@
-"""
+﻿"""
 gen_messagetypes.py — Generate src/main_menu/gui/messagetypes.txt
 Copies the vanilla messagetypes.txt and appends Towards Victory entries.
 Run after updating vanilla game files or adding new generic actions.
@@ -623,7 +623,7 @@ PERFORM_tv_wonder_choose_ceremony_style_3_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_wonder_perform_royal_sacrifice_ACTION={
+PERFORM_tv_wonder_confirm_ceremony_ACTION={
 	log=yes
 	onmap=no
 	popup=no
@@ -633,505 +633,56 @@ PERFORM_tv_wonder_perform_royal_sacrifice_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_wonder_start_meditation_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_confirm_divine_investiture_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_request_emissary_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_triumph_parade_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_civic_festival_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_hold_golden_auction_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_confirm_fleet_review_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_free_trade_festival_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_ancestor_festival_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_dedicate_quiet_land_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_light_eternal_flame_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_navigator_guild_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_complete_long_watch_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_water_festival_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_complete_waterwheel_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_swear_miners_rights_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_confirm_royal_mint_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_deep_drainage_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_star_catalog_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_confirm_nautical_almanac_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_eclipse_proclamation_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_embassy_quarter_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_scholars_convocation_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_confirm_public_lectures_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_collegiate_charter_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_dome_consecration_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_hold_pilgrim_treasury_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_confirm_celestial_synod_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_perform_beacon_rite_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_pilgrim_stair_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_temple_school_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_confirm_bridge_opening_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_river_fair_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_canal_authority_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_hold_keel_laying_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_confirm_fleet_muster_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_admiralty_yard_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_bastion_trial_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_confirm_siege_games_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_arsenal_quarter_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_hold_frontier_muster_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_signal_fires_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_swear_wall_oath_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_confirm_muster_of_arms_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_hold_foundry_contracts_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_master_armourers_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_national_catalog_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_hold_copyists_endowment_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_start_legal_deposit_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
 
-PERFORM_tv_wonder_confirm_new_ceremony_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
+
 
 PERFORM_tv_request_research_target_ACTION={
 \tlog=yes
@@ -1464,3 +1015,4 @@ combined_entries = TV_ENTRIES + trade_monopoly_message_entries()
 combined = b'\xef\xbb\xbf' + vanilla_bytes + combined_entries.encode("utf-8")
 OUT.write_bytes(combined)
 print(f"[OK] Written {OUT.relative_to(ROOT)} ({len(combined)} bytes)")
+

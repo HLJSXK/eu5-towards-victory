@@ -7,10 +7,10 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import ceremony_styles, final_building_for_style, load_new_wonder_data, render_header
+from wonder_mechanics_lib import ceremony_styles, final_building_for_style, load_all_wonder_mechanics_data, render_header
 
-OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_expansion.gui"
-SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_expansion_gui.py"
+OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_mechanics.gui"
+SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py"
 T = "\t"
 PLAYER = "InternationalOrganizationsView.GetPlayer.MakeScope"
 
@@ -54,9 +54,8 @@ def locked_text(wonder: dict) -> str:
 
 
 def preview_texture(wonder: dict) -> str:
-    if wonder.get("is_unique") and wonder.get("image"):
-        return f"gfx/interface/illustrations/towards_victory/wonders/{wonder['image']}.dds"
-    return "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_test.dds"
+    image = wonder.get("image", f"tv_wonder_{wonder['key']}")
+    return f"gfx/interface/illustrations/towards_victory/wonders/{image}.dds"
 
 
 def ceremony_select_button(wonder: dict, style: int) -> str:
@@ -82,19 +81,23 @@ def active_ritual_text(wonder: dict, style: int) -> str:
 
 
 def hold_button() -> str:
-    visible = f"GreaterThanOrEqualTo_CFixedPoint({PLAYER}.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)19.0')"
+    visible = (
+        f"And3({PLAYER}.GetVariable('tv_wonder_locked').IsSet, "
+        f"{PLAYER}.GetVariable('tv_wonder_ceremony_style').IsSet, "
+        f"LessThanOrEqualTo_CFixedPoint({PLAYER}.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)140.0'))"
+    )
     return (
         f'{T}action_button_diamond = {{ visible = "[{visible}]" '
-        'size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_new_ceremony" '
-        'description = "tv_wonder_confirm_new_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
-        'left_action = { action_name = "tv_wonder_confirm_new_ceremony" } }'
+        'size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" '
+        'description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
+        'left_action = { action_name = "tv_wonder_confirm_ceremony" } }'
     )
 
 
 def generate() -> str:
-    wonders, _ = load_new_wonder_data()
+    wonders, _ = load_all_wonder_mechanics_data()
     lines = render_header(SCRIPT_REL)
-    lines.append("### BEGIN TV_WONDER_EXPANSION_PREVIEW_WIDGETS")
+    lines.append("### BEGIN TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
     for wonder in wonders:
         lines.extend(
             [
@@ -109,50 +112,50 @@ def generate() -> str:
                 "}",
             ]
         )
-    lines.append("### END TV_WONDER_EXPANSION_PREVIEW_WIDGETS")
+    lines.append("### END TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
     lines.append("")
-    lines.append("### BEGIN TV_WONDER_EXPANSION_PROPOSAL_TEXTS")
+    lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_TEXTS")
     for wonder in wonders:
         lines.append(proposal_text(wonder))
-    lines.append("### END TV_WONDER_EXPANSION_PROPOSAL_TEXTS")
+    lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_TEXTS")
     lines.append("")
-    lines.append("### BEGIN TV_WONDER_EXPANSION_PROPOSAL_RESUME_TEXTS")
+    lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_RESUME_TEXTS")
     for wonder in wonders:
         lines.append(proposal_text(wonder, "_RESUME"))
-    lines.append("### END TV_WONDER_EXPANSION_PROPOSAL_RESUME_TEXTS")
+    lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_RESUME_TEXTS")
     lines.append("")
-    lines.append("### BEGIN TV_WONDER_EXPANSION_PROPOSAL_EXPAND_TEXTS")
+    lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_EXPAND_TEXTS")
     for wonder in wonders:
         lines.append(proposal_text(wonder, "_EXPAND"))
-    lines.append("### END TV_WONDER_EXPANSION_PROPOSAL_EXPAND_TEXTS")
+    lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_EXPAND_TEXTS")
     lines.append("")
-    lines.append("### BEGIN TV_WONDER_EXPANSION_LOCKED_TEXTS")
+    lines.append("### BEGIN TV_WONDER_MECHANICS_LOCKED_TEXTS")
     for wonder in wonders:
         lines.append(locked_text(wonder))
-    lines.append("### END TV_WONDER_EXPANSION_LOCKED_TEXTS")
+    lines.append("### END TV_WONDER_MECHANICS_LOCKED_TEXTS")
     lines.append("")
-    lines.append("### BEGIN TV_WONDER_EXPANSION_PROPOSAL_BUTTONS")
+    lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_BUTTONS")
     for slot in range(1, 4):
         for wonder in wonders:
             lines.append(proposal_button(slot, wonder))
-    lines.append("### END TV_WONDER_EXPANSION_PROPOSAL_BUTTONS")
+    lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_BUTTONS")
     lines.append("")
     for style in range(1, 4):
-        lines.append(f"### BEGIN TV_WONDER_EXPANSION_CEREMONY_STYLE_{style}_BUTTONS")
+        lines.append(f"### BEGIN TV_WONDER_MECHANICS_CEREMONY_STYLE_{style}_BUTTONS")
         for wonder in wonders:
             if not wonder.get("is_unique") and style in ceremony_styles(wonder):
                 lines.append(ceremony_select_button(wonder, style))
-        lines.append(f"### END TV_WONDER_EXPANSION_CEREMONY_STYLE_{style}_BUTTONS")
+        lines.append(f"### END TV_WONDER_MECHANICS_CEREMONY_STYLE_{style}_BUTTONS")
         lines.append("")
-    lines.append("### BEGIN TV_WONDER_EXPANSION_ACTIVE_RITUAL_TEXTS")
+    lines.append("### BEGIN TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS")
     for wonder in wonders:
         for style in ceremony_styles(wonder):
             lines.append(active_ritual_text(wonder, style))
-    lines.append("### END TV_WONDER_EXPANSION_ACTIVE_RITUAL_TEXTS")
+    lines.append("### END TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS")
     lines.append("")
-    lines.append("### BEGIN TV_WONDER_EXPANSION_HOLD_BUTTONS")
+    lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
     lines.append(hold_button())
-    lines.append("### END TV_WONDER_EXPANSION_HOLD_BUTTONS")
+    lines.append("### END TV_WONDER_MECHANICS_HOLD_BUTTONS")
     return "\n".join(lines) + "\n"
 
 

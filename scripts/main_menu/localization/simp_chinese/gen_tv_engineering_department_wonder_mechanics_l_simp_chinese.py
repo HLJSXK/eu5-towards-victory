@@ -7,18 +7,18 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import (
+from wonder_mechanics_lib import (
     ceremony_modifier_for_style,
     ceremony_styles,
     final_building_for_style,
-    load_new_wonder_data,
+    load_all_wonder_mechanics_data,
     loc_line,
     mechanic_key,
     render_header,
 )
 
-OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_expansion_l_simp_chinese.yml"
-SCRIPT_REL = "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_expansion_l_simp_chinese.py"
+OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml"
+SCRIPT_REL = "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py"
 SIZE_CONCEPT = {
     "small": "tv_wonder_small",
     "medium": "tv_wonder_medium",
@@ -47,20 +47,20 @@ def unique_completion_text(wonder: dict, language: str) -> str:
 
 
 def generate() -> str:
-    wonders, expansion = load_new_wonder_data()
+    wonders, mechanics = load_all_wonder_mechanics_data()
     lines = ["l_simp_chinese:"]
     for line in render_header(SCRIPT_REL):
         lines.append(f" {line}")
 
-    lines.append(loc_line("tv_wonder_confirm_new_ceremony", "确认仪式"))
-    lines.append(loc_line("tv_wonder_confirm_new_ceremony_desc", "确认已选择的仪式分支，并让完工的奇观正式落成。"))
-    lines.append(loc_line("PERFORM_tv_wonder_confirm_new_ceremony_ACTION_SETUP", "当我们确认一种新设计奇观的落成仪式时。"))
-    lines.append(loc_line("PERFORM_tv_wonder_confirm_new_ceremony_ACTION_LOG", "我们确认了奇观落成仪式。"))
-    lines.append(loc_line("PERFORM_tv_wonder_confirm_new_ceremony_ACTION_MAP", ""))
+    lines.append(loc_line("tv_wonder_confirm_ceremony", "确认仪式"))
+    lines.append(loc_line("tv_wonder_confirm_ceremony_desc", "确认已选择的仪式分支，并让完工的奇观正式落成。"))
+    lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_SETUP", "当我们确认奇观的落成仪式时。"))
+    lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_LOG", "我们确认了奇观落成仪式。"))
+    lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_MAP", ""))
 
     for wonder in wonders:
         key = wonder["key"]
-        design = expansion["designs"].get(mechanic_key(wonder))
+        design = mechanics["designs"].get(mechanic_key(wonder))
         name = wonder["loc"]["zh"]
         concept = wonder["concept"]
         size_concept = SIZE_CONCEPT[wonder["size"]]
@@ -113,7 +113,7 @@ def generate() -> str:
                 building_desc = f"{name}的{branch_name}仪式分支。"
                 effect = branch_effect_text(branch)
             ceremony_key = building.removeprefix("tv_wonder_").upper()
-            ceremony_modifier = ceremony_modifier_for_style(wonder, expansion, style)
+            ceremony_modifier = ceremony_modifier_for_style(wonder, mechanics, style)
             lines.append(loc_line(building, building_name))
             lines.append(loc_line(f"{building}_desc", building_desc))
             if ceremony_modifier is not None:

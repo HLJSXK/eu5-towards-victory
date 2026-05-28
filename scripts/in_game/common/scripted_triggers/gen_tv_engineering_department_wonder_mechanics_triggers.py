@@ -7,19 +7,17 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import (
-    EXPANSION_WONDER_MAX_ID,
-    EXPANSION_WONDER_MIN_ID,
+from wonder_mechanics_lib import (
+    ALL_WONDER_MAX_ID,
+    ALL_WONDER_MIN_ID,
     PARTS,
     load_all_wonder_mechanics,
-    load_expansion_wonder_data,
-    load_new_wonder_data,
     mechanic_key,
     render_header,
 )
 
-OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers" / "tv_engineering_department_wonder_expansion_triggers.txt"
-SCRIPT_REL = "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_expansion_triggers.py"
+OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers" / "tv_engineering_department_wonder_mechanics_triggers.txt"
+SCRIPT_REL = "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py"
 T = "\t"
 
 
@@ -271,7 +269,6 @@ def add_project_occupancy_triggers(lines: list[str], wonders: list[dict]) -> Non
 
 def generate() -> str:
     all_wonders, _ = load_all_wonder_mechanics()
-    expansion_wonders, _ = load_new_wonder_data()
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
     unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
     lines = render_header(SCRIPT_REL)
@@ -299,7 +296,7 @@ def generate() -> str:
         lines.append("}")
         lines.append("")
 
-    lines.append("tv_wonder_new_has_any_feasible_proposal_trigger = {")
+    lines.append("tv_wonder_mechanics_has_any_feasible_proposal_trigger = {")
     lines.append(f"{T}OR = {{")
     for wonder in all_wonders:
         lines.append(f"{T}{T}has_variable = tv_wonder_feasible_{wonder['key']}")
@@ -323,7 +320,7 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_new_has_valid_site_candidate_trigger = {")
+    lines.append("tv_wonder_mechanics_has_valid_site_candidate_trigger = {")
     lines.append(f"{T}OR = {{")
     for wonder in all_wonders:
         lines.append(f"{T}{T}AND = {{")
@@ -334,7 +331,7 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_location_can_host_new_locked_wonder_trigger = {")
+    lines.append("tv_wonder_location_can_host_locked_wonder_trigger = {")
     lines.append(f"{T}OR = {{")
     for wonder in all_wonders:
         lines.append(f"{T}{T}AND = {{")
@@ -345,9 +342,9 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_new_selected_survey_already_cached_trigger = {")
+    lines.append("tv_wonder_selected_survey_already_cached_trigger = {")
     lines.append(f"{T}OR = {{")
-    for wonder in expansion_wonders:
+    for wonder in all_wonders:
         lines.append(f"{T}{T}AND = {{")
         lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
         lines.append(f"{T}{T}{T}scope:tv_wonder_selected_survey_site = {{ has_variable = tv_wonder_surveyed_{wonder['key']} }}")
@@ -356,12 +353,12 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_new_ceremony_ready_trigger = {")
+    lines.append("tv_wonder_ceremony_ready_for_confirmation_trigger = {")
     lines.append(f"{T}tv_wonder_has_selected_ceremony_trigger = yes")
     lines.append(f"{T}OR = {{")
     lines.append(f"{T}{T}AND = {{")
-    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this >= {EXPANSION_WONDER_MIN_ID} }}")
-    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this <= {EXPANSION_WONDER_MAX_ID} }}")
+    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this >= {ALL_WONDER_MIN_ID} }}")
+    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this <= {ALL_WONDER_MAX_ID} }}")
     lines.append(f"{T}{T}}}")
     for wonder in all_wonders:
         if wonder.get("is_unique"):

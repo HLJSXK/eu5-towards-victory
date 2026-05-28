@@ -1844,21 +1844,6 @@ paths:
 # Vanilla hardcoded hooks receive only on_actions = { callback } delegates.
 # ─────────────────────────────────────────────────────────────────────────────
 on_actions:
-  - hook: on_winning_war
-    effect_body: |
-      scope:winner = {
-      	if = {
-      		limit = {
-      			has_variable = tv_engineering_department_member
-      			tv_wonder_ceremony_ready_trigger = yes
-      			var:tv_wonder_locked ?= 2
-      			var:tv_wonder_ceremony_style ?= 2
-      			has_variable = tv_wonder_ceremony_active
-      		}
-      		tv_wonder_on_winning_war_effect = yes
-      	}
-      }
-
   - hook: on_work_of_art_created
     effect_body: |
       root.owner ?= {
