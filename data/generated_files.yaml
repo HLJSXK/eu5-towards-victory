@@ -212,3 +212,7 @@ generated:
   - script: scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
     output: data/generated_fragments/tv_engineering_department_wonder_mechanics.gui
+
+  - script: scripts/in_game/gui/gen_location_window.py
+    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
+    output: src/in_game/gui/location_window.gui

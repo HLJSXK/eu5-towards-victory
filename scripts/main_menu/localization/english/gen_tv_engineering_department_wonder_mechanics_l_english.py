@@ -12,6 +12,7 @@ from wonder_mechanics_lib import (
     ceremony_styles,
     final_building_for_style,
     load_all_wonder_mechanics_data,
+    load_manual_game_concept_ids,
     loc_line,
     mechanic_key,
     render_header,
@@ -48,6 +49,7 @@ def unique_completion_text(wonder: dict, language: str) -> str:
 
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics_data()
+    manual_concepts = load_manual_game_concept_ids()
     lines = ["l_english:"]
     for line in render_header(SCRIPT_REL):
         lines.append(f" {line}")
@@ -65,19 +67,23 @@ def generate() -> str:
         size_concept = SIZE_CONCEPT[wonder["size"]]
         code = display_key(key)
 
-        lines.append(loc_line(f"game_concept_{concept}", name))
+        include_concept_loc = concept not in manual_concepts
+        if include_concept_loc:
+            lines.append(loc_line(f"game_concept_{concept}", name))
         if wonder.get("is_unique"):
             ceremony_name = wonder["ceremony"]["loc"]["en"]
             flavor = wonder["flavor"]["en"]
             history_intro = wonder["history_intro"]["en"]
-            lines.append(loc_line(f"game_concept_{concept}_desc", f"{flavor} This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the same site rules as its generic archetype, and culminates in the {ceremony_name}."))
+            if include_concept_loc:
+                lines.append(loc_line(f"game_concept_{concept}_desc", f"{flavor} This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the same site rules as its generic archetype, and culminates in the {ceremony_name}."))
             lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"{history_intro} Brief: [{concept}|E], a unique [{size_concept}|E] historical wonder at its fixed historical site."))
         else:
             if design is None:
                 raise ValueError(f"Missing design data for {key}")
             branch_list = [design["branches"][style] for style in range(1, 4)]
             branch_names = ", ".join(branch["en"] for branch in branch_list)
-            lines.append(loc_line(f"game_concept_{concept}_desc", f"A {name} is a [tv_wonder_construction|e] project focused on {design['positioning']}. It prefers {design['site']} Its ceremonies can emphasize {branch_names}."))
+            if include_concept_loc:
+                lines.append(loc_line(f"game_concept_{concept}_desc", f"A {name} is a [tv_wonder_construction|e] project focused on {design['positioning']}. It prefers {design['site']} Its ceremonies can emphasize {branch_names}."))
             lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"Brief: [{concept}|E], a [{size_concept}|E] project for {design['positioning']}."))
         lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_RESUME_{code}_TEXT", f"The [tv_great_engineer|E] wants to complete the existing [{concept}|E] and reuse the preserved construction at the site."))
         lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_EXPAND_{code}_TEXT", f"The [tv_great_engineer|E] wants to expand the existing [{concept}|E] toward the site's preserved maximum level."))

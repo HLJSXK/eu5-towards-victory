@@ -1026,6 +1026,7 @@
 
 - id: mod_io_geticon_without_matching_texture
   pattern: 'InternationalOrganization\.GetIcon|InternationalOrganizationsView\.GetInternationalOrganization\.GetIcon'
+  detectability: advisory
   bad: "Relying on InternationalOrganization.GetIcon for a mod-defined IO without providing a matching icon texture"
   correction: "Add a DDS at main_menu/gfx/interface/icons/international_organizations/<io_type>.dds. The filename should match the international_organization type key, e.g. tv_arts_exhibition.dds."
   category: gui

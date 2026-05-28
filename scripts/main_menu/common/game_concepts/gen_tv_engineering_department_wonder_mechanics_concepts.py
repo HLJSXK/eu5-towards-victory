@@ -7,7 +7,11 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import load_all_wonder_mechanics_data, render_header
+from wonder_mechanics_lib import (
+    load_all_wonder_mechanics_data,
+    load_manual_game_concept_ids,
+    render_header,
+)
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_engineering_department_wonder_mechanics_concepts.txt"
 SCRIPT_REL = "scripts/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py"
@@ -22,8 +26,11 @@ ICONS = {
 
 def generate() -> str:
     wonders, _ = load_all_wonder_mechanics_data()
+    manual_concepts = load_manual_game_concept_ids()
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
+        if wonder["concept"] in manual_concepts:
+            continue
         texture = ICONS.get(wonder["category"], ICONS["infrastructure_category"])
         lines.extend(
             [

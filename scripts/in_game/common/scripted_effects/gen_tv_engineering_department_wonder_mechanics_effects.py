@@ -566,6 +566,7 @@ def generate() -> str:
             lines.append(f"{T}{T}{T}{head} = {{")
             lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }} }}")
             lines.append(f"{T}{T}{T}{T}prev = {{ set_variable = {{ name = tv_wonder_final_building value = {wonder['id']}{style:02d} }} }}")
+            lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_display_id value = {wonder['id']} }}")
             lines.append(f"{T}{T}{T}{T}tv_wonder_construct_final_building_in_site_effect = {{ building = building_type:{building} }}")
             lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")

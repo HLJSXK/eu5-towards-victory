@@ -12,6 +12,7 @@ from wonder_mechanics_lib import (
     ceremony_styles,
     final_building_for_style,
     load_all_wonder_mechanics_data,
+    load_manual_game_concept_ids,
     loc_line,
     mechanic_key,
     render_header,
@@ -48,6 +49,7 @@ def unique_completion_text(wonder: dict, language: str) -> str:
 
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics_data()
+    manual_concepts = load_manual_game_concept_ids()
     lines = ["l_simp_chinese:"]
     for line in render_header(SCRIPT_REL):
         lines.append(f" {line}")
@@ -65,8 +67,10 @@ def generate() -> str:
         concept = wonder["concept"]
         size_concept = SIZE_CONCEPT[wonder["size"]]
         code = display_key(key)
+        include_concept_loc = concept not in manual_concepts
 
-        lines.append(loc_line(f"game_concept_{concept}", name))
+        if include_concept_loc:
+            lines.append(loc_line(f"game_concept_{concept}", name))
         if wonder.get("is_unique"):
             ceremony_name = wonder["ceremony"]["loc"]["zh"]
             flavor = wonder["flavor"]["zh"]
@@ -123,7 +127,19 @@ def generate() -> str:
         if wonder.get("is_unique"):
             lines.append(loc_line(f"tv_engineering_department.500.d_{key}", unique_completion_text(wonder, "zh")))
 
-    return "\n".join(lines).rstrip() + "\n"
+    filtered_lines: list[str] = []
+    for line in lines:
+        stripped = line.lstrip()
+        if stripped.startswith("game_concept_"):
+            key = stripped.split(":", 1)[0]
+            concept_key = key.removeprefix("game_concept_")
+            if concept_key.endswith("_desc"):
+                concept_key = concept_key[: -len("_desc")]
+            if concept_key in manual_concepts:
+                continue
+        filtered_lines.append(line)
+
+    return "\n".join(filtered_lines).rstrip() + "\n"
 
 
 def main() -> None:

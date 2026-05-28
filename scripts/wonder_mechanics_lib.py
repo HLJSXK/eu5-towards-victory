@@ -1,6 +1,7 @@
 import sys
 from copy import deepcopy
 from pathlib import Path
+import re
 
 import yaml
 
@@ -11,6 +12,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 WONDERS_FILE = REPO_ROOT / "data" / "wonders.yaml"
 MECHANICS_FILE = REPO_ROOT / "data" / "wonder_mechanics.yaml"
 UNIQUE_WONDERS_FILE = REPO_ROOT / "data" / "unique_wonders.yaml"
+MANUAL_TV_GAME_CONCEPTS_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_game_concepts.txt"
 ALL_WONDER_MIN_ID = 1
 ALL_WONDER_MAX_ID = 39
 UNIQUE_WONDER_MIN_ID = 101
@@ -18,10 +20,23 @@ UNIQUE_WONDER_MAX_ID = 140
 WONDER_MECHANICS_MIN_ID = ALL_WONDER_MIN_ID
 WONDER_MECHANICS_MAX_ID = UNIQUE_WONDER_MAX_ID
 PARTS = ["foundation", "body", "function", "decoration"]
+GAME_CONCEPT_DECL_RE = re.compile(r"^([A-Za-z0-9_]+)\s*=\s*\{$")
 
 
 def load_yaml(path: Path) -> dict:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
+def load_manual_game_concept_ids(path: Path = MANUAL_TV_GAME_CONCEPTS_FILE) -> set[str]:
+    if not path.exists():
+        return set()
+
+    concept_ids: set[str] = set()
+    for raw_line in path.read_text(encoding="utf-8-sig").splitlines():
+        match = GAME_CONCEPT_DECL_RE.match(raw_line.strip())
+        if match:
+            concept_ids.add(match.group(1))
+    return concept_ids
 
 
 def normalize_final_buildings(wonder: dict) -> dict:
