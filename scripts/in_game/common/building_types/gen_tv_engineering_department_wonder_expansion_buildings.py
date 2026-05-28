@@ -7,7 +7,7 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import final_building_for_style, load_wonder_data, render_header
+from wonder_expansion_lib import final_building_for_style, final_building_maintenance, load_all_wonder_mechanics, render_header
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "building_types" / "tv_engineering_department_wonder_expansion_buildings.txt"
 SCRIPT_REL = "scripts/in_game/common/building_types/gen_tv_engineering_department_wonder_expansion_buildings.py"
@@ -17,6 +17,12 @@ T = "\t"
 def fmt_value(value: object) -> str:
     if isinstance(value, float):
         return f"{value:.3f}".rstrip("0").rstrip(".")
+    return str(value)
+
+
+def fmt_yes_no(value: object) -> str:
+    if isinstance(value, bool):
+        return "yes" if value else "no"
     return str(value)
 
 
@@ -36,20 +42,21 @@ def merge_modifiers(*maps: dict | None) -> dict:
     return merged
 
 
-def building_block(name: str, wonder: dict, modifiers: dict) -> list[str]:
+def building_block(name: str, wonder: dict, modifiers: dict, maintenance: str, attributes: dict | None = None) -> list[str]:
+    attrs = attributes or {}
     lines = [
         f"{name} = {{",
         f"{T}is_special = yes",
         f"{T}is_foreign = no",
-        f"{T}pop_type = {wonder['pop_type']}",
+        f"{T}pop_type = {attrs.get('pop_type', wonder['pop_type'])}",
         f"{T}max_levels = 6",
         f"{T}employment_size = 0.1",
-        f"{T}category = {wonder['category']}",
+        f"{T}category = {attrs.get('category', wonder['category'])}",
         "",
-        f"{T}town = yes",
-        f"{T}city = yes",
-        f"{T}megalopolis = yes",
-        f"{T}rural_settlement = yes",
+        f"{T}town = {fmt_yes_no(attrs.get('town', 'yes'))}",
+        f"{T}city = {fmt_yes_no(attrs.get('city', 'yes'))}",
+        f"{T}megalopolis = {fmt_yes_no(attrs.get('megalopolis', 'yes'))}",
+        f"{T}rural_settlement = {fmt_yes_no(attrs.get('rural_settlement', 'yes'))}",
         "",
         f"{T}important_for_AI = no",
         f"{T}automation_build_allowed = no",
@@ -72,9 +79,9 @@ def building_block(name: str, wonder: dict, modifiers: dict) -> list[str]:
         [
             f"{T}}}",
             "",
-            f"{T}possible_production_methods = {{",
-            f"{T}{T}{wonder['maintenance']}",
-            f"{T}}}",
+        f"{T}possible_production_methods = {{",
+        f"{T}{T}{maintenance}",
+        f"{T}}}",
             "}",
             "",
         ]
@@ -83,7 +90,7 @@ def building_block(name: str, wonder: dict, modifiers: dict) -> list[str]:
 
 
 def generate() -> str:
-    wonders, expansion = load_wonder_data()
+    wonders, expansion = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
         building_design = expansion["buildings"][wonder["key"]]
@@ -92,7 +99,9 @@ def generate() -> str:
         for style in range(1, 4):
             building = final_building_for_style(wonder, style)
             modifiers = merge_modifiers(base_local, final_local.get(building, {}))
-            lines.extend(building_block(building, wonder, modifiers))
+            maintenance = final_building_maintenance(wonder, building_design, building)
+            attributes = building_design.get("final_attributes", {}).get(building, {})
+            lines.extend(building_block(building, wonder, modifiers, maintenance, attributes))
     return "\n".join(lines).rstrip() + "\n"
 
 

@@ -9,8 +9,12 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WONDERS_FILE = REPO_ROOT / "data" / "wonders.yaml"
 EXPANSION_FILE = REPO_ROOT / "data" / "wonder_expansion.yaml"
-NEW_WONDER_MIN_ID = 19
-NEW_WONDER_MAX_ID = 39
+ALL_WONDER_MIN_ID = 1
+ALL_WONDER_MAX_ID = 39
+EXPANSION_WONDER_MIN_ID = 19
+EXPANSION_WONDER_MAX_ID = 39
+NEW_WONDER_MIN_ID = EXPANSION_WONDER_MIN_ID
+NEW_WONDER_MAX_ID = EXPANSION_WONDER_MAX_ID
 PARTS = ["foundation", "body", "function", "decoration"]
 
 
@@ -18,23 +22,44 @@ def load_yaml(path: Path) -> dict:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
-def load_wonder_data() -> tuple[list[dict], dict]:
+def load_wonder_data(
+    min_id: int = EXPANSION_WONDER_MIN_ID,
+    max_id: int = EXPANSION_WONDER_MAX_ID,
+    *,
+    require_designs: bool = True,
+    require_buildings: bool = True,
+    require_base_modifiers: bool = True,
+) -> tuple[list[dict], dict]:
     wonders_data = load_yaml(WONDERS_FILE)
     expansion = load_yaml(EXPANSION_FILE)
     wonders = [
         wonder
         for wonder in wonders_data["wonders"]
-        if NEW_WONDER_MIN_ID <= int(wonder["id"]) <= NEW_WONDER_MAX_ID
+        if min_id <= int(wonder["id"]) <= max_id
     ]
     for wonder in wonders:
         key = wonder["key"]
-        if key not in expansion["designs"]:
+        if require_designs and key not in expansion["designs"]:
             raise ValueError(f"Missing design data for {key}")
-        if key not in expansion["buildings"]:
+        if require_buildings and key not in expansion["buildings"]:
             raise ValueError(f"Missing building data for {key}")
-        if key not in expansion["base_modifiers"]:
+        if require_base_modifiers and key not in expansion["base_modifiers"]:
             raise ValueError(f"Missing base modifier data for {key}")
     return wonders, expansion
+
+
+def load_all_wonder_mechanics() -> tuple[list[dict], dict]:
+    return load_wonder_data(
+        ALL_WONDER_MIN_ID,
+        ALL_WONDER_MAX_ID,
+        require_designs=False,
+        require_buildings=True,
+        require_base_modifiers=True,
+    )
+
+
+def load_expansion_wonder_data() -> tuple[list[dict], dict]:
+    return load_wonder_data(EXPANSION_WONDER_MIN_ID, EXPANSION_WONDER_MAX_ID)
 
 
 def render_header(script_rel: str, data_rel: str = "data/wonders.yaml + data/wonder_expansion.yaml") -> list[str]:
@@ -68,3 +93,21 @@ def loc_line(key: str, value: str) -> str:
 
 def final_building_for_style(wonder: dict, style: int) -> str:
     return wonder["final_buildings"][style] if style in wonder["final_buildings"] else wonder["final_buildings"][str(style)]
+
+
+def final_building_maintenance(wonder: dict, building_design: dict, building: str) -> str:
+    return building_design.get("final_maintenance", {}).get(building, building_design.get("maintenance", wonder["maintenance"]))
+
+
+def ceremony_modifier_for_building(wonder: dict, expansion: dict, building: str) -> tuple[str, dict] | None:
+    modifier_name = expansion.get("ceremony_modifier_names", {}).get(wonder["key"], {}).get(building, f"{building}_modifier")
+    ceremony_modifiers = expansion.get("ceremony_modifiers", {})
+    if modifier_name in ceremony_modifiers:
+        return modifier_name, ceremony_modifiers[modifier_name]
+    if building in ceremony_modifiers:
+        return modifier_name, ceremony_modifiers[building]
+    return None
+
+
+def ceremony_modifier_for_style(wonder: dict, expansion: dict, style: int) -> tuple[str, dict] | None:
+    return ceremony_modifier_for_building(wonder, expansion, final_building_for_style(wonder, style))

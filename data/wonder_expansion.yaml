@@ -463,6 +463,312 @@ designs:
         effect: "+1 外交声誉、+0.05 每月威望。"
 
 buildings:
+  sacred_mountain:
+    base_local: {}
+    final_local:
+      tv_wonder_golden_sanctuary: {}
+      tv_wonder_ascetic_mountain: {}
+      tv_wonder_theocratic_center: {}
+    final_maintenance:
+      tv_wonder_golden_sanctuary: tv_wonder_sacred_monument_maintenance
+      tv_wonder_ascetic_mountain: tv_wonder_sacred_monument_maintenance
+      tv_wonder_theocratic_center: tv_wonder_sacred_monument_maintenance
+    final_attributes:
+      tv_wonder_theocratic_center:
+        category: government_category
+  triumphal_axis:
+    base_local: {}
+    final_local:
+      tv_wonder_sun_king_axis: {}
+      tv_wonder_military_city: {}
+      tv_wonder_civic_capital: {}
+    final_maintenance:
+      tv_wonder_sun_king_axis: tv_wonder_axis_monument_maintenance
+      tv_wonder_military_city: tv_wonder_axis_monument_maintenance
+      tv_wonder_civic_capital: tv_wonder_axis_monument_maintenance
+    final_attributes:
+      tv_wonder_sun_king_axis:
+        rural_settlement: no
+      tv_wonder_military_city:
+        category: military_category
+        rural_settlement: no
+      tv_wonder_civic_capital:
+        pop_type: burghers
+        rural_settlement: no
+  great_port:
+    base_local: {}
+    final_local:
+      tv_wonder_golden_trade_port:
+        harbor_suitability: 0.1
+        local_trade_center_power: 0.2
+        local_migration_attraction: 1
+      tv_wonder_imperial_naval_port:
+        harbor_suitability: 0.1
+        local_trade_center_power: 0.2
+        local_migration_attraction: 1
+      tv_wonder_free_trade_metropolis:
+        harbor_suitability: 0.1
+        local_trade_center_power: 0.2
+        local_migration_attraction: 1
+    final_maintenance:
+      tv_wonder_golden_trade_port: tv_wonder_port_monument_maintenance
+      tv_wonder_imperial_naval_port: tv_wonder_port_monument_maintenance
+      tv_wonder_free_trade_metropolis: tv_wonder_port_monument_maintenance
+  giant_necropolis:
+    base_local: {}
+    final_local:
+      tv_wonder_dynastic_necropolis: {}
+      tv_wonder_ancestor_shrine: {}
+      tv_wonder_quiet_land: {}
+    final_maintenance:
+      tv_wonder_dynastic_necropolis: tv_wonder_necropolis_maintenance
+      tv_wonder_ancestor_shrine: tv_wonder_necropolis_maintenance
+      tv_wonder_quiet_land: tv_wonder_necropolis_maintenance
+    final_attributes:
+      tv_wonder_ancestor_shrine:
+        pop_type: clergy
+      tv_wonder_quiet_land:
+        pop_type: clergy
+  great_lighthouse:
+    base_local: {}
+    final_local:
+      tv_wonder_eternal_lighthouse: {}
+      tv_wonder_navigator_lighthouse: {}
+      tv_wonder_long_watch_lighthouse: {}
+    final_maintenance:
+      tv_wonder_eternal_lighthouse: tv_wonder_lighthouse_flame_maintenance
+      tv_wonder_navigator_lighthouse: tv_wonder_lighthouse_maintenance
+      tv_wonder_long_watch_lighthouse: tv_wonder_lighthouse_maintenance
+  hydraulic_workshop:
+    base_local: {}
+    final_local:
+      tv_wonder_water_god_workshop:
+        local_production_efficiency: 0.2
+      tv_wonder_hydraulic_artisan_guildhall:
+        local_production_efficiency: 0.2
+      tv_wonder_waterwheel_workshop:
+        local_production_efficiency: 0.2
+    final_maintenance:
+      tv_wonder_water_god_workshop: tv_wonder_hydraulic_workshop_maintenance
+      tv_wonder_hydraulic_artisan_guildhall: tv_wonder_hydraulic_workshop_maintenance
+      tv_wonder_waterwheel_workshop: tv_wonder_hydraulic_workshop_maintenance
+    final_attributes:
+      tv_wonder_hydraulic_artisan_guildhall:
+        pop_type: burghers
+  mining_city:
+    base_local: {}
+    final_local:
+      tv_wonder_miners_oath_city:
+        local_max_rgo_size_modifier: 0.5
+        local_raw_material_output: 0.1
+      tv_wonder_royal_mint_city:
+        local_max_rgo_size_modifier: 0.5
+        local_raw_material_output: 0.1
+      tv_wonder_deep_shaft_city:
+        local_max_rgo_size_modifier: 0.5
+        local_raw_material_output: 0.1
+    final_maintenance:
+      tv_wonder_miners_oath_city: tv_wonder_mining_city_maintenance
+      tv_wonder_royal_mint_city: tv_wonder_mining_city_maintenance
+      tv_wonder_deep_shaft_city: tv_wonder_mining_city_maintenance
+    final_attributes:
+      tv_wonder_royal_mint_city:
+        pop_type: burghers
+  giant_observatory:
+    base_local: {}
+    final_local:
+      tv_wonder_star_catalog_observatory: {}
+      tv_wonder_nautical_almanac_observatory: {}
+      tv_wonder_eclipse_observatory: {}
+    final_maintenance:
+      tv_wonder_star_catalog_observatory: tv_wonder_sacred_monument_maintenance
+      tv_wonder_nautical_almanac_observatory: tv_wonder_sacred_monument_maintenance
+      tv_wonder_eclipse_observatory: tv_wonder_sacred_monument_maintenance
+    final_attributes:
+      tv_wonder_nautical_almanac_observatory:
+        pop_type: burghers
+  palace_of_nations:
+    base_local: {}
+    final_local:
+      tv_wonder_congress_palace: {}
+      tv_wonder_tribute_gallery: {}
+      tv_wonder_embassy_palace: {}
+    final_maintenance:
+      tv_wonder_congress_palace: tv_wonder_axis_monument_maintenance
+      tv_wonder_tribute_gallery: tv_wonder_axis_monument_maintenance
+      tv_wonder_embassy_palace: tv_wonder_axis_monument_maintenance
+  university_city:
+    base_local: {}
+    final_local:
+      tv_wonder_scholars_convocation:
+        local_pop_promotion_speed: 10
+        local_max_literacy: 10
+      tv_wonder_public_lectures:
+        local_pop_promotion_speed: 10
+        local_max_literacy: 10
+      tv_wonder_collegiate_charter:
+        local_pop_promotion_speed: 10
+        local_max_literacy: 10
+    final_maintenance:
+      tv_wonder_scholars_convocation: tv_wonder_sacred_monument_maintenance
+      tv_wonder_public_lectures: tv_wonder_sacred_monument_maintenance
+      tv_wonder_collegiate_charter: tv_wonder_sacred_monument_maintenance
+    final_attributes:
+      tv_wonder_scholars_convocation:
+        rural_settlement: no
+      tv_wonder_public_lectures:
+        rural_settlement: no
+      tv_wonder_collegiate_charter:
+        rural_settlement: no
+  sky_dome_grand_temple:
+    base_local: {}
+    final_local:
+      tv_wonder_dome_consecration: {}
+      tv_wonder_pilgrim_treasury: {}
+      tv_wonder_celestial_synod: {}
+    final_maintenance:
+      tv_wonder_dome_consecration: tv_wonder_sacred_monument_maintenance
+      tv_wonder_pilgrim_treasury: tv_wonder_sacred_monument_maintenance
+      tv_wonder_celestial_synod: tv_wonder_sacred_monument_maintenance
+  giant_tower_temple:
+    base_local: {}
+    final_local:
+      tv_wonder_beacon_rite_temple:
+        local_pop_assimilation_speed: 20
+        local_pop_conversion_speed: 20
+      tv_wonder_pilgrim_stair_temple:
+        local_pop_assimilation_speed: 20
+        local_pop_conversion_speed: 20
+      tv_wonder_temple_school_tower:
+        local_pop_assimilation_speed: 20
+        local_pop_conversion_speed: 20
+    final_maintenance:
+      tv_wonder_beacon_rite_temple: tv_wonder_sacred_monument_maintenance
+      tv_wonder_pilgrim_stair_temple: tv_wonder_sacred_monument_maintenance
+      tv_wonder_temple_school_tower: tv_wonder_sacred_monument_maintenance
+  river_extension:
+    base_local: {}
+    final_local:
+      tv_wonder_bridge_opening:
+        local_distance_from_capital_speed_propagation: 0.1
+        local_monthly_development_modifier: 0.1
+        local_pop_conversion_speed: 20
+      tv_wonder_river_fair:
+        local_distance_from_capital_speed_propagation: 0.1
+        local_monthly_development_modifier: 0.1
+        local_pop_conversion_speed: 20
+      tv_wonder_canal_authority:
+        local_distance_from_capital_speed_propagation: 0.1
+        local_monthly_development_modifier: 0.1
+        local_pop_conversion_speed: 20
+    final_maintenance:
+      tv_wonder_bridge_opening: tv_wonder_hydraulic_workshop_maintenance
+      tv_wonder_river_fair: tv_wonder_hydraulic_workshop_maintenance
+      tv_wonder_canal_authority: tv_wonder_hydraulic_workshop_maintenance
+  national_shipyard:
+    base_local: {}
+    final_local:
+      tv_wonder_keel_laying_yard:
+        local_ship_build_speed: 0.2
+        max_ships_built_at_same_time: 1
+        harbor_suitability: 0.1
+      tv_wonder_fleet_muster_yard:
+        local_ship_build_speed: 0.2
+        max_ships_built_at_same_time: 1
+        harbor_suitability: 0.1
+      tv_wonder_admiralty_yard:
+        local_ship_build_speed: 0.2
+        max_ships_built_at_same_time: 1
+        harbor_suitability: 0.1
+    final_maintenance:
+      tv_wonder_keel_laying_yard: tv_wonder_port_monument_maintenance
+      tv_wonder_fleet_muster_yard: tv_wonder_port_monument_maintenance
+      tv_wonder_admiralty_yard: tv_wonder_port_monument_maintenance
+  star_fortress_city:
+    base_local: {}
+    final_local:
+      tv_wonder_bastion_trial_fortress:
+        local_defensive: 0.2
+        local_garrison_size: 250
+        fort_level: 1
+      tv_wonder_siege_games_fortress:
+        local_defensive: 0.2
+        local_garrison_size: 250
+        fort_level: 1
+      tv_wonder_arsenal_quarter_fortress:
+        local_defensive: 0.2
+        local_garrison_size: 250
+        fort_level: 1
+    final_maintenance:
+      tv_wonder_bastion_trial_fortress: tv_wonder_axis_monument_maintenance
+      tv_wonder_siege_games_fortress: tv_wonder_axis_monument_maintenance
+      tv_wonder_arsenal_quarter_fortress: tv_wonder_axis_monument_maintenance
+    final_attributes:
+      tv_wonder_bastion_trial_fortress:
+        rural_settlement: no
+      tv_wonder_siege_games_fortress:
+        rural_settlement: no
+      tv_wonder_arsenal_quarter_fortress:
+        rural_settlement: no
+  great_wall:
+    base_local: {}
+    final_local:
+      tv_wonder_frontier_muster_wall:
+        local_defensive: 0.2
+        local_garrison_size: 250
+        fort_level: 1
+      tv_wonder_signal_fires_wall:
+        local_defensive: 0.2
+        local_garrison_size: 250
+        fort_level: 1
+      tv_wonder_wall_oath:
+        local_defensive: 0.2
+        local_garrison_size: 250
+        fort_level: 1
+    final_maintenance:
+      tv_wonder_frontier_muster_wall: tv_wonder_axis_monument_maintenance
+      tv_wonder_signal_fires_wall: tv_wonder_axis_monument_maintenance
+      tv_wonder_wall_oath: tv_wonder_axis_monument_maintenance
+    final_attributes:
+      tv_wonder_frontier_muster_wall:
+        city: no
+        megalopolis: no
+      tv_wonder_signal_fires_wall:
+        city: no
+        megalopolis: no
+      tv_wonder_wall_oath:
+        city: no
+        megalopolis: no
+  giant_armory:
+    base_local: {}
+    final_local:
+      tv_wonder_muster_of_arms:
+        local_manpower_modifier: 0.5
+      tv_wonder_foundry_contracts:
+        local_manpower_modifier: 0.5
+      tv_wonder_master_armourers:
+        local_manpower_modifier: 0.5
+    final_maintenance:
+      tv_wonder_muster_of_arms: tv_wonder_mining_city_maintenance
+      tv_wonder_foundry_contracts: tv_wonder_mining_city_maintenance
+      tv_wonder_master_armourers: tv_wonder_mining_city_maintenance
+    final_attributes:
+      tv_wonder_muster_of_arms:
+        rural_settlement: no
+      tv_wonder_foundry_contracts:
+        rural_settlement: no
+      tv_wonder_master_armourers:
+        rural_settlement: no
+  library_of_nation:
+    base_local: {}
+    final_local:
+      tv_wonder_national_catalog_library: {}
+      tv_wonder_copyists_endowment_library: {}
+      tv_wonder_legal_deposit_library: {}
+    final_maintenance:
+      tv_wonder_national_catalog_library: tv_wonder_sacred_monument_maintenance
+      tv_wonder_copyists_endowment_library: tv_wonder_sacred_monument_maintenance
+      tv_wonder_legal_deposit_library: tv_wonder_sacred_monument_maintenance
   large_canal_system:
     base_local:
       local_monthly_development_modifier: 0.05
@@ -697,6 +1003,53 @@ buildings:
         local_cultural_influence: 1
 
 base_modifiers:
+  sacred_mountain:
+    global_pop_conversion_speed_modifier: 0.2
+    tolerance_own: 1
+    monthly_towards_spiritualist: 0.05
+  triumphal_axis:
+    monthly_legitimacy: 0.1
+    monthly_towards_centralization: 0.05
+  great_port:
+    monthly_towards_naval: 0.05
+  giant_necropolis:
+    pop_join_rebel_threshold: -0.02
+    monthly_towards_traditionalist: 0.05
+  great_lighthouse:
+    trade_range: 200
+    naval_range: 200
+    monthly_towards_naval: 0.05
+  hydraulic_workshop:
+    monthly_towards_free_subjects: 0.05
+  mining_city:
+    monthly_towards_traditional_economy: 0.05
+  giant_observatory:
+    research_speed: 0.05
+    monthly_towards_innovative: 0.05
+  palace_of_nations:
+    global_distance_from_capital_speed_propagation: 0.05
+    monthly_towards_centralization: 0.05
+  university_city:
+    monthly_towards_innovative: 0.05
+  sky_dome_grand_temple:
+    stability_investment: -0.1
+    global_pop_conversion_speed: 5
+    monthly_towards_spiritualist: 0.05
+  giant_tower_temple:
+    monthly_towards_spiritualist: 0.05
+  river_extension: {}
+  national_shipyard:
+    monthly_towards_naval: 0.05
+  star_fortress_city:
+    monthly_towards_defensive: 0.05
+  great_wall:
+    monthly_towards_defensive: 0.05
+  giant_armory:
+    max_manpower: 20
+    monthly_towards_offensive: 0.05
+  library_of_nation:
+    global_pop_promotion_speed: 5
+    monthly_towards_innovative: 0.05
   large_canal_system:
     monthly_towards_centralization: 0.03
     global_monthly_prosperity: 0.001
@@ -761,7 +1114,111 @@ base_modifiers:
     monthly_prestige: 0.05
     great_power_score: 5
 
+ceremony_modifier_names:
+  giant_observatory:
+    tv_wonder_nautical_almanac_observatory: tv_wonder_nautical_almanac_modifier
+
 ceremony_modifiers:
+  tv_wonder_golden_sanctuary_modifier:
+    global_crown_estate_power: 0.2
+  tv_wonder_ascetic_mountain_modifier:
+    research_speed: 0.05
+  tv_wonder_theocratic_center_modifier:
+    clergy_estate_target_satisfaction: 0.05
+  tv_wonder_sun_king_axis_modifier:
+    monthly_prestige: 0.2
+  tv_wonder_military_city_modifier:
+    land_morale_modifier: 0.1
+  tv_wonder_civic_capital_modifier:
+    pop_join_rebel_threshold: 0.05
+  tv_wonder_golden_trade_port_modifier:
+    trade_income: 0.1
+  tv_wonder_imperial_naval_port_modifier:
+    naval_morale_modifier: 0.1
+  tv_wonder_free_trade_metropolis_modifier:
+    diplomatic_reputation: 2
+  tv_wonder_dynastic_necropolis_modifier:
+    monthly_legitimacy: 0.1
+  tv_wonder_ancestor_shrine_modifier:
+    stability_investment: -0.1
+  tv_wonder_quiet_land_modifier:
+    pop_join_rebel_threshold: -0.05
+  tv_wonder_eternal_lighthouse_modifier:
+    naval_range: 250
+  tv_wonder_navigator_lighthouse_modifier:
+    burghers_estate_target_satisfaction: 0.025
+  tv_wonder_long_watch_lighthouse_modifier:
+    global_maritime_presence_modifier: 0.1
+  tv_wonder_water_god_workshop_modifier: {}
+  tv_wonder_hydraulic_artisan_guildhall_modifier: {}
+  tv_wonder_waterwheel_workshop_modifier: {}
+  tv_wonder_miners_oath_city_modifier:
+    peasants_estate_target_satisfaction: 0.025
+  tv_wonder_royal_mint_city_modifier:
+    minting_income_factor: 0.1
+  tv_wonder_deep_shaft_city_modifier: {}
+  tv_wonder_nautical_almanac_modifier:
+    exploration_mission_speed: 0.1
+  tv_wonder_congress_palace_modifier:
+    monthly_prestige: 0.2
+  tv_wonder_tribute_gallery_modifier:
+    subject_income_modifier: 0.05
+  tv_wonder_embassy_palace_modifier:
+    diplomatic_reputation: 1
+  tv_wonder_scholars_convocation_modifier:
+    research_speed: 0.05
+  tv_wonder_public_lectures_modifier:
+    global_monthly_literacy: 0.01
+  tv_wonder_collegiate_charter_modifier:
+    global_pop_promotion_speed_modifier: 0.05
+  tv_wonder_dome_consecration_modifier:
+    tolerance_own: 1
+  tv_wonder_pilgrim_treasury_modifier:
+    tax_income_efficiency: 0.05
+  tv_wonder_celestial_synod_modifier:
+    clergy_estate_target_satisfaction: 0.05
+  tv_wonder_beacon_rite_temple_modifier:
+    monthly_prestige: 0.1
+  tv_wonder_pilgrim_stair_temple_modifier:
+    stability_investment: -0.05
+  tv_wonder_temple_school_tower_modifier:
+    global_pop_conversion_speed_modifier: 0.05
+  tv_wonder_bridge_opening_modifier:
+    army_movement_speed: 0.05
+  tv_wonder_river_fair_modifier:
+    trade_income: 0.05
+  tv_wonder_canal_authority_modifier:
+    global_production_efficiency: 0.03
+  tv_wonder_keel_laying_yard_modifier:
+    ship_build_speed: 0.1
+  tv_wonder_fleet_muster_yard_modifier:
+    naval_morale_modifier: 0.05
+  tv_wonder_admiralty_yard_modifier:
+    naval_range: 100
+  tv_wonder_bastion_trial_fortress_modifier:
+    global_garrison_size_modifier: 0.1
+  tv_wonder_siege_games_fortress_modifier:
+    siege_ability: 0.05
+  tv_wonder_arsenal_quarter_fortress_modifier:
+    fort_limit: 1
+  tv_wonder_frontier_muster_wall_modifier:
+    global_manpower_modifier: 0.1
+  tv_wonder_signal_fires_wall_modifier:
+    army_movement_speed: 0.05
+  tv_wonder_wall_oath_modifier:
+    land_morale_modifier: 0.05
+  tv_wonder_muster_of_arms_modifier:
+    land_morale_modifier: 0.05
+  tv_wonder_foundry_contracts_modifier:
+    global_production_efficiency: 0.05
+  tv_wonder_master_armourers_modifier:
+    discipline: 0.025
+  tv_wonder_national_catalog_library_modifier:
+    research_speed: 0.05
+  tv_wonder_copyists_endowment_library_modifier:
+    global_monthly_literacy: 0.01
+  tv_wonder_legal_deposit_library_modifier:
+    global_pop_promotion_speed_modifier: 0.05
   tv_wonder_irrigation_canal_system:
     global_raw_material_output: 0.05
   tv_wonder_grain_transport_canal_system:

@@ -7,7 +7,8 @@ The Trade League monopoly system has two generated refresh layers:
   markets for each good and stores those marker locations plus denominators in
   global variables;
 - a country monthly pulse wrapper that checks whether the country leads a Trade
-  League IO, then calls the IO-scoped monthly refresh;
+  League IO, updates the leader-country trade income chart history, then calls
+  the IO-scoped monthly refresh;
 - a monthly per-IO refresh that enters the IO leader country, reuses those
   marker markets, sums only the IO members' export/import trade_volume there,
   and stores the monopoly/action variables on the leader country.
@@ -61,6 +62,7 @@ tv_trade_league_create_effect = {
 \t\t\t\t}
 \t\t\t}
 \t\t}
+\t\ttv_trade_league_clear_trade_income_chart_effect = yes
 \t\tcreate_international_organization = {
 \t\t\ttype = international_organization_type:tv_trade_league
 \t\t\thidden_effect = {
@@ -96,6 +98,9 @@ tv_trade_league_country_monthly_pulse_effect = {
 \t\t\tlimit = {
 \t\t\t\tinternational_organization_type = international_organization_type:tv_trade_league
 \t\t\t\tleader_country ?= scope:tv_trade_league_pulse_country
+\t\t\t}
+\t\t\tleader_country ?= {
+\t\t\t\ttv_trade_league_update_trade_income_chart_effect = yes
 \t\t\t}
 \t\t\tif = {
 \t\t\t\tlimit = {
@@ -182,6 +187,7 @@ EMBARGO_COST_PCT = 30
 VIRTUAL_ACTION_COST_PCT = 5
 DISPLAY_ROW_COUNT = 10
 INTELLIGENCE_ROW_COUNT = 10
+CHART_SLOT_COUNT = 12
 INTELLIGENCE_MAX_MARKETS = 300
 INTELLIGENCE_MAX_STRENGTH_PCT = 100
 INTELLIGENCE_PAGE_COUNT = (INTELLIGENCE_MAX_MARKETS + INTELLIGENCE_ROW_COUNT - 1) // INTELLIGENCE_ROW_COUNT
@@ -642,6 +648,98 @@ tv_trade_league_refresh_monopoly_members_display_effect = {
 \t\t}
 \t}
 }
+"""
+
+
+def rolling_chart_shift_block(prefix: str, slots: int, indent: str) -> str:
+    lines: list[str] = []
+    for slot in range(1, slots):
+        next_slot = slot + 1
+        lines.extend(
+            [
+                f"{indent}set_variable = {{ name = {prefix}_{slot} value = 0 }}",
+                f"{indent}if = {{",
+                f"{indent}\tlimit = {{ has_variable = {prefix}_{next_slot} }}",
+                f"{indent}\tset_variable = {{ name = {prefix}_{slot} value = var:{prefix}_{next_slot} }}",
+                f"{indent}}}",
+            ]
+        )
+    return "\n".join(lines)
+
+
+def rolling_chart_max_block(prefix: str, slots: int, max_variable: str, indent: str) -> str:
+    lines: list[str] = [
+        f"{indent}set_variable = {{ name = {max_variable} value = 1 }}",
+    ]
+    for slot in range(1, slots + 1):
+        lines.extend(
+            [
+                f"{indent}if = {{",
+                f"{indent}\tlimit = {{ var:{prefix}_{slot} > var:{max_variable} }}",
+                f"{indent}\tset_variable = {{ name = {max_variable} value = var:{prefix}_{slot} }}",
+                f"{indent}}}",
+            ]
+        )
+    return "\n".join(lines)
+
+
+def rolling_chart_percent_block(
+    prefix: str, slots: int, max_variable: str, display_prefix: str, indent: str
+) -> str:
+    lines: list[str] = []
+    for slot in range(1, slots + 1):
+        raw_variable = f"{prefix}_{slot}"
+        display_variable = f"{display_prefix}_{slot}"
+        lines.extend(
+            [
+                f"{indent}set_variable = {{ name = {display_variable} value = 0 }}",
+                f"{indent}if = {{",
+                f"{indent}\tlimit = {{ has_variable = {raw_variable} }}",
+                f"{indent}\tset_variable = {{ name = {display_variable} value = var:{raw_variable} }}",
+                f"{indent}\tif = {{",
+                f"{indent}\t\tlimit = {{ var:{max_variable} > 0 }}",
+                f"{indent}\t\tchange_variable = {{ name = {display_variable} divide = var:{max_variable} }}",
+                f"{indent}\t\tchange_variable = {{ name = {display_variable} multiply = 100 }}",
+                f"{indent}\t}}",
+                f"{indent}}}",
+            ]
+        )
+    return "\n".join(lines)
+
+
+def trade_income_chart_effect() -> str:
+    prefix = "tv_trade_income_chart"
+    max_variable = "tv_trade_income_chart_max"
+    latest_variable = "tv_trade_income_chart_latest"
+    display_prefix = "tv_trade_income_chart_pct"
+    return f"""\
+tv_trade_league_update_trade_income_chart_effect = {{
+\thidden_effect = {{
+{rolling_chart_shift_block(prefix, CHART_SLOT_COUNT, "\t\t")}
+\t\tset_variable = {{ name = {prefix}_{CHART_SLOT_COUNT} value = monthly_trade_income }}
+\t\tset_variable = {{ name = {latest_variable} value = var:{prefix}_{CHART_SLOT_COUNT} }}
+{rolling_chart_max_block(prefix, CHART_SLOT_COUNT, max_variable, "\t\t")}
+{rolling_chart_percent_block(prefix, CHART_SLOT_COUNT, max_variable, display_prefix, "\t\t")}
+\t}}
+}}
+"""
+
+
+def trade_income_chart_clear_effect() -> str:
+    lines: list[str] = [
+        "\t\tset_variable = { name = tv_trade_income_chart_max value = 0 }",
+        "\t\tset_variable = { name = tv_trade_income_chart_latest value = 0 }",
+    ]
+    for slot in range(1, CHART_SLOT_COUNT + 1):
+        lines.append(f"\t\tset_variable = {{ name = tv_trade_income_chart_{slot} value = 0 }}")
+    for slot in range(1, CHART_SLOT_COUNT + 1):
+        lines.append(f"\t\tset_variable = {{ name = tv_trade_income_chart_pct_{slot} value = 0 }}")
+    return f"""\
+tv_trade_league_clear_trade_income_chart_effect = {{
+\thidden_effect = {{
+{chr(10).join(lines)}
+\t}}
+}}
 """
 
 
@@ -1519,6 +1617,10 @@ def generate(data: dict) -> str:
         + action_effects
         + "\n"
         + accounting_effects
+        + "\n"
+        + trade_income_chart_clear_effect()
+        + "\n"
+        + trade_income_chart_effect()
         + "\n"
         + projection_effects
         + "\n"

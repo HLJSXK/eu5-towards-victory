@@ -7,7 +7,15 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import NEW_WONDER_MAX_ID, NEW_WONDER_MIN_ID, final_building_for_style, load_wonder_data, render_header
+from wonder_expansion_lib import (
+    ALL_WONDER_MAX_ID,
+    ALL_WONDER_MIN_ID,
+    ceremony_modifier_for_style,
+    final_building_for_style,
+    load_all_wonder_mechanics,
+    load_expansion_wonder_data,
+    render_header,
+)
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_engineering_department_wonder_expansion_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_expansion_effects.py"
@@ -84,17 +92,18 @@ def add_site_preference(wonder: dict, indent: int = 2) -> list[str]:
 
 
 def generate() -> str:
-    wonders, _ = load_wonder_data()
+    all_wonders, expansion = load_all_wonder_mechanics()
+    expansion_wonders, _ = load_expansion_wonder_data()
     lines = render_header(SCRIPT_REL)
 
     lines.append("tv_wonder_new_clear_feasible_deck_effect = {")
-    for wonder in wonders:
+    for wonder in all_wonders:
         lines.append(f"{T}remove_variable = tv_wonder_feasible_{wonder['key']}")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_new_rebuild_feasible_deck_effect = {")
-    for wonder in wonders:
+    for wonder in all_wonders:
         lines.append(f"{T}if = {{")
         lines.append(f"{T}{T}limit = {{ tv_wonder_can_build_{wonder['key']}_trigger = yes }}")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_feasible_{wonder['key']} value = 1 }}")
@@ -104,7 +113,7 @@ def generate() -> str:
 
     lines.append("tv_wonder_new_roll_random_feasible_proposal_effect = {")
     lines.append(f"{T}random_list = {{")
-    for wonder in wonders:
+    for wonder in all_wonders:
         lines.append(f"{T}{T}1 = {{")
         lines.append(f"{T}{T}{T}trigger = {{ has_variable = tv_wonder_feasible_{wonder['key']} }}")
         lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_proposal value = {wonder['id']} }}")
@@ -114,7 +123,7 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_new_remove_current_proposal_from_deck_effect = {")
-    for wonder in wonders:
+    for wonder in all_wonders:
         lines.append(f"{T}if = {{")
         lines.append(f"{T}{T}limit = {{ var:tv_wonder_proposal ?= {wonder['id']} }}")
         lines.append(f"{T}{T}remove_variable = tv_wonder_feasible_{wonder['key']}")
@@ -123,7 +132,7 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_new_accept_proposal_tooltip_effect = {")
-    for idx, wonder in enumerate(wonders):
+    for idx, wonder in enumerate(all_wonders):
         head = "if" if idx == 0 else "else_if"
         lines.append(f"{T}{head} = {{")
         lines.append(f"{T}{T}limit = {{ var:tv_wonder_proposal ?= {wonder['id']} }}")
@@ -132,7 +141,7 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    for wonder in wonders:
+    for wonder in expansion_wonders:
         key = wonder["key"]
         lines.append(f"tv_wonder_copy_{key}_survey_from_location_effect = {{")
         lines.append(f"{T}if = {{")
@@ -149,7 +158,7 @@ def generate() -> str:
         lines.append("")
 
     lines.append("tv_wonder_new_copy_completed_survey_from_location_effect = {")
-    for idx, wonder in enumerate(wonders):
+    for idx, wonder in enumerate(expansion_wonders):
         head = "if" if idx == 0 else "else_if"
         key = wonder["key"]
         lines.append(f"{T}{head} = {{")
@@ -164,7 +173,7 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_new_store_survey_on_location_effect = {")
-    for idx, wonder in enumerate(wonders):
+    for idx, wonder in enumerate(expansion_wonders):
         head = "if" if idx == 0 else "else_if"
         key = wonder["key"]
         lines.append(f"{T}{head} = {{")
@@ -184,7 +193,7 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_new_apply_survey_site_preference_effect = {")
-    for idx, wonder in enumerate(wonders):
+    for idx, wonder in enumerate(expansion_wonders):
         head = "if" if idx == 0 else "else_if"
         lines.append(f"{T}{head} = {{")
         lines.append(f"{T}{T}limit = {{")
@@ -200,7 +209,7 @@ def generate() -> str:
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}OR = {{")
-    for wonder in wonders:
+    for wonder in expansion_wonders:
         lines.append(f"{T}{T}{T}{T}AND = {{ var:tv_wonder_locked ?= {wonder['id']} scope:tv_wonder_selected_survey_site = {{ has_variable = tv_wonder_surveyed_{wonder['key']} }} }}")
     lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
@@ -210,7 +219,7 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_new_apply_base_modifier_effect = {")
-    for idx, wonder in enumerate(wonders):
+    for idx, wonder in enumerate(all_wonders):
         head = "if" if idx == 0 else "else_if"
         key = wonder["key"]
         lines.append(f"{T}{head} = {{")
@@ -224,14 +233,17 @@ def generate() -> str:
 
     lines.append("tv_wonder_new_apply_ceremony_modifier_effect = {")
     first = True
-    for wonder in wonders:
+    for wonder in all_wonders:
         for style in range(1, 4):
-            building = final_building_for_style(wonder, style)
+            ceremony_modifier = ceremony_modifier_for_style(wonder, expansion, style)
+            if ceremony_modifier is None:
+                continue
+            modifier_name, _ = ceremony_modifier
             head = "if" if first else "else_if"
             first = False
             lines.append(f"{T}{head} = {{")
             lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
-            lines.append(f"{T}{T}add_country_modifier = {{ modifier = {building}_modifier years = -1 mode = add_and_extend }}")
+            lines.append(f"{T}{T}add_country_modifier = {{ modifier = {modifier_name} years = -1 mode = add_and_extend }}")
             lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -240,8 +252,8 @@ def generate() -> str:
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
-    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this >= {NEW_WONDER_MIN_ID} }}")
-    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this <= {NEW_WONDER_MAX_ID} }}")
+    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this >= {ALL_WONDER_MIN_ID} }}")
+    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this <= {ALL_WONDER_MAX_ID} }}")
     lines.append(f"{T}{T}{T}var:tv_wonder_ceremony_style ?= {{ this >= 1 }}")
     lines.append(f"{T}{T}{T}var:tv_wonder_ceremony_style ?= {{ this <= 3 }}")
     lines.append(f"{T}{T}{T}var:tv_wonder_level ?= {{ this >= 1 }}")
@@ -249,7 +261,7 @@ def generate() -> str:
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
     first = True
-    for wonder in wonders:
+    for wonder in all_wonders:
         for style in range(1, 4):
             building = final_building_for_style(wonder, style)
             head = "if" if first else "else_if"
@@ -265,7 +277,7 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_new_broadcast_completion_event_effect = {")
-    for idx, wonder in enumerate(wonders):
+    for idx, wonder in enumerate(all_wonders):
         head = "if" if idx == 0 else "else_if"
         lines.append(f"{T}{head} = {{")
         lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
@@ -283,7 +295,7 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_new_clear_project_state_effect = {")
-    for wonder in wonders:
+    for wonder in all_wonders:
         lines.append(f"{T}remove_variable = tv_wonder_feasible_{wonder['key']}")
     lines.append("}")
     lines.append("")

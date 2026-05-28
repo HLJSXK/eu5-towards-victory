@@ -7,7 +7,7 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import final_building_for_style, load_wonder_data, render_header
+from wonder_expansion_lib import ceremony_modifier_for_style, load_all_wonder_mechanics, render_header
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "static_modifiers" / "tv_engineering_department_wonder_expansion_modifiers.txt"
 SCRIPT_REL = "scripts/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_expansion_modifiers.py"
@@ -40,7 +40,7 @@ def modifier_block(name: str, modifiers: dict) -> list[str]:
 
 
 def generate() -> str:
-    wonders, expansion = load_wonder_data()
+    wonders, expansion = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
         base = expansion["base_modifiers"][wonder["key"]]
@@ -48,9 +48,11 @@ def generate() -> str:
             lines.extend(modifier_block(f"tv_wonder_{wonder['key']}_level_{level}", scaled_modifiers(base, level)))
     for wonder in wonders:
         for style in range(1, 4):
-            building = final_building_for_style(wonder, style)
-            modifiers = expansion["ceremony_modifiers"].get(building, {})
-            lines.extend(modifier_block(f"{building}_modifier", modifiers))
+            ceremony_modifier = ceremony_modifier_for_style(wonder, expansion, style)
+            if ceremony_modifier is None:
+                continue
+            modifier_name, modifiers = ceremony_modifier
+            lines.extend(modifier_block(modifier_name, modifiers))
     return "\n".join(lines).rstrip() + "\n"
 
 
