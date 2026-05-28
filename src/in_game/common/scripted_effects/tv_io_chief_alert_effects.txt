@@ -57,96 +57,35 @@
 tv_sync_missing_io_chief_alert_bridge_effect = {
 	if = {
 		limit = { has_variable = tv_pending_io_chief_alert_io }
-		set_variable = { name = tv_io_chief_alert_open_requested value = scope:tv_pending_io_chief_alert_io }
 		remove_variable = tv_pending_io_chief_alert_io
 	}
 }
 
 tv_handle_io_chief_alert_callback_effect = {
-	save_scope_as = tv_io_chief_alert_country
+	remove_variable = tv_io_chief_alert_open_requested
 
 	if = {
 		limit = { var:cmf_callback = flag:tv_missing_arts_exhibition_chief_alert }
-		remove_variable = tv_io_chief_alert_open_requested
-		every_international_organizations_member_of = {
-			limit = {
-				international_organization_type = international_organization_type:tv_arts_exhibition
-				leader_country ?= scope:tv_io_chief_alert_country
-			}
-			save_scope_as = tv_io_chief_alert_target_io
-			scope:tv_io_chief_alert_country = {
-				set_variable = { name = tv_io_chief_alert_open_requested value = scope:tv_io_chief_alert_target_io }
-			}
-		}
+		set_variable = { name = tv_io_chief_alert_open_requested value = 1 }
 	}
 	else_if = {
 		limit = { var:cmf_callback = flag:tv_missing_diplomatic_alliance_chief_alert }
-		remove_variable = tv_io_chief_alert_open_requested
-		every_international_organizations_member_of = {
-			limit = {
-				international_organization_type = international_organization_type:tv_diplomatic_alliance
-				leader_country ?= scope:tv_io_chief_alert_country
-			}
-			save_scope_as = tv_io_chief_alert_target_io
-			scope:tv_io_chief_alert_country = {
-				set_variable = { name = tv_io_chief_alert_open_requested value = scope:tv_io_chief_alert_target_io }
-			}
-		}
+		set_variable = { name = tv_io_chief_alert_open_requested value = 2 }
 	}
 	else_if = {
 		limit = { var:cmf_callback = flag:tv_missing_academy_chief_alert }
-		remove_variable = tv_io_chief_alert_open_requested
-		every_international_organizations_member_of = {
-			limit = {
-				international_organization_type = international_organization_type:tv_academy_of_sciences
-				leader_country ?= scope:tv_io_chief_alert_country
-			}
-			save_scope_as = tv_io_chief_alert_target_io
-			scope:tv_io_chief_alert_country = {
-				set_variable = { name = tv_io_chief_alert_open_requested value = scope:tv_io_chief_alert_target_io }
-			}
-		}
+		set_variable = { name = tv_io_chief_alert_open_requested value = 3 }
 	}
 	else_if = {
 		limit = { var:cmf_callback = flag:tv_missing_engineering_department_chief_alert }
-		remove_variable = tv_io_chief_alert_open_requested
-		every_international_organizations_member_of = {
-			limit = {
-				international_organization_type = international_organization_type:tv_engineering_department
-				leader_country ?= scope:tv_io_chief_alert_country
-			}
-			save_scope_as = tv_io_chief_alert_target_io
-			scope:tv_io_chief_alert_country = {
-				set_variable = { name = tv_io_chief_alert_open_requested value = scope:tv_io_chief_alert_target_io }
-			}
-		}
+		set_variable = { name = tv_io_chief_alert_open_requested value = 4 }
 	}
 	else_if = {
 		limit = { var:cmf_callback = flag:tv_missing_trade_league_chief_alert }
-		remove_variable = tv_io_chief_alert_open_requested
-		every_international_organizations_member_of = {
-			limit = {
-				international_organization_type = international_organization_type:tv_trade_league
-				leader_country ?= scope:tv_io_chief_alert_country
-			}
-			save_scope_as = tv_io_chief_alert_target_io
-			scope:tv_io_chief_alert_country = {
-				set_variable = { name = tv_io_chief_alert_open_requested value = scope:tv_io_chief_alert_target_io }
-			}
-		}
+		set_variable = { name = tv_io_chief_alert_open_requested value = 5 }
 	}
 	else_if = {
 		limit = { var:cmf_callback = flag:tv_missing_govhouse_chief_alert }
-		remove_variable = tv_io_chief_alert_open_requested
-		every_international_organizations_member_of = {
-			limit = {
-				international_organization_type = international_organization_type:tv_govhouse
-				leader_country ?= scope:tv_io_chief_alert_country
-			}
-			save_scope_as = tv_io_chief_alert_target_io
-			scope:tv_io_chief_alert_country = {
-				set_variable = { name = tv_io_chief_alert_open_requested value = scope:tv_io_chief_alert_target_io }
-			}
-		}
+		set_variable = { name = tv_io_chief_alert_open_requested value = 6 }
 	}
 }

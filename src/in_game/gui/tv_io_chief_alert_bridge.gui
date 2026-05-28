@@ -3,9 +3,25 @@
 	size = { 0 0 }
 	visible_at_creation = no
 	visible = "[GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').IsSet]"
+	datamodel = "[GetPlayer.GetDiplomacy.GetInternationalOrganizations]"
 
-	state = {
-		name = _show
-		on_start = "[GetScriptedGui('tv_clear_io_chief_alert_open_request').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+	item = {
+		widget = {
+			size = { 0 0 }
+			visible = "[Or6(
+				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)1.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_arts_exhibition'), InternationalOrganization.IsIOLeaderCountry(GetPlayer)),
+				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)2.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_diplomatic_alliance'), InternationalOrganization.IsIOLeaderCountry(GetPlayer)),
+				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)3.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_academy_of_sciences'), InternationalOrganization.IsIOLeaderCountry(GetPlayer)),
+				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)4.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_engineering_department'), InternationalOrganization.IsIOLeaderCountry(GetPlayer)),
+				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)5.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_trade_league'), InternationalOrganization.IsIOLeaderCountry(GetPlayer)),
+				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)6.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_govhouse'), InternationalOrganization.IsIOLeaderCountry(GetPlayer))
+			)]"
+
+			state = {
+				name = _show
+				on_start = "[OpenInternationalOrganizationView(InternationalOrganization.Self)]"
+				on_start = "[GetScriptedGui('tv_clear_io_chief_alert_open_request').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+			}
+		}
 	}
 }
