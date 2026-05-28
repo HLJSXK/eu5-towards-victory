@@ -2791,11 +2791,11 @@ tv_wonder_auto_advance_active_part_effect = {
 
 tv_wonder_after_unit_completed_effect = {
 	set_variable = { name = tv_wonder_previous_level value = var:tv_wonder_level }
-	tv_wonder_construct_module_for_last_completed_part_effect = yes
-	tv_wonder_combine_completed_modules_effect = yes
-	# The unit variable was already incremented by the completion path; keep that
-	# immediate UI state instead of waiting for next month's building scan.
 	trigger_event_non_silently = { id = tv_engineering_department.200 }
+}
+
+tv_wonder_after_unit_completed_event_effect = {
+	tv_wonder_combine_completed_modules_effect = yes
 	tv_wonder_update_wonder_level_effect = yes
 	if = {
 		limit = { var:tv_wonder_level > var:tv_wonder_previous_level }
@@ -2955,12 +2955,16 @@ tv_wonder_initialize_ceremony_runtime_state_effect = {
 }
 
 tv_wonder_apply_base_modifier_effect = {
-	tv_wonder_clear_current_base_modifiers_effect = yes
+	hidden_effect = {
+		tv_wonder_clear_current_base_modifiers_effect = yes
+	}
 	tv_wonder_new_apply_base_modifier_effect = yes
 }
 
 tv_wonder_apply_ceremony_modifier_effect = {
-	tv_wonder_clear_current_ceremony_modifiers_effect = yes
+	hidden_effect = {
+		tv_wonder_clear_current_ceremony_modifiers_effect = yes
+	}
 	tv_wonder_new_apply_ceremony_modifier_effect = yes
 }
 
@@ -4076,6 +4080,7 @@ tv_wonder_clear_project_state_effect = {
 	}
 	remove_variable = tv_wonder_last_completed_part
 	remove_variable = tv_wonder_last_completed_unit
+	remove_variable = tv_wonder_previous_level
 	tv_wonder_clear_feasible_deck_effect = yes
 	tv_wonder_new_clear_project_state_effect = yes
 	set_variable = { name = tv_wonder_stage value = 0 }

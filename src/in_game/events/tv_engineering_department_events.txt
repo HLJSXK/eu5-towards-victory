@@ -109,7 +109,26 @@ tv_engineering_department.200 = {
 
 	option = {
 		name = tv_engineering_department.200.a
-		tv_change_wonder_domestic_support_effect = { value = 10 }
+		if = {
+			limit = {
+				tv_wonder_construction_site_selected_trigger = yes
+				has_variable = tv_wonder_previous_level
+				var:tv_wonder_last_completed_part ?= { this >= 1 }
+				var:tv_wonder_last_completed_part ?= { this <= 4 }
+				var:tv_wonder_last_completed_unit ?= { this >= 1 }
+				var:tv_wonder_last_completed_unit ?= { this <= 6 }
+			}
+			tv_wonder_construct_module_for_last_completed_part_effect = yes
+			tv_change_wonder_domestic_support_effect = { value = 10 }
+			hidden_effect = {
+				tv_wonder_after_unit_completed_event_effect = yes
+			}
+		}
+		else = {
+			hidden_effect = {
+				remove_variable = tv_wonder_previous_level
+			}
+		}
 	}
 }
 
