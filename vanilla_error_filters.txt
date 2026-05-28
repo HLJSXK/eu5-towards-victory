@@ -276,3 +276,8 @@ contains:events/DHE/flavor_chi_pap.txt
 contains:common/laws/02_country_specific.txt
 contains:common/generic_actions/war_of_religions.txt
 contains:common/generic_actions/rise_of_timur.txt
+exact:[pdx_gui_widget.cpp:2345]: gui/panels/organization/union.gui:68 - Property 'spacing'(272) not handled
+exact:[pdx_gui_widget.cpp:2345]: gui/panels/organization/union.gui:69 - Property 'margin'(630) not handled
+exact:[pdx_gui_factory.cpp:2298]: gui/panels/organization/union.gui:65 - Error setting properties for '' (uberwidget)
+exact:[pdx_gui_widget.cpp:2345]: gui/panels/organization/union.gui:153 - Property 'autoresize'(863) not handled
+exact:[pdx_gui_factory.cpp:2298]: gui/panels/organization/union.gui:152 - Error setting properties for '' (ubervbox)
