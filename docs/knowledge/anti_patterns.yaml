@@ -562,6 +562,17 @@
   source: "runtime error.log: tv_wonder_select_construction_site -> tv_wonder_update_wonder_level_effect (tv_wonder_body_units/function_units/decoration_units unset during action hover)"
   notes: "EU5 generic action card and tooltip rendering can pre-evaluate the action effect without committing preceding set_variable writes. A helper that initializes construction variables and then immediately reads them with direct var:X comparisons can spam Failed to fetch variable / Invalid left side errors while the card is merely visible or hovered."
 
+- id: generic_action_hidden_effect_not_hover_boundary
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['generic_actions', 'scripted_effects']
+  bad: "A generic action effect wrapped in hidden_effect still initializes variables that a later helper compares during select_trigger hover pre-evaluation"
+  correction: "Do not treat hidden_effect as a hover-evaluation barrier in generic actions. Guard the action effect on persistent state and make nested helper reads safe with optional variable links or persistent-state checks."
+  category: script
+  scope: any
+  source: "runtime error.log: common/generic_actions/tv_govhouse_actions.txt:142 -> common/scripted_effects/tv_govhouse_effects.txt:1307"
+  notes: "Hovering the Governor appointment selector still reached tv_governor_apply_modifiers_effect even though the appointment chain used hidden_effect. The pre-evaluator walked into the helper and needed optional reads for newly initialized task variables."
+
 - id: trigger_loc_missing_first_perspective
   pattern: ''
   only_in_paths: ['trigger_localization']

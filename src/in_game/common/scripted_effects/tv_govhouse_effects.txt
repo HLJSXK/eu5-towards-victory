@@ -1165,6 +1165,7 @@ tv_governor_select_yearly_task_effect = {
 	set_variable = { name = tv_gov_weight_convert_religion value = 0 }
 	set_variable = { name = tv_gov_weight_strengthen_recruitment value = 0 }
 	set_variable = { name = tv_gov_weight_strengthen_order value = 0 }
+	set_variable = { name = tv_gov_weight_best value = 0 }
 	set_variable = { name = tv_gov_task_location_count value = 0 }
 	set_variable = { name = tv_gov_task_unintegrated_count value = 0 }
 	set_variable = { name = tv_gov_task_integrated_noncore_count value = 0 }
@@ -1210,12 +1211,12 @@ tv_governor_select_yearly_task_effect = {
 	}
 
 	if = {
-		limit = { var:tv_gov_task_location_count > 0 }
+		limit = { var:tv_gov_task_location_count ?= { this > 0 } }
 		change_variable = { name = tv_gov_task_prosperity_sum divide = var:tv_gov_task_location_count }
 		set_variable = { name = tv_gov_weight_restore_prosperity value = var:tv_gov_task_prosperity_sum }
 		change_variable = { name = tv_gov_weight_restore_prosperity multiply = -1 }
 		if = {
-			limit = { var:tv_gov_weight_restore_prosperity < 0 }
+			limit = { var:tv_gov_weight_restore_prosperity ?= { this < 0 } }
 			set_variable = { name = tv_gov_weight_restore_prosperity value = 0 }
 		}
 
@@ -1223,7 +1224,7 @@ tv_governor_select_yearly_task_effect = {
 		change_variable = { name = tv_gov_weight_integrate_region divide = var:tv_gov_task_location_count }
 
 		if = {
-			limit = { var:tv_gov_task_unintegrated_count = 0 }
+			limit = { var:tv_gov_task_unintegrated_count ?= 0 }
 			set_variable = { name = tv_gov_weight_convert_culture value = var:tv_gov_task_integrated_noncore_count }
 			change_variable = { name = tv_gov_weight_convert_culture divide = var:tv_gov_task_location_count }
 			set_variable = { name = tv_gov_weight_convert_religion value = var:tv_gov_task_religion_need_count }
@@ -1237,38 +1238,60 @@ tv_governor_select_yearly_task_effect = {
 		set_variable = { name = tv_gov_weight_strengthen_recruitment value = 0.5 }
 	}
 
-	set_variable = { name = tv_gov_current_task value = 1 }
-	set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_restore_prosperity }
-	set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_restore_prosperity_value }
 	if = {
-		limit = { var:tv_gov_weight_integrate_region > var:tv_gov_weight_best }
-		set_variable = { name = tv_gov_current_task value = 2 }
-		set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_integrate_region }
-		set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_integrate_region_value }
+		limit = {
+			has_variable = tv_gov_weight_restore_prosperity
+			has_variable = tv_gov_weight_integrate_region
+			has_variable = tv_gov_weight_convert_culture
+			has_variable = tv_gov_weight_convert_religion
+			has_variable = tv_gov_weight_strengthen_recruitment
+			has_variable = tv_gov_weight_strengthen_order
+			has_variable = tv_gov_weight_best
+			has_variable = tv_gov_task_restore_prosperity_value
+			has_variable = tv_gov_task_integrate_region_value
+			has_variable = tv_gov_task_convert_culture_value
+			has_variable = tv_gov_task_convert_religion_value
+			has_variable = tv_gov_task_strengthen_recruitment_value
+			has_variable = tv_gov_task_strengthen_order_value
+		}
+		set_variable = { name = tv_gov_current_task value = 1 }
+		set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_restore_prosperity }
+		set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_restore_prosperity_value }
+		if = {
+			limit = { var:tv_gov_weight_integrate_region > var:tv_gov_weight_best }
+			set_variable = { name = tv_gov_current_task value = 2 }
+			set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_integrate_region }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_integrate_region_value }
+		}
+		if = {
+			limit = { var:tv_gov_weight_convert_culture > var:tv_gov_weight_best }
+			set_variable = { name = tv_gov_current_task value = 3 }
+			set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_convert_culture }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_culture_value }
+		}
+		if = {
+			limit = { var:tv_gov_weight_convert_religion > var:tv_gov_weight_best }
+			set_variable = { name = tv_gov_current_task value = 4 }
+			set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_convert_religion }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_religion_value }
+		}
+		if = {
+			limit = { var:tv_gov_weight_strengthen_recruitment > var:tv_gov_weight_best }
+			set_variable = { name = tv_gov_current_task value = 5 }
+			set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_strengthen_recruitment }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_recruitment_value }
+		}
+		if = {
+			limit = { var:tv_gov_weight_strengthen_order > var:tv_gov_weight_best }
+			set_variable = { name = tv_gov_current_task value = 6 }
+			set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_strengthen_order }
+			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_order_value }
+		}
 	}
-	if = {
-		limit = { var:tv_gov_weight_convert_culture > var:tv_gov_weight_best }
-		set_variable = { name = tv_gov_current_task value = 3 }
-		set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_convert_culture }
-		set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_culture_value }
-	}
-	if = {
-		limit = { var:tv_gov_weight_convert_religion > var:tv_gov_weight_best }
-		set_variable = { name = tv_gov_current_task value = 4 }
-		set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_convert_religion }
-		set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_religion_value }
-	}
-	if = {
-		limit = { var:tv_gov_weight_strengthen_recruitment > var:tv_gov_weight_best }
-		set_variable = { name = tv_gov_current_task value = 5 }
-		set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_strengthen_recruitment }
-		set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_recruitment_value }
-	}
-	if = {
-		limit = { var:tv_gov_weight_strengthen_order > var:tv_gov_weight_best }
-		set_variable = { name = tv_gov_current_task value = 6 }
-		set_variable = { name = tv_gov_weight_best value = var:tv_gov_weight_strengthen_order }
-		set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_order_value }
+	else = {
+		set_variable = { name = tv_gov_current_task value = 1 }
+		set_variable = { name = tv_gov_weight_best value = 0 }
+		set_variable = { name = tv_gov_current_task_value value = { value = this.adm multiply = 0.0005 } }
 	}
 
 	remove_variable = tv_gov_task_location_count
@@ -1276,6 +1299,7 @@ tv_governor_select_yearly_task_effect = {
 	remove_variable = tv_gov_task_integrated_noncore_count
 	remove_variable = tv_gov_task_religion_need_count
 	remove_variable = tv_gov_task_prosperity_sum
+	remove_variable = tv_gov_weight_best
 }
 
 # Applies or refreshes location modifiers and display variables for one governor.
@@ -1298,32 +1322,47 @@ tv_governor_apply_modifiers_effect = {
 			tv_governor_select_yearly_task_effect = yes
 		}
 		if = {
-			limit = { var:tv_gov_current_task = 1 }
-			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_restore_prosperity_value }
-		}
-		else_if = {
-			limit = { var:tv_gov_current_task = 2 }
-			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_integrate_region_value }
-		}
-		else_if = {
-			limit = { var:tv_gov_current_task = 3 }
-			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_culture_value }
-		}
-		else_if = {
-			limit = { var:tv_gov_current_task = 4 }
-			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_religion_value }
-		}
-		else_if = {
-			limit = { var:tv_gov_current_task = 5 }
-			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_recruitment_value }
-		}
-		else_if = {
-			limit = { var:tv_gov_current_task = 6 }
-			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_order_value }
+			limit = {
+				has_variable = tv_gov_current_task
+				has_variable = tv_gov_task_restore_prosperity_value
+				has_variable = tv_gov_task_integrate_region_value
+				has_variable = tv_gov_task_convert_culture_value
+				has_variable = tv_gov_task_convert_religion_value
+				has_variable = tv_gov_task_strengthen_recruitment_value
+				has_variable = tv_gov_task_strengthen_order_value
+			}
+			if = {
+				limit = { var:tv_gov_current_task ?= 1 }
+				set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_restore_prosperity_value }
+			}
+			else_if = {
+				limit = { var:tv_gov_current_task ?= 2 }
+				set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_integrate_region_value }
+			}
+			else_if = {
+				limit = { var:tv_gov_current_task ?= 3 }
+				set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_culture_value }
+			}
+			else_if = {
+				limit = { var:tv_gov_current_task ?= 4 }
+				set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_convert_religion_value }
+			}
+			else_if = {
+				limit = { var:tv_gov_current_task ?= 5 }
+				set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_recruitment_value }
+			}
+			else_if = {
+				limit = { var:tv_gov_current_task ?= 6 }
+				set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_strengthen_order_value }
+			}
+			else = {
+				set_variable = { name = tv_gov_current_task value = 1 }
+				set_variable = { name = tv_gov_current_task_value value = { value = this.adm multiply = 0.0005 } }
+			}
 		}
 		else = {
 			set_variable = { name = tv_gov_current_task value = 1 }
-			set_variable = { name = tv_gov_current_task_value value = var:tv_gov_task_restore_prosperity_value }
+			set_variable = { name = tv_gov_current_task_value value = { value = this.adm multiply = 0.0005 } }
 		}
 
 		set_variable = { name = tv_gov_admin_bonus_type value = 1 }
@@ -1784,7 +1823,8 @@ tv_govhouse_add_country_event_modifier_effect = {
 tv_governor_appoint_effect = {
 	save_scope_as = tv_governing_country
 	# Guard: EU5 pre-evaluates the effect body during select_trigger steps.
-	# Both scopes are unset at pre-eval time; skip silently and execute only when both are set.
+	# Hover pre-evaluation can already have both scopes, but variables written by this
+	# body are not guaranteed to exist when nested helpers inspect the selected character.
 	if = {
 		limit = {
 			exists = scope:target

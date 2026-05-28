@@ -467,6 +467,11 @@ When a generic action has multiple `select_trigger` steps, EU5 **pre-evaluates t
 - After step 1 completes, the first `target_flag` scope (e.g. `scope:target`) is set but subsequent ones (`scope:target_1`) are not.
 - At step 2 display time, the engine may evaluate the effect with `scope:target` set to the selected character — but any variables that the effect itself would write (e.g. `tv_governed_region`) do not yet exist on that character.
 
+Wrapping the action effect in `hidden_effect` does not stop this selector pre-evaluation. It
+hides effect text, but the pre-evaluator can still walk into nested `scripted_effect` calls.
+Any helper reached from a generic action must not assume variables written earlier in that same
+effect chain exist during hover.
+
 **Required guards:**
 
 1. Wrap the entire effect body in an existence check for all required named scopes:

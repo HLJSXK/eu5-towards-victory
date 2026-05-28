@@ -22,10 +22,11 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    wrap the effect body in an `if = { limit = { exists = scope:target ... } ... }` guard for
    every scope the effect reads.
 
-3. Treat visible effects as tooltip-rendered.
-   If an action effect initializes variables and then calls a helper that compares those
-   variables, either put the state-changing chain in `hidden_effect`, or make the helper use
-   `has_variable` / `var:X ?= ...` before direct comparisons.
+3. Treat action effects as hover-evaluated, even inside `hidden_effect`.
+   `hidden_effect` hides output but is not a select-trigger pre-evaluation barrier. If an
+   action effect initializes variables and then calls a helper that compares those variables,
+   make the helper use `has_variable` / `var:X ?= ...` before direct comparisons, or guard the
+   helper so it runs only after persistent prerequisite state exists.
 
 4. Keep selection target names vanilla-shaped.
    Use `target`, `target_1`, and `target_2`. Custom names such as `selected_artist` have caused
@@ -96,3 +97,6 @@ rationale.
 - `select_trigger_world_source_reads_previous_target` [needs_parser]: A later selector with
   `source = world` cannot safely read `scope:target` from an earlier selector; omit `source`,
   use a non-world source, or provide an `interaction_source_list`.
+- `generic_action_hidden_effect_not_hover_boundary` [advisory]: A `hidden_effect` inside a
+  generic action can still be evaluated while a select-trigger candidate is merely hovered; make
+  helper reads safe with optional variable links or persistent-state guards.
