@@ -461,6 +461,7 @@ tv_wonder_ceremony_style_3_trigger = {
 
 tv_wonder_can_choose_ceremony_style_trigger = {
 	tv_wonder_ceremony_ready_trigger = yes
+	NOT = { tv_wonder_unique_locked_trigger = yes }
 	NOT = { has_variable = tv_wonder_ceremony_active }
 	NOT = { has_variable = tv_wonder_ceremony_locked }
 }

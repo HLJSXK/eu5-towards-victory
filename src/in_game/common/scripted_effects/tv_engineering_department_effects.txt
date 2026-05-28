@@ -459,18 +459,18 @@ tv_wonder_roll_new_proposal_effect = {
 			NOT = { has_variable = tv_wonder_priority_found }
 			tv_wonder_has_any_feasible_proposal_trigger = yes
 		}
-		tv_wonder_roll_random_feasible_proposal_effect = yes
+		tv_wonder_roll_next_slot_from_priority_deck_effect = yes
 		tv_wonder_copy_current_proposal_to_slot_1_effect = yes
 		tv_wonder_remove_current_proposal_from_deck_effect = yes
 		if = {
 			limit = { tv_wonder_has_any_feasible_proposal_trigger = yes }
-			tv_wonder_roll_random_feasible_proposal_effect = yes
+			tv_wonder_roll_next_slot_from_priority_deck_effect = yes
 			tv_wonder_copy_current_proposal_to_slot_2_effect = yes
 			tv_wonder_remove_current_proposal_from_deck_effect = yes
 		}
 		if = {
 			limit = { tv_wonder_has_any_feasible_proposal_trigger = yes }
-			tv_wonder_roll_random_feasible_proposal_effect = yes
+			tv_wonder_roll_next_slot_from_priority_deck_effect = yes
 			tv_wonder_copy_current_proposal_to_slot_3_effect = yes
 			tv_wonder_remove_current_proposal_from_deck_effect = yes
 		}
@@ -787,6 +787,10 @@ tv_wonder_accept_proposal_effect = {
 			remove_variable = tv_wonder_priority_found
 			set_variable = { name = tv_wonder_stage value = 1 }
 			tv_wonder_reset_io_progress_effect = yes
+			if = {
+				limit = { tv_wonder_unique_locked_trigger = yes }
+				tv_change_wonder_domestic_support_effect = { value = 50 }
+			}
 			tv_wonder_initialize_debate_demands_effect = yes
 		}
 	}
@@ -2935,6 +2939,18 @@ tv_wonder_choose_ceremony_style_effect = {
 tv_wonder_initialize_ceremony_runtime_state_effect = {
 	if = {
 		limit = {
+			tv_wonder_unique_locked_trigger = yes
+			tv_wonder_ceremony_ready_trigger = yes
+		}
+		set_variable = { name = tv_wonder_ceremony_style value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		remove_variable = tv_wonder_ceremony_active
+		remove_variable = tv_wonder_ceremony_months
+		remove_variable = tv_wonder_ceremony_progress
+		clear_variable_list = tv_wonder_emissary_countries
+	}
+	if = {
+		limit = {
 			tv_wonder_has_selected_ceremony_trigger = yes
 			OR = {
 				AND = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 1 }
@@ -3222,7 +3238,7 @@ tv_wonder_complete_finalization_effect = {
 			has_variable = tv_wonder_finalized
 			tv_wonder_construction_site_selected_trigger = yes
 			var:tv_wonder_locked ?= { this >= 1 }
-			var:tv_wonder_locked ?= { this <= 39 }
+			var:tv_wonder_locked ?= { this <= 140 }
 			var:tv_wonder_ceremony_style ?= { this >= 1 }
 			var:tv_wonder_ceremony_style ?= { this <= 3 }
 			var:tv_wonder_level ?= { this >= 1 }

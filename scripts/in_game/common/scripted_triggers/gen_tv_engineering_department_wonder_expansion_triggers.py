@@ -13,6 +13,8 @@ from wonder_expansion_lib import (
     PARTS,
     load_all_wonder_mechanics,
     load_expansion_wonder_data,
+    load_new_wonder_data,
+    mechanic_key,
     render_header,
 )
 
@@ -23,7 +25,7 @@ T = "\t"
 
 def trigger_conditions(wonder: dict, indent: int = 1) -> list[str]:
     prefix = T * indent
-    key = wonder["key"]
+    key = mechanic_key(wonder)
     lines: list[str] = []
     if key in {"sacred_mountain", "giant_observatory", "mountain_terrace_network"}:
         lines.extend([
@@ -155,7 +157,7 @@ def intermediate_buildings(wonder: dict) -> list[str]:
 
 
 def final_buildings(wonder: dict) -> list[str]:
-    return list(wonder["final_buildings"].values())
+    return list(dict.fromkeys(wonder["final_buildings"].values()))
 
 
 def project_buildings(wonder: dict) -> list[str]:
@@ -269,26 +271,53 @@ def add_project_occupancy_triggers(lines: list[str], wonders: list[dict]) -> Non
 
 def generate() -> str:
     all_wonders, _ = load_all_wonder_mechanics()
-    expansion_wonders, _ = load_expansion_wonder_data()
+    expansion_wonders, _ = load_new_wonder_data()
+    generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
+    unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
     lines = render_header(SCRIPT_REL)
     add_project_occupancy_triggers(lines, all_wonders)
     for wonder in all_wonders:
         lines.append(f"tv_wonder_location_can_host_{wonder['key']}_trigger = {{")
         lines.append(f"{T}NOT = {{ tv_wonder_location_has_any_wonder_project_building_trigger = yes }}")
+        if wonder.get("is_unique"):
+            lines.append(f"{T}this = location:{wonder['fixed_location']}")
         lines.extend(trigger_conditions(wonder))
         lines.append("}")
         lines.append("")
         lines.append(f"tv_wonder_can_build_{wonder['key']}_trigger = {{")
-        lines.append(f"{T}any_owned_location = {{")
-        lines.append(f"{T}{T}NOT = {{ tv_wonder_location_has_any_wonder_project_building_trigger = yes }}")
-        lines.extend(trigger_conditions(wonder, 2))
-        lines.append(f"{T}}}")
+        if wonder.get("is_unique"):
+            lines.append(f"{T}owns = location:{wonder['fixed_location']}")
+            lines.append(f"{T}location:{wonder['fixed_location']} = {{")
+            lines.append(f"{T}{T}NOT = {{ tv_wonder_location_has_any_wonder_project_building_trigger = yes }}")
+            lines.extend(trigger_conditions(wonder, 2))
+            lines.append(f"{T}}}")
+        else:
+            lines.append(f"{T}any_owned_location = {{")
+            lines.append(f"{T}{T}NOT = {{ tv_wonder_location_has_any_wonder_project_building_trigger = yes }}")
+            lines.extend(trigger_conditions(wonder, 2))
+            lines.append(f"{T}}}")
         lines.append("}")
         lines.append("")
 
     lines.append("tv_wonder_new_has_any_feasible_proposal_trigger = {")
     lines.append(f"{T}OR = {{")
     for wonder in all_wonders:
+        lines.append(f"{T}{T}has_variable = tv_wonder_feasible_{wonder['key']}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_generic_has_any_feasible_proposal_trigger = {")
+    lines.append(f"{T}OR = {{")
+    for wonder in generic_wonders:
+        lines.append(f"{T}{T}has_variable = tv_wonder_feasible_{wonder['key']}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_unique_has_any_feasible_proposal_trigger = {")
+    lines.append(f"{T}OR = {{")
+    for wonder in unique_wonders:
         lines.append(f"{T}{T}has_variable = tv_wonder_feasible_{wonder['key']}")
     lines.append(f"{T}}}")
     lines.append("}")
@@ -329,8 +358,24 @@ def generate() -> str:
 
     lines.append("tv_wonder_new_ceremony_ready_trigger = {")
     lines.append(f"{T}tv_wonder_has_selected_ceremony_trigger = yes")
-    lines.append(f"{T}var:tv_wonder_locked ?= {{ this >= {EXPANSION_WONDER_MIN_ID} }}")
-    lines.append(f"{T}var:tv_wonder_locked ?= {{ this <= {EXPANSION_WONDER_MAX_ID} }}")
+    lines.append(f"{T}OR = {{")
+    lines.append(f"{T}{T}AND = {{")
+    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this >= {EXPANSION_WONDER_MIN_ID} }}")
+    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this <= {EXPANSION_WONDER_MAX_ID} }}")
+    lines.append(f"{T}{T}}}")
+    for wonder in all_wonders:
+        if wonder.get("is_unique"):
+            lines.append(f"{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_unique_locked_trigger = {")
+    lines.append(f"{T}OR = {{")
+    for wonder in all_wonders:
+        if wonder.get("is_unique"):
+            lines.append(f"{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
+    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 

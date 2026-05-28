@@ -7,7 +7,14 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import final_building_for_style, final_building_maintenance, load_all_wonder_mechanics, render_header
+from wonder_expansion_lib import (
+    ceremony_styles,
+    final_building_for_style,
+    final_building_maintenance,
+    load_all_wonder_mechanics,
+    mechanic_key,
+    render_header,
+)
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "building_types" / "tv_engineering_department_wonder_expansion_buildings.txt"
 SCRIPT_REL = "scripts/in_game/common/building_types/gen_tv_engineering_department_wonder_expansion_buildings.py"
@@ -93,10 +100,10 @@ def generate() -> str:
     wonders, expansion = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
-        building_design = expansion["buildings"][wonder["key"]]
+        building_design = expansion["buildings"][mechanic_key(wonder)]
         base_local = building_design.get("base_local", {})
         final_local = building_design.get("final_local", {})
-        for style in range(1, 4):
+        for style in ceremony_styles(wonder):
             building = final_building_for_style(wonder, style)
             modifiers = merge_modifiers(base_local, final_local.get(building, {}))
             maintenance = final_building_maintenance(wonder, building_design, building)

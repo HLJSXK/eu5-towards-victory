@@ -7,7 +7,7 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import final_building_for_style, load_wonder_data, render_header
+from wonder_expansion_lib import ceremony_styles, final_building_for_style, load_new_wonder_data, render_header
 
 OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_expansion.gui"
 SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_expansion_gui.py"
@@ -53,6 +53,12 @@ def locked_text(wonder: dict) -> str:
     )
 
 
+def preview_texture(wonder: dict) -> str:
+    if wonder.get("is_unique") and wonder.get("image"):
+        return f"gfx/interface/illustrations/towards_victory/wonders/{wonder['image']}.dds"
+    return "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_test.dds"
+
+
 def ceremony_select_button(wonder: dict, style: int) -> str:
     building = final_building_for_style(wonder, style)
     locked_visible = eq("tv_wonder_locked", wonder["id"])
@@ -86,7 +92,7 @@ def hold_button() -> str:
 
 
 def generate() -> str:
-    wonders, _ = load_wonder_data()
+    wonders, _ = load_new_wonder_data()
     lines = render_header(SCRIPT_REL)
     lines.append("### BEGIN TV_WONDER_EXPANSION_PREVIEW_WIDGETS")
     for wonder in wonders:
@@ -96,7 +102,7 @@ def generate() -> str:
                 f'{T}visible = "{wonder_visible(wonder["id"])}"',
                 f"{T}size = {{ 100% 100% }}",
                 f"{T}background = {{",
-                f'{T}{T}texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_test.dds"',
+                f'{T}{T}texture = "{preview_texture(wonder)}"',
                 f"{T}{T}texture_density = 2",
                 f"{T}{T}fittype = centercrop",
                 f"{T}}}",
@@ -134,12 +140,13 @@ def generate() -> str:
     for style in range(1, 4):
         lines.append(f"### BEGIN TV_WONDER_EXPANSION_CEREMONY_STYLE_{style}_BUTTONS")
         for wonder in wonders:
-            lines.append(ceremony_select_button(wonder, style))
+            if not wonder.get("is_unique") and style in ceremony_styles(wonder):
+                lines.append(ceremony_select_button(wonder, style))
         lines.append(f"### END TV_WONDER_EXPANSION_CEREMONY_STYLE_{style}_BUTTONS")
         lines.append("")
     lines.append("### BEGIN TV_WONDER_EXPANSION_ACTIVE_RITUAL_TEXTS")
     for wonder in wonders:
-        for style in range(1, 4):
+        for style in ceremony_styles(wonder):
             lines.append(active_ritual_text(wonder, style))
     lines.append("### END TV_WONDER_EXPANSION_ACTIVE_RITUAL_TEXTS")
     lines.append("")

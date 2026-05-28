@@ -7,7 +7,15 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import final_building_for_style, load_wonder_data, loc_line, render_header
+from wonder_expansion_lib import (
+    ceremony_modifier_for_style,
+    ceremony_styles,
+    final_building_for_style,
+    load_new_wonder_data,
+    loc_line,
+    mechanic_key,
+    render_header,
+)
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_expansion_l_english.yml"
 SCRIPT_REL = "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_expansion_l_english.py"
@@ -23,11 +31,23 @@ def display_key(key: str) -> str:
 
 
 def branch_effect_text(branch: dict) -> str:
-    return branch.get("effect", "").rstrip("。.")
+    return branch.get("effect", "").rstrip(".\u3002")
+
+
+def unique_effect_text(wonder: dict, language: str) -> str:
+    return wonder.get("ceremony", {}).get("effect", {}).get(language, "")
+
+
+def unique_completion_text(wonder: dict, language: str) -> str:
+    ceremony_name = wonder["ceremony"]["loc"][language]
+    flavor = wonder["flavor"][language]
+    history_intro = wonder["history_intro"][language]
+    effect = unique_effect_text(wonder, language)
+    return f"{flavor} {history_intro} The {ceremony_name} now completes the wonder at its fixed historical site. {effect}"
 
 
 def generate() -> str:
-    wonders, expansion = load_wonder_data()
+    wonders, expansion = load_new_wonder_data()
     lines = ["l_english:"]
     for line in render_header(SCRIPT_REL):
         lines.append(f" {line}")
@@ -40,17 +60,26 @@ def generate() -> str:
 
     for wonder in wonders:
         key = wonder["key"]
-        design = expansion["designs"][key]
+        design = expansion["designs"].get(mechanic_key(wonder))
         name = wonder["loc"]["en"]
         concept = wonder["concept"]
         size_concept = SIZE_CONCEPT[wonder["size"]]
-        branch_list = [design["branches"][style] for style in range(1, 4)]
-        branch_names = ", ".join(branch["en"] for branch in branch_list)
         code = display_key(key)
 
         lines.append(loc_line(f"game_concept_{concept}", name))
-        lines.append(loc_line(f"game_concept_{concept}_desc", f"A {name} is a [tv_wonder_construction|e] project focused on {design['positioning']}. It prefers {design['site']} Its ceremonies can emphasize {branch_names}."))
-        lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"Brief: [{concept}|E], a [{size_concept}|E] project for {design['positioning']}."))
+        if wonder.get("is_unique"):
+            ceremony_name = wonder["ceremony"]["loc"]["en"]
+            flavor = wonder["flavor"]["en"]
+            history_intro = wonder["history_intro"]["en"]
+            lines.append(loc_line(f"game_concept_{concept}_desc", f"{flavor} This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the same site rules as its generic archetype, and culminates in the {ceremony_name}."))
+            lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"{history_intro} Brief: [{concept}|E], a unique [{size_concept}|E] historical wonder at its fixed historical site."))
+        else:
+            if design is None:
+                raise ValueError(f"Missing design data for {key}")
+            branch_list = [design["branches"][style] for style in range(1, 4)]
+            branch_names = ", ".join(branch["en"] for branch in branch_list)
+            lines.append(loc_line(f"game_concept_{concept}_desc", f"A {name} is a [tv_wonder_construction|e] project focused on {design['positioning']}. It prefers {design['site']} Its ceremonies can emphasize {branch_names}."))
+            lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"Brief: [{concept}|E], a [{size_concept}|E] project for {design['positioning']}."))
         lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_RESUME_{code}_TEXT", f"The [tv_great_engineer|E] wants to complete the existing [{concept}|E] and reuse the preserved construction at the site."))
         lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_EXPAND_{code}_TEXT", f"The [tv_great_engineer|E] wants to expand the existing [{concept}|E] toward the site's preserved maximum level."))
         lines.append(loc_line(f"TV_ENGINEERING_LOCKED_{code}_TEXT", f"@lock! Locked Wonder: [{concept}|E]."))
@@ -70,16 +99,29 @@ def generate() -> str:
         lines.append(loc_line(f"tv_wonder_{key}", name))
         lines.append(loc_line(f"tv_wonder_{key}_desc", f"An unconsecrated {name} preserved as completed construction."))
 
-        for style, branch in ((style, design["branches"][style]) for style in range(1, 4)):
+        for style in ceremony_styles(wonder):
             building = final_building_for_style(wonder, style)
-            branch_name = branch["en"]
-            effect = branch_effect_text(branch)
+            if wonder.get("is_unique"):
+                branch_name = wonder["ceremony"]["loc"]["en"]
+                building_name = name
+                building_desc = wonder["flavor"]["en"]
+                effect = unique_effect_text(wonder, "en")
+            else:
+                branch = design["branches"][style]
+                branch_name = branch["en"]
+                building_name = branch_name
+                building_desc = f"The {branch_name} branch of the {name}."
+                effect = branch_effect_text(branch)
             ceremony_key = building.removeprefix("tv_wonder_").upper()
-            lines.append(loc_line(building, branch_name))
-            lines.append(loc_line(f"{building}_desc", f"The {branch_name} branch of the {name}."))
-            lines.append(loc_line(f"STATIC_MODIFIER_NAME_{building}_modifier", branch_name))
+            ceremony_modifier = ceremony_modifier_for_style(wonder, expansion, style)
+            lines.append(loc_line(building, building_name))
+            lines.append(loc_line(f"{building}_desc", building_desc))
+            if ceremony_modifier is not None:
+                lines.append(loc_line(f"STATIC_MODIFIER_NAME_{ceremony_modifier[0]}", branch_name))
             lines.append(loc_line(f"TV_ENGINEERING_CEREMONY_{ceremony_key}_BUTTON", branch_name))
             lines.append(loc_line(f"TV_ENGINEERING_ACTIVE_RITUAL_{code}_{style}", f"Confirm the {branch_name} ceremony for the {name}. {effect}."))
+        if wonder.get("is_unique"):
+            lines.append(loc_line(f"tv_engineering_department.500.d_{key}", unique_completion_text(wonder, "en")))
 
     return "\n".join(lines).rstrip() + "\n"
 

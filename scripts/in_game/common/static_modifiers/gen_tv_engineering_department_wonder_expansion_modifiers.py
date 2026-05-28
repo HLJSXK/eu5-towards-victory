@@ -7,7 +7,7 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_expansion_lib import ceremony_modifier_for_style, load_all_wonder_mechanics, render_header
+from wonder_expansion_lib import ceremony_modifier_for_style, ceremony_styles, load_all_wonder_mechanics, mechanic_key, render_header
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "static_modifiers" / "tv_engineering_department_wonder_expansion_modifiers.txt"
 SCRIPT_REL = "scripts/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_expansion_modifiers.py"
@@ -20,11 +20,11 @@ def fmt_value(value: object) -> str:
     return str(value)
 
 
-def scaled_modifiers(base: dict, level: int) -> dict:
-    result: dict[str, object] = {"great_power_score": 10 * level}
+def scaled_modifiers(base: dict, level: int, multiplier: int | float = 1) -> dict:
+    result: dict[str, object] = {"great_power_score": 10 * level * multiplier}
     for key, value in base.items():
         if isinstance(value, (int, float)):
-            result[key] = value * level
+            result[key] = value * level * multiplier
         else:
             result[key] = value
     return result
@@ -43,11 +43,12 @@ def generate() -> str:
     wonders, expansion = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
-        base = expansion["base_modifiers"][wonder["key"]]
+        base = expansion["base_modifiers"][mechanic_key(wonder)]
+        multiplier = wonder.get("base_effect_multiplier", 1)
         for level in range(1, 7):
-            lines.extend(modifier_block(f"tv_wonder_{wonder['key']}_level_{level}", scaled_modifiers(base, level)))
+            lines.extend(modifier_block(f"tv_wonder_{wonder['key']}_level_{level}", scaled_modifiers(base, level, multiplier)))
     for wonder in wonders:
-        for style in range(1, 4):
+        for style in ceremony_styles(wonder):
             ceremony_modifier = ceremony_modifier_for_style(wonder, expansion, style)
             if ceremony_modifier is None:
                 continue

@@ -1,0 +1,1121 @@
+unique_wonders:
+  - id: 101
+    key: unique_pharos_lighthouse
+    base_key: great_lighthouse
+    concept: tv_wonder_unique_pharos_lighthouse
+    location: alexandria
+    image: tv_wonder_unique_pharos_lighthouse
+    loc:
+      en: "Pharos Lighthouse"
+      zh: "法罗斯灯塔"
+    flavor:
+      en: "A tower of white stone rises from the Alexandrian harbor, turning royal ambition into a light that sailors can trust."
+      zh: "白石高塔矗立于亚历山大港口，将王权的野心化作水手可以信赖的灯火。"
+    history_intro:
+      en: "The engineer recalls the lighthouse raised on Pharos, where Alexandria made safe navigation a public act of power."
+      zh: "大工程师谈起法罗斯岛上的灯塔：亚历山大曾把安全航行变成一种公开的权力宣言。"
+    ceremony:
+      key: harbor_lighting
+      loc:
+        en: "Harbor Lighting Rite"
+        zh: "港口点灯典礼"
+      effect:
+        en: "The beacon extends naval range and trade range."
+        zh: "灯火延伸海军航程与贸易范围。"
+      modifiers:
+        naval_range: 300
+        trade_range: 100
+    prompt: "The Pharos Lighthouse of Alexandria in its Hellenistic prime, a colossal white stone lighthouse on Pharos island above a busy ancient harbor, bronze mirror beacon lit at dusk, Ptolemaic ships, seawalls, Alexandria skyline, historically grounded world wonder key art, cinematic coastal panorama, ultra-detailed, realistic materials, no modern elements."
+
+  - id: 102
+    key: unique_hagia_sophia
+    base_key: sky_dome_grand_temple
+    concept: tv_wonder_unique_hagia_sophia
+    location: constantinople
+    image: tv_wonder_unique_hagia_sophia
+    loc:
+      en: "Hagia Sophia"
+      zh: "圣索菲亚大教堂"
+    flavor:
+      en: "The rebuilt dome gathers gold, marble, incense, and imperial memory beneath a vault that seems to float."
+      zh: "重建的穹顶收拢黄金、大理石、香烟与帝国记忆，仿佛悬浮于尘世之上。"
+    history_intro:
+      en: "The engineer invokes Justinian's rebuilt church in Constantinople, a dome meant to prove that empire could still command heaven and stone."
+      zh: "大工程师以君士坦丁堡查士丁尼重建的圣堂为例：那座穹顶要证明帝国仍能号令天国与石材。"
+    ceremony:
+      key: justinian_dedication
+      loc:
+        en: "Justinianic Rededication Prayer"
+        zh: "查士丁尼重建落成祈祷"
+      effect:
+        en: "The dedication increases true-faith tolerance and lowers stability investment."
+        zh: "落成祈祷提升正统信仰容忍，并降低稳定度投资花费。"
+      modifiers:
+        tolerance_own: 2
+        stability_investment: -0.10
+    prompt: "Hagia Sophia in medieval Constantinople after Justinian's rebuilding, immense central dome, golden mosaics, marble columns, clergy and imperial officials at a dedication prayer, Byzantine city walls and the Bosporus beyond, historically grounded world wonder key art, cinematic interior-exterior cutaway feel, ultra-detailed, no modern elements."
+
+  - id: 103
+    key: unique_dome_of_the_rock
+    base_key: sky_dome_grand_temple
+    concept: tv_wonder_unique_dome_of_the_rock
+    location: jerusalem
+    image: tv_wonder_unique_dome_of_the_rock
+    loc:
+      en: "Dome of the Rock"
+      zh: "岩石圆顶圣殿"
+    flavor:
+      en: "A golden dome crowns the sacred platform of Jerusalem, binding pilgrimage, sovereignty, and contested memory."
+      zh: "金色穹顶覆盖耶路撒冷圣台，将朝觐、主权与纷争记忆紧密相连。"
+    history_intro:
+      en: "The engineer describes the shrine built over the rock in Jerusalem, where architecture made a claim that every pilgrim could see."
+      zh: "大工程师讲述耶路撒冷岩石之上的圣殿：建筑本身便是每个朝圣者都能看见的主张。"
+    ceremony:
+      key: dome_pilgrimage
+      loc:
+        en: "Sanctuary Dome Pilgrimage"
+        zh: "圣殿封顶朝觐"
+      effect:
+        en: "The pilgrimage improves religious tolerance and diplomatic reputation."
+        zh: "朝觐提升宗教容忍与外交声誉。"
+      modifiers:
+        tolerance_own: 1
+        diplomatic_reputation: 1
+    prompt: "The Dome of the Rock on Jerusalem's sacred platform, polished golden dome, blue and gold tilework, pilgrims moving through arcades, early medieval stone courtyards, city hills in warm light, historically grounded world wonder key art, respectful cinematic view, ultra-detailed, no modern elements."
+
+  - id: 104
+    key: unique_angkor_wat
+    base_key: giant_tower_temple
+    concept: tv_wonder_unique_angkor_wat
+    location: angkor
+    image: tv_wonder_unique_angkor_wat
+    loc:
+      en: "Angkor Wat"
+      zh: "吴哥窟"
+    flavor:
+      en: "Five towers rise above galleries and moats, making the king's temple a stone diagram of cosmic order."
+      zh: "五座塔尖越过回廊与护城河，使国王的神庙成为宇宙秩序的石质图谱。"
+    history_intro:
+      en: "The engineer points to Angkor Wat, where Khmer kings translated divine kingship into towers, galleries, and water."
+      zh: "大工程师指向吴哥窟：高棉王权曾把神王观念翻译为高塔、回廊与水面。"
+    ceremony:
+      key: devaraja_entrance
+      loc:
+        en: "Devaraja Temple Entrance"
+        zh: "国王神格化入殿仪式"
+      effect:
+        en: "The rite strengthens legitimacy and true-faith tolerance."
+        zh: "入殿仪式提升正统性与正统信仰容忍。"
+      modifiers:
+        monthly_legitimacy: 0.10
+        tolerance_own: 1
+    prompt: "Angkor Wat at the height of the Khmer Empire, five lotus towers reflected in wide moats, carved galleries, processional causeway, royal temple ceremony, tropical forest edges, historically grounded world wonder key art, cinematic sunrise, ultra-detailed stone reliefs, no modern elements."
+
+  - id: 105
+    key: unique_potala_palace
+    base_key: sacred_mountain
+    concept: tv_wonder_unique_potala_palace
+    location: lhasa
+    image: tv_wonder_unique_potala_palace
+    loc:
+      en: "Potala Palace"
+      zh: "波塔拉宫"
+    flavor:
+      en: "White walls and red halls climb the hill above Lhasa, turning elevation into sacred administration."
+      zh: "白墙与红殿攀上拉萨山丘，将高处本身化为神圣的治理秩序。"
+    history_intro:
+      en: "The engineer presents the Potala, a palace-monastery whose height made rule, ritual, and pilgrimage converge."
+      zh: "大工程师提出波塔拉宫：这座宫寺以高度使统治、仪式与朝圣合流。"
+    ceremony:
+      key: enthronement
+      loc:
+        en: "Dalai Lama Enthronement"
+        zh: "达赖坐床典礼"
+      effect:
+        en: "The enthronement promotes conversion and true-faith tolerance."
+        zh: "坐床典礼提升传教效率与正统信仰容忍。"
+      modifiers:
+        global_pop_conversion_speed_modifier: 0.05
+        tolerance_own: 1
+    prompt: "The Potala Palace above Lhasa, white and red palace-monastery terraces rising on Marpo Ri hill, Tibetan monks, banners, ceremonial procession, high plateau light and mountains, historically grounded world wonder key art, cinematic aerial view, ultra-detailed, no modern elements."
+
+  - id: 106
+    key: unique_alhambra
+    base_key: palace_of_nations
+    concept: tv_wonder_unique_alhambra
+    location: granada
+    image: tv_wonder_unique_alhambra
+    loc:
+      en: "Alhambra"
+      zh: "阿尔罕布拉宫"
+    flavor:
+      en: "Muqarnas ceilings, water courts, and red walls preserve a courtly world at the edge of surrender."
+      zh: "蜂巢穹顶、水庭与红墙保存着一个走到投降边缘的宫廷世界。"
+    history_intro:
+      en: "The engineer remembers Granada's palace, where diplomacy and beauty met at the final hinge of Nasrid rule."
+      zh: "大工程师忆及格拉纳达的宫殿：纳斯尔王朝最后的转折处，外交与美感在此相遇。"
+    ceremony:
+      key: capitulation_treaty
+      loc:
+        en: "Treaty of Granada Signing"
+        zh: "格拉纳达投降条约签署"
+      effect:
+        en: "The treaty improves prestige and diplomatic reputation."
+        zh: "条约签署提升威望与外交声誉。"
+      modifiers:
+        monthly_prestige: 0.08
+        diplomatic_reputation: 1
+    prompt: "The Alhambra palace in Granada, red fortress walls, Nasrid courtyards, Court of the Lions, carved stucco, reflecting pools, treaty ceremony with envoys, Sierra Nevada backdrop, historically grounded world wonder key art, cinematic warm evening light, ultra-detailed, no modern elements."
+
+  - id: 107
+    key: unique_machu_picchu
+    base_key: sacred_mountain
+    concept: tv_wonder_unique_machu_picchu
+    location: picchu
+    image: tv_wonder_unique_machu_picchu
+    loc:
+      en: "Machu Picchu"
+      zh: "马丘比丘"
+    flavor:
+      en: "Stone terraces and temples cling to the cloud forest ridge, a royal retreat balanced between mountain and sky."
+      zh: "石质梯田与神庙依附云林山脊，一座皇家居所悬置于山与天之间。"
+    history_intro:
+      en: "The engineer evokes Machu Picchu, where Inca masonry made a hidden mountain estate feel inevitable."
+      zh: "大工程师说起马丘比丘：印加石工让一座隐秘山城显得仿佛天成。"
+    ceremony:
+      key: inti_raymi
+      loc:
+        en: "Inti Raymi"
+        zh: "太阳节Inti Raymi"
+      effect:
+        en: "The solar festival raises prosperity and legitimacy."
+        zh: "太阳节提升繁荣与正统性。"
+      modifiers:
+        global_monthly_prosperity: 0.003
+        monthly_legitimacy: 0.05
+    prompt: "Machu Picchu in the Inca era, royal stone citadel on a steep Andean ridge, precise dry-stone walls, terraces, temples, Inti Raymi sun ceremony, clouds and mountains, historically grounded world wonder key art, cinematic aerial view, ultra-detailed, no modern elements."
+
+  - id: 108
+    key: unique_himeji_castle
+    base_key: star_fortress_city
+    concept: tv_wonder_unique_himeji_castle
+    location: shikama
+    image: tv_wonder_unique_himeji_castle
+    loc:
+      en: "Himeji Castle"
+      zh: "姬路城"
+    flavor:
+      en: "White plaster keeps, layered gates, and twisting approaches turn grace into defense."
+      zh: "白灰天守、重重城门与曲折通路，将优雅本身转化为防御。"
+    history_intro:
+      en: "The engineer selects Himeji as a model of Japanese castle planning, where beauty concealed a disciplined defensive maze."
+      zh: "大工程师以姬路城为日本城郭典范：美丽外观之下隐藏着严密的防御迷宫。"
+    ceremony:
+      key: castle_receipt
+      loc:
+        en: "Castle Reception Ceremony"
+        zh: "入城接收式"
+      effect:
+        en: "The ceremony strengthens garrisons and land morale."
+        zh: "入城接收式强化驻军与陆军士气。"
+      modifiers:
+        global_garrison_size_modifier: 0.10
+        land_morale_modifier: 0.03
+    prompt: "Himeji Castle in early modern Japan, white heron keep complex, layered roofs, defensive gates, stone walls, samurai reception procession entering the castle, Harima landscape, historically grounded world wonder key art, cinematic clear daylight, ultra-detailed, no modern elements."
+
+  - id: 109
+    key: unique_taj_mahal
+    base_key: giant_necropolis
+    concept: tv_wonder_unique_taj_mahal
+    location: agra
+    image: tv_wonder_unique_taj_mahal
+    loc:
+      en: "Taj Mahal"
+      zh: "泰姬陵"
+    flavor:
+      en: "White marble answers grief with symmetry, gardens, river light, and a tomb made for imperial memory."
+      zh: "白色大理石以对称、花园、河光与陵寝回应哀悼，保存帝国的记忆。"
+    history_intro:
+      en: "The engineer names the Taj Mahal, where dynastic mourning became one of the most exact statements of imperial love."
+      zh: "大工程师提到泰姬陵：王朝的哀悼在那里化为对帝王之爱的精确宣言。"
+    ceremony:
+      key: royal_memorial_unsealing
+      loc:
+        en: "Royal Memorial Unsealing"
+        zh: "皇家追悼启封仪式"
+      effect:
+        en: "The memorial improves legitimacy and prestige."
+        zh: "追悼仪式提升正统性与威望。"
+      modifiers:
+        monthly_legitimacy: 0.10
+        monthly_prestige: 0.10
+    prompt: "The Taj Mahal at Agra in the Mughal era, white marble mausoleum, reflecting pool, charbagh gardens, Yamuna river, royal memorial unsealing ceremony, intricate pietra dura, historically grounded world wonder key art, cinematic dawn, ultra-detailed, no modern elements."
+
+  - id: 110
+    key: unique_forbidden_city
+    base_key: triumphal_axis
+    concept: tv_wonder_unique_forbidden_city
+    location: dadu
+    image: tv_wonder_unique_forbidden_city
+    loc:
+      en: "Forbidden City"
+      zh: "紫禁城"
+    flavor:
+      en: "A disciplined palace axis orders gates, halls, courts, and bureaucracy around the person of the emperor."
+      zh: "严整的宫城中轴将城门、殿宇、庭院与官僚体系环绕于皇帝一身。"
+    history_intro:
+      en: "The engineer cites Beijing's imperial palace, where moving the capital also meant rebuilding the geometry of rule."
+      zh: "大工程师引用北京宫城：迁都不仅是移动朝廷，更是重建统治的几何秩序。"
+    ceremony:
+      key: capital_transfer
+      loc:
+        en: "Capital Transfer Ceremony"
+        zh: "迁都大典"
+      effect:
+        en: "The ceremony strengthens legitimacy and administrative reach."
+        zh: "迁都大典提升正统性与行政传导能力。"
+      modifiers:
+        monthly_legitimacy: 0.15
+        global_distance_from_capital_speed_propagation: 0.05
+    prompt: "The Forbidden City in Ming Beijing, vast imperial palace axis with red walls, golden roofs, Meridian Gate, throne halls, officials at a capital transfer ceremony, ordered courtyards, historically grounded world wonder key art, cinematic aerial perspective, ultra-detailed, no modern elements."
+
+  - id: 111
+    key: unique_topkapi_palace
+    base_key: palace_of_nations
+    concept: tv_wonder_unique_topkapi_palace
+    location: constantinople
+    image: tv_wonder_unique_topkapi_palace
+    loc:
+      en: "Topkapi Palace"
+      zh: "托普卡帕宫"
+    flavor:
+      en: "Courtyards, gates, treasuries, and sea views turn conquest into a daily choreography of rule."
+      zh: "庭院、门阙、珍宝库与海景将征服转化为日复一日的统治仪程。"
+    history_intro:
+      en: "The engineer proposes Topkapi, the Ottoman palace that made the conquest of Constantinople into an administrative stage."
+      zh: "大工程师提出托普卡帕宫：这座奥斯曼宫廷把征服君士坦丁堡变为行政舞台。"
+    ceremony:
+      key: conquest_entry
+      loc:
+        en: "Conquest Entry Procession"
+        zh: "征服入城仪式"
+      effect:
+        en: "The entry increases centralization drift and diplomatic reputation."
+        zh: "入城仪式提升中央集权倾向与外交声誉。"
+      modifiers:
+        monthly_towards_centralization: 0.05
+        diplomatic_reputation: 1
+    prompt: "Topkapi Palace after the Ottoman conquest of Constantinople, layered courtyards, imperial gate, treasury halls, Bosporus and Golden Horn, conquest entry procession with banners, historically grounded world wonder key art, cinematic palace panorama, ultra-detailed, no modern elements."
+
+  - id: 112
+    key: unique_st_peters_basilica
+    base_key: sky_dome_grand_temple
+    concept: tv_wonder_unique_st_peters_basilica
+    location: rome
+    image: tv_wonder_unique_st_peters_basilica
+    loc:
+      en: "Saint Peter's Basilica"
+      zh: "圣亚彼得大教堂"
+    flavor:
+      en: "A great basilica rises over the apostolic tomb, gathering pilgrims, cardinals, artists, and sovereign claims."
+      zh: "宏伟圣堂覆于宗徒墓上，汇聚朝圣者、枢机、艺术家与主权宣称。"
+    history_intro:
+      en: "The engineer invokes Saint Peter's in Rome, a church whose dedication made stone, art, and universal authority converge."
+      zh: "大工程师援引罗马圣彼得大教堂：献堂礼让石材、艺术与普世权威在此合一。"
+    ceremony:
+      key: dedication
+      loc:
+        en: "Basilica Dedication"
+        zh: "献堂礼"
+      effect:
+        en: "The dedication improves true-faith tolerance and clergy satisfaction."
+        zh: "献堂礼提升正统信仰容忍与教士满意均衡。"
+      modifiers:
+        tolerance_own: 1
+        clergy_estate_target_satisfaction: 0.05
+    prompt: "Saint Peter's Basilica in Renaissance Rome, massive basilica and dome, papal dedication ceremony, cardinals, pilgrims, marble colonnades and construction splendor, historically grounded world wonder key art, cinematic sacred light, ultra-detailed, no modern elements."
+
+  - id: 113
+    key: unique_lalibela_churches
+    base_key: sacred_mountain
+    concept: tv_wonder_unique_lalibela_churches
+    location: lalibela
+    image: tv_wonder_unique_lalibela_churches
+    loc:
+      en: "Rock-Hewn Churches of Lalibela"
+      zh: "拉利贝拉岩石教堂群"
+    flavor:
+      en: "Churches cut downward from living rock make a new Jerusalem in the Ethiopian highlands."
+      zh: "从整块岩石向下凿出的教堂，在埃塞俄比亚高地塑造出新的耶路撒冷。"
+    history_intro:
+      en: "The engineer describes Lalibela, where builders carved sacred architecture by removing mountain instead of raising walls."
+      zh: "大工程师描述拉利贝拉：工匠不是砌墙，而是削去山体来造出圣城。"
+    ceremony:
+      key: holy_city_pilgrimage
+      loc:
+        en: "Holy City Pilgrimage Day"
+        zh: "圣城朝圣日"
+      effect:
+        en: "The pilgrimage increases conversion and tolerance."
+        zh: "朝圣日提升传教效率与宗教容忍。"
+      modifiers:
+        global_pop_conversion_speed_modifier: 0.05
+        tolerance_own: 1
+    prompt: "The rock-hewn churches of Lalibela in medieval Ethiopia, monolithic churches carved below ground from red volcanic stone, priests, pilgrims, processional crosses, highland landscape, historically grounded world wonder key art, cinematic oblique aerial view, ultra-detailed, no modern elements."
+
+  - id: 114
+    key: unique_venetian_arsenal
+    base_key: national_shipyard
+    concept: tv_wonder_unique_venetian_arsenal
+    location: venice
+    image: tv_wonder_unique_venetian_arsenal
+    loc:
+      en: "Venetian Arsenal"
+      zh: "威尼斯军港"
+    flavor:
+      en: "Docks, ropewalks, foundries, and guarded basins make shipbuilding a state secret and a civic ritual."
+      zh: "船坞、绳场、铸坊与戒备水域使造船成为国家秘密与城邦仪式。"
+    history_intro:
+      en: "The engineer praises the Venetian Arsenal, where the republic turned naval production into an organized public machine."
+      zh: "大工程师赞叹威尼斯军港：共和国在那里把海军生产变成有组织的公共机器。"
+    ceremony:
+      key: marriage_of_the_sea
+      loc:
+        en: "Marriage of the Sea"
+        zh: "海洋婚礼"
+      effect:
+        en: "The rite accelerates shipbuilding and improves naval morale."
+        zh: "海洋婚礼提升造船速度与海军士气。"
+      modifiers:
+        ship_build_speed: 0.10
+        naval_morale_modifier: 0.05
+    prompt: "The Venetian Arsenal in the Renaissance, enclosed naval shipyard with dry docks, ropewalks, foundries, galleys under construction, Bucentaur ceremony for the Marriage of the Sea, canals and brick walls, historically grounded world wonder key art, cinematic maritime view, ultra-detailed, no modern elements."
+
+  - id: 115
+    key: unique_malacca_port
+    base_key: great_port
+    concept: tv_wonder_unique_malacca_port
+    location: malacca
+    image: tv_wonder_unique_malacca_port
+    loc:
+      en: "Port of Malacca"
+      zh: "马六甲港"
+    flavor:
+      en: "Monsoon routes, warehouses, translators, and merchant law turn a strait into a world market."
+      zh: "季风航线、货栈、译员与商法将一处海峡化为世界市场。"
+    history_intro:
+      en: "The engineer names Malacca, the strait port where oceanic trade became diplomacy by other means."
+      zh: "大工程师提出马六甲：在这座海峡港，远洋贸易成为另一种外交。"
+    ceremony:
+      key: port_covenant
+      loc:
+        en: "Merchant-Port Covenant"
+        zh: "商港盟约仪式"
+      effect:
+        en: "The covenant increases trade income and trade range."
+        zh: "盟约提升贸易收入与贸易范围。"
+      modifiers:
+        trade_income: 0.05
+        trade_range: 100
+    prompt: "The port of Malacca in the fifteenth century, crowded entrepot on the strait, Malay warehouses, Chinese junks, Indian and Arab merchants, monsoon ships, merchant covenant ceremony, historically grounded world wonder key art, cinematic harbor panorama, ultra-detailed, no modern elements."
+
+  - id: 116
+    key: unique_red_fort_delhi
+    base_key: star_fortress_city
+    concept: tv_wonder_unique_red_fort_delhi
+    location: delhi
+    image: tv_wonder_unique_red_fort_delhi
+    loc:
+      en: "Red Fort of Delhi"
+      zh: "德里红堡"
+    flavor:
+      en: "Red sandstone walls enclose marble halls, gardens, and a throne room for imperial display."
+      zh: "红砂岩城墙围合大理石殿堂、花园与展示帝国威仪的御座厅。"
+    history_intro:
+      en: "The engineer cites Delhi's Red Fort, a fortified palace where Mughal sovereignty was staged behind red walls."
+      zh: "大工程师引用德里红堡：莫卧儿主权在红墙之后以宫廷与军防共同上演。"
+    ceremony:
+      key: peacock_throne
+      loc:
+        en: "Peacock Throne Installation"
+        zh: "孔雀王座启用典礼"
+      effect:
+        en: "The installation improves legitimacy and garrison capacity."
+        zh: "王座典礼提升正统性与驻军规模。"
+      modifiers:
+        monthly_legitimacy: 0.10
+        global_garrison_size_modifier: 0.05
+    prompt: "The Red Fort of Delhi in the Mughal era, red sandstone ramparts, Lahori Gate, marble audience halls, imperial gardens, Peacock Throne installation ceremony, historically grounded world wonder key art, cinematic palace-fortress view, ultra-detailed, no modern elements."
+
+  - id: 117
+    key: unique_versailles_palace
+    base_key: triumphal_axis
+    concept: tv_wonder_unique_versailles_palace
+    location: paris
+    image: tv_wonder_unique_versailles_palace
+    loc:
+      en: "Palace of Versailles"
+      zh: "凡尔赛宫"
+    flavor:
+      en: "A palace, gardens, mirrors, and ceremony draw the nobility into the orbit of a single sun."
+      zh: "宫殿、花园、镜厅与仪典把贵族吸入一轮太阳的轨道。"
+    history_intro:
+      en: "The engineer proposes Versailles, where residence became theater and theater became central government."
+      zh: "大工程师提出凡尔赛：居所变成剧场，剧场又成为中央政府。"
+    ceremony:
+      key: sun_king_transfer
+      loc:
+        en: "Sun King's Court Transfer"
+        zh: "太阳王迁宫典礼"
+      effect:
+        en: "The court transfer greatly increases prestige and centralization drift."
+        zh: "迁宫典礼显著提升威望与中央集权倾向。"
+      modifiers:
+        monthly_prestige: 0.20
+        monthly_towards_centralization: 0.05
+    prompt: "The Palace of Versailles in the age of Louis XIV, grand palace facade, formal gardens, Hall of Mirrors glowing with candles, nobles attending the Sun King's court transfer ceremony, historically grounded world wonder key art, cinematic golden light, ultra-detailed, no modern elements."
+
+  - id: 118
+    key: unique_tenochtitlan_causeways
+    base_key: river_extension
+    concept: tv_wonder_unique_tenochtitlan_causeways
+    location: tenochtitlan
+    image: tv_wonder_unique_tenochtitlan_causeways
+    loc:
+      en: "Tenochtitlan Causeway System"
+      zh: "特诺奇蒂特兰堤道系统"
+    flavor:
+      en: "Causeways, canals, aqueducts, and island districts bind the lake city to markets, temples, and war."
+      zh: "堤道、运河、水渠与岛上城区把湖中城市连接到市场、神庙与战争。"
+    history_intro:
+      en: "The engineer studies Tenochtitlan, a lake capital whose causeways made water an instrument of urban power."
+      zh: "大工程师研究特诺奇蒂特兰：这座湖中都城以堤道把水变成城市权力的工具。"
+    ceremony:
+      key: temple_expansion_sacrifice
+      loc:
+        en: "Great Temple Expansion Sacrifice"
+        zh: "大神庙献祭扩建典礼"
+      effect:
+        en: "The rite increases movement speed and prosperity."
+        zh: "扩建典礼提升行军速度与繁荣。"
+      modifiers:
+        army_movement_speed: 0.05
+        global_monthly_prosperity: 0.002
+    prompt: "Tenochtitlan causeway system at its height, island city in Lake Texcoco, stone causeways, canals, aqueduct, canoes, great temple expansion ceremony in the distance, historically grounded world wonder key art, cinematic aerial lake view, ultra-detailed, no modern elements."
+
+  - id: 119
+    key: unique_amsterdam_canal_ring
+    base_key: canal_hub_city
+    concept: tv_wonder_unique_amsterdam_canal_ring
+    location: amsterdam
+    image: tv_wonder_unique_amsterdam_canal_ring
+    loc:
+      en: "Amsterdam Canal Ring"
+      zh: "阿姆斯特丹运河圈"
+    flavor:
+      en: "Concentric canals, quays, warehouses, and counting houses turn a marsh city into a financial engine."
+      zh: "同心运河、码头、仓库与账房把沼泽城市改造成金融机器。"
+    history_intro:
+      en: "The engineer admires Amsterdam's canal ring, a planned city where water, trade, and credit shared one geometry."
+      zh: "大工程师赞赏阿姆斯特丹运河圈：在那里，水、贸易与信用共享同一种几何秩序。"
+    ceremony:
+      key: three_canal_opening
+      loc:
+        en: "Three-Canal Groundbreaking"
+        zh: "三运河开挖启动仪式"
+      effect:
+        en: "The works improve trade income and production efficiency."
+        zh: "开挖工程提升贸易收入与生产效率。"
+      modifiers:
+        trade_income: 0.05
+        global_production_efficiency: 0.03
+    prompt: "Amsterdam Canal Ring in the Dutch Golden Age, planned concentric canals, brick merchant houses, quays, warehouses, barges, groundbreaking ceremony for three canals, historically grounded world wonder key art, cinematic urban water view, ultra-detailed, no modern elements."
+
+  - id: 120
+    key: unique_mecca_haram_expansion
+    base_key: sky_dome_grand_temple
+    concept: tv_wonder_unique_mecca_haram_expansion
+    location: mecca
+    image: tv_wonder_unique_mecca_haram_expansion
+    loc:
+      en: "Great Mosque of Mecca Expansion"
+      zh: "麦加禁寺扩建"
+    flavor:
+      en: "Arcades, courtyards, and pilgrim routes expand around the Kaaba, making sacred space hold a world of believers."
+      zh: "回廊、庭院与朝觐道路围绕克尔白扩展，使圣域容纳一个信众世界。"
+    history_intro:
+      en: "The engineer speaks carefully of Mecca's sanctuary, where expansion must serve pilgrimage without disturbing the center."
+      zh: "大工程师郑重谈及麦加禁寺：扩建必须服务朝觐，却不能动摇中心。"
+    ceremony:
+      key: kaaba_recovering
+      loc:
+        en: "Kaaba Rebuilding and Covering"
+        zh: "克尔白重建覆盖仪式"
+      effect:
+        en: "The rite greatly improves tolerance and conversion."
+        zh: "重建覆盖仪式显著提升容忍与传教效率。"
+      modifiers:
+        tolerance_own: 2
+        global_pop_conversion_speed_modifier: 0.05
+    prompt: "The Great Mosque of Mecca expansion in a historical premodern setting, arcaded sanctuary around the Kaaba, pilgrims in orderly movement, craftsmen restoring the sacred covering, warm desert light, respectful historically grounded world wonder key art, ultra-detailed, no modern elements."
+
+  - id: 121
+    key: unique_ming_great_wall
+    base_key: great_wall
+    concept: tv_wonder_unique_ming_great_wall
+    location: dadu
+    image: tv_wonder_unique_ming_great_wall
+    loc:
+      en: "Ming Great Wall System"
+      zh: "明长城体系"
+    flavor:
+      en: "Walls, passes, garrisons, beacon towers, and border towns turn frontier anxiety into masonry and smoke."
+      zh: "城墙、关隘、军镇、烽燧与边城把边患焦虑化作砖石与烟火。"
+    history_intro:
+      en: "The engineer proposes the Ming frontier wall system, a chain of fortification, signals, and military colonies."
+      zh: "大工程师提出明代边墙体系：堡垒、烽火与军镇连成一线。"
+    ceremony:
+      key: nine_garrisons_beacons
+      loc:
+        en: "Nine Garrisons Beacon Lighting"
+        zh: "九边军镇点烽"
+      effect:
+        en: "The beacon chain strengthens garrisons and army movement."
+        zh: "烽火链强化驻军与行军速度。"
+      modifiers:
+        global_garrison_size_modifier: 0.10
+        army_movement_speed: 0.05
+    prompt: "Ming Great Wall system across northern China, brick walls over mountains, watchtowers, fortified passes, nine frontier garrisons lighting beacon fires, soldiers and horsemen, historically grounded world wonder key art, cinematic frontier panorama, ultra-detailed, no modern elements."
+
+  - id: 122
+    key: unique_bank_of_saint_george
+    base_key: royal_mint_system
+    concept: tv_wonder_unique_bank_of_saint_george
+    location: genoa
+    image: tv_wonder_unique_bank_of_saint_george
+    loc:
+      en: "Bank of Saint George"
+      zh: "圣乔治银行体系"
+    flavor:
+      en: "Ledgers, state debts, merchant syndicates, and fortified counters make public credit into an institution."
+      zh: "账簿、国债、商人集团与坚固柜台把公共信用变成制度。"
+    history_intro:
+      en: "The engineer highlights Genoa's Bank of Saint George, where finance learned to administer territory and government debt."
+      zh: "大工程师指出热那亚圣乔治银行：金融在那里学会管理领地与国家债务。"
+    ceremony:
+      key: bank_founding
+      loc:
+        en: "Bank of Saint George Founding"
+        zh: "圣乔治银行成立"
+      effect:
+        en: "The founding improves minting income and tax efficiency."
+        zh: "银行成立提升铸币收入与税收效率。"
+      modifiers:
+        minting_income_factor: 0.08
+        tax_income_efficiency: 0.03
+    prompt: "The Bank of Saint George in medieval Genoa, vaulted banking hall, ledgers, merchant magistrates, state debt documents, guarded coin chests, harbor city beyond, founding ceremony, historically grounded world wonder key art, cinematic interior, ultra-detailed, no modern elements."
+
+  - id: 123
+    key: unique_cahokia_mounds
+    base_key: world_monument_group
+    concept: tv_wonder_unique_cahokia_mounds
+    location: cahokia
+    image: tv_wonder_unique_cahokia_mounds
+    loc:
+      en: "Cahokia Mound City"
+      zh: "卡霍基亚土丘城"
+    flavor:
+      en: "Earthen pyramids, plazas, palisades, and solar alignments make a river city into a ceremonial center."
+      zh: "土丘金字塔、广场、木栅与太阳方位把河畔城市塑造成礼仪中心。"
+    history_intro:
+      en: "The engineer studies Cahokia, where earthworks and timber circles organized power along the Mississippi world."
+      zh: "大工程师研究卡霍基亚：土木工程与木柱圆阵曾组织密西西比世界的权力。"
+    ceremony:
+      key: woodhenge_final_rite
+      loc:
+        en: "Woodhenge Final Rite"
+        zh: "木蛇祭祀终极大典"
+      effect:
+        en: "The rite increases prestige and prosperity."
+        zh: "祭祀大典提升威望与繁荣。"
+      modifiers:
+        monthly_prestige: 0.10
+        global_monthly_prosperity: 0.003
+    prompt: "Cahokia mound city near the Mississippi, Monks Mound, broad plazas, palisades, timber solar circle, ceremonial gathering and final Woodhenge rite, pre-Columbian North American urban center, historically grounded world wonder key art, cinematic aerial view, ultra-detailed, no modern elements."
+
+  - id: 124
+    key: unique_great_zimbabwe
+    base_key: world_market
+    concept: tv_wonder_unique_great_zimbabwe
+    location: great_zimbabwe
+    image: tv_wonder_unique_great_zimbabwe
+    loc:
+      en: "Great Zimbabwe Stone City"
+      zh: "大津巴布韦石城"
+    flavor:
+      en: "Dry-stone walls, conical towers, cattle wealth, and gold routes anchor a highland commercial kingdom."
+      zh: "干砌石墙、锥形塔、牛群财富与黄金路线支撑起高地商业王国。"
+    history_intro:
+      en: "The engineer points to Great Zimbabwe, where stone enclosures guarded a kingdom tied to gold and ocean trade."
+      zh: "大工程师指向大津巴布韦：石墙围合着与黄金和海洋贸易相连的王国。"
+    ceremony:
+      key: gold_tribute
+      loc:
+        en: "Gold Trade Tribute"
+        zh: "黄金贸易朝贡典礼"
+      effect:
+        en: "The tribute improves trade income and raw-material output."
+        zh: "朝贡典礼提升贸易收入与原料产出。"
+      modifiers:
+        trade_income: 0.06
+        global_raw_material_output: 0.03
+    prompt: "Great Zimbabwe stone city, massive dry-stone walls and conical tower, royal enclosure, gold trade tribute ceremony, cattle and merchants, southern African highland landscape, historically grounded world wonder key art, cinematic warm light, ultra-detailed, no modern elements."
+
+  - id: 125
+    key: unique_isfahan_square
+    base_key: triumphal_axis
+    concept: tv_wonder_unique_isfahan_square
+    location: isfahan
+    image: tv_wonder_unique_isfahan_square
+    loc:
+      en: "Royal Square of Isfahan"
+      zh: "伊斯法罕王家广场"
+    flavor:
+      en: "Mosques, palaces, bazaars, and a polo field frame the capital as a theater of Safavid rule."
+      zh: "清真寺、宫殿、巴扎与马球场把首都构成萨法维统治的剧场。"
+    history_intro:
+      en: "The engineer presents Isfahan's royal square, where a new capital arranged commerce, worship, sport, and kingship."
+      zh: "大工程师提出伊斯法罕王家广场：新都在那里安排商业、礼拜、竞技与王权。"
+    ceremony:
+      key: capital_polo
+      loc:
+        en: "Capital Transfer and Polo Festival"
+        zh: "迁都大典与马球庆典"
+      effect:
+        en: "The festival increases prestige and trade income."
+        zh: "庆典提升威望与贸易收入。"
+      modifiers:
+        monthly_prestige: 0.10
+        trade_income: 0.03
+    prompt: "Naqsh-e Jahan Square in Safavid Isfahan, immense royal square, Shah Mosque, Ali Qapu palace, bazaar arcades, polo celebration during capital transfer, historically grounded world wonder key art, cinematic wide plaza view, ultra-detailed, no modern elements."
+
+  - id: 126
+    key: unique_grand_canal
+    base_key: large_canal_system
+    concept: tv_wonder_unique_grand_canal
+    location: shangyuan
+    image: tv_wonder_unique_grand_canal
+    loc:
+      en: "Grand Canal of China"
+      zh: "京杭大运河"
+    flavor:
+      en: "Locks, embankments, granaries, and barge routes bind northern courts to southern harvests."
+      zh: "船闸、堤岸、粮仓与漕船航线把北方朝廷同南方粮赋连接起来。"
+    history_intro:
+      en: "The engineer proposes the Grand Canal, the artery by which grain, officials, and authority moved across China."
+      zh: "大工程师提出京杭大运河：粮食、官员与权威沿着这条动脉穿行中国。"
+    ceremony:
+      key: grain_fleet_first_sailing
+      loc:
+        en: "First Grain Fleet Sailing"
+        zh: "漕运首航"
+      effect:
+        en: "The first convoy improves administrative reach and raw-material output."
+        zh: "首航提升行政传导与原料产出。"
+      modifiers:
+        global_distance_from_capital_speed_propagation: 0.08
+        global_raw_material_output: 0.03
+    prompt: "The Grand Canal of China in imperial use, broad canal with locks, grain barges, towpaths, granaries, officials launching the first tribute grain convoy, Jiangnan water towns, historically grounded world wonder key art, cinematic engineering panorama, ultra-detailed, no modern elements."
+
+  - id: 127
+    key: unique_inca_royal_road
+    base_key: imperial_post_road_network
+    concept: tv_wonder_unique_inca_royal_road
+    location: picchu
+    image: tv_wonder_unique_inca_royal_road
+    loc:
+      en: "Inca Royal Road Network"
+      zh: "印加皇家道路网"
+    flavor:
+      en: "Stone roads, rope bridges, tambos, and runners stitch the Andes into a state that can speak across mountains."
+      zh: "石路、索桥、驿站与飞跑信使把安第斯缝合成能穿山传令的国家。"
+    history_intro:
+      en: "The engineer praises the Qhapaq Nan, where roads and relay stations made Andean rule faster than the terrain allowed."
+      zh: "大工程师赞扬印加王道：道路与驿站让安第斯统治快过地形本身。"
+    ceremony:
+      key: relay_message
+      loc:
+        en: "Full Relay Line Dispatch"
+        zh: "驿传全线通报"
+      effect:
+        en: "The dispatch improves army movement and administrative transmission."
+        zh: "全线通报提升行军速度与行政传导。"
+      modifiers:
+        army_movement_speed: 0.05
+        global_distance_from_capital_speed_propagation: 0.05
+    prompt: "Inca royal road network across the Andes, paved mountain roads, rope bridges, tambos, chasqui runners relaying messages, terraced slopes and high passes, historically grounded world wonder key art, cinematic mountain panorama, ultra-detailed, no modern elements."
+
+  - id: 128
+    key: unique_roman_aqueducts
+    base_key: hydraulic_workshop
+    concept: tv_wonder_unique_roman_aqueducts
+    location: rome
+    image: tv_wonder_unique_roman_aqueducts
+    loc:
+      en: "Roman Aqueduct System"
+      zh: "罗马引水道体系"
+    flavor:
+      en: "Arches march across valleys to feed baths, fountains, mills, and the confidence of an urban empire."
+      zh: "拱券跨过山谷，供养浴场、喷泉、磨坊与城市帝国的自信。"
+    history_intro:
+      en: "The engineer cites Rome's aqueducts, whose gradients and arches made water a public monument."
+      zh: "大工程师引用罗马引水道：坡度与拱券使清水成为公共纪念碑。"
+    ceremony:
+      key: aqueduct_opening
+      loc:
+        en: "Aqueduct Opening Rite"
+        zh: "水道启用礼"
+      effect:
+        en: "The opening improves prosperity and production efficiency."
+        zh: "启用礼提升繁荣与生产效率。"
+      modifiers:
+        global_monthly_prosperity: 0.003
+        global_production_efficiency: 0.03
+    prompt: "Roman aqueduct system supplying ancient Rome, monumental stone arches crossing the countryside, water channel entering the city, fountains and baths, civic opening rite with magistrates, historically grounded world wonder key art, cinematic engineering panorama, ultra-detailed, no modern elements."
+
+  - id: 129
+    key: unique_suez_ancient_canal
+    base_key: large_canal_system
+    concept: tv_wonder_unique_suez_ancient_canal
+    location: suez
+    image: tv_wonder_unique_suez_ancient_canal
+    loc:
+      en: "Ancient Suez Canal Attempts"
+      zh: "苏伊士运河古代尝试体系"
+    flavor:
+      en: "Survey lines, desert cuts, Nile branches, and Red Sea harbors preserve the old dream of joining waters."
+      zh: "测线、沙漠河槽、尼罗支流与红海港口保存着连通两水的古老梦想。"
+    history_intro:
+      en: "The engineer proposes the ancient canal projects near Suez, where rulers repeatedly tried to make geography negotiable."
+      zh: "大工程师提出苏伊士古运河尝试：历代君主反复试图让地理变得可以谈判。"
+    ceremony:
+      key: canal_opening
+      loc:
+        en: "Canal Opening Convoy"
+        zh: "开河通航仪式"
+      effect:
+        en: "The opening improves trade range and trade income."
+        zh: "通航仪式提升贸易范围与贸易收入。"
+      modifiers:
+        trade_range: 150
+        trade_income: 0.04
+    prompt: "Ancient Suez canal attempt connecting Nile routes to the Red Sea, desert excavation, canal banks, Egyptian and Persian-style officials, ceremonial first convoy on shallow water, Red Sea ships, historically grounded world wonder key art, cinematic desert engineering view, ultra-detailed, no modern elements."
+
+  - id: 130
+    key: unique_kremlin
+    base_key: star_fortress_city
+    concept: tv_wonder_unique_kremlin
+    location: moscow
+    image: tv_wonder_unique_kremlin
+    loc:
+      en: "Kremlin System"
+      zh: "克里姆林宫体系"
+    flavor:
+      en: "Brick walls, towers, cathedrals, armories, and palaces compress fortress and sovereignty into one citadel."
+      zh: "砖墙、高塔、教堂、军械库与宫殿把堡垒和主权压缩进同一座城塞。"
+    history_intro:
+      en: "The engineer invokes Moscow's Kremlin, where coronation, defense, and state command occupied the same walls."
+      zh: "大工程师援引莫斯科克里姆林：加冕、防御与国家号令共处一墙之内。"
+    ceremony:
+      key: tsar_coronation
+      loc:
+        en: "Tsar Coronation"
+        zh: "沙皇加冕典礼"
+      effect:
+        en: "The coronation improves legitimacy and land morale."
+        zh: "加冕典礼提升正统性与陆军士气。"
+      modifiers:
+        monthly_legitimacy: 0.10
+        land_morale_modifier: 0.03
+    prompt: "Moscow Kremlin in the early Tsardom, red brick walls and towers, cathedrals and palace courts inside, tsar coronation procession, snow-bright Russian city, historically grounded world wonder key art, cinematic fortress-palace view, ultra-detailed, no modern elements."
+
+  - id: 131
+    key: unique_teotihuacan
+    base_key: world_monument_group
+    concept: tv_wonder_unique_teotihuacan
+    location: tenochtitlan
+    image: tv_wonder_unique_teotihuacan
+    loc:
+      en: "Sacred City of Teotihuacan"
+      zh: "特奥蒂瓦坎圣城"
+    flavor:
+      en: "Avenue, pyramids, compounds, and painted walls survive as the plan of a city built for cosmic scale."
+      zh: "大道、金字塔、院落与彩绘墙保存着一座按宇宙尺度规划的城市。"
+    history_intro:
+      en: "The engineer turns to Teotihuacan, the central Mexican sacred city whose pyramids organized memory long after its fall."
+      zh: "大工程师转向特奥蒂瓦坎：这座中墨西哥圣城在衰落后仍以金字塔组织记忆。"
+    ceremony:
+      key: sun_pyramid_fire
+      loc:
+        en: "Sun Pyramid Final Fire Rite"
+        zh: "太阳金字塔火焰终末祭"
+      effect:
+        en: "The rite increases prestige and true-faith tolerance."
+        zh: "火焰终末祭提升威望与正统信仰容忍。"
+      modifiers:
+        monthly_prestige: 0.10
+        tolerance_own: 1
+    prompt: "Sacred city of Teotihuacan, Avenue of the Dead, Pyramid of the Sun, Pyramid of the Moon, painted apartment compounds, fire rite on the pyramid summit, central Mexican highland light, historically grounded world wonder key art, cinematic aerial axis view, ultra-detailed, no modern elements."
+
+  - id: 132
+    key: unique_angkor_hydraulic_system
+    base_key: hydraulic_workshop
+    concept: tv_wonder_unique_angkor_hydraulic_system
+    location: angkor
+    image: tv_wonder_unique_angkor_hydraulic_system
+    loc:
+      en: "Angkor Hydraulic System"
+      zh: "吴哥水利系统"
+    flavor:
+      en: "Barays, canals, embankments, and rice fields make Angkor's sacred city depend on engineered water."
+      zh: "水库、运河、堤岸与稻田让吴哥圣城依赖被工程化的水。"
+    history_intro:
+      en: "The engineer studies Angkor's water network, where reservoirs and canals gave temple kings seasonal power."
+      zh: "大工程师研究吴哥水网：水库与运河给予神庙王季节性的权力。"
+    ceremony:
+      key: west_baray_water
+      loc:
+        en: "West Baray Water-Release Rite"
+        zh: "西池落成供水礼"
+      effect:
+        en: "The rite improves raw-material output and prosperity."
+        zh: "供水礼提升原料产出与繁荣。"
+      modifiers:
+        global_raw_material_output: 0.04
+        global_monthly_prosperity: 0.003
+    prompt: "Angkor hydraulic system, immense baray reservoir, canals and embankments feeding rice fields, Khmer engineers and priests at a water-release ceremony, temples on the horizon, historically grounded world wonder key art, cinematic wet-season panorama, ultra-detailed, no modern elements."
+
+  - id: 133
+    key: unique_dutch_polders
+    base_key: giant_dam_project
+    concept: tv_wonder_unique_dutch_polders
+    location: amsterdam
+    image: tv_wonder_unique_dutch_polders
+    loc:
+      en: "Dutch Polder Works"
+      zh: "荷兰围海工程体系"
+    flavor:
+      en: "Dikes, pumps, windmills, drainage boards, and reclaimed fields turn the sea into taxable land."
+      zh: "堤坝、水泵、风车、水务委员会与围垦田把海面变成可征税的土地。"
+    history_intro:
+      en: "The engineer proposes the Dutch polder works, a collective bargain with water enforced by dike and ledger."
+      zh: "大工程师提出荷兰围海工程：堤坝与账簿共同执行人与水之间的集体契约。"
+    ceremony:
+      key: dike_closure
+      loc:
+        en: "Polder Closure"
+        zh: "围海合龙"
+      effect:
+        en: "The closure improves raw-material output and production efficiency."
+        zh: "合龙工程提升原料产出与生产效率。"
+      modifiers:
+        global_raw_material_output: 0.04
+        global_production_efficiency: 0.03
+    prompt: "Dutch polder works in the early modern Netherlands, dikes closing against the sea, drainage windmills, pumps, reclaimed fields, water boards holding a closure ceremony, low sky and canals, historically grounded world wonder key art, cinematic engineering landscape, ultra-detailed, no modern elements."
+
+  - id: 134
+    key: unique_machu_picchu_terraces
+    base_key: mountain_terrace_network
+    concept: tv_wonder_unique_machu_picchu_terraces
+    location: picchu
+    image: tv_wonder_unique_machu_picchu_terraces
+    loc:
+      en: "Machu Picchu Terrace System"
+      zh: "马丘比丘梯田系统"
+    flavor:
+      en: "Retaining walls, drainage, soil layers, and ritual fields make steep mountains feed a royal estate."
+      zh: "挡土墙、排水层、土壤分层与礼仪田地让陡峭山地供养皇家居所。"
+    history_intro:
+      en: "The engineer focuses on Machu Picchu's terraces, where farming, drainage, and sacred landscape solved one problem."
+      zh: "大工程师聚焦马丘比丘梯田：耕作、排水与神圣地景在那里解决同一个问题。"
+    ceremony:
+      key: first_sowing
+      loc:
+        en: "First Sowing Rite"
+        zh: "首次播种祭"
+      effect:
+        en: "The rite improves raw-material output and prosperity."
+        zh: "播种祭提升原料产出与繁荣。"
+      modifiers:
+        global_raw_material_output: 0.05
+        global_monthly_prosperity: 0.002
+    prompt: "Machu Picchu terrace system, precise Inca agricultural terraces on steep Andean slopes, drainage stones, workers and priests at first sowing rite, royal citadel above, clouds and mountains, historically grounded world wonder key art, cinematic landscape view, ultra-detailed, no modern elements."
+
+  - id: 135
+    key: unique_british_navy_dockyards
+    base_key: national_shipyard
+    concept: tv_wonder_unique_british_navy_dockyards
+    location: portsmouth
+    image: tv_wonder_unique_british_navy_dockyards
+    loc:
+      en: "British Navy Dockyard System"
+      zh: "英国海军船坞体系"
+    flavor:
+      en: "Dockyards, ropewalks, victualling yards, ordnance stores, and officers prepare fleets before war reaches the horizon."
+      zh: "船坞、绳场、补给场、军械库与军官在战云抵达地平线前整备舰队。"
+    history_intro:
+      en: "The engineer looks to Portsmouth and the royal dockyards, where naval readiness became a permanent institution."
+      zh: "大工程师看向朴次茅斯与皇家船坞：海军战备在那里成为常设制度。"
+    ceremony:
+      key: armada_readiness
+      loc:
+        en: "Armada Readiness Muster"
+        zh: "无敌舰队战备整编"
+      effect:
+        en: "The muster accelerates shipbuilding and improves naval morale."
+        zh: "战备整编提升造船速度与海军士气。"
+      modifiers:
+        ship_build_speed: 0.10
+        naval_morale_modifier: 0.05
+    prompt: "British royal navy dockyard system at Portsmouth, dry docks, ropewalks, victualling yards, cannon stores, warships being fitted out, armada readiness muster, historically grounded world wonder key art, cinematic maritime industrial view, ultra-detailed, no modern elements."
+
+  - id: 136
+    key: unique_spanish_silver_fleet
+    base_key: maritime_trade_station_network
+    concept: tv_wonder_unique_spanish_silver_fleet
+    location: sevilla
+    image: tv_wonder_unique_spanish_silver_fleet
+    loc:
+      en: "Spanish Silver Fleet System"
+      zh: "西班牙白银舰队体系"
+    flavor:
+      en: "Convoys, ledgers, fortified ports, and royal warehouses make Atlantic silver move under guard and seal."
+      zh: "护航舰队、账册、设防港口与王家仓库让大西洋白银在封印与护卫下流动。"
+    history_intro:
+      en: "The engineer proposes Seville's silver fleet system, where empire became a scheduled convoy of bullion and paperwork."
+      zh: "大工程师提出塞维利亚白银舰队体系：帝国在那里化为定期抵港的金属与文书。"
+    ceremony:
+      key: silver_return
+      loc:
+        en: "Silver Fleet Homecoming"
+        zh: "白银归港"
+      effect:
+        en: "The homecoming increases trade income and minting income."
+        zh: "归港仪式提升贸易收入与铸币收入。"
+      modifiers:
+        trade_income: 0.06
+        minting_income_factor: 0.05
+    prompt: "Spanish silver fleet system at Seville, Guadalquivir river port, Casa de Contratacion ledgers, guarded treasure galleons unloading silver, royal officials and merchants, homecoming ceremony, historically grounded world wonder key art, cinematic harbor view, ultra-detailed, no modern elements."
+
+  - id: 137
+    key: unique_ottoman_hajj_road
+    base_key: imperial_post_road_network
+    concept: tv_wonder_unique_ottoman_hajj_road
+    location: mecca
+    image: tv_wonder_unique_ottoman_hajj_road
+    loc:
+      en: "Ottoman Hajj Road System"
+      zh: "奥斯曼朝觐道路体系"
+    flavor:
+      en: "Caravan roads, forts, wells, banners, and imperial subsidies bind pilgrimage to state logistics."
+      zh: "驿路、堡垒、水井、旗帜与帝国补助把朝觐同国家后勤绑在一起。"
+    history_intro:
+      en: "The engineer studies the Ottoman hajj roads, where piety moved safely because administration marched with it."
+      zh: "大工程师研究奥斯曼朝觐道路：虔敬之所以能安全前行，是因为行政与它同行。"
+    ceremony:
+      key: hajj_departure
+      loc:
+        en: "Hajj Departure Rite"
+        zh: "哈吉出发仪式"
+      effect:
+        en: "The rite improves tolerance and administrative transmission."
+        zh: "出发仪式提升信仰容忍与行政传导。"
+      modifiers:
+        tolerance_own: 1
+        global_distance_from_capital_speed_propagation: 0.05
+    prompt: "Ottoman Hajj road system, ceremonial caravan departure with banners, fortified waystations, wells, camel caravans, pilgrims and officials, route toward Mecca through arid landscapes, historically grounded world wonder key art, cinematic caravan panorama, ultra-detailed, no modern elements."
+
+  - id: 138
+    key: unique_persian_qanat
+    base_key: hydraulic_workshop
+    concept: tv_wonder_unique_persian_qanat
+    location: isfahan
+    image: tv_wonder_unique_persian_qanat
+    loc:
+      en: "Persian Qanat Network"
+      zh: "波斯坎儿井网络"
+    flavor:
+      en: "Underground channels, mother wells, shaft lines, gardens, and water shares make desert settlement possible."
+      zh: "地下水道、母井、竖井线、花园与水权份额让沙漠聚落成为可能。"
+    history_intro:
+      en: "The engineer proposes the qanats of the Iranian plateau, where hidden gradients made dry lands governable."
+      zh: "大工程师提出伊朗高原坎儿井：隐秘坡度让干旱土地可以治理。"
+    ceremony:
+      key: water_rights
+      loc:
+        en: "Water Rights Allocation"
+        zh: "水权分配仪式"
+      effect:
+        en: "The allocation improves prosperity and raw-material output."
+        zh: "水权分配提升繁荣与原料产出。"
+      modifiers:
+        global_monthly_prosperity: 0.003
+        global_raw_material_output: 0.03
+    prompt: "Persian qanat network on the Iranian plateau, lines of vertical shafts across arid land, underground water channel revealed in cutaway, gardens and fields downstream, water rights allocation ceremony, historically grounded world wonder key art, cinematic desert engineering view, ultra-detailed, no modern elements."
+
+  - id: 139
+    key: unique_longjiang_shipyard
+    base_key: national_shipyard
+    concept: tv_wonder_unique_longjiang_shipyard
+    location: shangyuan
+    image: tv_wonder_unique_longjiang_shipyard
+    loc:
+      en: "Ming Longjiang Shipyard"
+      zh: "明龙江船厂体系"
+    flavor:
+      en: "Slipways, timber basins, workshops, and treasure ships make river shipbuilding serve oceanic ambition."
+      zh: "船台、木料池、作坊与宝船使江上造船服务于远洋雄心。"
+    history_intro:
+      en: "The engineer looks to Nanjing's Longjiang shipyard, where the Ming court prepared fleets large enough to change horizons."
+      zh: "大工程师看向南京龙江船厂：明廷在那里准备足以改写地平线的舰队。"
+    ceremony:
+      key: zheng_he_departure
+      loc:
+        en: "Zheng He's Voyages Departure"
+        zh: "郑和下西洋启航"
+      effect:
+        en: "The departure improves naval range and shipbuilding speed."
+        zh: "启航仪式提升海军航程与造船速度。"
+      modifiers:
+        naval_range: 150
+        ship_build_speed: 0.10
+    prompt: "Ming Longjiang shipyard at Nanjing, immense timber yards, slipways, treasure ships under construction, craftsmen, officials, Zheng He's fleet departure ceremony on the river, historically grounded world wonder key art, cinematic shipyard panorama, ultra-detailed, no modern elements."
+
+  - id: 140
+    key: unique_jerusalem_holy_city
+    base_key: world_monument_group
+    concept: tv_wonder_unique_jerusalem_holy_city
+    location: jerusalem
+    image: tv_wonder_unique_jerusalem_holy_city
+    loc:
+      en: "Jerusalem Holy City System"
+      zh: "耶路撒冷圣城体系"
+    flavor:
+      en: "Walls, shrines, quarters, gates, and processions make one city carry several maps of sacred authority."
+      zh: "城墙、圣所、街区、城门与游行使同一座城市承载多套神圣权威地图。"
+    history_intro:
+      en: "The engineer proposes Jerusalem as a holy-city system, where each transfer of power had to negotiate memory before stone."
+      zh: "大工程师提出耶路撒冷圣城体系：每一次权力转换都必须先同记忆谈判，再触碰石头。"
+    ceremony:
+      key: holy_city_transfer
+      loc:
+        en: "Holy City Power Transfer"
+        zh: "圣城权力转换仪式"
+      effect:
+        en: "The transfer improves tolerance, diplomacy, and prestige."
+        zh: "权力转换提升信仰容忍、外交声誉与威望。"
+      modifiers:
+        tolerance_own: 1
+        diplomatic_reputation: 1
+        monthly_prestige: 0.05
+    prompt: "Jerusalem holy city system in a premodern era, city walls, sacred precincts, processions through gates, multiple religious quarters, solemn power transfer ceremony, hills and stone streets, historically grounded world wonder key art, respectful cinematic panorama, ultra-detailed, no modern elements."
