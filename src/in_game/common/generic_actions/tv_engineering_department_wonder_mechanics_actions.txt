@@ -9,7 +9,31 @@ tv_wonder_confirm_ceremony = {
 	ai_tick = monthly
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
-	allow = { scope:actor = { tv_wonder_ceremony_ready_for_confirmation_trigger = yes } }
+	allow = { scope:actor = { tv_wonder_ceremony_ready_for_free_confirmation_trigger = yes } }
+	effect = { scope:actor = { tv_wonder_confirm_ceremony_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_confirm_ceremony_scaled_gold = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_ceremony_ready_for_scaled_gold_confirmation_trigger = yes } }
+	price = price:tv_wonder_ritual_style_3_scaled_gold_price
+	effect = { scope:actor = { tv_wonder_confirm_ceremony_effect = yes } }
+	ai_will_do = { add = -100 }
+}
+
+tv_wonder_confirm_ceremony_prestige = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = { scope:actor = { tv_wonder_ceremony_ready_for_prestige_confirmation_trigger = yes } }
+	price = price:tv_wonder_ritual_style_3_prestige_price
 	effect = { scope:actor = { tv_wonder_confirm_ceremony_effect = yes } }
 	ai_will_do = { add = -100 }
 }

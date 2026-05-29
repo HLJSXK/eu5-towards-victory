@@ -194,7 +194,7 @@ tv_wonder_abandon = {
 	ai_tick = monthly
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
-	allow = { scope:actor = { tv_wonder_debate_complete_trigger = yes tv_wonder_has_locked_wonder_trigger = yes NOT = { has_variable = tv_wonder_finalized } } }
+	allow = { scope:actor = { tv_wonder_debate_complete_trigger = yes tv_wonder_has_locked_wonder_trigger = yes NOT = { has_variable = tv_wonder_finalized } NOT = { has_variable = tv_wonder_ritual_in_progress } } }
 	effect = { scope:actor = { tv_wonder_abandon_effect = yes } }
 	ai_will_do = { add = -100 }
 }

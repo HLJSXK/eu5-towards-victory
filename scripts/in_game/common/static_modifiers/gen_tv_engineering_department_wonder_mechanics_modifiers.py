@@ -7,7 +7,16 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import ceremony_modifier_for_style, ceremony_styles, load_all_wonder_mechanics, mechanic_key, render_header
+from wonder_mechanics_lib import (
+    ceremony_modifier_for_style,
+    ceremony_styles,
+    generic_ritual_for_wonder,
+    load_all_wonder_mechanics,
+    mechanic_key,
+    render_header,
+    ritual_blessing_modifier_name,
+    ritual_burden_modifier_name,
+)
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "static_modifiers" / "tv_engineering_department_wonder_mechanics_modifiers.txt"
 SCRIPT_REL = "scripts/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_mechanics_modifiers.py"
@@ -25,6 +34,16 @@ def scaled_modifiers(base: dict, level: int, multiplier: int | float = 1) -> dic
     for key, value in base.items():
         if isinstance(value, (int, float)):
             result[key] = value * level * multiplier
+        else:
+            result[key] = value
+    return result
+
+
+def burden_modifiers(buff: dict) -> dict:
+    result: dict[str, object] = {}
+    for key, value in buff.items():
+        if isinstance(value, (int, float)):
+            result[key] = value * -2
         else:
             result[key] = value
     return result
@@ -48,6 +67,12 @@ def generate() -> str:
         for level in range(1, 7):
             lines.extend(modifier_block(f"tv_wonder_{wonder['key']}_level_{level}", scaled_modifiers(base, level, multiplier)))
     for wonder in wonders:
+        if not wonder.get("is_unique"):
+            ritual = generic_ritual_for_wonder(mechanics, wonder)
+            blessing = ritual["style_1"]["country_modifier"]
+            lines.extend(modifier_block(ritual_blessing_modifier_name(wonder), blessing))
+            lines.extend(modifier_block(ritual_burden_modifier_name(wonder), burden_modifiers(blessing)))
+            continue
         for style in ceremony_styles(wonder):
             ceremony_modifier = ceremony_modifier_for_style(wonder, mechanics, style)
             if ceremony_modifier is None:

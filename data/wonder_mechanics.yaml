@@ -1398,6 +1398,581 @@ buildings:
       tv_wonder_world_exposition_monument_group:
         local_cultural_influence: 1
 
+generic_rituals:
+  sacred_mountain:
+    style_1:
+      country_modifier:
+        global_crown_estate_power: 0.10
+    style_2:
+      local_modifier:
+        local_clergy_max_literacy: 10
+        local_pop_conversion_speed: 10
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: stability
+          value: 1
+        - type: prestige
+          value: 60
+  triumphal_axis:
+    style_1:
+      country_modifier:
+        monthly_prestige: 0.15
+    style_2:
+      local_modifier:
+        local_garrison_size: 150
+        local_cultural_influence: 0.5
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: legitimacy
+          value: 20
+        - type: prestige
+          value: 40
+  great_port:
+    style_1:
+      country_modifier:
+        trade_income: 0.05
+    style_2:
+      local_modifier:
+        harbor_suitability: 0.1
+        local_trade_center_power: 0.2
+        local_migration_attraction: 1
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: gold
+          value: 250
+        - type: prestige
+          value: 30
+  giant_necropolis:
+    style_1:
+      country_modifier:
+        monthly_legitimacy: 0.08
+    style_2:
+      local_modifier:
+        local_unrest: -0.05
+        local_cultural_tradition: 0.5
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: legitimacy
+          value: 15
+        - type: stability
+          value: 1
+  great_lighthouse:
+    style_1:
+      country_modifier:
+        naval_range: 150
+    style_2:
+      local_modifier:
+        harbor_suitability: 0.1
+        local_migration_attraction: 1
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: prestige
+          value: 50
+        - type: site_prosperity
+          value: 0.2
+  hydraulic_workshop:
+    style_1:
+      country_modifier:
+        global_production_efficiency: 0.03
+    style_2:
+      local_modifier:
+        local_production_efficiency: 0.2
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: gold
+          value: 300
+        - type: site_prosperity
+          value: 0.2
+  mining_city:
+    style_1:
+      country_modifier:
+        peasants_estate_target_satisfaction: 0.05
+    style_2:
+      local_modifier:
+        local_max_rgo_size_modifier: 0.5
+        local_raw_material_output: 0.1
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: gold
+          value: 350
+        - type: prestige
+          value: 20
+  giant_observatory:
+    style_1:
+      country_modifier:
+        research_speed: 0.04
+    style_2:
+      local_modifier:
+        local_max_literacy: 10
+        local_monthly_literacy: 0.1
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: research_progress
+          value: research_progress_extreme_bonus
+  palace_of_nations:
+    style_1:
+      country_modifier:
+        monthly_prestige: 0.15
+    style_2:
+      local_modifier:
+        local_cultural_influence: 0.75
+        local_trade_center_power: 0.1
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: ruler_dip
+          value: 2
+        - type: prestige
+          value: 40
+  university_city:
+    style_1:
+      country_modifier:
+        research_speed: 0.04
+    style_2:
+      local_modifier:
+        local_pop_promotion_speed: 10
+        local_max_literacy: 10
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: research_progress
+          value: research_progress_severe_bonus
+        - type: ruler_adm
+          value: 1
+  sky_dome_grand_temple:
+    style_1:
+      country_modifier:
+        tolerance_own: 1
+    style_2:
+      local_modifier:
+        local_migration_attraction: 1
+        local_pop_conversion_speed: 10
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: stability
+          value: 1
+        - type: estate_satisfaction
+          estate: clergy_estate
+          value: 0.15
+  giant_tower_temple:
+    style_1:
+      country_modifier:
+        monthly_prestige: 0.08
+    style_2:
+      local_modifier:
+        local_pop_assimilation_speed: 20
+        local_pop_conversion_speed: 20
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: prestige
+          value: 60
+        - type: stability
+          value: 1
+  river_extension:
+    style_1:
+      country_modifier:
+        army_movement_speed: 0.03
+    style_2:
+      local_modifier:
+        local_distance_from_capital_speed_propagation: 0.1
+        local_monthly_development_modifier: 0.1
+        local_pop_conversion_speed: 20
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: gold
+          value: 150
+        - type: site_prosperity
+          value: 0.25
+  national_shipyard:
+    style_1:
+      country_modifier:
+        ship_build_speed: 0.08
+    style_2:
+      local_modifier:
+        local_ship_build_speed: 0.2
+        max_ships_built_at_same_time: 1
+        harbor_suitability: 0.1
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: manpower
+          value: 5000
+        - type: prestige
+          value: 30
+  star_fortress_city:
+    style_1:
+      country_modifier:
+        global_garrison_size_modifier: 0.08
+    style_2:
+      local_modifier:
+        local_defensive: 0.2
+        local_garrison_size: 250
+        fort_level: 1
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: manpower
+          value: 8000
+        - type: legitimacy
+          value: 10
+  great_wall:
+    style_1:
+      country_modifier:
+        global_manpower_modifier: 0.08
+    style_2:
+      local_modifier:
+        local_defensive: 0.2
+        local_garrison_size: 250
+        fort_level: 1
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: manpower
+          value: 10000
+        - type: prestige
+          value: 20
+  giant_armory:
+    style_1:
+      country_modifier:
+        land_morale_modifier: 0.04
+    style_2:
+      local_modifier:
+        local_manpower_modifier: 0.5
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: manpower
+          value: 7000
+        - type: ruler_mil
+          value: 1
+  library_of_nation:
+    style_1:
+      country_modifier:
+        research_speed: 0.04
+    style_2:
+      local_modifier:
+        local_monthly_literacy: 0.1
+        local_max_literacy: 10
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: research_progress
+          value: research_progress_severe_bonus
+        - type: prestige
+          value: 30
+  large_canal_system:
+    style_1:
+      country_modifier:
+        global_raw_material_output: 0.04
+    style_2:
+      local_modifier:
+        local_distance_from_capital_speed_propagation: 0.1
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: gold
+          value: 250
+        - type: site_prosperity
+          value: 0.3
+  mountain_terrace_network:
+    style_1:
+      country_modifier:
+        global_raw_material_output: 0.04
+    style_2:
+      local_modifier:
+        local_raw_material_output: 0.1
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: site_prosperity
+          value: 0.25
+        - type: prestige
+          value: 30
+  giant_dam_project:
+    style_1:
+      country_modifier:
+        global_monthly_prosperity: 0.002
+    style_2:
+      local_modifier:
+        local_max_rgo_size_modifier: 0.15
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: site_prosperity
+          value: 0.3
+        - type: stability
+          value: 1
+  royal_granary_system:
+    style_1:
+      country_modifier:
+        tax_income_efficiency: 0.03
+    style_2:
+      local_modifier:
+        local_garrison_size: 250
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: stability
+          value: 1
+        - type: gold
+          value: 200
+  imperial_post_road_network:
+    style_1:
+      country_modifier:
+        army_movement_speed: 0.04
+    style_2:
+      local_modifier:
+        local_trade_center_power: 0.15
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: legitimacy
+          value: 10
+        - type: prestige
+          value: 30
+  canal_hub_city:
+    style_1:
+      country_modifier:
+        trade_income: 0.03
+    style_2:
+      local_modifier:
+        local_trade_center_power: 0.2
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: gold
+          value: 300
+        - type: prestige
+          value: 20
+  frontier_colonization_belt:
+    style_1:
+      country_modifier:
+        global_manpower_modifier: 0.06
+    style_2:
+      local_modifier:
+        local_migration_attraction: 2
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: manpower
+          value: 6000
+        - type: site_prosperity
+          value: 0.2
+  coastal_beacon_network:
+    style_1:
+      country_modifier:
+        army_movement_speed: 0.03
+    style_2:
+      local_modifier:
+        local_defensive: 0.15
+        local_garrison_size: 250
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: prestige
+          value: 35
+        - type: manpower
+          value: 4000
+  knightly_fortress_order:
+    style_1:
+      country_modifier:
+        land_morale_modifier: 0.04
+    style_2:
+      local_modifier:
+        local_defensive: 0.1
+        local_manpower_modifier: 0.1
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: manpower
+          value: 5000
+        - type: estate_satisfaction
+          estate: nobles_estate
+          value: 0.15
+  war_college_system:
+    style_1:
+      country_modifier:
+        siege_ability: 0.04
+    style_2:
+      local_modifier:
+        local_manpower_modifier: 0.1
+        local_garrison_size: 150
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: ruler_mil
+          value: 2
+        - type: research_progress
+          value: research_progress_mild_bonus
+  great_clock_bell_system:
+    style_1:
+      country_modifier:
+        tolerance_own: 1
+    style_2:
+      local_modifier:
+        local_unrest: -0.05
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: prestige
+          value: 40
+        - type: stability
+          value: 1
+  royal_art_district:
+    style_1:
+      country_modifier:
+        monthly_prestige: 0.08
+    style_2:
+      local_modifier:
+        local_cultural_tradition: 1
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: prestige
+          value: 80
+        - type: research_progress
+          value: research_progress_mild_bonus
+  grand_theater_festival_district:
+    style_1:
+      country_modifier:
+        monthly_prestige: 0.06
+    style_2:
+      local_modifier:
+        local_pop_conversion_speed: 15
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: prestige
+          value: 70
+        - type: site_prosperity
+          value: 0.2
+  world_embassy_quarter:
+    style_1:
+      country_modifier:
+        trade_income: 0.02
+        diplomatic_reputation: 0.5
+    style_2:
+      local_modifier:
+        local_cultural_influence: 0.5
+    style_3:
+      cost_type: prestige
+      reward:
+        - type: ruler_dip
+          value: 2
+        - type: prestige
+          value: 50
+  law_code_stele_project:
+    style_1:
+      country_modifier:
+        clergy_estate_target_satisfaction: 0.03
+    style_2:
+      local_modifier:
+        local_max_control: 0.05
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: legitimacy
+          value: 15
+        - type: stability
+          value: 1
+  world_market:
+    style_1:
+      country_modifier:
+        trade_income: 0.05
+    style_2:
+      local_modifier:
+        local_unrest: -0.05
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: gold
+          value: 400
+        - type: site_prosperity
+          value: 0.2
+  royal_mint_system:
+    style_1:
+      country_modifier:
+        minting_income_factor: 0.06
+    style_2:
+      local_modifier:
+        local_production_efficiency: 0.1
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: gold
+          value: 500
+        - type: legitimacy
+          value: 5
+  guild_alliance:
+    style_1:
+      country_modifier:
+        global_production_efficiency: 0.04
+    style_2:
+      local_modifier:
+        local_trade_center_power: 0.15
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: gold
+          value: 350
+        - type: estate_satisfaction
+          estate: burghers_estate
+          value: 0.15
+  maritime_trade_station_network:
+    style_1:
+      country_modifier:
+        trade_income: 0.05
+    style_2:
+      local_modifier:
+        local_migration_attraction: -0.5
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: gold
+          value: 300
+        - type: prestige
+          value: 40
+  giant_workshop_complex:
+    style_1:
+      country_modifier:
+        global_production_efficiency: 0.04
+    style_2:
+      local_modifier:
+        local_manpower_modifier: 0.15
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: gold
+          value: 280
+        - type: manpower
+          value: 4000
+  world_monument_group:
+    style_1:
+      country_modifier:
+        monthly_prestige: 0.08
+        land_morale_modifier: 0.02
+    style_2:
+      local_modifier:
+        local_unrest: -0.05
+    style_3:
+      cost_type: artwork
+      reward:
+        - type: prestige
+          value: 100
+        - type: legitimacy
+          value: 10
+
 base_modifiers:
   sacred_mountain:
     global_pop_conversion_speed_modifier: 0.2

@@ -11,14 +11,31 @@ from wonder_mechanics_lib import (
     ceremony_styles,
     final_building_for_style,
     final_building_maintenance,
+    generic_ritual_for_wonder,
     load_all_wonder_mechanics,
     mechanic_key,
     render_header,
+    ritual_auxiliary_building,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "building_types" / "tv_engineering_department_wonder_mechanics_buildings.txt"
 SCRIPT_REL = "scripts/in_game/common/building_types/gen_tv_engineering_department_wonder_mechanics_buildings.py"
 T = "\t"
+RAW_MODIFIER_KEYS = {"fort_level"}
+PORT_WONDERS = {
+    "great_port",
+    "great_lighthouse",
+    "national_shipyard",
+    "coastal_beacon_network",
+    "maritime_trade_station_network",
+}
+ESTATE_POWER_BY_POP_TYPE = {
+    "clergy": "local_clergy_estate_power",
+    "nobles": "local_nobles_estate_power",
+    "burghers": "local_burghers_estate_power",
+    "laborers": "local_peasants_estate_power",
+    "soldiers": "local_crown_estate_power",
+}
 
 
 def fmt_value(value: object) -> str:
@@ -49,14 +66,52 @@ def merge_modifiers(*maps: dict | None) -> dict:
     return merged
 
 
-def building_block(name: str, wonder: dict, modifiers: dict, maintenance: str, attributes: dict | None = None) -> list[str]:
+def split_modifiers(modifiers: dict) -> tuple[dict, dict]:
+    normal: dict[str, object] = {}
+    raw: dict[str, object] = {}
+    for key, value in modifiers.items():
+        if key in RAW_MODIFIER_KEYS:
+            raw[key] = value
+        else:
+            normal[key] = value
+    return normal, raw
+
+
+def build_profile(wonder: dict) -> tuple[str, str, str]:
+    if wonder["key"] in PORT_WONDERS:
+        return "large_port_building_time", "port_building_construction", f"tv_wonder_ritual_annex_{wonder['size']}_price"
+    if wonder["category"] == "military_category":
+        return "small_fort_building", "fort_construction", f"tv_wonder_ritual_annex_{wonder['size']}_price"
+    if wonder["category"] == "government_category":
+        return "government_building_time", "capital_building_construction", f"tv_wonder_ritual_annex_{wonder['size']}_price"
+    if wonder["pop_type"] == "clergy":
+        return "religious_building_time", "town_building_construction", f"tv_wonder_ritual_annex_{wonder['size']}_price"
+    if wonder["category"] == "cultural_category":
+        return "large_cultural_building_time", "library_construction", f"tv_wonder_ritual_annex_{wonder['size']}_price"
+    return "infrastructure_build_time", "basic_construction_needs", f"tv_wonder_ritual_annex_{wonder['size']}_price"
+
+
+def building_block(
+    name: str,
+    wonder: dict,
+    modifiers: dict,
+    maintenance: str,
+    *,
+    attributes: dict | None = None,
+    max_levels: int = 6,
+    build_time: str = "large_cultural_building_time",
+    construction_demand: str | None = None,
+    price: str | None = None,
+    on_built_lines: list[str] | None = None,
+) -> list[str]:
     attrs = attributes or {}
+    normal_modifier, raw_modifier = split_modifiers(modifiers)
     lines = [
         f"{name} = {{",
         f"{T}is_special = yes",
         f"{T}is_foreign = no",
         f"{T}pop_type = {attrs.get('pop_type', wonder['pop_type'])}",
-        f"{T}max_levels = 6",
+        f"{T}max_levels = {max_levels}",
         f"{T}employment_size = 0.1",
         f"{T}category = {attrs.get('category', wonder['category'])}",
         "",
@@ -76,24 +131,63 @@ def building_block(name: str, wonder: dict, modifiers: dict, maintenance: str, a
         f"{T}}}",
         f"{T}can_destroy = {{ always = no }}",
         "",
-        f"{T}build_time = large_cultural_building_time",
-        "",
-        f"{T}modifier = {{",
     ]
-    for mod_key, mod_value in modifiers.items():
+    if price is not None:
+        lines.append(f"{T}price = {price}")
+        lines.append("")
+    lines.append(f"{T}build_time = {build_time}")
+    if construction_demand is not None:
+        lines.append(f"{T}construction_demand = {construction_demand}")
+    lines.append("")
+    lines.append(f"{T}modifier = {{")
+    for mod_key, mod_value in normal_modifier.items():
         lines.append(f"{T}{T}{mod_key} = {fmt_value(mod_value)}")
+    lines.append(f"{T}}}")
+    if raw_modifier:
+        lines.append("")
+        lines.append(f"{T}raw_modifier = {{")
+        for mod_key, mod_value in raw_modifier.items():
+            lines.append(f"{T}{T}{mod_key} = {fmt_value(mod_value)}")
+        lines.append(f"{T}}}")
     lines.extend(
         [
+            "",
+            f"{T}possible_production_methods = {{",
+            f"{T}{T}{maintenance}",
             f"{T}}}",
-            "",
-        f"{T}possible_production_methods = {{",
-        f"{T}{T}{maintenance}",
-        f"{T}}}",
-            "}",
-            "",
         ]
     )
+    if on_built_lines:
+        lines.extend(["", f"{T}on_built = {{"])
+        lines.extend(on_built_lines)
+        lines.append(f"{T}}}")
+    lines.extend(["}", ""])
     return lines
+
+
+def ritual_auxiliary_modifiers(wonder: dict, mechanics: dict) -> dict:
+    ritual = generic_ritual_for_wonder(mechanics, wonder)
+    modifiers = dict(ritual["style_2"]["local_modifier"])
+    estate_power_modifier = ESTATE_POWER_BY_POP_TYPE[wonder["pop_type"]]
+    modifiers[estate_power_modifier] = modifiers.get(estate_power_modifier, 0) + 0.5
+    return modifiers
+
+
+def auxiliary_on_built_lines(wonder: dict) -> list[str]:
+    return [
+        f"{T}{T}hidden_effect = {{",
+        f"{T}{T}{T}location.owner = {{",
+        f"{T}{T}{T}{T}if = {{",
+        f"{T}{T}{T}{T}{T}limit = {{",
+        f"{T}{T}{T}{T}{T}{T}has_variable = tv_wonder_ritual_in_progress",
+        f"{T}{T}{T}{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}",
+        f"{T}{T}{T}{T}{T}{T}var:tv_wonder_ceremony_style ?= 2",
+        f"{T}{T}{T}{T}{T}}}",
+        f"{T}{T}{T}{T}{T}tv_wonder_complete_active_ritual_effect = yes",
+        f"{T}{T}{T}{T}}}",
+        f"{T}{T}{T}}}",
+        f"{T}{T}}}",
+    ]
 
 
 def generate() -> str:
@@ -105,10 +199,30 @@ def generate() -> str:
         final_local = building_design.get("final_local", {})
         for style in ceremony_styles(wonder):
             building = final_building_for_style(wonder, style)
-            modifiers = merge_modifiers(base_local, final_local.get(building, {}))
+            if wonder.get("is_unique"):
+                modifiers = merge_modifiers(base_local, final_local.get(building, {}))
+            else:
+                modifiers = merge_modifiers(base_local)
             maintenance = final_building_maintenance(wonder, building_design, building)
             attributes = building_design.get("final_attributes", {}).get(building, {})
-            lines.extend(building_block(building, wonder, modifiers, maintenance, attributes))
+            lines.extend(building_block(building, wonder, modifiers, maintenance, attributes=attributes))
+        if wonder.get("is_unique"):
+            continue
+        build_time, construction_demand, price = build_profile(wonder)
+        maintenance = building_design.get("maintenance", wonder["maintenance"])
+        lines.extend(
+            building_block(
+                ritual_auxiliary_building(wonder),
+                wonder,
+                ritual_auxiliary_modifiers(wonder, mechanics),
+                maintenance,
+                max_levels=1,
+                build_time=build_time,
+                construction_demand=construction_demand,
+                price=price,
+                on_built_lines=auxiliary_on_built_lines(wonder),
+            )
+        )
     return "\n".join(lines).rstrip() + "\n"
 
 

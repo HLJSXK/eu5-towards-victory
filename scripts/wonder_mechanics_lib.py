@@ -95,13 +95,18 @@ def load_wonder_data(
 
 
 def load_generic_wonder_mechanics_data() -> tuple[list[dict], dict]:
-    return load_wonder_data(
+    wonders, mechanics = load_wonder_data(
         ALL_WONDER_MIN_ID,
         ALL_WONDER_MAX_ID,
         require_designs=False,
         require_buildings=True,
         require_base_modifiers=True,
     )
+    generic_rituals = mechanics.get("generic_rituals", {})
+    for wonder in wonders:
+        if wonder["key"] not in generic_rituals:
+            raise ValueError(f"Missing generic ritual data for {wonder['key']}")
+    return wonders, mechanics
 
 
 def load_unique_wonders() -> list[dict]:
@@ -223,3 +228,19 @@ def ceremony_modifier_for_style(wonder: dict, mechanics: dict, style: int) -> tu
     if style not in wonder["final_buildings"] and str(style) not in wonder["final_buildings"]:
         return None
     return ceremony_modifier_for_building(wonder, mechanics, final_building_for_style(wonder, style))
+
+
+def generic_ritual_for_wonder(mechanics: dict, wonder: dict) -> dict:
+    return mechanics["generic_rituals"][wonder["key"]]
+
+
+def ritual_auxiliary_building(wonder: dict) -> str:
+    return f"tv_wonder_{wonder['key']}_ritual_annex"
+
+
+def ritual_burden_modifier_name(wonder: dict) -> str:
+    return f"tv_wonder_{wonder['key']}_ritual_burden_modifier"
+
+
+def ritual_blessing_modifier_name(wonder: dict) -> str:
+    return f"tv_wonder_{wonder['key']}_ritual_blessing_modifier"

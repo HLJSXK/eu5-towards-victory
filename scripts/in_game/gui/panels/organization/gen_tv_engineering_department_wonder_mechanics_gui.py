@@ -7,7 +7,7 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import ceremony_styles, final_building_for_style, load_all_wonder_mechanics_data, render_header
+from wonder_mechanics_lib import ceremony_styles, final_building_for_style, generic_ritual_for_wonder, load_all_wonder_mechanics_data, render_header
 
 OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_mechanics.gui"
 SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py"
@@ -26,6 +26,11 @@ def wonder_visible(wonder_id: int) -> str:
         f"And3(Not({PLAYER}.GetVariable('tv_wonder_locked').IsSet), {PLAYER}.GetVariable('tv_wonder_proposal').IsSet, {eq('tv_wonder_proposal', wonder_id)})"
         ")]"
     )
+
+
+def or_eq(var: str, values: list[int]) -> str:
+    joined = ", ".join(eq(var, value) for value in values)
+    return f"Or({joined})"
 
 
 def proposal_button(slot: int, wonder: dict) -> str:
@@ -80,22 +85,37 @@ def active_ritual_text(wonder: dict, style: int) -> str:
     )
 
 
-def hold_button() -> str:
-    visible = (
+def hold_button_base_visible() -> str:
+    return (
         f"And3({PLAYER}.GetVariable('tv_wonder_locked').IsSet, "
         f"{PLAYER}.GetVariable('tv_wonder_ceremony_style').IsSet, "
         f"LessThanOrEqualTo_CFixedPoint({PLAYER}.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)140.0'))"
     )
+
+
+def hold_button(action_name: str, visible: str) -> str:
     return (
         f'{T}action_button_diamond = {{ visible = "[{visible}]" '
         'size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" '
         'description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
-        'left_action = { action_name = "tv_wonder_confirm_ceremony" } }'
+        f'left_action = {{ action_name = "{action_name}" }} }}'
     )
 
 
 def generate() -> str:
-    wonders, _ = load_all_wonder_mechanics_data()
+    wonders, mechanics = load_all_wonder_mechanics_data()
+    gold_wonder_ids = []
+    prestige_wonder_ids = []
+    for wonder in wonders:
+        if wonder.get("is_unique"):
+            continue
+        ritual = generic_ritual_for_wonder(mechanics, wonder)
+        cost_type = ritual["style_3"]["cost_type"]
+        if cost_type == "scaled_gold":
+            gold_wonder_ids.append(wonder["id"])
+        elif cost_type == "prestige":
+            prestige_wonder_ids.append(wonder["id"])
+
     lines = render_header(SCRIPT_REL)
     lines.append("### BEGIN TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
     for wonder in wonders:
@@ -154,7 +174,13 @@ def generate() -> str:
     lines.append("### END TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
-    lines.append(hold_button())
+    base_visible = hold_button_base_visible()
+    gold_visible = f"And({base_visible}, {eq('tv_wonder_ceremony_style', 3)}, {or_eq('tv_wonder_locked', gold_wonder_ids)})"
+    prestige_visible = f"And({base_visible}, {eq('tv_wonder_ceremony_style', 3)}, {or_eq('tv_wonder_locked', prestige_wonder_ids)})"
+    free_visible = f"And({base_visible}, Not({gold_visible}), Not({prestige_visible}))"
+    lines.append(hold_button("tv_wonder_confirm_ceremony", free_visible))
+    lines.append(hold_button("tv_wonder_confirm_ceremony_scaled_gold", gold_visible))
+    lines.append(hold_button("tv_wonder_confirm_ceremony_prestige", prestige_visible))
     lines.append("### END TV_WONDER_MECHANICS_HOLD_BUTTONS")
     return "\n".join(lines) + "\n"
 

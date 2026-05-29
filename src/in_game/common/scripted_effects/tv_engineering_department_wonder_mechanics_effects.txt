@@ -6304,466 +6304,6 @@ tv_wonder_mechanics_apply_base_modifier_effect = {
 
 tv_wonder_mechanics_apply_ceremony_modifier_effect = {
 	if = {
-		limit = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_golden_sanctuary_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_ascetic_mountain_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_theocratic_center_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_sun_king_axis_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_military_city_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_civic_capital_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_golden_trade_port_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_imperial_naval_port_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_free_trade_metropolis_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_dynastic_necropolis_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_ancestor_shrine_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_quiet_land_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_eternal_lighthouse_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_navigator_lighthouse_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_long_watch_lighthouse_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_water_god_workshop_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_hydraulic_artisan_guildhall_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_waterwheel_workshop_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_miners_oath_city_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_royal_mint_city_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_deep_shaft_city_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_nautical_almanac_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_congress_palace_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_tribute_gallery_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_embassy_palace_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_scholars_convocation_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_public_lectures_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_collegiate_charter_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_dome_consecration_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_pilgrim_treasury_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_celestial_synod_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_beacon_rite_temple_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_pilgrim_stair_temple_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_temple_school_tower_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_bridge_opening_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_river_fair_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_canal_authority_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_keel_laying_yard_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_fleet_muster_yard_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_admiralty_yard_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_bastion_trial_fortress_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_siege_games_fortress_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_arsenal_quarter_fortress_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_frontier_muster_wall_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_signal_fires_wall_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_wall_oath_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_muster_of_arms_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_foundry_contracts_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_master_armourers_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_national_catalog_library_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_copyists_endowment_library_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_legal_deposit_library_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 19 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_irrigation_canal_system_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 19 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_grain_transport_canal_system_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 19 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_flood_control_canal_system_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 20 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_grain_terraces_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 20 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_cash_crop_terraces_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 20 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_sacred_mountain_terraces_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 21 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_estuary_flood_dam_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 21 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_marsh_reclamation_dam_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 21 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_water_powered_workshops_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 22 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_grain_price_granaries_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 22 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_wartime_granaries_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 22 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_disaster_relief_granaries_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 23 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_military_post_roads_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 23 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_trade_post_roads_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 23 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_royal_tour_avenue_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 24 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_grain_transport_hub_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 24 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_financial_warehouse_hub_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 24 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_industrial_workshop_belt_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 25 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_military_colony_belt_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 25 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_settler_reclamation_belt_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 25 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_religious_colonization_belt_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 26 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_beacon_communication_network_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 26 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_coastal_battery_network_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 26 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_customs_patrol_network_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 27 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_crusader_knightly_order_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 27 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_frontier_lord_order_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 27 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_mercenary_fortress_system_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 28 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_firearms_tactics_college_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 28 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_cavalry_tradition_college_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 28 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_naval_command_college_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 29 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_worship_clock_bells_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 29 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_curfew_clock_bells_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 29 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_astronomical_calendar_bells_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 30 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_court_art_district_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 30 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_folk_art_district_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 30 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_foreign_style_district_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 31 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_court_theater_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 31 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_religious_theater_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 31 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_popular_festival_ground_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 32 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_trade_diplomacy_embassies_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 32 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_intelligence_embassies_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 32 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_religious_diplomacy_embassies_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 33 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_religious_law_steles_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 33 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_written_law_steles_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 33 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_imperial_edict_steles_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 34 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_luxury_goods_market_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 34 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_grain_market_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 34 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_entrepot_market_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 35 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_silver_gold_standard_mint_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 35 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_copper_coinage_mint_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 35 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_international_settlement_mint_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 36 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_artisan_guild_alliance_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 36 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_overseas_merchant_guilds_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 36 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_financial_guilds_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 37 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_spice_trade_stations_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 37 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_slave_trade_stations_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 37 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_colonial_supply_stations_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 38 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_textile_workshop_complex_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 38 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_military_workshop_complex_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 38 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_luxury_craft_workshop_complex_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_conquest_monument_group_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_national_unity_monument_group_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_world_exposition_monument_group_modifier years = -1 mode = add_and_extend }
-	}
-	else_if = {
 		limit = { var:tv_wonder_locked ?= 101 var:tv_wonder_ceremony_style ?= 1 }
 		add_country_modifier = { modifier = tv_wonder_unique_pharos_lighthouse_ceremony_modifier years = -1 mode = add_and_extend }
 	}
@@ -7883,6 +7423,831 @@ tv_wonder_mechanics_construct_final_building_effect = {
 	}
 }
 
+tv_wonder_mechanics_start_timed_ritual_effect = {
+	if = {
+		limit = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_sacred_mountain_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_triumphal_axis_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_great_port_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_giant_necropolis_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_great_lighthouse_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_mining_city_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_giant_observatory_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_palace_of_nations_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_university_city_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_sky_dome_grand_temple_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_giant_tower_temple_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_river_extension_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_national_shipyard_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_star_fortress_city_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_great_wall_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_giant_armory_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_library_of_nation_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 19 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_large_canal_system_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 20 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_mountain_terrace_network_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 21 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_giant_dam_project_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 22 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_royal_granary_system_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 23 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_imperial_post_road_network_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 24 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_canal_hub_city_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 25 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_frontier_colonization_belt_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 26 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_coastal_beacon_network_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 27 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_knightly_fortress_order_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 28 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_war_college_system_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 29 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_great_clock_bell_system_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 30 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_royal_art_district_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 31 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_grand_theater_festival_district_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 32 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_world_embassy_quarter_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 33 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_law_code_stele_project_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 34 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_world_market_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 35 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_royal_mint_system_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 36 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_guild_alliance_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 37 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_maritime_trade_station_network_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 38 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_giant_workshop_complex_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 1 }
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		add_country_modifier = { modifier = tv_wonder_world_monument_group_ritual_burden_modifier years = 1 mode = add_and_extend }
+	}
+}
+
+tv_wonder_mechanics_start_auxiliary_building_ritual_effect = {
+	set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+	set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+	if = {
+		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { prev = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_sacred_mountain_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_triumphal_axis_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_great_port_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_giant_necropolis_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_great_lighthouse_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_hydraulic_workshop_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_mining_city_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_giant_observatory_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_palace_of_nations_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_university_city_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_sky_dome_grand_temple_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_giant_tower_temple_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_river_extension_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_national_shipyard_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_star_fortress_city_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_great_wall_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_giant_armory_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_library_of_nation_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 19 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_large_canal_system_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 20 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_mountain_terrace_network_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 21 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_giant_dam_project_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 22 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_royal_granary_system_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 23 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_imperial_post_road_network_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 24 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_canal_hub_city_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 25 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_frontier_colonization_belt_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 26 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_coastal_beacon_network_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 27 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_knightly_fortress_order_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 28 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_war_college_system_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 29 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_great_clock_bell_system_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 30 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_royal_art_district_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 31 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_grand_theater_festival_district_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 32 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_world_embassy_quarter_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 33 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_law_code_stele_project_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 34 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_world_market_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 35 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_royal_mint_system_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 36 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_guild_alliance_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 37 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_maritime_trade_station_network_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 38 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_giant_workshop_complex_ritual_annex }
+			}
+			else_if = {
+				limit = { prev = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 2 } }
+				construct_building = { building_type = building_type:tv_wonder_world_monument_group_ritual_annex }
+			}
+		}
+	}
+}
+
+tv_wonder_mechanics_apply_decoration_reward_effect = {
+	if = {
+		limit = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 3 }
+		add_stability = 1
+		add_prestige = 60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 3 }
+		add_legitimacy = 20
+		add_prestige = 40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 3 }
+		add_gold = 250
+		add_prestige = 30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 3 }
+		add_legitimacy = 15
+		add_stability = 1
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 3 }
+		add_prestige = 50
+		var:tv_wonder_site ?= { change_prosperity = 0.2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 3 }
+		add_gold = 300
+		var:tv_wonder_site ?= { change_prosperity = 0.2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 3 }
+		add_gold = 350
+		add_prestige = 20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 3 }
+		add_research_progress = research_progress_extreme_bonus
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 3 }
+		ruler ?= { add_dip = 2 }
+		add_prestige = 40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 3 }
+		add_research_progress = research_progress_severe_bonus
+		ruler ?= { add_adm = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 3 }
+		add_stability = 1
+		if = {
+			limit = { country_has_estate = estate_type:clergy_estate }
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.15 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 3 }
+		add_prestige = 60
+		add_stability = 1
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 3 }
+		add_gold = 150
+		var:tv_wonder_site ?= { change_prosperity = 0.25 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 3 }
+		add_manpower = 5000
+		add_prestige = 30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 3 }
+		add_manpower = 8000
+		add_legitimacy = 10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 3 }
+		add_manpower = 10000
+		add_prestige = 20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 3 }
+		add_manpower = 7000
+		ruler ?= { add_mil = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 3 }
+		add_research_progress = research_progress_severe_bonus
+		add_prestige = 30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 19 var:tv_wonder_ceremony_style ?= 3 }
+		add_gold = 250
+		var:tv_wonder_site ?= { change_prosperity = 0.3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 20 var:tv_wonder_ceremony_style ?= 3 }
+		var:tv_wonder_site ?= { change_prosperity = 0.25 }
+		add_prestige = 30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 21 var:tv_wonder_ceremony_style ?= 3 }
+		var:tv_wonder_site ?= { change_prosperity = 0.3 }
+		add_stability = 1
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 22 var:tv_wonder_ceremony_style ?= 3 }
+		add_stability = 1
+		add_gold = 200
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 23 var:tv_wonder_ceremony_style ?= 3 }
+		add_legitimacy = 10
+		add_prestige = 30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 24 var:tv_wonder_ceremony_style ?= 3 }
+		add_gold = 300
+		add_prestige = 20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 25 var:tv_wonder_ceremony_style ?= 3 }
+		add_manpower = 6000
+		var:tv_wonder_site ?= { change_prosperity = 0.2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 26 var:tv_wonder_ceremony_style ?= 3 }
+		add_prestige = 35
+		add_manpower = 4000
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 27 var:tv_wonder_ceremony_style ?= 3 }
+		add_manpower = 5000
+		if = {
+			limit = { country_has_estate = estate_type:nobles_estate }
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.15 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 28 var:tv_wonder_ceremony_style ?= 3 }
+		ruler ?= { add_mil = 2 }
+		add_research_progress = research_progress_mild_bonus
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 29 var:tv_wonder_ceremony_style ?= 3 }
+		add_prestige = 40
+		add_stability = 1
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 30 var:tv_wonder_ceremony_style ?= 3 }
+		add_prestige = 80
+		add_research_progress = research_progress_mild_bonus
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 31 var:tv_wonder_ceremony_style ?= 3 }
+		add_prestige = 70
+		var:tv_wonder_site ?= { change_prosperity = 0.2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 32 var:tv_wonder_ceremony_style ?= 3 }
+		ruler ?= { add_dip = 2 }
+		add_prestige = 50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 33 var:tv_wonder_ceremony_style ?= 3 }
+		add_legitimacy = 15
+		add_stability = 1
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 34 var:tv_wonder_ceremony_style ?= 3 }
+		add_gold = 400
+		var:tv_wonder_site ?= { change_prosperity = 0.2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 35 var:tv_wonder_ceremony_style ?= 3 }
+		add_gold = 500
+		add_legitimacy = 5
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 36 var:tv_wonder_ceremony_style ?= 3 }
+		add_gold = 350
+		if = {
+			limit = { country_has_estate = estate_type:burghers_estate }
+			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.15 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 37 var:tv_wonder_ceremony_style ?= 3 }
+		add_gold = 300
+		add_prestige = 40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 38 var:tv_wonder_ceremony_style ?= 3 }
+		add_gold = 280
+		add_manpower = 4000
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 3 }
+		add_prestige = 100
+		add_legitimacy = 10
+	}
+}
+
+tv_wonder_complete_active_ritual_effect = {
+	if = {
+		limit = {
+			has_variable = tv_wonder_ritual_in_progress
+			tv_wonder_selected_generic_timed_ritual_trigger = yes
+			NOT = { has_variable = tv_wonder_ritual_timer }
+		}
+		if = {
+			limit = { var:tv_wonder_locked ?= 1 }
+			add_country_modifier = { modifier = tv_wonder_sacred_mountain_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 2 }
+			add_country_modifier = { modifier = tv_wonder_triumphal_axis_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 3 }
+			add_country_modifier = { modifier = tv_wonder_great_port_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 4 }
+			add_country_modifier = { modifier = tv_wonder_giant_necropolis_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 5 }
+			add_country_modifier = { modifier = tv_wonder_great_lighthouse_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 6 }
+			add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 7 }
+			add_country_modifier = { modifier = tv_wonder_mining_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 8 }
+			add_country_modifier = { modifier = tv_wonder_giant_observatory_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 9 }
+			add_country_modifier = { modifier = tv_wonder_palace_of_nations_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 10 }
+			add_country_modifier = { modifier = tv_wonder_university_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 11 }
+			add_country_modifier = { modifier = tv_wonder_sky_dome_grand_temple_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 12 }
+			add_country_modifier = { modifier = tv_wonder_giant_tower_temple_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 13 }
+			add_country_modifier = { modifier = tv_wonder_river_extension_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 14 }
+			add_country_modifier = { modifier = tv_wonder_national_shipyard_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 15 }
+			add_country_modifier = { modifier = tv_wonder_star_fortress_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 16 }
+			add_country_modifier = { modifier = tv_wonder_great_wall_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 17 }
+			add_country_modifier = { modifier = tv_wonder_giant_armory_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 18 }
+			add_country_modifier = { modifier = tv_wonder_library_of_nation_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 19 }
+			add_country_modifier = { modifier = tv_wonder_large_canal_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 20 }
+			add_country_modifier = { modifier = tv_wonder_mountain_terrace_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 21 }
+			add_country_modifier = { modifier = tv_wonder_giant_dam_project_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 22 }
+			add_country_modifier = { modifier = tv_wonder_royal_granary_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 23 }
+			add_country_modifier = { modifier = tv_wonder_imperial_post_road_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 24 }
+			add_country_modifier = { modifier = tv_wonder_canal_hub_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 25 }
+			add_country_modifier = { modifier = tv_wonder_frontier_colonization_belt_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 26 }
+			add_country_modifier = { modifier = tv_wonder_coastal_beacon_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 27 }
+			add_country_modifier = { modifier = tv_wonder_knightly_fortress_order_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 28 }
+			add_country_modifier = { modifier = tv_wonder_war_college_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 29 }
+			add_country_modifier = { modifier = tv_wonder_great_clock_bell_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 30 }
+			add_country_modifier = { modifier = tv_wonder_royal_art_district_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 31 }
+			add_country_modifier = { modifier = tv_wonder_grand_theater_festival_district_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 32 }
+			add_country_modifier = { modifier = tv_wonder_world_embassy_quarter_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 33 }
+			add_country_modifier = { modifier = tv_wonder_law_code_stele_project_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 34 }
+			add_country_modifier = { modifier = tv_wonder_world_market_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 35 }
+			add_country_modifier = { modifier = tv_wonder_royal_mint_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 36 }
+			add_country_modifier = { modifier = tv_wonder_guild_alliance_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 37 }
+			add_country_modifier = { modifier = tv_wonder_maritime_trade_station_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 38 }
+			add_country_modifier = { modifier = tv_wonder_giant_workshop_complex_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 39 }
+			add_country_modifier = { modifier = tv_wonder_world_monument_group_ritual_blessing_modifier years = -1 mode = add_and_extend }
+		}
+		remove_variable = tv_wonder_ritual_in_progress
+		remove_variable = tv_wonder_ritual_timer
+		tv_wonder_finalize_effect = yes
+	}
+	else_if = {
+		limit = {
+			has_variable = tv_wonder_ritual_in_progress
+			tv_wonder_selected_generic_auxiliary_building_ritual_trigger = yes
+		}
+		remove_variable = tv_wonder_ritual_in_progress
+		tv_wonder_finalize_effect = yes
+	}
+}
+
 tv_wonder_mechanics_broadcast_completion_event_effect = {
 	if = {
 		limit = { var:tv_wonder_locked ?= 1 }
@@ -8205,50 +8570,117 @@ tv_wonder_mechanics_broadcast_completion_event_effect = {
 tv_wonder_confirm_ceremony_effect = {
 	if = {
 		limit = { tv_wonder_ceremony_ready_for_confirmation_trigger = yes }
-		tv_wonder_finalize_effect = yes
+		if = {
+			limit = { tv_wonder_unique_locked_trigger = yes }
+			tv_wonder_finalize_effect = yes
+		}
+		else_if = {
+			limit = { tv_wonder_selected_generic_timed_ritual_trigger = yes }
+			tv_wonder_mechanics_start_timed_ritual_effect = yes
+		}
+		else_if = {
+			limit = { tv_wonder_selected_generic_auxiliary_building_ritual_trigger = yes }
+			tv_wonder_mechanics_start_auxiliary_building_ritual_effect = yes
+		}
+		else_if = {
+			limit = { tv_wonder_selected_generic_artwork_decoration_ritual_trigger = yes }
+			random_work_of_art_in_country = { save_scope_as = tv_wonder_sacrificed_artwork }
+			destroy_art = scope:tv_wonder_sacrificed_artwork
+			tv_wonder_mechanics_apply_decoration_reward_effect = yes
+			tv_wonder_finalize_effect = yes
+		}
+		else_if = {
+			limit = {
+				OR = {
+					tv_wonder_selected_generic_scaled_gold_decoration_ritual_trigger = yes
+					tv_wonder_selected_generic_prestige_decoration_ritual_trigger = yes
+				}
+			}
+			tv_wonder_mechanics_apply_decoration_reward_effect = yes
+			tv_wonder_finalize_effect = yes
+		}
 	}
 }
 
 tv_wonder_mechanics_clear_project_state_effect = {
 	remove_variable = tv_wonder_feasible_sacred_mountain
+	remove_country_modifier = tv_wonder_sacred_mountain_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_triumphal_axis
+	remove_country_modifier = tv_wonder_triumphal_axis_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_great_port
+	remove_country_modifier = tv_wonder_great_port_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_giant_necropolis
+	remove_country_modifier = tv_wonder_giant_necropolis_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_great_lighthouse
+	remove_country_modifier = tv_wonder_great_lighthouse_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_hydraulic_workshop
+	remove_country_modifier = tv_wonder_hydraulic_workshop_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_mining_city
+	remove_country_modifier = tv_wonder_mining_city_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_giant_observatory
+	remove_country_modifier = tv_wonder_giant_observatory_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_palace_of_nations
+	remove_country_modifier = tv_wonder_palace_of_nations_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_university_city
+	remove_country_modifier = tv_wonder_university_city_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_sky_dome_grand_temple
+	remove_country_modifier = tv_wonder_sky_dome_grand_temple_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_giant_tower_temple
+	remove_country_modifier = tv_wonder_giant_tower_temple_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_river_extension
+	remove_country_modifier = tv_wonder_river_extension_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_national_shipyard
+	remove_country_modifier = tv_wonder_national_shipyard_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_star_fortress_city
+	remove_country_modifier = tv_wonder_star_fortress_city_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_great_wall
+	remove_country_modifier = tv_wonder_great_wall_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_giant_armory
+	remove_country_modifier = tv_wonder_giant_armory_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_library_of_nation
+	remove_country_modifier = tv_wonder_library_of_nation_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_large_canal_system
+	remove_country_modifier = tv_wonder_large_canal_system_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_mountain_terrace_network
+	remove_country_modifier = tv_wonder_mountain_terrace_network_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_giant_dam_project
+	remove_country_modifier = tv_wonder_giant_dam_project_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_royal_granary_system
+	remove_country_modifier = tv_wonder_royal_granary_system_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_imperial_post_road_network
+	remove_country_modifier = tv_wonder_imperial_post_road_network_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_canal_hub_city
+	remove_country_modifier = tv_wonder_canal_hub_city_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_frontier_colonization_belt
+	remove_country_modifier = tv_wonder_frontier_colonization_belt_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_coastal_beacon_network
+	remove_country_modifier = tv_wonder_coastal_beacon_network_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_knightly_fortress_order
+	remove_country_modifier = tv_wonder_knightly_fortress_order_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_war_college_system
+	remove_country_modifier = tv_wonder_war_college_system_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_great_clock_bell_system
+	remove_country_modifier = tv_wonder_great_clock_bell_system_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_royal_art_district
+	remove_country_modifier = tv_wonder_royal_art_district_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_grand_theater_festival_district
+	remove_country_modifier = tv_wonder_grand_theater_festival_district_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_world_embassy_quarter
+	remove_country_modifier = tv_wonder_world_embassy_quarter_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_law_code_stele_project
+	remove_country_modifier = tv_wonder_law_code_stele_project_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_world_market
+	remove_country_modifier = tv_wonder_world_market_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_royal_mint_system
+	remove_country_modifier = tv_wonder_royal_mint_system_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_guild_alliance
+	remove_country_modifier = tv_wonder_guild_alliance_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_maritime_trade_station_network
+	remove_country_modifier = tv_wonder_maritime_trade_station_network_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_giant_workshop_complex
+	remove_country_modifier = tv_wonder_giant_workshop_complex_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_world_monument_group
+	remove_country_modifier = tv_wonder_world_monument_group_ritual_burden_modifier
 	remove_variable = tv_wonder_feasible_unique_pharos_lighthouse
 	remove_variable = tv_wonder_feasible_unique_hagia_sophia
 	remove_variable = tv_wonder_feasible_unique_dome_of_the_rock

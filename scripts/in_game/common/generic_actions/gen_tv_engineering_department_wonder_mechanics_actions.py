@@ -14,8 +14,8 @@ SCRIPT_REL = "scripts/in_game/common/generic_actions/gen_tv_engineering_departme
 T = "\t"
 
 
-def confirm_action_block(action_name: str, trigger_name: str, effect_name: str) -> list[str]:
-    return [
+def confirm_action_block(action_name: str, trigger_name: str, effect_name: str, price: str | None = None) -> list[str]:
+    lines = [
         f"{action_name} = {{",
         f"{T}type = owncountry",
         f"{T}sound = UI_action_religion_generic",
@@ -23,17 +23,40 @@ def confirm_action_block(action_name: str, trigger_name: str, effect_name: str) 
         f"{T}ai_tick_frequency = 99999",
         f"{T}potential = {{ scope:actor = {{ has_variable = tv_engineering_department_member }} }}",
         f"{T}allow = {{ scope:actor = {{ {trigger_name} = yes }} }}",
-        f"{T}effect = {{ scope:actor = {{ {effect_name} = yes }} }}",
-        f"{T}ai_will_do = {{ add = -100 }}",
-        "}",
-        "",
     ]
+    if price is not None:
+        lines.append(f"{T}price = price:{price}")
+    lines.extend(
+        [
+            f"{T}effect = {{ scope:actor = {{ {effect_name} = yes }} }}",
+            f"{T}ai_will_do = {{ add = -100 }}",
+            "}",
+            "",
+        ]
+    )
+    return lines
 
 
 def generate() -> str:
     load_all_wonder_mechanics_data()
     lines = render_header(SCRIPT_REL)
-    lines.extend(confirm_action_block("tv_wonder_confirm_ceremony", "tv_wonder_ceremony_ready_for_confirmation_trigger", "tv_wonder_confirm_ceremony_effect"))
+    lines.extend(confirm_action_block("tv_wonder_confirm_ceremony", "tv_wonder_ceremony_ready_for_free_confirmation_trigger", "tv_wonder_confirm_ceremony_effect"))
+    lines.extend(
+        confirm_action_block(
+            "tv_wonder_confirm_ceremony_scaled_gold",
+            "tv_wonder_ceremony_ready_for_scaled_gold_confirmation_trigger",
+            "tv_wonder_confirm_ceremony_effect",
+            "tv_wonder_ritual_style_3_scaled_gold_price",
+        )
+    )
+    lines.extend(
+        confirm_action_block(
+            "tv_wonder_confirm_ceremony_prestige",
+            "tv_wonder_ceremony_ready_for_prestige_confirmation_trigger",
+            "tv_wonder_confirm_ceremony_effect",
+            "tv_wonder_ritual_style_3_prestige_price",
+        )
+    )
     return "\n".join(lines)
 
 

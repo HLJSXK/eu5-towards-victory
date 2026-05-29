@@ -11,6 +11,7 @@ from wonder_mechanics_lib import (
     ALL_WONDER_MAX_ID,
     ALL_WONDER_MIN_ID,
     PARTS,
+    generic_ritual_for_wonder,
     load_all_wonder_mechanics,
     mechanic_key,
     render_header,
@@ -267,8 +268,24 @@ def add_project_occupancy_triggers(lines: list[str], wonders: list[dict]) -> Non
     lines.append("")
 
 
+def grouped_selected_trigger(name: str, wonders: list[dict], mechanics: dict, style: int, cost_type: str | None = None) -> list[str]:
+    lines = [f"{name} = {{", f"{T}tv_wonder_has_selected_ceremony_trigger = yes", f"{T}OR = {{"]
+    for wonder in wonders:
+        ritual = generic_ritual_for_wonder(mechanics, wonder)
+        if cost_type is not None and ritual["style_3"]["cost_type"] != cost_type:
+            continue
+        lines.append(f"{T}{T}AND = {{")
+        lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
+        lines.append(f"{T}{T}{T}var:tv_wonder_ceremony_style ?= {style}")
+        lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+    return lines
+
+
 def generate() -> str:
-    all_wonders, _ = load_all_wonder_mechanics()
+    all_wonders, mechanics = load_all_wonder_mechanics()
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
     unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
     lines = render_header(SCRIPT_REL)
@@ -355,23 +372,54 @@ def generate() -> str:
 
     lines.append("tv_wonder_ceremony_ready_for_confirmation_trigger = {")
     lines.append(f"{T}tv_wonder_has_selected_ceremony_trigger = yes")
+    lines.append(f"{T}NOT = {{ has_variable = tv_wonder_ritual_in_progress }}")
     lines.append(f"{T}OR = {{")
     lines.append(f"{T}{T}AND = {{")
     lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this >= {ALL_WONDER_MIN_ID} }}")
     lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this <= {ALL_WONDER_MAX_ID} }}")
     lines.append(f"{T}{T}}}")
-    for wonder in all_wonders:
-        if wonder.get("is_unique"):
-            lines.append(f"{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
+    for wonder in unique_wonders:
+        lines.append(f"{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
     lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.extend(grouped_selected_trigger("tv_wonder_selected_generic_timed_ritual_trigger", generic_wonders, mechanics, 1))
+    lines.extend(grouped_selected_trigger("tv_wonder_selected_generic_auxiliary_building_ritual_trigger", generic_wonders, mechanics, 2))
+    lines.extend(grouped_selected_trigger("tv_wonder_selected_generic_artwork_decoration_ritual_trigger", generic_wonders, mechanics, 3, "artwork"))
+    lines.extend(grouped_selected_trigger("tv_wonder_selected_generic_scaled_gold_decoration_ritual_trigger", generic_wonders, mechanics, 3, "scaled_gold"))
+    lines.extend(grouped_selected_trigger("tv_wonder_selected_generic_prestige_decoration_ritual_trigger", generic_wonders, mechanics, 3, "prestige"))
+
+    lines.append("tv_wonder_ceremony_ready_for_free_confirmation_trigger = {")
+    lines.append(f"{T}tv_wonder_ceremony_ready_for_confirmation_trigger = yes")
+    lines.append(f"{T}OR = {{")
+    lines.append(f"{T}{T}tv_wonder_unique_locked_trigger = yes")
+    lines.append(f"{T}{T}tv_wonder_selected_generic_timed_ritual_trigger = yes")
+    lines.append(f"{T}{T}tv_wonder_selected_generic_auxiliary_building_ritual_trigger = yes")
+    lines.append(f"{T}{T}AND = {{")
+    lines.append(f"{T}{T}{T}tv_wonder_selected_generic_artwork_decoration_ritual_trigger = yes")
+    lines.append(f"{T}{T}{T}tv_wonder_artwork_loss_agenda_available_trigger = yes")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_ceremony_ready_for_scaled_gold_confirmation_trigger = {")
+    lines.append(f"{T}tv_wonder_ceremony_ready_for_confirmation_trigger = yes")
+    lines.append(f"{T}tv_wonder_selected_generic_scaled_gold_decoration_ritual_trigger = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_ceremony_ready_for_prestige_confirmation_trigger = {")
+    lines.append(f"{T}tv_wonder_ceremony_ready_for_confirmation_trigger = yes")
+    lines.append(f"{T}tv_wonder_selected_generic_prestige_decoration_ritual_trigger = yes")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_unique_locked_trigger = {")
     lines.append(f"{T}OR = {{")
-    for wonder in all_wonders:
-        if wonder.get("is_unique"):
-            lines.append(f"{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
+    for wonder in unique_wonders:
+        lines.append(f"{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")

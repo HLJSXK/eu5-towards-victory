@@ -58,6 +58,19 @@ tv_engineering_department_construction_random_events_monthly_pulse = {
 	}
 }
 
+tv_engineering_department_ritual_monthly_pulse = {
+	trigger = {
+		has_variable = tv_engineering_department_member
+		has_variable = tv_wonder_ritual_in_progress
+		tv_wonder_selected_generic_timed_ritual_trigger = yes
+	}
+	effect = {
+		hidden_effect = {
+			tv_wonder_complete_active_ritual_effect = yes
+		}
+	}
+}
+
 tv_engineering_department_survey_monthly_pulse = {
 	trigger = {
 		has_variable = tv_engineering_department_member

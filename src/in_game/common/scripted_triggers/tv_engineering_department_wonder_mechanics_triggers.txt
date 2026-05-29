@@ -12239,6 +12239,7 @@ tv_wonder_selected_survey_already_cached_trigger = {
 
 tv_wonder_ceremony_ready_for_confirmation_trigger = {
 	tv_wonder_has_selected_ceremony_trigger = yes
+	NOT = { has_variable = tv_wonder_ritual_in_progress }
 	OR = {
 		AND = {
 			var:tv_wonder_locked ?= { this >= 1 }
@@ -12285,6 +12286,527 @@ tv_wonder_ceremony_ready_for_confirmation_trigger = {
 		var:tv_wonder_locked ?= 139
 		var:tv_wonder_locked ?= 140
 	}
+}
+
+tv_wonder_selected_generic_timed_ritual_trigger = {
+	tv_wonder_has_selected_ceremony_trigger = yes
+	OR = {
+		AND = {
+			var:tv_wonder_locked ?= 1
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 2
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 3
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 4
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 5
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 6
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 7
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 8
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 9
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 10
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 11
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 12
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 13
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 14
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 15
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 16
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 17
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 18
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 19
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 20
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 21
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 22
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 23
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 24
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 25
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 26
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 27
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 28
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 29
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 30
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 31
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 32
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 33
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 34
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 35
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 36
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 37
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 38
+			var:tv_wonder_ceremony_style ?= 1
+		}
+		AND = {
+			var:tv_wonder_locked ?= 39
+			var:tv_wonder_ceremony_style ?= 1
+		}
+	}
+}
+
+tv_wonder_selected_generic_auxiliary_building_ritual_trigger = {
+	tv_wonder_has_selected_ceremony_trigger = yes
+	OR = {
+		AND = {
+			var:tv_wonder_locked ?= 1
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 2
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 3
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 4
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 5
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 6
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 7
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 8
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 9
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 10
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 11
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 12
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 13
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 14
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 15
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 16
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 17
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 18
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 19
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 20
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 21
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 22
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 23
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 24
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 25
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 26
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 27
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 28
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 29
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 30
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 31
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 32
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 33
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 34
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 35
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 36
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 37
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 38
+			var:tv_wonder_ceremony_style ?= 2
+		}
+		AND = {
+			var:tv_wonder_locked ?= 39
+			var:tv_wonder_ceremony_style ?= 2
+		}
+	}
+}
+
+tv_wonder_selected_generic_artwork_decoration_ritual_trigger = {
+	tv_wonder_has_selected_ceremony_trigger = yes
+	OR = {
+		AND = {
+			var:tv_wonder_locked ?= 1
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 4
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 8
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 10
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 11
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 18
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 27
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 29
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 30
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 31
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 33
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 39
+			var:tv_wonder_ceremony_style ?= 3
+		}
+	}
+}
+
+tv_wonder_selected_generic_scaled_gold_decoration_ritual_trigger = {
+	tv_wonder_has_selected_ceremony_trigger = yes
+	OR = {
+		AND = {
+			var:tv_wonder_locked ?= 3
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 5
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 6
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 13
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 14
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 19
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 21
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 22
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 24
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 26
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 34
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 35
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 36
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 37
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 38
+			var:tv_wonder_ceremony_style ?= 3
+		}
+	}
+}
+
+tv_wonder_selected_generic_prestige_decoration_ritual_trigger = {
+	tv_wonder_has_selected_ceremony_trigger = yes
+	OR = {
+		AND = {
+			var:tv_wonder_locked ?= 2
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 7
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 9
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 12
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 15
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 16
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 17
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 20
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 23
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 25
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 28
+			var:tv_wonder_ceremony_style ?= 3
+		}
+		AND = {
+			var:tv_wonder_locked ?= 32
+			var:tv_wonder_ceremony_style ?= 3
+		}
+	}
+}
+
+tv_wonder_ceremony_ready_for_free_confirmation_trigger = {
+	tv_wonder_ceremony_ready_for_confirmation_trigger = yes
+	OR = {
+		tv_wonder_unique_locked_trigger = yes
+		tv_wonder_selected_generic_timed_ritual_trigger = yes
+		tv_wonder_selected_generic_auxiliary_building_ritual_trigger = yes
+		AND = {
+			tv_wonder_selected_generic_artwork_decoration_ritual_trigger = yes
+			tv_wonder_artwork_loss_agenda_available_trigger = yes
+		}
+	}
+}
+
+tv_wonder_ceremony_ready_for_scaled_gold_confirmation_trigger = {
+	tv_wonder_ceremony_ready_for_confirmation_trigger = yes
+	tv_wonder_selected_generic_scaled_gold_decoration_ritual_trigger = yes
+}
+
+tv_wonder_ceremony_ready_for_prestige_confirmation_trigger = {
+	tv_wonder_ceremony_ready_for_confirmation_trigger = yes
+	tv_wonder_selected_generic_prestige_decoration_ritual_trigger = yes
 }
 
 tv_wonder_unique_locked_trigger = {
