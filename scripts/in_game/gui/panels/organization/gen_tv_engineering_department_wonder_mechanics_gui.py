@@ -7,7 +7,7 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import ceremony_styles, final_building_for_style, generic_ritual_for_wonder, load_all_wonder_mechanics_data, render_header
+from wonder_mechanics_lib import ceremony_styles, final_building_for_style, load_all_wonder_mechanics_data, render_header, ritual_plan_for_style
 
 OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_mechanics.gui"
 SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py"
@@ -30,6 +30,13 @@ def wonder_visible(wonder_id: int) -> str:
 
 def or_eq(var: str, values: list[int]) -> str:
     joined = ", ".join(eq(var, value) for value in values)
+    return f"Or({joined})"
+
+
+def ritual_pair_visible(pairs: list[tuple[int, int]]) -> str:
+    if not pairs:
+        return "False"
+    joined = ", ".join(f"And({eq('tv_wonder_locked', wonder_id)}, {eq('tv_wonder_ceremony_style', style)})" for wonder_id, style in pairs)
     return f"Or({joined})"
 
 
@@ -104,17 +111,16 @@ def hold_button(action_name: str, visible: str) -> str:
 
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics_data()
-    gold_wonder_ids = []
-    prestige_wonder_ids = []
+    gold_ritual_pairs: list[tuple[int, int]] = []
+    prestige_ritual_pairs: list[tuple[int, int]] = []
     for wonder in wonders:
-        if wonder.get("is_unique"):
-            continue
-        ritual = generic_ritual_for_wonder(mechanics, wonder)
-        cost_type = ritual["style_3"]["cost_type"]
-        if cost_type == "scaled_gold":
-            gold_wonder_ids.append(wonder["id"])
-        elif cost_type == "prestige":
-            prestige_wonder_ids.append(wonder["id"])
+        for style in ceremony_styles(wonder):
+            ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
+            cost_type = ritual_plan["cost_type"]
+            if cost_type == "scaled_gold":
+                gold_ritual_pairs.append((wonder["id"], style))
+            elif cost_type == "prestige":
+                prestige_ritual_pairs.append((wonder["id"], style))
 
     lines = render_header(SCRIPT_REL)
     lines.append("### BEGIN TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
@@ -175,8 +181,8 @@ def generate() -> str:
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
     base_visible = hold_button_base_visible()
-    gold_visible = f"And({base_visible}, {eq('tv_wonder_ceremony_style', 3)}, {or_eq('tv_wonder_locked', gold_wonder_ids)})"
-    prestige_visible = f"And({base_visible}, {eq('tv_wonder_ceremony_style', 3)}, {or_eq('tv_wonder_locked', prestige_wonder_ids)})"
+    gold_visible = f"And({base_visible}, {ritual_pair_visible(gold_ritual_pairs)})"
+    prestige_visible = f"And({base_visible}, {ritual_pair_visible(prestige_ritual_pairs)})"
     free_visible = f"And({base_visible}, Not({gold_visible}), Not({prestige_visible}))"
     lines.append(hold_button("tv_wonder_confirm_ceremony", free_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_scaled_gold", gold_visible))

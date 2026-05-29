@@ -10,10 +10,10 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from wonder_mechanics_lib import (
     ceremony_modifier_for_style,
     ceremony_styles,
-    generic_ritual_for_wonder,
     load_all_wonder_mechanics,
     mechanic_key,
     render_header,
+    ritual_plan_for_style,
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
 )
@@ -67,13 +67,20 @@ def generate() -> str:
         for level in range(1, 7):
             lines.extend(modifier_block(f"tv_wonder_{wonder['key']}_level_{level}", scaled_modifiers(base, level, multiplier)))
     for wonder in wonders:
-        if not wonder.get("is_unique"):
-            ritual = generic_ritual_for_wonder(mechanics, wonder)
-            blessing = ritual["style_1"]["country_modifier"]
-            lines.extend(modifier_block(ritual_blessing_modifier_name(wonder), blessing))
-            lines.extend(modifier_block(ritual_burden_modifier_name(wonder), burden_modifiers(blessing)))
-            continue
+        has_timed_ritual = False
         for style in ceremony_styles(wonder):
+            ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
+            if ritual_plan["mode"] == "timed":
+                timed = ritual_plan["timed"]
+                blessing = timed.get("blessing_modifier", {})
+                burden = timed.get("burden_modifier", {})
+                if blessing:
+                    lines.extend(modifier_block(ritual_blessing_modifier_name(wonder), blessing))
+                if burden:
+                    lines.extend(modifier_block(ritual_burden_modifier_name(wonder), burden))
+                elif blessing:
+                    lines.extend(modifier_block(ritual_burden_modifier_name(wonder), burden_modifiers(blessing)))
+                has_timed_ritual = True
             ceremony_modifier = ceremony_modifier_for_style(wonder, mechanics, style)
             if ceremony_modifier is None:
                 continue

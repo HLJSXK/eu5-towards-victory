@@ -28,7 +28,10 @@ tv_govhouse_war_tent_on_join_war = {
 }
 
 on_ending_war = {
-	on_actions = { tv_govhouse_war_tent_on_ending_war }
+	on_actions = {
+		tv_govhouse_war_tent_on_ending_war
+		tv_engineering_department_ritual_on_ending_war
+	}
 }
 
 tv_govhouse_war_tent_on_ending_war = {

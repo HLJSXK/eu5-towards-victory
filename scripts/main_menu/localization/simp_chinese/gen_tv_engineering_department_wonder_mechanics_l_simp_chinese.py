@@ -17,6 +17,7 @@ from wonder_mechanics_lib import (
     loc_line,
     mechanic_key,
     render_header,
+    unique_ritual,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml"
@@ -37,11 +38,26 @@ def branch_effect_text(branch: dict) -> str:
 
 
 def unique_effect_text(wonder: dict, language: str) -> str:
-    return wonder.get("ceremony", {}).get("effect", {}).get(language, "")
+    return unique_ritual(wonder).get("effect", {}).get(language, "")
+
+
+def unique_active_ritual_text(wonder: dict, language: str) -> str:
+    ritual = unique_ritual(wonder)
+    custom = ritual.get("active_text", {}).get(language, "")
+    if custom:
+        return custom
+    branch_name = ritual["loc"][language]
+    effect = unique_effect_text(wonder, language)
+    name = wonder["loc"][language]
+    return f"确认{name}的{branch_name}仪式。{effect}。"
 
 
 def unique_completion_text(wonder: dict, language: str) -> str:
-    ceremony_name = wonder["ceremony"]["loc"][language]
+    ritual = unique_ritual(wonder)
+    custom = ritual.get("completion_text", {}).get(language, "")
+    if custom:
+        return custom
+    ceremony_name = ritual["loc"][language]
     flavor = wonder["flavor"][language]
     history_intro = wonder["history_intro"][language]
     effect = unique_effect_text(wonder, language)
@@ -73,17 +89,28 @@ def generate() -> str:
         if include_concept_loc:
             lines.append(loc_line(f"game_concept_{concept}", name))
         if wonder.get("is_unique"):
-            ceremony_name = wonder["ceremony"]["loc"]["zh"]
+            ritual = unique_ritual(wonder)
+            ceremony_name = ritual["loc"]["zh"]
             flavor = wonder["flavor"]["zh"]
             history_intro = wonder["history_intro"]["zh"]
-            lines.append(loc_line(f"game_concept_{concept}_desc", f"{flavor} 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以{ceremony_name}作为唯一落成仪式。"))
+            lines.append(
+                loc_line(
+                    f"game_concept_{concept}_desc",
+                    f"{flavor} 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以{ceremony_name}作为历史定制落成仪式。",
+                )
+            )
             lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"{history_intro} 简报：[{concept}|E]是一项固定于其历史地点的独特历史[{size_concept}|E]工程。"))
         else:
             if design is None:
                 raise ValueError(f"Missing design data for {key}")
             branch_list = [design["branches"][style] for style in range(1, 4)]
             branch_names = "、".join(branch["zh"] for branch in branch_list)
-            lines.append(loc_line(f"game_concept_{concept}_desc", f"{name}是一项侧重{design['positioning']}的[tv_wonder_construction|e]项目。它偏好{design['site']}仪式可转向{branch_names}。"))
+            lines.append(
+                loc_line(
+                    f"game_concept_{concept}_desc",
+                    f"{name}是一项聚焦{design['positioning']}的[tv_wonder_construction|e]项目。它偏好{design['site']}仪式可转向{branch_names}。",
+                )
+            )
             lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"简报：[{concept}|E]，定位于{design['positioning']}的[{size_concept}|E]工程。"))
         lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_RESUME_{code}_TEXT", f"[tv_great_engineer|E]建议完成造了一半的[{concept}|E]，并利用当地已经保留下来的工程部分。"))
         lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_EXPAND_{code}_TEXT", f"[tv_great_engineer|E]建议扩建[{concept}|E]，继续利用该地点已经保存的最大等级适性。"))
@@ -102,7 +129,7 @@ def generate() -> str:
             lines.append(loc_line(building_key, f"{name}{part_name}"))
             lines.append(loc_line(f"{building_key}_desc", f"{name}已经保留下来的{part_name}模块。"))
         lines.append(loc_line(f"tv_wonder_{key}", name))
-        lines.append(loc_line(f"tv_wonder_{key}_desc", f"尚未落成、但已作为完整工程保存下来的{name}。"))
+        lines.append(loc_line(f"tv_wonder_{key}_desc", f"尚未落成、但已作为完整工程保留下来的{name}。"))
 
         for level in range(1, 7):
             lines.append(
@@ -115,7 +142,8 @@ def generate() -> str:
         for style in ceremony_styles(wonder):
             building = final_building_for_style(wonder, style)
             if wonder.get("is_unique"):
-                branch_name = wonder["ceremony"]["loc"]["zh"]
+                ritual = unique_ritual(wonder)
+                branch_name = ritual["loc"]["zh"]
                 building_name = name
                 building_desc = wonder["flavor"]["zh"]
                 effect = unique_effect_text(wonder, "zh")
@@ -132,7 +160,10 @@ def generate() -> str:
             if ceremony_modifier is not None:
                 lines.append(loc_line(f"STATIC_MODIFIER_NAME_{ceremony_modifier[0]}", branch_name))
             lines.append(loc_line(f"TV_ENGINEERING_CEREMONY_{ceremony_key}_BUTTON", branch_name))
-            lines.append(loc_line(f"TV_ENGINEERING_ACTIVE_RITUAL_{code}_{style}", f"确认{name}的{branch_name}仪式。{effect}。"))
+            if wonder.get("is_unique"):
+                lines.append(loc_line(f"TV_ENGINEERING_ACTIVE_RITUAL_{code}_{style}", unique_active_ritual_text(wonder, "zh")))
+            else:
+                lines.append(loc_line(f"TV_ENGINEERING_ACTIVE_RITUAL_{code}_{style}", f"确认{name}的{branch_name}仪式。{effect}。"))
         if wonder.get("is_unique"):
             lines.append(loc_line(f"tv_engineering_department.500.d_{key}", unique_completion_text(wonder, "zh")))
 

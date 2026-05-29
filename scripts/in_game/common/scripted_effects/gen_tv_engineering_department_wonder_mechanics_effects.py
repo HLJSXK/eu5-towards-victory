@@ -13,18 +13,25 @@ from wonder_mechanics_lib import (
     ceremony_modifier_for_style,
     ceremony_styles,
     final_building_for_style,
-    generic_ritual_for_wonder,
+    indent_script_block,
     load_all_wonder_mechanics,
     mechanic_key,
     render_header,
+    ritual_plan_for_style,
     ritual_auxiliary_building,
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
+    ritual_uses_deferred_completion,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_engineering_department_wonder_mechanics_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py"
 T = "\t"
+RITUAL_SHARED_RUNTIME_VARS = [
+    "tv_wonder_ritual_auxiliary_building_finished",
+    "tv_wonder_ritual_total_buildings_baseline",
+    "tv_wonder_ritual_current_total_buildings",
+]
 
 
 def add_site_preference(wonder: dict, indent: int = 2) -> list[str]:
@@ -357,6 +364,51 @@ def reward_effect_lines(reward: list[dict], indent: int = 1) -> list[str]:
     return lines
 
 
+def ritual_entries(wonders: list[dict], mechanics: dict) -> list[tuple[dict, int, dict]]:
+    entries: list[tuple[dict, int, dict]] = []
+    for wonder in wonders:
+        for style in ceremony_styles(wonder):
+            entries.append((wonder, style, ritual_plan_for_style(wonder, mechanics, style)))
+    return entries
+
+
+def ritual_runtime_variables(ritual_plan: dict) -> list[str]:
+    variables = list(RITUAL_SHARED_RUNTIME_VARS)
+    for variable in ritual_plan.get("runtime_variables", []):
+        if variable not in variables:
+            variables.append(variable)
+    return variables
+
+
+def immediate_ritual_payload_lines(ritual_plan: dict, indent: int) -> list[str]:
+    lines: list[str] = []
+    lines.extend(indent_script_block(ritual_plan.get("start_effect_script", ""), indent))
+    lines.extend(reward_effect_lines(ritual_plan.get("reward", []), indent))
+    lines.extend(indent_script_block(ritual_plan.get("completion_effect_script", ""), indent))
+    return lines
+
+
+def snapshot_ritual_payload_lines(ritual_plan: dict, indent: int) -> list[str]:
+    return indent_script_block(ritual_plan.get("snapshot_effect_script", ""), indent)
+
+
+def progress_ritual_payload_lines(ritual_plan: dict, indent: int) -> list[str]:
+    return indent_script_block(ritual_plan.get("progress_effect_script", ""), indent)
+
+
+def completion_ritual_payload_lines(wonder: dict, ritual_plan: dict, indent: int) -> list[str]:
+    lines: list[str] = []
+    timed = ritual_plan.get("timed", {})
+    blessing_modifier = timed.get("blessing_modifier", {})
+    if blessing_modifier:
+        lines.append(
+            f"{T * indent}add_country_modifier = {{ modifier = {ritual_blessing_modifier_name(wonder)} years = -1 mode = add_and_extend }}"
+        )
+    lines.extend(reward_effect_lines(ritual_plan.get("reward", []), indent))
+    lines.extend(indent_script_block(ritual_plan.get("completion_effect_script", ""), indent))
+    return lines
+
+
 def generate() -> str:
     all_wonders, mechanics = load_all_wonder_mechanics()
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
@@ -622,80 +674,189 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_mechanics_start_timed_ritual_effect = {")
+    ritual_entry_list = ritual_entries(all_wonders, mechanics)
+
+    lines.append("tv_wonder_mechanics_recalculate_total_owned_buildings_effect = {")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_ritual_current_total_buildings value = 0 }}")
+    lines.append(f"{T}every_owned_location = {{")
+    lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_ritual_current_total_buildings add = this.num_buildings }}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_snapshot_total_owned_buildings_effect = {")
+    lines.append(f"{T}tv_wonder_mechanics_recalculate_total_owned_buildings_effect = yes")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_ritual_total_buildings_baseline value = var:tv_wonder_ritual_current_total_buildings }}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_clear_selected_ritual_runtime_effect = {")
+    for variable in RITUAL_SHARED_RUNTIME_VARS:
+        lines.append(f"{T}remove_variable = {variable}")
     first = True
-    for wonder in generic_wonders:
-        ritual = generic_ritual_for_wonder(mechanics, wonder)
+    for wonder, style, ritual_plan in ritual_entry_list:
+        custom_variables = [variable for variable in ritual_plan.get("runtime_variables", []) if variable not in RITUAL_SHARED_RUNTIME_VARS]
+        if not custom_variables:
+            continue
         head = "if" if first else "else_if"
         first = False
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= 1 }}")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        for variable in custom_variables:
+            lines.append(f"{T}{T}remove_variable = {variable}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = {")
+    first = True
+    for wonder, style, ritual_plan in ritual_entry_list:
+        if not ritual_plan.get("snapshot_effect_script"):
+            continue
+        head = "if" if first else "else_if"
+        first = False
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.extend(snapshot_ritual_payload_lines(ritual_plan, 2))
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_apply_selected_ritual_progress_effect = {")
+    first = True
+    for wonder, style, ritual_plan in ritual_entry_list:
+        if not ritual_plan.get("progress_effect_script"):
+            continue
+        head = "if" if first else "else_if"
+        first = False
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.extend(progress_ritual_payload_lines(ritual_plan, 2))
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_start_timed_ritual_effect = {")
+    first = True
+    for wonder, style, ritual_plan in ritual_entry_list:
+        if ritual_plan["mode"] != "timed":
+            continue
+        head = "if" if first else "else_if"
+        first = False
+        timed = ritual_plan.get("timed", {})
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_in_progress value = 1 }}")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_timer value = 1 years = 1 }}")
-        lines.append(f"{T}{T}add_country_modifier = {{ modifier = {ritual_burden_modifier_name(wonder)} years = 1 mode = add_and_extend }}")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_timer value = 1 years = {timed.get('years', 1)} }}")
+        if timed.get("burden_modifier", {}):
+            lines.append(f"{T}{T}add_country_modifier = {{ modifier = {ritual_burden_modifier_name(wonder)} years = {timed.get('years', 1)} mode = add_and_extend }}")
+        lines.extend(indent_script_block(ritual_plan.get("start_effect_script", ""), 2))
+        lines.append(f"{T}{T}tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes")
+        lines.append(f"{T}{T}tv_wonder_complete_active_ritual_effect = yes")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_mechanics_start_auxiliary_building_ritual_effect = {")
+    lines.append(f"{T}tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_ritual_in_progress value = 1 }}")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
     first = True
-    for wonder in generic_wonders:
+    for wonder, style, ritual_plan in ritual_entry_list:
+        if ritual_plan["mode"] != "auxiliary_building":
+            continue
         head = "if" if first else "else_if"
         first = False
         lines.append(f"{T}{T}{T}{head} = {{")
-        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= 2 }} }}")
+        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }} }}")
         lines.append(f"{T}{T}{T}{T}construct_building = {{ building_type = building_type:{ritual_auxiliary_building(wonder)} }}")
         lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
+    for wonder, style, ritual_plan in ritual_entry_list:
+        if ritual_plan["mode"] != "auxiliary_building":
+            continue
+        lines.append(f"{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.extend(indent_script_block(ritual_plan.get("start_effect_script", ""), 3))
+        lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
+    lines.append(f"{T}tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes")
+    lines.append(f"{T}tv_wonder_complete_active_ritual_effect = yes")
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_mechanics_apply_decoration_reward_effect = {")
+    lines.append("tv_wonder_mechanics_start_deferred_immediate_ritual_effect = {")
     first = True
-    for wonder in generic_wonders:
-        ritual = generic_ritual_for_wonder(mechanics, wonder)
+    for wonder, style, ritual_plan in ritual_entry_list:
+        if ritual_plan["mode"] != "immediate" or not ritual_uses_deferred_completion(ritual_plan):
+            continue
         head = "if" if first else "else_if"
         first = False
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= 3 }}")
-        lines.extend(reward_effect_lines(ritual["style_3"]["reward"], 2))
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_in_progress value = 1 }}")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
+        lines.extend(indent_script_block(ritual_plan.get("start_effect_script", ""), 2))
+        lines.append(f"{T}{T}tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes")
+        lines.append(f"{T}{T}tv_wonder_complete_active_ritual_effect = yes")
         lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_apply_immediate_ritual_effect = {")
+    first = True
+    for wonder, style, ritual_plan in ritual_entry_list:
+        if ritual_plan["mode"] != "immediate" or ritual_uses_deferred_completion(ritual_plan):
+            continue
+        head = "if" if first else "else_if"
+        first = False
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.extend(immediate_ritual_payload_lines(ritual_plan, 2))
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_apply_selected_ritual_completion_effect = {")
+    first = True
+    for wonder, style, ritual_plan in ritual_entry_list:
+        if not ritual_uses_deferred_completion(ritual_plan):
+            continue
+        head = "if" if first else "else_if"
+        first = False
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.extend(completion_ritual_payload_lines(wonder, ritual_plan, 2))
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_maybe_complete_active_ritual_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_ritual_in_progress")
+    lines.append(f"{T}{T}{T}tv_wonder_selected_ritual_completion_requirements_met_trigger = yes")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}tv_wonder_mechanics_apply_selected_ritual_completion_effect = yes")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_ritual_in_progress")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_ritual_timer")
+    lines.append(f"{T}{T}tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes")
+    lines.append(f"{T}{T}tv_wonder_finalize_effect = yes")
+    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_complete_active_ritual_effect = {")
     lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}has_variable = tv_wonder_ritual_in_progress")
-    lines.append(f"{T}{T}{T}tv_wonder_selected_generic_timed_ritual_trigger = yes")
-    lines.append(f"{T}{T}{T}NOT = {{ has_variable = tv_wonder_ritual_timer }}")
-    lines.append(f"{T}{T}}}")
-    first = True
-    for wonder in generic_wonders:
-        head = "if" if first else "else_if"
-        first = False
-        lines.append(f"{T}{T}{head} = {{")
-        lines.append(f"{T}{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}{T}add_country_modifier = {{ modifier = {ritual_blessing_modifier_name(wonder)} years = -1 mode = add_and_extend }}")
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_ritual_in_progress")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_ritual_timer")
-    lines.append(f"{T}{T}tv_wonder_finalize_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else_if = {{")
-    lines.append(f"{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}has_variable = tv_wonder_ritual_in_progress")
-    lines.append(f"{T}{T}{T}tv_wonder_selected_generic_auxiliary_building_ritual_trigger = yes")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_ritual_in_progress")
-    lines.append(f"{T}{T}tv_wonder_finalize_effect = yes")
+    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_ritual_in_progress }}")
+    lines.append(f"{T}{T}tv_wonder_mechanics_apply_selected_ritual_progress_effect = yes")
+    lines.append(f"{T}{T}tv_wonder_mechanics_maybe_complete_active_ritual_effect = yes")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -714,10 +875,6 @@ def generate() -> str:
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ tv_wonder_ceremony_ready_for_confirmation_trigger = yes }}")
     lines.append(f"{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}limit = {{ tv_wonder_unique_locked_trigger = yes }}")
-    lines.append(f"{T}{T}{T}tv_wonder_finalize_effect = yes")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}else_if = {{")
     lines.append(f"{T}{T}{T}limit = {{ tv_wonder_selected_generic_timed_ritual_trigger = yes }}")
     lines.append(f"{T}{T}{T}tv_wonder_mechanics_start_timed_ritual_effect = yes")
     lines.append(f"{T}{T}}}")
@@ -729,17 +886,28 @@ def generate() -> str:
     lines.append(f"{T}{T}{T}limit = {{ tv_wonder_selected_generic_artwork_decoration_ritual_trigger = yes }}")
     lines.append(f"{T}{T}{T}random_work_of_art_in_country = {{ save_scope_as = tv_wonder_sacrificed_artwork }}")
     lines.append(f"{T}{T}{T}destroy_art = scope:tv_wonder_sacrificed_artwork")
-    lines.append(f"{T}{T}{T}tv_wonder_mechanics_apply_decoration_reward_effect = yes")
-    lines.append(f"{T}{T}{T}tv_wonder_finalize_effect = yes")
+    lines.append(f"{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}limit = {{ tv_wonder_selected_deferred_immediate_ritual_trigger = yes }}")
+    lines.append(f"{T}{T}{T}{T}tv_wonder_mechanics_start_deferred_immediate_ritual_effect = yes")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}else = {{")
+    lines.append(f"{T}{T}{T}{T}tv_wonder_mechanics_apply_immediate_ritual_effect = yes")
+    lines.append(f"{T}{T}{T}{T}tv_wonder_finalize_effect = yes")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}else_if = {{")
+    lines.append(f"{T}{T}{T}limit = {{ tv_wonder_selected_deferred_immediate_ritual_trigger = yes }}")
+    lines.append(f"{T}{T}{T}tv_wonder_mechanics_start_deferred_immediate_ritual_effect = yes")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}else_if = {{")
     lines.append(f"{T}{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}{T}OR = {{")
+    lines.append(f"{T}{T}{T}{T}{T}tv_wonder_selected_generic_immediate_ritual_trigger = yes")
     lines.append(f"{T}{T}{T}{T}{T}tv_wonder_selected_generic_scaled_gold_decoration_ritual_trigger = yes")
     lines.append(f"{T}{T}{T}{T}{T}tv_wonder_selected_generic_prestige_decoration_ritual_trigger = yes")
     lines.append(f"{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}tv_wonder_mechanics_apply_decoration_reward_effect = yes")
+    lines.append(f"{T}{T}{T}tv_wonder_mechanics_apply_immediate_ritual_effect = yes")
     lines.append(f"{T}{T}{T}tv_wonder_finalize_effect = yes")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
@@ -747,9 +915,17 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_mechanics_clear_project_state_effect = {")
+    runtime_cleanup_vars: list[str] = list(RITUAL_SHARED_RUNTIME_VARS)
+    for _wonder, _style, ritual_plan in ritual_entry_list:
+        for variable in ritual_plan.get("runtime_variables", []):
+            if variable not in runtime_cleanup_vars:
+                runtime_cleanup_vars.append(variable)
     for wonder in all_wonders:
         lines.append(f"{T}remove_variable = tv_wonder_feasible_{wonder['key']}")
-        if not wonder.get("is_unique"):
+    for variable in runtime_cleanup_vars:
+        lines.append(f"{T}remove_variable = {variable}")
+    for wonder in all_wonders:
+        if any(ritual_plan_for_style(wonder, mechanics, style)["mode"] == "timed" for style in ceremony_styles(wonder)):
             lines.append(f"{T}remove_country_modifier = {ritual_burden_modifier_name(wonder)}")
     lines.append("}")
     lines.append("")

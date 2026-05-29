@@ -1,3 +1,62 @@
+# Unique ritual schema supports both legacy `ceremony` and the newer `ritual` block.
+# `ritual` may define:
+#   mode: immediate | timed | auxiliary_building
+#     - `mode` is now the start profile, not the completion type.
+#     - `immediate` can still be instant-complete, or can become a deferred/event-driven ritual
+#       when paired with `listeners` + `completion_trigger_script`.
+#   cost_type: artwork | scaled_gold | prestige
+#   listeners:
+#     - monthly
+#     - ruler_death
+#     - pre_winning_war
+#     - ending_war
+#   runtime_variables:
+#     - tv_wonder_ritual_some_baseline
+#   country_modifier: { ... }
+#   reward:
+#     - { type: prestige, value: 20 }
+#   active_text: { en: "...", zh: "..." }
+#   completion_text: { en: "...", zh: "..." }
+#   confirmation_trigger_script: |-
+#     ...
+#   start_effect_script: |-
+#     ...
+#   snapshot_effect_script: |-
+#     ...
+#   progress_effect_script: |-
+#     ...
+#   completion_trigger_script: |-
+#     ...
+#   completion_effect_script: |-
+#     ...
+#   timed:
+#     years: 1
+#     burden_modifier: { ... }
+#     blessing_modifier: { ... }
+#   auxiliary_building:
+#     local_modifier: { ... }
+#     maintenance: some_production_method
+#     build_time: some_script_value
+#     construction_demand: some_construction_demand
+#     price: some_price_key
+#     attributes: { category: ..., pop_type: ... }
+# Common helper effects available inside ritual scripts:
+#   tv_wonder_mechanics_snapshot_total_owned_buildings_effect = yes
+#   tv_wonder_mechanics_recalculate_total_owned_buildings_effect = yes
+# Common helper vars:
+#   var:tv_wonder_ritual_total_buildings_baseline
+#   var:tv_wonder_ritual_current_total_buildings
+# Example: complete after building 5 more buildings than the start baseline
+#   listeners: [monthly]
+#   runtime_variables:
+#     - tv_wonder_ritual_total_buildings_baseline
+#     - tv_wonder_ritual_current_total_buildings
+#   snapshot_effect_script: |-
+#     tv_wonder_mechanics_snapshot_total_owned_buildings_effect = yes
+#   progress_effect_script: |-
+#     tv_wonder_mechanics_recalculate_total_owned_buildings_effect = yes
+#   completion_trigger_script: |-
+#     var:tv_wonder_ritual_current_total_buildings >= { value = var:tv_wonder_ritual_total_buildings_baseline add = 5 }
 unique_wonders:
   - id: 101
     key: unique_pharos_lighthouse

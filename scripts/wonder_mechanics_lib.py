@@ -29,6 +29,9 @@ ROMAN_NUMERALS = {
     5: "V",
     6: "VI",
 }
+SUPPORTED_RITUAL_COST_TYPES = {None, "artwork", "scaled_gold", "prestige"}
+SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
+SUPPORTED_RITUAL_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
 
 
 def load_yaml(path: Path) -> dict:
@@ -66,6 +69,247 @@ def mechanic_key(wonder: dict) -> str:
 
 def ceremony_styles(wonder: dict) -> list[int]:
     return sorted(int(style) for style in wonder["final_buildings"])
+
+
+def normalize_loc_map(value: object, *, default: str = "") -> dict[str, str]:
+    if value is None:
+        return {"en": default, "zh": default}
+    if isinstance(value, str):
+        return {"en": value, "zh": value}
+    if not isinstance(value, dict):
+        raise TypeError(f"Expected localized text map or string, got {type(value)!r}")
+    return {
+        "en": str(value.get("en", default)),
+        "zh": str(value.get("zh", default)),
+    }
+
+
+def normalize_script_text(value: object) -> str:
+    if value is None:
+        return ""
+    text = str(value).strip("\n")
+    return text
+
+
+def normalize_string_list(value: object, *, default: list[str] | None = None) -> list[str]:
+    if value is None:
+        items = list(default or [])
+    elif isinstance(value, str):
+        items = [value]
+    elif isinstance(value, list):
+        items = [str(item) for item in value]
+    else:
+        raise TypeError(f"Expected string or list of strings, got {type(value)!r}")
+
+    normalized: list[str] = []
+    for item in items:
+        if item not in normalized:
+            normalized.append(item)
+    return normalized
+
+
+def indent_script_block(script: str | None, indent: int) -> list[str]:
+    if not script:
+        return []
+    prefix = "\t" * indent
+    lines: list[str] = []
+    for raw_line in script.splitlines():
+        if raw_line.strip():
+            lines.append(f"{prefix}{raw_line.rstrip()}")
+        else:
+            lines.append("")
+    return lines
+
+
+def ritual_has_custom_completion_trigger(ritual: dict) -> bool:
+    return bool(ritual.get("completion_trigger_script", ""))
+
+
+def ritual_listens_to(ritual: dict, listener: str) -> bool:
+    return listener in ritual.get("listeners", [])
+
+
+def ritual_uses_deferred_completion(ritual: dict) -> bool:
+    return ritual.get("mode") != "immediate" or ritual_has_custom_completion_trigger(ritual) or bool(ritual.get("listeners", []))
+
+
+def normalize_unique_ritual(wonder: dict) -> dict:
+    raw = deepcopy(wonder.get("ritual") or wonder.get("ceremony") or {})
+    if not raw:
+        raise ValueError(f"Unique wonder {wonder['key']} is missing ritual data")
+
+    mode = raw.get("mode")
+    if mode is None:
+        if "timed" in raw:
+            mode = "timed"
+        elif "auxiliary_building" in raw:
+            mode = "auxiliary_building"
+        else:
+            mode = "immediate"
+    if mode not in SUPPORTED_UNIQUE_RITUAL_MODES:
+        raise ValueError(f"Unsupported unique ritual mode for {wonder['key']}: {mode}")
+
+    cost_type = raw.get("cost_type")
+    if cost_type not in SUPPORTED_RITUAL_COST_TYPES:
+        raise ValueError(f"Unsupported unique ritual cost_type for {wonder['key']}: {cost_type}")
+
+    timed = deepcopy(raw.get("timed") or {})
+    auxiliary_building = deepcopy(raw.get("auxiliary_building") or {})
+    listeners = normalize_string_list(raw.get("listeners"), default=["monthly"] if mode == "timed" else [])
+    for listener in listeners:
+        if listener not in SUPPORTED_RITUAL_LISTENERS:
+            raise ValueError(f"Unsupported unique ritual listener for {wonder['key']}: {listener}")
+
+    snapshot_effect_script = normalize_script_text(raw.get("snapshot_effect_script"))
+    progress_effect_script = normalize_script_text(raw.get("progress_effect_script"))
+    completion_trigger_script = normalize_script_text(raw.get("completion_trigger_script"))
+    runtime_variables = normalize_string_list(raw.get("runtime_variables"))
+
+    if mode == "immediate" and (listeners or snapshot_effect_script or progress_effect_script) and not completion_trigger_script:
+        raise ValueError(
+            f"Immediate unique ritual {wonder['key']} needs completion_trigger_script when it uses listeners or runtime progress hooks"
+        )
+
+    if mode == "auxiliary_building" and "local_modifier" in raw and "local_modifier" not in auxiliary_building:
+        auxiliary_building["local_modifier"] = deepcopy(raw["local_modifier"])
+
+    ritual = {
+        "key": raw.get("key", f"{wonder['key']}_ritual"),
+        "loc": normalize_loc_map(raw.get("loc"), default=wonder["loc"]["en"]),
+        "effect": normalize_loc_map(raw.get("effect"), default=""),
+        "active_text": normalize_loc_map(raw.get("active_text"), default=""),
+        "completion_text": normalize_loc_map(raw.get("completion_text"), default=""),
+        "mode": mode,
+        "cost_type": cost_type,
+        "listeners": listeners,
+        "runtime_variables": runtime_variables,
+        "country_modifier": deepcopy(raw.get("country_modifier", raw.get("modifiers", {}))),
+        "reward": deepcopy(raw.get("reward", [])),
+        "confirmation_trigger_script": normalize_script_text(raw.get("confirmation_trigger_script")),
+        "start_effect_script": normalize_script_text(raw.get("start_effect_script")),
+        "snapshot_effect_script": snapshot_effect_script,
+        "progress_effect_script": progress_effect_script,
+        "completion_trigger_script": completion_trigger_script,
+        "completion_effect_script": normalize_script_text(raw.get("completion_effect_script")),
+        "timed": {
+            "years": int(timed.get("years", 1)),
+            "burden_modifier": deepcopy(timed.get("burden_modifier", {})),
+            "blessing_modifier": deepcopy(timed.get("blessing_modifier", {})),
+        },
+        "auxiliary_building": {
+            "local_modifier": deepcopy(auxiliary_building.get("local_modifier", {})),
+            "maintenance": auxiliary_building.get("maintenance"),
+            "build_time": auxiliary_building.get("build_time"),
+            "construction_demand": auxiliary_building.get("construction_demand"),
+            "price": auxiliary_building.get("price"),
+            "attributes": deepcopy(auxiliary_building.get("attributes", {})),
+            "max_levels": int(auxiliary_building.get("max_levels", 1)),
+        },
+    }
+    return ritual
+
+
+def unique_ritual(wonder: dict) -> dict:
+    if not wonder.get("is_unique"):
+        raise ValueError(f"{wonder['key']} is not a unique wonder")
+    return wonder["ritual"]
+
+
+def ritual_plan_for_style(wonder: dict, mechanics: dict, style: int) -> dict:
+    if wonder.get("is_unique"):
+        if style != 1:
+            raise ValueError(f"Unique wonder {wonder['key']} only supports style 1 ritual plans")
+        return unique_ritual(wonder)
+
+    ritual = generic_ritual_for_wonder(mechanics, wonder)
+    if style == 1:
+        return {
+            "mode": "timed",
+            "cost_type": None,
+            "listeners": ["monthly"],
+            "runtime_variables": [],
+            "country_modifier": {},
+            "reward": [],
+            "confirmation_trigger_script": "",
+            "start_effect_script": "",
+            "snapshot_effect_script": "",
+            "progress_effect_script": "",
+            "completion_trigger_script": "",
+            "completion_effect_script": "",
+            "timed": {
+                "years": 1,
+                "burden_modifier": {},
+                "blessing_modifier": deepcopy(ritual["style_1"]["country_modifier"]),
+            },
+            "auxiliary_building": {
+                "local_modifier": {},
+                "maintenance": None,
+                "build_time": None,
+                "construction_demand": None,
+                "price": None,
+                "attributes": {},
+                "max_levels": 1,
+            },
+        }
+    if style == 2:
+        return {
+            "mode": "auxiliary_building",
+            "cost_type": None,
+            "listeners": [],
+            "runtime_variables": [],
+            "country_modifier": {},
+            "reward": [],
+            "confirmation_trigger_script": "",
+            "start_effect_script": "",
+            "snapshot_effect_script": "",
+            "progress_effect_script": "",
+            "completion_trigger_script": "",
+            "completion_effect_script": "",
+            "timed": {
+                "years": 1,
+                "burden_modifier": {},
+                "blessing_modifier": {},
+            },
+            "auxiliary_building": {
+                "local_modifier": deepcopy(ritual["style_2"]["local_modifier"]),
+                "maintenance": None,
+                "build_time": None,
+                "construction_demand": None,
+                "price": None,
+                "attributes": {},
+                "max_levels": 1,
+            },
+        }
+    if style == 3:
+        return {
+            "mode": "immediate",
+            "cost_type": ritual["style_3"]["cost_type"],
+            "listeners": [],
+            "runtime_variables": [],
+            "country_modifier": {},
+            "reward": deepcopy(ritual["style_3"]["reward"]),
+            "confirmation_trigger_script": "",
+            "start_effect_script": "",
+            "snapshot_effect_script": "",
+            "progress_effect_script": "",
+            "completion_trigger_script": "",
+            "completion_effect_script": "",
+            "timed": {
+                "years": 1,
+                "burden_modifier": {},
+                "blessing_modifier": {},
+            },
+            "auxiliary_building": {
+                "local_modifier": {},
+                "maintenance": None,
+                "build_time": None,
+                "construction_demand": None,
+                "price": None,
+                "attributes": {},
+                "max_levels": 1,
+            },
+        }
+    raise ValueError(f"Unsupported ritual style for {wonder['key']}: {style}")
 
 
 def load_wonder_data(
@@ -143,7 +387,11 @@ def load_unique_wonders() -> list[dict]:
                 {1: raw.get("final_building", f"tv_wonder_{key}_inaugurated")},
             ),
         }
-        unique_wonders.append(normalize_final_buildings(merged))
+        normalized = normalize_final_buildings(merged)
+        normalized["ritual"] = normalize_unique_ritual(normalized)
+        if ceremony_styles(normalized) != [1]:
+            raise ValueError(f"Unique wonder {key} must currently expose exactly one ceremony style")
+        unique_wonders.append(normalized)
     return unique_wonders
 
 
@@ -214,7 +462,10 @@ def final_building_maintenance(wonder: dict, building_design: dict, building: st
 
 def ceremony_modifier_for_building(wonder: dict, mechanics: dict, building: str) -> tuple[str, dict] | None:
     if wonder.get("is_unique"):
-        return f"tv_wonder_{wonder['key']}_ceremony_modifier", wonder.get("ceremony", {}).get("modifiers", {})
+        modifier_data = unique_ritual(wonder).get("country_modifier", {})
+        if not modifier_data:
+            return None
+        return f"tv_wonder_{wonder['key']}_ceremony_modifier", modifier_data
     modifier_name = mechanics.get("ceremony_modifier_names", {}).get(wonder["key"], {}).get(building, f"{building}_modifier")
     ceremony_modifiers = mechanics.get("ceremony_modifiers", {})
     if modifier_name in ceremony_modifiers:
@@ -239,8 +490,12 @@ def ritual_auxiliary_building(wonder: dict) -> str:
 
 
 def ritual_burden_modifier_name(wonder: dict) -> str:
+    if wonder.get("is_unique"):
+        return f"tv_wonder_{wonder['key']}_ritual_burden_modifier"
     return f"tv_wonder_{wonder['key']}_ritual_burden_modifier"
 
 
 def ritual_blessing_modifier_name(wonder: dict) -> str:
+    if wonder.get("is_unique"):
+        return f"tv_wonder_{wonder['key']}_ritual_blessing_modifier"
     return f"tv_wonder_{wonder['key']}_ritual_blessing_modifier"

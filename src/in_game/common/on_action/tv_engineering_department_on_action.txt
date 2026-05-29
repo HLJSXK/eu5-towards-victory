@@ -62,7 +62,50 @@ tv_engineering_department_ritual_monthly_pulse = {
 	trigger = {
 		has_variable = tv_engineering_department_member
 		has_variable = tv_wonder_ritual_in_progress
-		tv_wonder_selected_generic_timed_ritual_trigger = yes
+		tv_wonder_selected_ritual_monthly_listener_trigger = yes
+	}
+	effect = {
+		hidden_effect = {
+			tv_wonder_complete_active_ritual_effect = yes
+		}
+	}
+}
+
+tv_engineering_department_ritual_on_ruler_death = {
+	trigger = {
+		has_variable = tv_engineering_department_member
+		has_variable = tv_wonder_ritual_in_progress
+		tv_wonder_selected_ritual_ruler_death_listener_trigger = yes
+	}
+	effect = {
+		hidden_effect = {
+			tv_wonder_complete_active_ritual_effect = yes
+		}
+	}
+}
+
+on_pre_winning_war = {
+	on_actions = { tv_engineering_department_ritual_on_pre_winning_war }
+}
+
+tv_engineering_department_ritual_on_pre_winning_war = {
+	trigger = {
+		has_variable = tv_engineering_department_member
+		has_variable = tv_wonder_ritual_in_progress
+		tv_wonder_selected_ritual_pre_winning_war_listener_trigger = yes
+	}
+	effect = {
+		hidden_effect = {
+			tv_wonder_complete_active_ritual_effect = yes
+		}
+	}
+}
+
+tv_engineering_department_ritual_on_ending_war = {
+	trigger = {
+		has_variable = tv_engineering_department_member
+		has_variable = tv_wonder_ritual_in_progress
+		tv_wonder_selected_ritual_ending_war_listener_trigger = yes
 	}
 	effect = {
 		hidden_effect = {

@@ -17,6 +17,7 @@ from wonder_mechanics_lib import (
     loc_line,
     mechanic_key,
     render_header,
+    unique_ritual,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml"
@@ -37,11 +38,26 @@ def branch_effect_text(branch: dict) -> str:
 
 
 def unique_effect_text(wonder: dict, language: str) -> str:
-    return wonder.get("ceremony", {}).get("effect", {}).get(language, "")
+    return unique_ritual(wonder).get("effect", {}).get(language, "")
+
+
+def unique_active_ritual_text(wonder: dict, language: str) -> str:
+    ritual = unique_ritual(wonder)
+    custom = ritual.get("active_text", {}).get(language, "")
+    if custom:
+        return custom
+    branch_name = ritual["loc"][language]
+    effect = unique_effect_text(wonder, language)
+    name = wonder["loc"][language]
+    return f"Confirm the {branch_name} ceremony for the {name}. {effect}.".rstrip()
 
 
 def unique_completion_text(wonder: dict, language: str) -> str:
-    ceremony_name = wonder["ceremony"]["loc"][language]
+    ritual = unique_ritual(wonder)
+    custom = ritual.get("completion_text", {}).get(language, "")
+    if custom:
+        return custom
+    ceremony_name = ritual["loc"][language]
     flavor = wonder["flavor"][language]
     history_intro = wonder["history_intro"][language]
     effect = unique_effect_text(wonder, language)
@@ -72,11 +88,12 @@ def generate() -> str:
         if include_concept_loc:
             lines.append(loc_line(f"game_concept_{concept}", name))
         if wonder.get("is_unique"):
-            ceremony_name = wonder["ceremony"]["loc"]["en"]
+            ritual = unique_ritual(wonder)
+            ceremony_name = ritual["loc"]["en"]
             flavor = wonder["flavor"]["en"]
             history_intro = wonder["history_intro"]["en"]
             if include_concept_loc:
-                lines.append(loc_line(f"game_concept_{concept}_desc", f"{flavor} This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the same site rules as its generic archetype, and culminates in the {ceremony_name}."))
+                lines.append(loc_line(f"game_concept_{concept}_desc", f"{flavor} This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the same site rules as its generic archetype, and culminates in the {ceremony_name} ritual sequence."))
             lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"{history_intro} Brief: [{concept}|E], a unique [{size_concept}|E] historical wonder at its fixed historical site."))
         else:
             if design is None:
@@ -115,7 +132,8 @@ def generate() -> str:
         for style in ceremony_styles(wonder):
             building = final_building_for_style(wonder, style)
             if wonder.get("is_unique"):
-                branch_name = wonder["ceremony"]["loc"]["en"]
+                ritual = unique_ritual(wonder)
+                branch_name = ritual["loc"]["en"]
                 building_name = name
                 building_desc = wonder["flavor"]["en"]
                 effect = unique_effect_text(wonder, "en")
@@ -132,7 +150,10 @@ def generate() -> str:
             if ceremony_modifier is not None:
                 lines.append(loc_line(f"STATIC_MODIFIER_NAME_{ceremony_modifier[0]}", branch_name))
             lines.append(loc_line(f"TV_ENGINEERING_CEREMONY_{ceremony_key}_BUTTON", branch_name))
-            lines.append(loc_line(f"TV_ENGINEERING_ACTIVE_RITUAL_{code}_{style}", f"Confirm the {branch_name} ceremony for the {name}. {effect}."))
+            if wonder.get("is_unique"):
+                lines.append(loc_line(f"TV_ENGINEERING_ACTIVE_RITUAL_{code}_{style}", unique_active_ritual_text(wonder, "en")))
+            else:
+                lines.append(loc_line(f"TV_ENGINEERING_ACTIVE_RITUAL_{code}_{style}", f"Confirm the {branch_name} ceremony for the {name}. {effect}."))
         if wonder.get("is_unique"):
             lines.append(loc_line(f"tv_engineering_department.500.d_{key}", unique_completion_text(wonder, "en")))
 

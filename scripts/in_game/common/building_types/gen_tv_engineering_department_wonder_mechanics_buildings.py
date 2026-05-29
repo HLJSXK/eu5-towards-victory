@@ -11,10 +11,10 @@ from wonder_mechanics_lib import (
     ceremony_styles,
     final_building_for_style,
     final_building_maintenance,
-    generic_ritual_for_wonder,
     load_all_wonder_mechanics,
     mechanic_key,
     render_header,
+    ritual_plan_for_style,
     ritual_auxiliary_building,
 )
 
@@ -165,15 +165,14 @@ def building_block(
     return lines
 
 
-def ritual_auxiliary_modifiers(wonder: dict, mechanics: dict) -> dict:
-    ritual = generic_ritual_for_wonder(mechanics, wonder)
-    modifiers = dict(ritual["style_2"]["local_modifier"])
+def ritual_auxiliary_modifiers(wonder: dict, ritual_plan: dict) -> dict:
+    modifiers = dict(ritual_plan["auxiliary_building"]["local_modifier"])
     estate_power_modifier = ESTATE_POWER_BY_POP_TYPE[wonder["pop_type"]]
     modifiers[estate_power_modifier] = modifiers.get(estate_power_modifier, 0) + 0.5
     return modifiers
 
 
-def auxiliary_on_built_lines(wonder: dict) -> list[str]:
+def auxiliary_on_built_lines(wonder: dict, style: int) -> list[str]:
     return [
         f"{T}{T}hidden_effect = {{",
         f"{T}{T}{T}location.owner = {{",
@@ -181,8 +180,9 @@ def auxiliary_on_built_lines(wonder: dict) -> list[str]:
         f"{T}{T}{T}{T}{T}limit = {{",
         f"{T}{T}{T}{T}{T}{T}has_variable = tv_wonder_ritual_in_progress",
         f"{T}{T}{T}{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}",
-        f"{T}{T}{T}{T}{T}{T}var:tv_wonder_ceremony_style ?= 2",
+        f"{T}{T}{T}{T}{T}{T}var:tv_wonder_ceremony_style ?= {style}",
         f"{T}{T}{T}{T}{T}}}",
+        f"{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ritual_auxiliary_building_finished value = 1 }}",
         f"{T}{T}{T}{T}{T}tv_wonder_complete_active_ritual_effect = yes",
         f"{T}{T}{T}{T}}}",
         f"{T}{T}{T}}}",
@@ -206,23 +206,27 @@ def generate() -> str:
             maintenance = final_building_maintenance(wonder, building_design, building)
             attributes = building_design.get("final_attributes", {}).get(building, {})
             lines.extend(building_block(building, wonder, modifiers, maintenance, attributes=attributes))
-        if wonder.get("is_unique"):
-            continue
-        build_time, construction_demand, price = build_profile(wonder)
-        maintenance = building_design.get("maintenance", wonder["maintenance"])
-        lines.extend(
-            building_block(
-                ritual_auxiliary_building(wonder),
-                wonder,
-                ritual_auxiliary_modifiers(wonder, mechanics),
-                maintenance,
-                max_levels=1,
-                build_time=build_time,
-                construction_demand=construction_demand,
-                price=price,
-                on_built_lines=auxiliary_on_built_lines(wonder),
+        for style in ceremony_styles(wonder):
+            ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
+            if ritual_plan["mode"] != "auxiliary_building":
+                continue
+            build_time, construction_demand, price = build_profile(wonder)
+            auxiliary = ritual_plan["auxiliary_building"]
+            maintenance = auxiliary.get("maintenance") or building_design.get("maintenance", wonder["maintenance"])
+            lines.extend(
+                building_block(
+                    ritual_auxiliary_building(wonder),
+                    wonder,
+                    ritual_auxiliary_modifiers(wonder, ritual_plan),
+                    maintenance,
+                    max_levels=auxiliary.get("max_levels", 1),
+                    build_time=auxiliary.get("build_time") or build_time,
+                    construction_demand=auxiliary.get("construction_demand") or construction_demand,
+                    price=auxiliary.get("price") or price,
+                    attributes=auxiliary.get("attributes", {}),
+                    on_built_lines=auxiliary_on_built_lines(wonder, style),
+                )
             )
-        )
     return "\n".join(lines).rstrip() + "\n"
 
 

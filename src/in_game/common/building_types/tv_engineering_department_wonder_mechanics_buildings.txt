@@ -159,6 +159,7 @@ tv_wonder_sacred_mountain_ritual_annex = {
 						var:tv_wonder_locked ?= 1
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -322,6 +323,7 @@ tv_wonder_triumphal_axis_ritual_annex = {
 						var:tv_wonder_locked ?= 2
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -486,6 +488,7 @@ tv_wonder_great_port_ritual_annex = {
 						var:tv_wonder_locked ?= 3
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -649,6 +652,7 @@ tv_wonder_giant_necropolis_ritual_annex = {
 						var:tv_wonder_locked ?= 4
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -812,6 +816,7 @@ tv_wonder_great_lighthouse_ritual_annex = {
 						var:tv_wonder_locked ?= 5
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -974,6 +979,7 @@ tv_wonder_hydraulic_workshop_ritual_annex = {
 						var:tv_wonder_locked ?= 6
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -1137,6 +1143,7 @@ tv_wonder_mining_city_ritual_annex = {
 						var:tv_wonder_locked ?= 7
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -1300,6 +1307,7 @@ tv_wonder_giant_observatory_ritual_annex = {
 						var:tv_wonder_locked ?= 8
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -1463,6 +1471,7 @@ tv_wonder_palace_of_nations_ritual_annex = {
 						var:tv_wonder_locked ?= 9
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -1626,6 +1635,7 @@ tv_wonder_university_city_ritual_annex = {
 						var:tv_wonder_locked ?= 10
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -1789,6 +1799,7 @@ tv_wonder_sky_dome_grand_temple_ritual_annex = {
 						var:tv_wonder_locked ?= 11
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -1952,6 +1963,7 @@ tv_wonder_giant_tower_temple_ritual_annex = {
 						var:tv_wonder_locked ?= 12
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -2116,6 +2128,7 @@ tv_wonder_river_extension_ritual_annex = {
 						var:tv_wonder_locked ?= 13
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -2280,6 +2293,7 @@ tv_wonder_national_shipyard_ritual_annex = {
 						var:tv_wonder_locked ?= 14
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -2447,6 +2461,7 @@ tv_wonder_star_fortress_city_ritual_annex = {
 						var:tv_wonder_locked ?= 15
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -2614,6 +2629,7 @@ tv_wonder_great_wall_ritual_annex = {
 						var:tv_wonder_locked ?= 16
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -2776,6 +2792,7 @@ tv_wonder_giant_armory_ritual_annex = {
 						var:tv_wonder_locked ?= 17
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -2939,6 +2956,7 @@ tv_wonder_library_of_nation_ritual_annex = {
 						var:tv_wonder_locked ?= 18
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -3107,6 +3125,7 @@ tv_wonder_large_canal_system_ritual_annex = {
 						var:tv_wonder_locked ?= 19
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -3275,6 +3294,7 @@ tv_wonder_mountain_terrace_network_ritual_annex = {
 						var:tv_wonder_locked ?= 20
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -3443,6 +3463,7 @@ tv_wonder_giant_dam_project_ritual_annex = {
 						var:tv_wonder_locked ?= 21
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -3611,6 +3632,7 @@ tv_wonder_royal_granary_system_ritual_annex = {
 						var:tv_wonder_locked ?= 22
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -3779,6 +3801,7 @@ tv_wonder_imperial_post_road_network_ritual_annex = {
 						var:tv_wonder_locked ?= 23
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -3947,6 +3970,7 @@ tv_wonder_canal_hub_city_ritual_annex = {
 						var:tv_wonder_locked ?= 24
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -4115,6 +4139,7 @@ tv_wonder_frontier_colonization_belt_ritual_annex = {
 						var:tv_wonder_locked ?= 25
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -4284,6 +4309,7 @@ tv_wonder_coastal_beacon_network_ritual_annex = {
 						var:tv_wonder_locked ?= 26
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -4453,6 +4479,7 @@ tv_wonder_knightly_fortress_order_ritual_annex = {
 						var:tv_wonder_locked ?= 27
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -4622,6 +4649,7 @@ tv_wonder_war_college_system_ritual_annex = {
 						var:tv_wonder_locked ?= 28
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -4787,6 +4815,7 @@ tv_wonder_great_clock_bell_system_ritual_annex = {
 						var:tv_wonder_locked ?= 29
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -4949,6 +4978,7 @@ tv_wonder_royal_art_district_ritual_annex = {
 						var:tv_wonder_locked ?= 30
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -5114,6 +5144,7 @@ tv_wonder_grand_theater_festival_district_ritual_annex = {
 						var:tv_wonder_locked ?= 31
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -5279,6 +5310,7 @@ tv_wonder_world_embassy_quarter_ritual_annex = {
 						var:tv_wonder_locked ?= 32
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -5444,6 +5476,7 @@ tv_wonder_law_code_stele_project_ritual_annex = {
 						var:tv_wonder_locked ?= 33
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -5612,6 +5645,7 @@ tv_wonder_world_market_ritual_annex = {
 						var:tv_wonder_locked ?= 34
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -5780,6 +5814,7 @@ tv_wonder_royal_mint_system_ritual_annex = {
 						var:tv_wonder_locked ?= 35
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -5948,6 +5983,7 @@ tv_wonder_guild_alliance_ritual_annex = {
 						var:tv_wonder_locked ?= 36
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -6116,6 +6152,7 @@ tv_wonder_maritime_trade_station_network_ritual_annex = {
 						var:tv_wonder_locked ?= 37
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -6284,6 +6321,7 @@ tv_wonder_giant_workshop_complex_ritual_annex = {
 						var:tv_wonder_locked ?= 38
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}
@@ -6446,6 +6484,7 @@ tv_wonder_world_monument_group_ritual_annex = {
 						var:tv_wonder_locked ?= 39
 						var:tv_wonder_ceremony_style ?= 2
 					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
 					tv_wonder_complete_active_ritual_effect = yes
 				}
 			}

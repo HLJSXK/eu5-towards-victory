@@ -43,4 +43,4 @@ pulses:
     - tv_engineering_department_char_death # Great Engineer death cleanup
 
   on_ruler_death:
-    []
+    - tv_engineering_department_ritual_on_ruler_death # Wonder ritual ruler-death completion checks
