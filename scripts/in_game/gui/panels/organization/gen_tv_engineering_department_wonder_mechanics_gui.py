@@ -191,9 +191,11 @@ def generate() -> str:
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
     base_visible = hold_button_base_visible()
-    gold_visible = f"And({base_visible}, {ritual_pair_visible(gold_ritual_pairs)})"
-    prestige_visible = f"And({base_visible}, {ritual_pair_visible(prestige_ritual_pairs)})"
-    free_visible = f"And({base_visible}, Not({gold_visible}), Not({prestige_visible}))"
+    gold_pair_visible = ritual_pair_visible(gold_ritual_pairs)
+    prestige_pair_visible = ritual_pair_visible(prestige_ritual_pairs)
+    gold_visible = f"And({base_visible}, {gold_pair_visible})"
+    prestige_visible = f"And({base_visible}, {prestige_pair_visible})"
+    free_visible = f"And3({base_visible}, Not({gold_pair_visible}), Not({prestige_pair_visible}))"
     lines.append(hold_button("tv_wonder_confirm_ceremony", free_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_scaled_gold", gold_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_prestige", prestige_visible))
