@@ -1692,15 +1692,6 @@ tv_wonder_select_construction_site_effect = {
 		remove_variable = tv_wonder_construction_paused
 		tv_wonder_update_construction_tiers_from_competence_effect = yes
 		tv_wonder_initialize_construction_parts_effect = yes
-		tv_wonder_detect_existing_wonder_at_saved_site_effect = yes
-		tv_wonder_sync_existing_final_building_level_effect = yes
-		tv_wonder_apply_helper_building_to_final_site_effect = yes
-		tv_wonder_materialize_module_buildings_from_unit_vars_effect = yes
-		var:tv_wonder_site ?= {
-			tv_wonder_combine_completed_modules_at_location_effect = yes
-			tv_wonder_ensure_helper_building_from_final_buildings_effect = yes
-		}
-		tv_wonder_sync_units_from_buildings_effect = yes
 		tv_wonder_update_wonder_level_effect = yes
 		tv_wonder_update_logistics_metrics_effect = yes
 		tv_wonder_apply_survey_site_support_effect = yes
@@ -1779,8 +1770,9 @@ tv_wonder_after_unit_completed_effect = {
 }
 
 tv_wonder_after_unit_completed_event_effect = {
-	tv_wonder_combine_completed_modules_effect = yes
 	tv_wonder_update_wonder_level_effect = yes
+	tv_wonder_apply_helper_building_to_final_site_effect = yes
+	tv_wonder_materialize_module_buildings_from_unit_vars_effect = yes
 	if = {
 		limit = { var:tv_wonder_level > var:tv_wonder_previous_level }
 		trigger_event_non_silently = { id = tv_engineering_department.201 }
@@ -1938,65 +1930,56 @@ tv_wonder_apply_ceremony_modifier_effect = {
 }
 
 tv_wonder_construct_final_building_in_site_effect = {
+	set_variable = { name = tv_wonder_current_final_building_level value = 0 }
 	if = {
-		limit = { NOT = { has_building = $building$ } }
+		limit = { has_building = $building$ }
+		if = {
+			limit = { location_building_level = { building_type = $building$ value >= 6 } }
+			set_variable = { name = tv_wonder_current_final_building_level value = 6 }
+		}
+		else_if = {
+			limit = { location_building_level = { building_type = $building$ value >= 5 } }
+			set_variable = { name = tv_wonder_current_final_building_level value = 5 }
+		}
+		else_if = {
+			limit = { location_building_level = { building_type = $building$ value >= 4 } }
+			set_variable = { name = tv_wonder_current_final_building_level value = 4 }
+		}
+		else_if = {
+			limit = { location_building_level = { building_type = $building$ value >= 3 } }
+			set_variable = { name = tv_wonder_current_final_building_level value = 3 }
+		}
+		else_if = {
+			limit = { location_building_level = { building_type = $building$ value >= 2 } }
+			set_variable = { name = tv_wonder_current_final_building_level value = 2 }
+		}
+		else_if = {
+			limit = { location_building_level = { building_type = $building$ value >= 1 } }
+			set_variable = { name = tv_wonder_current_final_building_level value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			root = { var:tv_wonder_level > 0 }
+			NOT = { has_building = $building$ }
+		}
 		construct_building = { building_type = $building$ cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+		set_variable = { name = tv_wonder_current_final_building_level value = 1 }
 	}
-	while = {
+	if = {
 		limit = {
-			prev = { var:tv_wonder_level ?= { this >= 2 } }
-			NOT = { location_building_level = { building_type = $building$ value >= 2 } }
+			root.var:tv_wonder_level > var:tv_wonder_current_final_building_level
 		}
 		change_building_level_in_location = {
 			building = $building$
-			value = 1
+			value = {
+				add = root.var:tv_wonder_level
+				subtract = var:tv_wonder_current_final_building_level
+			}
 			owner = prev
 		}
 	}
-	while = {
-		limit = {
-			prev = { var:tv_wonder_level ?= { this >= 3 } }
-			NOT = { location_building_level = { building_type = $building$ value >= 3 } }
-		}
-		change_building_level_in_location = {
-			building = $building$
-			value = 1
-			owner = prev
-		}
-	}
-	while = {
-		limit = {
-			prev = { var:tv_wonder_level ?= { this >= 4 } }
-			NOT = { location_building_level = { building_type = $building$ value >= 4 } }
-		}
-		change_building_level_in_location = {
-			building = $building$
-			value = 1
-			owner = prev
-		}
-	}
-	while = {
-		limit = {
-			prev = { var:tv_wonder_level ?= { this >= 5 } }
-			NOT = { location_building_level = { building_type = $building$ value >= 5 } }
-		}
-		change_building_level_in_location = {
-			building = $building$
-			value = 1
-			owner = prev
-		}
-	}
-	while = {
-		limit = {
-			prev = { var:tv_wonder_level ?= { this >= 6 } }
-			NOT = { location_building_level = { building_type = $building$ value >= 6 } }
-		}
-		change_building_level_in_location = {
-			building = $building$
-			value = 1
-			owner = prev
-		}
-	}
+	remove_variable = tv_wonder_current_final_building_level
 }
 
 tv_wonder_construct_final_building_effect = {

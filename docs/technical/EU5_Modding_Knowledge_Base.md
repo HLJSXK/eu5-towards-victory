@@ -292,6 +292,12 @@ construct_building = {
 
 Omitting `cost_multiplier_reason` logs: `No reason given for the cost multiplier in construct_building effect`. Vanilla event-funded construction commonly uses `game_concept_event`, which is already localized.
 
+#### `construct_building instant = yes` Is Not Synchronous Level Sync
+
+Treat `construct_building = { ... instant = yes }` as a queued 0-day construction task, not as an immediate `location_building_level` update. Do not write `while` loops that wait for `location_building_level` to change inside the same effect after `construct_building instant = yes`, and do not leave old-save reconstruction logic on hot click paths that fire from wonder site selection or similar actions.
+
+If a scripted effect must bring a building to a stored target level, compute the missing levels from persistent state and apply one bounded `change_building_level_in_location` delta, or branch over fixed thresholds with `if` / `else_if`. The effect body should run once and finish without depending on same-effect building-level refresh.
+
 #### Dynamic Event Gold Costs
 
 For country event options that should scale with the country's economy, vanilla uses:

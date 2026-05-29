@@ -38,6 +38,18 @@ def change_level(building: str, value: int) -> list[str]:
     ]
 
 
+def change_level_by_value(building: str, value_lines: list[str]) -> list[str]:
+    return [
+        f"{T}change_building_level_in_location = {{",
+        f"{T}{T}building = building_type:{building}",
+        f"{T}{T}value = {{",
+        *[f"{T}{T}{T}{line}" for line in value_lines],
+        f"{T}{T}}}",
+        f"{T}{T}owner = prev",
+        f"{T}}}",
+    ]
+
+
 def add_units_from_module_level(part: str, building: str) -> list[str]:
     lines: list[str] = []
     for level in range(1, 7):
@@ -81,6 +93,16 @@ def add_building_level(branch_limit: str, building: str) -> list[str]:
         *[f"{T}{T}{line}" for line in change_level(building, 1)],
         f"{T}{T}}}",
         f"{T}}}",
+    ]
+
+
+def add_building_level_if_missing(branch_limit: str, building: str, indent: int = 1) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}if = {{",
+        f"{prefix}{T}limit = {{ {branch_limit} NOT = {{ has_building = building_type:{building} }} }}",
+        f"{prefix}{T}construct_building = {{ building_type = building_type:{building} cost_multiplier = 0 cost_multiplier_reason = \"game_concept_event\" instant = yes }}",
+        f"{prefix}}}",
     ]
 
 
@@ -139,6 +161,167 @@ def proposal_setter(wonder: dict, mode: int, indent: int) -> list[str]:
         f"{prefix}{T}tv_wonder_set_proposal_on_great_engineer_effect = yes",
         f"{prefix}}}",
     ]
+
+
+def set_building_level_from_level_var(
+    building: str,
+    level_var: str,
+    current_level_var: str,
+    indent: int,
+) -> list[str]:
+    prefix = T * indent
+    lines = [
+        f"{prefix}set_variable = {{ name = {current_level_var} value = 0 }}",
+        f"{prefix}if = {{",
+        f"{prefix}{T}limit = {{ has_building = building_type:{building} }}",
+    ]
+    for idx, level in enumerate(range(6, 0, -1)):
+        head = "if" if idx == 0 else "else_if"
+        lines.extend(
+            [
+                f"{prefix}{T}{head} = {{",
+                f"{prefix}{T}{T}limit = {{ {loc_level(building, '>=', level)} }}",
+                f"{prefix}{T}{T}set_variable = {{ name = {current_level_var} value = {level} }}",
+                f"{prefix}{T}}}",
+            ]
+        )
+    lines.append(f"{prefix}}}")
+    lines.extend(add_building_level_if_missing(f"prev = {{ var:{level_var} > 0 }}", building, indent))
+    lines.extend(
+        [
+            f"{prefix}if = {{",
+            f"{prefix}{T}limit = {{",
+            f"{prefix}{T}{T}prev = {{ var:{level_var} > 0 }}",
+            f"{prefix}{T}{T}NOT = {{ has_building = building_type:{building} }}",
+            f"{prefix}{T}}}",
+            f"{prefix}{T}set_variable = {{ name = {current_level_var} value = 1 }}",
+            f"{prefix}}}",
+            f"{prefix}if = {{",
+            f"{prefix}{T}limit = {{",
+            f"{prefix}{T}{T}OR = {{",
+            f"{prefix}{T}{T}{T}root.var:{level_var} > var:{current_level_var}",
+            f"{prefix}{T}{T}{T}var:{current_level_var} > root.var:{level_var}",
+            f"{prefix}{T}{T}}}",
+            f"{prefix}{T}}}",
+        ]
+    )
+    lines.extend(
+        [
+            f"{prefix}{T}{line}"
+            for line in change_level_by_value(
+                building,
+                [
+                    f"add = root.var:{level_var}",
+                    f"subtract = var:{current_level_var}",
+                ],
+            )
+        ]
+    )
+    lines.append(f"{prefix}}}")
+    lines.append(f"{prefix}remove_variable = {current_level_var}")
+    return lines
+
+
+def sync_helper_building_to_wonder_level(wonder: dict, indent: int) -> list[str]:
+    helper = f"tv_wonder_{wonder['key']}"
+    prefix = T * indent
+    lines = [
+        f"{prefix}if = {{",
+        f"{prefix}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}",
+    ]
+    lines.extend(
+        set_building_level_from_level_var(
+            helper,
+            "tv_wonder_level",
+            f"tv_wonder_{wonder['key']}_helper_current_level",
+            indent + 1,
+        )
+    )
+    lines.append(f"{prefix}}}")
+    return lines
+
+
+def sync_module_building_to_unit_gap(
+    wonder: dict,
+    part_key: str,
+    building: str,
+    indent: int,
+) -> list[str]:
+    prefix = T * indent
+    gap_var = f"tv_wonder_{wonder['key']}_{part_key}_target_module_level"
+    current_var = f"tv_wonder_{wonder['key']}_{part_key}_current_module_level"
+    unit_var = f"tv_wonder_{part_key}_units"
+    lines = [
+        f"{prefix}prev = {{ set_variable = {{ name = {gap_var} value = 0 }} }}",
+        f"{prefix}if = {{",
+        f"{prefix}{T}limit = {{ prev = {{ var:{unit_var} > var:tv_wonder_level }} }}",
+        f"{prefix}{T}prev = {{",
+        f"{prefix}{T}{T}set_variable = {{ name = {gap_var} value = var:{unit_var} }}",
+        f"{prefix}{T}{T}change_variable = {{ name = {gap_var} subtract = var:tv_wonder_level }}",
+        f"{prefix}{T}{T}clamp_variable = {{ name = {gap_var} min = 0 max = 6 }}",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+    lines.extend(set_building_level_from_level_var(building, gap_var, current_var, indent))
+    lines.append(f"{prefix}prev = {{ remove_variable = {gap_var} }}")
+    return lines
+
+
+def combine_modules_to_helper_once(
+    wonder: dict,
+    parts: list[dict],
+    indent: int,
+) -> list[str]:
+    helper = f"tv_wonder_{wonder['key']}"
+    module_names = [f"tv_wonder_{wonder['key']}_{part['key']}" for part in parts]
+    prefix = T * indent
+    lines = [
+        f"{prefix}set_variable = {{ name = tv_wonder_{wonder['key']}_combinable_levels value = 0 }}",
+    ]
+    for idx, level in enumerate(range(6, 0, -1)):
+        head = "if" if idx == 0 else "else_if"
+        lines.append(f"{prefix}{head} = {{")
+        lines.append(f"{prefix}{T}limit = {{")
+        for module in module_names:
+            lines.append(f"{prefix}{T}{T}{loc_level(module, '>=', level)}")
+        lines.append(f"{prefix}{T}}}")
+        lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_{wonder['key']}_combinable_levels value = {level} }}")
+        lines.append(f"{prefix}}}")
+    lines.append(f"{prefix}set_variable = {{ name = tv_wonder_{wonder['key']}_helper_extra_levels value = var:tv_wonder_{wonder['key']}_combinable_levels }}")
+    lines.extend(add_building_level_if_missing(f"var:tv_wonder_{wonder['key']}_combinable_levels > 0", helper, indent))
+    lines.append(f"{prefix}if = {{")
+    lines.append(f"{prefix}{T}limit = {{ var:tv_wonder_{wonder['key']}_combinable_levels > 0 NOT = {{ has_building = building_type:{helper} }} }}")
+    lines.append(f"{prefix}{T}change_variable = {{ name = tv_wonder_{wonder['key']}_helper_extra_levels subtract = 1 }}")
+    lines.append(f"{prefix}{T}clamp_variable = {{ name = tv_wonder_{wonder['key']}_helper_extra_levels min = 0 max = 6 }}")
+    lines.append(f"{prefix}}}")
+    lines.append(f"{prefix}if = {{")
+    lines.append(f"{prefix}{T}limit = {{ var:tv_wonder_{wonder['key']}_helper_extra_levels > 0 }}")
+    lines.extend(
+        [
+            f"{prefix}{T}{line}"
+            for line in change_level_by_value(
+                helper,
+                [f"add = var:tv_wonder_{wonder['key']}_helper_extra_levels"],
+            )
+        ]
+    )
+    lines.append(f"{prefix}}}")
+    lines.append(f"{prefix}if = {{")
+    lines.append(f"{prefix}{T}limit = {{ var:tv_wonder_{wonder['key']}_combinable_levels > 0 }}")
+    for module in module_names:
+        lines.extend(
+            [
+                f"{prefix}{T}{line}"
+                for line in change_level_by_value(
+                    module,
+                    [f"subtract = var:tv_wonder_{wonder['key']}_combinable_levels"],
+                )
+            ]
+    )
+    lines.append(f"{prefix}}}")
+    lines.append(f"{prefix}remove_variable = tv_wonder_{wonder['key']}_combinable_levels")
+    lines.append(f"{prefix}remove_variable = tv_wonder_{wonder['key']}_helper_extra_levels")
+    return lines
 
 
 def main() -> None:
@@ -206,19 +389,7 @@ def main() -> None:
     lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
     for wonder in wonders:
-        helper = f"tv_wonder_{wonder['key']}"
-        module_names = [f"tv_wonder_{wonder['key']}_{part['key']}" for part in parts]
-        for level in range(1, 7):
-            lines.append(f"{T}{T}{T}while = {{")
-            lines.append(f"{T}{T}{T}{T}limit = {{")
-            lines.append(f"{T}{T}{T}{T}{T}prev = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-            for module in module_names:
-                lines.append(f"{T}{T}{T}{T}{T}{loc_level(module, '>=', level)}")
-            lines.append(f"{T}{T}{T}{T}}}")
-            for module in module_names:
-                lines.extend([f"{T}{T}{T}{line}" for line in reduce_building_level(module)])
-            lines.extend([f"{T}{T}{T}{line}" for line in add_building_level("always = yes", helper)])
-            lines.append(f"{T}{T}{T}}}")
+        lines.extend(combine_modules_to_helper_once(wonder, parts, 3))
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append("}")
@@ -314,15 +485,7 @@ def main() -> None:
     lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
     for wonder in wonders:
-        helper = f"tv_wonder_{wonder['key']}"
-        lines.append(f"{T}{T}{T}if = {{")
-        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
-        for level in range(1, 7):
-            lines.append(f"{T}{T}{T}{T}while = {{")
-            lines.append(f"{T}{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_level ?= {level} }} NOT = {{ {loc_level(helper, '>=', level)} }} }}")
-            lines.extend([f"{T}{T}{T}{T}{line}" for line in add_building_level("always = yes", helper)])
-            lines.append(f"{T}{T}{T}{T}}}")
-        lines.append(f"{T}{T}{T}}}")
+        lines.extend(sync_helper_building_to_wonder_level(wonder, 3))
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append("}")
@@ -338,20 +501,7 @@ def main() -> None:
         lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
         for part in parts:
             building = f"tv_wonder_{wonder['key']}_{part['key']}"
-            part_key = part["key"]
-            for level in range(1, 7):
-                for completed_level in range(0, level):
-                    module_level = level - completed_level
-                    lines.append(f"{T}{T}{T}{T}if = {{")
-                    lines.append(f"{T}{T}{T}{T}{T}limit = {{")
-                    lines.append(f"{T}{T}{T}{T}{T}{T}prev = {{")
-                    lines.append(f"{T}{T}{T}{T}{T}{T}{T}var:tv_wonder_{part_key}_units ?= {{ this >= {level} }}")
-                    lines.append(f"{T}{T}{T}{T}{T}{T}{T}var:tv_wonder_level ?= {completed_level}")
-                    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
-                    lines.append(f"{T}{T}{T}{T}{T}{T}NOT = {{ {loc_level(building, '>=', module_level)} }}")
-                    lines.append(f"{T}{T}{T}{T}{T}}}")
-                    lines.extend([f"{T}{T}{T}{T}{line}" for line in add_building_level("always = yes", building)])
-                    lines.append(f"{T}{T}{T}{T}}}")
+            lines.extend(sync_module_building_to_unit_gap(wonder, part["key"], building, 4))
         lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
@@ -360,18 +510,7 @@ def main() -> None:
 
     lines.append("tv_wonder_combine_completed_modules_at_location_effect = {")
     for wonder in wonders:
-        helper = f"tv_wonder_{wonder['key']}"
-        module_names = [f"tv_wonder_{wonder['key']}_{part['key']}" for part in parts]
-        for level in range(1, 7):
-            lines.append(f"{T}while = {{")
-            lines.append(f"{T}{T}limit = {{")
-            for module in module_names:
-                lines.append(f"{T}{T}{T}{loc_level(module, '>=', level)}")
-            lines.append(f"{T}{T}}}")
-            for module in module_names:
-                lines.extend([f"{T}{T}{line}" for line in reduce_building_level(module)])
-            lines.extend([f"{T}{T}{line}" for line in add_building_level("always = yes", helper)])
-            lines.append(f"{T}}}")
+        lines.extend(combine_modules_to_helper_once(wonder, parts, 1))
     lines.append("}")
     lines.append("")
 
