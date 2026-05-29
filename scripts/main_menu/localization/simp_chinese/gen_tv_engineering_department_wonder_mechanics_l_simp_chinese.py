@@ -76,6 +76,25 @@ def generate() -> str:
     lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_SETUP", "当我们确认奇观的落成仪式时。"))
     lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_LOG", "我们确认了奇观落成仪式。"))
     lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_MAP", ""))
+    lines.append(loc_line("tv_wonder_confirm_ceremony_scaled_gold", "确认金币仪式"))
+    lines.append(loc_line("tv_wonder_confirm_ceremony_scaled_gold_desc", "支付该仪式所需的缩放金币花费，并让已完成的奇观正式落成。"))
+    lines.append(loc_line("tv_wonder_confirm_ceremony_prestige", "确认威望仪式"))
+    lines.append(loc_line("tv_wonder_confirm_ceremony_prestige_desc", "支付该仪式所需的威望花费，并让已完成的奇观正式落成。"))
+    lines.append(loc_line("tv_wonder_ritual_style_3_scaled_gold_price", "金币仪式"))
+    lines.append(loc_line("tv_wonder_ritual_style_3_prestige_price", "威望仪式"))
+    lines.append(loc_line("tv_wonder_ritual_annex_small_price", "小型仪式附属建筑"))
+    lines.append(loc_line("tv_wonder_ritual_annex_medium_price", "中型仪式附属建筑"))
+    lines.append(loc_line("tv_wonder_ritual_annex_large_price", "大型仪式附属建筑"))
+    lines.append(loc_line("MODIFIER_TYPE_NAME_tv_wonder_ritual_style_3_scaled_gold_price_cost_modifier", "金币仪式花费"))
+    lines.append(loc_line("MODIFIER_TYPE_DESC_tv_wonder_ritual_style_3_scaled_gold_price_cost_modifier", "修正第三类奇观仪式的缩放金币花费。"))
+    lines.append(loc_line("MODIFIER_TYPE_NAME_tv_wonder_ritual_style_3_prestige_price_cost_modifier", "威望仪式花费"))
+    lines.append(loc_line("MODIFIER_TYPE_DESC_tv_wonder_ritual_style_3_prestige_price_cost_modifier", "修正第三类奇观仪式的威望花费。"))
+    lines.append(loc_line("MODIFIER_TYPE_NAME_tv_wonder_ritual_annex_small_price_cost_modifier", "小型仪式附属建筑花费"))
+    lines.append(loc_line("MODIFIER_TYPE_DESC_tv_wonder_ritual_annex_small_price_cost_modifier", "修正小型奇观仪式附属建筑的金币建设花费。"))
+    lines.append(loc_line("MODIFIER_TYPE_NAME_tv_wonder_ritual_annex_medium_price_cost_modifier", "中型仪式附属建筑花费"))
+    lines.append(loc_line("MODIFIER_TYPE_DESC_tv_wonder_ritual_annex_medium_price_cost_modifier", "修正中型奇观仪式附属建筑的金币建设花费。"))
+    lines.append(loc_line("MODIFIER_TYPE_NAME_tv_wonder_ritual_annex_large_price_cost_modifier", "大型仪式附属建筑花费"))
+    lines.append(loc_line("MODIFIER_TYPE_DESC_tv_wonder_ritual_annex_large_price_cost_modifier", "修正大型奇观仪式附属建筑的金币建设花费。"))
 
     for wonder in wonders:
         key = wonder["key"]
@@ -129,6 +148,10 @@ def generate() -> str:
             lines.append(loc_line(building_key, f"{name}{part_name}"))
             lines.append(loc_line(f"{building_key}_desc", f"{name}已经保留下来的{part_name}模块。"))
         lines.append(loc_line(f"tv_wonder_{key}", name))
+        if not wonder.get("is_unique"):
+            annex_key = f"tv_wonder_{key}_ritual_annex"
+            lines.append(loc_line(annex_key, f"{name}仪式附属建筑"))
+            lines.append(loc_line(f"{annex_key}_desc", f"用于完成{name}第二仪式分支的附属建筑。"))
         lines.append(loc_line(f"tv_wonder_{key}_desc", f"尚未落成、但已作为完整工程保留下来的{name}。"))
 
         for level in range(1, 7):

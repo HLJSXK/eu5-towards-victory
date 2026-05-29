@@ -73,6 +73,25 @@ def generate() -> str:
 
     lines.append(loc_line("tv_wonder_confirm_ceremony", "Confirm Ceremony"))
     lines.append(loc_line("tv_wonder_confirm_ceremony_desc", "Confirm the selected ceremony branch and inaugurate the completed wonder."))
+    lines.append(loc_line("tv_wonder_confirm_ceremony_scaled_gold", "Confirm Scaled-Gold Ceremony"))
+    lines.append(loc_line("tv_wonder_confirm_ceremony_scaled_gold_desc", "Pay the scaled-gold ceremony cost and inaugurate the completed wonder."))
+    lines.append(loc_line("tv_wonder_confirm_ceremony_prestige", "Confirm Prestige Ceremony"))
+    lines.append(loc_line("tv_wonder_confirm_ceremony_prestige_desc", "Pay the Prestige ceremony cost and inaugurate the completed wonder."))
+    lines.append(loc_line("tv_wonder_ritual_style_3_scaled_gold_price", "Scaled-Gold Ceremony"))
+    lines.append(loc_line("tv_wonder_ritual_style_3_prestige_price", "Prestige Ceremony"))
+    lines.append(loc_line("tv_wonder_ritual_annex_small_price", "Small Ritual Annex"))
+    lines.append(loc_line("tv_wonder_ritual_annex_medium_price", "Medium Ritual Annex"))
+    lines.append(loc_line("tv_wonder_ritual_annex_large_price", "Large Ritual Annex"))
+    lines.append(loc_line("MODIFIER_TYPE_NAME_tv_wonder_ritual_style_3_scaled_gold_price_cost_modifier", "Scaled-Gold Ceremony Cost"))
+    lines.append(loc_line("MODIFIER_TYPE_DESC_tv_wonder_ritual_style_3_scaled_gold_price_cost_modifier", "Modifies the scaled gold cost of third-style wonder ceremonies."))
+    lines.append(loc_line("MODIFIER_TYPE_NAME_tv_wonder_ritual_style_3_prestige_price_cost_modifier", "Prestige Ceremony Cost"))
+    lines.append(loc_line("MODIFIER_TYPE_DESC_tv_wonder_ritual_style_3_prestige_price_cost_modifier", "Modifies the Prestige cost of third-style wonder ceremonies."))
+    lines.append(loc_line("MODIFIER_TYPE_NAME_tv_wonder_ritual_annex_small_price_cost_modifier", "Small Ritual Annex Cost"))
+    lines.append(loc_line("MODIFIER_TYPE_DESC_tv_wonder_ritual_annex_small_price_cost_modifier", "Modifies the gold construction cost of small wonder ritual annexes."))
+    lines.append(loc_line("MODIFIER_TYPE_NAME_tv_wonder_ritual_annex_medium_price_cost_modifier", "Medium Ritual Annex Cost"))
+    lines.append(loc_line("MODIFIER_TYPE_DESC_tv_wonder_ritual_annex_medium_price_cost_modifier", "Modifies the gold construction cost of medium wonder ritual annexes."))
+    lines.append(loc_line("MODIFIER_TYPE_NAME_tv_wonder_ritual_annex_large_price_cost_modifier", "Large Ritual Annex Cost"))
+    lines.append(loc_line("MODIFIER_TYPE_DESC_tv_wonder_ritual_annex_large_price_cost_modifier", "Modifies the gold construction cost of large wonder ritual annexes."))
     lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_SETUP", "When we confirm a wonder ceremony."))
     lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_LOG", "We confirmed the wonder ceremony."))
     lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_MAP", ""))
@@ -120,6 +139,10 @@ def generate() -> str:
             lines.append(loc_line(building_key, f"{name} {part_name}"))
             lines.append(loc_line(f"{building_key}_desc", f"A preserved {part_name.lower()} module for the {name}."))
         lines.append(loc_line(f"tv_wonder_{key}", name))
+        if not wonder.get("is_unique"):
+            annex_key = f"tv_wonder_{key}_ritual_annex"
+            lines.append(loc_line(annex_key, f"{name} Ritual Annex"))
+            lines.append(loc_line(f"{annex_key}_desc", f"An auxiliary ritual annex used to complete the second ceremony branch of the {name}."))
         lines.append(loc_line(f"tv_wonder_{key}_desc", f"An unconsecrated {name} preserved as completed construction."))
         for level in range(1, 7):
             lines.append(

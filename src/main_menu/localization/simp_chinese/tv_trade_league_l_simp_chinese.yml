@@ -190,3 +190,9 @@
  PERFORM_tv_change_trade_leader_ACTION_SETUP: "当我们更换[tv_trade_league|E]大商人时。"
  PERFORM_tv_change_trade_leader_ACTION_LOG: "我们任命[SCOPE.sCharacter('target').GetShortNameWithNoTooltip]为[tv_trade_league|E]新任大商人。"
  PERFORM_tv_change_trade_leader_ACTION_MAP: ""
+
+ # 原版 HRE 互动 / 消息补全
+ INCOMING_OFFER_enforce_landfriede: "$ACTOR$要求我们退出一场帝国内部战争。我们是否服从？\n\n$INFO$"
+ INCOMING_OFFER_TITLE_enforce_landfriede: "要求执行禁止复仇条例"
+ enforce_landfriede_reject_effect_text: "$generic_reject_demand_effect_string$"
+ enforce_landfriede_reject_effect_text_past: "$generic_reject_demand_effect_string_past$"
