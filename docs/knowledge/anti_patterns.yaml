@@ -224,6 +224,17 @@
   source: "reference_official_defines/docs/data_types_gui.txt"
   notes: "PDX parser rejects non-ASCII quote characters; the failure is silent"
 
+- id: localization_duplicate_key_across_files
+  pattern: ''
+  detectability: needs_parser
+  only_in_paths: ['localization']
+  bad: "Defining the same localization key in more than one YAML file for the same language"
+  correction: "Keep each localization key owned by exactly one file per language. When a generator takes over a key family, remove the stale manual copies instead of redefining them."
+  category: localization
+  scope: any
+  source: "runtime error.log: pdx_localize.cpp:221 Duplicate localization key. Key 'STATIC_MODIFIER_NAME_tv_wonder_sacred_mountain_level_1' is defined in both localization/simp_chinese/tv_engineering_department_l_simp_chinese.yml and localization/simp_chinese/tv_engineering_department_wonder_mechanics_l_simp_chinese.yml"
+  notes: "Main-menu localization YAML does not merge duplicate keys across files within one language pack. Startup logs a duplicate-key error and only one definition can win, so manual and generated files must have unambiguous ownership."
+
 - id: io_law_category_missing_uppercase_loc
   pattern: ''
   bad: "Custom IO law category localized only by raw category id (e.g. tv_science_factions)"

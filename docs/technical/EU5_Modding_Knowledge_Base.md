@@ -256,6 +256,10 @@ Modders primarily work with a few text-based file formats:
 | `.yml`    | Localization                             | Must be saved with **UTF-8-BOM** encoding.  |
 | `.gui`    | User Interface Layouts                   | Defines the structure and look of UI windows. |
 
+#### Localization Key Uniqueness
+
+Within each `main_menu/localization/<language>/` tree, every localization key must be defined exactly once. Duplicate YAML keys across files do not merge: startup logs a `Duplicate localization key` error and one source silently shadows the other. When a generated localization file takes ownership of a key family, remove the stale manual copies instead of keeping both definitions.
+
 ### 4.5. Observed Best Practices
 
 The community analysis highlighted several best practices for creating clean, compatible, and maintainable mods:
