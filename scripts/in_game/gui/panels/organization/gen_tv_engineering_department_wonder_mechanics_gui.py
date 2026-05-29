@@ -19,6 +19,17 @@ def eq(var: str, value: int) -> str:
     return f"EqualTo_CFixedPoint({PLAYER}.GetVariable('{var}').GetValue, '(CFixedPoint){value}.0')"
 
 
+def fold_bool(op: str, terms: list[str]) -> str:
+    if not terms:
+        return "False" if op == "Or" else "True"
+    if len(terms) == 1:
+        return terms[0]
+    expr = f"{op}({terms[0]}, {terms[1]})"
+    for term in terms[2:]:
+        expr = f"{op}({expr}, {term})"
+    return expr
+
+
 def wonder_visible(wonder_id: int) -> str:
     return (
         "[Or("
@@ -29,15 +40,14 @@ def wonder_visible(wonder_id: int) -> str:
 
 
 def or_eq(var: str, values: list[int]) -> str:
-    joined = ", ".join(eq(var, value) for value in values)
-    return f"Or({joined})"
+    return fold_bool("Or", [eq(var, value) for value in values])
 
 
 def ritual_pair_visible(pairs: list[tuple[int, int]]) -> str:
-    if not pairs:
-        return "False"
-    joined = ", ".join(f"And({eq('tv_wonder_locked', wonder_id)}, {eq('tv_wonder_ceremony_style', style)})" for wonder_id, style in pairs)
-    return f"Or({joined})"
+    return fold_bool(
+        "Or",
+        [f"And({eq('tv_wonder_locked', wonder_id)}, {eq('tv_wonder_ceremony_style', style)})" for wonder_id, style in pairs],
+    )
 
 
 def proposal_button(slot: int, wonder: dict) -> str:
