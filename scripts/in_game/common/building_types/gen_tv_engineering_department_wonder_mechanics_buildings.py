@@ -83,7 +83,7 @@ def build_profile(wonder: dict) -> tuple[str, str, str]:
     if wonder["category"] == "military_category":
         return "small_fort_building", "fort_construction", f"tv_wonder_ritual_annex_{wonder['size']}_price"
     if wonder["category"] == "government_category":
-        return "government_building_time", "capital_building_construction", f"tv_wonder_ritual_annex_{wonder['size']}_price"
+        return "government_build_time", "capital_building_construction", f"tv_wonder_ritual_annex_{wonder['size']}_price"
     if wonder["pop_type"] == "clergy":
         return "religious_building_time", "town_building_construction", f"tv_wonder_ritual_annex_{wonder['size']}_price"
     if wonder["category"] == "cultural_category":
