@@ -120,9 +120,7 @@ tv_engineering_department.200 = {
 			}
 			tv_wonder_construct_module_for_last_completed_part_effect = yes
 			tv_change_wonder_domestic_support_effect = { value = 10 }
-			hidden_effect = {
-				tv_wonder_after_unit_completed_event_effect = yes
-			}
+			tv_wonder_after_unit_completed_event_effect = yes
 		}
 		else = {
 			hidden_effect = {
@@ -155,11 +153,8 @@ tv_engineering_department.201 = {
 			}
 			tv_wonder_apply_helper_building_to_final_site_effect = yes
 			tv_wonder_materialize_module_buildings_from_unit_vars_effect = yes
-			tv_change_wonder_domestic_support_effect = { value = 10 }
-			tv_wonder_auto_advance_active_part_effect = yes
-			tv_wonder_set_io_construction_progress_effect = { value = 0 }
-			tv_wonder_update_construction_progress_display_effect = yes
-			remove_variable = tv_wonder_previous_level
+			tv_change_wonder_domestic_support_effect = { value = 20 }
+			tv_wonder_after_unit_completed_event_effect = yes
 		}
 		else = {
 			hidden_effect = {

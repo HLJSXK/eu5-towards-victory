@@ -483,6 +483,38 @@ def main() -> None:
     lines.append("}")
     lines.append("")
 
+    lines.append("tv_wonder_restore_locked_wonder_final_building_state_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
+    lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
+    for wonder_idx, wonder in enumerate(wonders):
+        head = "if" if wonder_idx == 0 else "else_if"
+        lines.append(f"{T}{T}{T}{head} = {{")
+        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
+        for style, building in wonder["final_buildings"].items():
+            lines.append(f"{T}{T}{T}{T}if = {{")
+            lines.append(f"{T}{T}{T}{T}{T}limit = {{ has_building = building_type:{building} }}")
+            lines.append(f"{T}{T}{T}{T}{T}prev = {{")
+            lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ceremony_style value = {style} }}")
+            lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
+            for level in range(6, 0, -1):
+                lines.append(f"{T}{T}{T}{T}{T}{T}if = {{")
+                lines.append(f"{T}{T}{T}{T}{T}{T}{T}limit = {{ {loc_level(building, '>=', level)} }}")
+                for part in parts:
+                    lines.append(f"{T}{T}{T}{T}{T}{T}{T}if = {{")
+                    lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}limit = {{ var:tv_wonder_{part['key']}_units < {level} }}")
+                    lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_{part['key']}_units value = {level} }}")
+                    lines.append(f"{T}{T}{T}{T}{T}{T}{T}}}")
+                lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+            lines.append(f"{T}{T}{T}{T}{T}}}")
+            lines.append(f"{T}{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}tv_wonder_update_wonder_level_effect = yes")
+    lines.append("}")
+    lines.append("")
+
     lines.append("tv_wonder_apply_helper_building_to_final_site_effect = {")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
