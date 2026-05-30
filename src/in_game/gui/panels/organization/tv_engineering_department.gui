@@ -3110,6 +3110,7 @@ widget = {
 
 										hbox = {
 											layoutpolicy_horizontal = expanding
+											size = { 446 166 }
 											spacing = 10
 											margin = { 8 8 }
 
@@ -3848,12 +3849,13 @@ widget = {
 
 											vbox = {
 												layoutpolicy_horizontal = expanding
+												size = { 276 152 }
 												ignoreinvisible = yes
 												spacing = 6
 
 												widget = {
 													layoutpolicy_horizontal = expanding
-													size = { -1 40 }
+													size = { 276 40 }
 													using = bg_text_mask_container_dark_blue
 
 													vbox = {
@@ -3960,7 +3962,7 @@ widget = {
 
 												widget = {
 													layoutpolicy_horizontal = expanding
-													size = { -1 52 }
+													size = { 276 52 }
 													using = bg_text_mask_container_dark_blue
 
 													vbox = {
