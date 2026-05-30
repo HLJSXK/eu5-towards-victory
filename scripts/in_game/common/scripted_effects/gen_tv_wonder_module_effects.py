@@ -275,9 +275,7 @@ def combine_modules_to_helper_once(
     helper = f"tv_wonder_{wonder['key']}"
     module_names = [f"tv_wonder_{wonder['key']}_{part['key']}" for part in parts]
     prefix = T * indent
-    lines = [
-        f"{prefix}set_variable = {{ name = tv_wonder_{wonder['key']}_combinable_levels value = 0 }}",
-    ]
+    lines: list[str] = []
     for idx, level in enumerate(range(6, 0, -1)):
         head = "if" if idx == 0 else "else_if"
         lines.append(f"{prefix}{head} = {{")
@@ -285,42 +283,35 @@ def combine_modules_to_helper_once(
         for module in module_names:
             lines.append(f"{prefix}{T}{T}{loc_level(module, '>=', level)}")
         lines.append(f"{prefix}{T}}}")
-        lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_{wonder['key']}_combinable_levels value = {level} }}")
-        lines.append(f"{prefix}}}")
-    lines.append(f"{prefix}set_variable = {{ name = tv_wonder_{wonder['key']}_helper_extra_levels value = var:tv_wonder_{wonder['key']}_combinable_levels }}")
-    lines.extend(add_building_level_if_missing(f"var:tv_wonder_{wonder['key']}_combinable_levels > 0", helper, indent))
-    lines.append(f"{prefix}if = {{")
-    lines.append(f"{prefix}{T}limit = {{ var:tv_wonder_{wonder['key']}_combinable_levels > 0 NOT = {{ has_building = building_type:{helper} }} }}")
-    lines.append(f"{prefix}{T}change_variable = {{ name = tv_wonder_{wonder['key']}_helper_extra_levels subtract = 1 }}")
-    lines.append(f"{prefix}{T}clamp_variable = {{ name = tv_wonder_{wonder['key']}_helper_extra_levels min = 0 max = 6 }}")
-    lines.append(f"{prefix}}}")
-    lines.append(f"{prefix}if = {{")
-    lines.append(f"{prefix}{T}limit = {{ var:tv_wonder_{wonder['key']}_helper_extra_levels > 0 }}")
-    lines.extend(
-        [
-            f"{prefix}{T}{line}"
-            for line in change_level_by_value(
-                helper,
-                [f"add = var:tv_wonder_{wonder['key']}_helper_extra_levels"],
-            )
-        ]
-    )
-    lines.append(f"{prefix}}}")
-    lines.append(f"{prefix}if = {{")
-    lines.append(f"{prefix}{T}limit = {{ var:tv_wonder_{wonder['key']}_combinable_levels > 0 }}")
-    for module in module_names:
+        lines.append(f"{prefix}{T}if = {{")
+        lines.append(f"{prefix}{T}{T}limit = {{ has_building = building_type:{helper} }}")
         lines.extend(
             [
                 f"{prefix}{T}{line}"
-                for line in change_level_by_value(
-                    module,
-                    [f"subtract = var:tv_wonder_{wonder['key']}_combinable_levels"],
-                )
+                for line in change_level(helper, level)
             ]
-    )
-    lines.append(f"{prefix}}}")
-    lines.append(f"{prefix}remove_variable = tv_wonder_{wonder['key']}_combinable_levels")
-    lines.append(f"{prefix}remove_variable = tv_wonder_{wonder['key']}_helper_extra_levels")
+        )
+        lines.append(f"{prefix}{T}}}")
+        lines.append(f"{prefix}{T}else = {{")
+        lines.append(
+            f'{prefix}{T}{T}construct_building = {{ building_type = building_type:{helper} cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }}'
+        )
+        if level > 1:
+            lines.extend(
+                [
+                    f"{prefix}{T}{line}"
+                    for line in change_level(helper, level - 1)
+                ]
+            )
+        lines.append(f"{prefix}{T}}}")
+        for module in module_names:
+            lines.extend(
+                [
+                    f"{prefix}{T}{line}"
+                    for line in change_level(module, -level)
+                ]
+            )
+        lines.append(f"{prefix}}}")
     return lines
 
 

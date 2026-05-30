@@ -570,8 +570,8 @@
   correction: "Do not rely on temporary variables written earlier in the same visible option/effect chain. Use optional checks directly against persistent state, branch over bounded values with literals, or wrap the state-changing chain in hidden_effect when the nested tooltip is not needed."
   category: event
   scope: any
-  source: "runtime error.log: tv_engineering_department.500 -> tv_wonder_complete_finalization_effect -> tv_wonder_construct_final_building_effect -> tv_wonder_construct_final_building_in_site_effect"
-  notes: "The event option tooltip pre-evaluator did not commit tv_wonder_final_building_extra_levels before the nested helper ran. The helper logged Invalid left side during comparison 'var', Failed to fetch variable, and Event target link 'var' returned an unset scope when it compared and reused the temporary variable."
+  source: "runtime error.log: tv_engineering_department.500 -> tv_wonder_complete_finalization_effect -> tv_wonder_construct_final_building_effect -> tv_wonder_construct_final_building_in_site_effect; tv_prosperity.1 -> tv_grant_prosperity_milestone_1 -> tv_engineering_department_create_effect -> tv_wonder_reinitialize_building_state_effect -> tv_wonder_combine_completed_modules_at_location_effect"
+  notes: "The event option tooltip pre-evaluator did not commit tv_wonder_final_building_extra_levels before the nested helper ran. The same failure reappeared when Prosperity M1 reinitialized wonder module/helper buildings from partially built wonders. For bounded 1..6 module collapse, emit literal helper/module building deltas instead of temporary combinable/helper variables."
 
 - id: generic_action_effect_reads_newly_set_variable
   detectability: needs_parser

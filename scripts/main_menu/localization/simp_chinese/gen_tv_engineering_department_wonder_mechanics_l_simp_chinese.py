@@ -17,6 +17,8 @@ from wonder_mechanics_lib import (
     loc_line,
     mechanic_key,
     render_header,
+    ritual_blessing_modifier_name,
+    ritual_burden_modifier_name,
     unique_ritual,
 )
 
@@ -165,6 +167,20 @@ def generate() -> str:
                 loc_line(
                     f"STATIC_MODIFIER_NAME_tv_wonder_{key}_level_{level}",
                     level_static_modifier_loc(concept, level),
+                )
+            )
+        if not wonder.get("is_unique"):
+            style_one_name = design["branches"][1]["zh"]
+            lines.append(
+                loc_line(
+                    f"STATIC_MODIFIER_NAME_{ritual_burden_modifier_name(wonder)}",
+                    f"{style_one_name}\u4eea\u5f0f\u8d1f\u62c5",
+                )
+            )
+            lines.append(
+                loc_line(
+                    f"STATIC_MODIFIER_NAME_{ritual_blessing_modifier_name(wonder)}",
+                    f"{style_one_name}\u6c38\u4e45\u795d\u798f",
                 )
             )
 

@@ -14,6 +14,8 @@ called directly from event options.
    Use `var:X ?= ...` for optional trigger checks. If a later effect value needs `X`, ensure
    `X` is persistent state already set before the event opened, or branch over bounded values
    with literal `value = N` effects instead of `value = prev.var:X`.
+   Wonder module/helper rebuilds are a common trap here: for 1..6 level collapse or merge
+   logic, prefer one literal branch per level over scratch variables like `*_combinable_levels`.
 
 3. Guard stale event confirmations.
    Final confirmation events can sit open while project state changes through another path.
