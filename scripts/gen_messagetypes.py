@@ -633,6 +633,26 @@ PERFORM_tv_wonder_confirm_ceremony_ACTION={
 	message_category = society
 }
 
+PERFORM_tv_wonder_confirm_ceremony_scaled_gold_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
 
 
 

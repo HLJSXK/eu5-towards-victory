@@ -95,6 +95,12 @@ def generate() -> str:
     lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_SETUP", "When we confirm a wonder ceremony."))
     lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_LOG", "We confirmed the wonder ceremony."))
     lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_ACTION_MAP", ""))
+    lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_scaled_gold_ACTION_SETUP", "When we confirm a scaled-gold wonder ceremony."))
+    lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_scaled_gold_ACTION_LOG", "We confirmed the scaled-gold wonder ceremony."))
+    lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_scaled_gold_ACTION_MAP", ""))
+    lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION_SETUP", "When we confirm a Prestige wonder ceremony."))
+    lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION_LOG", "We confirmed the Prestige wonder ceremony."))
+    lines.append(loc_line("PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION_MAP", ""))
     for wonder in wonders:
         key = wonder["key"]
         design = mechanics["designs"].get(mechanic_key(wonder))

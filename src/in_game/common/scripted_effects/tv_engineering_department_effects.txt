@@ -1666,16 +1666,31 @@ tv_wonder_monthly_survey_effect = {
 }
 
 tv_wonder_apply_survey_site_support_effect = {
-	set_variable = { name = tv_wonder_survey_competence_average value = var:tv_wonder_scale_competence }
-	change_variable = { name = tv_wonder_survey_competence_average add = var:tv_wonder_logistics_competence }
-	change_variable = { name = tv_wonder_survey_competence_average add = var:tv_wonder_organization_competence }
-	change_variable = { name = tv_wonder_survey_competence_average divide = 3 }
+	set_variable = {
+		name = tv_wonder_survey_competence_average
+		value = {
+			value = 0
+			if = {
+				limit = { has_variable = tv_wonder_scale_competence }
+				add = var:tv_wonder_scale_competence
+			}
+			if = {
+				limit = { has_variable = tv_wonder_logistics_competence }
+				add = var:tv_wonder_logistics_competence
+			}
+			if = {
+				limit = { has_variable = tv_wonder_organization_competence }
+				add = var:tv_wonder_organization_competence
+			}
+			divide = 3
+		}
+	}
 	if = {
-		limit = { var:tv_wonder_survey_competence_average >= 75 }
+		limit = { var:tv_wonder_survey_competence_average ?= { this >= 75 } }
 		tv_change_wonder_domestic_support_effect = { value = 40 }
 	}
 	else_if = {
-		limit = { var:tv_wonder_survey_competence_average >= 50 }
+		limit = { var:tv_wonder_survey_competence_average ?= { this >= 50 } }
 		tv_change_wonder_domestic_support_effect = { value = 20 }
 	}
 	remove_variable = tv_wonder_survey_competence_average
