@@ -271,6 +271,7 @@ organization_panel = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = fixed
 										visible = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet]"
+										datacontext = "[Scope.GetLocation]"
 										margin = { 8 0 }
 										spacing = 6
 										using = bg_paper_card
