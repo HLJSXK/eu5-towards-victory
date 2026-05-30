@@ -103,10 +103,15 @@ def active_ritual_text(wonder: dict, style: int) -> str:
 
 
 def hold_button_base_visible() -> str:
+    # Once a ritual starts, hide the button instead of leaving a disabled action
+    # that still forces EU5 to render the heavy generic-action tooltip.
     return (
+        f"And("
         f"And3({PLAYER}.GetVariable('tv_wonder_locked').IsSet, "
         f"{PLAYER}.GetVariable('tv_wonder_ceremony_style').IsSet, "
-        f"LessThanOrEqualTo_CFixedPoint({PLAYER}.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)140.0'))"
+        f"LessThanOrEqualTo_CFixedPoint({PLAYER}.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)140.0')), "
+        f"Not({PLAYER}.GetVariable('tv_wonder_ritual_in_progress').IsSet)"
+        f")"
     )
 
 
