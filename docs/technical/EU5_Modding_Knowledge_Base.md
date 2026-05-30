@@ -563,6 +563,17 @@ var:stockpile ?= {
 }
 ```
 
+The same rule applies in nested location/province effect blocks. Plain `var:X` always reads the
+current scope's variable store, so after switching into `capital = {}`, `var:site ?= {}`, or
+`every_location_in_province = {}`, use `root.var:X` for country-owned numeric inputs:
+
+```pdx
+var:tv_wonder_site ?= {
+    add_location_modifier = { modifier = some_modifier years = root.var:country_years }
+    change_prosperity = root.var:country_prosperity_gain
+}
+```
+
 For effect iterators, capture the number before switching scope and use the local variable inside the iterator:
 
 ```pdx
@@ -686,6 +697,11 @@ my_event.1.a.tt: "Tooltip description shown on hover."
 Event options may also pre-evaluate their `effect` stack while building tooltips. Do not assume a `set_variable` earlier in the option or in a called helper is committed before a later visible helper reads that variable. If an option sets `X` and then calls code that compares `var:X`, wrap the state-changing/application sequence in `hidden_effect = { ... }`, or guard the reusable helper with `has_variable = X` before direct `var:X` comparisons. For option triggers that read optional variables, prefer `var:X ?= N`.
 
 If a visible option helper needs a derived numeric value, prefer branching from persistent state and using literal effect values instead of writing a temporary variable and later passing `value = prev.var:X` or `value = scope.var:X`. In one Engineering Department finalization chain, the option computed extra building levels in `tv_wonder_final_building_extra_levels`, then a nested helper compared and reused that temporary variable; tooltip pre-evaluation logged invalid-left-side and unset-variable errors before the player clicked the option. The same trap reappeared when Prosperity M1 reinitialized partially built wonders and tried to collapse 1..6 module levels through temporary `*_combinable_levels` / `*_helper_extra_levels` scratch variables, and again when post-unit-completion hover rebuilt helper/module buildings through temporary `*_helper_current_level` / `*_target_module_level` variables. For bounded wonder-module merges or rebuilds, emit one literal branch per level and apply fixed building deltas directly from persistent state. For rounded division displays such as remaining-month counters, prefer verified script-value operators like `ceiling = yes` instead of scratch multiply/check variables. Also re-check persistent prerequisites at the event option boundary because confirmation events can stay open after state changes elsewhere.
+
+If that visible helper also switches into a location/province block, do not keep using plain
+`var:X` for country preview values. Inside the nested block, `var:X` reads the location/province
+variable store; use `root.var:X` or a pre-captured `local_var:X` for country-owned numbers such
+as `change_prosperity` or `add_location_modifier years = ...`.
 
 Generic action widgets can hit the same problem while the action card or tooltip is merely visible. If an action effect initializes variables and then calls a visible helper that compares those same variables, action hover pre-evaluation may read them before the initialization is committed. Hide action widgets until their prerequisite state exists, repeat important prerequisites inside the action effect, and write reusable helpers with `var:X ?= ...` or threshold-style comparisons instead of direct reads of values that are only set earlier in the same chain.
 

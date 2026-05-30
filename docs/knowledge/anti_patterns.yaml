@@ -780,6 +780,16 @@
   source: "runtime error.log: common/scripted_triggers/tv_engineering_department_triggers.txt:311; reference_game_files/game/in_game/common/missions/generic_capital_economy_mission_pack.txt:388 (root.var comparison)"
   notes: "Using prev.var:X as the RHS of a numeric comparison can log 'Invalid right side during comparison 'var'' and make the condition fail every tick. In Engineering Department construction this caused the monthly material check to fail and kept the UI stuck on the materials-insufficient pause state."
 
+- id: nested_location_scope_plain_var_reads_location_store
+  pattern: ''
+  detectability: advisory
+  bad: "Inside a location-scoped block (`capital = {}`, `var:site ?= {}`, `every_location_in_province = {}`, etc.), reading a country-owned numeric as plain `var:X`"
+  correction: "Plain `var:X` always reads the current scope's variable store. After switching into a location/province block, use `root.var:X` when root is the original country owner, or capture the number before the scope switch with `set_local_variable` and use `local_var:X` inside the nested scope."
+  category: scope
+  scope: location
+  source: "reference_game_files/game/in_game/events/disaster/chinese_crisis_events.txt:306-311 (change_prosperity = root.var:character_ability_prosperity_variable); runtime error.log: common/scripted_effects/tv_engineering_department_effects.txt:2128-2129"
+  notes: "A nested location/province scope does not inherit country `var:` reads. If the numeric lives on the country, plain `var:X` inside the location block fetches the location variable store instead and can log 'Failed to fetch variable' / unset-scope errors."
+
 - id: random_list_inside_random
   pattern: 'random\s*=\s*\{[^}]*random_list'
   bad: "random = { chance = X random_list = { ... } } — nesting random_list as a child of random"

@@ -14,6 +14,10 @@ called directly from event options.
    Use `var:X ?= ...` for optional trigger checks. If a later effect value needs `X`, ensure
    `X` is persistent state already set before the event opened, or branch over bounded values
    with literal `value = N` effects instead of `value = prev.var:X`.
+   If a visible helper switches into a location/province block (`capital = {}`, `var:site ?= {}`,
+   `every_location_in_province = {}`, etc.), plain `var:X` now reads that nested scope's variable
+   store. Use `root.var:X` for country-owned numeric inputs, or capture the value before the scope
+   switch with `set_local_variable` / `local_var:X`.
    Wonder module/helper rebuilds are a common trap here: for 1..6 level collapse or merge
    logic, prefer one literal branch per level over scratch variables like `*_combinable_levels`,
    `*_current_module_level`, or `*_target_module_level`. For rounded division displays such as
