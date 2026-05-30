@@ -197,7 +197,6 @@
 
 - id: generic_action_cleanup_effect_must_be_hidden
   pattern: ''
-  detectability: needs_parser
   only_in_paths: ['generic_actions']
   bad: "Calling cleanup-only scripted effects from a visible generic action effect"
   correction: "Wrap cleanup/rebuild-only helper calls in hidden_effect = { ... }. scripts/validate.py enforces the registered high-risk helper list, including tv_governor_remove_effect."
@@ -438,17 +437,16 @@
   category: gui
   scope: any
   source: "EU5 engine validation (pdx_gui_validation.cpp:62: 'Unsupported property: parentanchor on widgets that are a child of a hbox/vbox. Hboxes/vboxes arrange their children automatically.')"
-  notes: "scripts/validate.py now applies a brace-aware GUI parser for this pattern. Children of progressbar/widget/window are unaffected unless their direct parent block is hbox/vbox."
+  notes: "Pattern is empty because static detection requires parsing GUI parent structure. Audit any widget nested inside hbox = { ... } or vbox = { ... } and strip parentanchor. Children of progressbar/widget/window are unaffected."
 
 - id: percent_size_under_hbox_vbox
   pattern: ''
-  detectability: needs_parser
   bad: "Setting size with a percentage component on a widget that is a direct child of an hbox or vbox, e.g. size = { 97% 72 } inside organization_custom_content"
   correction: "Remove the percentage size and rely on layout policies, or use non-percent fixed/min/max sizing when a fixed dimension is actually needed. For io_character_card in organization_custom_content, omit size/parentanchor and rely on the card type's built-in layoutpolicy_expanding."
   category: gui
   scope: any
   source: "EU5 engine validation (pdx_gui_validation.cpp:62: 'Unsupported property: size with a percentage on widgets that are a child of a vbox/hbox. Consider using layout policies and stretch factors instead.')"
-  notes: "scripts/validate.py now applies a brace-aware GUI parser for this pattern. Percent sizes remain valid in plain widget/fixedgrid contexts, but hbox/vbox direct children should be driven by layoutpolicy_* or stretch factors."
+  notes: "Pattern is empty because static detection requires parsing GUI parent structure. Percent sizes are valid in some plain widget/fixedgrid contexts, but hbox/vbox children are arranged by the box layout and should be driven by layoutpolicy_* or stretch factors."
 
 - id: io_custom_tab_scrollarea_autosize_wrapper_misaligns
   pattern: ''

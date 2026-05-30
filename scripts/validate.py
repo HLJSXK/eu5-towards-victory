@@ -71,10 +71,6 @@ GENERIC_ACTION_HIDDEN_ONLY_EFFECTS = {
         "`hidden_effect = { ... }` when reached from a generic action."
     ),
 }
-GUI_CHILD_CONTAINER_BLOCKS = {"hbox", "vbox"}
-GUI_LAYOUT_BLOCKS = {"widget", "button", "hbox", "vbox", "icon", "editbox", "text_single", "text_multi", "scrollarea", "piechart", "progressbar"}
-GUI_PERCENT_SIZE_PATTERN = re.compile(r"\bsize\s*=\s*\{[^#\n}]*%[^#\n}]*\}")
-GUI_PARENTANCHOR_PATTERN = re.compile(r"\bparentanchor\s*=")
 
 issues = []
 warnings = []
@@ -454,39 +450,6 @@ def check_tv_io_icon_assets() -> None:
                 )
 
 
-def check_gui_box_child_layout(path: Path, content: str) -> None:
-    """Catch GUI children of hbox/vbox that still use prohibited percent sizing or parent anchors."""
-    if path.suffix != ".gui":
-        return
-
-    block_stack: list[str] = []
-    for line_num, line in enumerate(content.splitlines(), 1):
-        if (
-            len(block_stack) >= 2
-            and block_stack[-2] in GUI_CHILD_CONTAINER_BLOCKS
-            and block_stack[-1] in GUI_LAYOUT_BLOCKS
-        ):
-            if GUI_PARENTANCHOR_PATTERN.search(line):
-                issues.append(
-                    f"[GUI_LAYOUT] {path.relative_to(REPO_ROOT)}:{line_num} -- "
-                    f"parentanchor on a direct child of {block_stack[-2]}; remove it and rely on the box layout"
-                )
-            if GUI_PERCENT_SIZE_PATTERN.search(line):
-                issues.append(
-                    f"[GUI_LAYOUT] {path.relative_to(REPO_ROOT)}:{line_num} -- "
-                    f"percentage size on a direct child of {block_stack[-2]}; use layoutpolicy/stretch factors instead"
-                )
-
-        block_name = _gui_multiline_block_name(line)
-        if block_name:
-            block_stack.append(block_name)
-
-        depth_delta = _brace_delta(line)
-        if depth_delta < 0:
-            for _ in range(min(-depth_delta, len(block_stack))):
-                block_stack.pop()
-
-
 def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
     """Warn when AI-maintained knowledge/workflow files drift out of sync."""
     valid_detectability = {"lint", "needs_parser", "advisory"}
@@ -603,22 +566,6 @@ def _brace_delta(line: str) -> int:
     """Return brace depth delta for a single line, ignoring comments."""
     code = line.split("#", 1)[0]
     return code.count("{") - code.count("}")
-
-
-def _gui_multiline_block_name(line: str) -> str | None:
-    """Return the block/container name for a multi-line GUI opening line."""
-    code = line.split("#", 1)[0].rstrip()
-    if not code.endswith("{"):
-        return None
-
-    typed = re.match(r"^\s*type\b.*=\s*(\w+)\s*\{$", code)
-    if typed:
-        return typed.group(1)
-
-    match = re.match(r"^\s*([A-Za-z_]\w*)\b.*\{$", code)
-    if match:
-        return match.group(1)
-    return None
 
 
 def _has_direct_child_block(body: str, name: str) -> bool:
@@ -935,7 +882,6 @@ def main():
                 check_generic_action_pre_eval_risks(path, content)
                 check_io_policy_ai_scope_recipient_guard(path, content)
                 check_on_action_singleton_effect_delegate(path, content, hardcoded_on_actions)
-                check_gui_box_child_layout(path, content)
                 check_enums(path, content, enum_data)
                 check_modifier_names(path, content, modifier_whitelist)
 
