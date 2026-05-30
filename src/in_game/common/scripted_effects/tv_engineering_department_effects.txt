@@ -1779,16 +1779,16 @@ tv_wonder_after_unit_completed_effect = {
 
 tv_wonder_after_unit_completed_event_effect = {
 	tv_wonder_update_wonder_level_effect = yes
-	tv_wonder_apply_helper_building_to_final_site_effect = yes
-	tv_wonder_materialize_module_buildings_from_unit_vars_effect = yes
 	if = {
 		limit = { var:tv_wonder_level > var:tv_wonder_previous_level }
 		trigger_event_non_silently = { id = tv_engineering_department.201 }
 	}
-	tv_wonder_auto_advance_active_part_effect = yes
-	tv_wonder_set_io_construction_progress_effect = { value = 0 }
-	tv_wonder_update_construction_progress_display_effect = yes
-	remove_variable = tv_wonder_previous_level
+	else = {
+		tv_wonder_auto_advance_active_part_effect = yes
+		tv_wonder_set_io_construction_progress_effect = { value = 0 }
+		tv_wonder_update_construction_progress_display_effect = yes
+		remove_variable = tv_wonder_previous_level
+	}
 }
 
 tv_wonder_check_construction_unit_completion_effect = {

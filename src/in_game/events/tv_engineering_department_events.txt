@@ -138,9 +138,34 @@ tv_engineering_department.201 = {
 	desc = tv_engineering_department.201.d
 	outcome = good
 
+	immediate = {
+		if = {
+			limit = { tv_wonder_construction_site_selected_trigger = yes }
+			var:tv_wonder_site ?= { save_scope_as = tv_wonder_event_location }
+		}
+	}
+
 	option = {
 		name = tv_engineering_department.201.a
-		tv_change_wonder_domestic_support_effect = { value = 10 }
+		if = {
+			limit = {
+				tv_wonder_construction_site_selected_trigger = yes
+				has_variable = tv_wonder_previous_level
+				var:tv_wonder_level > var:tv_wonder_previous_level
+			}
+			tv_wonder_apply_helper_building_to_final_site_effect = yes
+			tv_wonder_materialize_module_buildings_from_unit_vars_effect = yes
+			tv_change_wonder_domestic_support_effect = { value = 10 }
+			tv_wonder_auto_advance_active_part_effect = yes
+			tv_wonder_set_io_construction_progress_effect = { value = 0 }
+			tv_wonder_update_construction_progress_display_effect = yes
+			remove_variable = tv_wonder_previous_level
+		}
+		else = {
+			hidden_effect = {
+				remove_variable = tv_wonder_previous_level
+			}
+		}
 	}
 }
 
