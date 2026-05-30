@@ -15,7 +15,10 @@ called directly from event options.
    `X` is persistent state already set before the event opened, or branch over bounded values
    with literal `value = N` effects instead of `value = prev.var:X`.
    Wonder module/helper rebuilds are a common trap here: for 1..6 level collapse or merge
-   logic, prefer one literal branch per level over scratch variables like `*_combinable_levels`.
+   logic, prefer one literal branch per level over scratch variables like `*_combinable_levels`,
+   `*_current_module_level`, or `*_target_module_level`. For rounded division displays such as
+   remaining-month counters, prefer verified script-value operators like `ceiling = yes` over
+   writing a temporary check variable and comparing it later in the same hover-rendered chain.
 
 3. Guard stale event confirmations.
    Final confirmation events can sit open while project state changes through another path.
@@ -24,7 +27,9 @@ called directly from event options.
 
 4. Hide application chains when nested tooltips are not needed.
    If an event option must initialize temporary state and then call helpers that compare or
-   reuse that state, wrap the sequence in `hidden_effect = { ... }`.
+   reuse that state, wrap the sequence in `hidden_effect = { ... }`. This hides nested tooltip
+   text, but it is not a commit boundary: helpers inside still must read persistent state or use
+   literal bounded branches instead of same-chain scratch variables.
 
 ## Validation
 

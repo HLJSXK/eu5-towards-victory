@@ -127,6 +127,75 @@ def final_building_level_exact(building: str, level: int, indent: int) -> list[s
     return lines
 
 
+def country_level_matches(level_var: str, level: int, indent: int) -> list[str]:
+    prefix = T * indent
+    return [f"{prefix}prev = {{ var:{level_var} ?= {level} }}"]
+
+
+def unit_gap_matches(unit_var: str, gap: int, indent: int) -> list[str]:
+    prefix = T * indent
+    pairs: list[tuple[int, int]] = []
+    for wonder_level in range(0, 7):
+        for unit_level in range(0, 7):
+            if max(unit_level - wonder_level, 0) == gap:
+                pairs.append((unit_level, wonder_level))
+    lines = [f"{prefix}OR = {{"]
+    for unit_level, wonder_level in pairs:
+        lines.append(f"{prefix}{T}AND = {{")
+        lines.append(f"{prefix}{T}{T}prev = {{ var:{unit_var} ?= {unit_level} }}")
+        lines.append(f"{prefix}{T}{T}prev = {{ var:tv_wonder_level ?= {wonder_level} }}")
+        lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}}}")
+    return lines
+
+
+def sync_building_to_literal_level(building: str, target_level: int, indent: int) -> list[str]:
+    prefix = T * indent
+    lines: list[str] = []
+    branch_head = "if"
+    if target_level > 0:
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}{T}limit = {{ NOT = {{ has_building = building_type:{building} }} }}")
+        lines.append(
+            f'{prefix}{T}construct_building = {{ building_type = building_type:{building} cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }}'
+        )
+        if target_level > 1:
+            lines.extend([f"{prefix}{T}{line}" for line in change_level(building, target_level - 1)])
+        lines.append(f"{prefix}}}")
+        branch_head = "else_if"
+    for current_level in range(6, 0, -1):
+        delta = target_level - current_level
+        if delta == 0:
+            continue
+        lines.append(f"{prefix}{branch_head} = {{")
+        lines.append(f"{prefix}{T}limit = {{")
+        lines.extend(final_building_level_exact(building, current_level, indent + 2))
+        lines.append(f"{prefix}{T}}}")
+        lines.extend([f"{prefix}{T}{line}" for line in change_level(building, delta)])
+        lines.append(f"{prefix}}}")
+        branch_head = "else_if"
+    return lines
+
+
+def sync_building_from_target_levels(
+    building: str,
+    target_condition_builder,
+    indent: int,
+) -> list[str]:
+    prefix = T * indent
+    lines: list[str] = []
+    head = "if"
+    for target_level in range(6, -1, -1):
+        lines.append(f"{prefix}{head} = {{")
+        lines.append(f"{prefix}{T}limit = {{")
+        lines.extend(target_condition_builder(target_level, indent + 2))
+        lines.append(f"{prefix}{T}}}")
+        lines.extend(sync_building_to_literal_level(building, target_level, indent + 1))
+        lines.append(f"{prefix}}}")
+        head = "else_if"
+    return lines
+
+
 def stored_tier_can_expand(wonder: dict, final_building: str, level: int, indent: int) -> list[str]:
     prefix = T * indent
     tier_var = f"tv_wonder_{wonder['key']}_scale_tier"
@@ -169,57 +238,12 @@ def set_building_level_from_level_var(
     current_level_var: str,
     indent: int,
 ) -> list[str]:
-    prefix = T * indent
-    lines = [
-        f"{prefix}set_variable = {{ name = {current_level_var} value = 0 }}",
-        f"{prefix}if = {{",
-        f"{prefix}{T}limit = {{ has_building = building_type:{building} }}",
-    ]
-    for idx, level in enumerate(range(6, 0, -1)):
-        head = "if" if idx == 0 else "else_if"
-        lines.extend(
-            [
-                f"{prefix}{T}{head} = {{",
-                f"{prefix}{T}{T}limit = {{ {loc_level(building, '>=', level)} }}",
-                f"{prefix}{T}{T}set_variable = {{ name = {current_level_var} value = {level} }}",
-                f"{prefix}{T}}}",
-            ]
-        )
-    lines.append(f"{prefix}}}")
-    lines.extend(add_building_level_if_missing(f"prev = {{ var:{level_var} > 0 }}", building, indent))
-    lines.extend(
-        [
-            f"{prefix}if = {{",
-            f"{prefix}{T}limit = {{",
-            f"{prefix}{T}{T}prev = {{ var:{level_var} > 0 }}",
-            f"{prefix}{T}{T}NOT = {{ has_building = building_type:{building} }}",
-            f"{prefix}{T}}}",
-            f"{prefix}{T}set_variable = {{ name = {current_level_var} value = 1 }}",
-            f"{prefix}}}",
-            f"{prefix}if = {{",
-            f"{prefix}{T}limit = {{",
-            f"{prefix}{T}{T}OR = {{",
-            f"{prefix}{T}{T}{T}root.var:{level_var} > var:{current_level_var}",
-            f"{prefix}{T}{T}{T}var:{current_level_var} > root.var:{level_var}",
-            f"{prefix}{T}{T}}}",
-            f"{prefix}{T}}}",
-        ]
+    del current_level_var
+    return sync_building_from_target_levels(
+        building,
+        lambda target_level, target_indent: country_level_matches(level_var, target_level, target_indent),
+        indent,
     )
-    lines.extend(
-        [
-            f"{prefix}{T}{line}"
-            for line in change_level_by_value(
-                building,
-                [
-                    f"add = root.var:{level_var}",
-                    f"subtract = var:{current_level_var}",
-                ],
-            )
-        ]
-    )
-    lines.append(f"{prefix}}}")
-    lines.append(f"{prefix}remove_variable = {current_level_var}")
-    return lines
 
 
 def sync_helper_building_to_wonder_level(wonder: dict, indent: int) -> list[str]:
@@ -247,24 +271,13 @@ def sync_module_building_to_unit_gap(
     building: str,
     indent: int,
 ) -> list[str]:
-    prefix = T * indent
-    gap_var = f"tv_wonder_{wonder['key']}_{part_key}_target_module_level"
-    current_var = f"tv_wonder_{wonder['key']}_{part_key}_current_module_level"
+    del wonder
     unit_var = f"tv_wonder_{part_key}_units"
-    lines = [
-        f"{prefix}prev = {{ set_variable = {{ name = {gap_var} value = 0 }} }}",
-        f"{prefix}if = {{",
-        f"{prefix}{T}limit = {{ prev = {{ var:{unit_var} > var:tv_wonder_level }} }}",
-        f"{prefix}{T}prev = {{",
-        f"{prefix}{T}{T}set_variable = {{ name = {gap_var} value = var:{unit_var} }}",
-        f"{prefix}{T}{T}change_variable = {{ name = {gap_var} subtract = var:tv_wonder_level }}",
-        f"{prefix}{T}{T}clamp_variable = {{ name = {gap_var} min = 0 max = 6 }}",
-        f"{prefix}{T}}}",
-        f"{prefix}}}",
-    ]
-    lines.extend(set_building_level_from_level_var(building, gap_var, current_var, indent))
-    lines.append(f"{prefix}prev = {{ remove_variable = {gap_var} }}")
-    return lines
+    return sync_building_from_target_levels(
+        building,
+        lambda target_level, target_indent: unit_gap_matches(unit_var, target_level, target_indent),
+        indent,
+    )
 
 
 def combine_modules_to_helper_once(

@@ -240,16 +240,9 @@ tv_wonder_update_construction_progress_display_effect = {
 			value = {
 				value = var:tv_wonder_remaining_progress
 				divide = var:tv_wonder_monthly_construction_progress
-				floor = yes
+				ceiling = yes
 			}
 		}
-		set_variable = { name = tv_wonder_remaining_months_floor_check value = var:tv_wonder_remaining_months }
-		change_variable = { name = tv_wonder_remaining_months_floor_check multiply = var:tv_wonder_monthly_construction_progress }
-		if = {
-			limit = { var:tv_wonder_remaining_months_floor_check < var:tv_wonder_remaining_progress }
-			change_variable = { name = tv_wonder_remaining_months add = 1 }
-		}
-		remove_variable = tv_wonder_remaining_months_floor_check
 		if = {
 			limit = { var:tv_wonder_remaining_months < 1 }
 			set_variable = { name = tv_wonder_remaining_months value = 1 }
