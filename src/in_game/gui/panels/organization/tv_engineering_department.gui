@@ -2626,20 +2626,12 @@ widget = {
 								layoutpolicy_horizontal = expanding
 								spacing = 4
 								action_button_diamond = {
-									size = { 230 30 }
+									size = { 470 30 }
 									text = "TV_ENGINEERING_BUILD_LABOR_CAMP_BUTTON"
 									title = "tv_wonder_build_labor_camp"
 									description = "tv_wonder_build_labor_camp_desc"
 									actor = "[InternationalOrganizationsView.GetPlayer]"
 									left_action = { action_name = "tv_wonder_build_labor_camp" }
-								}
-								action_button_diamond = {
-									size = { 230 30 }
-									text = "TV_ENGINEERING_BUILD_DISPATCH_BUTTON"
-									title = "tv_wonder_build_material_dispatch_point"
-									description = "tv_wonder_build_material_dispatch_point_desc"
-									actor = "[InternationalOrganizationsView.GetPlayer]"
-									left_action = { action_name = "tv_wonder_build_material_dispatch_point" }
 								}
 							}
 
@@ -2669,28 +2661,11 @@ widget = {
 								text_single = { size = { 72 16 } raw_text = "VI" align = nobaseline|center }
 							}
 
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = { text = "TV_ENGINEERING_DISPATCH_POINTS_LABEL" align = nobaseline }
-								text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_dispatch_points').GetValue|1]" align = nobaseline }
-								expand = {}
-								text_single = { text = "TV_ENGINEERING_MATERIAL_OUTPUT_LABEL" align = nobaseline }
-								text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_material_income').GetValue|0]" align = nobaseline }
-							}
-
 							text_multi = {
 								layoutpolicy_horizontal = expanding
 								max_width = 462
 								autoresize = yes
 								text = "TV_ENGINEERING_ORG_LOG_HELP_LABOR_TEXT"
-								align = nobaseline|left
-							}
-							text_multi = {
-								layoutpolicy_horizontal = expanding
-								max_width = 462
-								autoresize = yes
-								text = "TV_ENGINEERING_ORG_LOG_HELP_DISPATCH_TEXT"
 								align = nobaseline|left
 							}
 						}

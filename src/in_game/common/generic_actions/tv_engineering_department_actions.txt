@@ -277,49 +277,6 @@ tv_wonder_build_labor_camp = {
 	ai_will_do = { add = -100 }
 }
 
-tv_wonder_build_material_dispatch_point = {
-	type = owncountry
-	sound = UI_action_religion_generic
-	ai_tick = monthly
-	ai_tick_frequency = 99999
-	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
-	allow = {
-		scope:actor = {
-			tv_wonder_has_available_material_dispatch_point_trigger = yes
-		}
-	}
-	select_trigger = {
-		looking_for_a = location
-		interaction_source_list = {
-			scope:actor = {
-				every_owned_location = {
-					limit = { tv_wonder_material_dispatch_point_location_available_trigger = yes }
-					add_to_list = source
-				}
-			}
-		}
-		target_flag = target
-		name = "tv_select_wonder_material_dispatch_point"
-		none_available_msg_key = "tv_no_wonder_material_dispatch_point_available"
-		column = { data = name }
-		column = { data = rank }
-		column = { data = population }
-		visible = {
-			tv_wonder_material_dispatch_point_location_available_trigger = yes
-		}
-		enabled = {
-			tv_wonder_material_dispatch_point_location_available_trigger = yes
-		}
-	}
-	effect = {
-		if = {
-			limit = { exists = scope:target }
-			scope:actor = { tv_wonder_construct_material_dispatch_point_effect = yes }
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
 tv_wonder_begin_foundation = {
 	type = owncountry
 	sound = UI_action_religion_generic

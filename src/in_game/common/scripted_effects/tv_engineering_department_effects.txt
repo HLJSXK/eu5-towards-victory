@@ -1458,8 +1458,6 @@ tv_wonder_update_logistics_metrics_effect = {
 	set_variable = { name = tv_wonder_labor_cap value = 0 }
 	set_variable = { name = tv_wonder_labor_cap_display value = 1 }
 	set_variable = { name = tv_wonder_monthly_construction_progress value = 0 }
-	set_variable = { name = tv_wonder_dispatch_points value = 0 }
-	set_variable = { name = tv_wonder_material_income value = 0 }
 
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
@@ -1496,17 +1494,6 @@ tv_wonder_update_logistics_metrics_effect = {
 			}
 		}
 		clamp_variable = { name = tv_wonder_monthly_construction_progress min = 0 max = 30000 }
-		set_variable = {
-			name = tv_wonder_dispatch_points
-			value = total_effective_building_levels:tv_wonder_material_dispatch_point
-		}
-		set_variable = {
-			name = tv_wonder_material_income
-			value = {
-				value = var:tv_wonder_dispatch_points
-				multiply = 1
-			}
-		}
 	}
 }
 
@@ -1714,18 +1701,6 @@ tv_wonder_construct_labor_camp_effect = {
 		}
 		var:tv_wonder_site ?= {
 			construct_building = { building_type = building_type:tv_wonder_labor_camp }
-		}
-	}
-}
-
-tv_wonder_construct_material_dispatch_point_effect = {
-	if = {
-		limit = {
-			exists = scope:target
-			scope:target = { tv_wonder_material_dispatch_point_location_available_trigger = yes }
-		}
-		scope:target = {
-			construct_building = { building_type = building_type:tv_wonder_material_dispatch_point }
 		}
 	}
 }
@@ -2328,8 +2303,6 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_labor_cap
 	remove_variable = tv_wonder_labor_cap_display
 	remove_variable = tv_wonder_monthly_construction_progress
-	remove_variable = tv_wonder_dispatch_points
-	remove_variable = tv_wonder_material_income
 	remove_variable = tv_wonder_active_part
 	remove_variable = tv_wonder_construction_paused
 	remove_variable = tv_wonder_construction_complete

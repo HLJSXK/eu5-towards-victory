@@ -259,16 +259,6 @@ tv_wonder_labor_camp_below_cap_trigger = {
 	}
 }
 
-tv_wonder_material_dispatch_point_location_available_trigger = {
-	can_build_building = building_type:tv_wonder_material_dispatch_point
-}
-
-tv_wonder_has_available_material_dispatch_point_trigger = {
-	any_owned_location = {
-		tv_wonder_material_dispatch_point_location_available_trigger = yes
-	}
-}
-
 tv_wonder_has_organized_labor_trigger = {
 	var:tv_wonder_laborers ?= { this > 0 }
 }
