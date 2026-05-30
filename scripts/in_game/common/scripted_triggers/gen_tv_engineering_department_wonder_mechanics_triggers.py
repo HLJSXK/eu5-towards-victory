@@ -203,6 +203,17 @@ def final_building_below_cap_conditions(wonder: dict, indent: int) -> list[str]:
     return lines
 
 
+def fresh_site_candidate_conditions(wonder: dict, indent: int) -> list[str]:
+    prefix = T * indent
+    lines = [f"{prefix}AND = {{"]
+    if wonder.get("is_unique"):
+        lines.append(f"{prefix}{T}this = location:{wonder['fixed_location']}")
+    lines.extend(trigger_conditions(wonder, indent + 1))
+    lines.append(f"{prefix}{T}NOT = {{ tv_wonder_location_has_{wonder['key']}_capped_final_building_trigger = yes }}")
+    lines.append(f"{prefix}}}")
+    return lines
+
+
 def add_project_occupancy_triggers(lines: list[str], wonders: list[dict]) -> None:
     for wonder in wonders:
         key = wonder["key"]
@@ -220,6 +231,26 @@ def add_project_occupancy_triggers(lines: list[str], wonders: list[dict]) -> Non
         lines.append("")
         lines.append(f"tv_wonder_location_has_{key}_expandable_final_building_trigger = {{")
         lines.extend(final_building_below_cap_conditions(wonder, 1))
+        lines.append("}")
+        lines.append("")
+        lines.append(f"tv_wonder_location_has_{key}_capped_final_building_trigger = {{")
+        lines.append(f"{T}tv_wonder_location_has_{key}_final_building_trigger = yes")
+        lines.append(f"{T}NOT = {{ tv_wonder_location_has_{key}_expandable_final_building_trigger = yes }}")
+        lines.append("}")
+        lines.append("")
+        lines.append(f"tv_wonder_location_is_valid_priority_project_for_{key}_trigger = {{")
+        lines.append(f"{T}trigger_if = {{")
+        lines.append(f"{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}tv_wonder_location_has_{key}_intermediate_building_trigger = yes")
+        lines.append(f"{T}{T}{T}NOT = {{ tv_wonder_location_has_any_wonder_final_building_trigger = yes }}")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}always = yes")
+        lines.append(f"{T}}}")
+        lines.append(f"{T}trigger_else_if = {{")
+        lines.append(f"{T}{T}limit = {{ tv_wonder_location_has_{key}_expandable_final_building_trigger = yes }}")
+        lines.append(f"{T}{T}always = yes")
+        lines.append(f"{T}}}")
+        lines.append(f"{T}trigger_else = {{ always = no }}")
         lines.append("}")
         lines.append("")
 
@@ -354,20 +385,21 @@ def generate() -> str:
     add_project_occupancy_triggers(lines, all_wonders)
     for wonder in all_wonders:
         lines.append(f"tv_wonder_location_can_host_{wonder['key']}_trigger = {{")
-        if wonder.get("is_unique"):
-            lines.append(f"{T}this = location:{wonder['fixed_location']}")
-        lines.extend(trigger_conditions(wonder))
+        lines.append(f"{T}OR = {{")
+        lines.append(f"{T}{T}tv_wonder_location_is_valid_priority_project_for_{wonder['key']}_trigger = yes")
+        lines.extend(fresh_site_candidate_conditions(wonder, 2))
+        lines.append(f"{T}}}")
         lines.append("}")
         lines.append("")
         lines.append(f"tv_wonder_can_build_{wonder['key']}_trigger = {{")
         if wonder.get("is_unique"):
             lines.append(f"{T}owns = location:{wonder['fixed_location']}")
             lines.append(f"{T}location:{wonder['fixed_location']} = {{")
-            lines.extend(trigger_conditions(wonder, 2))
+            lines.append(f"{T}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes")
             lines.append(f"{T}}}")
         else:
             lines.append(f"{T}any_owned_location = {{")
-            lines.extend(trigger_conditions(wonder, 2))
+            lines.append(f"{T}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes")
             lines.append(f"{T}}}")
         lines.append("}")
         lines.append("")
