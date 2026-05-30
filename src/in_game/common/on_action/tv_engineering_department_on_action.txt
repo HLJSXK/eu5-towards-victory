@@ -1,5 +1,17 @@
 ﻿# Towards Victory - Engineering Department on_action hooks
 
+on_game_start = {
+	on_actions = { tv_wonder_initialize_location_display_state_on_game_start }
+}
+
+tv_wonder_initialize_location_display_state_on_game_start = {
+	effect = {
+		hidden_effect = {
+			tv_wonder_mechanics_refresh_world_location_display_state_effect = yes
+		}
+	}
+}
+
 # Death cleanup: if the Great Engineer dies, clear country variable and notify.
 # root = country the character belonged to, scope:target = dead character.
 tv_engineering_department_char_death = {

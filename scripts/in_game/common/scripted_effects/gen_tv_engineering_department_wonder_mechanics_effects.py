@@ -27,6 +27,7 @@ from wonder_mechanics_lib import (
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_engineering_department_wonder_mechanics_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py"
 T = "\t"
+DISPLAY_SLOT_MAX = 3
 RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_auxiliary_building_finished",
     "tv_wonder_ritual_total_buildings_baseline",
@@ -409,6 +410,121 @@ def completion_ritual_payload_lines(wonder: dict, ritual_plan: dict, indent: int
     return lines
 
 
+def loc_level(building: str, op: str, level: int) -> str:
+    return f"location_building_level = {{ building_type = building_type:{building} value {op} {level} }}"
+
+
+def location_display_level_var(wonder: dict) -> str:
+    return f"tv_wonder_display_{wonder['key']}_level"
+
+
+def slot_id_var(slot: int) -> str:
+    return f"tv_wonder_display_slot_{slot}_id"
+
+
+def slot_level_var(slot: int) -> str:
+    return f"tv_wonder_display_slot_{slot}_level"
+
+
+def append_location_display_level_detection(lines: list[str], wonder: dict, *, indent: int, var_name: str) -> None:
+    prefix = T * indent
+    for level in range(6, 0, -1):
+        head = "if" if level == 6 else "else_if"
+        lines.append(f"{prefix}{head} = {{")
+        lines.append(f"{prefix}{T}limit = {{")
+        lines.append(f"{prefix}{T}{T}OR = {{")
+        for building in wonder["final_buildings"].values():
+            lines.append(f"{prefix}{T}{T}{T}{loc_level(building, '>=', level)}")
+        lines.append(f"{prefix}{T}{T}}}")
+        lines.append(f"{prefix}{T}}}")
+        lines.append(f"{prefix}{T}set_variable = {{ name = {var_name} value = {level} }}")
+        lines.append(f"{prefix}}}")
+
+
+def append_location_display_effects(
+    lines: list[str],
+    *,
+    unique_wonders: list[dict],
+    generic_wonders: list[dict],
+) -> None:
+    all_wonders = [*unique_wonders, *generic_wonders]
+
+    lines.append("tv_wonder_mechanics_push_location_display_slot_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ NOT = {{ has_variable = tv_wonder_display_count }} }}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_display_count value = 0 }}")
+    lines.append(f"{T}}}")
+    for slot in range(1, DISPLAY_SLOT_MAX + 1):
+        head = "if" if slot == 1 else "else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_display_count < {slot} }}")
+        lines.append(f"{T}{T}set_variable = {{ name = {slot_id_var(slot)} value = $wonder_id$ }}")
+        lines.append(f"{T}{T}set_variable = {{ name = {slot_level_var(slot)} value = $wonder_level$ }}")
+        lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_display_count add = 1 }}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_clear_location_display_state_effect = {")
+    lines.append(f"{T}remove_variable = tv_wonder_display_id")
+    lines.append(f"{T}remove_variable = tv_wonder_display_count")
+    for slot in range(1, DISPLAY_SLOT_MAX + 1):
+        lines.append(f"{T}remove_variable = {slot_id_var(slot)}")
+        lines.append(f"{T}remove_variable = {slot_level_var(slot)}")
+    for wonder in all_wonders:
+        lines.append(f"{T}remove_variable = {location_display_level_var(wonder)}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_refresh_location_display_state_effect = {")
+    lines.append(f"{T}tv_wonder_mechanics_clear_location_display_state_effect = yes")
+    for wonder in unique_wonders:
+        level_var = location_display_level_var(wonder)
+        lines.append(f"{T}if = {{")
+        lines.append(f"{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}OR = {{")
+        lines.append(f"{T}{T}{T}{T}this = location:{wonder['fixed_location']}")
+        for building in wonder["final_buildings"].values():
+            lines.append(f"{T}{T}{T}{T}has_building = building_type:{building}")
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}set_variable = {{ name = {level_var} value = 0 }}")
+        append_location_display_level_detection(lines, wonder, indent=2, var_name=level_var)
+        lines.append(
+            f"{T}{T}tv_wonder_mechanics_push_location_display_slot_effect = {{ wonder_id = {wonder['id']} wonder_level = var:{level_var} }}"
+        )
+        lines.append(f"{T}}}")
+
+    for wonder in generic_wonders:
+        level_var = location_display_level_var(wonder)
+        lines.append(f"{T}if = {{")
+        lines.append(f"{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}OR = {{")
+        for building in wonder["final_buildings"].values():
+            lines.append(f"{T}{T}{T}{T}has_building = building_type:{building}")
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}set_variable = {{ name = {level_var} value = 0 }}")
+        append_location_display_level_detection(lines, wonder, indent=2, var_name=level_var)
+        lines.append(f"{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}limit = {{ var:{level_var} >= 1 }}")
+        lines.append(
+            f"{T}{T}{T}tv_wonder_mechanics_push_location_display_slot_effect = {{ wonder_id = {wonder['id']} wonder_level = var:{level_var} }}"
+        )
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}}}")
+
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_refresh_world_location_display_state_effect = {")
+    lines.append(f"{T}every_location_in_the_world = {{")
+    lines.append(f"{T}{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def generate() -> str:
     all_wonders, mechanics = load_all_wonder_mechanics()
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
@@ -643,6 +759,8 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
+    append_location_display_effects(lines, unique_wonders=unique_wonders, generic_wonders=generic_wonders)
+
     lines.append("tv_wonder_mechanics_construct_final_building_effect = {")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
@@ -664,8 +782,8 @@ def generate() -> str:
             lines.append(f"{T}{T}{T}{head} = {{")
             lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }} }}")
             lines.append(f"{T}{T}{T}{T}prev = {{ set_variable = {{ name = tv_wonder_final_building value = {wonder['id']}{style:02d} }} }}")
-            lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_display_id value = {wonder['id']} }}")
             lines.append(f"{T}{T}{T}{T}tv_wonder_construct_final_building_in_site_effect = {{ building = building_type:{building} }}")
+            lines.append(f"{T}{T}{T}{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
             lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
