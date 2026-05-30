@@ -1,3 +1,4 @@
+import re
 import sys
 from pathlib import Path
 
@@ -409,6 +410,34 @@ def render_scene_overlay() -> str:
     return "\n".join(lines)
 
 
+def patch_inline_tooltip_titles(vanilla: str) -> str:
+    pattern = re.compile(
+        r'^(?P<indent>\s*)blockoverride "block_title" \{ visible = no \}$',
+        re.MULTILINE,
+    )
+
+    def repl(match: re.Match[str]) -> str:
+        indent = match.group("indent")
+        inner = indent + T
+        inner_inner = inner + T
+        return "\n".join(
+            [
+                f'{indent}blockoverride "block_title" {{',
+                f'{inner}block "block_title" {{',
+                f"{inner_inner}visible = no",
+                f"{inner}}}",
+                f"{indent}}}",
+            ]
+        )
+
+    patched, count = pattern.subn(repl, vanilla)
+    if count == 0:
+        raise RuntimeError(
+            'Could not find any inline "block_title" overrides to patch in vanilla location_window.gui'
+        )
+    return patched
+
+
 def inject_overlay(vanilla: str) -> str:
     marker = "\n\t\t\t\tvbox = {\n\t\t\t\t\texpand = {}\n"
     replacement = "\n" + render_scene_overlay() + marker
@@ -419,6 +448,7 @@ def inject_overlay(vanilla: str) -> str:
 
 def generate() -> str:
     vanilla = VANILLA_FILE.read_text(encoding="utf-8-sig")
+    vanilla = patch_inline_tooltip_titles(vanilla)
     lines = render_header(SCRIPT_REL)
     lines.append(render_tooltip_template())
     lines.append(inject_overlay(vanilla))

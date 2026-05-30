@@ -52,6 +52,12 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     by a numeric id. For IO panels, pass a typed InternationalOrganization object
     from an existing view/datamodel chain.
 
+11. Preserve nested `block_title` blocks when hiding scrolled list titles.
+    For `TooltipScrolledRequirementsList` / `TooltipScrolledRowList`, do not use
+    `blockoverride "block_title" {}` or `blockoverride "block_title" { visible = no }`.
+    Keep the vanilla nested shape and hide the inner block instead:
+    `blockoverride "block_title" { block "block_title" { visible = no } }`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

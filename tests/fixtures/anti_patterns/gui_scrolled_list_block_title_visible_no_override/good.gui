@@ -1,0 +1,11 @@
+ContextualTooltipType = {
+    blockoverride "tooltip_content" {
+        TooltipScrolledRowList = {
+            blockoverride "block_title" {
+                block "block_title" {
+                    visible = no
+                }
+            }
+        }
+    }
+}
