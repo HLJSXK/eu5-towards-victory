@@ -345,6 +345,10 @@ tv_engineering_department.322 = {
 
 tv_engineering_department.500 = {
 	type = country_event
+	immediate = {
+		tv_wonder_prepare_final_support_rewards_effect = yes
+		tv_wonder_prepare_finalization_preview_effect = yes
+	}
 	title = tv_engineering_department.500.t
 	desc = {
 		first_valid = {
@@ -731,7 +735,8 @@ tv_engineering_department.500 = {
 
 	option = {
 		name = tv_engineering_department.500.a
-		tv_wonder_complete_finalization_effect = yes
+		show_as_tooltip = { tv_wonder_complete_finalization_preview_effect = yes }
+		hidden_effect = { tv_wonder_complete_finalization_effect = yes }
 	}
 }
 

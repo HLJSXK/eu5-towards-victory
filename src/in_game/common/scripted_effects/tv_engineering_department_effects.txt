@@ -1949,15 +1949,15 @@ tv_wonder_initialize_ceremony_runtime_state_effect = {
 tv_wonder_apply_base_modifier_effect = {
 	hidden_effect = {
 		tv_wonder_clear_current_base_modifiers_effect = yes
+		tv_wonder_mechanics_apply_base_modifier_effect = yes
 	}
-	tv_wonder_mechanics_apply_base_modifier_effect = yes
 }
 
 tv_wonder_apply_ceremony_modifier_effect = {
 	hidden_effect = {
 		tv_wonder_clear_current_ceremony_modifiers_effect = yes
+		tv_wonder_mechanics_apply_ceremony_modifier_effect = yes
 	}
-	tv_wonder_mechanics_apply_ceremony_modifier_effect = yes
 }
 
 tv_wonder_construct_final_building_in_site_effect = {
@@ -2068,7 +2068,9 @@ tv_wonder_construct_final_building_in_site_effect = {
 }
 
 tv_wonder_construct_final_building_effect = {
-	tv_wonder_mechanics_construct_final_building_effect = yes
+	hidden_effect = {
+		tv_wonder_mechanics_construct_final_building_effect = yes
+	}
 }
 
 tv_wonder_prepare_final_support_rewards_effect = {
@@ -2088,54 +2090,83 @@ tv_wonder_prepare_final_support_rewards_effect = {
 	change_variable = { name = tv_wonder_final_prestige_reward divide = 10 }
 }
 
+tv_wonder_prepare_finalization_preview_effect = {
+	# Cache tooltip-facing values before opening the finalization event so the option
+	# does not need to recompute reward branches every time the engine redraws it.
+	set_variable = {
+		name = tv_wonder_final_completion_country_years
+		value = { value = var:tv_wonder_level }
+	}
+	set_variable = {
+		name = tv_wonder_final_completion_local_years
+		value = {
+			value = var:tv_wonder_level
+			multiply = 5
+		}
+	}
+	set_variable = {
+		name = tv_wonder_final_completion_prosperity
+		value = {
+			value = var:tv_wonder_level
+			multiply = 0.15
+		}
+	}
+	set_variable = { name = tv_wonder_finalization_preview_ready value = 1 }
+}
+
+tv_wonder_apply_final_support_rewards_effect = {
+	add_stability = { value = var:tv_wonder_final_stability_reward }
+	add_legitimacy = { value = var:tv_wonder_final_legitimacy_reward }
+	add_prestige = { value = var:tv_wonder_final_prestige_reward }
+}
+
 tv_wonder_apply_completion_celebration_rewards_effect = {
-	custom_tooltip = tv_wonder_completion_celebration_reward_tt
 	if = {
 		limit = { var:tv_wonder_level ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_1 years = 1 mode = add_and_extend }
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_1 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
-			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_1 years = 5 mode = add_and_extend }
-			change_prosperity = 0.15
+			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_1 years = var:tv_wonder_final_completion_local_years mode = add_and_extend }
+			change_prosperity = var:tv_wonder_final_completion_prosperity
 		}
 	}
 	else_if = {
 		limit = { var:tv_wonder_level ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_2 years = 2 mode = add_and_extend }
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_2 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
-			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_2 years = 10 mode = add_and_extend }
-			change_prosperity = 0.30
+			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_2 years = var:tv_wonder_final_completion_local_years mode = add_and_extend }
+			change_prosperity = var:tv_wonder_final_completion_prosperity
 		}
 	}
 	else_if = {
 		limit = { var:tv_wonder_level ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_3 years = 3 mode = add_and_extend }
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_3 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
-			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_3 years = 15 mode = add_and_extend }
-			change_prosperity = 0.45
+			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_3 years = var:tv_wonder_final_completion_local_years mode = add_and_extend }
+			change_prosperity = var:tv_wonder_final_completion_prosperity
 		}
 	}
 	else_if = {
 		limit = { var:tv_wonder_level ?= 4 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_4 years = 4 mode = add_and_extend }
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_4 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
-			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_4 years = 20 mode = add_and_extend }
-			change_prosperity = 0.60
+			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_4 years = var:tv_wonder_final_completion_local_years mode = add_and_extend }
+			change_prosperity = var:tv_wonder_final_completion_prosperity
 		}
 	}
 	else_if = {
 		limit = { var:tv_wonder_level ?= 5 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_5 years = 5 mode = add_and_extend }
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_5 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
-			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_5 years = 25 mode = add_and_extend }
-			change_prosperity = 0.75
+			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_5 years = var:tv_wonder_final_completion_local_years mode = add_and_extend }
+			change_prosperity = var:tv_wonder_final_completion_prosperity
 		}
 	}
 	else_if = {
 		limit = { var:tv_wonder_level ?= 6 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_6 years = 6 mode = add_and_extend }
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_6 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
-			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_6 years = 30 mode = add_and_extend }
-			change_prosperity = 0.90
+			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_6 years = var:tv_wonder_final_completion_local_years mode = add_and_extend }
+			change_prosperity = var:tv_wonder_final_completion_prosperity
 		}
 	}
 }
@@ -2246,39 +2277,33 @@ tv_wonder_broadcast_completion_event_effect = {
 tv_wonder_finalize_effect = {
 	if = {
 		limit = { tv_wonder_has_selected_ceremony_trigger = yes }
-		tv_wonder_prepare_final_support_rewards_effect = yes
 		set_variable = { name = tv_wonder_finalized value = 1 }
 		set_variable = { name = tv_wonder_stage value = 5 }
 		trigger_event_non_silently = { id = tv_engineering_department.500 }
 	}
 }
 
-tv_wonder_complete_finalization_effect = {
+tv_wonder_complete_finalization_preview_effect = {
 	if = {
-		limit = {
-			has_variable = tv_wonder_finalized
-			tv_wonder_construction_site_selected_trigger = yes
-			var:tv_wonder_locked ?= { this >= 1 }
-			var:tv_wonder_locked ?= { this <= 140 }
-			var:tv_wonder_ceremony_style ?= { this >= 1 }
-			var:tv_wonder_ceremony_style ?= { this <= 3 }
-			var:tv_wonder_level ?= { this >= 1 }
-			var:tv_wonder_level ?= { this <= 6 }
-			has_variable = tv_wonder_final_support_reward_source
-			has_variable = tv_wonder_final_stability_reward
-			has_variable = tv_wonder_final_legitimacy_reward
-			has_variable = tv_wonder_final_prestige_reward
-		}
-		tv_wonder_construct_final_building_effect = yes
-		tv_wonder_apply_base_modifier_effect = yes
-		tv_wonder_apply_ceremony_modifier_effect = yes
+		limit = { has_variable = tv_wonder_finalization_preview_ready }
+		tv_wonder_mechanics_apply_base_modifier_effect = yes
+		tv_wonder_mechanics_apply_ceremony_modifier_effect = yes
 		tv_wonder_apply_completion_celebration_rewards_effect = yes
 		tv_wonder_reward_current_ruler_and_engineer_effect = yes
-		custom_tooltip = tv_wonder_final_support_reward_tt
-		add_stability = { value = var:tv_wonder_final_stability_reward }
-		add_legitimacy = { value = var:tv_wonder_final_legitimacy_reward }
-		add_prestige = { value = var:tv_wonder_final_prestige_reward }
+		tv_wonder_apply_final_support_rewards_effect = yes
+	}
+}
+
+tv_wonder_complete_finalization_effect = {
+	if = {
+		limit = { has_variable = tv_wonder_finalization_preview_ready }
 		hidden_effect = {
+			tv_wonder_construct_final_building_effect = yes
+			tv_wonder_apply_base_modifier_effect = yes
+			tv_wonder_apply_ceremony_modifier_effect = yes
+			tv_wonder_apply_completion_celebration_rewards_effect = yes
+			tv_wonder_reward_current_ruler_and_engineer_effect = yes
+			tv_wonder_apply_final_support_rewards_effect = yes
 			remove_country_modifier = tv_wonder_meditation_ceremony_modifier
 			remove_country_modifier = tv_wonder_civic_festival_modifier
 			remove_country_modifier = tv_wonder_free_trade_festival_modifier
@@ -2426,6 +2451,10 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_final_stability_reward
 	remove_variable = tv_wonder_final_legitimacy_reward
 	remove_variable = tv_wonder_final_prestige_reward
+	remove_variable = tv_wonder_final_completion_country_years
+	remove_variable = tv_wonder_final_completion_local_years
+	remove_variable = tv_wonder_final_completion_prosperity
+	remove_variable = tv_wonder_finalization_preview_ready
 	remove_variable = tv_wonder_ritual_in_progress
 	remove_variable = tv_wonder_ritual_timer
 	remove_variable = tv_wonder_ceremony_style
