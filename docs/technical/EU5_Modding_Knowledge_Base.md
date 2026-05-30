@@ -842,7 +842,7 @@ item = {
 
 Putting sibling widgets directly under `item` logs `Malformed item desc`, and can produce nearby text formatter noise while the list is rendered.
 
-When embedding `RequirementsList` directly in a panel to show `ShowTriggerConditions(...)`, do not hide its title with an empty `blockoverride "block_title" {}` or with `blockoverride "block_title" { visible = no }`. The underlying list/header stack uses tooltip header text styling that reads `ExtraTooltipInfo.GetTintColor`; outside a real tooltip context, exposing that header can spam `No context supplied ... ExtraTooltipInfo.GetTintColor` while the panel is hovered. The same nested-title rule also applies to copied `TooltipScrolledRowList` blocks. If the list should be titleless, preserve the nested title block and hide it explicitly:
+When embedding `RequirementsList` directly in a panel to show `ShowTriggerConditions(...)`, do not hide its title with an empty `blockoverride "block_title" {}`. The underlying list/header stack uses tooltip header text styling that reads `ExtraTooltipInfo.GetTintColor`; outside a real tooltip context, exposing that header can spam `No context supplied ... ExtraTooltipInfo.GetTintColor` while the panel is hovered. If the list should be titleless, preserve the nested title block and hide it explicitly:
 
 ```gui
 blockoverride "block_title" {
@@ -851,6 +851,8 @@ blockoverride "block_title" {
     }
 }
 ```
+
+Likewise, do not use `TooltipTextBlock` as a normal always-visible panel widget. `TooltipTextBlock` inherits `tooltip_text_block_template`, and that template's text color block reads `ExtraTooltipInfo.GetTintColor`. In a real tooltip (`ContextualTooltipType`, `AlertTooltipType`, etc.) that context exists; in a normal panel it does not. For ordinary UI text, use `text_single` or `text_multi` instead.
 
 ### 7.2. Map Modding
 

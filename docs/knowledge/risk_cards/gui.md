@@ -52,11 +52,11 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     by a numeric id. For IO panels, pass a typed InternationalOrganization object
     from an existing view/datamodel chain.
 
-11. Preserve nested `block_title` blocks when hiding scrolled list titles.
-    For `TooltipScrolledRequirementsList` / `TooltipScrolledRowList`, do not use
-    `blockoverride "block_title" {}` or `blockoverride "block_title" { visible = no }`.
-    Keep the vanilla nested shape and hide the inner block instead:
-    `blockoverride "block_title" { block "block_title" { visible = no } }`.
+11. Keep tooltip-only widgets inside real tooltip contexts.
+    `TooltipTextBlock` inherits `tooltip_text_block_template`, which reads
+    `ExtraTooltipInfo.GetTintColor`. Use it only under `tooltipwidget` /
+    `ContextualTooltipType` / `AlertTooltipType` content. For always-visible panel
+    text, use `text_single` / `text_multi` instead.
 
 ## Validation
 

@@ -485,16 +485,15 @@
   source: "runtime error docs/error_log/error.log: ExtraTooltipInfo.GetTintColor; reference_game_files/game/in_game/gui/cooltip_types.gui:1177; reference_game_files/game/main_menu/gui/shared/main_menu_cooltip_types.gui:1367"
   notes: "An empty override removes RequirementsList's safe title replacement and exposes the underlying TooltipTableHeader textbox. Outside an actual tooltip, that header has no ExtraTooltipInfo context and continuously logs GetTintColor failures while the panel is hovered."
 
-- id: gui_scrolled_list_block_title_visible_no_override
-  pattern: 'TooltipScrolled(?:Requirements|Row)List\s*=\s*\{[\s\S]{0,200}?blockoverride\s+"block_title"\s*\{\s*visible\s*=\s*no\s*\}'
-  detectability: lint
+- id: gui_tooltip_text_block_outside_tooltip_context
+  pattern: ''
   only_in_paths: ['gui']
-  bad: "TooltipScrolledRequirementsList or TooltipScrolledRowList hides its title with blockoverride \"block_title\" { visible = no }"
-  correction: "Preserve the nested title block from vanilla: blockoverride \"block_title\" { block \"block_title\" { visible = no } }"
+  bad: "Using TooltipTextBlock as a normal always-visible panel widget"
+  correction: "Reserve TooltipTextBlock for real tooltip content (`tooltipwidget`, `ContextualTooltipType`, `AlertTooltipType`, etc.). In normal panels use text_single/text_multi or another non-tooltip text widget."
   category: gui
   scope: any
-  source: "runtime error docs/error_log/error.log: ExtraTooltipInfo.GetTintColor; reference_game_files/game/main_menu/gui/shared/main_menu_cooltip_types.gui:1535"
-  notes: "A top-level visible = no override replaces the template's nested block_title block. That can expose tooltip-styled header text outside a valid ExtraTooltipInfo context and spam GetTintColor errors while the panel is hovered."
+  source: "runtime error docs/error_log/error.log: ExtraTooltipInfo.GetTintColor; reference_game_files/game/main_menu/gui/shared/main_menu_cooltip_types.gui:328"
+  notes: "TooltipTextBlock inherits tooltip_text_block_template, whose font tint reads ExtraTooltipInfo.GetTintColor. Visible uses outside an actual tooltip context can continuously log FetchData failures while the panel is open."
 
 - id: building_eu4_price_numeric
   pattern: '^\s*price\s*=\s*\d+'
