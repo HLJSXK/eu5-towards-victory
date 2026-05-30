@@ -210,12 +210,7 @@ tv_wonder_can_select_construction_site_trigger = {
 				tv_wonder_location_is_valid_priority_project_for_locked_wonder_trigger = yes
 			}
 		}
-		AND = {
-			NOT = { has_variable = tv_wonder_resume_project }
-			var:tv_wonder_survey_site ?= {
-				NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes }
-			}
-		}
+		NOT = { has_variable = tv_wonder_resume_project }
 	}
 }
 

@@ -231,44 +231,41 @@ def add_project_occupancy_triggers(lines: list[str], wonders: list[dict]) -> Non
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_location_has_any_wonder_project_building_trigger = {")
-    lines.append(f"{T}OR = {{")
-    for wonder in wonders:
-        lines.append(f"{T}{T}tv_wonder_location_has_{wonder['key']}_project_building_trigger = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
     lines.append("tv_wonder_location_has_locked_wonder_intermediate_building_trigger = {")
-    lines.append(f"{T}OR = {{")
-    for wonder in wonders:
-        lines.append(f"{T}{T}AND = {{")
-        lines.append(f"{T}{T}{T}prev = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}{T}tv_wonder_location_has_{wonder['key']}_intermediate_building_trigger = yes")
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
+    for idx, wonder in enumerate(wonders):
+        head = "trigger_if" if idx == 0 else "trigger_else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
+        lines.append(f"{T}{T}tv_wonder_location_has_{wonder['key']}_intermediate_building_trigger = yes")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else = {{ always = no }}")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_location_has_locked_wonder_expandable_final_building_trigger = {")
-    lines.append(f"{T}OR = {{")
-    for wonder in wonders:
-        lines.append(f"{T}{T}AND = {{")
-        lines.append(f"{T}{T}{T}prev = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}{T}tv_wonder_location_has_{wonder['key']}_expandable_final_building_trigger = yes")
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
+    for idx, wonder in enumerate(wonders):
+        head = "trigger_if" if idx == 0 else "trigger_else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
+        lines.append(f"{T}{T}tv_wonder_location_has_{wonder['key']}_expandable_final_building_trigger = yes")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else = {{ always = no }}")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_location_is_valid_priority_project_for_locked_wonder_trigger = {")
-    lines.append(f"{T}OR = {{")
-    lines.append(f"{T}{T}AND = {{")
+    lines.append(f"{T}trigger_if = {{")
+    lines.append(f"{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}tv_wonder_location_has_locked_wonder_intermediate_building_trigger = yes")
     lines.append(f"{T}{T}{T}NOT = {{ tv_wonder_location_has_any_wonder_final_building_trigger = yes }}")
     lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}tv_wonder_location_has_locked_wonder_expandable_final_building_trigger = yes")
+    lines.append(f"{T}{T}always = yes")
     lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else_if = {{")
+    lines.append(f"{T}{T}limit = {{ tv_wonder_location_has_locked_wonder_expandable_final_building_trigger = yes }}")
+    lines.append(f"{T}{T}always = yes")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else = {{ always = no }}")
     lines.append("}")
     lines.append("")
 
@@ -288,17 +285,21 @@ def grouped_selected_trigger(
             ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
             if not predicate(wonder, style, ritual_plan):
                 continue
-            if not matched:
-                lines.append(f"{T}OR = {{")
-                matched = True
-            lines.append(f"{T}{T}AND = {{")
-            lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
-            lines.append(f"{T}{T}{T}var:tv_wonder_ceremony_style ?= {style}")
+            head = "trigger_if" if not matched else "trigger_else_if"
+            matched = True
+            lines.append(f"{T}{head} = {{")
+            lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
             if include_confirmation_script:
-                lines.extend(indent_script_block(ritual_plan.get("confirmation_trigger_script", ""), 3))
-            lines.append(f"{T}{T}}}")
+                confirmation_lines = indent_script_block(ritual_plan.get("confirmation_trigger_script", ""), 2)
+                if confirmation_lines:
+                    lines.extend(confirmation_lines)
+                else:
+                    lines.append(f"{T}{T}always = yes")
+            else:
+                lines.append(f"{T}{T}always = yes")
+            lines.append(f"{T}}}")
     if matched:
-        lines.append(f"{T}}}")
+        lines.append(f"{T}trigger_else = {{ always = no }}")
     else:
         lines.append(f"{T}always = no")
     lines.append("}")
@@ -326,16 +327,18 @@ def grouped_selected_completion_trigger(name: str, wonders: list[dict], mechanic
             ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
             if not ritual_uses_deferred_completion(ritual_plan):
                 continue
-            if not matched:
-                lines.append(f"{T}OR = {{")
-                matched = True
-            lines.append(f"{T}{T}AND = {{")
-            lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
-            lines.append(f"{T}{T}{T}var:tv_wonder_ceremony_style ?= {style}")
-            lines.extend(completion_trigger_lines(ritual_plan, 3))
-            lines.append(f"{T}{T}}}")
+            head = "trigger_if" if not matched else "trigger_else_if"
+            matched = True
+            lines.append(f"{T}{head} = {{")
+            lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+            completion_lines = completion_trigger_lines(ritual_plan, 2)
+            if completion_lines:
+                lines.extend(completion_lines)
+            else:
+                lines.append(f"{T}{T}always = yes")
+            lines.append(f"{T}}}")
     if matched:
-        lines.append(f"{T}}}")
+        lines.append(f"{T}trigger_else = {{ always = no }}")
     else:
         lines.append(f"{T}always = no")
     lines.append("}")
@@ -351,7 +354,6 @@ def generate() -> str:
     add_project_occupancy_triggers(lines, all_wonders)
     for wonder in all_wonders:
         lines.append(f"tv_wonder_location_can_host_{wonder['key']}_trigger = {{")
-        lines.append(f"{T}NOT = {{ tv_wonder_location_has_any_wonder_project_building_trigger = yes }}")
         if wonder.get("is_unique"):
             lines.append(f"{T}this = location:{wonder['fixed_location']}")
         lines.extend(trigger_conditions(wonder))
@@ -361,12 +363,10 @@ def generate() -> str:
         if wonder.get("is_unique"):
             lines.append(f"{T}owns = location:{wonder['fixed_location']}")
             lines.append(f"{T}location:{wonder['fixed_location']} = {{")
-            lines.append(f"{T}{T}NOT = {{ tv_wonder_location_has_any_wonder_project_building_trigger = yes }}")
             lines.extend(trigger_conditions(wonder, 2))
             lines.append(f"{T}}}")
         else:
             lines.append(f"{T}any_owned_location = {{")
-            lines.append(f"{T}{T}NOT = {{ tv_wonder_location_has_any_wonder_project_building_trigger = yes }}")
             lines.extend(trigger_conditions(wonder, 2))
             lines.append(f"{T}}}")
         lines.append("}")
@@ -397,35 +397,35 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_mechanics_has_valid_site_candidate_trigger = {")
-    lines.append(f"{T}OR = {{")
-    for wonder in all_wonders:
-        lines.append(f"{T}{T}AND = {{")
-        lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
-        lines.append(f"{T}{T}{T}tv_wonder_can_build_{wonder['key']}_trigger = yes")
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
+    for idx, wonder in enumerate(all_wonders):
+        head = "trigger_if" if idx == 0 else "trigger_else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
+        lines.append(f"{T}{T}tv_wonder_can_build_{wonder['key']}_trigger = yes")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else = {{ always = no }}")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_location_can_host_locked_wonder_trigger = {")
-    lines.append(f"{T}OR = {{")
-    for wonder in all_wonders:
-        lines.append(f"{T}{T}AND = {{")
-        lines.append(f"{T}{T}{T}scope:actor = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes")
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
+    for idx, wonder in enumerate(all_wonders):
+        head = "trigger_if" if idx == 0 else "trigger_else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ scope:actor = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
+        lines.append(f"{T}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else = {{ always = no }}")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_selected_survey_already_cached_trigger = {")
-    lines.append(f"{T}OR = {{")
-    for wonder in all_wonders:
-        lines.append(f"{T}{T}AND = {{")
-        lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
-        lines.append(f"{T}{T}{T}scope:tv_wonder_selected_survey_site = {{ has_variable = tv_wonder_surveyed_{wonder['key']} }}")
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
+    for idx, wonder in enumerate(all_wonders):
+        head = "trigger_if" if idx == 0 else "trigger_else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
+        lines.append(f"{T}{T}scope:tv_wonder_selected_survey_site = {{ has_variable = tv_wonder_surveyed_{wonder['key']} }}")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else = {{ always = no }}")
     lines.append("}")
     lines.append("")
 
@@ -568,10 +568,12 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_unique_locked_trigger = {")
-    lines.append(f"{T}OR = {{")
-    for wonder in unique_wonders:
+    for idx, wonder in enumerate(unique_wonders):
+        head = "trigger_if" if idx == 0 else "trigger_else_if"
+        lines.append(f"{T}{head} = {{")
         lines.append(f"{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
-    lines.append(f"{T}}}")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else = {{ always = no }}")
     lines.append("}")
     lines.append("")
 

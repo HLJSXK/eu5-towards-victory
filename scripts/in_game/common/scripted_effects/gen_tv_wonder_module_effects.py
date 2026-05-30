@@ -50,49 +50,52 @@ def change_level_by_value(building: str, value_lines: list[str]) -> list[str]:
     ]
 
 
-def add_units_from_module_level(part: str, building: str) -> list[str]:
+def add_units_from_module_level(part: str, building: str, indent: int = 1) -> list[str]:
+    prefix = T * indent
     lines: list[str] = []
     for level in range(1, 7):
         lines.extend(
             [
-                f"{T}if = {{",
-                f"{T}{T}limit = {{ {loc_level(building, '>=', level)} }}",
-                f"{T}{T}prev = {{ change_variable = {{ name = tv_wonder_{part}_units add = 1 }} }}",
-                f"{T}}}",
+                f"{prefix}if = {{",
+                f"{prefix}{T}limit = {{ {loc_level(building, '>=', level)} }}",
+                f"{prefix}{T}prev = {{ change_variable = {{ name = tv_wonder_{part}_units add = 1 }} }}",
+                f"{prefix}}}",
             ]
         )
     return lines
 
 
-def set_units_to_at_least_level(building: str, parts: list[dict]) -> list[str]:
+def set_units_to_at_least_level(building: str, parts: list[dict], indent: int = 1) -> list[str]:
+    prefix = T * indent
     lines: list[str] = []
     for level in range(1, 7):
-        lines.append(f"{T}if = {{")
-        lines.append(f"{T}{T}limit = {{ {loc_level(building, '>=', level)} }}")
-        lines.append(f"{T}{T}prev = {{")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}{T}limit = {{ {loc_level(building, '>=', level)} }}")
+        lines.append(f"{prefix}{T}prev = {{")
         for part in parts:
             key = part["key"]
-            lines.append(f"{T}{T}{T}if = {{")
-            lines.append(f"{T}{T}{T}{T}limit = {{ var:tv_wonder_{key}_units < {level} }}")
-            lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_{key}_units value = {level} }}")
-            lines.append(f"{T}{T}{T}}}")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}}}")
+            lines.append(f"{prefix}{T}{T}if = {{")
+            lines.append(f"{prefix}{T}{T}{T}limit = {{ var:tv_wonder_{key}_units < {level} }}")
+            lines.append(f"{prefix}{T}{T}{T}set_variable = {{ name = tv_wonder_{key}_units value = {level} }}")
+            lines.append(f"{prefix}{T}{T}}}")
+        lines.append(f"{prefix}{T}}}")
+        lines.append(f"{prefix}}}")
     return lines
 
 
-def add_building_level(branch_limit: str, building: str) -> list[str]:
+def add_building_level(branch_limit: str, building: str, indent: int = 1) -> list[str]:
+    prefix = T * indent
     return [
-        f"{T}if = {{",
-        f"{T}{T}limit = {{ {branch_limit} }}",
-        f"{T}{T}if = {{",
-        f"{T}{T}{T}limit = {{ NOT = {{ has_building = building_type:{building} }} }}",
-        f"{T}{T}{T}construct_building = {{ building_type = building_type:{building} cost_multiplier = 0 cost_multiplier_reason = \"game_concept_event\" instant = yes }}",
-        f"{T}{T}}}",
-        f"{T}{T}else = {{",
-        *[f"{T}{T}{line}" for line in change_level(building, 1)],
-        f"{T}{T}}}",
-        f"{T}}}",
+        f"{prefix}if = {{",
+        f"{prefix}{T}limit = {{ {branch_limit} }}",
+        f"{prefix}{T}if = {{",
+        f"{prefix}{T}{T}limit = {{ NOT = {{ has_building = building_type:{building} }} }}",
+        f"{prefix}{T}{T}construct_building = {{ building_type = building_type:{building} cost_multiplier = 0 cost_multiplier_reason = \"game_concept_event\" instant = yes }}",
+        f"{prefix}{T}}}",
+        f"{prefix}{T}else = {{",
+        *[f"{prefix}{T}{line}" for line in change_level(building, 1)],
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
     ]
 
 
@@ -248,21 +251,12 @@ def set_building_level_from_level_var(
 
 def sync_helper_building_to_wonder_level(wonder: dict, indent: int) -> list[str]:
     helper = f"tv_wonder_{wonder['key']}"
-    prefix = T * indent
-    lines = [
-        f"{prefix}if = {{",
-        f"{prefix}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}",
-    ]
-    lines.extend(
-        set_building_level_from_level_var(
-            helper,
-            "tv_wonder_level",
-            f"tv_wonder_{wonder['key']}_helper_current_level",
-            indent + 1,
-        )
+    return set_building_level_from_level_var(
+        helper,
+        "tv_wonder_level",
+        f"tv_wonder_{wonder['key']}_helper_current_level",
+        indent,
     )
-    lines.append(f"{prefix}}}")
-    return lines
 
 
 def sync_module_building_to_unit_gap(
@@ -377,11 +371,15 @@ def main() -> None:
     lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
     lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    for wonder in wonders:
+    for wonder_idx, wonder in enumerate(wonders):
+        head = "if" if wonder_idx == 0 else "else_if"
+        lines.append(f"{T}{T}{T}{head} = {{")
+        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
         for idx, part in enumerate(parts, start=1):
             building = f"tv_wonder_{wonder['key']}_{part['key']}"
-            limit = f"prev = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_last_completed_part ?= {idx} }}"
-            lines.extend([f"{T}{T}{line}" for line in add_building_level(limit, building)])
+            limit = f"prev = {{ var:tv_wonder_last_completed_part ?= {idx} }}"
+            lines.extend(add_building_level(limit, building, 4))
+        lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append("}")
@@ -392,8 +390,12 @@ def main() -> None:
     lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
     lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    for wonder in wonders:
-        lines.extend(combine_modules_to_helper_once(wonder, parts, 3))
+    for wonder_idx, wonder in enumerate(wonders):
+        head = "if" if wonder_idx == 0 else "else_if"
+        lines.append(f"{T}{T}{T}{head} = {{")
+        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
+        lines.extend(combine_modules_to_helper_once(wonder, parts, 4))
+        lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append("}")
@@ -405,21 +407,19 @@ def main() -> None:
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
     for part in parts:
         lines.append(f"{T}{T}{T}prev = {{ set_variable = {{ name = tv_wonder_{part['key']}_units value = 0 }} }}")
-    for wonder in wonders:
+    for wonder_idx, wonder in enumerate(wonders):
+        head = "if" if wonder_idx == 0 else "else_if"
         helper = f"tv_wonder_{wonder['key']}"
-        lines.append(f"{T}{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}{head} = {{")
         lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
-        lines.extend([f"{T}{T}{line}" for line in set_units_to_at_least_level(helper, parts)])
+        lines.extend(set_units_to_at_least_level(helper, parts, 4))
         for final_building in wonder["final_buildings"].values():
-            lines.extend([f"{T}{T}{line}" for line in set_units_to_at_least_level(final_building, parts)])
-        lines.append(f"{T}{T}{T}}}")
+            lines.extend(set_units_to_at_least_level(final_building, parts, 4))
         for part in parts:
             building = f"tv_wonder_{wonder['key']}_{part['key']}"
-            lines.append(f"{T}{T}{T}if = {{")
-            lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
-            lines.extend([f"{T}{T}{line}" for line in add_units_from_module_level(part["key"], building)])
+            lines.extend(add_units_from_module_level(part["key"], building, 4))
             lines.append(f"{T}{T}{T}{T}prev = {{ clamp_variable = {{ name = tv_wonder_{part['key']}_units min = 0 max = 6 }} }}")
-            lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append(f"{T}tv_wonder_update_wonder_level_effect = yes")
@@ -488,8 +488,12 @@ def main() -> None:
     lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
     lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    for wonder in wonders:
-        lines.extend(sync_helper_building_to_wonder_level(wonder, 3))
+    for wonder_idx, wonder in enumerate(wonders):
+        head = "if" if wonder_idx == 0 else "else_if"
+        lines.append(f"{T}{T}{T}{head} = {{")
+        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
+        lines.extend(sync_helper_building_to_wonder_level(wonder, 4))
+        lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append("}")
@@ -500,8 +504,9 @@ def main() -> None:
     lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
     lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    for wonder in wonders:
-        lines.append(f"{T}{T}{T}if = {{")
+    for wonder_idx, wonder in enumerate(wonders):
+        head = "if" if wonder_idx == 0 else "else_if"
+        lines.append(f"{T}{T}{T}{head} = {{")
         lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
         for part in parts:
             building = f"tv_wonder_{wonder['key']}_{part['key']}"

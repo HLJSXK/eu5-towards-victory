@@ -548,15 +548,14 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_selected_survey_already_cached_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}OR = {{")
+    first = True
     for wonder in all_wonders:
-        lines.append(f"{T}{T}{T}{T}AND = {{ var:tv_wonder_locked ?= {wonder['id']} scope:tv_wonder_selected_survey_site = {{ has_variable = tv_wonder_surveyed_{wonder['key']} }} }}")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}tv_wonder_copy_completed_survey_from_location_effect = yes")
-    lines.append(f"{T}}}")
+        head = "if" if first else "else_if"
+        first = False
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} scope:tv_wonder_selected_survey_site = {{ has_variable = tv_wonder_surveyed_{wonder['key']} }} }}")
+        lines.append(f"{T}{T}tv_wonder_copy_completed_survey_from_location_effect = yes")
+        lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
@@ -564,7 +563,6 @@ def generate() -> str:
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}exists = scope:target")
-    lines.append(f"{T}{T}{T}scope:target = {{ NOT = {{ tv_wonder_location_has_any_wonder_project_building_trigger = yes }} }}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}tv_wonder_clear_current_survey_effect = yes")
     lines.append(f"{T}{T}scope:target = {{ save_scope_as = tv_wonder_selected_survey_site }}")

@@ -5449,89 +5449,319 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 
 tv_wonder_selected_survey_already_cached_effect = {
 	if = {
-		limit = {
-			OR = {
-				AND = { var:tv_wonder_locked ?= 1 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_sacred_mountain } }
-				AND = { var:tv_wonder_locked ?= 2 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_triumphal_axis } }
-				AND = { var:tv_wonder_locked ?= 3 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_port } }
-				AND = { var:tv_wonder_locked ?= 4 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_necropolis } }
-				AND = { var:tv_wonder_locked ?= 5 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_lighthouse } }
-				AND = { var:tv_wonder_locked ?= 6 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_hydraulic_workshop } }
-				AND = { var:tv_wonder_locked ?= 7 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_mining_city } }
-				AND = { var:tv_wonder_locked ?= 8 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_observatory } }
-				AND = { var:tv_wonder_locked ?= 9 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_palace_of_nations } }
-				AND = { var:tv_wonder_locked ?= 10 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_university_city } }
-				AND = { var:tv_wonder_locked ?= 11 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_sky_dome_grand_temple } }
-				AND = { var:tv_wonder_locked ?= 12 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_tower_temple } }
-				AND = { var:tv_wonder_locked ?= 13 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_river_extension } }
-				AND = { var:tv_wonder_locked ?= 14 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_national_shipyard } }
-				AND = { var:tv_wonder_locked ?= 15 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_star_fortress_city } }
-				AND = { var:tv_wonder_locked ?= 16 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_wall } }
-				AND = { var:tv_wonder_locked ?= 17 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_armory } }
-				AND = { var:tv_wonder_locked ?= 18 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_library_of_nation } }
-				AND = { var:tv_wonder_locked ?= 19 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_large_canal_system } }
-				AND = { var:tv_wonder_locked ?= 20 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_mountain_terrace_network } }
-				AND = { var:tv_wonder_locked ?= 21 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_dam_project } }
-				AND = { var:tv_wonder_locked ?= 22 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_royal_granary_system } }
-				AND = { var:tv_wonder_locked ?= 23 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_imperial_post_road_network } }
-				AND = { var:tv_wonder_locked ?= 24 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_canal_hub_city } }
-				AND = { var:tv_wonder_locked ?= 25 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_frontier_colonization_belt } }
-				AND = { var:tv_wonder_locked ?= 26 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_coastal_beacon_network } }
-				AND = { var:tv_wonder_locked ?= 27 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_knightly_fortress_order } }
-				AND = { var:tv_wonder_locked ?= 28 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_war_college_system } }
-				AND = { var:tv_wonder_locked ?= 29 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_clock_bell_system } }
-				AND = { var:tv_wonder_locked ?= 30 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_royal_art_district } }
-				AND = { var:tv_wonder_locked ?= 31 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_grand_theater_festival_district } }
-				AND = { var:tv_wonder_locked ?= 32 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_world_embassy_quarter } }
-				AND = { var:tv_wonder_locked ?= 33 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_law_code_stele_project } }
-				AND = { var:tv_wonder_locked ?= 34 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_world_market } }
-				AND = { var:tv_wonder_locked ?= 35 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_royal_mint_system } }
-				AND = { var:tv_wonder_locked ?= 36 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_guild_alliance } }
-				AND = { var:tv_wonder_locked ?= 37 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_maritime_trade_station_network } }
-				AND = { var:tv_wonder_locked ?= 38 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_workshop_complex } }
-				AND = { var:tv_wonder_locked ?= 39 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_world_monument_group } }
-				AND = { var:tv_wonder_locked ?= 101 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_pharos_lighthouse } }
-				AND = { var:tv_wonder_locked ?= 102 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_hagia_sophia } }
-				AND = { var:tv_wonder_locked ?= 103 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_dome_of_the_rock } }
-				AND = { var:tv_wonder_locked ?= 104 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_angkor_wat } }
-				AND = { var:tv_wonder_locked ?= 105 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_potala_palace } }
-				AND = { var:tv_wonder_locked ?= 106 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_alhambra } }
-				AND = { var:tv_wonder_locked ?= 107 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_machu_picchu } }
-				AND = { var:tv_wonder_locked ?= 108 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_himeji_castle } }
-				AND = { var:tv_wonder_locked ?= 109 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_taj_mahal } }
-				AND = { var:tv_wonder_locked ?= 110 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_forbidden_city } }
-				AND = { var:tv_wonder_locked ?= 111 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_topkapi_palace } }
-				AND = { var:tv_wonder_locked ?= 112 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_st_peters_basilica } }
-				AND = { var:tv_wonder_locked ?= 113 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_lalibela_churches } }
-				AND = { var:tv_wonder_locked ?= 114 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_venetian_arsenal } }
-				AND = { var:tv_wonder_locked ?= 115 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_malacca_port } }
-				AND = { var:tv_wonder_locked ?= 116 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_red_fort_delhi } }
-				AND = { var:tv_wonder_locked ?= 117 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_versailles_palace } }
-				AND = { var:tv_wonder_locked ?= 118 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_tenochtitlan_causeways } }
-				AND = { var:tv_wonder_locked ?= 119 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_amsterdam_canal_ring } }
-				AND = { var:tv_wonder_locked ?= 120 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_mecca_haram_expansion } }
-				AND = { var:tv_wonder_locked ?= 121 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_ming_great_wall } }
-				AND = { var:tv_wonder_locked ?= 122 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_bank_of_saint_george } }
-				AND = { var:tv_wonder_locked ?= 123 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_cahokia_mounds } }
-				AND = { var:tv_wonder_locked ?= 124 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_great_zimbabwe } }
-				AND = { var:tv_wonder_locked ?= 125 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_isfahan_square } }
-				AND = { var:tv_wonder_locked ?= 126 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_grand_canal } }
-				AND = { var:tv_wonder_locked ?= 127 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_inca_royal_road } }
-				AND = { var:tv_wonder_locked ?= 128 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_roman_aqueducts } }
-				AND = { var:tv_wonder_locked ?= 129 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_suez_ancient_canal } }
-				AND = { var:tv_wonder_locked ?= 130 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_kremlin } }
-				AND = { var:tv_wonder_locked ?= 131 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_teotihuacan } }
-				AND = { var:tv_wonder_locked ?= 132 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_angkor_hydraulic_system } }
-				AND = { var:tv_wonder_locked ?= 133 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_dutch_polders } }
-				AND = { var:tv_wonder_locked ?= 134 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_machu_picchu_terraces } }
-				AND = { var:tv_wonder_locked ?= 135 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_british_navy_dockyards } }
-				AND = { var:tv_wonder_locked ?= 136 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_spanish_silver_fleet } }
-				AND = { var:tv_wonder_locked ?= 137 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_ottoman_hajj_road } }
-				AND = { var:tv_wonder_locked ?= 138 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_persian_qanat } }
-				AND = { var:tv_wonder_locked ?= 139 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_longjiang_shipyard } }
-				AND = { var:tv_wonder_locked ?= 140 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_jerusalem_holy_city } }
-			}
-		}
+		limit = { var:tv_wonder_locked ?= 1 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_sacred_mountain } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 2 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_triumphal_axis } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 3 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_port } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 4 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_necropolis } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 5 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_lighthouse } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 6 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_hydraulic_workshop } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 7 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_mining_city } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 8 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_observatory } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 9 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_palace_of_nations } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 10 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_university_city } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 11 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_sky_dome_grand_temple } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 12 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_tower_temple } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 13 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_river_extension } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 14 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_national_shipyard } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 15 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_star_fortress_city } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 16 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_wall } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 17 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_armory } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 18 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_library_of_nation } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 19 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_large_canal_system } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 20 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_mountain_terrace_network } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 21 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_dam_project } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 22 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_royal_granary_system } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 23 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_imperial_post_road_network } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 24 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_canal_hub_city } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 25 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_frontier_colonization_belt } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 26 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_coastal_beacon_network } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 27 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_knightly_fortress_order } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 28 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_war_college_system } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 29 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_clock_bell_system } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 30 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_royal_art_district } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 31 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_grand_theater_festival_district } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 32 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_world_embassy_quarter } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 33 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_law_code_stele_project } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 34 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_world_market } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 35 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_royal_mint_system } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 36 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_guild_alliance } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 37 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_maritime_trade_station_network } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 38 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_giant_workshop_complex } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 39 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_world_monument_group } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 101 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_pharos_lighthouse } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 102 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_hagia_sophia } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 103 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_dome_of_the_rock } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 104 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_angkor_wat } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 105 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_potala_palace } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 106 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_alhambra } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 107 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_machu_picchu } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 108 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_himeji_castle } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 109 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_taj_mahal } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 110 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_forbidden_city } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 111 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_topkapi_palace } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 112 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_st_peters_basilica } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 113 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_lalibela_churches } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 114 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_venetian_arsenal } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 115 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_malacca_port } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 116 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_red_fort_delhi } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 117 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_versailles_palace } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 118 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_tenochtitlan_causeways } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 119 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_amsterdam_canal_ring } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 120 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_mecca_haram_expansion } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 121 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_ming_great_wall } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 122 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_bank_of_saint_george } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 123 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_cahokia_mounds } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 124 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_great_zimbabwe } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 125 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_isfahan_square } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 126 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_grand_canal } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 127 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_inca_royal_road } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 128 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_roman_aqueducts } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 129 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_suez_ancient_canal } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 130 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_kremlin } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 131 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_teotihuacan } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 132 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_angkor_hydraulic_system } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 133 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_dutch_polders } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 134 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_machu_picchu_terraces } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 135 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_british_navy_dockyards } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 136 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_spanish_silver_fleet } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 137 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_ottoman_hajj_road } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 138 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_persian_qanat } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 139 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_longjiang_shipyard } }
+		tv_wonder_copy_completed_survey_from_location_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 140 scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_jerusalem_holy_city } }
 		tv_wonder_copy_completed_survey_from_location_effect = yes
 	}
 }
@@ -5540,7 +5770,6 @@ tv_wonder_mechanics_start_survey_effect = {
 	if = {
 		limit = {
 			exists = scope:target
-			scope:target = { NOT = { tv_wonder_location_has_any_wonder_project_building_trigger = yes } }
 		}
 		tv_wonder_clear_current_survey_effect = yes
 		scope:target = { save_scope_as = tv_wonder_selected_survey_site }
