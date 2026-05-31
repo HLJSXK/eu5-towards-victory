@@ -877,7 +877,7 @@ def generate() -> str:
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_in_progress value = 1 }}")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_timer value = 1 years = {timed.get('years', 1)} }}")
-        if timed.get("burden_modifier", {}):
+        if timed.get("burden_modifier", {}) or timed.get("blessing_modifier", {}):
             lines.append(f"{T}{T}add_country_modifier = {{ modifier = {ritual_burden_modifier_name(wonder)} years = {timed.get('years', 1)} mode = add_and_extend }}")
         lines.extend(indent_script_block(ritual_plan.get("start_effect_script", ""), 2))
         lines.append(f"{T}{T}tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes")
@@ -1061,7 +1061,7 @@ def generate() -> str:
 
 
 def main() -> None:
-    OUT_FILE.write_text(generate(), encoding="utf-8")
+    OUT_FILE.write_text("\ufeff" + generate(), encoding="utf-8")
     print(f"Wrote {OUT_FILE.relative_to(REPO_ROOT)}")
 
 
