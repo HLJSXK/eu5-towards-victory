@@ -54,9 +54,16 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
 
 11. Keep tooltip-only widgets inside real tooltip contexts.
     `TooltipTextBlock` inherits `tooltip_text_block_template`, which reads
-    `ExtraTooltipInfo.GetTintColor`. Use it only under `tooltipwidget` /
+    `ExtraTooltipInfo.GetTintColor`. Use it only under `tooltipwidget` / 
     `ContextualTooltipType` / `AlertTooltipType` content. For always-visible panel
     text, use `text_single` / `text_multi` instead.
+
+12. Give conditional image branches explicit bounds.
+    When a wrapper contains mutually exclusive background-image widgets, do not
+    rely on `layoutpolicy_expanding` alone. Give the image column or wrapper a
+    fixed size and size each visible preview child explicitly, for example with
+    `size = { 100% 100% }` or fixed pixels. Otherwise the texture can collapse to
+    the parent's left edge and appear blank.
 
 ## Validation
 

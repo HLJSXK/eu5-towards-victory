@@ -800,6 +800,8 @@ When a widget is a direct child of `hbox` or `vbox`, the box layout owns placeme
 
 Keep `ignoreinvisible` on layout containers, not on plain `widget` wrappers. A generic image wrapper `widget` with `ignoreinvisible = yes` logs `Property 'ignoreinvisible' not handled` and fails property setup for the `uberwidget`. For conditional illustration areas, set `visible = ...` on the wrapper and put the actual images in child widgets with their own `visible` expressions.
 
+When a conditional illustration is a fixed preview column with mutually exclusive background images, give the wrapper explicit bounds and size the visible preview child to fill them. `layoutpolicy_expanding` alone does not guarantee the background texture will paint at the intended size; the visible branch can collapse to the parent's left edge and appear blank. In wonder-location panels, keep the existing card/hbox/vbox structure, give the image column its own fixed width, and use `size = { 100% 100% }` or equivalent explicit bounds on the preview widget itself.
+
 Do not put paragraph-style localized text in an unconstrained `hbox` elastic column. A pattern like `hbox = { ... widget = { layoutpolicy_horizontal = expanding size = { -1 92 } text_single = { multiline = yes ... } } }` can let the text's natural width flow back into the row. In the Engineering Department IO, this made a child `vbox` expand to 548.3px while its parent card content was correctly bounded at 470px. Use a fixed-width text area, preferably a small card/container with `text_multi`, `max_width`, and `autoresize`:
 
 ```gui
