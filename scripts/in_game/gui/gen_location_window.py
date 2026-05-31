@@ -15,13 +15,14 @@ SCRIPT_REL = "scripts/in_game/gui/gen_location_window.py"
 T = "\t"
 
 COUNT_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_count')"
-PANEL_WIDTH = "50%"
+PANEL_WIDTH = 380
 PANEL_HEIGHTS = {1: 68, 2: 136, 3: 204}
 PANEL_ROW_HEIGHT = 64
 PANEL_SEPARATOR_HEIGHT = 4
 TOOLTIP_ROW_WIDTH = 380
 TOOLTIP_ROW_HEIGHT = 84
 TOOLTIP_ROW_SPACING = 6
+WONDER_PREVIEW_COLUMN_WIDTH = 120
 
 
 def ordered_wonders() -> list[dict]:
@@ -175,6 +176,7 @@ def render_slot_row(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
         f"{indent}{T}{T}{T}{T}{T}size = {{ -1 18 }}",
         f"{indent}{T}{T}{T}{T}{T}spacing = 4",
+        f"{indent}{T}{T}{T}{T}{T}ignoreinvisible = yes",
     ]
     lines.extend(render_slot_name_branches(indent + T * 6, slot=slot))
     lines.extend(
@@ -202,18 +204,16 @@ def render_slot_row(indent: str, *, slot: int) -> list[str]:
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",
             f"{indent}{T}{T}widget = {{",
+            f"{indent}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {PANEL_ROW_HEIGHT} }}",
+            f"{indent}{T}{T}{T}vbox = {{",
             f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
             f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
-            f"{indent}{T}{T}{T}layoutstretchfactor_horizontal = 1",
-            f"{indent}{T}{T}{T}vbox = {{",
+            f"{indent}{T}{T}{T}margin_top = 4",
+            f"{indent}{T}{T}{T}margin_bottom = 4",
+            f"{indent}{T}{T}{T}widget = {{",
             f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
             f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-            f"{indent}{T}{T}{T}{T}margin_top = 4",
-            f"{indent}{T}{T}{T}{T}margin_bottom = 4",
-            f"{indent}{T}{T}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-            f"{indent}{T}{T}{T}{T}{T}using = bg_cabinet_card_frame",
+            f"{indent}{T}{T}{T}{T}using = bg_cabinet_card_frame",
         ]
     )
     lines.extend(render_slot_image_branches(indent + T * 5, slot=slot))
@@ -334,12 +334,12 @@ def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
         f"{indent}{T}{T}{T}{T}{T}text_single = {{",
         f'{indent}{T}{T}{T}{T}{T}{T}text = "[{level_var}.GetValue|0]"',
         f"{indent}{T}{T}{T}{T}{T}{T}align = right|nobaseline",
-        f"{indent}{T}{T}{T}{T}{T}{T}fontsize = 13",
-        f"{indent}{T}{T}{T}{T}{T}}}",
-        f"{indent}{T}{T}{T}{T}}}",
-        f"{indent}{T}{T}{T}{T}widget = {{",
-        f"{indent}{T}{T}{T}{T}{T}using = layoutpolicy_expanding",
-    ]
+            f"{indent}{T}{T}{T}{T}{T}{T}fontsize = 13",
+            f"{indent}{T}{T}{T}{T}{T}}}",
+            f"{indent}{T}{T}{T}{T}}}",
+            f"{indent}{T}{T}{T}{T}widget = {{",
+            f"{indent}{T}{T}{T}{T}{T}using = layoutpolicy_expanding",
+        ]
     lines.extend(render_tooltip_modifier_blocks(indent + T * 5, wonder=wonder))
     lines.extend(
         [
@@ -347,23 +347,21 @@ def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",
             f"{indent}{T}{T}widget = {{",
+            f"{indent}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {TOOLTIP_ROW_HEIGHT} }}",
+            f"{indent}{T}{T}{T}vbox = {{",
             f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
             f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
-            f"{indent}{T}{T}{T}layoutstretchfactor_horizontal = 1",
-            f"{indent}{T}{T}{T}vbox = {{",
+            f"{indent}{T}{T}{T}margin_top = 4",
+            f"{indent}{T}{T}{T}margin_bottom = 4",
+            f"{indent}{T}{T}{T}widget = {{",
             f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
             f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-            f"{indent}{T}{T}{T}{T}margin_top = 4",
-            f"{indent}{T}{T}{T}{T}margin_bottom = 4",
-            f"{indent}{T}{T}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-            f"{indent}{T}{T}{T}{T}{T}using = bg_cabinet_card_frame",
-            f"{indent}{T}{T}{T}{T}{T}background = {{",
-            f'{indent}{T}{T}{T}{T}{T}{T}texture = "{preview_texture(wonder)}"',
-            f"{indent}{T}{T}{T}{T}{T}{T}texture_density = 2",
-            f"{indent}{T}{T}{T}{T}{T}{T}fittype = centercrop",
-            f"{indent}{T}{T}{T}{T}{T}}}",
+            f"{indent}{T}{T}{T}{T}using = bg_cabinet_card_frame",
+            f"{indent}{T}{T}{T}{T}background = {{",
+            f'{indent}{T}{T}{T}{T}{T}texture = "{preview_texture(wonder)}"',
+            f"{indent}{T}{T}{T}{T}{T}texture_density = 2",
+            f"{indent}{T}{T}{T}{T}{T}fittype = centercrop",
+            f"{indent}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",

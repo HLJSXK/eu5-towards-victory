@@ -3,6 +3,285 @@
 # Resolutions tab: Grand General management, backed by tv_conquest_general_char.
 # Custom tab: War Tent tactics and war plans.
 
+template tv_govhouse_autonomous_task_tooltip {
+	ContextualTooltipType = {
+		blockoverride "tooltip_title" {}
+		blockoverride "tooltip_content_margin" { margin = { 8 8 } }
+		blockoverride "tooltip_content" {
+			vbox = {
+				spacing = 6
+
+				widget = {
+					minimumsize = { 420 44 }
+					maximumsize = { 420 44 }
+					using = bg_paper_card
+					using = bg_cabinet_card_frame
+
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)1.0')]"
+						text = "TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_TOOLTIP_TITLE"
+						align = center|nobaseline
+						fontsize = 16
+					}
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)2.0')]"
+						text = "TV_GOVHOUSE_TASK_INTEGRATE_REGION_TOOLTIP_TITLE"
+						align = center|nobaseline
+						fontsize = 16
+					}
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)3.0')]"
+						text = "TV_GOVHOUSE_TASK_CONVERT_CULTURE_TOOLTIP_TITLE"
+						align = center|nobaseline
+						fontsize = 16
+					}
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)4.0')]"
+						text = "TV_GOVHOUSE_TASK_CONVERT_RELIGION_TOOLTIP_TITLE"
+						align = center|nobaseline
+						fontsize = 16
+					}
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)5.0')]"
+						text = "TV_GOVHOUSE_TASK_STRENGTHEN_RECRUITMENT_TOOLTIP_TITLE"
+						align = center|nobaseline
+						fontsize = 16
+					}
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)6.0')]"
+						text = "TV_GOVHOUSE_TASK_STRENGTHEN_ORDER_TOOLTIP_TITLE"
+						align = center|nobaseline
+						fontsize = 16
+					}
+				}
+
+				widget = {
+					minimumsize = { 420 0 }
+					maximumsize = { 420 -1 }
+					using = bg_paper_card
+					using = bg_cabinet_card_frame
+
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						margin = { 14 10 }
+						spacing = 4
+
+						text_single = {
+							text = "TV_GOVHOUSE_TASK_TOOLTIP_DESCRIPTION_HEADER"
+							fontsize = 15
+							align = nobaseline|left
+						}
+						text_multi = {
+							layoutpolicy_horizontal = expanding
+							max_width = 392
+							autoresize = yes
+							visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)1.0')]"
+							text = "TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_TOOLTIP_DESC"
+						}
+						text_multi = {
+							layoutpolicy_horizontal = expanding
+							max_width = 392
+							autoresize = yes
+							visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)2.0')]"
+							text = "TV_GOVHOUSE_TASK_INTEGRATE_REGION_TOOLTIP_DESC"
+						}
+						text_multi = {
+							layoutpolicy_horizontal = expanding
+							max_width = 392
+							autoresize = yes
+							visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)3.0')]"
+							text = "TV_GOVHOUSE_TASK_CONVERT_CULTURE_TOOLTIP_DESC"
+						}
+						text_multi = {
+							layoutpolicy_horizontal = expanding
+							max_width = 392
+							autoresize = yes
+							visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)4.0')]"
+							text = "TV_GOVHOUSE_TASK_CONVERT_RELIGION_TOOLTIP_DESC"
+						}
+						text_multi = {
+							layoutpolicy_horizontal = expanding
+							max_width = 392
+							autoresize = yes
+							visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)5.0')]"
+							text = "TV_GOVHOUSE_TASK_STRENGTHEN_RECRUITMENT_TOOLTIP_DESC"
+						}
+						text_multi = {
+							layoutpolicy_horizontal = expanding
+							max_width = 392
+							autoresize = yes
+							visible = "[EqualTo_CFixedPoint(Location.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)6.0')]"
+							text = "TV_GOVHOUSE_TASK_STRENGTHEN_ORDER_TOOLTIP_DESC"
+						}
+					}
+				}
+
+				widget = {
+					minimumsize = { 420 36 }
+					maximumsize = { 420 36 }
+					using = bg_paper_card
+					using = bg_cabinet_card_frame
+
+					hbox = {
+						size = { 100% 100% }
+						layoutpolicy_horizontal = expanding
+						spacing = 8
+						margin = { 12 0 }
+
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							text = "TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_TOOLTIP_LABEL"
+							align = nobaseline|left
+						}
+						text_single = {
+							size = { 72 22 }
+							raw_text = "[Location.MakeScope.GetVariable('tv_govhouse_display_weight_restore_prosperity').GetValue|%1]"
+							align = nobaseline|right
+						}
+					}
+				}
+
+				widget = {
+					minimumsize = { 420 36 }
+					maximumsize = { 420 36 }
+					using = bg_paper_card
+					using = bg_cabinet_card_frame
+
+					hbox = {
+						size = { 100% 100% }
+						layoutpolicy_horizontal = expanding
+						spacing = 8
+						margin = { 12 0 }
+
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							text = "TV_GOVHOUSE_TASK_INTEGRATE_REGION_TOOLTIP_LABEL"
+							align = nobaseline|left
+						}
+						text_single = {
+							size = { 72 22 }
+							raw_text = "[Location.MakeScope.GetVariable('tv_govhouse_display_weight_integrate_region').GetValue|%1]"
+							align = nobaseline|right
+						}
+					}
+				}
+
+				widget = {
+					minimumsize = { 420 36 }
+					maximumsize = { 420 36 }
+					using = bg_paper_card
+					using = bg_cabinet_card_frame
+
+					hbox = {
+						size = { 100% 100% }
+						layoutpolicy_horizontal = expanding
+						spacing = 8
+						margin = { 12 0 }
+
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							text = "TV_GOVHOUSE_TASK_CONVERT_CULTURE_TOOLTIP_LABEL"
+							align = nobaseline|left
+						}
+						text_single = {
+							size = { 72 22 }
+							raw_text = "[Location.MakeScope.GetVariable('tv_govhouse_display_weight_convert_culture').GetValue|%1]"
+							align = nobaseline|right
+						}
+					}
+				}
+
+				widget = {
+					minimumsize = { 420 36 }
+					maximumsize = { 420 36 }
+					using = bg_paper_card
+					using = bg_cabinet_card_frame
+
+					hbox = {
+						size = { 100% 100% }
+						layoutpolicy_horizontal = expanding
+						spacing = 8
+						margin = { 12 0 }
+
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							text = "TV_GOVHOUSE_TASK_CONVERT_RELIGION_TOOLTIP_LABEL"
+							align = nobaseline|left
+						}
+						text_single = {
+							size = { 72 22 }
+							raw_text = "[Location.MakeScope.GetVariable('tv_govhouse_display_weight_convert_religion').GetValue|%1]"
+							align = nobaseline|right
+						}
+					}
+				}
+
+				widget = {
+					minimumsize = { 420 36 }
+					maximumsize = { 420 36 }
+					using = bg_paper_card
+					using = bg_cabinet_card_frame
+
+					hbox = {
+						size = { 100% 100% }
+						layoutpolicy_horizontal = expanding
+						spacing = 8
+						margin = { 12 0 }
+
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							text = "TV_GOVHOUSE_TASK_STRENGTHEN_RECRUITMENT_TOOLTIP_LABEL"
+							align = nobaseline|left
+						}
+						text_single = {
+							size = { 72 22 }
+							raw_text = "[Location.MakeScope.GetVariable('tv_govhouse_display_weight_strengthen_recruitment').GetValue|%1]"
+							align = nobaseline|right
+						}
+					}
+				}
+
+				widget = {
+					minimumsize = { 420 36 }
+					maximumsize = { 420 36 }
+					using = bg_paper_card
+					using = bg_cabinet_card_frame
+
+					hbox = {
+						size = { 100% 100% }
+						layoutpolicy_horizontal = expanding
+						spacing = 8
+						margin = { 12 0 }
+
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							text = "TV_GOVHOUSE_TASK_STRENGTHEN_ORDER_TOOLTIP_LABEL"
+							align = nobaseline|left
+						}
+						text_single = {
+							size = { 72 22 }
+							raw_text = "[Location.MakeScope.GetVariable('tv_govhouse_display_weight_strengthen_order').GetValue|%1]"
+							align = nobaseline|right
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 organization_panel = {
 
 	# -- Tab visibility overrides --------------------------------------------
@@ -267,139 +546,128 @@ organization_panel = {
 										blockoverride "character_entry_name_sort_by_highlight" {}
 									}
 
-									hbox = {
+									widget = {
 										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = fixed
 										visible = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet]"
 										datacontext = "[Scope.GetLocation]"
 										margin = { 8 0 }
-										spacing = 6
 										using = bg_paper_card
 										using = bg_cabinet_card_frame
-
-										text_single = {
-											layoutpolicy_horizontal = expanding
-											visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)1.0')]"
-											text = "TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_ACTIVE"
-											tooltip = "TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_TT"
-											align = nobaseline|left
-										}
-										text_single = {
-											layoutpolicy_horizontal = expanding
-											visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)2.0')]"
-											text = "TV_GOVHOUSE_TASK_INTEGRATE_REGION_ACTIVE"
-											tooltip = "TV_GOVHOUSE_TASK_INTEGRATE_REGION_TT"
-											align = nobaseline|left
-										}
-										text_single = {
-											layoutpolicy_horizontal = expanding
-											visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)3.0')]"
-											text = "TV_GOVHOUSE_TASK_CONVERT_CULTURE_ACTIVE"
-											tooltip = "TV_GOVHOUSE_TASK_CONVERT_CULTURE_TT"
-											align = nobaseline|left
-										}
-										text_single = {
-											layoutpolicy_horizontal = expanding
-											visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)4.0')]"
-											text = "TV_GOVHOUSE_TASK_CONVERT_RELIGION_ACTIVE"
-											tooltip = "TV_GOVHOUSE_TASK_CONVERT_RELIGION_TT"
-											align = nobaseline|left
-										}
-										text_single = {
-											layoutpolicy_horizontal = expanding
-											visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)5.0')]"
-											text = "TV_GOVHOUSE_TASK_STRENGTHEN_RECRUITMENT_ACTIVE"
-											tooltip = "TV_GOVHOUSE_TASK_STRENGTHEN_RECRUITMENT_TT"
-											align = nobaseline|left
-										}
-										text_single = {
-											layoutpolicy_horizontal = expanding
-											visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)6.0')]"
-											text = "TV_GOVHOUSE_TASK_STRENGTHEN_ORDER_ACTIVE"
-											tooltip = "TV_GOVHOUSE_TASK_STRENGTHEN_ORDER_TT"
-											align = nobaseline|left
+										tooltipwidget = {
+											using = tv_govhouse_autonomous_task_tooltip
 										}
 
 										hbox = {
-											spacing = 2
-											ignoreinvisible = yes
-											icon = {
+											size = { 100% 100% }
+											layoutpolicy_horizontal = expanding
+											spacing = 6
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
 												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)1.0')]"
-												size = { 20 20 }
-												texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
-												tooltip = "TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_TT"
+												text = "TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_ACTIVE"
+												align = nobaseline|left
 											}
-											icon = {
+											text_single = {
+												layoutpolicy_horizontal = expanding
 												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)2.0')]"
-												size = { 20 20 }
-												texture = "gfx/interface/icons/modifier_types/province_integration_speed.dds"
-												tooltip = "TV_GOVHOUSE_TASK_INTEGRATE_REGION_TT"
+												text = "TV_GOVHOUSE_TASK_INTEGRATE_REGION_ACTIVE"
+												align = nobaseline|left
 											}
-											icon = {
+											text_single = {
+												layoutpolicy_horizontal = expanding
 												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)3.0')]"
-												size = { 20 20 }
-												texture = "gfx/interface/icons/modifier_types/global_pop_assimilation_speed.dds"
-												tooltip = "TV_GOVHOUSE_TASK_CONVERT_CULTURE_TT"
+												text = "TV_GOVHOUSE_TASK_CONVERT_CULTURE_ACTIVE"
+												align = nobaseline|left
 											}
-											icon = {
+											text_single = {
+												layoutpolicy_horizontal = expanding
 												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)4.0')]"
-												size = { 20 20 }
-												texture = "gfx/interface/icons/location_icons/main_religion.dds"
-												tooltip = "TV_GOVHOUSE_TASK_CONVERT_RELIGION_TT"
+												text = "TV_GOVHOUSE_TASK_CONVERT_RELIGION_ACTIVE"
+												align = nobaseline|left
 											}
-											icon = {
+											text_single = {
+												layoutpolicy_horizontal = expanding
 												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)5.0')]"
-												size = { 20 20 }
-												texture = "gfx/interface/icons/unit_category/army_levies.dds"
-												tooltip = "TV_GOVHOUSE_TASK_STRENGTHEN_RECRUITMENT_TT"
+												text = "TV_GOVHOUSE_TASK_STRENGTHEN_RECRUITMENT_ACTIVE"
+												align = nobaseline|left
 											}
-											icon = {
+											text_single = {
+												layoutpolicy_horizontal = expanding
 												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)6.0')]"
-												size = { 20 20 }
-												texture = "gfx/interface/icons/alerts_icons/lack_pop_promotion_to_fill_buildings.dds"
-												tooltip = "TV_GOVHOUSE_TASK_STRENGTHEN_ORDER_TT"
+												text = "TV_GOVHOUSE_TASK_STRENGTHEN_ORDER_ACTIVE"
+												align = nobaseline|left
 											}
-											text_single = {
-												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)1.0')]"
-												size = { 62 22 }
-												raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=%2]"
-												tooltip = "TV_GOVHOUSE_TASK_RESTORE_PROSPERITY_TT"
-												align = nobaseline|right
-											}
-											text_single = {
-												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)2.0')]"
-												size = { 62 22 }
-												raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=3]"
-												tooltip = "TV_GOVHOUSE_TASK_INTEGRATE_REGION_TT"
-												align = nobaseline|right
-											}
-											text_single = {
-												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)3.0')]"
-												size = { 62 22 }
-												raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=4]"
-												tooltip = "TV_GOVHOUSE_TASK_CONVERT_CULTURE_TT"
-												align = nobaseline|right
-											}
-											text_single = {
-												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)4.0')]"
-												size = { 62 22 }
-												raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=4]"
-												tooltip = "TV_GOVHOUSE_TASK_CONVERT_RELIGION_TT"
-												align = nobaseline|right
-											}
-											text_single = {
-												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)5.0')]"
-												size = { 62 22 }
-												raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=%1]"
-												tooltip = "TV_GOVHOUSE_TASK_STRENGTHEN_RECRUITMENT_TT"
-												align = nobaseline|right
-											}
-											text_single = {
-												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)6.0')]"
-												size = { 62 22 }
-												raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=1]"
-												tooltip = "TV_GOVHOUSE_TASK_STRENGTHEN_ORDER_TT"
-												align = nobaseline|right
+
+											hbox = {
+												spacing = 2
+												ignoreinvisible = yes
+												icon = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)1.0')]"
+													size = { 20 20 }
+													texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+												}
+												icon = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)2.0')]"
+													size = { 20 20 }
+													texture = "gfx/interface/icons/modifier_types/province_integration_speed.dds"
+												}
+												icon = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)3.0')]"
+													size = { 20 20 }
+													texture = "gfx/interface/icons/modifier_types/global_pop_assimilation_speed.dds"
+												}
+												icon = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)4.0')]"
+													size = { 20 20 }
+													texture = "gfx/interface/icons/location_icons/main_religion.dds"
+												}
+												icon = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)5.0')]"
+													size = { 20 20 }
+													texture = "gfx/interface/icons/unit_category/army_levies.dds"
+												}
+												icon = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)6.0')]"
+													size = { 20 20 }
+													texture = "gfx/interface/icons/alerts_icons/lack_pop_promotion_to_fill_buildings.dds"
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)1.0')]"
+													size = { 62 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=%2]"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)2.0')]"
+													size = { 62 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=3]"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)3.0')]"
+													size = { 62 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=4]"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)4.0')]"
+													size = { 62 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=4]"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)5.0')]"
+													size = { 62 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=%1]"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)6.0')]"
+													size = { 62 22 }
+													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=1]"
+													align = nobaseline|right
+												}
 											}
 										}
 									}
