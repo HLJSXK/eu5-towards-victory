@@ -23,9 +23,9 @@ PANEL_WIDTH = WONDER_TEXT_COLUMN_WIDTH + WONDER_ROW_SPACING + WONDER_PREVIEW_COL
 PANEL_HEIGHTS = {1: 68, 2: 136, 3: 204}
 PANEL_ROW_HEIGHT = 64
 PANEL_SEPARATOR_HEIGHT = 4
-TOOLTIP_TEXT_COLUMN_WIDTH = 260
-TOOLTIP_PREVIEW_COLUMN_WIDTH = 260
-TOOLTIP_ROW_WIDTH = TOOLTIP_TEXT_COLUMN_WIDTH + WONDER_ROW_SPACING + TOOLTIP_PREVIEW_COLUMN_WIDTH
+TOOLTIP_ROW_WIDTH = 400
+TOOLTIP_TEXT_COLUMN_WIDTH = (TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING) // 2
+TOOLTIP_PREVIEW_COLUMN_WIDTH = TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING - TOOLTIP_TEXT_COLUMN_WIDTH
 TOOLTIP_PREVIEW_HEIGHT = 116
 TOOLTIP_ROW_SPACING = 6
 PANEL_PREVIEW_HEIGHT = PANEL_ROW_HEIGHT - 8
@@ -286,6 +286,92 @@ def render_tooltip_modifier_blocks(indent: str, *, wonder: dict) -> list[str]:
     return lines
 
 
+def render_tooltip_text_column(indent: str, *, wonder: dict, level_var: str) -> list[str]:
+    lines = [
+        f"{indent}widget = {{",
+        f"{indent}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}size = {{ {TOOLTIP_TEXT_COLUMN_WIDTH} -1 }}",
+        f"{indent}{T}vbox = {{",
+        f"{indent}{T}{T}set_parent_size_to_minimum = yes",
+        f"{indent}{T}{T}margin_left = 8",
+        f"{indent}{T}{T}margin_right = 8",
+        f"{indent}{T}{T}margin_top = 6",
+        f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}{T}spacing = 4",
+        f"{indent}{T}{T}ignoreinvisible = yes",
+        f"{indent}{T}{T}text_single = {{",
+        f'{indent}{T}{T}{T}layoutpolicy_horizontal = expanding',
+        f'{indent}{T}{T}{T}text = "[{wonder["concept"]}|E]"',
+        f"{indent}{T}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}{T}autoresize = no",
+        f"{indent}{T}{T}{T}fontsize = 15",
+        f"{indent}{T}{T}}}",
+    ]
+    lines.extend(render_level_line(indent + T * 2, level_var=level_var))
+    lines.extend(
+        [
+            f"{indent}{T}}}",
+            f"{indent}}}",
+        ]
+    )
+    return lines
+
+
+def render_tooltip_preview_column(indent: str, *, wonder: dict) -> list[str]:
+    lines = [
+        f"{indent}widget = {{",
+        f"{indent}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}size = {{ {TOOLTIP_PREVIEW_COLUMN_WIDTH} {TOOLTIP_PREVIEW_HEIGHT} }}",
+        f"{indent}{T}vbox = {{",
+        f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}layoutpolicy_vertical = expanding",
+        f"{indent}{T}{T}margin_top = 6",
+        f"{indent}{T}{T}widget = {{",
+        f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}{T}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}{T}{T}using = bg_cabinet_card_frame",
+        f"{indent}{T}{T}{T}size = {{ {TOOLTIP_PREVIEW_COLUMN_WIDTH} {TOOLTIP_PREVIEW_HEIGHT} }}",
+        f"{indent}{T}{T}{T}background = {{",
+        f'{indent}{T}{T}{T}{T}texture = "{preview_texture(wonder)}"',
+        f"{indent}{T}{T}{T}{T}texture_density = 2",
+        f"{indent}{T}{T}{T}{T}fittype = centercrop",
+        f"{indent}{T}{T}{T}}}",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}}}",
+        f"{indent}}}",
+    ]
+    return lines
+
+
+def render_tooltip_effect_block(indent: str, *, wonder: dict) -> list[str]:
+    lines = [
+        f"{indent}widget = {{",
+        f"{indent}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}size = {{ {TOOLTIP_ROW_WIDTH} -1 }}",
+        f"{indent}{T}vbox = {{",
+        f"{indent}{T}{T}set_parent_size_to_minimum = yes",
+        f"{indent}{T}{T}margin_left = 8",
+        f"{indent}{T}{T}margin_right = 8",
+        f"{indent}{T}{T}margin_bottom = 6",
+        f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}{T}spacing = 0",
+        f"{indent}{T}{T}ignoreinvisible = yes",
+    ]
+    lines.extend(render_tooltip_modifier_blocks(indent + T * 2, wonder=wonder))
+    lines.extend(
+        [
+            f"{indent}{T}}}",
+            f"{indent}}}",
+        ]
+    )
+    return lines
+
+
 def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
     level_var = wonder_level_var(wonder)
     lines = [
@@ -306,75 +392,17 @@ def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
         f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
         f"{indent}{T}{T}{T}spacing = {WONDER_ROW_SPACING}",
-        f"{indent}{T}{T}{T}widget = {{",
-        f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
-        f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
-        f"{indent}{T}{T}{T}{T}size = {{ {TOOLTIP_TEXT_COLUMN_WIDTH} -1 }}",
-        f"{indent}{T}{T}{T}{T}vbox = {{",
-        f"{indent}{T}{T}{T}{T}{T}set_parent_size_to_minimum = yes",
-        f"{indent}{T}{T}{T}{T}{T}margin_left = 8",
-        f"{indent}{T}{T}{T}{T}{T}margin_right = 8",
-        f"{indent}{T}{T}{T}{T}{T}margin_top = 6",
-        f"{indent}{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
-        f"{indent}{T}{T}{T}{T}{T}spacing = 4",
-        f"{indent}{T}{T}{T}{T}{T}ignoreinvisible = yes",
-        f"{indent}{T}{T}{T}{T}{T}text_single = {{",
-        f'{indent}{T}{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding',
-        f'{indent}{T}{T}{T}{T}{T}{T}text = "[{wonder["concept"]}|E]"',
-        f"{indent}{T}{T}{T}{T}{T}{T}align = left|nobaseline",
-        f"{indent}{T}{T}{T}{T}{T}{T}autoresize = no",
-        f"{indent}{T}{T}{T}{T}{T}{T}fontsize = 15",
-        f"{indent}{T}{T}{T}{T}{T}}}",
     ]
-    lines.extend(render_level_line(indent + T * 5, level_var=level_var))
+    lines.extend(render_tooltip_text_column(indent + T * 3, wonder=wonder, level_var=level_var))
+    lines.extend(render_tooltip_preview_column(indent + T * 3, wonder=wonder))
     lines.extend(
         [
-            f"{indent}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = fixed",
-            f"{indent}{T}{T}{T}{T}size = {{ {TOOLTIP_PREVIEW_COLUMN_WIDTH} {TOOLTIP_PREVIEW_HEIGHT} }}",
-            f"{indent}{T}{T}{T}{T}vbox = {{",
-            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-            f"{indent}{T}{T}{T}{T}{T}margin_top = 6",
-            f"{indent}{T}{T}{T}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
-            f"{indent}{T}{T}{T}{T}{T}{T}layoutpolicy_vertical = fixed",
-            f"{indent}{T}{T}{T}{T}{T}{T}using = bg_cabinet_card_frame",
-            f"{indent}{T}{T}{T}{T}{T}{T}size = {{ {TOOLTIP_PREVIEW_COLUMN_WIDTH} {TOOLTIP_PREVIEW_HEIGHT} }}",
-            f"{indent}{T}{T}{T}{T}{T}{T}background = {{",
-            f'{indent}{T}{T}{T}{T}{T}{T}{T}texture = "{preview_texture(wonder)}"',
-            f"{indent}{T}{T}{T}{T}{T}{T}{T}texture_density = 2",
-            f"{indent}{T}{T}{T}{T}{T}{T}{T}fittype = centercrop",
-            f"{indent}{T}{T}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",
-            f"{indent}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
-            f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
-            f"{indent}{T}{T}{T}size = {{ {TOOLTIP_ROW_WIDTH} -1 }}",
-            f"{indent}{T}{T}{T}vbox = {{",
-            f"{indent}{T}{T}{T}{T}set_parent_size_to_minimum = yes",
-            f"{indent}{T}{T}{T}{T}margin_left = 8",
-            f"{indent}{T}{T}{T}{T}margin_right = 8",
-            f"{indent}{T}{T}{T}{T}margin_bottom = 6",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
-            f"{indent}{T}{T}{T}{T}spacing = 0",
-            f"{indent}{T}{T}{T}{T}ignoreinvisible = yes",
         ]
     )
-    lines.extend(render_tooltip_modifier_blocks(indent + T * 4, wonder=wonder))
+    lines.extend(render_tooltip_effect_block(indent + T * 2, wonder=wonder))
     lines.extend(
         [
-            f"{indent}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}}}",
-            f"{indent}{T}{T}}}",
             f"{indent}{T}}}",
             f"{indent}}}",
         ]

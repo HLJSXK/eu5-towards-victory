@@ -21,7 +21,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_pharos_lighthouse_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -37,7 +37,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -76,7 +76,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -85,7 +85,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_pharos_lighthouse.dds"
 												texture_density = 2
@@ -98,7 +98,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -138,7 +138,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -147,7 +146,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_hagia_sophia_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -163,7 +162,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -202,7 +201,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -211,7 +210,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_hagia_sophia.dds"
 												texture_density = 2
@@ -224,7 +223,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -264,7 +263,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -273,7 +271,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_dome_of_the_rock_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -289,7 +287,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -328,7 +326,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -337,7 +335,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_dome_of_the_rock.dds"
 												texture_density = 2
@@ -350,7 +348,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -390,7 +388,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -399,7 +396,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_angkor_wat_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -415,7 +412,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -454,7 +451,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -463,7 +460,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_angkor_wat.dds"
 												texture_density = 2
@@ -476,7 +473,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -516,7 +513,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -525,7 +521,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_potala_palace_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -541,7 +537,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -580,7 +576,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -589,7 +585,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_potala_palace.dds"
 												texture_density = 2
@@ -602,7 +598,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -642,7 +638,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -651,7 +646,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_alhambra_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -667,7 +662,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -706,7 +701,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -715,7 +710,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_alhambra.dds"
 												texture_density = 2
@@ -728,7 +723,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -768,7 +763,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -777,7 +771,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_machu_picchu_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -793,7 +787,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -832,7 +826,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -841,7 +835,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_machu_picchu.dds"
 												texture_density = 2
@@ -854,7 +848,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -894,7 +888,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -903,7 +896,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_himeji_castle_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -919,7 +912,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -958,7 +951,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -967,7 +960,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_himeji_castle.dds"
 												texture_density = 2
@@ -980,7 +973,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -1020,7 +1013,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -1029,7 +1021,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_taj_mahal_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -1045,7 +1037,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -1084,7 +1076,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -1093,7 +1085,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_taj_mahal.dds"
 												texture_density = 2
@@ -1106,7 +1098,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -1146,7 +1138,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -1155,7 +1146,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_forbidden_city_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -1171,7 +1162,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -1210,7 +1201,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -1219,7 +1210,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_forbidden_city.dds"
 												texture_density = 2
@@ -1232,7 +1223,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -1272,7 +1263,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -1281,7 +1271,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_topkapi_palace_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -1297,7 +1287,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -1336,7 +1326,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -1345,7 +1335,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_topkapi_palace.dds"
 												texture_density = 2
@@ -1358,7 +1348,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -1398,7 +1388,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -1407,7 +1396,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_peters_basilica_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -1423,7 +1412,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -1462,7 +1451,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -1471,7 +1460,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_st_peters_basilica.dds"
 												texture_density = 2
@@ -1484,7 +1473,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -1524,7 +1513,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -1533,7 +1521,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_lalibela_churches_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -1549,7 +1537,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -1588,7 +1576,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -1597,7 +1585,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_lalibela_churches.dds"
 												texture_density = 2
@@ -1610,7 +1598,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -1650,7 +1638,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -1659,7 +1646,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_venetian_arsenal_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -1675,7 +1662,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -1714,7 +1701,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -1723,7 +1710,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_venetian_arsenal.dds"
 												texture_density = 2
@@ -1736,7 +1723,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -1776,7 +1763,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -1785,7 +1771,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_malacca_port_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -1801,7 +1787,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -1840,7 +1826,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -1849,7 +1835,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_malacca_port.dds"
 												texture_density = 2
@@ -1862,7 +1848,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -1902,7 +1888,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -1911,7 +1896,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_red_fort_delhi_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -1927,7 +1912,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -1966,7 +1951,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -1975,7 +1960,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_red_fort_delhi.dds"
 												texture_density = 2
@@ -1988,7 +1973,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -2028,7 +2013,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -2037,7 +2021,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_versailles_palace_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -2053,7 +2037,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -2092,7 +2076,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -2101,7 +2085,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_versailles_palace.dds"
 												texture_density = 2
@@ -2114,7 +2098,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -2154,7 +2138,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -2163,7 +2146,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tenochtitlan_causeways_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -2179,7 +2162,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -2218,7 +2201,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -2227,7 +2210,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_tenochtitlan_causeways.dds"
 												texture_density = 2
@@ -2240,7 +2223,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -2280,7 +2263,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -2289,7 +2271,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_amsterdam_canal_ring_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -2305,7 +2287,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -2344,7 +2326,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -2353,7 +2335,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_amsterdam_canal_ring.dds"
 												texture_density = 2
@@ -2366,7 +2348,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -2406,7 +2388,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -2415,7 +2396,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_mecca_haram_expansion_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -2431,7 +2412,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -2470,7 +2451,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -2479,7 +2460,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_mecca_haram_expansion.dds"
 												texture_density = 2
@@ -2492,7 +2473,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -2532,7 +2513,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -2541,7 +2521,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_ming_great_wall_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -2557,7 +2537,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -2596,7 +2576,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -2605,7 +2585,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_ming_great_wall.dds"
 												texture_density = 2
@@ -2618,7 +2598,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -2658,7 +2638,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -2667,7 +2646,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_bank_of_saint_george_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -2683,7 +2662,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -2722,7 +2701,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -2731,7 +2710,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_bank_of_saint_george.dds"
 												texture_density = 2
@@ -2744,7 +2723,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -2784,7 +2763,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -2793,7 +2771,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_cahokia_mounds_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -2809,7 +2787,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -2848,7 +2826,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -2857,7 +2835,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_cahokia_mounds.dds"
 												texture_density = 2
@@ -2870,7 +2848,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -2910,7 +2888,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -2919,7 +2896,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_great_zimbabwe_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -2935,7 +2912,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -2974,7 +2951,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -2983,7 +2960,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_great_zimbabwe.dds"
 												texture_density = 2
@@ -2996,7 +2973,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -3036,7 +3013,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -3045,7 +3021,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_isfahan_square_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -3061,7 +3037,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -3100,7 +3076,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -3109,7 +3085,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_isfahan_square.dds"
 												texture_density = 2
@@ -3122,7 +3098,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -3162,7 +3138,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -3171,7 +3146,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_grand_canal_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -3187,7 +3162,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -3226,7 +3201,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -3235,7 +3210,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_grand_canal.dds"
 												texture_density = 2
@@ -3248,7 +3223,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -3288,7 +3263,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -3297,7 +3271,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_inca_royal_road_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -3313,7 +3287,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -3352,7 +3326,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -3361,7 +3335,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_inca_royal_road.dds"
 												texture_density = 2
@@ -3374,7 +3348,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -3414,7 +3388,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -3423,7 +3396,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_roman_aqueducts_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -3439,7 +3412,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -3478,7 +3451,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -3487,7 +3460,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_roman_aqueducts.dds"
 												texture_density = 2
@@ -3500,7 +3473,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -3540,7 +3513,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -3549,7 +3521,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_suez_ancient_canal_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -3565,7 +3537,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -3604,7 +3576,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -3613,7 +3585,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_suez_ancient_canal.dds"
 												texture_density = 2
@@ -3626,7 +3598,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -3666,7 +3638,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -3675,7 +3646,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_kremlin_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -3691,7 +3662,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -3730,7 +3701,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -3739,7 +3710,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_kremlin.dds"
 												texture_density = 2
@@ -3752,7 +3723,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -3792,7 +3763,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -3801,7 +3771,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_teotihuacan_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -3817,7 +3787,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -3856,7 +3826,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -3865,7 +3835,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_teotihuacan.dds"
 												texture_density = 2
@@ -3878,7 +3848,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -3918,7 +3888,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -3927,7 +3896,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_angkor_hydraulic_system_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -3943,7 +3912,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -3982,7 +3951,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -3991,7 +3960,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_angkor_hydraulic_system.dds"
 												texture_density = 2
@@ -4004,7 +3973,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -4044,7 +4013,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -4053,7 +4021,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_dutch_polders_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -4069,7 +4037,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -4108,7 +4076,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -4117,7 +4085,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_dutch_polders.dds"
 												texture_density = 2
@@ -4130,7 +4098,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -4170,7 +4138,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -4179,7 +4146,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_machu_picchu_terraces_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -4195,7 +4162,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -4234,7 +4201,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -4243,7 +4210,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_machu_picchu_terraces.dds"
 												texture_density = 2
@@ -4256,7 +4223,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -4296,7 +4263,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -4305,7 +4271,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_british_navy_dockyards_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -4321,7 +4287,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -4360,7 +4326,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -4369,7 +4335,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_british_navy_dockyards.dds"
 												texture_density = 2
@@ -4382,7 +4348,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -4422,7 +4388,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -4431,7 +4396,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_spanish_silver_fleet_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -4447,7 +4412,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -4486,7 +4451,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -4495,7 +4460,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_spanish_silver_fleet.dds"
 												texture_density = 2
@@ -4508,7 +4473,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -4548,7 +4513,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -4557,7 +4521,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_ottoman_hajj_road_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -4573,7 +4537,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -4612,7 +4576,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -4621,7 +4585,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_ottoman_hajj_road.dds"
 												texture_density = 2
@@ -4634,7 +4598,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -4674,7 +4638,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -4683,7 +4646,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_persian_qanat_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -4699,7 +4662,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -4738,7 +4701,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -4747,7 +4710,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_persian_qanat.dds"
 												texture_density = 2
@@ -4760,7 +4723,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -4800,7 +4763,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -4809,7 +4771,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_longjiang_shipyard_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -4825,7 +4787,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -4864,7 +4826,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -4873,7 +4835,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_longjiang_shipyard.dds"
 												texture_density = 2
@@ -4886,7 +4848,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -4926,7 +4888,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -4935,7 +4896,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_jerusalem_holy_city_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -4951,7 +4912,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -4990,7 +4951,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -4999,7 +4960,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_jerusalem_holy_city.dds"
 												texture_density = 2
@@ -5012,7 +4973,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -5052,7 +5013,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -5061,7 +5021,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_sacred_mountain_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -5077,7 +5037,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -5116,7 +5076,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -5125,7 +5085,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_sacred_mountain.dds"
 												texture_density = 2
@@ -5138,7 +5098,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -5178,7 +5138,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -5187,7 +5146,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_triumphal_axis_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -5203,7 +5162,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -5242,7 +5201,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -5251,7 +5210,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_triumphal_axis.dds"
 												texture_density = 2
@@ -5264,7 +5223,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -5304,7 +5263,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -5313,7 +5271,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_port_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -5329,7 +5287,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -5368,7 +5326,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -5377,7 +5335,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_great_port.dds"
 												texture_density = 2
@@ -5390,7 +5348,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -5430,7 +5388,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -5439,7 +5396,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_giant_necropolis_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -5455,7 +5412,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -5494,7 +5451,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -5503,7 +5460,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_giant_necropolis.dds"
 												texture_density = 2
@@ -5516,7 +5473,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -5556,7 +5513,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -5565,7 +5521,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_lighthouse_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -5581,7 +5537,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -5620,7 +5576,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -5629,7 +5585,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_great_lighthouse.dds"
 												texture_density = 2
@@ -5642,7 +5598,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -5682,7 +5638,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -5691,7 +5646,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_hydraulic_workshop_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -5707,7 +5662,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -5746,7 +5701,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -5755,7 +5710,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_hydraulic_workshop.dds"
 												texture_density = 2
@@ -5768,7 +5723,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -5808,7 +5763,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -5817,7 +5771,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_mining_city_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -5833,7 +5787,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -5872,7 +5826,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -5881,7 +5835,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_mining_city.dds"
 												texture_density = 2
@@ -5894,7 +5848,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -5934,7 +5888,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -5943,7 +5896,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_giant_observatory_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -5959,7 +5912,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -5998,7 +5951,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -6007,7 +5960,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_giant_observatory.dds"
 												texture_density = 2
@@ -6020,7 +5973,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -6060,7 +6013,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -6069,7 +6021,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_palace_of_nations_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -6085,7 +6037,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -6124,7 +6076,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -6133,7 +6085,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_palace_of_nations.dds"
 												texture_density = 2
@@ -6146,7 +6098,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -6186,7 +6138,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -6195,7 +6146,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_university_city_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -6211,7 +6162,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -6250,7 +6201,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -6259,7 +6210,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_university_city.dds"
 												texture_density = 2
@@ -6272,7 +6223,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -6312,7 +6263,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -6321,7 +6271,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_sky_dome_grand_temple_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -6337,7 +6287,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -6376,7 +6326,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -6385,7 +6335,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_sky_dome_grand_temple.dds"
 												texture_density = 2
@@ -6398,7 +6348,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -6438,7 +6388,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -6447,7 +6396,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_giant_tower_temple_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -6463,7 +6412,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -6502,7 +6451,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -6511,7 +6460,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_giant_tower_temple.dds"
 												texture_density = 2
@@ -6524,7 +6473,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -6564,7 +6513,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -6573,7 +6521,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_river_extension_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -6589,7 +6537,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -6628,7 +6576,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -6637,7 +6585,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_river_extension.dds"
 												texture_density = 2
@@ -6650,7 +6598,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -6690,7 +6638,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -6699,7 +6646,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_national_shipyard_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -6715,7 +6662,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -6754,7 +6701,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -6763,7 +6710,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_national_shipyard.dds"
 												texture_density = 2
@@ -6776,7 +6723,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -6816,7 +6763,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -6825,7 +6771,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_star_fortress_city_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -6841,7 +6787,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -6880,7 +6826,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -6889,7 +6835,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_star_fortress_city.dds"
 												texture_density = 2
@@ -6902,7 +6848,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -6942,7 +6888,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -6951,7 +6896,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_wall_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -6967,7 +6912,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -7006,7 +6951,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -7015,7 +6960,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_great_wall.dds"
 												texture_density = 2
@@ -7028,7 +6973,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -7068,7 +7013,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -7077,7 +7021,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_giant_armory_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -7093,7 +7037,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -7132,7 +7076,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -7141,7 +7085,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_giant_armory.dds"
 												texture_density = 2
@@ -7154,7 +7098,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -7194,7 +7138,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -7203,7 +7146,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_library_of_nation_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -7219,7 +7162,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -7258,7 +7201,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -7267,7 +7210,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_library_of_nation.dds"
 												texture_density = 2
@@ -7280,7 +7223,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -7320,7 +7263,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -7329,7 +7271,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_large_canal_system_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -7345,7 +7287,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -7384,7 +7326,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -7393,7 +7335,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_large_canal_system.dds"
 												texture_density = 2
@@ -7406,7 +7348,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -7446,7 +7388,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -7455,7 +7396,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_mountain_terrace_network_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -7471,7 +7412,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -7510,7 +7451,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -7519,7 +7460,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_mountain_terrace_network.dds"
 												texture_density = 2
@@ -7532,7 +7473,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -7572,7 +7513,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -7581,7 +7521,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_giant_dam_project_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -7597,7 +7537,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -7636,7 +7576,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -7645,7 +7585,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_giant_dam_project.dds"
 												texture_density = 2
@@ -7658,7 +7598,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -7698,7 +7638,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -7707,7 +7646,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_royal_granary_system_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -7723,7 +7662,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -7762,7 +7701,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -7771,7 +7710,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_royal_granary_system.dds"
 												texture_density = 2
@@ -7784,7 +7723,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -7824,7 +7763,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -7833,7 +7771,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_imperial_post_road_network_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -7849,7 +7787,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -7888,7 +7826,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -7897,7 +7835,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_imperial_post_road_network.dds"
 												texture_density = 2
@@ -7910,7 +7848,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -7950,7 +7888,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -7959,7 +7896,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_canal_hub_city_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -7975,7 +7912,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -8014,7 +7951,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -8023,7 +7960,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_canal_hub_city.dds"
 												texture_density = 2
@@ -8036,7 +7973,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -8076,7 +8013,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -8085,7 +8021,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_frontier_colonization_belt_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -8101,7 +8037,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -8140,7 +8076,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -8149,7 +8085,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_frontier_colonization_belt.dds"
 												texture_density = 2
@@ -8162,7 +8098,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -8202,7 +8138,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -8211,7 +8146,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_coastal_beacon_network_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -8227,7 +8162,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -8266,7 +8201,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -8275,7 +8210,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_coastal_beacon_network.dds"
 												texture_density = 2
@@ -8288,7 +8223,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -8328,7 +8263,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -8337,7 +8271,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_knightly_fortress_order_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -8353,7 +8287,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -8392,7 +8326,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -8401,7 +8335,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_knightly_fortress_order.dds"
 												texture_density = 2
@@ -8414,7 +8348,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -8454,7 +8388,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -8463,7 +8396,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_war_college_system_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -8479,7 +8412,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -8518,7 +8451,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -8527,7 +8460,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_war_college_system.dds"
 												texture_density = 2
@@ -8540,7 +8473,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -8580,7 +8513,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -8589,7 +8521,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_clock_bell_system_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -8605,7 +8537,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -8644,7 +8576,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -8653,7 +8585,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_great_clock_bell_system.dds"
 												texture_density = 2
@@ -8666,7 +8598,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -8706,7 +8638,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -8715,7 +8646,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_royal_art_district_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -8731,7 +8662,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -8770,7 +8701,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -8779,7 +8710,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_royal_art_district.dds"
 												texture_density = 2
@@ -8792,7 +8723,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -8832,7 +8763,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -8841,7 +8771,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_theater_festival_district_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -8857,7 +8787,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -8896,7 +8826,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -8905,7 +8835,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_grand_theater_festival_district.dds"
 												texture_density = 2
@@ -8918,7 +8848,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -8958,7 +8888,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -8967,7 +8896,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_world_embassy_quarter_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -8983,7 +8912,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -9022,7 +8951,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -9031,7 +8960,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_world_embassy_quarter.dds"
 												texture_density = 2
@@ -9044,7 +8973,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -9084,7 +9013,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -9093,7 +9021,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_law_code_stele_project_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -9109,7 +9037,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -9148,7 +9076,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -9157,7 +9085,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_law_code_stele_project.dds"
 												texture_density = 2
@@ -9170,7 +9098,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -9210,7 +9138,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -9219,7 +9146,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_world_market_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -9235,7 +9162,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -9274,7 +9201,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -9283,7 +9210,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_world_market.dds"
 												texture_density = 2
@@ -9296,7 +9223,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -9336,7 +9263,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -9345,7 +9271,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_royal_mint_system_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -9361,7 +9287,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -9400,7 +9326,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -9409,7 +9335,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_royal_mint_system.dds"
 												texture_density = 2
@@ -9422,7 +9348,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -9462,7 +9388,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -9471,7 +9396,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_guild_alliance_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -9487,7 +9412,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -9526,7 +9451,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -9535,7 +9460,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_guild_alliance.dds"
 												texture_density = 2
@@ -9548,7 +9473,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -9588,7 +9513,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -9597,7 +9521,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_maritime_trade_station_network_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -9613,7 +9537,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -9652,7 +9576,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -9661,7 +9585,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_maritime_trade_station_network.dds"
 												texture_density = 2
@@ -9674,7 +9598,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -9714,7 +9638,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -9723,7 +9646,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_giant_workshop_complex_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -9739,7 +9662,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -9778,7 +9701,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -9787,7 +9710,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_giant_workshop_complex.dds"
 												texture_density = 2
@@ -9800,7 +9723,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -9840,7 +9763,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -9849,7 +9771,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_world_monument_group_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -9865,7 +9787,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -9904,7 +9826,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -9913,7 +9835,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_world_monument_group.dds"
 												texture_density = 2
@@ -9926,7 +9848,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -9966,7 +9888,6 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									}
 								}
 							}
 						}
@@ -9975,7 +9896,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 524 -1 }
+						minimumsize = { 400 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -9991,7 +9912,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = shrinking
-									size = { 260 -1 }
+									size = { 198 -1 }
 									vbox = {
 										set_parent_size_to_minimum = yes
 										margin_left = 8
@@ -10030,7 +9951,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 260 116 }
+									size = { 198 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -10039,7 +9960,7 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 260 116 }
+											size = { 198 116 }
 											background = {
 												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_city_expansion_project.dds"
 												texture_density = 2
@@ -10052,7 +9973,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 524 -1 }
+								size = { 400 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -10091,7 +10012,6 @@ template tv_location_wonder_tooltip {
 										blockoverride "text" {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
-									}
 									}
 								}
 							}
