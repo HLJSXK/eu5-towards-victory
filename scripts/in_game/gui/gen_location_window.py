@@ -385,6 +385,9 @@ def render_tooltip_template() -> str:
         f'{T}{T}blockoverride "tooltip_content" {{',
         f"{T}{T}{T}widget = {{",
         f"{T}{T}{T}{T}vbox = {{",
+        f"{T}{T}{T}{T}{T}set_parent_dimension_to_minimum = height",
+        f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{T}{T}{T}{T}{T}ignoreinvisible = yes",
         f"{T}{T}{T}{T}{T}spacing = {TOOLTIP_ROW_SPACING}",
     ]
     for wonder in ordered_wonders():

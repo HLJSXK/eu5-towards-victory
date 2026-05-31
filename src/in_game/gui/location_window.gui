@@ -13,6 +13,9 @@ template tv_location_wonder_tooltip {
 		blockoverride "tooltip_content" {
 			widget = {
 				vbox = {
+					set_parent_dimension_to_minimum = height
+					layoutpolicy_horizontal = expanding
+					ignoreinvisible = yes
 					spacing = 6
 					widget = {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_pharos_lighthouse_level').IsSet]"
