@@ -15,6 +15,9 @@ SCRIPT_REL = "scripts/in_game/gui/gen_location_window.py"
 T = "\t"
 
 COUNT_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_count')"
+WONDER_TEXT_COLUMN_WIDTH = 120
+WONDER_PREVIEW_COLUMN_WIDTH = 120
+WONDER_ROW_SPACING = 4
 PANEL_WIDTH = 380
 PANEL_HEIGHTS = {1: 68, 2: 136, 3: 204}
 PANEL_ROW_HEIGHT = 64
@@ -22,7 +25,6 @@ PANEL_SEPARATOR_HEIGHT = 4
 TOOLTIP_ROW_WIDTH = 380
 TOOLTIP_ROW_HEIGHT = 84
 TOOLTIP_ROW_SPACING = 6
-WONDER_PREVIEW_COLUMN_WIDTH = 120
 PANEL_PREVIEW_HEIGHT = PANEL_ROW_HEIGHT - 8
 TOOLTIP_PREVIEW_HEIGHT = TOOLTIP_ROW_HEIGHT - 8
 
@@ -161,11 +163,11 @@ def render_slot_row(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}hbox = {{",
         f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}spacing = 4",
+        f"{indent}{T}{T}spacing = {WONDER_ROW_SPACING}",
         f"{indent}{T}{T}widget = {{",
-        f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
         f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}{T}layoutstretchfactor_horizontal = 1",
+        f"{indent}{T}{T}{T}size = {{ {WONDER_TEXT_COLUMN_WIDTH} {PANEL_ROW_HEIGHT} }}",
         f"{indent}{T}{T}{T}vbox = {{",
         f"{indent}{T}{T}{T}{T}margin_left = 8",
         f"{indent}{T}{T}{T}{T}margin_right = 8",
@@ -206,6 +208,7 @@ def render_slot_row(indent: str, *, slot: int) -> list[str]:
             f"{indent}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",
+            f"{indent}{T}{T}expand = {{}}",
             f"{indent}{T}{T}widget = {{",
             f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
             f"{indent}{T}{T}{T}layoutpolicy_vertical = fixed",
@@ -308,11 +311,11 @@ def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
         f"{indent}{T}hbox = {{",
         f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}spacing = 4",
+        f"{indent}{T}{T}spacing = {WONDER_ROW_SPACING}",
         f"{indent}{T}{T}widget = {{",
-        f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
         f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}{T}layoutstretchfactor_horizontal = 1",
+        f"{indent}{T}{T}{T}size = {{ {WONDER_TEXT_COLUMN_WIDTH} {TOOLTIP_ROW_HEIGHT} }}",
         f"{indent}{T}{T}{T}vbox = {{",
         f"{indent}{T}{T}{T}{T}margin_left = 8",
         f"{indent}{T}{T}{T}{T}margin_right = 8",
@@ -353,6 +356,7 @@ def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
             f"{indent}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",
+            f"{indent}{T}{T}expand = {{}}",
             f"{indent}{T}{T}widget = {{",
             f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
             f"{indent}{T}{T}{T}layoutpolicy_vertical = fixed",
