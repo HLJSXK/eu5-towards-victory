@@ -113,11 +113,11 @@
   detectability: advisory
   only_in_paths: ['gui']
   bad: "Building a conditional background-image column inside a plain widget/button with only expanding layout policies and no explicit image bounds"
-  correction: "Give the clickable wrapper and image column fixed bounds, and set each visible background child to explicit bounds such as size = { 100% 100% }. Keep the existing card/hbox/vbox structure instead of relying on invisible siblings or layoutpolicy alone to size the preview."
+  correction: "Give the clickable wrapper and image column fixed bounds, and size each visible background child with fixed pixels that match the content area. Keep the existing card/hbox/vbox structure instead of relying on invisible siblings or layoutpolicy alone to size the preview."
   category: gui
   scope: any
   source: "runtime UI observation in src/in_game/gui/location_window.gui; fixed in scripts/in_game/gui/gen_location_window.py"
-  notes: "Conditional background widgets can collapse to the parent's left edge when the visible branch has no explicit size. In the wonder location panel, the plain widget/button wrapper also had to fill the parent before the image column and each visible preview widget could use the intended width."
+  notes: "Conditional background widgets can collapse to the parent's left edge when the visible branch has no explicit size. In the wonder location panel, the plain widget/button wrapper also had to fill the parent before the image column, and the inner preview widgets needed fixed pixel sizes instead of percentage bounds."
 
 - id: gui_raw_text_localization_substitution_literal
   pattern: ''

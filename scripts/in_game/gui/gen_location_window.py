@@ -23,6 +23,8 @@ TOOLTIP_ROW_WIDTH = 380
 TOOLTIP_ROW_HEIGHT = 84
 TOOLTIP_ROW_SPACING = 6
 WONDER_PREVIEW_COLUMN_WIDTH = 120
+PANEL_PREVIEW_HEIGHT = PANEL_ROW_HEIGHT - 8
+TOOLTIP_PREVIEW_HEIGHT = TOOLTIP_ROW_HEIGHT - 8
 
 
 def ordered_wonders() -> list[dict]:
@@ -128,14 +130,16 @@ def render_slot_modifier_blocks(indent: str, *, slot: int) -> list[str]:
     return lines
 
 
-def render_slot_image_branches(indent: str, *, slot: int) -> list[str]:
+def render_slot_image_branches(indent: str, *, slot: int, height: int) -> list[str]:
     lines: list[str] = []
     for wonder in ordered_wonders():
         lines.extend(
             [
                 f"{indent}widget = {{",
                 f'{indent}{T}visible = "[{slot_matches_expr(slot, wonder)}]"',
-                f"{indent}{T}size = {{ 100% 100% }}",
+                f"{indent}{T}layoutpolicy_horizontal = fixed",
+                f"{indent}{T}layoutpolicy_vertical = fixed",
+                f"{indent}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {height} }}",
                 f"{indent}{T}background = {{",
                 f'{indent}{T}{T}texture = "{preview_texture(wonder)}"',
                 f"{indent}{T}{T}texture_density = 2",
@@ -212,13 +216,13 @@ def render_slot_row(indent: str, *, slot: int) -> list[str]:
             f"{indent}{T}{T}{T}margin_top = 4",
             f"{indent}{T}{T}{T}margin_bottom = 4",
             f"{indent}{T}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
+            f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
+            f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = fixed",
             f"{indent}{T}{T}{T}{T}using = bg_cabinet_card_frame",
-            f"{indent}{T}{T}{T}{T}size = {{ 100% 100% }}",
+            f"{indent}{T}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {PANEL_PREVIEW_HEIGHT} }}",
         ]
     )
-    lines.extend(render_slot_image_branches(indent + T * 5, slot=slot))
+    lines.extend(render_slot_image_branches(indent + T * 5, slot=slot, height=PANEL_PREVIEW_HEIGHT))
     lines.extend(
         [
             f"{indent}{T}{T}{T}{T}}}",
@@ -359,10 +363,10 @@ def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
             f"{indent}{T}{T}{T}margin_top = 4",
             f"{indent}{T}{T}{T}margin_bottom = 4",
             f"{indent}{T}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
+            f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
+            f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = fixed",
             f"{indent}{T}{T}{T}{T}using = bg_cabinet_card_frame",
-            f"{indent}{T}{T}{T}{T}size = {{ 100% 100% }}",
+            f"{indent}{T}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {TOOLTIP_PREVIEW_HEIGHT} }}",
             f"{indent}{T}{T}{T}{T}background = {{",
             f'{indent}{T}{T}{T}{T}{T}texture = "{preview_texture(wonder)}"',
             f"{indent}{T}{T}{T}{T}{T}texture_density = 2",
