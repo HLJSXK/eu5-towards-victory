@@ -506,6 +506,16 @@
   source: "runtime error docs/error_log/error.log: ExtraTooltipInfo.GetTintColor; reference_game_files/game/main_menu/gui/shared/main_menu_cooltip_types.gui:328"
   notes: "TooltipTextBlock inherits tooltip_text_block_template, whose font tint reads ExtraTooltipInfo.GetTintColor. Visible uses outside an actual tooltip context can continuously log FetchData failures while the panel is open."
 
+- id: gui_tooltip_fixed_height_row_overflows
+  pattern: ''
+  only_in_paths: ['gui']
+  bad: "Wrapping tooltip rows that can grow in height in a fixed-size `widget` or an `expanding` child, e.g. `size = { W H }` around a `TooltipStringPairList` chain"
+  correction: "Let the visible tooltip content establish its own height. Constrain width with `size = { W -1 }` or `minimumsize`, add `set_parent_size_to_minimum = yes` to the containing layout, and keep `ignoreinvisible = yes` so only visible rows contribute to the measured height."
+  category: gui
+  scope: any
+  source: "scripts/in_game/gui/gen_location_window.py; reference_game_files/game/main_menu/gui/shared/main_menu_cooltip_types.gui:1314, 1840"
+  notes: "A fixed-height tooltip row can keep the frame visually short while the modifier text spills below the border. The container must be height-auto if the modifier block can wrap to multiple lines."
+
 - id: building_eu4_price_numeric
   pattern: '^\s*price\s*=\s*\d+'
   only_in_paths: ['building_types']

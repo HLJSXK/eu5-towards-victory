@@ -6,6 +6,8 @@ Pattern: Trade League IO laws. Policies may define country_modifier,
 leader_modifier, and non_leader_modifier blocks and keep IO policy votes
 enabled. Three-level policies generate Trade League AI vote bias from level,
 opinion toward the leader, leader diplomatic reputation, and leader trade income.
+Policy changes are adjacent-only: no policy counts as level 0, so level N can
+be selected only from level N-1 or N+1.
 """
 
 import argparse
@@ -32,6 +34,7 @@ FILE_HEADER = (
     "#\n"
     "# TOWARDS VICTORY - TRADE LEAGUE LAWS\n"
     "# Three-level Trade League law groups with vote-gated policies.\n"
+    "# Policy changes are adjacent-only.\n"
     "# requires_vote = yes: Trade League law changes use IO policy votes.\n"
 )
 
@@ -110,7 +113,20 @@ def gen_ai_vote_bias(level: int) -> list[str]:
     return lines
 
 
-def gen_policy(policy: dict) -> str:
+def gen_adjacent_policy_allow_body(law_id: str, policies: list[dict], index: int) -> list[str]:
+    lines = []
+    lines.append(T * 3 + "OR = {")
+    if index == 0:
+        lines.append(T * 4 + f"NOT = {{ international_organization_has_law = law:{law_id} }}")
+    if index > 0:
+        lines.append(T * 4 + f"international_organization_has_policy = policy:{policies[index - 1]['id']}")
+    if index + 1 < len(policies):
+        lines.append(T * 4 + f"international_organization_has_policy = policy:{policies[index + 1]['id']}")
+    lines.append(T * 3 + "}")
+    return lines
+
+
+def gen_policy(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     pid = policy["id"]
     level = policy.get("level")
     comment = policy.get("display_comment", "")
@@ -122,7 +138,7 @@ def gen_policy(policy: dict) -> str:
     if level is not None:
         lines.append(T * 2 + f"level = {level}")
     lines.append(T * 2 + "allow = {")
-    lines.append(T * 3 + "always = yes")
+    lines.extend(gen_adjacent_policy_allow_body(law_id, policies, index))
     lines.append(T * 2 + "}")
     for block_name in MODIFIER_BLOCKS:
         modifier_lines = (policy.get(block_name) or "").rstrip()
@@ -164,7 +180,7 @@ def gen_law(law: dict, default_law_category: str, io_type: str) -> str:
     lines.append("")
 
     for index, policy in enumerate(policies):
-        lines.append(gen_policy(policy))
+        lines.append(gen_policy(policy, lid, policies, index))
         if index < len(policies) - 1:
             lines.append("")
 

@@ -856,6 +856,8 @@ blockoverride "block_title" {
 
 Likewise, do not use `TooltipTextBlock` as a normal always-visible panel widget. `TooltipTextBlock` inherits `tooltip_text_block_template`, and that template's text color block reads `ExtraTooltipInfo.GetTintColor`. In a real tooltip (`ContextualTooltipType`, `AlertTooltipType`, etc.) that context exists; in a normal panel it does not. For ordinary UI text, use `text_single` or `text_multi` instead.
 
+When a tooltip row combines `TooltipStringPairList` / `TooltipTextBlock` with a preview image, avoid hard-coding the row to `size = { W H }` or wrapping the modifier block in an `expanding` child. That can keep the frame visually short while the visible text spills below the border. Prefer width-fixed, height-auto rows instead: constrain the row with `size = { W -1 }` or `minimumsize`, let the visible content contribute its own height through `set_parent_size_to_minimum`, and keep the parent container `ignoreinvisible = yes` so hidden rows do not reserve space.
+
 ### 7.2. Map Modding
 
 EU5 includes a powerful map editor for modifying the game world. This tool allows for editing the heightmap, terrain textures, and location setup. However, it has high system requirements, recommending at least 32GB of RAM. [11]

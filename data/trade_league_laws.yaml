@@ -23,22 +23,19 @@ laws:
         id: tv_trade_customs_ledgers_policy
         display_comment: "Level 1 - Shared Tariff Ledgers"
         country_modifier: |
-          import_efficiency = 0.025
-          export_efficiency = 0.025
+          merchant_maintenance_efficiency = 0.10
           global_monthly_control = -0.001
       - level: 2
         id: tv_trade_customs_bureau_policy
         display_comment: "Level 2 - League Customs Bureau"
         country_modifier: |
-          import_efficiency = 0.0375
-          export_efficiency = 0.0375
+          merchant_maintenance_efficiency = 0.15
           global_monthly_control = -0.001
       - level: 3
         id: tv_trade_customs_code_policy
         display_comment: "Level 3 - Compulsory Tariff Code"
         country_modifier: |
-          import_efficiency = 0.075
-          export_efficiency = 0.075
+          merchant_maintenance_efficiency = 0.30
           global_monthly_control = -0.001
           global_burghers_estate_power = 0.25
 

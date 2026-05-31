@@ -67,6 +67,13 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     the image column's natural width, leaving text and image stacked at the
     parent's left edge.
 
+13. Let tooltip rows grow with their visible content.
+    If a tooltip row mixes `TooltipStringPairList`/`TooltipTextBlock` with a
+    preview image, do not hard-code the row to a fixed height. Constrain width
+    with `size = { W -1 }` or `minimumsize`, set the containing layout to size
+    itself from its children, and keep `ignoreinvisible = yes` on the container
+    so hidden wonder levels do not reserve space.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover
