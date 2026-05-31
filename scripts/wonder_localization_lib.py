@@ -9,8 +9,9 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-WONDER_LOCALIZATION_OVERRIDES_FILE = REPO_ROOT / "data" / "wonder_localization_overrides.yaml"
+WONDER_LOCALIZATION_FILE = REPO_ROOT / "data" / "wonder_localization.yaml"
 ENGINEERING_DEPARTMENT_EVENTS_FILE = REPO_ROOT / "src" / "in_game" / "events" / "tv_engineering_department_events.txt"
+LANGUAGES = ("english", "simp_chinese")
 
 LOCALIZATION_LINE_RE = re.compile(r'^(?P<indent>\s*)(?P<key>[A-Za-z0-9_.-]+):(?P<version>0)?\s+(?P<value>"(?:[^"\\]|\\.)*")\s*$')
 ENGINEERING_DEPARTMENT_500_ID_RE = re.compile(r"var:tv_wonder_locked \?= (?P<id>\d+)")
@@ -94,38 +95,38 @@ def write_localization_updates(path: Path, updates: dict[str, str], *, append_mi
     return True
 
 
-def load_wonder_localization_overrides() -> dict[str, dict[str, str]]:
-    result: dict[str, dict[str, str]] = {"english": {}, "simp_chinese": {}}
-    if not WONDER_LOCALIZATION_OVERRIDES_FILE.exists():
+def load_wonder_localization_data() -> dict[str, dict[str, str]]:
+    result: dict[str, dict[str, str]] = {language: {} for language in LANGUAGES}
+    if not WONDER_LOCALIZATION_FILE.exists():
         return result
 
-    raw = yaml.safe_load(WONDER_LOCALIZATION_OVERRIDES_FILE.read_text(encoding="utf-8"))
+    raw = yaml.safe_load(WONDER_LOCALIZATION_FILE.read_text(encoding="utf-8"))
     if not raw:
         return result
 
-    overrides = raw.get("wonder_localization_overrides", {})
+    localization = raw.get("wonder_localization", {})
     for language in result:
-        language_overrides = overrides.get(language, {}) or {}
-        result[language] = {str(key): str(value) for key, value in language_overrides.items()}
+        language_values = localization.get(language, {}) or {}
+        result[language] = {str(key): str(value) for key, value in language_values.items()}
     return result
 
 
-def save_wonder_localization_overrides(overrides: dict[str, dict[str, str]]) -> None:
+def save_wonder_localization_data(localization: dict[str, dict[str, str]]) -> None:
     payload = {
-        "wonder_localization_overrides": {
-            "english": dict(overrides.get("english", {})),
-            "simp_chinese": dict(overrides.get("simp_chinese", {})),
-        }
+        "wonder_localization": {
+            language: dict(localization.get(language, {}))
+            for language in LANGUAGES
+        },
     }
-    WONDER_LOCALIZATION_OVERRIDES_FILE.parent.mkdir(parents=True, exist_ok=True)
-    WONDER_LOCALIZATION_OVERRIDES_FILE.write_text(
+    WONDER_LOCALIZATION_FILE.parent.mkdir(parents=True, exist_ok=True)
+    WONDER_LOCALIZATION_FILE.write_text(
         yaml.safe_dump(payload, sort_keys=False, allow_unicode=True, default_flow_style=False),
         encoding="utf-8",
     )
 
 
-def apply_localization_overrides(text: str, overrides: dict[str, str]) -> str:
-    if not overrides:
+def apply_localization_values(text: str, localization: dict[str, str]) -> str:
+    if not localization:
         return text
 
     rewritten: list[str] = []
@@ -136,13 +137,13 @@ def apply_localization_overrides(text: str, overrides: dict[str, str]) -> str:
             continue
 
         key = match.group("key")
-        if key not in overrides:
+        if key not in localization:
             rewritten.append(raw_line)
             continue
 
         prefix = match.group("indent")
         version = match.group("version") or ""
-        rewritten.append(f'{prefix}{key}:{version} "{escape_localization_value(overrides[key])}"')
+        rewritten.append(f'{prefix}{key}:{version} "{escape_localization_value(localization[key])}"')
     return "\n".join(rewritten).rstrip() + "\n"
 
 

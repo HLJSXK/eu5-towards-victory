@@ -11,12 +11,12 @@ if hasattr(sys.stdout, "reconfigure"):
 
 from wonder_localization_lib import (
     REPO_ROOT,
-    WONDER_LOCALIZATION_OVERRIDES_FILE,
+    WONDER_LOCALIZATION_FILE,
     load_engineering_department_suffix_map,
     load_localization_map,
-    load_wonder_localization_overrides,
+    load_wonder_localization_data,
     normalize_editor_text,
-    save_wonder_localization_overrides,
+    save_wonder_localization_data,
     write_localization_updates,
 )
 from wonder_mechanics_lib import (
@@ -117,10 +117,9 @@ class WonderLocalizationEditor:
         self.wonders = sorted(self.wonders, key=lambda item: int(item["id"]))
         self.manual_concepts = load_manual_game_concept_ids()
         self.event_suffixes = load_engineering_department_suffix_map()
-        self.overrides = load_wonder_localization_overrides()
+        self.localization_data = load_wonder_localization_data()
         self.localization_values: dict[Path, dict[str, str]] = {}
         self._load_localization_values()
-        self.manual_concept_loc_keys = self._load_manual_concept_loc_keys()
 
         self.current_wonder: dict | None = None
         self.current_specs: dict[str, list[FieldSpec]] = {language: [] for language in LANGUAGES}
@@ -142,6 +141,11 @@ class WonderLocalizationEditor:
     def _load_localization_values(self) -> None:
         paths = set(GENERATED_LOC_FILES.values()) | set(MANUAL_CONCEPT_FILES.values()) | set(MANUAL_ENGINEERING_FILES.values())
         self.localization_values = {path: load_localization_map(path) for path in paths}
+        self.localization_data = load_wonder_localization_data()
+        for language, path in GENERATED_LOC_FILES.items():
+            merged = dict(self.localization_values.get(path, {}))
+            merged.update(self.localization_data.get(language, {}))
+            self.localization_values[path] = merged
         self.manual_concept_loc_keys = self._load_manual_concept_loc_keys()
 
     def _load_manual_concept_loc_keys(self) -> set[str]:
@@ -215,10 +219,9 @@ class WonderLocalizationEditor:
         button_frame = ttk.Frame(right)
         button_frame.grid(row=2, column=0, sticky="ew", pady=(8, 0))
         ttk.Button(button_frame, text="保存并重新生成", command=self._save_and_regenerate).grid(row=0, column=0, sticky="w")
-        ttk.Button(button_frame, text="清除当前奇观生成覆盖", command=self._clear_current_generated_overrides).grid(row=0, column=1, sticky="w", padx=(8, 0))
-        ttk.Button(button_frame, text="重新加载文件", command=self._reload_current_wonder).grid(row=0, column=2, sticky="w", padx=(8, 0))
-        ttk.Label(button_frame, textvariable=self.status_var).grid(row=0, column=3, sticky="e", padx=(16, 0))
-        button_frame.grid_columnconfigure(3, weight=1)
+        ttk.Button(button_frame, text="重新加载文件", command=self._reload_current_wonder).grid(row=0, column=1, sticky="w", padx=(8, 0))
+        ttk.Label(button_frame, textvariable=self.status_var).grid(row=0, column=2, sticky="e", padx=(16, 0))
+        button_frame.grid_columnconfigure(2, weight=1)
 
     def _populate_wonder_tree(self) -> None:
         previous_id = str(self.current_wonder["id"]) if self.current_wonder else None
@@ -333,7 +336,7 @@ class WonderLocalizationEditor:
                     heading.grid(row=row, column=0, sticky="ew", pady=(10 if row else 0, 4))
                     row += 1
 
-                origin = "生成覆盖" if spec.source_kind == "generated" else "手工文件"
+                origin = "数据源" if spec.source_kind == "generated" else "手工文件"
                 label_text = f"{spec.label}  [{spec.key}]  ({origin})"
                 ttk.Label(frame.interior, text=label_text, wraplength=980, justify="left").grid(row=row, column=0, sticky="ew", pady=(2, 2))
                 row += 1
@@ -532,7 +535,7 @@ class WonderLocalizationEditor:
 
     def _collect_changes(self) -> tuple[dict[Path, dict[str, str]], dict[str, dict[str, str]]]:
         manual_updates: dict[Path, dict[str, str]] = {}
-        generated_updates: dict[str, dict[str, str]] = {language: {} for language in LANGUAGES}
+        localization_updates: dict[str, dict[str, str]] = {language: {} for language in LANGUAGES}
         for field in self.field_widgets:
             value = self._get_widget_value(field.widget)
             if value == field.spec.original_value:
@@ -540,8 +543,8 @@ class WonderLocalizationEditor:
             if field.spec.source_kind == "manual":
                 manual_updates.setdefault(field.spec.file_path, {})[field.spec.key] = value
             else:
-                generated_updates[field.spec.language][field.spec.key] = value
-        return manual_updates, generated_updates
+                localization_updates[field.spec.language][field.spec.key] = value
+        return manual_updates, localization_updates
 
     def _save_and_regenerate(self) -> None:
         self._save_current_wonder(regenerate=True)
@@ -550,29 +553,28 @@ class WonderLocalizationEditor:
         if self.current_wonder is None:
             return True
 
-        manual_updates, generated_updates = self._collect_changes()
+        manual_updates, localization_updates = self._collect_changes()
         changed_files: list[str] = []
         try:
             for path, updates in manual_updates.items():
                 if write_localization_updates(path, updates):
                     changed_files.append(str(path.relative_to(REPO_ROOT)))
 
-            if any(generated_updates[language] for language in LANGUAGES):
-                self.overrides = load_wonder_localization_overrides()
-                for language, updates in generated_updates.items():
+            if any(localization_updates[language] for language in LANGUAGES):
+                self.localization_data = load_wonder_localization_data()
+                for language, updates in localization_updates.items():
                     if not updates:
                         continue
-                    language_overrides = self.overrides.setdefault(language, {})
-                    language_overrides.update(updates)
-                save_wonder_localization_overrides(self.overrides)
-                changed_files.append(str(WONDER_LOCALIZATION_OVERRIDES_FILE.relative_to(REPO_ROOT)))
+                    language_values = self.localization_data.setdefault(language, {})
+                    language_values.update(updates)
+                save_wonder_localization_data(self.localization_data)
+                changed_files.append(str(WONDER_LOCALIZATION_FILE.relative_to(REPO_ROOT)))
 
             if regenerate:
                 if not self._run_generators():
                     return False
 
             self._load_localization_values()
-            self.overrides = load_wonder_localization_overrides()
             current_id = int(self.current_wonder["id"])
             self._load_wonder(next(wonder for wonder in self.wonders if int(wonder["id"]) == current_id))
             if changed_files:
@@ -587,39 +589,10 @@ class WonderLocalizationEditor:
             self._append_log(f"[ERROR] {exc}\n")
             return False
 
-    def _clear_current_generated_overrides(self) -> None:
-        if self.current_wonder is None:
-            return
-        if not messagebox.askyesno(
-            "清除生成覆盖",
-            "这会移除当前奇观所有由生成器覆盖层保存的文本，让它们回到脚本默认生成值。手工本地化文件不会被改动。继续吗？",
-        ):
-            return
-
-        generated_keys_by_language = {
-            language: {spec.key for spec in specs if spec.source_kind == "generated"}
-            for language, specs in self.current_specs.items()
-        }
-        self.overrides = load_wonder_localization_overrides()
-        removed = 0
-        for language, keys in generated_keys_by_language.items():
-            language_overrides = self.overrides.setdefault(language, {})
-            for key in keys:
-                if key in language_overrides:
-                    removed += 1
-                    language_overrides.pop(key, None)
-
-        save_wonder_localization_overrides(self.overrides)
-        if self._run_generators():
-            self._load_localization_values()
-            self._load_wonder(self.current_wonder)
-            self.status_var.set(f"已清除 {removed} 个生成覆盖")
-
     def _reload_current_wonder(self) -> None:
         if self._has_unsaved_changes() and not messagebox.askyesno("重新加载", "放弃当前未保存编辑并重新读取文件吗？"):
             return
         self._load_localization_values()
-        self.overrides = load_wonder_localization_overrides()
         if self.current_wonder is not None:
             current_id = int(self.current_wonder["id"])
             self._load_wonder(next(wonder for wonder in self.wonders if int(wonder["id"]) == current_id))
@@ -671,16 +644,19 @@ class WonderLocalizationEditor:
 def run_check() -> None:
     wonders, _mechanics = load_all_wonder_mechanics_data()
     manual_concepts = load_manual_game_concept_ids()
+    localization_data = load_wonder_localization_data()
     concept_loc_keys = set()
     for path in MANUAL_CONCEPT_FILES.values():
         concept_loc_keys.update(key for key in load_localization_map(path) if key.startswith("game_concept_"))
     suffixes = load_engineering_department_suffix_map()
     generated_keys = sum(len(load_localization_map(path)) for path in GENERATED_LOC_FILES.values())
+    source_keys = sum(len(values) for values in localization_data.values())
     manual_keys = sum(len(load_localization_map(path)) for path in set(MANUAL_CONCEPT_FILES.values()) | set(MANUAL_ENGINEERING_FILES.values()))
     print(f"Loaded {len(wonders)} wonders")
     print(f"Concept declarations: {len(manual_concepts)}")
     print(f"Manual concept localization keys: {len(concept_loc_keys)}")
     print(f"Engineering event suffix mappings: {len(suffixes)}")
+    print(f"Wonder localization source keys: {source_keys}")
     print(f"Generated localization keys parsed: {generated_keys}")
     print(f"Manual localization keys parsed: {manual_keys}")
 

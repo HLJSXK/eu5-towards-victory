@@ -23,11 +23,11 @@ PANEL_WIDTH = WONDER_TEXT_COLUMN_WIDTH + WONDER_ROW_SPACING + WONDER_PREVIEW_COL
 PANEL_HEIGHTS = {1: 68, 2: 136, 3: 204}
 PANEL_ROW_HEIGHT = 64
 PANEL_SEPARATOR_HEIGHT = 4
-TOOLTIP_ROW_WIDTH = PANEL_WIDTH
-TOOLTIP_ROW_HEIGHT = 84
+TOOLTIP_TEXT_COLUMN_WIDTH = 400
+TOOLTIP_ROW_WIDTH = TOOLTIP_TEXT_COLUMN_WIDTH + WONDER_ROW_SPACING + WONDER_PREVIEW_COLUMN_WIDTH
+TOOLTIP_PREVIEW_HEIGHT = 116
 TOOLTIP_ROW_SPACING = 6
 PANEL_PREVIEW_HEIGHT = PANEL_ROW_HEIGHT - 8
-TOOLTIP_PREVIEW_HEIGHT = TOOLTIP_ROW_HEIGHT - 8
 
 
 def ordered_wonders() -> list[dict]:
@@ -114,30 +114,34 @@ def render_slot_name_branches(indent: str, *, slot: int) -> list[str]:
     return lines
 
 
-def render_slot_modifier_blocks(indent: str, *, slot: int) -> list[str]:
+def render_level_line(indent: str, *, level_var: str) -> list[str]:
+    lines = [
+        f"{indent}hbox = {{",
+        f"{indent}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}size = {{ -1 18 }}",
+        f"{indent}{T}spacing = 4",
+        f"{indent}{T}text_single = {{",
+        f'{indent}{T}{T}text = "TV_LOCATION_WONDER_LEVEL_SHORT"',
+        f"{indent}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}fontsize = 13",
+        f"{indent}{T}}}",
+        f"{indent}{T}text_single = {{",
+        f'{indent}{T}{T}visible = "[{level_var}.IsSet]"',
+        f'{indent}{T}{T}text = "[{level_var}.GetValue|0]"',
+        f"{indent}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}fontsize = 13",
+        f"{indent}{T}}}",
+        f"{indent}}}",
+    ]
+    return lines
+
+
+def render_slot_summary_block(indent: str, *, slot: int) -> list[str]:
     slot_level = slot_level_var(slot)
     lines: list[str] = []
-    for wonder in display_wonders():
-        for level in range(1, 7):
-            lines.extend(
-                [
-                    f"{indent}TooltipStringPairList = {{",
-                    f'{indent}{T}visible = "[And({slot_matches_expr(slot, wonder)}, {level_is_expr(slot_level, level)})]"',
-                    f'{indent}{T}textcontext = "[ShowModifierEffect(\'tv_wonder_{wonder["key"]}_level_{level}\')]"',
-                    f"{indent}}}",
-                ]
-            )
-        lines.extend(
-            [
-                f"{indent}text_single = {{",
-                f'{indent}{T}visible = "[And({slot_matches_expr(slot, wonder)}, {level_is_expr(slot_level, 0)})]"',
-                f"{indent}{T}layoutpolicy_horizontal = expanding",
-                f'{indent}{T}text = "TV_LOCATION_WONDER_NO_EFFECT"',
-                f"{indent}{T}fontsize = 13",
-                f"{indent}{T}align = left|nobaseline",
-                f"{indent}}}",
-            ]
-        )
+    lines.extend(render_slot_name_branches(indent, slot=slot))
+    lines.extend(render_level_line(indent, level_var=slot_level))
     return lines
 
 
@@ -163,7 +167,6 @@ def render_slot_image_branches(indent: str, *, slot: int, height: int) -> list[s
 
 
 def render_slot_row(indent: str, *, slot: int) -> list[str]:
-    slot_level = slot_level_var(slot)
     lines = [
         f"{indent}widget = {{",
         f"{indent}{T}layoutpolicy_horizontal = expanding",
@@ -178,45 +181,21 @@ def render_slot_row(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
         f"{indent}{T}{T}{T}size = {{ {WONDER_TEXT_COLUMN_WIDTH} {PANEL_ROW_HEIGHT} }}",
         f"{indent}{T}{T}{T}vbox = {{",
+        f"{indent}{T}{T}{T}{T}set_parent_size_to_minimum = yes",
         f"{indent}{T}{T}{T}{T}margin_left = 8",
         f"{indent}{T}{T}{T}{T}margin_right = 8",
         f"{indent}{T}{T}{T}{T}margin_top = 6",
         f"{indent}{T}{T}{T}{T}margin_bottom = 6",
         f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}{T}{T}spacing = 2",
-        f"{indent}{T}{T}{T}{T}hbox = {{",
-        f"{indent}{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}{T}{T}{T}size = {{ -1 18 }}",
-        f"{indent}{T}{T}{T}{T}{T}spacing = 4",
-        f"{indent}{T}{T}{T}{T}{T}ignoreinvisible = yes",
+        f"{indent}{T}{T}{T}{T}spacing = 4",
+        f"{indent}{T}{T}{T}{T}ignoreinvisible = yes",
     ]
-    lines.extend(render_slot_name_branches(indent + T * 6, slot=slot))
-    lines.extend(
-        [
-            f"{indent}{T}{T}{T}{T}{T}text_single = {{",
-            f'{indent}{T}{T}{T}{T}{T}{T}text = "TV_LOCATION_WONDER_LEVEL_SHORT"',
-            f"{indent}{T}{T}{T}{T}{T}{T}align = right|nobaseline",
-            f"{indent}{T}{T}{T}{T}{T}{T}fontsize = 13",
-            f"{indent}{T}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}{T}{T}text_single = {{",
-            f'{indent}{T}{T}{T}{T}{T}{T}visible = "[{slot_level}.IsSet]"',
-            f'{indent}{T}{T}{T}{T}{T}{T}text = "[{slot_level}.GetValue|0]"',
-            f"{indent}{T}{T}{T}{T}{T}{T}align = right|nobaseline",
-            f"{indent}{T}{T}{T}{T}{T}{T}fontsize = 13",
-            f"{indent}{T}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}{T}{T}using = layoutpolicy_expanding",
-        ]
-    )
-    lines.extend(render_slot_modifier_blocks(indent + T * 5, slot=slot))
+    lines.extend(render_slot_summary_block(indent + T * 4, slot=slot))
     lines.extend(
         [
             f"{indent}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}}}",
-            f"{indent}{T}{T}}}",
             f"{indent}{T}{T}widget = {{",
             f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
             f"{indent}{T}{T}{T}layoutpolicy_vertical = fixed",
@@ -313,76 +292,78 @@ def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
         f"{indent}widget = {{",
         f'{indent}{T}visible = "[{level_var}.IsSet]"',
         f"{indent}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}size = {{ {TOOLTIP_ROW_WIDTH} {TOOLTIP_ROW_HEIGHT} }}",
+        f"{indent}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}minimumsize = {{ {TOOLTIP_ROW_WIDTH} -1 }}",
         f"{indent}{T}using = bg_paper_card",
         f"{indent}{T}using = bg_cabinet_card_frame",
         f"{indent}{T}hbox = {{",
+        f"{indent}{T}{T}set_parent_size_to_minimum = yes",
         f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}{T}layoutpolicy_vertical = expanding",
+        f"{indent}{T}{T}layoutpolicy_vertical = shrinking",
         f"{indent}{T}{T}spacing = {WONDER_ROW_SPACING}",
         f"{indent}{T}{T}widget = {{",
         f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
-        f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}{T}size = {{ {WONDER_TEXT_COLUMN_WIDTH} {TOOLTIP_ROW_HEIGHT} }}",
+        f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}{T}{T}size = {{ {TOOLTIP_TEXT_COLUMN_WIDTH} -1 }}",
         f"{indent}{T}{T}{T}vbox = {{",
+        f"{indent}{T}{T}{T}{T}set_parent_size_to_minimum = yes",
         f"{indent}{T}{T}{T}{T}margin_left = 8",
         f"{indent}{T}{T}{T}{T}margin_right = 8",
         f"{indent}{T}{T}{T}{T}margin_top = 6",
         f"{indent}{T}{T}{T}{T}margin_bottom = 6",
         f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}{T}{T}spacing = 2",
-        f"{indent}{T}{T}{T}{T}hbox = {{",
-        f"{indent}{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}{T}{T}{T}size = {{ -1 18 }}",
-        f"{indent}{T}{T}{T}{T}{T}spacing = 4",
-        f"{indent}{T}{T}{T}{T}{T}text_single = {{",
-        f'{indent}{T}{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding',
-        f'{indent}{T}{T}{T}{T}{T}{T}text = "[{wonder["concept"]}|E]"',
-        f"{indent}{T}{T}{T}{T}{T}{T}align = left|nobaseline",
-        f"{indent}{T}{T}{T}{T}{T}{T}autoresize = no",
-        f"{indent}{T}{T}{T}{T}{T}{T}fontsize = 15",
-        f"{indent}{T}{T}{T}{T}{T}}}",
-        f"{indent}{T}{T}{T}{T}{T}text_single = {{",
-        f'{indent}{T}{T}{T}{T}{T}{T}text = "TV_LOCATION_WONDER_LEVEL_SHORT"',
-        f"{indent}{T}{T}{T}{T}{T}{T}align = right|nobaseline",
-        f"{indent}{T}{T}{T}{T}{T}{T}fontsize = 13",
-        f"{indent}{T}{T}{T}{T}{T}}}",
-        f"{indent}{T}{T}{T}{T}{T}text_single = {{",
-        f'{indent}{T}{T}{T}{T}{T}{T}text = "[{level_var}.GetValue|0]"',
-        f"{indent}{T}{T}{T}{T}{T}{T}align = right|nobaseline",
-            f"{indent}{T}{T}{T}{T}{T}{T}fontsize = 13",
-            f"{indent}{T}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}{T}{T}using = layoutpolicy_expanding",
-        ]
-    lines.extend(render_tooltip_modifier_blocks(indent + T * 5, wonder=wonder))
+        f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}{T}{T}{T}spacing = 4",
+        f"{indent}{T}{T}{T}{T}ignoreinvisible = yes",
+        f"{indent}{T}{T}{T}{T}text_single = {{",
+        f'{indent}{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding',
+        f'{indent}{T}{T}{T}{T}{T}text = "[{wonder["concept"]}|E]"',
+        f"{indent}{T}{T}{T}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}{T}{T}{T}autoresize = no",
+        f"{indent}{T}{T}{T}{T}{T}fontsize = 15",
+        f"{indent}{T}{T}{T}{T}}}",
+    ]
+    lines.extend(render_level_line(indent + T * 4, level_var=level_var))
     lines.extend(
         [
+            f"{indent}{T}{T}{T}{T}widget = {{",
+            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
+            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
+            f"{indent}{T}{T}{T}{T}{T}size = {{ {TOOLTIP_TEXT_COLUMN_WIDTH} -1 }}",
+            f"{indent}{T}{T}{T}{T}{T}vbox = {{",
+            f"{indent}{T}{T}{T}{T}{T}{T}set_parent_size_to_minimum = yes",
+            f"{indent}{T}{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
+            f"{indent}{T}{T}{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
+            f"{indent}{T}{T}{T}{T}{T}{T}spacing = 0",
+            f"{indent}{T}{T}{T}{T}{T}{T}ignoreinvisible = yes",
+        ]
+    )
+    lines.extend(render_tooltip_modifier_blocks(indent + T * 6, wonder=wonder))
+    lines.extend(
+        [
+            f"{indent}{T}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",
             f"{indent}{T}{T}widget = {{",
             f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
             f"{indent}{T}{T}{T}layoutpolicy_vertical = fixed",
-            f"{indent}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {TOOLTIP_ROW_HEIGHT} }}",
+            f"{indent}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {TOOLTIP_PREVIEW_HEIGHT} }}",
             f"{indent}{T}{T}{T}vbox = {{",
-            f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
-            f"{indent}{T}{T}{T}margin_top = 4",
-            f"{indent}{T}{T}{T}margin_bottom = 4",
-            f"{indent}{T}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = fixed",
-            f"{indent}{T}{T}{T}{T}using = bg_cabinet_card_frame",
-            f"{indent}{T}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {TOOLTIP_PREVIEW_HEIGHT} }}",
-            f"{indent}{T}{T}{T}{T}background = {{",
-            f'{indent}{T}{T}{T}{T}{T}texture = "{preview_texture(wonder)}"',
-            f"{indent}{T}{T}{T}{T}{T}texture_density = 2",
-            f"{indent}{T}{T}{T}{T}{T}fittype = centercrop",
-            f"{indent}{T}{T}{T}{T}}}",
+            f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
+            f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
+            f"{indent}{T}{T}{T}{T}margin_top = 4",
+            f"{indent}{T}{T}{T}{T}margin_bottom = 4",
+            f"{indent}{T}{T}{T}{T}widget = {{",
+            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
+            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_vertical = fixed",
+            f"{indent}{T}{T}{T}{T}{T}using = bg_cabinet_card_frame",
+            f"{indent}{T}{T}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {TOOLTIP_PREVIEW_HEIGHT} }}",
+            f"{indent}{T}{T}{T}{T}{T}background = {{",
+            f'{indent}{T}{T}{T}{T}{T}{T}texture = "{preview_texture(wonder)}"',
+            f"{indent}{T}{T}{T}{T}{T}{T}texture_density = 2",
+            f"{indent}{T}{T}{T}{T}{T}{T}fittype = centercrop",
+            f"{indent}{T}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",

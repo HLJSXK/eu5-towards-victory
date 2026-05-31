@@ -20,11 +20,11 @@ from wonder_mechanics_lib import (
     ritual_burden_modifier_name,
     unique_ritual,
 )
-from wonder_localization_lib import apply_localization_overrides, load_localization_map, load_wonder_localization_overrides
+from wonder_localization_lib import apply_localization_values, load_localization_map, load_wonder_localization_data
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml"
 SCRIPT_REL = "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py"
-DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization_overrides.yaml"
+DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
 MANUAL_CONCEPT_LOC_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_game_concepts_l_english.yml"
 SIZE_CONCEPT = {
     "small": "tv_wonder_small",
@@ -71,7 +71,7 @@ def unique_completion_text(wonder: dict, language: str) -> str:
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics_data()
     manual_concepts = load_localization_map(MANUAL_CONCEPT_LOC_FILE)
-    overrides = load_wonder_localization_overrides()["english"]
+    localization = load_wonder_localization_data()["english"]
     lines = ["l_english:"]
     for line in render_header(SCRIPT_REL, DATA_REL):
         lines.append(f" {line}")
@@ -208,7 +208,7 @@ def generate() -> str:
         if wonder.get("is_unique"):
             lines.append(loc_line(f"tv_engineering_department.500.d_{key}", unique_completion_text(wonder, "en")))
 
-    return apply_localization_overrides("\n".join(lines).rstrip() + "\n", overrides)
+    return apply_localization_values("\n".join(lines).rstrip() + "\n", localization)
 
 
 def main() -> None:
