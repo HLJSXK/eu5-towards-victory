@@ -15,6 +15,7 @@ SCRIPT_REL = "scripts/in_game/gui/gen_location_window.py"
 T = "\t"
 
 COUNT_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_count')"
+ANY_WONDER_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_any_wonder')"
 WONDER_TEXT_COLUMN_WIDTH = 120
 WONDER_PREVIEW_COLUMN_WIDTH = 120
 WONDER_ROW_SPACING = 4
@@ -34,6 +35,10 @@ def ordered_wonders() -> list[dict]:
     unique_wonders = [wonder for wonder in wonders if wonder.get("is_unique")]
     generic_wonders = [wonder for wonder in wonders if not wonder.get("is_unique")]
     return [*unique_wonders, *generic_wonders]
+
+
+def display_wonders() -> list[dict]:
+    return [wonder for wonder in ordered_wonders() if wonder.get("is_unique")]
 
 
 def preview_texture(wonder: dict) -> str:
@@ -59,6 +64,10 @@ def eq_fixed_point(var_expr: str, value: int) -> str:
 
 def count_visible_expr(count: int) -> str:
     return eq_fixed_point(COUNT_VAR, count)
+
+
+def any_wonder_visible_expr() -> str:
+    return f"And({ANY_WONDER_VAR}.IsSet, Not(EqualTo_CFixedPoint({ANY_WONDER_VAR}.GetValue, '(CFixedPoint)0.0')))"
 
 
 def slot_matches_expr(slot: int, wonder: dict) -> str:
@@ -89,7 +98,7 @@ def render_separator(indent: str, *, visible: str | None = None) -> list[str]:
 
 def render_slot_name_branches(indent: str, *, slot: int) -> list[str]:
     lines: list[str] = []
-    for wonder in ordered_wonders():
+    for wonder in display_wonders():
         lines.extend(
             [
                 f"{indent}text_single = {{",
@@ -108,7 +117,7 @@ def render_slot_name_branches(indent: str, *, slot: int) -> list[str]:
 def render_slot_modifier_blocks(indent: str, *, slot: int) -> list[str]:
     slot_level = slot_level_var(slot)
     lines: list[str] = []
-    for wonder in ordered_wonders():
+    for wonder in display_wonders():
         for level in range(1, 7):
             lines.extend(
                 [
@@ -134,7 +143,7 @@ def render_slot_modifier_blocks(indent: str, *, slot: int) -> list[str]:
 
 def render_slot_image_branches(indent: str, *, slot: int, height: int) -> list[str]:
     lines: list[str] = []
-    for wonder in ordered_wonders():
+    for wonder in display_wonders():
         lines.extend(
             [
                 f"{indent}widget = {{",
@@ -238,10 +247,10 @@ def render_slot_row(indent: str, *, slot: int) -> list[str]:
 
 
 def render_panel_card(indent: str, *, count: int) -> list[str]:
-    height = PANEL_HEIGHTS[count]
+    height = PANEL_HEIGHTS.get(count, PANEL_HEIGHTS[1])
     lines = [
         f"{indent}widget = {{",
-        f'{indent}{T}visible = "[{count_visible_expr(count)}]"',
+        f'{indent}{T}visible = "[And({any_wonder_visible_expr()}, {count_visible_expr(count)})]"',
         f"{indent}{T}size = {{ {PANEL_WIDTH} {height} }}",
         f"{indent}{T}parentanchor = right|top",
         f"{indent}{T}widgetanchor = right|top",
@@ -415,7 +424,7 @@ def render_tooltip_template() -> str:
 
 def render_scene_overlay() -> str:
     lines: list[str] = []
-    for count in (1, 2, 3):
+    for count in (0, 1, 2, 3):
         lines.extend(render_panel_card(T * 4, count=count))
     return "\n".join(lines)
 

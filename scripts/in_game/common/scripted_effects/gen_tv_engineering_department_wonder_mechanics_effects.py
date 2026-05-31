@@ -478,7 +478,8 @@ def append_location_display_effects(
 
     lines.append("tv_wonder_mechanics_clear_location_display_state_effect = {")
     lines.append(f"{T}remove_variable = tv_wonder_display_id")
-    lines.append(f"{T}remove_variable = tv_wonder_display_count")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_display_count value = 0 }}")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 0 }}")
     for slot in range(1, DISPLAY_SLOT_MAX + 1):
         lines.append(f"{T}remove_variable = {slot_id_var(slot)}")
         lines.append(f"{T}remove_variable = {slot_level_var(slot)}")
@@ -500,12 +501,14 @@ def append_location_display_effects(
         lines.append(f"{T}{T}{T}}}")
         lines.append(f"{T}{T}}}")
         lines.append(f"{T}{T}set_variable = {{ name = {level_var} value = 0 }}")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 1 }}")
         append_location_display_level_detection(lines, wonder, indent=2, var_name=level_var)
         lines.append(
             f"{T}{T}tv_wonder_mechanics_push_location_display_slot_effect = {{ wonder_id = {wonder['id']} wonder_level = var:{level_var} }}"
         )
         lines.append(f"{T}}}")
 
+    # Generic wonders stay available to the tooltip but do not occupy location UI display slots.
     for wonder in generic_wonders:
         level_var = location_display_level_var(wonder)
         lines.append(f"{T}if = {{")
@@ -516,13 +519,8 @@ def append_location_display_effects(
         lines.append(f"{T}{T}{T}}}")
         lines.append(f"{T}{T}}}")
         lines.append(f"{T}{T}set_variable = {{ name = {level_var} value = 0 }}")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 1 }}")
         append_location_display_level_detection(lines, wonder, indent=2, var_name=level_var)
-        lines.append(f"{T}{T}if = {{")
-        lines.append(f"{T}{T}{T}limit = {{ var:{level_var} >= 1 }}")
-        lines.append(
-            f"{T}{T}{T}tv_wonder_mechanics_push_location_display_slot_effect = {{ wonder_id = {wonder['id']} wonder_level = var:{level_var} }}"
-        )
-        lines.append(f"{T}{T}}}")
         lines.append(f"{T}}}")
 
     lines.append("}")

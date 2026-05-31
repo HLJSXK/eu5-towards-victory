@@ -6800,7 +6800,8 @@ tv_wonder_mechanics_push_location_display_slot_effect = {
 
 tv_wonder_mechanics_clear_location_display_state_effect = {
 	remove_variable = tv_wonder_display_id
-	remove_variable = tv_wonder_display_count
+	set_variable = { name = tv_wonder_display_count value = 0 }
+	set_variable = { name = tv_wonder_display_any_wonder value = 0 }
 	remove_variable = tv_wonder_display_slot_1_id
 	remove_variable = tv_wonder_display_slot_1_level
 	remove_variable = tv_wonder_display_slot_2_id
@@ -6899,6 +6900,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_pharos_lighthouse_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -6957,6 +6959,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_hagia_sophia_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7015,6 +7018,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_dome_of_the_rock_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7073,6 +7077,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_angkor_wat_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7131,6 +7136,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_potala_palace_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7189,6 +7195,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_alhambra_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7247,6 +7254,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_machu_picchu_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7305,6 +7313,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_himeji_castle_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7363,6 +7372,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_taj_mahal_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7421,6 +7431,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_forbidden_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7479,6 +7490,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_topkapi_palace_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7537,6 +7549,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_st_peters_basilica_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7595,6 +7608,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_lalibela_churches_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7653,6 +7667,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_venetian_arsenal_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7711,6 +7726,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_malacca_port_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7769,6 +7785,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_red_fort_delhi_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7827,6 +7844,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_versailles_palace_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7885,6 +7903,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_tenochtitlan_causeways_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -7943,6 +7962,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_amsterdam_canal_ring_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8001,6 +8021,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_mecca_haram_expansion_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8059,6 +8080,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_ming_great_wall_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8117,6 +8139,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_bank_of_saint_george_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8175,6 +8198,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_cahokia_mounds_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8233,6 +8257,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_great_zimbabwe_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8291,6 +8316,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_isfahan_square_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8349,6 +8375,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_grand_canal_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8407,6 +8434,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_inca_royal_road_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8465,6 +8493,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_roman_aqueducts_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8523,6 +8552,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_suez_ancient_canal_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8581,6 +8611,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_kremlin_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8639,6 +8670,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_teotihuacan_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8697,6 +8729,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_angkor_hydraulic_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8755,6 +8788,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_dutch_polders_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8813,6 +8847,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_machu_picchu_terraces_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8871,6 +8906,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_british_navy_dockyards_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8929,6 +8965,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_spanish_silver_fleet_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -8987,6 +9024,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_ottoman_hajj_road_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9045,6 +9083,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_persian_qanat_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9103,6 +9142,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_longjiang_shipyard_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9161,6 +9201,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_jerusalem_holy_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9220,6 +9261,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_sacred_mountain_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9280,10 +9322,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_sacred_mountain_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_sacred_mountain_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 1 wonder_level = var:tv_wonder_display_sacred_mountain_level }
-		}
 	}
 	if = {
 		limit = {
@@ -9294,6 +9332,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_triumphal_axis_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9354,10 +9393,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_triumphal_axis_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_triumphal_axis_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 2 wonder_level = var:tv_wonder_display_triumphal_axis_level }
-		}
 	}
 	if = {
 		limit = {
@@ -9368,6 +9403,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_great_port_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9428,10 +9464,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_great_port_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_great_port_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 3 wonder_level = var:tv_wonder_display_great_port_level }
-		}
 	}
 	if = {
 		limit = {
@@ -9442,6 +9474,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_necropolis_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9502,10 +9535,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_giant_necropolis_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_giant_necropolis_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 4 wonder_level = var:tv_wonder_display_giant_necropolis_level }
-		}
 	}
 	if = {
 		limit = {
@@ -9516,6 +9545,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_great_lighthouse_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9576,10 +9606,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_great_lighthouse_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_great_lighthouse_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 5 wonder_level = var:tv_wonder_display_great_lighthouse_level }
-		}
 	}
 	if = {
 		limit = {
@@ -9590,6 +9616,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_hydraulic_workshop_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9650,10 +9677,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_hydraulic_workshop_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_hydraulic_workshop_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 6 wonder_level = var:tv_wonder_display_hydraulic_workshop_level }
-		}
 	}
 	if = {
 		limit = {
@@ -9664,6 +9687,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_mining_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9724,10 +9748,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_mining_city_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_mining_city_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 7 wonder_level = var:tv_wonder_display_mining_city_level }
-		}
 	}
 	if = {
 		limit = {
@@ -9738,6 +9758,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_observatory_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9798,10 +9819,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_giant_observatory_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_giant_observatory_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 8 wonder_level = var:tv_wonder_display_giant_observatory_level }
-		}
 	}
 	if = {
 		limit = {
@@ -9812,6 +9829,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_palace_of_nations_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9872,10 +9890,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_palace_of_nations_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_palace_of_nations_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 9 wonder_level = var:tv_wonder_display_palace_of_nations_level }
-		}
 	}
 	if = {
 		limit = {
@@ -9886,6 +9900,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_university_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -9946,10 +9961,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_university_city_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_university_city_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 10 wonder_level = var:tv_wonder_display_university_city_level }
-		}
 	}
 	if = {
 		limit = {
@@ -9960,6 +9971,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_sky_dome_grand_temple_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10020,10 +10032,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_sky_dome_grand_temple_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_sky_dome_grand_temple_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 11 wonder_level = var:tv_wonder_display_sky_dome_grand_temple_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10034,6 +10042,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_tower_temple_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10094,10 +10103,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_giant_tower_temple_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_giant_tower_temple_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 12 wonder_level = var:tv_wonder_display_giant_tower_temple_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10108,6 +10113,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_river_extension_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10168,10 +10174,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_river_extension_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_river_extension_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 13 wonder_level = var:tv_wonder_display_river_extension_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10182,6 +10184,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_national_shipyard_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10242,10 +10245,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_national_shipyard_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_national_shipyard_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 14 wonder_level = var:tv_wonder_display_national_shipyard_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10256,6 +10255,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_star_fortress_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10316,10 +10316,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_star_fortress_city_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_star_fortress_city_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 15 wonder_level = var:tv_wonder_display_star_fortress_city_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10330,6 +10326,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_great_wall_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10390,10 +10387,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_great_wall_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_great_wall_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 16 wonder_level = var:tv_wonder_display_great_wall_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10404,6 +10397,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_armory_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10464,10 +10458,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_giant_armory_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_giant_armory_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 17 wonder_level = var:tv_wonder_display_giant_armory_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10478,6 +10468,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_library_of_nation_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10538,10 +10529,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_library_of_nation_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_library_of_nation_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 18 wonder_level = var:tv_wonder_display_library_of_nation_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10552,6 +10539,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_large_canal_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10612,10 +10600,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_large_canal_system_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_large_canal_system_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 19 wonder_level = var:tv_wonder_display_large_canal_system_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10626,6 +10610,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_mountain_terrace_network_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10686,10 +10671,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_mountain_terrace_network_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_mountain_terrace_network_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 20 wonder_level = var:tv_wonder_display_mountain_terrace_network_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10700,6 +10681,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_dam_project_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10760,10 +10742,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_giant_dam_project_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_giant_dam_project_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 21 wonder_level = var:tv_wonder_display_giant_dam_project_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10774,6 +10752,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_royal_granary_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10834,10 +10813,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_royal_granary_system_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_royal_granary_system_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 22 wonder_level = var:tv_wonder_display_royal_granary_system_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10848,6 +10823,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_imperial_post_road_network_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10908,10 +10884,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_imperial_post_road_network_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_imperial_post_road_network_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 23 wonder_level = var:tv_wonder_display_imperial_post_road_network_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10922,6 +10894,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_canal_hub_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -10982,10 +10955,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_canal_hub_city_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_canal_hub_city_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 24 wonder_level = var:tv_wonder_display_canal_hub_city_level }
-		}
 	}
 	if = {
 		limit = {
@@ -10996,6 +10965,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_frontier_colonization_belt_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11056,10 +11026,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_frontier_colonization_belt_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_frontier_colonization_belt_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 25 wonder_level = var:tv_wonder_display_frontier_colonization_belt_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11070,6 +11036,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_coastal_beacon_network_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11130,10 +11097,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_coastal_beacon_network_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_coastal_beacon_network_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 26 wonder_level = var:tv_wonder_display_coastal_beacon_network_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11144,6 +11107,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_knightly_fortress_order_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11204,10 +11168,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_knightly_fortress_order_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_knightly_fortress_order_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 27 wonder_level = var:tv_wonder_display_knightly_fortress_order_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11218,6 +11178,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_war_college_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11278,10 +11239,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_war_college_system_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_war_college_system_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 28 wonder_level = var:tv_wonder_display_war_college_system_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11292,6 +11249,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_great_clock_bell_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11352,10 +11310,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_great_clock_bell_system_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_great_clock_bell_system_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 29 wonder_level = var:tv_wonder_display_great_clock_bell_system_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11366,6 +11320,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_royal_art_district_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11426,10 +11381,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_royal_art_district_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_royal_art_district_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 30 wonder_level = var:tv_wonder_display_royal_art_district_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11440,6 +11391,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_grand_theater_festival_district_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11500,10 +11452,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_grand_theater_festival_district_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_grand_theater_festival_district_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 31 wonder_level = var:tv_wonder_display_grand_theater_festival_district_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11514,6 +11462,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_world_embassy_quarter_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11574,10 +11523,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_world_embassy_quarter_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_world_embassy_quarter_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 32 wonder_level = var:tv_wonder_display_world_embassy_quarter_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11588,6 +11533,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_law_code_stele_project_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11648,10 +11594,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_law_code_stele_project_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_law_code_stele_project_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 33 wonder_level = var:tv_wonder_display_law_code_stele_project_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11662,6 +11604,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_world_market_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11722,10 +11665,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_world_market_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_world_market_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 34 wonder_level = var:tv_wonder_display_world_market_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11736,6 +11675,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_royal_mint_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11796,10 +11736,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_royal_mint_system_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_royal_mint_system_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 35 wonder_level = var:tv_wonder_display_royal_mint_system_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11810,6 +11746,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_guild_alliance_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11870,10 +11807,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_guild_alliance_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_guild_alliance_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 36 wonder_level = var:tv_wonder_display_guild_alliance_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11884,6 +11817,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_maritime_trade_station_network_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -11944,10 +11878,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_maritime_trade_station_network_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_maritime_trade_station_network_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 37 wonder_level = var:tv_wonder_display_maritime_trade_station_network_level }
-		}
 	}
 	if = {
 		limit = {
@@ -11958,6 +11888,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_workshop_complex_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -12018,10 +11949,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_giant_workshop_complex_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_giant_workshop_complex_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 38 wonder_level = var:tv_wonder_display_giant_workshop_complex_level }
-		}
 	}
 	if = {
 		limit = {
@@ -12032,6 +11959,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_world_monument_group_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -12092,10 +12020,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			set_variable = { name = tv_wonder_display_world_monument_group_level value = 1 }
 		}
-		if = {
-			limit = { var:tv_wonder_display_world_monument_group_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 39 wonder_level = var:tv_wonder_display_world_monument_group_level }
-		}
 	}
 	if = {
 		limit = {
@@ -12106,6 +12030,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_city_expansion_project_level value = 0 }
+		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
 				OR = {
@@ -12165,10 +12090,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 				}
 			}
 			set_variable = { name = tv_wonder_display_city_expansion_project_level value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_display_city_expansion_project_level >= 1 }
-			tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 40 wonder_level = var:tv_wonder_display_city_expansion_project_level }
 		}
 	}
 }
