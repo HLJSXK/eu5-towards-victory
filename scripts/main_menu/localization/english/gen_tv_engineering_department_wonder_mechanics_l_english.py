@@ -13,7 +13,6 @@ from wonder_mechanics_lib import (
     final_building_for_style,
     level_static_modifier_loc,
     load_all_wonder_mechanics_data,
-    load_manual_game_concept_ids,
     loc_line,
     mechanic_key,
     render_header,
@@ -21,9 +20,12 @@ from wonder_mechanics_lib import (
     ritual_burden_modifier_name,
     unique_ritual,
 )
+from wonder_localization_lib import apply_localization_overrides, load_localization_map, load_wonder_localization_overrides
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml"
 SCRIPT_REL = "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py"
+DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization_overrides.yaml"
+MANUAL_CONCEPT_LOC_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_game_concepts_l_english.yml"
 SIZE_CONCEPT = {
     "small": "tv_wonder_small",
     "medium": "tv_wonder_medium",
@@ -68,9 +70,10 @@ def unique_completion_text(wonder: dict, language: str) -> str:
 
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics_data()
-    manual_concepts = load_manual_game_concept_ids()
+    manual_concepts = load_localization_map(MANUAL_CONCEPT_LOC_FILE)
+    overrides = load_wonder_localization_overrides()["english"]
     lines = ["l_english:"]
-    for line in render_header(SCRIPT_REL):
+    for line in render_header(SCRIPT_REL, DATA_REL):
         lines.append(f" {line}")
 
     lines.append(loc_line("tv_wonder_confirm_ceremony", "Confirm Ceremony"))
@@ -111,15 +114,18 @@ def generate() -> str:
         size_concept = SIZE_CONCEPT[wonder["size"]]
         code = display_key(key)
 
-        include_concept_loc = concept not in manual_concepts
-        if include_concept_loc:
+        concept_name_key = f"game_concept_{concept}"
+        concept_desc_key = f"{concept_name_key}_desc"
+        include_concept_name = concept_name_key not in manual_concepts
+        include_concept_desc = concept_desc_key not in manual_concepts
+        if include_concept_name:
             lines.append(loc_line(f"game_concept_{concept}", name))
         if wonder.get("is_unique"):
             ritual = unique_ritual(wonder)
             ceremony_name = ritual["loc"]["en"]
             flavor = wonder["flavor"]["en"]
             history_intro = wonder["history_intro"]["en"]
-            if include_concept_loc:
+            if include_concept_desc:
                 lines.append(loc_line(f"game_concept_{concept}_desc", f"{flavor} This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the same site rules as its generic archetype, and culminates in the {ceremony_name} ritual sequence."))
             lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"{history_intro} Brief: [{concept}|E], a unique [{size_concept}|E] historical wonder at its fixed historical site."))
         else:
@@ -127,7 +133,7 @@ def generate() -> str:
                 raise ValueError(f"Missing design data for {key}")
             branch_list = [design["branches"][style] for style in range(1, 4)]
             branch_names = ", ".join(branch["en"] for branch in branch_list)
-            if include_concept_loc:
+            if include_concept_desc:
                 lines.append(loc_line(f"game_concept_{concept}_desc", f"A {name} is a [tv_wonder_construction|e] project focused on {design['positioning']}. It prefers {design['site']} Its ceremonies can emphasize {branch_names}."))
             lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"Brief: [{concept}|E], a [{size_concept}|E] project for {design['positioning']}."))
         lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_RESUME_{code}_TEXT", f"The [tv_great_engineer|E] wants to complete the existing [{concept}|E] and reuse the preserved construction at the site."))
@@ -202,7 +208,7 @@ def generate() -> str:
         if wonder.get("is_unique"):
             lines.append(loc_line(f"tv_engineering_department.500.d_{key}", unique_completion_text(wonder, "en")))
 
-    return "\n".join(lines).rstrip() + "\n"
+    return apply_localization_overrides("\n".join(lines).rstrip() + "\n", overrides)
 
 
 def main() -> None:

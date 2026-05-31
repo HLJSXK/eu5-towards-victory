@@ -13,7 +13,6 @@ from wonder_mechanics_lib import (
     final_building_for_style,
     level_static_modifier_loc,
     load_all_wonder_mechanics_data,
-    load_manual_game_concept_ids,
     loc_line,
     mechanic_key,
     render_header,
@@ -21,9 +20,12 @@ from wonder_mechanics_lib import (
     ritual_burden_modifier_name,
     unique_ritual,
 )
+from wonder_localization_lib import apply_localization_overrides, load_localization_map, load_wonder_localization_overrides
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml"
 SCRIPT_REL = "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py"
+DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization_overrides.yaml"
+MANUAL_CONCEPT_LOC_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_game_concepts_l_simp_chinese.yml"
 SIZE_CONCEPT = {
     "small": "tv_wonder_small",
     "medium": "tv_wonder_medium",
@@ -68,9 +70,10 @@ def unique_completion_text(wonder: dict, language: str) -> str:
 
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics_data()
-    manual_concepts = load_manual_game_concept_ids()
+    manual_concepts = load_localization_map(MANUAL_CONCEPT_LOC_FILE)
+    overrides = load_wonder_localization_overrides()["simp_chinese"]
     lines = ["l_simp_chinese:"]
-    for line in render_header(SCRIPT_REL):
+    for line in render_header(SCRIPT_REL, DATA_REL):
         lines.append(f" {line}")
 
     lines.append(loc_line("tv_wonder_confirm_ceremony", "确认仪式"))
@@ -111,33 +114,38 @@ def generate() -> str:
         concept = wonder["concept"]
         size_concept = SIZE_CONCEPT[wonder["size"]]
         code = display_key(key)
-        include_concept_loc = concept not in manual_concepts
+        concept_name_key = f"game_concept_{concept}"
+        concept_desc_key = f"{concept_name_key}_desc"
+        include_concept_name = concept_name_key not in manual_concepts
+        include_concept_desc = concept_desc_key not in manual_concepts
 
-        if include_concept_loc:
+        if include_concept_name:
             lines.append(loc_line(f"game_concept_{concept}", name))
         if wonder.get("is_unique"):
             ritual = unique_ritual(wonder)
             ceremony_name = ritual["loc"]["zh"]
             flavor = wonder["flavor"]["zh"]
             history_intro = wonder["history_intro"]["zh"]
-            lines.append(
-                loc_line(
-                    f"game_concept_{concept}_desc",
-                    f"{flavor} 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以{ceremony_name}作为历史定制落成仪式。",
+            if include_concept_desc:
+                lines.append(
+                    loc_line(
+                        f"game_concept_{concept}_desc",
+                        f"{flavor} 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以{ceremony_name}作为历史定制落成仪式。",
+                    )
                 )
-            )
             lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"{history_intro} 简报：[{concept}|E]是一项固定于其历史地点的独特历史[{size_concept}|E]工程。"))
         else:
             if design is None:
                 raise ValueError(f"Missing design data for {key}")
             branch_list = [design["branches"][style] for style in range(1, 4)]
             branch_names = "、".join(branch["zh"] for branch in branch_list)
-            lines.append(
-                loc_line(
-                    f"game_concept_{concept}_desc",
-                    f"{name}是一项聚焦{design['positioning']}的[tv_wonder_construction|e]项目。它偏好{design['site']}仪式可转向{branch_names}。",
+            if include_concept_desc:
+                lines.append(
+                    loc_line(
+                        f"game_concept_{concept}_desc",
+                        f"{name}是一项聚焦{design['positioning']}的[tv_wonder_construction|e]项目。它偏好{design['site']}仪式可转向{branch_names}。",
+                    )
                 )
-            )
             lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", f"简报：[{concept}|E]，定位于{design['positioning']}的[{size_concept}|E]工程。"))
         lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_RESUME_{code}_TEXT", f"[tv_great_engineer|E]建议完成造了一半的[{concept}|E]，并利用当地已经保留下来的工程部分。"))
         lines.append(loc_line(f"TV_ENGINEERING_PROPOSAL_EXPAND_{code}_TEXT", f"[tv_great_engineer|E]建议扩建[{concept}|E]，继续利用该地点已经保存的最大等级适性。"))
@@ -220,11 +228,11 @@ def generate() -> str:
             concept_key = key.removeprefix("game_concept_")
             if concept_key.endswith("_desc"):
                 concept_key = concept_key[: -len("_desc")]
-            if concept_key in manual_concepts:
+            if concept_key in manual_concepts or f"game_concept_{concept_key}" in manual_concepts:
                 continue
         filtered_lines.append(line)
 
-    return "\n".join(filtered_lines).rstrip() + "\n"
+    return apply_localization_overrides("\n".join(filtered_lines).rstrip() + "\n", overrides)
 
 
 def main() -> None:
