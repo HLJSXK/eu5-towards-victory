@@ -6492,6 +6492,173 @@ tv_wonder_world_monument_group_ritual_annex = {
 	}
 }
 
+tv_wonder_city_charter = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = no
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		free_building_levels = 20
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_civic_grid = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = no
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		free_building_levels = 20
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_urban_renewal = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = no
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		free_building_levels = 20
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_city_expansion_project_ritual_annex = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 1
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	price = tv_wonder_ritual_annex_large_price
+
+	build_time = infrastructure_build_time
+	construction_demand = basic_construction_needs
+
+	modifier = {
+		local_monthly_development_modifier = 0.1
+		local_migration_attraction = 2
+		local_burghers_estate_power = 0.5
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location.owner = {
+				if = {
+					limit = {
+						has_variable = tv_wonder_ritual_in_progress
+						var:tv_wonder_locked ?= 40
+						var:tv_wonder_ceremony_style ?= 2
+					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
+					tv_wonder_complete_active_ritual_effect = yes
+				}
+			}
+		}
+	}
+}
+
 tv_wonder_unique_pharos_lighthouse_inaugurated = {
 	is_special = yes
 	is_foreign = no
