@@ -181,7 +181,6 @@ def render_slot_row(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
         f"{indent}{T}{T}{T}size = {{ {WONDER_TEXT_COLUMN_WIDTH} {PANEL_ROW_HEIGHT} }}",
         f"{indent}{T}{T}{T}vbox = {{",
-        f"{indent}{T}{T}{T}{T}set_parent_size_to_minimum = yes",
         f"{indent}{T}{T}{T}{T}margin_left = 8",
         f"{indent}{T}{T}{T}{T}margin_right = 8",
         f"{indent}{T}{T}{T}{T}margin_top = 6",
