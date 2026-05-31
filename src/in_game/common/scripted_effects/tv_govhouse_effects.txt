@@ -1777,25 +1777,31 @@ tv_governor_apply_modifiers_effect = {
 				scope:target = {
 					change_variable = { name = tv_gov_task_location_count add = 1 }
 					change_variable = { name = tv_gov_task_prosperity_sum add = scope:tv_task_location.prosperity }
-					if = {
-						limit = {
-							OR = {
-								integration_level = conquered
-								integration_level = colonized
-							}
+				}
+				if = {
+					limit = {
+						OR = {
+							integration_level = conquered
+							integration_level = colonized
 						}
+					}
+					scope:target = {
 						change_variable = { name = tv_gov_task_unintegrated_count add = 1 }
 					}
-					else_if = {
-						limit = {
-							NOT = { is_core_of = scope:tv_governing_country }
-						}
+				}
+				else_if = {
+					limit = {
+						NOT = { is_core_of = scope:tv_governing_country }
+					}
+					scope:target = {
 						change_variable = { name = tv_gov_task_integrated_noncore_count add = 1 }
 					}
-					if = {
-						limit = {
-							NOT = { dominant_religion = scope:tv_governing_country.religion }
-						}
+				}
+				if = {
+					limit = {
+						NOT = { dominant_religion = scope:tv_governing_country.religion }
+					}
+					scope:target = {
 						change_variable = { name = tv_gov_task_religion_need_count add = 1 }
 					}
 				}
