@@ -1359,6 +1359,30 @@ tv_wonder_world_monument_group_level_6 = {
 	monthly_prestige = 0.3
 }
 
+tv_wonder_city_expansion_project_level_1 = {
+	great_power_score = 10
+}
+
+tv_wonder_city_expansion_project_level_2 = {
+	great_power_score = 20
+}
+
+tv_wonder_city_expansion_project_level_3 = {
+	great_power_score = 30
+}
+
+tv_wonder_city_expansion_project_level_4 = {
+	great_power_score = 40
+}
+
+tv_wonder_city_expansion_project_level_5 = {
+	great_power_score = 50
+}
+
+tv_wonder_city_expansion_project_level_6 = {
+	great_power_score = 60
+}
+
 tv_wonder_unique_pharos_lighthouse_level_1 = {
 	great_power_score = 20
 	trade_range = 400
@@ -3524,6 +3548,14 @@ tv_wonder_national_unity_monument_group_modifier = {
 tv_wonder_world_exposition_monument_group_modifier = {
 	diplomatic_reputation = 1
 	monthly_prestige = 0.05
+}
+
+tv_wonder_city_expansion_project_ritual_blessing_modifier = {
+	global_urban_build_buildings_cost = -0.05
+}
+
+tv_wonder_city_expansion_project_ritual_burden_modifier = {
+	global_urban_build_buildings_cost = 0.1
 }
 
 tv_wonder_unique_pharos_lighthouse_ceremony_modifier = {

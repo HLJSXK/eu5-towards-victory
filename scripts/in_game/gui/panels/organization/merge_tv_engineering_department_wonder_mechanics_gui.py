@@ -11,10 +11,6 @@ FRAGMENT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_dep
 
 MARKERS = [
     "TV_WONDER_MECHANICS_PREVIEW_WIDGETS",
-    "TV_WONDER_MECHANICS_CEREMONY_PREVIEW_WIDGETS",
-    "TV_WONDER_MECHANICS_CEREMONY_WONDER_TEXTS",
-    "TV_WONDER_MECHANICS_CEREMONY_SELECTED_TEXTS",
-    "TV_WONDER_MECHANICS_CEREMONY_DOSSIER_TEXTS",
     "TV_WONDER_MECHANICS_PROPOSAL_TEXTS",
     "TV_WONDER_MECHANICS_PROPOSAL_RESUME_TEXTS",
     "TV_WONDER_MECHANICS_PROPOSAL_EXPAND_TEXTS",
@@ -61,7 +57,7 @@ def replace_generated_segment(text: str, marker: str, block: str) -> str:
     begin = f"# BEGIN GENERATED {marker}"
     end = f"# END GENERATED {marker}"
     pattern = re.compile(
-        rf"(?P<prefix>^|\n)(?P<indent>[ \t]*){re.escape(begin)}[ \t]*\n.*?\n[ \t]*{re.escape(end)}(?=\n|$)",
+        rf"(?P<prefix>^|\n)(?P<indent>[ \t]*){re.escape(begin)}[ \t]*\n.*?[ \t]*{re.escape(end)}(?=\n|$)",
         re.DOTALL,
     )
     match = pattern.search(text)

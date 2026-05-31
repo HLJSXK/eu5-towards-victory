@@ -6867,6 +6867,182 @@ tv_wonder_location_is_valid_priority_project_for_world_monument_group_trigger = 
 	trigger_else = { always = no }
 }
 
+tv_wonder_location_has_city_expansion_project_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_city_expansion_project
+		has_building = building_type:tv_wonder_city_expansion_project_foundation
+		has_building = building_type:tv_wonder_city_expansion_project_body
+		has_building = building_type:tv_wonder_city_expansion_project_function
+		has_building = building_type:tv_wonder_city_expansion_project_decoration
+	}
+}
+
+tv_wonder_location_has_city_expansion_project_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_city_charter
+		has_building = building_type:tv_wonder_civic_grid
+		has_building = building_type:tv_wonder_urban_renewal
+	}
+}
+
+tv_wonder_location_has_city_expansion_project_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_city_expansion_project
+		has_building = building_type:tv_wonder_city_expansion_project_foundation
+		has_building = building_type:tv_wonder_city_expansion_project_body
+		has_building = building_type:tv_wonder_city_expansion_project_function
+		has_building = building_type:tv_wonder_city_expansion_project_decoration
+		has_building = building_type:tv_wonder_city_charter
+		has_building = building_type:tv_wonder_civic_grid
+		has_building = building_type:tv_wonder_urban_renewal
+	}
+}
+
+tv_wonder_location_has_city_expansion_project_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_city_charter value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_city_charter value >= 2 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_city_charter value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_city_charter value >= 3 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_city_charter value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_city_charter value >= 4 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_city_charter value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_city_charter value >= 5 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_city_charter value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_city_charter value >= 6 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_civic_grid value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_civic_grid value >= 2 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_civic_grid value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_civic_grid value >= 3 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_civic_grid value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_civic_grid value >= 4 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_civic_grid value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_civic_grid value >= 5 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_civic_grid value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_civic_grid value >= 6 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_urban_renewal value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_urban_renewal value >= 2 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_urban_renewal value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_urban_renewal value >= 3 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_urban_renewal value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_urban_renewal value >= 4 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_urban_renewal value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_urban_renewal value >= 5 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_urban_renewal value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_urban_renewal value >= 6 } }
+			OR = {
+				var:tv_wonder_city_expansion_project_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_city_expansion_project_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_city_expansion_project_capped_final_building_trigger = {
+	tv_wonder_location_has_city_expansion_project_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_city_expansion_project_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_city_expansion_project_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_city_expansion_project_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_city_expansion_project_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
 tv_wonder_location_has_unique_pharos_lighthouse_intermediate_building_trigger = {
 	OR = {
 		has_building = building_type:tv_wonder_unique_pharos_lighthouse
@@ -10588,6 +10764,7 @@ tv_wonder_location_has_any_wonder_final_building_trigger = {
 		tv_wonder_location_has_maritime_trade_station_network_final_building_trigger = yes
 		tv_wonder_location_has_giant_workshop_complex_final_building_trigger = yes
 		tv_wonder_location_has_world_monument_group_final_building_trigger = yes
+		tv_wonder_location_has_city_expansion_project_final_building_trigger = yes
 		tv_wonder_location_has_unique_pharos_lighthouse_final_building_trigger = yes
 		tv_wonder_location_has_unique_hagia_sophia_final_building_trigger = yes
 		tv_wonder_location_has_unique_dome_of_the_rock_final_building_trigger = yes
@@ -10787,6 +10964,10 @@ tv_wonder_location_has_locked_wonder_intermediate_building_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 39 }
 		tv_wonder_location_has_world_monument_group_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 }
+		tv_wonder_location_has_city_expansion_project_intermediate_building_trigger = yes
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
@@ -11107,6 +11288,10 @@ tv_wonder_location_has_locked_wonder_expandable_final_building_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 39 }
 		tv_wonder_location_has_world_monument_group_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 }
+		tv_wonder_location_has_city_expansion_project_expandable_final_building_trigger = yes
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
@@ -11976,6 +12161,25 @@ tv_wonder_can_build_world_monument_group_trigger = {
 	}
 }
 
+tv_wonder_location_can_host_city_expansion_project_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_city_expansion_project_trigger = yes
+		AND = {
+			OR = {
+				location_rank ?= location_rank:city
+				location_rank ?= location_rank:megalopolis
+			}
+			NOT = { tv_wonder_location_has_city_expansion_project_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_city_expansion_project_trigger = {
+	any_owned_location = {
+		tv_wonder_location_can_host_city_expansion_project_trigger = yes
+	}
+}
+
 tv_wonder_location_can_host_unique_pharos_lighthouse_trigger = {
 	OR = {
 		tv_wonder_location_is_valid_priority_project_for_unique_pharos_lighthouse_trigger = yes
@@ -12814,6 +13018,7 @@ tv_wonder_mechanics_has_any_feasible_proposal_trigger = {
 		has_variable = tv_wonder_feasible_maritime_trade_station_network
 		has_variable = tv_wonder_feasible_giant_workshop_complex
 		has_variable = tv_wonder_feasible_world_monument_group
+		has_variable = tv_wonder_feasible_city_expansion_project
 		has_variable = tv_wonder_feasible_unique_pharos_lighthouse
 		has_variable = tv_wonder_feasible_unique_hagia_sophia
 		has_variable = tv_wonder_feasible_unique_dome_of_the_rock
@@ -12898,6 +13103,7 @@ tv_wonder_generic_has_any_feasible_proposal_trigger = {
 		has_variable = tv_wonder_feasible_maritime_trade_station_network
 		has_variable = tv_wonder_feasible_giant_workshop_complex
 		has_variable = tv_wonder_feasible_world_monument_group
+		has_variable = tv_wonder_feasible_city_expansion_project
 	}
 }
 
@@ -13102,6 +13308,10 @@ tv_wonder_mechanics_has_valid_site_candidate_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 39 }
 		tv_wonder_can_build_world_monument_group_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 }
+		tv_wonder_can_build_city_expansion_project_trigger = yes
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
@@ -13424,6 +13634,10 @@ tv_wonder_location_can_host_locked_wonder_trigger = {
 		tv_wonder_location_can_host_world_monument_group_trigger = yes
 	}
 	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 40 } }
+		tv_wonder_location_can_host_city_expansion_project_trigger = yes
+	}
+	trigger_else_if = {
 		limit = { scope:actor = { var:tv_wonder_locked ?= 101 } }
 		tv_wonder_location_can_host_unique_pharos_lighthouse_trigger = yes
 	}
@@ -13742,6 +13956,10 @@ tv_wonder_selected_survey_already_cached_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 39 }
 		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_world_monument_group }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_city_expansion_project }
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
@@ -14064,6 +14282,10 @@ tv_wonder_selected_generic_timed_ritual_trigger = {
 		limit = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 1 }
 		always = yes
 	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
 	trigger_else = { always = no }
 }
 
@@ -14225,6 +14447,10 @@ tv_wonder_selected_generic_auxiliary_building_ritual_trigger = {
 		limit = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 2 }
 		always = yes
 	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 2 }
+		always = yes
+	}
 	trigger_else = { always = no }
 }
 
@@ -14384,6 +14610,10 @@ tv_wonder_selected_generic_immediate_ritual_trigger = {
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 3 }
 		always = yes
 	}
 	trigger_else_if = {
@@ -14667,6 +14897,10 @@ tv_wonder_selected_generic_scaled_gold_decoration_ritual_trigger = {
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 38 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 3 }
 		always = yes
 	}
 	trigger_else = { always = no }
@@ -15196,6 +15430,18 @@ tv_wonder_selected_ritual_confirmation_requirements_met_trigger = {
 		always = yes
 	}
 	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 2 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 var:tv_wonder_ceremony_style ?= 1 }
 		always = yes
 	}
@@ -15514,6 +15760,10 @@ tv_wonder_selected_ritual_monthly_listener_trigger = {
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 1 }
 		always = yes
 	}
 	trigger_else = { always = no }
@@ -15846,6 +16096,14 @@ tv_wonder_selected_ritual_completion_requirements_met_trigger = {
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 2 }
+		has_variable = tv_wonder_ritual_auxiliary_building_finished
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 1 }
+		NOT = { has_variable = tv_wonder_ritual_timer }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 2 }
 		has_variable = tv_wonder_ritual_auxiliary_building_finished
 	}
 	trigger_else = { always = no }

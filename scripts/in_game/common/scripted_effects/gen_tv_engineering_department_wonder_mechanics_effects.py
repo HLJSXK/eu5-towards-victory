@@ -98,6 +98,16 @@ def add_site_preference(wonder: dict, indent: int = 2) -> list[str]:
         lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.25 }}")
         bonus("var:tv_wonder_site_preference_bonus")
         lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key == "city_expansion_project":
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.25 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}{T}limit = {{ var:tv_wonder_survey_site ?= {{ location_rank ?= location_rank:megalopolis }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
     elif key == "mining_city":
         lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }}")
         lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
@@ -295,6 +305,7 @@ def add_site_preference(wonder: dict, indent: int = 2) -> list[str]:
         "giant_necropolis",
         "great_lighthouse",
         "hydraulic_workshop",
+        "city_expansion_project",
         "mining_city",
         "giant_observatory",
         "palace_of_nations",

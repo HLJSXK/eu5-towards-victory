@@ -39,7 +39,7 @@ def trigger_conditions(wonder: dict, indent: int = 1) -> list[str]:
             f"{prefix}{T}topography = hills",
             f"{prefix}}}",
         ])
-    elif key == "triumphal_axis":
+    elif key in {"triumphal_axis", "city_expansion_project"}:
         lines.extend([
             f"{prefix}OR = {{",
             f"{prefix}{T}location_rank ?= location_rank:city",

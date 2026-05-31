@@ -858,6 +858,28 @@ designs:
         completion: "确认世界博览方案后立即完成落成仪式。"
         effect: "+1 外交声誉、+0.05 每月威望。"
 
+  city_expansion_project:
+    status: "已实现"
+    positioning: "城市空间与地块扩容"
+    site: "城市或大都会。"
+    preference: "本地总建筑等级 0-100 映射至 0-25%；大都会额外 +5%。"
+    base_effect: "每级：所在地点 +20 本地最大建筑等级。"
+    branches:
+      1:
+        zh: "城市宪章"
+        en: "City Charter"
+        completion: "城市宪章推行一年后完成落成仪式。"
+        effect: "-5% 全局城市建筑建造花费。"
+      2:
+        zh: "市政方格网"
+        en: "Civic Grid"
+        completion: "完成市政方格网附属建筑后完成落成仪式。"
+        effect: "+10% 本地月度发展度修正，+2 本地移民吸引力。"
+      3:
+        zh: "城区更新"
+        en: "Urban Renewal"
+        completion: "支付城区更新经费后立即完成落成仪式。"
+        effect: "+300 金币，所在地点 +25% 繁荣度。"
 buildings:
   sacred_mountain:
     base_local: {}
@@ -1398,6 +1420,20 @@ buildings:
       tv_wonder_world_exposition_monument_group:
         local_cultural_influence: 1
 
+  city_expansion_project:
+    base_local:
+      free_building_levels: 20
+    final_local:
+      tv_wonder_city_charter: {}
+      tv_wonder_civic_grid: {}
+      tv_wonder_urban_renewal: {}
+    final_attributes:
+      tv_wonder_city_charter:
+        rural_settlement: no
+      tv_wonder_civic_grid:
+        rural_settlement: no
+      tv_wonder_urban_renewal:
+        rural_settlement: no
 generic_rituals:
   sacred_mountain:
     style_1:
@@ -1973,6 +2009,21 @@ generic_rituals:
         - type: legitimacy
           value: 10
 
+  city_expansion_project:
+    style_1:
+      country_modifier:
+        global_urban_build_buildings_cost: -0.05
+    style_2:
+      local_modifier:
+        local_monthly_development_modifier: 0.1
+        local_migration_attraction: 2
+    style_3:
+      cost_type: scaled_gold
+      reward:
+        - type: gold
+          value: 300
+        - type: site_prosperity
+          value: 0.25
 base_modifiers:
   sacred_mountain:
     global_pop_conversion_speed_modifier: 0.2
@@ -2085,6 +2136,7 @@ base_modifiers:
     monthly_prestige: 0.05
     great_power_score: 5
 
+  city_expansion_project: {}
 ceremony_modifier_names:
   giant_observatory:
     tv_wonder_nautical_almanac_observatory: tv_wonder_nautical_almanac_modifier

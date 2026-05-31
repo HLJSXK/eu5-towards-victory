@@ -8230,6 +8230,110 @@ template tv_location_wonder_tooltip {
 							}
 						}
 					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						size = { 244 84 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+							spacing = 4
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = expanding
+								size = { 120 84 }
+								vbox = {
+									margin_left = 8
+									margin_right = 8
+									margin_top = 6
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = expanding
+									spacing = 2
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { -1 18 }
+										spacing = 4
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_city_expansion_project|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										text_single = {
+											text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+											align = right|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').GetValue|0]"
+											align = right|nobaseline
+											fontsize = 13
+										}
+									}
+									widget = {
+										using = layoutpolicy_expanding
+										TooltipStringPairList = {
+											visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').GetValue, '(CFixedPoint)1.0'))]"
+											textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_1')]"
+										}
+										TooltipStringPairList = {
+											visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').GetValue, '(CFixedPoint)2.0'))]"
+											textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_2')]"
+										}
+										TooltipStringPairList = {
+											visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').GetValue, '(CFixedPoint)3.0'))]"
+											textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_3')]"
+										}
+										TooltipStringPairList = {
+											visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').GetValue, '(CFixedPoint)4.0'))]"
+											textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_4')]"
+										}
+										TooltipStringPairList = {
+											visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').GetValue, '(CFixedPoint)5.0'))]"
+											textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_5')]"
+										}
+										TooltipStringPairList = {
+											visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').GetValue, '(CFixedPoint)6.0'))]"
+											textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_6')]"
+										}
+										TooltipTextBlock = {
+											visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_city_expansion_project_level').GetValue, '(CFixedPoint)0.0'))]"
+											blockoverride "text" {
+												text = "TV_LOCATION_WONDER_NO_EFFECT"
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = fixed
+								size = { 120 84 }
+								vbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								margin_top = 4
+								margin_bottom = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									using = bg_cabinet_card_frame
+									size = { 120 76 }
+									background = {
+										texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_city_expansion_project.dds"
+										texture_density = 2
+										fittype = centercrop
+									}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -12559,6 +12663,14 @@ lateralview = {
 															autoresize = no
 															fontsize = 15
 														}
+														text_single = {
+															visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0'))]"
+															layoutpolicy_horizontal = expanding
+															text = "[tv_wonder_city_expansion_project|E]"
+															align = left|nobaseline
+															autoresize = no
+															fontsize = 15
+														}
 													text_single = {
 														text = "TV_LOCATION_WONDER_LEVEL_SHORT"
 														align = right|nobaseline
@@ -15022,6 +15134,37 @@ lateralview = {
 														fontsize = 13
 														align = left|nobaseline
 													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)1.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_1')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)2.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_2')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)3.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_3')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)4.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_4')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)5.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_5')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)6.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_6')]"
+													}
+													text_single = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)0.0')))]"
+														layoutpolicy_horizontal = expanding
+														text = "TV_LOCATION_WONDER_NO_EFFECT"
+														fontsize = 13
+														align = left|nobaseline
+													}
 												}
 											}
 										}
@@ -15904,6 +16047,17 @@ lateralview = {
 														size = { 120 56 }
 														background = {
 															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_world_monument_group.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_city_expansion_project.dds"
 															texture_density = 2
 															fittype = centercrop
 														}
@@ -16592,6 +16746,14 @@ lateralview = {
 															autoresize = no
 															fontsize = 15
 														}
+														text_single = {
+															visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0'))]"
+															layoutpolicy_horizontal = expanding
+															text = "[tv_wonder_city_expansion_project|E]"
+															align = left|nobaseline
+															autoresize = no
+															fontsize = 15
+														}
 													text_single = {
 														text = "TV_LOCATION_WONDER_LEVEL_SHORT"
 														align = right|nobaseline
@@ -19055,6 +19217,37 @@ lateralview = {
 														fontsize = 13
 														align = left|nobaseline
 													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)1.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_1')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)2.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_2')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)3.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_3')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)4.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_4')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)5.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_5')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)6.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_6')]"
+													}
+													text_single = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)0.0')))]"
+														layoutpolicy_horizontal = expanding
+														text = "TV_LOCATION_WONDER_NO_EFFECT"
+														fontsize = 13
+														align = left|nobaseline
+													}
 												}
 											}
 										}
@@ -19941,6 +20134,17 @@ lateralview = {
 															fittype = centercrop
 														}
 													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_city_expansion_project.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
 												}
 											}
 										}
@@ -20608,6 +20812,14 @@ lateralview = {
 															visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)39.0'))]"
 															layoutpolicy_horizontal = expanding
 															text = "[tv_wonder_world_monument_group|E]"
+															align = left|nobaseline
+															autoresize = no
+															fontsize = 15
+														}
+														text_single = {
+															visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0'))]"
+															layoutpolicy_horizontal = expanding
+															text = "[tv_wonder_city_expansion_project|E]"
 															align = left|nobaseline
 															autoresize = no
 															fontsize = 15
@@ -23075,6 +23287,37 @@ lateralview = {
 														fontsize = 13
 														align = left|nobaseline
 													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)1.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_1')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)2.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_2')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)3.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_3')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)4.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_4')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)5.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_5')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)6.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_6')]"
+													}
+													text_single = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)0.0')))]"
+														layoutpolicy_horizontal = expanding
+														text = "TV_LOCATION_WONDER_NO_EFFECT"
+														fontsize = 13
+														align = left|nobaseline
+													}
 												}
 											}
 										}
@@ -23957,6 +24200,17 @@ lateralview = {
 														size = { 120 56 }
 														background = {
 															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_world_monument_group.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_city_expansion_project.dds"
 															texture_density = 2
 															fittype = centercrop
 														}
@@ -24645,6 +24899,14 @@ lateralview = {
 															autoresize = no
 															fontsize = 15
 														}
+														text_single = {
+															visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0'))]"
+															layoutpolicy_horizontal = expanding
+															text = "[tv_wonder_city_expansion_project|E]"
+															align = left|nobaseline
+															autoresize = no
+															fontsize = 15
+														}
 													text_single = {
 														text = "TV_LOCATION_WONDER_LEVEL_SHORT"
 														align = right|nobaseline
@@ -27108,6 +27370,37 @@ lateralview = {
 														fontsize = 13
 														align = left|nobaseline
 													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)1.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_1')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)2.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_2')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)3.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_3')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)4.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_4')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)5.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_5')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)6.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_6')]"
+													}
+													text_single = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)0.0')))]"
+														layoutpolicy_horizontal = expanding
+														text = "TV_LOCATION_WONDER_NO_EFFECT"
+														fontsize = 13
+														align = left|nobaseline
+													}
 												}
 											}
 										}
@@ -27994,6 +28287,17 @@ lateralview = {
 															fittype = centercrop
 														}
 													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)40.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_city_expansion_project.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
 												}
 											}
 										}
@@ -28661,6 +28965,14 @@ lateralview = {
 															visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)39.0'))]"
 															layoutpolicy_horizontal = expanding
 															text = "[tv_wonder_world_monument_group|E]"
+															align = left|nobaseline
+															autoresize = no
+															fontsize = 15
+														}
+														text_single = {
+															visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0'))]"
+															layoutpolicy_horizontal = expanding
+															text = "[tv_wonder_city_expansion_project|E]"
 															align = left|nobaseline
 															autoresize = no
 															fontsize = 15
@@ -31128,6 +31440,37 @@ lateralview = {
 														fontsize = 13
 														align = left|nobaseline
 													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)1.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_1')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)2.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_2')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)3.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_3')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)4.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_4')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)5.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_5')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)6.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_6')]"
+													}
+													text_single = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)0.0')))]"
+														layoutpolicy_horizontal = expanding
+														text = "TV_LOCATION_WONDER_NO_EFFECT"
+														fontsize = 13
+														align = left|nobaseline
+													}
 												}
 											}
 										}
@@ -32014,6 +32357,17 @@ lateralview = {
 															fittype = centercrop
 														}
 													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)40.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_city_expansion_project.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
 												}
 											}
 										}
@@ -32681,6 +33035,14 @@ lateralview = {
 															visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)39.0'))]"
 															layoutpolicy_horizontal = expanding
 															text = "[tv_wonder_world_monument_group|E]"
+															align = left|nobaseline
+															autoresize = no
+															fontsize = 15
+														}
+														text_single = {
+															visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)40.0'))]"
+															layoutpolicy_horizontal = expanding
+															text = "[tv_wonder_city_expansion_project|E]"
 															align = left|nobaseline
 															autoresize = no
 															fontsize = 15
@@ -35148,6 +35510,37 @@ lateralview = {
 														fontsize = 13
 														align = left|nobaseline
 													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue, '(CFixedPoint)1.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_1')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue, '(CFixedPoint)2.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_2')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue, '(CFixedPoint)3.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_3')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue, '(CFixedPoint)4.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_4')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue, '(CFixedPoint)5.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_5')]"
+													}
+													TooltipStringPairList = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue, '(CFixedPoint)6.0')))]"
+														textcontext = "[ShowModifierEffect('tv_wonder_city_expansion_project_level_6')]"
+													}
+													text_single = {
+														visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)40.0')), And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue, '(CFixedPoint)0.0')))]"
+														layoutpolicy_horizontal = expanding
+														text = "TV_LOCATION_WONDER_NO_EFFECT"
+														fontsize = 13
+														align = left|nobaseline
+													}
 												}
 											}
 										}
@@ -36030,6 +36423,17 @@ lateralview = {
 														size = { 120 56 }
 														background = {
 															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_world_monument_group.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)40.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_city_expansion_project.dds"
 															texture_density = 2
 															fittype = centercrop
 														}

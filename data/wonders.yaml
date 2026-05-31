@@ -545,6 +545,20 @@ wonders:
       1: tv_wonder_conquest_monument_group
       2: tv_wonder_national_unity_monument_group
       3: tv_wonder_world_exposition_monument_group
+  - id: 40
+    key: city_expansion_project
+    concept: tv_wonder_city_expansion_project
+    size: large
+    category: infrastructure_category
+    pop_type: burghers
+    maintenance: tv_wonder_module_maintenance
+    loc:
+      en: "City Expansion Project"
+      zh: "城市扩建工程"
+    final_buildings:
+      1: tv_wonder_city_charter
+      2: tv_wonder_civic_grid
+      3: tv_wonder_urban_renewal
 
 parts:
   - key: foundation

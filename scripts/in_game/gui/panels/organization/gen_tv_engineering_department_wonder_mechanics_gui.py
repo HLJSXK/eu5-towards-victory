@@ -80,10 +80,6 @@ def preview_texture(wonder: dict) -> str:
     return f"gfx/interface/illustrations/towards_victory/wonders/{image}.dds"
 
 
-def wonder_loc_key(wonder: dict) -> str:
-    return f"tv_wonder_{wonder['key']}"
-
-
 def ceremony_name_key(wonder: dict, style: int) -> str:
     building = final_building_for_style(wonder, style)
     return f"TV_ENGINEERING_CEREMONY_{building.removeprefix('tv_wonder_').upper()}_BUTTON"
@@ -99,41 +95,6 @@ def ceremony_select_button(wonder: dict, style: int) -> str:
         f'description = "tv_wonder_choose_ceremony_style_{style}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
         f'left_action = {{ action_name = "tv_wonder_choose_ceremony_style_{style}" }} }}'
     )
-
-
-def ceremony_preview_widget(wonder: dict) -> str:
-    return "\n".join(
-        [
-            "widget = {",
-            f'{T}visible = "[{eq("tv_wonder_locked", wonder["id"])}]"',
-            f"{T}size = {{ 100% 100% }}",
-            f"{T}background = {{",
-            f'{T}{T}texture = "{preview_texture(wonder)}"',
-            f"{T}{T}texture_density = 2",
-            f"{T}{T}fittype = centercrop",
-            f"{T}}}",
-            "}",
-        ]
-    )
-
-
-def ceremony_wonder_name_text(wonder: dict) -> str:
-    return (
-        f'{T}text_multi = {{ visible = "[{eq("tv_wonder_locked", wonder["id"])}]" '
-        f'max_width = 236 autoresize = yes text = "{wonder_loc_key(wonder)}" align = nobaseline|left }}'
-    )
-
-
-def ceremony_selected_text(wonder: dict, style: int) -> str:
-    visible = f"And({eq('tv_wonder_locked', wonder['id'])}, {eq('tv_wonder_ceremony_style', style)})"
-    return (
-        f'{T}text_multi = {{ visible = "[{visible}]" '
-        f'max_width = 236 autoresize = yes text = "{ceremony_name_key(wonder, style)}" align = nobaseline|left }}'
-    )
-
-
-def ceremony_dossier_text(wonder: dict) -> str:
-    return locked_text(wonder, max_width=430)
 
 
 def active_ritual_text(wonder: dict, style: int) -> str:
@@ -196,27 +157,6 @@ def generate() -> str:
             ]
         )
     lines.append("### END TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
-    lines.append("")
-    lines.append("### BEGIN TV_WONDER_MECHANICS_CEREMONY_PREVIEW_WIDGETS")
-    for wonder in wonders:
-        lines.append(ceremony_preview_widget(wonder))
-    lines.append("### END TV_WONDER_MECHANICS_CEREMONY_PREVIEW_WIDGETS")
-    lines.append("")
-    lines.append("### BEGIN TV_WONDER_MECHANICS_CEREMONY_WONDER_TEXTS")
-    for wonder in wonders:
-        lines.append(ceremony_wonder_name_text(wonder))
-    lines.append("### END TV_WONDER_MECHANICS_CEREMONY_WONDER_TEXTS")
-    lines.append("")
-    lines.append("### BEGIN TV_WONDER_MECHANICS_CEREMONY_SELECTED_TEXTS")
-    for wonder in wonders:
-        for style in ceremony_styles(wonder):
-            lines.append(ceremony_selected_text(wonder, style))
-    lines.append("### END TV_WONDER_MECHANICS_CEREMONY_SELECTED_TEXTS")
-    lines.append("")
-    lines.append("### BEGIN TV_WONDER_MECHANICS_CEREMONY_DOSSIER_TEXTS")
-    for wonder in wonders:
-        lines.append(ceremony_dossier_text(wonder))
-    lines.append("### END TV_WONDER_MECHANICS_CEREMONY_DOSSIER_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_TEXTS")
     for wonder in wonders:
