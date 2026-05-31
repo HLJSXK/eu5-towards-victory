@@ -565,7 +565,7 @@ wonder_localization:
     TV_ENGINEERING_ACTIVE_RITUAL_GIANT_OBSERVATORY_3: Confirm the Eclipse Proclamation
       ceremony for the Giant Observatory. 无永久修正，但日食事件提供 +100 威望.
     TV_ENGINEERING_PROPOSAL_PALACE_OF_NATIONS_TEXT: 'Brief: [tv_wonder_palace_of_nations|E],
-      a [tv_wonder_medium|E] project for 外交朝会、贡礼体系.'
+      a [tv_wonder_medium|E] project for 外交朝会、贡礼秩序.'
     TV_ENGINEERING_PROPOSAL_RESUME_PALACE_OF_NATIONS_TEXT: The [tv_great_engineer|E]
       wants to complete the existing [tv_wonder_palace_of_nations|E] and reuse the
       preserved construction at the site.
@@ -1212,8 +1212,8 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_LEGAL_DEPOSIT_LIBRARY_BUTTON: Legal Deposit
     TV_ENGINEERING_ACTIVE_RITUAL_LIBRARY_OF_NATION_3: Confirm the Legal Deposit ceremony
       for the Library of Nation. +5% 全局人口升级速度修正.
-    game_concept_tv_wonder_large_canal_system: Large Canal System
-    game_concept_tv_wonder_large_canal_system_desc: A Large Canal System is a [tv_wonder_construction|e]
+    game_concept_tv_wonder_large_canal_system: Large Canal
+    game_concept_tv_wonder_large_canal_system_desc: A Large Canal is a [tv_wonder_construction|e]
       project focused on 农业、运输、防灾. It prefers 河流或湖泊沿岸。 Its ceremonies can emphasize
       Irrigation Priority, Grain Transport Priority, Flood Control Priority.
     TV_ENGINEERING_PROPOSAL_LARGE_CANAL_SYSTEM_TEXT: 'Brief: [tv_wonder_large_canal_system|E],
@@ -1225,26 +1225,26 @@ wonder_localization:
       wants to expand the existing [tv_wonder_large_canal_system|E] toward the site's
       preserved maximum level.
     TV_ENGINEERING_LOCKED_LARGE_CANAL_SYSTEM_TEXT: '@lock! Locked Wonder: [tv_wonder_large_canal_system|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_LARGE_CANAL_SYSTEM: '@city! Large Canal System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_LARGE_CANAL_SYSTEM: '@city! Large Canal'
     TV_WONDER_LOCK_LARGE_CANAL_SYSTEM_TT: Locks [tv_wonder_large_canal_system|E] as
       the Engineering Department's active wonder.
-    tv_wonder_large_canal_system_foundation: Large Canal System Foundation
+    tv_wonder_large_canal_system_foundation: Large Canal Foundation
     tv_wonder_large_canal_system_foundation_desc: A preserved foundation module for
-      the Large Canal System.
-    tv_wonder_large_canal_system_body: Large Canal System Main Structure
+      the Large Canal.
+    tv_wonder_large_canal_system_body: Large Canal Main Structure
     tv_wonder_large_canal_system_body_desc: A preserved main structure module for
-      the Large Canal System.
-    tv_wonder_large_canal_system_function: Large Canal System Functional Works
+      the Large Canal.
+    tv_wonder_large_canal_system_function: Large Canal Functional Works
     tv_wonder_large_canal_system_function_desc: A preserved functional works module
-      for the Large Canal System.
-    tv_wonder_large_canal_system_decoration: Large Canal System Crowning Works
+      for the Large Canal.
+    tv_wonder_large_canal_system_decoration: Large Canal Crowning Works
     tv_wonder_large_canal_system_decoration_desc: A preserved crowning works module
-      for the Large Canal System.
-    tv_wonder_large_canal_system: Large Canal System
-    tv_wonder_large_canal_system_ritual_annex: Large Canal System Ritual Annex
+      for the Large Canal.
+    tv_wonder_large_canal_system: Large Canal
+    tv_wonder_large_canal_system_ritual_annex: Large Canal Ritual Annex
     tv_wonder_large_canal_system_ritual_annex_desc: An auxiliary ritual annex used
-      to complete the second ceremony branch of the Large Canal System.
-    tv_wonder_large_canal_system_desc: An unconsecrated Large Canal System preserved
+      to complete the second ceremony branch of the Large Canal.
+    tv_wonder_large_canal_system_desc: An unconsecrated Large Canal preserved
       as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_large_canal_system_level_1: '[tv_wonder_large_canal_system|E]
       I'
@@ -1264,27 +1264,27 @@ wonder_localization:
       Priority Blessing
     tv_wonder_irrigation_canal_system: Irrigation Priority
     tv_wonder_irrigation_canal_system_desc: The Irrigation Priority branch of the
-      Large Canal System.
+      Large Canal.
     STATIC_MODIFIER_NAME_tv_wonder_irrigation_canal_system_modifier: Irrigation Priority
     TV_ENGINEERING_CEREMONY_IRRIGATION_CANAL_SYSTEM_BUTTON: Irrigation Priority
     TV_ENGINEERING_ACTIVE_RITUAL_LARGE_CANAL_SYSTEM_1: Confirm the Irrigation Priority
-      ceremony for the Large Canal System. +5% 全局原料产出.
+      ceremony for the Large Canal. +5% 全局原料产出.
     tv_wonder_grain_transport_canal_system: Grain Transport Priority
     tv_wonder_grain_transport_canal_system_desc: The Grain Transport Priority branch
-      of the Large Canal System.
+      of the Large Canal.
     STATIC_MODIFIER_NAME_tv_wonder_grain_transport_canal_system_modifier: Grain Transport
       Priority
     TV_ENGINEERING_CEREMONY_GRAIN_TRANSPORT_CANAL_SYSTEM_BUTTON: Grain Transport Priority
     TV_ENGINEERING_ACTIVE_RITUAL_LARGE_CANAL_SYSTEM_2: Confirm the Grain Transport
-      Priority ceremony for the Large Canal System. +5% 贸易收入.
+      Priority ceremony for the Large Canal. +5% 贸易收入.
     tv_wonder_flood_control_canal_system: Flood Control Priority
     tv_wonder_flood_control_canal_system_desc: The Flood Control Priority branch of
-      the Large Canal System.
+      the Large Canal.
     STATIC_MODIFIER_NAME_tv_wonder_flood_control_canal_system_modifier: Flood Control
       Priority
     TV_ENGINEERING_CEREMONY_FLOOD_CONTROL_CANAL_SYSTEM_BUTTON: Flood Control Priority
     TV_ENGINEERING_ACTIVE_RITUAL_LARGE_CANAL_SYSTEM_3: Confirm the Flood Control Priority
-      ceremony for the Large Canal System. +5% 人口加入叛军阈值.
+      ceremony for the Large Canal. +5% 人口加入叛军阈值.
     game_concept_tv_wonder_mountain_terrace_network: Mountain Terrace Network
     game_concept_tv_wonder_mountain_terrace_network_desc: A Mountain Terrace Network
       is a [tv_wonder_construction|e] project focused on 高地开发、人口承载. It prefers 山地、高原或丘陵。
@@ -1434,11 +1434,10 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_WATER_POWERED_WORKSHOPS_BUTTON: Water-Powered Workshops
     TV_ENGINEERING_ACTIVE_RITUAL_GIANT_DAM_PROJECT_3: Confirm the Water-Powered Workshops
       ceremony for the Giant Dam Project. +5% 全局生产效率.
-    game_concept_tv_wonder_royal_granary_system: Royal Granary System
-    game_concept_tv_wonder_royal_granary_system_desc: A Royal Granary System is a
+    game_concept_tv_wonder_royal_granary_system: Royal Granary
+    game_concept_tv_wonder_royal_granary_system_desc: A Royal Granary is a
       [tv_wonder_construction|e] project focused on 抗饥荒、国家调控. It prefers 任意非荒芜的己方地点。
-      Its ceremonies can emphasize Grain Price Stabilization, Wartime Reserves, Disaster
-      Relief System.
+      Its ceremonies can emphasize Grain Price Stabilization, Wartime Reserves, Disaster Relief.
     TV_ENGINEERING_PROPOSAL_ROYAL_GRANARY_SYSTEM_TEXT: 'Brief: [tv_wonder_royal_granary_system|E],
       a [tv_wonder_medium|E] project for 抗饥荒、国家调控.'
     TV_ENGINEERING_PROPOSAL_RESUME_ROYAL_GRANARY_SYSTEM_TEXT: The [tv_great_engineer|E]
@@ -1448,26 +1447,26 @@ wonder_localization:
       wants to expand the existing [tv_wonder_royal_granary_system|E] toward the site's
       preserved maximum level.
     TV_ENGINEERING_LOCKED_ROYAL_GRANARY_SYSTEM_TEXT: '@lock! Locked Wonder: [tv_wonder_royal_granary_system|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_ROYAL_GRANARY_SYSTEM: '@city! Royal Granary System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_ROYAL_GRANARY_SYSTEM: '@city! Royal Granary'
     TV_WONDER_LOCK_ROYAL_GRANARY_SYSTEM_TT: Locks [tv_wonder_royal_granary_system|E]
       as the Engineering Department's active wonder.
-    tv_wonder_royal_granary_system_foundation: Royal Granary System Foundation
+    tv_wonder_royal_granary_system_foundation: Royal Granary Foundation
     tv_wonder_royal_granary_system_foundation_desc: A preserved foundation module
-      for the Royal Granary System.
-    tv_wonder_royal_granary_system_body: Royal Granary System Main Structure
+      for the Royal Granary.
+    tv_wonder_royal_granary_system_body: Royal Granary Main Structure
     tv_wonder_royal_granary_system_body_desc: A preserved main structure module for
-      the Royal Granary System.
-    tv_wonder_royal_granary_system_function: Royal Granary System Functional Works
+      the Royal Granary.
+    tv_wonder_royal_granary_system_function: Royal Granary Functional Works
     tv_wonder_royal_granary_system_function_desc: A preserved functional works module
-      for the Royal Granary System.
-    tv_wonder_royal_granary_system_decoration: Royal Granary System Crowning Works
+      for the Royal Granary.
+    tv_wonder_royal_granary_system_decoration: Royal Granary Crowning Works
     tv_wonder_royal_granary_system_decoration_desc: A preserved crowning works module
-      for the Royal Granary System.
-    tv_wonder_royal_granary_system: Royal Granary System
-    tv_wonder_royal_granary_system_ritual_annex: Royal Granary System Ritual Annex
+      for the Royal Granary.
+    tv_wonder_royal_granary_system: Royal Granary
+    tv_wonder_royal_granary_system_ritual_annex: Royal Granary Ritual Annex
     tv_wonder_royal_granary_system_ritual_annex_desc: An auxiliary ritual annex used
-      to complete the second ceremony branch of the Royal Granary System.
-    tv_wonder_royal_granary_system_desc: An unconsecrated Royal Granary System preserved
+      to complete the second ceremony branch of the Royal Granary.
+    tv_wonder_royal_granary_system_desc: An unconsecrated Royal Granary preserved
       as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_royal_granary_system_level_1: '[tv_wonder_royal_granary_system|E]
       I'
@@ -1487,26 +1486,23 @@ wonder_localization:
       Price Stabilization Blessing
     tv_wonder_grain_price_granaries: Grain Price Stabilization
     tv_wonder_grain_price_granaries_desc: The Grain Price Stabilization branch of
-      the Royal Granary System.
+      the Royal Granary.
     STATIC_MODIFIER_NAME_tv_wonder_grain_price_granaries_modifier: Grain Price Stabilization
     TV_ENGINEERING_CEREMONY_GRAIN_PRICE_GRANARIES_BUTTON: Grain Price Stabilization
     TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_GRANARY_SYSTEM_1: Confirm the Grain Price Stabilization
-      ceremony for the Royal Granary System. +4% 税收收入效率.
+      ceremony for the Royal Granary. +4% 税收收入效率.
     tv_wonder_wartime_granaries: Wartime Reserves
-    tv_wonder_wartime_granaries_desc: The Wartime Reserves branch of the Royal Granary
-      System.
+    tv_wonder_wartime_granaries_desc: The Wartime Reserves branch of the Royal Granary.
     STATIC_MODIFIER_NAME_tv_wonder_wartime_granaries_modifier: Wartime Reserves
     TV_ENGINEERING_CEREMONY_WARTIME_GRANARIES_BUTTON: Wartime Reserves
     TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_GRANARY_SYSTEM_2: Confirm the Wartime Reserves
-      ceremony for the Royal Granary System. +8% 全局人力.
-    tv_wonder_disaster_relief_granaries: Disaster Relief System
-    tv_wonder_disaster_relief_granaries_desc: The Disaster Relief System branch of
-      the Royal Granary System.
+      ceremony for the Royal Granary. +8% 全局人力.
+    tv_wonder_disaster_relief_granaries: Disaster Relief
+    tv_wonder_disaster_relief_granaries_desc: The Disaster Relief branch of
+      the Royal Granary.
     STATIC_MODIFIER_NAME_tv_wonder_disaster_relief_granaries_modifier: Disaster Relief
-      System
-    TV_ENGINEERING_CEREMONY_DISASTER_RELIEF_GRANARIES_BUTTON: Disaster Relief System
-    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_GRANARY_SYSTEM_3: Confirm the Disaster Relief
-      System ceremony for the Royal Granary System. +5% 人口加入叛军阈值.
+    TV_ENGINEERING_CEREMONY_DISASTER_RELIEF_GRANARIES_BUTTON: Disaster Relief
+    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_GRANARY_SYSTEM_3: Confirm the Disaster Relief ceremony for the Royal Granary. +5% 人口加入叛军阈值.
     game_concept_tv_wonder_imperial_post_road_network: Imperial Post Road Network
     game_concept_tv_wonder_imperial_post_road_network_desc: A Imperial Post Road Network
       is a [tv_wonder_construction|e] project focused on 行政、通信、军队调动. It prefers 任意己方地点。
@@ -1816,8 +1812,7 @@ wonder_localization:
     game_concept_tv_wonder_knightly_fortress_order: Knightly Fortress Order
     game_concept_tv_wonder_knightly_fortress_order_desc: A Knightly Fortress Order
       is a [tv_wonder_construction|e] project focused on 军事贵族与边疆秩序. It prefers 非乡村地点，或拥有要塞的地点。
-      Its ceremonies can emphasize Crusader Knightly Order, Frontier Lord Order, Mercenary
-      Fortress System.
+      Its ceremonies can emphasize Crusader Knightly Order, Frontier Lord Order, Mercenary Fortress.
     TV_ENGINEERING_PROPOSAL_KNIGHTLY_FORTRESS_ORDER_TEXT: 'Brief: [tv_wonder_knightly_fortress_order|E],
       a [tv_wonder_medium|E] project for 军事贵族与边疆秩序.'
     TV_ENGINEERING_PROPOSAL_RESUME_KNIGHTLY_FORTRESS_ORDER_TEXT: The [tv_great_engineer|E]
@@ -1883,16 +1878,14 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_FRONTIER_LORD_ORDER_BUTTON: Frontier Lord Order
     TV_ENGINEERING_ACTIVE_RITUAL_KNIGHTLY_FORTRESS_ORDER_2: Confirm the Frontier Lord
       Order ceremony for the Knightly Fortress Order. +6% 全局人力.
-    tv_wonder_mercenary_fortress_system: Mercenary Fortress System
-    tv_wonder_mercenary_fortress_system_desc: The Mercenary Fortress System branch
+    tv_wonder_mercenary_fortress_system: Mercenary Fortress
+    tv_wonder_mercenary_fortress_system_desc: The Mercenary Fortress branch
       of the Knightly Fortress Order.
     STATIC_MODIFIER_NAME_tv_wonder_mercenary_fortress_system_modifier: Mercenary Fortress
-      System
-    TV_ENGINEERING_CEREMONY_MERCENARY_FORTRESS_SYSTEM_BUTTON: Mercenary Fortress System
-    TV_ENGINEERING_ACTIVE_RITUAL_KNIGHTLY_FORTRESS_ORDER_3: Confirm the Mercenary
-      Fortress System ceremony for the Knightly Fortress Order. +1.5% 训练度.
-    game_concept_tv_wonder_war_college_system: War College System
-    game_concept_tv_wonder_war_college_system_desc: A War College System is a [tv_wonder_construction|e]
+    TV_ENGINEERING_CEREMONY_MERCENARY_FORTRESS_SYSTEM_BUTTON: Mercenary Fortress
+    TV_ENGINEERING_ACTIVE_RITUAL_KNIGHTLY_FORTRESS_ORDER_3: Confirm the Mercenary Fortress ceremony for the Knightly Fortress Order. +1.5% 训练度.
+    game_concept_tv_wonder_war_college_system: War College
+    game_concept_tv_wonder_war_college_system_desc: A War College is a [tv_wonder_construction|e]
       project focused on 军事理论与军官培养. It prefers 城市、大都会或拥有军械库的地点。 Its ceremonies can
       emphasize Firearms Tactics, Cavalry Tradition, Naval Command.
     TV_ENGINEERING_PROPOSAL_WAR_COLLEGE_SYSTEM_TEXT: 'Brief: [tv_wonder_war_college_system|E],
@@ -1904,26 +1897,26 @@ wonder_localization:
       wants to expand the existing [tv_wonder_war_college_system|E] toward the site's
       preserved maximum level.
     TV_ENGINEERING_LOCKED_WAR_COLLEGE_SYSTEM_TEXT: '@lock! Locked Wonder: [tv_wonder_war_college_system|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_WAR_COLLEGE_SYSTEM: '@city! War College System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_WAR_COLLEGE_SYSTEM: '@city! War College'
     TV_WONDER_LOCK_WAR_COLLEGE_SYSTEM_TT: Locks [tv_wonder_war_college_system|E] as
       the Engineering Department's active wonder.
-    tv_wonder_war_college_system_foundation: War College System Foundation
+    tv_wonder_war_college_system_foundation: War College Foundation
     tv_wonder_war_college_system_foundation_desc: A preserved foundation module for
-      the War College System.
-    tv_wonder_war_college_system_body: War College System Main Structure
+      the War College.
+    tv_wonder_war_college_system_body: War College Main Structure
     tv_wonder_war_college_system_body_desc: A preserved main structure module for
-      the War College System.
-    tv_wonder_war_college_system_function: War College System Functional Works
+      the War College.
+    tv_wonder_war_college_system_function: War College Functional Works
     tv_wonder_war_college_system_function_desc: A preserved functional works module
-      for the War College System.
-    tv_wonder_war_college_system_decoration: War College System Crowning Works
+      for the War College.
+    tv_wonder_war_college_system_decoration: War College Crowning Works
     tv_wonder_war_college_system_decoration_desc: A preserved crowning works module
-      for the War College System.
-    tv_wonder_war_college_system: War College System
-    tv_wonder_war_college_system_ritual_annex: War College System Ritual Annex
+      for the War College.
+    tv_wonder_war_college_system: War College
+    tv_wonder_war_college_system_ritual_annex: War College Ritual Annex
     tv_wonder_war_college_system_ritual_annex_desc: An auxiliary ritual annex used
-      to complete the second ceremony branch of the War College System.
-    tv_wonder_war_college_system_desc: An unconsecrated War College System preserved
+      to complete the second ceremony branch of the War College.
+    tv_wonder_war_college_system_desc: An unconsecrated War College preserved
       as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_war_college_system_level_1: '[tv_wonder_war_college_system|E]
       I'
@@ -1942,28 +1935,26 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_war_college_system_ritual_blessing_modifier: Firearms
       Tactics Blessing
     tv_wonder_firearms_tactics_college: Firearms Tactics
-    tv_wonder_firearms_tactics_college_desc: The Firearms Tactics branch of the War
-      College System.
+    tv_wonder_firearms_tactics_college_desc: The Firearms Tactics branch of the War College.
     STATIC_MODIFIER_NAME_tv_wonder_firearms_tactics_college_modifier: Firearms Tactics
     TV_ENGINEERING_CEREMONY_FIREARMS_TACTICS_COLLEGE_BUTTON: Firearms Tactics
     TV_ENGINEERING_ACTIVE_RITUAL_WAR_COLLEGE_SYSTEM_1: Confirm the Firearms Tactics
-      ceremony for the War College System. +5% 攻城能力.
+      ceremony for the War College. +5% 攻城能力.
     tv_wonder_cavalry_tradition_college: Cavalry Tradition
     tv_wonder_cavalry_tradition_college_desc: The Cavalry Tradition branch of the
-      War College System.
+      War College.
     STATIC_MODIFIER_NAME_tv_wonder_cavalry_tradition_college_modifier: Cavalry Tradition
     TV_ENGINEERING_CEREMONY_CAVALRY_TRADITION_COLLEGE_BUTTON: Cavalry Tradition
     TV_ENGINEERING_ACTIVE_RITUAL_WAR_COLLEGE_SYSTEM_2: Confirm the Cavalry Tradition
-      ceremony for the War College System. +4% 陆军士气.
+      ceremony for the War College. +4% 陆军士气.
     tv_wonder_naval_command_college: Naval Command
-    tv_wonder_naval_command_college_desc: The Naval Command branch of the War College
-      System.
+    tv_wonder_naval_command_college_desc: The Naval Command branch of the War College.
     STATIC_MODIFIER_NAME_tv_wonder_naval_command_college_modifier: Naval Command
     TV_ENGINEERING_CEREMONY_NAVAL_COMMAND_COLLEGE_BUTTON: Naval Command
     TV_ENGINEERING_ACTIVE_RITUAL_WAR_COLLEGE_SYSTEM_3: Confirm the Naval Command ceremony
-      for the War College System. +4% 海军士气.
-    game_concept_tv_wonder_great_clock_bell_system: Great Clock and Bell System
-    game_concept_tv_wonder_great_clock_bell_system_desc: A Great Clock and Bell System
+      for the War College. +4% 海军士气.
+    game_concept_tv_wonder_great_clock_bell_system: Great Clock and Bell Tower
+    game_concept_tv_wonder_great_clock_bell_system_desc: A Great Clock and Bell Tower
       is a [tv_wonder_construction|e] project focused on 宗教秩序、城市时间. It prefers 非乡村地点。
       Its ceremonies can emphasize Worship Timekeeping, Urban Curfew, Astronomical
       Calendar.
@@ -1976,31 +1967,29 @@ wonder_localization:
       wants to expand the existing [tv_wonder_great_clock_bell_system|E] toward the
       site's preserved maximum level.
     TV_ENGINEERING_LOCKED_GREAT_CLOCK_BELL_SYSTEM_TEXT: '@lock! Locked Wonder: [tv_wonder_great_clock_bell_system|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_GREAT_CLOCK_BELL_SYSTEM: '@city! Great Clock and
-      Bell System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_GREAT_CLOCK_BELL_SYSTEM: '@city! Great Clock and Bell Tower'
     TV_WONDER_LOCK_GREAT_CLOCK_BELL_SYSTEM_TT: Locks [tv_wonder_great_clock_bell_system|E]
       as the Engineering Department's active wonder.
-    tv_wonder_great_clock_bell_system_foundation: Great Clock and Bell System Foundation
+    tv_wonder_great_clock_bell_system_foundation: Great Clock and Bell Tower Foundation
     tv_wonder_great_clock_bell_system_foundation_desc: A preserved foundation module
-      for the Great Clock and Bell System.
-    tv_wonder_great_clock_bell_system_body: Great Clock and Bell System Main Structure
+      for the Great Clock and Bell Tower.
+    tv_wonder_great_clock_bell_system_body: Great Clock and Bell Tower Main Structure
     tv_wonder_great_clock_bell_system_body_desc: A preserved main structure module
-      for the Great Clock and Bell System.
-    tv_wonder_great_clock_bell_system_function: Great Clock and Bell System Functional
+      for the Great Clock and Bell Tower.
+    tv_wonder_great_clock_bell_system_function: Great Clock and Bell Tower Functional
       Works
     tv_wonder_great_clock_bell_system_function_desc: A preserved functional works
-      module for the Great Clock and Bell System.
-    tv_wonder_great_clock_bell_system_decoration: Great Clock and Bell System Crowning
+      module for the Great Clock and Bell Tower.
+    tv_wonder_great_clock_bell_system_decoration: Great Clock and Bell Tower Crowning
       Works
     tv_wonder_great_clock_bell_system_decoration_desc: A preserved crowning works
-      module for the Great Clock and Bell System.
-    tv_wonder_great_clock_bell_system: Great Clock and Bell System
-    tv_wonder_great_clock_bell_system_ritual_annex: Great Clock and Bell System Ritual
+      module for the Great Clock and Bell Tower.
+    tv_wonder_great_clock_bell_system: Great Clock and Bell Tower
+    tv_wonder_great_clock_bell_system_ritual_annex: Great Clock and Bell Tower Ritual
       Annex
     tv_wonder_great_clock_bell_system_ritual_annex_desc: An auxiliary ritual annex
-      used to complete the second ceremony branch of the Great Clock and Bell System.
-    tv_wonder_great_clock_bell_system_desc: An unconsecrated Great Clock and Bell
-      System preserved as completed construction.
+      used to complete the second ceremony branch of the Great Clock and Bell Tower.
+    tv_wonder_great_clock_bell_system_desc: An unconsecrated Great Clock and Bell Tower preserved as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_great_clock_bell_system_level_1: '[tv_wonder_great_clock_bell_system|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_great_clock_bell_system_level_2: '[tv_wonder_great_clock_bell_system|E]
@@ -2018,27 +2007,25 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_great_clock_bell_system_ritual_blessing_modifier: Worship
       Timekeeping Blessing
     tv_wonder_worship_clock_bells: Worship Timekeeping
-    tv_wonder_worship_clock_bells_desc: The Worship Timekeeping branch of the Great
-      Clock and Bell System.
+    tv_wonder_worship_clock_bells_desc: The Worship Timekeeping branch of the Great Clock and Bell Tower.
     STATIC_MODIFIER_NAME_tv_wonder_worship_clock_bells_modifier: Worship Timekeeping
     TV_ENGINEERING_CEREMONY_WORSHIP_CLOCK_BELLS_BUTTON: Worship Timekeeping
     TV_ENGINEERING_ACTIVE_RITUAL_GREAT_CLOCK_BELL_SYSTEM_1: Confirm the Worship Timekeeping
-      ceremony for the Great Clock and Bell System. +1 正统信仰容忍.
+      ceremony for the Great Clock and Bell Tower. +1 正统信仰容忍.
     tv_wonder_curfew_clock_bells: Urban Curfew
-    tv_wonder_curfew_clock_bells_desc: The Urban Curfew branch of the Great Clock
-      and Bell System.
+    tv_wonder_curfew_clock_bells_desc: The Urban Curfew branch of the Great Clock and Bell Tower.
     STATIC_MODIFIER_NAME_tv_wonder_curfew_clock_bells_modifier: Urban Curfew
     TV_ENGINEERING_CEREMONY_CURFEW_CLOCK_BELLS_BUTTON: Urban Curfew
     TV_ENGINEERING_ACTIVE_RITUAL_GREAT_CLOCK_BELL_SYSTEM_2: Confirm the Urban Curfew
-      ceremony for the Great Clock and Bell System. +4% 人口加入叛军阈值.
+      ceremony for the Great Clock and Bell Tower. +4% 人口加入叛军阈值.
     tv_wonder_astronomical_calendar_bells: Astronomical Calendar
     tv_wonder_astronomical_calendar_bells_desc: The Astronomical Calendar branch of
-      the Great Clock and Bell System.
+      the Great Clock and Bell Tower.
     STATIC_MODIFIER_NAME_tv_wonder_astronomical_calendar_bells_modifier: Astronomical
       Calendar
     TV_ENGINEERING_CEREMONY_ASTRONOMICAL_CALENDAR_BELLS_BUTTON: Astronomical Calendar
     TV_ENGINEERING_ACTIVE_RITUAL_GREAT_CLOCK_BELL_SYSTEM_3: Confirm the Astronomical
-      Calendar ceremony for the Great Clock and Bell System. +4% 研究速度.
+      Calendar ceremony for the Great Clock and Bell Tower. +4% 研究速度.
     game_concept_tv_wonder_royal_art_district: Royal Art District
     game_concept_tv_wonder_royal_art_district_desc: A Royal Art District is a [tv_wonder_construction|e]
       project focused on 文化繁荣. It prefers 城市、大都会或首都。 Its ceremonies can emphasize
@@ -2406,8 +2393,8 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_ENTREPOT_MARKET_BUTTON: International Entrepot
     TV_ENGINEERING_ACTIVE_RITUAL_WORLD_MARKET_3: Confirm the International Entrepot
       ceremony for the World Market. +150 贸易范围.
-    game_concept_tv_wonder_royal_mint_system: Royal Mint System
-    game_concept_tv_wonder_royal_mint_system_desc: A Royal Mint System is a [tv_wonder_construction|e]
+    game_concept_tv_wonder_royal_mint_system: Royal Mint
+    game_concept_tv_wonder_royal_mint_system_desc: A Royal Mint is a [tv_wonder_construction|e]
       project focused on 金融与税收. It prefers 城市、大都会，或金、银、铜产地。 Its ceremonies can emphasize
       Silver-Gold Standard, Copper Coinage, International Settlement.
     TV_ENGINEERING_PROPOSAL_ROYAL_MINT_SYSTEM_TEXT: 'Brief: [tv_wonder_royal_mint_system|E],
@@ -2419,26 +2406,26 @@ wonder_localization:
       wants to expand the existing [tv_wonder_royal_mint_system|E] toward the site's
       preserved maximum level.
     TV_ENGINEERING_LOCKED_ROYAL_MINT_SYSTEM_TEXT: '@lock! Locked Wonder: [tv_wonder_royal_mint_system|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_ROYAL_MINT_SYSTEM: '@city! Royal Mint System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_ROYAL_MINT_SYSTEM: '@city! Royal Mint'
     TV_WONDER_LOCK_ROYAL_MINT_SYSTEM_TT: Locks [tv_wonder_royal_mint_system|E] as
       the Engineering Department's active wonder.
-    tv_wonder_royal_mint_system_foundation: Royal Mint System Foundation
+    tv_wonder_royal_mint_system_foundation: Royal Mint Foundation
     tv_wonder_royal_mint_system_foundation_desc: A preserved foundation module for
-      the Royal Mint System.
-    tv_wonder_royal_mint_system_body: Royal Mint System Main Structure
+      the Royal Mint.
+    tv_wonder_royal_mint_system_body: Royal Mint Main Structure
     tv_wonder_royal_mint_system_body_desc: A preserved main structure module for the
-      Royal Mint System.
-    tv_wonder_royal_mint_system_function: Royal Mint System Functional Works
+      Royal Mint.
+    tv_wonder_royal_mint_system_function: Royal Mint Functional Works
     tv_wonder_royal_mint_system_function_desc: A preserved functional works module
-      for the Royal Mint System.
-    tv_wonder_royal_mint_system_decoration: Royal Mint System Crowning Works
+      for the Royal Mint.
+    tv_wonder_royal_mint_system_decoration: Royal Mint Crowning Works
     tv_wonder_royal_mint_system_decoration_desc: A preserved crowning works module
-      for the Royal Mint System.
-    tv_wonder_royal_mint_system: Royal Mint System
-    tv_wonder_royal_mint_system_ritual_annex: Royal Mint System Ritual Annex
+      for the Royal Mint.
+    tv_wonder_royal_mint_system: Royal Mint
+    tv_wonder_royal_mint_system_ritual_annex: Royal Mint Ritual Annex
     tv_wonder_royal_mint_system_ritual_annex_desc: An auxiliary ritual annex used
-      to complete the second ceremony branch of the Royal Mint System.
-    tv_wonder_royal_mint_system_desc: An unconsecrated Royal Mint System preserved
+      to complete the second ceremony branch of the Royal Mint.
+    tv_wonder_royal_mint_system_desc: An unconsecrated Royal Mint preserved
       as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_royal_mint_system_level_1: '[tv_wonder_royal_mint_system|E]
       I'
@@ -2458,27 +2445,26 @@ wonder_localization:
       Standard Blessing
     tv_wonder_silver_gold_standard_mint: Silver-Gold Standard
     tv_wonder_silver_gold_standard_mint_desc: The Silver-Gold Standard branch of the
-      Royal Mint System.
+      Royal Mint.
     STATIC_MODIFIER_NAME_tv_wonder_silver_gold_standard_mint_modifier: Silver-Gold
       Standard
     TV_ENGINEERING_CEREMONY_SILVER_GOLD_STANDARD_MINT_BUTTON: Silver-Gold Standard
     TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT_SYSTEM_1: Confirm the Silver-Gold Standard
-      ceremony for the Royal Mint System. +8% 铸币收入.
+      ceremony for the Royal Mint. +8% 铸币收入.
     tv_wonder_copper_coinage_mint: Copper Coinage
-    tv_wonder_copper_coinage_mint_desc: The Copper Coinage branch of the Royal Mint
-      System.
+    tv_wonder_copper_coinage_mint_desc: The Copper Coinage branch of the Royal Mint.
     STATIC_MODIFIER_NAME_tv_wonder_copper_coinage_mint_modifier: Copper Coinage
     TV_ENGINEERING_CEREMONY_COPPER_COINAGE_MINT_BUTTON: Copper Coinage
     TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT_SYSTEM_2: Confirm the Copper Coinage ceremony
-      for the Royal Mint System. +4% 税收收入效率.
+      for the Royal Mint. +4% 税收收入效率.
     tv_wonder_international_settlement_mint: International Settlement
     tv_wonder_international_settlement_mint_desc: The International Settlement branch
-      of the Royal Mint System.
+      of the Royal Mint.
     STATIC_MODIFIER_NAME_tv_wonder_international_settlement_mint_modifier: International
       Settlement
     TV_ENGINEERING_CEREMONY_INTERNATIONAL_SETTLEMENT_MINT_BUTTON: International Settlement
     TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT_SYSTEM_3: Confirm the International Settlement
-      ceremony for the Royal Mint System. +1 外交声誉、+4% 贸易收入.
+      ceremony for the Royal Mint. +1 外交声誉、+4% 贸易收入.
     game_concept_tv_wonder_guild_alliance: Guild Alliance
     game_concept_tv_wonder_guild_alliance_desc: A Guild Alliance is a [tv_wonder_construction|e]
       project focused on 城市商业组织. It prefers 非乡村地点。 Its ceremonies can emphasize Artisan
@@ -3910,7 +3896,7 @@ wonder_localization:
       government. The Sun King's Court Transfer now completes the wonder at its fixed
       historical site. The court transfer greatly increases prestige and centralization
       drift.
-    game_concept_tv_wonder_unique_tenochtitlan_causeways: Tenochtitlan Causeway System
+    game_concept_tv_wonder_unique_tenochtitlan_causeways: Tenochtitlan Causeways
     game_concept_tv_wonder_unique_tenochtitlan_causeways_desc: Causeways, canals,
       aqueducts, and island districts bind the lake city to markets, temples, and
       war. This unique [tv_wonder_construction|e] project must be raised at its fixed
@@ -3928,29 +3914,27 @@ wonder_localization:
       the site's preserved maximum level.
     TV_ENGINEERING_LOCKED_UNIQUE_TENOCHTITLAN_CAUSEWAYS_TEXT: '@lock! Locked Wonder:
       [tv_wonder_unique_tenochtitlan_causeways|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_TENOCHTITLAN_CAUSEWAYS: '@city! Tenochtitlan
-      Causeway System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_TENOCHTITLAN_CAUSEWAYS: '@city! Tenochtitlan Causeways'
     TV_WONDER_LOCK_UNIQUE_TENOCHTITLAN_CAUSEWAYS_TT: Locks [tv_wonder_unique_tenochtitlan_causeways|E]
       as the Engineering Department's active wonder.
-    tv_wonder_unique_tenochtitlan_causeways_foundation: Tenochtitlan Causeway System
+    tv_wonder_unique_tenochtitlan_causeways_foundation: Tenochtitlan Causeways
       Foundation
     tv_wonder_unique_tenochtitlan_causeways_foundation_desc: A preserved foundation
-      module for the Tenochtitlan Causeway System.
-    tv_wonder_unique_tenochtitlan_causeways_body: Tenochtitlan Causeway System Main
+      module for the Tenochtitlan Causeways.
+    tv_wonder_unique_tenochtitlan_causeways_body: Tenochtitlan Causeways Main
       Structure
     tv_wonder_unique_tenochtitlan_causeways_body_desc: A preserved main structure
-      module for the Tenochtitlan Causeway System.
-    tv_wonder_unique_tenochtitlan_causeways_function: Tenochtitlan Causeway System
+      module for the Tenochtitlan Causeways.
+    tv_wonder_unique_tenochtitlan_causeways_function: Tenochtitlan Causeways
       Functional Works
     tv_wonder_unique_tenochtitlan_causeways_function_desc: A preserved functional
-      works module for the Tenochtitlan Causeway System.
-    tv_wonder_unique_tenochtitlan_causeways_decoration: Tenochtitlan Causeway System
+      works module for the Tenochtitlan Causeways.
+    tv_wonder_unique_tenochtitlan_causeways_decoration: Tenochtitlan Causeways
       Crowning Works
     tv_wonder_unique_tenochtitlan_causeways_decoration_desc: A preserved crowning
-      works module for the Tenochtitlan Causeway System.
-    tv_wonder_unique_tenochtitlan_causeways: Tenochtitlan Causeway System
-    tv_wonder_unique_tenochtitlan_causeways_desc: An unconsecrated Tenochtitlan Causeway
-      System preserved as completed construction.
+      works module for the Tenochtitlan Causeways.
+    tv_wonder_unique_tenochtitlan_causeways: Tenochtitlan Causeways
+    tv_wonder_unique_tenochtitlan_causeways_desc: An unconsecrated Tenochtitlan Causeways preserved as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_unique_tenochtitlan_causeways_level_1: '[tv_wonder_unique_tenochtitlan_causeways|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_tenochtitlan_causeways_level_2: '[tv_wonder_unique_tenochtitlan_causeways|E]
@@ -3963,7 +3947,7 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_tenochtitlan_causeways_level_6: '[tv_wonder_unique_tenochtitlan_causeways|E]
       VI'
-    tv_wonder_unique_tenochtitlan_causeways_inaugurated: Tenochtitlan Causeway System
+    tv_wonder_unique_tenochtitlan_causeways_inaugurated: Tenochtitlan Causeways
     tv_wonder_unique_tenochtitlan_causeways_inaugurated_desc: Causeways, canals, aqueducts,
       and island districts bind the lake city to markets, temples, and war.
     STATIC_MODIFIER_NAME_tv_wonder_unique_tenochtitlan_causeways_ceremony_modifier: Great
@@ -3971,7 +3955,7 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_TENOCHTITLAN_CAUSEWAYS_INAUGURATED_BUTTON: Great
       Temple Expansion Sacrifice
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_TENOCHTITLAN_CAUSEWAYS_1: Confirm the Great
-      Temple Expansion Sacrifice ceremony for the Tenochtitlan Causeway System. The
+      Temple Expansion Sacrifice ceremony for the Tenochtitlan Causeways. The
       rite increases movement speed and prosperity..
     tv_engineering_department.500.d_unique_tenochtitlan_causeways: Causeways, canals,
       aqueducts, and island districts bind the lake city to markets, temples, and
@@ -4116,14 +4100,14 @@ wonder_localization:
       must serve pilgrimage without disturbing the center. The Kaaba Rebuilding and
       Covering now completes the wonder at its fixed historical site. The rite greatly
       improves tolerance and conversion.
-    game_concept_tv_wonder_unique_ming_great_wall: Ming Great Wall System
+    game_concept_tv_wonder_unique_ming_great_wall: Ming Great Wall
     game_concept_tv_wonder_unique_ming_great_wall_desc: Walls, passes, garrisons,
       beacon towers, and border towns turn frontier anxiety into masonry and smoke.
       This unique [tv_wonder_construction|e] project must be raised at its fixed historical
       site, follows the same site rules as its generic archetype, and culminates in
       the Nine Garrisons Beacon Lighting ritual sequence.
     TV_ENGINEERING_PROPOSAL_UNIQUE_MING_GREAT_WALL_TEXT: 'The engineer proposes the
-      Ming frontier wall system, a chain of fortification, signals, and military colonies.
+      Ming frontier walls, a chain of fortification, signals, and military colonies.
       Brief: [tv_wonder_unique_ming_great_wall|E], a unique [tv_wonder_medium|E] historical
       wonder at its fixed historical site.'
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_MING_GREAT_WALL_TEXT: The [tv_great_engineer|E]
@@ -4133,24 +4117,23 @@ wonder_localization:
       wants to expand the existing [tv_wonder_unique_ming_great_wall|E] toward the
       site's preserved maximum level.
     TV_ENGINEERING_LOCKED_UNIQUE_MING_GREAT_WALL_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_ming_great_wall|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_MING_GREAT_WALL: '@city! Ming Great Wall
-      System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_MING_GREAT_WALL: '@city! Ming Great Wall'
     TV_WONDER_LOCK_UNIQUE_MING_GREAT_WALL_TT: Locks [tv_wonder_unique_ming_great_wall|E]
       as the Engineering Department's active wonder.
-    tv_wonder_unique_ming_great_wall_foundation: Ming Great Wall System Foundation
+    tv_wonder_unique_ming_great_wall_foundation: Ming Great Wall Foundation
     tv_wonder_unique_ming_great_wall_foundation_desc: A preserved foundation module
-      for the Ming Great Wall System.
-    tv_wonder_unique_ming_great_wall_body: Ming Great Wall System Main Structure
+      for the Ming Great Wall.
+    tv_wonder_unique_ming_great_wall_body: Ming Great Wall Main Structure
     tv_wonder_unique_ming_great_wall_body_desc: A preserved main structure module
-      for the Ming Great Wall System.
-    tv_wonder_unique_ming_great_wall_function: Ming Great Wall System Functional Works
+      for the Ming Great Wall.
+    tv_wonder_unique_ming_great_wall_function: Ming Great Wall Functional Works
     tv_wonder_unique_ming_great_wall_function_desc: A preserved functional works module
-      for the Ming Great Wall System.
-    tv_wonder_unique_ming_great_wall_decoration: Ming Great Wall System Crowning Works
+      for the Ming Great Wall.
+    tv_wonder_unique_ming_great_wall_decoration: Ming Great Wall Crowning Works
     tv_wonder_unique_ming_great_wall_decoration_desc: A preserved crowning works module
-      for the Ming Great Wall System.
-    tv_wonder_unique_ming_great_wall: Ming Great Wall System
-    tv_wonder_unique_ming_great_wall_desc: An unconsecrated Ming Great Wall System
+      for the Ming Great Wall.
+    tv_wonder_unique_ming_great_wall: Ming Great Wall
+    tv_wonder_unique_ming_great_wall_desc: An unconsecrated Ming Great Wall
       preserved as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_unique_ming_great_wall_level_1: '[tv_wonder_unique_ming_great_wall|E]
       I'
@@ -4164,7 +4147,7 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_ming_great_wall_level_6: '[tv_wonder_unique_ming_great_wall|E]
       VI'
-    tv_wonder_unique_ming_great_wall_inaugurated: Ming Great Wall System
+    tv_wonder_unique_ming_great_wall_inaugurated: Ming Great Wall
     tv_wonder_unique_ming_great_wall_inaugurated_desc: Walls, passes, garrisons, beacon
       towers, and border towns turn frontier anxiety into masonry and smoke.
     STATIC_MODIFIER_NAME_tv_wonder_unique_ming_great_wall_ceremony_modifier: Nine
@@ -4172,11 +4155,11 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_MING_GREAT_WALL_INAUGURATED_BUTTON: Nine Garrisons
       Beacon Lighting
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MING_GREAT_WALL_1: Confirm the Nine Garrisons
-      Beacon Lighting ceremony for the Ming Great Wall System. The beacon chain strengthens
+      Beacon Lighting ceremony for the Ming Great Wall. The beacon chain strengthens
       garrisons and army movement..
     tv_engineering_department.500.d_unique_ming_great_wall: Walls, passes, garrisons,
       beacon towers, and border towns turn frontier anxiety into masonry and smoke.
-      The engineer proposes the Ming frontier wall system, a chain of fortification,
+      The engineer proposes the Ming frontier walls, a chain of fortification,
       signals, and military colonies. The Nine Garrisons Beacon Lighting now completes
       the wonder at its fixed historical site. The beacon chain strengthens garrisons
       and army movement.
@@ -4565,7 +4548,7 @@ wonder_localization:
       rule faster than the terrain allowed. The Full Relay Line Dispatch now completes
       the wonder at its fixed historical site. The dispatch improves army movement
       and administrative transmission.
-    game_concept_tv_wonder_unique_roman_aqueducts: Roman Aqueduct System
+    game_concept_tv_wonder_unique_roman_aqueducts: Roman Aqueducts
     game_concept_tv_wonder_unique_roman_aqueducts_desc: Arches march across valleys
       to feed baths, fountains, mills, and the confidence of an urban empire. This
       unique [tv_wonder_construction|e] project must be raised at its fixed historical
@@ -4581,24 +4564,23 @@ wonder_localization:
       wants to expand the existing [tv_wonder_unique_roman_aqueducts|E] toward the
       site's preserved maximum level.
     TV_ENGINEERING_LOCKED_UNIQUE_ROMAN_AQUEDUCTS_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_roman_aqueducts|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ROMAN_AQUEDUCTS: '@city! Roman Aqueduct
-      System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ROMAN_AQUEDUCTS: '@city! Roman Aqueducts'
     TV_WONDER_LOCK_UNIQUE_ROMAN_AQUEDUCTS_TT: Locks [tv_wonder_unique_roman_aqueducts|E]
       as the Engineering Department's active wonder.
-    tv_wonder_unique_roman_aqueducts_foundation: Roman Aqueduct System Foundation
+    tv_wonder_unique_roman_aqueducts_foundation: Roman Aqueducts Foundation
     tv_wonder_unique_roman_aqueducts_foundation_desc: A preserved foundation module
-      for the Roman Aqueduct System.
-    tv_wonder_unique_roman_aqueducts_body: Roman Aqueduct System Main Structure
+      for the Roman Aqueducts.
+    tv_wonder_unique_roman_aqueducts_body: Roman Aqueducts Main Structure
     tv_wonder_unique_roman_aqueducts_body_desc: A preserved main structure module
-      for the Roman Aqueduct System.
-    tv_wonder_unique_roman_aqueducts_function: Roman Aqueduct System Functional Works
+      for the Roman Aqueducts.
+    tv_wonder_unique_roman_aqueducts_function: Roman Aqueducts Functional Works
     tv_wonder_unique_roman_aqueducts_function_desc: A preserved functional works module
-      for the Roman Aqueduct System.
-    tv_wonder_unique_roman_aqueducts_decoration: Roman Aqueduct System Crowning Works
+      for the Roman Aqueducts.
+    tv_wonder_unique_roman_aqueducts_decoration: Roman Aqueducts Crowning Works
     tv_wonder_unique_roman_aqueducts_decoration_desc: A preserved crowning works module
-      for the Roman Aqueduct System.
-    tv_wonder_unique_roman_aqueducts: Roman Aqueduct System
-    tv_wonder_unique_roman_aqueducts_desc: An unconsecrated Roman Aqueduct System
+      for the Roman Aqueducts.
+    tv_wonder_unique_roman_aqueducts: Roman Aqueducts
+    tv_wonder_unique_roman_aqueducts_desc: An unconsecrated Roman Aqueducts
       preserved as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_unique_roman_aqueducts_level_1: '[tv_wonder_unique_roman_aqueducts|E]
       I'
@@ -4612,7 +4594,7 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_roman_aqueducts_level_6: '[tv_wonder_unique_roman_aqueducts|E]
       VI'
-    tv_wonder_unique_roman_aqueducts_inaugurated: Roman Aqueduct System
+    tv_wonder_unique_roman_aqueducts_inaugurated: Roman Aqueducts
     tv_wonder_unique_roman_aqueducts_inaugurated_desc: Arches march across valleys
       to feed baths, fountains, mills, and the confidence of an urban empire.
     STATIC_MODIFIER_NAME_tv_wonder_unique_roman_aqueducts_ceremony_modifier: Aqueduct
@@ -4620,7 +4602,7 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_ROMAN_AQUEDUCTS_INAUGURATED_BUTTON: Aqueduct Opening
       Rite
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ROMAN_AQUEDUCTS_1: Confirm the Aqueduct Opening
-      Rite ceremony for the Roman Aqueduct System. The opening improves prosperity
+      Rite ceremony for the Roman Aqueducts. The opening improves prosperity
       and production efficiency..
     tv_engineering_department.500.d_unique_roman_aqueducts: Arches march across valleys
       to feed baths, fountains, mills, and the confidence of an urban empire. The
@@ -4693,7 +4675,7 @@ wonder_localization:
       tried to make geography negotiable. The Canal Opening Convoy now completes the
       wonder at its fixed historical site. The opening improves trade range and trade
       income.
-    game_concept_tv_wonder_unique_kremlin: Kremlin System
+    game_concept_tv_wonder_unique_kremlin: Moscow Kremlin
     game_concept_tv_wonder_unique_kremlin_desc: Brick walls, towers, cathedrals, armories,
       and palaces compress fortress and sovereignty into one citadel. This unique
       [tv_wonder_construction|e] project must be raised at its fixed historical site,
@@ -4710,23 +4692,23 @@ wonder_localization:
       wants to expand the existing [tv_wonder_unique_kremlin|E] toward the site's
       preserved maximum level.
     TV_ENGINEERING_LOCKED_UNIQUE_KREMLIN_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_kremlin|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_KREMLIN: '@city! Kremlin System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_KREMLIN: '@city! Moscow Kremlin'
     TV_WONDER_LOCK_UNIQUE_KREMLIN_TT: Locks [tv_wonder_unique_kremlin|E] as the Engineering
       Department's active wonder.
-    tv_wonder_unique_kremlin_foundation: Kremlin System Foundation
+    tv_wonder_unique_kremlin_foundation: Moscow Kremlin Foundation
     tv_wonder_unique_kremlin_foundation_desc: A preserved foundation module for the
-      Kremlin System.
-    tv_wonder_unique_kremlin_body: Kremlin System Main Structure
+      Moscow Kremlin.
+    tv_wonder_unique_kremlin_body: Moscow Kremlin Main Structure
     tv_wonder_unique_kremlin_body_desc: A preserved main structure module for the
-      Kremlin System.
-    tv_wonder_unique_kremlin_function: Kremlin System Functional Works
+      Moscow Kremlin.
+    tv_wonder_unique_kremlin_function: Moscow Kremlin Functional Works
     tv_wonder_unique_kremlin_function_desc: A preserved functional works module for
-      the Kremlin System.
-    tv_wonder_unique_kremlin_decoration: Kremlin System Crowning Works
+      the Moscow Kremlin.
+    tv_wonder_unique_kremlin_decoration: Moscow Kremlin Crowning Works
     tv_wonder_unique_kremlin_decoration_desc: A preserved crowning works module for
-      the Kremlin System.
-    tv_wonder_unique_kremlin: Kremlin System
-    tv_wonder_unique_kremlin_desc: An unconsecrated Kremlin System preserved as completed
+      the Moscow Kremlin.
+    tv_wonder_unique_kremlin: Moscow Kremlin
+    tv_wonder_unique_kremlin_desc: An unconsecrated Moscow Kremlin preserved as completed
       construction.
     STATIC_MODIFIER_NAME_tv_wonder_unique_kremlin_level_1: '[tv_wonder_unique_kremlin|E]
       I'
@@ -4740,13 +4722,13 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_kremlin_level_6: '[tv_wonder_unique_kremlin|E]
       VI'
-    tv_wonder_unique_kremlin_inaugurated: Kremlin System
+    tv_wonder_unique_kremlin_inaugurated: Moscow Kremlin
     tv_wonder_unique_kremlin_inaugurated_desc: Brick walls, towers, cathedrals, armories,
       and palaces compress fortress and sovereignty into one citadel.
     STATIC_MODIFIER_NAME_tv_wonder_unique_kremlin_ceremony_modifier: Tsar Coronation
     TV_ENGINEERING_CEREMONY_UNIQUE_KREMLIN_INAUGURATED_BUTTON: Tsar Coronation
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_KREMLIN_1: Confirm the Tsar Coronation ceremony
-      for the Kremlin System. The coronation improves legitimacy and land morale..
+      for the Moscow Kremlin. The coronation improves legitimacy and land morale..
     tv_engineering_department.500.d_unique_kremlin: Brick walls, towers, cathedrals,
       armories, and palaces compress fortress and sovereignty into one citadel. The
       engineer invokes Moscow's Kremlin, where coronation, defense, and state command
@@ -4815,7 +4797,7 @@ wonder_localization:
       organized memory long after its fall. The Sun Pyramid Final Fire Rite now completes
       the wonder at its fixed historical site. The rite increases prestige and true-faith
       tolerance.
-    game_concept_tv_wonder_unique_angkor_hydraulic_system: Angkor Hydraulic System
+    game_concept_tv_wonder_unique_angkor_hydraulic_system: Angkor Waterworks
     game_concept_tv_wonder_unique_angkor_hydraulic_system_desc: Barays, canals, embankments,
       and rice fields make Angkor's sacred city depend on engineered water. This unique
       [tv_wonder_construction|e] project must be raised at its fixed historical site,
@@ -4833,27 +4815,25 @@ wonder_localization:
       the site's preserved maximum level.
     TV_ENGINEERING_LOCKED_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_TEXT: '@lock! Locked Wonder:
       [tv_wonder_unique_angkor_hydraulic_system|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM: '@city! Angkor
-      Hydraulic System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM: '@city! Angkor Waterworks'
     TV_WONDER_LOCK_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_TT: Locks [tv_wonder_unique_angkor_hydraulic_system|E]
       as the Engineering Department's active wonder.
-    tv_wonder_unique_angkor_hydraulic_system_foundation: Angkor Hydraulic System Foundation
+    tv_wonder_unique_angkor_hydraulic_system_foundation: Angkor Waterworks Foundation
     tv_wonder_unique_angkor_hydraulic_system_foundation_desc: A preserved foundation
-      module for the Angkor Hydraulic System.
-    tv_wonder_unique_angkor_hydraulic_system_body: Angkor Hydraulic System Main Structure
+      module for the Angkor Waterworks.
+    tv_wonder_unique_angkor_hydraulic_system_body: Angkor Waterworks Main Structure
     tv_wonder_unique_angkor_hydraulic_system_body_desc: A preserved main structure
-      module for the Angkor Hydraulic System.
-    tv_wonder_unique_angkor_hydraulic_system_function: Angkor Hydraulic System Functional
+      module for the Angkor Waterworks.
+    tv_wonder_unique_angkor_hydraulic_system_function: Angkor Waterworks Functional
       Works
     tv_wonder_unique_angkor_hydraulic_system_function_desc: A preserved functional
-      works module for the Angkor Hydraulic System.
-    tv_wonder_unique_angkor_hydraulic_system_decoration: Angkor Hydraulic System Crowning
+      works module for the Angkor Waterworks.
+    tv_wonder_unique_angkor_hydraulic_system_decoration: Angkor Waterworks Crowning
       Works
     tv_wonder_unique_angkor_hydraulic_system_decoration_desc: A preserved crowning
-      works module for the Angkor Hydraulic System.
-    tv_wonder_unique_angkor_hydraulic_system: Angkor Hydraulic System
-    tv_wonder_unique_angkor_hydraulic_system_desc: An unconsecrated Angkor Hydraulic
-      System preserved as completed construction.
+      works module for the Angkor Waterworks.
+    tv_wonder_unique_angkor_hydraulic_system: Angkor Waterworks
+    tv_wonder_unique_angkor_hydraulic_system_desc: An unconsecrated Angkor Waterworks preserved as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_unique_angkor_hydraulic_system_level_1: '[tv_wonder_unique_angkor_hydraulic_system|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_angkor_hydraulic_system_level_2: '[tv_wonder_unique_angkor_hydraulic_system|E]
@@ -4866,7 +4846,7 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_angkor_hydraulic_system_level_6: '[tv_wonder_unique_angkor_hydraulic_system|E]
       VI'
-    tv_wonder_unique_angkor_hydraulic_system_inaugurated: Angkor Hydraulic System
+    tv_wonder_unique_angkor_hydraulic_system_inaugurated: Angkor Waterworks
     tv_wonder_unique_angkor_hydraulic_system_inaugurated_desc: Barays, canals, embankments,
       and rice fields make Angkor's sacred city depend on engineered water.
     STATIC_MODIFIER_NAME_tv_wonder_unique_angkor_hydraulic_system_ceremony_modifier: West
@@ -4874,7 +4854,7 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_INAUGURATED_BUTTON: West
       Baray Water-Release Rite
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_1: Confirm the West
-      Baray Water-Release Rite ceremony for the Angkor Hydraulic System. The rite
+      Baray Water-Release Rite ceremony for the Angkor Waterworks. The rite
       improves raw-material output and prosperity..
     tv_engineering_department.500.d_unique_angkor_hydraulic_system: Barays, canals,
       embankments, and rice fields make Angkor's sacred city depend on engineered
@@ -4942,7 +4922,7 @@ wonder_localization:
       proposes the Dutch polder works, a collective bargain with water enforced by
       dike and ledger. The Polder Closure now completes the wonder at its fixed historical
       site. The closure improves raw-material output and production efficiency.
-    game_concept_tv_wonder_unique_machu_picchu_terraces: Machu Picchu Terrace System
+    game_concept_tv_wonder_unique_machu_picchu_terraces: Machu Picchu Terraces
     game_concept_tv_wonder_unique_machu_picchu_terraces_desc: Retaining walls, drainage,
       soil layers, and ritual fields make steep mountains feed a royal estate. This
       unique [tv_wonder_construction|e] project must be raised at its fixed historical
@@ -4960,29 +4940,27 @@ wonder_localization:
       the site's preserved maximum level.
     TV_ENGINEERING_LOCKED_UNIQUE_MACHU_PICCHU_TERRACES_TEXT: '@lock! Locked Wonder:
       [tv_wonder_unique_machu_picchu_terraces|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_MACHU_PICCHU_TERRACES: '@city! Machu Picchu
-      Terrace System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_MACHU_PICCHU_TERRACES: '@city! Machu Picchu Terraces'
     TV_WONDER_LOCK_UNIQUE_MACHU_PICCHU_TERRACES_TT: Locks [tv_wonder_unique_machu_picchu_terraces|E]
       as the Engineering Department's active wonder.
-    tv_wonder_unique_machu_picchu_terraces_foundation: Machu Picchu Terrace System
+    tv_wonder_unique_machu_picchu_terraces_foundation: Machu Picchu Terraces
       Foundation
     tv_wonder_unique_machu_picchu_terraces_foundation_desc: A preserved foundation
-      module for the Machu Picchu Terrace System.
-    tv_wonder_unique_machu_picchu_terraces_body: Machu Picchu Terrace System Main
+      module for the Machu Picchu Terraces.
+    tv_wonder_unique_machu_picchu_terraces_body: Machu Picchu Terraces Main
       Structure
     tv_wonder_unique_machu_picchu_terraces_body_desc: A preserved main structure module
-      for the Machu Picchu Terrace System.
-    tv_wonder_unique_machu_picchu_terraces_function: Machu Picchu Terrace System Functional
+      for the Machu Picchu Terraces.
+    tv_wonder_unique_machu_picchu_terraces_function: Machu Picchu Terraces Functional
       Works
     tv_wonder_unique_machu_picchu_terraces_function_desc: A preserved functional works
-      module for the Machu Picchu Terrace System.
-    tv_wonder_unique_machu_picchu_terraces_decoration: Machu Picchu Terrace System
+      module for the Machu Picchu Terraces.
+    tv_wonder_unique_machu_picchu_terraces_decoration: Machu Picchu Terraces
       Crowning Works
     tv_wonder_unique_machu_picchu_terraces_decoration_desc: A preserved crowning works
-      module for the Machu Picchu Terrace System.
-    tv_wonder_unique_machu_picchu_terraces: Machu Picchu Terrace System
-    tv_wonder_unique_machu_picchu_terraces_desc: An unconsecrated Machu Picchu Terrace
-      System preserved as completed construction.
+      module for the Machu Picchu Terraces.
+    tv_wonder_unique_machu_picchu_terraces: Machu Picchu Terraces
+    tv_wonder_unique_machu_picchu_terraces_desc: An unconsecrated Machu Picchu Terraces preserved as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_unique_machu_picchu_terraces_level_1: '[tv_wonder_unique_machu_picchu_terraces|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_machu_picchu_terraces_level_2: '[tv_wonder_unique_machu_picchu_terraces|E]
@@ -4995,7 +4973,7 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_machu_picchu_terraces_level_6: '[tv_wonder_unique_machu_picchu_terraces|E]
       VI'
-    tv_wonder_unique_machu_picchu_terraces_inaugurated: Machu Picchu Terrace System
+    tv_wonder_unique_machu_picchu_terraces_inaugurated: Machu Picchu Terraces
     tv_wonder_unique_machu_picchu_terraces_inaugurated_desc: Retaining walls, drainage,
       soil layers, and ritual fields make steep mountains feed a royal estate.
     STATIC_MODIFIER_NAME_tv_wonder_unique_machu_picchu_terraces_ceremony_modifier: First
@@ -5003,7 +4981,7 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_MACHU_PICCHU_TERRACES_INAUGURATED_BUTTON: First
       Sowing Rite
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MACHU_PICCHU_TERRACES_1: Confirm the First
-      Sowing Rite ceremony for the Machu Picchu Terrace System. The rite improves
+      Sowing Rite ceremony for the Machu Picchu Terraces. The rite improves
       raw-material output and prosperity..
     tv_engineering_department.500.d_unique_machu_picchu_terraces: Retaining walls,
       drainage, soil layers, and ritual fields make steep mountains feed a royal estate.
@@ -5011,7 +4989,7 @@ wonder_localization:
       sacred landscape solved one problem. The First Sowing Rite now completes the
       wonder at its fixed historical site. The rite improves raw-material output and
       prosperity.
-    game_concept_tv_wonder_unique_british_navy_dockyards: British Navy Dockyard System
+    game_concept_tv_wonder_unique_british_navy_dockyards: British Navy Dockyards
     game_concept_tv_wonder_unique_british_navy_dockyards_desc: Dockyards, ropewalks,
       victualling yards, ordnance stores, and officers prepare fleets before war reaches
       the horizon. This unique [tv_wonder_construction|e] project must be raised at
@@ -5029,29 +5007,27 @@ wonder_localization:
       the site's preserved maximum level.
     TV_ENGINEERING_LOCKED_UNIQUE_BRITISH_NAVY_DOCKYARDS_TEXT: '@lock! Locked Wonder:
       [tv_wonder_unique_british_navy_dockyards|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_BRITISH_NAVY_DOCKYARDS: '@city! British
-      Navy Dockyard System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_BRITISH_NAVY_DOCKYARDS: '@city! British Navy Dockyards'
     TV_WONDER_LOCK_UNIQUE_BRITISH_NAVY_DOCKYARDS_TT: Locks [tv_wonder_unique_british_navy_dockyards|E]
       as the Engineering Department's active wonder.
-    tv_wonder_unique_british_navy_dockyards_foundation: British Navy Dockyard System
+    tv_wonder_unique_british_navy_dockyards_foundation: British Navy Dockyards
       Foundation
     tv_wonder_unique_british_navy_dockyards_foundation_desc: A preserved foundation
-      module for the British Navy Dockyard System.
-    tv_wonder_unique_british_navy_dockyards_body: British Navy Dockyard System Main
+      module for the British Navy Dockyards.
+    tv_wonder_unique_british_navy_dockyards_body: British Navy Dockyards Main
       Structure
     tv_wonder_unique_british_navy_dockyards_body_desc: A preserved main structure
-      module for the British Navy Dockyard System.
-    tv_wonder_unique_british_navy_dockyards_function: British Navy Dockyard System
+      module for the British Navy Dockyards.
+    tv_wonder_unique_british_navy_dockyards_function: British Navy Dockyards
       Functional Works
     tv_wonder_unique_british_navy_dockyards_function_desc: A preserved functional
-      works module for the British Navy Dockyard System.
-    tv_wonder_unique_british_navy_dockyards_decoration: British Navy Dockyard System
+      works module for the British Navy Dockyards.
+    tv_wonder_unique_british_navy_dockyards_decoration: British Navy Dockyards
       Crowning Works
     tv_wonder_unique_british_navy_dockyards_decoration_desc: A preserved crowning
-      works module for the British Navy Dockyard System.
-    tv_wonder_unique_british_navy_dockyards: British Navy Dockyard System
-    tv_wonder_unique_british_navy_dockyards_desc: An unconsecrated British Navy Dockyard
-      System preserved as completed construction.
+      works module for the British Navy Dockyards.
+    tv_wonder_unique_british_navy_dockyards: British Navy Dockyards
+    tv_wonder_unique_british_navy_dockyards_desc: An unconsecrated British Navy Dockyards preserved as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_unique_british_navy_dockyards_level_1: '[tv_wonder_unique_british_navy_dockyards|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_british_navy_dockyards_level_2: '[tv_wonder_unique_british_navy_dockyards|E]
@@ -5064,7 +5040,7 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_british_navy_dockyards_level_6: '[tv_wonder_unique_british_navy_dockyards|E]
       VI'
-    tv_wonder_unique_british_navy_dockyards_inaugurated: British Navy Dockyard System
+    tv_wonder_unique_british_navy_dockyards_inaugurated: British Navy Dockyards
     tv_wonder_unique_british_navy_dockyards_inaugurated_desc: Dockyards, ropewalks,
       victualling yards, ordnance stores, and officers prepare fleets before war reaches
       the horizon.
@@ -5073,7 +5049,7 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_BRITISH_NAVY_DOCKYARDS_INAUGURATED_BUTTON: Armada
       Readiness Muster
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_BRITISH_NAVY_DOCKYARDS_1: Confirm the Armada
-      Readiness Muster ceremony for the British Navy Dockyard System. The muster accelerates
+      Readiness Muster ceremony for the British Navy Dockyards. The muster accelerates
       shipbuilding and improves naval morale..
     tv_engineering_department.500.d_unique_british_navy_dockyards: Dockyards, ropewalks,
       victualling yards, ordnance stores, and officers prepare fleets before war reaches
@@ -5081,14 +5057,14 @@ wonder_localization:
       naval readiness became a permanent institution. The Armada Readiness Muster
       now completes the wonder at its fixed historical site. The muster accelerates
       shipbuilding and improves naval morale.
-    game_concept_tv_wonder_unique_spanish_silver_fleet: Spanish Silver Fleet System
+    game_concept_tv_wonder_unique_spanish_silver_fleet: Spanish Silver Fleet
     game_concept_tv_wonder_unique_spanish_silver_fleet_desc: Convoys, ledgers, fortified
       ports, and royal warehouses make Atlantic silver move under guard and seal.
       This unique [tv_wonder_construction|e] project must be raised at its fixed historical
       site, follows the same site rules as its generic archetype, and culminates in
       the Silver Fleet Homecoming ritual sequence.
     TV_ENGINEERING_PROPOSAL_UNIQUE_SPANISH_SILVER_FLEET_TEXT: 'The engineer proposes
-      Seville''s silver fleet system, where empire became a scheduled convoy of bullion
+      Seville''s silver fleet, where empire became a scheduled convoy of bullion
       and paperwork. Brief: [tv_wonder_unique_spanish_silver_fleet|E], a unique [tv_wonder_large|E]
       historical wonder at its fixed historical site.'
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_SPANISH_SILVER_FLEET_TEXT: The [tv_great_engineer|E]
@@ -5099,28 +5075,26 @@ wonder_localization:
       the site's preserved maximum level.
     TV_ENGINEERING_LOCKED_UNIQUE_SPANISH_SILVER_FLEET_TEXT: '@lock! Locked Wonder:
       [tv_wonder_unique_spanish_silver_fleet|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_SPANISH_SILVER_FLEET: '@city! Spanish Silver
-      Fleet System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_SPANISH_SILVER_FLEET: '@city! Spanish Silver Fleet'
     TV_WONDER_LOCK_UNIQUE_SPANISH_SILVER_FLEET_TT: Locks [tv_wonder_unique_spanish_silver_fleet|E]
       as the Engineering Department's active wonder.
-    tv_wonder_unique_spanish_silver_fleet_foundation: Spanish Silver Fleet System
+    tv_wonder_unique_spanish_silver_fleet_foundation: Spanish Silver Fleet
       Foundation
     tv_wonder_unique_spanish_silver_fleet_foundation_desc: A preserved foundation
-      module for the Spanish Silver Fleet System.
-    tv_wonder_unique_spanish_silver_fleet_body: Spanish Silver Fleet System Main Structure
+      module for the Spanish Silver Fleet.
+    tv_wonder_unique_spanish_silver_fleet_body: Spanish Silver Fleet Main Structure
     tv_wonder_unique_spanish_silver_fleet_body_desc: A preserved main structure module
-      for the Spanish Silver Fleet System.
-    tv_wonder_unique_spanish_silver_fleet_function: Spanish Silver Fleet System Functional
+      for the Spanish Silver Fleet.
+    tv_wonder_unique_spanish_silver_fleet_function: Spanish Silver Fleet Functional
       Works
     tv_wonder_unique_spanish_silver_fleet_function_desc: A preserved functional works
-      module for the Spanish Silver Fleet System.
-    tv_wonder_unique_spanish_silver_fleet_decoration: Spanish Silver Fleet System
+      module for the Spanish Silver Fleet.
+    tv_wonder_unique_spanish_silver_fleet_decoration: Spanish Silver Fleet
       Crowning Works
     tv_wonder_unique_spanish_silver_fleet_decoration_desc: A preserved crowning works
-      module for the Spanish Silver Fleet System.
-    tv_wonder_unique_spanish_silver_fleet: Spanish Silver Fleet System
-    tv_wonder_unique_spanish_silver_fleet_desc: An unconsecrated Spanish Silver Fleet
-      System preserved as completed construction.
+      module for the Spanish Silver Fleet.
+    tv_wonder_unique_spanish_silver_fleet: Spanish Silver Fleet
+    tv_wonder_unique_spanish_silver_fleet_desc: An unconsecrated Spanish Silver Fleet preserved as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_unique_spanish_silver_fleet_level_1: '[tv_wonder_unique_spanish_silver_fleet|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_spanish_silver_fleet_level_2: '[tv_wonder_unique_spanish_silver_fleet|E]
@@ -5133,7 +5107,7 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_spanish_silver_fleet_level_6: '[tv_wonder_unique_spanish_silver_fleet|E]
       VI'
-    tv_wonder_unique_spanish_silver_fleet_inaugurated: Spanish Silver Fleet System
+    tv_wonder_unique_spanish_silver_fleet_inaugurated: Spanish Silver Fleet
     tv_wonder_unique_spanish_silver_fleet_inaugurated_desc: Convoys, ledgers, fortified
       ports, and royal warehouses make Atlantic silver move under guard and seal.
     STATIC_MODIFIER_NAME_tv_wonder_unique_spanish_silver_fleet_ceremony_modifier: Silver
@@ -5141,15 +5115,15 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_SPANISH_SILVER_FLEET_INAUGURATED_BUTTON: Silver
       Fleet Homecoming
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_SPANISH_SILVER_FLEET_1: Confirm the Silver
-      Fleet Homecoming ceremony for the Spanish Silver Fleet System. The homecoming
+      Fleet Homecoming ceremony for the Spanish Silver Fleet. The homecoming
       increases trade income and minting income..
     tv_engineering_department.500.d_unique_spanish_silver_fleet: Convoys, ledgers,
       fortified ports, and royal warehouses make Atlantic silver move under guard
-      and seal. The engineer proposes Seville's silver fleet system, where empire
+      and seal. The engineer proposes Seville's silver fleet, where empire
       became a scheduled convoy of bullion and paperwork. The Silver Fleet Homecoming
       now completes the wonder at its fixed historical site. The homecoming increases
       trade income and minting income.
-    game_concept_tv_wonder_unique_ottoman_hajj_road: Ottoman Hajj Road System
+    game_concept_tv_wonder_unique_ottoman_hajj_road: Ottoman Hajj Road
     game_concept_tv_wonder_unique_ottoman_hajj_road_desc: Caravan roads, forts, wells,
       banners, and imperial subsidies bind pilgrimage to state logistics. This unique
       [tv_wonder_construction|e] project must be raised at its fixed historical site,
@@ -5166,26 +5140,25 @@ wonder_localization:
       wants to expand the existing [tv_wonder_unique_ottoman_hajj_road|E] toward the
       site's preserved maximum level.
     TV_ENGINEERING_LOCKED_UNIQUE_OTTOMAN_HAJJ_ROAD_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_ottoman_hajj_road|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_OTTOMAN_HAJJ_ROAD: '@city! Ottoman Hajj
-      Road System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_OTTOMAN_HAJJ_ROAD: '@city! Ottoman Hajj Road'
     TV_WONDER_LOCK_UNIQUE_OTTOMAN_HAJJ_ROAD_TT: Locks [tv_wonder_unique_ottoman_hajj_road|E]
       as the Engineering Department's active wonder.
-    tv_wonder_unique_ottoman_hajj_road_foundation: Ottoman Hajj Road System Foundation
+    tv_wonder_unique_ottoman_hajj_road_foundation: Ottoman Hajj Road Foundation
     tv_wonder_unique_ottoman_hajj_road_foundation_desc: A preserved foundation module
-      for the Ottoman Hajj Road System.
-    tv_wonder_unique_ottoman_hajj_road_body: Ottoman Hajj Road System Main Structure
+      for the Ottoman Hajj Road.
+    tv_wonder_unique_ottoman_hajj_road_body: Ottoman Hajj Road Main Structure
     tv_wonder_unique_ottoman_hajj_road_body_desc: A preserved main structure module
-      for the Ottoman Hajj Road System.
-    tv_wonder_unique_ottoman_hajj_road_function: Ottoman Hajj Road System Functional
+      for the Ottoman Hajj Road.
+    tv_wonder_unique_ottoman_hajj_road_function: Ottoman Hajj Road Functional
       Works
     tv_wonder_unique_ottoman_hajj_road_function_desc: A preserved functional works
-      module for the Ottoman Hajj Road System.
-    tv_wonder_unique_ottoman_hajj_road_decoration: Ottoman Hajj Road System Crowning
+      module for the Ottoman Hajj Road.
+    tv_wonder_unique_ottoman_hajj_road_decoration: Ottoman Hajj Road Crowning
       Works
     tv_wonder_unique_ottoman_hajj_road_decoration_desc: A preserved crowning works
-      module for the Ottoman Hajj Road System.
-    tv_wonder_unique_ottoman_hajj_road: Ottoman Hajj Road System
-    tv_wonder_unique_ottoman_hajj_road_desc: An unconsecrated Ottoman Hajj Road System
+      module for the Ottoman Hajj Road.
+    tv_wonder_unique_ottoman_hajj_road: Ottoman Hajj Road
+    tv_wonder_unique_ottoman_hajj_road_desc: An unconsecrated Ottoman Hajj Road
       preserved as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_unique_ottoman_hajj_road_level_1: '[tv_wonder_unique_ottoman_hajj_road|E]
       I'
@@ -5199,7 +5172,7 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_ottoman_hajj_road_level_6: '[tv_wonder_unique_ottoman_hajj_road|E]
       VI'
-    tv_wonder_unique_ottoman_hajj_road_inaugurated: Ottoman Hajj Road System
+    tv_wonder_unique_ottoman_hajj_road_inaugurated: Ottoman Hajj Road
     tv_wonder_unique_ottoman_hajj_road_inaugurated_desc: Caravan roads, forts, wells,
       banners, and imperial subsidies bind pilgrimage to state logistics.
     STATIC_MODIFIER_NAME_tv_wonder_unique_ottoman_hajj_road_ceremony_modifier: Hajj
@@ -5207,7 +5180,7 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_OTTOMAN_HAJJ_ROAD_INAUGURATED_BUTTON: Hajj Departure
       Rite
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_OTTOMAN_HAJJ_ROAD_1: Confirm the Hajj Departure
-      Rite ceremony for the Ottoman Hajj Road System. The rite improves tolerance
+      Rite ceremony for the Ottoman Hajj Road. The rite improves tolerance
       and administrative transmission..
     tv_engineering_department.500.d_unique_ottoman_hajj_road: Caravan roads, forts,
       wells, banners, and imperial subsidies bind pilgrimage to state logistics. The
@@ -5343,14 +5316,14 @@ wonder_localization:
       fleets large enough to change horizons. The Zheng He's Voyages Departure now
       completes the wonder at its fixed historical site. The departure improves naval
       range and shipbuilding speed.
-    game_concept_tv_wonder_unique_jerusalem_holy_city: Jerusalem Holy City System
+    game_concept_tv_wonder_unique_jerusalem_holy_city: Holy City of Jerusalem
     game_concept_tv_wonder_unique_jerusalem_holy_city_desc: Walls, shrines, quarters,
       gates, and processions make one city carry several maps of sacred authority.
       This unique [tv_wonder_construction|e] project must be raised at its fixed historical
       site, follows the same site rules as its generic archetype, and culminates in
       the Holy City Power Transfer ritual sequence.
     TV_ENGINEERING_PROPOSAL_UNIQUE_JERUSALEM_HOLY_CITY_TEXT: 'The engineer proposes
-      Jerusalem as a holy-city system, where each transfer of power had to negotiate
+      Jerusalem as a holy city, where each transfer of power had to negotiate
       memory before stone. Brief: [tv_wonder_unique_jerusalem_holy_city|E], a unique
       [tv_wonder_large|E] historical wonder at its fixed historical site.'
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_JERUSALEM_HOLY_CITY_TEXT: The [tv_great_engineer|E]
@@ -5361,27 +5334,25 @@ wonder_localization:
       the site's preserved maximum level.
     TV_ENGINEERING_LOCKED_UNIQUE_JERUSALEM_HOLY_CITY_TEXT: '@lock! Locked Wonder:
       [tv_wonder_unique_jerusalem_holy_city|E].'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_JERUSALEM_HOLY_CITY: '@city! Jerusalem Holy
-      City System'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_JERUSALEM_HOLY_CITY: '@city! Holy City of Jerusalem'
     TV_WONDER_LOCK_UNIQUE_JERUSALEM_HOLY_CITY_TT: Locks [tv_wonder_unique_jerusalem_holy_city|E]
       as the Engineering Department's active wonder.
-    tv_wonder_unique_jerusalem_holy_city_foundation: Jerusalem Holy City System Foundation
+    tv_wonder_unique_jerusalem_holy_city_foundation: Holy City of Jerusalem Foundation
     tv_wonder_unique_jerusalem_holy_city_foundation_desc: A preserved foundation module
-      for the Jerusalem Holy City System.
-    tv_wonder_unique_jerusalem_holy_city_body: Jerusalem Holy City System Main Structure
+      for the Holy City of Jerusalem.
+    tv_wonder_unique_jerusalem_holy_city_body: Holy City of Jerusalem Main Structure
     tv_wonder_unique_jerusalem_holy_city_body_desc: A preserved main structure module
-      for the Jerusalem Holy City System.
-    tv_wonder_unique_jerusalem_holy_city_function: Jerusalem Holy City System Functional
+      for the Holy City of Jerusalem.
+    tv_wonder_unique_jerusalem_holy_city_function: Holy City of Jerusalem Functional
       Works
     tv_wonder_unique_jerusalem_holy_city_function_desc: A preserved functional works
-      module for the Jerusalem Holy City System.
-    tv_wonder_unique_jerusalem_holy_city_decoration: Jerusalem Holy City System Crowning
+      module for the Holy City of Jerusalem.
+    tv_wonder_unique_jerusalem_holy_city_decoration: Holy City of Jerusalem Crowning
       Works
     tv_wonder_unique_jerusalem_holy_city_decoration_desc: A preserved crowning works
-      module for the Jerusalem Holy City System.
-    tv_wonder_unique_jerusalem_holy_city: Jerusalem Holy City System
-    tv_wonder_unique_jerusalem_holy_city_desc: An unconsecrated Jerusalem Holy City
-      System preserved as completed construction.
+      module for the Holy City of Jerusalem.
+    tv_wonder_unique_jerusalem_holy_city: Holy City of Jerusalem
+    tv_wonder_unique_jerusalem_holy_city_desc: An unconsecrated Holy City of Jerusalem preserved as completed construction.
     STATIC_MODIFIER_NAME_tv_wonder_unique_jerusalem_holy_city_level_1: '[tv_wonder_unique_jerusalem_holy_city|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_jerusalem_holy_city_level_2: '[tv_wonder_unique_jerusalem_holy_city|E]
@@ -5394,7 +5365,7 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_jerusalem_holy_city_level_6: '[tv_wonder_unique_jerusalem_holy_city|E]
       VI'
-    tv_wonder_unique_jerusalem_holy_city_inaugurated: Jerusalem Holy City System
+    tv_wonder_unique_jerusalem_holy_city_inaugurated: Holy City of Jerusalem
     tv_wonder_unique_jerusalem_holy_city_inaugurated_desc: Walls, shrines, quarters,
       gates, and processions make one city carry several maps of sacred authority.
     STATIC_MODIFIER_NAME_tv_wonder_unique_jerusalem_holy_city_ceremony_modifier: Holy
@@ -5402,11 +5373,11 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_JERUSALEM_HOLY_CITY_INAUGURATED_BUTTON: Holy City
       Power Transfer
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_JERUSALEM_HOLY_CITY_1: Confirm the Holy City
-      Power Transfer ceremony for the Jerusalem Holy City System. The transfer improves
+      Power Transfer ceremony for the Holy City of Jerusalem. The transfer improves
       tolerance, diplomacy, and prestige..
     tv_engineering_department.500.d_unique_jerusalem_holy_city: Walls, shrines, quarters,
       gates, and processions make one city carry several maps of sacred authority.
-      The engineer proposes Jerusalem as a holy-city system, where each transfer of
+      The engineer proposes Jerusalem as a holy city, where each transfer of
       power had to negotiate memory before stone. The Holy City Power Transfer now
       completes the wonder at its fixed historical site. The transfer improves tolerance,
       diplomacy, and prestige.
@@ -5810,7 +5781,7 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_ECLIPSE_OBSERVATORY_BUTTON: 日食宣告
     TV_ENGINEERING_ACTIVE_RITUAL_GIANT_OBSERVATORY_3: 确认巨型天文观象台的日食宣告仪式。无永久修正，但日食事件提供
       +100 威望。
-    TV_ENGINEERING_PROPOSAL_PALACE_OF_NATIONS_TEXT: 简报：[tv_wonder_palace_of_nations|E]，定位于外交朝会、贡礼体系的[tv_wonder_medium|E]工程。
+    TV_ENGINEERING_PROPOSAL_PALACE_OF_NATIONS_TEXT: 简报：[tv_wonder_palace_of_nations|E]，定位于外交朝会、贡礼秩序的[tv_wonder_medium|E]工程。
     TV_ENGINEERING_PROPOSAL_RESUME_PALACE_OF_NATIONS_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_palace_of_nations|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_PALACE_OF_NATIONS_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_palace_of_nations|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_PALACE_OF_NATIONS_TEXT: '@lock! 已锁定奇观：[tv_wonder_palace_of_nations|E]。'
@@ -6274,26 +6245,26 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_legal_deposit_library_modifier: 法定缴存
     TV_ENGINEERING_CEREMONY_LEGAL_DEPOSIT_LIBRARY_BUTTON: 法定缴存
     TV_ENGINEERING_ACTIVE_RITUAL_LIBRARY_OF_NATION_3: 确认国家图书馆的法定缴存仪式。+5% 全局人口升级速度修正。
-    game_concept_tv_wonder_large_canal_system: 大型水渠体系
-    game_concept_tv_wonder_large_canal_system_desc: 大型水渠体系是一项聚焦农业、运输、防灾的[tv_wonder_construction|e]项目。它偏好河流或湖泊沿岸。仪式可转向灌溉优先、漕运优先、防洪优先。
+    game_concept_tv_wonder_large_canal_system: 大型水渠
+    game_concept_tv_wonder_large_canal_system_desc: 大型水渠是一项聚焦农业、运输、防灾的[tv_wonder_construction|e]项目。它偏好河流或湖泊沿岸。仪式可转向灌溉优先、漕运优先、防洪优先。
     TV_ENGINEERING_PROPOSAL_LARGE_CANAL_SYSTEM_TEXT: 简报：[tv_wonder_large_canal_system|E]，定位于农业、运输、防灾的[tv_wonder_large|E]工程。
     TV_ENGINEERING_PROPOSAL_RESUME_LARGE_CANAL_SYSTEM_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_large_canal_system|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_LARGE_CANAL_SYSTEM_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_large_canal_system|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_LARGE_CANAL_SYSTEM_TEXT: '@lock! 已锁定奇观：[tv_wonder_large_canal_system|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_LARGE_CANAL_SYSTEM: '@city! 大型水渠体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_LARGE_CANAL_SYSTEM: '@city! 大型水渠'
     TV_WONDER_LOCK_LARGE_CANAL_SYSTEM_TT: 将[tv_wonder_large_canal_system|E]锁定为工程部当前奇观。
-    tv_wonder_large_canal_system_foundation: 大型水渠体系基础
-    tv_wonder_large_canal_system_foundation_desc: 大型水渠体系已经保留下来的基础模块。
-    tv_wonder_large_canal_system_body: 大型水渠体系主体
-    tv_wonder_large_canal_system_body_desc: 大型水渠体系已经保留下来的主体模块。
-    tv_wonder_large_canal_system_function: 大型水渠体系功能
-    tv_wonder_large_canal_system_function_desc: 大型水渠体系已经保留下来的功能模块。
-    tv_wonder_large_canal_system_decoration: 大型水渠体系封顶装饰
-    tv_wonder_large_canal_system_decoration_desc: 大型水渠体系已经保留下来的封顶装饰模块。
-    tv_wonder_large_canal_system: 大型水渠体系
-    tv_wonder_large_canal_system_ritual_annex: 大型水渠体系仪式附属建筑
-    tv_wonder_large_canal_system_ritual_annex_desc: 用于完成大型水渠体系第二仪式分支的附属建筑。
-    tv_wonder_large_canal_system_desc: 尚未落成、但已作为完整工程保留下来的大型水渠体系。
+    tv_wonder_large_canal_system_foundation: 大型水渠基础
+    tv_wonder_large_canal_system_foundation_desc: 大型水渠已经保留下来的基础模块。
+    tv_wonder_large_canal_system_body: 大型水渠主体
+    tv_wonder_large_canal_system_body_desc: 大型水渠已经保留下来的主体模块。
+    tv_wonder_large_canal_system_function: 大型水渠功能
+    tv_wonder_large_canal_system_function_desc: 大型水渠已经保留下来的功能模块。
+    tv_wonder_large_canal_system_decoration: 大型水渠封顶装饰
+    tv_wonder_large_canal_system_decoration_desc: 大型水渠已经保留下来的封顶装饰模块。
+    tv_wonder_large_canal_system: 大型水渠
+    tv_wonder_large_canal_system_ritual_annex: 大型水渠仪式附属建筑
+    tv_wonder_large_canal_system_ritual_annex_desc: 用于完成大型水渠第二仪式分支的附属建筑。
+    tv_wonder_large_canal_system_desc: 尚未落成、但已作为完整工程保留下来的大型水渠。
     STATIC_MODIFIER_NAME_tv_wonder_large_canal_system_level_1: '[tv_wonder_large_canal_system|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_large_canal_system_level_2: '[tv_wonder_large_canal_system|E]
@@ -6309,20 +6280,20 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_large_canal_system_ritual_burden_modifier: 灌溉优先仪式负担
     STATIC_MODIFIER_NAME_tv_wonder_large_canal_system_ritual_blessing_modifier: 灌溉优先永久祝福
     tv_wonder_irrigation_canal_system: 灌溉优先
-    tv_wonder_irrigation_canal_system_desc: 大型水渠体系的灌溉优先仪式分支。
+    tv_wonder_irrigation_canal_system_desc: 大型水渠的灌溉优先仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_irrigation_canal_system_modifier: 灌溉优先
     TV_ENGINEERING_CEREMONY_IRRIGATION_CANAL_SYSTEM_BUTTON: 灌溉优先
-    TV_ENGINEERING_ACTIVE_RITUAL_LARGE_CANAL_SYSTEM_1: 确认大型水渠体系的灌溉优先仪式。+5% 全局原料产出。
+    TV_ENGINEERING_ACTIVE_RITUAL_LARGE_CANAL_SYSTEM_1: 确认大型水渠的灌溉优先仪式。+5% 全局原料产出。
     tv_wonder_grain_transport_canal_system: 漕运优先
-    tv_wonder_grain_transport_canal_system_desc: 大型水渠体系的漕运优先仪式分支。
+    tv_wonder_grain_transport_canal_system_desc: 大型水渠的漕运优先仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_grain_transport_canal_system_modifier: 漕运优先
     TV_ENGINEERING_CEREMONY_GRAIN_TRANSPORT_CANAL_SYSTEM_BUTTON: 漕运优先
-    TV_ENGINEERING_ACTIVE_RITUAL_LARGE_CANAL_SYSTEM_2: 确认大型水渠体系的漕运优先仪式。+5% 贸易收入。
+    TV_ENGINEERING_ACTIVE_RITUAL_LARGE_CANAL_SYSTEM_2: 确认大型水渠的漕运优先仪式。+5% 贸易收入。
     tv_wonder_flood_control_canal_system: 防洪优先
-    tv_wonder_flood_control_canal_system_desc: 大型水渠体系的防洪优先仪式分支。
+    tv_wonder_flood_control_canal_system_desc: 大型水渠的防洪优先仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_flood_control_canal_system_modifier: 防洪优先
     TV_ENGINEERING_CEREMONY_FLOOD_CONTROL_CANAL_SYSTEM_BUTTON: 防洪优先
-    TV_ENGINEERING_ACTIVE_RITUAL_LARGE_CANAL_SYSTEM_3: 确认大型水渠体系的防洪优先仪式。+5% 人口加入叛军阈值。
+    TV_ENGINEERING_ACTIVE_RITUAL_LARGE_CANAL_SYSTEM_3: 确认大型水渠的防洪优先仪式。+5% 人口加入叛军阈值。
     game_concept_tv_wonder_mountain_terrace_network: 山地梯田网络
     game_concept_tv_wonder_mountain_terrace_network_desc: 山地梯田网络是一项聚焦高地开发、人口承载的[tv_wonder_construction|e]项目。它偏好山地、高原或丘陵。仪式可转向粮食梯田、经济作物梯田、圣山梯田。
     TV_ENGINEERING_PROPOSAL_MOUNTAIN_TERRACE_NETWORK_TEXT: 简报：[tv_wonder_mountain_terrace_network|E]，定位于高地开发、人口承载的[tv_wonder_medium|E]工程。
@@ -6422,26 +6393,26 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_water_powered_workshops_modifier: 水力驱动工坊
     TV_ENGINEERING_CEREMONY_WATER_POWERED_WORKSHOPS_BUTTON: 水力驱动工坊
     TV_ENGINEERING_ACTIVE_RITUAL_GIANT_DAM_PROJECT_3: 确认巨型堤坝工程的水力驱动工坊仪式。+5% 全局生产效率。
-    game_concept_tv_wonder_royal_granary_system: 皇家粮仓体系
-    game_concept_tv_wonder_royal_granary_system_desc: 皇家粮仓体系是一项聚焦抗饥荒、国家调控的[tv_wonder_construction|e]项目。它偏好任意非荒芜的己方地点。仪式可转向平抑粮价、战时储备、赈灾体系。
+    game_concept_tv_wonder_royal_granary_system: 皇家粮仓
+    game_concept_tv_wonder_royal_granary_system_desc: 皇家粮仓是一项聚焦抗饥荒、国家调控的[tv_wonder_construction|e]项目。它偏好任意非荒芜的己方地点。仪式可转向平抑粮价、战时储备、赈灾。
     TV_ENGINEERING_PROPOSAL_ROYAL_GRANARY_SYSTEM_TEXT: 简报：[tv_wonder_royal_granary_system|E]，定位于抗饥荒、国家调控的[tv_wonder_medium|E]工程。
     TV_ENGINEERING_PROPOSAL_RESUME_ROYAL_GRANARY_SYSTEM_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_royal_granary_system|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_ROYAL_GRANARY_SYSTEM_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_royal_granary_system|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_ROYAL_GRANARY_SYSTEM_TEXT: '@lock! 已锁定奇观：[tv_wonder_royal_granary_system|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_ROYAL_GRANARY_SYSTEM: '@city! 皇家粮仓体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_ROYAL_GRANARY_SYSTEM: '@city! 皇家粮仓'
     TV_WONDER_LOCK_ROYAL_GRANARY_SYSTEM_TT: 将[tv_wonder_royal_granary_system|E]锁定为工程部当前奇观。
-    tv_wonder_royal_granary_system_foundation: 皇家粮仓体系基础
-    tv_wonder_royal_granary_system_foundation_desc: 皇家粮仓体系已经保留下来的基础模块。
-    tv_wonder_royal_granary_system_body: 皇家粮仓体系主体
-    tv_wonder_royal_granary_system_body_desc: 皇家粮仓体系已经保留下来的主体模块。
-    tv_wonder_royal_granary_system_function: 皇家粮仓体系功能
-    tv_wonder_royal_granary_system_function_desc: 皇家粮仓体系已经保留下来的功能模块。
-    tv_wonder_royal_granary_system_decoration: 皇家粮仓体系封顶装饰
-    tv_wonder_royal_granary_system_decoration_desc: 皇家粮仓体系已经保留下来的封顶装饰模块。
-    tv_wonder_royal_granary_system: 皇家粮仓体系
-    tv_wonder_royal_granary_system_ritual_annex: 皇家粮仓体系仪式附属建筑
-    tv_wonder_royal_granary_system_ritual_annex_desc: 用于完成皇家粮仓体系第二仪式分支的附属建筑。
-    tv_wonder_royal_granary_system_desc: 尚未落成、但已作为完整工程保留下来的皇家粮仓体系。
+    tv_wonder_royal_granary_system_foundation: 皇家粮仓基础
+    tv_wonder_royal_granary_system_foundation_desc: 皇家粮仓已经保留下来的基础模块。
+    tv_wonder_royal_granary_system_body: 皇家粮仓主体
+    tv_wonder_royal_granary_system_body_desc: 皇家粮仓已经保留下来的主体模块。
+    tv_wonder_royal_granary_system_function: 皇家粮仓功能
+    tv_wonder_royal_granary_system_function_desc: 皇家粮仓已经保留下来的功能模块。
+    tv_wonder_royal_granary_system_decoration: 皇家粮仓封顶装饰
+    tv_wonder_royal_granary_system_decoration_desc: 皇家粮仓已经保留下来的封顶装饰模块。
+    tv_wonder_royal_granary_system: 皇家粮仓
+    tv_wonder_royal_granary_system_ritual_annex: 皇家粮仓仪式附属建筑
+    tv_wonder_royal_granary_system_ritual_annex_desc: 用于完成皇家粮仓第二仪式分支的附属建筑。
+    tv_wonder_royal_granary_system_desc: 尚未落成、但已作为完整工程保留下来的皇家粮仓。
     STATIC_MODIFIER_NAME_tv_wonder_royal_granary_system_level_1: '[tv_wonder_royal_granary_system|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_royal_granary_system_level_2: '[tv_wonder_royal_granary_system|E]
@@ -6457,20 +6428,20 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_royal_granary_system_ritual_burden_modifier: 平抑粮价仪式负担
     STATIC_MODIFIER_NAME_tv_wonder_royal_granary_system_ritual_blessing_modifier: 平抑粮价永久祝福
     tv_wonder_grain_price_granaries: 平抑粮价
-    tv_wonder_grain_price_granaries_desc: 皇家粮仓体系的平抑粮价仪式分支。
+    tv_wonder_grain_price_granaries_desc: 皇家粮仓的平抑粮价仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_grain_price_granaries_modifier: 平抑粮价
     TV_ENGINEERING_CEREMONY_GRAIN_PRICE_GRANARIES_BUTTON: 平抑粮价
-    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_GRANARY_SYSTEM_1: 确认皇家粮仓体系的平抑粮价仪式。+4% 税收收入效率。
+    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_GRANARY_SYSTEM_1: 确认皇家粮仓的平抑粮价仪式。+4% 税收收入效率。
     tv_wonder_wartime_granaries: 战时储备
-    tv_wonder_wartime_granaries_desc: 皇家粮仓体系的战时储备仪式分支。
+    tv_wonder_wartime_granaries_desc: 皇家粮仓的战时储备仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_wartime_granaries_modifier: 战时储备
     TV_ENGINEERING_CEREMONY_WARTIME_GRANARIES_BUTTON: 战时储备
-    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_GRANARY_SYSTEM_2: 确认皇家粮仓体系的战时储备仪式。+8% 全局人力。
-    tv_wonder_disaster_relief_granaries: 赈灾体系
-    tv_wonder_disaster_relief_granaries_desc: 皇家粮仓体系的赈灾体系仪式分支。
-    STATIC_MODIFIER_NAME_tv_wonder_disaster_relief_granaries_modifier: 赈灾体系
-    TV_ENGINEERING_CEREMONY_DISASTER_RELIEF_GRANARIES_BUTTON: 赈灾体系
-    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_GRANARY_SYSTEM_3: 确认皇家粮仓体系的赈灾体系仪式。+5% 人口加入叛军阈值。
+    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_GRANARY_SYSTEM_2: 确认皇家粮仓的战时储备仪式。+8% 全局人力。
+    tv_wonder_disaster_relief_granaries: 赈灾
+    tv_wonder_disaster_relief_granaries_desc: 皇家粮仓的赈灾仪式分支。
+    STATIC_MODIFIER_NAME_tv_wonder_disaster_relief_granaries_modifier: 赈灾
+    TV_ENGINEERING_CEREMONY_DISASTER_RELIEF_GRANARIES_BUTTON: 赈灾
+    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_GRANARY_SYSTEM_3: 确认皇家粮仓的赈灾仪式。+5% 人口加入叛军阈值。
     game_concept_tv_wonder_imperial_post_road_network: 帝国驿道网络
     game_concept_tv_wonder_imperial_post_road_network_desc: 帝国驿道网络是一项聚焦行政、通信、军队调动的[tv_wonder_construction|e]项目。它偏好任意己方地点。仪式可转向军事驿道、商贸驿道、皇家巡游大道。
     TV_ENGINEERING_PROPOSAL_IMPERIAL_POST_ROAD_NETWORK_TEXT: 简报：[tv_wonder_imperial_post_road_network|E]，定位于行政、通信、军队调动的[tv_wonder_large|E]工程。
@@ -6674,7 +6645,7 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_CUSTOMS_PATROL_NETWORK_BUTTON: 海关巡查
     TV_ENGINEERING_ACTIVE_RITUAL_COASTAL_BEACON_NETWORK_3: 确认海岸烽火网络的海关巡查仪式。+4% 贸易收入。
     game_concept_tv_wonder_knightly_fortress_order: 骑士要塞团
-    game_concept_tv_wonder_knightly_fortress_order_desc: 骑士要塞团是一项聚焦军事贵族与边疆秩序的[tv_wonder_construction|e]项目。它偏好非乡村地点，或拥有要塞的地点。仪式可转向圣战骑士团、边疆领主团、雇佣军体系。
+    game_concept_tv_wonder_knightly_fortress_order_desc: 骑士要塞团是一项聚焦军事贵族与边疆秩序的[tv_wonder_construction|e]项目。它偏好非乡村地点，或拥有要塞的地点。仪式可转向圣战骑士团、边疆领主团、雇佣军要塞。
     TV_ENGINEERING_PROPOSAL_KNIGHTLY_FORTRESS_ORDER_TEXT: 简报：[tv_wonder_knightly_fortress_order|E]，定位于军事贵族与边疆秩序的[tv_wonder_medium|E]工程。
     TV_ENGINEERING_PROPOSAL_RESUME_KNIGHTLY_FORTRESS_ORDER_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_knightly_fortress_order|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_KNIGHTLY_FORTRESS_ORDER_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_knightly_fortress_order|E]，继续利用该地点已经保存的最大等级适性。'
@@ -6717,32 +6688,32 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_frontier_lord_order_modifier: 边疆领主团
     TV_ENGINEERING_CEREMONY_FRONTIER_LORD_ORDER_BUTTON: 边疆领主团
     TV_ENGINEERING_ACTIVE_RITUAL_KNIGHTLY_FORTRESS_ORDER_2: 确认骑士要塞团的边疆领主团仪式。+6% 全局人力。
-    tv_wonder_mercenary_fortress_system: 雇佣军体系
-    tv_wonder_mercenary_fortress_system_desc: 骑士要塞团的雇佣军体系仪式分支。
-    STATIC_MODIFIER_NAME_tv_wonder_mercenary_fortress_system_modifier: 雇佣军体系
-    TV_ENGINEERING_CEREMONY_MERCENARY_FORTRESS_SYSTEM_BUTTON: 雇佣军体系
-    TV_ENGINEERING_ACTIVE_RITUAL_KNIGHTLY_FORTRESS_ORDER_3: 确认骑士要塞团的雇佣军体系仪式。+1.5%
+    tv_wonder_mercenary_fortress_system: 雇佣军要塞
+    tv_wonder_mercenary_fortress_system_desc: 骑士要塞团的雇佣军要塞仪式分支。
+    STATIC_MODIFIER_NAME_tv_wonder_mercenary_fortress_system_modifier: 雇佣军要塞
+    TV_ENGINEERING_CEREMONY_MERCENARY_FORTRESS_SYSTEM_BUTTON: 雇佣军要塞
+    TV_ENGINEERING_ACTIVE_RITUAL_KNIGHTLY_FORTRESS_ORDER_3: 确认骑士要塞团的雇佣军要塞仪式。+1.5%
       训练度。
-    game_concept_tv_wonder_war_college_system: 战争学院体系
-    game_concept_tv_wonder_war_college_system_desc: 战争学院体系是一项聚焦军事理论与军官培养的[tv_wonder_construction|e]项目。它偏好城市、大都会或拥有军械库的地点。仪式可转向火器战术、骑兵传统、海军指挥。
+    game_concept_tv_wonder_war_college_system: 战争学院
+    game_concept_tv_wonder_war_college_system_desc: 战争学院是一项聚焦军事理论与军官培养的[tv_wonder_construction|e]项目。它偏好城市、大都会或拥有军械库的地点。仪式可转向火器战术、骑兵传统、海军指挥。
     TV_ENGINEERING_PROPOSAL_WAR_COLLEGE_SYSTEM_TEXT: 简报：[tv_wonder_war_college_system|E]，定位于军事理论与军官培养的[tv_wonder_small|E]工程。
     TV_ENGINEERING_PROPOSAL_RESUME_WAR_COLLEGE_SYSTEM_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_war_college_system|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_WAR_COLLEGE_SYSTEM_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_war_college_system|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_WAR_COLLEGE_SYSTEM_TEXT: '@lock! 已锁定奇观：[tv_wonder_war_college_system|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_WAR_COLLEGE_SYSTEM: '@city! 战争学院体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_WAR_COLLEGE_SYSTEM: '@city! 战争学院'
     TV_WONDER_LOCK_WAR_COLLEGE_SYSTEM_TT: 将[tv_wonder_war_college_system|E]锁定为工程部当前奇观。
-    tv_wonder_war_college_system_foundation: 战争学院体系基础
-    tv_wonder_war_college_system_foundation_desc: 战争学院体系已经保留下来的基础模块。
-    tv_wonder_war_college_system_body: 战争学院体系主体
-    tv_wonder_war_college_system_body_desc: 战争学院体系已经保留下来的主体模块。
-    tv_wonder_war_college_system_function: 战争学院体系功能
-    tv_wonder_war_college_system_function_desc: 战争学院体系已经保留下来的功能模块。
-    tv_wonder_war_college_system_decoration: 战争学院体系封顶装饰
-    tv_wonder_war_college_system_decoration_desc: 战争学院体系已经保留下来的封顶装饰模块。
-    tv_wonder_war_college_system: 战争学院体系
-    tv_wonder_war_college_system_ritual_annex: 战争学院体系仪式附属建筑
-    tv_wonder_war_college_system_ritual_annex_desc: 用于完成战争学院体系第二仪式分支的附属建筑。
-    tv_wonder_war_college_system_desc: 尚未落成、但已作为完整工程保留下来的战争学院体系。
+    tv_wonder_war_college_system_foundation: 战争学院基础
+    tv_wonder_war_college_system_foundation_desc: 战争学院已经保留下来的基础模块。
+    tv_wonder_war_college_system_body: 战争学院主体
+    tv_wonder_war_college_system_body_desc: 战争学院已经保留下来的主体模块。
+    tv_wonder_war_college_system_function: 战争学院功能
+    tv_wonder_war_college_system_function_desc: 战争学院已经保留下来的功能模块。
+    tv_wonder_war_college_system_decoration: 战争学院封顶装饰
+    tv_wonder_war_college_system_decoration_desc: 战争学院已经保留下来的封顶装饰模块。
+    tv_wonder_war_college_system: 战争学院
+    tv_wonder_war_college_system_ritual_annex: 战争学院仪式附属建筑
+    tv_wonder_war_college_system_ritual_annex_desc: 用于完成战争学院第二仪式分支的附属建筑。
+    tv_wonder_war_college_system_desc: 尚未落成、但已作为完整工程保留下来的战争学院。
     STATIC_MODIFIER_NAME_tv_wonder_war_college_system_level_1: '[tv_wonder_war_college_system|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_war_college_system_level_2: '[tv_wonder_war_college_system|E]
@@ -6758,40 +6729,40 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_war_college_system_ritual_burden_modifier: 火器战术仪式负担
     STATIC_MODIFIER_NAME_tv_wonder_war_college_system_ritual_blessing_modifier: 火器战术永久祝福
     tv_wonder_firearms_tactics_college: 火器战术
-    tv_wonder_firearms_tactics_college_desc: 战争学院体系的火器战术仪式分支。
+    tv_wonder_firearms_tactics_college_desc: 战争学院的火器战术仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_firearms_tactics_college_modifier: 火器战术
     TV_ENGINEERING_CEREMONY_FIREARMS_TACTICS_COLLEGE_BUTTON: 火器战术
-    TV_ENGINEERING_ACTIVE_RITUAL_WAR_COLLEGE_SYSTEM_1: 确认战争学院体系的火器战术仪式。+5% 攻城能力。
+    TV_ENGINEERING_ACTIVE_RITUAL_WAR_COLLEGE_SYSTEM_1: 确认战争学院的火器战术仪式。+5% 攻城能力。
     tv_wonder_cavalry_tradition_college: 骑兵传统
-    tv_wonder_cavalry_tradition_college_desc: 战争学院体系的骑兵传统仪式分支。
+    tv_wonder_cavalry_tradition_college_desc: 战争学院的骑兵传统仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_cavalry_tradition_college_modifier: 骑兵传统
     TV_ENGINEERING_CEREMONY_CAVALRY_TRADITION_COLLEGE_BUTTON: 骑兵传统
-    TV_ENGINEERING_ACTIVE_RITUAL_WAR_COLLEGE_SYSTEM_2: 确认战争学院体系的骑兵传统仪式。+4% 陆军士气。
+    TV_ENGINEERING_ACTIVE_RITUAL_WAR_COLLEGE_SYSTEM_2: 确认战争学院的骑兵传统仪式。+4% 陆军士气。
     tv_wonder_naval_command_college: 海军指挥
-    tv_wonder_naval_command_college_desc: 战争学院体系的海军指挥仪式分支。
+    tv_wonder_naval_command_college_desc: 战争学院的海军指挥仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_naval_command_college_modifier: 海军指挥
     TV_ENGINEERING_CEREMONY_NAVAL_COMMAND_COLLEGE_BUTTON: 海军指挥
-    TV_ENGINEERING_ACTIVE_RITUAL_WAR_COLLEGE_SYSTEM_3: 确认战争学院体系的海军指挥仪式。+4% 海军士气。
-    game_concept_tv_wonder_great_clock_bell_system: 巨钟与报时体系
-    game_concept_tv_wonder_great_clock_bell_system_desc: 巨钟与报时体系是一项聚焦宗教秩序、城市时间的[tv_wonder_construction|e]项目。它偏好非乡村地点。仪式可转向礼拜报时、城市宵禁、天文历法。
+    TV_ENGINEERING_ACTIVE_RITUAL_WAR_COLLEGE_SYSTEM_3: 确认战争学院的海军指挥仪式。+4% 海军士气。
+    game_concept_tv_wonder_great_clock_bell_system: 巨钟报时塔
+    game_concept_tv_wonder_great_clock_bell_system_desc: 巨钟报时塔是一项聚焦宗教秩序、城市时间的[tv_wonder_construction|e]项目。它偏好非乡村地点。仪式可转向礼拜报时、城市宵禁、天文历法。
     TV_ENGINEERING_PROPOSAL_GREAT_CLOCK_BELL_SYSTEM_TEXT: 简报：[tv_wonder_great_clock_bell_system|E]，定位于宗教秩序、城市时间的[tv_wonder_small|E]工程。
     TV_ENGINEERING_PROPOSAL_RESUME_GREAT_CLOCK_BELL_SYSTEM_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_great_clock_bell_system|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_GREAT_CLOCK_BELL_SYSTEM_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_great_clock_bell_system|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_GREAT_CLOCK_BELL_SYSTEM_TEXT: '@lock! 已锁定奇观：[tv_wonder_great_clock_bell_system|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_GREAT_CLOCK_BELL_SYSTEM: '@city! 巨钟与报时体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_GREAT_CLOCK_BELL_SYSTEM: '@city! 巨钟报时塔'
     TV_WONDER_LOCK_GREAT_CLOCK_BELL_SYSTEM_TT: 将[tv_wonder_great_clock_bell_system|E]锁定为工程部当前奇观。
-    tv_wonder_great_clock_bell_system_foundation: 巨钟与报时体系基础
-    tv_wonder_great_clock_bell_system_foundation_desc: 巨钟与报时体系已经保留下来的基础模块。
-    tv_wonder_great_clock_bell_system_body: 巨钟与报时体系主体
-    tv_wonder_great_clock_bell_system_body_desc: 巨钟与报时体系已经保留下来的主体模块。
-    tv_wonder_great_clock_bell_system_function: 巨钟与报时体系功能
-    tv_wonder_great_clock_bell_system_function_desc: 巨钟与报时体系已经保留下来的功能模块。
-    tv_wonder_great_clock_bell_system_decoration: 巨钟与报时体系封顶装饰
-    tv_wonder_great_clock_bell_system_decoration_desc: 巨钟与报时体系已经保留下来的封顶装饰模块。
-    tv_wonder_great_clock_bell_system: 巨钟与报时体系
-    tv_wonder_great_clock_bell_system_ritual_annex: 巨钟与报时体系仪式附属建筑
-    tv_wonder_great_clock_bell_system_ritual_annex_desc: 用于完成巨钟与报时体系第二仪式分支的附属建筑。
-    tv_wonder_great_clock_bell_system_desc: 尚未落成、但已作为完整工程保留下来的巨钟与报时体系。
+    tv_wonder_great_clock_bell_system_foundation: 巨钟报时塔基础
+    tv_wonder_great_clock_bell_system_foundation_desc: 巨钟报时塔已经保留下来的基础模块。
+    tv_wonder_great_clock_bell_system_body: 巨钟报时塔主体
+    tv_wonder_great_clock_bell_system_body_desc: 巨钟报时塔已经保留下来的主体模块。
+    tv_wonder_great_clock_bell_system_function: 巨钟报时塔功能
+    tv_wonder_great_clock_bell_system_function_desc: 巨钟报时塔已经保留下来的功能模块。
+    tv_wonder_great_clock_bell_system_decoration: 巨钟报时塔封顶装饰
+    tv_wonder_great_clock_bell_system_decoration_desc: 巨钟报时塔已经保留下来的封顶装饰模块。
+    tv_wonder_great_clock_bell_system: 巨钟报时塔
+    tv_wonder_great_clock_bell_system_ritual_annex: 巨钟报时塔仪式附属建筑
+    tv_wonder_great_clock_bell_system_ritual_annex_desc: 用于完成巨钟报时塔第二仪式分支的附属建筑。
+    tv_wonder_great_clock_bell_system_desc: 尚未落成、但已作为完整工程保留下来的巨钟报时塔。
     STATIC_MODIFIER_NAME_tv_wonder_great_clock_bell_system_level_1: '[tv_wonder_great_clock_bell_system|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_great_clock_bell_system_level_2: '[tv_wonder_great_clock_bell_system|E]
@@ -6807,20 +6778,20 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_great_clock_bell_system_ritual_burden_modifier: 礼拜报时仪式负担
     STATIC_MODIFIER_NAME_tv_wonder_great_clock_bell_system_ritual_blessing_modifier: 礼拜报时永久祝福
     tv_wonder_worship_clock_bells: 礼拜报时
-    tv_wonder_worship_clock_bells_desc: 巨钟与报时体系的礼拜报时仪式分支。
+    tv_wonder_worship_clock_bells_desc: 巨钟报时塔的礼拜报时仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_worship_clock_bells_modifier: 礼拜报时
     TV_ENGINEERING_CEREMONY_WORSHIP_CLOCK_BELLS_BUTTON: 礼拜报时
-    TV_ENGINEERING_ACTIVE_RITUAL_GREAT_CLOCK_BELL_SYSTEM_1: 确认巨钟与报时体系的礼拜报时仪式。+1 正统信仰容忍。
+    TV_ENGINEERING_ACTIVE_RITUAL_GREAT_CLOCK_BELL_SYSTEM_1: 确认巨钟报时塔的礼拜报时仪式。+1 正统信仰容忍。
     tv_wonder_curfew_clock_bells: 城市宵禁
-    tv_wonder_curfew_clock_bells_desc: 巨钟与报时体系的城市宵禁仪式分支。
+    tv_wonder_curfew_clock_bells_desc: 巨钟报时塔的城市宵禁仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_curfew_clock_bells_modifier: 城市宵禁
     TV_ENGINEERING_CEREMONY_CURFEW_CLOCK_BELLS_BUTTON: 城市宵禁
-    TV_ENGINEERING_ACTIVE_RITUAL_GREAT_CLOCK_BELL_SYSTEM_2: 确认巨钟与报时体系的城市宵禁仪式。+4% 人口加入叛军阈值。
+    TV_ENGINEERING_ACTIVE_RITUAL_GREAT_CLOCK_BELL_SYSTEM_2: 确认巨钟报时塔的城市宵禁仪式。+4% 人口加入叛军阈值。
     tv_wonder_astronomical_calendar_bells: 天文历法
-    tv_wonder_astronomical_calendar_bells_desc: 巨钟与报时体系的天文历法仪式分支。
+    tv_wonder_astronomical_calendar_bells_desc: 巨钟报时塔的天文历法仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_astronomical_calendar_bells_modifier: 天文历法
     TV_ENGINEERING_CEREMONY_ASTRONOMICAL_CALENDAR_BELLS_BUTTON: 天文历法
-    TV_ENGINEERING_ACTIVE_RITUAL_GREAT_CLOCK_BELL_SYSTEM_3: 确认巨钟与报时体系的天文历法仪式。+4% 研究速度。
+    TV_ENGINEERING_ACTIVE_RITUAL_GREAT_CLOCK_BELL_SYSTEM_3: 确认巨钟报时塔的天文历法仪式。+4% 研究速度。
     game_concept_tv_wonder_royal_art_district: 皇家艺术园区
     game_concept_tv_wonder_royal_art_district_desc: 皇家艺术园区是一项聚焦文化繁荣的[tv_wonder_construction|e]项目。它偏好城市、大都会或首都。仪式可转向宫廷艺术、民间艺术、外来风格融合。
     TV_ENGINEERING_PROPOSAL_ROYAL_ART_DISTRICT_TEXT: 简报：[tv_wonder_royal_art_district|E]，定位于文化繁荣的[tv_wonder_medium|E]工程。
@@ -7071,26 +7042,26 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_entrepot_market_modifier: 国际转口
     TV_ENGINEERING_CEREMONY_ENTREPOT_MARKET_BUTTON: 国际转口
     TV_ENGINEERING_ACTIVE_RITUAL_WORLD_MARKET_3: 确认万国大市场的国际转口仪式。+150 贸易范围。
-    game_concept_tv_wonder_royal_mint_system: 皇家铸币体系
-    game_concept_tv_wonder_royal_mint_system_desc: 皇家铸币体系是一项聚焦金融与税收的[tv_wonder_construction|e]项目。它偏好城市、大都会，或金、银、铜产地。仪式可转向金银本位、铜币流通、国际结算。
+    game_concept_tv_wonder_royal_mint_system: 皇家铸币厂
+    game_concept_tv_wonder_royal_mint_system_desc: 皇家铸币厂是一项聚焦金融与税收的[tv_wonder_construction|e]项目。它偏好城市、大都会，或金、银、铜产地。仪式可转向金银本位、铜币流通、国际结算。
     TV_ENGINEERING_PROPOSAL_ROYAL_MINT_SYSTEM_TEXT: 简报：[tv_wonder_royal_mint_system|E]，定位于金融与税收的[tv_wonder_medium|E]工程。
     TV_ENGINEERING_PROPOSAL_RESUME_ROYAL_MINT_SYSTEM_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_royal_mint_system|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_ROYAL_MINT_SYSTEM_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_royal_mint_system|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_ROYAL_MINT_SYSTEM_TEXT: '@lock! 已锁定奇观：[tv_wonder_royal_mint_system|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_ROYAL_MINT_SYSTEM: '@city! 皇家铸币体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_ROYAL_MINT_SYSTEM: '@city! 皇家铸币厂'
     TV_WONDER_LOCK_ROYAL_MINT_SYSTEM_TT: 将[tv_wonder_royal_mint_system|E]锁定为工程部当前奇观。
-    tv_wonder_royal_mint_system_foundation: 皇家铸币体系基础
-    tv_wonder_royal_mint_system_foundation_desc: 皇家铸币体系已经保留下来的基础模块。
-    tv_wonder_royal_mint_system_body: 皇家铸币体系主体
-    tv_wonder_royal_mint_system_body_desc: 皇家铸币体系已经保留下来的主体模块。
-    tv_wonder_royal_mint_system_function: 皇家铸币体系功能
-    tv_wonder_royal_mint_system_function_desc: 皇家铸币体系已经保留下来的功能模块。
-    tv_wonder_royal_mint_system_decoration: 皇家铸币体系封顶装饰
-    tv_wonder_royal_mint_system_decoration_desc: 皇家铸币体系已经保留下来的封顶装饰模块。
-    tv_wonder_royal_mint_system: 皇家铸币体系
-    tv_wonder_royal_mint_system_ritual_annex: 皇家铸币体系仪式附属建筑
-    tv_wonder_royal_mint_system_ritual_annex_desc: 用于完成皇家铸币体系第二仪式分支的附属建筑。
-    tv_wonder_royal_mint_system_desc: 尚未落成、但已作为完整工程保留下来的皇家铸币体系。
+    tv_wonder_royal_mint_system_foundation: 皇家铸币厂基础
+    tv_wonder_royal_mint_system_foundation_desc: 皇家铸币厂已经保留下来的基础模块。
+    tv_wonder_royal_mint_system_body: 皇家铸币厂主体
+    tv_wonder_royal_mint_system_body_desc: 皇家铸币厂已经保留下来的主体模块。
+    tv_wonder_royal_mint_system_function: 皇家铸币厂功能
+    tv_wonder_royal_mint_system_function_desc: 皇家铸币厂已经保留下来的功能模块。
+    tv_wonder_royal_mint_system_decoration: 皇家铸币厂封顶装饰
+    tv_wonder_royal_mint_system_decoration_desc: 皇家铸币厂已经保留下来的封顶装饰模块。
+    tv_wonder_royal_mint_system: 皇家铸币厂
+    tv_wonder_royal_mint_system_ritual_annex: 皇家铸币厂仪式附属建筑
+    tv_wonder_royal_mint_system_ritual_annex_desc: 用于完成皇家铸币厂第二仪式分支的附属建筑。
+    tv_wonder_royal_mint_system_desc: 尚未落成、但已作为完整工程保留下来的皇家铸币厂。
     STATIC_MODIFIER_NAME_tv_wonder_royal_mint_system_level_1: '[tv_wonder_royal_mint_system|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_royal_mint_system_level_2: '[tv_wonder_royal_mint_system|E]
@@ -7106,20 +7077,20 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_royal_mint_system_ritual_burden_modifier: 金银本位仪式负担
     STATIC_MODIFIER_NAME_tv_wonder_royal_mint_system_ritual_blessing_modifier: 金银本位永久祝福
     tv_wonder_silver_gold_standard_mint: 金银本位
-    tv_wonder_silver_gold_standard_mint_desc: 皇家铸币体系的金银本位仪式分支。
+    tv_wonder_silver_gold_standard_mint_desc: 皇家铸币厂的金银本位仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_silver_gold_standard_mint_modifier: 金银本位
     TV_ENGINEERING_CEREMONY_SILVER_GOLD_STANDARD_MINT_BUTTON: 金银本位
-    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT_SYSTEM_1: 确认皇家铸币体系的金银本位仪式。+8% 铸币收入。
+    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT_SYSTEM_1: 确认皇家铸币厂的金银本位仪式。+8% 铸币收入。
     tv_wonder_copper_coinage_mint: 铜币流通
-    tv_wonder_copper_coinage_mint_desc: 皇家铸币体系的铜币流通仪式分支。
+    tv_wonder_copper_coinage_mint_desc: 皇家铸币厂的铜币流通仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_copper_coinage_mint_modifier: 铜币流通
     TV_ENGINEERING_CEREMONY_COPPER_COINAGE_MINT_BUTTON: 铜币流通
-    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT_SYSTEM_2: 确认皇家铸币体系的铜币流通仪式。+4% 税收收入效率。
+    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT_SYSTEM_2: 确认皇家铸币厂的铜币流通仪式。+4% 税收收入效率。
     tv_wonder_international_settlement_mint: 国际结算
-    tv_wonder_international_settlement_mint_desc: 皇家铸币体系的国际结算仪式分支。
+    tv_wonder_international_settlement_mint_desc: 皇家铸币厂的国际结算仪式分支。
     STATIC_MODIFIER_NAME_tv_wonder_international_settlement_mint_modifier: 国际结算
     TV_ENGINEERING_CEREMONY_INTERNATIONAL_SETTLEMENT_MINT_BUTTON: 国际结算
-    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT_SYSTEM_3: 确认皇家铸币体系的国际结算仪式。+1 外交声誉、+4%
+    TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT_SYSTEM_3: 确认皇家铸币厂的国际结算仪式。+1 外交声誉、+4%
       贸易收入。
     game_concept_tv_wonder_guild_alliance: 商业行会联盟
     game_concept_tv_wonder_guild_alliance_desc: 商业行会联盟是一项聚焦城市商业组织的[tv_wonder_construction|e]项目。它偏好非乡村地点。仪式可转向手工业联盟、远洋商帮、金融同业。
@@ -7723,7 +7694,7 @@ wonder_localization:
     tv_engineering_department.500.d_unique_taj_mahal: 白色大理石以对称、花园、河光与陵寝回应哀悼，保存帝国的记忆。
       大工程师提到泰姬陵：王朝的哀悼在那里化为对帝王之爱的精确宣言。 如今，皇家追悼启封仪式为这座奇观完成了固定历史地点上的落成。追悼仪式提升正统性与威望。
     game_concept_tv_wonder_unique_forbidden_city: 紫禁城
-    game_concept_tv_wonder_unique_forbidden_city_desc: 严整的宫城中轴将城门、殿宇、庭院与官僚体系环绕于皇帝一身。
+    game_concept_tv_wonder_unique_forbidden_city_desc: 严整的宫城中轴将城门、殿宇、庭院与百官秩序环绕于皇帝一身。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以迁都大典作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_FORBIDDEN_CITY_TEXT: 大工程师引用北京宫城：迁都不仅是移动朝廷，更是重建统治的几何秩序。
       简报：[tv_wonder_unique_forbidden_city|E]是一项固定于其历史地点的独特历史[tv_wonder_large|E]工程。
@@ -7755,11 +7726,11 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_unique_forbidden_city_level_6: '[tv_wonder_unique_forbidden_city|E]
       VI'
     tv_wonder_unique_forbidden_city_inaugurated: 紫禁城
-    tv_wonder_unique_forbidden_city_inaugurated_desc: 严整的宫城中轴将城门、殿宇、庭院与官僚体系环绕于皇帝一身。
+    tv_wonder_unique_forbidden_city_inaugurated_desc: 严整的宫城中轴将城门、殿宇、庭院与百官秩序环绕于皇帝一身。
     STATIC_MODIFIER_NAME_tv_wonder_unique_forbidden_city_ceremony_modifier: 迁都大典
     TV_ENGINEERING_CEREMONY_UNIQUE_FORBIDDEN_CITY_INAUGURATED_BUTTON: 迁都大典
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_FORBIDDEN_CITY_1: 确认紫禁城的迁都大典仪式。迁都大典提升正统性与行政传导能力。。
-    tv_engineering_department.500.d_unique_forbidden_city: 严整的宫城中轴将城门、殿宇、庭院与官僚体系环绕于皇帝一身。
+    tv_engineering_department.500.d_unique_forbidden_city: 严整的宫城中轴将城门、殿宇、庭院与百官秩序环绕于皇帝一身。
       大工程师引用北京宫城：迁都不仅是移动朝廷，更是重建统治的几何秩序。 如今，迁都大典为这座奇观完成了固定历史地点上的落成。迁都大典提升正统性与行政传导能力。
     game_concept_tv_wonder_unique_topkapi_palace: 托普卡帕宫
     game_concept_tv_wonder_unique_topkapi_palace_desc: 庭院、门阙、珍宝库与海景将征服转化为日复一日的统治仪程。
@@ -8033,7 +8004,7 @@ wonder_localization:
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_VERSAILLES_PALACE_1: 确认凡尔赛宫的太阳王迁宫典礼仪式。迁宫典礼显著提升威望与中央集权倾向。。
     tv_engineering_department.500.d_unique_versailles_palace: 宫殿、花园、镜厅与仪典把贵族吸入一轮太阳的轨道。
       大工程师提出凡尔赛：居所变成剧场，剧场又成为中央政府。 如今，太阳王迁宫典礼为这座奇观完成了固定历史地点上的落成。迁宫典礼显著提升威望与中央集权倾向。
-    game_concept_tv_wonder_unique_tenochtitlan_causeways: 特诺奇蒂特兰堤道系统
+    game_concept_tv_wonder_unique_tenochtitlan_causeways: 特诺奇蒂特兰堤道
     game_concept_tv_wonder_unique_tenochtitlan_causeways_desc: 堤道、运河、水渠与岛上城区把湖中城市连接到市场、神庙与战争。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以大神庙献祭扩建典礼作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_TENOCHTITLAN_CAUSEWAYS_TEXT: 大工程师研究特诺奇蒂特兰：这座湖中都城以堤道把水变成城市权力的工具。
@@ -8041,18 +8012,18 @@ wonder_localization:
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_TENOCHTITLAN_CAUSEWAYS_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_tenochtitlan_causeways|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_TENOCHTITLAN_CAUSEWAYS_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_tenochtitlan_causeways|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_TENOCHTITLAN_CAUSEWAYS_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_tenochtitlan_causeways|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_TENOCHTITLAN_CAUSEWAYS: '@city! 特诺奇蒂特兰堤道系统'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_TENOCHTITLAN_CAUSEWAYS: '@city! 特诺奇蒂特兰堤道'
     TV_WONDER_LOCK_UNIQUE_TENOCHTITLAN_CAUSEWAYS_TT: 将[tv_wonder_unique_tenochtitlan_causeways|E]锁定为工程部当前奇观。
-    tv_wonder_unique_tenochtitlan_causeways_foundation: 特诺奇蒂特兰堤道系统基础
-    tv_wonder_unique_tenochtitlan_causeways_foundation_desc: 特诺奇蒂特兰堤道系统已经保留下来的基础模块。
-    tv_wonder_unique_tenochtitlan_causeways_body: 特诺奇蒂特兰堤道系统主体
-    tv_wonder_unique_tenochtitlan_causeways_body_desc: 特诺奇蒂特兰堤道系统已经保留下来的主体模块。
-    tv_wonder_unique_tenochtitlan_causeways_function: 特诺奇蒂特兰堤道系统功能
-    tv_wonder_unique_tenochtitlan_causeways_function_desc: 特诺奇蒂特兰堤道系统已经保留下来的功能模块。
-    tv_wonder_unique_tenochtitlan_causeways_decoration: 特诺奇蒂特兰堤道系统封顶装饰
-    tv_wonder_unique_tenochtitlan_causeways_decoration_desc: 特诺奇蒂特兰堤道系统已经保留下来的封顶装饰模块。
-    tv_wonder_unique_tenochtitlan_causeways: 特诺奇蒂特兰堤道系统
-    tv_wonder_unique_tenochtitlan_causeways_desc: 尚未落成、但已作为完整工程保留下来的特诺奇蒂特兰堤道系统。
+    tv_wonder_unique_tenochtitlan_causeways_foundation: 特诺奇蒂特兰堤道基础
+    tv_wonder_unique_tenochtitlan_causeways_foundation_desc: 特诺奇蒂特兰堤道已经保留下来的基础模块。
+    tv_wonder_unique_tenochtitlan_causeways_body: 特诺奇蒂特兰堤道主体
+    tv_wonder_unique_tenochtitlan_causeways_body_desc: 特诺奇蒂特兰堤道已经保留下来的主体模块。
+    tv_wonder_unique_tenochtitlan_causeways_function: 特诺奇蒂特兰堤道功能
+    tv_wonder_unique_tenochtitlan_causeways_function_desc: 特诺奇蒂特兰堤道已经保留下来的功能模块。
+    tv_wonder_unique_tenochtitlan_causeways_decoration: 特诺奇蒂特兰堤道封顶装饰
+    tv_wonder_unique_tenochtitlan_causeways_decoration_desc: 特诺奇蒂特兰堤道已经保留下来的封顶装饰模块。
+    tv_wonder_unique_tenochtitlan_causeways: 特诺奇蒂特兰堤道
+    tv_wonder_unique_tenochtitlan_causeways_desc: 尚未落成、但已作为完整工程保留下来的特诺奇蒂特兰堤道。
     STATIC_MODIFIER_NAME_tv_wonder_unique_tenochtitlan_causeways_level_1: '[tv_wonder_unique_tenochtitlan_causeways|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_tenochtitlan_causeways_level_2: '[tv_wonder_unique_tenochtitlan_causeways|E]
@@ -8065,11 +8036,11 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_tenochtitlan_causeways_level_6: '[tv_wonder_unique_tenochtitlan_causeways|E]
       VI'
-    tv_wonder_unique_tenochtitlan_causeways_inaugurated: 特诺奇蒂特兰堤道系统
+    tv_wonder_unique_tenochtitlan_causeways_inaugurated: 特诺奇蒂特兰堤道
     tv_wonder_unique_tenochtitlan_causeways_inaugurated_desc: 堤道、运河、水渠与岛上城区把湖中城市连接到市场、神庙与战争。
     STATIC_MODIFIER_NAME_tv_wonder_unique_tenochtitlan_causeways_ceremony_modifier: 大神庙献祭扩建典礼
     TV_ENGINEERING_CEREMONY_UNIQUE_TENOCHTITLAN_CAUSEWAYS_INAUGURATED_BUTTON: 大神庙献祭扩建典礼
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_TENOCHTITLAN_CAUSEWAYS_1: 确认特诺奇蒂特兰堤道系统的大神庙献祭扩建典礼仪式。扩建典礼提升行军速度与繁荣。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_TENOCHTITLAN_CAUSEWAYS_1: 确认特诺奇蒂特兰堤道的大神庙献祭扩建典礼仪式。扩建典礼提升行军速度与繁荣。。
     tv_engineering_department.500.d_unique_tenochtitlan_causeways: 堤道、运河、水渠与岛上城区把湖中城市连接到市场、神庙与战争。
       大工程师研究特诺奇蒂特兰：这座湖中都城以堤道把水变成城市权力的工具。 如今，大神庙献祭扩建典礼为这座奇观完成了固定历史地点上的落成。扩建典礼提升行军速度与繁荣。
     game_concept_tv_wonder_unique_amsterdam_canal_ring: 阿姆斯特丹运河圈
@@ -8150,26 +8121,26 @@ wonder_localization:
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MECCA_HARAM_EXPANSION_1: 确认麦加禁寺扩建的克尔白重建覆盖仪式仪式。重建覆盖仪式显著提升容忍与传教效率。。
     tv_engineering_department.500.d_unique_mecca_haram_expansion: 回廊、庭院与朝觐道路围绕克尔白扩展，使圣域容纳一个信众世界。
       大工程师郑重谈及麦加禁寺：扩建必须服务朝觐，却不能动摇中心。 如今，克尔白重建覆盖仪式为这座奇观完成了固定历史地点上的落成。重建覆盖仪式显著提升容忍与传教效率。
-    game_concept_tv_wonder_unique_ming_great_wall: 明长城体系
+    game_concept_tv_wonder_unique_ming_great_wall: 明长城
     game_concept_tv_wonder_unique_ming_great_wall_desc: 城墙、关隘、军镇、烽燧与边城把边患焦虑化作砖石与烟火。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以九边军镇点烽作为历史定制落成仪式。
-    TV_ENGINEERING_PROPOSAL_UNIQUE_MING_GREAT_WALL_TEXT: 大工程师提出明代边墙体系：堡垒、烽火与军镇连成一线。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_MING_GREAT_WALL_TEXT: 大工程师提出明代边墙：堡垒、烽火与军镇连成一线。
       简报：[tv_wonder_unique_ming_great_wall|E]是一项固定于其历史地点的独特历史[tv_wonder_medium|E]工程。
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_MING_GREAT_WALL_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_ming_great_wall|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_MING_GREAT_WALL_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_ming_great_wall|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_MING_GREAT_WALL_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_ming_great_wall|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_MING_GREAT_WALL: '@city! 明长城体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_MING_GREAT_WALL: '@city! 明长城'
     TV_WONDER_LOCK_UNIQUE_MING_GREAT_WALL_TT: 将[tv_wonder_unique_ming_great_wall|E]锁定为工程部当前奇观。
-    tv_wonder_unique_ming_great_wall_foundation: 明长城体系基础
-    tv_wonder_unique_ming_great_wall_foundation_desc: 明长城体系已经保留下来的基础模块。
-    tv_wonder_unique_ming_great_wall_body: 明长城体系主体
-    tv_wonder_unique_ming_great_wall_body_desc: 明长城体系已经保留下来的主体模块。
-    tv_wonder_unique_ming_great_wall_function: 明长城体系功能
-    tv_wonder_unique_ming_great_wall_function_desc: 明长城体系已经保留下来的功能模块。
-    tv_wonder_unique_ming_great_wall_decoration: 明长城体系封顶装饰
-    tv_wonder_unique_ming_great_wall_decoration_desc: 明长城体系已经保留下来的封顶装饰模块。
-    tv_wonder_unique_ming_great_wall: 明长城体系
-    tv_wonder_unique_ming_great_wall_desc: 尚未落成、但已作为完整工程保留下来的明长城体系。
+    tv_wonder_unique_ming_great_wall_foundation: 明长城基础
+    tv_wonder_unique_ming_great_wall_foundation_desc: 明长城已经保留下来的基础模块。
+    tv_wonder_unique_ming_great_wall_body: 明长城主体
+    tv_wonder_unique_ming_great_wall_body_desc: 明长城已经保留下来的主体模块。
+    tv_wonder_unique_ming_great_wall_function: 明长城功能
+    tv_wonder_unique_ming_great_wall_function_desc: 明长城已经保留下来的功能模块。
+    tv_wonder_unique_ming_great_wall_decoration: 明长城封顶装饰
+    tv_wonder_unique_ming_great_wall_decoration_desc: 明长城已经保留下来的封顶装饰模块。
+    tv_wonder_unique_ming_great_wall: 明长城
+    tv_wonder_unique_ming_great_wall_desc: 尚未落成、但已作为完整工程保留下来的明长城。
     STATIC_MODIFIER_NAME_tv_wonder_unique_ming_great_wall_level_1: '[tv_wonder_unique_ming_great_wall|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_ming_great_wall_level_2: '[tv_wonder_unique_ming_great_wall|E]
@@ -8182,14 +8153,14 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_ming_great_wall_level_6: '[tv_wonder_unique_ming_great_wall|E]
       VI'
-    tv_wonder_unique_ming_great_wall_inaugurated: 明长城体系
+    tv_wonder_unique_ming_great_wall_inaugurated: 明长城
     tv_wonder_unique_ming_great_wall_inaugurated_desc: 城墙、关隘、军镇、烽燧与边城把边患焦虑化作砖石与烟火。
     STATIC_MODIFIER_NAME_tv_wonder_unique_ming_great_wall_ceremony_modifier: 九边军镇点烽
     TV_ENGINEERING_CEREMONY_UNIQUE_MING_GREAT_WALL_INAUGURATED_BUTTON: 九边军镇点烽
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MING_GREAT_WALL_1: 确认明长城体系的九边军镇点烽仪式。烽火链强化驻军与行军速度。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MING_GREAT_WALL_1: 确认明长城的九边军镇点烽仪式。烽火链强化驻军与行军速度。。
     tv_engineering_department.500.d_unique_ming_great_wall: 城墙、关隘、军镇、烽燧与边城把边患焦虑化作砖石与烟火。
-      大工程师提出明代边墙体系：堡垒、烽火与军镇连成一线。 如今，九边军镇点烽为这座奇观完成了固定历史地点上的落成。烽火链强化驻军与行军速度。
-    game_concept_tv_wonder_unique_bank_of_saint_george: 圣乔治银行体系
+      大工程师提出明代边墙：堡垒、烽火与军镇连成一线。 如今，九边军镇点烽为这座奇观完成了固定历史地点上的落成。烽火链强化驻军与行军速度。
+    game_concept_tv_wonder_unique_bank_of_saint_george: 圣乔治银行
     game_concept_tv_wonder_unique_bank_of_saint_george_desc: 账簿、国债、商人集团与坚固柜台把公共信用变成制度。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以圣乔治银行成立作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_BANK_OF_SAINT_GEORGE_TEXT: 大工程师指出热那亚圣乔治银行：金融在那里学会管理领地与国家债务。
@@ -8197,18 +8168,18 @@ wonder_localization:
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_BANK_OF_SAINT_GEORGE_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_bank_of_saint_george|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_BANK_OF_SAINT_GEORGE_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_bank_of_saint_george|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_BANK_OF_SAINT_GEORGE_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_bank_of_saint_george|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_BANK_OF_SAINT_GEORGE: '@city! 圣乔治银行体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_BANK_OF_SAINT_GEORGE: '@city! 圣乔治银行'
     TV_WONDER_LOCK_UNIQUE_BANK_OF_SAINT_GEORGE_TT: 将[tv_wonder_unique_bank_of_saint_george|E]锁定为工程部当前奇观。
-    tv_wonder_unique_bank_of_saint_george_foundation: 圣乔治银行体系基础
-    tv_wonder_unique_bank_of_saint_george_foundation_desc: 圣乔治银行体系已经保留下来的基础模块。
-    tv_wonder_unique_bank_of_saint_george_body: 圣乔治银行体系主体
-    tv_wonder_unique_bank_of_saint_george_body_desc: 圣乔治银行体系已经保留下来的主体模块。
-    tv_wonder_unique_bank_of_saint_george_function: 圣乔治银行体系功能
-    tv_wonder_unique_bank_of_saint_george_function_desc: 圣乔治银行体系已经保留下来的功能模块。
-    tv_wonder_unique_bank_of_saint_george_decoration: 圣乔治银行体系封顶装饰
-    tv_wonder_unique_bank_of_saint_george_decoration_desc: 圣乔治银行体系已经保留下来的封顶装饰模块。
-    tv_wonder_unique_bank_of_saint_george: 圣乔治银行体系
-    tv_wonder_unique_bank_of_saint_george_desc: 尚未落成、但已作为完整工程保留下来的圣乔治银行体系。
+    tv_wonder_unique_bank_of_saint_george_foundation: 圣乔治银行基础
+    tv_wonder_unique_bank_of_saint_george_foundation_desc: 圣乔治银行已经保留下来的基础模块。
+    tv_wonder_unique_bank_of_saint_george_body: 圣乔治银行主体
+    tv_wonder_unique_bank_of_saint_george_body_desc: 圣乔治银行已经保留下来的主体模块。
+    tv_wonder_unique_bank_of_saint_george_function: 圣乔治银行功能
+    tv_wonder_unique_bank_of_saint_george_function_desc: 圣乔治银行已经保留下来的功能模块。
+    tv_wonder_unique_bank_of_saint_george_decoration: 圣乔治银行封顶装饰
+    tv_wonder_unique_bank_of_saint_george_decoration_desc: 圣乔治银行已经保留下来的封顶装饰模块。
+    tv_wonder_unique_bank_of_saint_george: 圣乔治银行
+    tv_wonder_unique_bank_of_saint_george_desc: 尚未落成、但已作为完整工程保留下来的圣乔治银行。
     STATIC_MODIFIER_NAME_tv_wonder_unique_bank_of_saint_george_level_1: '[tv_wonder_unique_bank_of_saint_george|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_bank_of_saint_george_level_2: '[tv_wonder_unique_bank_of_saint_george|E]
@@ -8221,11 +8192,11 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_bank_of_saint_george_level_6: '[tv_wonder_unique_bank_of_saint_george|E]
       VI'
-    tv_wonder_unique_bank_of_saint_george_inaugurated: 圣乔治银行体系
+    tv_wonder_unique_bank_of_saint_george_inaugurated: 圣乔治银行
     tv_wonder_unique_bank_of_saint_george_inaugurated_desc: 账簿、国债、商人集团与坚固柜台把公共信用变成制度。
     STATIC_MODIFIER_NAME_tv_wonder_unique_bank_of_saint_george_ceremony_modifier: 圣乔治银行成立
     TV_ENGINEERING_CEREMONY_UNIQUE_BANK_OF_SAINT_GEORGE_INAUGURATED_BUTTON: 圣乔治银行成立
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_BANK_OF_SAINT_GEORGE_1: 确认圣乔治银行体系的圣乔治银行成立仪式。银行成立提升铸币收入与税收效率。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_BANK_OF_SAINT_GEORGE_1: 确认圣乔治银行的圣乔治银行成立仪式。银行成立提升铸币收入与税收效率。。
     tv_engineering_department.500.d_unique_bank_of_saint_george: 账簿、国债、商人集团与坚固柜台把公共信用变成制度。
       大工程师指出热那亚圣乔治银行：金融在那里学会管理领地与国家债务。 如今，圣乔治银行成立为这座奇观完成了固定历史地点上的落成。银行成立提升铸币收入与税收效率。
     game_concept_tv_wonder_unique_cahokia_mounds: 卡霍基亚土丘城
@@ -8422,7 +8393,7 @@ wonder_localization:
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1: 确认印加皇家道路网的驿传全线通报仪式。全线通报提升行军速度与行政传导。。
     tv_engineering_department.500.d_unique_inca_royal_road: 石路、索桥、驿站与飞跑信使把安第斯缝合成能穿山传令的国家。
       大工程师赞扬印加王道：道路与驿站让安第斯统治快过地形本身。 如今，驿传全线通报为这座奇观完成了固定历史地点上的落成。全线通报提升行军速度与行政传导。
-    game_concept_tv_wonder_unique_roman_aqueducts: 罗马引水道体系
+    game_concept_tv_wonder_unique_roman_aqueducts: 罗马引水道
     game_concept_tv_wonder_unique_roman_aqueducts_desc: 拱券跨过山谷，供养浴场、喷泉、磨坊与城市帝国的自信。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以水道启用礼作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_ROMAN_AQUEDUCTS_TEXT: 大工程师引用罗马引水道：坡度与拱券使清水成为公共纪念碑。
@@ -8430,18 +8401,18 @@ wonder_localization:
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_ROMAN_AQUEDUCTS_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_roman_aqueducts|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_ROMAN_AQUEDUCTS_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_roman_aqueducts|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_ROMAN_AQUEDUCTS_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_roman_aqueducts|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ROMAN_AQUEDUCTS: '@city! 罗马引水道体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ROMAN_AQUEDUCTS: '@city! 罗马引水道'
     TV_WONDER_LOCK_UNIQUE_ROMAN_AQUEDUCTS_TT: 将[tv_wonder_unique_roman_aqueducts|E]锁定为工程部当前奇观。
-    tv_wonder_unique_roman_aqueducts_foundation: 罗马引水道体系基础
-    tv_wonder_unique_roman_aqueducts_foundation_desc: 罗马引水道体系已经保留下来的基础模块。
-    tv_wonder_unique_roman_aqueducts_body: 罗马引水道体系主体
-    tv_wonder_unique_roman_aqueducts_body_desc: 罗马引水道体系已经保留下来的主体模块。
-    tv_wonder_unique_roman_aqueducts_function: 罗马引水道体系功能
-    tv_wonder_unique_roman_aqueducts_function_desc: 罗马引水道体系已经保留下来的功能模块。
-    tv_wonder_unique_roman_aqueducts_decoration: 罗马引水道体系封顶装饰
-    tv_wonder_unique_roman_aqueducts_decoration_desc: 罗马引水道体系已经保留下来的封顶装饰模块。
-    tv_wonder_unique_roman_aqueducts: 罗马引水道体系
-    tv_wonder_unique_roman_aqueducts_desc: 尚未落成、但已作为完整工程保留下来的罗马引水道体系。
+    tv_wonder_unique_roman_aqueducts_foundation: 罗马引水道基础
+    tv_wonder_unique_roman_aqueducts_foundation_desc: 罗马引水道已经保留下来的基础模块。
+    tv_wonder_unique_roman_aqueducts_body: 罗马引水道主体
+    tv_wonder_unique_roman_aqueducts_body_desc: 罗马引水道已经保留下来的主体模块。
+    tv_wonder_unique_roman_aqueducts_function: 罗马引水道功能
+    tv_wonder_unique_roman_aqueducts_function_desc: 罗马引水道已经保留下来的功能模块。
+    tv_wonder_unique_roman_aqueducts_decoration: 罗马引水道封顶装饰
+    tv_wonder_unique_roman_aqueducts_decoration_desc: 罗马引水道已经保留下来的封顶装饰模块。
+    tv_wonder_unique_roman_aqueducts: 罗马引水道
+    tv_wonder_unique_roman_aqueducts_desc: 尚未落成、但已作为完整工程保留下来的罗马引水道。
     STATIC_MODIFIER_NAME_tv_wonder_unique_roman_aqueducts_level_1: '[tv_wonder_unique_roman_aqueducts|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_roman_aqueducts_level_2: '[tv_wonder_unique_roman_aqueducts|E]
@@ -8454,14 +8425,14 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_roman_aqueducts_level_6: '[tv_wonder_unique_roman_aqueducts|E]
       VI'
-    tv_wonder_unique_roman_aqueducts_inaugurated: 罗马引水道体系
+    tv_wonder_unique_roman_aqueducts_inaugurated: 罗马引水道
     tv_wonder_unique_roman_aqueducts_inaugurated_desc: 拱券跨过山谷，供养浴场、喷泉、磨坊与城市帝国的自信。
     STATIC_MODIFIER_NAME_tv_wonder_unique_roman_aqueducts_ceremony_modifier: 水道启用礼
     TV_ENGINEERING_CEREMONY_UNIQUE_ROMAN_AQUEDUCTS_INAUGURATED_BUTTON: 水道启用礼
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ROMAN_AQUEDUCTS_1: 确认罗马引水道体系的水道启用礼仪式。启用礼提升繁荣与生产效率。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ROMAN_AQUEDUCTS_1: 确认罗马引水道的水道启用礼仪式。启用礼提升繁荣与生产效率。。
     tv_engineering_department.500.d_unique_roman_aqueducts: 拱券跨过山谷，供养浴场、喷泉、磨坊与城市帝国的自信。
       大工程师引用罗马引水道：坡度与拱券使清水成为公共纪念碑。 如今，水道启用礼为这座奇观完成了固定历史地点上的落成。启用礼提升繁荣与生产效率。
-    game_concept_tv_wonder_unique_suez_ancient_canal: 苏伊士运河古代尝试体系
+    game_concept_tv_wonder_unique_suez_ancient_canal: 苏伊士古运河尝试
     game_concept_tv_wonder_unique_suez_ancient_canal_desc: 测线、沙漠河槽、尼罗支流与红海港口保存着连通两水的古老梦想。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以开河通航仪式作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_SUEZ_ANCIENT_CANAL_TEXT: 大工程师提出苏伊士古运河尝试：历代君主反复试图让地理变得可以谈判。
@@ -8469,18 +8440,18 @@ wonder_localization:
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_SUEZ_ANCIENT_CANAL_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_suez_ancient_canal|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_SUEZ_ANCIENT_CANAL_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_suez_ancient_canal|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_SUEZ_ANCIENT_CANAL_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_suez_ancient_canal|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_SUEZ_ANCIENT_CANAL: '@city! 苏伊士运河古代尝试体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_SUEZ_ANCIENT_CANAL: '@city! 苏伊士古运河尝试'
     TV_WONDER_LOCK_UNIQUE_SUEZ_ANCIENT_CANAL_TT: 将[tv_wonder_unique_suez_ancient_canal|E]锁定为工程部当前奇观。
-    tv_wonder_unique_suez_ancient_canal_foundation: 苏伊士运河古代尝试体系基础
-    tv_wonder_unique_suez_ancient_canal_foundation_desc: 苏伊士运河古代尝试体系已经保留下来的基础模块。
-    tv_wonder_unique_suez_ancient_canal_body: 苏伊士运河古代尝试体系主体
-    tv_wonder_unique_suez_ancient_canal_body_desc: 苏伊士运河古代尝试体系已经保留下来的主体模块。
-    tv_wonder_unique_suez_ancient_canal_function: 苏伊士运河古代尝试体系功能
-    tv_wonder_unique_suez_ancient_canal_function_desc: 苏伊士运河古代尝试体系已经保留下来的功能模块。
-    tv_wonder_unique_suez_ancient_canal_decoration: 苏伊士运河古代尝试体系封顶装饰
-    tv_wonder_unique_suez_ancient_canal_decoration_desc: 苏伊士运河古代尝试体系已经保留下来的封顶装饰模块。
-    tv_wonder_unique_suez_ancient_canal: 苏伊士运河古代尝试体系
-    tv_wonder_unique_suez_ancient_canal_desc: 尚未落成、但已作为完整工程保留下来的苏伊士运河古代尝试体系。
+    tv_wonder_unique_suez_ancient_canal_foundation: 苏伊士古运河尝试基础
+    tv_wonder_unique_suez_ancient_canal_foundation_desc: 苏伊士古运河尝试已经保留下来的基础模块。
+    tv_wonder_unique_suez_ancient_canal_body: 苏伊士古运河尝试主体
+    tv_wonder_unique_suez_ancient_canal_body_desc: 苏伊士古运河尝试已经保留下来的主体模块。
+    tv_wonder_unique_suez_ancient_canal_function: 苏伊士古运河尝试功能
+    tv_wonder_unique_suez_ancient_canal_function_desc: 苏伊士古运河尝试已经保留下来的功能模块。
+    tv_wonder_unique_suez_ancient_canal_decoration: 苏伊士古运河尝试封顶装饰
+    tv_wonder_unique_suez_ancient_canal_decoration_desc: 苏伊士古运河尝试已经保留下来的封顶装饰模块。
+    tv_wonder_unique_suez_ancient_canal: 苏伊士古运河尝试
+    tv_wonder_unique_suez_ancient_canal_desc: 尚未落成、但已作为完整工程保留下来的苏伊士古运河尝试。
     STATIC_MODIFIER_NAME_tv_wonder_unique_suez_ancient_canal_level_1: '[tv_wonder_unique_suez_ancient_canal|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_suez_ancient_canal_level_2: '[tv_wonder_unique_suez_ancient_canal|E]
@@ -8493,31 +8464,31 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_suez_ancient_canal_level_6: '[tv_wonder_unique_suez_ancient_canal|E]
       VI'
-    tv_wonder_unique_suez_ancient_canal_inaugurated: 苏伊士运河古代尝试体系
+    tv_wonder_unique_suez_ancient_canal_inaugurated: 苏伊士古运河尝试
     tv_wonder_unique_suez_ancient_canal_inaugurated_desc: 测线、沙漠河槽、尼罗支流与红海港口保存着连通两水的古老梦想。
     STATIC_MODIFIER_NAME_tv_wonder_unique_suez_ancient_canal_ceremony_modifier: 开河通航仪式
     TV_ENGINEERING_CEREMONY_UNIQUE_SUEZ_ANCIENT_CANAL_INAUGURATED_BUTTON: 开河通航仪式
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_SUEZ_ANCIENT_CANAL_1: 确认苏伊士运河古代尝试体系的开河通航仪式仪式。通航仪式提升贸易范围与贸易收入。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_SUEZ_ANCIENT_CANAL_1: 确认苏伊士古运河尝试的开河通航仪式仪式。通航仪式提升贸易范围与贸易收入。。
     tv_engineering_department.500.d_unique_suez_ancient_canal: 测线、沙漠河槽、尼罗支流与红海港口保存着连通两水的古老梦想。
       大工程师提出苏伊士古运河尝试：历代君主反复试图让地理变得可以谈判。 如今，开河通航仪式为这座奇观完成了固定历史地点上的落成。通航仪式提升贸易范围与贸易收入。
-    game_concept_tv_wonder_unique_kremlin: 克里姆林宫体系
+    game_concept_tv_wonder_unique_kremlin: 莫斯科克里姆林宫
     game_concept_tv_wonder_unique_kremlin_desc: 砖墙、高塔、教堂、军械库与宫殿把堡垒和主权压缩进同一座城塞。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以沙皇加冕典礼作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_KREMLIN_TEXT: 大工程师援引莫斯科克里姆林：加冕、防御与国家号令共处一墙之内。 简报：[tv_wonder_unique_kremlin|E]是一项固定于其历史地点的独特历史[tv_wonder_medium|E]工程。
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_KREMLIN_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_kremlin|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_KREMLIN_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_kremlin|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_KREMLIN_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_kremlin|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_KREMLIN: '@city! 克里姆林宫体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_KREMLIN: '@city! 莫斯科克里姆林宫'
     TV_WONDER_LOCK_UNIQUE_KREMLIN_TT: 将[tv_wonder_unique_kremlin|E]锁定为工程部当前奇观。
-    tv_wonder_unique_kremlin_foundation: 克里姆林宫体系基础
-    tv_wonder_unique_kremlin_foundation_desc: 克里姆林宫体系已经保留下来的基础模块。
-    tv_wonder_unique_kremlin_body: 克里姆林宫体系主体
-    tv_wonder_unique_kremlin_body_desc: 克里姆林宫体系已经保留下来的主体模块。
-    tv_wonder_unique_kremlin_function: 克里姆林宫体系功能
-    tv_wonder_unique_kremlin_function_desc: 克里姆林宫体系已经保留下来的功能模块。
-    tv_wonder_unique_kremlin_decoration: 克里姆林宫体系封顶装饰
-    tv_wonder_unique_kremlin_decoration_desc: 克里姆林宫体系已经保留下来的封顶装饰模块。
-    tv_wonder_unique_kremlin: 克里姆林宫体系
-    tv_wonder_unique_kremlin_desc: 尚未落成、但已作为完整工程保留下来的克里姆林宫体系。
+    tv_wonder_unique_kremlin_foundation: 莫斯科克里姆林宫基础
+    tv_wonder_unique_kremlin_foundation_desc: 莫斯科克里姆林宫已经保留下来的基础模块。
+    tv_wonder_unique_kremlin_body: 莫斯科克里姆林宫主体
+    tv_wonder_unique_kremlin_body_desc: 莫斯科克里姆林宫已经保留下来的主体模块。
+    tv_wonder_unique_kremlin_function: 莫斯科克里姆林宫功能
+    tv_wonder_unique_kremlin_function_desc: 莫斯科克里姆林宫已经保留下来的功能模块。
+    tv_wonder_unique_kremlin_decoration: 莫斯科克里姆林宫封顶装饰
+    tv_wonder_unique_kremlin_decoration_desc: 莫斯科克里姆林宫已经保留下来的封顶装饰模块。
+    tv_wonder_unique_kremlin: 莫斯科克里姆林宫
+    tv_wonder_unique_kremlin_desc: 尚未落成、但已作为完整工程保留下来的莫斯科克里姆林宫。
     STATIC_MODIFIER_NAME_tv_wonder_unique_kremlin_level_1: '[tv_wonder_unique_kremlin|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_kremlin_level_2: '[tv_wonder_unique_kremlin|E]
@@ -8530,11 +8501,11 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_kremlin_level_6: '[tv_wonder_unique_kremlin|E]
       VI'
-    tv_wonder_unique_kremlin_inaugurated: 克里姆林宫体系
+    tv_wonder_unique_kremlin_inaugurated: 莫斯科克里姆林宫
     tv_wonder_unique_kremlin_inaugurated_desc: 砖墙、高塔、教堂、军械库与宫殿把堡垒和主权压缩进同一座城塞。
     STATIC_MODIFIER_NAME_tv_wonder_unique_kremlin_ceremony_modifier: 沙皇加冕典礼
     TV_ENGINEERING_CEREMONY_UNIQUE_KREMLIN_INAUGURATED_BUTTON: 沙皇加冕典礼
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_KREMLIN_1: 确认克里姆林宫体系的沙皇加冕典礼仪式。加冕典礼提升正统性与陆军士气。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_KREMLIN_1: 确认莫斯科克里姆林宫的沙皇加冕典礼仪式。加冕典礼提升正统性与陆军士气。。
     tv_engineering_department.500.d_unique_kremlin: 砖墙、高塔、教堂、军械库与宫殿把堡垒和主权压缩进同一座城塞。
       大工程师援引莫斯科克里姆林：加冕、防御与国家号令共处一墙之内。 如今，沙皇加冕典礼为这座奇观完成了固定历史地点上的落成。加冕典礼提升正统性与陆军士气。
     game_concept_tv_wonder_unique_teotihuacan: 特奥蒂瓦坎圣城
@@ -8576,7 +8547,7 @@ wonder_localization:
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_TEOTIHUACAN_1: 确认特奥蒂瓦坎圣城的太阳金字塔火焰终末祭仪式。火焰终末祭提升威望与正统信仰容忍。。
     tv_engineering_department.500.d_unique_teotihuacan: 大道、金字塔、院落与彩绘墙保存着一座按宇宙尺度规划的城市。
       大工程师转向特奥蒂瓦坎：这座中墨西哥圣城在衰落后仍以金字塔组织记忆。 如今，太阳金字塔火焰终末祭为这座奇观完成了固定历史地点上的落成。火焰终末祭提升威望与正统信仰容忍。
-    game_concept_tv_wonder_unique_angkor_hydraulic_system: 吴哥水利系统
+    game_concept_tv_wonder_unique_angkor_hydraulic_system: 吴哥水利工程
     game_concept_tv_wonder_unique_angkor_hydraulic_system_desc: 水库、运河、堤岸与稻田让吴哥圣城依赖被工程化的水。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以西池落成供水礼作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_TEXT: 大工程师研究吴哥水网：水库与运河给予神庙王季节性的权力。
@@ -8584,18 +8555,18 @@ wonder_localization:
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_angkor_hydraulic_system|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_angkor_hydraulic_system|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_angkor_hydraulic_system|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM: '@city! 吴哥水利系统'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM: '@city! 吴哥水利工程'
     TV_WONDER_LOCK_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_TT: 将[tv_wonder_unique_angkor_hydraulic_system|E]锁定为工程部当前奇观。
-    tv_wonder_unique_angkor_hydraulic_system_foundation: 吴哥水利系统基础
-    tv_wonder_unique_angkor_hydraulic_system_foundation_desc: 吴哥水利系统已经保留下来的基础模块。
-    tv_wonder_unique_angkor_hydraulic_system_body: 吴哥水利系统主体
-    tv_wonder_unique_angkor_hydraulic_system_body_desc: 吴哥水利系统已经保留下来的主体模块。
-    tv_wonder_unique_angkor_hydraulic_system_function: 吴哥水利系统功能
-    tv_wonder_unique_angkor_hydraulic_system_function_desc: 吴哥水利系统已经保留下来的功能模块。
-    tv_wonder_unique_angkor_hydraulic_system_decoration: 吴哥水利系统封顶装饰
-    tv_wonder_unique_angkor_hydraulic_system_decoration_desc: 吴哥水利系统已经保留下来的封顶装饰模块。
-    tv_wonder_unique_angkor_hydraulic_system: 吴哥水利系统
-    tv_wonder_unique_angkor_hydraulic_system_desc: 尚未落成、但已作为完整工程保留下来的吴哥水利系统。
+    tv_wonder_unique_angkor_hydraulic_system_foundation: 吴哥水利工程基础
+    tv_wonder_unique_angkor_hydraulic_system_foundation_desc: 吴哥水利工程已经保留下来的基础模块。
+    tv_wonder_unique_angkor_hydraulic_system_body: 吴哥水利工程主体
+    tv_wonder_unique_angkor_hydraulic_system_body_desc: 吴哥水利工程已经保留下来的主体模块。
+    tv_wonder_unique_angkor_hydraulic_system_function: 吴哥水利工程功能
+    tv_wonder_unique_angkor_hydraulic_system_function_desc: 吴哥水利工程已经保留下来的功能模块。
+    tv_wonder_unique_angkor_hydraulic_system_decoration: 吴哥水利工程封顶装饰
+    tv_wonder_unique_angkor_hydraulic_system_decoration_desc: 吴哥水利工程已经保留下来的封顶装饰模块。
+    tv_wonder_unique_angkor_hydraulic_system: 吴哥水利工程
+    tv_wonder_unique_angkor_hydraulic_system_desc: 尚未落成、但已作为完整工程保留下来的吴哥水利工程。
     STATIC_MODIFIER_NAME_tv_wonder_unique_angkor_hydraulic_system_level_1: '[tv_wonder_unique_angkor_hydraulic_system|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_angkor_hydraulic_system_level_2: '[tv_wonder_unique_angkor_hydraulic_system|E]
@@ -8608,14 +8579,14 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_angkor_hydraulic_system_level_6: '[tv_wonder_unique_angkor_hydraulic_system|E]
       VI'
-    tv_wonder_unique_angkor_hydraulic_system_inaugurated: 吴哥水利系统
+    tv_wonder_unique_angkor_hydraulic_system_inaugurated: 吴哥水利工程
     tv_wonder_unique_angkor_hydraulic_system_inaugurated_desc: 水库、运河、堤岸与稻田让吴哥圣城依赖被工程化的水。
     STATIC_MODIFIER_NAME_tv_wonder_unique_angkor_hydraulic_system_ceremony_modifier: 西池落成供水礼
     TV_ENGINEERING_CEREMONY_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_INAUGURATED_BUTTON: 西池落成供水礼
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_1: 确认吴哥水利系统的西池落成供水礼仪式。供水礼提升原料产出与繁荣。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_1: 确认吴哥水利工程的西池落成供水礼仪式。供水礼提升原料产出与繁荣。。
     tv_engineering_department.500.d_unique_angkor_hydraulic_system: 水库、运河、堤岸与稻田让吴哥圣城依赖被工程化的水。
       大工程师研究吴哥水网：水库与运河给予神庙王季节性的权力。 如今，西池落成供水礼为这座奇观完成了固定历史地点上的落成。供水礼提升原料产出与繁荣。
-    game_concept_tv_wonder_unique_dutch_polders: 荷兰围海工程体系
+    game_concept_tv_wonder_unique_dutch_polders: 荷兰围海工程
     game_concept_tv_wonder_unique_dutch_polders_desc: 堤坝、水泵、风车、水务委员会与围垦田把海面变成可征税的土地。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以围海合龙作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_DUTCH_POLDERS_TEXT: 大工程师提出荷兰围海工程：堤坝与账簿共同执行人与水之间的集体契约。
@@ -8623,18 +8594,18 @@ wonder_localization:
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_DUTCH_POLDERS_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_dutch_polders|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_DUTCH_POLDERS_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_dutch_polders|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_DUTCH_POLDERS_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_dutch_polders|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_DUTCH_POLDERS: '@city! 荷兰围海工程体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_DUTCH_POLDERS: '@city! 荷兰围海工程'
     TV_WONDER_LOCK_UNIQUE_DUTCH_POLDERS_TT: 将[tv_wonder_unique_dutch_polders|E]锁定为工程部当前奇观。
-    tv_wonder_unique_dutch_polders_foundation: 荷兰围海工程体系基础
-    tv_wonder_unique_dutch_polders_foundation_desc: 荷兰围海工程体系已经保留下来的基础模块。
-    tv_wonder_unique_dutch_polders_body: 荷兰围海工程体系主体
-    tv_wonder_unique_dutch_polders_body_desc: 荷兰围海工程体系已经保留下来的主体模块。
-    tv_wonder_unique_dutch_polders_function: 荷兰围海工程体系功能
-    tv_wonder_unique_dutch_polders_function_desc: 荷兰围海工程体系已经保留下来的功能模块。
-    tv_wonder_unique_dutch_polders_decoration: 荷兰围海工程体系封顶装饰
-    tv_wonder_unique_dutch_polders_decoration_desc: 荷兰围海工程体系已经保留下来的封顶装饰模块。
-    tv_wonder_unique_dutch_polders: 荷兰围海工程体系
-    tv_wonder_unique_dutch_polders_desc: 尚未落成、但已作为完整工程保留下来的荷兰围海工程体系。
+    tv_wonder_unique_dutch_polders_foundation: 荷兰围海工程基础
+    tv_wonder_unique_dutch_polders_foundation_desc: 荷兰围海工程已经保留下来的基础模块。
+    tv_wonder_unique_dutch_polders_body: 荷兰围海工程主体
+    tv_wonder_unique_dutch_polders_body_desc: 荷兰围海工程已经保留下来的主体模块。
+    tv_wonder_unique_dutch_polders_function: 荷兰围海工程功能
+    tv_wonder_unique_dutch_polders_function_desc: 荷兰围海工程已经保留下来的功能模块。
+    tv_wonder_unique_dutch_polders_decoration: 荷兰围海工程封顶装饰
+    tv_wonder_unique_dutch_polders_decoration_desc: 荷兰围海工程已经保留下来的封顶装饰模块。
+    tv_wonder_unique_dutch_polders: 荷兰围海工程
+    tv_wonder_unique_dutch_polders_desc: 尚未落成、但已作为完整工程保留下来的荷兰围海工程。
     STATIC_MODIFIER_NAME_tv_wonder_unique_dutch_polders_level_1: '[tv_wonder_unique_dutch_polders|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_dutch_polders_level_2: '[tv_wonder_unique_dutch_polders|E]
@@ -8647,14 +8618,14 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_dutch_polders_level_6: '[tv_wonder_unique_dutch_polders|E]
       VI'
-    tv_wonder_unique_dutch_polders_inaugurated: 荷兰围海工程体系
+    tv_wonder_unique_dutch_polders_inaugurated: 荷兰围海工程
     tv_wonder_unique_dutch_polders_inaugurated_desc: 堤坝、水泵、风车、水务委员会与围垦田把海面变成可征税的土地。
     STATIC_MODIFIER_NAME_tv_wonder_unique_dutch_polders_ceremony_modifier: 围海合龙
     TV_ENGINEERING_CEREMONY_UNIQUE_DUTCH_POLDERS_INAUGURATED_BUTTON: 围海合龙
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_DUTCH_POLDERS_1: 确认荷兰围海工程体系的围海合龙仪式。合龙工程提升原料产出与生产效率。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_DUTCH_POLDERS_1: 确认荷兰围海工程的围海合龙仪式。合龙工程提升原料产出与生产效率。。
     tv_engineering_department.500.d_unique_dutch_polders: 堤坝、水泵、风车、水务委员会与围垦田把海面变成可征税的土地。
       大工程师提出荷兰围海工程：堤坝与账簿共同执行人与水之间的集体契约。 如今，围海合龙为这座奇观完成了固定历史地点上的落成。合龙工程提升原料产出与生产效率。
-    game_concept_tv_wonder_unique_machu_picchu_terraces: 马丘比丘梯田系统
+    game_concept_tv_wonder_unique_machu_picchu_terraces: 马丘比丘梯田
     game_concept_tv_wonder_unique_machu_picchu_terraces_desc: 挡土墙、排水层、土壤分层与礼仪田地让陡峭山地供养皇家居所。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以首次播种祭作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_MACHU_PICCHU_TERRACES_TEXT: 大工程师聚焦马丘比丘梯田：耕作、排水与神圣地景在那里解决同一个问题。
@@ -8662,18 +8633,18 @@ wonder_localization:
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_MACHU_PICCHU_TERRACES_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_machu_picchu_terraces|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_MACHU_PICCHU_TERRACES_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_machu_picchu_terraces|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_MACHU_PICCHU_TERRACES_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_machu_picchu_terraces|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_MACHU_PICCHU_TERRACES: '@city! 马丘比丘梯田系统'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_MACHU_PICCHU_TERRACES: '@city! 马丘比丘梯田'
     TV_WONDER_LOCK_UNIQUE_MACHU_PICCHU_TERRACES_TT: 将[tv_wonder_unique_machu_picchu_terraces|E]锁定为工程部当前奇观。
-    tv_wonder_unique_machu_picchu_terraces_foundation: 马丘比丘梯田系统基础
-    tv_wonder_unique_machu_picchu_terraces_foundation_desc: 马丘比丘梯田系统已经保留下来的基础模块。
-    tv_wonder_unique_machu_picchu_terraces_body: 马丘比丘梯田系统主体
-    tv_wonder_unique_machu_picchu_terraces_body_desc: 马丘比丘梯田系统已经保留下来的主体模块。
-    tv_wonder_unique_machu_picchu_terraces_function: 马丘比丘梯田系统功能
-    tv_wonder_unique_machu_picchu_terraces_function_desc: 马丘比丘梯田系统已经保留下来的功能模块。
-    tv_wonder_unique_machu_picchu_terraces_decoration: 马丘比丘梯田系统封顶装饰
-    tv_wonder_unique_machu_picchu_terraces_decoration_desc: 马丘比丘梯田系统已经保留下来的封顶装饰模块。
-    tv_wonder_unique_machu_picchu_terraces: 马丘比丘梯田系统
-    tv_wonder_unique_machu_picchu_terraces_desc: 尚未落成、但已作为完整工程保留下来的马丘比丘梯田系统。
+    tv_wonder_unique_machu_picchu_terraces_foundation: 马丘比丘梯田基础
+    tv_wonder_unique_machu_picchu_terraces_foundation_desc: 马丘比丘梯田已经保留下来的基础模块。
+    tv_wonder_unique_machu_picchu_terraces_body: 马丘比丘梯田主体
+    tv_wonder_unique_machu_picchu_terraces_body_desc: 马丘比丘梯田已经保留下来的主体模块。
+    tv_wonder_unique_machu_picchu_terraces_function: 马丘比丘梯田功能
+    tv_wonder_unique_machu_picchu_terraces_function_desc: 马丘比丘梯田已经保留下来的功能模块。
+    tv_wonder_unique_machu_picchu_terraces_decoration: 马丘比丘梯田封顶装饰
+    tv_wonder_unique_machu_picchu_terraces_decoration_desc: 马丘比丘梯田已经保留下来的封顶装饰模块。
+    tv_wonder_unique_machu_picchu_terraces: 马丘比丘梯田
+    tv_wonder_unique_machu_picchu_terraces_desc: 尚未落成、但已作为完整工程保留下来的马丘比丘梯田。
     STATIC_MODIFIER_NAME_tv_wonder_unique_machu_picchu_terraces_level_1: '[tv_wonder_unique_machu_picchu_terraces|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_machu_picchu_terraces_level_2: '[tv_wonder_unique_machu_picchu_terraces|E]
@@ -8686,14 +8657,14 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_machu_picchu_terraces_level_6: '[tv_wonder_unique_machu_picchu_terraces|E]
       VI'
-    tv_wonder_unique_machu_picchu_terraces_inaugurated: 马丘比丘梯田系统
+    tv_wonder_unique_machu_picchu_terraces_inaugurated: 马丘比丘梯田
     tv_wonder_unique_machu_picchu_terraces_inaugurated_desc: 挡土墙、排水层、土壤分层与礼仪田地让陡峭山地供养皇家居所。
     STATIC_MODIFIER_NAME_tv_wonder_unique_machu_picchu_terraces_ceremony_modifier: 首次播种祭
     TV_ENGINEERING_CEREMONY_UNIQUE_MACHU_PICCHU_TERRACES_INAUGURATED_BUTTON: 首次播种祭
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MACHU_PICCHU_TERRACES_1: 确认马丘比丘梯田系统的首次播种祭仪式。播种祭提升原料产出与繁荣。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MACHU_PICCHU_TERRACES_1: 确认马丘比丘梯田的首次播种祭仪式。播种祭提升原料产出与繁荣。。
     tv_engineering_department.500.d_unique_machu_picchu_terraces: 挡土墙、排水层、土壤分层与礼仪田地让陡峭山地供养皇家居所。
       大工程师聚焦马丘比丘梯田：耕作、排水与神圣地景在那里解决同一个问题。 如今，首次播种祭为这座奇观完成了固定历史地点上的落成。播种祭提升原料产出与繁荣。
-    game_concept_tv_wonder_unique_british_navy_dockyards: 英国海军船坞体系
+    game_concept_tv_wonder_unique_british_navy_dockyards: 英国海军船坞
     game_concept_tv_wonder_unique_british_navy_dockyards_desc: 船坞、绳场、补给场、军械库与军官在战云抵达地平线前整备舰队。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以无敌舰队战备整编作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_BRITISH_NAVY_DOCKYARDS_TEXT: 大工程师看向朴次茅斯与皇家船坞：海军战备在那里成为常设制度。
@@ -8701,18 +8672,18 @@ wonder_localization:
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_BRITISH_NAVY_DOCKYARDS_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_british_navy_dockyards|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_BRITISH_NAVY_DOCKYARDS_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_british_navy_dockyards|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_BRITISH_NAVY_DOCKYARDS_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_british_navy_dockyards|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_BRITISH_NAVY_DOCKYARDS: '@city! 英国海军船坞体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_BRITISH_NAVY_DOCKYARDS: '@city! 英国海军船坞'
     TV_WONDER_LOCK_UNIQUE_BRITISH_NAVY_DOCKYARDS_TT: 将[tv_wonder_unique_british_navy_dockyards|E]锁定为工程部当前奇观。
-    tv_wonder_unique_british_navy_dockyards_foundation: 英国海军船坞体系基础
-    tv_wonder_unique_british_navy_dockyards_foundation_desc: 英国海军船坞体系已经保留下来的基础模块。
-    tv_wonder_unique_british_navy_dockyards_body: 英国海军船坞体系主体
-    tv_wonder_unique_british_navy_dockyards_body_desc: 英国海军船坞体系已经保留下来的主体模块。
-    tv_wonder_unique_british_navy_dockyards_function: 英国海军船坞体系功能
-    tv_wonder_unique_british_navy_dockyards_function_desc: 英国海军船坞体系已经保留下来的功能模块。
-    tv_wonder_unique_british_navy_dockyards_decoration: 英国海军船坞体系封顶装饰
-    tv_wonder_unique_british_navy_dockyards_decoration_desc: 英国海军船坞体系已经保留下来的封顶装饰模块。
-    tv_wonder_unique_british_navy_dockyards: 英国海军船坞体系
-    tv_wonder_unique_british_navy_dockyards_desc: 尚未落成、但已作为完整工程保留下来的英国海军船坞体系。
+    tv_wonder_unique_british_navy_dockyards_foundation: 英国海军船坞基础
+    tv_wonder_unique_british_navy_dockyards_foundation_desc: 英国海军船坞已经保留下来的基础模块。
+    tv_wonder_unique_british_navy_dockyards_body: 英国海军船坞主体
+    tv_wonder_unique_british_navy_dockyards_body_desc: 英国海军船坞已经保留下来的主体模块。
+    tv_wonder_unique_british_navy_dockyards_function: 英国海军船坞功能
+    tv_wonder_unique_british_navy_dockyards_function_desc: 英国海军船坞已经保留下来的功能模块。
+    tv_wonder_unique_british_navy_dockyards_decoration: 英国海军船坞封顶装饰
+    tv_wonder_unique_british_navy_dockyards_decoration_desc: 英国海军船坞已经保留下来的封顶装饰模块。
+    tv_wonder_unique_british_navy_dockyards: 英国海军船坞
+    tv_wonder_unique_british_navy_dockyards_desc: 尚未落成、但已作为完整工程保留下来的英国海军船坞。
     STATIC_MODIFIER_NAME_tv_wonder_unique_british_navy_dockyards_level_1: '[tv_wonder_unique_british_navy_dockyards|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_british_navy_dockyards_level_2: '[tv_wonder_unique_british_navy_dockyards|E]
@@ -8725,33 +8696,33 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_british_navy_dockyards_level_6: '[tv_wonder_unique_british_navy_dockyards|E]
       VI'
-    tv_wonder_unique_british_navy_dockyards_inaugurated: 英国海军船坞体系
+    tv_wonder_unique_british_navy_dockyards_inaugurated: 英国海军船坞
     tv_wonder_unique_british_navy_dockyards_inaugurated_desc: 船坞、绳场、补给场、军械库与军官在战云抵达地平线前整备舰队。
     STATIC_MODIFIER_NAME_tv_wonder_unique_british_navy_dockyards_ceremony_modifier: 无敌舰队战备整编
     TV_ENGINEERING_CEREMONY_UNIQUE_BRITISH_NAVY_DOCKYARDS_INAUGURATED_BUTTON: 无敌舰队战备整编
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_BRITISH_NAVY_DOCKYARDS_1: 确认英国海军船坞体系的无敌舰队战备整编仪式。战备整编提升造船速度与海军士气。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_BRITISH_NAVY_DOCKYARDS_1: 确认英国海军船坞的无敌舰队战备整编仪式。战备整编提升造船速度与海军士气。。
     tv_engineering_department.500.d_unique_british_navy_dockyards: 船坞、绳场、补给场、军械库与军官在战云抵达地平线前整备舰队。
       大工程师看向朴次茅斯与皇家船坞：海军战备在那里成为常设制度。 如今，无敌舰队战备整编为这座奇观完成了固定历史地点上的落成。战备整编提升造船速度与海军士气。
-    game_concept_tv_wonder_unique_spanish_silver_fleet: 西班牙白银舰队体系
+    game_concept_tv_wonder_unique_spanish_silver_fleet: 西班牙白银舰队
     game_concept_tv_wonder_unique_spanish_silver_fleet_desc: 护航舰队、账册、设防港口与王家仓库让大西洋白银在封印与护卫下流动。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以白银归港作为历史定制落成仪式。
-    TV_ENGINEERING_PROPOSAL_UNIQUE_SPANISH_SILVER_FLEET_TEXT: 大工程师提出塞维利亚白银舰队体系：帝国在那里化为定期抵港的金属与文书。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_SPANISH_SILVER_FLEET_TEXT: 大工程师提出塞维利亚白银舰队：帝国在那里化为定期抵港的金属与文书。
       简报：[tv_wonder_unique_spanish_silver_fleet|E]是一项固定于其历史地点的独特历史[tv_wonder_large|E]工程。
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_SPANISH_SILVER_FLEET_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_spanish_silver_fleet|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_SPANISH_SILVER_FLEET_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_spanish_silver_fleet|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_SPANISH_SILVER_FLEET_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_spanish_silver_fleet|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_SPANISH_SILVER_FLEET: '@city! 西班牙白银舰队体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_SPANISH_SILVER_FLEET: '@city! 西班牙白银舰队'
     TV_WONDER_LOCK_UNIQUE_SPANISH_SILVER_FLEET_TT: 将[tv_wonder_unique_spanish_silver_fleet|E]锁定为工程部当前奇观。
-    tv_wonder_unique_spanish_silver_fleet_foundation: 西班牙白银舰队体系基础
-    tv_wonder_unique_spanish_silver_fleet_foundation_desc: 西班牙白银舰队体系已经保留下来的基础模块。
-    tv_wonder_unique_spanish_silver_fleet_body: 西班牙白银舰队体系主体
-    tv_wonder_unique_spanish_silver_fleet_body_desc: 西班牙白银舰队体系已经保留下来的主体模块。
-    tv_wonder_unique_spanish_silver_fleet_function: 西班牙白银舰队体系功能
-    tv_wonder_unique_spanish_silver_fleet_function_desc: 西班牙白银舰队体系已经保留下来的功能模块。
-    tv_wonder_unique_spanish_silver_fleet_decoration: 西班牙白银舰队体系封顶装饰
-    tv_wonder_unique_spanish_silver_fleet_decoration_desc: 西班牙白银舰队体系已经保留下来的封顶装饰模块。
-    tv_wonder_unique_spanish_silver_fleet: 西班牙白银舰队体系
-    tv_wonder_unique_spanish_silver_fleet_desc: 尚未落成、但已作为完整工程保留下来的西班牙白银舰队体系。
+    tv_wonder_unique_spanish_silver_fleet_foundation: 西班牙白银舰队基础
+    tv_wonder_unique_spanish_silver_fleet_foundation_desc: 西班牙白银舰队已经保留下来的基础模块。
+    tv_wonder_unique_spanish_silver_fleet_body: 西班牙白银舰队主体
+    tv_wonder_unique_spanish_silver_fleet_body_desc: 西班牙白银舰队已经保留下来的主体模块。
+    tv_wonder_unique_spanish_silver_fleet_function: 西班牙白银舰队功能
+    tv_wonder_unique_spanish_silver_fleet_function_desc: 西班牙白银舰队已经保留下来的功能模块。
+    tv_wonder_unique_spanish_silver_fleet_decoration: 西班牙白银舰队封顶装饰
+    tv_wonder_unique_spanish_silver_fleet_decoration_desc: 西班牙白银舰队已经保留下来的封顶装饰模块。
+    tv_wonder_unique_spanish_silver_fleet: 西班牙白银舰队
+    tv_wonder_unique_spanish_silver_fleet_desc: 尚未落成、但已作为完整工程保留下来的西班牙白银舰队。
     STATIC_MODIFIER_NAME_tv_wonder_unique_spanish_silver_fleet_level_1: '[tv_wonder_unique_spanish_silver_fleet|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_spanish_silver_fleet_level_2: '[tv_wonder_unique_spanish_silver_fleet|E]
@@ -8764,14 +8735,14 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_spanish_silver_fleet_level_6: '[tv_wonder_unique_spanish_silver_fleet|E]
       VI'
-    tv_wonder_unique_spanish_silver_fleet_inaugurated: 西班牙白银舰队体系
+    tv_wonder_unique_spanish_silver_fleet_inaugurated: 西班牙白银舰队
     tv_wonder_unique_spanish_silver_fleet_inaugurated_desc: 护航舰队、账册、设防港口与王家仓库让大西洋白银在封印与护卫下流动。
     STATIC_MODIFIER_NAME_tv_wonder_unique_spanish_silver_fleet_ceremony_modifier: 白银归港
     TV_ENGINEERING_CEREMONY_UNIQUE_SPANISH_SILVER_FLEET_INAUGURATED_BUTTON: 白银归港
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_SPANISH_SILVER_FLEET_1: 确认西班牙白银舰队体系的白银归港仪式。归港仪式提升贸易收入与铸币收入。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_SPANISH_SILVER_FLEET_1: 确认西班牙白银舰队的白银归港仪式。归港仪式提升贸易收入与铸币收入。。
     tv_engineering_department.500.d_unique_spanish_silver_fleet: 护航舰队、账册、设防港口与王家仓库让大西洋白银在封印与护卫下流动。
-      大工程师提出塞维利亚白银舰队体系：帝国在那里化为定期抵港的金属与文书。 如今，白银归港为这座奇观完成了固定历史地点上的落成。归港仪式提升贸易收入与铸币收入。
-    game_concept_tv_wonder_unique_ottoman_hajj_road: 奥斯曼朝觐道路体系
+      大工程师提出塞维利亚白银舰队：帝国在那里化为定期抵港的金属与文书。 如今，白银归港为这座奇观完成了固定历史地点上的落成。归港仪式提升贸易收入与铸币收入。
+    game_concept_tv_wonder_unique_ottoman_hajj_road: 奥斯曼朝觐道路
     game_concept_tv_wonder_unique_ottoman_hajj_road_desc: 驿路、堡垒、水井、旗帜与帝国补助把朝觐同国家后勤绑在一起。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以哈吉出发仪式作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_OTTOMAN_HAJJ_ROAD_TEXT: 大工程师研究奥斯曼朝觐道路：虔敬之所以能安全前行，是因为行政与它同行。
@@ -8779,18 +8750,18 @@ wonder_localization:
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_OTTOMAN_HAJJ_ROAD_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_ottoman_hajj_road|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_OTTOMAN_HAJJ_ROAD_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_ottoman_hajj_road|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_OTTOMAN_HAJJ_ROAD_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_ottoman_hajj_road|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_OTTOMAN_HAJJ_ROAD: '@city! 奥斯曼朝觐道路体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_OTTOMAN_HAJJ_ROAD: '@city! 奥斯曼朝觐道路'
     TV_WONDER_LOCK_UNIQUE_OTTOMAN_HAJJ_ROAD_TT: 将[tv_wonder_unique_ottoman_hajj_road|E]锁定为工程部当前奇观。
-    tv_wonder_unique_ottoman_hajj_road_foundation: 奥斯曼朝觐道路体系基础
-    tv_wonder_unique_ottoman_hajj_road_foundation_desc: 奥斯曼朝觐道路体系已经保留下来的基础模块。
-    tv_wonder_unique_ottoman_hajj_road_body: 奥斯曼朝觐道路体系主体
-    tv_wonder_unique_ottoman_hajj_road_body_desc: 奥斯曼朝觐道路体系已经保留下来的主体模块。
-    tv_wonder_unique_ottoman_hajj_road_function: 奥斯曼朝觐道路体系功能
-    tv_wonder_unique_ottoman_hajj_road_function_desc: 奥斯曼朝觐道路体系已经保留下来的功能模块。
-    tv_wonder_unique_ottoman_hajj_road_decoration: 奥斯曼朝觐道路体系封顶装饰
-    tv_wonder_unique_ottoman_hajj_road_decoration_desc: 奥斯曼朝觐道路体系已经保留下来的封顶装饰模块。
-    tv_wonder_unique_ottoman_hajj_road: 奥斯曼朝觐道路体系
-    tv_wonder_unique_ottoman_hajj_road_desc: 尚未落成、但已作为完整工程保留下来的奥斯曼朝觐道路体系。
+    tv_wonder_unique_ottoman_hajj_road_foundation: 奥斯曼朝觐道路基础
+    tv_wonder_unique_ottoman_hajj_road_foundation_desc: 奥斯曼朝觐道路已经保留下来的基础模块。
+    tv_wonder_unique_ottoman_hajj_road_body: 奥斯曼朝觐道路主体
+    tv_wonder_unique_ottoman_hajj_road_body_desc: 奥斯曼朝觐道路已经保留下来的主体模块。
+    tv_wonder_unique_ottoman_hajj_road_function: 奥斯曼朝觐道路功能
+    tv_wonder_unique_ottoman_hajj_road_function_desc: 奥斯曼朝觐道路已经保留下来的功能模块。
+    tv_wonder_unique_ottoman_hajj_road_decoration: 奥斯曼朝觐道路封顶装饰
+    tv_wonder_unique_ottoman_hajj_road_decoration_desc: 奥斯曼朝觐道路已经保留下来的封顶装饰模块。
+    tv_wonder_unique_ottoman_hajj_road: 奥斯曼朝觐道路
+    tv_wonder_unique_ottoman_hajj_road_desc: 尚未落成、但已作为完整工程保留下来的奥斯曼朝觐道路。
     STATIC_MODIFIER_NAME_tv_wonder_unique_ottoman_hajj_road_level_1: '[tv_wonder_unique_ottoman_hajj_road|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_ottoman_hajj_road_level_2: '[tv_wonder_unique_ottoman_hajj_road|E]
@@ -8803,11 +8774,11 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_ottoman_hajj_road_level_6: '[tv_wonder_unique_ottoman_hajj_road|E]
       VI'
-    tv_wonder_unique_ottoman_hajj_road_inaugurated: 奥斯曼朝觐道路体系
+    tv_wonder_unique_ottoman_hajj_road_inaugurated: 奥斯曼朝觐道路
     tv_wonder_unique_ottoman_hajj_road_inaugurated_desc: 驿路、堡垒、水井、旗帜与帝国补助把朝觐同国家后勤绑在一起。
     STATIC_MODIFIER_NAME_tv_wonder_unique_ottoman_hajj_road_ceremony_modifier: 哈吉出发仪式
     TV_ENGINEERING_CEREMONY_UNIQUE_OTTOMAN_HAJJ_ROAD_INAUGURATED_BUTTON: 哈吉出发仪式
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_OTTOMAN_HAJJ_ROAD_1: 确认奥斯曼朝觐道路体系的哈吉出发仪式仪式。出发仪式提升信仰容忍与行政传导。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_OTTOMAN_HAJJ_ROAD_1: 确认奥斯曼朝觐道路的哈吉出发仪式仪式。出发仪式提升信仰容忍与行政传导。。
     tv_engineering_department.500.d_unique_ottoman_hajj_road: 驿路、堡垒、水井、旗帜与帝国补助把朝觐同国家后勤绑在一起。
       大工程师研究奥斯曼朝觐道路：虔敬之所以能安全前行，是因为行政与它同行。 如今，哈吉出发仪式为这座奇观完成了固定历史地点上的落成。出发仪式提升信仰容忍与行政传导。
     game_concept_tv_wonder_unique_persian_qanat: 波斯坎儿井网络
@@ -8849,7 +8820,7 @@ wonder_localization:
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_PERSIAN_QANAT_1: 确认波斯坎儿井网络的水权分配仪式仪式。水权分配提升繁荣与原料产出。。
     tv_engineering_department.500.d_unique_persian_qanat: 地下水道、母井、竖井线、花园与水权份额让沙漠聚落成为可能。
       大工程师提出伊朗高原坎儿井：隐秘坡度让干旱土地可以治理。 如今，水权分配仪式为这座奇观完成了固定历史地点上的落成。水权分配提升繁荣与原料产出。
-    game_concept_tv_wonder_unique_longjiang_shipyard: 明龙江船厂体系
+    game_concept_tv_wonder_unique_longjiang_shipyard: 明龙江船厂
     game_concept_tv_wonder_unique_longjiang_shipyard_desc: 船台、木料池、作坊与宝船使江上造船服务于远洋雄心。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以郑和下西洋启航作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_LONGJIANG_SHIPYARD_TEXT: 大工程师看向南京龙江船厂：明廷在那里准备足以改写地平线的舰队。
@@ -8857,18 +8828,18 @@ wonder_localization:
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_LONGJIANG_SHIPYARD_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_longjiang_shipyard|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_LONGJIANG_SHIPYARD_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_longjiang_shipyard|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_LONGJIANG_SHIPYARD_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_longjiang_shipyard|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_LONGJIANG_SHIPYARD: '@city! 明龙江船厂体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_LONGJIANG_SHIPYARD: '@city! 明龙江船厂'
     TV_WONDER_LOCK_UNIQUE_LONGJIANG_SHIPYARD_TT: 将[tv_wonder_unique_longjiang_shipyard|E]锁定为工程部当前奇观。
-    tv_wonder_unique_longjiang_shipyard_foundation: 明龙江船厂体系基础
-    tv_wonder_unique_longjiang_shipyard_foundation_desc: 明龙江船厂体系已经保留下来的基础模块。
-    tv_wonder_unique_longjiang_shipyard_body: 明龙江船厂体系主体
-    tv_wonder_unique_longjiang_shipyard_body_desc: 明龙江船厂体系已经保留下来的主体模块。
-    tv_wonder_unique_longjiang_shipyard_function: 明龙江船厂体系功能
-    tv_wonder_unique_longjiang_shipyard_function_desc: 明龙江船厂体系已经保留下来的功能模块。
-    tv_wonder_unique_longjiang_shipyard_decoration: 明龙江船厂体系封顶装饰
-    tv_wonder_unique_longjiang_shipyard_decoration_desc: 明龙江船厂体系已经保留下来的封顶装饰模块。
-    tv_wonder_unique_longjiang_shipyard: 明龙江船厂体系
-    tv_wonder_unique_longjiang_shipyard_desc: 尚未落成、但已作为完整工程保留下来的明龙江船厂体系。
+    tv_wonder_unique_longjiang_shipyard_foundation: 明龙江船厂基础
+    tv_wonder_unique_longjiang_shipyard_foundation_desc: 明龙江船厂已经保留下来的基础模块。
+    tv_wonder_unique_longjiang_shipyard_body: 明龙江船厂主体
+    tv_wonder_unique_longjiang_shipyard_body_desc: 明龙江船厂已经保留下来的主体模块。
+    tv_wonder_unique_longjiang_shipyard_function: 明龙江船厂功能
+    tv_wonder_unique_longjiang_shipyard_function_desc: 明龙江船厂已经保留下来的功能模块。
+    tv_wonder_unique_longjiang_shipyard_decoration: 明龙江船厂封顶装饰
+    tv_wonder_unique_longjiang_shipyard_decoration_desc: 明龙江船厂已经保留下来的封顶装饰模块。
+    tv_wonder_unique_longjiang_shipyard: 明龙江船厂
+    tv_wonder_unique_longjiang_shipyard_desc: 尚未落成、但已作为完整工程保留下来的明龙江船厂。
     STATIC_MODIFIER_NAME_tv_wonder_unique_longjiang_shipyard_level_1: '[tv_wonder_unique_longjiang_shipyard|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_longjiang_shipyard_level_2: '[tv_wonder_unique_longjiang_shipyard|E]
@@ -8881,33 +8852,33 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_longjiang_shipyard_level_6: '[tv_wonder_unique_longjiang_shipyard|E]
       VI'
-    tv_wonder_unique_longjiang_shipyard_inaugurated: 明龙江船厂体系
+    tv_wonder_unique_longjiang_shipyard_inaugurated: 明龙江船厂
     tv_wonder_unique_longjiang_shipyard_inaugurated_desc: 船台、木料池、作坊与宝船使江上造船服务于远洋雄心。
     STATIC_MODIFIER_NAME_tv_wonder_unique_longjiang_shipyard_ceremony_modifier: 郑和下西洋启航
     TV_ENGINEERING_CEREMONY_UNIQUE_LONGJIANG_SHIPYARD_INAUGURATED_BUTTON: 郑和下西洋启航
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LONGJIANG_SHIPYARD_1: 确认明龙江船厂体系的郑和下西洋启航仪式。启航仪式提升海军航程与造船速度。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LONGJIANG_SHIPYARD_1: 确认明龙江船厂的郑和下西洋启航仪式。启航仪式提升海军航程与造船速度。。
     tv_engineering_department.500.d_unique_longjiang_shipyard: 船台、木料池、作坊与宝船使江上造船服务于远洋雄心。
       大工程师看向南京龙江船厂：明廷在那里准备足以改写地平线的舰队。 如今，郑和下西洋启航为这座奇观完成了固定历史地点上的落成。启航仪式提升海军航程与造船速度。
-    game_concept_tv_wonder_unique_jerusalem_holy_city: 耶路撒冷圣城体系
+    game_concept_tv_wonder_unique_jerusalem_holy_city: 耶路撒冷圣城
     game_concept_tv_wonder_unique_jerusalem_holy_city_desc: 城墙、圣所、街区、城门与游行使同一座城市承载多套神圣权威地图。
       这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以圣城权力转换仪式作为历史定制落成仪式。
-    TV_ENGINEERING_PROPOSAL_UNIQUE_JERUSALEM_HOLY_CITY_TEXT: 大工程师提出耶路撒冷圣城体系：每一次权力转换都必须先同记忆谈判，再触碰石头。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_JERUSALEM_HOLY_CITY_TEXT: 大工程师提出耶路撒冷圣城：每一次权力转换都必须先同记忆谈判，再触碰石头。
       简报：[tv_wonder_unique_jerusalem_holy_city|E]是一项固定于其历史地点的独特历史[tv_wonder_large|E]工程。
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_JERUSALEM_HOLY_CITY_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_jerusalem_holy_city|E]，并利用当地已经保留下来的工程部分。'
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_JERUSALEM_HOLY_CITY_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_jerusalem_holy_city|E]，继续利用该地点已经保存的最大等级适性。'
     TV_ENGINEERING_LOCKED_UNIQUE_JERUSALEM_HOLY_CITY_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_jerusalem_holy_city|E]。'
-    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_JERUSALEM_HOLY_CITY: '@city! 耶路撒冷圣城体系'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_JERUSALEM_HOLY_CITY: '@city! 耶路撒冷圣城'
     TV_WONDER_LOCK_UNIQUE_JERUSALEM_HOLY_CITY_TT: 将[tv_wonder_unique_jerusalem_holy_city|E]锁定为工程部当前奇观。
-    tv_wonder_unique_jerusalem_holy_city_foundation: 耶路撒冷圣城体系基础
-    tv_wonder_unique_jerusalem_holy_city_foundation_desc: 耶路撒冷圣城体系已经保留下来的基础模块。
-    tv_wonder_unique_jerusalem_holy_city_body: 耶路撒冷圣城体系主体
-    tv_wonder_unique_jerusalem_holy_city_body_desc: 耶路撒冷圣城体系已经保留下来的主体模块。
-    tv_wonder_unique_jerusalem_holy_city_function: 耶路撒冷圣城体系功能
-    tv_wonder_unique_jerusalem_holy_city_function_desc: 耶路撒冷圣城体系已经保留下来的功能模块。
-    tv_wonder_unique_jerusalem_holy_city_decoration: 耶路撒冷圣城体系封顶装饰
-    tv_wonder_unique_jerusalem_holy_city_decoration_desc: 耶路撒冷圣城体系已经保留下来的封顶装饰模块。
-    tv_wonder_unique_jerusalem_holy_city: 耶路撒冷圣城体系
-    tv_wonder_unique_jerusalem_holy_city_desc: 尚未落成、但已作为完整工程保留下来的耶路撒冷圣城体系。
+    tv_wonder_unique_jerusalem_holy_city_foundation: 耶路撒冷圣城基础
+    tv_wonder_unique_jerusalem_holy_city_foundation_desc: 耶路撒冷圣城已经保留下来的基础模块。
+    tv_wonder_unique_jerusalem_holy_city_body: 耶路撒冷圣城主体
+    tv_wonder_unique_jerusalem_holy_city_body_desc: 耶路撒冷圣城已经保留下来的主体模块。
+    tv_wonder_unique_jerusalem_holy_city_function: 耶路撒冷圣城功能
+    tv_wonder_unique_jerusalem_holy_city_function_desc: 耶路撒冷圣城已经保留下来的功能模块。
+    tv_wonder_unique_jerusalem_holy_city_decoration: 耶路撒冷圣城封顶装饰
+    tv_wonder_unique_jerusalem_holy_city_decoration_desc: 耶路撒冷圣城已经保留下来的封顶装饰模块。
+    tv_wonder_unique_jerusalem_holy_city: 耶路撒冷圣城
+    tv_wonder_unique_jerusalem_holy_city_desc: 尚未落成、但已作为完整工程保留下来的耶路撒冷圣城。
     STATIC_MODIFIER_NAME_tv_wonder_unique_jerusalem_holy_city_level_1: '[tv_wonder_unique_jerusalem_holy_city|E]
       I'
     STATIC_MODIFIER_NAME_tv_wonder_unique_jerusalem_holy_city_level_2: '[tv_wonder_unique_jerusalem_holy_city|E]
@@ -8920,10 +8891,10 @@ wonder_localization:
       V'
     STATIC_MODIFIER_NAME_tv_wonder_unique_jerusalem_holy_city_level_6: '[tv_wonder_unique_jerusalem_holy_city|E]
       VI'
-    tv_wonder_unique_jerusalem_holy_city_inaugurated: 耶路撒冷圣城体系
+    tv_wonder_unique_jerusalem_holy_city_inaugurated: 耶路撒冷圣城
     tv_wonder_unique_jerusalem_holy_city_inaugurated_desc: 城墙、圣所、街区、城门与游行使同一座城市承载多套神圣权威地图。
     STATIC_MODIFIER_NAME_tv_wonder_unique_jerusalem_holy_city_ceremony_modifier: 圣城权力转换仪式
     TV_ENGINEERING_CEREMONY_UNIQUE_JERUSALEM_HOLY_CITY_INAUGURATED_BUTTON: 圣城权力转换仪式
-    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_JERUSALEM_HOLY_CITY_1: 确认耶路撒冷圣城体系的圣城权力转换仪式仪式。权力转换提升信仰容忍、外交声誉与威望。。
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_JERUSALEM_HOLY_CITY_1: 确认耶路撒冷圣城的圣城权力转换仪式仪式。权力转换提升信仰容忍、外交声誉与威望。。
     tv_engineering_department.500.d_unique_jerusalem_holy_city: 城墙、圣所、街区、城门与游行使同一座城市承载多套神圣权威地图。
-      大工程师提出耶路撒冷圣城体系：每一次权力转换都必须先同记忆谈判，再触碰石头。 如今，圣城权力转换仪式为这座奇观完成了固定历史地点上的落成。权力转换提升信仰容忍、外交声誉与威望。
+      大工程师提出耶路撒冷圣城：每一次权力转换都必须先同记忆谈判，再触碰石头。 如今，圣城权力转换仪式为这座奇观完成了固定历史地点上的落成。权力转换提升信仰容忍、外交声誉与威望。
