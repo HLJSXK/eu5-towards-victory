@@ -16145,124 +16145,124 @@ tv_wonder_ceremony_ready_for_prestige_confirmation_trigger = {
 
 tv_wonder_unique_locked_trigger = {
 	trigger_if = {
-		var:tv_wonder_locked ?= 101
+		limit = { var:tv_wonder_locked ?= 101 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 102
+		limit = { var:tv_wonder_locked ?= 102 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 103
+		limit = { var:tv_wonder_locked ?= 103 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 104
+		limit = { var:tv_wonder_locked ?= 104 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 105
+		limit = { var:tv_wonder_locked ?= 105 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 106
+		limit = { var:tv_wonder_locked ?= 106 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 107
+		limit = { var:tv_wonder_locked ?= 107 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 108
+		limit = { var:tv_wonder_locked ?= 108 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 109
+		limit = { var:tv_wonder_locked ?= 109 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 110
+		limit = { var:tv_wonder_locked ?= 110 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 111
+		limit = { var:tv_wonder_locked ?= 111 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 112
+		limit = { var:tv_wonder_locked ?= 112 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 113
+		limit = { var:tv_wonder_locked ?= 113 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 114
+		limit = { var:tv_wonder_locked ?= 114 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 115
+		limit = { var:tv_wonder_locked ?= 115 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 116
+		limit = { var:tv_wonder_locked ?= 116 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 117
+		limit = { var:tv_wonder_locked ?= 117 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 118
+		limit = { var:tv_wonder_locked ?= 118 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 119
+		limit = { var:tv_wonder_locked ?= 119 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 120
+		limit = { var:tv_wonder_locked ?= 120 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 121
+		limit = { var:tv_wonder_locked ?= 121 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 122
+		limit = { var:tv_wonder_locked ?= 122 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 123
+		limit = { var:tv_wonder_locked ?= 123 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 124
+		limit = { var:tv_wonder_locked ?= 124 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 125
+		limit = { var:tv_wonder_locked ?= 125 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 126
+		limit = { var:tv_wonder_locked ?= 126 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 127
+		limit = { var:tv_wonder_locked ?= 127 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 128
+		limit = { var:tv_wonder_locked ?= 128 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 129
+		limit = { var:tv_wonder_locked ?= 129 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 130
+		limit = { var:tv_wonder_locked ?= 130 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 131
+		limit = { var:tv_wonder_locked ?= 131 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 132
+		limit = { var:tv_wonder_locked ?= 132 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 133
+		limit = { var:tv_wonder_locked ?= 133 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 134
+		limit = { var:tv_wonder_locked ?= 134 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 135
+		limit = { var:tv_wonder_locked ?= 135 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 136
+		limit = { var:tv_wonder_locked ?= 136 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 137
+		limit = { var:tv_wonder_locked ?= 137 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 138
+		limit = { var:tv_wonder_locked ?= 138 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 139
+		limit = { var:tv_wonder_locked ?= 139 }
 	}
 	trigger_else_if = {
-		var:tv_wonder_locked ?= 140
+		limit = { var:tv_wonder_locked ?= 140 }
 	}
 	trigger_else = { always = no }
 }

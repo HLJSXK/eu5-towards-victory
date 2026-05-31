@@ -603,7 +603,7 @@ def generate() -> str:
     for idx, wonder in enumerate(unique_wonders):
         head = "trigger_if" if idx == 0 else "trigger_else_if"
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
         lines.append(f"{T}}}")
     lines.append(f"{T}trigger_else = {{ always = no }}")
     lines.append("}")
@@ -613,7 +613,7 @@ def generate() -> str:
 
 
 def main() -> None:
-    OUT_FILE.write_text(generate(), encoding="utf-8")
+    OUT_FILE.write_text(generate(), encoding="utf-8-sig")
     print(f"Wrote {OUT_FILE.relative_to(REPO_ROOT)}")
 
 
