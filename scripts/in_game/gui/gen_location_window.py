@@ -18,11 +18,11 @@ COUNT_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_c
 WONDER_TEXT_COLUMN_WIDTH = 120
 WONDER_PREVIEW_COLUMN_WIDTH = 120
 WONDER_ROW_SPACING = 4
-PANEL_WIDTH = 380
+PANEL_WIDTH = WONDER_TEXT_COLUMN_WIDTH + WONDER_ROW_SPACING + WONDER_PREVIEW_COLUMN_WIDTH
 PANEL_HEIGHTS = {1: 68, 2: 136, 3: 204}
 PANEL_ROW_HEIGHT = 64
 PANEL_SEPARATOR_HEIGHT = 4
-TOOLTIP_ROW_WIDTH = 380
+TOOLTIP_ROW_WIDTH = PANEL_WIDTH
 TOOLTIP_ROW_HEIGHT = 84
 TOOLTIP_ROW_SPACING = 6
 PANEL_PREVIEW_HEIGHT = PANEL_ROW_HEIGHT - 8
@@ -208,7 +208,6 @@ def render_slot_row(indent: str, *, slot: int) -> list[str]:
             f"{indent}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",
-            f"{indent}{T}{T}expand = {{}}",
             f"{indent}{T}{T}widget = {{",
             f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
             f"{indent}{T}{T}{T}layoutpolicy_vertical = fixed",
@@ -356,7 +355,6 @@ def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
             f"{indent}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",
-            f"{indent}{T}{T}expand = {{}}",
             f"{indent}{T}{T}widget = {{",
             f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
             f"{indent}{T}{T}{T}layoutpolicy_vertical = fixed",
