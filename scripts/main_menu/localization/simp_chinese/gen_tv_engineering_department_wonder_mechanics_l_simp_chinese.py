@@ -20,7 +20,12 @@ from wonder_mechanics_lib import (
     ritual_burden_modifier_name,
     unique_ritual,
 )
-from wonder_localization_lib import apply_localization_values, load_localization_map, load_wonder_localization_data
+from wonder_localization_lib import (
+    apply_localization_values,
+    load_engineering_department_suffix_map,
+    load_localization_map,
+    load_wonder_localization_data,
+)
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml"
 SCRIPT_REL = "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py"
@@ -68,10 +73,27 @@ def unique_completion_text(wonder: dict, language: str) -> str:
     return f"{flavor} {history_intro} 如今，{ceremony_name}为这座奇观完成了固定历史地点上的落成。{effect}"
 
 
+def generic_completion_text(wonder: dict, branch: dict) -> str:
+    name = wonder["loc"]["zh"]
+    branch_name = branch["zh"]
+    effect = branch_effect_text(branch)
+    if effect:
+        return f"{branch_name}仪式完成了{name}。{effect}。"
+    return f"{branch_name}仪式完成了{name}。"
+
+
+def generic_world_news_text(concept: str) -> str:
+    return (
+        "来自[SCOPE.sCountry('tv_wonder_builder_country').GetName]的消息传来："
+        f"一座[{concept}|E]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成。"
+    )
+
+
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics_data()
     manual_concepts = load_localization_map(MANUAL_CONCEPT_LOC_FILE)
     localization = load_wonder_localization_data()["simp_chinese"]
+    event_suffixes = load_engineering_department_suffix_map()
     lines = ["l_simp_chinese:"]
     for line in render_header(SCRIPT_REL, DATA_REL):
         lines.append(f" {line}")
@@ -219,6 +241,13 @@ def generate() -> str:
                 lines.append(loc_line(f"TV_ENGINEERING_ACTIVE_RITUAL_{code}_{style}", f"确认{name}的{branch_name}仪式。{effect}。"))
         if wonder.get("is_unique"):
             lines.append(loc_line(f"tv_engineering_department.500.d_{key}", unique_completion_text(wonder, "zh")))
+        else:
+            suffix = event_suffixes.get(int(wonder["id"]))
+            if suffix:
+                for style in ceremony_styles(wonder):
+                    branch = design["branches"][style]
+                    lines.append(loc_line(f"tv_engineering_department.500.d_{suffix}_{style}", generic_completion_text(wonder, branch)))
+                lines.append(loc_line(f"tv_engineering_department.600.d_{suffix}", generic_world_news_text(concept)))
 
     filtered_lines: list[str] = []
     for line in lines:

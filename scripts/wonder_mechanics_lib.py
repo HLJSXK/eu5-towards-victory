@@ -12,6 +12,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 WONDERS_FILE = REPO_ROOT / "data" / "wonders.yaml"
 MECHANICS_FILE = REPO_ROOT / "data" / "wonder_mechanics.yaml"
 UNIQUE_WONDERS_FILE = REPO_ROOT / "data" / "unique_wonders.yaml"
+GENERIC_WONDER_IMAGE_PROMPTS_FILE = REPO_ROOT / "data" / "wonder_image_prompts.yaml"
 MANUAL_TV_GAME_CONCEPTS_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_game_concepts.txt"
 ALL_WONDER_MIN_ID = 1
 ALL_WONDER_MAX_ID = 40
@@ -36,6 +37,27 @@ SUPPORTED_RITUAL_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "endi
 
 def load_yaml(path: Path) -> dict:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
+def load_generic_wonder_image_prompts(path: Path = GENERIC_WONDER_IMAGE_PROMPTS_FILE) -> dict[str, str]:
+    if not path.exists():
+        return {}
+
+    raw = load_yaml(path) or {}
+    prompts = raw.get("generic_wonder_image_prompts", {})
+    if not isinstance(prompts, dict):
+        raise ValueError("generic_wonder_image_prompts must be a mapping")
+
+    normalized: dict[str, str] = {}
+    for key, prompt in prompts.items():
+        normalized_key = str(key).strip()
+        normalized_prompt = str(prompt).strip()
+        if not normalized_key:
+            raise ValueError("Wonder image prompt keys cannot be empty")
+        if not normalized_prompt:
+            raise ValueError(f"Wonder image prompt for {normalized_key} cannot be empty")
+        normalized[normalized_key] = normalized_prompt
+    return normalized
 
 
 def load_manual_game_concept_ids(path: Path = MANUAL_TV_GAME_CONCEPTS_FILE) -> set[str]:
@@ -454,6 +476,58 @@ def final_building_for_style(wonder: dict, style: int) -> str:
     if str(style) in wonder["final_buildings"]:
         return wonder["final_buildings"][str(style)]
     raise KeyError(f"{wonder['key']} has no final building for ceremony style {style}")
+
+
+def wonder_image_name(wonder: dict) -> str:
+    return str(wonder.get("image") or f"tv_wonder_{wonder['key']}")
+
+
+def wonder_image_prompt(wonder: dict, generic_prompts: dict[str, str] | None = None) -> str:
+    prompt = str(wonder.get("prompt") or "").strip()
+    if prompt:
+        return prompt
+
+    prompts = generic_prompts or {}
+    if wonder.get("is_unique"):
+        raise ValueError(f"Unique wonder {wonder['key']} is missing an image prompt")
+
+    prompt = str(prompts.get(wonder["key"]) or "").strip()
+    if not prompt:
+        raise ValueError(f"Generic wonder {wonder['key']} is missing an image prompt")
+    return prompt
+
+
+def load_wonder_image_tasks(*, include_unique: bool = True) -> list[dict]:
+    wonders, _ = load_all_wonder_mechanics_data(include_unique=include_unique)
+    generic_prompts = load_generic_wonder_image_prompts()
+    generic_keys = {wonder["key"] for wonder in wonders if not wonder.get("is_unique")}
+
+    missing_generic_prompts = sorted(key for key in generic_keys if key not in generic_prompts)
+    if missing_generic_prompts:
+        raise ValueError(
+            "Missing generic wonder image prompts for: "
+            + ", ".join(missing_generic_prompts)
+        )
+
+    extra_generic_prompts = sorted(key for key in generic_prompts if key not in generic_keys)
+    if extra_generic_prompts:
+        raise ValueError(
+            "Unknown generic wonder image prompt keys: "
+            + ", ".join(extra_generic_prompts)
+        )
+
+    tasks: list[dict] = []
+    for wonder in wonders:
+        tasks.append(
+            {
+                "id": int(wonder["id"]),
+                "key": wonder["key"],
+                "name": wonder_image_name(wonder),
+                "prompt": wonder_image_prompt(wonder, generic_prompts),
+                "is_unique": bool(wonder.get("is_unique")),
+            }
+        )
+    return tasks
 
 
 def final_building_maintenance(wonder: dict, building_design: dict, building: str) -> str:

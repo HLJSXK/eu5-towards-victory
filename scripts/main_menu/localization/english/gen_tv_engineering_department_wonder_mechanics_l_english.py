@@ -20,7 +20,12 @@ from wonder_mechanics_lib import (
     ritual_burden_modifier_name,
     unique_ritual,
 )
-from wonder_localization_lib import apply_localization_values, load_localization_map, load_wonder_localization_data
+from wonder_localization_lib import (
+    apply_localization_values,
+    load_engineering_department_suffix_map,
+    load_localization_map,
+    load_wonder_localization_data,
+)
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml"
 SCRIPT_REL = "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py"
@@ -68,10 +73,27 @@ def unique_completion_text(wonder: dict, language: str) -> str:
     return f"{flavor} {history_intro} The {ceremony_name} now completes the wonder at its fixed historical site. {effect}"
 
 
+def generic_completion_text(wonder: dict, branch: dict) -> str:
+    name = wonder["loc"]["en"]
+    branch_name = branch["en"]
+    effect = branch_effect_text(branch)
+    if effect:
+        return f"The {branch_name} ceremony completes the {name}. {effect}."
+    return f"The {branch_name} ceremony completes the {name}."
+
+
+def generic_world_news_text(concept: str) -> str:
+    return (
+        "News spreads from [SCOPE.sCountry('tv_wonder_builder_country').GetName]: "
+        f"a [{concept}|E] has been completed at [SCOPE.sLocation('tv_wonder_completed_site').GetName]."
+    )
+
+
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics_data()
     manual_concepts = load_localization_map(MANUAL_CONCEPT_LOC_FILE)
     localization = load_wonder_localization_data()["english"]
+    event_suffixes = load_engineering_department_suffix_map()
     lines = ["l_english:"]
     for line in render_header(SCRIPT_REL, DATA_REL):
         lines.append(f" {line}")
@@ -207,6 +229,13 @@ def generate() -> str:
                 lines.append(loc_line(f"TV_ENGINEERING_ACTIVE_RITUAL_{code}_{style}", f"Confirm the {branch_name} ceremony for the {name}. {effect}."))
         if wonder.get("is_unique"):
             lines.append(loc_line(f"tv_engineering_department.500.d_{key}", unique_completion_text(wonder, "en")))
+        else:
+            suffix = event_suffixes.get(int(wonder["id"]))
+            if suffix:
+                for style in ceremony_styles(wonder):
+                    branch = design["branches"][style]
+                    lines.append(loc_line(f"tv_engineering_department.500.d_{suffix}_{style}", generic_completion_text(wonder, branch)))
+                lines.append(loc_line(f"tv_engineering_department.600.d_{suffix}", generic_world_news_text(concept)))
 
     return apply_localization_values("\n".join(lines).rstrip() + "\n", localization)
 

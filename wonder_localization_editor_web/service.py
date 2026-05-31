@@ -431,28 +431,22 @@ class WonderLocalizationService:
                 if suffix:
                     for style in ceremony_styles(wonder):
                         branch_name = self._branch_name(wonder, design, style, language)
-                        self._add_field(
+                        self._add_generated(
                             specs,
                             language,
-                            "manual",
-                            MANUAL_ENGINEERING_FILES[language],
                             "事件文本",
                             f"通用奇观落成事件正文 {style}：{branch_name}",
                             f"tv_engineering_department.500.d_{suffix}_{style}",
                             height=6,
                         )
-                    world_news_key = f"tv_engineering_department.600.d_{suffix}"
-                    if self._field_exists(MANUAL_ENGINEERING_FILES[language], world_news_key):
-                        self._add_field(
-                            specs,
-                            language,
-                            "manual",
-                            MANUAL_ENGINEERING_FILES[language],
-                            "事件文本",
-                            "世界新闻事件正文",
-                            world_news_key,
-                            height=6,
-                        )
+                    self._add_generated(
+                        specs,
+                        language,
+                        "事件文本",
+                        "世界新闻事件正文",
+                        f"tv_engineering_department.600.d_{suffix}",
+                        height=6,
+                    )
 
         return specs
 
@@ -557,4 +551,3 @@ def build_check_report() -> list[str]:
         f"Generated localization keys parsed: {generated_keys}",
         f"Manual localization keys parsed: {manual_keys}",
     ]
-

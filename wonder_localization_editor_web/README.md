@@ -1,6 +1,6 @@
 # Wonder Localization Editor Web
 
-`wonder_localization_editor_web/` 是 `wonder_localization_editor` 的 Web 化目录。它使用 `FastAPI + Uvicorn` 提供本地服务，前端采用原生 HTML/CSS/JS，继续复用原有奇观本地化数据源、手工本地化文件与重新生成脚本。
+`wonder_localization_editor_web/` 是 `wonder_localization_editor` 的 Web 化目录。它使用 `FastAPI + Uvicorn` 提供本地服务，前端采用原生 HTML/CSS/JS，主要读写 `data/wonder_localization.yaml` 这份奇观基础数据；仍保留的概念/工程部手工文件只负责它们尚未迁移的键，重生成脚本继续从这些底层文件出发。
 
 ## 安装依赖
 
@@ -33,8 +33,7 @@ conda run --no-capture-output -n eu5 python scripts/wonder_localization_editor.p
 
 ## 目录
 
-- `service.py`: 复用原编辑器的数据装配、保存与重新生成逻辑
+- `service.py`: 复用原编辑器的数据装配、保存与重新生成逻辑，优先操作 `data/wonder_localization.yaml`
 - `server.py`: FastAPI 路由与静态资源挂载
 - `static/`: Web 前端页面
 - `__main__.py`: 启动入口
-

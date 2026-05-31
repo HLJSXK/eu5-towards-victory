@@ -3,9 +3,9 @@
 Generate Towards Victory wonder illustrations through Packy gpt-image-2.
 
 Usage:
-  1. Edit generate_wonder_image_config.json.
+  1. Edit data/wonder_image_prompts.yaml for generic prompts and data/unique_wonders.yaml for unique prompts.
   2. Set PACKY_API_KEY, or put api.api_key in generate_wonder_image.local.json.
-  3. Run: python generate_wonder_image.py
+  3. Use generate_wonder_image_config.json only for selection, task_overrides, and runtime defaults; then run: python generate_wonder_image.py
 
 The script intentionally has no command-line arguments. It reads a batch of
 image tasks from the JSON config, skips tasks whose output already exists when
@@ -37,6 +37,7 @@ if hasattr(sys.stderr, "reconfigure"):
 
 
 REPO_ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
 CONFIG_PATH = REPO_ROOT / "generate_wonder_image_config.json"
 LOCAL_CONFIG_PATH = REPO_ROOT / "generate_wonder_image.local.json"
 DEFAULT_ENDPOINT = "https://www.packyapi.com/v1/images/generations"
@@ -52,6 +53,8 @@ DEFAULT_WONDERS_DIR = (
 )
 DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_wonders"
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+
+from wonder_mechanics_lib import load_wonder_image_tasks  # noqa: E402
 
 
 @dataclass(frozen=True)
@@ -125,6 +128,15 @@ def require_list(config: dict[str, Any], key: str) -> list[Any]:
     if not isinstance(value, list):
         raise ValueError(f"{key} must be a JSON array")
     return value
+
+
+def normalize_task_key(value: str) -> str:
+    token = str(value).strip().lower()
+    token = token.replace("\\", "/").rsplit("/", 1)[-1]
+    token = re.sub(r"\.dds$", "", token, flags=re.IGNORECASE)
+    if token.startswith("tv_wonder_"):
+        token = token[len("tv_wonder_") :]
+    return token
 
 
 def parse_size(size: str) -> tuple[int, int]:
@@ -203,30 +215,61 @@ def build_payload(image_config: dict[str, Any]) -> dict[str, Any]:
 
 def load_task_config(config: dict[str, Any]) -> list[dict[str, Any]]:
     defaults = require_object(config, "defaults") if "defaults" in config else {}
-    if "images" in config:
-        image_entries = require_list(config, "images")
-    else:
-        legacy_image = require_object(config, "image")
-        legacy_output = require_object(config, "output")
-        image_entries = [deep_merge(defaults, deep_merge(legacy_image, legacy_output))]
+    if "images" in config or "image" in config or "output" in config:
+        raise ValueError(
+            "generate_wonder_image_config.json no longer owns image prompts; "
+            "put prompts in data/wonder_image_prompts.yaml and use selection/task_overrides instead"
+        )
+
+    selection = require_object(config, "selection") if "selection" in config else {}
+    task_overrides = require_object(config, "task_overrides") if "task_overrides" in config else {}
+    include_unique = bool(selection.get("include_unique", True))
+    include_generic = bool(selection.get("include_generic", True))
+    only_keys = {
+        normalize_task_key(item)
+        for item in require_list(selection, "only_keys")
+    } if "only_keys" in selection else set()
+    exclude_keys = {
+        normalize_task_key(item)
+        for item in require_list(selection, "exclude_keys")
+    } if "exclude_keys" in selection else set()
+    default_enabled = bool(selection.get("enabled", True))
+    default_overwrite = bool(selection.get("overwrite", False))
 
     tasks: list[dict[str, Any]] = []
-    for index, entry in enumerate(image_entries, start=1):
-        if not isinstance(entry, dict):
-            raise ValueError(f"images[{index}] must be a JSON object")
-        task = deep_merge(defaults, entry)
-        if "output" in task and isinstance(task["output"], dict):
-            task = deep_merge(task, task["output"])
-        name = str(task.get("name") or "").strip()
-        prompt = str(task.get("prompt") or "").strip()
-        if not name:
-            raise ValueError(f"images[{index}].name must be set")
-        if not prompt:
-            raise ValueError(f"images[{index}].prompt must be a non-empty string")
-        tasks.append(task)
+    for task in load_wonder_image_tasks(include_unique=include_unique):
+        if task["is_unique"] and not include_unique:
+            continue
+        if not task["is_unique"] and not include_generic:
+            continue
+
+        normalized_key = normalize_task_key(task["key"])
+        normalized_name = normalize_task_key(task["name"])
+        if only_keys and normalized_key not in only_keys and normalized_name not in only_keys:
+            continue
+        if normalized_key in exclude_keys or normalized_name in exclude_keys:
+            continue
+
+        merged_task = deep_merge(
+            defaults,
+            {
+                "name": task["name"],
+                "prompt": task["prompt"],
+                "enabled": default_enabled,
+                "overwrite": default_overwrite,
+            },
+        )
+        override = task_overrides.get(task["key"]) or task_overrides.get(normalized_key) or task_overrides.get(task["name"])
+        if override is not None:
+            if not isinstance(override, dict):
+                raise ValueError(f"task_overrides[{task['key']}] must be a JSON object")
+            merged_task = deep_merge(merged_task, override)
+        merged_task["key"] = task["key"]
+        merged_task["is_unique"] = task["is_unique"]
+        tasks.append(merged_task)
 
     if not tasks:
-        raise ValueError("images must contain at least one task")
+        raise ValueError("selection produced no image tasks")
     return tasks
 
 
