@@ -68,8 +68,9 @@ template tv_govhouse_autonomous_task_tooltip {
 				}
 
 				widget = {
-					minimumsize = { 420 0 }
-					maximumsize = { 420 -1 }
+					layoutpolicy_vertical = fixed
+					minimumsize = { 420 96 }
+					maximumsize = { 420 96 }
 					using = bg_paper_card
 					using = bg_cabinet_card_frame
 
