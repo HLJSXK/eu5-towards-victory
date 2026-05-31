@@ -60,10 +60,12 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
 
 12. Give conditional image branches explicit bounds.
     When a wrapper contains mutually exclusive background-image widgets, do not
-    rely on `layoutpolicy_expanding` alone. Give the image column or wrapper a
-    fixed size and size each visible preview child explicitly, for example with
-    `size = { 100% 100% }` or fixed pixels. Otherwise the texture can collapse to
-    the parent's left edge and appear blank.
+    rely on `layoutpolicy_expanding` alone. If the preview sits inside a plain
+    `widget`/`button`, make that clickable wrapper fill its parent first, then
+    give the image column fixed bounds and size each visible preview child
+    explicitly, for example with `size = { 100% 100% }` or fixed pixels.
+    Otherwise the hbox can shrink to the image column's natural width, leaving
+    text and image stacked at the parent's left edge.
 
 ## Validation
 

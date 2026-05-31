@@ -246,6 +246,7 @@ def render_panel_card(indent: str, *, count: int) -> list[str]:
         f"{indent}{T}button = {{",
         f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}{T}layoutpolicy_vertical = expanding",
+        f"{indent}{T}{T}size = {{ 100% 100% }}",
         f"{indent}{T}{T}tooltipwidget = {{ using = tv_location_wonder_tooltip }}",
         f"{indent}{T}{T}vbox = {{",
         f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
