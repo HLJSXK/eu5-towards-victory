@@ -189,12 +189,16 @@ class MechanicsFieldSpec:
     source_path: str = ""
     target_path: str = ""
     structured_value: Any | None = None
+    editable: bool = True
+    prototype_key: str = ""
 
     def to_api_dict(self) -> dict[str, Any]:
         origin_label = {
             "shared": "Shared mechanics source",
             "unique": "Unique wonder source",
         }.get(self.source_kind, self.source_kind)
+        if not self.editable and self.prototype_key:
+            origin_label = "Inherited from prototype"
         return {
             "key": self.key,
             "label": self.label,
@@ -213,6 +217,8 @@ class MechanicsFieldSpec:
             "source_path": self.source_path or str(self.file_path.relative_to(REPO_ROOT)),
             "target_path": self.target_path,
             "structured_value": deepcopy(self.structured_value),
+            "editable": self.editable,
+            "prototype_key": self.prototype_key,
         }
 
 
@@ -1740,6 +1746,16 @@ class WonderLocalizationService:
                     mechanics_file_changed = True
                     continue
 
+                if spec.target_kind == "unique_prototype":
+                    if not value:
+                        raise ValueError(f"{spec.key} cannot be empty")
+                    self._get_generic_wonder_by_key(value)
+                    entry = self._get_unique_wonder_source(spec.target_key)
+                    entry["base_key"] = value
+                    entry["mechanic_key"] = value
+                    unique_file_changed = True
+                    continue
+
                 if spec.target_kind == "base_modifiers":
                     if spec.field_type == "modifier_table":
                         parsed = mapping_from_modifier_rows(value, context=spec.key)
@@ -1873,6 +1889,12 @@ class WonderLocalizationService:
                 return wonder
         raise KeyError(f"Unknown unique wonder key: {wonder_key}")
 
+    def _get_generic_wonder_by_key(self, wonder_key: str) -> dict[str, Any]:
+        for wonder in self.wonders:
+            if not wonder.get("is_unique") and wonder.get("key") == wonder_key:
+                return wonder
+        raise KeyError(f"Unknown generic wonder key: {wonder_key}")
+
     def _wonder_name(self, wonder: dict[str, Any], language: str) -> str:
         return self._localization_value(language, wonder_name_key(wonder))
 
@@ -1902,8 +1924,22 @@ class WonderLocalizationService:
         }
         if wonder.get("is_unique"):
             meta["base_key"] = wonder.get("base_key")
+            meta["mechanic_key"] = wonder.get("mechanic_key")
             meta["location"] = wonder.get("location")
         return meta
+
+    def _generic_wonder_options(self) -> list[dict[str, str]]:
+        options: list[dict[str, str]] = []
+        for wonder in self.wonders:
+            if wonder.get("is_unique"):
+                continue
+            options.append(
+                {
+                    "value": wonder["key"],
+                    "label": self._wonder_summary(wonder)["display_name"],
+                }
+            )
+        return options
 
     def _serialize_specs(self, specs: dict[str, list[FieldSpec]]) -> dict[str, dict[str, Any]]:
         payload: dict[str, dict[str, Any]] = {}
@@ -1964,9 +2000,11 @@ class WonderLocalizationService:
             target_key=prototype_key,
             target_parent_key="trigger_script",
             height=10,
-            help_text="Choose a site-condition template, then adjust the allowed condition atoms instead of editing the raw trigger script directly.",
+            help_text="Inherited from the prototype. Use the prototype selector to change this rule set; edit the prototype wonder to modify the script.",
             target_path=f"site_rules.{prototype_key}.trigger_script",
             structured_value=parse_trigger_builder_state(site_trigger_script_for_key(self.mechanics_data, prototype_key)),
+            editable=False,
+            prototype_key=prototype_key,
         )
         self._add_mechanics_spec(
             specs,
@@ -1983,9 +2021,11 @@ class WonderLocalizationService:
             target_key=prototype_key,
             target_parent_key="preference_script",
             height=14,
-            help_text="Choose a preference template, then edit condition bonus rows and scaled bonus rows without hand-writing script blocks.",
+            help_text="Inherited from the prototype. Use the prototype selector to change this rule set; edit the prototype wonder to modify the script.",
             target_path=f"site_rules.{prototype_key}.preference_script",
             structured_value=parse_preference_builder_state(site_preference_script_for_key(self.mechanics_data, prototype_key)),
+            editable=False,
+            prototype_key=prototype_key,
         )
         self._add_mechanics_spec(
             specs,
@@ -2005,18 +2045,36 @@ class WonderLocalizationService:
             target_kind="base_modifiers",
             target_key=prototype_key,
             height=10,
-            help_text="Structured editor for data/wonder_mechanics.yaml base_modifiers entries.",
+            help_text="Inherited from the prototype. Use the prototype selector to change these modifiers; edit the prototype wonder to modify them.",
             target_path=f"base_modifiers.{prototype_key}",
             structured_value=build_modifier_editor_state(
                 self.mechanics_data.get("base_modifiers", {}).get(prototype_key, {}),
                 modifier_scope="country",
                 options=self.country_modifier_options,
             ),
+            editable=False,
+            prototype_key=prototype_key,
         )
 
         if wonder.get("is_unique"):
             unique_key = wonder["key"]
             unique_entry = self._get_unique_wonder_source(unique_key)
+            self._add_mechanics_spec(
+                specs,
+                group="Unique Wonder",
+                label="Prototype wonder",
+                key=f"mechanics.unique_prototype.{unique_key}",
+                source_kind="unique",
+                file_path=UNIQUE_WONDERS_FILE,
+                original_value=str(unique_entry["base_key"]),
+                field_type="select",
+                target_kind="unique_prototype",
+                target_key=unique_key,
+                height=1,
+                options=self._generic_wonder_options(),
+                help_text="Choose which generic wonder this unique wonder inherits its site rules and base modifiers from.",
+                target_path=f"unique_wonders[{unique_key}].base_key",
+            )
             self._add_mechanics_spec(
                 specs,
                 group="Unique Wonder",
@@ -2183,6 +2241,8 @@ class WonderLocalizationService:
         help_text: str = "",
         target_path: str = "",
         structured_value: Any | None = None,
+        editable: bool = True,
+        prototype_key: str = "",
     ) -> None:
         specs.append(
             MechanicsFieldSpec(
@@ -2202,6 +2262,8 @@ class WonderLocalizationService:
                 source_path=str(file_path.relative_to(REPO_ROOT)),
                 target_path=target_path,
                 structured_value=structured_value,
+                editable=editable,
+                prototype_key=prototype_key,
             )
         )
 

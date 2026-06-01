@@ -573,6 +573,31 @@ textarea {
     min-height: 138px;
 }
 
+.readonly-note {
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-md);
+    background: rgba(255, 250, 242, 0.88);
+}
+
+.readonly-note strong {
+    display: block;
+    font-size: 0.95rem;
+}
+
+.readonly-note p {
+    margin: 6px 0 0;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.readonly-actions {
+    display: flex;
+    gap: 10px;
+}
+
 .code-state-pane {
     display: grid;
     gap: 10px;

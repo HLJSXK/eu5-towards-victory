@@ -109,6 +109,18 @@ function currentWonderKind() {
     return state.currentWonder?.summary?.is_unique ? "unique" : "generic";
 }
 
+function findWonderByKey(key, isUnique = null) {
+    return state.wonders.find((wonder) => {
+        if (wonder.key !== key) {
+            return false;
+        }
+        if (isUnique === null) {
+            return true;
+        }
+        return Boolean(wonder.is_unique) === Boolean(isUnique);
+    });
+}
+
 function wondersForMode(mode) {
     const isUnique = mode === "unique";
     return state.wonders.filter((wonder) => Boolean(wonder.is_unique) === isUnique);
@@ -698,6 +710,41 @@ function createStructuredShell(field, scope) {
     layout.append(editor, preview);
     commit();
     return { shell, editor, stateValue, commit };
+}
+
+function renderReadonlyStructuredField(field, scope) {
+    const shell = createStructuredShell(field, scope);
+    const { editor, commit } = shell;
+    const note = document.createElement("div");
+    note.className = "readonly-note";
+
+    const message = document.createElement("div");
+    message.innerHTML = `
+        <strong>Inherited from prototype</strong>
+        <p>Edit the prototype wonder to change this data.</p>
+    `;
+    note.append(message);
+
+    if (field.prototype_key) {
+        const actions = document.createElement("div");
+        actions.className = "readonly-actions";
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "mini-button";
+        button.textContent = "Open prototype";
+        button.addEventListener("click", () => {
+            const target = findWonderByKey(field.prototype_key, false);
+            if (target) {
+                void selectWonder(target.id);
+            }
+        });
+        actions.append(button);
+        note.append(actions);
+    }
+
+    editor.append(note);
+    commit();
+    return shell.shell;
 }
 
 function buildRowListEditor(config) {
@@ -1366,6 +1413,9 @@ function renderStructuredField(field, scope) {
 }
 
 function buildEditorInput(field, scope) {
+    if (field.editable === false) {
+        return renderReadonlyStructuredField(field, scope);
+    }
     if (isStructuredFieldType(field.field_type || "text")) {
         return renderStructuredField(field, scope);
     }
