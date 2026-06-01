@@ -190,6 +190,14 @@ def auxiliary_on_built_lines(wonder: dict, style: int) -> list[str]:
     ]
 
 
+def final_building_on_built_lines() -> list[str]:
+    return [
+        f"{T}{T}hidden_effect = {{",
+        f"{T}{T}{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes",
+        f"{T}{T}}}",
+    ]
+
+
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
@@ -205,7 +213,16 @@ def generate() -> str:
                 modifiers = merge_modifiers(base_local)
             maintenance = final_building_maintenance(wonder, building_design, building)
             attributes = building_design.get("final_attributes", {}).get(building, {})
-            lines.extend(building_block(building, wonder, modifiers, maintenance, attributes=attributes))
+            lines.extend(
+                building_block(
+                    building,
+                    wonder,
+                    modifiers,
+                    maintenance,
+                    attributes=attributes,
+                    on_built_lines=final_building_on_built_lines(),
+                )
+            )
         for style in ceremony_styles(wonder):
             ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
             if ritual_plan["mode"] != "auxiliary_building":
