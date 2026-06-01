@@ -3,9 +3,11 @@ from __future__ import annotations
 import subprocess
 import threading
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
+
+import yaml
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -23,10 +25,21 @@ from scripts.wonder_localization_lib import (
 from scripts.wonder_mechanics_lib import (
     ceremony_modifier_for_style,
     ceremony_styles,
+    dump_yaml_document,
     final_building_for_style,
+    load_mechanics_source_data,
     load_all_wonder_mechanics_data,
     load_manual_game_concept_ids,
+    load_unique_wonders_source_data,
+    load_wonders_source_data,
     mechanic_key,
+    MECHANICS_FILE,
+    legacy_site_preference_lines,
+    legacy_site_trigger_lines,
+    save_yaml_document,
+    site_preference_script_for_key,
+    site_trigger_script_for_key,
+    UNIQUE_WONDERS_FILE,
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
 )
@@ -64,6 +77,21 @@ REGEN_SCRIPTS = (
     "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
     "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py",
 )
+WONDER_DATA_REGEN_SCRIPTS = (
+    "scripts/in_game/common/building_types/gen_tv_wonder_module_buildings.py",
+    "scripts/in_game/common/building_types/gen_tv_engineering_department_wonder_mechanics_buildings.py",
+    "scripts/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_mechanics_modifiers.py",
+    "scripts/in_game/common/generic_actions/gen_tv_engineering_department_wonder_mechanics_actions.py",
+    "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py",
+    "scripts/in_game/common/scripted_effects/gen_tv_wonder_module_effects.py",
+    "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py",
+    "scripts/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py",
+    "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
+    "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py",
+    "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py",
+    "scripts/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py",
+    "scripts/in_game/gui/gen_location_window.py",
+)
 
 
 @dataclass(slots=True)
@@ -88,8 +116,72 @@ class FieldSpec:
             "origin_label": origin_label,
             "original_value": self.original_value,
             "value": self.original_value,
+            "field_type": "text",
             "height": self.height,
+            "options": [],
+            "help_text": "",
         }
+
+
+@dataclass(slots=True)
+class MechanicsFieldSpec:
+    key: str
+    label: str
+    group: str
+    source_kind: str
+    file_path: Path
+    original_value: str
+    field_type: str
+    target_kind: str
+    target_key: str
+    target_parent_key: str = ""
+    height: int = 3
+    options: list[dict[str, str]] = field(default_factory=list)
+    help_text: str = ""
+
+    def to_api_dict(self) -> dict[str, Any]:
+        origin_label = {
+            "generated": "数据源",
+            "manual": "手工文件",
+            "shared": "原型共享",
+        }.get(self.source_kind, self.source_kind)
+        return {
+            "key": self.key,
+            "label": self.label,
+            "group": self.group,
+            "source_kind": self.source_kind,
+            "origin_label": origin_label,
+            "original_value": self.original_value,
+            "value": self.original_value,
+            "field_type": self.field_type,
+            "target_kind": self.target_kind,
+            "target_key": self.target_key,
+            "target_parent_key": self.target_parent_key,
+            "height": self.height,
+            "options": list(self.options),
+            "help_text": self.help_text,
+        }
+
+
+def serialize_yaml_editor_value(value: object) -> str:
+    if value is None:
+        return ""
+    return dump_yaml_document(value).rstrip()
+
+
+def normalize_multiline_editor_text(value: str) -> str:
+    return value.replace("\r\n", "\n").replace("\r", "\n").strip()
+
+
+def parse_yaml_editor_value(raw_value: str, *, empty_default: object, expected_type: type) -> object:
+    text = raw_value.strip()
+    if not text:
+        value = empty_default
+    else:
+        value = yaml.safe_load(text)
+    if not isinstance(value, expected_type):
+        raise ValueError(f"Expected {expected_type.__name__}, got {type(value).__name__}")
+    return value
 
 
 class WonderLocalizationService:
@@ -98,6 +190,9 @@ class WonderLocalizationService:
         self._log_fragments: list[str] = []
         self.wonders: list[dict[str, Any]] = []
         self.mechanics: dict[str, Any] = {}
+        self.wonders_data: dict[str, Any] = {}
+        self.mechanics_data: dict[str, Any] = {}
+        self.unique_wonders_data: dict[str, Any] = {}
         self.manual_concepts: set[str] = set()
         self.event_suffixes: dict[int, str] = {}
         self.localization_data: dict[str, dict[str, str]] = {}
@@ -117,6 +212,9 @@ class WonderLocalizationService:
 
     def reload_from_disk(self) -> None:
         with self._lock:
+            self.wonders_data = load_wonders_source_data()
+            self.mechanics_data = load_mechanics_source_data()
+            self.unique_wonders_data = load_unique_wonders_source_data()
             self.wonders, self.mechanics = load_all_wonder_mechanics_data()
             self.wonders = sorted(self.wonders, key=lambda item: int(item["id"]))
             self.manual_concepts = load_manual_game_concept_ids()
@@ -160,10 +258,12 @@ class WonderLocalizationService:
                 return None
             wonder = self._get_wonder(wonder_id)
             specs = self._build_specs_for_wonder(wonder)
+            mechanics_specs = self._build_mechanics_specs_for_wonder(wonder)
             return {
                 "summary": self._wonder_summary(wonder),
                 "meta": self._wonder_meta(wonder),
                 "languages": self._serialize_specs(specs),
+                "mechanics": self._serialize_mechanics_specs(mechanics_specs),
                 "status": f"已载入 {wonder['key']}",
             }
 
@@ -184,15 +284,18 @@ class WonderLocalizationService:
         self,
         wonder_id: int,
         values_by_language: dict[str, dict[str, str]] | None,
+        mechanics_values: dict[str, str] | None = None,
         *,
         regenerate: bool = True,
     ) -> dict[str, Any]:
         with self._lock:
             wonder = self._get_wonder(wonder_id)
             specs = self._build_specs_for_wonder(wonder)
+            mechanics_specs = self._build_mechanics_specs_for_wonder(wonder)
             manual_updates: dict[Path, dict[str, str]] = {}
             localization_updates: dict[str, dict[str, str]] = {language: {} for language in LANGUAGES}
             incoming_values = values_by_language or {}
+            incoming_mechanics = mechanics_values or {}
 
             for language, language_specs in specs.items():
                 language_values = incoming_values.get(language, {})
@@ -204,6 +307,68 @@ class WonderLocalizationService:
                         manual_updates.setdefault(spec.file_path, {})[spec.key] = value
                     else:
                         localization_updates[language][spec.key] = value
+
+            mechanics_file_changed = False
+            unique_file_changed = False
+            for spec in mechanics_specs:
+                value = normalize_multiline_editor_text(str(incoming_mechanics.get(spec.key, spec.original_value)))
+                if value == spec.original_value:
+                    continue
+
+                if spec.target_kind == "site_rule":
+                    legacy_value = "\n".join(
+                        legacy_site_trigger_lines(spec.target_key, 0)
+                        if spec.target_parent_key == "trigger_script"
+                        else legacy_site_preference_lines(spec.target_key, 0)
+                    ).strip()
+                    site_rules = self.mechanics_data.setdefault("site_rules", {})
+                    entry = site_rules.setdefault(spec.target_key, {})
+                    if value.strip() == legacy_value:
+                        if spec.target_parent_key in entry:
+                            entry.pop(spec.target_parent_key, None)
+                            mechanics_file_changed = True
+                        if not entry:
+                            site_rules.pop(spec.target_key, None)
+                        continue
+                    entry[spec.target_parent_key] = value
+                    mechanics_file_changed = True
+                    continue
+
+                if spec.target_kind == "base_modifiers":
+                    parsed = parse_yaml_editor_value(value, empty_default={}, expected_type=dict)
+                    self.mechanics_data.setdefault("base_modifiers", {})[spec.target_key] = parsed
+                    mechanics_file_changed = True
+                    continue
+
+                if spec.target_kind == "generic_ritual":
+                    parsed = parse_yaml_editor_value(value, empty_default={}, expected_type=dict)
+                    rituals = self.mechanics_data.setdefault("generic_rituals", {})
+                    ritual = rituals.setdefault(spec.target_key, {})
+                    ritual[spec.target_parent_key] = parsed
+                    mechanics_file_changed = True
+                    continue
+
+                if spec.target_kind == "unique_location":
+                    entry = self._get_unique_wonder_source(spec.target_key)
+                    entry["location"] = value
+                    unique_file_changed = True
+                    continue
+
+                if spec.target_kind == "unique_ritual":
+                    parsed = parse_yaml_editor_value(value, empty_default={}, expected_type=dict)
+                    entry = self._get_unique_wonder_source(spec.target_key)
+                    if "ritual" in entry or "ceremony" not in entry:
+                        entry["ritual"] = parsed
+                        entry.pop("ceremony", None)
+                    else:
+                        entry["ceremony"] = parsed
+                    unique_file_changed = True
+                    continue
+
+                raise ValueError(f"Unsupported mechanics target kind: {spec.target_kind}")
+
+            if not self.mechanics_data.get("site_rules"):
+                self.mechanics_data.pop("site_rules", None)
 
             changed_files: list[str] = []
             try:
@@ -222,7 +387,23 @@ class WonderLocalizationService:
                     changed_files.append(str(WONDER_LOCALIZATION_FILE.relative_to(REPO_ROOT)))
 
                 if regenerate:
-                    self._run_generators()
+                    if mechanics_file_changed or unique_file_changed:
+                        if mechanics_file_changed:
+                            save_yaml_document(MECHANICS_FILE, self.mechanics_data)
+                            changed_files.append(str(MECHANICS_FILE.relative_to(REPO_ROOT)))
+                        if unique_file_changed:
+                            save_yaml_document(UNIQUE_WONDERS_FILE, self.unique_wonders_data, preserve_leading_comments=True)
+                            changed_files.append(str(UNIQUE_WONDERS_FILE.relative_to(REPO_ROOT)))
+                        self._run_generators(WONDER_DATA_REGEN_SCRIPTS)
+                    else:
+                        self._run_generators(REGEN_SCRIPTS)
+                else:
+                    if mechanics_file_changed:
+                        save_yaml_document(MECHANICS_FILE, self.mechanics_data)
+                        changed_files.append(str(MECHANICS_FILE.relative_to(REPO_ROOT)))
+                    if unique_file_changed:
+                        save_yaml_document(UNIQUE_WONDERS_FILE, self.unique_wonders_data, preserve_leading_comments=True)
+                        changed_files.append(str(UNIQUE_WONDERS_FILE.relative_to(REPO_ROOT)))
 
                 self.reload_from_disk()
                 payload = self.get_wonder_payload(wonder_id)
@@ -272,6 +453,12 @@ class WonderLocalizationService:
                 return wonder
         raise KeyError(f"Unknown wonder id: {wonder_id}")
 
+    def _get_unique_wonder_source(self, wonder_key: str) -> dict[str, Any]:
+        for wonder in self.unique_wonders_data.get("unique_wonders", []):
+            if wonder.get("key") == wonder_key:
+                return wonder
+        raise KeyError(f"Unknown unique wonder key: {wonder_key}")
+
     def _wonder_summary(self, wonder: dict[str, Any]) -> dict[str, Any]:
         kind_label = "独特" if wonder.get("is_unique") else "通用"
         return {
@@ -319,6 +506,162 @@ class WonderLocalizationService:
                 "sections": sections,
             }
         return payload
+
+    def _serialize_mechanics_specs(self, specs: list[MechanicsFieldSpec]) -> dict[str, Any]:
+        sections: list[dict[str, Any]] = []
+        current_group: str | None = None
+        current_fields: list[dict[str, Any]] = []
+        for spec in specs:
+            if spec.group != current_group:
+                if current_group is not None:
+                    sections.append({"group": current_group, "fields": current_fields})
+                current_group = spec.group
+                current_fields = []
+            current_fields.append(spec.to_api_dict())
+        if current_group is not None:
+            sections.append({"group": current_group, "fields": current_fields})
+        return {
+            "label": "机制",
+            "sections": sections,
+        }
+
+    def _build_mechanics_specs_for_wonder(self, wonder: dict[str, Any]) -> list[MechanicsFieldSpec]:
+        specs: list[MechanicsFieldSpec] = []
+        prototype_key = mechanic_key(wonder)
+        shared_source_kind = "shared" if wonder.get("is_unique") else "generated"
+
+        self._add_mechanics_spec(
+            specs,
+            group="建造地点",
+            label="地点限制脚本",
+            key=f"mechanics.site_trigger.{wonder['key']}",
+            source_kind=shared_source_kind,
+            file_path=MECHANICS_FILE,
+            original_value=site_trigger_script_for_key(self.mechanics_data, prototype_key),
+            field_type="script",
+            target_kind="site_rule",
+            target_key=prototype_key,
+            target_parent_key="trigger_script",
+            height=8,
+            help_text="修改后会影响这个原型对应的奇观建造地点校验逻辑。",
+        )
+        self._add_mechanics_spec(
+            specs,
+            group="建造地点",
+            label="适性条件脚本",
+            key=f"mechanics.site_preference.{wonder['key']}",
+            source_kind=shared_source_kind,
+            file_path=MECHANICS_FILE,
+            original_value=site_preference_script_for_key(self.mechanics_data, prototype_key),
+            field_type="script",
+            target_kind="site_rule",
+            target_key=prototype_key,
+            target_parent_key="preference_script",
+            height=12,
+            help_text="修改后会影响 survey competence 的适性加成逻辑。",
+        )
+        self._add_mechanics_spec(
+            specs,
+            group="基础效果",
+            label="Base 每级效果",
+            key=f"mechanics.base_modifiers.{wonder['key']}",
+            source_kind=shared_source_kind,
+            file_path=MECHANICS_FILE,
+            original_value=serialize_yaml_editor_value(self.mechanics_data.get("base_modifiers", {}).get(prototype_key, {})),
+            field_type="yaml",
+            target_kind="base_modifiers",
+            target_key=prototype_key,
+            height=8,
+            help_text="这里是每一级奇观都会叠加一次的基础 modifier 配置。",
+        )
+
+        if wonder.get("is_unique"):
+            unique_key = wonder["key"]
+            unique_entry = self._get_unique_wonder_source(unique_key)
+            self._add_mechanics_spec(
+                specs,
+                group="独特奇观",
+                label="固定地点",
+                key=f"mechanics.unique_location.{unique_key}",
+                source_kind="manual",
+                file_path=UNIQUE_WONDERS_FILE,
+                original_value=str(unique_entry.get("location", "")),
+                field_type="text",
+                target_kind="unique_location",
+                target_key=unique_key,
+                height=2,
+                help_text="独特奇观只能在这个 location id 建造。",
+            )
+            self._add_mechanics_spec(
+                specs,
+                group="仪式效果",
+                label="独特仪式配置",
+                key=f"mechanics.unique_ritual.{unique_key}",
+                source_kind="manual",
+                file_path=UNIQUE_WONDERS_FILE,
+                original_value=serialize_yaml_editor_value(unique_entry.get("ritual", unique_entry.get("ceremony", {}))),
+                field_type="yaml",
+                target_kind="unique_ritual",
+                target_key=unique_key,
+                height=14,
+                help_text="直接编辑 unique_wonders.yaml 中的 ritual / ceremony 数据块。",
+            )
+            return specs
+
+        generic_ritual = self.mechanics_data.get("generic_rituals", {}).get(wonder["key"], {})
+        for style in (1, 2, 3):
+            self._add_mechanics_spec(
+                specs,
+                group="仪式效果",
+                label=f"仪式 {style} 配置",
+                key=f"mechanics.generic_ritual.{wonder['key']}.style_{style}",
+                source_kind="generated",
+                file_path=MECHANICS_FILE,
+                original_value=serialize_yaml_editor_value(generic_ritual.get(f"style_{style}", {})),
+                field_type="yaml",
+                target_kind="generic_ritual",
+                target_key=wonder["key"],
+                target_parent_key=f"style_{style}",
+                height=8,
+                help_text="直接编辑 generic_rituals 的对应样式配置。",
+            )
+        return specs
+
+    def _add_mechanics_spec(
+        self,
+        specs: list[MechanicsFieldSpec],
+        *,
+        group: str,
+        label: str,
+        key: str,
+        source_kind: str,
+        file_path: Path,
+        original_value: str,
+        field_type: str,
+        target_kind: str,
+        target_key: str,
+        target_parent_key: str = "",
+        height: int = 3,
+        options: list[dict[str, str]] | None = None,
+        help_text: str = "",
+    ) -> None:
+        specs.append(
+            MechanicsFieldSpec(
+                key=key,
+                label=label,
+                group=group,
+                source_kind=source_kind,
+                file_path=file_path,
+                original_value=original_value,
+                field_type=field_type,
+                target_kind=target_kind,
+                target_key=target_key,
+                target_parent_key=target_parent_key,
+                height=height,
+                options=list(options or []),
+                help_text=help_text,
+            )
+        )
 
     def _build_specs_for_wonder(self, wonder: dict[str, Any]) -> dict[str, list[FieldSpec]]:
         specs = {language: [] for language in LANGUAGES}
@@ -499,9 +842,9 @@ class WonderLocalizationService:
             )
         )
 
-    def _run_generators(self) -> None:
+    def _run_generators(self, scripts: tuple[str, ...] = REGEN_SCRIPTS) -> None:
         self._append_log("\n[regen] 开始重新生成奇观本地化...\n")
-        for script in REGEN_SCRIPTS:
+        for script in scripts:
             command = [
                 "conda",
                 "run",

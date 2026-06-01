@@ -14,12 +14,12 @@ from wonder_mechanics_lib import (
     ceremony_styles,
     indent_script_block,
     load_all_wonder_mechanics,
-    mechanic_key,
     render_header,
     ritual_has_custom_completion_trigger,
     ritual_listens_to,
     ritual_plan_for_style,
     ritual_uses_deferred_completion,
+    site_trigger_lines_for_wonder,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers" / "tv_engineering_department_wonder_mechanics_triggers.txt"
@@ -27,123 +27,8 @@ SCRIPT_REL = "scripts/in_game/common/scripted_triggers/gen_tv_engineering_depart
 T = "\t"
 
 
-def trigger_conditions(wonder: dict, indent: int = 1) -> list[str]:
-    prefix = T * indent
-    key = mechanic_key(wonder)
-    lines: list[str] = []
-    if key in {"sacred_mountain", "giant_observatory", "mountain_terrace_network"}:
-        lines.extend([
-            f"{prefix}OR = {{",
-            f"{prefix}{T}topography = mountains",
-            f"{prefix}{T}topography = plateau",
-            f"{prefix}{T}topography = hills",
-            f"{prefix}}}",
-        ])
-    elif key in {"triumphal_axis", "city_expansion_project"}:
-        lines.extend([
-            f"{prefix}OR = {{",
-            f"{prefix}{T}location_rank ?= location_rank:city",
-            f"{prefix}{T}location_rank ?= location_rank:megalopolis",
-            f"{prefix}}}",
-        ])
-    elif key in {"great_port", "great_lighthouse", "national_shipyard", "coastal_beacon_network", "maritime_trade_station_network"}:
-        lines.append(f"{prefix}is_port = yes")
-    elif key == "giant_necropolis":
-        lines.append(f"{prefix}location_rank ?= location_rank:rural_settlement")
-    elif key in {"hydraulic_workshop", "river_extension"}:
-        lines.extend([
-            f"{prefix}OR = {{",
-            f"{prefix}{T}has_river = yes",
-            f"{prefix}{T}is_adjacent_to_lake = yes",
-            f"{prefix}}}",
-        ])
-    elif key == "mining_city":
-        lines.extend([
-            f"{prefix}OR = {{",
-            f"{prefix}{T}raw_material = goods:iron",
-            f"{prefix}{T}raw_material = goods:copper",
-            f"{prefix}{T}raw_material = goods:tin",
-            f"{prefix}{T}raw_material = goods:lead",
-            f"{prefix}{T}raw_material = goods:silver",
-            f"{prefix}{T}raw_material = goods:goods_gold",
-            f"{prefix}}}",
-        ])
-    elif key in {"palace_of_nations", "library_of_nation"}:
-        lines.append(f"{prefix}is_capital = yes")
-    elif key in {"university_city", "star_fortress_city", "giant_armory", "war_college_system", "great_clock_bell_system", "grand_theater_festival_district", "guild_alliance", "giant_workshop_complex"}:
-        lines.append(f"{prefix}NOT = {{ location_rank ?= location_rank:rural_settlement }}")
-    elif key == "sky_dome_grand_temple":
-        lines.append(f"{prefix}dominant_religion = owner.religion")
-    elif key == "giant_tower_temple":
-        lines.append(f"{prefix}always = yes")
-    elif key == "great_wall":
-        lines.append(f"{prefix}NOT = {{ location_rank ?= location_rank:city }}")
-        lines.append(f"{prefix}NOT = {{ location_rank ?= location_rank:megalopolis }}")
-    elif key in {"large_canal_system", "giant_dam_project", "canal_hub_city"}:
-        lines.extend([
-            f"{prefix}OR = {{",
-            f"{prefix}{T}has_river = yes",
-            f"{prefix}{T}is_adjacent_to_lake = yes",
-            f"{prefix}{T}is_port = yes",
-            f"{prefix}}}",
-        ])
-        if key == "canal_hub_city":
-            lines.append(f"{prefix}NOT = {{ location_rank ?= location_rank:rural_settlement }}")
-    elif key in {"royal_granary_system", "imperial_post_road_network", "law_code_stele_project"}:
-        lines.append(f"{prefix}always = yes")
-    elif key == "frontier_colonization_belt":
-        lines.extend([
-            f"{prefix}OR = {{",
-            f"{prefix}{T}location_rank ?= location_rank:rural_settlement",
-            f"{prefix}{T}topography = hills",
-            f"{prefix}}}",
-        ])
-    elif key == "knightly_fortress_order":
-        lines.append(f"{prefix}NOT = {{ location_rank ?= location_rank:rural_settlement }}")
-    elif key == "royal_art_district":
-        lines.extend([
-            f"{prefix}OR = {{",
-            f"{prefix}{T}is_capital = yes",
-            f"{prefix}{T}location_rank ?= location_rank:city",
-            f"{prefix}{T}location_rank ?= location_rank:megalopolis",
-            f"{prefix}}}",
-        ])
-    elif key == "world_embassy_quarter":
-        lines.extend([
-            f"{prefix}OR = {{",
-            f"{prefix}{T}is_capital = yes",
-            f"{prefix}{T}NOT = {{ location_rank ?= location_rank:rural_settlement }}",
-            f"{prefix}}}",
-        ])
-    elif key == "world_market":
-        lines.extend([
-            f"{prefix}OR = {{",
-            f"{prefix}{T}is_port = yes",
-            f"{prefix}{T}location_rank ?= location_rank:city",
-            f"{prefix}{T}location_rank ?= location_rank:megalopolis",
-            f"{prefix}}}",
-        ])
-    elif key == "royal_mint_system":
-        lines.extend([
-            f"{prefix}OR = {{",
-            f"{prefix}{T}location_rank ?= location_rank:city",
-            f"{prefix}{T}location_rank ?= location_rank:megalopolis",
-            f"{prefix}{T}raw_material = goods:goods_gold",
-            f"{prefix}{T}raw_material = goods:silver",
-            f"{prefix}{T}raw_material = goods:copper",
-            f"{prefix}}}",
-        ])
-    elif key == "world_monument_group":
-        lines.extend([
-            f"{prefix}OR = {{",
-            f"{prefix}{T}is_capital = yes",
-            f"{prefix}{T}location_rank ?= location_rank:city",
-            f"{prefix}{T}location_rank ?= location_rank:megalopolis",
-            f"{prefix}}}",
-        ])
-    else:
-        raise ValueError(f"No site trigger mapping for {key}")
-    return lines
+def trigger_conditions(wonder: dict, mechanics: dict, indent: int = 1) -> list[str]:
+    return site_trigger_lines_for_wonder(mechanics, wonder, indent)
 
 
 def building_or_block(buildings: list[str], indent: int) -> list[str]:
@@ -203,12 +88,12 @@ def final_building_below_cap_conditions(wonder: dict, indent: int) -> list[str]:
     return lines
 
 
-def fresh_site_candidate_conditions(wonder: dict, indent: int) -> list[str]:
+def fresh_site_candidate_conditions(wonder: dict, mechanics: dict, indent: int) -> list[str]:
     prefix = T * indent
     lines = [f"{prefix}AND = {{"]
     if wonder.get("is_unique"):
         lines.append(f"{prefix}{T}this = location:{wonder['fixed_location']}")
-    lines.extend(trigger_conditions(wonder, indent + 1))
+    lines.extend(trigger_conditions(wonder, mechanics, indent + 1))
     lines.append(f"{prefix}{T}NOT = {{ tv_wonder_location_has_{wonder['key']}_capped_final_building_trigger = yes }}")
     lines.append(f"{prefix}}}")
     return lines
@@ -387,7 +272,7 @@ def generate() -> str:
         lines.append(f"tv_wonder_location_can_host_{wonder['key']}_trigger = {{")
         lines.append(f"{T}OR = {{")
         lines.append(f"{T}{T}tv_wonder_location_is_valid_priority_project_for_{wonder['key']}_trigger = yes")
-        lines.extend(fresh_site_candidate_conditions(wonder, 2))
+        lines.extend(fresh_site_candidate_conditions(wonder, mechanics, 2))
         lines.append(f"{T}}}")
         lines.append("}")
         lines.append("")

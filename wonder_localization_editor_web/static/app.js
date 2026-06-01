@@ -1,8 +1,9 @@
 const state = {
-    title: "Towards Victory 奇观本地化编辑器",
+    title: "Towards Victory 奇观编辑器",
     wonders: [],
     currentWonder: null,
-    activeLanguage: "english",
+    activeEditorTab: "english",
+    listMode: "generic",
     status: "就绪",
     statusKind: "default",
     logText: "",
@@ -11,6 +12,7 @@ const state = {
 
 const elements = {
     appTitle: document.getElementById("app-title"),
+    wonderKindTabs: document.getElementById("wonder-kind-tabs"),
     wonderCount: document.getElementById("wonder-count"),
     wonderList: document.getElementById("wonder-list"),
     wonderMeta: document.getElementById("wonder-meta"),
@@ -26,8 +28,12 @@ const elements = {
     toast: document.getElementById("toast"),
 };
 
-function normalizeEditorText(value) {
+function normalizeLocalizationText(value) {
     return value.replace(/\r\n/g, "\n").replace(/\r/g, "\n").replace(/\n/g, " ").trim();
+}
+
+function normalizeMultilineText(value) {
+    return value.replace(/\r\n/g, "\n").replace(/\r/g, "\n").trim();
 }
 
 function wonderSearchHaystack(wonder) {
@@ -38,6 +44,7 @@ function wonderSearchHaystack(wonder) {
         wonder.name_zh,
         wonder.name_en,
         wonder.display_name,
+        wonder.kind_label,
     ]
         .join(" ")
         .toLowerCase();
@@ -68,10 +75,26 @@ function setBusy(isBusy) {
     document.body.dataset.busy = String(isBusy);
 }
 
+function getEditorFields() {
+    return elements.languagePanels.querySelectorAll("[data-editor-field='true']");
+}
+
+function normalizeFieldValue(element) {
+    const scope = element.dataset.fieldScope;
+    const fieldType = element.dataset.fieldType || "text";
+    const value = String(element.value ?? "");
+    if (scope === "localization") {
+        return normalizeLocalizationText(value);
+    }
+    if (fieldType === "yaml" || fieldType === "script") {
+        return normalizeMultilineText(value);
+    }
+    return value.trim();
+}
+
 function hasUnsavedChanges() {
-    const textareas = elements.languagePanels.querySelectorAll("textarea[data-original-value]");
-    for (const textarea of textareas) {
-        if (normalizeEditorText(textarea.value) !== textarea.dataset.originalValue) {
+    for (const field of getEditorFields()) {
+        if (normalizeFieldValue(field) !== field.dataset.originalValue) {
             return true;
         }
     }
@@ -82,10 +105,45 @@ function refreshDirtyState() {
     elements.dirtyBadge.classList.toggle("hidden", !hasUnsavedChanges());
 }
 
+function currentWonderKind() {
+    return state.currentWonder?.summary?.is_unique ? "unique" : "generic";
+}
+
+function wondersForMode(mode) {
+    const isUnique = mode === "unique";
+    return state.wonders.filter((wonder) => Boolean(wonder.is_unique) === isUnique);
+}
+
+function renderWonderKindTabs() {
+    const modes = [
+        { id: "generic", label: "通用奇观" },
+        { id: "unique", label: "独特奇观" },
+    ];
+    elements.wonderKindTabs.innerHTML = "";
+    for (const mode of modes) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "kind-switch-button";
+        if (state.listMode === mode.id) {
+            button.classList.add("active");
+        }
+        button.textContent = `${mode.label} (${wondersForMode(mode.id).length})`;
+        button.addEventListener("click", () => {
+            state.listMode = mode.id;
+            renderWonderKindTabs();
+            renderWonderList();
+        });
+        elements.wonderKindTabs.append(button);
+    }
+}
+
 function renderWonderList() {
     const query = elements.searchInput.value.trim().toLowerCase();
-    const wonders = state.wonders.filter((wonder) => wonderSearchHaystack(wonder).includes(query));
-    elements.wonderCount.textContent = `显示 ${wonders.length} / ${state.wonders.length} 个奇观`;
+    const pool = wondersForMode(state.listMode);
+    const wonders = pool.filter((wonder) => wonderSearchHaystack(wonder).includes(query));
+    const label = state.listMode === "unique" ? "独特奇观" : "通用奇观";
+
+    elements.wonderCount.textContent = `显示 ${wonders.length} / ${pool.length} 个${label}`;
     elements.wonderList.innerHTML = "";
 
     if (!wonders.length) {
@@ -106,7 +164,7 @@ function renderWonderList() {
         button.innerHTML = `
             <span class="wonder-row">
                 <span class="wonder-id">#${wonder.id}</span>
-                <span class="wonder-kind">${wonder.kind_label}</span>
+                <span class="wonder-kind">${escapeHtml(wonder.kind_label)}</span>
             </span>
             <strong>${escapeHtml(wonder.name_zh || wonder.key)}</strong>
             <span class="wonder-subtitle">${escapeHtml(wonder.name_en || wonder.concept)}</span>
@@ -124,6 +182,7 @@ function renderMeta() {
     if (!state.currentWonder) {
         return;
     }
+
     const { meta, summary } = state.currentWonder;
     const entries = [
         ["ID", String(meta.id)],
@@ -137,8 +196,9 @@ function renderMeta() {
         entries.push(["原型", meta.base_key]);
     }
     if (meta.location) {
-        entries.push(["地点", meta.location]);
+        entries.push(["固定地点", meta.location]);
     }
+
     for (const [label, value] of entries) {
         const card = document.createElement("div");
         card.className = "meta-card";
@@ -147,89 +207,161 @@ function renderMeta() {
     }
 }
 
-function renderLanguageTabs() {
+function editorTabsForCurrentWonder() {
+    if (!state.currentWonder) {
+        return [];
+    }
+    const tabs = Object.entries(state.currentWonder.languages).map(([id, payload]) => ({
+        id,
+        label: payload.label,
+        kind: "localization",
+    }));
+    if (state.currentWonder.mechanics) {
+        tabs.push({
+            id: "mechanics",
+            label: state.currentWonder.mechanics.label || "机制",
+            kind: "mechanics",
+        });
+    }
+    return tabs;
+}
+
+function renderEditorTabs() {
     elements.languageTabs.innerHTML = "";
     if (!state.currentWonder) {
         return;
     }
-    const languages = state.currentWonder.languages;
-    if (!languages[state.activeLanguage]) {
-        state.activeLanguage = Object.keys(languages)[0];
+
+    const tabs = editorTabsForCurrentWonder();
+    if (!tabs.some((tab) => tab.id === state.activeEditorTab)) {
+        state.activeEditorTab = tabs[0]?.id || "english";
     }
-    for (const [language, payload] of Object.entries(languages)) {
+
+    for (const tab of tabs) {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "tab-button";
-        if (language === state.activeLanguage) {
+        if (tab.id === state.activeEditorTab) {
             button.classList.add("active");
         }
-        button.textContent = payload.label;
+        button.textContent = tab.label;
         button.addEventListener("click", () => {
-            state.activeLanguage = language;
-            renderLanguageTabs();
-            syncActiveLanguagePanel();
+            state.activeEditorTab = tab.id;
+            renderEditorTabs();
+            syncActiveEditorPanel();
         });
         elements.languageTabs.append(button);
     }
 }
 
-function renderLanguagePanels() {
+function buildEditorInput(field, scope) {
+    const fieldType = field.field_type || "text";
+    const isMultiLine = scope === "localization" || fieldType === "yaml" || fieldType === "script";
+    let input;
+
+    if (fieldType === "select") {
+        input = document.createElement("select");
+        for (const option of field.options || []) {
+            const optionNode = document.createElement("option");
+            optionNode.value = option.value;
+            optionNode.textContent = option.label;
+            input.append(optionNode);
+        }
+        input.value = field.value;
+    } else if (isMultiLine) {
+        input = document.createElement("textarea");
+        input.rows = Math.max(field.height || 4, 3);
+        input.value = field.value;
+    } else {
+        input = document.createElement("input");
+        input.type = "text";
+        input.value = field.value;
+    }
+
+    input.dataset.editorField = "true";
+    input.dataset.fieldScope = scope;
+    input.dataset.fieldType = fieldType;
+    input.dataset.key = field.key;
+    input.dataset.originalValue = field.original_value;
+    if (scope === "localization") {
+        input.dataset.language = field.language;
+    }
+    input.addEventListener("input", refreshDirtyState);
+    input.addEventListener("change", refreshDirtyState);
+    return input;
+}
+
+function renderSections(panel, sections, scope) {
+    for (const section of sections) {
+        const sectionNode = document.createElement("section");
+        sectionNode.className = "field-section";
+
+        const header = document.createElement("div");
+        header.className = "section-header";
+        header.innerHTML = `<h3>${escapeHtml(section.group)}</h3>`;
+        sectionNode.append(header);
+
+        const fields = document.createElement("div");
+        fields.className = "field-list";
+
+        for (const field of section.fields) {
+            const fieldNode = document.createElement("label");
+            fieldNode.className = "field-card";
+            fieldNode.innerHTML = `
+                <div class="field-head">
+                    <div>
+                        <span class="field-label">${escapeHtml(field.label)}</span>
+                        <code>${escapeHtml(field.key)}</code>
+                    </div>
+                    <span class="origin-pill">${escapeHtml(field.origin_label || "")}</span>
+                </div>
+            `;
+            if (field.help_text) {
+                const help = document.createElement("p");
+                help.className = "field-help";
+                help.textContent = field.help_text;
+                fieldNode.append(help);
+            }
+            fieldNode.append(buildEditorInput(field, scope));
+            fields.append(fieldNode);
+        }
+
+        sectionNode.append(fields);
+        panel.append(sectionNode);
+    }
+}
+
+function renderEditorPanels() {
     elements.languagePanels.innerHTML = "";
     if (!state.currentWonder) {
         elements.languagePanels.innerHTML = '<div class="empty-state wide">没有可编辑的奇观数据。</div>';
         return;
     }
 
-    for (const [language, languagePayload] of Object.entries(state.currentWonder.languages)) {
+    for (const [language, payload] of Object.entries(state.currentWonder.languages)) {
         const panel = document.createElement("div");
         panel.className = "language-panel";
-        panel.dataset.language = language;
-
-        for (const section of languagePayload.sections) {
-            const sectionNode = document.createElement("section");
-            sectionNode.className = "field-section";
-            const header = document.createElement("div");
-            header.className = "section-header";
-            header.innerHTML = `<h3>${escapeHtml(section.group)}</h3>`;
-            sectionNode.append(header);
-
-            const fields = document.createElement("div");
-            fields.className = "field-list";
-            for (const field of section.fields) {
-                const fieldNode = document.createElement("label");
-                fieldNode.className = "field-card";
-                fieldNode.innerHTML = `
-                    <div class="field-head">
-                        <div>
-                            <span class="field-label">${escapeHtml(field.label)}</span>
-                            <code>${escapeHtml(field.key)}</code>
-                        </div>
-                        <span class="origin-pill">${escapeHtml(field.origin_label)}</span>
-                    </div>
-                `;
-                const textarea = document.createElement("textarea");
-                textarea.rows = Math.max(field.height * 2, 3);
-                textarea.value = field.value;
-                textarea.dataset.language = field.language;
-                textarea.dataset.key = field.key;
-                textarea.dataset.originalValue = field.original_value;
-                textarea.addEventListener("input", refreshDirtyState);
-                fieldNode.append(textarea);
-                fields.append(fieldNode);
-            }
-            sectionNode.append(fields);
-            panel.append(sectionNode);
-        }
+        panel.dataset.editorTab = language;
+        renderSections(panel, payload.sections, "localization");
         elements.languagePanels.append(panel);
     }
-    syncActiveLanguagePanel();
+
+    if (state.currentWonder.mechanics) {
+        const panel = document.createElement("div");
+        panel.className = "language-panel";
+        panel.dataset.editorTab = "mechanics";
+        renderSections(panel, state.currentWonder.mechanics.sections, "mechanics");
+        elements.languagePanels.append(panel);
+    }
+
+    syncActiveEditorPanel();
     refreshDirtyState();
 }
 
-function syncActiveLanguagePanel() {
+function syncActiveEditorPanel() {
     const panels = elements.languagePanels.querySelectorAll(".language-panel");
     for (const panel of panels) {
-        panel.classList.toggle("hidden", panel.dataset.language !== state.activeLanguage);
+        panel.classList.toggle("hidden", panel.dataset.editorTab !== state.activeEditorTab);
     }
 }
 
@@ -240,24 +372,33 @@ function renderLog() {
 
 function render() {
     elements.appTitle.textContent = state.title;
+    renderWonderKindTabs();
     renderWonderList();
     renderMeta();
-    renderLanguageTabs();
-    renderLanguagePanels();
+    renderEditorTabs();
+    renderEditorPanels();
     renderLog();
     updateStatus(state.status, state.statusKind);
 }
 
-function collectValues() {
-    const values = {
-        english: {},
-        simp_chinese: {},
+function collectPayload() {
+    const payload = {
+        values: {
+            english: {},
+            simp_chinese: {},
+        },
+        mechanics: {},
     };
-    const textareas = elements.languagePanels.querySelectorAll("textarea[data-key]");
-    for (const textarea of textareas) {
-        values[textarea.dataset.language][textarea.dataset.key] = textarea.value;
+
+    for (const field of getEditorFields()) {
+        const key = field.dataset.key;
+        if (field.dataset.fieldScope === "localization") {
+            payload.values[field.dataset.language][key] = field.value;
+        } else {
+            payload.mechanics[key] = field.value;
+        }
     }
-    return values;
+    return payload;
 }
 
 async function fetchJson(url, options = {}) {
@@ -281,6 +422,13 @@ async function fetchJson(url, options = {}) {
     return response.json();
 }
 
+function syncWonderModeWithSelection() {
+    if (!state.currentWonder) {
+        return;
+    }
+    state.listMode = currentWonderKind();
+}
+
 async function loadBootstrap() {
     setBusy(true);
     updateStatus("正在加载", "working");
@@ -292,11 +440,12 @@ async function loadBootstrap() {
         state.logText = payload.log_text || "";
         state.status = payload.status || (state.currentWonder ? state.currentWonder.status : "就绪");
         state.statusKind = "default";
+        syncWonderModeWithSelection();
         render();
     } catch (error) {
         console.error(error);
         updateStatus("加载失败", "error");
-        showToast(`加载失败：${error.message}`, "error");
+        showToast(`加载失败: ${error.message}`, "error");
     } finally {
         setBusy(false);
     }
@@ -310,7 +459,7 @@ async function selectWonder(wonderId) {
         return;
     }
     if (hasUnsavedChanges()) {
-        const shouldDiscard = window.confirm("当前奇观有未保存修改。切换会丢弃这些修改，是否继续？");
+        const shouldDiscard = window.confirm("当前奇观有未保存修改。切换会丢失这些修改，是否继续？");
         if (!shouldDiscard) {
             renderWonderList();
             return;
@@ -324,11 +473,12 @@ async function selectWonder(wonderId) {
         state.currentWonder = payload;
         state.status = payload.status;
         state.statusKind = "default";
+        syncWonderModeWithSelection();
         render();
     } catch (error) {
         console.error(error);
         updateStatus("切换失败", "error");
-        showToast(`切换失败：${error.message}`, "error");
+        showToast(`切换失败: ${error.message}`, "error");
     } finally {
         setBusy(false);
     }
@@ -345,7 +495,7 @@ async function saveCurrentWonder() {
             method: "POST",
             body: JSON.stringify({
                 regenerate: true,
-                values: collectValues(),
+                ...collectPayload(),
             }),
         });
         state.wonders = payload.wonders;
@@ -353,12 +503,13 @@ async function saveCurrentWonder() {
         state.logText = payload.log_text || state.logText;
         state.status = payload.status;
         state.statusKind = "default";
+        syncWonderModeWithSelection();
         render();
         showToast(payload.status, "success");
     } catch (error) {
         console.error(error);
         updateStatus("保存失败", "error");
-        showToast(`保存失败：${error.message}`, "error");
+        showToast(`保存失败: ${error.message}`, "error");
     } finally {
         setBusy(false);
     }
@@ -386,12 +537,13 @@ async function reloadCurrentWonder() {
         state.logText = payload.log_text || state.logText;
         state.status = payload.status;
         state.statusKind = "default";
+        syncWonderModeWithSelection();
         render();
         showToast(payload.status, "success");
     } catch (error) {
         console.error(error);
         updateStatus("重新加载失败", "error");
-        showToast(`重新加载失败：${error.message}`, "error");
+        showToast(`重新加载失败: ${error.message}`, "error");
     } finally {
         setBusy(false);
     }
@@ -406,7 +558,7 @@ async function copyLog() {
         showToast("日志已复制", "success");
     } catch (error) {
         console.error(error);
-        showToast(`复制失败：${error.message}`, "error");
+        showToast(`复制失败: ${error.message}`, "error");
     }
 }
 
@@ -429,12 +581,12 @@ elements.reloadButton.addEventListener("click", () => {
 elements.copyLogButton.addEventListener("click", () => {
     void copyLog();
 });
-window.addEventListener("beforeunload", (event) => {
-    if (!hasUnsavedChanges()) {
-        return;
+
+window.addEventListener("keydown", (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+        event.preventDefault();
+        void saveCurrentWonder();
     }
-    event.preventDefault();
-    event.returnValue = "";
 });
 
 void loadBootstrap();

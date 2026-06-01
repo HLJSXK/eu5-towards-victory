@@ -3,21 +3,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Towards Victory 奇观本地化编辑器</title>
+    <title>Towards Victory 奇观编辑器</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <div class="shell">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <p class="eyebrow">Wonder Localization</p>
+                <p class="eyebrow">Wonder Editor</p>
                 <h1>奇观列表</h1>
-                <p class="sidebar-copy">本地搜索、切换编辑对象，并保留现有本地化生成链路。</p>
+                <p class="sidebar-copy">在通用奇观与独特奇观之间切换，统一编辑本地化与机制数据。</p>
             </div>
             <label class="search-card" for="search-input">
                 <span>搜索奇观</span>
                 <input id="search-input" type="search" placeholder="ID / key / 名称 / concept">
             </label>
+            <div class="kind-switch" id="wonder-kind-tabs"></div>
             <p class="count-line" id="wonder-count">加载中...</p>
             <div class="wonder-list" id="wonder-list"></div>
         </aside>
@@ -26,9 +27,9 @@
             <header class="hero panel">
                 <div class="hero-copy">
                     <p class="eyebrow">FastAPI + Uvicorn</p>
-                    <h2 id="app-title">Towards Victory 奇观本地化编辑器</h2>
+                    <h2 id="app-title">Towards Victory 奇观编辑器</h2>
                     <p class="hero-description">
-                        Web 版编辑器保留原有奇观字段、手工本地化文件与重新生成脚本，方便后续继续做界面升级。
+                        当前界面会同时展示奇观本地化、通用奇观 base 与三种仪式、独特奇观仪式、建造地点限制与适性条件。
                     </p>
                     <div class="meta-grid" id="wonder-meta"></div>
                 </div>
@@ -66,4 +67,3 @@
     <script type="module" src="/static/app.js"></script>
 </body>
 </html>
-

@@ -33,10 +33,72 @@ ROMAN_NUMERALS = {
 SUPPORTED_RITUAL_COST_TYPES = {None, "artwork", "scaled_gold", "prestige"}
 SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
 SUPPORTED_RITUAL_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
+SITE_RULES_SECTION = "site_rules"
+
+
+class WonderYamlDumper(yaml.SafeDumper):
+    pass
+
+
+def _represent_yaml_string(dumper: yaml.SafeDumper, value: str) -> yaml.ScalarNode:
+    style = "|" if "\n" in value else None
+    return dumper.represent_scalar("tag:yaml.org,2002:str", value, style=style)
+
+
+WonderYamlDumper.add_representer(str, _represent_yaml_string)
 
 
 def load_yaml(path: Path) -> dict:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
+def dump_yaml_document(payload: object) -> str:
+    return yaml.dump(
+        payload,
+        Dumper=WonderYamlDumper,
+        sort_keys=False,
+        allow_unicode=True,
+        default_flow_style=False,
+        width=1000,
+    )
+
+
+def load_wonders_source_data(path: Path = WONDERS_FILE) -> dict:
+    return load_yaml(path) or {}
+
+
+def load_mechanics_source_data(path: Path = MECHANICS_FILE) -> dict:
+    return load_yaml(path) or {}
+
+
+def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
+    if not path.exists():
+        return {"unique_wonders": []}
+    return load_yaml(path) or {"unique_wonders": []}
+
+
+def leading_comment_block(text: str) -> str:
+    lines = text.splitlines()
+    captured: list[str] = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            captured.append(line.rstrip())
+            continue
+        break
+    return "\n".join(captured).rstrip()
+
+
+def save_yaml_document(path: Path, payload: object, *, preserve_leading_comments: bool = False) -> None:
+    header = ""
+    if preserve_leading_comments and path.exists():
+        header = leading_comment_block(path.read_text(encoding="utf-8"))
+
+    body = dump_yaml_document(payload).rstrip() + "\n"
+    if header:
+        path.write_text(f"{header}\n{body}", encoding="utf-8")
+    else:
+        path.write_text(body, encoding="utf-8")
 
 
 def load_generic_wonder_image_prompts(path: Path = GENERIC_WONDER_IMAGE_PROMPTS_FILE) -> dict[str, str]:
@@ -342,8 +404,8 @@ def load_wonder_data(
     require_buildings: bool = True,
     require_base_modifiers: bool = True,
 ) -> tuple[list[dict], dict]:
-    wonders_data = load_yaml(WONDERS_FILE)
-    mechanics = load_yaml(MECHANICS_FILE)
+    wonders_data = load_wonders_source_data()
+    mechanics = load_mechanics_source_data()
     wonders = [
         normalize_final_buildings(wonder)
         for wonder in wonders_data["wonders"]
@@ -378,9 +440,9 @@ def load_generic_wonder_mechanics_data() -> tuple[list[dict], dict]:
 def load_unique_wonders() -> list[dict]:
     if not UNIQUE_WONDERS_FILE.exists():
         return []
-    wonders_data = load_yaml(WONDERS_FILE)
-    mechanics = load_yaml(MECHANICS_FILE)
-    unique_data = load_yaml(UNIQUE_WONDERS_FILE)
+    wonders_data = load_wonders_source_data()
+    mechanics = load_mechanics_source_data()
+    unique_data = load_unique_wonders_source_data()
     base_by_key = {
         wonder["key"]: normalize_final_buildings(wonder)
         for wonder in wonders_data["wonders"]
@@ -430,6 +492,462 @@ def load_generic_wonder_mechanics() -> tuple[list[dict], dict]:
 
 def load_all_wonder_mechanics(*, include_unique: bool = True) -> tuple[list[dict], dict]:
     return load_all_wonder_mechanics_data(include_unique=include_unique)
+
+
+def legacy_site_trigger_lines(key: str, indent: int = 1) -> list[str]:
+    prefix = "\t" * indent
+    lines: list[str] = []
+    if key in {"sacred_mountain", "giant_observatory", "mountain_terrace_network"}:
+        lines.extend([
+            f"{prefix}OR = {{",
+            f"{prefix}\ttopography = mountains",
+            f"{prefix}\ttopography = plateau",
+            f"{prefix}\ttopography = hills",
+            f"{prefix}}}",
+        ])
+    elif key in {"triumphal_axis", "city_expansion_project"}:
+        lines.extend([
+            f"{prefix}OR = {{",
+            f"{prefix}\tlocation_rank ?= location_rank:city",
+            f"{prefix}\tlocation_rank ?= location_rank:megalopolis",
+            f"{prefix}}}",
+        ])
+    elif key in {"great_port", "great_lighthouse", "national_shipyard", "coastal_beacon_network", "maritime_trade_station_network"}:
+        lines.append(f"{prefix}is_port = yes")
+    elif key == "giant_necropolis":
+        lines.append(f"{prefix}location_rank ?= location_rank:rural_settlement")
+    elif key in {"hydraulic_workshop", "river_extension"}:
+        lines.extend([
+            f"{prefix}OR = {{",
+            f"{prefix}\thas_river = yes",
+            f"{prefix}\tis_adjacent_to_lake = yes",
+            f"{prefix}}}",
+        ])
+    elif key == "mining_city":
+        lines.extend([
+            f"{prefix}OR = {{",
+            f"{prefix}\traw_material = goods:iron",
+            f"{prefix}\traw_material = goods:copper",
+            f"{prefix}\traw_material = goods:tin",
+            f"{prefix}\traw_material = goods:lead",
+            f"{prefix}\traw_material = goods:silver",
+            f"{prefix}\traw_material = goods:goods_gold",
+            f"{prefix}}}",
+        ])
+    elif key in {"palace_of_nations", "library_of_nation"}:
+        lines.append(f"{prefix}is_capital = yes")
+    elif key in {
+        "university_city",
+        "star_fortress_city",
+        "giant_armory",
+        "war_college_system",
+        "great_clock_bell_system",
+        "grand_theater_festival_district",
+        "guild_alliance",
+        "giant_workshop_complex",
+    }:
+        lines.append(f"{prefix}NOT = {{ location_rank ?= location_rank:rural_settlement }}")
+    elif key == "sky_dome_grand_temple":
+        lines.append(f"{prefix}dominant_religion = owner.religion")
+    elif key == "giant_tower_temple":
+        lines.append(f"{prefix}always = yes")
+    elif key == "great_wall":
+        lines.append(f"{prefix}NOT = {{ location_rank ?= location_rank:city }}")
+        lines.append(f"{prefix}NOT = {{ location_rank ?= location_rank:megalopolis }}")
+    elif key in {"large_canal_system", "giant_dam_project", "canal_hub_city"}:
+        lines.extend([
+            f"{prefix}OR = {{",
+            f"{prefix}\thas_river = yes",
+            f"{prefix}\tis_adjacent_to_lake = yes",
+            f"{prefix}\tis_port = yes",
+            f"{prefix}}}",
+        ])
+        if key == "canal_hub_city":
+            lines.append(f"{prefix}NOT = {{ location_rank ?= location_rank:rural_settlement }}")
+    elif key in {"royal_granary_system", "imperial_post_road_network", "law_code_stele_project"}:
+        lines.append(f"{prefix}always = yes")
+    elif key == "frontier_colonization_belt":
+        lines.extend([
+            f"{prefix}OR = {{",
+            f"{prefix}\tlocation_rank ?= location_rank:rural_settlement",
+            f"{prefix}\ttopography = hills",
+            f"{prefix}}}",
+        ])
+    elif key == "knightly_fortress_order":
+        lines.append(f"{prefix}NOT = {{ location_rank ?= location_rank:rural_settlement }}")
+    elif key == "royal_art_district":
+        lines.extend([
+            f"{prefix}OR = {{",
+            f"{prefix}\tis_capital = yes",
+            f"{prefix}\tlocation_rank ?= location_rank:city",
+            f"{prefix}\tlocation_rank ?= location_rank:megalopolis",
+            f"{prefix}}}",
+        ])
+    elif key == "world_embassy_quarter":
+        lines.extend([
+            f"{prefix}OR = {{",
+            f"{prefix}\tis_capital = yes",
+            f"{prefix}\tNOT = {{ location_rank ?= location_rank:rural_settlement }}",
+            f"{prefix}}}",
+        ])
+    elif key == "world_market":
+        lines.extend([
+            f"{prefix}OR = {{",
+            f"{prefix}\tis_port = yes",
+            f"{prefix}\tlocation_rank ?= location_rank:city",
+            f"{prefix}\tlocation_rank ?= location_rank:megalopolis",
+            f"{prefix}}}",
+        ])
+    elif key == "royal_mint_system":
+        lines.extend([
+            f"{prefix}OR = {{",
+            f"{prefix}\tlocation_rank ?= location_rank:city",
+            f"{prefix}\tlocation_rank ?= location_rank:megalopolis",
+            f"{prefix}\traw_material = goods:goods_gold",
+            f"{prefix}\traw_material = goods:silver",
+            f"{prefix}\traw_material = goods:copper",
+            f"{prefix}}}",
+        ])
+    elif key == "world_monument_group":
+        lines.extend([
+            f"{prefix}OR = {{",
+            f"{prefix}\tis_capital = yes",
+            f"{prefix}\tlocation_rank ?= location_rank:city",
+            f"{prefix}\tlocation_rank ?= location_rank:megalopolis",
+            f"{prefix}}}",
+        ])
+    else:
+        raise ValueError(f"No site trigger mapping for {key}")
+    return lines
+
+
+def legacy_site_preference_lines(key: str, indent: int = 2) -> list[str]:
+    prefix = "\t" * indent
+    lines: list[str] = []
+
+    def bonus(value: str | int | float) -> None:
+        lines.append(f"{prefix}tv_wonder_change_all_survey_competence_target_effect = {{ value = {value} }}")
+
+    if key == "sacred_mountain":
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = mountains }} }}")
+        bonus(15)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}else_if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = plateau }} }}")
+        bonus(7.5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}else_if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = hills }} }}")
+        bonus(0)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ vegetation = forest }} }}")
+        bonus(10)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}else_if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ vegetation = woods }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+    elif key in {"triumphal_axis", "palace_of_nations"}:
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.2 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ location_rank ?= location_rank:megalopolis }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key in {"great_port", "great_lighthouse"}:
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 1 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 25 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key == "giant_necropolis":
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = hills }} }}")
+        bonus(15)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ any_neighbor_location = {{ tv_wonder_location_is_city_trigger = yes }} }} }}")
+        bonus(10)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}else_if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ any_neighbor_location = {{ tv_wonder_location_is_town_trigger = yes }} }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+    elif key == "hydraulic_workshop":
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.25 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key == "city_expansion_project":
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.25 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ location_rank ?= location_rank:megalopolis }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key == "mining_city":
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.2 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ location_rank ?= location_rank:rural_settlement }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key == "giant_observatory":
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = mountains }} }}")
+        bonus(15)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}else_if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = plateau }} }}")
+        bonus(7.5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.1 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key == "university_city":
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ location_rank ?= location_rank:city }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}else_if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ location_rank ?= location_rank:megalopolis }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.2 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key in {"sky_dome_grand_temple", "giant_tower_temple"}:
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ has_building = building_type:monastery }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ has_building = building_type:cathedral }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ dominant_religion = owner.religion }} }}")
+        bonus(15)
+        lines.append(f"{prefix}}}")
+    elif key == "river_extension":
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.1 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ has_building = building_type:bridge_infrastructure }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ any_neighbor_location = {{ has_building = building_type:tv_wonder_bridge_opening }} }} }}")
+        bonus(10)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key == "national_shipyard":
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 1 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 15 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.1 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key == "star_fortress_city":
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = mountains }} }}")
+        bonus(15)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}else_if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = plateau }} }}")
+        bonus(7.5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ modifier:fort_level > 0 }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ OR = {{ location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis }} }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+    elif key == "great_wall":
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = mountains }} }}")
+        bonus(15)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}else_if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = plateau }} }}")
+        bonus(7.5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ modifier:fort_level > 0 }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ location_rank ?= location_rank:rural_settlement }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+    elif key == "giant_armory":
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ has_building = building_type:armory }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ OR = {{ location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis }} }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.15 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key == "library_of_nation":
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.15 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ location_rank ?= location_rank:city }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}else_if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ location_rank ?= location_rank:megalopolis }} }}")
+        bonus(10)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    elif key in {"large_canal_system", "giant_dam_project", "canal_hub_city"}:
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ OR = {{ has_river = yes is_adjacent_to_lake = yes is_port = yes }} }} }}")
+        bonus(10)
+        lines.append(f"{prefix}}}")
+        if key == "canal_hub_city":
+            lines.append(f"{prefix}if = {{")
+            lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ OR = {{ location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis }} }} }}")
+            bonus(5)
+            lines.append(f"{prefix}}}")
+    elif key == "mountain_terrace_network":
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = mountains }} }}")
+        bonus(15)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}else_if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = plateau }} }}")
+        bonus(7.5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}else_if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = hills }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+    elif key in {"royal_granary_system", "frontier_colonization_belt"}:
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ location_rank ?= location_rank:rural_settlement }} }}")
+        bonus(10 if key == "frontier_colonization_belt" else 5)
+        lines.append(f"{prefix}}}")
+    elif key in {"coastal_beacon_network", "maritime_trade_station_network"}:
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ is_port = yes }} }}")
+        bonus(15)
+        lines.append(f"{prefix}}}")
+    elif key == "knightly_fortress_order":
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ modifier:fort_level > 0 }} }}")
+        bonus(5)
+        lines.append(f"{prefix}}}")
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ topography = mountains }} }}")
+        bonus(10)
+        lines.append(f"{prefix}}}")
+    elif key == "royal_mint_system":
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ OR = {{ raw_material = goods:goods_gold raw_material = goods:silver raw_material = goods:copper }} }} }}")
+        bonus(15)
+        lines.append(f"{prefix}}}")
+    elif key in {"royal_art_district", "world_embassy_quarter", "law_code_stele_project", "world_monument_group"}:
+        lines.append(f"{prefix}if = {{")
+        lines.append(f"{prefix}\tlimit = {{ var:tv_wonder_survey_site ?= {{ is_capital = yes }} }}")
+        bonus(10)
+        lines.append(f"{prefix}}}")
+
+    if key not in {
+        "sacred_mountain",
+        "triumphal_axis",
+        "great_port",
+        "giant_necropolis",
+        "great_lighthouse",
+        "hydraulic_workshop",
+        "city_expansion_project",
+        "mining_city",
+        "giant_observatory",
+        "palace_of_nations",
+        "university_city",
+        "sky_dome_grand_temple",
+        "giant_tower_temple",
+        "river_extension",
+        "national_shipyard",
+        "star_fortress_city",
+        "great_wall",
+        "giant_armory",
+        "library_of_nation",
+        "mountain_terrace_network",
+        "coastal_beacon_network",
+        "maritime_trade_station_network",
+    }:
+        lines.append(f"{prefix}set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }}")
+        lines.append(f"{prefix}clamp_variable = {{ name = tv_wonder_site_preference_bonus min = 0 max = 100 }}")
+        lines.append(f"{prefix}change_variable = {{ name = tv_wonder_site_preference_bonus multiply = 0.1 }}")
+        bonus("var:tv_wonder_site_preference_bonus")
+        lines.append(f"{prefix}remove_variable = tv_wonder_site_preference_bonus")
+    return lines
+
+
+def site_rule_config(mechanics: dict, key: str) -> dict:
+    return mechanics.get(SITE_RULES_SECTION, {}).get(key, {}) or {}
+
+
+def site_trigger_script_for_key(mechanics: dict, key: str) -> str:
+    override = normalize_script_text(site_rule_config(mechanics, key).get("trigger_script"))
+    if override:
+        return override
+    return "\n".join(legacy_site_trigger_lines(key, 0)).strip()
+
+
+def site_preference_script_for_key(mechanics: dict, key: str) -> str:
+    override = normalize_script_text(site_rule_config(mechanics, key).get("preference_script"))
+    if override:
+        return override
+    return "\n".join(legacy_site_preference_lines(key, 0)).strip()
+
+
+def site_trigger_lines_for_wonder(mechanics: dict, wonder: dict, indent: int = 1) -> list[str]:
+    key = mechanic_key(wonder)
+    override = normalize_script_text(site_rule_config(mechanics, key).get("trigger_script"))
+    if override:
+        return indent_script_block(override, indent)
+    return legacy_site_trigger_lines(key, indent)
+
+
+def site_preference_lines_for_wonder(mechanics: dict, wonder: dict, indent: int = 2) -> list[str]:
+    key = mechanic_key(wonder)
+    override = normalize_script_text(site_rule_config(mechanics, key).get("preference_script"))
+    if override:
+        return indent_script_block(override, indent)
+    return legacy_site_preference_lines(key, indent)
 
 
 def render_header(script_rel: str, data_rel: str = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml") -> list[str]:

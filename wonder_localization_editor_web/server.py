@@ -16,6 +16,7 @@ service = WonderLocalizationService()
 
 class SaveWonderRequest(BaseModel):
     values: dict[str, dict[str, str]] = Field(default_factory=dict)
+    mechanics: dict[str, str] = Field(default_factory=dict)
     regenerate: bool = True
 
 
@@ -56,7 +57,12 @@ def create_app() -> FastAPI:
     @app.post("/api/wonders/{wonder_id}/save")
     def save_wonder(wonder_id: int, request: SaveWonderRequest) -> dict:
         try:
-            return service.save_wonder(wonder_id, request.values, regenerate=request.regenerate)
+            return service.save_wonder(
+                wonder_id,
+                request.values,
+                mechanics_values=request.mechanics,
+                regenerate=request.regenerate,
+            )
         except KeyError as exc:
             raise HTTPException(status_code=404, detail=str(exc)) from exc
         except RuntimeError as exc:
@@ -69,4 +75,3 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-

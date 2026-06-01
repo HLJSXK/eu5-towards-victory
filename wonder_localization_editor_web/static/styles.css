@@ -42,7 +42,8 @@ body[data-busy="true"] {
 
 button,
 input,
-textarea {
+textarea,
+select {
     font: inherit;
 }
 
@@ -136,6 +137,33 @@ textarea {
 .count-line {
     margin: 0;
     font-size: 0.88rem;
+}
+
+.kind-switch {
+    display: flex;
+    gap: 10px;
+}
+
+.kind-switch-button {
+    flex: 1 1 0;
+    padding: 10px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(238, 244, 247, 0.16);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(238, 244, 247, 0.88);
+    transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.kind-switch-button:hover,
+.kind-switch-button:focus-visible {
+    transform: translateY(-1px);
+    border-color: rgba(238, 244, 247, 0.34);
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.kind-switch-button.active {
+    border-color: rgba(255, 255, 255, 0.62);
+    background: linear-gradient(135deg, rgba(179, 92, 46, 0.26), rgba(15, 108, 117, 0.24));
 }
 
 .wonder-list {
@@ -257,7 +285,8 @@ textarea {
 .primary-button,
 .secondary-button,
 .ghost-button,
-.tab-button {
+.tab-button,
+.kind-switch-button {
     border-radius: 999px;
     transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, color 160ms ease;
 }
@@ -424,13 +453,22 @@ textarea {
     font-weight: 700;
 }
 
+.field-help {
+    margin: -2px 0 0;
+    color: var(--muted);
+    line-height: 1.5;
+    font-size: 0.92rem;
+}
+
 .origin-pill {
     padding: 5px 10px;
     background: var(--accent-soft);
     color: var(--accent-strong);
 }
 
-.field-card textarea {
+.field-card textarea,
+.field-card input,
+.field-card select {
     width: 100%;
     min-height: 88px;
     padding: 14px;
@@ -442,7 +480,15 @@ textarea {
     resize: vertical;
 }
 
-.field-card textarea:focus {
+.field-card input,
+.field-card select {
+    min-height: 0;
+    resize: none;
+}
+
+.field-card textarea:focus,
+.field-card input:focus,
+.field-card select:focus {
     outline: 2px solid rgba(15, 108, 117, 0.22);
     border-color: rgba(15, 108, 117, 0.35);
 }
