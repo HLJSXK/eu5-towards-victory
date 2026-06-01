@@ -1984,6 +1984,22 @@ class WonderLocalizationService:
         specs: list[MechanicsFieldSpec] = []
         prototype_key = mechanic_key(wonder)
         shared_source_kind = "shared"
+        inherits_from_prototype = bool(wonder.get("is_unique"))
+        site_help_text = (
+            "Inherited from the prototype. Use the prototype selector to change this rule set; edit the prototype wonder to modify the script."
+            if inherits_from_prototype
+            else "Choose a site-condition template, then adjust the allowed condition atoms instead of editing the raw trigger script directly."
+        )
+        preference_help_text = (
+            "Inherited from the prototype. Use the prototype selector to change this rule set; edit the prototype wonder to modify the script."
+            if inherits_from_prototype
+            else "Choose a preference template, then edit condition bonus rows and scaled bonus rows without hand-writing script blocks."
+        )
+        base_modifier_help_text = (
+            "Inherited from the prototype. Use the prototype selector to change these modifiers; edit the prototype wonder to modify them."
+            if inherits_from_prototype
+            else "Structured editor for data/wonder_mechanics.yaml base_modifiers entries."
+        )
 
         self._add_mechanics_spec(
             specs,
@@ -2000,11 +2016,11 @@ class WonderLocalizationService:
             target_key=prototype_key,
             target_parent_key="trigger_script",
             height=10,
-            help_text="Inherited from the prototype. Use the prototype selector to change this rule set; edit the prototype wonder to modify the script.",
+            help_text=site_help_text,
             target_path=f"site_rules.{prototype_key}.trigger_script",
             structured_value=parse_trigger_builder_state(site_trigger_script_for_key(self.mechanics_data, prototype_key)),
-            editable=False,
-            prototype_key=prototype_key,
+            editable=not inherits_from_prototype,
+            prototype_key=prototype_key if inherits_from_prototype else "",
         )
         self._add_mechanics_spec(
             specs,
@@ -2021,11 +2037,11 @@ class WonderLocalizationService:
             target_key=prototype_key,
             target_parent_key="preference_script",
             height=14,
-            help_text="Inherited from the prototype. Use the prototype selector to change this rule set; edit the prototype wonder to modify the script.",
+            help_text=preference_help_text,
             target_path=f"site_rules.{prototype_key}.preference_script",
             structured_value=parse_preference_builder_state(site_preference_script_for_key(self.mechanics_data, prototype_key)),
-            editable=False,
-            prototype_key=prototype_key,
+            editable=not inherits_from_prototype,
+            prototype_key=prototype_key if inherits_from_prototype else "",
         )
         self._add_mechanics_spec(
             specs,
@@ -2045,15 +2061,15 @@ class WonderLocalizationService:
             target_kind="base_modifiers",
             target_key=prototype_key,
             height=10,
-            help_text="Inherited from the prototype. Use the prototype selector to change these modifiers; edit the prototype wonder to modify them.",
+            help_text=base_modifier_help_text,
             target_path=f"base_modifiers.{prototype_key}",
             structured_value=build_modifier_editor_state(
                 self.mechanics_data.get("base_modifiers", {}).get(prototype_key, {}),
                 modifier_scope="country",
                 options=self.country_modifier_options,
             ),
-            editable=False,
-            prototype_key=prototype_key,
+            editable=not inherits_from_prototype,
+            prototype_key=prototype_key if inherits_from_prototype else "",
         )
 
         if wonder.get("is_unique"):
