@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 import threading
@@ -641,6 +642,793 @@ def _modifier_option_catalog(
     return _sorted_unique_options(country_modifiers), _sorted_unique_options(local_modifiers), _sorted_unique_options(reward_types)
 
 
+def normalize_inline_script(text: str) -> str:
+    return " ".join(normalize_multiline_editor_text(text).split())
+
+
+def _site_value_row(value: str) -> dict[str, str]:
+    return {"value": value}
+
+
+def _bonus_rule(branch: str, condition: str, value: str | int | float) -> dict[str, str]:
+    return {
+        "branch": branch,
+        "condition": condition,
+        "value": str(value),
+    }
+
+
+def _scaled_rule(source: str, minimum: str | int | float, maximum: str | int | float, multiplier: str | int | float) -> dict[str, str]:
+    return {
+        "source": source,
+        "min": str(minimum),
+        "max": str(maximum),
+        "multiplier": str(multiplier),
+    }
+
+
+TRIGGER_CONDITION_OPTIONS = [
+    {"value": "is_port", "label": "Port location", "script": "is_port = yes"},
+    {"value": "is_capital", "label": "Capital location", "script": "is_capital = yes"},
+    {"value": "has_river", "label": "Has river", "script": "has_river = yes"},
+    {"value": "adjacent_lake", "label": "Adjacent to lake", "script": "is_adjacent_to_lake = yes"},
+    {
+        "value": "dominant_religion_owner",
+        "label": "Dominant religion matches owner",
+        "script": "dominant_religion = owner.religion",
+    },
+    {"value": "topography_mountains", "label": "Topography: mountains", "script": "topography = mountains"},
+    {"value": "topography_plateau", "label": "Topography: plateau", "script": "topography = plateau"},
+    {"value": "topography_hills", "label": "Topography: hills", "script": "topography = hills"},
+    {"value": "rank_rural", "label": "Rank: rural settlement", "script": "location_rank ?= location_rank:rural_settlement"},
+    {"value": "rank_city", "label": "Rank: city", "script": "location_rank ?= location_rank:city"},
+    {"value": "rank_megalopolis", "label": "Rank: megalopolis", "script": "location_rank ?= location_rank:megalopolis"},
+    {
+        "value": "not_rural",
+        "label": "Not rural settlement",
+        "script": "NOT = { location_rank ?= location_rank:rural_settlement }",
+    },
+    {"value": "not_city", "label": "Not city", "script": "NOT = { location_rank ?= location_rank:city }"},
+    {
+        "value": "not_megalopolis",
+        "label": "Not megalopolis",
+        "script": "NOT = { location_rank ?= location_rank:megalopolis }",
+    },
+    {"value": "raw_iron", "label": "Raw material: iron", "script": "raw_material = goods:iron"},
+    {"value": "raw_copper", "label": "Raw material: copper", "script": "raw_material = goods:copper"},
+    {"value": "raw_tin", "label": "Raw material: tin", "script": "raw_material = goods:tin"},
+    {"value": "raw_lead", "label": "Raw material: lead", "script": "raw_material = goods:lead"},
+    {"value": "raw_silver", "label": "Raw material: silver", "script": "raw_material = goods:silver"},
+    {"value": "raw_gold", "label": "Raw material: gold", "script": "raw_material = goods:goods_gold"},
+]
+TRIGGER_CONDITION_BY_ID = {item["value"]: item for item in TRIGGER_CONDITION_OPTIONS}
+TRIGGER_CONDITION_SCRIPT_TO_ID = {
+    normalize_inline_script(item["script"]): item["value"] for item in TRIGGER_CONDITION_OPTIONS
+}
+
+TRIGGER_TEMPLATE_PRESETS = [
+    {"id": "always", "label": "No site restriction", "any_of": [], "all_of": []},
+    {
+        "id": "mountain_plateau_hills",
+        "label": "Mountains / plateau / hills",
+        "any_of": ["topography_mountains", "topography_plateau", "topography_hills"],
+        "all_of": [],
+    },
+    {
+        "id": "city_or_megalopolis",
+        "label": "City or megalopolis",
+        "any_of": ["rank_city", "rank_megalopolis"],
+        "all_of": [],
+    },
+    {"id": "port_only", "label": "Port only", "any_of": ["is_port"], "all_of": []},
+    {"id": "rural_only", "label": "Rural settlement only", "any_of": ["rank_rural"], "all_of": []},
+    {
+        "id": "river_or_lake",
+        "label": "River or adjacent lake",
+        "any_of": ["has_river", "adjacent_lake"],
+        "all_of": [],
+    },
+    {
+        "id": "mineral_site",
+        "label": "Mineral-producing site",
+        "any_of": ["raw_iron", "raw_copper", "raw_tin", "raw_lead", "raw_silver", "raw_gold"],
+        "all_of": [],
+    },
+    {"id": "capital_only", "label": "Capital only", "any_of": ["is_capital"], "all_of": []},
+    {"id": "non_rural", "label": "Non-rural site", "any_of": [], "all_of": ["not_rural"]},
+    {
+        "id": "owner_religion_majority",
+        "label": "Owner religion majority",
+        "any_of": ["dominant_religion_owner"],
+        "all_of": [],
+    },
+    {
+        "id": "not_city_or_megalopolis",
+        "label": "Not city and not megalopolis",
+        "any_of": [],
+        "all_of": ["not_city", "not_megalopolis"],
+    },
+    {
+        "id": "waterway_or_port",
+        "label": "River / lake / port",
+        "any_of": ["has_river", "adjacent_lake", "is_port"],
+        "all_of": [],
+    },
+    {
+        "id": "waterway_or_port_non_rural",
+        "label": "River / lake / port and non-rural",
+        "any_of": ["has_river", "adjacent_lake", "is_port"],
+        "all_of": ["not_rural"],
+    },
+    {
+        "id": "rural_or_hills",
+        "label": "Rural settlement or hills",
+        "any_of": ["rank_rural", "topography_hills"],
+        "all_of": [],
+    },
+    {
+        "id": "capital_or_city_or_megalopolis",
+        "label": "Capital / city / megalopolis",
+        "any_of": ["is_capital", "rank_city", "rank_megalopolis"],
+        "all_of": [],
+    },
+    {
+        "id": "capital_or_non_rural",
+        "label": "Capital or non-rural",
+        "any_of": ["is_capital", "not_rural"],
+        "all_of": [],
+    },
+    {
+        "id": "port_or_city_or_megalopolis",
+        "label": "Port / city / megalopolis",
+        "any_of": ["is_port", "rank_city", "rank_megalopolis"],
+        "all_of": [],
+    },
+    {
+        "id": "city_megalopolis_or_coin_metal",
+        "label": "City / megalopolis / gold / silver / copper",
+        "any_of": ["rank_city", "rank_megalopolis", "raw_gold", "raw_silver", "raw_copper"],
+        "all_of": [],
+    },
+]
+TRIGGER_PRESET_BY_ID = {item["id"]: item for item in TRIGGER_TEMPLATE_PRESETS}
+
+PREFERENCE_CONDITION_OPTIONS = [
+    {"value": "topography_mountains", "label": "Topography: mountains", "script": "topography = mountains"},
+    {"value": "topography_plateau", "label": "Topography: plateau", "script": "topography = plateau"},
+    {"value": "topography_hills", "label": "Topography: hills", "script": "topography = hills"},
+    {"value": "vegetation_forest", "label": "Vegetation: forest", "script": "vegetation = forest"},
+    {"value": "vegetation_woods", "label": "Vegetation: woods", "script": "vegetation = woods"},
+    {"value": "rank_rural", "label": "Rank: rural settlement", "script": "location_rank ?= location_rank:rural_settlement"},
+    {"value": "rank_city", "label": "Rank: city", "script": "location_rank ?= location_rank:city"},
+    {"value": "rank_megalopolis", "label": "Rank: megalopolis", "script": "location_rank ?= location_rank:megalopolis"},
+    {
+        "value": "neighbor_city",
+        "label": "Adjacent to city",
+        "script": "any_neighbor_location = { tv_wonder_location_is_city_trigger = yes }",
+    },
+    {
+        "value": "neighbor_town",
+        "label": "Adjacent to town",
+        "script": "any_neighbor_location = { tv_wonder_location_is_town_trigger = yes }",
+    },
+    {
+        "value": "has_monastery",
+        "label": "Has monastery",
+        "script": "has_building = building_type:monastery",
+    },
+    {
+        "value": "has_cathedral",
+        "label": "Has cathedral",
+        "script": "has_building = building_type:cathedral",
+    },
+    {
+        "value": "dominant_religion_owner",
+        "label": "Dominant religion matches owner",
+        "script": "dominant_religion = owner.religion",
+    },
+    {
+        "value": "has_bridge_infrastructure",
+        "label": "Has bridge infrastructure",
+        "script": "has_building = building_type:bridge_infrastructure",
+    },
+    {
+        "value": "neighbor_bridge_opening",
+        "label": "Adjacent to River Extension",
+        "script": "any_neighbor_location = { has_building = building_type:tv_wonder_bridge_opening }",
+    },
+    {
+        "value": "waterway_or_port",
+        "label": "River / lake / port",
+        "script": "OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes }",
+    },
+    {"value": "is_port", "label": "Port location", "script": "is_port = yes"},
+    {"value": "fort_level", "label": "Has fort level", "script": "modifier:fort_level > 0"},
+    {
+        "value": "urban_rank",
+        "label": "City or megalopolis",
+        "script": "OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis }",
+    },
+    {"value": "is_capital", "label": "Capital location", "script": "is_capital = yes"},
+    {
+        "value": "raw_coin_metal",
+        "label": "Gold / silver / copper",
+        "script": "OR = { raw_material = goods:goods_gold raw_material = goods:silver raw_material = goods:copper }",
+    },
+    {"value": "has_armory", "label": "Has armory", "script": "has_building = building_type:armory"},
+]
+PREFERENCE_CONDITION_BY_ID = {item["value"]: item for item in PREFERENCE_CONDITION_OPTIONS}
+PREFERENCE_CONDITION_SCRIPT_TO_ID = {
+    normalize_inline_script(item["script"]): item["value"] for item in PREFERENCE_CONDITION_OPTIONS
+}
+PREFERENCE_BRANCH_OPTIONS = [
+    {"value": "if", "label": "if"},
+    {"value": "else_if", "label": "else_if"},
+]
+PREFERENCE_SCALE_SOURCE_OPTIONS = [
+    {
+        "value": "development",
+        "label": "Development",
+        "path": "development",
+        "default_min": "0",
+        "default_max": "100",
+        "default_multiplier": "0.1",
+    },
+    {
+        "value": "total_building_levels",
+        "label": "Total building levels",
+        "path": "total_building_levels",
+        "default_min": "0",
+        "default_max": "100",
+        "default_multiplier": "0.25",
+    },
+    {
+        "value": "harbor_suitability",
+        "label": "Harbor suitability",
+        "path": "modifier:harbor_suitability",
+        "default_min": "0",
+        "default_max": "1",
+        "default_multiplier": "25",
+    },
+    {
+        "value": "average_location_literacy",
+        "label": "Average literacy",
+        "path": "average_location_literacy",
+        "default_min": "0",
+        "default_max": "100",
+        "default_multiplier": "0.1",
+    },
+]
+PREFERENCE_SCALE_SOURCE_BY_ID = {item["value"]: item for item in PREFERENCE_SCALE_SOURCE_OPTIONS}
+PREFERENCE_SCALE_SOURCE_PATH_TO_ID = {item["path"]: item["value"] for item in PREFERENCE_SCALE_SOURCE_OPTIONS}
+
+PREFERENCE_TEMPLATE_PRESETS = [
+    {
+        "id": "mountain_vegetation_chain",
+        "label": "Mountain / vegetation chain",
+        "bonus_rules": [
+            _bonus_rule("if", "topography_mountains", 15),
+            _bonus_rule("else_if", "topography_plateau", 7.5),
+            _bonus_rule("else_if", "topography_hills", 0),
+            _bonus_rule("if", "vegetation_forest", 10),
+            _bonus_rule("else_if", "vegetation_woods", 5),
+        ],
+        "scaled_rules": [],
+    },
+    {
+        "id": "development_020_megalopolis_5",
+        "label": "Development scale + megalopolis bonus",
+        "bonus_rules": [_bonus_rule("if", "rank_megalopolis", 5)],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.2)],
+    },
+    {
+        "id": "harbor_25_scale",
+        "label": "Harbor suitability scale",
+        "bonus_rules": [],
+        "scaled_rules": [_scaled_rule("harbor_suitability", 0, 1, 25)],
+    },
+    {
+        "id": "hills_with_neighbor_settlement",
+        "label": "Hills + neighboring settlement",
+        "bonus_rules": [
+            _bonus_rule("if", "topography_hills", 15),
+            _bonus_rule("if", "neighbor_city", 10),
+            _bonus_rule("else_if", "neighbor_town", 5),
+        ],
+        "scaled_rules": [],
+    },
+    {
+        "id": "building_levels_025",
+        "label": "Total building levels scale",
+        "bonus_rules": [],
+        "scaled_rules": [_scaled_rule("total_building_levels", 0, 100, 0.25)],
+    },
+    {
+        "id": "development_020_rural_5",
+        "label": "Development scale + rural bonus",
+        "bonus_rules": [_bonus_rule("if", "rank_rural", 5)],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.2)],
+    },
+    {
+        "id": "mountain_literacy_scale",
+        "label": "Mountain / plateau + literacy scale",
+        "bonus_rules": [
+            _bonus_rule("if", "topography_mountains", 15),
+            _bonus_rule("else_if", "topography_plateau", 7.5),
+        ],
+        "scaled_rules": [_scaled_rule("average_location_literacy", 0, 100, 0.1)],
+    },
+    {
+        "id": "urban_literacy_scale",
+        "label": "Urban rank + literacy scale",
+        "bonus_rules": [
+            _bonus_rule("if", "rank_city", 5),
+            _bonus_rule("else_if", "rank_megalopolis", 5),
+        ],
+        "scaled_rules": [_scaled_rule("average_location_literacy", 0, 100, 0.2)],
+    },
+    {
+        "id": "religious_buildings_and_share",
+        "label": "Religious buildings + religion share",
+        "bonus_rules": [
+            _bonus_rule("if", "has_monastery", 5),
+            _bonus_rule("if", "has_cathedral", 5),
+            _bonus_rule("if", "dominant_religion_owner", 15),
+        ],
+        "scaled_rules": [],
+    },
+    {
+        "id": "development_bridge_network",
+        "label": "Development scale + bridge network",
+        "bonus_rules": [
+            _bonus_rule("if", "has_bridge_infrastructure", 5),
+            _bonus_rule("if", "neighbor_bridge_opening", 10),
+        ],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.1)],
+    },
+    {
+        "id": "harbor_15_plus_development",
+        "label": "Harbor scale + development scale",
+        "bonus_rules": [],
+        "scaled_rules": [
+            _scaled_rule("harbor_suitability", 0, 1, 15),
+            _scaled_rule("development", 0, 100, 0.1),
+        ],
+    },
+    {
+        "id": "fortified_mountain_urban",
+        "label": "Mountain / plateau + fort + urban",
+        "bonus_rules": [
+            _bonus_rule("if", "topography_mountains", 15),
+            _bonus_rule("else_if", "topography_plateau", 7.5),
+            _bonus_rule("if", "fort_level", 5),
+            _bonus_rule("if", "urban_rank", 5),
+        ],
+        "scaled_rules": [],
+    },
+    {
+        "id": "fortified_mountain_rural",
+        "label": "Mountain / plateau + fort + rural",
+        "bonus_rules": [
+            _bonus_rule("if", "topography_mountains", 15),
+            _bonus_rule("else_if", "topography_plateau", 7.5),
+            _bonus_rule("if", "fort_level", 5),
+            _bonus_rule("if", "rank_rural", 5),
+        ],
+        "scaled_rules": [],
+    },
+    {
+        "id": "armory_urban_development",
+        "label": "Armory + urban + development scale",
+        "bonus_rules": [
+            _bonus_rule("if", "has_armory", 5),
+            _bonus_rule("if", "urban_rank", 5),
+        ],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.15)],
+    },
+    {
+        "id": "development_015_city_5_megalopolis_10",
+        "label": "Development scale + city/megalopolis bonus",
+        "bonus_rules": [
+            _bonus_rule("if", "rank_city", 5),
+            _bonus_rule("else_if", "rank_megalopolis", 10),
+        ],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.15)],
+    },
+    {
+        "id": "waterway_development",
+        "label": "Waterway bonus + development scale",
+        "bonus_rules": [_bonus_rule("if", "waterway_or_port", 10)],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.1)],
+    },
+    {
+        "id": "mountain_plateau_hills_chain",
+        "label": "Mountains / plateau / hills chain",
+        "bonus_rules": [
+            _bonus_rule("if", "topography_mountains", 15),
+            _bonus_rule("else_if", "topography_plateau", 7.5),
+            _bonus_rule("else_if", "topography_hills", 5),
+        ],
+        "scaled_rules": [],
+    },
+    {
+        "id": "rural_development",
+        "label": "Rural bonus + development scale",
+        "bonus_rules": [_bonus_rule("if", "rank_rural", 5)],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.1)],
+    },
+    {
+        "id": "development_010",
+        "label": "Development scale only",
+        "bonus_rules": [],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.1)],
+    },
+    {
+        "id": "waterway_urban_development",
+        "label": "Waterway + urban + development scale",
+        "bonus_rules": [
+            _bonus_rule("if", "waterway_or_port", 10),
+            _bonus_rule("if", "urban_rank", 5),
+        ],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.1)],
+    },
+    {
+        "id": "rural_10_plus_development",
+        "label": "Rural + development scale (strong)",
+        "bonus_rules": [_bonus_rule("if", "rank_rural", 10)],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.1)],
+    },
+    {
+        "id": "port_15_flat",
+        "label": "Port flat bonus",
+        "bonus_rules": [_bonus_rule("if", "is_port", 15)],
+        "scaled_rules": [],
+    },
+    {
+        "id": "fort_mountains_development",
+        "label": "Fort + mountains + development scale",
+        "bonus_rules": [
+            _bonus_rule("if", "fort_level", 5),
+            _bonus_rule("if", "topography_mountains", 10),
+        ],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.1)],
+    },
+    {
+        "id": "capital_development",
+        "label": "Capital bonus + development scale",
+        "bonus_rules": [_bonus_rule("if", "is_capital", 10)],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.1)],
+    },
+    {
+        "id": "coin_metal_development",
+        "label": "Coin metal bonus + development scale",
+        "bonus_rules": [_bonus_rule("if", "raw_coin_metal", 15)],
+        "scaled_rules": [_scaled_rule("development", 0, 100, 0.1)],
+    },
+    {
+        "id": "building_levels_025_megalopolis_5",
+        "label": "Building levels scale + megalopolis bonus",
+        "bonus_rules": [_bonus_rule("if", "rank_megalopolis", 5)],
+        "scaled_rules": [_scaled_rule("total_building_levels", 0, 100, 0.25)],
+    },
+]
+PREFERENCE_PRESET_BY_ID = {item["id"]: item for item in PREFERENCE_TEMPLATE_PRESETS}
+
+
+def _trigger_signature(any_of: list[str], all_of: list[str]) -> str:
+    return json.dumps({"any_of": any_of, "all_of": all_of}, ensure_ascii=False)
+
+
+TRIGGER_PRESET_SIGNATURE_TO_ID = {
+    _trigger_signature(item["any_of"], item["all_of"]): item["id"] for item in TRIGGER_TEMPLATE_PRESETS
+}
+
+
+def _preference_signature(bonus_rules: list[dict[str, str]], scaled_rules: list[dict[str, str]]) -> str:
+    return json.dumps({"bonus_rules": bonus_rules, "scaled_rules": scaled_rules}, ensure_ascii=False, sort_keys=True)
+
+
+PREFERENCE_PRESET_SIGNATURE_TO_ID = {
+    _preference_signature(item["bonus_rules"], item["scaled_rules"]): item["id"] for item in PREFERENCE_TEMPLATE_PRESETS
+}
+
+
+TRIGGER_SET_RE = re.compile(
+    r"^set_variable = \{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site\.([A-Za-z0-9_:]+) \}$"
+)
+TRIGGER_CLAMP_RE = re.compile(
+    r"^clamp_variable = \{ name = tv_wonder_site_preference_bonus min = ([^ ]+) max = ([^ ]+) \}$"
+)
+TRIGGER_MULTIPLY_RE = re.compile(
+    r"^change_variable = \{ name = tv_wonder_site_preference_bonus multiply = ([^ ]+) \}$"
+)
+PREFERENCE_RULE_RE = re.compile(
+    r"^(if|else_if) = \{ limit = \{ var:tv_wonder_survey_site \?= \{ (.+?) \} \} tv_wonder_change_all_survey_competence_target_effect = \{ value = (.+?) \} \}$"
+)
+
+
+def split_top_level_statements(script: str) -> list[str]:
+    statements: list[str] = []
+    current: list[str] = []
+    balance = 0
+    for raw_line in normalize_multiline_editor_text(script).splitlines():
+        stripped = raw_line.rstrip()
+        if not stripped and not current:
+            continue
+        current.append(stripped)
+        balance += stripped.count("{") - stripped.count("}")
+        if balance == 0 and current:
+            statements.append("\n".join(current).strip())
+            current = []
+    if current:
+        raise ValueError(f"Unbalanced script block: {script}")
+    return statements
+
+
+def parse_trigger_builder_state(script: str) -> dict[str, Any]:
+    normalized = normalize_multiline_editor_text(script)
+    try:
+        any_of: list[str] = []
+        all_of: list[str] = []
+        for statement in split_top_level_statements(normalized):
+            statement_lines = statement.splitlines()
+            if normalize_inline_script(statement) == "always = yes":
+                continue
+            if statement.startswith("OR = {"):
+                if len(statement_lines) < 3:
+                    raise ValueError(f"Malformed OR statement: {statement}")
+                for line in statement_lines[1:-1]:
+                    condition_id = TRIGGER_CONDITION_SCRIPT_TO_ID.get(normalize_inline_script(line))
+                    if condition_id is None:
+                        raise ValueError(f"Unknown trigger condition: {line}")
+                    any_of.append(condition_id)
+            else:
+                condition_id = TRIGGER_CONDITION_SCRIPT_TO_ID.get(normalize_inline_script(statement))
+                if condition_id is None:
+                    raise ValueError(f"Unknown trigger condition: {statement}")
+                if condition_id.startswith("not_"):
+                    all_of.append(condition_id)
+                else:
+                    any_of.append(condition_id)
+        signature = _trigger_signature(any_of, all_of)
+        template_id = TRIGGER_PRESET_SIGNATURE_TO_ID.get(signature, "current_variant")
+        return {
+            "template_id": template_id,
+            "template_options": [
+                {"value": "current_variant", "label": "Current structured variant"},
+                *[{"value": item["id"], "label": item["label"]} for item in TRIGGER_TEMPLATE_PRESETS],
+                {"value": "custom_script", "label": "Custom script"},
+            ],
+            "presets": deepcopy(TRIGGER_TEMPLATE_PRESETS),
+            "condition_options": deepcopy(TRIGGER_CONDITION_OPTIONS),
+            "any_of": {
+                "rows": [_site_value_row(value) for value in any_of],
+                "options": deepcopy(TRIGGER_CONDITION_OPTIONS),
+            },
+            "all_of": {
+                "rows": [_site_value_row(value) for value in all_of],
+                "options": deepcopy(TRIGGER_CONDITION_OPTIONS),
+            },
+            "raw_script": normalized,
+        }
+    except Exception:
+        return {
+            "template_id": "custom_script",
+            "template_options": [
+                {"value": "current_variant", "label": "Current structured variant"},
+                *[{"value": item["id"], "label": item["label"]} for item in TRIGGER_TEMPLATE_PRESETS],
+                {"value": "custom_script", "label": "Custom script"},
+            ],
+            "presets": deepcopy(TRIGGER_TEMPLATE_PRESETS),
+            "condition_options": deepcopy(TRIGGER_CONDITION_OPTIONS),
+            "any_of": {"rows": [], "options": deepcopy(TRIGGER_CONDITION_OPTIONS)},
+            "all_of": {"rows": [], "options": deepcopy(TRIGGER_CONDITION_OPTIONS)},
+            "raw_script": normalized,
+        }
+
+
+def render_trigger_script_from_state(raw_value: object, *, context: str) -> str:
+    payload = parse_structured_editor_value(raw_value, context=context)
+    if not isinstance(payload, dict):
+        raise ValueError(f"{context} must be an object")
+    if payload.get("template_id") == "custom_script":
+        script = normalize_multiline_editor_text(str(payload.get("raw_script", "")))
+        if not script:
+            raise ValueError(f"{context}.raw_script cannot be empty")
+        return script
+    any_of = list_from_string_rows(payload.get("any_of", {}), context=f"{context}.any_of")
+    all_of = list_from_string_rows(payload.get("all_of", {}), context=f"{context}.all_of")
+    lines: list[str] = []
+    for item in any_of + all_of:
+        if item not in TRIGGER_CONDITION_BY_ID:
+            raise ValueError(f"Unknown trigger condition {item!r} in {context}")
+    if any_of:
+        if len(any_of) == 1:
+            lines.append(TRIGGER_CONDITION_BY_ID[any_of[0]]["script"])
+        else:
+            lines.append("OR = {")
+            lines.extend(f"\t{TRIGGER_CONDITION_BY_ID[item]['script']}" for item in any_of)
+            lines.append("}")
+    lines.extend(TRIGGER_CONDITION_BY_ID[item]["script"] for item in all_of)
+    if not lines:
+        return "always = yes"
+    return "\n".join(lines)
+
+
+def parse_preference_builder_state(script: str) -> dict[str, Any]:
+    normalized = normalize_multiline_editor_text(script)
+    try:
+        bonus_rules: list[dict[str, str]] = []
+        scaled_rules: list[dict[str, str]] = []
+        statements = [normalize_inline_script(statement) for statement in split_top_level_statements(normalized)]
+        index = 0
+        while index < len(statements):
+            statement = statements[index]
+            match = PREFERENCE_RULE_RE.match(statement)
+            if match:
+                branch, condition_script, value = match.groups()
+                condition_id = PREFERENCE_CONDITION_SCRIPT_TO_ID.get(normalize_inline_script(condition_script))
+                if condition_id is None:
+                    raise ValueError(f"Unknown preference condition: {condition_script}")
+                bonus_rules.append(_bonus_rule(branch, condition_id, value))
+                index += 1
+                continue
+
+            if index + 4 < len(statements):
+                set_match = TRIGGER_SET_RE.match(statement)
+                clamp_match = TRIGGER_CLAMP_RE.match(statements[index + 1])
+                multiply_match = TRIGGER_MULTIPLY_RE.match(statements[index + 2])
+                if (
+                    set_match
+                    and clamp_match
+                    and multiply_match
+                    and statements[index + 3]
+                    == "tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }"
+                    and statements[index + 4] == "remove_variable = tv_wonder_site_preference_bonus"
+                ):
+                    source_id = PREFERENCE_SCALE_SOURCE_PATH_TO_ID.get(set_match.group(1))
+                    if source_id is None:
+                        raise ValueError(f"Unknown scale source: {set_match.group(1)}")
+                    scaled_rules.append(
+                        _scaled_rule(source_id, clamp_match.group(1), clamp_match.group(2), multiply_match.group(1))
+                    )
+                    index += 5
+                    continue
+
+            if statement == "remove_variable = tv_wonder_site_preference_bonus":
+                index += 1
+                continue
+
+            if index + 3 < len(statements):
+                set_match = TRIGGER_SET_RE.match(statement)
+                clamp_match = TRIGGER_CLAMP_RE.match(statements[index + 1])
+                multiply_match = TRIGGER_MULTIPLY_RE.match(statements[index + 2])
+                if (
+                    set_match
+                    and clamp_match
+                    and multiply_match
+                    and statements[index + 3]
+                    == "tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }"
+                ):
+                    source_id = PREFERENCE_SCALE_SOURCE_PATH_TO_ID.get(set_match.group(1))
+                    if source_id is None:
+                        raise ValueError(f"Unknown scale source: {set_match.group(1)}")
+                    scaled_rules.append(
+                        _scaled_rule(source_id, clamp_match.group(1), clamp_match.group(2), multiply_match.group(1))
+                    )
+                    index += 4
+                    continue
+
+            raise ValueError(f"Unknown preference statement: {statement}")
+
+        signature = _preference_signature(bonus_rules, scaled_rules)
+        template_id = PREFERENCE_PRESET_SIGNATURE_TO_ID.get(signature, "current_variant")
+        return {
+            "template_id": template_id,
+            "template_options": [
+                {"value": "current_variant", "label": "Current structured variant"},
+                *[{"value": item["id"], "label": item["label"]} for item in PREFERENCE_TEMPLATE_PRESETS],
+                {"value": "custom_script", "label": "Custom script"},
+            ],
+            "presets": deepcopy(PREFERENCE_TEMPLATE_PRESETS),
+            "condition_options": deepcopy(PREFERENCE_CONDITION_OPTIONS),
+            "branch_options": deepcopy(PREFERENCE_BRANCH_OPTIONS),
+            "scale_source_options": deepcopy(PREFERENCE_SCALE_SOURCE_OPTIONS),
+            "bonus_rules": {"rows": deepcopy(bonus_rules)},
+            "scaled_rules": {"rows": deepcopy(scaled_rules)},
+            "raw_script": normalized,
+        }
+    except Exception:
+        return {
+            "template_id": "custom_script",
+            "template_options": [
+                {"value": "current_variant", "label": "Current structured variant"},
+                *[{"value": item["id"], "label": item["label"]} for item in PREFERENCE_TEMPLATE_PRESETS],
+                {"value": "custom_script", "label": "Custom script"},
+            ],
+            "presets": deepcopy(PREFERENCE_TEMPLATE_PRESETS),
+            "condition_options": deepcopy(PREFERENCE_CONDITION_OPTIONS),
+            "branch_options": deepcopy(PREFERENCE_BRANCH_OPTIONS),
+            "scale_source_options": deepcopy(PREFERENCE_SCALE_SOURCE_OPTIONS),
+            "bonus_rules": {"rows": []},
+            "scaled_rules": {"rows": []},
+            "raw_script": normalized,
+        }
+
+
+def render_preference_script_from_state(raw_value: object, *, context: str) -> str:
+    payload = parse_structured_editor_value(raw_value, context=context)
+    if not isinstance(payload, dict):
+        raise ValueError(f"{context} must be an object")
+    if payload.get("template_id") == "custom_script":
+        script = normalize_multiline_editor_text(str(payload.get("raw_script", "")))
+        if not script:
+            raise ValueError(f"{context}.raw_script cannot be empty")
+        return script
+
+    bonus_rows = payload.get("bonus_rules", {}).get("rows", [])
+    scaled_rows = payload.get("scaled_rules", {}).get("rows", [])
+    if not isinstance(bonus_rows, list) or not isinstance(scaled_rows, list):
+        raise ValueError(f"{context} rows must be lists")
+
+    lines: list[str] = []
+    for index, row in enumerate(bonus_rows, start=1):
+        if not isinstance(row, dict):
+            raise ValueError(f"{context}.bonus_rules.rows[{index}] must be an object")
+        branch = str(row.get("branch", "if")).strip() or "if"
+        condition = str(row.get("condition", "")).strip()
+        value = str(row.get("value", "")).strip()
+        if not condition and not value:
+            continue
+        if branch not in {"if", "else_if"}:
+            raise ValueError(f"{context}.bonus_rules.rows[{index}] has invalid branch {branch!r}")
+        if condition not in PREFERENCE_CONDITION_BY_ID:
+            raise ValueError(f"{context}.bonus_rules.rows[{index}] has unknown condition {condition!r}")
+        if not value:
+            raise ValueError(f"{context}.bonus_rules.rows[{index}] is missing value")
+        condition_script = PREFERENCE_CONDITION_BY_ID[condition]["script"]
+        lines.extend(
+            [
+                f"{branch} = {{",
+                f"\tlimit = {{ var:tv_wonder_survey_site ?= {{ {condition_script} }} }}",
+                f"\ttv_wonder_change_all_survey_competence_target_effect = {{ value = {value} }}",
+                "}",
+            ]
+        )
+
+    rendered_scaled = False
+    for index, row in enumerate(scaled_rows, start=1):
+        if not isinstance(row, dict):
+            raise ValueError(f"{context}.scaled_rules.rows[{index}] must be an object")
+        source = str(row.get("source", "")).strip()
+        minimum = str(row.get("min", "")).strip()
+        maximum = str(row.get("max", "")).strip()
+        multiplier = str(row.get("multiplier", "")).strip()
+        if not source and not minimum and not maximum and not multiplier:
+            continue
+        if source not in PREFERENCE_SCALE_SOURCE_BY_ID:
+            raise ValueError(f"{context}.scaled_rules.rows[{index}] has unknown source {source!r}")
+        if not minimum or not maximum or not multiplier:
+            raise ValueError(f"{context}.scaled_rules.rows[{index}] must define min, max, and multiplier")
+        source_path = PREFERENCE_SCALE_SOURCE_BY_ID[source]["path"]
+        lines.extend(
+            [
+                f"set_variable = {{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.{source_path} }}",
+                f"clamp_variable = {{ name = tv_wonder_site_preference_bonus min = {minimum} max = {maximum} }}",
+                f"change_variable = {{ name = tv_wonder_site_preference_bonus multiply = {multiplier} }}",
+                "tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }",
+            ]
+        )
+        rendered_scaled = True
+
+    if rendered_scaled:
+        lines.append("remove_variable = tv_wonder_site_preference_bonus")
+
+    if not lines:
+        raise ValueError(f"{context} must define at least one rule")
+    return "\n".join(lines)
+
+
 def concept_key_for_wonder(wonder: dict[str, Any]) -> str:
     return f"game_concept_{wonder['concept']}"
 
@@ -926,7 +1714,13 @@ class WonderLocalizationService:
             unique_file_changed = False
             for spec in mechanics_specs:
                 raw_value = incoming_mechanics.get(spec.key, spec.original_value)
-                if spec.field_type in {"modifier_table", "reward_editor", "unique_ritual_editor"}:
+                if spec.field_type in {
+                    "modifier_table",
+                    "reward_editor",
+                    "unique_ritual_editor",
+                    "site_trigger_template",
+                    "site_preference_template",
+                }:
                     value = str(raw_value)
                 else:
                     value = normalize_multiline_editor_text(str(raw_value))
@@ -934,9 +1728,15 @@ class WonderLocalizationService:
                     continue
 
                 if spec.target_kind == "site_rule":
-                    if not value:
+                    if spec.field_type == "site_trigger_template":
+                        rendered_script = render_trigger_script_from_state(value, context=spec.key)
+                    elif spec.field_type == "site_preference_template":
+                        rendered_script = render_preference_script_from_state(value, context=spec.key)
+                    else:
+                        rendered_script = value
+                    if not rendered_script:
                         raise ValueError(f"{spec.key} cannot be empty")
-                    self.mechanics_data["site_rules"][spec.target_key][spec.target_parent_key] = value
+                    self.mechanics_data["site_rules"][spec.target_key][spec.target_parent_key] = rendered_script
                     mechanics_file_changed = True
                     continue
 
@@ -1152,34 +1952,40 @@ class WonderLocalizationService:
         self._add_mechanics_spec(
             specs,
             group="Site Rules",
-            label="Build trigger script",
+            label="Build condition template",
             key=f"mechanics.site_trigger.{wonder['key']}",
             source_kind=shared_source_kind,
             file_path=MECHANICS_FILE,
-            original_value=site_trigger_script_for_key(self.mechanics_data, prototype_key),
-            field_type="script",
+            original_value=serialize_structured_editor_value(
+                parse_trigger_builder_state(site_trigger_script_for_key(self.mechanics_data, prototype_key))
+            ),
+            field_type="site_trigger_template",
             target_kind="site_rule",
             target_key=prototype_key,
             target_parent_key="trigger_script",
-            height=8,
-            help_text="Edits data/wonder_mechanics.yaml site_rules.trigger_script for the mechanic prototype.",
+            height=10,
+            help_text="Choose a site-condition template, then adjust the allowed condition atoms instead of editing the raw trigger script directly.",
             target_path=f"site_rules.{prototype_key}.trigger_script",
+            structured_value=parse_trigger_builder_state(site_trigger_script_for_key(self.mechanics_data, prototype_key)),
         )
         self._add_mechanics_spec(
             specs,
             group="Site Rules",
-            label="Preference script",
+            label="Survey preference template",
             key=f"mechanics.site_preference.{wonder['key']}",
             source_kind=shared_source_kind,
             file_path=MECHANICS_FILE,
-            original_value=site_preference_script_for_key(self.mechanics_data, prototype_key),
-            field_type="script",
+            original_value=serialize_structured_editor_value(
+                parse_preference_builder_state(site_preference_script_for_key(self.mechanics_data, prototype_key))
+            ),
+            field_type="site_preference_template",
             target_kind="site_rule",
             target_key=prototype_key,
             target_parent_key="preference_script",
-            height=12,
-            help_text="Edits data/wonder_mechanics.yaml site_rules.preference_script for the mechanic prototype.",
+            height=14,
+            help_text="Choose a preference template, then edit condition bonus rows and scaled bonus rows without hand-writing script blocks.",
             target_path=f"site_rules.{prototype_key}.preference_script",
+            structured_value=parse_preference_builder_state(site_preference_script_for_key(self.mechanics_data, prototype_key)),
         )
         self._add_mechanics_spec(
             specs,

@@ -254,7 +254,13 @@ function renderEditorTabs() {
     }
 }
 
-const STRUCTURED_FIELD_TYPES = new Set(["modifier_table", "reward_editor", "unique_ritual_editor"]);
+const STRUCTURED_FIELD_TYPES = new Set([
+    "modifier_table",
+    "reward_editor",
+    "unique_ritual_editor",
+    "site_trigger_template",
+    "site_preference_template",
+]);
 let optionListCounter = 0;
 
 function isStructuredFieldType(fieldType) {
@@ -377,6 +383,89 @@ function uniqueRitualPayloadFromState(stateValue) {
     };
 }
 
+function optionByValue(options) {
+    const mapping = new Map();
+    for (const option of options || []) {
+        mapping.set(option.value, option);
+    }
+    return mapping;
+}
+
+function renderSiteTriggerScript(stateValue) {
+    if (stateValue.template_id === "custom_script") {
+        return normalizeMultilineText(String(stateValue.raw_script ?? ""));
+    }
+    const conditionMap = optionByValue(stateValue.condition_options);
+    const anyRows = rowsToStringList(stateValue.any_of?.rows);
+    const allRows = rowsToStringList(stateValue.all_of?.rows);
+    const lines = [];
+
+    if (anyRows.length === 1) {
+        lines.push(conditionMap.get(anyRows[0])?.script || anyRows[0]);
+    } else if (anyRows.length > 1) {
+        lines.push("OR = {");
+        for (const value of anyRows) {
+            lines.push(`\t${conditionMap.get(value)?.script || value}`);
+        }
+        lines.push("}");
+    }
+
+    for (const value of allRows) {
+        lines.push(conditionMap.get(value)?.script || value);
+    }
+
+    if (!lines.length) {
+        return "always = yes";
+    }
+    return lines.join("\n");
+}
+
+function renderSitePreferenceScript(stateValue) {
+    if (stateValue.template_id === "custom_script") {
+        return normalizeMultilineText(String(stateValue.raw_script ?? ""));
+    }
+    const conditionMap = optionByValue(stateValue.condition_options);
+    const sourceMap = optionByValue(stateValue.scale_source_options);
+    const lines = [];
+
+    for (const row of stateValue.bonus_rules?.rows || []) {
+        const branch = String(row.branch ?? "if").trim() || "if";
+        const condition = String(row.condition ?? "").trim();
+        const value = String(row.value ?? "").trim();
+        if (!condition || !value) {
+            continue;
+        }
+        const script = conditionMap.get(condition)?.script || condition;
+        lines.push(`${branch} = {`);
+        lines.push(`\tlimit = { var:tv_wonder_survey_site ?= { ${script} } }`);
+        lines.push(`\ttv_wonder_change_all_survey_competence_target_effect = { value = ${value} }`);
+        lines.push("}");
+    }
+
+    let renderedScaled = false;
+    for (const row of stateValue.scaled_rules?.rows || []) {
+        const source = String(row.source ?? "").trim();
+        const min = String(row.min ?? "").trim();
+        const max = String(row.max ?? "").trim();
+        const multiplier = String(row.multiplier ?? "").trim();
+        if (!source || !min || !max || !multiplier) {
+            continue;
+        }
+        const sourcePath = sourceMap.get(source)?.path || source;
+        lines.push(`set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.${sourcePath} }`);
+        lines.push(`clamp_variable = { name = tv_wonder_site_preference_bonus min = ${min} max = ${max} }`);
+        lines.push(`change_variable = { name = tv_wonder_site_preference_bonus multiply = ${multiplier} }`);
+        lines.push("tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }");
+        renderedScaled = true;
+    }
+
+    if (renderedScaled) {
+        lines.push("remove_variable = tv_wonder_site_preference_bonus");
+    }
+
+    return lines.join("\n");
+}
+
 function previewPayloadForField(field, stateValue) {
     if (field.field_type === "modifier_table") {
         if (field.target_kind === "generic_ritual") {
@@ -470,6 +559,17 @@ function renderYamlLines(value, indent = 0) {
 }
 
 function previewTextForField(field, stateValue) {
+    if (field.field_type === "site_trigger_template" || field.field_type === "site_preference_template") {
+        const script =
+            field.field_type === "site_trigger_template"
+                ? renderSiteTriggerScript(stateValue)
+                : renderSitePreferenceScript(stateValue);
+        const lines = [field.target_path || field.key];
+        for (const line of String(script || "").split("\n")) {
+            lines.push(`  ${line}`);
+        }
+        return lines.join("\n");
+    }
     const payload = previewPayloadForField(field, stateValue);
     const lines = [];
     if (field.target_path) {
@@ -681,6 +781,92 @@ function buildRowListEditor(config) {
     return section;
 }
 
+function buildTableListEditor(config) {
+    const section = document.createElement("section");
+    section.className = "structured-group";
+
+    const header = document.createElement("div");
+    header.className = "structured-group-head";
+    header.innerHTML = `<h4>${escapeHtml(config.title)}</h4>`;
+    const addButton = document.createElement("button");
+    addButton.type = "button";
+    addButton.className = "mini-button";
+    addButton.textContent = config.addLabel || "Add row";
+    header.append(addButton);
+    section.append(header);
+
+    const rowsNode = document.createElement("div");
+    rowsNode.className = "structured-rows";
+    section.append(rowsNode);
+
+    const renderRows = () => {
+        rowsNode.innerHTML = "";
+        if (!config.rows.length) {
+            const empty = document.createElement("div");
+            empty.className = "structured-empty";
+            empty.textContent = "No rows yet.";
+            rowsNode.append(empty);
+        }
+        config.rows.forEach((row, index) => {
+            const rowNode = document.createElement("div");
+            rowNode.className = "structured-row dynamic";
+            rowNode.style.gridTemplateColumns = `${config.columns.map((column) => column.width || "minmax(0, 1fr)").join(" ")} auto`;
+
+            for (const column of config.columns) {
+                const options =
+                    typeof column.options === "function" ? column.options(row) : column.options || [];
+                let input;
+                if (column.control === "select") {
+                    input = document.createElement("select");
+                    for (const option of options) {
+                        const optionNode = document.createElement("option");
+                        optionNode.value = option.value;
+                        optionNode.textContent = option.label;
+                        input.append(optionNode);
+                    }
+                    input.value = row[column.key] || "";
+                } else {
+                    input = document.createElement("input");
+                    input.type = "text";
+                    input.value = row[column.key] || "";
+                    input.placeholder = column.label;
+                    attachOptionList(input, options);
+                }
+                input.addEventListener("input", () => {
+                    row[column.key] = input.value;
+                    config.onChange();
+                });
+                input.addEventListener("change", () => {
+                    row[column.key] = input.value;
+                    config.onChange();
+                });
+                rowNode.append(input);
+            }
+
+            const removeButton = document.createElement("button");
+            removeButton.type = "button";
+            removeButton.className = "mini-button danger";
+            removeButton.textContent = "Remove";
+            removeButton.addEventListener("click", () => {
+                config.rows.splice(index, 1);
+                renderRows();
+                config.onChange();
+            });
+            rowNode.append(removeButton);
+            rowsNode.append(rowNode);
+        });
+    };
+
+    addButton.addEventListener("click", () => {
+        config.rows.push(config.createRow());
+        renderRows();
+        config.onChange();
+    });
+
+    renderRows();
+    return section;
+}
+
 function buildScalarEditor(label, value, onChange, options = null) {
     const node = document.createElement("label");
     node.className = "scalar-field";
@@ -721,6 +907,165 @@ function buildTextareaEditor(label, value, rows, onChange) {
     input.addEventListener("input", () => onChange(input.value));
     node.append(input);
     return node;
+}
+
+function applyPresetRows(targetRows, sourceRows) {
+    targetRows.splice(0, targetRows.length, ...deepClone(sourceRows || []));
+}
+
+function buildPresetEditor(stateValue, label, onApply) {
+    return buildScalarEditor(label, stateValue.template_id, (value) => {
+        const previousValue = stateValue.template_id;
+        stateValue.template_id = value;
+        onApply(value, previousValue);
+    }, stateValue.template_options || []);
+}
+
+function renderSiteTriggerField(field, scope) {
+    const shell = createStructuredShell(field, scope);
+    const { editor, stateValue, commit } = shell;
+    const body = document.createElement("div");
+    body.className = "structured-editor-body";
+    editor.append(body);
+
+    const renderBody = () => {
+        body.innerHTML = "";
+        body.append(
+            buildPresetEditor(stateValue, "Condition template", (value, previousValue) => {
+                if (value === "custom_script" && previousValue !== "custom_script") {
+                    const previewState = deepClone(stateValue);
+                    previewState.template_id = previousValue;
+                    stateValue.raw_script = renderSiteTriggerScript(previewState);
+                }
+                if (value !== "custom_script" && value !== "current_variant") {
+                    const preset = (stateValue.presets || []).find((item) => item.id === value);
+                    if (preset) {
+                        applyPresetRows(stateValue.any_of.rows, preset.any_of.map((entry) => ({ value: entry })));
+                        applyPresetRows(stateValue.all_of.rows, preset.all_of.map((entry) => ({ value: entry })));
+                    }
+                }
+                commit();
+                renderBody();
+            }),
+        );
+
+        if (stateValue.template_id === "custom_script") {
+            body.append(
+                buildTextareaEditor("Custom trigger script", stateValue.raw_script, 10, (value) => {
+                    stateValue.raw_script = value;
+                    commit();
+                }),
+            );
+            return;
+        }
+
+        body.append(
+            buildRowListEditor({
+                title: "Any-of conditions",
+                rows: stateValue.any_of.rows,
+                primaryKey: "value",
+                primaryLabel: "Condition",
+                primaryOptions: stateValue.any_of.options || stateValue.condition_options || [],
+                addLabel: "Add any-of",
+                createRow: () => ({ value: "" }),
+                onChange: commit,
+            }),
+            buildRowListEditor({
+                title: "All-of conditions",
+                rows: stateValue.all_of.rows,
+                primaryKey: "value",
+                primaryLabel: "Condition",
+                primaryOptions: stateValue.all_of.options || stateValue.condition_options || [],
+                addLabel: "Add all-of",
+                createRow: () => ({ value: "" }),
+                onChange: commit,
+            }),
+        );
+    };
+
+    renderBody();
+    commit();
+    return shell.shell;
+}
+
+function renderSitePreferenceField(field, scope) {
+    const shell = createStructuredShell(field, scope);
+    const { editor, stateValue, commit } = shell;
+    const body = document.createElement("div");
+    body.className = "structured-editor-body";
+    editor.append(body);
+
+    const renderBody = () => {
+        body.innerHTML = "";
+        body.append(
+            buildPresetEditor(stateValue, "Preference template", (value, previousValue) => {
+                if (value === "custom_script" && previousValue !== "custom_script") {
+                    const previewState = deepClone(stateValue);
+                    previewState.template_id = previousValue;
+                    stateValue.raw_script = renderSitePreferenceScript(previewState);
+                }
+                if (value !== "custom_script" && value !== "current_variant") {
+                    const preset = (stateValue.presets || []).find((item) => item.id === value);
+                    if (preset) {
+                        applyPresetRows(stateValue.bonus_rules.rows, preset.bonus_rules);
+                        applyPresetRows(stateValue.scaled_rules.rows, preset.scaled_rules);
+                    }
+                }
+                commit();
+                renderBody();
+            }),
+        );
+
+        if (stateValue.template_id === "custom_script") {
+            body.append(
+                buildTextareaEditor("Custom preference script", stateValue.raw_script, 14, (value) => {
+                    stateValue.raw_script = value;
+                    commit();
+                }),
+            );
+            return;
+        }
+
+        body.append(
+            buildTableListEditor({
+                title: "Conditional bonus rows",
+                rows: stateValue.bonus_rules.rows,
+                columns: [
+                    { key: "branch", label: "Branch", control: "select", options: stateValue.branch_options || [], width: "120px" },
+                    { key: "condition", label: "Condition", control: "select", options: stateValue.condition_options || [], width: "minmax(0, 1.8fr)" },
+                    { key: "value", label: "Value", width: "140px" },
+                ],
+                addLabel: "Add bonus rule",
+                createRow: () => ({ branch: "if", condition: "", value: "" }),
+                onChange: commit,
+            }),
+            buildTableListEditor({
+                title: "Scaled bonus rows",
+                rows: stateValue.scaled_rules.rows,
+                columns: [
+                    { key: "source", label: "Source", control: "select", options: stateValue.scale_source_options || [], width: "minmax(0, 1.4fr)" },
+                    { key: "min", label: "Min", width: "110px" },
+                    { key: "max", label: "Max", width: "110px" },
+                    { key: "multiplier", label: "Multiplier", width: "140px" },
+                ],
+                addLabel: "Add scale rule",
+                createRow: () => {
+                    const defaults = stateValue.scale_source_options?.[0] || {};
+                    return {
+                        source: defaults.value || "",
+                        min: defaults.default_min || "",
+                        max: defaults.default_max || "",
+                        multiplier: defaults.default_multiplier || "",
+                    };
+                },
+                onChange: commit,
+            }),
+        );
+    };
+
+    renderBody();
+    commit();
+    return shell.shell;
 }
 
 function renderModifierTableField(field, scope) {
@@ -963,6 +1308,12 @@ function renderStructuredField(field, scope) {
     }
     if (field.field_type === "unique_ritual_editor") {
         return renderUniqueRitualEditorField(field, scope);
+    }
+    if (field.field_type === "site_trigger_template") {
+        return renderSiteTriggerField(field, scope);
+    }
+    if (field.field_type === "site_preference_template") {
+        return renderSitePreferenceField(field, scope);
     }
     return createEditorBinding(field, scope);
 }
