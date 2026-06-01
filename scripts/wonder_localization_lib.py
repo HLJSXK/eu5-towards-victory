@@ -14,8 +14,34 @@ ENGINEERING_DEPARTMENT_EVENTS_FILE = REPO_ROOT / "src" / "in_game" / "events" / 
 LANGUAGES = ("english", "simp_chinese")
 
 LOCALIZATION_LINE_RE = re.compile(r'^(?P<indent>\s*)(?P<key>[A-Za-z0-9_.-]+):(?P<version>0)?\s+(?P<value>"(?:[^"\\]|\\.)*")\s*$')
+LOCALIZATION_HEADER_RE = re.compile(r"^l_[A-Za-z_]+:\s*$")
 ENGINEERING_DEPARTMENT_500_ID_RE = re.compile(r"var:tv_wonder_locked \?= (?P<id>\d+)")
 ENGINEERING_DEPARTMENT_500_DESC_RE = re.compile(r"desc = tv_engineering_department\.500\.d_(?P<suffix>[A-Za-z0-9_]+?)(?:_(?P<style>\d+))?$")
+
+
+class StrictWonderLocalizationLoader(yaml.SafeLoader):
+    pass
+
+
+def _construct_yaml_mapping_no_duplicates(
+    loader: StrictWonderLocalizationLoader,
+    node: yaml.nodes.MappingNode,
+    deep: bool = False,
+) -> dict:
+    mapping: dict = {}
+    for key_node, value_node in node.value:
+        key = loader.construct_object(key_node, deep=deep)
+        if key in mapping:
+            source_name = getattr(loader, "source_name", "<yaml>")
+            raise ValueError(f"Duplicate key {key!r} in {source_name}")
+        mapping[key] = loader.construct_object(value_node, deep=deep)
+    return mapping
+
+
+StrictWonderLocalizationLoader.add_constructor(
+    yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+    _construct_yaml_mapping_no_duplicates,
+)
 
 
 def normalize_editor_text(value: str) -> str:
@@ -30,37 +56,54 @@ def escape_localization_value(value: str) -> str:
 def parse_localization_value(raw_value: str) -> str:
     try:
         return ast.literal_eval(raw_value)
-    except Exception:
-        return raw_value[1:-1].replace(r"\"", '"').replace(r"\\", "\\")
+    except Exception as exc:
+        raise ValueError(f"Invalid localization string literal: {raw_value}") from exc
+
+
+def load_yaml(path: Path) -> dict:
+    if not path.exists():
+        raise FileNotFoundError(f"Missing YAML source file: {path}")
+    loader = StrictWonderLocalizationLoader(path.read_text(encoding="utf-8"))
+    loader.source_name = str(path)
+    try:
+        data = loader.get_single_data()
+    finally:
+        loader.dispose()
+    if not isinstance(data, dict):
+        raise TypeError(f"{path} must contain a top-level mapping")
+    return data
 
 
 def load_localization_map(path: Path) -> dict[str, str]:
     if not path.exists():
-        return {}
-
+        raise FileNotFoundError(f"Missing localization file: {path}")
     values: dict[str, str] = {}
-    for raw_line in path.read_text(encoding="utf-8-sig").splitlines():
+    for line_number, raw_line in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), start=1):
+        stripped = raw_line.strip()
+        if not stripped or stripped.startswith("#") or LOCALIZATION_HEADER_RE.match(stripped):
+            continue
         match = LOCALIZATION_LINE_RE.match(raw_line)
         if match is None:
-            continue
+            raise ValueError(f"Unparseable localization line in {path}:{line_number}: {raw_line}")
         key = match.group("key")
+        if key in values:
+            raise ValueError(f"Duplicate localization key {key!r} in {path}:{line_number}")
         values[key] = parse_localization_value(match.group("value"))
     return values
 
 
-def write_localization_updates(path: Path, updates: dict[str, str], *, append_missing: bool = True) -> bool:
+def write_localization_updates(path: Path, updates: dict[str, str], *, append_missing: bool = False) -> bool:
     if not updates:
         return False
+    if not path.exists():
+        raise FileNotFoundError(f"Missing localization file: {path}")
 
-    if path.exists():
-        lines = path.read_text(encoding="utf-8-sig").splitlines()
-    else:
-        lines = []
+    lines = path.read_text(encoding="utf-8-sig").splitlines()
 
     changed = False
     seen_keys: set[str] = set()
     rewritten: list[str] = []
-    for raw_line in lines:
+    for line_number, raw_line in enumerate(lines, start=1):
         match = LOCALIZATION_LINE_RE.match(raw_line)
         if match is None:
             rewritten.append(raw_line.rstrip("\r"))
@@ -80,12 +123,10 @@ def write_localization_updates(path: Path, updates: dict[str, str], *, append_mi
             changed = True
 
     missing_keys = [key for key in updates if key not in seen_keys]
-    if missing_keys and append_missing:
-        if rewritten and rewritten[-1].strip():
-            rewritten.append("")
-        for key in missing_keys:
-            rewritten.append(f' {key}:0 "{escape_localization_value(updates[key])}"')
-        changed = True
+    if missing_keys:
+        if append_missing:
+            raise RuntimeError("append_missing compatibility mode has been removed")
+        raise KeyError(f"Missing localization keys in {path}: {', '.join(missing_keys)}")
 
     if not changed:
         return False
@@ -96,25 +137,40 @@ def write_localization_updates(path: Path, updates: dict[str, str], *, append_mi
 
 
 def load_wonder_localization_data() -> dict[str, dict[str, str]]:
-    result: dict[str, dict[str, str]] = {language: {} for language in LANGUAGES}
-    if not WONDER_LOCALIZATION_FILE.exists():
-        return result
-
-    raw = yaml.safe_load(WONDER_LOCALIZATION_FILE.read_text(encoding="utf-8"))
-    if not raw:
-        return result
-
-    localization = raw.get("wonder_localization", {})
-    for language in result:
-        language_values = localization.get(language, {}) or {}
-        result[language] = {str(key): str(value) for key, value in language_values.items()}
+    raw = load_yaml(WONDER_LOCALIZATION_FILE)
+    if "wonder_localization" not in raw:
+        raise KeyError(f"Missing wonder_localization root in {WONDER_LOCALIZATION_FILE}")
+    localization = raw["wonder_localization"]
+    if not isinstance(localization, dict):
+        raise TypeError(f"{WONDER_LOCALIZATION_FILE}.wonder_localization must be a mapping")
+    extra_languages = sorted(set(localization) - set(LANGUAGES))
+    if extra_languages:
+        raise ValueError(f"Unexpected language sections in {WONDER_LOCALIZATION_FILE}: {', '.join(extra_languages)}")
+    result: dict[str, dict[str, str]] = {}
+    for language in LANGUAGES:
+        if language not in localization:
+            raise KeyError(f"Missing language section {language} in {WONDER_LOCALIZATION_FILE}")
+        language_values = localization[language]
+        if not isinstance(language_values, dict):
+            raise TypeError(f"{WONDER_LOCALIZATION_FILE}.wonder_localization.{language} must be a mapping")
+        normalized: dict[str, str] = {}
+        for key, value in language_values.items():
+            if not isinstance(key, str) or not key:
+                raise ValueError(f"Invalid localization key in {WONDER_LOCALIZATION_FILE}.{language}: {key!r}")
+            if not isinstance(value, str):
+                raise TypeError(
+                    f"Localization value for {language}.{key} in {WONDER_LOCALIZATION_FILE} must be a string, "
+                    f"got {type(value).__name__}"
+                )
+            normalized[key] = value
+        result[language] = normalized
     return result
 
 
 def save_wonder_localization_data(localization: dict[str, dict[str, str]]) -> None:
     payload = {
         "wonder_localization": {
-            language: dict(localization.get(language, {}))
+            language: dict(localization[language])
             for language in LANGUAGES
         },
     }
@@ -126,25 +182,7 @@ def save_wonder_localization_data(localization: dict[str, dict[str, str]]) -> No
 
 
 def apply_localization_values(text: str, localization: dict[str, str]) -> str:
-    if not localization:
-        return text
-
-    rewritten: list[str] = []
-    for raw_line in text.splitlines():
-        match = LOCALIZATION_LINE_RE.match(raw_line)
-        if match is None:
-            rewritten.append(raw_line)
-            continue
-
-        key = match.group("key")
-        if key not in localization:
-            rewritten.append(raw_line)
-            continue
-
-        prefix = match.group("indent")
-        version = match.group("version") or ""
-        rewritten.append(f'{prefix}{key}:{version} "{escape_localization_value(localization[key])}"')
-    return "\n".join(rewritten).rstrip() + "\n"
+    raise RuntimeError("Localization overlay mode has been removed; write canonical values to data/wonder_localization.yaml")
 
 
 def load_engineering_department_suffix_map() -> dict[int, str]:

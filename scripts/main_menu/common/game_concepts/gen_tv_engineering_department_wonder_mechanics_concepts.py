@@ -9,7 +9,6 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
     load_all_wonder_mechanics_data,
-    load_manual_game_concept_ids,
     render_header,
 )
 
@@ -26,11 +25,8 @@ ICONS = {
 
 def generate() -> str:
     wonders, _ = load_all_wonder_mechanics_data()
-    manual_concepts = load_manual_game_concept_ids()
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
-        if wonder["concept"] in manual_concepts:
-            continue
         texture = ICONS.get(wonder["category"], ICONS["infrastructure_category"])
         lines.extend(
             [

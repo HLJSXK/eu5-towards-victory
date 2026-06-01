@@ -92,7 +92,7 @@ def fresh_site_candidate_conditions(wonder: dict, mechanics: dict, indent: int) 
     prefix = T * indent
     lines = [f"{prefix}AND = {{"]
     if wonder.get("is_unique"):
-        lines.append(f"{prefix}{T}this = location:{wonder['fixed_location']}")
+        lines.append(f"{prefix}{T}this = location:{wonder['location']}")
     lines.extend(trigger_conditions(wonder, mechanics, indent + 1))
     lines.append(f"{prefix}{T}NOT = {{ tv_wonder_location_has_{wonder['key']}_capped_final_building_trigger = yes }}")
     lines.append(f"{prefix}}}")
@@ -278,8 +278,8 @@ def generate() -> str:
         lines.append("")
         lines.append(f"tv_wonder_can_build_{wonder['key']}_trigger = {{")
         if wonder.get("is_unique"):
-            lines.append(f"{T}owns = location:{wonder['fixed_location']}")
-            lines.append(f"{T}location:{wonder['fixed_location']} = {{")
+            lines.append(f"{T}owns = location:{wonder['location']}")
+            lines.append(f"{T}location:{wonder['location']} = {{")
             lines.append(f"{T}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes")
             lines.append(f"{T}}}")
         else:

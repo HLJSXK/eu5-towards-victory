@@ -7,7 +7,7 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import WONDERS_FILE, ceremony_modifier_for_building, load_all_wonder_mechanics, load_yaml
+from wonder_mechanics_lib import ceremony_modifier_for_building, load_all_wonder_mechanics, load_wonders_source_data
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_module_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_module_effects.py"
@@ -323,7 +323,7 @@ def combine_modules_to_helper_once(
 
 
 def main() -> None:
-    data = load_yaml(WONDERS_FILE)
+    data = load_wonders_source_data()
     wonders, mechanics = load_all_wonder_mechanics()
     parts = data["parts"]
     lines = HEADER[:]

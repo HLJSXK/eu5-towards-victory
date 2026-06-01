@@ -206,7 +206,7 @@ def append_location_display_effects(
         lines.append(f"{T}if = {{")
         lines.append(f"{T}{T}limit = {{")
         lines.append(f"{T}{T}{T}OR = {{")
-        lines.append(f"{T}{T}{T}{T}this = location:{wonder['fixed_location']}")
+        lines.append(f"{T}{T}{T}{T}this = location:{wonder['location']}")
         for building in wonder["final_buildings"].values():
             lines.append(f"{T}{T}{T}{T}has_building = building_type:{building}")
         lines.append(f"{T}{T}{T}}}")
