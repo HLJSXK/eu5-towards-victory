@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
@@ -16,7 +17,7 @@ service = WonderLocalizationService()
 
 class SaveWonderRequest(BaseModel):
     values: dict[str, dict[str, str]] = Field(default_factory=dict)
-    mechanics: dict[str, str] = Field(default_factory=dict)
+    mechanics: dict[str, Any] = Field(default_factory=dict)
     regenerate: bool = True
 
 
