@@ -712,16 +712,14 @@ function createStructuredShell(field, scope) {
     return { shell, editor, stateValue, commit };
 }
 
-function renderReadonlyStructuredField(field, scope) {
-    const shell = createStructuredShell(field, scope);
-    const { editor, commit } = shell;
+function buildReadonlyStructuredNote(field) {
     const note = document.createElement("div");
     note.className = "readonly-note";
 
     const message = document.createElement("div");
     message.innerHTML = `
         <strong>Inherited from prototype</strong>
-        <p>Edit the prototype wonder to change this data.</p>
+        <p>Effects are listed below in read-only form. Edit the prototype wonder to change them.</p>
     `;
     note.append(message);
 
@@ -742,9 +740,7 @@ function renderReadonlyStructuredField(field, scope) {
         note.append(actions);
     }
 
-    editor.append(note);
-    commit();
-    return shell.shell;
+    return note;
 }
 
 function buildRowListEditor(config) {
@@ -1393,7 +1389,7 @@ function renderUniqueRitualEditorField(field, scope) {
     return shell.shell;
 }
 
-function renderStructuredField(field, scope) {
+function renderStructuredFieldByType(field, scope) {
     if (field.field_type === "modifier_table") {
         return renderModifierTableField(field, scope);
     }
@@ -1412,12 +1408,27 @@ function renderStructuredField(field, scope) {
     return createEditorBinding(field, scope);
 }
 
+function renderReadonlyStructuredField(field, scope) {
+    const shell = renderStructuredFieldByType(field, scope);
+    const editor = shell.querySelector(".structured-editor");
+    if (editor) {
+        editor.prepend(buildReadonlyStructuredNote(field));
+        for (const control of editor.querySelectorAll("input, select, textarea, button")) {
+            if (control.closest(".readonly-actions")) {
+                continue;
+            }
+            control.disabled = true;
+        }
+    }
+    return shell;
+}
+
 function buildEditorInput(field, scope) {
-    if (field.editable === false) {
+    if (field.editable === false && isStructuredFieldType(field.field_type || "text")) {
         return renderReadonlyStructuredField(field, scope);
     }
     if (isStructuredFieldType(field.field_type || "text")) {
-        return renderStructuredField(field, scope);
+        return renderStructuredFieldByType(field, scope);
     }
     return createEditorBinding(field, scope);
 }

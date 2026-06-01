@@ -598,6 +598,14 @@ textarea {
     gap: 10px;
 }
 
+.structured-editor input:disabled,
+.structured-editor select:disabled,
+.structured-editor textarea:disabled,
+.structured-editor button:disabled {
+    opacity: 0.62;
+    cursor: not-allowed;
+}
+
 .code-state-pane {
     display: grid;
     gap: 10px;
