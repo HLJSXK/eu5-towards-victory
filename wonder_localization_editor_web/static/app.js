@@ -733,24 +733,66 @@ function buildRowListEditor(config) {
                 rowNode.classList.add("single-value");
             }
 
-            const primary = document.createElement("input");
-            primary.type = "text";
+            const primaryOptions = config.primaryOptions || [];
+            const primaryControl = config.primaryControl || "text";
+            let primary;
+            if (primaryControl === "select") {
+                primary = document.createElement("select");
+                const blankOption = document.createElement("option");
+                blankOption.value = "";
+                blankOption.textContent = config.primaryPlaceholder || `Choose ${config.primaryLabel || "value"}`;
+                primary.append(blankOption);
+                for (const option of primaryOptions) {
+                    const optionNode = document.createElement("option");
+                    optionNode.value = option.value;
+                    optionNode.textContent = option.label;
+                    primary.append(optionNode);
+                }
+            } else {
+                primary = document.createElement("input");
+                primary.type = "text";
+                primary.placeholder = config.primaryPlaceholder || config.primaryLabel;
+                attachOptionList(primary, primaryOptions);
+            }
             primary.value = row[config.primaryKey] || "";
-            primary.placeholder = config.primaryPlaceholder || config.primaryLabel;
-            attachOptionList(primary, config.primaryOptions || []);
             primary.addEventListener("input", () => {
+                row[config.primaryKey] = primary.value;
+                config.onChange();
+            });
+            primary.addEventListener("change", () => {
                 row[config.primaryKey] = primary.value;
                 config.onChange();
             });
             rowNode.append(primary);
 
             if (config.secondaryKey) {
-                const secondary = document.createElement("input");
-                secondary.type = "text";
+                const secondaryOptions = config.secondaryOptions || [];
+                const secondaryControl = config.secondaryControl || "text";
+                let secondary;
+                if (secondaryControl === "select") {
+                    secondary = document.createElement("select");
+                    const blankOption = document.createElement("option");
+                    blankOption.value = "";
+                    blankOption.textContent = config.secondaryPlaceholder || `Choose ${config.secondaryLabel || "value"}`;
+                    secondary.append(blankOption);
+                    for (const option of secondaryOptions) {
+                        const optionNode = document.createElement("option");
+                        optionNode.value = option.value;
+                        optionNode.textContent = option.label;
+                        secondary.append(optionNode);
+                    }
+                } else {
+                    secondary = document.createElement("input");
+                    secondary.type = "text";
+                    secondary.placeholder = config.secondaryPlaceholder || config.secondaryLabel;
+                    attachOptionList(secondary, secondaryOptions);
+                }
                 secondary.value = row[config.secondaryKey] || "";
-                secondary.placeholder = config.secondaryPlaceholder || config.secondaryLabel;
-                attachOptionList(secondary, config.secondaryOptions || []);
                 secondary.addEventListener("input", () => {
+                    row[config.secondaryKey] = secondary.value;
+                    config.onChange();
+                });
+                secondary.addEventListener("change", () => {
                     row[config.secondaryKey] = secondary.value;
                     config.onChange();
                 });
@@ -1080,6 +1122,7 @@ function renderModifierTableField(field, scope) {
             primaryLabel: "Modifier",
             secondaryLabel: "Value",
             primaryOptions: stateValue.options || [],
+            primaryControl: "select",
             addLabel: "Add modifier",
             createRow: () => ({ modifier: "", value: "" }),
             onChange: commit,
@@ -1178,6 +1221,7 @@ function renderUniqueRitualEditorField(field, scope) {
             primaryLabel: "Modifier",
             secondaryLabel: "Value",
             primaryOptions: stateValue.country_modifier.options || [],
+            primaryControl: "select",
             addLabel: "Add modifier",
             createRow: () => ({ modifier: "", value: "" }),
             onChange: commit,
@@ -1202,6 +1246,7 @@ function renderUniqueRitualEditorField(field, scope) {
             primaryLabel: "Modifier",
             secondaryLabel: "Value",
             primaryOptions: stateValue.timed.burden_modifier.options || [],
+            primaryControl: "select",
             addLabel: "Add modifier",
             createRow: () => ({ modifier: "", value: "" }),
             onChange: commit,
@@ -1214,6 +1259,7 @@ function renderUniqueRitualEditorField(field, scope) {
             primaryLabel: "Modifier",
             secondaryLabel: "Value",
             primaryOptions: stateValue.timed.blessing_modifier.options || [],
+            primaryControl: "select",
             addLabel: "Add modifier",
             createRow: () => ({ modifier: "", value: "" }),
             onChange: commit,
@@ -1226,6 +1272,7 @@ function renderUniqueRitualEditorField(field, scope) {
             primaryLabel: "Modifier",
             secondaryLabel: "Value",
             primaryOptions: stateValue.auxiliary_building.local_modifier.options || [],
+            primaryControl: "select",
             addLabel: "Add modifier",
             createRow: () => ({ modifier: "", value: "" }),
             onChange: commit,
