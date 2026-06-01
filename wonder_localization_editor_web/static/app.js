@@ -199,7 +199,7 @@ function renderMeta() {
     const entries = [
         ["ID", String(meta.id)],
         ["Key", meta.key],
-        ["Concept", meta.concept],
+        ["Concept key", meta.concept],
         ["类型", summary.kind_label],
         ["中文名", meta.name_zh || "-"],
         ["英文名", meta.name_en || "-"],

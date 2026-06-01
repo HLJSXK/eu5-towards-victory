@@ -2288,7 +2288,6 @@ class WonderLocalizationService:
         code = wonder["key"].upper()
 
         for language in LANGUAGES:
-            self._add_localization_field(specs, language, "Concept", "Concept name", concept_key_for_wonder(wonder), height=2)
             self._add_localization_field(specs, language, "Concept", "Concept description", f"{concept_key_for_wonder(wonder)}_desc", height=5)
 
             self._add_localization_field(specs, language, "Proposal", "Proposal brief", f"TV_ENGINEERING_PROPOSAL_{code}_TEXT", height=3)

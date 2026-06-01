@@ -2,16 +2,24 @@ import ast
 import re
 import sys
 from pathlib import Path
+from typing import Any
 
 import yaml
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+try:
+    from scripts.wonder_mechanics_lib import load_all_wonder_mechanics_data
+except ModuleNotFoundError:
+    from wonder_mechanics_lib import load_all_wonder_mechanics_data
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WONDER_LOCALIZATION_FILE = REPO_ROOT / "data" / "wonder_localization.yaml"
 ENGINEERING_DEPARTMENT_EVENTS_FILE = REPO_ROOT / "src" / "in_game" / "events" / "tv_engineering_department_events.txt"
 LANGUAGES = ("english", "simp_chinese")
+WONDER_NAME_PREFIX = "tv_wonder_"
+CONCEPT_NAME_PREFIX = "game_concept_"
 
 LOCALIZATION_LINE_RE = re.compile(r'^(?P<indent>\s*)(?P<key>[A-Za-z0-9_.-]+):(?P<version>0)?\s+(?P<value>"(?:[^"\\]|\\.)*")\s*$')
 LOCALIZATION_HEADER_RE = re.compile(r"^l_[A-Za-z_]+:\s*$")
@@ -58,6 +66,38 @@ def parse_localization_value(raw_value: str) -> str:
         return ast.literal_eval(raw_value)
     except Exception as exc:
         raise ValueError(f"Invalid localization string literal: {raw_value}") from exc
+
+
+def wonder_name_key(wonder: dict[str, Any]) -> str:
+    return f"{WONDER_NAME_PREFIX}{wonder['key']}"
+
+
+def concept_name_key(wonder: dict[str, Any]) -> str:
+    return f"{CONCEPT_NAME_PREFIX}{wonder['concept']}"
+
+
+def _wonder_concept_pairs() -> list[tuple[str, str]]:
+    wonders, _ = load_all_wonder_mechanics_data()
+    return [(wonder_name_key(wonder), concept_name_key(wonder)) for wonder in wonders]
+
+
+def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> dict[str, dict[str, str]]:
+    expanded = {language: dict(values) for language, values in localization.items()}
+    for wonder_name, concept_name in _wonder_concept_pairs():
+        for language in LANGUAGES:
+            language_values = expanded[language]
+            if wonder_name not in language_values:
+                raise KeyError(f"Missing wonder localization key {wonder_name!r} in {WONDER_LOCALIZATION_FILE} ({language})")
+            language_values[concept_name] = language_values[wonder_name]
+    return expanded
+
+
+def collapse_wonder_localization_data(localization: dict[str, dict[str, str]]) -> dict[str, dict[str, str]]:
+    collapsed = {language: dict(values) for language, values in localization.items()}
+    for _, concept_name in _wonder_concept_pairs():
+        for language in LANGUAGES:
+            collapsed[language].pop(concept_name, None)
+    return collapsed
 
 
 def load_yaml(path: Path) -> dict:
@@ -164,13 +204,14 @@ def load_wonder_localization_data() -> dict[str, dict[str, str]]:
                 )
             normalized[key] = value
         result[language] = normalized
-    return result
+    return expand_wonder_localization_data(result)
 
 
 def save_wonder_localization_data(localization: dict[str, dict[str, str]]) -> None:
+    canonical = collapse_wonder_localization_data(localization)
     payload = {
         "wonder_localization": {
-            language: dict(localization[language])
+            language: dict(canonical[language])
             for language in LANGUAGES
         },
     }
