@@ -62,10 +62,10 @@ organization_panel = {
 \t\tvisible = yes
 \t}
 \tblockoverride "organization_resolutions_tab_text" {
-\t\ttext = "TV_ACADEMY_CHIEF_SCIENTIST_TAB"
+\t\ttext = "TV_ACADEMY_PHILOSOPHY_TAB"
 \t}
 \tblockoverride "organization_resolutions_tooltip" {
-\t\ttooltip = "TV_ACADEMY_CHIEF_SCIENTIST_TAB_TOOLTIP"
+\t\ttooltip = "TV_ACADEMY_PHILOSOPHY_TAB_TOOLTIP"
 \t}
 
 \tblockoverride "scroll_overview_empty_visible" { visible = no }
@@ -499,7 +499,7 @@ GUI_SUFFIX = """\
 
 \t}
 
-\t# -- Chief Scientist tab: reuse the vanilla resolutions slot -----------------
+\t# -- Philosophy tab: reuse the vanilla resolutions slot ---------------------
 \tblockoverride "organization_resolutions_content" {
 \t\tmargin = { 0 0 }
 
@@ -511,7 +511,6 @@ GUI_SUFFIX = """\
 \t\t\tspacing = 10
 
 \t\t\tcard_common = {
-\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
 \t\t\t\tmaximumsize = { 500 -1 }
 
 \t\t\t\tblockoverride "common_header_icon_texture" {
@@ -519,21 +518,27 @@ GUI_SUFFIX = """\
 \t\t\t\t}
 
 \t\t\t\tblockoverride "common_header_text" {
-\t\t\t\t\ttext = "TV_ACADEMY_CHIEF_SCIENTIST_CARD_TITLE"
+\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_CARD_TITLE"
 \t\t\t\t}
 
 \t\t\t\tblockoverride "common_bottom_content" {
-\t\t\t\t\tio_character_card = {
-\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
-\t\t\t\t\t\tusing = layoutpolicy_expanding
-\t\t\t\t\t\tblockoverride "name_highlight" {}
-\t\t\t\t\t\tblockoverride "character_entry_name_sort_by_highlight" {}
+\t\t\t\t\twidget = {
+\t\t\t\t\t\tsize = { 470 56 }
+
+\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\tsize = { 470 44 }
+\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_LINE"
+\t\t\t\t\t\t\tfontsize = 22
+\t\t\t\t\t\t\tautoresize = no
+\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t}
 \t\t\t\t\t}
 \t\t\t\t}
 \t\t\t}
 
 \t\t\tcard_common = {
-\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
 \t\t\t\tmaximumsize = { 500 -1 }
 
 \t\t\t\tblockoverride "common_header_icon_texture" {
@@ -541,17 +546,94 @@ GUI_SUFFIX = """\
 \t\t\t\t}
 
 \t\t\t\tblockoverride "common_header_text" {
-\t\t\t\t\ttext = "TV_ACADEMY_CHIEF_SCIENTIST_CARD_TITLE"
+\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_DEBATE_STATUS_CARD_TITLE"
 \t\t\t\t}
 
 \t\t\t\tblockoverride "common_bottom_content" {
 \t\t\t\t\twidget = {
-\t\t\t\t\t\tsize = { 470 44 }
-\t\t\t\t\t\tvbox = {
-\t\t\t\t\t\t\tmargin = { 4 6 }
-\t\t\t\t\t\t\ttext_single = {
-\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_NO_CHIEF_SCIENTIST"
-\t\t\t\t\t\t\t\talign = nobaseline|left
+\t\t\t\t\t\tsize = { 470 52 }
+
+\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\tspacing = 12
+
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 38 38 }
+\t\t\t\t\t\t\t\tusing = bg_circle_piechart
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\tsize = { 100% 100% }
+\t\t\t\t\t\t\t\t\traw_text = "@trigger_yes!"
+\t\t\t\t\t\t\t\t\tfontsize = 20
+\t\t\t\t\t\t\t\t\tautoresize = no
+\t\t\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 38 38 }
+\t\t\t\t\t\t\t\tusing = bg_circle_piechart
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\tsize = { 100% 100% }
+\t\t\t\t\t\t\t\t\traw_text = "@trigger_no!"
+\t\t\t\t\t\t\t\t\tfontsize = 20
+\t\t\t\t\t\t\t\t\tautoresize = no
+\t\t\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 38 38 }
+\t\t\t\t\t\t\t\tusing = bg_circle_piechart
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\tsize = { 100% 100% }
+\t\t\t\t\t\t\t\t\traw_text = "@trigger_yes!"
+\t\t\t\t\t\t\t\t\tfontsize = 20
+\t\t\t\t\t\t\t\t\tautoresize = no
+\t\t\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 38 38 }
+\t\t\t\t\t\t\t\tusing = bg_circle_piechart
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\tsize = { 100% 100% }
+\t\t\t\t\t\t\t\t\traw_text = "@trigger_yes!"
+\t\t\t\t\t\t\t\t\tfontsize = 20
+\t\t\t\t\t\t\t\t\tautoresize = no
+\t\t\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 38 38 }
+\t\t\t\t\t\t\t\tusing = bg_circle_piechart
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\tsize = { 100% 100% }
+\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_STATUS_ACTIVE"
+\t\t\t\t\t\t\t\t\tfontsize = 18
+\t\t\t\t\t\t\t\t\tautoresize = no
+\t\t\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 38 38 }
+\t\t\t\t\t\t\t\tusing = bg_circle_piechart
+\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\tsize = { 100% 100% }
+\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_STATUS_EMPTY"
+\t\t\t\t\t\t\t\t\tfontsize = 18
+\t\t\t\t\t\t\t\t\tautoresize = no
+\t\t\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t\t\t}
 \t\t\t\t\t\t\t}
 \t\t\t\t\t\t}
 \t\t\t\t\t}
@@ -559,7 +641,6 @@ GUI_SUFFIX = """\
 \t\t\t}
 
 \t\t\tcard_common = {
-\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
 \t\t\t\tmaximumsize = { 500 -1 }
 
 \t\t\t\tblockoverride "common_header_icon_texture" {
@@ -567,60 +648,112 @@ GUI_SUFFIX = """\
 \t\t\t\t}
 
 \t\t\t\tblockoverride "common_header_text" {
-\t\t\t\t\ttext = "TV_ACADEMY_CHIEF_SCIENTIST_EFFECTS_CARD_TITLE"
+\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_CURRENT_DEBATE_CARD_TITLE"
 \t\t\t\t}
 
 \t\t\t\tblockoverride "common_bottom_content" {
 \t\t\t\t\twidget = {
-\t\t\t\t\t\tsize = { 470 88 }
-\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
+\t\t\t\t\t\tsize = { 470 156 }
 
 \t\t\t\t\t\tvbox = {
 \t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\t\t\tspacing = 4
 \t\t\t\t\t\t\tmargin = { 4 6 }
+\t\t\t\t\t\t\tspacing = 8
 
-\t\t\t\t\t\t\thbox = {
-\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\t\t\t\tspacing = 4
-\t\t\t\t\t\t\t\ttext_single = {
-\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_EFFECT_ADM_LABEL"
-\t\t\t\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t\t\t\t}
-\t\t\t\t\t\t\t\texpand = {}
-\t\t\t\t\t\t\t\ttext_single = {
-\t\t\t\t\t\t\t\t\ttext = "[Character.GetAbility('adm')]"
-\t\t\t\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\tsize = { 462 24 }
+\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_FIXED_DEBATE_TITLE"
+\t\t\t\t\t\t\t\tfontsize = 15
+\t\t\t\t\t\t\t\talign = center|nobaseline
 \t\t\t\t\t\t\t}
 
 \t\t\t\t\t\t\thbox = {
 \t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\t\t\t\tspacing = 4
-\t\t\t\t\t\t\t\ttext_single = {
-\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_EFFECT_RESEARCH_SPEED_LABEL"
-\t\t\t\t\t\t\t\t\talign = nobaseline
+\t\t\t\t\t\t\t\tspacing = 10
+
+\t\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\t\tsize = { 226 74 }
+
+\t\t\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\t\t\tspacing = 6
+
+\t\t\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\t\t\tsize = { 226 22 }
+\t\t\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_PRO_SIDE"
+\t\t\t\t\t\t\t\t\t\t\tfontsize = 15
+\t\t\t\t\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\t\t\tsize = { 226 28 }
+\t\t\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_PRO_GROUP"
+\t\t\t\t\t\t\t\t\t\t\tfontsize = 14
+\t\t\t\t\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t\t}
 \t\t\t\t\t\t\t\t}
-\t\t\t\t\t\t\t\texpand = {}
-\t\t\t\t\t\t\t\ttext_single = {
-\t\t\t\t\t\t\t\t\traw_text = "[Character.GetAbility('adm')]x0.05"
-\t\t\t\t\t\t\t\t\talign = nobaseline
+
+\t\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\t\tsize = { 226 74 }
+
+\t\t\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\t\t\tspacing = 6
+
+\t\t\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\t\t\tsize = { 226 22 }
+\t\t\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_CON_SIDE"
+\t\t\t\t\t\t\t\t\t\t\tfontsize = 15
+\t\t\t\t\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\t\t\tsize = { 226 28 }
+\t\t\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_CON_GROUP"
+\t\t\t\t\t\t\t\t\t\t\tfontsize = 14
+\t\t\t\t\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t\t}
 \t\t\t\t\t\t\t\t}
 \t\t\t\t\t\t\t}
 
-\t\t\t\t\t\t\thbox = {
-\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\t\t\t\tspacing = 4
-\t\t\t\t\t\t\t\ttext_single = {
-\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_EFFECT_CURE_PROGRESS_LABEL"
-\t\t\t\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t\t\t\t}
-\t\t\t\t\t\t\t\texpand = {}
-\t\t\t\t\t\t\t\ttext_single = {
-\t\t\t\t\t\t\t\t\traw_text = "[Character.GetAbility('adm')]x0.1%"
-\t\t\t\t\t\t\t\t\talign = nobaseline
-\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\tprogressbar = {
+\t\t\t\t\t\t\t\tsize = { 462 18 }
+\t\t\t\t\t\t\t\tmin = 0
+\t\t\t\t\t\t\t\tmax = 100
+\t\t\t\t\t\t\t\tvalue = 50
+\t\t\t\t\t\t\t\tprogresstexture = "gfx/interface/progressbars/progress_bar_green_alt.dds"
+\t\t\t\t\t\t\t\tnoprogresstexture = "gfx/interface/progressbars/progress_bar_red_alt.dds"
+\t\t\t\t\t\t\t\ttexture_density = 2
+\t\t\t\t\t\t\t\tspriteType = Corneredstretched
+\t\t\t\t\t\t\t\tspriteborder = { 12 0 }
 \t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+
+\t\t\tcard_common = {
+\t\t\t\tmaximumsize = { 500 -1 }
+
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_MAIN_ACTIONS_CARD_TITLE"
+\t\t\t\t}
+
+\t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\thbox = {
+\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\tmargin = { 4 6 }
+
+\t\t\t\t\t\tbutton_regular_diamond = {
+\t\t\t\t\t\t\tsize = { 470 30 }
+\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_NO_ACTION_BUTTON"
+\t\t\t\t\t\t\tenabled = no
 \t\t\t\t\t\t}
 \t\t\t\t\t}
 \t\t\t\t}
