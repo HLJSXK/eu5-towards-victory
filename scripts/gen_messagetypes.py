@@ -864,6 +864,16 @@ PERFORM_tv_appoint_governor_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_auto_assign_governors_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
 PERFORM_tv_remove_governor_ACTION={
 \tlog=yes
 \tonmap=no

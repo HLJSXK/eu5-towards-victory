@@ -858,6 +858,16 @@ Likewise, do not use `TooltipTextBlock` as a normal always-visible panel widget.
 
 When a tooltip row combines `TooltipStringPairList` / `TooltipTextBlock` with a preview image, avoid hard-coding the row to `size = { W H }` or wrapping the modifier block in an `expanding` child. That can keep the frame visually short while the visible text spills below the border. Prefer width-fixed, height-auto rows instead: constrain the row with `size = { W -1 }` or `minimumsize`, let the visible content contribute its own height through `set_parent_size_to_minimum`, and keep the parent container `ignoreinvisible = yes` so hidden rows do not reserve space.
 
+For GUI scripted-effect tooltips, match the effect's scope links to the object passed by the GUI. `ShowScriptedEffectForScope('my_effect', LocationView.GetLocation.MakeScope.Self)` makes the current effect root the location itself. From that effect, country-owned reward lines should use:
+
+```txt
+owner ?= {
+    add_country_modifier = { modifier = my_country_modifier years = -1 mode = add_and_extend }
+}
+```
+
+Do not write `location.owner = { ... }` in this specific location-root tooltip context. The `location` prefix is parsed as an event-target link named `location`; when no separate `location` event target exists, hover evaluation logs a scope mismatch and may also leave `COUNTRY.GetName` unavailable for the generated modifier tooltip. `location.owner` remains valid only in contexts that expose a separate `location` event target, such as building `on_built`.
+
 ### 7.2. Map Modding
 
 EU5 includes a powerful map editor for modifying the game world. This tool allows for editing the heightmap, terrain textures, and location setup. However, it has high system requirements, recommending at least 32GB of RAM. [11]

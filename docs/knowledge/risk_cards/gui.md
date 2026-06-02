@@ -74,6 +74,13 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     itself from its children, and keep `ignoreinvisible = yes` on the container
     so hidden wonder levels do not reserve space.
 
+14. Match scripted-effect tooltip scopes to the GUI object passed in.
+    `ShowScriptedEffectForScope(..., LocationView.GetLocation.MakeScope.Self)`
+    runs the effect with the location as root. In that context, do not use
+    `location.owner = { ... }`; the `location` prefix is parsed as an event
+    target link and can spam scope-mismatch errors. Use `owner ?= { ... }` for
+    country effects shown from a location-root tooltip.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

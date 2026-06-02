@@ -119,6 +119,17 @@
   source: "runtime UI observation in src/in_game/gui/location_window.gui; fixed in scripts/in_game/gui/gen_location_window.py"
   notes: "Conditional background widgets can collapse to the parent's left edge when the visible branch has no explicit size. In the wonder location panel, the plain widget/button wrapper also had to fill the parent before the image column, and the inner preview widgets needed fixed pixel sizes instead of percentage bounds."
 
+- id: gui_location_tooltip_effect_location_owner_link
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui', 'scripted_effects', 'gen_location_window', 'wonder_mechanics']
+  bad: "Using location.owner inside a scripted effect rendered by ShowScriptedEffectForScope with LocationView.GetLocation.MakeScope.Self"
+  correction: "When the GUI passes the location itself as the effect scope, enter the owning country with owner ?= { ... }. Reserve location.owner for contexts that expose a separate location event target, such as building on_built."
+  category: gui
+  scope: location
+  source: "runtime error.log: Event target link 'location' expected non-location scopes; reference_game_files/game/in_game/common/on_action/_hardcoded.txt:69"
+  notes: "In location-window tooltips the scripted effect root is already the location. A dotted location.owner chain is parsed as an event-target link named location, which is invalid from a location root and can also leave COUNTRY.GetName unavailable for add_country_modifier tooltip localization."
+
 - id: gui_raw_text_localization_substitution_literal
   pattern: ''
   detectability: advisory

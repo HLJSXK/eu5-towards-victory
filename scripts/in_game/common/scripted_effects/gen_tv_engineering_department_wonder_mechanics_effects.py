@@ -106,7 +106,7 @@ def location_tooltip_reward_effect_lines(reward: list[dict], indent: int = 1) ->
         if entry["type"] == "site_prosperity":
             lines.append(f"{prefix}change_prosperity = {fmt_value(entry['value'])}")
         else:
-            lines.append(f"{prefix}location.owner = {{")
+            lines.append(f"{prefix}owner ?= {{")
             lines.extend(country_reward_effect_lines([entry], indent + 1))
             lines.append(f"{prefix}}}")
     return lines
@@ -172,7 +172,7 @@ def ritual_location_tooltip_effect_name(wonder: dict, style: int) -> str:
 def location_tooltip_country_modifier_lines(modifier_name: str, indent: int) -> list[str]:
     prefix = T * indent
     return [
-        f"{prefix}location.owner = {{",
+        f"{prefix}owner ?= {{",
         f"{prefix}{T}add_country_modifier = {{ modifier = {modifier_name} years = -1 mode = add_and_extend }}",
         f"{prefix}}}",
     ]
