@@ -33,6 +33,7 @@ ROMAN_NUMERALS = {
 SUPPORTED_RITUAL_COST_TYPES = {None, "artwork", "scaled_gold", "prestige"}
 SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
 SUPPORTED_RITUAL_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
+SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
 SITE_RULES_SECTION = "site_rules"
 RITUAL_AUXILIARY_ESTATE_POWER_BY_POP_TYPE = {
     "clergy": "local_clergy_estate_power",
@@ -146,6 +147,14 @@ def _require_int(value: object, context: str, *, minimum: int | None = None) -> 
     if minimum is not None and value < minimum:
         raise ValueError(f"{context} must be >= {minimum}, got {value}")
     return value
+
+
+def _require_number_text(value: object, context: str) -> str:
+    if isinstance(value, bool):
+        raise TypeError(f"{context} must be a number or numeric string, got bool")
+    if isinstance(value, (int, float)):
+        return str(value)
+    return _require_string(value, context)
 
 
 def _require_bool(value: object, context: str) -> bool:
@@ -280,7 +289,50 @@ def _validate_generic_wonder_record(raw: object) -> dict:
     }
 
 
-def _validate_site_rules(raw: object, *, design_keys: set[str]) -> dict[str, dict[str, str]]:
+def _validate_suitability_knowledge_rows(value: object, context: str) -> list[dict[str, str]]:
+    rows = _require_list(value, context)
+    if not rows:
+        raise ValueError(f"{context} must define at least one player-visible suitability row")
+
+    normalized: list[dict[str, str]] = []
+    for index, raw_row in enumerate(rows, start=1):
+        row_context = f"{context}[{index}]"
+        row = _require_mapping(raw_row, row_context)
+        row_type = _require_string(row.get("type"), f"{row_context}.type")
+        if row_type not in SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES:
+            supported = ", ".join(sorted(SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES))
+            raise ValueError(f"{row_context}.type must be one of: {supported}")
+
+        if row_type == "condition_bonus":
+            _expect_keys(row, required={"type", "condition", "value"}, optional=set(), context=row_context)
+            normalized.append(
+                {
+                    "type": row_type,
+                    "condition": _require_string(row["condition"], f"{row_context}.condition"),
+                    "value": _require_number_text(row["value"], f"{row_context}.value"),
+                }
+            )
+            continue
+
+        _expect_keys(
+            row,
+            required={"type", "source", "min", "max", "multiplier"},
+            optional=set(),
+            context=row_context,
+        )
+        normalized.append(
+            {
+                "type": row_type,
+                "source": _require_string(row["source"], f"{row_context}.source"),
+                "min": _require_number_text(row["min"], f"{row_context}.min"),
+                "max": _require_number_text(row["max"], f"{row_context}.max"),
+                "multiplier": _require_number_text(row["multiplier"], f"{row_context}.multiplier"),
+            }
+        )
+    return normalized
+
+
+def _validate_site_rules(raw: object, *, design_keys: set[str]) -> dict[str, dict]:
     context = f"{MECHANICS_FILE}.site_rules"
     site_rules = _require_mapping(raw, context)
     missing = sorted(design_keys - set(site_rules))
@@ -290,13 +342,13 @@ def _validate_site_rules(raw: object, *, design_keys: set[str]) -> dict[str, dic
     if extra:
         raise ValueError(f"Unknown site_rules entries for: {', '.join(extra)}")
 
-    normalized: dict[str, dict[str, str]] = {}
+    normalized: dict[str, dict] = {}
     for key in sorted(design_keys):
         entry_context = f"{context}.{key}"
         entry = _require_mapping(site_rules[key], entry_context)
         _expect_keys(
             entry,
-            required={"trigger_script", "preference_script"},
+            required={"trigger_script", "preference_script", "suitability_knowledge"},
             optional=set(),
             context=entry_context,
         )
@@ -306,6 +358,10 @@ def _validate_site_rules(raw: object, *, design_keys: set[str]) -> dict[str, dic
                 entry["preference_script"],
                 f"{entry_context}.preference_script",
                 allow_empty=False,
+            ),
+            "suitability_knowledge": _validate_suitability_knowledge_rows(
+                entry["suitability_knowledge"],
+                f"{entry_context}.suitability_knowledge",
             ),
         }
     return normalized
@@ -555,6 +611,14 @@ def load_manual_game_concept_ids(path: Path = MANUAL_TV_GAME_CONCEPTS_FILE) -> s
 
 def mechanic_key(wonder: dict) -> str:
     return _require_string(wonder["mechanic_key"], f"{wonder['key']}.mechanic_key")
+
+
+def suitability_reveal_variable_for_key(key: str) -> str:
+    return f"tv_wonder_suitability_revealed_{key}"
+
+
+def suitability_reveal_variable_for_wonder(wonder: dict) -> str:
+    return suitability_reveal_variable_for_key(mechanic_key(wonder))
 
 
 def ceremony_styles(wonder: dict) -> list[int]:
@@ -964,7 +1028,7 @@ def site_rule_config(mechanics: dict, key: str) -> dict:
     entry = _require_mapping(site_rules[key], f"{MECHANICS_FILE}.site_rules.{key}")
     _expect_keys(
         entry,
-        required={"trigger_script", "preference_script"},
+        required={"trigger_script", "preference_script", "suitability_knowledge"},
         optional=set(),
         context=f"{MECHANICS_FILE}.site_rules.{key}",
     )
@@ -985,6 +1049,17 @@ def site_preference_script_for_key(mechanics: dict, key: str) -> str:
         f"{MECHANICS_FILE}.site_rules.{key}.preference_script",
         allow_empty=False,
     )
+
+
+def suitability_knowledge_for_key(mechanics: dict, key: str) -> list[dict[str, str]]:
+    return _validate_suitability_knowledge_rows(
+        site_rule_config(mechanics, key)["suitability_knowledge"],
+        f"{MECHANICS_FILE}.site_rules.{key}.suitability_knowledge",
+    )
+
+
+def suitability_knowledge_for_wonder(mechanics: dict, wonder: dict) -> list[dict[str, str]]:
+    return suitability_knowledge_for_key(mechanics, mechanic_key(wonder))
 
 
 def site_trigger_lines_for_wonder(mechanics: dict, wonder: dict, indent: int = 1) -> list[str]:

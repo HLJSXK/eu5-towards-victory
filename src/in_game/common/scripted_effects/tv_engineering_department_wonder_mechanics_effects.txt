@@ -5865,6 +5865,7 @@ tv_wonder_mechanics_complete_survey_effect = {
 		clamp_variable = { name = tv_wonder_organization_competence min = 0 max = 100 }
 		tv_wonder_update_construction_tiers_from_competence_effect = yes
 		tv_wonder_store_survey_on_location_effect = yes
+		tv_wonder_mechanics_reveal_suitability_knowledge_effect = yes
 		set_variable = { name = tv_wonder_survey_complete value = 1 }
 		remove_variable = tv_wonder_survey_active
 		remove_variable = tv_wonder_survey_speed
@@ -13435,6 +13436,969 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 tv_wonder_mechanics_refresh_world_location_display_state_effect = {
 	every_location_in_the_world = {
 		tv_wonder_mechanics_refresh_location_display_state_effect = yes
+	}
+}
+
+tv_wonder_mechanics_reveal_suitability_knowledge_effect = {
+	if = {
+		limit = { var:tv_wonder_locked ?= 1 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_sacred_mountain } }
+			set_variable = { name = tv_wonder_suitability_revealed_sacred_mountain value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_sacred_mountain < 5 }
+			change_variable = { name = tv_wonder_suitability_revealed_sacred_mountain add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_sacred_mountain min = 0 max = 5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 2 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_triumphal_axis } }
+			set_variable = { name = tv_wonder_suitability_revealed_triumphal_axis value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_triumphal_axis < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_triumphal_axis add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_triumphal_axis min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 3 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_great_port } }
+			set_variable = { name = tv_wonder_suitability_revealed_great_port value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_great_port < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_great_port add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_great_port min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 4 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_giant_necropolis } }
+			set_variable = { name = tv_wonder_suitability_revealed_giant_necropolis value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_giant_necropolis < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_giant_necropolis add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_giant_necropolis min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 5 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_great_lighthouse } }
+			set_variable = { name = tv_wonder_suitability_revealed_great_lighthouse value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_great_lighthouse < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_great_lighthouse add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_great_lighthouse min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 6 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_hydraulic_workshop } }
+			set_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_hydraulic_workshop < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 7 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_mining_city } }
+			set_variable = { name = tv_wonder_suitability_revealed_mining_city value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_mining_city < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_mining_city add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_mining_city min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 8 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_giant_observatory } }
+			set_variable = { name = tv_wonder_suitability_revealed_giant_observatory value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_giant_observatory < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_giant_observatory add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_giant_observatory min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 9 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_palace_of_nations } }
+			set_variable = { name = tv_wonder_suitability_revealed_palace_of_nations value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_palace_of_nations < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_palace_of_nations add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_palace_of_nations min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 10 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_university_city } }
+			set_variable = { name = tv_wonder_suitability_revealed_university_city value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_university_city < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_university_city add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_university_city min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 11 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_sky_dome_grand_temple } }
+			set_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_sky_dome_grand_temple < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 12 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_giant_tower_temple } }
+			set_variable = { name = tv_wonder_suitability_revealed_giant_tower_temple value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_giant_tower_temple < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_giant_tower_temple add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_giant_tower_temple min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 13 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_river_extension } }
+			set_variable = { name = tv_wonder_suitability_revealed_river_extension value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_river_extension < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_river_extension add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_river_extension min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 14 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_national_shipyard } }
+			set_variable = { name = tv_wonder_suitability_revealed_national_shipyard value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_national_shipyard < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_national_shipyard add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_national_shipyard min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 15 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_star_fortress_city } }
+			set_variable = { name = tv_wonder_suitability_revealed_star_fortress_city value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_star_fortress_city < 4 }
+			change_variable = { name = tv_wonder_suitability_revealed_star_fortress_city add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_star_fortress_city min = 0 max = 4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 16 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_great_wall } }
+			set_variable = { name = tv_wonder_suitability_revealed_great_wall value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_great_wall < 4 }
+			change_variable = { name = tv_wonder_suitability_revealed_great_wall add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_great_wall min = 0 max = 4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 17 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_giant_armory } }
+			set_variable = { name = tv_wonder_suitability_revealed_giant_armory value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_giant_armory < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_giant_armory add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_giant_armory min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 18 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_library_of_nation } }
+			set_variable = { name = tv_wonder_suitability_revealed_library_of_nation value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_library_of_nation < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_library_of_nation add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_library_of_nation min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 19 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_large_canal_system } }
+			set_variable = { name = tv_wonder_suitability_revealed_large_canal_system value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_large_canal_system < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_large_canal_system add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_large_canal_system min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 20 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_mountain_terrace_network } }
+			set_variable = { name = tv_wonder_suitability_revealed_mountain_terrace_network value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_mountain_terrace_network < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_mountain_terrace_network add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_mountain_terrace_network min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 21 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_giant_dam_project } }
+			set_variable = { name = tv_wonder_suitability_revealed_giant_dam_project value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_giant_dam_project < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_giant_dam_project add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_giant_dam_project min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 22 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_royal_granary_system } }
+			set_variable = { name = tv_wonder_suitability_revealed_royal_granary_system value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_royal_granary_system < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_royal_granary_system add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_royal_granary_system min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 23 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_imperial_post_road_network } }
+			set_variable = { name = tv_wonder_suitability_revealed_imperial_post_road_network value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_imperial_post_road_network < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_imperial_post_road_network add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_imperial_post_road_network min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 24 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_canal_hub_city } }
+			set_variable = { name = tv_wonder_suitability_revealed_canal_hub_city value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_canal_hub_city < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_canal_hub_city add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_canal_hub_city min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 25 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_frontier_colonization_belt } }
+			set_variable = { name = tv_wonder_suitability_revealed_frontier_colonization_belt value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_frontier_colonization_belt < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_frontier_colonization_belt add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_frontier_colonization_belt min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 26 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_coastal_beacon_network } }
+			set_variable = { name = tv_wonder_suitability_revealed_coastal_beacon_network value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_coastal_beacon_network < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_coastal_beacon_network add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_coastal_beacon_network min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 27 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_knightly_fortress_order } }
+			set_variable = { name = tv_wonder_suitability_revealed_knightly_fortress_order value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_knightly_fortress_order < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_knightly_fortress_order add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_knightly_fortress_order min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 28 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_war_college_system } }
+			set_variable = { name = tv_wonder_suitability_revealed_war_college_system value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_war_college_system < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_war_college_system add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_war_college_system min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 29 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_great_clock_bell_system } }
+			set_variable = { name = tv_wonder_suitability_revealed_great_clock_bell_system value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_great_clock_bell_system < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_great_clock_bell_system add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_great_clock_bell_system min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 30 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_royal_art_district } }
+			set_variable = { name = tv_wonder_suitability_revealed_royal_art_district value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_royal_art_district < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_royal_art_district add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_royal_art_district min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 31 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_grand_theater_festival_district } }
+			set_variable = { name = tv_wonder_suitability_revealed_grand_theater_festival_district value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_grand_theater_festival_district < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_grand_theater_festival_district add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_grand_theater_festival_district min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 32 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_world_embassy_quarter } }
+			set_variable = { name = tv_wonder_suitability_revealed_world_embassy_quarter value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_world_embassy_quarter < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_world_embassy_quarter add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_world_embassy_quarter min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 33 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_law_code_stele_project } }
+			set_variable = { name = tv_wonder_suitability_revealed_law_code_stele_project value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_law_code_stele_project < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_law_code_stele_project add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_law_code_stele_project min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 34 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_world_market } }
+			set_variable = { name = tv_wonder_suitability_revealed_world_market value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_world_market < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_world_market add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_world_market min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 35 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_royal_mint_system } }
+			set_variable = { name = tv_wonder_suitability_revealed_royal_mint_system value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_royal_mint_system < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_royal_mint_system add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_royal_mint_system min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 36 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_guild_alliance } }
+			set_variable = { name = tv_wonder_suitability_revealed_guild_alliance value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_guild_alliance < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_guild_alliance add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_guild_alliance min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 37 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_maritime_trade_station_network } }
+			set_variable = { name = tv_wonder_suitability_revealed_maritime_trade_station_network value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_maritime_trade_station_network < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_maritime_trade_station_network add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_maritime_trade_station_network min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 38 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_giant_workshop_complex } }
+			set_variable = { name = tv_wonder_suitability_revealed_giant_workshop_complex value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_giant_workshop_complex < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_giant_workshop_complex add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_giant_workshop_complex min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 39 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_world_monument_group } }
+			set_variable = { name = tv_wonder_suitability_revealed_world_monument_group value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_world_monument_group < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_world_monument_group add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_world_monument_group min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 40 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_city_expansion_project } }
+			set_variable = { name = tv_wonder_suitability_revealed_city_expansion_project value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_city_expansion_project < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_city_expansion_project add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_city_expansion_project min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 101 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_great_lighthouse } }
+			set_variable = { name = tv_wonder_suitability_revealed_great_lighthouse value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_great_lighthouse < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_great_lighthouse add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_great_lighthouse min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 102 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_sky_dome_grand_temple } }
+			set_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_sky_dome_grand_temple < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 103 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_sky_dome_grand_temple } }
+			set_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_sky_dome_grand_temple < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 104 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_giant_tower_temple } }
+			set_variable = { name = tv_wonder_suitability_revealed_giant_tower_temple value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_giant_tower_temple < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_giant_tower_temple add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_giant_tower_temple min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 105 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_sacred_mountain } }
+			set_variable = { name = tv_wonder_suitability_revealed_sacred_mountain value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_sacred_mountain < 5 }
+			change_variable = { name = tv_wonder_suitability_revealed_sacred_mountain add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_sacred_mountain min = 0 max = 5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 106 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_palace_of_nations } }
+			set_variable = { name = tv_wonder_suitability_revealed_palace_of_nations value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_palace_of_nations < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_palace_of_nations add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_palace_of_nations min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 107 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_sacred_mountain } }
+			set_variable = { name = tv_wonder_suitability_revealed_sacred_mountain value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_sacred_mountain < 5 }
+			change_variable = { name = tv_wonder_suitability_revealed_sacred_mountain add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_sacred_mountain min = 0 max = 5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 108 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_star_fortress_city } }
+			set_variable = { name = tv_wonder_suitability_revealed_star_fortress_city value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_star_fortress_city < 4 }
+			change_variable = { name = tv_wonder_suitability_revealed_star_fortress_city add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_star_fortress_city min = 0 max = 4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 109 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_giant_necropolis } }
+			set_variable = { name = tv_wonder_suitability_revealed_giant_necropolis value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_giant_necropolis < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_giant_necropolis add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_giant_necropolis min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 110 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_triumphal_axis } }
+			set_variable = { name = tv_wonder_suitability_revealed_triumphal_axis value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_triumphal_axis < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_triumphal_axis add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_triumphal_axis min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 111 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_palace_of_nations } }
+			set_variable = { name = tv_wonder_suitability_revealed_palace_of_nations value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_palace_of_nations < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_palace_of_nations add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_palace_of_nations min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 112 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_sky_dome_grand_temple } }
+			set_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_sky_dome_grand_temple < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 113 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_sacred_mountain } }
+			set_variable = { name = tv_wonder_suitability_revealed_sacred_mountain value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_sacred_mountain < 5 }
+			change_variable = { name = tv_wonder_suitability_revealed_sacred_mountain add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_sacred_mountain min = 0 max = 5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 114 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_national_shipyard } }
+			set_variable = { name = tv_wonder_suitability_revealed_national_shipyard value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_national_shipyard < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_national_shipyard add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_national_shipyard min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 115 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_great_port } }
+			set_variable = { name = tv_wonder_suitability_revealed_great_port value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_great_port < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_great_port add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_great_port min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 116 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_star_fortress_city } }
+			set_variable = { name = tv_wonder_suitability_revealed_star_fortress_city value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_star_fortress_city < 4 }
+			change_variable = { name = tv_wonder_suitability_revealed_star_fortress_city add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_star_fortress_city min = 0 max = 4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 117 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_triumphal_axis } }
+			set_variable = { name = tv_wonder_suitability_revealed_triumphal_axis value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_triumphal_axis < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_triumphal_axis add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_triumphal_axis min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 118 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_river_extension } }
+			set_variable = { name = tv_wonder_suitability_revealed_river_extension value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_river_extension < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_river_extension add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_river_extension min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 119 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_canal_hub_city } }
+			set_variable = { name = tv_wonder_suitability_revealed_canal_hub_city value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_canal_hub_city < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_canal_hub_city add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_canal_hub_city min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 120 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_sky_dome_grand_temple } }
+			set_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_sky_dome_grand_temple < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_sky_dome_grand_temple min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 121 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_great_wall } }
+			set_variable = { name = tv_wonder_suitability_revealed_great_wall value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_great_wall < 4 }
+			change_variable = { name = tv_wonder_suitability_revealed_great_wall add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_great_wall min = 0 max = 4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 122 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_royal_mint_system } }
+			set_variable = { name = tv_wonder_suitability_revealed_royal_mint_system value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_royal_mint_system < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_royal_mint_system add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_royal_mint_system min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 123 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_world_monument_group } }
+			set_variable = { name = tv_wonder_suitability_revealed_world_monument_group value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_world_monument_group < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_world_monument_group add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_world_monument_group min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 124 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_world_market } }
+			set_variable = { name = tv_wonder_suitability_revealed_world_market value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_world_market < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_world_market add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_world_market min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 125 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_triumphal_axis } }
+			set_variable = { name = tv_wonder_suitability_revealed_triumphal_axis value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_triumphal_axis < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_triumphal_axis add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_triumphal_axis min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 126 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_large_canal_system } }
+			set_variable = { name = tv_wonder_suitability_revealed_large_canal_system value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_large_canal_system < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_large_canal_system add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_large_canal_system min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 127 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_imperial_post_road_network } }
+			set_variable = { name = tv_wonder_suitability_revealed_imperial_post_road_network value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_imperial_post_road_network < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_imperial_post_road_network add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_imperial_post_road_network min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 128 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_hydraulic_workshop } }
+			set_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_hydraulic_workshop < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 129 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_large_canal_system } }
+			set_variable = { name = tv_wonder_suitability_revealed_large_canal_system value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_large_canal_system < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_large_canal_system add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_large_canal_system min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 130 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_star_fortress_city } }
+			set_variable = { name = tv_wonder_suitability_revealed_star_fortress_city value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_star_fortress_city < 4 }
+			change_variable = { name = tv_wonder_suitability_revealed_star_fortress_city add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_star_fortress_city min = 0 max = 4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 131 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_world_monument_group } }
+			set_variable = { name = tv_wonder_suitability_revealed_world_monument_group value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_world_monument_group < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_world_monument_group add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_world_monument_group min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 132 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_hydraulic_workshop } }
+			set_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_hydraulic_workshop < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 133 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_giant_dam_project } }
+			set_variable = { name = tv_wonder_suitability_revealed_giant_dam_project value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_giant_dam_project < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_giant_dam_project add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_giant_dam_project min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 134 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_mountain_terrace_network } }
+			set_variable = { name = tv_wonder_suitability_revealed_mountain_terrace_network value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_mountain_terrace_network < 3 }
+			change_variable = { name = tv_wonder_suitability_revealed_mountain_terrace_network add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_mountain_terrace_network min = 0 max = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 135 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_national_shipyard } }
+			set_variable = { name = tv_wonder_suitability_revealed_national_shipyard value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_national_shipyard < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_national_shipyard add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_national_shipyard min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 136 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_maritime_trade_station_network } }
+			set_variable = { name = tv_wonder_suitability_revealed_maritime_trade_station_network value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_maritime_trade_station_network < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_maritime_trade_station_network add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_maritime_trade_station_network min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 137 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_imperial_post_road_network } }
+			set_variable = { name = tv_wonder_suitability_revealed_imperial_post_road_network value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_imperial_post_road_network < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_imperial_post_road_network add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_imperial_post_road_network min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 138 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_hydraulic_workshop } }
+			set_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_hydraulic_workshop < 1 }
+			change_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_hydraulic_workshop min = 0 max = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 139 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_national_shipyard } }
+			set_variable = { name = tv_wonder_suitability_revealed_national_shipyard value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_national_shipyard < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_national_shipyard add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_national_shipyard min = 0 max = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 140 }
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_suitability_revealed_world_monument_group } }
+			set_variable = { name = tv_wonder_suitability_revealed_world_monument_group value = 0 }
+		}
+		if = {
+			limit = { var:tv_wonder_suitability_revealed_world_monument_group < 2 }
+			change_variable = { name = tv_wonder_suitability_revealed_world_monument_group add = 1 }
+		}
+		clamp_variable = { name = tv_wonder_suitability_revealed_world_monument_group min = 0 max = 2 }
 	}
 }
 

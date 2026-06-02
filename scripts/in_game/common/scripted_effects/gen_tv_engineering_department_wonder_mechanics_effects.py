@@ -23,6 +23,8 @@ from wonder_mechanics_lib import (
     ritual_burden_modifier_name,
     ritual_uses_deferred_completion,
     site_preference_lines_for_wonder,
+    suitability_knowledge_for_wonder,
+    suitability_reveal_variable_for_wonder,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_engineering_department_wonder_mechanics_effects.txt"
@@ -331,6 +333,28 @@ def append_location_display_effects(
     lines.append("")
 
 
+def append_suitability_reveal_effect(lines: list[str], wonders: list[dict], mechanics: dict) -> None:
+    lines.append("tv_wonder_mechanics_reveal_suitability_knowledge_effect = {")
+    for idx, wonder in enumerate(wonders):
+        head = "if" if idx == 0 else "else_if"
+        reveal_var = suitability_reveal_variable_for_wonder(wonder)
+        row_count = len(suitability_knowledge_for_wonder(mechanics, wonder))
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
+        lines.append(f"{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}limit = {{ NOT = {{ has_variable = {reveal_var} }} }}")
+        lines.append(f"{T}{T}{T}set_variable = {{ name = {reveal_var} value = 0 }}")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}limit = {{ var:{reveal_var} < {row_count} }}")
+        lines.append(f"{T}{T}{T}change_variable = {{ name = {reveal_var} add = 1 }}")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}clamp_variable = {{ name = {reveal_var} min = 0 max = {row_count} }}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def generate() -> str:
     all_wonders, mechanics = load_all_wonder_mechanics()
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
@@ -511,6 +535,7 @@ def generate() -> str:
     lines.append(f"{T}{T}clamp_variable = {{ name = tv_wonder_organization_competence min = 0 max = 100 }}")
     lines.append(f"{T}{T}tv_wonder_update_construction_tiers_from_competence_effect = yes")
     lines.append(f"{T}{T}tv_wonder_store_survey_on_location_effect = yes")
+    lines.append(f"{T}{T}tv_wonder_mechanics_reveal_suitability_knowledge_effect = yes")
     lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_survey_complete value = 1 }}")
     lines.append(f"{T}{T}remove_variable = tv_wonder_survey_active")
     lines.append(f"{T}{T}remove_variable = tv_wonder_survey_speed")
@@ -568,6 +593,7 @@ def generate() -> str:
     append_ritual_tooltip_effects(lines, ritual_entries(all_wonders, mechanics), mechanics)
 
     append_location_display_effects(lines, unique_wonders=unique_wonders, generic_wonders=generic_wonders)
+    append_suitability_reveal_effect(lines, all_wonders, mechanics)
 
     lines.append("tv_wonder_mechanics_construct_final_building_effect = {")
     lines.append(f"{T}if = {{")

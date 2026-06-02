@@ -397,6 +397,7 @@ const STRUCTURED_FIELD_TYPES = new Set([
     "unique_ritual_editor",
     "site_trigger_template",
     "site_preference_template",
+    "suitability_knowledge_editor",
 ]);
 let optionListCounter = 0;
 
@@ -475,6 +476,41 @@ function rowsToRewardList(rows) {
         });
     }
     return reward;
+}
+
+function rowsToSuitabilityKnowledgeList(rows) {
+    const knowledge = [];
+    for (const row of rows || []) {
+        const type = String(row?.type ?? "").trim();
+        if (type === "condition_bonus") {
+            const condition = String(row?.condition ?? "").trim();
+            const value = String(row?.value ?? "").trim();
+            if (!condition || !value) {
+                continue;
+            }
+            knowledge.push({
+                type,
+                condition,
+                value: parseNumberMaybe(value),
+            });
+        } else if (type === "scaled_bonus") {
+            const source = String(row?.source ?? "").trim();
+            const min = String(row?.min ?? "").trim();
+            const max = String(row?.max ?? "").trim();
+            const multiplier = String(row?.multiplier ?? "").trim();
+            if (!source || !min || !max || !multiplier) {
+                continue;
+            }
+            knowledge.push({
+                type,
+                source,
+                min: parseNumberMaybe(min),
+                max: parseNumberMaybe(max),
+                multiplier: parseNumberMaybe(multiplier),
+            });
+        }
+    }
+    return knowledge;
 }
 
 function asOptionalText(value) {
@@ -621,6 +657,9 @@ function previewPayloadForField(field, stateValue) {
     }
     if (field.field_type === "unique_ritual_editor") {
         return uniqueRitualPayloadFromState(stateValue);
+    }
+    if (field.field_type === "suitability_knowledge_editor") {
+        return rowsToSuitabilityKnowledgeList(stateValue.rows);
     }
     return stateValue;
 }
@@ -1067,6 +1106,9 @@ function buildTableListEditor(config) {
                 });
                 input.addEventListener("change", () => {
                     row[column.key] = input.value;
+                    if (column.rerenderOnChange) {
+                        renderRows();
+                    }
                     config.onChange();
                 });
                 rowNode.append(input);
@@ -1293,6 +1335,43 @@ function renderSitePreferenceField(field, scope) {
     };
 
     renderBody();
+    commit();
+    return shell.shell;
+}
+
+function renderSuitabilityKnowledgeField(field, scope) {
+    const shell = createStructuredShell(field, scope);
+    const { editor, stateValue, commit } = shell;
+    editor.append(
+        buildTableListEditor({
+            title: "Player-visible suitability rows",
+            rows: stateValue.rows,
+            columns: [
+                { key: "type", label: "Type", control: "select", options: stateValue.row_type_options || [], width: "150px", rerenderOnChange: true },
+                {
+                    key: "condition",
+                    label: "Condition",
+                    control: "select",
+                    options: (row) => (row.type === "condition_bonus" ? stateValue.condition_options || [] : []),
+                    width: "minmax(0, 1.6fr)",
+                },
+                {
+                    key: "source",
+                    label: "Scale source",
+                    control: "select",
+                    options: (row) => (row.type === "scaled_bonus" ? stateValue.scale_source_options || [] : []),
+                    width: "minmax(0, 1.4fr)",
+                },
+                { key: "value", label: "Value", width: "90px" },
+                { key: "min", label: "Min", width: "80px" },
+                { key: "max", label: "Max", width: "80px" },
+                { key: "multiplier", label: "Multiplier", width: "110px" },
+            ],
+            addLabel: "Add row",
+            createRow: () => ({ type: "condition_bonus", condition: "", source: "", value: "", min: "", max: "", multiplier: "" }),
+            onChange: commit,
+        }),
+    );
     commit();
     return shell.shell;
 }
@@ -1565,6 +1644,9 @@ function renderStructuredFieldByType(field, scope) {
     }
     if (field.field_type === "site_preference_template") {
         return renderSitePreferenceField(field, scope);
+    }
+    if (field.field_type === "suitability_knowledge_editor") {
+        return renderSuitabilityKnowledgeField(field, scope);
     }
     return createEditorBinding(field, scope);
 }

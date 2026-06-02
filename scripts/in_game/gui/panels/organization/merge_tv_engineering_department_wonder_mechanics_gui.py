@@ -15,6 +15,7 @@ MARKERS = [
     "TV_WONDER_MECHANICS_PROPOSAL_RESUME_TEXTS",
     "TV_WONDER_MECHANICS_PROPOSAL_EXPAND_TEXTS",
     "TV_WONDER_MECHANICS_LOCKED_TEXTS",
+    "TV_WONDER_MECHANICS_SUITABILITY_KNOWLEDGE",
     "TV_WONDER_MECHANICS_PROPOSAL_BUTTONS",
     "TV_WONDER_MECHANICS_CEREMONY_STYLE_1_BUTTONS",
     "TV_WONDER_MECHANICS_CEREMONY_STYLE_2_BUTTONS",
@@ -50,7 +51,7 @@ def extract_fragment(marker: str, fragment: str) -> str:
 
 
 def indent_block(block: str, indent: str) -> str:
-    return "\n".join(f"{indent}{line}" if line else line for line in block.splitlines())
+    return "\n".join(f"{indent}{line}" if line.strip() else "" for line in block.splitlines())
 
 
 def replace_generated_segment(text: str, marker: str, block: str) -> str:
@@ -60,19 +61,22 @@ def replace_generated_segment(text: str, marker: str, block: str) -> str:
         rf"(?P<prefix>^|\n)(?P<indent>[ \t]*){re.escape(begin)}[ \t]*\n.*?[ \t]*{re.escape(end)}(?=\n|$)",
         re.DOTALL,
     )
-    match = pattern.search(text)
-    if not match:
+    matches = list(pattern.finditer(text))
+    if not matches:
         raise ValueError(f"Generated marker {marker} not found in {MAIN_FILE.relative_to(REPO_ROOT)}")
-    prefix = match.group("prefix")
-    indent = match.group("indent")
-    if not indent:
-        previous_line_start = text.rfind("\n", 0, match.start())
-        previous_line = text[previous_line_start + 1:match.start()] if previous_line_start != -1 else ""
-        previous_indent = re.match(r"[ \t]*", previous_line).group(0)
-        if previous_line.strip():
-            indent = previous_indent
-    replacement = f"{prefix}{indent}{begin}\n{indent_block(block, indent)}\n{indent}{end}"
-    return text[: match.start()] + replacement + text[match.end():]
+
+    def replacement(match: re.Match[str]) -> str:
+        prefix = match.group("prefix")
+        indent = match.group("indent")
+        if not indent:
+            previous_line_start = text.rfind("\n", 0, match.start())
+            previous_line = text[previous_line_start + 1:match.start()] if previous_line_start != -1 else ""
+            previous_indent = re.match(r"[ \t]*", previous_line).group(0)
+            if previous_line.strip():
+                indent = previous_indent
+        return f"{prefix}{indent}{begin}\n{indent_block(block, indent)}\n{indent}{end}"
+
+    return pattern.sub(replacement, text)
 
 
 def legacy_start_from_hint(text: str, marker: str, marker_index: int) -> int | None:

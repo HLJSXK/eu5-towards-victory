@@ -1,4 +1,5 @@
 import sys
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -7,17 +8,93 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import ceremony_styles, final_building_for_style, load_all_wonder_mechanics_data, render_header, ritual_plan_for_style
+from wonder_mechanics_lib import (
+    ceremony_styles,
+    final_building_for_style,
+    load_all_wonder_mechanics_data,
+    render_header,
+    ritual_plan_for_style,
+    suitability_knowledge_for_wonder,
+    suitability_reveal_variable_for_wonder,
+)
 
 OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_mechanics.gui"
 SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py"
 T = "\t"
 PLAYER = "InternationalOrganizationsView.GetPlayer.MakeScope"
 PLAYER_SCOPE = f"{PLAYER}.Self"
+SUITABILITY_CONDITION_LOC_KEYS = {
+    "topography_mountains": "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_MOUNTAINS",
+    "topography_plateau": "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_PLATEAU",
+    "topography_hills": "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_HILLS",
+    "vegetation_forest": "TV_ENGINEERING_SUITABILITY_CONDITION_VEGETATION_FOREST",
+    "vegetation_woods": "TV_ENGINEERING_SUITABILITY_CONDITION_VEGETATION_WOODS",
+    "rank_rural": "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_RURAL",
+    "rank_city": "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_CITY",
+    "rank_megalopolis": "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_MEGALOPOLIS",
+    "neighbor_city": "TV_ENGINEERING_SUITABILITY_CONDITION_NEIGHBOR_CITY",
+    "neighbor_town": "TV_ENGINEERING_SUITABILITY_CONDITION_NEIGHBOR_TOWN",
+    "has_monastery": "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_MONASTERY",
+    "has_cathedral": "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_CATHEDRAL",
+    "dominant_religion_owner": "TV_ENGINEERING_SUITABILITY_CONDITION_DOMINANT_RELIGION_OWNER",
+    "has_bridge_infrastructure": "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_BRIDGE_INFRASTRUCTURE",
+    "neighbor_bridge_opening": "TV_ENGINEERING_SUITABILITY_CONDITION_NEIGHBOR_BRIDGE_OPENING",
+    "waterway_or_port": "TV_ENGINEERING_SUITABILITY_CONDITION_WATERWAY_OR_PORT",
+    "is_port": "TV_ENGINEERING_SUITABILITY_CONDITION_IS_PORT",
+    "fort_level": "TV_ENGINEERING_SUITABILITY_CONDITION_FORT_LEVEL",
+    "urban_rank": "TV_ENGINEERING_SUITABILITY_CONDITION_URBAN_RANK",
+    "is_capital": "TV_ENGINEERING_SUITABILITY_CONDITION_IS_CAPITAL",
+    "raw_coin_metal": "TV_ENGINEERING_SUITABILITY_CONDITION_RAW_COIN_METAL",
+    "has_armory": "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_ARMORY",
+}
+SUITABILITY_SOURCE_LOC_KEYS = {
+    "development": "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT",
+    "total_building_levels": "TV_ENGINEERING_SUITABILITY_SOURCE_TOTAL_BUILDING_LEVELS",
+    "harbor_suitability": "TV_ENGINEERING_SUITABILITY_SOURCE_HARBOR_SUITABILITY",
+    "average_location_literacy": "TV_ENGINEERING_SUITABILITY_SOURCE_AVERAGE_LOCATION_LITERACY",
+}
 
 
 def eq(var: str, value: int) -> str:
     return f"EqualTo_CFixedPoint({PLAYER}.GetVariable('{var}').GetValue, '(CFixedPoint){value}.0')"
+
+
+def fmt_decimal(value: Decimal) -> str:
+    normalized = value.normalize()
+    text = format(normalized, "f")
+    if "." in text:
+        text = text.rstrip("0").rstrip(".")
+    return text or "0"
+
+
+def fmt_numeric_text(value: object) -> str:
+    try:
+        return fmt_decimal(Decimal(str(value)))
+    except (InvalidOperation, ValueError):
+        return str(value)
+
+
+def fmt_bonus_text(value: object) -> str:
+    text = fmt_numeric_text(value)
+    if text.startswith("-"):
+        return f"#N {text}#!"
+    return f"#P +{text}#!"
+
+
+def scaled_bonus_value(row: dict[str, str]) -> str:
+    try:
+        maximum = Decimal(str(row["max"]))
+        multiplier = Decimal(str(row["multiplier"]))
+        return fmt_decimal(maximum * multiplier)
+    except (InvalidOperation, ValueError):
+        return str(row["multiplier"])
+
+
+def reveal_progress_visible(var: str, row_index: int) -> str:
+    return (
+        f"And({PLAYER}.GetVariable('{var}').IsSet, "
+        f"GreaterThanOrEqualTo_CFixedPoint({PLAYER}.GetVariable('{var}').GetValue, '(CFixedPoint){row_index}.0'))"
+    )
 
 
 def fold_bool(op: str, terms: list[str]) -> str:
@@ -130,6 +207,99 @@ def scripted_effect_tooltip(effect_name: str, indent: int) -> list[str]:
         f"{prefix}{T}}}",
         f"{prefix}}}",
     ]
+
+
+def trigger_conditions_list(trigger_name: str, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}TooltipRequirementsList = {{",
+        f"{prefix}{T}layoutpolicy_horizontal = expanding",
+        f'{prefix}{T}textcontext = "[ShowTriggerConditions(\'{trigger_name}\', PlayerScope.Self)]"',
+        f'{prefix}{T}blockoverride "block_title" {{',
+        f'{prefix}{T}{T}block "block_title" {{',
+        f"{prefix}{T}{T}{T}visible = no",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}}}",
+        f'{prefix}{T}blockoverride "requirementslist_datamodel_is_empty" {{',
+        f"{prefix}{T}{T}visible = no",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
+def suitability_row_label_key(row: dict[str, str]) -> str:
+    if row["type"] == "condition_bonus":
+        condition = row["condition"]
+        if condition not in SUITABILITY_CONDITION_LOC_KEYS:
+            raise ValueError(f"Missing suitability condition loc key mapping for {condition}")
+        return SUITABILITY_CONDITION_LOC_KEYS[condition]
+    source = row["source"]
+    if source not in SUITABILITY_SOURCE_LOC_KEYS:
+        raise ValueError(f"Missing suitability source loc key mapping for {source}")
+    return SUITABILITY_SOURCE_LOC_KEYS[source]
+
+
+def suitability_row_value(row: dict[str, str]) -> str:
+    if row["type"] == "condition_bonus":
+        return fmt_bonus_text(row["value"])
+    return fmt_bonus_text(scaled_bonus_value(row))
+
+
+def suitability_knowledge_row(row: dict[str, str], reveal_var: str, row_index: int, indent: int) -> list[str]:
+    prefix = T * indent
+    revealed = reveal_progress_visible(reveal_var, row_index)
+    return [
+        f"{prefix}hbox = {{",
+        f'{prefix}{T}visible = "[{revealed}]"',
+        f"{prefix}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}spacing = 4",
+        f'{prefix}{T}text_single = {{ text = "{suitability_row_label_key(row)}" max_width = 340 fontsize = 13 align = nobaseline|left }}',
+        f"{prefix}{T}expand = {{}}",
+        f'{prefix}{T}text_single = {{ raw_text = "{suitability_row_value(row)}" fontsize = 13 align = nobaseline|right }}',
+        f"{prefix}}}",
+        f"{prefix}text_single = {{",
+        f'{prefix}{T}visible = "[Not({revealed})]"',
+        f'{prefix}{T}text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"',
+        f"{prefix}{T}max_width = 446",
+        f"{prefix}{T}fontsize = 13",
+        f"{prefix}{T}align = nobaseline|left",
+        f"{prefix}}}",
+    ]
+
+
+def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
+    rows = suitability_knowledge_for_wonder(mechanics, wonder)
+    reveal_var = suitability_reveal_variable_for_wonder(wonder)
+    visible = f"And({PLAYER}.GetVariable('tv_wonder_locked').IsSet, {eq('tv_wonder_locked', wonder['id'])})"
+    height = 118 + len(rows) * 20
+    lines: list[str] = [
+        f"{T}widget = {{",
+        f'{T}{T}visible = "[{visible}]"',
+        f"{T}{T}size = {{ 462 {height} }}",
+        f"{T}{T}using = bg_text_mask_container_dark_blue",
+        "",
+        f"{T}{T}vbox = {{",
+        f"{T}{T}{T}margin = {{ 6 5 }}",
+        f"{T}{T}{T}ignoreinvisible = yes",
+        f"{T}{T}{T}spacing = 3",
+        f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }}',
+        f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" fontsize = 13 align = nobaseline|left }}',
+    ]
+    lines.extend(trigger_conditions_list(f"tv_wonder_can_build_{wonder['key']}_trigger", 3))
+    lines.extend(
+        [
+            f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE" fontsize = 13 align = nobaseline|left }}',
+        ]
+    )
+    for row_index, row in enumerate(rows, start=1):
+        lines.extend(suitability_knowledge_row(row, reveal_var, row_index, 3))
+    lines.extend(
+        [
+            f"{T}{T}}}",
+            f"{T}}}",
+        ]
+    )
+    return "\n".join(lines)
 
 
 def ritual_info_container(title_key: str, subtitle_key: str, effect_name: str | None, indent: int) -> list[str]:
@@ -282,6 +452,11 @@ def generate() -> str:
     for wonder in wonders:
         lines.append(locked_text(wonder))
     lines.append("### END TV_WONDER_MECHANICS_LOCKED_TEXTS")
+    lines.append("")
+    lines.append("### BEGIN TV_WONDER_MECHANICS_SUITABILITY_KNOWLEDGE")
+    for wonder in wonders:
+        lines.append(suitability_knowledge_display(wonder, mechanics))
+    lines.append("### END TV_WONDER_MECHANICS_SUITABILITY_KNOWLEDGE")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_BUTTONS")
     for slot in range(1, 4):
