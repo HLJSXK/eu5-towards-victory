@@ -8,6 +8,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import load_all_wonder_mechanics_data, render_header
+from wonder_mechanics_lib import ceremony_styles, final_building_for_style
 
 VANILLA_FILE = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "gui" / "location_window.gui"
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "gui" / "location_window.gui"
@@ -16,6 +17,7 @@ T = "\t"
 
 COUNT_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_count')"
 ANY_WONDER_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_any_wonder')"
+LOCATION_SCOPE = "LocationView.GetLocation.MakeScope.Self"
 WONDER_TEXT_COLUMN_WIDTH = 120
 WONDER_PREVIEW_COLUMN_WIDTH = 120
 WONDER_ROW_SPACING = 4
@@ -59,6 +61,10 @@ def wonder_level_var(wonder: dict) -> str:
     return f"LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_{wonder['key']}_level')"
 
 
+def wonder_ritual_style_var(wonder: dict) -> str:
+    return f"LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_{wonder['key']}_ritual_style')"
+
+
 def eq_fixed_point(var_expr: str, value: int) -> str:
     return f"And({var_expr}.IsSet, EqualTo_CFixedPoint({var_expr}.GetValue, '(CFixedPoint){value}.0'))"
 
@@ -77,6 +83,19 @@ def slot_matches_expr(slot: int, wonder: dict) -> str:
 
 def level_is_expr(var_expr: str, level: int) -> str:
     return eq_fixed_point(var_expr, level)
+
+
+def ritual_style_is_expr(wonder: dict, style: int) -> str:
+    return eq_fixed_point(wonder_ritual_style_var(wonder), style)
+
+
+def ceremony_name_key(wonder: dict, style: int) -> str:
+    building = final_building_for_style(wonder, style)
+    return f"TV_ENGINEERING_CEREMONY_{building.removeprefix('tv_wonder_').upper()}_BUTTON"
+
+
+def ritual_location_tooltip_effect_name(wonder: dict, style: int) -> str:
+    return f"tv_wonder_{wonder['key']}_ritual_{style}_location_tooltip_effect"
 
 
 def render_separator(indent: str, *, visible: str | None = None) -> list[str]:
@@ -286,6 +305,63 @@ def render_tooltip_modifier_blocks(indent: str, *, wonder: dict) -> list[str]:
     return lines
 
 
+def render_tooltip_scripted_effect(indent: str, *, effect_name: str, visible: str) -> list[str]:
+    return [
+        f"{indent}TooltipRequirementsList = {{",
+        f'{indent}{T}visible = "[{visible}]"',
+        f"{indent}{T}layoutpolicy_horizontal = expanding",
+        f'{indent}{T}textcontext = "[ShowScriptedEffectForScope(\'{effect_name}\',{LOCATION_SCOPE})]"',
+        f'{indent}{T}blockoverride "block_title" {{',
+        f'{indent}{T}{T}block "block_title" {{',
+        f"{indent}{T}{T}{T}visible = no",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}}}",
+        f'{indent}{T}blockoverride "requirementslist_datamodel_is_empty" {{',
+        f"{indent}{T}{T}visible = no",
+        f"{indent}{T}}}",
+        f"{indent}}}",
+    ]
+
+
+def render_tooltip_ritual_title(indent: str, *, wonder: dict, style: int, visible: str) -> list[str]:
+    return [
+        f"{indent}hbox = {{",
+        f'{indent}{T}visible = "[{visible}]"',
+        f"{indent}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}margin_top = 6",
+        f"{indent}{T}spacing = 0",
+        f"{indent}{T}text_single = {{",
+        f'{indent}{T}{T}text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"',
+        f"{indent}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}fontsize = 13",
+        f"{indent}{T}}}",
+        f"{indent}{T}text_single = {{",
+        f'{indent}{T}{T}text = "{ceremony_name_key(wonder, style)}"',
+        f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}autoresize = no",
+        f"{indent}{T}{T}fontsize = 13",
+        f"{indent}{T}}}",
+        f"{indent}}}",
+    ]
+
+
+def render_tooltip_ritual_blocks(indent: str, *, wonder: dict) -> list[str]:
+    lines: list[str] = []
+    for style in ceremony_styles(wonder):
+        visible = ritual_style_is_expr(wonder, style)
+        lines.extend(render_tooltip_ritual_title(indent, wonder=wonder, style=style, visible=visible))
+        lines.extend(
+            render_tooltip_scripted_effect(
+                indent,
+                effect_name=ritual_location_tooltip_effect_name(wonder, style),
+                visible=visible,
+            )
+        )
+    return lines
+
+
 def render_tooltip_text_column(indent: str, *, wonder: dict, level_var: str) -> list[str]:
     lines = [
         f"{indent}widget = {{",
@@ -362,6 +438,7 @@ def render_tooltip_effect_block(indent: str, *, wonder: dict) -> list[str]:
         f"{indent}{T}{T}ignoreinvisible = yes",
     ]
     lines.extend(render_tooltip_modifier_blocks(indent + T * 2, wonder=wonder))
+    lines.extend(render_tooltip_ritual_blocks(indent + T * 2, wonder=wonder))
     lines.extend(
         [
             f"{indent}{T}}}",

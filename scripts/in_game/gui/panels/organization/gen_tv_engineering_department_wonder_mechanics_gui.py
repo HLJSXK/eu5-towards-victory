@@ -271,14 +271,18 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
     rows = suitability_knowledge_for_wonder(mechanics, wonder)
     reveal_var = suitability_reveal_variable_for_wonder(wonder)
     visible = f"And({PLAYER}.GetVariable('tv_wonder_locked').IsSet, {eq('tv_wonder_locked', wonder['id'])})"
-    height = 118 + len(rows) * 20
+    min_height = 118 + len(rows) * 20
     lines: list[str] = [
         f"{T}widget = {{",
         f'{T}{T}visible = "[{visible}]"',
-        f"{T}{T}size = {{ 462 {height} }}",
+        f"{T}{T}layoutpolicy_vertical = shrinking",
+        f"{T}{T}minimumsize = {{ 462 {min_height} }}",
         f"{T}{T}using = bg_text_mask_container_dark_blue",
         "",
         f"{T}{T}vbox = {{",
+        f"{T}{T}{T}set_parent_size_to_minimum = yes",
+        f"{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{T}{T}{T}layoutpolicy_vertical = shrinking",
         f"{T}{T}{T}margin = {{ 6 5 }}",
         f"{T}{T}{T}ignoreinvisible = yes",
         f"{T}{T}{T}spacing = 3",
