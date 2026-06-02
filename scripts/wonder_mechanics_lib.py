@@ -658,6 +658,10 @@ def suitability_reveal_variable_for_wonder(wonder: dict) -> str:
     return suitability_reveal_variable_for_key(mechanic_key(wonder))
 
 
+def suitability_actual_variable_for_wonder(wonder: dict, row_index: int) -> str:
+    return f"tv_wonder_suitability_actual_{wonder['key']}_{row_index}"
+
+
 def ceremony_styles(wonder: dict) -> list[int]:
     return sorted(int(style) for style in wonder["final_buildings"])
 

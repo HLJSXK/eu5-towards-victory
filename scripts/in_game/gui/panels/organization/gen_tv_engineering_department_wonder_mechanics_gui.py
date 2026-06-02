@@ -14,6 +14,7 @@ from wonder_mechanics_lib import (
     load_all_wonder_mechanics_data,
     render_header,
     ritual_plan_for_style,
+    suitability_actual_variable_for_wonder,
     suitability_knowledge_for_wonder,
     suitability_reveal_variable_for_wonder,
 )
@@ -265,9 +266,27 @@ def suitability_row_value(row: dict[str, str]) -> str:
     return fmt_bonus_text(scaled_bonus_value(row))
 
 
-def suitability_knowledge_row(row: dict[str, str], reveal_var: str, row_index: int, indent: int) -> list[str]:
+def suitability_row_actual_complete_visible(actual_var: str) -> str:
+    return (
+        f"And({PLAYER}.GetVariable('tv_wonder_survey_complete').IsSet, "
+        f"{PLAYER}.GetVariable('{actual_var}').IsSet)"
+    )
+
+
+def suitability_row_actual_text(actual_var: str, row: dict[str, str]) -> str:
+    maximum = suitability_row_value(row)
+    return f"#P [{PLAYER}.GetVariable('{actual_var}').GetValue|+=]#!/{maximum}"
+
+
+def suitability_row_unknown_text(row: dict[str, str]) -> str:
+    return f"#T ?#!/{suitability_row_value(row)}"
+
+
+def suitability_knowledge_row(wonder: dict, row: dict[str, str], reveal_var: str, row_index: int, indent: int) -> list[str]:
     prefix = T * indent
     revealed = reveal_progress_visible(reveal_var, row_index)
+    actual_var = suitability_actual_variable_for_wonder(wonder, row_index)
+    completed = suitability_row_actual_complete_visible(actual_var)
     return [
         f"{prefix}hbox = {{",
         f'{prefix}{T}visible = "[{revealed}]"',
@@ -275,7 +294,8 @@ def suitability_knowledge_row(row: dict[str, str], reveal_var: str, row_index: i
         f"{prefix}{T}spacing = 4",
         f'{prefix}{T}text_single = {{ text = "{suitability_row_label_key(row)}" max_width = {SUITABILITY_ROW_LABEL_MAX_WIDTH} fontsize = 13 align = nobaseline|left }}',
         f"{prefix}{T}expand = {{}}",
-        f'{prefix}{T}text_single = {{ raw_text = "{suitability_row_value(row)}" fontsize = 13 align = nobaseline|right }}',
+        f'{prefix}{T}text_single = {{ visible = "[{completed}]" raw_text = "{suitability_row_actual_text(actual_var, row)}" fontsize = 13 align = nobaseline|right }}',
+        f'{prefix}{T}text_single = {{ visible = "[Not({completed})]" raw_text = "{suitability_row_unknown_text(row)}" fontsize = 13 align = nobaseline|right }}',
         f"{prefix}}}",
         f"{prefix}text_single = {{",
         f'{prefix}{T}visible = "[Not({revealed})]"',
@@ -347,7 +367,7 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
             ]
         )
     for row_index, row in enumerate(rows, start=1):
-        lines.extend(suitability_knowledge_row(row, reveal_var, row_index, 5))
+        lines.extend(suitability_knowledge_row(wonder, row, reveal_var, row_index, 5))
     lines.extend(
         [
             f"{T}{T}{T}{T}{T}expand = {{}}",

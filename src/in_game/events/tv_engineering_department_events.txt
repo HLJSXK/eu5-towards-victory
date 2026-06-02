@@ -568,6 +568,27 @@ tv_engineering_department.500 = {
 				trigger = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 3 }
 				desc = tv_engineering_department.500.d_library_3
 			}
+			desc = tv_engineering_department.500.d
+		}
+	}
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		show_as_tooltip = { tv_wonder_complete_generic_finalization_preview_effect = yes }
+		hidden_effect = { tv_wonder_complete_generic_finalization_effect = yes }
+	}
+}
+
+tv_engineering_department.501 = {
+	type = country_event
+	immediate = {
+		tv_wonder_prepare_final_support_rewards_effect = yes
+		tv_wonder_prepare_finalization_preview_effect = yes
+	}
+	title = tv_engineering_department.500.t
+	desc = {
+		first_valid = {
 			triggered_desc = {
 				trigger = { var:tv_wonder_locked ?= 101 var:tv_wonder_ceremony_style ?= 1 }
 				desc = tv_engineering_department.500.d_unique_pharos_lighthouse
@@ -735,8 +756,8 @@ tv_engineering_department.500 = {
 
 	option = {
 		name = tv_engineering_department.500.a
-		show_as_tooltip = { tv_wonder_complete_finalization_preview_effect = yes }
-		hidden_effect = { tv_wonder_complete_finalization_effect = yes }
+		show_as_tooltip = { tv_wonder_complete_unique_finalization_preview_effect = yes }
+		hidden_effect = { tv_wonder_complete_unique_finalization_effect = yes }
 	}
 }
 

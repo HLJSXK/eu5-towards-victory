@@ -3,7 +3,7 @@
 #   Regen:   conda run --no-capture-output -n eu5 python scripts/in_game/common/scripted_effects/gen_tv_wonder_module_effects.py
 # Do not edit directly - modify the data file and re-run the generator.
 
-tv_wonder_clear_current_base_modifiers_effect = {
+tv_wonder_clear_current_generic_base_modifiers_effect = {
 	if = {
 		limit = { var:tv_wonder_locked ?= 1 }
 		remove_country_modifier = tv_wonder_sacred_mountain_level_1
@@ -364,7 +364,10 @@ tv_wonder_clear_current_base_modifiers_effect = {
 		remove_country_modifier = tv_wonder_city_expansion_project_level_5
 		remove_country_modifier = tv_wonder_city_expansion_project_level_6
 	}
-	else_if = {
+}
+
+tv_wonder_clear_current_unique_base_modifiers_effect = {
+	if = {
 		limit = { var:tv_wonder_locked ?= 101 }
 		remove_country_modifier = tv_wonder_unique_pharos_lighthouse_level_1
 		remove_country_modifier = tv_wonder_unique_pharos_lighthouse_level_2
@@ -726,243 +729,18 @@ tv_wonder_clear_current_base_modifiers_effect = {
 	}
 }
 
-tv_wonder_clear_current_ceremony_modifiers_effect = {
+tv_wonder_clear_current_base_modifiers_effect = {
 	if = {
-		limit = { var:tv_wonder_locked ?= 1 }
-		remove_country_modifier = tv_wonder_golden_sanctuary_modifier
-		remove_country_modifier = tv_wonder_ascetic_mountain_modifier
-		remove_country_modifier = tv_wonder_theocratic_center_modifier
+		limit = { tv_wonder_unique_locked_trigger = yes }
+		tv_wonder_clear_current_unique_base_modifiers_effect = yes
 	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 2 }
-		remove_country_modifier = tv_wonder_sun_king_axis_modifier
-		remove_country_modifier = tv_wonder_military_city_modifier
-		remove_country_modifier = tv_wonder_civic_capital_modifier
+	else = {
+		tv_wonder_clear_current_generic_base_modifiers_effect = yes
 	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 3 }
-		remove_country_modifier = tv_wonder_golden_trade_port_modifier
-		remove_country_modifier = tv_wonder_imperial_naval_port_modifier
-		remove_country_modifier = tv_wonder_free_trade_metropolis_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 4 }
-		remove_country_modifier = tv_wonder_dynastic_necropolis_modifier
-		remove_country_modifier = tv_wonder_ancestor_shrine_modifier
-		remove_country_modifier = tv_wonder_quiet_land_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 5 }
-		remove_country_modifier = tv_wonder_eternal_lighthouse_modifier
-		remove_country_modifier = tv_wonder_navigator_lighthouse_modifier
-		remove_country_modifier = tv_wonder_long_watch_lighthouse_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 6 }
-		remove_country_modifier = tv_wonder_water_god_workshop_modifier
-		remove_country_modifier = tv_wonder_hydraulic_artisan_guildhall_modifier
-		remove_country_modifier = tv_wonder_waterwheel_workshop_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 7 }
-		remove_country_modifier = tv_wonder_miners_oath_city_modifier
-		remove_country_modifier = tv_wonder_royal_mint_city_modifier
-		remove_country_modifier = tv_wonder_deep_shaft_city_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 8 }
-		remove_country_modifier = tv_wonder_nautical_almanac_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 9 }
-		remove_country_modifier = tv_wonder_congress_palace_modifier
-		remove_country_modifier = tv_wonder_tribute_gallery_modifier
-		remove_country_modifier = tv_wonder_embassy_palace_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 10 }
-		remove_country_modifier = tv_wonder_scholars_convocation_modifier
-		remove_country_modifier = tv_wonder_public_lectures_modifier
-		remove_country_modifier = tv_wonder_collegiate_charter_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 11 }
-		remove_country_modifier = tv_wonder_dome_consecration_modifier
-		remove_country_modifier = tv_wonder_pilgrim_treasury_modifier
-		remove_country_modifier = tv_wonder_celestial_synod_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 12 }
-		remove_country_modifier = tv_wonder_beacon_rite_temple_modifier
-		remove_country_modifier = tv_wonder_pilgrim_stair_temple_modifier
-		remove_country_modifier = tv_wonder_temple_school_tower_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 13 }
-		remove_country_modifier = tv_wonder_bridge_opening_modifier
-		remove_country_modifier = tv_wonder_river_fair_modifier
-		remove_country_modifier = tv_wonder_canal_authority_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 14 }
-		remove_country_modifier = tv_wonder_keel_laying_yard_modifier
-		remove_country_modifier = tv_wonder_fleet_muster_yard_modifier
-		remove_country_modifier = tv_wonder_admiralty_yard_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 15 }
-		remove_country_modifier = tv_wonder_bastion_trial_fortress_modifier
-		remove_country_modifier = tv_wonder_siege_games_fortress_modifier
-		remove_country_modifier = tv_wonder_arsenal_quarter_fortress_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 16 }
-		remove_country_modifier = tv_wonder_frontier_muster_wall_modifier
-		remove_country_modifier = tv_wonder_signal_fires_wall_modifier
-		remove_country_modifier = tv_wonder_wall_oath_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 17 }
-		remove_country_modifier = tv_wonder_muster_of_arms_modifier
-		remove_country_modifier = tv_wonder_foundry_contracts_modifier
-		remove_country_modifier = tv_wonder_master_armourers_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 18 }
-		remove_country_modifier = tv_wonder_national_catalog_library_modifier
-		remove_country_modifier = tv_wonder_copyists_endowment_library_modifier
-		remove_country_modifier = tv_wonder_legal_deposit_library_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 19 }
-		remove_country_modifier = tv_wonder_irrigation_canal_system_modifier
-		remove_country_modifier = tv_wonder_grain_transport_canal_system_modifier
-		remove_country_modifier = tv_wonder_flood_control_canal_system_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 20 }
-		remove_country_modifier = tv_wonder_grain_terraces_modifier
-		remove_country_modifier = tv_wonder_cash_crop_terraces_modifier
-		remove_country_modifier = tv_wonder_sacred_mountain_terraces_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 21 }
-		remove_country_modifier = tv_wonder_estuary_flood_dam_modifier
-		remove_country_modifier = tv_wonder_marsh_reclamation_dam_modifier
-		remove_country_modifier = tv_wonder_water_powered_workshops_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 22 }
-		remove_country_modifier = tv_wonder_grain_price_granaries_modifier
-		remove_country_modifier = tv_wonder_wartime_granaries_modifier
-		remove_country_modifier = tv_wonder_disaster_relief_granaries_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 23 }
-		remove_country_modifier = tv_wonder_military_post_roads_modifier
-		remove_country_modifier = tv_wonder_trade_post_roads_modifier
-		remove_country_modifier = tv_wonder_royal_tour_avenue_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 24 }
-		remove_country_modifier = tv_wonder_grain_transport_hub_modifier
-		remove_country_modifier = tv_wonder_financial_warehouse_hub_modifier
-		remove_country_modifier = tv_wonder_industrial_workshop_belt_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 25 }
-		remove_country_modifier = tv_wonder_military_colony_belt_modifier
-		remove_country_modifier = tv_wonder_settler_reclamation_belt_modifier
-		remove_country_modifier = tv_wonder_religious_colonization_belt_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 26 }
-		remove_country_modifier = tv_wonder_beacon_communication_network_modifier
-		remove_country_modifier = tv_wonder_coastal_battery_network_modifier
-		remove_country_modifier = tv_wonder_customs_patrol_network_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 27 }
-		remove_country_modifier = tv_wonder_crusader_knightly_order_modifier
-		remove_country_modifier = tv_wonder_frontier_lord_order_modifier
-		remove_country_modifier = tv_wonder_mercenary_fortress_system_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 28 }
-		remove_country_modifier = tv_wonder_firearms_tactics_college_modifier
-		remove_country_modifier = tv_wonder_cavalry_tradition_college_modifier
-		remove_country_modifier = tv_wonder_naval_command_college_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 29 }
-		remove_country_modifier = tv_wonder_worship_clock_bells_modifier
-		remove_country_modifier = tv_wonder_curfew_clock_bells_modifier
-		remove_country_modifier = tv_wonder_astronomical_calendar_bells_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 30 }
-		remove_country_modifier = tv_wonder_court_art_district_modifier
-		remove_country_modifier = tv_wonder_folk_art_district_modifier
-		remove_country_modifier = tv_wonder_foreign_style_district_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 31 }
-		remove_country_modifier = tv_wonder_court_theater_modifier
-		remove_country_modifier = tv_wonder_religious_theater_modifier
-		remove_country_modifier = tv_wonder_popular_festival_ground_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 32 }
-		remove_country_modifier = tv_wonder_trade_diplomacy_embassies_modifier
-		remove_country_modifier = tv_wonder_intelligence_embassies_modifier
-		remove_country_modifier = tv_wonder_religious_diplomacy_embassies_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 33 }
-		remove_country_modifier = tv_wonder_religious_law_steles_modifier
-		remove_country_modifier = tv_wonder_written_law_steles_modifier
-		remove_country_modifier = tv_wonder_imperial_edict_steles_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 34 }
-		remove_country_modifier = tv_wonder_luxury_goods_market_modifier
-		remove_country_modifier = tv_wonder_grain_market_modifier
-		remove_country_modifier = tv_wonder_entrepot_market_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 35 }
-		remove_country_modifier = tv_wonder_silver_gold_standard_mint_modifier
-		remove_country_modifier = tv_wonder_copper_coinage_mint_modifier
-		remove_country_modifier = tv_wonder_international_settlement_mint_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 36 }
-		remove_country_modifier = tv_wonder_artisan_guild_alliance_modifier
-		remove_country_modifier = tv_wonder_overseas_merchant_guilds_modifier
-		remove_country_modifier = tv_wonder_financial_guilds_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 37 }
-		remove_country_modifier = tv_wonder_spice_trade_stations_modifier
-		remove_country_modifier = tv_wonder_slave_trade_stations_modifier
-		remove_country_modifier = tv_wonder_colonial_supply_stations_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 38 }
-		remove_country_modifier = tv_wonder_textile_workshop_complex_modifier
-		remove_country_modifier = tv_wonder_military_workshop_complex_modifier
-		remove_country_modifier = tv_wonder_luxury_craft_workshop_complex_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 39 }
-		remove_country_modifier = tv_wonder_conquest_monument_group_modifier
-		remove_country_modifier = tv_wonder_national_unity_monument_group_modifier
-		remove_country_modifier = tv_wonder_world_exposition_monument_group_modifier
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 40 }
-	}
-	else_if = {
+}
+
+tv_wonder_clear_current_unique_ceremony_modifiers_effect = {
+	if = {
 		limit = { var:tv_wonder_locked ?= 101 }
 		remove_country_modifier = tv_wonder_unique_pharos_lighthouse_ceremony_modifier
 	}
@@ -1121,6 +899,13 @@ tv_wonder_clear_current_ceremony_modifiers_effect = {
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 140 }
 		remove_country_modifier = tv_wonder_unique_jerusalem_holy_city_ceremony_modifier
+	}
+}
+
+tv_wonder_clear_current_ceremony_modifiers_effect = {
+	if = {
+		limit = { tv_wonder_unique_locked_trigger = yes }
+		tv_wonder_clear_current_unique_ceremony_modifiers_effect = yes
 	}
 }
 
@@ -386806,7 +386591,7 @@ tv_wonder_combine_completed_modules_at_location_effect = {
 	}
 }
 
-tv_wonder_destroy_intermediate_buildings_at_location_effect = {
+tv_wonder_destroy_generic_intermediate_buildings_at_location_effect = {
 	prev = { save_scope_as = tv_wonder_module_owner }
 	if = {
 		limit = {
@@ -387968,6 +387753,10 @@ tv_wonder_destroy_intermediate_buildings_at_location_effect = {
 			destroy_building_forcefully = "building(building_type:tv_wonder_city_expansion_project_decoration|scope:tv_wonder_module_owner)"
 		}
 	}
+}
+
+tv_wonder_destroy_unique_intermediate_buildings_at_location_effect = {
+	prev = { save_scope_as = tv_wonder_module_owner }
 	if = {
 		limit = {
 			OR = {
@@ -389046,6 +388835,29 @@ tv_wonder_destroy_intermediate_buildings_at_location_effect = {
 		if = {
 			limit = { has_building = building_type:tv_wonder_unique_jerusalem_holy_city_decoration }
 			destroy_building_forcefully = "building(building_type:tv_wonder_unique_jerusalem_holy_city_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+}
+
+tv_wonder_destroy_intermediate_buildings_at_location_effect = {
+	tv_wonder_destroy_generic_intermediate_buildings_at_location_effect = yes
+	tv_wonder_destroy_unique_intermediate_buildings_at_location_effect = yes
+}
+
+tv_wonder_destroy_generic_intermediate_buildings_effect = {
+	if = {
+		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		var:tv_wonder_site ?= {
+			tv_wonder_destroy_generic_intermediate_buildings_at_location_effect = yes
+		}
+	}
+}
+
+tv_wonder_destroy_unique_intermediate_buildings_effect = {
+	if = {
+		limit = { tv_wonder_construction_site_selected_trigger = yes }
+		var:tv_wonder_site ?= {
+			tv_wonder_destroy_unique_intermediate_buildings_at_location_effect = yes
 		}
 	}
 }

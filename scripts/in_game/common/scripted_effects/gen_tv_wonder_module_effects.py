@@ -322,13 +322,8 @@ def combine_modules_to_helper_once(
     return lines
 
 
-def main() -> None:
-    data = load_wonders_source_data()
-    wonders, mechanics = load_all_wonder_mechanics()
-    parts = data["parts"]
-    lines = HEADER[:]
-
-    lines.append("tv_wonder_clear_current_base_modifiers_effect = {")
+def append_clear_current_base_modifiers_effect(lines: list[str], name: str, wonders: list[dict]) -> None:
+    lines.append(f"{name} = {{")
     for idx, wonder in enumerate(wonders):
         head = "if" if idx == 0 else "else_if"
         lines.append(f"{T}{head} = {{")
@@ -339,7 +334,9 @@ def main() -> None:
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_clear_current_ceremony_modifiers_effect = {")
+
+def append_clear_current_ceremony_modifiers_effect(lines: list[str], name: str, wonders: list[dict], mechanics: dict) -> None:
+    lines.append(f"{name} = {{")
     for idx, wonder in enumerate(wonders):
         head = "if" if idx == 0 else "else_if"
         lines.append(f"{T}{head} = {{")
@@ -351,6 +348,75 @@ def main() -> None:
             modifier_name, _ = ceremony_modifier
             lines.append(f"{T}{T}remove_country_modifier = {modifier_name}")
         lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_destroy_intermediate_buildings_at_location_effect(
+    lines: list[str],
+    name: str,
+    wonders: list[dict],
+    parts: list[dict],
+) -> None:
+    lines.append(f"{name} = {{")
+    lines.append(f"{T}prev = {{ save_scope_as = tv_wonder_module_owner }}")
+    for wonder in wonders:
+        helper = f"tv_wonder_{wonder['key']}"
+        module_names = [f"tv_wonder_{wonder['key']}_{part['key']}" for part in parts]
+        final_names = list(wonder["final_buildings"].values())
+        lines.append(f"{T}if = {{")
+        lines.append(f"{T}{T}limit = {{")
+        lines.extend(any_building_block(final_names, 3))
+        lines.append(f"{T}{T}}}")
+        for building in [helper, *module_names]:
+            lines.append(f"{T}{T}if = {{")
+            lines.append(f"{T}{T}{T}limit = {{ has_building = building_type:{building} }}")
+            lines.append(f"{T}{T}{T}destroy_building_forcefully = \"building(building_type:{building}|scope:tv_wonder_module_owner)\"")
+            lines.append(f"{T}{T}}}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_destroy_intermediate_buildings_effect(lines: list[str], name: str, at_location_effect_name: str) -> None:
+    lines.append(f"{name} = {{")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
+    lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
+    lines.append(f"{T}{T}{T}{at_location_effect_name} = yes")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def main() -> None:
+    data = load_wonders_source_data()
+    wonders, mechanics = load_all_wonder_mechanics()
+    generic_wonders = [wonder for wonder in wonders if not wonder.get("is_unique")]
+    unique_wonders = [wonder for wonder in wonders if wonder.get("is_unique")]
+    parts = data["parts"]
+    lines = HEADER[:]
+
+    append_clear_current_base_modifiers_effect(lines, "tv_wonder_clear_current_generic_base_modifiers_effect", generic_wonders)
+    append_clear_current_base_modifiers_effect(lines, "tv_wonder_clear_current_unique_base_modifiers_effect", unique_wonders)
+    lines.append("tv_wonder_clear_current_base_modifiers_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ tv_wonder_unique_locked_trigger = yes }}")
+    lines.append(f"{T}{T}tv_wonder_clear_current_unique_base_modifiers_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}else = {{")
+    lines.append(f"{T}{T}tv_wonder_clear_current_generic_base_modifiers_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    append_clear_current_ceremony_modifiers_effect(lines, "tv_wonder_clear_current_unique_ceremony_modifiers_effect", unique_wonders, mechanics)
+    lines.append("tv_wonder_clear_current_ceremony_modifiers_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ tv_wonder_unique_locked_trigger = yes }}")
+    lines.append(f"{T}{T}tv_wonder_clear_current_unique_ceremony_modifiers_effect = yes")
+    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
@@ -555,34 +621,38 @@ def main() -> None:
     lines.append("}")
     lines.append("")
 
+    append_destroy_intermediate_buildings_at_location_effect(
+        lines,
+        "tv_wonder_destroy_generic_intermediate_buildings_at_location_effect",
+        generic_wonders,
+        parts,
+    )
+    append_destroy_intermediate_buildings_at_location_effect(
+        lines,
+        "tv_wonder_destroy_unique_intermediate_buildings_at_location_effect",
+        unique_wonders,
+        parts,
+    )
     lines.append("tv_wonder_destroy_intermediate_buildings_at_location_effect = {")
-    lines.append(f"{T}prev = {{ save_scope_as = tv_wonder_module_owner }}")
-    for wonder in wonders:
-        helper = f"tv_wonder_{wonder['key']}"
-        module_names = [f"tv_wonder_{wonder['key']}_{part['key']}" for part in parts]
-        final_names = list(wonder["final_buildings"].values())
-        lines.append(f"{T}if = {{")
-        lines.append(f"{T}{T}limit = {{")
-        lines.extend(any_building_block(final_names, 3))
-        lines.append(f"{T}{T}}}")
-        for building in [helper, *module_names]:
-            lines.append(f"{T}{T}if = {{")
-            lines.append(f"{T}{T}{T}limit = {{ has_building = building_type:{building} }}")
-            lines.append(f"{T}{T}{T}destroy_building_forcefully = \"building(building_type:{building}|scope:tv_wonder_module_owner)\"")
-            lines.append(f"{T}{T}}}")
-        lines.append(f"{T}}}")
+    lines.append(f"{T}tv_wonder_destroy_generic_intermediate_buildings_at_location_effect = yes")
+    lines.append(f"{T}tv_wonder_destroy_unique_intermediate_buildings_at_location_effect = yes")
     lines.append("}")
     lines.append("")
-
-    lines.append("tv_wonder_destroy_intermediate_buildings_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
-    lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    lines.append(f"{T}{T}{T}tv_wonder_destroy_intermediate_buildings_at_location_effect = yes")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
+    append_destroy_intermediate_buildings_effect(
+        lines,
+        "tv_wonder_destroy_generic_intermediate_buildings_effect",
+        "tv_wonder_destroy_generic_intermediate_buildings_at_location_effect",
+    )
+    append_destroy_intermediate_buildings_effect(
+        lines,
+        "tv_wonder_destroy_unique_intermediate_buildings_effect",
+        "tv_wonder_destroy_unique_intermediate_buildings_at_location_effect",
+    )
+    append_destroy_intermediate_buildings_effect(
+        lines,
+        "tv_wonder_destroy_intermediate_buildings_effect",
+        "tv_wonder_destroy_intermediate_buildings_at_location_effect",
+    )
 
     lines.append("tv_wonder_ensure_helper_building_from_final_buildings_effect = {")
     lines.append(f"{T}# Final buildings are authoritative after inauguration; helper buildings stay construction-only.")
