@@ -370,29 +370,43 @@ organization_panel = {
 								}
 							}
 
-							button_checkbox_auto = {
+							widget = {
 								size = { 26 26 }
 								visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_governor_automation_enabled').IsSet)]"
-								checked = no
-								title = "tv_enable_governor_automation"
-								description = "tv_enable_governor_automation_desc"
-								actor = "[InternationalOrganizationsView.GetPlayer]"
-								using = action_button_common_template
-								left_action = {
-									action_name = "tv_enable_governor_automation"
+								button_checkbox_auto = {
+									size = { 26 26 }
+									checked = no
+								}
+								action_button = {
+									size = { 26 26 }
+									alpha = 0
+									title = "tv_enable_governor_automation"
+									description = "tv_enable_governor_automation_desc"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									using = action_button_common_template
+									left_action = {
+										action_name = "tv_enable_governor_automation"
+									}
 								}
 							}
 
-							button_checkbox_auto = {
+							widget = {
 								size = { 26 26 }
 								visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_governor_automation_enabled').IsSet]"
-								checked = yes
-								title = "tv_disable_governor_automation"
-								description = "tv_disable_governor_automation_desc"
-								actor = "[InternationalOrganizationsView.GetPlayer]"
-								using = action_button_common_template
-								left_action = {
-									action_name = "tv_disable_governor_automation"
+								button_checkbox_auto = {
+									size = { 26 26 }
+									checked = yes
+								}
+								action_button = {
+									size = { 26 26 }
+									alpha = 0
+									title = "tv_disable_governor_automation"
+									description = "tv_disable_governor_automation_desc"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									using = action_button_common_template
+									left_action = {
+										action_name = "tv_disable_governor_automation"
+									}
 								}
 							}
 
