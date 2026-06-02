@@ -237,6 +237,83 @@ tv_auto_assign_governors = {
 	}
 }
 
+tv_enable_governor_automation = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_GOVHOUSE_GOVERNOR_AUTOMATION_DISABLED_TT
+				NOT = { has_variable = tv_govhouse_governor_automation_enabled }
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			set_variable = { name = tv_govhouse_governor_automation_enabled value = 1 }
+			hidden_effect = {
+				tv_govhouse_auto_assign_if_enabled_effect = yes
+			}
+		}
+	}
+
+	ai_will_do = {
+		add = -100
+	}
+}
+
+tv_disable_governor_automation = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+		scope:actor = {
+			custom_tooltip = {
+				text = TV_GOVHOUSE_GOVERNOR_AUTOMATION_ENABLED_TT
+				has_variable = tv_govhouse_governor_automation_enabled
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			remove_variable = tv_govhouse_governor_automation_enabled
+		}
+	}
+
+	ai_will_do = {
+		add = -100
+	}
+}
+
 # Dismisses the governor assigned to the region pre-set as scope:target_1 by the UI.
 tv_remove_governor = {
 	type = owncountry

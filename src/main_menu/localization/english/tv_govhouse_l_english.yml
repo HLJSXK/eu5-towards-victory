@@ -445,6 +445,10 @@
  tv_change_governor_desc: "Replace this region's current [tv_local_governor|E] with another eligible character."
  tv_auto_assign_governors: "Auto-Assign Best Governors"
  tv_auto_assign_governors_desc: "Fill empty [tv_local_governor|E] seats with eligible characters in descending total Administrative, Diplomatic, and Military skill until every owned region has a governor or no candidate remains."
+ tv_enable_governor_automation: "Enable Governor Automation"
+ tv_enable_governor_automation_desc: "Automatically manage [tv_local_governor|E] vacancies. When a governed region becomes empty, the [tv_govhouse|E] runs $tv_auto_assign_governors$ once."
+ tv_disable_governor_automation: "Disable Governor Automation"
+ tv_disable_governor_automation_desc: "Stop automatically filling [tv_local_governor|E] vacancies."
 
  tv_appoint_governor_select_char: "Select Governor"
  tv_appoint_governor_no_chars: "@trigger_no! No eligible characters are available."
@@ -456,6 +460,8 @@
  TV_GOVHOUSE_REGION_HAS_NO_GOVERNOR_TT: "This region does not already have an assigned [tv_local_governor|E]."
  TV_GOVHOUSE_HAS_EMPTY_GOVERNOR_REGION_TT: "At least one owned region does not already have an assigned [tv_local_governor|E]."
  TV_GOVHOUSE_HAS_ELIGIBLE_GOVERNOR_CHARACTER_TT: "At least one eligible character is available."
+ TV_GOVHOUSE_GOVERNOR_AUTOMATION_ENABLED_TT: "[tv_local_governor|E] automation is enabled."
+ TV_GOVHOUSE_GOVERNOR_AUTOMATION_DISABLED_TT: "[tv_local_governor|E] automation is disabled."
 
  PERFORM_tv_appoint_governor_ACTION_SETUP: "When we appoint a [tv_local_governor|E]."
  PERFORM_tv_appoint_governor_ACTION_LOG: "We appointed a new [tv_local_governor|E]."
@@ -464,6 +470,14 @@
  PERFORM_tv_auto_assign_governors_ACTION_SETUP: "When we automatically assign [tv_local_governor|E]s."
  PERFORM_tv_auto_assign_governors_ACTION_LOG: "We automatically assigned the best available [tv_local_governor|E]s."
  PERFORM_tv_auto_assign_governors_ACTION_MAP: ""
+
+ PERFORM_tv_enable_governor_automation_ACTION_SETUP: "When we enable [tv_local_governor|E] automation."
+ PERFORM_tv_enable_governor_automation_ACTION_LOG: "We enabled automatic [tv_local_governor|E] management."
+ PERFORM_tv_enable_governor_automation_ACTION_MAP: ""
+
+ PERFORM_tv_disable_governor_automation_ACTION_SETUP: "When we disable [tv_local_governor|E] automation."
+ PERFORM_tv_disable_governor_automation_ACTION_LOG: "We disabled automatic [tv_local_governor|E] management."
+ PERFORM_tv_disable_governor_automation_ACTION_MAP: ""
 
  PERFORM_tv_remove_governor_ACTION_SETUP: "When we dismiss a [tv_local_governor|E]."
  PERFORM_tv_remove_governor_ACTION_LOG: "We dismissed a [tv_local_governor|E]."

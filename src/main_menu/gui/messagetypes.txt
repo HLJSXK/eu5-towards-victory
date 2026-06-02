@@ -12869,6 +12869,26 @@ PERFORM_tv_auto_assign_governors_ACTION={
 	message_category = society
 }
 
+PERFORM_tv_enable_governor_automation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_disable_governor_automation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
 PERFORM_tv_remove_governor_ACTION={
 	log=yes
 	onmap=no

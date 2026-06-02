@@ -444,6 +444,10 @@
  tv_change_governor_desc: "以另一位符合条件的角色替换该地区现任[tv_local_governor|E]。"
  tv_auto_assign_governors: "自动选择最高属性角色"
  tv_auto_assign_governors_desc: "按行政、外交与军事能力总和从高到低，自动用符合条件的角色填补空缺[tv_local_governor|E]席位，直到所有直属地区都有总督，或已无可用人选。"
+ tv_enable_governor_automation: "启用总督自动管理"
+ tv_enable_governor_automation_desc: "自动管理[tv_local_governor|E]空缺。每当一个管辖地区空出时，[tv_govhouse|E]都会执行一次$tv_auto_assign_governors$。"
+ tv_disable_governor_automation: "停用总督自动管理"
+ tv_disable_governor_automation_desc: "停止自动填补[tv_local_governor|E]空缺。"
 
  tv_appoint_governor_select_char: "选择总督人选"
  tv_appoint_governor_no_chars: "@trigger_no! 当前没有符合条件的角色。"
@@ -455,6 +459,8 @@
  TV_GOVHOUSE_REGION_HAS_NO_GOVERNOR_TT: "该地区尚未安排[tv_local_governor|E]。"
  TV_GOVHOUSE_HAS_EMPTY_GOVERNOR_REGION_TT: "至少有一个直属地区尚未安排[tv_local_governor|E]。"
  TV_GOVHOUSE_HAS_ELIGIBLE_GOVERNOR_CHARACTER_TT: "至少有一位符合条件的角色可用。"
+ TV_GOVHOUSE_GOVERNOR_AUTOMATION_ENABLED_TT: "[tv_local_governor|E]自动管理已启用。"
+ TV_GOVHOUSE_GOVERNOR_AUTOMATION_DISABLED_TT: "[tv_local_governor|E]自动管理未启用。"
 
  PERFORM_tv_appoint_governor_ACTION_SETUP: "当我们派遣[tv_local_governor|E]时。"
  PERFORM_tv_appoint_governor_ACTION_LOG: "我们任命了一位新的[tv_local_governor|E]。"
@@ -463,6 +469,14 @@
  PERFORM_tv_auto_assign_governors_ACTION_SETUP: "当我们自动派遣[tv_local_governor|E]时。"
  PERFORM_tv_auto_assign_governors_ACTION_LOG: "我们已自动派遣属性最高的可用[tv_local_governor|E]。"
  PERFORM_tv_auto_assign_governors_ACTION_MAP: ""
+
+ PERFORM_tv_enable_governor_automation_ACTION_SETUP: "当我们启用[tv_local_governor|E]自动管理时。"
+ PERFORM_tv_enable_governor_automation_ACTION_LOG: "我们启用了[tv_local_governor|E]自动管理。"
+ PERFORM_tv_enable_governor_automation_ACTION_MAP: ""
+
+ PERFORM_tv_disable_governor_automation_ACTION_SETUP: "当我们停用[tv_local_governor|E]自动管理时。"
+ PERFORM_tv_disable_governor_automation_ACTION_LOG: "我们停用了[tv_local_governor|E]自动管理。"
+ PERFORM_tv_disable_governor_automation_ACTION_MAP: ""
 
  PERFORM_tv_remove_governor_ACTION_SETUP: "当我们撤换[tv_local_governor|E]时。"
  PERFORM_tv_remove_governor_ACTION_LOG: "我们撤换了一位[tv_local_governor|E]。"

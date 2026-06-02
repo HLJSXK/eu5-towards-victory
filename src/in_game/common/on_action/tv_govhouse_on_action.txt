@@ -1,5 +1,25 @@
 ﻿# Towards Victory — Governor's House on_action hooks
 
+on_location_changed_owner = {
+	on_actions = { tv_govhouse_location_changed_owner }
+}
+
+on_character_moved_country = {
+	on_actions = { tv_govhouse_governor_moved_country }
+}
+
+on_new_ruler = {
+	on_actions = { tv_govhouse_new_ruler }
+}
+
+on_character_marriage = {
+	on_actions = { tv_govhouse_character_marriage }
+}
+
+on_royal_marriage = {
+	on_actions = { tv_govhouse_royal_marriage }
+}
+
 # Monthly tick: advance Grand General training and resolve it after 12 months.
 tv_govhouse_training_monthly_pulse = {
 	effect = {
@@ -264,6 +284,76 @@ tv_govhouse_governor_tasks_yearly_pulse = {
 	}
 }
 
+tv_govhouse_location_changed_owner = {
+	effect = {
+		scope:loser ?= {
+			tv_govhouse_auto_assign_if_enabled_effect = yes
+		}
+		scope:winner ?= {
+			tv_govhouse_auto_assign_if_enabled_effect = yes
+		}
+	}
+}
+
+tv_govhouse_governor_moved_country = {
+	trigger = {
+		has_variable = tv_is_governor
+	}
+	effect = {
+		save_scope_as = tv_moved_governor
+		scope:owner ?= {
+			save_scope_as = tv_governing_country
+		}
+		if = {
+			limit = { exists = scope:tv_governing_country }
+			tv_governor_clear_assignment_effect = yes
+			scope:tv_governing_country = {
+				remove_list_variable = { name = tv_governor_list target = scope:tv_moved_governor }
+				tv_govhouse_refresh_region_list_effect = yes
+				tv_govhouse_auto_assign_if_enabled_effect = yes
+			}
+		}
+	}
+}
+
+tv_govhouse_new_ruler = {
+	trigger = {
+		scope:new_ruler ?= {
+			has_variable = tv_is_governor
+		}
+	}
+	effect = {
+		save_scope_as = tv_governing_country
+		scope:new_ruler ?= {
+			save_scope_as = tv_promoted_governor
+			tv_governor_clear_assignment_effect = yes
+		}
+		remove_list_variable = { name = tv_governor_list target = scope:tv_promoted_governor }
+		tv_govhouse_refresh_region_list_effect = yes
+		tv_govhouse_auto_assign_if_enabled_effect = yes
+	}
+}
+
+tv_govhouse_character_marriage = {
+	effect = {
+		tv_govhouse_clear_governor_if_consort_effect = yes
+		scope:target ?= {
+			tv_govhouse_clear_governor_if_consort_effect = yes
+		}
+	}
+}
+
+tv_govhouse_royal_marriage = {
+	effect = {
+		scope:target_1 ?= {
+			tv_govhouse_clear_governor_if_consort_effect = yes
+		}
+		scope:target_2 ?= {
+			tv_govhouse_clear_governor_if_consort_effect = yes
+		}
+	}
+}
+
 # Death cleanup: if the Grand General dies, clear country variables and notify.
 tv_govhouse_char_death = {
 	effect = {
@@ -325,5 +415,6 @@ tv_govhouse_governor_death = {
 		}
 		remove_list_variable = { name = tv_governor_list target = scope:tv_dead_governor }
 		tv_govhouse_refresh_region_list_effect = yes
+		tv_govhouse_auto_assign_if_enabled_effect = yes
 	}
 }

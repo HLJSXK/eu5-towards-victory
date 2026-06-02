@@ -145,6 +145,7 @@ tv_govhouse_initialize_grand_general_loyalty_effect = {
 tv_govhouse_on_grand_general_appointed_effect = {
 	tv_govhouse_reset_power_consolidation_effect = yes
 	tv_govhouse_initialize_grand_general_loyalty_effect = yes
+	tv_govhouse_auto_assign_if_enabled_effect = yes
 }
 
 tv_govhouse_change_grand_general_loyalty_effect = {
@@ -1469,6 +1470,7 @@ tv_governor_clear_assignment_effect = {
 		}
 	}
 	remove_variable = tv_is_governor
+	remove_variable = tv_governor_country
 	remove_variable = tv_governed_region
 	remove_variable = tv_governed_region_capital
 	remove_variable = tv_governed_area
@@ -2477,6 +2479,7 @@ tv_governor_appoint_effect = {
 		# Set governor variables on the character
 		scope:target = {
 			set_variable = { name = tv_is_governor value = 1 }
+			set_variable = { name = tv_governor_country value = scope:tv_governing_country }
 			set_variable = { name = tv_governed_region value = scope:target_1 }
 		}
 		# Store a representative location from the region so the GUI can display the region name.
@@ -2640,6 +2643,69 @@ tv_governor_auto_assign_effect = {
 	tv_govhouse_refresh_region_list_effect = yes
 }
 
+# Executes one auto-assign pass only while the Governor's House automation switch
+# is enabled and a living Grand General can legally appoint governors.
+# Scope: country.
+tv_govhouse_auto_assign_if_enabled_effect = {
+	if = {
+		limit = {
+			has_variable = tv_govhouse_governor_automation_enabled
+			has_variable = tv_govhouse_member
+			has_variable = tv_conquest_general_char
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				is_female = no
+				is_artist = no
+			}
+		}
+		tv_governor_auto_assign_effect = yes
+	}
+}
+
+# Clears a Local Governor who became a consort through marriage and refills the
+# vacancy if Governor's House automation is enabled. Scope: character.
+tv_govhouse_clear_governor_if_consort_effect = {
+	if = {
+		limit = {
+			has_variable = tv_is_governor
+			is_consort = yes
+			has_variable = tv_governor_country
+			var:tv_governor_country ?= {
+				has_variable = tv_govhouse_member
+			}
+		}
+		save_scope_as = tv_consort_governor
+		var:tv_governor_country ?= {
+			save_scope_as = tv_governing_country
+		}
+		tv_governor_clear_assignment_effect = yes
+		scope:tv_governing_country = {
+			remove_list_variable = { name = tv_governor_list target = scope:tv_consort_governor }
+			tv_govhouse_refresh_region_list_effect = yes
+			tv_govhouse_auto_assign_if_enabled_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			has_variable = tv_is_governor
+			is_consort = yes
+			owner ?= {
+				has_variable = tv_govhouse_member
+			}
+		}
+		save_scope_as = tv_consort_governor
+		owner = {
+			save_scope_as = tv_governing_country
+		}
+		tv_governor_clear_assignment_effect = yes
+		scope:tv_governing_country = {
+			remove_list_variable = { name = tv_governor_list target = scope:tv_consort_governor }
+			tv_govhouse_refresh_region_list_effect = yes
+			tv_govhouse_auto_assign_if_enabled_effect = yes
+		}
+	}
+}
+
 # Dismisses a governor, removing their location modifiers.
 # Scope: country. Prefer scope:target_1 = region (set via GUI button parameter).
 # Legacy scope:recipient = governor character is still accepted for old UI/save compatibility.
@@ -2671,6 +2737,7 @@ tv_governor_remove_effect = {
 		}
 	}
 	tv_govhouse_refresh_region_list_effect = yes
+	tv_govhouse_auto_assign_if_enabled_effect = yes
 }
 
 # Cleans up governor variables and IO on country deletion or conquest defeat.
@@ -2687,6 +2754,7 @@ tv_govhouse_cleanup_effect = {
 		tv_govhouse_reset_power_consolidation_effect = yes
 		remove_variable = tv_govhouse_member
 	}
+	remove_variable = tv_govhouse_governor_automation_enabled
 	if = {
 		limit = {
 			custom_tooltip = {
