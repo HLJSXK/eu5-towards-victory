@@ -99,6 +99,17 @@ def fresh_site_candidate_conditions(wonder: dict, mechanics: dict, indent: int) 
     return lines
 
 
+def player_visible_site_rule_conditions(wonder: dict, mechanics: dict, indent: int) -> list[str]:
+    prefix = T * indent
+    if wonder.get("is_unique"):
+        return [f"{prefix}owns = location:{wonder['location']}"]
+
+    lines = [f"{prefix}any_owned_location = {{"]
+    lines.extend(trigger_conditions(wonder, mechanics, indent + 1))
+    lines.append(f"{prefix}}}")
+    return lines
+
+
 def add_project_occupancy_triggers(lines: list[str], wonders: list[dict]) -> None:
     for wonder in wonders:
         key = wonder["key"]
@@ -286,6 +297,10 @@ def generate() -> str:
             lines.append(f"{T}any_owned_location = {{")
             lines.append(f"{T}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes")
             lines.append(f"{T}}}")
+        lines.append("}")
+        lines.append("")
+        lines.append(f"tv_wonder_player_visible_site_rules_{wonder['key']}_trigger = {{")
+        lines.extend(player_visible_site_rule_conditions(wonder, mechanics, 1))
         lines.append("}")
         lines.append("")
 

@@ -268,10 +268,10 @@ def suitability_knowledge_row(row: dict[str, str], reveal_var: str, row_index: i
 
 
 def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
-    rows = suitability_knowledge_for_wonder(mechanics, wonder)
+    rows = [] if wonder.get("is_unique") else suitability_knowledge_for_wonder(mechanics, wonder)
     reveal_var = suitability_reveal_variable_for_wonder(wonder)
     visible = f"And({PLAYER}.GetVariable('tv_wonder_locked').IsSet, {eq('tv_wonder_locked', wonder['id'])})"
-    min_height = 118 + len(rows) * 20
+    min_height = 82 + len(rows) * 20
     lines: list[str] = [
         f"{T}widget = {{",
         f'{T}{T}visible = "[{visible}]"',
@@ -289,12 +289,13 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
         f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }}',
         f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" fontsize = 13 align = nobaseline|left }}',
     ]
-    lines.extend(trigger_conditions_list(f"tv_wonder_can_build_{wonder['key']}_trigger", 3))
-    lines.extend(
-        [
-            f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE" fontsize = 13 align = nobaseline|left }}',
-        ]
-    )
+    lines.extend(trigger_conditions_list(f"tv_wonder_player_visible_site_rules_{wonder['key']}_trigger", 3))
+    if rows:
+        lines.extend(
+            [
+                f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE" fontsize = 13 align = nobaseline|left }}',
+            ]
+        )
     for row_index, row in enumerate(rows, start=1):
         lines.extend(suitability_knowledge_row(row, reveal_var, row_index, 3))
     lines.extend(
