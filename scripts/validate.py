@@ -61,6 +61,7 @@ TV_IO_ICON_DIR = (
 UTF8_BOM = b"\xef\xbb\xbf"
 VALIDATED_SUFFIXES = {".txt", ".gui", ".yml", ".yaml", ".md", ".py"}
 LOCALIZATION_KEY_PATTERN = re.compile(r"^\s+(\w+)\s*:(?:\d+)?")
+GAME_CONCEPT_DECL_PATTERN = re.compile(r"^([A-Za-z0-9_]+)\s*=\s*\{$")
 GENERIC_ACTION_HIDDEN_ONLY_EFFECTS = {
     "tv_governor_remove_effect": (
         "dismisses a regional governor by clearing variables/lists and rebuilding display state; "
@@ -224,6 +225,36 @@ def _iter_yaml_localization_keys(path: Path):
         match = LOCALIZATION_KEY_PATTERN.match(line)
         if match:
             yield match.group(1), line_num
+
+
+def _iter_game_concept_keys(path: Path):
+    for line_num, line in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), 1):
+        match = GAME_CONCEPT_DECL_PATTERN.match(line.strip())
+        if match:
+            yield match.group(1), line_num
+
+
+def check_game_concept_duplicate_keys() -> None:
+    """Verify each main-menu game concept key is declared only once."""
+    concepts_dir = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts"
+    if not concepts_dir.exists():
+        return
+
+    key_defs: dict[str, list[tuple[Path, int]]] = {}
+    for concept_file in sorted(concepts_dir.rglob("*.txt")):
+        for key, line_num in _iter_game_concept_keys(concept_file):
+            key_defs.setdefault(key, []).append((concept_file, line_num))
+
+    for key, definitions in sorted(key_defs.items()):
+        if len(definitions) < 2:
+            continue
+        locations = ", ".join(
+            f"{path.relative_to(REPO_ROOT)}:{line_num}"
+            for path, line_num in definitions
+        )
+        issues.append(
+            f"[GAME_CONCEPT] Duplicate game concept key '{key}' in main_menu/common/game_concepts: {locations}"
+        )
 
 
 def check_loc_duplicate_keys() -> None:
@@ -885,6 +916,7 @@ def main():
                 check_enums(path, content, enum_data)
                 check_modifier_names(path, content, modifier_whitelist)
 
+        check_game_concept_duplicate_keys()
         check_loc_duplicate_keys()
         check_loc_coverage()
         check_trigger_loc_coverage()
