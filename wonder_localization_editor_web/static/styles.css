@@ -268,6 +268,56 @@ textarea {
     margin-top: 20px;
 }
 
+.name-editor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.name-editor-card {
+    display: grid;
+    gap: 10px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--panel-strong);
+}
+
+.name-editor-head {
+    display: grid;
+    gap: 4px;
+}
+
+.name-editor-head .eyebrow {
+    margin-bottom: 0;
+}
+
+.name-editor-head strong {
+    font-size: 0.98rem;
+}
+
+.name-editor-key {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.name-editor-input {
+    width: 100%;
+    min-height: 0;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: #fffdf8;
+    color: var(--text);
+    line-height: 1.4;
+}
+
+.name-editor-input:focus {
+    outline: 2px solid rgba(15, 108, 117, 0.22);
+    border-color: rgba(15, 108, 117, 0.35);
+}
+
 .meta-card {
     display: grid;
     gap: 6px;

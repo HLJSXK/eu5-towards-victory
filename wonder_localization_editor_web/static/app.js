@@ -16,6 +16,7 @@ const elements = {
     wonderCount: document.getElementById("wonder-count"),
     wonderList: document.getElementById("wonder-list"),
     wonderMeta: document.getElementById("wonder-meta"),
+    wonderNameEditors: document.getElementById("wonder-name-editors"),
     searchInput: document.getElementById("search-input"),
     languageTabs: document.getElementById("language-tabs"),
     languagePanels: document.getElementById("language-panels"),
@@ -76,7 +77,9 @@ function setBusy(isBusy) {
 }
 
 function getEditorFields() {
-    return elements.languagePanels.querySelectorAll("[data-editor-field='true']");
+    return document.querySelectorAll(
+        "#wonder-name-editors [data-editor-field='true'], #language-panels [data-editor-field='true']",
+    );
 }
 
 function normalizeFieldValue(element) {
@@ -103,6 +106,68 @@ function hasUnsavedChanges() {
 
 function refreshDirtyState() {
     elements.dirtyBadge.classList.toggle("hidden", !hasUnsavedChanges());
+}
+
+function wonderNameKeyForKey(wonderKey) {
+    return `tv_wonder_${wonderKey}`;
+}
+
+function currentWonderNameKey() {
+    if (!state.currentWonder?.summary?.key) {
+        return "";
+    }
+    return wonderNameKeyForKey(state.currentWonder.summary.key);
+}
+
+function isCurrentWonderNameField(field) {
+    const wonderNameKey = currentWonderNameKey();
+    return Boolean(wonderNameKey) && field.key === wonderNameKey && field.label === "Wonder name";
+}
+
+function currentWonderNameFields() {
+    if (!state.currentWonder) {
+        return [];
+    }
+    const nameFields = [];
+    for (const [language, payload] of Object.entries(state.currentWonder.languages || {})) {
+        for (const section of payload.sections || []) {
+            for (const field of section.fields || []) {
+                if (field.key === currentWonderNameKey() && field.label === "Wonder name") {
+                    nameFields.push({
+                        language,
+                        languageLabel: payload.label || language,
+                        field,
+                    });
+                }
+            }
+        }
+    }
+    return nameFields;
+}
+
+function updateWonderNamePreview(language, value) {
+    if (!state.currentWonder) {
+        return;
+    }
+    const normalizedValue = normalizeLocalizationText(String(value ?? ""));
+    if (language === "english") {
+        state.currentWonder.summary.name_en = normalizedValue;
+        state.currentWonder.meta.name_en = normalizedValue;
+    } else if (language === "simp_chinese") {
+        state.currentWonder.summary.name_zh = normalizedValue;
+        state.currentWonder.meta.name_zh = normalizedValue;
+    }
+    state.currentWonder.summary.display_name = `${state.currentWonder.summary.name_zh} / ${state.currentWonder.summary.name_en}`;
+
+    const summary = state.wonders.find((wonder) => wonder.id === state.currentWonder.summary.id);
+    if (summary) {
+        summary.name_en = state.currentWonder.summary.name_en;
+        summary.name_zh = state.currentWonder.summary.name_zh;
+        summary.display_name = state.currentWonder.summary.display_name;
+    }
+
+    renderWonderList();
+    renderMeta();
 }
 
 function currentWonderKind() {
@@ -217,6 +282,63 @@ function renderMeta() {
         card.innerHTML = `<span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong>`;
         elements.wonderMeta.append(card);
     }
+}
+
+function createSingleLineEditorBinding(field, scope, onInput = null) {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = field.value;
+    input.dataset.editorField = "true";
+    input.dataset.fieldScope = scope;
+    input.dataset.fieldType = field.field_type || "text";
+    input.dataset.key = field.key;
+    input.dataset.originalValue = field.original_value;
+    if (scope === "localization") {
+        input.dataset.language = field.language;
+    }
+    input.addEventListener("input", () => {
+        refreshDirtyState();
+        onInput?.(input.value);
+    });
+    input.addEventListener("change", () => {
+        refreshDirtyState();
+        onInput?.(input.value);
+    });
+    return input;
+}
+
+function renderWonderNameEditors() {
+    elements.wonderNameEditors.innerHTML = "";
+    if (!state.currentWonder) {
+        elements.wonderNameEditors.classList.add("hidden");
+        return;
+    }
+
+    const fields = currentWonderNameFields();
+    if (!fields.length) {
+        elements.wonderNameEditors.classList.add("hidden");
+        return;
+    }
+
+    for (const { language, languageLabel, field } of fields) {
+        const card = document.createElement("article");
+        card.className = "name-editor-card";
+        card.innerHTML = `
+            <div class="name-editor-head">
+                <span class="eyebrow">${escapeHtml(languageLabel)}</span>
+                <strong>${escapeHtml(field.label)}</strong>
+                <code class="name-editor-key">${escapeHtml(field.key)}</code>
+            </div>
+        `;
+        const input = createSingleLineEditorBinding(field, "localization", (value) => {
+            updateWonderNamePreview(language, value);
+        });
+        input.classList.add("name-editor-input");
+        card.append(input);
+        elements.wonderNameEditors.append(card);
+    }
+
+    elements.wonderNameEditors.classList.remove("hidden");
 }
 
 function editorTabsForCurrentWonder() {
@@ -1447,6 +1569,9 @@ function renderSections(panel, sections, scope) {
         fields.className = "field-list";
 
         for (const field of section.fields) {
+            if (scope === "localization" && isCurrentWonderNameField(field)) {
+                continue;
+            }
             const fieldNode = document.createElement("article");
             fieldNode.className = "field-card";
             fieldNode.innerHTML = `
@@ -1474,6 +1599,9 @@ function renderSections(panel, sections, scope) {
             fields.append(fieldNode);
         }
 
+        if (!fields.childElementCount) {
+            continue;
+        }
         sectionNode.append(fields);
         panel.append(sectionNode);
     }
@@ -1523,6 +1651,7 @@ function render() {
     renderWonderKindTabs();
     renderWonderList();
     renderMeta();
+    renderWonderNameEditors();
     renderEditorTabs();
     renderEditorPanels();
     renderLog();
