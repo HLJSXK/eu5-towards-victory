@@ -53,6 +53,11 @@ SUITABILITY_SOURCE_LOC_KEYS = {
     "harbor_suitability": "TV_ENGINEERING_SUITABILITY_SOURCE_HARBOR_SUITABILITY",
     "average_location_literacy": "TV_ENGINEERING_SUITABILITY_SOURCE_AVERAGE_LOCATION_LITERACY",
 }
+SUITABILITY_KNOWLEDGE_COLUMNS_WIDTH = 444
+SUITABILITY_KNOWLEDGE_COLUMN_WIDTH = 218
+SUITABILITY_KNOWLEDGE_COLUMN_SPACING = 8
+SUITABILITY_ROW_LABEL_MAX_WIDTH = 168
+SUITABILITY_ROW_HIDDEN_MAX_WIDTH = 214
 
 
 def eq(var: str, value: int) -> str:
@@ -209,22 +214,34 @@ def scripted_effect_tooltip(effect_name: str, indent: int) -> list[str]:
     ]
 
 
-def trigger_conditions_list(trigger_name: str, indent: int) -> list[str]:
+def trigger_conditions_list(trigger_name: str, indent: int, width: int | None = None) -> list[str]:
     prefix = T * indent
-    return [
+    lines = [
         f"{prefix}TooltipRequirementsList = {{",
-        f"{prefix}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}layoutpolicy_horizontal = {'fixed' if width is not None else 'expanding'}",
         f'{prefix}{T}textcontext = "[ShowTriggerConditions(\'{trigger_name}\', PlayerScope.Self)]"',
-        f'{prefix}{T}blockoverride "block_title" {{',
-        f'{prefix}{T}{T}block "block_title" {{',
-        f"{prefix}{T}{T}{T}visible = no",
-        f"{prefix}{T}{T}}}",
-        f"{prefix}{T}}}",
-        f'{prefix}{T}blockoverride "requirementslist_datamodel_is_empty" {{',
-        f"{prefix}{T}{T}visible = no",
-        f"{prefix}{T}}}",
-        f"{prefix}}}",
     ]
+    if width is not None:
+        lines.extend(
+            [
+                f"{prefix}{T}maximumsize = {{ {width} -1 }}",
+                f'{prefix}{T}blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {width} -1 }} }}',
+            ]
+        )
+    lines.extend(
+        [
+            f'{prefix}{T}blockoverride "block_title" {{',
+            f'{prefix}{T}{T}block "block_title" {{',
+            f"{prefix}{T}{T}{T}visible = no",
+            f"{prefix}{T}{T}}}",
+            f"{prefix}{T}}}",
+            f'{prefix}{T}blockoverride "requirementslist_datamodel_is_empty" {{',
+            f"{prefix}{T}{T}visible = no",
+            f"{prefix}{T}}}",
+            f"{prefix}}}",
+        ]
+    )
+    return lines
 
 
 def suitability_row_label_key(row: dict[str, str]) -> str:
@@ -253,14 +270,14 @@ def suitability_knowledge_row(row: dict[str, str], reveal_var: str, row_index: i
         f'{prefix}{T}visible = "[{revealed}]"',
         f"{prefix}{T}layoutpolicy_horizontal = expanding",
         f"{prefix}{T}spacing = 4",
-        f'{prefix}{T}text_single = {{ text = "{suitability_row_label_key(row)}" max_width = 340 fontsize = 13 align = nobaseline|left }}',
+        f'{prefix}{T}text_single = {{ text = "{suitability_row_label_key(row)}" max_width = {SUITABILITY_ROW_LABEL_MAX_WIDTH} fontsize = 13 align = nobaseline|left }}',
         f"{prefix}{T}expand = {{}}",
         f'{prefix}{T}text_single = {{ raw_text = "{suitability_row_value(row)}" fontsize = 13 align = nobaseline|right }}',
         f"{prefix}}}",
         f"{prefix}text_single = {{",
         f'{prefix}{T}visible = "[Not({revealed})]"',
         f'{prefix}{T}text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"',
-        f"{prefix}{T}max_width = 446",
+        f"{prefix}{T}max_width = {SUITABILITY_ROW_HIDDEN_MAX_WIDTH}",
         f"{prefix}{T}fontsize = 13",
         f"{prefix}{T}align = nobaseline|left",
         f"{prefix}}}",
@@ -287,19 +304,51 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
         f"{T}{T}{T}ignoreinvisible = yes",
         f"{T}{T}{T}spacing = 3",
         f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }}',
-        f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" fontsize = 13 align = nobaseline|left }}',
+        f"{T}{T}{T}hbox = {{",
+        f"{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{T}{T}{T}{T}size = {{ {SUITABILITY_KNOWLEDGE_COLUMNS_WIDTH} -1 }}",
+        f"{T}{T}{T}{T}spacing = {SUITABILITY_KNOWLEDGE_COLUMN_SPACING}",
+        f"{T}{T}{T}{T}ignoreinvisible = yes",
+        f"{T}{T}{T}{T}vbox = {{",
+        f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{T}{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{T}{T}{T}{T}{T}minimumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
+        f"{T}{T}{T}{T}{T}maximumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
+        f"{T}{T}{T}{T}{T}ignoreinvisible = yes",
+        f"{T}{T}{T}{T}{T}spacing = 3",
+        f'{T}{T}{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} fontsize = 13 align = nobaseline|left }}',
     ]
-    lines.extend(trigger_conditions_list(f"tv_wonder_player_visible_site_rules_{wonder['key']}_trigger", 3))
+    lines.extend(
+        trigger_conditions_list(
+            f"tv_wonder_player_visible_site_rules_{wonder['key']}_trigger",
+            5,
+            width=SUITABILITY_KNOWLEDGE_COLUMN_WIDTH,
+        )
+    )
+    lines.extend(
+        [
+            f"{T}{T}{T}{T}}}",
+            f"{T}{T}{T}{T}vbox = {{",
+            f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
+            f"{T}{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
+            f"{T}{T}{T}{T}{T}minimumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
+            f"{T}{T}{T}{T}{T}maximumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
+            f"{T}{T}{T}{T}{T}ignoreinvisible = yes",
+            f"{T}{T}{T}{T}{T}spacing = 3",
+        ]
+    )
     if rows:
         lines.extend(
             [
-                f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE" fontsize = 13 align = nobaseline|left }}',
+                f'{T}{T}{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE" max_width = {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} fontsize = 13 align = nobaseline|left }}',
             ]
         )
     for row_index, row in enumerate(rows, start=1):
-        lines.extend(suitability_knowledge_row(row, reveal_var, row_index, 3))
+        lines.extend(suitability_knowledge_row(row, reveal_var, row_index, 5))
     lines.extend(
         [
+            f"{T}{T}{T}{T}}}",
+            f"{T}{T}{T}}}",
             f"{T}{T}}}",
             f"{T}}}",
         ]
