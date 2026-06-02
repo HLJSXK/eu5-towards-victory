@@ -122,6 +122,7 @@ tv_trade_league_country_monthly_pulse_effect = {
 \t\t\t}
 \t\t\telse = {
 \t\t\t\tleader_country ?= {
+\t\t\t\t\ttv_trade_league_clear_intelligence_merchant_power_effect = yes
 \t\t\t\t\tremove_variable = tv_trade_intelligence_active_market
 \t\t\t\t\tremove_variable = tv_trade_commercial_intelligence_active
 \t\t\t\t\tremove_variable = tv_trade_intelligence_active_slot
@@ -766,6 +767,52 @@ def intelligence_clear_slots_effect() -> str:
     return "\n".join(lines)
 
 
+def intelligence_clear_merchant_power_at_saved_market_block(indent: str) -> str:
+    return f"""{indent}scope:tv_trade_intelligence_market = {{
+{indent}\tevery_merchant_in_market = {{
+{indent}\t\tsave_scope_as = tv_trade_intelligence_power_country
+{indent}\t\tscope:tv_trade_intelligence_market = {{
+{indent}\t\t\tif = {{
+{indent}\t\t\t\tlimit = {{
+{indent}\t\t\t\t\thas_merchant_power = {{
+{indent}\t\t\t\t\t\tcountry = scope:tv_trade_intelligence_power_country
+{indent}\t\t\t\t\t\tkey = tv_trade_intelligence_network
+{indent}\t\t\t\t\t}}
+{indent}\t\t\t\t}}
+{indent}\t\t\t\tremove_merchant_power = {{
+{indent}\t\t\t\t\tcountry = scope:tv_trade_intelligence_power_country
+{indent}\t\t\t\t\tkey = tv_trade_intelligence_network
+{indent}\t\t\t\t}}
+{indent}\t\t\t}}
+{indent}\t\t}}
+{indent}\t}}
+{indent}}}"""
+
+
+def intelligence_clear_merchant_power_effect() -> str:
+    branches: list[str] = []
+    for slot in range(1, INTELLIGENCE_MAX_MARKETS + 1):
+        location = f"tv_trade_intelligence_market_location_{slot}"
+        branches.append(
+            f"""\t\tif = {{
+\t\t\tlimit = {{ has_variable = {location} }}
+\t\t\tvar:{location} ?= {{
+\t\t\t\tmarket = {{
+\t\t\t\t\tsave_scope_as = tv_trade_intelligence_market
+{intelligence_clear_merchant_power_at_saved_market_block("\t\t\t\t\t")}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}"""
+        )
+    return f"""\
+tv_trade_league_clear_intelligence_merchant_power_effect = {{
+\thidden_effect = {{
+{chr(10).join(branches)}
+\t}}
+}}
+"""
+
+
 def intelligence_active_slots_effect() -> str:
     lines: list[str] = []
     for slot in range(1, INTELLIGENCE_MAX_MARKETS + 1):
@@ -872,14 +919,17 @@ def intelligence_slot_update_block(slot: int, indent: str) -> str:
 {indent}\tlimit = {{ var:{strength} > {INTELLIGENCE_MAX_STRENGTH_PCT} }}
 {indent}\tset_variable = {{ name = {strength} value = {INTELLIGENCE_MAX_STRENGTH_PCT} }}
 {indent}}}
-{indent}scope:tv_trade_monopoly_io = {{
-{indent}\tevery_international_organization_member = {{
-{indent}\t\tscope:tv_trade_intelligence_market = {{
-{indent}\t\t\tadd_merchant_power = {{
-{indent}\t\t\t\tcountry = prev
-{indent}\t\t\t\tkey = tv_trade_intelligence_network
-{indent}\t\t\t\tmonths = 2
-{indent}\t\t\t\tpower = {{ value = scope:tv_trade_intelligence_leader.var:{strength} floor = yes }}
+{indent}if = {{
+{indent}\tlimit = {{ var:{strength} >= 1 }}
+{indent}\tscope:tv_trade_monopoly_io = {{
+{indent}\t\tevery_international_organization_member = {{
+{indent}\t\t\tscope:tv_trade_intelligence_market = {{
+{indent}\t\t\t\tadd_merchant_power = {{
+{indent}\t\t\t\t\tcountry = prev
+{indent}\t\t\t\t\tkey = tv_trade_intelligence_network
+{indent}\t\t\t\t\tmonths = -1
+{indent}\t\t\t\t\tpower = {{ value = scope:tv_trade_intelligence_leader.var:{strength} floor = yes }}
+{indent}\t\t\t\t}}
 {indent}\t\t\t}}
 {indent}\t\t}}
 {indent}\t}}
@@ -922,6 +972,7 @@ def intelligence_monthly_update_effect() -> str:
 tv_trade_league_update_intelligence_effect = {{
 \thidden_effect = {{
 \t\tsave_scope_as = tv_trade_intelligence_leader
+\t\ttv_trade_league_clear_intelligence_merchant_power_effect = yes
 \t\tset_variable = {{ name = tv_trade_intelligence_monthly_gain value = var:tv_grand_merchant_char.dip }}
 \t\tchange_variable = {{ name = tv_trade_intelligence_monthly_gain divide = 100 }}
 {intelligence_clear_slots_effect()}
@@ -1154,6 +1205,7 @@ tv_trade_league_refresh_intelligence_members_display_effect = {
 def intelligence_projection_effects() -> str:
     return "\n".join(
         (
+            intelligence_clear_merchant_power_effect(),
             intelligence_active_slots_effect(),
             intelligence_monthly_update_effect(),
             intelligence_page_limits_effect(),
