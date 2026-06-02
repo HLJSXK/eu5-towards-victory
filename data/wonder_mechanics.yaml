@@ -882,10 +882,7 @@ designs:
 buildings:
   sacred_mountain:
     base_local: {}
-    final_local:
-      tv_wonder_golden_sanctuary: {}
-      tv_wonder_ascetic_mountain: {}
-      tv_wonder_theocratic_center: {}
+    final_local: {}
     final_maintenance:
       tv_wonder_golden_sanctuary: tv_wonder_sacred_monument_maintenance
       tv_wonder_ascetic_mountain: tv_wonder_sacred_monument_maintenance
@@ -895,10 +892,7 @@ buildings:
         category: government_category
   triumphal_axis:
     base_local: {}
-    final_local:
-      tv_wonder_sun_king_axis: {}
-      tv_wonder_military_city: {}
-      tv_wonder_civic_capital: {}
+    final_local: {}
     final_maintenance:
       tv_wonder_sun_king_axis: tv_wonder_axis_monument_maintenance
       tv_wonder_military_city: tv_wonder_axis_monument_maintenance
@@ -915,28 +909,16 @@ buildings:
   great_port:
     base_local: {}
     final_local:
-      tv_wonder_golden_trade_port:
-        harbor_suitability: 0.1
-        local_trade_center_power: 0.2
-        local_migration_attraction: 1
-      tv_wonder_imperial_naval_port:
-        harbor_suitability: 0.1
-        local_trade_center_power: 0.2
-        local_migration_attraction: 1
-      tv_wonder_free_trade_metropolis:
-        harbor_suitability: 0.1
-        local_trade_center_power: 0.2
-        local_migration_attraction: 1
+      harbor_suitability: 0.1
+      local_trade_center_power: 0.2
+      local_migration_attraction: 1
     final_maintenance:
       tv_wonder_golden_trade_port: tv_wonder_port_monument_maintenance
       tv_wonder_imperial_naval_port: tv_wonder_port_monument_maintenance
       tv_wonder_free_trade_metropolis: tv_wonder_port_monument_maintenance
   giant_necropolis:
     base_local: {}
-    final_local:
-      tv_wonder_dynastic_necropolis: {}
-      tv_wonder_ancestor_shrine: {}
-      tv_wonder_quiet_land: {}
+    final_local: {}
     final_maintenance:
       tv_wonder_dynastic_necropolis: tv_wonder_necropolis_maintenance
       tv_wonder_ancestor_shrine: tv_wonder_necropolis_maintenance
@@ -948,10 +930,7 @@ buildings:
         pop_type: clergy
   great_lighthouse:
     base_local: {}
-    final_local:
-      tv_wonder_eternal_lighthouse: {}
-      tv_wonder_navigator_lighthouse: {}
-      tv_wonder_long_watch_lighthouse: {}
+    final_local: {}
     final_maintenance:
       tv_wonder_eternal_lighthouse: tv_wonder_lighthouse_flame_maintenance
       tv_wonder_navigator_lighthouse: tv_wonder_lighthouse_maintenance
@@ -959,12 +938,7 @@ buildings:
   hydraulic_workshop:
     base_local: {}
     final_local:
-      tv_wonder_water_god_workshop:
-        local_production_efficiency: 0.2
-      tv_wonder_hydraulic_artisan_guildhall:
-        local_production_efficiency: 0.2
-      tv_wonder_waterwheel_workshop:
-        local_production_efficiency: 0.2
+      local_production_efficiency: 0.2
     final_maintenance:
       tv_wonder_water_god_workshop: tv_wonder_hydraulic_workshop_maintenance
       tv_wonder_hydraulic_artisan_guildhall: tv_wonder_hydraulic_workshop_maintenance
@@ -975,15 +949,8 @@ buildings:
   mining_city:
     base_local: {}
     final_local:
-      tv_wonder_miners_oath_city:
-        local_max_rgo_size_modifier: 0.5
-        local_raw_material_output: 0.1
-      tv_wonder_royal_mint_city:
-        local_max_rgo_size_modifier: 0.5
-        local_raw_material_output: 0.1
-      tv_wonder_deep_shaft_city:
-        local_max_rgo_size_modifier: 0.5
-        local_raw_material_output: 0.1
+      local_max_rgo_size_modifier: 0.5
+      local_raw_material_output: 0.1
     final_maintenance:
       tv_wonder_miners_oath_city: tv_wonder_mining_city_maintenance
       tv_wonder_royal_mint_city: tv_wonder_mining_city_maintenance
@@ -993,10 +960,7 @@ buildings:
         pop_type: burghers
   giant_observatory:
     base_local: {}
-    final_local:
-      tv_wonder_star_catalog_observatory: {}
-      tv_wonder_nautical_almanac_observatory: {}
-      tv_wonder_eclipse_observatory: {}
+    final_local: {}
     final_maintenance:
       tv_wonder_star_catalog_observatory: tv_wonder_sacred_monument_maintenance
       tv_wonder_nautical_almanac_observatory: tv_wonder_sacred_monument_maintenance
@@ -1006,10 +970,7 @@ buildings:
         pop_type: burghers
   palace_of_nations:
     base_local: {}
-    final_local:
-      tv_wonder_congress_palace: {}
-      tv_wonder_tribute_gallery: {}
-      tv_wonder_embassy_palace: {}
+    final_local: {}
     final_maintenance:
       tv_wonder_congress_palace: tv_wonder_axis_monument_maintenance
       tv_wonder_tribute_gallery: tv_wonder_axis_monument_maintenance
@@ -1017,15 +978,8 @@ buildings:
   university_city:
     base_local: {}
     final_local:
-      tv_wonder_scholars_convocation:
-        local_pop_promotion_speed: 10
-        local_max_literacy: 10
-      tv_wonder_public_lectures:
-        local_pop_promotion_speed: 10
-        local_max_literacy: 10
-      tv_wonder_collegiate_charter:
-        local_pop_promotion_speed: 10
-        local_max_literacy: 10
+      local_pop_promotion_speed: 10
+      local_max_literacy: 10
     final_maintenance:
       tv_wonder_scholars_convocation: tv_wonder_sacred_monument_maintenance
       tv_wonder_public_lectures: tv_wonder_sacred_monument_maintenance
@@ -1039,10 +993,7 @@ buildings:
         rural_settlement: false
   sky_dome_grand_temple:
     base_local: {}
-    final_local:
-      tv_wonder_dome_consecration: {}
-      tv_wonder_pilgrim_treasury: {}
-      tv_wonder_celestial_synod: {}
+    final_local: {}
     final_maintenance:
       tv_wonder_dome_consecration: tv_wonder_sacred_monument_maintenance
       tv_wonder_pilgrim_treasury: tv_wonder_sacred_monument_maintenance
@@ -1050,15 +1001,8 @@ buildings:
   giant_tower_temple:
     base_local: {}
     final_local:
-      tv_wonder_beacon_rite_temple:
-        local_pop_assimilation_speed: 20
-        local_pop_conversion_speed: 20
-      tv_wonder_pilgrim_stair_temple:
-        local_pop_assimilation_speed: 20
-        local_pop_conversion_speed: 20
-      tv_wonder_temple_school_tower:
-        local_pop_assimilation_speed: 20
-        local_pop_conversion_speed: 20
+      local_pop_assimilation_speed: 20
+      local_pop_conversion_speed: 20
     final_maintenance:
       tv_wonder_beacon_rite_temple: tv_wonder_sacred_monument_maintenance
       tv_wonder_pilgrim_stair_temple: tv_wonder_sacred_monument_maintenance
@@ -1066,18 +1010,9 @@ buildings:
   river_extension:
     base_local: {}
     final_local:
-      tv_wonder_bridge_opening:
-        local_distance_from_capital_speed_propagation: 0.1
-        local_monthly_development_modifier: 0.1
-        local_pop_conversion_speed: 20
-      tv_wonder_river_fair:
-        local_distance_from_capital_speed_propagation: 0.1
-        local_monthly_development_modifier: 0.1
-        local_pop_conversion_speed: 20
-      tv_wonder_canal_authority:
-        local_distance_from_capital_speed_propagation: 0.1
-        local_monthly_development_modifier: 0.1
-        local_pop_conversion_speed: 20
+      local_distance_from_capital_speed_propagation: 0.1
+      local_monthly_development_modifier: 0.1
+      local_pop_conversion_speed: 20
     final_maintenance:
       tv_wonder_bridge_opening: tv_wonder_hydraulic_workshop_maintenance
       tv_wonder_river_fair: tv_wonder_hydraulic_workshop_maintenance
@@ -1085,18 +1020,9 @@ buildings:
   national_shipyard:
     base_local: {}
     final_local:
-      tv_wonder_keel_laying_yard:
-        local_ship_build_speed: 0.2
-        max_ships_built_at_same_time: 1
-        harbor_suitability: 0.1
-      tv_wonder_fleet_muster_yard:
-        local_ship_build_speed: 0.2
-        max_ships_built_at_same_time: 1
-        harbor_suitability: 0.1
-      tv_wonder_admiralty_yard:
-        local_ship_build_speed: 0.2
-        max_ships_built_at_same_time: 1
-        harbor_suitability: 0.1
+      local_ship_build_speed: 0.2
+      max_ships_built_at_same_time: 1
+      harbor_suitability: 0.1
     final_maintenance:
       tv_wonder_keel_laying_yard: tv_wonder_port_monument_maintenance
       tv_wonder_fleet_muster_yard: tv_wonder_port_monument_maintenance
@@ -1104,18 +1030,9 @@ buildings:
   star_fortress_city:
     base_local: {}
     final_local:
-      tv_wonder_bastion_trial_fortress:
-        local_defensive: 0.2
-        local_garrison_size: 250
-        fort_level: 1
-      tv_wonder_siege_games_fortress:
-        local_defensive: 0.2
-        local_garrison_size: 250
-        fort_level: 1
-      tv_wonder_arsenal_quarter_fortress:
-        local_defensive: 0.2
-        local_garrison_size: 250
-        fort_level: 1
+      local_defensive: 0.2
+      local_garrison_size: 250
+      fort_level: 1
     final_maintenance:
       tv_wonder_bastion_trial_fortress: tv_wonder_axis_monument_maintenance
       tv_wonder_siege_games_fortress: tv_wonder_axis_monument_maintenance
@@ -1130,18 +1047,9 @@ buildings:
   great_wall:
     base_local: {}
     final_local:
-      tv_wonder_frontier_muster_wall:
-        local_defensive: 0.2
-        local_garrison_size: 250
-        fort_level: 1
-      tv_wonder_signal_fires_wall:
-        local_defensive: 0.2
-        local_garrison_size: 250
-        fort_level: 1
-      tv_wonder_wall_oath:
-        local_defensive: 0.2
-        local_garrison_size: 250
-        fort_level: 1
+      local_defensive: 0.2
+      local_garrison_size: 250
+      fort_level: 1
     final_maintenance:
       tv_wonder_frontier_muster_wall: tv_wonder_axis_monument_maintenance
       tv_wonder_signal_fires_wall: tv_wonder_axis_monument_maintenance
@@ -1159,12 +1067,7 @@ buildings:
   giant_armory:
     base_local: {}
     final_local:
-      tv_wonder_muster_of_arms:
-        local_manpower_modifier: 0.5
-      tv_wonder_foundry_contracts:
-        local_manpower_modifier: 0.5
-      tv_wonder_master_armourers:
-        local_manpower_modifier: 0.5
+      local_manpower_modifier: 0.5
     final_maintenance:
       tv_wonder_muster_of_arms: tv_wonder_mining_city_maintenance
       tv_wonder_foundry_contracts: tv_wonder_mining_city_maintenance
@@ -1178,10 +1081,7 @@ buildings:
         rural_settlement: false
   library_of_nation:
     base_local: {}
-    final_local:
-      tv_wonder_national_catalog_library: {}
-      tv_wonder_copyists_endowment_library: {}
-      tv_wonder_legal_deposit_library: {}
+    final_local: {}
     final_maintenance:
       tv_wonder_national_catalog_library: tv_wonder_sacred_monument_maintenance
       tv_wonder_copyists_endowment_library: tv_wonder_sacred_monument_maintenance
@@ -1191,240 +1091,173 @@ buildings:
       local_monthly_development_modifier: 0.05
       local_distance_from_capital_speed_propagation: 0.1
     final_local:
-      tv_wonder_irrigation_canal_system:
-        local_monthly_development_modifier: 0.05
-      tv_wonder_grain_transport_canal_system:
-        local_distance_from_capital_speed_propagation: 0.1
-      tv_wonder_flood_control_canal_system:
-        local_unrest: -0.05
+      local_monthly_development_modifier: 0.05
+      local_distance_from_capital_speed_propagation: 0.1
+      local_unrest: -0.05
   mountain_terrace_network:
     base_local:
       local_max_rgo_size_modifier: 0.25
       local_raw_material_output: 0.05
     final_local:
-      tv_wonder_grain_terraces:
-        local_max_rgo_size_modifier: 0.2
-      tv_wonder_cash_crop_terraces:
-        local_raw_material_output: 0.1
-      tv_wonder_sacred_mountain_terraces:
-        local_clergy_estate_power: 0.25
+      local_max_rgo_size_modifier: 0.2
+      local_raw_material_output: 0.1
+      local_clergy_estate_power: 0.25
   giant_dam_project:
     base_local:
       local_defensive: 0.1
       local_production_efficiency: 0.1
     final_local:
-      tv_wonder_estuary_flood_dam:
-        local_defensive: 0.1
-      tv_wonder_marsh_reclamation_dam:
-        local_max_rgo_size_modifier: 0.15
-      tv_wonder_water_powered_workshops:
-        local_production_efficiency: 0.2
+      local_defensive: 0.1
+      local_max_rgo_size_modifier: 0.15
+      local_production_efficiency: 0.2
   royal_granary_system:
     base_local:
       local_migration_attraction: 1
       local_unrest: -0.05
     final_local:
-      tv_wonder_grain_price_granaries:
-        local_unrest: -0.05
-      tv_wonder_wartime_granaries:
-        local_garrison_size: 250
-      tv_wonder_disaster_relief_granaries:
-        local_migration_attraction: 1
+      local_unrest: -0.05
+      local_garrison_size: 250
+      local_migration_attraction: 1
   imperial_post_road_network:
     base_local:
       local_distance_from_capital_speed_propagation: 0.15
       local_monthly_development_modifier: 0.05
     final_local:
-      tv_wonder_military_post_roads:
-        local_manpower_modifier: 0.15
-      tv_wonder_trade_post_roads:
-        local_trade_center_power: 0.15
-      tv_wonder_royal_tour_avenue:
-        local_nobles_estate_power: 0.25
+      local_manpower_modifier: 0.15
+      local_trade_center_power: 0.15
+      local_nobles_estate_power: 0.25
   canal_hub_city:
     base_local:
       local_trade_center_power: 0.2
       local_production_efficiency: 0.1
     final_local:
-      tv_wonder_grain_transport_hub:
-        local_distance_from_capital_speed_propagation: 0.1
-      tv_wonder_financial_warehouse_hub:
-        local_trade_center_power: 0.2
-      tv_wonder_industrial_workshop_belt:
-        local_production_efficiency: 0.2
+      local_distance_from_capital_speed_propagation: 0.1
+      local_trade_center_power: 0.2
+      local_production_efficiency: 0.2
   frontier_colonization_belt:
     base_local:
       local_migration_attraction: 2
       local_max_rgo_size_modifier: 0.15
     final_local:
-      tv_wonder_military_colony_belt:
-        local_manpower_modifier: 0.2
-      tv_wonder_settler_reclamation_belt:
-        local_migration_attraction: 2
-      tv_wonder_religious_colonization_belt:
-        local_pop_conversion_speed: 20
+      local_manpower_modifier: 0.2
+      local_migration_attraction: 2
+      local_pop_conversion_speed: 20
   coastal_beacon_network:
     base_local:
       local_defensive: 0.15
       local_garrison_size: 150
     final_local:
-      tv_wonder_beacon_communication_network:
-        local_distance_from_capital_speed_propagation: 0.1
-      tv_wonder_coastal_battery_network:
-        local_defensive: 0.15
-        local_garrison_size: 250
-      tv_wonder_customs_patrol_network:
-        local_trade_center_power: 0.1
+      local_distance_from_capital_speed_propagation: 0.1
+      local_defensive: 0.15
+      local_garrison_size: 250
+      local_trade_center_power: 0.1
   knightly_fortress_order:
     base_local:
       local_defensive: 0.15
       local_nobles_estate_power: 0.25
     final_local:
-      tv_wonder_crusader_knightly_order:
-        local_clergy_estate_power: 0.25
-      tv_wonder_frontier_lord_order:
-        local_nobles_estate_power: 0.25
-      tv_wonder_mercenary_fortress_system:
-        local_manpower_modifier: 0.15
+      local_clergy_estate_power: 0.25
+      local_nobles_estate_power: 0.25
+      local_manpower_modifier: 0.15
   war_college_system:
     base_local:
       local_manpower_modifier: 0.15
       local_pop_promotion_speed: 5
     final_local:
-      tv_wonder_firearms_tactics_college:
-        local_manpower_modifier: 0.1
-      tv_wonder_cavalry_tradition_college:
-        local_nobles_estate_power: 0.2
-      tv_wonder_naval_command_college:
-        local_ship_build_speed: 0.1
+      local_manpower_modifier: 0.1
+      local_nobles_estate_power: 0.2
+      local_ship_build_speed: 0.1
   great_clock_bell_system:
     base_local:
       local_cultural_tradition: 0.5
       local_pop_conversion_speed: 10
     final_local:
-      tv_wonder_worship_clock_bells:
-        local_pop_conversion_speed: 20
-      tv_wonder_curfew_clock_bells:
-        local_unrest: -0.05
-      tv_wonder_astronomical_calendar_bells:
-        local_max_literacy: 5
+      local_pop_conversion_speed: 20
+      local_unrest: -0.05
+      local_max_literacy: 5
   royal_art_district:
     base_local:
       local_cultural_tradition: 0.8
       local_cultural_influence: 0.8
     final_local:
-      tv_wonder_court_art_district:
-        local_nobles_estate_power: 0.2
-      tv_wonder_folk_art_district:
-        local_cultural_tradition: 1
-      tv_wonder_foreign_style_district:
-        local_cultural_influence: 1
+      local_nobles_estate_power: 0.2
+      local_cultural_tradition: 1
+      local_cultural_influence: 1
   grand_theater_festival_district:
     base_local:
       local_cultural_tradition: 0.6
       local_unrest: -0.05
     final_local:
-      tv_wonder_court_theater:
-        local_nobles_estate_power: 0.15
-      tv_wonder_religious_theater:
-        local_pop_conversion_speed: 15
-      tv_wonder_popular_festival_ground:
-        local_unrest: -0.05
+      local_nobles_estate_power: 0.15
+      local_pop_conversion_speed: 15
+      local_unrest: -0.05
   world_embassy_quarter:
     base_local:
       local_cultural_influence: 0.5
       local_trade_center_power: 0.1
     final_local:
-      tv_wonder_trade_diplomacy_embassies:
-        local_trade_center_power: 0.15
-      tv_wonder_intelligence_embassies:
-        local_nobles_estate_power: 0.15
-      tv_wonder_religious_diplomacy_embassies:
-        local_clergy_estate_power: 0.15
+      local_trade_center_power: 0.15
+      local_nobles_estate_power: 0.15
+      local_clergy_estate_power: 0.15
   law_code_stele_project:
     base_local:
       local_unrest: -0.05
       local_cultural_tradition: 0.4
     final_local:
-      tv_wonder_religious_law_steles:
-        local_clergy_estate_power: 0.2
-      tv_wonder_written_law_steles:
-        local_max_control: 0.05
-      tv_wonder_imperial_edict_steles:
-        local_nobles_estate_power: 0.2
+      local_clergy_estate_power: 0.2
+      local_max_control: 0.05
+      local_nobles_estate_power: 0.2
   world_market:
     base_local:
       local_trade_center_power: 0.25
       local_migration_attraction: 1
     final_local:
-      tv_wonder_luxury_goods_market:
-        local_trade_center_power: 0.2
-      tv_wonder_grain_market:
-        local_unrest: -0.05
-      tv_wonder_entrepot_market:
-        local_distance_from_capital_speed_propagation: 0.1
+      local_trade_center_power: 0.2
+      local_unrest: -0.05
+      local_distance_from_capital_speed_propagation: 0.1
   royal_mint_system:
     base_local:
       local_trade_center_power: 0.15
       local_production_efficiency: 0.1
     final_local:
-      tv_wonder_silver_gold_standard_mint:
-        local_trade_center_power: 0.1
-      tv_wonder_copper_coinage_mint:
-        local_production_efficiency: 0.1
-      tv_wonder_international_settlement_mint:
-        local_trade_center_power: 0.15
+      local_trade_center_power: 0.25
+      local_production_efficiency: 0.1
   guild_alliance:
     base_local:
       local_production_efficiency: 0.15
       local_burghers_estate_power: 0.25
     final_local:
-      tv_wonder_artisan_guild_alliance:
-        local_production_efficiency: 0.15
-      tv_wonder_overseas_merchant_guilds:
-        local_trade_center_power: 0.15
-      tv_wonder_financial_guilds:
-        local_burghers_estate_power: 0.25
+      local_production_efficiency: 0.15
+      local_trade_center_power: 0.15
+      local_burghers_estate_power: 0.25
   maritime_trade_station_network:
     base_local:
       local_trade_center_power: 0.2
       local_ship_build_speed: 0.1
     final_local:
-      tv_wonder_spice_trade_stations:
-        local_trade_center_power: 0.2
-      tv_wonder_slave_trade_stations:
-        local_migration_attraction: -0.5
-      tv_wonder_colonial_supply_stations:
-        local_ship_build_speed: 0.15
+      local_trade_center_power: 0.2
+      local_migration_attraction: -0.5
+      local_ship_build_speed: 0.15
   giant_workshop_complex:
     base_local:
       local_production_efficiency: 0.25
       local_pop_promotion_speed: 5
     final_local:
-      tv_wonder_textile_workshop_complex:
-        local_production_efficiency: 0.2
-      tv_wonder_military_workshop_complex:
-        local_manpower_modifier: 0.15
-      tv_wonder_luxury_craft_workshop_complex:
-        local_cultural_influence: 0.8
+      local_production_efficiency: 0.2
+      local_manpower_modifier: 0.15
+      local_cultural_influence: 0.8
   world_monument_group:
     base_local:
       local_cultural_tradition: 0.8
       local_cultural_influence: 0.8
     final_local:
-      tv_wonder_conquest_monument_group:
-        local_manpower_modifier: 0.1
-      tv_wonder_national_unity_monument_group:
-        local_unrest: -0.05
-      tv_wonder_world_exposition_monument_group:
-        local_cultural_influence: 1
+      local_manpower_modifier: 0.1
+      local_unrest: -0.05
+      local_cultural_influence: 1
   city_expansion_project:
     base_local:
       free_building_levels: 20
-    final_local:
-      tv_wonder_city_charter: {}
-      tv_wonder_civic_grid: {}
-      tv_wonder_urban_renewal: {}
+    final_local: {}
     final_attributes:
       tv_wonder_city_charter:
         rural_settlement: false

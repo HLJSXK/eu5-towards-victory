@@ -311,6 +311,81 @@ def _validate_site_rules(raw: object, *, design_keys: set[str]) -> dict[str, dic
     return normalized
 
 
+def _validate_modifier_mapping(value: object, context: str) -> dict[str, object]:
+    mapping = _require_mapping(value, context)
+    normalized: dict[str, object] = {}
+    for raw_key, raw_value in mapping.items():
+        key = _require_string(raw_key, f"{context} modifier key")
+        if raw_value is None or isinstance(raw_value, (dict, list)):
+            raise TypeError(
+                f"{context}.{key} must be a scalar modifier value; nested maps are not valid shared local effects"
+            )
+        normalized[key] = raw_value
+    return normalized
+
+
+def _validate_string_mapping(value: object, context: str) -> dict[str, str]:
+    mapping = _require_mapping(value, context)
+    return {
+        _require_string(raw_key, f"{context} key"): _require_string(raw_value, f"{context}.{raw_key}")
+        for raw_key, raw_value in mapping.items()
+    }
+
+
+def _validate_building_attributes(value: object, context: str) -> dict[str, dict[str, object]]:
+    mapping = _require_mapping(value, context)
+    normalized: dict[str, dict[str, object]] = {}
+    for raw_building, raw_attrs in mapping.items():
+        building = _require_string(raw_building, f"{context} building key")
+        attrs = _require_mapping(raw_attrs, f"{context}.{building}")
+        normalized_attrs: dict[str, object] = {}
+        for raw_key, raw_value in attrs.items():
+            key = _require_string(raw_key, f"{context}.{building} attribute key")
+            if raw_value is None or isinstance(raw_value, (dict, list)):
+                raise TypeError(f"{context}.{building}.{key} must be a scalar attribute value")
+            normalized_attrs[key] = raw_value
+        normalized[building] = normalized_attrs
+    return normalized
+
+
+def _validate_buildings_section(raw: object, *, design_keys: set[str]) -> dict[str, dict]:
+    context = f"{MECHANICS_FILE}.buildings"
+    buildings = _require_mapping(raw, context)
+    missing = sorted(design_keys - set(buildings))
+    if missing:
+        raise ValueError(f"Missing buildings entries for: {', '.join(missing)}")
+    extra = sorted(set(buildings) - design_keys)
+    if extra:
+        raise ValueError(f"Unknown buildings entries for: {', '.join(extra)}")
+
+    normalized: dict[str, dict] = {}
+    for key in buildings:
+        entry_context = f"{context}.{key}"
+        entry = _require_mapping(buildings[key], entry_context)
+        _expect_keys(
+            entry,
+            required={"base_local", "final_local"},
+            optional={"final_maintenance", "final_attributes"},
+            context=entry_context,
+        )
+        normalized_entry = {
+            "base_local": _validate_modifier_mapping(entry["base_local"], f"{entry_context}.base_local"),
+            "final_local": _validate_modifier_mapping(entry["final_local"], f"{entry_context}.final_local"),
+        }
+        if "final_maintenance" in entry:
+            normalized_entry["final_maintenance"] = _validate_string_mapping(
+                entry["final_maintenance"],
+                f"{entry_context}.final_maintenance",
+            )
+        if "final_attributes" in entry:
+            normalized_entry["final_attributes"] = _validate_building_attributes(
+                entry["final_attributes"],
+                f"{entry_context}.final_attributes",
+            )
+        normalized[key] = normalized_entry
+    return normalized
+
+
 def load_wonders_source_data(path: Path = WONDERS_FILE) -> dict:
     raw = load_yaml(path)
     _expect_keys(raw, required={"wonders"}, optional={"parts", "sizes"}, context=str(path))
@@ -342,9 +417,11 @@ def load_mechanics_source_data(path: Path = MECHANICS_FILE) -> dict:
     raw = load_yaml(path)
     designs = _require_mapping(raw.get("designs"), f"{path}.designs")
     site_rules = _validate_site_rules(raw.get("site_rules"), design_keys=set(designs))
+    buildings = _validate_buildings_section(raw.get("buildings"), design_keys=set(designs))
     return {
         **raw,
         "site_rules": site_rules,
+        "buildings": buildings,
     }
 
 
@@ -390,6 +467,13 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
 
         if not _require_bool(wonder["is_unique"], f"{context}.is_unique"):
             raise ValueError(f"{context}.is_unique must be true for unique wonders")
+        base_effect_multiplier = _require_int(
+            wonder["base_effect_multiplier"],
+            f"{context}.base_effect_multiplier",
+            minimum=1,
+        )
+        if base_effect_multiplier != 2:
+            raise ValueError(f"{context}.base_effect_multiplier must be 2 for unique wonders")
 
         wonders.append(
             {
@@ -403,11 +487,7 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
                 "prompt": _require_string(wonder["prompt"], f"{context}.prompt"),
                 "is_unique": True,
                 "mechanic_key": _require_string(wonder["mechanic_key"], f"{context}.mechanic_key"),
-                "base_effect_multiplier": _require_int(
-                    wonder["base_effect_multiplier"],
-                    f"{context}.base_effect_multiplier",
-                    minimum=1,
-                ),
+                "base_effect_multiplier": base_effect_multiplier,
                 "final_buildings": _validate_final_buildings(wonder["final_buildings"], f"{context}.final_buildings"),
                 "ritual": _require_mapping(wonder["ritual"], f"{context}.ritual"),
             }
@@ -1014,6 +1094,40 @@ def load_wonder_image_tasks(*, include_unique: bool = True) -> list[dict]:
 
 def final_building_maintenance(wonder: dict, building_design: dict, building: str) -> str:
     return building_design.get("final_maintenance", {}).get(building, building_design.get("maintenance", wonder["maintenance"]))
+
+
+def merge_modifier_mappings(*maps: dict | None) -> dict[str, object]:
+    merged: dict[str, object] = {}
+    for mapping in maps:
+        if not mapping:
+            continue
+        for key, value in mapping.items():
+            if isinstance(value, (int, float)) and isinstance(merged.get(key), (int, float)):
+                merged[key] = merged[key] + value
+            else:
+                merged[key] = value
+    return merged
+
+
+def scale_numeric_modifier_mapping(mapping: dict[str, object], multiplier: int | float) -> dict[str, object]:
+    if multiplier == 1:
+        return dict(mapping)
+    scaled: dict[str, object] = {}
+    for key, value in mapping.items():
+        if isinstance(value, (int, float)):
+            scaled[key] = value * multiplier
+        else:
+            scaled[key] = value
+    return scaled
+
+
+def authored_final_building_local_modifiers(wonder: dict, mechanics: dict) -> dict[str, object]:
+    building_design = mechanics["buildings"][mechanic_key(wonder)]
+    modifiers = merge_modifier_mappings(
+        building_design.get("base_local", {}),
+        building_design.get("final_local", {}),
+    )
+    return scale_numeric_modifier_mapping(modifiers, wonder.get("base_effect_multiplier", 1))
 
 
 def ceremony_modifier_for_building(wonder: dict, mechanics: dict, building: str) -> tuple[str, dict] | None:

@@ -8,6 +8,7 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
+    authored_final_building_local_modifiers,
     ceremony_styles,
     final_building_for_style,
     final_building_maintenance,
@@ -191,14 +192,10 @@ def generate() -> str:
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
         building_design = mechanics["buildings"][mechanic_key(wonder)]
-        base_local = building_design.get("base_local", {})
-        final_local = building_design.get("final_local", {})
+        authored_local_modifiers = authored_final_building_local_modifiers(wonder, mechanics)
         for style in ceremony_styles(wonder):
             building = final_building_for_style(wonder, style)
-            if wonder.get("is_unique"):
-                modifiers = merge_modifiers(base_local, final_local.get(building, {}))
-            else:
-                modifiers = merge_modifiers(base_local)
+            modifiers = merge_modifiers(authored_local_modifiers)
             maintenance = final_building_maintenance(wonder, building_design, building)
             attributes = building_design.get("final_attributes", {}).get(building, {})
             lines.extend(
