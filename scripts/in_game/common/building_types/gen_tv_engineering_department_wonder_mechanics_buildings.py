@@ -14,6 +14,7 @@ from wonder_mechanics_lib import (
     load_all_wonder_mechanics,
     mechanic_key,
     render_header,
+    ritual_auxiliary_modifiers,
     ritual_plan_for_style,
     ritual_auxiliary_building,
 )
@@ -29,14 +30,6 @@ PORT_WONDERS = {
     "coastal_beacon_network",
     "maritime_trade_station_network",
 }
-ESTATE_POWER_BY_POP_TYPE = {
-    "clergy": "local_clergy_estate_power",
-    "nobles": "local_nobles_estate_power",
-    "burghers": "local_burghers_estate_power",
-    "laborers": "local_peasants_estate_power",
-    "soldiers": "local_crown_estate_power",
-}
-
 
 def fmt_value(value: object) -> str:
     if isinstance(value, float):
@@ -163,13 +156,6 @@ def building_block(
         lines.append(f"{T}}}")
     lines.extend(["}", ""])
     return lines
-
-
-def ritual_auxiliary_modifiers(wonder: dict, ritual_plan: dict) -> dict:
-    modifiers = dict(ritual_plan["auxiliary_building"]["local_modifier"])
-    estate_power_modifier = ESTATE_POWER_BY_POP_TYPE[wonder["pop_type"]]
-    modifiers[estate_power_modifier] = modifiers.get(estate_power_modifier, 0) + 0.5
-    return modifiers
 
 
 def auxiliary_on_built_lines(wonder: dict, style: int) -> list[str]:

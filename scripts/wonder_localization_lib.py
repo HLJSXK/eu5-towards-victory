@@ -10,9 +10,21 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 try:
-    from scripts.wonder_mechanics_lib import load_all_wonder_mechanics_data
+    from scripts.wonder_mechanics_lib import (
+        ceremony_styles,
+        load_all_wonder_mechanics_data,
+        ritual_auxiliary_building,
+        ritual_auxiliary_display_modifier_name,
+        ritual_plan_for_style,
+    )
 except ModuleNotFoundError:
-    from wonder_mechanics_lib import load_all_wonder_mechanics_data
+    from wonder_mechanics_lib import (
+        ceremony_styles,
+        load_all_wonder_mechanics_data,
+        ritual_auxiliary_building,
+        ritual_auxiliary_display_modifier_name,
+        ritual_plan_for_style,
+    )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WONDER_LOCALIZATION_FILE = REPO_ROOT / "data" / "wonder_localization.yaml"
@@ -81,6 +93,23 @@ def _wonder_concept_pairs() -> list[tuple[str, str]]:
     return [(wonder_name_key(wonder), concept_name_key(wonder)) for wonder in wonders]
 
 
+def _auxiliary_display_modifier_pairs() -> list[tuple[str, str]]:
+    wonders, mechanics = load_all_wonder_mechanics_data()
+    pairs: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    for wonder in wonders:
+        for style in ceremony_styles(wonder):
+            ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
+            if ritual_plan["mode"] != "auxiliary_building":
+                continue
+            modifier_loc_key = f"STATIC_MODIFIER_NAME_{ritual_auxiliary_display_modifier_name(wonder)}"
+            if modifier_loc_key in seen:
+                continue
+            seen.add(modifier_loc_key)
+            pairs.append((ritual_auxiliary_building(wonder), modifier_loc_key))
+    return pairs
+
+
 def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> dict[str, dict[str, str]]:
     expanded = {language: dict(values) for language, values in localization.items()}
     for wonder_name, concept_name in _wonder_concept_pairs():
@@ -89,6 +118,15 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
             if wonder_name not in language_values:
                 raise KeyError(f"Missing wonder localization key {wonder_name!r} in {WONDER_LOCALIZATION_FILE} ({language})")
             language_values[concept_name] = language_values[wonder_name]
+    for building_name, modifier_loc_key in _auxiliary_display_modifier_pairs():
+        for language in LANGUAGES:
+            language_values = expanded[language]
+            if building_name not in language_values:
+                raise KeyError(
+                    f"Missing auxiliary building localization key {building_name!r} in "
+                    f"{WONDER_LOCALIZATION_FILE} ({language})"
+                )
+            language_values[modifier_loc_key] = language_values[building_name]
     return expanded
 
 
@@ -97,6 +135,9 @@ def collapse_wonder_localization_data(localization: dict[str, dict[str, str]]) -
     for _, concept_name in _wonder_concept_pairs():
         for language in LANGUAGES:
             collapsed[language].pop(concept_name, None)
+    for _, modifier_loc_key in _auxiliary_display_modifier_pairs():
+        for language in LANGUAGES:
+            collapsed[language].pop(modifier_loc_key, None)
     return collapsed
 
 

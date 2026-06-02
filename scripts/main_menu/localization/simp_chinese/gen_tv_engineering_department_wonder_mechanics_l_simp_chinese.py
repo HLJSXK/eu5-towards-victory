@@ -12,7 +12,7 @@ from wonder_localization_lib import load_wonder_localization_data
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml"
 SCRIPT_REL = "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py"
-DATA_REL = "data/wonder_localization.yaml"
+DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
 
 
 def generate() -> str:

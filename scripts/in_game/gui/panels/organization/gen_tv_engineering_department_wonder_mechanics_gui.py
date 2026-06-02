@@ -13,6 +13,7 @@ OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_departme
 SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py"
 T = "\t"
 PLAYER = "InternationalOrganizationsView.GetPlayer.MakeScope"
+PLAYER_SCOPE = f"{PLAYER}.Self"
 
 
 def eq(var: str, value: int) -> str:
@@ -97,12 +98,116 @@ def ceremony_select_button(wonder: dict, style: int) -> str:
     )
 
 
-def active_ritual_text(wonder: dict, style: int) -> str:
-    visible = f"And({eq('tv_wonder_locked', wonder['id'])}, {eq('tv_wonder_ceremony_style', style)})"
+def ritual_requirement_tooltip_effect_name(wonder: dict, style: int) -> str:
+    return f"tv_wonder_{wonder['key']}_ritual_{style}_requirement_tooltip_effect"
+
+
+def ritual_effect_tooltip_effect_name(wonder: dict, style: int) -> str:
+    return f"tv_wonder_{wonder['key']}_ritual_{style}_effect_tooltip_effect"
+
+
+def active_ritual_visible(wonder: dict, style: int) -> str:
     return (
-        f'{T}text_multi = {{ visible = "[{visible}]" '
-        f'max_width = 446 autoresize = yes text = "TV_ENGINEERING_ACTIVE_RITUAL_{wonder["key"].upper()}_{style}" align = nobaseline|left }}'
+        f"And3({PLAYER}.GetVariable('tv_wonder_locked').IsSet, "
+        f"{PLAYER}.GetVariable('tv_wonder_ceremony_style').IsSet, "
+        f"And({eq('tv_wonder_locked', wonder['id'])}, {eq('tv_wonder_ceremony_style', style)}))"
     )
+
+
+def scripted_effect_tooltip(effect_name: str, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}TooltipRequirementsList = {{",
+        f"{prefix}{T}layoutpolicy_horizontal = expanding",
+        f'{prefix}{T}textcontext = "[ShowScriptedEffectForScope(\'{effect_name}\',{PLAYER_SCOPE})]"',
+        f'{prefix}{T}blockoverride "block_title" {{',
+        f'{prefix}{T}{T}block "block_title" {{',
+        f"{prefix}{T}{T}{T}visible = no",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}}}",
+        f'{prefix}{T}blockoverride "requirementslist_datamodel_is_empty" {{',
+        f"{prefix}{T}{T}visible = no",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
+def ritual_info_container(title_key: str, subtitle_key: str, effect_name: str | None, indent: int) -> list[str]:
+    prefix = T * indent
+    lines = [
+        f"{prefix}widget = {{",
+        f"{prefix}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}size = {{ 462 136 }}",
+        f"{prefix}{T}using = bg_text_mask_container_dark_blue",
+        "",
+        f"{prefix}{T}vbox = {{",
+        f"{prefix}{T}{T}margin = {{ 8 7 }}",
+        f"{prefix}{T}{T}ignoreinvisible = yes",
+        f"{prefix}{T}{T}spacing = 4",
+        f'{prefix}{T}{T}text_single = {{ text = "{title_key}" align = nobaseline|left }}',
+        f'{prefix}{T}{T}text_multi = {{ max_width = 446 autoresize = yes text = "{subtitle_key}" align = nobaseline|left }}',
+    ]
+    if effect_name is not None:
+        lines.extend(scripted_effect_tooltip(effect_name, indent + 2))
+    lines.extend(
+        [
+            f"{prefix}{T}}}",
+            f"{prefix}}}",
+        ]
+    )
+    return lines
+
+
+def active_ritual_display(wonder: dict, style: int) -> str:
+    visible = active_ritual_visible(wonder, style)
+    lines: list[str] = []
+    if wonder.get("is_unique"):
+        lines.append(f"{T}# TODO: Expand unique-wonder ritual requirements/effects after bespoke ritual designs are finalized.")
+    lines.extend(
+        [
+            f"{T}vbox = {{",
+            f'{T}{T}visible = "[{visible}]"',
+            f"{T}{T}layoutpolicy_horizontal = expanding",
+            f"{T}{T}ignoreinvisible = yes",
+            f"{T}{T}spacing = 6",
+        ]
+    )
+    if wonder.get("is_unique"):
+        lines.extend(
+            ritual_info_container(
+                "TV_ENGINEERING_RITUAL_REQUIREMENTS_TITLE",
+                "TV_ENGINEERING_RITUAL_REQUIREMENT_UNIQUE_NONE",
+                None,
+                2,
+            )
+        )
+        lines.extend(
+            ritual_info_container(
+                "TV_ENGINEERING_RITUAL_EFFECTS_TITLE",
+                "TV_ENGINEERING_RITUAL_EFFECT_UNIQUE_SUBTITLE",
+                ritual_effect_tooltip_effect_name(wonder, style),
+                2,
+            )
+        )
+    else:
+        lines.extend(
+            ritual_info_container(
+                "TV_ENGINEERING_RITUAL_REQUIREMENTS_TITLE",
+                f"TV_ENGINEERING_RITUAL_REQUIREMENT_STYLE_{style}_SUBTITLE",
+                ritual_requirement_tooltip_effect_name(wonder, style),
+                2,
+            )
+        )
+        lines.extend(
+            ritual_info_container(
+                "TV_ENGINEERING_RITUAL_EFFECTS_TITLE",
+                f"TV_ENGINEERING_RITUAL_EFFECT_STYLE_{style}_SUBTITLE",
+                ritual_effect_tooltip_effect_name(wonder, style),
+                2,
+            )
+        )
+    lines.append(f"{T}}}")
+    return "\n".join(lines)
 
 
 def hold_button_base_visible() -> str:
@@ -194,7 +299,7 @@ def generate() -> str:
     lines.append("### BEGIN TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS")
     for wonder in wonders:
         for style in ceremony_styles(wonder):
-            lines.append(active_ritual_text(wonder, style))
+            lines.append(active_ritual_display(wonder, style))
     lines.append("### END TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")

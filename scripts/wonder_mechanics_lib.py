@@ -34,6 +34,13 @@ SUPPORTED_RITUAL_COST_TYPES = {None, "artwork", "scaled_gold", "prestige"}
 SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
 SUPPORTED_RITUAL_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
 SITE_RULES_SECTION = "site_rules"
+RITUAL_AUXILIARY_ESTATE_POWER_BY_POP_TYPE = {
+    "clergy": "local_clergy_estate_power",
+    "nobles": "local_nobles_estate_power",
+    "burghers": "local_burghers_estate_power",
+    "laborers": "local_peasants_estate_power",
+    "soldiers": "local_crown_estate_power",
+}
 
 
 class WonderYamlDumper(yaml.SafeDumper):
@@ -1036,6 +1043,17 @@ def generic_ritual_for_wonder(mechanics: dict, wonder: dict) -> dict:
 
 def ritual_auxiliary_building(wonder: dict) -> str:
     return f"tv_wonder_{wonder['key']}_ritual_annex"
+
+
+def ritual_auxiliary_display_modifier_name(wonder: dict) -> str:
+    return f"{ritual_auxiliary_building(wonder)}_display_modifier"
+
+
+def ritual_auxiliary_modifiers(wonder: dict, ritual_plan: dict) -> dict:
+    modifiers = dict(ritual_plan["auxiliary_building"]["local_modifier"])
+    estate_power_modifier = RITUAL_AUXILIARY_ESTATE_POWER_BY_POP_TYPE[wonder["pop_type"]]
+    modifiers[estate_power_modifier] = modifiers.get(estate_power_modifier, 0) + 0.5
+    return modifiers
 
 
 def ritual_burden_modifier_name(wonder: dict) -> str:

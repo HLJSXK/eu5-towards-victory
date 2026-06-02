@@ -18,6 +18,7 @@ from wonder_mechanics_lib import (
     render_header,
     ritual_plan_for_style,
     ritual_auxiliary_building,
+    ritual_auxiliary_display_modifier_name,
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
     ritual_uses_deferred_completion,
@@ -130,6 +131,91 @@ def completion_ritual_payload_lines(wonder: dict, ritual_plan: dict, indent: int
     lines.extend(reward_effect_lines(ritual_plan.get("reward", []), indent))
     lines.extend(indent_script_block(ritual_plan.get("completion_effect_script", ""), indent))
     return lines
+
+
+def ritual_requirement_tooltip_effect_name(wonder: dict, style: int) -> str:
+    return f"tv_wonder_{wonder['key']}_ritual_{style}_requirement_tooltip_effect"
+
+
+def ritual_effect_tooltip_effect_name(wonder: dict, style: int) -> str:
+    return f"tv_wonder_{wonder['key']}_ritual_{style}_effect_tooltip_effect"
+
+
+def immediate_ritual_cost_lines(ritual_plan: dict, indent: int) -> list[str]:
+    prefix = T * indent
+    cost_type = ritual_plan.get("cost_type")
+    if cost_type is None:
+        return []
+    if cost_type == "artwork":
+        return [
+            f"{prefix}random_work_of_art_in_country = {{ save_scope_as = tv_wonder_sacrificed_artwork }}",
+            f"{prefix}destroy_art = scope:tv_wonder_sacrificed_artwork",
+        ]
+    if cost_type == "scaled_gold":
+        return [f"{prefix}change_gold_effect = {{ scale = -5 }}"]
+    if cost_type == "prestige":
+        return [f"{prefix}add_prestige = -50"]
+    raise ValueError(f"Unsupported ritual cost type for tooltip effect: {cost_type}")
+
+
+def ritual_requirement_tooltip_lines(wonder: dict, ritual_plan: dict, indent: int) -> list[str]:
+    mode = ritual_plan["mode"]
+    if mode == "timed":
+        timed = ritual_plan.get("timed", {})
+        if timed.get("burden_modifier", {}) or timed.get("blessing_modifier", {}):
+            return [
+                f"{T * indent}add_country_modifier = {{ modifier = {ritual_burden_modifier_name(wonder)} years = {timed.get('years', 1)} mode = add_and_extend }}"
+            ]
+        return []
+    if mode == "auxiliary_building":
+        return [
+            f"{T * indent}var:tv_wonder_site ?= {{",
+            f"{T * (indent + 1)}construct_building = {{ building_type = building_type:{ritual_auxiliary_building(wonder)} }}",
+            f"{T * indent}}}",
+        ]
+    if mode == "immediate":
+        return immediate_ritual_cost_lines(ritual_plan, indent)
+    raise ValueError(f"Unsupported ritual mode for requirement tooltip effect: {mode}")
+
+
+def ritual_effect_tooltip_lines(wonder: dict, mechanics: dict, style: int, ritual_plan: dict, indent: int) -> list[str]:
+    if wonder.get("is_unique"):
+        ceremony_modifier = ceremony_modifier_for_style(wonder, mechanics, style)
+        if ceremony_modifier is None:
+            return []
+        modifier_name, _ = ceremony_modifier
+        return [f"{T * indent}add_country_modifier = {{ modifier = {modifier_name} years = -1 mode = add_and_extend }}"]
+
+    mode = ritual_plan["mode"]
+    if mode == "timed":
+        return completion_ritual_payload_lines(wonder, ritual_plan, indent)
+    if mode == "auxiliary_building":
+        return [
+            f"{T * indent}var:tv_wonder_site ?= {{",
+            f"{T * (indent + 1)}add_location_modifier = {{ modifier = {ritual_auxiliary_display_modifier_name(wonder)} years = -1 mode = add_and_extend }}",
+            f"{T * indent}}}",
+        ]
+    if mode == "immediate":
+        lines = reward_effect_lines(ritual_plan.get("reward", []), indent)
+        lines.extend(indent_script_block(ritual_plan.get("completion_effect_script", ""), indent))
+        return lines
+    raise ValueError(f"Unsupported ritual mode for effect tooltip effect: {mode}")
+
+
+def append_ritual_tooltip_effects(lines: list[str], ritual_entry_list: list[tuple[dict, int, dict]], mechanics: dict) -> None:
+    for wonder, style, ritual_plan in ritual_entry_list:
+        if not wonder.get("is_unique"):
+            lines.append(f"{ritual_requirement_tooltip_effect_name(wonder, style)} = {{")
+            requirement_lines = ritual_requirement_tooltip_lines(wonder, ritual_plan, 1)
+            lines.extend(requirement_lines or [f"{T}custom_tooltip = {{ text = NOTHING_HAPPENS_EFFECT }}"])
+            lines.append("}")
+            lines.append("")
+
+        lines.append(f"{ritual_effect_tooltip_effect_name(wonder, style)} = {{")
+        effect_lines = ritual_effect_tooltip_lines(wonder, mechanics, style, ritual_plan, 1)
+        lines.extend(effect_lines or [f"{T}custom_tooltip = {{ text = NOTHING_HAPPENS_EFFECT }}"])
+        lines.append("}")
+        lines.append("")
 
 
 def loc_level(building: str, op: str, level: int) -> str:
@@ -478,6 +564,8 @@ def generate() -> str:
             lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
+
+    append_ritual_tooltip_effects(lines, ritual_entries(all_wonders, mechanics), mechanics)
 
     append_location_display_effects(lines, unique_wonders=unique_wonders, generic_wonders=generic_wonders)
 
