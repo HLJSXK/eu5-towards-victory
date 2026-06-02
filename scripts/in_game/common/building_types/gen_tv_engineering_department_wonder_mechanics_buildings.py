@@ -221,7 +221,7 @@ def generate() -> str:
                     wonder,
                     ritual_auxiliary_modifiers(wonder, ritual_plan),
                     maintenance,
-                    max_levels=auxiliary.get("max_levels", 1),
+                    max_levels=auxiliary.get("max_levels", 6),
                     build_time=auxiliary.get("build_time") or build_time,
                     construction_demand=auxiliary.get("construction_demand") or construction_demand,
                     price=auxiliary.get("price") or price,

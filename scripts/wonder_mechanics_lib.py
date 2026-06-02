@@ -858,7 +858,7 @@ def ritual_plan_for_style(wonder: dict, mechanics: dict, style: int) -> dict:
                 "construction_demand": None,
                 "price": None,
                 "attributes": {},
-                "max_levels": 1,
+                "max_levels": 6,
             },
         }
     if style == 2:
@@ -887,7 +887,7 @@ def ritual_plan_for_style(wonder: dict, mechanics: dict, style: int) -> dict:
                 "construction_demand": None,
                 "price": None,
                 "attributes": {},
-                "max_levels": 1,
+                "max_levels": 6,
             },
         }
     if style == 3:
@@ -916,7 +916,7 @@ def ritual_plan_for_style(wonder: dict, mechanics: dict, style: int) -> dict:
                 "construction_demand": None,
                 "price": None,
                 "attributes": {},
-                "max_levels": 1,
+                "max_levels": 6,
             },
         }
     raise ValueError(f"Unsupported ritual style for {wonder['key']}: {style}")
