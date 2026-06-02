@@ -173,9 +173,11 @@ organization_panel = {
 \t\tvisible = yes
 \t}
 
-\tblockoverride "organization_main_actions_extra" {
+\tblockoverride "organization_overview_list_custom_top_extra" {
 \t\tvbox = {
+\t\t\tmargin = { 10 0 }
 \t\t\tlayoutpolicy_horizontal = expanding
+\t\t\tlayoutpolicy_vertical = fixed
 \t\t\tignoreinvisible = yes
 \t\t\tspacing = 8
 
@@ -250,26 +252,6 @@ OVERVIEW_CHART_SUFFIX = """\
 \t\t\t\t}
 \t\t\t}
 
-\t\t\taction_button_diamond = {
-\t\t\t\tsize = { 470 30 }
-\t\t\t\ttext = "tv_invite_to_trade_league"
-\t\t\t\ttitle = "tv_invite_to_trade_league"
-\t\t\t\tdescription = "tv_invite_to_trade_league_desc"
-\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\tleft_action = {
-\t\t\t\t\taction_name = "tv_invite_to_trade_league"
-\t\t\t\t\taction_direction = "offer"
-\t\t\t\t}
-\t\t\t}
-\t\t\taction_button_diamond = {
-\t\t\t\tsize = { 470 30 }
-\t\t\t\ttext = "tv_expel_trade_league_member"
-\t\t\t\ttitle = "tv_expel_trade_league_member"
-\t\t\t\tdescription = "tv_expel_trade_league_member_desc"
-\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\tleft_action = { action_name = "tv_expel_trade_league_member" }
-\t\t\t}
-
 \t\t\tcard_common = {
 \t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_grand_merchant_char').IsSet]"
 \t\t\t\tmaximumsize = { 500 -1 }
@@ -289,6 +271,28 @@ OVERVIEW_CHART_SUFFIX = """\
 \t\t\t\t\t}
 \t\t\t\t}
 \t\t\t}
+\t\t}
+\t}
+
+\tblockoverride "organization_main_actions_extra" {
+\t\taction_button_diamond = {
+\t\t\tsize = { 470 30 }
+\t\t\ttext = "tv_invite_to_trade_league"
+\t\t\ttitle = "tv_invite_to_trade_league"
+\t\t\tdescription = "tv_invite_to_trade_league_desc"
+\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\tleft_action = {
+\t\t\t\taction_name = "tv_invite_to_trade_league"
+\t\t\t\taction_direction = "offer"
+\t\t\t}
+\t\t}
+\t\taction_button_diamond = {
+\t\t\tsize = { 470 30 }
+\t\t\ttext = "tv_expel_trade_league_member"
+\t\t\ttitle = "tv_expel_trade_league_member"
+\t\t\tdescription = "tv_expel_trade_league_member_desc"
+\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\tleft_action = { action_name = "tv_expel_trade_league_member" }
 \t\t}
 \t}
 

@@ -130,9 +130,11 @@ organization_panel = {
 		visible = yes
 	}
 
-	blockoverride "organization_main_actions_extra" {
+	blockoverride "organization_overview_list_custom_top_extra" {
 		vbox = {
+			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
 			ignoreinvisible = yes
 			spacing = 8
 
@@ -425,26 +427,6 @@ organization_panel = {
 				}
 			}
 
-			action_button_diamond = {
-				size = { 470 30 }
-				text = "tv_invite_to_trade_league"
-				title = "tv_invite_to_trade_league"
-				description = "tv_invite_to_trade_league_desc"
-				actor = "[InternationalOrganizationsView.GetPlayer]"
-				left_action = {
-					action_name = "tv_invite_to_trade_league"
-					action_direction = "offer"
-				}
-			}
-			action_button_diamond = {
-				size = { 470 30 }
-				text = "tv_expel_trade_league_member"
-				title = "tv_expel_trade_league_member"
-				description = "tv_expel_trade_league_member_desc"
-				actor = "[InternationalOrganizationsView.GetPlayer]"
-				left_action = { action_name = "tv_expel_trade_league_member" }
-			}
-
 			card_common = {
 				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_grand_merchant_char').IsSet]"
 				maximumsize = { 500 -1 }
@@ -464,6 +446,28 @@ organization_panel = {
 					}
 				}
 			}
+		}
+	}
+
+	blockoverride "organization_main_actions_extra" {
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "tv_invite_to_trade_league"
+			title = "tv_invite_to_trade_league"
+			description = "tv_invite_to_trade_league_desc"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = {
+				action_name = "tv_invite_to_trade_league"
+				action_direction = "offer"
+			}
+		}
+		action_button_diamond = {
+			size = { 470 30 }
+			text = "tv_expel_trade_league_member"
+			title = "tv_expel_trade_league_member"
+			description = "tv_expel_trade_league_member_desc"
+			actor = "[InternationalOrganizationsView.GetPlayer]"
+			left_action = { action_name = "tv_expel_trade_league_member" }
 		}
 	}
 
