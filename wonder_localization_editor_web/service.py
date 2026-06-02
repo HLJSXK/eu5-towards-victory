@@ -106,6 +106,18 @@ CONCEPT_ICONS = {
     "cultural_category": "gfx/interface/icons/flat_icons/cultural_influence.dds",
     "government_category": "gfx/interface/icons/flat_icons/diplomatic_reputation.dds",
 }
+ESTATE_POWER_BY_POP_TYPE = {
+    "clergy": "local_clergy_estate_power",
+    "nobles": "local_nobles_estate_power",
+    "burghers": "local_burghers_estate_power",
+    "laborers": "local_peasants_estate_power",
+    "soldiers": "local_crown_estate_power",
+}
+GENERIC_STYLE_2_DERIVED_TITLE = "Auto-applied estate power"
+GENERIC_STYLE_2_DERIVED_HELP_TEXT = (
+    "The auxiliary building generator always adds this +0.5 local estate power effect "
+    "for the wonder's pop_type on top of the editable local modifiers."
+)
 COMMON_LOCALIZATION_KEYS = (
     "tv_wonder_confirm_ceremony",
     "tv_wonder_confirm_ceremony_desc",
@@ -412,12 +424,28 @@ def build_modifier_editor_state(
     *,
     modifier_scope: str,
     options: list[dict[str, str]],
+    derived_mapping: dict[str, object] | None = None,
+    derived_title: str = "",
+    derived_help_text: str = "",
 ) -> dict[str, Any]:
-    return {
+    payload: dict[str, Any] = {
         "modifier_scope": modifier_scope,
         "rows": modifier_rows_from_mapping(mapping),
         "options": list(options),
     }
+    if derived_mapping:
+        payload["derived_rows"] = modifier_rows_from_mapping(derived_mapping)
+        payload["derived_title"] = derived_title or "Auto-applied modifiers"
+        if derived_help_text:
+            payload["derived_help_text"] = derived_help_text
+    return payload
+
+
+def generic_style_2_derived_modifier_mapping(wonder: dict[str, Any]) -> dict[str, object]:
+    modifier = ESTATE_POWER_BY_POP_TYPE.get(str(wonder.get("pop_type", "")).strip())
+    if not modifier:
+        return {}
+    return {modifier: 0.5}
 
 
 def build_reward_editor_state(
@@ -2191,6 +2219,14 @@ class WonderLocalizationService:
                 options=self.country_modifier_options,
             ),
         )
+        style_2_editor_state = build_modifier_editor_state(
+            style_2.get("local_modifier", {}),
+            modifier_scope="local",
+            options=self.local_modifier_options,
+            derived_mapping=generic_style_2_derived_modifier_mapping(wonder),
+            derived_title=GENERIC_STYLE_2_DERIVED_TITLE,
+            derived_help_text=GENERIC_STYLE_2_DERIVED_HELP_TEXT,
+        )
         self._add_mechanics_spec(
             specs,
             group="Generic Ritual",
@@ -2198,25 +2234,15 @@ class WonderLocalizationService:
             key=f"mechanics.generic_ritual.{wonder['key']}.style_2",
             source_kind="shared",
             file_path=MECHANICS_FILE,
-            original_value=serialize_structured_editor_value(
-                build_modifier_editor_state(
-                    style_2.get("local_modifier", {}),
-                    modifier_scope="local",
-                    options=self.local_modifier_options,
-                )
-            ),
+            original_value=serialize_structured_editor_value(style_2_editor_state),
             field_type="modifier_table",
             target_kind="generic_ritual",
             target_key=wonder["key"],
             target_parent_key="style_2",
             height=10,
-            help_text="Structured editor for generic ritual style 2 local modifiers.",
+            help_text="Structured editor for generic ritual style 2 local modifiers. The read-only section below shows the estate power that the building generator adds automatically.",
             target_path=f"generic_rituals.{wonder['key']}.style_2.local_modifier",
-            structured_value=build_modifier_editor_state(
-                style_2.get("local_modifier", {}),
-                modifier_scope="local",
-                options=self.local_modifier_options,
-            ),
+            structured_value=style_2_editor_state,
         )
         self._add_mechanics_spec(
             specs,

@@ -871,16 +871,31 @@ function buildReadonlyStructuredNote(field) {
 function buildRowListEditor(config) {
     const section = document.createElement("section");
     section.className = "structured-group";
+    const readonly = config.readonly === true;
 
     const header = document.createElement("div");
     header.className = "structured-group-head";
     header.innerHTML = `<h4>${escapeHtml(config.title)}</h4>`;
-    const addButton = document.createElement("button");
-    addButton.type = "button";
-    addButton.className = "mini-button";
-    addButton.textContent = config.addLabel || "Add row";
-    header.append(addButton);
+    if (!readonly) {
+        const addButton = document.createElement("button");
+        addButton.type = "button";
+        addButton.className = "mini-button";
+        addButton.textContent = config.addLabel || "Add row";
+        addButton.addEventListener("click", () => {
+            config.rows.push(config.createRow());
+            renderRows();
+            config.onChange();
+        });
+        header.append(addButton);
+    }
     section.append(header);
+
+    if (config.note) {
+        const note = document.createElement("p");
+        note.className = "structured-group-note";
+        note.textContent = config.note;
+        section.append(note);
+    }
 
     const rowsNode = document.createElement("div");
     rowsNode.className = "structured-rows";
@@ -891,7 +906,7 @@ function buildRowListEditor(config) {
         if (!config.rows.length) {
             const empty = document.createElement("div");
             empty.className = "structured-empty";
-            empty.textContent = "No rows yet.";
+            empty.textContent = config.emptyText || "No rows yet.";
             rowsNode.append(empty);
         }
         config.rows.forEach((row, index) => {
@@ -923,14 +938,18 @@ function buildRowListEditor(config) {
                 attachOptionList(primary, primaryOptions);
             }
             primary.value = row[config.primaryKey] || "";
-            primary.addEventListener("input", () => {
-                row[config.primaryKey] = primary.value;
-                config.onChange();
-            });
-            primary.addEventListener("change", () => {
-                row[config.primaryKey] = primary.value;
-                config.onChange();
-            });
+            if (readonly) {
+                primary.disabled = true;
+            } else {
+                primary.addEventListener("input", () => {
+                    row[config.primaryKey] = primary.value;
+                    config.onChange();
+                });
+                primary.addEventListener("change", () => {
+                    row[config.primaryKey] = primary.value;
+                    config.onChange();
+                });
+            }
             rowNode.append(primary);
 
             if (config.secondaryKey) {
@@ -956,36 +975,36 @@ function buildRowListEditor(config) {
                     attachOptionList(secondary, secondaryOptions);
                 }
                 secondary.value = row[config.secondaryKey] || "";
-                secondary.addEventListener("input", () => {
-                    row[config.secondaryKey] = secondary.value;
-                    config.onChange();
-                });
-                secondary.addEventListener("change", () => {
-                    row[config.secondaryKey] = secondary.value;
-                    config.onChange();
-                });
+                if (readonly) {
+                    secondary.disabled = true;
+                } else {
+                    secondary.addEventListener("input", () => {
+                        row[config.secondaryKey] = secondary.value;
+                        config.onChange();
+                    });
+                    secondary.addEventListener("change", () => {
+                        row[config.secondaryKey] = secondary.value;
+                        config.onChange();
+                    });
+                }
                 rowNode.append(secondary);
             }
 
-            const removeButton = document.createElement("button");
-            removeButton.type = "button";
-            removeButton.className = "mini-button danger";
-            removeButton.textContent = "Remove";
-            removeButton.addEventListener("click", () => {
-                config.rows.splice(index, 1);
-                renderRows();
-                config.onChange();
-            });
-            rowNode.append(removeButton);
+            if (!readonly) {
+                const removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.className = "mini-button danger";
+                removeButton.textContent = "Remove";
+                removeButton.addEventListener("click", () => {
+                    config.rows.splice(index, 1);
+                    renderRows();
+                    config.onChange();
+                });
+                rowNode.append(removeButton);
+            }
             rowsNode.append(rowNode);
         });
     };
-
-    addButton.addEventListener("click", () => {
-        config.rows.push(config.createRow());
-        renderRows();
-        config.onChange();
-    });
 
     renderRows();
     return section;
@@ -1296,6 +1315,23 @@ function renderModifierTableField(field, scope) {
             onChange: commit,
         }),
     );
+    if (Array.isArray(stateValue.derived_rows) && stateValue.derived_rows.length) {
+        editor.append(
+            buildRowListEditor({
+                title: stateValue.derived_title || "Auto-applied modifiers",
+                note: stateValue.derived_help_text || "",
+                rows: stateValue.derived_rows,
+                primaryKey: "modifier",
+                secondaryKey: "value",
+                primaryLabel: "Modifier",
+                secondaryLabel: "Value",
+                primaryControl: "text",
+                secondaryControl: "text",
+                readonly: true,
+                emptyText: "No auto-applied modifiers.",
+            }),
+        );
+    }
     commit();
     return shell.shell;
 }
