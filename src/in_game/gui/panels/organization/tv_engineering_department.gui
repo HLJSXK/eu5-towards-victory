@@ -2063,8 +2063,8 @@ widget = {
 			card_common = {
 				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0')]"
 				layoutpolicy_vertical = fixed
-				minimumsize = { 500 540 }
-				maximumsize = { 500 540 }
+				minimumsize = { 500 574 }
+				maximumsize = { 500 574 }
 
 				blockoverride "common_header_icon_texture" {
 					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
@@ -2076,7 +2076,7 @@ widget = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 500 }
+						size = { 470 534 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
@@ -2098,7 +2098,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -2106,7 +2106,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2117,6 +2117,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_sacred_mountain_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2129,7 +2132,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2210,6 +2213,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -2227,7 +2231,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -2235,7 +2239,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2246,6 +2250,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_triumphal_axis_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2258,7 +2265,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2294,6 +2301,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -2311,7 +2319,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -2319,7 +2327,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2330,6 +2338,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_great_port_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2342,7 +2353,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2363,6 +2374,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -2380,7 +2392,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -2388,7 +2400,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2399,6 +2411,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_giant_necropolis_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2411,7 +2426,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2462,6 +2477,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -2479,7 +2495,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -2487,7 +2503,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2498,6 +2514,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_great_lighthouse_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2510,7 +2529,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2531,6 +2550,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -2548,7 +2568,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -2556,7 +2576,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2567,6 +2587,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_hydraulic_workshop_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2579,7 +2602,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2600,6 +2623,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -2617,7 +2641,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -2625,7 +2649,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2636,6 +2660,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_mining_city_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2648,7 +2675,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2684,6 +2711,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -2701,7 +2729,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -2709,7 +2737,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2720,6 +2748,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_giant_observatory_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2732,7 +2763,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2783,6 +2814,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -2800,7 +2832,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -2808,7 +2840,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2819,6 +2851,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_palace_of_nations_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2831,7 +2866,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2867,6 +2902,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -2884,7 +2920,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -2892,7 +2928,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2903,6 +2939,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_university_city_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2915,7 +2954,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -2966,6 +3005,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -2983,7 +3023,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -2991,7 +3031,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3002,6 +3042,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_sky_dome_grand_temple_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3014,7 +3057,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3065,6 +3108,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -3082,7 +3126,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -3090,7 +3134,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3101,6 +3145,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_giant_tower_temple_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3113,7 +3160,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3164,6 +3211,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -3181,7 +3229,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -3189,7 +3237,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3200,6 +3248,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_river_extension_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3212,7 +3263,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3263,6 +3314,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -3280,7 +3332,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -3288,7 +3340,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3299,6 +3351,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_national_shipyard_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3311,7 +3366,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3347,6 +3402,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -3364,7 +3420,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -3372,7 +3428,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3383,6 +3439,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_star_fortress_city_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3395,7 +3454,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3461,6 +3520,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -3478,7 +3538,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -3486,7 +3546,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3497,6 +3557,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_great_wall_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3509,7 +3572,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3575,6 +3638,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -3592,7 +3656,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -3600,7 +3664,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3611,6 +3675,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_giant_armory_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3623,7 +3690,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3674,6 +3741,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -3691,7 +3759,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -3699,7 +3767,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3710,6 +3778,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_library_of_nation_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3722,7 +3793,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3773,6 +3844,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -3790,7 +3862,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -3798,7 +3870,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3809,6 +3881,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_large_canal_system_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3821,7 +3896,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3857,6 +3932,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -3874,7 +3950,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -3882,7 +3958,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3893,6 +3969,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_mountain_terrace_network_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3905,7 +3984,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3956,6 +4035,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -3973,7 +4053,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -3981,7 +4061,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -3992,6 +4072,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_giant_dam_project_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4004,7 +4087,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4040,6 +4123,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4057,7 +4141,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4065,7 +4149,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4076,6 +4160,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_royal_granary_system_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4088,7 +4175,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4124,6 +4211,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4141,7 +4229,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4149,7 +4237,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4160,6 +4248,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_imperial_post_road_network_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4172,7 +4263,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4193,6 +4284,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4210,7 +4302,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4218,7 +4310,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4229,6 +4321,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_canal_hub_city_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4241,7 +4336,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4292,6 +4387,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4309,7 +4405,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4317,7 +4413,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4328,6 +4424,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_frontier_colonization_belt_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4340,7 +4439,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4376,6 +4475,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4393,7 +4493,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4401,7 +4501,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4412,6 +4512,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_coastal_beacon_network_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4424,7 +4527,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4445,6 +4548,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4462,7 +4566,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4470,7 +4574,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4481,6 +4585,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_knightly_fortress_order_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4493,7 +4600,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4544,6 +4651,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4561,7 +4669,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4569,7 +4677,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4580,6 +4688,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_war_college_system_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4592,7 +4703,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4613,6 +4724,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4630,7 +4742,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4638,7 +4750,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4649,6 +4761,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_great_clock_bell_system_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4661,7 +4776,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4682,6 +4797,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4699,7 +4815,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4707,7 +4823,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4718,6 +4834,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_royal_art_district_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4730,7 +4849,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4766,6 +4885,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4783,7 +4903,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4791,7 +4911,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4802,6 +4922,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_grand_theater_festival_district_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4814,7 +4937,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4835,6 +4958,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4852,7 +4976,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4860,7 +4984,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4871,6 +4995,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_world_embassy_quarter_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4883,7 +5010,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4919,6 +5046,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -4936,7 +5064,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -4944,7 +5072,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -4955,6 +5083,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_law_code_stele_project_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4967,7 +5098,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5003,6 +5134,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5020,7 +5152,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5028,7 +5160,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5039,6 +5171,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_world_market_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5051,7 +5186,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5072,6 +5207,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5089,7 +5225,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5097,7 +5233,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5108,6 +5244,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_royal_mint_system_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5120,7 +5259,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5156,6 +5295,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5173,7 +5313,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5181,7 +5321,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5192,6 +5332,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_guild_alliance_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5204,7 +5347,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5225,6 +5368,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5242,7 +5386,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5250,7 +5394,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5261,6 +5405,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_maritime_trade_station_network_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5273,7 +5420,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5294,6 +5441,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5311,7 +5459,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5319,7 +5467,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5330,6 +5478,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_giant_workshop_complex_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5342,7 +5493,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5363,6 +5514,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5380,7 +5532,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5388,7 +5540,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5399,6 +5551,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_world_monument_group_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5411,7 +5566,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5447,6 +5602,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5464,7 +5620,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5472,7 +5628,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5483,6 +5639,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_city_expansion_project_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5495,7 +5654,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5531,6 +5690,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5548,7 +5708,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5556,7 +5716,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5567,6 +5727,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_pharos_lighthouse_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5579,7 +5742,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5600,6 +5763,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5617,7 +5781,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5625,7 +5789,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5636,6 +5800,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_hagia_sophia_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5648,7 +5815,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5699,6 +5866,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5716,7 +5884,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5724,7 +5892,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5735,6 +5903,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_dome_of_the_rock_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5747,7 +5918,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5798,6 +5969,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5815,7 +5987,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5823,7 +5995,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5834,6 +6006,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_angkor_wat_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5846,7 +6021,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5897,6 +6072,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -5914,7 +6090,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -5922,7 +6098,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -5933,6 +6109,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_potala_palace_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5945,7 +6124,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6026,6 +6205,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -6043,7 +6223,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -6051,7 +6231,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6062,6 +6242,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_alhambra_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6074,7 +6257,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6110,6 +6293,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -6127,7 +6311,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -6135,7 +6319,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6146,6 +6330,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_machu_picchu_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6158,7 +6345,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6239,6 +6426,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -6256,7 +6444,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -6264,7 +6452,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6275,6 +6463,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_himeji_castle_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6287,7 +6478,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6353,6 +6544,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -6370,7 +6562,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -6378,7 +6570,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6389,6 +6581,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_taj_mahal_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6401,7 +6596,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6452,6 +6647,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -6469,7 +6665,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -6477,7 +6673,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6488,6 +6684,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_forbidden_city_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6500,7 +6699,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6536,6 +6735,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -6553,7 +6753,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -6561,7 +6761,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6572,6 +6772,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_topkapi_palace_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6584,7 +6787,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6620,6 +6823,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -6637,7 +6841,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -6645,7 +6849,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6656,6 +6860,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_st_peters_basilica_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6668,7 +6875,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6719,6 +6926,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -6736,7 +6944,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -6744,7 +6952,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6755,6 +6963,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_lalibela_churches_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6767,7 +6978,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6848,6 +7059,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -6865,7 +7077,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -6873,7 +7085,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6884,6 +7096,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_venetian_arsenal_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6896,7 +7111,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6932,6 +7147,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -6949,7 +7165,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -6957,7 +7173,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -6968,6 +7184,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_malacca_port_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6980,7 +7199,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7001,6 +7220,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -7018,7 +7238,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -7026,7 +7246,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7037,6 +7257,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_red_fort_delhi_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7049,7 +7272,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7115,6 +7338,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -7132,7 +7356,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -7140,7 +7364,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7151,6 +7375,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_versailles_palace_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7163,7 +7390,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7199,6 +7426,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -7216,7 +7444,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -7224,7 +7452,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7235,6 +7463,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_tenochtitlan_causeways_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7247,7 +7478,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7298,6 +7529,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -7315,7 +7547,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -7323,7 +7555,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7334,6 +7566,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_amsterdam_canal_ring_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7346,7 +7581,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7397,6 +7632,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -7414,7 +7650,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -7422,7 +7658,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7433,6 +7669,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_mecca_haram_expansion_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7445,7 +7684,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7496,6 +7735,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -7513,7 +7753,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -7521,7 +7761,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7532,6 +7772,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_ming_great_wall_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7544,7 +7787,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7610,6 +7853,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -7627,7 +7871,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -7635,7 +7879,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7646,6 +7890,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_bank_of_saint_george_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7658,7 +7905,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7694,6 +7941,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -7711,7 +7959,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -7719,7 +7967,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7730,6 +7978,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_cahokia_mounds_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7742,7 +7993,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7778,6 +8029,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -7795,7 +8047,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -7803,7 +8055,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7814,6 +8066,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_great_zimbabwe_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7826,7 +8081,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7847,6 +8102,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -7864,7 +8120,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -7872,7 +8128,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7883,6 +8139,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_isfahan_square_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7895,7 +8154,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7931,6 +8190,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -7948,7 +8208,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -7956,7 +8216,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -7967,6 +8227,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_grand_canal_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7979,7 +8242,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8015,6 +8278,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8032,7 +8296,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8040,7 +8304,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8051,6 +8315,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_inca_royal_road_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8063,7 +8330,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8084,6 +8351,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8101,7 +8369,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8109,7 +8377,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8120,6 +8388,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_roman_aqueducts_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8132,7 +8403,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8153,6 +8424,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8170,7 +8442,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8178,7 +8450,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8189,6 +8461,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_suez_ancient_canal_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8201,7 +8476,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8237,6 +8512,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8254,7 +8530,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8262,7 +8538,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8273,6 +8549,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_kremlin_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8285,7 +8564,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8351,6 +8630,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8368,7 +8648,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8376,7 +8656,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8387,6 +8667,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_teotihuacan_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8399,7 +8682,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8435,6 +8718,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8452,7 +8736,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8460,7 +8744,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8471,6 +8755,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_angkor_hydraulic_system_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8483,7 +8770,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8504,6 +8791,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8521,7 +8809,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8529,7 +8817,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8540,6 +8828,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_dutch_polders_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8552,7 +8843,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8588,6 +8879,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8605,7 +8897,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8613,7 +8905,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8624,6 +8916,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_machu_picchu_terraces_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8636,7 +8931,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8687,6 +8982,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8704,7 +9000,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8712,7 +9008,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8723,6 +9019,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_british_navy_dockyards_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8735,7 +9034,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8771,6 +9070,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8788,7 +9088,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8796,7 +9096,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8807,6 +9107,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_spanish_silver_fleet_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8819,7 +9122,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8840,6 +9143,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8857,7 +9161,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8865,7 +9169,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8876,6 +9180,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_ottoman_hajj_road_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8888,7 +9195,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8909,6 +9216,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8926,7 +9234,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -8934,7 +9242,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8945,6 +9253,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_persian_qanat_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8957,7 +9268,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -8978,6 +9289,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -8995,7 +9307,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -9003,7 +9315,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -9014,6 +9326,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_longjiang_shipyard_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -9026,7 +9341,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -9062,6 +9377,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -9079,7 +9395,7 @@ widget = {
 						margin = { 6 5 }
 						ignoreinvisible = yes
 						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
 						hbox = {
 							layoutpolicy_horizontal = fixed
 							size = { 444 -1 }
@@ -9087,7 +9403,7 @@ widget = {
 							ignoreinvisible = yes
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -9098,6 +9414,9 @@ widget = {
 									textcontext = "[ShowTriggerConditions('tv_wonder_player_visible_site_rules_unique_jerusalem_holy_city_trigger', PlayerScope.Self)]"
 									maximumsize = { 218 -1 }
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -9110,7 +9429,7 @@ widget = {
 							}
 							vbox = {
 								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = shrinking
+								layoutpolicy_vertical = expanding
 								minimumsize = { 218 -1 }
 								maximumsize = { 218 -1 }
 								ignoreinvisible = yes
@@ -9146,6 +9465,7 @@ widget = {
 									fontsize = 13
 									align = nobaseline|left
 								}
+								expand = {}
 							}
 						}
 					}
@@ -9186,15 +9506,11 @@ widget = {
 										action_name = "tv_wonder_start_survey"
 									}
 								}
-								action_button_diamond = {
+								button_regular_diamond = {
 									size = { 228 30 }
-									text = "TV_ENGINEERING_CONFIRM_SURVEY_SITE_BUTTON"
-									title = "tv_wonder_select_construction_site"
-									description = "tv_wonder_select_construction_site_desc"
-									actor = "[InternationalOrganizationsView.GetPlayer]"
-									left_action = {
-										action_name = "tv_wonder_select_construction_site"
-									}
+									using = button_common_textobj_template
+									tooltip_enabled = no
+									text = "TV_ENGINEERING_RERUN_SURVEY_BUTTON"
 								}
 							}
 							hbox = {
@@ -9249,31 +9565,6 @@ widget = {
 									vbox = {
 										margin = { 3 3 }
 										spacing = 2
-										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" max_width = 140 fontsize = 13 align = nobaseline|center }
-										hbox = {
-											layoutpolicy_horizontal = expanding
-											expand = {}
-											widget = {
-												size = { 40 40 }
-												piechart = {
-													size = { 40 40 }
-													using = piechart_angles
-													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
-													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
-												}
-												icon = { parentanchor = center size = { 22 22 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
-											}
-											expand = {}
-										}
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue|0]%" fontsize = 13 align = nobaseline|center }
-									}
-								}
-								widget = {
-									size = { 148 88 }
-									using = bg_text_mask_container_dark_blue
-									vbox = {
-										margin = { 3 3 }
-										spacing = 2
 										text_single = { text = "TV_ENGINEERING_ORGANIZATION_COMPETENCE_LABEL" max_width = 140 fontsize = 13 align = nobaseline|center }
 										hbox = {
 											layoutpolicy_horizontal = expanding
@@ -9293,6 +9584,31 @@ widget = {
 										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_competence').GetValue|0]%" fontsize = 13 align = nobaseline|center }
 									}
 								}
+								widget = {
+									size = { 148 88 }
+									using = bg_text_mask_container_dark_blue
+									vbox = {
+										margin = { 3 3 }
+										spacing = 2
+										text_single = { text = "TV_ENGINEERING_LOGISTICS_COMPETENCE_LABEL" max_width = 140 fontsize = 13 align = nobaseline|center }
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											expand = {}
+											widget = {
+												size = { 40 40 }
+												piechart = {
+													size = { 40 40 }
+													using = piechart_angles
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue]" color = { 0.01 0.6 0.9 1 } }
+													pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue)]" color = { 0.0 0.1 0.1 1 } }
+												}
+												icon = { parentanchor = center size = { 22 22 } texture = "gfx/interface/icons/resources/gold.dds" texture_density = 2 }
+											}
+											expand = {}
+										}
+										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_competence').GetValue|0]%" fontsize = 13 align = nobaseline|center }
+									}
+								}
 							}
 
 							hbox = {
@@ -9304,7 +9620,7 @@ widget = {
 										margin = { 2 0 }
 										spacing = 0
 										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_LABEL" max_width = 146 fontsize = 13 align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_scale_tier').GetValue|0]#!" max_width = 146 fontsize = 13 align = nobaseline|center }
 										text_single = { text = "TV_ENGINEERING_SURVEY_SCALE_EFFECT_TEXT" max_width = 146 fontsize = 13 align = nobaseline|center }
 									}
 								}
@@ -9313,9 +9629,9 @@ widget = {
 									vbox = {
 										margin = { 2 0 }
 										spacing = 0
-										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_LABEL" max_width = 146 fontsize = 13 align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_progress_percent').GetValue|0]" max_width = 146 fontsize = 13 align = nobaseline|center }
-										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_TEXT" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_LABEL" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]#!" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_TEXT" max_width = 146 fontsize = 13 align = nobaseline|center }
 									}
 								}
 								widget = {
@@ -9323,10 +9639,21 @@ widget = {
 									vbox = {
 										margin = { 2 0 }
 										spacing = 0
-										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_LABEL" max_width = 146 fontsize = 13 align = nobaseline|center }
-										text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]" max_width = 146 fontsize = 13 align = nobaseline|center }
-										text_single = { text = "TV_ENGINEERING_SURVEY_ORGANIZATION_EFFECT_TEXT" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_LABEL" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_logistics_progress_percent').GetValue|0]%#!" max_width = 146 fontsize = 13 align = nobaseline|center }
+										text_single = { text = "TV_ENGINEERING_SURVEY_LOGISTICS_EFFECT_TEXT" max_width = 146 fontsize = 13 align = nobaseline|center }
 									}
+								}
+							}
+							action_button_diamond = {
+								visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
+								size = { 462 30 }
+								text = "TV_ENGINEERING_CONFIRM_SURVEY_SITE_BUTTON"
+								title = "tv_wonder_select_construction_site"
+								description = "tv_wonder_select_construction_site_desc"
+								actor = "[InternationalOrganizationsView.GetPlayer]"
+								left_action = {
+									action_name = "tv_wonder_select_construction_site"
 								}
 							}
 						}

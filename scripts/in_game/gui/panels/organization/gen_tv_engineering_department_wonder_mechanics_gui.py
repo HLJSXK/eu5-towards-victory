@@ -230,6 +230,9 @@ def trigger_conditions_list(trigger_name: str, indent: int, width: int | None = 
         )
     lines.extend(
         [
+            f'{prefix}{T}blockoverride "field_text_format" {{',
+            f"{prefix}{T}{T}fontsize = 13",
+            f"{prefix}{T}}}",
             f'{prefix}{T}blockoverride "block_title" {{',
             f'{prefix}{T}{T}block "block_title" {{',
             f"{prefix}{T}{T}{T}visible = no",
@@ -303,7 +306,7 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
         f"{T}{T}{T}margin = {{ 6 5 }}",
         f"{T}{T}{T}ignoreinvisible = yes",
         f"{T}{T}{T}spacing = 3",
-        f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 14 align = nobaseline|left }}',
+        f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }}',
         f"{T}{T}{T}hbox = {{",
         f"{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
         f"{T}{T}{T}{T}size = {{ {SUITABILITY_KNOWLEDGE_COLUMNS_WIDTH} -1 }}",
@@ -311,7 +314,7 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
         f"{T}{T}{T}{T}ignoreinvisible = yes",
         f"{T}{T}{T}{T}vbox = {{",
         f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
-        f"{T}{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
         f"{T}{T}{T}{T}{T}minimumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
         f"{T}{T}{T}{T}{T}maximumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
         f"{T}{T}{T}{T}{T}ignoreinvisible = yes",
@@ -330,7 +333,7 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
             f"{T}{T}{T}{T}}}",
             f"{T}{T}{T}{T}vbox = {{",
             f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
-            f"{T}{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
+            f"{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
             f"{T}{T}{T}{T}{T}minimumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
             f"{T}{T}{T}{T}{T}maximumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
             f"{T}{T}{T}{T}{T}ignoreinvisible = yes",
@@ -347,6 +350,7 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
         lines.extend(suitability_knowledge_row(row, reveal_var, row_index, 5))
     lines.extend(
         [
+            f"{T}{T}{T}{T}{T}expand = {{}}",
             f"{T}{T}{T}{T}}}",
             f"{T}{T}{T}}}",
             f"{T}{T}}}",
