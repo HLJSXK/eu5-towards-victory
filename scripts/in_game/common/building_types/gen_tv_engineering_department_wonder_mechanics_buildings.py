@@ -193,7 +193,9 @@ def auxiliary_on_built_lines(wonder: dict, style: int) -> list[str]:
 def final_building_on_built_lines() -> list[str]:
     return [
         f"{T}{T}hidden_effect = {{",
-        f"{T}{T}{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes",
+        f"{T}{T}{T}location = {{",
+        f"{T}{T}{T}{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes",
+        f"{T}{T}{T}}}",
         f"{T}{T}}}",
     ]
 
