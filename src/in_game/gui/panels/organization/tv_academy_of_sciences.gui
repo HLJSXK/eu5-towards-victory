@@ -33,10 +33,10 @@ organization_panel = {
 		visible = yes
 	}
 	blockoverride "organization_resolutions_tab_text" {
-		text = "TV_ACADEMY_CHIEF_SCIENTIST_TAB"
+		text = "TV_ACADEMY_PHILOSOPHY_TAB"
 	}
 	blockoverride "organization_resolutions_tooltip" {
-		tooltip = "TV_ACADEMY_CHIEF_SCIENTIST_TAB_TOOLTIP"
+		tooltip = "TV_ACADEMY_PHILOSOPHY_TAB_TOOLTIP"
 	}
 
 	blockoverride "scroll_overview_empty_visible" { visible = no }
@@ -625,7 +625,7 @@ organization_panel = {
 
 	}
 
-	# -- Chief Scientist tab: reuse the vanilla resolutions slot -----------------
+	# -- Philosophy tab: reuse the vanilla resolutions slot ---------------------
 	blockoverride "organization_resolutions_content" {
 		margin = { 0 0 }
 
@@ -637,7 +637,6 @@ organization_panel = {
 			spacing = 10
 
 			card_common = {
-				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
 				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
@@ -645,21 +644,27 @@ organization_panel = {
 				}
 
 				blockoverride "common_header_text" {
-					text = "TV_ACADEMY_CHIEF_SCIENTIST_CARD_TITLE"
+					text = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_CARD_TITLE"
 				}
 
 				blockoverride "common_bottom_content" {
-					io_character_card = {
-						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
-						using = layoutpolicy_expanding
-						blockoverride "name_highlight" {}
-						blockoverride "character_entry_name_sort_by_highlight" {}
+					widget = {
+						size = { 470 56 }
+
+						text_single = {
+							size = { 470 44 }
+							parentanchor = center
+							widgetanchor = center
+							text = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_LINE"
+							fontsize = 22
+							autoresize = no
+							align = center|nobaseline
+						}
 					}
 				}
 			}
 
 			card_common = {
-				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
 				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
@@ -667,17 +672,94 @@ organization_panel = {
 				}
 
 				blockoverride "common_header_text" {
-					text = "TV_ACADEMY_CHIEF_SCIENTIST_CARD_TITLE"
+					text = "TV_ACADEMY_PHILOSOPHY_DEBATE_STATUS_CARD_TITLE"
 				}
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 44 }
-						vbox = {
-							margin = { 4 6 }
-							text_single = {
-								text = "TV_ACADEMY_NO_CHIEF_SCIENTIST"
-								align = nobaseline|left
+						size = { 470 52 }
+
+						hbox = {
+							parentanchor = center
+							widgetanchor = center
+							spacing = 12
+
+							widget = {
+								size = { 38 38 }
+								using = bg_circle_piechart
+								text_single = {
+									parentanchor = center
+									size = { 100% 100% }
+									raw_text = "@trigger_yes!"
+									fontsize = 20
+									autoresize = no
+									align = center|nobaseline
+								}
+							}
+
+							widget = {
+								size = { 38 38 }
+								using = bg_circle_piechart
+								text_single = {
+									parentanchor = center
+									size = { 100% 100% }
+									raw_text = "@trigger_no!"
+									fontsize = 20
+									autoresize = no
+									align = center|nobaseline
+								}
+							}
+
+							widget = {
+								size = { 38 38 }
+								using = bg_circle_piechart
+								text_single = {
+									parentanchor = center
+									size = { 100% 100% }
+									raw_text = "@trigger_yes!"
+									fontsize = 20
+									autoresize = no
+									align = center|nobaseline
+								}
+							}
+
+							widget = {
+								size = { 38 38 }
+								using = bg_circle_piechart
+								text_single = {
+									parentanchor = center
+									size = { 100% 100% }
+									raw_text = "@trigger_yes!"
+									fontsize = 20
+									autoresize = no
+									align = center|nobaseline
+								}
+							}
+
+							widget = {
+								size = { 38 38 }
+								using = bg_circle_piechart
+								text_single = {
+									parentanchor = center
+									size = { 100% 100% }
+									text = "TV_ACADEMY_PHILOSOPHY_STATUS_ACTIVE"
+									fontsize = 18
+									autoresize = no
+									align = center|nobaseline
+								}
+							}
+
+							widget = {
+								size = { 38 38 }
+								using = bg_circle_piechart
+								text_single = {
+									parentanchor = center
+									size = { 100% 100% }
+									text = "TV_ACADEMY_PHILOSOPHY_STATUS_EMPTY"
+									fontsize = 18
+									autoresize = no
+									align = center|nobaseline
+								}
 							}
 						}
 					}
@@ -685,7 +767,6 @@ organization_panel = {
 			}
 
 			card_common = {
-				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
 				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
@@ -693,60 +774,112 @@ organization_panel = {
 				}
 
 				blockoverride "common_header_text" {
-					text = "TV_ACADEMY_CHIEF_SCIENTIST_EFFECTS_CARD_TITLE"
+					text = "TV_ACADEMY_PHILOSOPHY_CURRENT_DEBATE_CARD_TITLE"
 				}
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 88 }
-						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
+						size = { 470 156 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
-							spacing = 4
 							margin = { 4 6 }
+							spacing = 8
 
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = {
-									text = "TV_ACADEMY_EFFECT_ADM_LABEL"
-									align = nobaseline
-								}
-								expand = {}
-								text_single = {
-									text = "[Character.GetAbility('adm')]"
-									align = nobaseline
-								}
+							text_single = {
+								size = { 462 24 }
+								text = "TV_ACADEMY_PHILOSOPHY_FIXED_DEBATE_TITLE"
+								fontsize = 15
+								align = center|nobaseline
 							}
 
 							hbox = {
 								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = {
-									text = "TV_ACADEMY_EFFECT_RESEARCH_SPEED_LABEL"
-									align = nobaseline
+								spacing = 10
+
+								widget = {
+									size = { 226 74 }
+
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+
+										text_single = {
+											size = { 226 22 }
+											text = "TV_ACADEMY_PHILOSOPHY_PRO_SIDE"
+											fontsize = 15
+											align = center|nobaseline
+										}
+
+										text_single = {
+											size = { 226 28 }
+											text = "TV_ACADEMY_PHILOSOPHY_PRO_GROUP"
+											fontsize = 14
+											align = center|nobaseline
+										}
+									}
 								}
-								expand = {}
-								text_single = {
-									raw_text = "[Character.GetAbility('adm')]x0.05"
-									align = nobaseline
+
+								widget = {
+									size = { 226 74 }
+
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 6
+
+										text_single = {
+											size = { 226 22 }
+											text = "TV_ACADEMY_PHILOSOPHY_CON_SIDE"
+											fontsize = 15
+											align = center|nobaseline
+										}
+
+										text_single = {
+											size = { 226 28 }
+											text = "TV_ACADEMY_PHILOSOPHY_CON_GROUP"
+											fontsize = 14
+											align = center|nobaseline
+										}
+									}
 								}
 							}
 
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = {
-									text = "TV_ACADEMY_EFFECT_CURE_PROGRESS_LABEL"
-									align = nobaseline
-								}
-								expand = {}
-								text_single = {
-									raw_text = "[Character.GetAbility('adm')]x0.1%"
-									align = nobaseline
-								}
+							progressbar = {
+								size = { 462 18 }
+								min = 0
+								max = 100
+								value = 50
+								progresstexture = "gfx/interface/progressbars/progress_bar_green_alt.dds"
+								noprogresstexture = "gfx/interface/progressbars/progress_bar_red_alt.dds"
+								texture_density = 2
+								spriteType = Corneredstretched
+								spriteborder = { 12 0 }
 							}
+						}
+					}
+				}
+			}
+
+			card_common = {
+				maximumsize = { 500 -1 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ACADEMY_PHILOSOPHY_MAIN_ACTIONS_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						margin = { 4 6 }
+
+						button_regular_diamond = {
+							size = { 470 30 }
+							text = "TV_ACADEMY_PHILOSOPHY_NO_ACTION_BUTTON"
+							enabled = no
 						}
 					}
 				}
