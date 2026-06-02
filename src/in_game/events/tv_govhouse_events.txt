@@ -439,13 +439,13 @@ tv_govhouse.43 = {
 				NOT = {
 					has_casus_belli_of_type_on = {
 						target = scope:tv_govhouse_plan_cb_target
-						type = casus_belli:cb_war_from_event
+						type = casus_belli:tv_govhouse_war_plan
 					}
 				}
 			}
 			add_casus_belli = {
 				target = scope:tv_govhouse_plan_cb_target
-				type = casus_belli:cb_war_from_event
+				type = casus_belli:tv_govhouse_war_plan
 			}
 		}
 	}

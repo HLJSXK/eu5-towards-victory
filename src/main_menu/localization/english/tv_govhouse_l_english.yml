@@ -785,8 +785,10 @@
  tv_govhouse.42.d: "We are now fighting a defensive war. The [tv_war_tent|E] unfolds its prepared [tv_war_plan|e]: fort ledgers, reserve routes, fallback lines, and battlefield doctrine written before panic had a chance to hold the pen. What looked cautious in peacetime now looks like foresight. Garrisons receive clearer orders, commanders recognize their assigned ground, and the enemy meets not scattered fear but rehearsed resistance. Defense, when prepared, has a memory."
  tv_govhouse.42.a: "Put the plan into motion."
  tv_govhouse.43.t: "[tv_war_tent|E]：The War Ledger Is Ready"
- tv_govhouse.43.d: "The offensive [tv_war_plan|e] against [SCOPE.sCountry('tv_govhouse_plan_cb_target').GetName] has reached its final margin. Maps have stopped changing. Supply tables have names beside their numbers. Every road, depot, and siege schedule now points in the same direction, and the [tv_war_tent|E] can present the coming campaign as necessity rather than improvisation.\n\nWe will gain a [ShowCasusBelliName('cb_war_from_event')] [casus_belli|E] against [SCOPE.sCountry('tv_govhouse_plan_cb_target').GetName]."
+ tv_govhouse.43.d: "The offensive [tv_war_plan|e] against [SCOPE.sCountry('tv_govhouse_plan_cb_target').GetName] has reached its final margin. Maps have stopped changing. Supply tables have names beside their numbers. Every road, depot, and siege schedule now points in the same direction, and the [tv_war_tent|E] can present the coming campaign as necessity rather than improvisation.\n\nWe will gain a [ShowCasusBelliName('tv_govhouse_war_plan')] [casus_belli|E] against [SCOPE.sCountry('tv_govhouse_plan_cb_target').GetName]."
  tv_govhouse.43.a: "Seal the orders."
+ tv_govhouse_war_plan: "War Plan"
+ tv_govhouse_war_plan_desc: "Our Governor's House has completed the staff maps, supply tables, and siege timetables for a campaign against them. The war is ready to leave the ledger."
 
  STATIC_MODIFIER_NAME_tv_govhouse_tactic_steady_advance: "War Tent: Steady Advance"
  STATIC_MODIFIER_NAME_tv_govhouse_tactic_careful_advance: "War Tent: Careful Advance"
