@@ -272,6 +272,9 @@ function renderMeta() {
     if (meta.base_key) {
         entries.push(["原型", meta.base_key]);
     }
+    if (meta.base_effect_multiplier && Number(meta.base_effect_multiplier) !== 1) {
+        entries.push(["Base effect x", `x${meta.base_effect_multiplier}`]);
+    }
     if (meta.location) {
         entries.push(["固定地点", meta.location]);
     }

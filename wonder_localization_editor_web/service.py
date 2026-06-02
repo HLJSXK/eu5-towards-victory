@@ -304,6 +304,18 @@ def modifier_rows_from_mapping(mapping: dict[str, object]) -> list[dict[str, str
     return rows
 
 
+def scale_numeric_mapping(mapping: dict[str, object], multiplier: int | float) -> dict[str, object]:
+    if multiplier == 1:
+        return dict(mapping)
+    scaled: dict[str, object] = {}
+    for modifier, value in mapping.items():
+        if isinstance(value, (int, float)):
+            scaled[modifier] = value * multiplier
+        else:
+            scaled[modifier] = value
+    return scaled
+
+
 def mapping_from_modifier_rows(raw_value: object, *, context: str) -> dict[str, object]:
     payload = parse_structured_editor_value(raw_value, context=context)
     if not isinstance(payload, dict):
@@ -1925,6 +1937,7 @@ class WonderLocalizationService:
         if wonder.get("is_unique"):
             meta["base_key"] = wonder.get("base_key")
             meta["mechanic_key"] = wonder.get("mechanic_key")
+            meta["base_effect_multiplier"] = wonder.get("base_effect_multiplier", 1)
             meta["location"] = wonder.get("location")
         return meta
 
@@ -1985,6 +1998,7 @@ class WonderLocalizationService:
         prototype_key = mechanic_key(wonder)
         shared_source_kind = "shared"
         inherits_from_prototype = bool(wonder.get("is_unique"))
+        base_effect_multiplier = wonder.get("base_effect_multiplier", 1)
         site_help_text = (
             "Inherited from the prototype. Use the prototype selector to change this rule set; edit the prototype wonder to modify the script."
             if inherits_from_prototype
@@ -1996,9 +2010,18 @@ class WonderLocalizationService:
             else "Choose a preference template, then edit condition bonus rows and scaled bonus rows without hand-writing script blocks."
         )
         base_modifier_help_text = (
-            "Inherited from the prototype. Use the prototype selector to change these modifiers; edit the prototype wonder to modify them."
+            (
+                f"Inherited from the prototype. Displayed values already apply this unique wonder's x{base_effect_multiplier} "
+                "base-effect multiplier; edit the prototype wonder to modify the underlying modifier list."
+            )
             if inherits_from_prototype
             else "Structured editor for data/wonder_mechanics.yaml base_modifiers entries."
+        )
+        base_modifier_mapping = self.mechanics_data.get("base_modifiers", {}).get(prototype_key, {})
+        displayed_base_modifier_mapping = (
+            scale_numeric_mapping(base_modifier_mapping, base_effect_multiplier)
+            if inherits_from_prototype
+            else base_modifier_mapping
         )
 
         self._add_mechanics_spec(
@@ -2052,7 +2075,7 @@ class WonderLocalizationService:
             file_path=MECHANICS_FILE,
             original_value=serialize_structured_editor_value(
                 build_modifier_editor_state(
-                    self.mechanics_data.get("base_modifiers", {}).get(prototype_key, {}),
+                    displayed_base_modifier_mapping,
                     modifier_scope="country",
                     options=self.country_modifier_options,
                 )
@@ -2064,7 +2087,7 @@ class WonderLocalizationService:
             help_text=base_modifier_help_text,
             target_path=f"base_modifiers.{prototype_key}",
             structured_value=build_modifier_editor_state(
-                self.mechanics_data.get("base_modifiers", {}).get(prototype_key, {}),
+                displayed_base_modifier_mapping,
                 modifier_scope="country",
                 options=self.country_modifier_options,
             ),
