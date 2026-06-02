@@ -364,12 +364,11 @@ def _validate_buildings_section(raw: object, *, design_keys: set[str]) -> dict[s
         entry = _require_mapping(buildings[key], entry_context)
         _expect_keys(
             entry,
-            required={"base_local", "final_local"},
+            required={"final_local"},
             optional={"final_maintenance", "final_attributes"},
             context=entry_context,
         )
         normalized_entry = {
-            "base_local": _validate_modifier_mapping(entry["base_local"], f"{entry_context}.base_local"),
             "final_local": _validate_modifier_mapping(entry["final_local"], f"{entry_context}.final_local"),
         }
         if "final_maintenance" in entry:
@@ -1096,19 +1095,6 @@ def final_building_maintenance(wonder: dict, building_design: dict, building: st
     return building_design.get("final_maintenance", {}).get(building, building_design.get("maintenance", wonder["maintenance"]))
 
 
-def merge_modifier_mappings(*maps: dict | None) -> dict[str, object]:
-    merged: dict[str, object] = {}
-    for mapping in maps:
-        if not mapping:
-            continue
-        for key, value in mapping.items():
-            if isinstance(value, (int, float)) and isinstance(merged.get(key), (int, float)):
-                merged[key] = merged[key] + value
-            else:
-                merged[key] = value
-    return merged
-
-
 def scale_numeric_modifier_mapping(mapping: dict[str, object], multiplier: int | float) -> dict[str, object]:
     if multiplier == 1:
         return dict(mapping)
@@ -1123,10 +1109,7 @@ def scale_numeric_modifier_mapping(mapping: dict[str, object], multiplier: int |
 
 def authored_final_building_local_modifiers(wonder: dict, mechanics: dict) -> dict[str, object]:
     building_design = mechanics["buildings"][mechanic_key(wonder)]
-    modifiers = merge_modifier_mappings(
-        building_design.get("base_local", {}),
-        building_design.get("final_local", {}),
-    )
+    modifiers = building_design.get("final_local", {})
     return scale_numeric_modifier_mapping(modifiers, wonder.get("base_effect_multiplier", 1))
 
 

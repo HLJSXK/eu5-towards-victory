@@ -881,7 +881,6 @@ designs:
         effect: +300 金币，所在地点 +25% 繁荣度。
 buildings:
   sacred_mountain:
-    base_local: {}
     final_local: {}
     final_maintenance:
       tv_wonder_golden_sanctuary: tv_wonder_sacred_monument_maintenance
@@ -891,7 +890,6 @@ buildings:
       tv_wonder_theocratic_center:
         category: government_category
   triumphal_axis:
-    base_local: {}
     final_local: {}
     final_maintenance:
       tv_wonder_sun_king_axis: tv_wonder_axis_monument_maintenance
@@ -907,7 +905,6 @@ buildings:
         pop_type: burghers
         rural_settlement: false
   great_port:
-    base_local: {}
     final_local:
       harbor_suitability: 0.1
       local_trade_center_power: 0.2
@@ -917,7 +914,6 @@ buildings:
       tv_wonder_imperial_naval_port: tv_wonder_port_monument_maintenance
       tv_wonder_free_trade_metropolis: tv_wonder_port_monument_maintenance
   giant_necropolis:
-    base_local: {}
     final_local: {}
     final_maintenance:
       tv_wonder_dynastic_necropolis: tv_wonder_necropolis_maintenance
@@ -929,14 +925,12 @@ buildings:
       tv_wonder_quiet_land:
         pop_type: clergy
   great_lighthouse:
-    base_local: {}
     final_local: {}
     final_maintenance:
       tv_wonder_eternal_lighthouse: tv_wonder_lighthouse_flame_maintenance
       tv_wonder_navigator_lighthouse: tv_wonder_lighthouse_maintenance
       tv_wonder_long_watch_lighthouse: tv_wonder_lighthouse_maintenance
   hydraulic_workshop:
-    base_local: {}
     final_local:
       local_production_efficiency: 0.2
     final_maintenance:
@@ -947,7 +941,6 @@ buildings:
       tv_wonder_hydraulic_artisan_guildhall:
         pop_type: burghers
   mining_city:
-    base_local: {}
     final_local:
       local_max_rgo_size_modifier: 0.5
       local_raw_material_output: 0.1
@@ -959,7 +952,6 @@ buildings:
       tv_wonder_royal_mint_city:
         pop_type: burghers
   giant_observatory:
-    base_local: {}
     final_local: {}
     final_maintenance:
       tv_wonder_star_catalog_observatory: tv_wonder_sacred_monument_maintenance
@@ -969,14 +961,12 @@ buildings:
       tv_wonder_nautical_almanac_observatory:
         pop_type: burghers
   palace_of_nations:
-    base_local: {}
     final_local: {}
     final_maintenance:
       tv_wonder_congress_palace: tv_wonder_axis_monument_maintenance
       tv_wonder_tribute_gallery: tv_wonder_axis_monument_maintenance
       tv_wonder_embassy_palace: tv_wonder_axis_monument_maintenance
   university_city:
-    base_local: {}
     final_local:
       local_pop_promotion_speed: 10
       local_max_literacy: 10
@@ -992,14 +982,12 @@ buildings:
       tv_wonder_collegiate_charter:
         rural_settlement: false
   sky_dome_grand_temple:
-    base_local: {}
     final_local: {}
     final_maintenance:
       tv_wonder_dome_consecration: tv_wonder_sacred_monument_maintenance
       tv_wonder_pilgrim_treasury: tv_wonder_sacred_monument_maintenance
       tv_wonder_celestial_synod: tv_wonder_sacred_monument_maintenance
   giant_tower_temple:
-    base_local: {}
     final_local:
       local_pop_assimilation_speed: 20
       local_pop_conversion_speed: 20
@@ -1008,7 +996,6 @@ buildings:
       tv_wonder_pilgrim_stair_temple: tv_wonder_sacred_monument_maintenance
       tv_wonder_temple_school_tower: tv_wonder_sacred_monument_maintenance
   river_extension:
-    base_local: {}
     final_local:
       local_distance_from_capital_speed_propagation: 0.1
       local_monthly_development_modifier: 0.1
@@ -1018,7 +1005,6 @@ buildings:
       tv_wonder_river_fair: tv_wonder_hydraulic_workshop_maintenance
       tv_wonder_canal_authority: tv_wonder_hydraulic_workshop_maintenance
   national_shipyard:
-    base_local: {}
     final_local:
       local_ship_build_speed: 0.2
       max_ships_built_at_same_time: 1
@@ -1028,7 +1014,6 @@ buildings:
       tv_wonder_fleet_muster_yard: tv_wonder_port_monument_maintenance
       tv_wonder_admiralty_yard: tv_wonder_port_monument_maintenance
   star_fortress_city:
-    base_local: {}
     final_local:
       local_defensive: 0.2
       local_garrison_size: 250
@@ -1045,7 +1030,6 @@ buildings:
       tv_wonder_arsenal_quarter_fortress:
         rural_settlement: false
   great_wall:
-    base_local: {}
     final_local:
       local_defensive: 0.2
       local_garrison_size: 250
@@ -1065,7 +1049,6 @@ buildings:
         city: false
         megalopolis: false
   giant_armory:
-    base_local: {}
     final_local:
       local_manpower_modifier: 0.5
     final_maintenance:
@@ -1080,184 +1063,132 @@ buildings:
       tv_wonder_master_armourers:
         rural_settlement: false
   library_of_nation:
-    base_local: {}
     final_local: {}
     final_maintenance:
       tv_wonder_national_catalog_library: tv_wonder_sacred_monument_maintenance
       tv_wonder_copyists_endowment_library: tv_wonder_sacred_monument_maintenance
       tv_wonder_legal_deposit_library: tv_wonder_sacred_monument_maintenance
   large_canal_system:
-    base_local:
-      local_monthly_development_modifier: 0.05
-      local_distance_from_capital_speed_propagation: 0.1
     final_local:
-      local_monthly_development_modifier: 0.05
-      local_distance_from_capital_speed_propagation: 0.1
+      local_monthly_development_modifier: 0.1
+      local_distance_from_capital_speed_propagation: 0.2
       local_unrest: -0.05
   mountain_terrace_network:
-    base_local:
-      local_max_rgo_size_modifier: 0.25
-      local_raw_material_output: 0.05
     final_local:
-      local_max_rgo_size_modifier: 0.2
-      local_raw_material_output: 0.1
+      local_max_rgo_size_modifier: 0.45
+      local_raw_material_output: 0.15
       local_clergy_estate_power: 0.25
   giant_dam_project:
-    base_local:
-      local_defensive: 0.1
-      local_production_efficiency: 0.1
     final_local:
-      local_defensive: 0.1
+      local_defensive: 0.2
+      local_production_efficiency: 0.3
       local_max_rgo_size_modifier: 0.15
-      local_production_efficiency: 0.2
   royal_granary_system:
-    base_local:
-      local_migration_attraction: 1
-      local_unrest: -0.05
     final_local:
-      local_unrest: -0.05
+      local_migration_attraction: 2
+      local_unrest: -0.1
       local_garrison_size: 250
-      local_migration_attraction: 1
   imperial_post_road_network:
-    base_local:
+    final_local:
       local_distance_from_capital_speed_propagation: 0.15
       local_monthly_development_modifier: 0.05
-    final_local:
       local_manpower_modifier: 0.15
       local_trade_center_power: 0.15
       local_nobles_estate_power: 0.25
   canal_hub_city:
-    base_local:
-      local_trade_center_power: 0.2
-      local_production_efficiency: 0.1
     final_local:
+      local_trade_center_power: 0.4
+      local_production_efficiency: 0.3
       local_distance_from_capital_speed_propagation: 0.1
-      local_trade_center_power: 0.2
-      local_production_efficiency: 0.2
   frontier_colonization_belt:
-    base_local:
-      local_migration_attraction: 2
-      local_max_rgo_size_modifier: 0.15
     final_local:
+      local_migration_attraction: 4
+      local_max_rgo_size_modifier: 0.15
       local_manpower_modifier: 0.2
-      local_migration_attraction: 2
       local_pop_conversion_speed: 20
   coastal_beacon_network:
-    base_local:
-      local_defensive: 0.15
-      local_garrison_size: 150
     final_local:
+      local_defensive: 0.3
+      local_garrison_size: 400
       local_distance_from_capital_speed_propagation: 0.1
-      local_defensive: 0.15
-      local_garrison_size: 250
       local_trade_center_power: 0.1
   knightly_fortress_order:
-    base_local:
-      local_defensive: 0.15
-      local_nobles_estate_power: 0.25
     final_local:
+      local_defensive: 0.15
+      local_nobles_estate_power: 0.5
       local_clergy_estate_power: 0.25
-      local_nobles_estate_power: 0.25
       local_manpower_modifier: 0.15
   war_college_system:
-    base_local:
-      local_manpower_modifier: 0.15
-      local_pop_promotion_speed: 5
     final_local:
-      local_manpower_modifier: 0.1
+      local_manpower_modifier: 0.25
+      local_pop_promotion_speed: 5
       local_nobles_estate_power: 0.2
       local_ship_build_speed: 0.1
   great_clock_bell_system:
-    base_local:
-      local_cultural_tradition: 0.5
-      local_pop_conversion_speed: 10
     final_local:
-      local_pop_conversion_speed: 20
+      local_cultural_tradition: 0.5
+      local_pop_conversion_speed: 30
       local_unrest: -0.05
       local_max_literacy: 5
   royal_art_district:
-    base_local:
-      local_cultural_tradition: 0.8
-      local_cultural_influence: 0.8
     final_local:
+      local_cultural_tradition: 1.8
+      local_cultural_influence: 1.8
       local_nobles_estate_power: 0.2
-      local_cultural_tradition: 1
-      local_cultural_influence: 1
   grand_theater_festival_district:
-    base_local:
-      local_cultural_tradition: 0.6
-      local_unrest: -0.05
     final_local:
+      local_cultural_tradition: 0.6
+      local_unrest: -0.1
       local_nobles_estate_power: 0.15
       local_pop_conversion_speed: 15
-      local_unrest: -0.05
   world_embassy_quarter:
-    base_local:
-      local_cultural_influence: 0.5
-      local_trade_center_power: 0.1
     final_local:
-      local_trade_center_power: 0.15
+      local_cultural_influence: 0.5
+      local_trade_center_power: 0.25
       local_nobles_estate_power: 0.15
       local_clergy_estate_power: 0.15
   law_code_stele_project:
-    base_local:
+    final_local:
       local_unrest: -0.05
       local_cultural_tradition: 0.4
-    final_local:
       local_clergy_estate_power: 0.2
       local_max_control: 0.05
       local_nobles_estate_power: 0.2
   world_market:
-    base_local:
-      local_trade_center_power: 0.25
-      local_migration_attraction: 1
     final_local:
-      local_trade_center_power: 0.2
+      local_trade_center_power: 0.45
+      local_migration_attraction: 1
       local_unrest: -0.05
       local_distance_from_capital_speed_propagation: 0.1
   royal_mint_system:
-    base_local:
-      local_trade_center_power: 0.15
-      local_production_efficiency: 0.1
     final_local:
-      local_trade_center_power: 0.25
-      local_production_efficiency: 0.1
-  guild_alliance:
-    base_local:
-      local_production_efficiency: 0.15
-      local_burghers_estate_power: 0.25
-    final_local:
-      local_production_efficiency: 0.15
-      local_trade_center_power: 0.15
-      local_burghers_estate_power: 0.25
-  maritime_trade_station_network:
-    base_local:
-      local_trade_center_power: 0.2
-      local_ship_build_speed: 0.1
-    final_local:
-      local_trade_center_power: 0.2
-      local_migration_attraction: -0.5
-      local_ship_build_speed: 0.15
-  giant_workshop_complex:
-    base_local:
-      local_production_efficiency: 0.25
-      local_pop_promotion_speed: 5
-    final_local:
+      local_trade_center_power: 0.4
       local_production_efficiency: 0.2
+  guild_alliance:
+    final_local:
+      local_production_efficiency: 0.3
+      local_burghers_estate_power: 0.5
+      local_trade_center_power: 0.15
+  maritime_trade_station_network:
+    final_local:
+      local_trade_center_power: 0.4
+      local_ship_build_speed: 0.25
+      local_migration_attraction: -0.5
+  giant_workshop_complex:
+    final_local:
+      local_production_efficiency: 0.45
+      local_pop_promotion_speed: 5
       local_manpower_modifier: 0.15
       local_cultural_influence: 0.8
   world_monument_group:
-    base_local:
-      local_cultural_tradition: 0.8
-      local_cultural_influence: 0.8
     final_local:
+      local_cultural_tradition: 0.8
+      local_cultural_influence: 1.8
       local_manpower_modifier: 0.1
       local_unrest: -0.05
-      local_cultural_influence: 1
   city_expansion_project:
-    base_local:
+    final_local:
       free_building_levels: 20
-    final_local: {}
     final_attributes:
       tv_wonder_city_charter:
         rural_settlement: false

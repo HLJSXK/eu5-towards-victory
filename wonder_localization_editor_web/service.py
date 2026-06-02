@@ -637,10 +637,9 @@ def _modifier_option_catalog(
     for building in mechanics_data.get("buildings", {}).values():
         if not isinstance(building, dict):
             continue
-        for field_name in ("base_local", "final_local"):
-            local_mapping = building.get(field_name, {})
-            if isinstance(local_mapping, dict):
-                local_modifiers.update(str(key) for key in local_mapping)
+        local_mapping = building.get("final_local", {})
+        if isinstance(local_mapping, dict):
+            local_modifiers.update(str(key) for key in local_mapping)
 
     for ritual in mechanics_data.get("generic_rituals", {}).values():
         if not isinstance(ritual, dict):
@@ -2075,7 +2074,6 @@ class WonderLocalizationService:
             else base_modifier_mapping
         )
         building_design = self.mechanics_data.get("buildings", {}).get(prototype_key, {})
-        base_local_mapping = building_design.get("base_local", {})
         final_local_mapping = building_design.get("final_local", {})
         displayed_final_building_local_mapping = (
             authored_final_building_local_modifiers(wonder, self.mechanics)
@@ -2147,36 +2145,14 @@ class WonderLocalizationService:
                 height=10,
                 help_text=(
                     f"Inherited from prototype. Displayed values already apply this unique wonder's x{base_effect_multiplier} "
-                    "multiplier to the prototype's authored base_local + shared final_local package; edit the prototype wonder to modify the source."
+                    "multiplier to the prototype's authored final_local package; edit the prototype wonder to modify the source."
                 ),
-                target_path=f"buildings.{prototype_key}.base_local + buildings.{prototype_key}.final_local",
+                target_path=f"buildings.{prototype_key}.final_local",
                 structured_value=inherited_local_state,
                 editable=False,
                 prototype_key=prototype_key,
             )
         else:
-            base_local_state = build_modifier_editor_state(
-                base_local_mapping,
-                modifier_scope="local",
-                options=self.local_modifier_options,
-            )
-            self._add_mechanics_spec(
-                specs,
-                group="Final Building Local Effects",
-                label="Base local effects",
-                key=f"mechanics.building_local.{wonder['key']}.base_local",
-                source_kind=shared_source_kind,
-                file_path=MECHANICS_FILE,
-                original_value=serialize_structured_editor_value(base_local_state),
-                field_type="modifier_table",
-                target_kind="building_local",
-                target_key=prototype_key,
-                target_parent_key="base_local",
-                height=10,
-                help_text="Local effects applied to every final building before the shared final-local layer.",
-                target_path=f"buildings.{prototype_key}.base_local",
-                structured_value=base_local_state,
-            )
             final_local_state = build_modifier_editor_state(
                 final_local_mapping,
                 modifier_scope="local",
