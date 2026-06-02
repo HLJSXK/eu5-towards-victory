@@ -149,6 +149,94 @@ tv_appoint_governor = {
 	}
 }
 
+# Automatically appoints the highest-total-ability eligible characters into empty
+# regional governor seats until there are no empty regions or no candidates.
+tv_auto_assign_governors = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+
+	potential = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			scope:actor = { has_variable = tv_govhouse_member }
+		}
+		custom_tooltip = {
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
+		scope:actor = {
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				is_female = no
+				is_artist = no
+			}
+		}
+		custom_tooltip = {
+			text = TV_GOVHOUSE_HAS_EMPTY_GOVERNOR_REGION_TT
+			scope:actor = {
+				any_in_list = { variable = tv_govhouse_region_list
+					save_temporary_scope_as = tv_govhouse_auto_candidate_region
+					any_location_in_region = {
+						owner ?= scope:actor
+					}
+					NOT = {
+						scope:actor = {
+							any_in_list = { variable = tv_governor_list
+								OR = {
+									var:tv_governed_region ?= scope:tv_govhouse_auto_candidate_region
+									var:tv_governed_area ?= {
+										region = scope:tv_govhouse_auto_candidate_region
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			text = TV_GOVHOUSE_HAS_ELIGIBLE_GOVERNOR_CHARACTER_TT
+			scope:actor = {
+				any_character = {
+					is_alive = yes
+					is_adult = yes
+					is_female = no
+					is_artist = no
+					is_ruler = no
+					is_heir = no
+					is_consort = no
+					is_loyal = yes
+					custom_tooltip = {
+						text = TV_HAS_VARIABLE_NOT_SET_TT
+						NOT = { has_variable = tv_is_governor }
+					}
+				}
+			}
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				tv_governor_auto_assign_effect = yes
+			}
+		}
+	}
+
+	ai_will_do = {
+		add = 0
+	}
+}
+
 # Dismisses the governor assigned to the region pre-set as scope:target_1 by the UI.
 tv_remove_governor = {
 	type = owncountry

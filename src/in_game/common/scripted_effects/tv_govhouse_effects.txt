@@ -2510,6 +2510,119 @@ tv_governor_appoint_effect = {
 	}
 }
 
+# Fills empty Local Governor seats with the highest total-ability eligible
+# characters, stopping when all owned regions have governors or no candidate
+# remains. Scope: country.
+tv_governor_auto_assign_effect = {
+	save_scope_as = tv_governing_country
+	tv_apply_governor_bonuses_effect = yes
+	set_variable = { name = tv_govhouse_auto_assign_continue value = 1 }
+	set_variable = { name = tv_govhouse_auto_assign_safety value = 0 }
+	while = {
+		limit = {
+			has_variable = tv_govhouse_auto_assign_continue
+			var:tv_govhouse_auto_assign_continue ?= { this > 0 }
+			var:tv_govhouse_auto_assign_safety ?= { this < 200 }
+			any_in_list = { variable = tv_govhouse_region_list
+				save_temporary_scope_as = tv_govhouse_auto_candidate_region
+				any_location_in_region = {
+					owner ?= scope:tv_governing_country
+				}
+				NOT = {
+					scope:tv_governing_country = {
+						any_in_list = { variable = tv_governor_list
+							OR = {
+								var:tv_governed_region ?= scope:tv_govhouse_auto_candidate_region
+								var:tv_governed_area ?= {
+									region = scope:tv_govhouse_auto_candidate_region
+								}
+							}
+						}
+					}
+				}
+			}
+			any_character = {
+				is_alive = yes
+				is_adult = yes
+				is_female = no
+				is_artist = no
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_loyal = yes
+				NOT = { has_variable = tv_is_governor }
+			}
+		}
+		set_variable = { name = tv_govhouse_auto_assign_continue value = 0 }
+		change_variable = { name = tv_govhouse_auto_assign_safety add = 1 }
+		random_in_list = { variable = tv_govhouse_region_list
+			limit = {
+				save_temporary_scope_as = tv_govhouse_auto_candidate_region
+				any_location_in_region = {
+					owner ?= scope:tv_governing_country
+				}
+				NOT = {
+					scope:tv_governing_country = {
+						any_in_list = { variable = tv_governor_list
+							OR = {
+								var:tv_governed_region ?= scope:tv_govhouse_auto_candidate_region
+								var:tv_governed_area ?= {
+									region = scope:tv_govhouse_auto_candidate_region
+								}
+							}
+						}
+					}
+				}
+			}
+			save_scope_as = target_1
+		}
+		ordered_character = {
+			limit = {
+				is_alive = yes
+				is_adult = yes
+				is_female = no
+				is_artist = no
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_loyal = yes
+				NOT = { has_variable = tv_is_governor }
+			}
+			order_by = total_abilities
+			max = 1
+			check_range_bounds = no
+			save_scope_as = target
+		}
+		if = {
+			limit = {
+				exists = scope:target
+				exists = scope:target_1
+				scope:target = {
+					is_alive = yes
+					is_adult = yes
+					is_female = no
+					is_artist = no
+					is_ruler = no
+					is_heir = no
+					is_consort = no
+					is_loyal = yes
+					NOT = { has_variable = tv_is_governor }
+				}
+				scope:target_1 = {
+					any_location_in_region = {
+						owner ?= scope:tv_governing_country
+					}
+				}
+			}
+			tv_governor_appoint_effect = yes
+			set_variable = { name = tv_govhouse_auto_assign_continue value = 1 }
+		}
+	}
+	remove_variable = tv_govhouse_auto_assign_continue
+	remove_variable = tv_govhouse_auto_assign_safety
+	tv_govhouse_refresh_region_list_effect = yes
+}
+
 # Dismisses a governor, removing their location modifiers.
 # Scope: country. Prefer scope:target_1 = region (set via GUI button parameter).
 # Legacy scope:recipient = governor character is still accepted for old UI/save compatibility.

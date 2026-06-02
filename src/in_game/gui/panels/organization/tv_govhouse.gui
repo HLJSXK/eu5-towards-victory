@@ -355,6 +355,24 @@ organization_panel = {
 						layoutpolicy_horizontal = expanding
 						spacing = 4
 
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 6
+
+							action_button_diamond = {
+								size = { 230 26 }
+								enabled = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+								text = "tv_auto_assign_governors"
+								title = "tv_auto_assign_governors"
+								actor = "[InternationalOrganizationsView.GetPlayer]"
+								left_action = {
+									action_name = "tv_auto_assign_governors"
+								}
+							}
+
+							expand = {}
+						}
+
 						text_single = {
 							layoutpolicy_horizontal = expanding
 							visible = "[Not(DataModelHasItems(InternationalOrganizationsView.GetPlayer.MakeScope.GetList('tv_govhouse_region_display_list')))]"
