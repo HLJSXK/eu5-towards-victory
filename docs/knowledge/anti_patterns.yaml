@@ -184,6 +184,17 @@
   source: "user-reported runtime stutter from Trade League IO monthly_effect maintenance (2026-05-22)"
   notes: "For this generated high-cardinality system, even hidden IO monthly maintenance was too expensive. A country pulse turns the work into a cheap country membership/leader check before the heavy IO refresh runs."
 
+- id: trade_league_intelligence_merchant_power_stale
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['tv_trade_league_effects', 'gen_tv_trade_league_effects']
+  bad: "Refreshing Trade League commercial-intelligence merchant power by repeatedly adding a temporary months=2 modifier, or adding permanent merchant power without first clearing the keyed state."
+  correction: "For each monthly intelligence refresh, clear only the tv_trade_intelligence_network merchant-power key from previously tracked markets, then reapply months = -1 merchant power for current Trade League members only when the current floor strength is at least 1. Also clear that same key when the Grand Merchant becomes invalid."
+  category: script
+  scope: international_organization
+  source: "fixed in scripts/in_game/common/scripted_effects/gen_tv_trade_league_effects.py (2026-06-03); reference_game_files/game/in_game/common/effect_localization/market_effects.txt:16; reference_game_files/game/in_game/events/diplomacy/overextension.txt:149-153"
+  notes: "Commercial-intelligence strength is leader-country state, but merchant power is market/country keyed state. Permanent application must be synchronized by key so inactive decay, cancellation, death, and membership changes cannot leave stale power, while monopoly embargo keys remain independent."
+
 - id: tv_io_initial_laws_seeded
   pattern: '(?:^\s*default:\s*true\s*$|(?s:tv_trade_league\s*=\s*\{.*?\blaws\s*=\s*\{\s*\w))'
   detectability: lint

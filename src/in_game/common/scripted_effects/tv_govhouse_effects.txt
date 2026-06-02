@@ -964,6 +964,22 @@ tv_govhouse_update_plan_progress_effect = {
 				min = 0
 			}
 		}
+		if = {
+			limit = {
+				NOT = { has_variable = tv_govhouse_plan_cb_granted }
+				has_variable = tv_govhouse_plan_target
+				var:tv_govhouse_plan_type = 1
+				var:tv_govhouse_plan_progress >= 100
+			}
+			var:tv_govhouse_plan_target ?= {
+				save_scope_as = tv_govhouse_plan_cb_target
+			}
+			if = {
+				limit = { exists = scope:tv_govhouse_plan_cb_target }
+				set_variable = { name = tv_govhouse_plan_cb_granted value = 1 }
+				trigger_event_non_silently = { id = tv_govhouse.43 }
+			}
+		}
 	}
 	tv_govhouse_update_plan_display_effect = yes
 }
@@ -1070,6 +1086,7 @@ tv_govhouse_clear_war_plan_effect = {
 	remove_variable = tv_govhouse_plan_tactics_value
 	remove_variable = tv_govhouse_plan_target_war_active
 	remove_variable = tv_govhouse_plan_activation_pending
+	remove_variable = tv_govhouse_plan_cb_granted
 }
 
 tv_govhouse_clear_war_tent_effect = {

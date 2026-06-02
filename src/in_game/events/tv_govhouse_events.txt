@@ -416,6 +416,41 @@ tv_govhouse.42 = {
 	}
 }
 
+tv_govhouse.43 = {
+	type = country_event
+	title = tv_govhouse.43.t
+	desc = tv_govhouse.43.d
+	outcome = good
+
+	immediate = {
+		if = {
+			limit = { has_variable = tv_govhouse_plan_target }
+			var:tv_govhouse_plan_target ?= {
+				save_scope_as = tv_govhouse_plan_cb_target
+			}
+		}
+	}
+
+	option = {
+		name = tv_govhouse.43.a
+		if = {
+			limit = {
+				exists = scope:tv_govhouse_plan_cb_target
+				NOT = {
+					has_casus_belli_of_type_on = {
+						target = scope:tv_govhouse_plan_cb_target
+						type = casus_belli:cb_war_from_event
+					}
+				}
+			}
+			add_casus_belli = {
+				target = scope:tv_govhouse_plan_cb_target
+				type = casus_belli:cb_war_from_event
+			}
+		}
+	}
+}
+
 # ── Regional Governor random events ─────────────────────────────────────────
 tv_govhouse.100 = {
 	type = country_event

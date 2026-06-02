@@ -67,6 +67,96 @@ organization_panel = {
 			}
 
 			expand = {}
+
+			card_common = {
+				layoutpolicy_horizontal = fixed
+				layoutpolicy_vertical = fixed
+				minimumsize = { 330 82 }
+				maximumsize = { 330 82 }
+
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+				}
+
+				blockoverride "common_header_text" {
+					text = "TV_ENGINEERING_CURRENT_GUIDANCE_CARD_TITLE"
+				}
+
+				blockoverride "common_bottom_content" {
+					widget = {
+						size = { 306 42 }
+						vbox = {
+							margin = { 8 4 }
+							layoutpolicy_horizontal = expanding
+							ignoreinvisible = yes
+
+							text_multi = {
+								visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet)]"
+								max_width = 290
+								autoresize = yes
+								text = "TV_ENGINEERING_HEADER_GUIDANCE_NO_ENGINEER"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)1.0'), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').IsSet))]"
+								max_width = 290
+								autoresize = yes
+								text = "TV_ENGINEERING_HEADER_GUIDANCE_NO_PROPOSAL"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)1.0'), Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').IsSet))]"
+								max_width = 290
+								autoresize = yes
+								text = "TV_ENGINEERING_HEADER_GUIDANCE_PROPOSAL"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)1.0'))]"
+								max_width = 290
+								autoresize = yes
+								text = "TV_ENGINEERING_HEADER_GUIDANCE_DEBATE"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet)), And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0'), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)))]"
+								max_width = 290
+								autoresize = yes
+								text = "TV_ENGINEERING_HEADER_GUIDANCE_SURVEY"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+								max_width = 290
+								autoresize = yes
+								text = "TV_ENGINEERING_HEADER_GUIDANCE_CONFIRM_SITE"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_complete').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet)))]"
+								max_width = 290
+								autoresize = yes
+								text = "TV_ENGINEERING_HEADER_GUIDANCE_BUILD"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_complete').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet))]"
+								max_width = 290
+								autoresize = yes
+								text = "TV_ENGINEERING_HEADER_GUIDANCE_CEREMONY"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet)]"
+								max_width = 290
+								autoresize = yes
+								text = "TV_ENGINEERING_HEADER_GUIDANCE_FINALIZED"
+								align = nobaseline|left
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 	blockoverride "country_header_names_visible" {

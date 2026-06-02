@@ -783,6 +783,9 @@
  tv_govhouse.42.t: "[tv_war_tent|E]：防御计划启动"
  tv_govhouse.42.d: "我们已卷入一场防御战争。[tv_war_tent|E]展开预先拟定的[tv_war_plan|e]：要塞账册、预备路线、后撤线，以及在恐慌有机会握笔之前写好的战场条令。和平时期看似谨慎的东西，如今显得像远见。驻军得到更清楚的命令，指挥官认出自己被分配的阵地，敌人迎上的不是散乱恐惧，而是排练过的抵抗。防御一旦准备充分，也会拥有记忆。"
  tv_govhouse.42.a: "执行计划。"
+ tv_govhouse.43.t: "[tv_war_tent|E]：战簿已备"
+ tv_govhouse.43.d: "针对[SCOPE.sCountry('tv_govhouse_plan_cb_target').GetName]的进攻[tv_war_plan|e]已经抵达最后余量。地图不再更改，补给表上的数字旁都写好了名字。道路、仓站与围城日程全都指向同一方向，[tv_war_tent|E]终于可以把即将到来的战役说成必要，而不是临机起意。\n\n我们将获得针对[SCOPE.sCountry('tv_govhouse_plan_cb_target').GetName]的[ShowCasusBelliName('cb_war_from_event')][casus_belli|E]。"
+ tv_govhouse.43.a: "封存军令。"
 
  STATIC_MODIFIER_NAME_tv_govhouse_tactic_steady_advance: "[tv_war_tent|E]：稳步进军"
  STATIC_MODIFIER_NAME_tv_govhouse_tactic_careful_advance: "[tv_war_tent|E]：谨慎推进"
