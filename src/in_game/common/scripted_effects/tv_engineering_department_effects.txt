@@ -1571,6 +1571,8 @@ tv_wonder_clear_current_survey_effect = {
 	remove_variable = tv_wonder_logistics_progress_percent
 	remove_variable = tv_wonder_organization_site_level_cap
 	remove_variable = tv_wonder_monthly_construction_progress
+	remove_variable = tv_wonder_ceremony_style
+	remove_variable = tv_wonder_ceremony_locked
 	tv_wonder_set_io_survey_progress_effect = { value = 0 }
 }
 
@@ -1731,10 +1733,7 @@ tv_wonder_select_construction_site_effect = {
 		remove_variable = tv_wonder_construction_paused
 		tv_wonder_update_construction_tiers_from_competence_effect = yes
 		tv_wonder_initialize_construction_parts_effect = yes
-		if = {
-			limit = { has_variable = tv_wonder_resume_project }
-			tv_wonder_restore_locked_wonder_final_building_state_effect = yes
-		}
+		tv_wonder_restore_locked_wonder_final_building_state_effect = yes
 		tv_wonder_update_wonder_level_effect = yes
 		tv_wonder_update_logistics_metrics_effect = yes
 		tv_wonder_apply_survey_site_support_effect = yes
