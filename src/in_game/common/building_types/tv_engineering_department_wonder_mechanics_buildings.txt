@@ -2516,7 +2516,7 @@ tv_wonder_keel_laying_yard = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_ship_build_speed = 0.2
+		local_ship_build_speed = 0.4
 		max_ships_built_at_same_time = 1
 		harbor_suitability = 0.1
 	}
@@ -2563,7 +2563,7 @@ tv_wonder_fleet_muster_yard = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_ship_build_speed = 0.2
+		local_ship_build_speed = 0.4
 		max_ships_built_at_same_time = 1
 		harbor_suitability = 0.1
 	}
@@ -2610,7 +2610,7 @@ tv_wonder_admiralty_yard = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_ship_build_speed = 0.2
+		local_ship_build_speed = 0.4
 		max_ships_built_at_same_time = 1
 		harbor_suitability = 0.1
 	}
@@ -2658,9 +2658,7 @@ tv_wonder_national_shipyard_ritual_annex = {
 	construction_demand = port_building_construction
 
 	modifier = {
-		local_ship_build_speed = 0.2
-		max_ships_built_at_same_time = 1
-		harbor_suitability = 0.1
+		local_monthly_development_modifier = 0.2
 		local_burghers_estate_power = 0.5
 	}
 
@@ -8408,7 +8406,7 @@ tv_wonder_unique_venetian_arsenal_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_ship_build_speed = 0.4
+		local_ship_build_speed = 0.8
 		max_ships_built_at_same_time = 2
 		harbor_suitability = 0.2
 	}
@@ -9389,7 +9387,7 @@ tv_wonder_unique_british_navy_dockyards_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_ship_build_speed = 0.4
+		local_ship_build_speed = 0.8
 		max_ships_built_at_same_time = 2
 		harbor_suitability = 0.2
 	}
@@ -9577,7 +9575,7 @@ tv_wonder_unique_longjiang_shipyard_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_ship_build_speed = 0.4
+		local_ship_build_speed = 0.8
 		max_ships_built_at_same_time = 2
 		harbor_suitability = 0.2
 	}

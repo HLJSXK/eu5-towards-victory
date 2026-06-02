@@ -1006,7 +1006,7 @@ buildings:
       tv_wonder_canal_authority: tv_wonder_hydraulic_workshop_maintenance
   national_shipyard:
     final_local:
-      local_ship_build_speed: 0.2
+      local_ship_build_speed: 0.4
       max_ships_built_at_same_time: 1
       harbor_suitability: 0.1
     final_maintenance:
@@ -1393,19 +1393,15 @@ generic_rituals:
   national_shipyard:
     style_1:
       country_modifier:
-        ship_build_speed: 0.08
+        ship_build_speed: 0.2
     style_2:
       local_modifier:
-        local_ship_build_speed: 0.2
-        max_ships_built_at_same_time: 1
-        harbor_suitability: 0.1
+        local_monthly_development_modifier: 0.2
     style_3:
       cost_type: scaled_gold
       reward:
-      - type: manpower
-        value: 5000
       - type: prestige
-        value: 30
+        value: 100
   star_fortress_city:
     style_1:
       country_modifier:

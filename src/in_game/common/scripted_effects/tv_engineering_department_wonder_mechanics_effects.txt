@@ -7182,8 +7182,7 @@ tv_wonder_national_shipyard_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_national_shipyard_ritual_3_effect_tooltip_effect = {
-	add_manpower = 5000
-	add_prestige = 30
+	add_prestige = 100
 }
 
 tv_wonder_star_fortress_city_ritual_1_requirement_tooltip_effect = {
@@ -15048,8 +15047,7 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 3 }
-		add_manpower = 5000
-		add_prestige = 30
+		add_prestige = 100
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 3 }
