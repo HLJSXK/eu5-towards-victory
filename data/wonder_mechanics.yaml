@@ -1161,9 +1161,7 @@ buildings:
       local_unrest: -0.05
       local_distance_from_capital_speed_propagation: 0.1
   royal_mint_system:
-    final_local:
-      local_trade_center_power: 0.4
-      local_production_efficiency: 0.2
+    final_local: {}
   guild_alliance:
     final_local:
       local_production_efficiency: 0.3
@@ -1701,17 +1699,15 @@ generic_rituals:
   royal_mint_system:
     style_1:
       country_modifier:
-        minting_income_factor: 0.06
+        minting_income_factor: 0.1
     style_2:
       local_modifier:
-        local_production_efficiency: 0.1
+        local_production_efficiency: 0.2
     style_3:
-      cost_type: scaled_gold
+      cost_type: prestige
       reward:
       - type: gold
-        value: 500
-      - type: legitimacy
-        value: 5
+        value: 20000
   guild_alliance:
     style_1:
       country_modifier:
@@ -1882,8 +1878,7 @@ base_modifiers:
     trade_income: 0.03
     global_monthly_prosperity: 0.001
   royal_mint_system:
-    minting_income_factor: 0.03
-    tax_income_efficiency: 0.01
+    minting_income_factor: 0.1
   guild_alliance:
     global_production_efficiency: 0.03
     trade_income: 0.01
@@ -2137,462 +2132,184 @@ ceremony_modifiers:
     diplomatic_reputation: 1
     monthly_prestige: 0.05
 site_rules:
-  sacred_mountain:
-    trigger_script: "OR = {\n\ttopography = mountains\n\ttopography = plateau\n\t\
-      topography = hills\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 7.5 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = hills } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 0 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { vegetation =\
-      \ forest } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 10 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { vegetation\
-      \ = woods } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 5 }\n}"
-  triumphal_axis:
-    trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank\
-      \ ?= location_rank:megalopolis\n}"
-    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value\
-      \ = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus\
-      \ min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus\
-      \ multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site\
-      \ ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
-  great_port:
-    trigger_script: is_port = yes
-    preference_script: 'set_variable = { name = tv_wonder_site_preference_bonus value
-      = var:tv_wonder_survey_site.modifier:harbor_suitability }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
-
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 25 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      remove_variable = tv_wonder_site_preference_bonus'
-  giant_necropolis:
-    trigger_script: location_rank ?= location_rank:rural_settlement
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = hills } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 15 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { any_neighbor_location\
-      \ = { tv_wonder_location_is_city_trigger = yes } } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 10 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?=\
-      \ { any_neighbor_location = { tv_wonder_location_is_town_trigger = yes } } }\n\
-      tv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}"
-  great_lighthouse:
-    trigger_script: is_port = yes
-    preference_script: 'set_variable = { name = tv_wonder_site_preference_bonus value
-      = var:tv_wonder_survey_site.modifier:harbor_suitability }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
-
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 25 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      remove_variable = tv_wonder_site_preference_bonus'
-  hydraulic_workshop:
-    trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n}"
-    preference_script: 'set_variable = { name = tv_wonder_site_preference_bonus value
-      = var:tv_wonder_survey_site.total_building_levels }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100
-      }
-
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      remove_variable = tv_wonder_site_preference_bonus'
-  mining_city:
-    trigger_script: "OR = {\n\traw_material = goods:iron\n\traw_material = goods:copper\n\
-      \traw_material = goods:tin\n\traw_material = goods:lead\n\traw_material = goods:silver\n\
-      \traw_material = goods:goods_gold\n}"
-    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value\
-      \ = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus\
-      \ min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus\
-      \ multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site\
-      \ ?= { location_rank ?= location_rank:rural_settlement } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
-  giant_observatory:
-    trigger_script: "OR = {\n\ttopography = mountains\n\ttopography = plateau\n\t\
-      topography = hills\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 7.5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value\
-      \ = var:tv_wonder_survey_site.average_location_literacy }\nclamp_variable =\
-      \ { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable\
-      \ = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  palace_of_nations:
-    trigger_script: is_capital = yes
-    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value\
-      \ = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus\
-      \ min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus\
-      \ multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site\
-      \ ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
-  university_city:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank\
-      \ ?= location_rank:city } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?=\
-      \ { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus\
-      \ value = var:tv_wonder_survey_site.average_location_literacy }\nclamp_variable\
-      \ = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable\
-      \ = { name = tv_wonder_site_preference_bonus multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  sky_dome_grand_temple:
-    trigger_script: dominant_religion = owner.religion
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building\
-      \ = building_type:monastery } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building\
-      \ = building_type:cathedral } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { dominant_religion\
-      \ = owner.religion } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 15 }\n}"
-  giant_tower_temple:
-    trigger_script: always = yes
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building\
-      \ = building_type:monastery } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building\
-      \ = building_type:cathedral } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { dominant_religion\
-      \ = owner.religion } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 15 }\n}"
-  river_extension:
-    trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n}"
-    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value\
-      \ = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus\
-      \ min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus\
-      \ multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site\
-      \ ?= { has_building = building_type:bridge_infrastructure } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { any_neighbor_location\
-      \ = { has_building = building_type:tv_wonder_bridge_opening } } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 10 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
-  national_shipyard:
-    trigger_script: is_port = yes
-    preference_script: 'set_variable = { name = tv_wonder_site_preference_bonus value
-      = var:tv_wonder_survey_site.modifier:harbor_suitability }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
-
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 15 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development
-      }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100
-      }
-
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      remove_variable = tv_wonder_site_preference_bonus'
-  star_fortress_city:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 7.5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level\
-      \ > 0 } }\ntv_wonder_change_all_survey_competence_target_effect = { value =\
-      \ 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank\
-      \ ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}"
-  great_wall:
-    trigger_script: 'NOT = { location_rank ?= location_rank:city }
-
-      NOT = { location_rank ?= location_rank:megalopolis }'
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 7.5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level\
-      \ > 0 } }\ntv_wonder_change_all_survey_competence_target_effect = { value =\
-      \ 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?=\
-      \ location_rank:rural_settlement } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}"
-  giant_armory:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building\
-      \ = building_type:armory } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR\
-      \ = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis\
-      \ } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5\
-      \ }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development\
-      \ }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max =\
-      \ 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply\
-      \ = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value =\
-      \ var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  library_of_nation:
-    trigger_script: is_capital = yes
-    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value\
-      \ = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus\
-      \ min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus\
-      \ multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect =\
-      \ { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site\
-      \ ?= { location_rank ?= location_rank:city } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?=\
-      \ { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 10 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
-  large_canal_system:
-    trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n\tis_port\
-      \ = yes\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = {\
-      \ has_river = yes is_adjacent_to_lake = yes is_port = yes } } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus\
-      \ value = var:tv_wonder_survey_site.development }\nclamp_variable = { name =\
-      \ tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name\
-      \ = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  mountain_terrace_network:
-    trigger_script: "OR = {\n\ttopography = mountains\n\ttopography = plateau\n\t\
-      topography = hills\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 7.5 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography\
-      \ = hills } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 5 }\n}"
-  giant_dam_project:
-    trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n\tis_port\
-      \ = yes\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = {\
-      \ has_river = yes is_adjacent_to_lake = yes is_port = yes } } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus\
-      \ value = var:tv_wonder_survey_site.development }\nclamp_variable = { name =\
-      \ tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name\
-      \ = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  royal_granary_system:
-    trigger_script: always = yes
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank\
-      \ ?= location_rank:rural_settlement } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus\
-      \ value = var:tv_wonder_survey_site.development }\nclamp_variable = { name =\
-      \ tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name\
-      \ = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  imperial_post_road_network:
-    trigger_script: always = yes
-    preference_script: 'set_variable = { name = tv_wonder_site_preference_bonus value
-      = var:tv_wonder_survey_site.development }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100
-      }
-
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      remove_variable = tv_wonder_site_preference_bonus'
   canal_hub_city:
-    trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n\tis_port\
-      \ = yes\n}\nNOT = { location_rank ?= location_rank:rural_settlement }"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = {\
-      \ has_river = yes is_adjacent_to_lake = yes is_port = yes } } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 10 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR\
-      \ = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis\
-      \ } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5\
-      \ }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development\
-      \ }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max =\
-      \ 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply\
-      \ = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value =\
-      \ var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  frontier_colonization_belt:
-    trigger_script: "OR = {\n\tlocation_rank ?= location_rank:rural_settlement\n\t\
-      topography = hills\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank\
-      \ ?= location_rank:rural_settlement } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus\
-      \ value = var:tv_wonder_survey_site.development }\nclamp_variable = { name =\
-      \ tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name\
-      \ = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+    trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n\tis_port = yes\n}\nNOT = { location_rank ?= location_rank:rural_settlement }"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  city_expansion_project:
+    trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
+    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
   coastal_beacon_network:
     trigger_script: is_port = yes
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_port\
-      \ = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 15 }\n}"
-  knightly_fortress_order:
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_port = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}"
+  frontier_colonization_belt:
+    trigger_script: "OR = {\n\tlocation_rank ?= location_rank:rural_settlement\n\ttopography = hills\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  giant_armory:
     trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level\
-      \ > 0 } }\ntv_wonder_change_all_survey_competence_target_effect = { value =\
-      \ 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = mountains\
-      \ } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n\
-      }\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development\
-      \ }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max =\
-      \ 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply\
-      \ = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value =\
-      \ var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  war_college_system:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: 'set_variable = { name = tv_wonder_site_preference_bonus value
-      = var:tv_wonder_survey_site.development }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100
-      }
-
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      remove_variable = tv_wonder_site_preference_bonus'
-  great_clock_bell_system:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: 'set_variable = { name = tv_wonder_site_preference_bonus value
-      = var:tv_wonder_survey_site.development }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100
-      }
-
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      remove_variable = tv_wonder_site_preference_bonus'
-  royal_art_district:
-    trigger_script: "OR = {\n\tis_capital = yes\n\tlocation_rank ?= location_rank:city\n\
-      \tlocation_rank ?= location_rank:megalopolis\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital\
-      \ = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value =\
-      \ var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus\
-      \ min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus\
-      \ multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  grand_theater_festival_district:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: 'set_variable = { name = tv_wonder_site_preference_bonus value
-      = var:tv_wonder_survey_site.development }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100
-      }
-
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      remove_variable = tv_wonder_site_preference_bonus'
-  world_embassy_quarter:
-    trigger_script: "OR = {\n\tis_capital = yes\n\tNOT = { location_rank ?= location_rank:rural_settlement\
-      \ }\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital\
-      \ = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value =\
-      \ var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus\
-      \ min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus\
-      \ multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  law_code_stele_project:
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building = building_type:armory } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  giant_dam_project:
+    trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n\tis_port = yes\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  giant_necropolis:
+    trigger_script: location_rank ?= location_rank:rural_settlement
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = hills } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { any_neighbor_location = { tv_wonder_location_is_city_trigger = yes } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { any_neighbor_location = { tv_wonder_location_is_town_trigger = yes } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}"
+  giant_observatory:
+    trigger_script: "OR = {\n\ttopography = mountains\n\ttopography = plateau\n\ttopography = hills\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 7.5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  giant_tower_temple:
     trigger_script: always = yes
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital\
-      \ = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value =\
-      \ var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus\
-      \ min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus\
-      \ multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  world_market:
-    trigger_script: "OR = {\n\tis_port = yes\n\tlocation_rank ?= location_rank:city\n\
-      \tlocation_rank ?= location_rank:megalopolis\n}"
-    preference_script: 'set_variable = { name = tv_wonder_site_preference_bonus value
-      = var:tv_wonder_survey_site.development }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100
-      }
-
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      remove_variable = tv_wonder_site_preference_bonus'
-  royal_mint_system:
-    trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank\
-      \ ?= location_rank:megalopolis\n\traw_material = goods:goods_gold\n\traw_material\
-      \ = goods:silver\n\traw_material = goods:copper\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = {\
-      \ raw_material = goods:goods_gold raw_material = goods:silver raw_material =\
-      \ goods:copper } } }\ntv_wonder_change_all_survey_competence_target_effect =\
-      \ { value = 15 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus\
-      \ value = var:tv_wonder_survey_site.development }\nclamp_variable = { name =\
-      \ tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name\
-      \ = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  guild_alliance:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: 'set_variable = { name = tv_wonder_site_preference_bonus value
-      = var:tv_wonder_survey_site.development }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100
-      }
-
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      remove_variable = tv_wonder_site_preference_bonus'
-  maritime_trade_station_network:
-    trigger_script: is_port = yes
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_port\
-      \ = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 15 }\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building = building_type:monastery } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building = building_type:cathedral } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { dominant_religion = owner.religion } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}"
   giant_workshop_complex:
     trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: 'set_variable = { name = tv_wonder_site_preference_bonus value
-      = var:tv_wonder_survey_site.development }
-
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100
-      }
-
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
       change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus
-      }
-
-      remove_variable = tv_wonder_site_preference_bonus'
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  grand_theater_festival_district:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  great_clock_bell_system:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  great_lighthouse:
+    trigger_script: is_port = yes
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 25 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  great_port:
+    trigger_script: is_port = yes
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 25 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  great_wall:
+    trigger_script: |-
+      NOT = { location_rank ?= location_rank:city }
+      NOT = { location_rank ?= location_rank:megalopolis }
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 7.5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}"
+  guild_alliance:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  hydraulic_workshop:
+    trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n}"
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  imperial_post_road_network:
+    trigger_script: always = yes
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  knightly_fortress_order:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  large_canal_system:
+    trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n\tis_port = yes\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  law_code_stele_project:
+    trigger_script: always = yes
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  library_of_nation:
+    trigger_script: is_capital = yes
+    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:city } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
+  maritime_trade_station_network:
+    trigger_script: is_port = yes
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_port = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}"
+  mining_city:
+    trigger_script: "OR = {\n\traw_material = goods:iron\n\traw_material = goods:copper\n\traw_material = goods:tin\n\traw_material = goods:lead\n\traw_material = goods:silver\n\traw_material = goods:goods_gold\n}"
+    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
+  mountain_terrace_network:
+    trigger_script: "OR = {\n\ttopography = mountains\n\ttopography = plateau\n\ttopography = hills\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 7.5 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = hills } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}"
+  national_shipyard:
+    trigger_script: is_port = yes
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 15 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  palace_of_nations:
+    trigger_script: is_capital = yes
+    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
+  river_extension:
+    trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n}"
+    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building = building_type:bridge_infrastructure } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { any_neighbor_location = { has_building = building_type:tv_wonder_bridge_opening } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
+  royal_art_district:
+    trigger_script: "OR = {\n\tis_capital = yes\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  royal_granary_system:
+    trigger_script: always = yes
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  royal_mint_system:
+    trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n\traw_material = goods:goods_gold\n\traw_material = goods:silver\n\traw_material = goods:copper\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { raw_material = goods:goods_gold raw_material = goods:silver raw_material = goods:copper } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  sacred_mountain:
+    trigger_script: "OR = {\n\ttopography = mountains\n\ttopography = plateau\n\ttopography = hills\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 7.5 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = hills } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 0 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { vegetation = forest } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { vegetation = woods } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}"
+  sky_dome_grand_temple:
+    trigger_script: dominant_religion = owner.religion
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building = building_type:monastery } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building = building_type:cathedral } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { dominant_religion = owner.religion } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}"
+  star_fortress_city:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 7.5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}"
+  triumphal_axis:
+    trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
+    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
+  university_city:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:city } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  war_college_system:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  world_embassy_quarter:
+    trigger_script: "OR = {\n\tis_capital = yes\n\tNOT = { location_rank ?= location_rank:rural_settlement }\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  world_market:
+    trigger_script: "OR = {\n\tis_port = yes\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
   world_monument_group:
-    trigger_script: "OR = {\n\tis_capital = yes\n\tlocation_rank ?= location_rank:city\n\
-      \tlocation_rank ?= location_rank:megalopolis\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital\
-      \ = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value\
-      \ = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value =\
-      \ var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus\
-      \ min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus\
-      \ multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = {\
-      \ value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  city_expansion_project:
-    trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank\
-      \ ?= location_rank:megalopolis\n}"
-    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value\
-      \ = var:tv_wonder_survey_site.total_building_levels }\nclamp_variable = { name\
-      \ = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = {\
-      \ name = tv_wonder_site_preference_bonus multiply = 0.25 }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site\
-      \ ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect\
-      \ = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
+    trigger_script: "OR = {\n\tis_capital = yes\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"

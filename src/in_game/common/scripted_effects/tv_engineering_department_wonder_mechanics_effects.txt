@@ -7796,12 +7796,11 @@ tv_wonder_royal_mint_system_ritual_2_effect_tooltip_effect = {
 }
 
 tv_wonder_royal_mint_system_ritual_3_requirement_tooltip_effect = {
-	change_gold_effect = { scale = -5 }
+	add_prestige = -50
 }
 
 tv_wonder_royal_mint_system_ritual_3_effect_tooltip_effect = {
-	add_gold = 500
-	add_legitimacy = 5
+	add_gold = 20000
 }
 
 tv_wonder_guild_alliance_ritual_1_requirement_tooltip_effect = {
@@ -15157,8 +15156,7 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 35 var:tv_wonder_ceremony_style ?= 3 }
-		add_gold = 500
-		add_legitimacy = 5
+		add_gold = 20000
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 36 var:tv_wonder_ceremony_style ?= 3 }
