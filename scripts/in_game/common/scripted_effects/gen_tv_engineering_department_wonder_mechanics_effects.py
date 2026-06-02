@@ -9,6 +9,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
     ALL_WONDER_MIN_ID,
+    STYLE_3_REWARD_EFFECTS,
     WONDER_MECHANICS_MAX_ID,
     ceremony_modifier_for_style,
     ceremony_styles,
@@ -59,24 +60,23 @@ def country_reward_effect_lines(reward: list[dict], indent: int = 1) -> list[str
     lines: list[str] = []
     for entry in reward:
         effect_type = entry["type"]
-        if effect_type == "stability":
-            lines.append(f"{prefix}add_stability = {fmt_value(entry['value'])}")
-        elif effect_type == "prestige":
-            lines.append(f"{prefix}add_prestige = {fmt_value(entry['value'])}")
-        elif effect_type == "legitimacy":
-            lines.append(f"{prefix}add_legitimacy = {fmt_value(entry['value'])}")
-        elif effect_type == "gold":
-            lines.append(f"{prefix}add_gold = {fmt_value(entry['value'])}")
-        elif effect_type == "manpower":
-            lines.append(f"{prefix}add_manpower = {fmt_value(entry['value'])}")
-        elif effect_type == "research_progress":
-            lines.append(f"{prefix}add_research_progress = {entry['value']}")
-        elif effect_type == "ruler_adm":
-            lines.append(f"{prefix}ruler ?= {{ add_adm = {fmt_value(entry['value'])} }}")
-        elif effect_type == "ruler_dip":
-            lines.append(f"{prefix}ruler ?= {{ add_dip = {fmt_value(entry['value'])} }}")
-        elif effect_type == "ruler_mil":
-            lines.append(f"{prefix}ruler ?= {{ add_mil = {fmt_value(entry['value'])} }}")
+        if effect_type in STYLE_3_REWARD_EFFECTS:
+            spec = STYLE_3_REWARD_EFFECTS[effect_type]
+            effect = spec["effect"]
+            scope = spec["scope"]
+            value = fmt_value(entry["value"])
+            if scope in {"country_scalar", "country_raw"}:
+                lines.append(f"{prefix}{effect} = {value}")
+            elif scope == "country_value_block":
+                lines.append(f"{prefix}{effect} = {{ value = {value} }}")
+            elif scope == "ruler_scalar":
+                lines.append(f"{prefix}ruler ?= {{ {effect} = {value} }}")
+            elif scope == "culture_scalar":
+                lines.append(f"{prefix}culture = {{ {effect} = {value} }}")
+            elif scope == "location_scalar":
+                raise ValueError(f"Location ritual reward effect type must be handled outside country scope: {effect_type}")
+            else:
+                raise ValueError(f"Unsupported ritual reward scope for {effect_type}: {scope}")
         elif effect_type == "estate_satisfaction":
             estate = entry["estate"]
             lines.append(f"{prefix}if = {{")

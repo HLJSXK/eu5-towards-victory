@@ -66,6 +66,7 @@ ROMAN_NUMERALS = {
 }
 WONDER_LOCALIZATION_DATA_REL = "data/wonder_localization.yaml"
 GENERATED_LOC_DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
+WONDER_EDITOR_CATALOG_FILE = REPO_ROOT / "data" / "wonder_editor_catalog.yaml"
 GENERATED_LOC_FILES = {
     "english": REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml",
     "simp_chinese": REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml",
@@ -653,6 +654,21 @@ def _sorted_unique_options(values: set[str]) -> list[dict[str, str]]:
     return [{"value": value, "label": value} for value in sorted(values)]
 
 
+def _catalog_string_values(raw_value: object) -> set[str]:
+    if not isinstance(raw_value, list):
+        return set()
+    return {str(item).strip() for item in raw_value if str(item).strip()}
+
+
+def _load_wonder_editor_catalog() -> dict[str, Any]:
+    if not WONDER_EDITOR_CATALOG_FILE.exists():
+        return {}
+    payload = yaml.safe_load(WONDER_EDITOR_CATALOG_FILE.read_text(encoding="utf-8-sig")) or {}
+    if not isinstance(payload, dict):
+        return {}
+    return payload
+
+
 def _modifier_option_catalog(
     mechanics_data: dict[str, Any],
     unique_wonders_data: dict[str, Any],
@@ -660,6 +676,12 @@ def _modifier_option_catalog(
     country_modifiers: set[str] = set()
     local_modifiers: set[str] = set()
     reward_types: set[str] = set()
+    editor_catalog = _load_wonder_editor_catalog()
+    catalog_modifier_types = editor_catalog.get("modifier_types", {})
+    if isinstance(catalog_modifier_types, dict):
+        country_modifiers.update(_catalog_string_values(catalog_modifier_types.get("country", [])))
+        local_modifiers.update(_catalog_string_values(catalog_modifier_types.get("local", [])))
+    reward_types.update(_catalog_string_values(editor_catalog.get("style_3_reward_types", [])))
 
     for mapping in mechanics_data.get("base_modifiers", {}).values():
         if isinstance(mapping, dict):

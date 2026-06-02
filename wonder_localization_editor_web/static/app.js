@@ -1437,6 +1437,7 @@ function renderRewardEditorField(field, scope) {
             primaryLabel: "Reward type",
             secondaryLabel: "Value",
             primaryOptions: stateValue.options || [],
+            primaryControl: "select",
             addLabel: "Add reward",
             createRow: () => ({ type: "", value: "" }),
             onChange: commit,

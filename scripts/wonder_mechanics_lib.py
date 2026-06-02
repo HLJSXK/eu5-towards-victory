@@ -34,6 +34,43 @@ SUPPORTED_RITUAL_COST_TYPES = {None, "artwork", "scaled_gold", "prestige"}
 SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
 SUPPORTED_RITUAL_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
 SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
+STYLE_3_REWARD_EFFECTS = {
+    "all_estate_satisfaction": {"effect": "add_all_estate_satisfaction", "scope": "country_value_block"},
+    "army_tradition": {"effect": "add_army_tradition", "scope": "country_scalar"},
+    "bureaucracy": {"effect": "add_bureaucracy", "scope": "country_scalar"},
+    "cultural_influence": {"effect": "add_cultural_influence", "scope": "culture_scalar"},
+    "cultural_tradition": {"effect": "add_cultural_tradition", "scope": "culture_scalar"},
+    "devotion": {"effect": "add_devotion", "scope": "country_scalar"},
+    "diplomats": {"effect": "add_diplomats", "scope": "country_scalar"},
+    "doom": {"effect": "add_doom", "scope": "country_scalar"},
+    "gold": {"effect": "add_gold", "scope": "country_scalar"},
+    "government_power": {"effect": "add_government_power", "scope": "country_scalar"},
+    "harmony": {"effect": "add_harmony", "scope": "country_scalar"},
+    "honor": {"effect": "add_honor", "scope": "country_scalar"},
+    "horde_unity": {"effect": "add_horde_unity", "scope": "country_scalar"},
+    "inflation": {"effect": "add_inflation", "scope": "country_scalar"},
+    "karma": {"effect": "add_karma", "scope": "country_scalar"},
+    "legitimacy": {"effect": "add_legitimacy", "scope": "country_scalar"},
+    "manpower": {"effect": "add_manpower", "scope": "country_scalar"},
+    "navy_tradition": {"effect": "add_navy_tradition", "scope": "country_scalar"},
+    "prestige": {"effect": "add_prestige", "scope": "country_scalar"},
+    "purity": {"effect": "add_purity", "scope": "country_scalar"},
+    "republican_tradition": {"effect": "add_republican_tradition", "scope": "country_scalar"},
+    "research_progress": {"effect": "add_research_progress", "scope": "country_raw"},
+    "righteousness": {"effect": "add_righteousness", "scope": "country_scalar"},
+    "ruler_adm": {"effect": "add_adm", "scope": "ruler_scalar"},
+    "ruler_dip": {"effect": "add_dip", "scope": "ruler_scalar"},
+    "ruler_mil": {"effect": "add_mil", "scope": "ruler_scalar"},
+    "sailors": {"effect": "add_sailors", "scope": "country_scalar"},
+    "self_control": {"effect": "add_self_control", "scope": "country_scalar"},
+    "site_prosperity": {"effect": "change_prosperity", "scope": "location_scalar"},
+    "stability": {"effect": "add_stability", "scope": "country_scalar"},
+    "tribal_cohesion": {"effect": "add_tribal_cohesion", "scope": "country_scalar"},
+    "war_exhaustion": {"effect": "add_war_exhaustion", "scope": "country_scalar"},
+    "yearly_gold": {"effect": "add_yearly_gold", "scope": "country_scalar"},
+    "yearly_manpower": {"effect": "add_yearly_manpower", "scope": "country_scalar"},
+    "yearly_sailors": {"effect": "add_yearly_sailors", "scope": "country_scalar"},
+}
 SITE_RULES_SECTION = "site_rules"
 RITUAL_AUXILIARY_ESTATE_POWER_BY_POP_TYPE = {
     "clergy": "local_clergy_estate_power",
