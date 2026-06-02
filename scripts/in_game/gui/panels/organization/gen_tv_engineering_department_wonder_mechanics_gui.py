@@ -268,7 +268,7 @@ def suitability_knowledge_row(row: dict[str, str], reveal_var: str, row_index: i
 
 
 def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
-    rows = [] if wonder.get("is_unique") else suitability_knowledge_for_wonder(mechanics, wonder)
+    rows = suitability_knowledge_for_wonder(mechanics, wonder)
     reveal_var = suitability_reveal_variable_for_wonder(wonder)
     visible = f"And({PLAYER}.GetVariable('tv_wonder_locked').IsSet, {eq('tv_wonder_locked', wonder['id'])})"
     min_height = 82 + len(rows) * 20
