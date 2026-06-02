@@ -1001,7 +1001,6 @@ tv_trade_league_refresh_intelligence_page_limits_effect = {{
 def clear_selected_intelligence_projection_block(indent: str = "\t") -> str:
     lines = [
         f"{indent}remove_variable = tv_trade_selected_intelligence_market",
-        set_numeric_zero("tv_trade_selected_intelligence_slot", indent),
         set_numeric_zero("tv_trade_selected_intelligence_io_power", indent),
         set_numeric_zero("tv_trade_selected_intelligence_strength_pct", indent),
         set_numeric_zero("tv_trade_selected_intelligence_active", indent),

@@ -103339,7 +103339,6 @@ tv_trade_league_refresh_selected_intelligence_projection_effect = {
 			leader_country ?= { save_scope_as = tv_trade_intelligence_display_source }
 		}
 		remove_variable = tv_trade_selected_intelligence_market
-		set_variable = { name = tv_trade_selected_intelligence_slot value = 0 }
 		set_variable = { name = tv_trade_selected_intelligence_io_power value = 0 }
 		set_variable = { name = tv_trade_selected_intelligence_strength_pct value = 0 }
 		set_variable = { name = tv_trade_selected_intelligence_active value = 0 }
