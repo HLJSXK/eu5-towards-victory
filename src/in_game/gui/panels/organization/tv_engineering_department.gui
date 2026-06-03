@@ -2270,9 +2270,7 @@ widget = {
 
 			card_common = {
 				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0')]"
-				layoutpolicy_vertical = fixed
-				minimumsize = { 500 574 }
-				maximumsize = { 500 574 }
+				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
 					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
@@ -2284,10 +2282,13 @@ widget = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 534 }
+						layoutpolicy_vertical = shrinking
+						size = { 470 -1 }
 
 						vbox = {
+							set_parent_size_to_minimum = yes
 							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
 							ignoreinvisible = yes
 							spacing = 4
 							margin = { 4 4 }
@@ -2327,6 +2328,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -2466,6 +2471,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2556,6 +2565,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2629,6 +2642,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -2736,6 +2753,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2810,6 +2831,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -2883,6 +2908,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -2973,6 +3002,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -3080,6 +3113,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3169,6 +3206,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -3276,6 +3317,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3381,6 +3426,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -3488,6 +3537,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3594,6 +3647,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3683,6 +3740,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -3806,6 +3867,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -3928,6 +3993,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4033,6 +4102,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -4140,6 +4213,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4229,6 +4306,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -4336,6 +4417,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4425,6 +4510,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -4516,6 +4605,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4589,6 +4682,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -4696,6 +4793,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4786,6 +4887,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -4859,6 +4964,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -4966,6 +5075,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5040,6 +5153,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5113,6 +5230,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -5204,6 +5325,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5277,6 +5402,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -5368,6 +5497,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5458,6 +5591,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5531,6 +5668,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -5622,6 +5763,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5695,6 +5840,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -5770,6 +5919,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -5843,6 +5996,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -5934,6 +6091,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6023,6 +6184,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -6146,6 +6311,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6267,6 +6436,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -6390,6 +6563,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6463,6 +6640,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -6570,6 +6751,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6676,6 +6861,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -6781,6 +6970,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -6920,6 +7113,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7009,6 +7206,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -7148,6 +7349,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7270,6 +7475,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7376,6 +7585,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7466,6 +7679,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7555,6 +7772,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -7661,6 +7882,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -7800,6 +8025,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7890,6 +8119,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -7963,6 +8196,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -8086,6 +8323,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8175,6 +8416,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -8282,6 +8527,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8388,6 +8637,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8493,6 +8746,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -8616,6 +8873,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8705,6 +8966,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -8796,6 +9061,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -8869,6 +9138,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -8960,6 +9233,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -9050,6 +9327,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -9124,6 +9405,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -9197,6 +9482,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -9287,6 +9576,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -9410,6 +9703,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -9500,6 +9797,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -9573,6 +9874,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -9663,6 +9968,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -9770,6 +10079,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -9860,6 +10173,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -9933,6 +10250,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -10008,6 +10329,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -10081,6 +10406,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -10172,6 +10501,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -10261,6 +10594,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -10384,6 +10721,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -10505,6 +10846,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -10628,6 +10973,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -10749,6 +11098,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -10872,6 +11225,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -10962,6 +11319,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -11051,6 +11412,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
@@ -11190,6 +11555,10 @@ widget = {
 									blockoverride "field_text_format" {
 										fontsize = 13
 									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
 									blockoverride "block_title" {
 										block "block_title" {
 											visible = no
@@ -11311,6 +11680,10 @@ widget = {
 									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
 									blockoverride "field_text_format" {
 										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
 									}
 									blockoverride "block_title" {
 										block "block_title" {
