@@ -1299,10 +1299,10 @@ tv_govhouse_war_tent_monthly_effect = {
 #   tv_governed_region_capital    (representative owned location, for legacy display compatibility)
 #   tv_gov_current_task           (1 prosperity, 2 integration, 3 culture, 4 religion, 5 recruitment, 6 order)
 #   tv_gov_current_task_value     (active task effect size)
-#   tv_gov_admin_bonus_type/value (chosen by Local Governor Administrative Function)
-#   tv_gov_dip_bonus_type/value   (chosen by Local Governor Diplomatic Function)
-#   tv_gov_mil_bonus_type/value   (chosen by Local Governor Military Function)
-# Location modifiers applied: one current task, one ADM, one DIP, and one MIL governor function modifier
+#   tv_gov_admin_bonus_type/value (chosen by Local Governor Administrative Function, if enacted)
+#   tv_gov_dip_bonus_type/value   (chosen by Local Governor Diplomatic Function, if enacted)
+#   tv_gov_mil_bonus_type/value   (chosen by Local Governor Military Function, if enacted)
+# Location modifiers applied: one current task, plus any enacted ADM/DIP/MIL governor function modifiers
 # Scaling: size reads pre-computed pct variable directly (no inline multiply needed)
 
 # Rebuilds the player-region backing list from currently owned locations.
@@ -1382,12 +1382,36 @@ tv_govhouse_refresh_region_list_effect = {
 				set_variable = { name = tv_govhouse_display_weight_convert_religion value = scope:tv_display_governor.var:tv_gov_weight_convert_religion }
 				set_variable = { name = tv_govhouse_display_weight_strengthen_recruitment value = scope:tv_display_governor.var:tv_gov_weight_strengthen_recruitment }
 				set_variable = { name = tv_govhouse_display_weight_strengthen_order value = scope:tv_display_governor.var:tv_gov_weight_strengthen_order }
-				set_variable = { name = tv_govhouse_display_admin_bonus_type value = scope:tv_display_governor.var:tv_gov_admin_bonus_type }
-				set_variable = { name = tv_govhouse_display_admin_bonus_value value = scope:tv_display_governor.var:tv_gov_admin_bonus_value }
-				set_variable = { name = tv_govhouse_display_dip_bonus_type value = scope:tv_display_governor.var:tv_gov_dip_bonus_type }
-				set_variable = { name = tv_govhouse_display_dip_bonus_value value = scope:tv_display_governor.var:tv_gov_dip_bonus_value }
-				set_variable = { name = tv_govhouse_display_mil_bonus_type value = scope:tv_display_governor.var:tv_gov_mil_bonus_type }
-				set_variable = { name = tv_govhouse_display_mil_bonus_value value = scope:tv_display_governor.var:tv_gov_mil_bonus_value }
+				if = {
+					limit = {
+						scope:tv_display_governor = {
+							has_variable = tv_gov_admin_bonus_type
+							has_variable = tv_gov_admin_bonus_value
+						}
+					}
+					set_variable = { name = tv_govhouse_display_admin_bonus_type value = scope:tv_display_governor.var:tv_gov_admin_bonus_type }
+					set_variable = { name = tv_govhouse_display_admin_bonus_value value = scope:tv_display_governor.var:tv_gov_admin_bonus_value }
+				}
+				if = {
+					limit = {
+						scope:tv_display_governor = {
+							has_variable = tv_gov_dip_bonus_type
+							has_variable = tv_gov_dip_bonus_value
+						}
+					}
+					set_variable = { name = tv_govhouse_display_dip_bonus_type value = scope:tv_display_governor.var:tv_gov_dip_bonus_type }
+					set_variable = { name = tv_govhouse_display_dip_bonus_value value = scope:tv_display_governor.var:tv_gov_dip_bonus_value }
+				}
+				if = {
+					limit = {
+						scope:tv_display_governor = {
+							has_variable = tv_gov_mil_bonus_type
+							has_variable = tv_gov_mil_bonus_value
+						}
+					}
+					set_variable = { name = tv_govhouse_display_mil_bonus_type value = scope:tv_display_governor.var:tv_gov_mil_bonus_type }
+					set_variable = { name = tv_govhouse_display_mil_bonus_value value = scope:tv_display_governor.var:tv_gov_mil_bonus_value }
+				}
 			}
 			scope:tv_governing_country = {
 				if = {
@@ -1752,8 +1776,8 @@ tv_governor_select_yearly_task_effect = {
 # tv_appoint_governor, or by save_scope_as = target in tv_apply_governor_bonuses_effect).
 tv_governor_apply_modifiers_effect = {
 	scope:target = {
-		# Refresh display and size variables. Each ability governs one law-selected
-		# local function; default values preserve the old Governor behavior.
+		# Refresh display and size variables. Autonomous task values are always
+		# available; Local Governor Function bonuses require enacted laws.
 		set_variable = { name = tv_gov_task_restore_prosperity_value value = { value = this.adm multiply = 0.0005 } }
 		set_variable = { name = tv_gov_task_integrate_region_value value = { value = this.adm multiply = 0.001 } }
 		set_variable = { name = tv_gov_task_convert_culture_value value = { value = this.dip multiply = 0.0001 } }
@@ -1977,8 +2001,13 @@ tv_governor_apply_modifiers_effect = {
 		remove_variable = tv_gov_task_prosperity_sum
 		remove_variable = tv_gov_weight_best
 
-		set_variable = { name = tv_gov_admin_bonus_type value = 1 }
-		set_variable = { name = tv_gov_admin_bonus_value value = { value = this.adm multiply = 0.001 } }
+		remove_variable = tv_gov_admin_bonus_type
+		remove_variable = tv_gov_admin_bonus_value
+		remove_variable = tv_gov_dip_bonus_type
+		remove_variable = tv_gov_dip_bonus_value
+		remove_variable = tv_gov_mil_bonus_type
+		remove_variable = tv_gov_mil_bonus_value
+
 		if = {
 			limit = {
 				scope:tv_governing_country = {
@@ -2005,9 +2034,20 @@ tv_governor_apply_modifiers_effect = {
 			set_variable = { name = tv_gov_admin_bonus_type value = 3 }
 			set_variable = { name = tv_gov_admin_bonus_value value = { value = this.adm multiply = 0.001 } }
 		}
+		else_if = {
+			limit = {
+				scope:tv_governing_country = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= scope:tv_governing_country
+						international_organization_has_policy = policy:tv_govhouse_admin_control_registers_policy
+					}
+				}
+			}
+			set_variable = { name = tv_gov_admin_bonus_type value = 1 }
+			set_variable = { name = tv_gov_admin_bonus_value value = { value = this.adm multiply = 0.001 } }
+		}
 
-		set_variable = { name = tv_gov_dip_bonus_type value = 1 }
-		set_variable = { name = tv_gov_dip_bonus_value value = { value = this.dip multiply = 0.002 } }
 		if = {
 			limit = {
 				scope:tv_governing_country = {
@@ -2034,9 +2074,20 @@ tv_governor_apply_modifiers_effect = {
 			set_variable = { name = tv_gov_dip_bonus_type value = 3 }
 			set_variable = { name = tv_gov_dip_bonus_value value = { value = this.dip multiply = 0.00001 } }
 		}
+		else_if = {
+			limit = {
+				scope:tv_governing_country = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= scope:tv_governing_country
+						international_organization_has_policy = policy:tv_govhouse_dip_construction_charters_policy
+					}
+				}
+			}
+			set_variable = { name = tv_gov_dip_bonus_type value = 1 }
+			set_variable = { name = tv_gov_dip_bonus_value value = { value = this.dip multiply = 0.002 } }
+		}
 
-		set_variable = { name = tv_gov_mil_bonus_type value = 1 }
-		set_variable = { name = tv_gov_mil_bonus_value value = { value = this.mil multiply = 0.002 } }
 		if = {
 			limit = {
 				scope:tv_governing_country = {
@@ -2063,6 +2114,19 @@ tv_governor_apply_modifiers_effect = {
 			set_variable = { name = tv_gov_mil_bonus_type value = 3 }
 			set_variable = { name = tv_gov_mil_bonus_value value = { value = this.mil multiply = 0.005 } }
 		}
+		else_if = {
+			limit = {
+				scope:tv_governing_country = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= scope:tv_governing_country
+						international_organization_has_policy = policy:tv_govhouse_mil_order_patrols_policy
+					}
+				}
+			}
+			set_variable = { name = tv_gov_mil_bonus_type value = 1 }
+			set_variable = { name = tv_gov_mil_bonus_value value = { value = this.mil multiply = 0.002 } }
+		}
 		if = {
 			limit = {
 				scope:tv_governing_country = {
@@ -2073,9 +2137,18 @@ tv_governor_apply_modifiers_effect = {
 					}
 				}
 			}
-			change_variable = { name = tv_gov_admin_bonus_value multiply = 1.2 }
-			change_variable = { name = tv_gov_dip_bonus_value multiply = 1.2 }
-			change_variable = { name = tv_gov_mil_bonus_value multiply = 1.2 }
+			if = {
+				limit = { has_variable = tv_gov_admin_bonus_value }
+				change_variable = { name = tv_gov_admin_bonus_value multiply = 1.2 }
+			}
+			if = {
+				limit = { has_variable = tv_gov_dip_bonus_value }
+				change_variable = { name = tv_gov_dip_bonus_value multiply = 1.2 }
+			}
+			if = {
+				limit = { has_variable = tv_gov_mil_bonus_value }
+				change_variable = { name = tv_gov_mil_bonus_value multiply = 1.2 }
+			}
 		}
 		# Migrate pre-region governors from the old area assignment, preserving the appointment.
 		if = {
@@ -2208,7 +2281,16 @@ tv_governor_apply_modifiers_effect = {
 						size = { value = scope:target.var:tv_gov_admin_bonus_value }
 					}
 				}
-				else = {
+				else_if = {
+					limit = {
+						scope:tv_governing_country = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_governing_country
+								international_organization_has_policy = policy:tv_govhouse_admin_control_registers_policy
+							}
+						}
+					}
 					add_location_modifier = {
 						modifier = tv_governor_max_control
 						years = -1
@@ -2251,7 +2333,16 @@ tv_governor_apply_modifiers_effect = {
 						size = { value = scope:target.var:tv_gov_dip_bonus_value }
 					}
 				}
-				else = {
+				else_if = {
+					limit = {
+						scope:tv_governing_country = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_governing_country
+								international_organization_has_policy = policy:tv_govhouse_dip_construction_charters_policy
+							}
+						}
+					}
 					add_location_modifier = {
 						modifier = tv_governor_build_cost
 						years = -1
@@ -2294,7 +2385,16 @@ tv_governor_apply_modifiers_effect = {
 						size = { value = scope:target.var:tv_gov_mil_bonus_value }
 					}
 				}
-				else = {
+				else_if = {
+					limit = {
+						scope:tv_governing_country = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_governing_country
+								international_organization_has_policy = policy:tv_govhouse_mil_order_patrols_policy
+							}
+						}
+					}
 					add_location_modifier = {
 						modifier = tv_governor_unrest
 						years = -1

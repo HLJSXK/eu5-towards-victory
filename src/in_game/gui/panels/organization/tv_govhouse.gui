@@ -501,6 +501,13 @@ organization_panel = {
 													tooltip = "TV_GOVHOUSE_ADMIN_PRODUCTION_FORMULA_TT"
 													align = nobaseline|right
 												}
+												text_single = {
+													visible = "[Not(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_admin_bonus_type').IsSet)]"
+													size = { 64 22 }
+													text = "TV_GOVHOUSE_MISSING_FUNCTION_LAW_SHORT"
+													tooltip = "TV_GOVHOUSE_MISSING_FUNCTION_LAW_TT"
+													align = nobaseline|right
+												}
 											}
 
 											hbox = {
@@ -545,6 +552,13 @@ organization_panel = {
 													tooltip = "TV_GOVHOUSE_DIP_POP_GROWTH_FORMULA_TT"
 													align = nobaseline|right
 												}
+												text_single = {
+													visible = "[Not(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_dip_bonus_type').IsSet)]"
+													size = { 64 22 }
+													text = "TV_GOVHOUSE_MISSING_FUNCTION_LAW_SHORT"
+													tooltip = "TV_GOVHOUSE_MISSING_FUNCTION_LAW_TT"
+													align = nobaseline|right
+												}
 											}
 
 											hbox = {
@@ -587,6 +601,13 @@ organization_panel = {
 													size = { 46 22 }
 													raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_mil_bonus_value').GetValue|+=%0]"
 													tooltip = "TV_GOVHOUSE_MIL_FORT_FORMULA_TT"
+													align = nobaseline|right
+												}
+												text_single = {
+													visible = "[Not(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_mil_bonus_type').IsSet)]"
+													size = { 64 22 }
+													text = "TV_GOVHOUSE_MISSING_FUNCTION_LAW_SHORT"
+													tooltip = "TV_GOVHOUSE_MISSING_FUNCTION_LAW_TT"
 													align = nobaseline|right
 												}
 											}
