@@ -65,6 +65,18 @@ def build_wonders() -> None:
         raise SystemExit(result.returncode)
 
 
+def build_static_indexes() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(REPO_ROOT / "scripts" / "gen_index.py"),
+        ],
+        cwd=REPO_ROOT,
+    )
+    if result.returncode != 0:
+        raise SystemExit(result.returncode)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -76,6 +88,7 @@ def main() -> int:
 
     if not args.skip_map_assets:
         step("map assets", copy_map_assets)
+    step("static localization indexes", build_static_indexes)
     step("unique wonders data", build_wonders)
     print("\n=== unique_wonders_site build complete ===")
     return 0
@@ -83,4 +96,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

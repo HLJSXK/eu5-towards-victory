@@ -15,9 +15,10 @@ const TEXT = {
     category: "类别",
     requirements: "建造条件",
     effects: "效果",
-    modifier: "Modifier",
-    scope: "Scope",
-    years: "years",
+    modifier: "修正",
+    scope: "范围",
+    years: "年",
+    anyOf: "满足任一：",
   },
   en: {
     title: "Unique Wonders",
@@ -33,6 +34,7 @@ const TEXT = {
     modifier: "Modifier",
     scope: "Scope",
     years: "years",
+    anyOf: "Any of:",
   },
 };
 
@@ -122,15 +124,24 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
-function formatValue(value) {
+function formatValue(value, row = {}) {
   if (value === null || value === undefined) {
     return "";
   }
+  if (typeof value === "boolean") {
+    return value ? "Yes" : "No";
+  }
   if (typeof value === "number") {
-    if (Number.isInteger(value)) {
-      return String(value);
+    if (row.value_kind === "percent") {
+      return `${value >= 0 ? "+" : ""}${String(Number((value * 100).toFixed(row.decimals ?? 2))).replace(/\.0+$/, "")}%`;
     }
-    return String(Number(value.toFixed(5))).replace(/\.0+$/, "");
+    if (row.value_kind === "already_percent") {
+      return `${value >= 0 ? "+" : ""}${String(Number(value.toFixed(row.decimals ?? 2))).replace(/\.0+$/, "")}%`;
+    }
+    if (Number.isInteger(value)) {
+      return `${value > 0 && row.value_kind !== "boolean" ? "+" : ""}${value}`;
+    }
+    return `${value > 0 ? "+" : ""}${String(Number(value.toFixed(row.decimals ?? 5))).replace(/\.0+$/, "")}`;
   }
   return String(value);
 }
@@ -268,6 +279,35 @@ function metaLine(label, value) {
   return `<div><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</div>`;
 }
 
+function renderRowLabel(row) {
+  const label = localized(row.label) || row.key;
+  const key = row.key && row.key !== label
+    ? `<span class="effect-code">${escapeHtml(row.key)}</span>`
+    : "";
+  const description = localized(row.description);
+  const title = description ? ` title="${escapeHtml(description)}"` : "";
+  return `<span class="effect-label"${title}>${escapeHtml(label)}${key}</span>`;
+}
+
+function renderRequirementList(rows) {
+  if (!rows.length) {
+    return `<div class="empty-note">-</div>`;
+  }
+  const anyRows = rows.filter((row) => row.logic === "any");
+  const allRows = rows.filter((row) => row.logic !== "any");
+  const renderItems = (items) => items.map((row) => `
+    <div class="requirement-row">
+      <span>${renderRowLabel(row)}</span>
+    </div>
+  `).join("");
+  return `
+    <div class="requirements-list">
+      ${allRows.length ? renderItems(allRows) : ""}
+      ${anyRows.length ? `<div class="requirements-any">${escapeHtml(t("anyOf"))}</div>${renderItems(anyRows)}` : ""}
+    </div>
+  `;
+}
+
 function renderEffectSection(effect) {
   const title = localized(effect.title);
   const valueLabel = localized(effect.value_label);
@@ -285,8 +325,8 @@ function renderEffectSection(effect) {
         </div>
         ${rows.map((row) => `
           <div class="effect-row">
-            <span class="effect-key">${escapeHtml(row.key)}</span>
-            <span class="effect-value">${escapeHtml(formatValue(row.value))}</span>
+            ${renderRowLabel(row)}
+            <span class="effect-value">${escapeHtml(formatValue(row.value, row))}</span>
           </div>
         `).join("")}
       </div>
@@ -315,6 +355,7 @@ function renderDetail() {
   elements.detail.hidden = false;
   elements.detailName.textContent = localized(wonder.name);
   const effects = Array.isArray(wonder.effects) ? wonder.effects : [];
+  const requirements = Array.isArray(wonder.construction_requirements) ? wonder.construction_requirements : [];
   elements.detailBody.innerHTML = `
     <div class="detail-meta">
       ${metaLine(t("location"), localized(wonder.location_name))}
@@ -325,7 +366,7 @@ function renderDetail() {
     <p class="detail-description">${escapeHtml(localized(wonder.description))}</p>
     <section class="detail-section">
       <h3>${escapeHtml(t("requirements"))}</h3>
-      <div class="requirements-slot"></div>
+      ${renderRequirementList(requirements)}
     </section>
     <section class="detail-section">
       <h3>${escapeHtml(t("effects"))}</h3>
@@ -377,6 +418,20 @@ async function loadData() {
       wonder.location_name?.en,
       localized(wonder.base_name),
       wonder.base_name?.en,
+      ...(wonder.construction_requirements || []).flatMap((row) => [
+        row.key,
+        localized(row.label),
+        row.label?.en,
+        row.label?.zh,
+      ]),
+      ...(wonder.effects || []).flatMap((effect) =>
+        (effect.rows || []).flatMap((row) => [
+          row.key,
+          localized(row.label),
+          row.label?.en,
+          row.label?.zh,
+        ])
+      ),
     ].join(" ").toLowerCase();
   }
   if (state.wonders.length) {
@@ -412,6 +467,18 @@ elements.languageButtons.forEach((button) => {
         wonder.location_name?.en,
         wonder.base_name?.en,
         wonder.base_name?.zh,
+        ...(wonder.construction_requirements || []).flatMap((row) => [
+          row.key,
+          row.label?.en,
+          row.label?.zh,
+        ]),
+        ...(wonder.effects || []).flatMap((effect) =>
+          (effect.rows || []).flatMap((row) => [
+            row.key,
+            row.label?.en,
+            row.label?.zh,
+          ])
+        ),
       ].join(" ").toLowerCase();
     }
     renderAll();
@@ -424,4 +491,3 @@ loadData().catch((error) => {
   elements.list.innerHTML = `<div class="wonder-row"><span class="wonder-name">${escapeHtml(error.message)}</span></div>`;
   throw error;
 });
-

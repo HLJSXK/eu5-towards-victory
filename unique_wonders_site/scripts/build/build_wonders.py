@@ -24,6 +24,7 @@ from scripts.wonder_mechanics_lib import (
     load_all_wonder_mechanics_data,
     mechanic_key,
     scale_numeric_modifier_mapping,
+    site_trigger_script_for_key,
 )
 
 SITE_ROOT = REPO_ROOT / "unique_wonders_site"
@@ -44,6 +45,8 @@ DEFAULT_REFERENCE_LOC = (
     / "loc.json"
 )
 DEFAULT_OUT = SITE_ROOT / "dist" / "data" / "unique_wonders.json"
+DEFAULT_MODIFIER_LOCALIZATION_INDEX = REPO_ROOT / "data" / "index" / "modifier_localization.json"
+DEFAULT_TRIGGER_LOCALIZATION_INDEX = REPO_ROOT / "data" / "index" / "trigger_localization.json"
 
 LANGUAGES = ("en", "zh")
 SOURCE_LANGUAGE = {
@@ -67,15 +70,95 @@ CATEGORY_LABELS = {
     "industry_category": {"en": "Industry", "zh": "产业"},
 }
 
+CONCEPT_LABELS = {
+    "building": {"en": "Building", "zh": "建筑"},
+    "buildings": {"en": "Buildings", "zh": "建筑"},
+    "capital": {"en": "Capital", "zh": "首都"},
+    "country": {"en": "Country", "zh": "国家"},
+    "development": {"en": "Development", "zh": "发展度"},
+    "dominant_religion": {"en": "Dominant Religion", "zh": "优势宗教"},
+    "location": {"en": "Location", "zh": "地点"},
+    "locations": {"en": "Locations", "zh": "地点"},
+    "location_rank": {"en": "Location Rank", "zh": "地点等级"},
+    "owned": {"en": "Owned", "zh": "治下"},
+    "population": {"en": "Population", "zh": "人口"},
+    "pops": {"en": "Pops", "zh": "人口"},
+    "proximity": {"en": "Proximity", "zh": "邻近度"},
+    "religion": {"en": "Religion", "zh": "宗教"},
+    "topography": {"en": "Topography", "zh": "地形"},
+    "vegetation": {"en": "Vegetation", "zh": "植被"},
+}
+
+TOKEN_LABELS = {
+    "location_rank:rural_settlement": {"en": "Rural Settlement", "zh": "乡村定居点"},
+    "location_rank:town": {"en": "Town", "zh": "城镇"},
+    "location_rank:city": {"en": "City", "zh": "城市"},
+    "location_rank:megalopolis": {"en": "Megalopolis", "zh": "巨型都市"},
+    "goods:iron": {"en": "Iron", "zh": "铁"},
+    "goods:copper": {"en": "Copper", "zh": "铜"},
+    "goods:tin": {"en": "Tin", "zh": "锡"},
+    "goods:lead": {"en": "Lead", "zh": "铅"},
+    "goods:silver": {"en": "Silver", "zh": "白银"},
+    "goods:goods_gold": {"en": "Gold", "zh": "黄金"},
+    "building_type:monastery": {"en": "Monastery", "zh": "修道院"},
+    "building_type:cathedral": {"en": "Cathedral", "zh": "主教座堂"},
+    "building_type:bridge_infrastructure": {"en": "Bridge Infrastructure", "zh": "桥梁基础设施"},
+    "building_type:armory": {"en": "Armory", "zh": "军械库"},
+    "mountains": {"en": "Mountains", "zh": "山地"},
+    "plateau": {"en": "Plateau", "zh": "高原"},
+    "hills": {"en": "Hills", "zh": "丘陵"},
+    "forest": {"en": "Forest", "zh": "森林"},
+    "woods": {"en": "Woods", "zh": "林地"},
+    "owner.religion": {"en": "Owner's Religion", "zh": "拥有者宗教"},
+}
+
+BOOLEAN_TRIGGER_LABELS = {
+    "is_capital": {
+        False: {"en": "Is NOT a Capital", "zh": "不是首都"},
+        True: {"en": "Is a Capital", "zh": "是首都"},
+    },
+}
+
+SCOPE_TOKEN_LABELS = {
+    "en": {
+        r"\[COUNTRY\.GetName\]": "this Country",
+        r"\[LOCATION\.GetName\]": "this Location",
+    },
+    "zh": {
+        r"\[COUNTRY\.GetName\]": "该国家",
+        r"\[LOCATION\.GetName\]": "该地点",
+    },
+}
+
+TRIGGER_VALUE_REPLACEMENTS = (
+    r"\$NAME(?:\|[A-Za-z0-9+=%._-]+)?\$",
+    r"\$TOPOGRAPHY(?:\|[A-Za-z0-9+=%._-]+)?\$",
+    r"\$VEGETATION(?:\|[A-Za-z0-9+=%._-]+)?\$",
+    r"\$ENUM(?:\|[A-Za-z0-9+=%._-]+)?\$",
+    r"\[TARGET_LOCATION_RANK\.GetName\]",
+    r"\[TARGET_GOODS\.GetName\]",
+    r"\[TARGET_RELIGION\.GetName\]",
+    r"\[TARGET_BUILDING_TYPE\.GetName\]",
+    r"\[TOPOGRAPHY\.GetName\]",
+)
+
 
 def prettify(key: str) -> str:
     return str(key).replace("_", " ").strip().title()
 
 
-def scrub_markup(text: str) -> str:
+def scrub_markup(text: str, language: str | None = None) -> str:
     """Flatten common EU5 loc markup for a web-only plain text atlas."""
     text = str(text or "")
-    text = re.sub(r"\[([^|\]]+)\|[A-Za-z]+\]", lambda match: prettify(match.group(1)), text)
+
+    def concept_replacement(match: re.Match[str]) -> str:
+        concept = match.group(1)
+        labels = CONCEPT_LABELS.get(concept)
+        if labels and language in labels:
+            return labels[language]
+        return prettify(concept)
+
+    text = re.sub(r"\[([^|\]]+)\|[A-Za-z]+\]", concept_replacement, text)
     text = re.sub(r"@([A-Za-z0-9_]+)!", "", text)
     text = re.sub(r"#\w+\s*", "", text).replace("#!", "")
     return " ".join(text.split())
@@ -88,6 +171,14 @@ def load_json(path: Path) -> dict[str, Any]:
     if not isinstance(data, dict):
         raise TypeError(f"{path} must contain a JSON object")
     return data
+
+
+def load_index_payload(path: Path, root_key: str) -> dict[str, Any]:
+    payload = load_json(path)
+    records = payload.get(root_key, {})
+    if not isinstance(records, dict):
+        raise TypeError(f"{path}.{root_key} must be an object")
+    return records
 
 
 def localization_value(
@@ -103,7 +194,7 @@ def localization_value(
         value = fallback
     if value is None:
         value = prettify(key)
-    return scrub_markup(value)
+    return scrub_markup(value, language)
 
 
 def localized_pair(
@@ -123,6 +214,58 @@ def reference_loc_pair(reference_loc: dict[str, str], key: str) -> dict[str, str
     return {"en": english, "zh": english}
 
 
+def token_label_pair(token: object) -> dict[str, str]:
+    raw = str(token or "").strip()
+    if raw in TOKEN_LABELS:
+        return dict(TOKEN_LABELS[raw])
+    if ":" in raw:
+        raw = raw.split(":", 1)[1]
+    return {"en": prettify(raw), "zh": prettify(raw)}
+
+
+def indexed_text_pair(
+    entry: dict[str, Any] | None,
+    field: str,
+    *,
+    fallback: str,
+) -> dict[str, str]:
+    result: dict[str, str] = {}
+    for language in LANGUAGES:
+        language_entry = entry.get(language, {}) if isinstance(entry, dict) else {}
+        value = language_entry.get(field) if isinstance(language_entry, dict) else None
+        result[language] = scrub_markup(value or fallback, language)
+    return result
+
+
+def substitute_trigger_value(text: str, value: object, language: str) -> str:
+    value_label = token_label_pair(value)[language]
+    result = str(text or "")
+    for pattern in TRIGGER_VALUE_REPLACEMENTS:
+        result = re.sub(pattern, value_label, result)
+    for pattern, replacement in SCOPE_TOKEN_LABELS[language].items():
+        result = re.sub(pattern, replacement, result)
+    return result
+
+
+def trigger_lookup_candidates(key: str) -> list[str]:
+    return [
+        key,
+        f"{key}_equal",
+        f"location_{key}_equal",
+        f"none_{key}_equal",
+        f"{key}_this_equal",
+        f"location_has_{key}",
+    ]
+
+
+def trigger_index_entry(trigger_index: dict[str, Any], key: str) -> dict[str, Any] | None:
+    for candidate in trigger_lookup_candidates(key):
+        entry = trigger_index.get(candidate)
+        if isinstance(entry, dict):
+            return entry
+    return None
+
+
 def scalar_value(value: object) -> object:
     if isinstance(value, bool):
         return value
@@ -130,13 +273,51 @@ def scalar_value(value: object) -> object:
         return value
     if value is None:
         return None
-    return str(value)
+    text = str(value).strip()
+    if text.lower() == "yes":
+        return True
+    if text.lower() == "no":
+        return False
+    try:
+        if any(marker in text for marker in (".", "e", "E")):
+            return float(text)
+        return int(text)
+    except ValueError:
+        return text
 
 
-def rows_from_mapping(mapping: dict[str, object]) -> list[dict[str, object]]:
+def annotate_modifier_row(
+    row: dict[str, object],
+    modifier_index: dict[str, Any],
+) -> dict[str, object]:
+    key = str(row["key"])
+    entry = modifier_index.get(key, {})
+    if not isinstance(entry, dict):
+        entry = {}
+    annotated = dict(row)
+    annotated["label"] = indexed_text_pair(entry, "name", fallback=prettify(key))
+    description = indexed_text_pair(entry, "description", fallback="")
+    if any(description.values()):
+        annotated["description"] = description
+    for field in ("value_kind", "decimals", "category", "color"):
+        if field in entry:
+            annotated[field] = entry[field]
+    return annotated
+
+
+def rows_from_mapping(
+    mapping: dict[str, object],
+    *,
+    modifier_index: dict[str, Any],
+) -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     for key, value in mapping.items():
-        rows.append({"key": str(key), "value": scalar_value(value)})
+        rows.append(
+            annotate_modifier_row(
+                {"key": str(key), "value": scalar_value(value)},
+                modifier_index,
+            )
+        )
     return rows
 
 
@@ -148,7 +329,184 @@ def rows_from_rewards(rewards: list[object]) -> list[dict[str, object]]:
         reward_type = str(raw.get("type", "")).strip()
         if not reward_type:
             continue
-        rows.append({"key": reward_type, "value": scalar_value(raw.get("value"))})
+        rows.append(
+            {
+                "key": reward_type,
+                "label": {"en": prettify(reward_type), "zh": prettify(reward_type)},
+                "value": scalar_value(raw.get("value")),
+            }
+        )
+    return rows
+
+
+SCRIPT_OPERATORS = {"?=", "=", ">=", "<=", ">", "<"}
+SCRIPT_TOKEN_RE = re.compile(r"\{|\}|>=|<=|\?=|=|>|<|[^\s{}=<>]+")
+
+
+def split_top_level_statements(script: str) -> list[str]:
+    statements: list[str] = []
+    cleaned = "\n".join(line.split("#", 1)[0] for line in str(script or "").splitlines())
+    tokens = SCRIPT_TOKEN_RE.findall(cleaned)
+    index = 0
+    while index < len(tokens):
+        if tokens[index] == "}":
+            break
+        if index + 1 >= len(tokens) or tokens[index + 1] not in SCRIPT_OPERATORS:
+            statements.append(tokens[index])
+            index += 1
+            continue
+
+        key = tokens[index]
+        operator = tokens[index + 1]
+        if index + 2 < len(tokens) and tokens[index + 2] == "{":
+            index += 3
+            depth = 1
+            block_tokens: list[str] = []
+            while index < len(tokens) and depth > 0:
+                token = tokens[index]
+                if token == "{":
+                    depth += 1
+                    block_tokens.append(token)
+                elif token == "}":
+                    depth -= 1
+                    if depth > 0:
+                        block_tokens.append(token)
+                else:
+                    block_tokens.append(token)
+                index += 1
+            statements.append(f"{key} {operator} {{ {' '.join(block_tokens)} }}")
+            continue
+
+        value = tokens[index + 2] if index + 2 < len(tokens) else ""
+        statements.append(f"{key} {operator} {value}".strip())
+        index += 3
+    return statements
+
+
+def inner_block(statement: str) -> str:
+    start = statement.find("{")
+    end = statement.rfind("}")
+    if start < 0 or end < start:
+        return ""
+    return statement[start + 1:end].strip()
+
+
+TRIGGER_STATEMENT_RE = re.compile(r"^([A-Za-z0-9_:.]+)\s*(\?=|=|>=|<=|>|<)\s*(.+)$")
+
+
+def parse_trigger_statement(
+    statement: str,
+    *,
+    logic: str,
+    negated: bool,
+    trigger_index: dict[str, Any],
+    modifier_index: dict[str, Any],
+) -> list[dict[str, object]]:
+    normalized = " ".join(str(statement or "").split())
+    if not normalized:
+        return []
+    normalized_upper = normalized.upper()
+    if normalized_upper.startswith("OR = {"):
+        rows: list[dict[str, object]] = []
+        for child in split_top_level_statements(inner_block(statement)):
+            rows.extend(
+                parse_trigger_statement(
+                    child,
+                    logic="any",
+                    negated=negated,
+                    trigger_index=trigger_index,
+                    modifier_index=modifier_index,
+                )
+        )
+        return rows
+    if normalized_upper.startswith("NOT = {"):
+        rows = []
+        for child in split_top_level_statements(inner_block(statement)):
+            rows.extend(
+                parse_trigger_statement(
+                    child,
+                    logic=logic,
+                    negated=not negated,
+                    trigger_index=trigger_index,
+                    modifier_index=modifier_index,
+                )
+            )
+        return rows
+
+    match = TRIGGER_STATEMENT_RE.match(normalized)
+    if not match:
+        return [
+            {
+                "key": normalized,
+                "label": {"en": normalized, "zh": normalized},
+                "logic": logic,
+                "negated": negated,
+            }
+        ]
+
+    raw_key, operator, raw_value = match.groups()
+    value = scalar_value(raw_value)
+    if value is False:
+        negated = not negated
+    row: dict[str, object] = {
+        "key": raw_key,
+        "operator": operator,
+        "value": value,
+        "logic": logic,
+        "negated": negated,
+    }
+    if raw_key.startswith("modifier:"):
+        modifier_key = raw_key.split(":", 1)[1]
+        row["key"] = modifier_key
+        row["source"] = "modifier"
+        return [annotate_modifier_row(row, modifier_index)]
+
+    if isinstance(value, bool) and raw_key in BOOLEAN_TRIGGER_LABELS:
+        row["label"] = dict(BOOLEAN_TRIGGER_LABELS[raw_key][not negated])
+        row.pop("value", None)
+        return [row]
+
+    lookup_key = raw_key
+    entry = trigger_index_entry(trigger_index, lookup_key)
+    fallback = prettify(lookup_key)
+    label: dict[str, str] = {}
+    for language in LANGUAGES:
+        language_entry = entry.get(language, {}) if isinstance(entry, dict) else {}
+        variant = "not" if negated else "text"
+        text = (
+            language_entry.get(variant) or language_entry.get("text")
+            if isinstance(language_entry, dict)
+            else None
+        )
+        label[language] = scrub_markup(
+            substitute_trigger_value(text or fallback, raw_value, language),
+            language,
+        )
+    row["label"] = label
+    if value in (True, False, "yes", "no"):
+        row.pop("value", None)
+    return [row]
+
+
+def rows_from_trigger_script(
+    script: str,
+    *,
+    trigger_index: dict[str, Any],
+    modifier_index: dict[str, Any],
+) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for statement in split_top_level_statements(script):
+        if " ".join(statement.split()) == "always = yes":
+            continue
+        rows.extend(
+            parse_trigger_statement(
+                statement,
+                logic="all",
+                negated=False,
+                trigger_index=trigger_index,
+                modifier_index=modifier_index,
+            )
+        )
     return rows
 
 
@@ -191,6 +549,8 @@ def build_record(
     loc_data: dict[str, dict[str, str]],
     locations_index: dict[str, Any],
     reference_loc: dict[str, str],
+    modifier_index: dict[str, Any],
+    trigger_index: dict[str, Any],
 ) -> dict[str, object]:
     location_key = str(wonder["location"])
     location_info = locations_index.get(location_key)
@@ -215,14 +575,14 @@ def build_record(
             "final_local",
             "Inherited final local effects",
             "继承的最终建筑本地效果",
-            rows_from_mapping(final_local_modifiers),
+            rows_from_mapping(final_local_modifiers, modifier_index=modifier_index),
             scope="local",
         ),
         effect_section(
             "base_modifiers",
             "Per-level country effects",
             "每级国家效果",
-            rows_from_mapping(displayed_base_modifiers),
+            rows_from_mapping(displayed_base_modifiers, modifier_index=modifier_index),
             scope="country",
         ),
     ):
@@ -238,7 +598,7 @@ def build_record(
         "ritual_country_modifier",
         "Ritual country modifiers",
         "仪式国家修正",
-        rows_from_mapping(ritual.get("country_modifier", {})),
+        rows_from_mapping(ritual.get("country_modifier", {}), modifier_index=modifier_index),
         scope="country",
         meta=ceremony_meta,
     )
@@ -263,7 +623,7 @@ def build_record(
             "timed_burden",
             "Timed burden modifiers",
             "限时负担修正",
-            rows_from_mapping(timed.get("burden_modifier", {})),
+            rows_from_mapping(timed.get("burden_modifier", {}), modifier_index=modifier_index),
             scope="country",
             meta={"years": timed.get("years", 1)} if timed.get("burden_modifier") else None,
         )
@@ -273,7 +633,7 @@ def build_record(
             "timed_blessing",
             "Timed blessing modifiers",
             "限时祝福修正",
-            rows_from_mapping(timed.get("blessing_modifier", {})),
+            rows_from_mapping(timed.get("blessing_modifier", {}), modifier_index=modifier_index),
             scope="country",
             meta={"years": timed.get("years", 1)} if timed.get("blessing_modifier") else None,
         )
@@ -297,7 +657,7 @@ def build_record(
             "auxiliary_local",
             "Auxiliary local modifiers",
             "附属建筑本地修正",
-            rows_from_mapping(auxiliary.get("local_modifier", {})),
+            rows_from_mapping(auxiliary.get("local_modifier", {}), modifier_index=modifier_index),
             scope="local",
             meta=auxiliary_meta,
         )
@@ -307,7 +667,7 @@ def build_record(
             "auxiliary_attributes",
             "Auxiliary attributes",
             "附属建筑属性",
-            rows_from_mapping(auxiliary.get("attributes", {})),
+            rows_from_mapping(auxiliary.get("attributes", {}), modifier_index=modifier_index),
             scope="attribute",
         )
         if section is not None:
@@ -333,12 +693,21 @@ def build_record(
         "centroid": location_info["centroid"],
         "bbox": location_info["bbox"],
         "image": wonder.get("image") or f"tv_wonder_{wonder['key']}",
-        "construction_requirements": [],
+        "construction_requirements": rows_from_trigger_script(
+            site_trigger_script_for_key(mechanics, base_key),
+            trigger_index=trigger_index,
+            modifier_index=modifier_index,
+        ),
         "effects": effects,
     }
 
 
-def build_payload(locations_index_path: Path, reference_loc_path: Path) -> dict[str, object]:
+def build_payload(
+    locations_index_path: Path,
+    reference_loc_path: Path,
+    modifier_localization_index_path: Path,
+    trigger_localization_index_path: Path,
+) -> dict[str, object]:
     all_wonders, mechanics = load_all_wonder_mechanics_data(include_unique=True)
     loc_data = load_wonder_localization_data()
     locations_index = load_json(locations_index_path).get("locations", {})
@@ -349,6 +718,8 @@ def build_payload(locations_index_path: Path, reference_loc_path: Path) -> dict[
     reference_loc = reference_loc_payload.get("strings", {})
     if not isinstance(reference_loc, dict):
         reference_loc = {}
+    modifier_index = load_index_payload(modifier_localization_index_path, "modifiers")
+    trigger_index = load_index_payload(trigger_localization_index_path, "triggers")
 
     base_wonders = {
         wonder["key"]: wonder
@@ -370,6 +741,8 @@ def build_payload(locations_index_path: Path, reference_loc_path: Path) -> dict[
             loc_data=loc_data,
             locations_index=locations_index,
             reference_loc=reference_loc,
+            modifier_index=modifier_index,
+            trigger_index=trigger_index,
         )
         for wonder in unique_wonders
     ]
@@ -388,10 +761,25 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--locations-index", type=Path, default=DEFAULT_LOCATIONS_INDEX)
     parser.add_argument("--reference-loc", type=Path, default=DEFAULT_REFERENCE_LOC)
+    parser.add_argument(
+        "--modifier-localization-index",
+        type=Path,
+        default=DEFAULT_MODIFIER_LOCALIZATION_INDEX,
+    )
+    parser.add_argument(
+        "--trigger-localization-index",
+        type=Path,
+        default=DEFAULT_TRIGGER_LOCALIZATION_INDEX,
+    )
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     args = parser.parse_args()
 
-    payload = build_payload(args.locations_index, args.reference_loc)
+    payload = build_payload(
+        args.locations_index,
+        args.reference_loc,
+        args.modifier_localization_index,
+        args.trigger_localization_index,
+    )
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
@@ -406,4 +794,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
