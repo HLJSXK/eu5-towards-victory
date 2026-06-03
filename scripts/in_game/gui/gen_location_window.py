@@ -77,6 +77,10 @@ def slot_ritual_style_string(slot_type: str, slot: int) -> str:
     return fixed_point_to_int_string(slot_ritual_style_var(slot_type, slot))
 
 
+def slot_display_concept_expr(slot_type: str, slot: int) -> str:
+    return f"Concatenate('{DISPLAY_CONCEPT_PREFIX}', {slot_id_string(slot_type, slot)})"
+
+
 def var_enabled_expr(var_expr: str) -> str:
     return f"And({var_expr}.IsSet, Not(EqualTo_CFixedPoint({var_expr}.GetValue, '(CFixedPoint)0.0')))"
 
@@ -106,7 +110,7 @@ def slot_has_effect_payload_expr(slot_type: str, slot: int) -> str:
 
 
 def slot_name_expr(slot_type: str, slot: int) -> str:
-    return f"Localize(Concatenate('game_concept_{DISPLAY_CONCEPT_PREFIX}', {slot_id_string(slot_type, slot)}))"
+    return f"SelectGameConcept({slot_has_id_expr(slot_type, slot)}, {slot_display_concept_expr(slot_type, slot)}, 'tv_wonder_construction')"
 
 
 def slot_image_expr(slot_type: str, slot: int) -> str:

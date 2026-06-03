@@ -1132,12 +1132,12 @@
   detectability: advisory
   pattern: ''
   only_in_paths: ['gui']
-  bad: "Using SelectGameConcept with a dynamic key expression that can be localized before the concept-link parser consumes it"
-  correction: "For dynamic display names, render plain text with Localize(Concatenate('game_concept_', key)). For clickable concept links, generate static [concept|E] branches keyed by a saved id."
+  bad: "Using dynamic concept-link helpers with key expressions that can be localized before the concept-link parser consumes them"
+  correction: "Feed SelectGameConcept or [...|E] only registered raw concept ids. For generated dynamic routes, store a numeric id and build ids such as tv_wonder_display_<id>; use Localize(Concatenate('game_concept_', key)) only for intentionally plain text."
   category: gui
   scope: localization
-  source: "runtime error.log from location_window.gui dynamic wonder display: Data error in loc string '[圣山|e]'"
-  notes: "A flag-derived wonder concept key rendered through dynamic SelectGameConcept became the localized Chinese name before link parsing. The parser then looked for a data-system function named after the localized text and logged Could not find data system function."
+  source: "runtime error.log from location_window.gui dynamic wonder display: Data error in loc string with localized wonder name"
+  notes: "The failing test used a flag-derived wonder key that localized before link parsing. The bug is the localized key source, not numeric-id dynamic concept routing."
 
 - id: gui_getflagname_used_as_raw_key
   detectability: advisory

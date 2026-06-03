@@ -81,12 +81,13 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     target link and can spam scope-mismatch errors. Use `owner ?= { ... }` for
     country effects shown from a location-root tooltip.
 
-15. Avoid dynamic concept links from localized keys.
-    `SelectGameConcept` can produce a localized display string before the
-    square-bracket concept-link parser consumes it. If the key is dynamic, use
-    `Localize(Concatenate('game_concept_', key))` for plain text. For an actual
-    clickable concept link, generate static branches with literal `[concept|E]`
-    text.
+15. Keep dynamic concept-link keys raw and registered.
+    `SelectGameConcept` and `[...|E]` can use dynamic CString concept ids, but
+    the value must already be a registered raw concept id. Do not feed them
+    `GetFlagName` or variable-map flag values that can localize to display text.
+    For generated routes, store a numeric id and build ids such as
+    `tv_wonder_display_<id>`. Use `Localize(Concatenate('game_concept_', key))`
+    only when intentionally rendering plain, non-clickable text.
 
 16. Use EU5 image fit enums, not CSS names.
     Vanilla GUI uses `fittype` values such as `centercrop`, `fill`, `start`,
