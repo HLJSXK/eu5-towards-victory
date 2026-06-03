@@ -165,8 +165,7 @@ tv_wonder_sacred_mountain_ritual_annex = {
 	construction_demand = town_building_construction
 
 	modifier = {
-		local_clergy_max_literacy = 10
-		local_pop_conversion_speed = 10
+		local_pop_conversion_speed = 0.01
 		local_clergy_estate_power = 0.5
 	}
 
@@ -361,8 +360,8 @@ tv_wonder_triumphal_axis_ritual_annex = {
 	construction_demand = capital_building_construction
 
 	modifier = {
-		local_garrison_size = 150
-		local_cultural_influence = 0.5
+		can_recruit_regiment_in_this_location = 1
+		local_manpower = 0.01
 		local_nobles_estate_power = 0.5
 	}
 
@@ -2975,13 +2974,8 @@ tv_wonder_star_fortress_city_ritual_annex = {
 	construction_demand = fort_construction
 
 	modifier = {
-		local_defensive = 0.2
-		local_garrison_size = 250
+		local_unrest = -0.1
 		local_crown_estate_power = 0.5
-	}
-
-	raw_modifier = {
-		fort_level = 1
 	}
 
 	possible_production_methods = {
@@ -8144,10 +8138,8 @@ tv_wonder_solstice_gathering_circle = {
 	build_time = large_cultural_building_time
 
 	modifier = {
-		local_cultural_tradition = 1.2
+		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_unrest = -0.05
-		local_migration_attraction = 0.5
 	}
 
 	possible_production_methods = {
@@ -8190,10 +8182,8 @@ tv_wonder_astral_alignment_circle = {
 	build_time = large_cultural_building_time
 
 	modifier = {
-		local_cultural_tradition = 1.2
+		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_unrest = -0.05
-		local_migration_attraction = 0.5
 	}
 
 	possible_production_methods = {
@@ -8236,10 +8226,8 @@ tv_wonder_ancestral_moot_circle = {
 	build_time = large_cultural_building_time
 
 	modifier = {
-		local_cultural_tradition = 1.2
+		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_unrest = -0.05
-		local_migration_attraction = 0.5
 	}
 
 	possible_production_methods = {
@@ -8285,8 +8273,7 @@ tv_wonder_megalithic_circle_ritual_annex = {
 	construction_demand = town_building_construction
 
 	modifier = {
-		local_max_literacy = 5
-		local_cultural_influence = 0.4
+		local_cultural_tradition = 1
 		local_clergy_estate_power = 0.5
 	}
 
@@ -8347,9 +8334,7 @@ tv_wonder_high_choir_cathedral = {
 
 	modifier = {
 		local_cultural_tradition = 0.5
-		local_cultural_influence = 1
-		local_pop_conversion_speed = 20
-		local_clergy_estate_power = 0.25
+		local_cultural_influence = 0.5
 	}
 
 	possible_production_methods = {
@@ -8393,9 +8378,7 @@ tv_wonder_pilgrim_nave_cathedral = {
 
 	modifier = {
 		local_cultural_tradition = 0.5
-		local_cultural_influence = 1
-		local_pop_conversion_speed = 20
-		local_clergy_estate_power = 0.25
+		local_cultural_influence = 0.5
 	}
 
 	possible_production_methods = {
@@ -8439,9 +8422,7 @@ tv_wonder_civic_bells_cathedral = {
 
 	modifier = {
 		local_cultural_tradition = 0.5
-		local_cultural_influence = 1
-		local_pop_conversion_speed = 20
-		local_clergy_estate_power = 0.25
+		local_cultural_influence = 0.5
 	}
 
 	possible_production_methods = {
@@ -8487,8 +8468,7 @@ tv_wonder_grand_cathedral_ritual_annex = {
 	construction_demand = town_building_construction
 
 	modifier = {
-		local_migration_attraction = 1
-		local_trade_center_power = 0.15
+		local_monthly_prosperity = 0.002
 		local_clergy_estate_power = 0.5
 	}
 
@@ -8550,10 +8530,9 @@ tv_wonder_scriptorium_monastery = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_max_literacy = 10
-		local_pop_conversion_speed = 15
-		local_clergy_estate_power = 0.4
-		local_defensive = 0.1
+		local_clergy_max_literacy = 10
+		local_pop_conversion_speed = 5
+		local_pop_conversion_speed_modifier = 0.2
 	}
 
 	possible_production_methods = {
@@ -8598,10 +8577,9 @@ tv_wonder_pilgrim_refectory_monastery = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_max_literacy = 10
-		local_pop_conversion_speed = 15
-		local_clergy_estate_power = 0.4
-		local_defensive = 0.1
+		local_clergy_max_literacy = 10
+		local_pop_conversion_speed = 5
+		local_pop_conversion_speed_modifier = 0.2
 	}
 
 	possible_production_methods = {
@@ -8646,10 +8624,9 @@ tv_wonder_fortified_cloister_monastery = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_max_literacy = 10
-		local_pop_conversion_speed = 15
-		local_clergy_estate_power = 0.4
-		local_defensive = 0.1
+		local_clergy_max_literacy = 10
+		local_pop_conversion_speed = 5
+		local_pop_conversion_speed_modifier = 0.2
 	}
 
 	possible_production_methods = {
@@ -8695,8 +8672,7 @@ tv_wonder_great_monastery_ritual_annex = {
 	construction_demand = town_building_construction
 
 	modifier = {
-		local_migration_attraction = 1
-		local_unrest = -0.05
+		local_unrest = -0.1
 		local_clergy_estate_power = 0.5
 	}
 
@@ -10598,10 +10574,8 @@ tv_wonder_unique_stonehenge_inaugurated = {
 	build_time = large_cultural_building_time
 
 	modifier = {
-		local_cultural_tradition = 1.9
+		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_unrest = -0.1
-		local_migration_attraction = 1
 	}
 
 	possible_production_methods = {
@@ -10695,9 +10669,7 @@ tv_wonder_unique_notre_dame_de_paris_inaugurated = {
 
 	modifier = {
 		local_cultural_tradition = 0.5
-		local_cultural_influence = 1.5
-		local_pop_conversion_speed = 40
-		local_clergy_estate_power = 0.5
+		local_cultural_influence = 0.5
 	}
 
 	possible_production_methods = {
@@ -10741,9 +10713,7 @@ tv_wonder_unique_st_basils_cathedral_inaugurated = {
 
 	modifier = {
 		local_cultural_tradition = 0.5
-		local_cultural_influence = 1.5
-		local_pop_conversion_speed = 40
-		local_clergy_estate_power = 0.5
+		local_cultural_influence = 0.5
 	}
 
 	possible_production_methods = {
@@ -10788,10 +10758,9 @@ tv_wonder_unique_trinity_lavra_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_max_literacy = 20
-		local_pop_conversion_speed = 30
-		local_clergy_estate_power = 0.8
-		local_defensive = 0.2
+		local_clergy_max_literacy = 20
+		local_pop_conversion_speed = 10
+		local_pop_conversion_speed_modifier = 0.4
 	}
 
 	possible_production_methods = {
@@ -11018,10 +10987,9 @@ tv_wonder_unique_meteora_monasteries_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_max_literacy = 20
-		local_pop_conversion_speed = 30
-		local_clergy_estate_power = 0.8
-		local_defensive = 0.2
+		local_clergy_max_literacy = 20
+		local_pop_conversion_speed = 10
+		local_pop_conversion_speed_modifier = 0.4
 	}
 
 	possible_production_methods = {
