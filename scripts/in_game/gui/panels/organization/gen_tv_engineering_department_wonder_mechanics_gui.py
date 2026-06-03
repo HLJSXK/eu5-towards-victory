@@ -463,14 +463,15 @@ def active_ritual_display(wonder: dict, style: int) -> str:
     return "\n".join(lines)
 
 
-def hold_button_base_visible() -> str:
+def hold_button_base_visible(max_wonder_id: int) -> str:
     # Once a ritual starts, hide the button instead of leaving a disabled action
     # that still forces EU5 to render the heavy generic-action tooltip.
     return (
-        f"And("
+        f"And3("
         f"And3({PLAYER}.GetVariable('tv_wonder_locked').IsSet, "
         f"{PLAYER}.GetVariable('tv_wonder_ceremony_style').IsSet, "
-        f"LessThanOrEqualTo_CFixedPoint({PLAYER}.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)140.0')), "
+        f"LessThanOrEqualTo_CFixedPoint({PLAYER}.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint){max_wonder_id}.0')), "
+        f"Not({PLAYER}.GetVariable('tv_wonder_finalized').IsSet), "
         f"Not({PLAYER}.GetVariable('tv_wonder_ritual_in_progress').IsSet)"
         f")"
     )
@@ -487,6 +488,7 @@ def hold_button(action_name: str, visible: str) -> str:
 
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics_data()
+    max_wonder_id = max(wonder["id"] for wonder in wonders)
     gold_ritual_pairs: list[tuple[int, int]] = []
     prestige_ritual_pairs: list[tuple[int, int]] = []
     for wonder in wonders:
@@ -561,7 +563,7 @@ def generate() -> str:
     lines.append("### END TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
-    base_visible = hold_button_base_visible()
+    base_visible = hold_button_base_visible(max_wonder_id)
     gold_pair_visible = ritual_pair_visible(gold_ritual_pairs)
     prestige_pair_visible = ritual_pair_visible(prestige_ritual_pairs)
     gold_visible = f"And({base_visible}, {gold_pair_visible})"

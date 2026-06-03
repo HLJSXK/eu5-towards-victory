@@ -107,9 +107,16 @@ tv_engineering_department = {
 								tv_wonder_active_part_can_gain_progress_trigger = yes
 								NOT = { has_variable = tv_wonder_construction_complete }
 								var:tv_wonder_monthly_construction_progress ?= { this > 0 }
+								var:tv_wonder_base_monthly_construction_progress ?= { this > 0 }
+								var:tv_wonder_logistics_progress_percent ?= { this > 0 }
 							}
 						}
-						value = leader_country.var:tv_wonder_monthly_construction_progress
+						value = leader_country.var:tv_wonder_base_monthly_construction_progress
+						multiply = {
+							desc = "TV_WONDER_LOGISTICS_CONSTRUCTION_PROGRESS_MULTIPLIER"
+							value = leader_country.var:tv_wonder_logistics_progress_percent
+							divide = 100
+						}
 					}
 				}
 			}

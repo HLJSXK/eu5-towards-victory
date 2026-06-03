@@ -1514,7 +1514,12 @@ tv_wonder_update_logistics_metrics_effect = {
 	set_variable = { name = tv_wonder_laborers value = 0 }
 	set_variable = { name = tv_wonder_labor_cap value = 0 }
 	set_variable = { name = tv_wonder_labor_cap_display value = 1 }
+	set_variable = { name = tv_wonder_base_monthly_construction_progress value = 0 }
 	set_variable = { name = tv_wonder_monthly_construction_progress value = 0 }
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_logistics_progress_percent } }
+		tv_wonder_update_construction_tiers_from_competence_effect = yes
+	}
 
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
@@ -1544,12 +1549,15 @@ tv_wonder_update_logistics_metrics_effect = {
 			set_variable = { name = tv_wonder_laborers value = var:tv_wonder_labor_cap }
 		}
 		set_variable = {
-			name = tv_wonder_monthly_construction_progress
+			name = tv_wonder_base_monthly_construction_progress
 			value = {
 				value = var:tv_wonder_laborers
 				floor = yes
 			}
 		}
+		set_variable = { name = tv_wonder_monthly_construction_progress value = var:tv_wonder_base_monthly_construction_progress }
+		change_variable = { name = tv_wonder_monthly_construction_progress multiply = var:tv_wonder_logistics_progress_percent }
+		change_variable = { name = tv_wonder_monthly_construction_progress divide = 100 }
 		clamp_variable = { name = tv_wonder_monthly_construction_progress min = 0 max = 30000 }
 	}
 }
@@ -1583,6 +1591,7 @@ tv_wonder_clear_current_survey_effect = {
 	remove_variable = tv_wonder_organization_effect_percent
 	remove_variable = tv_wonder_logistics_progress_percent
 	remove_variable = tv_wonder_organization_site_level_cap
+	remove_variable = tv_wonder_base_monthly_construction_progress
 	remove_variable = tv_wonder_monthly_construction_progress
 	remove_variable = tv_wonder_ceremony_style
 	remove_variable = tv_wonder_ceremony_locked
@@ -2595,6 +2604,7 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_laborers
 	remove_variable = tv_wonder_labor_cap
 	remove_variable = tv_wonder_labor_cap_display
+	remove_variable = tv_wonder_base_monthly_construction_progress
 	remove_variable = tv_wonder_monthly_construction_progress
 	remove_variable = tv_wonder_active_part
 	remove_variable = tv_wonder_construction_paused
