@@ -417,6 +417,16 @@
   source: "reference_game_files/game/in_game/gui/panels/organization/defensive_league.gui:128-149"
   notes: "Adding datacontext to action_button_diamond overrides the widget's internal binding, causing tooltip generation to fail silently (empty tooltip, button stays grayed regardless of action potential). Vanilla IO panels never use datacontext on action_button_diamond. Use Player (global GUI binding) instead of Country (datacontext-dependent) to access player-country variables."
 
+- id: gui_button_missing_tooltip
+  pattern: ''
+  detectability: needs_parser
+  bad: "A GUI button widget without tooltip/tooltipwidget, including visual button templates such as button_checkbox_auto or disabled button_regular_diamond"
+  correction: "Give every button-derived widget its own tooltip or tooltipwidget, even if another transparent action_button overlays it or the button is disabled."
+  category: gui
+  scope: any
+  source: "EU5 runtime tooltip_validation.cpp: Button is missing tooltip"
+  notes: "The engine validates the button widget itself. A separate overlay action_button with title/description does not satisfy tooltip validation for the underlying button_checkbox_auto, and disabled placeholder buttons still need a tooltip."
+
 - id: positive_sign_in_float_literal
   pattern: 'value = \+\d'
   bad: "Writing a leading + sign on positive float literals, e.g. value = +0.025 or change_variable = { ... value = +0.003 }"

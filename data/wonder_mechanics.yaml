@@ -879,6 +879,72 @@ designs:
         en: Urban Renewal
         completion: 支付城区更新经费后立即完成落成仪式。
         effect: +300 金币，所在地点 +25% 繁荣度。
+  megalithic_circle:
+    status: 已实现
+    positioning: 史前礼仪、历法记忆与祖灵秩序
+    site: 任意己方地点，乡村、丘陵或开阔高地更佳。
+    preference: 乡村 +10%，丘陵 +5%，森林/树林 +5%，发展度提供额外称职度。
+    base_effect: 每级：国家 +10 列强分数、0.04 传统价值观倾向、0.001 月度繁荣；所在地提升文化传统和安定。
+    branches:
+      1:
+        zh: 至日集会
+        en: Solstice Gathering
+        completion: 至日集会持续一年后完成落成仪式。
+        effect: +0.06 每月威望，+1 正统信仰容忍。
+      2:
+        zh: 星象准线
+        en: Astral Alignment
+        completion: 完成星象准线附属建筑后完成落成仪式。
+        effect: +5 本地最大识字率，+0.4 本地文化影响。
+      3:
+        zh: 祖灵大会
+        en: Ancestral Moot
+        completion: 献上祖灵大会祭品后立即完成落成仪式。
+        effect: +1 稳定度，+20 文化传统。
+  grand_cathedral:
+    status: 已实现
+    positioning: 主教座堂、城市礼仪与朝圣经济
+    site: 非乡村地点；已有大教堂、正信占优或高发展城市更佳。
+    preference: 大教堂 +10%，城市/大都会 +5%，正信占优 +10%，发展度提供额外称职度。
+    base_effect: 每级：国家 +10 列强分数、+1 正统信仰容忍、5% 全局人口皈依速度、0.04 属灵价值观倾向；所在地提升皈依与文化影响。
+    branches:
+      1:
+        zh: 高坛奉献礼
+        en: High Choir Dedication
+        completion: 高坛奉献礼持续一年后完成落成仪式。
+        effect: +4% 教士满意均衡点。
+      2:
+        zh: 朝圣中殿
+        en: Pilgrim Nave
+        completion: 完成朝圣中殿附属建筑后完成落成仪式。
+        effect: +1 本地移民吸引力，+0.15 本地贸易中心力量。
+      3:
+        zh: 城钟祝圣
+        en: Civic Bell Consecration
+        completion: 献上城钟祝圣祭品后立即完成落成仪式。
+        effect: +50 威望，+1 稳定度。
+  great_monastery:
+    status: 已实现
+    positioning: 修道院共同体、抄本学术与山地避难
+    site: 任意己方地点；修道院、山地/丘陵或正信占优地点更佳。
+    preference: 修道院 +10%，山地 +10%，丘陵 +5%，正信占优 +5%。
+    base_effect: 每级：国家 +10 列强分数、3% 研究速度、0.002 全局月度识字率、0.03 属灵价值观倾向；所在地提升识字、皈依与教士影响。
+    branches:
+      1:
+        zh: 缮写院规
+        en: Scriptorium Rule
+        completion: 缮写院规持续一年后完成落成仪式。
+        effect: +4% 研究速度，+0.003 全局月度识字率。
+      2:
+        zh: 香客斋堂
+        en: Pilgrim Refectory
+        completion: 完成香客斋堂附属建筑后完成落成仪式。
+        effect: +1 本地移民吸引力，-5% 本地叛乱度。
+      3:
+        zh: 坚壁回廊
+        en: Fortified Cloister
+        completion: 献上坚壁回廊祭品后立即完成落成仪式。
+        effect: +3000 人力，+1 稳定度。
 buildings:
   sacred_mountain:
     final_local: {}
@@ -1194,6 +1260,41 @@ buildings:
         rural_settlement: false
       tv_wonder_urban_renewal:
         rural_settlement: false
+  megalithic_circle:
+    final_local:
+      local_cultural_tradition: 0.7
+      local_unrest: -0.05
+      local_migration_attraction: 0.5
+    final_maintenance:
+      tv_wonder_solstice_gathering_circle: tv_wonder_sacred_monument_maintenance
+      tv_wonder_astral_alignment_circle: tv_wonder_sacred_monument_maintenance
+      tv_wonder_ancestral_moot_circle: tv_wonder_sacred_monument_maintenance
+  grand_cathedral:
+    final_local:
+      local_pop_conversion_speed: 20
+      local_cultural_influence: 0.5
+      local_clergy_estate_power: 0.25
+    final_maintenance:
+      tv_wonder_high_choir_cathedral: tv_wonder_sacred_monument_maintenance
+      tv_wonder_pilgrim_nave_cathedral: tv_wonder_sacred_monument_maintenance
+      tv_wonder_civic_bells_cathedral: tv_wonder_sacred_monument_maintenance
+    final_attributes:
+      tv_wonder_high_choir_cathedral:
+        rural_settlement: false
+      tv_wonder_pilgrim_nave_cathedral:
+        rural_settlement: false
+      tv_wonder_civic_bells_cathedral:
+        rural_settlement: false
+  great_monastery:
+    final_local:
+      local_max_literacy: 10
+      local_pop_conversion_speed: 15
+      local_clergy_estate_power: 0.4
+      local_defensive: 0.1
+    final_maintenance:
+      tv_wonder_scriptorium_monastery: tv_wonder_sacred_monument_maintenance
+      tv_wonder_pilgrim_refectory_monastery: tv_wonder_sacred_monument_maintenance
+      tv_wonder_fortified_cloister_monastery: tv_wonder_axis_monument_maintenance
 generic_rituals:
   sacred_mountain:
     style_1:
@@ -1777,6 +1878,53 @@ generic_rituals:
         value: 300
       - type: site_prosperity
         value: 0.25
+  megalithic_circle:
+    style_1:
+      country_modifier:
+        monthly_prestige: 0.05
+        tolerance_own: 1
+    style_2:
+      local_modifier:
+        local_max_literacy: 5
+        local_cultural_influence: 0.4
+    style_3:
+      cost_type: artwork
+      reward:
+      - type: stability
+        value: 1
+      - type: cultural_tradition
+        value: 20
+  grand_cathedral:
+    style_1:
+      country_modifier:
+        clergy_estate_target_satisfaction: 0.04
+    style_2:
+      local_modifier:
+        local_migration_attraction: 1
+        local_trade_center_power: 0.15
+    style_3:
+      cost_type: artwork
+      reward:
+      - type: prestige
+        value: 50
+      - type: stability
+        value: 1
+  great_monastery:
+    style_1:
+      country_modifier:
+        research_speed: 0.04
+        global_monthly_literacy: 0.003
+    style_2:
+      local_modifier:
+        local_migration_attraction: 1
+        local_unrest: -0.05
+    style_3:
+      cost_type: prestige
+      reward:
+      - type: manpower
+        value: 3000
+      - type: stability
+        value: 1
 base_modifiers:
   sacred_mountain:
     global_pop_conversion_speed_modifier: 0.2
@@ -1888,6 +2036,17 @@ base_modifiers:
     monthly_prestige: 0.05
     great_power_score: 5
   city_expansion_project: {}
+  megalithic_circle:
+    monthly_towards_traditionalist: 0.04
+    global_monthly_prosperity: 0.001
+  grand_cathedral:
+    tolerance_own: 1
+    global_pop_conversion_speed_modifier: 0.05
+    monthly_towards_spiritualist: 0.04
+  great_monastery:
+    research_speed: 0.03
+    global_monthly_literacy: 0.002
+    monthly_towards_spiritualist: 0.03
 ceremony_modifier_names:
   giant_observatory:
     tv_wonder_nautical_almanac_observatory: tv_wonder_nautical_almanac_modifier
@@ -2127,6 +2286,33 @@ ceremony_modifiers:
   tv_wonder_world_exposition_monument_group:
     diplomatic_reputation: 1
     monthly_prestige: 0.05
+  tv_wonder_solstice_gathering_circle_modifier:
+    monthly_prestige: 0.06
+    tolerance_own: 1
+  tv_wonder_astral_alignment_circle_modifier:
+    research_speed: 0.03
+    global_monthly_literacy: 0.002
+  tv_wonder_ancestral_moot_circle_modifier:
+    monthly_legitimacy: 0.05
+    pop_join_rebel_threshold: 0.02
+  tv_wonder_high_choir_cathedral_modifier:
+    clergy_estate_target_satisfaction: 0.04
+    tolerance_own: 1
+  tv_wonder_pilgrim_nave_cathedral_modifier:
+    tax_income_efficiency: 0.04
+    global_monthly_prosperity: 0.002
+  tv_wonder_civic_bells_cathedral_modifier:
+    monthly_prestige: 0.05
+    pop_join_rebel_threshold: 0.03
+  tv_wonder_scriptorium_monastery_modifier:
+    research_speed: 0.04
+    global_monthly_literacy: 0.003
+  tv_wonder_pilgrim_refectory_monastery_modifier:
+    global_monthly_prosperity: 0.002
+    tolerance_own: 1
+  tv_wonder_fortified_cloister_monastery_modifier:
+    global_defensive: 0.03
+    global_garrison_size_modifier: 0.04
 site_rules:
   canal_hub_city:
     trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n\tis_port = yes\n}\nNOT = { location_rank ?= location_rank:rural_settlement }"
@@ -2284,6 +2470,73 @@ site_rules:
       min: 0
       max: 100
       multiplier: 0.1
+  grand_cathedral:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: |-
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { has_building = building_type:cathedral } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { dominant_religion = owner.religion } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+    suitability_knowledge:
+    - type: condition_bonus
+      condition: has_cathedral
+      value: 10
+    - type: condition_bonus
+      condition: urban_rank
+      value: 5
+    - type: condition_bonus
+      condition: dominant_religion_owner
+      value: 10
+    - type: scaled_bonus
+      source: development
+      min: 0
+      max: 100
+      multiplier: 0.1
+  great_monastery:
+    trigger_script: always = yes
+    preference_script: |-
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { has_building = building_type:monastery } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { topography = mountains } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      else_if = {
+        limit = { var:tv_wonder_survey_site ?= { topography = hills } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { dominant_religion = owner.religion } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+    suitability_knowledge:
+    - type: condition_bonus
+      condition: has_monastery
+      value: 10
+    - type: condition_bonus
+      condition: topography_mountains
+      value: 10
+    - type: condition_bonus
+      condition: topography_hills
+      value: 5
+    - type: condition_bonus
+      condition: dominant_religion_owner
+      value: 5
   great_lighthouse:
     trigger_script: is_port = yes
     preference_script: |-
@@ -2458,6 +2711,41 @@ site_rules:
     - type: condition_bonus
       condition: topography_hills
       value: 5
+  megalithic_circle:
+    trigger_script: always = yes
+    preference_script: |-
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { topography = hills } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { OR = { vegetation = forest vegetation = woods } } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.05 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+    suitability_knowledge:
+    - type: condition_bonus
+      condition: rank_rural
+      value: 10
+    - type: condition_bonus
+      condition: topography_hills
+      value: 5
+    - type: condition_bonus
+      condition: vegetation_forest
+      value: 5
+    - type: scaled_bonus
+      source: development
+      min: 0
+      max: 100
+      multiplier: 0.05
   national_shipyard:
     trigger_script: is_port = yes
     preference_script: |-

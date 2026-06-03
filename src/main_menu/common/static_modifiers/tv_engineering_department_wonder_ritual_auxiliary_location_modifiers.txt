@@ -122,9 +122,7 @@ tv_wonder_river_extension_ritual_annex_display_modifier = {
 }
 
 tv_wonder_national_shipyard_ritual_annex_display_modifier = {
-	local_ship_build_speed = 0.2
-	max_ships_built_at_same_time = 1
-	harbor_suitability = 0.1
+	local_monthly_development_modifier = 0.2
 	local_burghers_estate_power = 0.5
 	game_data = {
 		category = location
@@ -300,7 +298,7 @@ tv_wonder_world_market_ritual_annex_display_modifier = {
 }
 
 tv_wonder_royal_mint_system_ritual_annex_display_modifier = {
-	local_production_efficiency = 0.1
+	local_production_efficiency = 0.2
 	local_burghers_estate_power = 0.5
 	game_data = {
 		category = location
@@ -343,6 +341,33 @@ tv_wonder_city_expansion_project_ritual_annex_display_modifier = {
 	local_monthly_development_modifier = 0.1
 	local_migration_attraction = 2
 	local_burghers_estate_power = 0.5
+	game_data = {
+		category = location
+	}
+}
+
+tv_wonder_megalithic_circle_ritual_annex_display_modifier = {
+	local_max_literacy = 5
+	local_cultural_influence = 0.4
+	local_clergy_estate_power = 0.5
+	game_data = {
+		category = location
+	}
+}
+
+tv_wonder_grand_cathedral_ritual_annex_display_modifier = {
+	local_migration_attraction = 1
+	local_trade_center_power = 0.15
+	local_clergy_estate_power = 0.5
+	game_data = {
+		category = location
+	}
+}
+
+tv_wonder_great_monastery_ritual_annex_display_modifier = {
+	local_migration_attraction = 1
+	local_unrest = -0.05
+	local_clergy_estate_power = 0.5
 	game_data = {
 		category = location
 	}

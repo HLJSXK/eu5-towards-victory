@@ -7043,6 +7043,534 @@ tv_wonder_location_is_valid_priority_project_for_city_expansion_project_trigger 
 	trigger_else = { always = no }
 }
 
+tv_wonder_location_has_megalithic_circle_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_megalithic_circle
+		has_building = building_type:tv_wonder_megalithic_circle_foundation
+		has_building = building_type:tv_wonder_megalithic_circle_body
+		has_building = building_type:tv_wonder_megalithic_circle_function
+		has_building = building_type:tv_wonder_megalithic_circle_decoration
+	}
+}
+
+tv_wonder_location_has_megalithic_circle_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_solstice_gathering_circle
+		has_building = building_type:tv_wonder_astral_alignment_circle
+		has_building = building_type:tv_wonder_ancestral_moot_circle
+	}
+}
+
+tv_wonder_location_has_megalithic_circle_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_megalithic_circle
+		has_building = building_type:tv_wonder_megalithic_circle_foundation
+		has_building = building_type:tv_wonder_megalithic_circle_body
+		has_building = building_type:tv_wonder_megalithic_circle_function
+		has_building = building_type:tv_wonder_megalithic_circle_decoration
+		has_building = building_type:tv_wonder_solstice_gathering_circle
+		has_building = building_type:tv_wonder_astral_alignment_circle
+		has_building = building_type:tv_wonder_ancestral_moot_circle
+	}
+}
+
+tv_wonder_location_has_megalithic_circle_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_solstice_gathering_circle value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_solstice_gathering_circle value >= 2 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_solstice_gathering_circle value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_solstice_gathering_circle value >= 3 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_solstice_gathering_circle value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_solstice_gathering_circle value >= 4 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_solstice_gathering_circle value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_solstice_gathering_circle value >= 5 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_solstice_gathering_circle value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_solstice_gathering_circle value >= 6 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_astral_alignment_circle value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_astral_alignment_circle value >= 2 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_astral_alignment_circle value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_astral_alignment_circle value >= 3 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_astral_alignment_circle value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_astral_alignment_circle value >= 4 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_astral_alignment_circle value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_astral_alignment_circle value >= 5 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_astral_alignment_circle value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_astral_alignment_circle value >= 6 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_ancestral_moot_circle value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_ancestral_moot_circle value >= 2 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_ancestral_moot_circle value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_ancestral_moot_circle value >= 3 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_ancestral_moot_circle value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_ancestral_moot_circle value >= 4 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_ancestral_moot_circle value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_ancestral_moot_circle value >= 5 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_ancestral_moot_circle value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_ancestral_moot_circle value >= 6 } }
+			OR = {
+				var:tv_wonder_megalithic_circle_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_megalithic_circle_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_megalithic_circle_capped_final_building_trigger = {
+	tv_wonder_location_has_megalithic_circle_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_megalithic_circle_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_megalithic_circle_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_megalithic_circle_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_megalithic_circle_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_grand_cathedral_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_grand_cathedral
+		has_building = building_type:tv_wonder_grand_cathedral_foundation
+		has_building = building_type:tv_wonder_grand_cathedral_body
+		has_building = building_type:tv_wonder_grand_cathedral_function
+		has_building = building_type:tv_wonder_grand_cathedral_decoration
+	}
+}
+
+tv_wonder_location_has_grand_cathedral_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_high_choir_cathedral
+		has_building = building_type:tv_wonder_pilgrim_nave_cathedral
+		has_building = building_type:tv_wonder_civic_bells_cathedral
+	}
+}
+
+tv_wonder_location_has_grand_cathedral_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_grand_cathedral
+		has_building = building_type:tv_wonder_grand_cathedral_foundation
+		has_building = building_type:tv_wonder_grand_cathedral_body
+		has_building = building_type:tv_wonder_grand_cathedral_function
+		has_building = building_type:tv_wonder_grand_cathedral_decoration
+		has_building = building_type:tv_wonder_high_choir_cathedral
+		has_building = building_type:tv_wonder_pilgrim_nave_cathedral
+		has_building = building_type:tv_wonder_civic_bells_cathedral
+	}
+}
+
+tv_wonder_location_has_grand_cathedral_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_high_choir_cathedral value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_high_choir_cathedral value >= 2 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_high_choir_cathedral value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_high_choir_cathedral value >= 3 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_high_choir_cathedral value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_high_choir_cathedral value >= 4 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_high_choir_cathedral value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_high_choir_cathedral value >= 5 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_high_choir_cathedral value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_high_choir_cathedral value >= 6 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_pilgrim_nave_cathedral value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_pilgrim_nave_cathedral value >= 2 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_pilgrim_nave_cathedral value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_pilgrim_nave_cathedral value >= 3 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_pilgrim_nave_cathedral value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_pilgrim_nave_cathedral value >= 4 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_pilgrim_nave_cathedral value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_pilgrim_nave_cathedral value >= 5 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_pilgrim_nave_cathedral value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_pilgrim_nave_cathedral value >= 6 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_civic_bells_cathedral value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_civic_bells_cathedral value >= 2 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_civic_bells_cathedral value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_civic_bells_cathedral value >= 3 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_civic_bells_cathedral value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_civic_bells_cathedral value >= 4 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_civic_bells_cathedral value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_civic_bells_cathedral value >= 5 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_civic_bells_cathedral value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_civic_bells_cathedral value >= 6 } }
+			OR = {
+				var:tv_wonder_grand_cathedral_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_grand_cathedral_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_grand_cathedral_capped_final_building_trigger = {
+	tv_wonder_location_has_grand_cathedral_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_grand_cathedral_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_grand_cathedral_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_grand_cathedral_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_grand_cathedral_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_great_monastery_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_great_monastery
+		has_building = building_type:tv_wonder_great_monastery_foundation
+		has_building = building_type:tv_wonder_great_monastery_body
+		has_building = building_type:tv_wonder_great_monastery_function
+		has_building = building_type:tv_wonder_great_monastery_decoration
+	}
+}
+
+tv_wonder_location_has_great_monastery_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_scriptorium_monastery
+		has_building = building_type:tv_wonder_pilgrim_refectory_monastery
+		has_building = building_type:tv_wonder_fortified_cloister_monastery
+	}
+}
+
+tv_wonder_location_has_great_monastery_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_great_monastery
+		has_building = building_type:tv_wonder_great_monastery_foundation
+		has_building = building_type:tv_wonder_great_monastery_body
+		has_building = building_type:tv_wonder_great_monastery_function
+		has_building = building_type:tv_wonder_great_monastery_decoration
+		has_building = building_type:tv_wonder_scriptorium_monastery
+		has_building = building_type:tv_wonder_pilgrim_refectory_monastery
+		has_building = building_type:tv_wonder_fortified_cloister_monastery
+	}
+}
+
+tv_wonder_location_has_great_monastery_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_scriptorium_monastery value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_scriptorium_monastery value >= 2 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_scriptorium_monastery value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_scriptorium_monastery value >= 3 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_scriptorium_monastery value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_scriptorium_monastery value >= 4 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_scriptorium_monastery value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_scriptorium_monastery value >= 5 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_scriptorium_monastery value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_scriptorium_monastery value >= 6 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_pilgrim_refectory_monastery value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_pilgrim_refectory_monastery value >= 2 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_pilgrim_refectory_monastery value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_pilgrim_refectory_monastery value >= 3 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_pilgrim_refectory_monastery value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_pilgrim_refectory_monastery value >= 4 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_pilgrim_refectory_monastery value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_pilgrim_refectory_monastery value >= 5 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_pilgrim_refectory_monastery value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_pilgrim_refectory_monastery value >= 6 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_fortified_cloister_monastery value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_fortified_cloister_monastery value >= 2 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_fortified_cloister_monastery value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_fortified_cloister_monastery value >= 3 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_fortified_cloister_monastery value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_fortified_cloister_monastery value >= 4 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_fortified_cloister_monastery value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_fortified_cloister_monastery value >= 5 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_fortified_cloister_monastery value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_fortified_cloister_monastery value >= 6 } }
+			OR = {
+				var:tv_wonder_great_monastery_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_great_monastery_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_great_monastery_capped_final_building_trigger = {
+	tv_wonder_location_has_great_monastery_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_great_monastery_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_great_monastery_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_great_monastery_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_great_monastery_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
 tv_wonder_location_has_unique_pharos_lighthouse_intermediate_building_trigger = {
 	OR = {
 		has_building = building_type:tv_wonder_unique_pharos_lighthouse
@@ -10723,6 +11251,926 @@ tv_wonder_location_is_valid_priority_project_for_unique_jerusalem_holy_city_trig
 	trigger_else = { always = no }
 }
 
+tv_wonder_location_has_unique_stonehenge_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_stonehenge
+		has_building = building_type:tv_wonder_unique_stonehenge_foundation
+		has_building = building_type:tv_wonder_unique_stonehenge_body
+		has_building = building_type:tv_wonder_unique_stonehenge_function
+		has_building = building_type:tv_wonder_unique_stonehenge_decoration
+	}
+}
+
+tv_wonder_location_has_unique_stonehenge_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_stonehenge_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_stonehenge_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_stonehenge
+		has_building = building_type:tv_wonder_unique_stonehenge_foundation
+		has_building = building_type:tv_wonder_unique_stonehenge_body
+		has_building = building_type:tv_wonder_unique_stonehenge_function
+		has_building = building_type:tv_wonder_unique_stonehenge_decoration
+		has_building = building_type:tv_wonder_unique_stonehenge_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_stonehenge_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_stonehenge_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_stonehenge_inaugurated value >= 2 } }
+			OR = {
+				var:tv_wonder_unique_stonehenge_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_unique_stonehenge_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_stonehenge_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_stonehenge_inaugurated value >= 3 } }
+			OR = {
+				var:tv_wonder_unique_stonehenge_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_unique_stonehenge_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_stonehenge_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_stonehenge_inaugurated value >= 4 } }
+			OR = {
+				var:tv_wonder_unique_stonehenge_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_unique_stonehenge_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_stonehenge_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_stonehenge_inaugurated value >= 5 } }
+			OR = {
+				var:tv_wonder_unique_stonehenge_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_unique_stonehenge_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_stonehenge_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_stonehenge_inaugurated value >= 6 } }
+			OR = {
+				var:tv_wonder_unique_stonehenge_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_unique_stonehenge_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_stonehenge_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_stonehenge_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_stonehenge_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_stonehenge_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_stonehenge_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_stonehenge_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_tower_of_london_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_tower_of_london
+		has_building = building_type:tv_wonder_unique_tower_of_london_foundation
+		has_building = building_type:tv_wonder_unique_tower_of_london_body
+		has_building = building_type:tv_wonder_unique_tower_of_london_function
+		has_building = building_type:tv_wonder_unique_tower_of_london_decoration
+	}
+}
+
+tv_wonder_location_has_unique_tower_of_london_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_tower_of_london_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_tower_of_london_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_tower_of_london
+		has_building = building_type:tv_wonder_unique_tower_of_london_foundation
+		has_building = building_type:tv_wonder_unique_tower_of_london_body
+		has_building = building_type:tv_wonder_unique_tower_of_london_function
+		has_building = building_type:tv_wonder_unique_tower_of_london_decoration
+		has_building = building_type:tv_wonder_unique_tower_of_london_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_tower_of_london_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_tower_of_london_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_tower_of_london_inaugurated value >= 2 } }
+			OR = {
+				var:tv_wonder_unique_tower_of_london_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_unique_tower_of_london_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_tower_of_london_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_tower_of_london_inaugurated value >= 3 } }
+			OR = {
+				var:tv_wonder_unique_tower_of_london_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_unique_tower_of_london_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_tower_of_london_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_tower_of_london_inaugurated value >= 4 } }
+			OR = {
+				var:tv_wonder_unique_tower_of_london_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_unique_tower_of_london_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_tower_of_london_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_tower_of_london_inaugurated value >= 5 } }
+			OR = {
+				var:tv_wonder_unique_tower_of_london_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_unique_tower_of_london_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_tower_of_london_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_tower_of_london_inaugurated value >= 6 } }
+			OR = {
+				var:tv_wonder_unique_tower_of_london_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_unique_tower_of_london_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_tower_of_london_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_tower_of_london_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_tower_of_london_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_tower_of_london_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_tower_of_london_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_tower_of_london_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_notre_dame_de_paris_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_foundation
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_body
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_function
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_decoration
+	}
+}
+
+tv_wonder_location_has_unique_notre_dame_de_paris_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_notre_dame_de_paris_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_foundation
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_body
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_function
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_decoration
+		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_notre_dame_de_paris_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated value >= 2 } }
+			OR = {
+				var:tv_wonder_unique_notre_dame_de_paris_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_unique_notre_dame_de_paris_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated value >= 3 } }
+			OR = {
+				var:tv_wonder_unique_notre_dame_de_paris_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_unique_notre_dame_de_paris_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated value >= 4 } }
+			OR = {
+				var:tv_wonder_unique_notre_dame_de_paris_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_unique_notre_dame_de_paris_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated value >= 5 } }
+			OR = {
+				var:tv_wonder_unique_notre_dame_de_paris_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_unique_notre_dame_de_paris_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated value >= 6 } }
+			OR = {
+				var:tv_wonder_unique_notre_dame_de_paris_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_unique_notre_dame_de_paris_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_notre_dame_de_paris_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_notre_dame_de_paris_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_notre_dame_de_paris_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_notre_dame_de_paris_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_notre_dame_de_paris_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_notre_dame_de_paris_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_st_basils_cathedral_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral_foundation
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral_body
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral_function
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral_decoration
+	}
+}
+
+tv_wonder_location_has_unique_st_basils_cathedral_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_st_basils_cathedral_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral_foundation
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral_body
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral_function
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral_decoration
+		has_building = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_st_basils_cathedral_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated value >= 2 } }
+			OR = {
+				var:tv_wonder_unique_st_basils_cathedral_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_unique_st_basils_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated value >= 3 } }
+			OR = {
+				var:tv_wonder_unique_st_basils_cathedral_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_unique_st_basils_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated value >= 4 } }
+			OR = {
+				var:tv_wonder_unique_st_basils_cathedral_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_unique_st_basils_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated value >= 5 } }
+			OR = {
+				var:tv_wonder_unique_st_basils_cathedral_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_unique_st_basils_cathedral_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated value >= 6 } }
+			OR = {
+				var:tv_wonder_unique_st_basils_cathedral_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_unique_st_basils_cathedral_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_st_basils_cathedral_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_st_basils_cathedral_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_st_basils_cathedral_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_st_basils_cathedral_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_st_basils_cathedral_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_st_basils_cathedral_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_trinity_lavra_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_trinity_lavra
+		has_building = building_type:tv_wonder_unique_trinity_lavra_foundation
+		has_building = building_type:tv_wonder_unique_trinity_lavra_body
+		has_building = building_type:tv_wonder_unique_trinity_lavra_function
+		has_building = building_type:tv_wonder_unique_trinity_lavra_decoration
+	}
+}
+
+tv_wonder_location_has_unique_trinity_lavra_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_trinity_lavra_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_trinity_lavra_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_trinity_lavra
+		has_building = building_type:tv_wonder_unique_trinity_lavra_foundation
+		has_building = building_type:tv_wonder_unique_trinity_lavra_body
+		has_building = building_type:tv_wonder_unique_trinity_lavra_function
+		has_building = building_type:tv_wonder_unique_trinity_lavra_decoration
+		has_building = building_type:tv_wonder_unique_trinity_lavra_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_trinity_lavra_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_trinity_lavra_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_trinity_lavra_inaugurated value >= 2 } }
+			OR = {
+				var:tv_wonder_unique_trinity_lavra_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_unique_trinity_lavra_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_trinity_lavra_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_trinity_lavra_inaugurated value >= 3 } }
+			OR = {
+				var:tv_wonder_unique_trinity_lavra_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_unique_trinity_lavra_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_trinity_lavra_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_trinity_lavra_inaugurated value >= 4 } }
+			OR = {
+				var:tv_wonder_unique_trinity_lavra_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_unique_trinity_lavra_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_trinity_lavra_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_trinity_lavra_inaugurated value >= 5 } }
+			OR = {
+				var:tv_wonder_unique_trinity_lavra_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_unique_trinity_lavra_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_trinity_lavra_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_trinity_lavra_inaugurated value >= 6 } }
+			OR = {
+				var:tv_wonder_unique_trinity_lavra_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_unique_trinity_lavra_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_trinity_lavra_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_trinity_lavra_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_trinity_lavra_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_trinity_lavra_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_trinity_lavra_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_trinity_lavra_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_winter_palace_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_winter_palace
+		has_building = building_type:tv_wonder_unique_winter_palace_foundation
+		has_building = building_type:tv_wonder_unique_winter_palace_body
+		has_building = building_type:tv_wonder_unique_winter_palace_function
+		has_building = building_type:tv_wonder_unique_winter_palace_decoration
+	}
+}
+
+tv_wonder_location_has_unique_winter_palace_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_winter_palace_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_winter_palace_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_winter_palace
+		has_building = building_type:tv_wonder_unique_winter_palace_foundation
+		has_building = building_type:tv_wonder_unique_winter_palace_body
+		has_building = building_type:tv_wonder_unique_winter_palace_function
+		has_building = building_type:tv_wonder_unique_winter_palace_decoration
+		has_building = building_type:tv_wonder_unique_winter_palace_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_winter_palace_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_winter_palace_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_winter_palace_inaugurated value >= 2 } }
+			OR = {
+				var:tv_wonder_unique_winter_palace_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_unique_winter_palace_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_winter_palace_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_winter_palace_inaugurated value >= 3 } }
+			OR = {
+				var:tv_wonder_unique_winter_palace_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_unique_winter_palace_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_winter_palace_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_winter_palace_inaugurated value >= 4 } }
+			OR = {
+				var:tv_wonder_unique_winter_palace_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_unique_winter_palace_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_winter_palace_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_winter_palace_inaugurated value >= 5 } }
+			OR = {
+				var:tv_wonder_unique_winter_palace_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_unique_winter_palace_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_winter_palace_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_winter_palace_inaugurated value >= 6 } }
+			OR = {
+				var:tv_wonder_unique_winter_palace_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_unique_winter_palace_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_winter_palace_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_winter_palace_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_winter_palace_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_winter_palace_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_winter_palace_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_winter_palace_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_gyeongbokgung_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_gyeongbokgung
+		has_building = building_type:tv_wonder_unique_gyeongbokgung_foundation
+		has_building = building_type:tv_wonder_unique_gyeongbokgung_body
+		has_building = building_type:tv_wonder_unique_gyeongbokgung_function
+		has_building = building_type:tv_wonder_unique_gyeongbokgung_decoration
+	}
+}
+
+tv_wonder_location_has_unique_gyeongbokgung_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_gyeongbokgung_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_gyeongbokgung_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_gyeongbokgung
+		has_building = building_type:tv_wonder_unique_gyeongbokgung_foundation
+		has_building = building_type:tv_wonder_unique_gyeongbokgung_body
+		has_building = building_type:tv_wonder_unique_gyeongbokgung_function
+		has_building = building_type:tv_wonder_unique_gyeongbokgung_decoration
+		has_building = building_type:tv_wonder_unique_gyeongbokgung_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_gyeongbokgung_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_gyeongbokgung_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_gyeongbokgung_inaugurated value >= 2 } }
+			OR = {
+				var:tv_wonder_unique_gyeongbokgung_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_unique_gyeongbokgung_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_gyeongbokgung_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_gyeongbokgung_inaugurated value >= 3 } }
+			OR = {
+				var:tv_wonder_unique_gyeongbokgung_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_unique_gyeongbokgung_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_gyeongbokgung_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_gyeongbokgung_inaugurated value >= 4 } }
+			OR = {
+				var:tv_wonder_unique_gyeongbokgung_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_unique_gyeongbokgung_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_gyeongbokgung_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_gyeongbokgung_inaugurated value >= 5 } }
+			OR = {
+				var:tv_wonder_unique_gyeongbokgung_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_unique_gyeongbokgung_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_gyeongbokgung_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_gyeongbokgung_inaugurated value >= 6 } }
+			OR = {
+				var:tv_wonder_unique_gyeongbokgung_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_unique_gyeongbokgung_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_gyeongbokgung_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_gyeongbokgung_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_gyeongbokgung_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_gyeongbokgung_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_gyeongbokgung_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_gyeongbokgung_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_changbai_mountain_altar_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_foundation
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_body
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_function
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_decoration
+	}
+}
+
+tv_wonder_location_has_unique_changbai_mountain_altar_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_changbai_mountain_altar_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_foundation
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_body
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_function
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_decoration
+		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_changbai_mountain_altar_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated value >= 2 } }
+			OR = {
+				var:tv_wonder_unique_changbai_mountain_altar_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_unique_changbai_mountain_altar_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated value >= 3 } }
+			OR = {
+				var:tv_wonder_unique_changbai_mountain_altar_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_unique_changbai_mountain_altar_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated value >= 4 } }
+			OR = {
+				var:tv_wonder_unique_changbai_mountain_altar_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_unique_changbai_mountain_altar_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated value >= 5 } }
+			OR = {
+				var:tv_wonder_unique_changbai_mountain_altar_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_unique_changbai_mountain_altar_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated value >= 6 } }
+			OR = {
+				var:tv_wonder_unique_changbai_mountain_altar_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_unique_changbai_mountain_altar_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_changbai_mountain_altar_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_changbai_mountain_altar_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_changbai_mountain_altar_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_changbai_mountain_altar_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_changbai_mountain_altar_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_changbai_mountain_altar_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_belgrade_fortress_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_belgrade_fortress
+		has_building = building_type:tv_wonder_unique_belgrade_fortress_foundation
+		has_building = building_type:tv_wonder_unique_belgrade_fortress_body
+		has_building = building_type:tv_wonder_unique_belgrade_fortress_function
+		has_building = building_type:tv_wonder_unique_belgrade_fortress_decoration
+	}
+}
+
+tv_wonder_location_has_unique_belgrade_fortress_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_belgrade_fortress_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_belgrade_fortress_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_belgrade_fortress
+		has_building = building_type:tv_wonder_unique_belgrade_fortress_foundation
+		has_building = building_type:tv_wonder_unique_belgrade_fortress_body
+		has_building = building_type:tv_wonder_unique_belgrade_fortress_function
+		has_building = building_type:tv_wonder_unique_belgrade_fortress_decoration
+		has_building = building_type:tv_wonder_unique_belgrade_fortress_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_belgrade_fortress_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value >= 2 } }
+			OR = {
+				var:tv_wonder_unique_belgrade_fortress_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_unique_belgrade_fortress_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value >= 3 } }
+			OR = {
+				var:tv_wonder_unique_belgrade_fortress_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_unique_belgrade_fortress_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value >= 4 } }
+			OR = {
+				var:tv_wonder_unique_belgrade_fortress_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_unique_belgrade_fortress_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value >= 5 } }
+			OR = {
+				var:tv_wonder_unique_belgrade_fortress_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_unique_belgrade_fortress_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value >= 6 } }
+			OR = {
+				var:tv_wonder_unique_belgrade_fortress_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_unique_belgrade_fortress_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_belgrade_fortress_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_belgrade_fortress_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_belgrade_fortress_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_belgrade_fortress_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_belgrade_fortress_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_belgrade_fortress_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_meteora_monasteries_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_meteora_monasteries
+		has_building = building_type:tv_wonder_unique_meteora_monasteries_foundation
+		has_building = building_type:tv_wonder_unique_meteora_monasteries_body
+		has_building = building_type:tv_wonder_unique_meteora_monasteries_function
+		has_building = building_type:tv_wonder_unique_meteora_monasteries_decoration
+	}
+}
+
+tv_wonder_location_has_unique_meteora_monasteries_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_meteora_monasteries_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_meteora_monasteries_project_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_meteora_monasteries
+		has_building = building_type:tv_wonder_unique_meteora_monasteries_foundation
+		has_building = building_type:tv_wonder_unique_meteora_monasteries_body
+		has_building = building_type:tv_wonder_unique_meteora_monasteries_function
+		has_building = building_type:tv_wonder_unique_meteora_monasteries_decoration
+		has_building = building_type:tv_wonder_unique_meteora_monasteries_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_meteora_monasteries_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_meteora_monasteries_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_meteora_monasteries_inaugurated value >= 2 } }
+			OR = {
+				var:tv_wonder_unique_meteora_monasteries_scale_tier ?= { this >= 2 }
+				NOT = { has_variable = tv_wonder_unique_meteora_monasteries_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_meteora_monasteries_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_meteora_monasteries_inaugurated value >= 3 } }
+			OR = {
+				var:tv_wonder_unique_meteora_monasteries_scale_tier ?= { this >= 3 }
+				NOT = { has_variable = tv_wonder_unique_meteora_monasteries_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_meteora_monasteries_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_meteora_monasteries_inaugurated value >= 4 } }
+			OR = {
+				var:tv_wonder_unique_meteora_monasteries_scale_tier ?= { this >= 4 }
+				NOT = { has_variable = tv_wonder_unique_meteora_monasteries_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_meteora_monasteries_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_meteora_monasteries_inaugurated value >= 5 } }
+			OR = {
+				var:tv_wonder_unique_meteora_monasteries_scale_tier ?= { this >= 5 }
+				NOT = { has_variable = tv_wonder_unique_meteora_monasteries_scale_tier }
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_meteora_monasteries_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_meteora_monasteries_inaugurated value >= 6 } }
+			OR = {
+				var:tv_wonder_unique_meteora_monasteries_scale_tier ?= { this >= 6 }
+				NOT = { has_variable = tv_wonder_unique_meteora_monasteries_scale_tier }
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_meteora_monasteries_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_meteora_monasteries_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_meteora_monasteries_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_meteora_monasteries_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_meteora_monasteries_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_meteora_monasteries_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
 tv_wonder_location_has_any_wonder_final_building_trigger = {
 	OR = {
 		tv_wonder_location_has_sacred_mountain_final_building_trigger = yes
@@ -10765,6 +12213,9 @@ tv_wonder_location_has_any_wonder_final_building_trigger = {
 		tv_wonder_location_has_giant_workshop_complex_final_building_trigger = yes
 		tv_wonder_location_has_world_monument_group_final_building_trigger = yes
 		tv_wonder_location_has_city_expansion_project_final_building_trigger = yes
+		tv_wonder_location_has_megalithic_circle_final_building_trigger = yes
+		tv_wonder_location_has_grand_cathedral_final_building_trigger = yes
+		tv_wonder_location_has_great_monastery_final_building_trigger = yes
 		tv_wonder_location_has_unique_pharos_lighthouse_final_building_trigger = yes
 		tv_wonder_location_has_unique_hagia_sophia_final_building_trigger = yes
 		tv_wonder_location_has_unique_dome_of_the_rock_final_building_trigger = yes
@@ -10805,6 +12256,16 @@ tv_wonder_location_has_any_wonder_final_building_trigger = {
 		tv_wonder_location_has_unique_persian_qanat_final_building_trigger = yes
 		tv_wonder_location_has_unique_longjiang_shipyard_final_building_trigger = yes
 		tv_wonder_location_has_unique_jerusalem_holy_city_final_building_trigger = yes
+		tv_wonder_location_has_unique_stonehenge_final_building_trigger = yes
+		tv_wonder_location_has_unique_tower_of_london_final_building_trigger = yes
+		tv_wonder_location_has_unique_notre_dame_de_paris_final_building_trigger = yes
+		tv_wonder_location_has_unique_st_basils_cathedral_final_building_trigger = yes
+		tv_wonder_location_has_unique_trinity_lavra_final_building_trigger = yes
+		tv_wonder_location_has_unique_winter_palace_final_building_trigger = yes
+		tv_wonder_location_has_unique_gyeongbokgung_final_building_trigger = yes
+		tv_wonder_location_has_unique_changbai_mountain_altar_final_building_trigger = yes
+		tv_wonder_location_has_unique_belgrade_fortress_final_building_trigger = yes
+		tv_wonder_location_has_unique_meteora_monasteries_final_building_trigger = yes
 	}
 }
 
@@ -10970,6 +12431,18 @@ tv_wonder_location_has_locked_wonder_intermediate_building_trigger = {
 		tv_wonder_location_has_city_expansion_project_intermediate_building_trigger = yes
 	}
 	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 }
+		tv_wonder_location_has_megalithic_circle_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 }
+		tv_wonder_location_has_grand_cathedral_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 }
+		tv_wonder_location_has_great_monastery_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
 		tv_wonder_location_has_unique_pharos_lighthouse_intermediate_building_trigger = yes
 	}
@@ -11128,6 +12601,46 @@ tv_wonder_location_has_locked_wonder_intermediate_building_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 140 }
 		tv_wonder_location_has_unique_jerusalem_holy_city_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		tv_wonder_location_has_unique_stonehenge_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		tv_wonder_location_has_unique_tower_of_london_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		tv_wonder_location_has_unique_notre_dame_de_paris_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		tv_wonder_location_has_unique_st_basils_cathedral_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		tv_wonder_location_has_unique_trinity_lavra_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		tv_wonder_location_has_unique_winter_palace_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		tv_wonder_location_has_unique_gyeongbokgung_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		tv_wonder_location_has_unique_changbai_mountain_altar_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		tv_wonder_location_has_unique_belgrade_fortress_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		tv_wonder_location_has_unique_meteora_monasteries_intermediate_building_trigger = yes
 	}
 	trigger_else = { always = no }
 }
@@ -11294,6 +12807,18 @@ tv_wonder_location_has_locked_wonder_expandable_final_building_trigger = {
 		tv_wonder_location_has_city_expansion_project_expandable_final_building_trigger = yes
 	}
 	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 }
+		tv_wonder_location_has_megalithic_circle_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 }
+		tv_wonder_location_has_grand_cathedral_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 }
+		tv_wonder_location_has_great_monastery_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
 		tv_wonder_location_has_unique_pharos_lighthouse_expandable_final_building_trigger = yes
 	}
@@ -11452,6 +12977,46 @@ tv_wonder_location_has_locked_wonder_expandable_final_building_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 140 }
 		tv_wonder_location_has_unique_jerusalem_holy_city_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		tv_wonder_location_has_unique_stonehenge_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		tv_wonder_location_has_unique_tower_of_london_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		tv_wonder_location_has_unique_notre_dame_de_paris_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		tv_wonder_location_has_unique_st_basils_cathedral_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		tv_wonder_location_has_unique_trinity_lavra_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		tv_wonder_location_has_unique_winter_palace_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		tv_wonder_location_has_unique_gyeongbokgung_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		tv_wonder_location_has_unique_changbai_mountain_altar_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		tv_wonder_location_has_unique_belgrade_fortress_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		tv_wonder_location_has_unique_meteora_monasteries_expandable_final_building_trigger = yes
 	}
 	trigger_else = { always = no }
 }
@@ -12489,6 +14054,72 @@ tv_wonder_player_visible_site_rules_city_expansion_project_trigger = {
 	}
 }
 
+tv_wonder_location_can_host_megalithic_circle_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_megalithic_circle_trigger = yes
+		AND = {
+			always = yes
+			NOT = { tv_wonder_location_has_megalithic_circle_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_megalithic_circle_trigger = {
+	any_owned_location = {
+		tv_wonder_location_can_host_megalithic_circle_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_megalithic_circle_trigger = {
+	any_owned_location = {
+		always = yes
+	}
+}
+
+tv_wonder_location_can_host_grand_cathedral_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_grand_cathedral_trigger = yes
+		AND = {
+			NOT = { location_rank ?= location_rank:rural_settlement }
+			NOT = { tv_wonder_location_has_grand_cathedral_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_grand_cathedral_trigger = {
+	any_owned_location = {
+		tv_wonder_location_can_host_grand_cathedral_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_grand_cathedral_trigger = {
+	any_owned_location = {
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
+}
+
+tv_wonder_location_can_host_great_monastery_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_great_monastery_trigger = yes
+		AND = {
+			always = yes
+			NOT = { tv_wonder_location_has_great_monastery_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_great_monastery_trigger = {
+	any_owned_location = {
+		tv_wonder_location_can_host_great_monastery_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_great_monastery_trigger = {
+	any_owned_location = {
+		always = yes
+	}
+}
+
 tv_wonder_location_can_host_unique_pharos_lighthouse_trigger = {
 	OR = {
 		tv_wonder_location_is_valid_priority_project_for_unique_pharos_lighthouse_trigger = yes
@@ -13446,6 +15077,236 @@ tv_wonder_player_visible_site_rules_unique_jerusalem_holy_city_trigger = {
 	owns = location:jerusalem
 }
 
+tv_wonder_location_can_host_unique_stonehenge_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_stonehenge_trigger = yes
+		AND = {
+			this = location:salisbury
+			always = yes
+			NOT = { tv_wonder_location_has_unique_stonehenge_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_stonehenge_trigger = {
+	owns = location:salisbury
+	location:salisbury = {
+		tv_wonder_location_can_host_unique_stonehenge_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_stonehenge_trigger = {
+	owns = location:salisbury
+}
+
+tv_wonder_location_can_host_unique_tower_of_london_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_tower_of_london_trigger = yes
+		AND = {
+			this = location:london
+			NOT = { location_rank ?= location_rank:rural_settlement }
+			NOT = { tv_wonder_location_has_unique_tower_of_london_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_tower_of_london_trigger = {
+	owns = location:london
+	location:london = {
+		tv_wonder_location_can_host_unique_tower_of_london_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_tower_of_london_trigger = {
+	owns = location:london
+}
+
+tv_wonder_location_can_host_unique_notre_dame_de_paris_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_notre_dame_de_paris_trigger = yes
+		AND = {
+			this = location:paris
+			NOT = { location_rank ?= location_rank:rural_settlement }
+			NOT = { tv_wonder_location_has_unique_notre_dame_de_paris_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_notre_dame_de_paris_trigger = {
+	owns = location:paris
+	location:paris = {
+		tv_wonder_location_can_host_unique_notre_dame_de_paris_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_notre_dame_de_paris_trigger = {
+	owns = location:paris
+}
+
+tv_wonder_location_can_host_unique_st_basils_cathedral_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_st_basils_cathedral_trigger = yes
+		AND = {
+			this = location:moscow
+			NOT = { location_rank ?= location_rank:rural_settlement }
+			NOT = { tv_wonder_location_has_unique_st_basils_cathedral_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_st_basils_cathedral_trigger = {
+	owns = location:moscow
+	location:moscow = {
+		tv_wonder_location_can_host_unique_st_basils_cathedral_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_st_basils_cathedral_trigger = {
+	owns = location:moscow
+}
+
+tv_wonder_location_can_host_unique_trinity_lavra_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_trinity_lavra_trigger = yes
+		AND = {
+			this = location:moscow
+			always = yes
+			NOT = { tv_wonder_location_has_unique_trinity_lavra_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_trinity_lavra_trigger = {
+	owns = location:moscow
+	location:moscow = {
+		tv_wonder_location_can_host_unique_trinity_lavra_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_trinity_lavra_trigger = {
+	owns = location:moscow
+}
+
+tv_wonder_location_can_host_unique_winter_palace_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_winter_palace_trigger = yes
+		AND = {
+			this = location:neva
+			OR = {
+				location_rank ?= location_rank:city
+				location_rank ?= location_rank:megalopolis
+			}
+			NOT = { tv_wonder_location_has_unique_winter_palace_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_winter_palace_trigger = {
+	owns = location:neva
+	location:neva = {
+		tv_wonder_location_can_host_unique_winter_palace_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_winter_palace_trigger = {
+	owns = location:neva
+}
+
+tv_wonder_location_can_host_unique_gyeongbokgung_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_gyeongbokgung_trigger = yes
+		AND = {
+			this = location:hanyang
+			OR = {
+				location_rank ?= location_rank:city
+				location_rank ?= location_rank:megalopolis
+			}
+			NOT = { tv_wonder_location_has_unique_gyeongbokgung_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_gyeongbokgung_trigger = {
+	owns = location:hanyang
+	location:hanyang = {
+		tv_wonder_location_can_host_unique_gyeongbokgung_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_gyeongbokgung_trigger = {
+	owns = location:hanyang
+}
+
+tv_wonder_location_can_host_unique_changbai_mountain_altar_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_changbai_mountain_altar_trigger = yes
+		AND = {
+			this = location:girin_ula
+			OR = {
+				topography = mountains
+				topography = plateau
+				topography = hills
+			}
+			NOT = { tv_wonder_location_has_unique_changbai_mountain_altar_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_changbai_mountain_altar_trigger = {
+	owns = location:girin_ula
+	location:girin_ula = {
+		tv_wonder_location_can_host_unique_changbai_mountain_altar_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_changbai_mountain_altar_trigger = {
+	owns = location:girin_ula
+}
+
+tv_wonder_location_can_host_unique_belgrade_fortress_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_belgrade_fortress_trigger = yes
+		AND = {
+			this = location:belgrad
+			NOT = { location_rank ?= location_rank:rural_settlement }
+			NOT = { tv_wonder_location_has_unique_belgrade_fortress_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_belgrade_fortress_trigger = {
+	owns = location:belgrad
+	location:belgrad = {
+		tv_wonder_location_can_host_unique_belgrade_fortress_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_belgrade_fortress_trigger = {
+	owns = location:belgrad
+}
+
+tv_wonder_location_can_host_unique_meteora_monasteries_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_meteora_monasteries_trigger = yes
+		AND = {
+			this = location:trikala
+			always = yes
+			NOT = { tv_wonder_location_has_unique_meteora_monasteries_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_meteora_monasteries_trigger = {
+	owns = location:trikala
+	location:trikala = {
+		tv_wonder_location_can_host_unique_meteora_monasteries_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_meteora_monasteries_trigger = {
+	owns = location:trikala
+}
+
 tv_wonder_mechanics_has_any_feasible_proposal_trigger = {
 	OR = {
 		has_variable = tv_wonder_feasible_sacred_mountain
@@ -13488,6 +15349,9 @@ tv_wonder_mechanics_has_any_feasible_proposal_trigger = {
 		has_variable = tv_wonder_feasible_giant_workshop_complex
 		has_variable = tv_wonder_feasible_world_monument_group
 		has_variable = tv_wonder_feasible_city_expansion_project
+		has_variable = tv_wonder_feasible_megalithic_circle
+		has_variable = tv_wonder_feasible_grand_cathedral
+		has_variable = tv_wonder_feasible_great_monastery
 		has_variable = tv_wonder_feasible_unique_pharos_lighthouse
 		has_variable = tv_wonder_feasible_unique_hagia_sophia
 		has_variable = tv_wonder_feasible_unique_dome_of_the_rock
@@ -13528,6 +15392,16 @@ tv_wonder_mechanics_has_any_feasible_proposal_trigger = {
 		has_variable = tv_wonder_feasible_unique_persian_qanat
 		has_variable = tv_wonder_feasible_unique_longjiang_shipyard
 		has_variable = tv_wonder_feasible_unique_jerusalem_holy_city
+		has_variable = tv_wonder_feasible_unique_stonehenge
+		has_variable = tv_wonder_feasible_unique_tower_of_london
+		has_variable = tv_wonder_feasible_unique_notre_dame_de_paris
+		has_variable = tv_wonder_feasible_unique_st_basils_cathedral
+		has_variable = tv_wonder_feasible_unique_trinity_lavra
+		has_variable = tv_wonder_feasible_unique_winter_palace
+		has_variable = tv_wonder_feasible_unique_gyeongbokgung
+		has_variable = tv_wonder_feasible_unique_changbai_mountain_altar
+		has_variable = tv_wonder_feasible_unique_belgrade_fortress
+		has_variable = tv_wonder_feasible_unique_meteora_monasteries
 	}
 }
 
@@ -13573,6 +15447,9 @@ tv_wonder_generic_has_any_feasible_proposal_trigger = {
 		has_variable = tv_wonder_feasible_giant_workshop_complex
 		has_variable = tv_wonder_feasible_world_monument_group
 		has_variable = tv_wonder_feasible_city_expansion_project
+		has_variable = tv_wonder_feasible_megalithic_circle
+		has_variable = tv_wonder_feasible_grand_cathedral
+		has_variable = tv_wonder_feasible_great_monastery
 	}
 }
 
@@ -13618,6 +15495,16 @@ tv_wonder_unique_has_any_feasible_proposal_trigger = {
 		has_variable = tv_wonder_feasible_unique_persian_qanat
 		has_variable = tv_wonder_feasible_unique_longjiang_shipyard
 		has_variable = tv_wonder_feasible_unique_jerusalem_holy_city
+		has_variable = tv_wonder_feasible_unique_stonehenge
+		has_variable = tv_wonder_feasible_unique_tower_of_london
+		has_variable = tv_wonder_feasible_unique_notre_dame_de_paris
+		has_variable = tv_wonder_feasible_unique_st_basils_cathedral
+		has_variable = tv_wonder_feasible_unique_trinity_lavra
+		has_variable = tv_wonder_feasible_unique_winter_palace
+		has_variable = tv_wonder_feasible_unique_gyeongbokgung
+		has_variable = tv_wonder_feasible_unique_changbai_mountain_altar
+		has_variable = tv_wonder_feasible_unique_belgrade_fortress
+		has_variable = tv_wonder_feasible_unique_meteora_monasteries
 	}
 }
 
@@ -13783,6 +15670,18 @@ tv_wonder_mechanics_has_valid_site_candidate_trigger = {
 		tv_wonder_can_build_city_expansion_project_trigger = yes
 	}
 	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 }
+		tv_wonder_can_build_megalithic_circle_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 }
+		tv_wonder_can_build_grand_cathedral_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 }
+		tv_wonder_can_build_great_monastery_trigger = yes
+	}
+	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
 		tv_wonder_can_build_unique_pharos_lighthouse_trigger = yes
 	}
@@ -13941,6 +15840,46 @@ tv_wonder_mechanics_has_valid_site_candidate_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 140 }
 		tv_wonder_can_build_unique_jerusalem_holy_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		tv_wonder_can_build_unique_stonehenge_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		tv_wonder_can_build_unique_tower_of_london_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		tv_wonder_can_build_unique_notre_dame_de_paris_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		tv_wonder_can_build_unique_st_basils_cathedral_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		tv_wonder_can_build_unique_trinity_lavra_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		tv_wonder_can_build_unique_winter_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		tv_wonder_can_build_unique_gyeongbokgung_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		tv_wonder_can_build_unique_changbai_mountain_altar_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		tv_wonder_can_build_unique_belgrade_fortress_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		tv_wonder_can_build_unique_meteora_monasteries_trigger = yes
 	}
 	trigger_else = { always = no }
 }
@@ -14107,6 +16046,18 @@ tv_wonder_location_can_host_locked_wonder_trigger = {
 		tv_wonder_location_can_host_city_expansion_project_trigger = yes
 	}
 	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 41 } }
+		tv_wonder_location_can_host_megalithic_circle_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 42 } }
+		tv_wonder_location_can_host_grand_cathedral_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 43 } }
+		tv_wonder_location_can_host_great_monastery_trigger = yes
+	}
+	trigger_else_if = {
 		limit = { scope:actor = { var:tv_wonder_locked ?= 101 } }
 		tv_wonder_location_can_host_unique_pharos_lighthouse_trigger = yes
 	}
@@ -14265,6 +16216,46 @@ tv_wonder_location_can_host_locked_wonder_trigger = {
 	trigger_else_if = {
 		limit = { scope:actor = { var:tv_wonder_locked ?= 140 } }
 		tv_wonder_location_can_host_unique_jerusalem_holy_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 141 } }
+		tv_wonder_location_can_host_unique_stonehenge_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 142 } }
+		tv_wonder_location_can_host_unique_tower_of_london_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 143 } }
+		tv_wonder_location_can_host_unique_notre_dame_de_paris_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 144 } }
+		tv_wonder_location_can_host_unique_st_basils_cathedral_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 145 } }
+		tv_wonder_location_can_host_unique_trinity_lavra_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 146 } }
+		tv_wonder_location_can_host_unique_winter_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 147 } }
+		tv_wonder_location_can_host_unique_gyeongbokgung_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 148 } }
+		tv_wonder_location_can_host_unique_changbai_mountain_altar_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 149 } }
+		tv_wonder_location_can_host_unique_belgrade_fortress_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { scope:actor = { var:tv_wonder_locked ?= 150 } }
+		tv_wonder_location_can_host_unique_meteora_monasteries_trigger = yes
 	}
 	trigger_else = { always = no }
 }
@@ -14431,6 +16422,18 @@ tv_wonder_selected_survey_already_cached_trigger = {
 		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_city_expansion_project }
 	}
 	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_megalithic_circle }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_grand_cathedral }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_great_monastery }
+	}
+	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
 		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_pharos_lighthouse }
 	}
@@ -14589,6 +16592,46 @@ tv_wonder_selected_survey_already_cached_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 140 }
 		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_jerusalem_holy_city }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_stonehenge }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_tower_of_london }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_notre_dame_de_paris }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_st_basils_cathedral }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_trinity_lavra }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_winter_palace }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_gyeongbokgung }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_changbai_mountain_altar }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_belgrade_fortress }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		scope:tv_wonder_selected_survey_site = { has_variable = tv_wonder_surveyed_unique_meteora_monasteries }
 	}
 	trigger_else = { always = no }
 }
@@ -14755,6 +16798,18 @@ tv_wonder_selected_generic_timed_ritual_trigger = {
 		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 1 }
 		always = yes
 	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
 	trigger_else = { always = no }
 }
 
@@ -14918,6 +16973,18 @@ tv_wonder_selected_generic_auxiliary_building_ritual_trigger = {
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 2 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 2 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 2 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 2 }
 		always = yes
 	}
 	trigger_else = { always = no }
@@ -15086,6 +17153,18 @@ tv_wonder_selected_generic_immediate_ritual_trigger = {
 		always = yes
 	}
 	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 var:tv_wonder_ceremony_style ?= 1 }
 		always = yes
 	}
@@ -15245,6 +17324,46 @@ tv_wonder_selected_generic_immediate_ritual_trigger = {
 		limit = { var:tv_wonder_locked ?= 140 var:tv_wonder_ceremony_style ?= 1 }
 		always = yes
 	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 141 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 142 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 143 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 144 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 145 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 146 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 147 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 148 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 149 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 150 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
 	trigger_else = { always = no }
 }
 
@@ -15301,6 +17420,14 @@ tv_wonder_selected_generic_artwork_decoration_ritual_trigger = {
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 3 }
 		always = yes
 	}
 	trigger_else = { always = no }
@@ -15423,6 +17550,10 @@ tv_wonder_selected_generic_prestige_decoration_ritual_trigger = {
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 35 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 3 }
 		always = yes
 	}
 	trigger_else = { always = no }
@@ -15911,6 +18042,42 @@ tv_wonder_selected_ritual_confirmation_requirements_met_trigger = {
 		always = yes
 	}
 	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 2 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 2 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 2 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 3 }
+		always = yes
+	}
+	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 var:tv_wonder_ceremony_style ?= 1 }
 		always = yes
 	}
@@ -16068,6 +18235,46 @@ tv_wonder_selected_ritual_confirmation_requirements_met_trigger = {
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 140 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 141 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 142 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 143 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 144 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 145 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 146 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 147 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 148 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 149 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 150 var:tv_wonder_ceremony_style ?= 1 }
 		always = yes
 	}
 	trigger_else = { always = no }
@@ -16233,6 +18440,18 @@ tv_wonder_selected_ritual_monthly_listener_trigger = {
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 1 }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 1 }
 		always = yes
 	}
 	trigger_else = { always = no }
@@ -16575,6 +18794,30 @@ tv_wonder_selected_ritual_completion_requirements_met_trigger = {
 		limit = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 2 }
 		has_variable = tv_wonder_ritual_auxiliary_building_finished
 	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 1 }
+		NOT = { has_variable = tv_wonder_ritual_timer }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 2 }
+		has_variable = tv_wonder_ritual_auxiliary_building_finished
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 1 }
+		NOT = { has_variable = tv_wonder_ritual_timer }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 2 }
+		has_variable = tv_wonder_ritual_auxiliary_building_finished
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 1 }
+		NOT = { has_variable = tv_wonder_ritual_timer }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 2 }
+		has_variable = tv_wonder_ritual_auxiliary_building_finished
+	}
 	trigger_else = { always = no }
 }
 
@@ -16732,6 +18975,36 @@ tv_wonder_unique_locked_trigger = {
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 140 }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
 	}
 	trigger_else = { always = no }
 }

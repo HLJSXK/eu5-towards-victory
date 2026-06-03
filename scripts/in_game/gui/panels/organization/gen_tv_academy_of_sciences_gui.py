@@ -753,6 +753,7 @@ GUI_SUFFIX = """\
 \t\t\t\t\t\tbutton_regular_diamond = {
 \t\t\t\t\t\t\tsize = { 470 30 }
 \t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_NO_ACTION_BUTTON"
+\t\t\t\t\t\t\ttooltip = "TV_ACADEMY_PHILOSOPHY_NO_ACTION_BUTTON"
 \t\t\t\t\t\t\tenabled = no
 \t\t\t\t\t\t}
 \t\t\t\t\t}

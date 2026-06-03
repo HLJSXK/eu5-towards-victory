@@ -155,6 +155,7 @@ def remove_legacy_ceremony_widgets(text: str) -> str:
 
 
 def normalize_marker_newlines(text: str) -> str:
+    text = re.sub(r"(?m)^[ \t]+$", "", text)
     text = re.sub(r"([^\s])([ \t]*# BEGIN GENERATED)", r"\1\n\2", text)
     text = re.sub(r"(# END GENERATED [A-Z0-9_]+)(?=[ \t]*# BEGIN GENERATED)", r"\1\n", text)
     return text

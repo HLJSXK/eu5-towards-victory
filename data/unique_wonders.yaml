@@ -1599,3 +1599,413 @@ unique_wonders:
       price: null
       attributes: {}
       max_levels: 6
+- id: 141
+  key: unique_stonehenge
+  base_key: megalithic_circle
+  concept: tv_wonder_unique_stonehenge
+  location: salisbury
+  image: tv_wonder_unique_stonehenge
+  prompt: Stonehenge on Salisbury Plain in a premodern sacred landscape, massive sarsen stones and lintels aligned with solstice sunrise, burial mounds, ritual fires, priests, nobles, and villagers gathered at dawn, historically grounded world wonder key art, cinematic misty panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: megalithic_circle
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_stonehenge_inaugurated
+  ritual:
+    key: solstice_reckoning
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_towards_traditionalist: 0.05
+      stability_investment: -0.05
+      monthly_prestige: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 142
+  key: unique_tower_of_london
+  base_key: star_fortress_city
+  concept: tv_wonder_unique_tower_of_london
+  location: london
+  image: tv_wonder_unique_tower_of_london
+  prompt: Tower of London on the Thames in a premodern royal fortress city, white keep, curtain walls, river gate, jewel guards, prisoners' towers, royal armour, soldiers and officials, historically grounded world wonder key art, cinematic riverside view, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: star_fortress_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_tower_of_london_inaugurated
+  ritual:
+    key: crown_jewel_warding
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_garrison_size_modifier: 0.08
+      monthly_legitimacy: 0.08
+      global_crown_estate_power: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 143
+  key: unique_notre_dame_de_paris
+  base_key: grand_cathedral
+  concept: tv_wonder_unique_notre_dame_de_paris
+  location: paris
+  image: tv_wonder_unique_notre_dame_de_paris
+  prompt: Notre-Dame de Paris before modern damage, Gothic towers, flying buttresses, rose windows, candles, clergy, scholars, royal officers, pilgrims, and the Seine beside a dense medieval Paris, historically grounded world wonder key art, cinematic urban cathedral view, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: grand_cathedral
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_notre_dame_de_paris_inaugurated
+  ritual:
+    key: cathedral_crown_procession
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      clergy_estate_target_satisfaction: 0.04
+      cultural_influence: 0.5
+      stability_investment: -0.03
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 144
+  key: unique_st_basils_cathedral
+  base_key: grand_cathedral
+  concept: tv_wonder_unique_st_basils_cathedral
+  location: moscow
+  image: tv_wonder_unique_st_basils_cathedral
+  prompt: Saint Basil's Cathedral on Red Square in premodern Moscow, clustered onion domes, vivid chapels, procession banners, clergy, tsarist guards, merchants, and the Kremlin walls nearby, historically grounded world wonder key art, cinematic winter city view, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: grand_cathedral
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_st_basils_cathedral_inaugurated
+  ritual:
+    key: intercession_of_moscow
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_prestige: 0.08
+      global_pop_conversion_speed_modifier: 0.04
+      monthly_legitimacy: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 145
+  key: unique_trinity_lavra
+  base_key: great_monastery
+  concept: tv_wonder_unique_trinity_lavra
+  location: moscow
+  image: tv_wonder_unique_trinity_lavra
+  prompt: Trinity Lavra of Saint Sergius as a fortified Russian monastery, white walls, blue and gold domes, cloisters, scriptoria, pilgrim crowds, monastic elders, and Muscovite envoys, historically grounded world wonder key art, cinematic sacred fortress view, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: great_monastery
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_trinity_lavra_inaugurated
+  ritual:
+    key: monastic_host_sanctification
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      research_speed: 0.03
+      tolerance_own: 1
+      global_garrison_size_modifier: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 146
+  key: unique_winter_palace
+  base_key: triumphal_axis
+  concept: tv_wonder_unique_winter_palace
+  location: neva
+  image: tv_wonder_unique_winter_palace
+  prompt: Winter Palace on the Neva in an early imperial Russian setting, green and white palace facade, river embankment, grand halls, guards, court carriages, diplomatic receptions, and snowy light, historically grounded world wonder key art, cinematic palace panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: triumphal_axis
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_winter_palace_inaugurated
+  ritual:
+    key: imperial_gallery_opening
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_prestige: 0.12
+      country_cabinet_efficiency: 0.03
+      diplomatic_reputation: 0.5
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 147
+  key: unique_gyeongbokgung
+  base_key: triumphal_axis
+  concept: tv_wonder_unique_gyeongbokgung
+  location: hanyang
+  image: tv_wonder_unique_gyeongbokgung
+  prompt: Gyeongbokgung palace in Hanseong during the Joseon era, throne hall, palace gates, royal courtyards, tiled roofs, officials in ceremonial dress, mountains behind the capital, historically grounded world wonder key art, cinematic court panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: triumphal_axis
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_gyeongbokgung_inaugurated
+  ritual:
+    key: royal_audience_renewal
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_legitimacy: 0.08
+      country_cabinet_efficiency: 0.03
+      global_distance_from_capital_speed_propagation: 0.03
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 148
+  key: unique_changbai_mountain_altar
+  base_key: sacred_mountain
+  concept: tv_wonder_unique_changbai_mountain_altar
+  location: girin_ula
+  image: tv_wonder_unique_changbai_mountain_altar
+  prompt: Changbai Mountain altar in a Manchurian sacred landscape, volcanic peak, heavenly lake, stone altar terraces, banners, shamans, imperial envoys, forested slopes, and offerings under cold clear light, historically grounded world wonder key art, cinematic mountain panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: sacred_mountain
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_changbai_mountain_altar_inaugurated
+  ritual:
+    key: sacred_mountain_investiture
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      tolerance_own: 1
+      monthly_legitimacy: 0.06
+      monthly_towards_spiritualist: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 149
+  key: unique_belgrade_fortress
+  base_key: star_fortress_city
+  concept: tv_wonder_unique_belgrade_fortress
+  location: belgrad
+  image: tv_wonder_unique_belgrade_fortress
+  prompt: Belgrade Fortress at the confluence of the Danube and Sava, layered walls, towers, bastions, river gates, cannons, frontier garrison, banners of rival empires, historically grounded world wonder key art, cinematic river fortress view, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: star_fortress_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_belgrade_fortress_inaugurated
+  ritual:
+    key: danube_watch_muster
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_defensive: 0.05
+      global_garrison_size_modifier: 0.06
+      army_movement_speed: 0.02
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 150
+  key: unique_meteora_monasteries
+  base_key: great_monastery
+  concept: tv_wonder_unique_meteora_monasteries
+  location: trikala
+  image: tv_wonder_unique_meteora_monasteries
+  prompt: Meteora monasteries perched on towering sandstone pillars above Thessaly, rope hoists, cliff stairs, chapels, monks, pilgrims, icons, clouds and sheer rock faces, historically grounded world wonder key art, cinematic vertical panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: great_monastery
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_meteora_monasteries_inaugurated
+  ritual:
+    key: suspended_liturgy
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      stability_investment: -0.05
+      global_defensive: 0.04
+      clergy_estate_target_satisfaction: 0.03
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6

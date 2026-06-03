@@ -6258,6 +6258,1566 @@ template tv_location_wonder_tooltip {
 						}
 					}
 					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_unique_stonehenge|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_stonehenge.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_stonehenge_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_stonehenge_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_stonehenge_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_stonehenge_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_stonehenge_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_stonehenge_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_UNIQUE_STONEHENGE_INAUGURATED_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_stonehenge_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_unique_stonehenge_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_unique_tower_of_london|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_tower_of_london.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_tower_of_london_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_tower_of_london_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_tower_of_london_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_tower_of_london_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_tower_of_london_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_tower_of_london_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_UNIQUE_TOWER_OF_LONDON_INAUGURATED_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_tower_of_london_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_unique_tower_of_london_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_unique_notre_dame_de_paris|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_notre_dame_de_paris.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_notre_dame_de_paris_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_notre_dame_de_paris_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_notre_dame_de_paris_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_notre_dame_de_paris_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_notre_dame_de_paris_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_notre_dame_de_paris_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_UNIQUE_NOTRE_DAME_DE_PARIS_INAUGURATED_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_notre_dame_de_paris_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_unique_notre_dame_de_paris_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_unique_st_basils_cathedral|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_st_basils_cathedral.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_st_basils_cathedral_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_st_basils_cathedral_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_st_basils_cathedral_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_st_basils_cathedral_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_st_basils_cathedral_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_st_basils_cathedral_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_UNIQUE_ST_BASILS_CATHEDRAL_INAUGURATED_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_st_basils_cathedral_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_unique_st_basils_cathedral_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_unique_trinity_lavra|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_trinity_lavra.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_trinity_lavra_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_trinity_lavra_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_trinity_lavra_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_trinity_lavra_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_trinity_lavra_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_trinity_lavra_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_UNIQUE_TRINITY_LAVRA_INAUGURATED_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_trinity_lavra_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_unique_trinity_lavra_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_unique_winter_palace|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_winter_palace.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_winter_palace_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_winter_palace_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_winter_palace_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_winter_palace_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_winter_palace_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_winter_palace_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_UNIQUE_WINTER_PALACE_INAUGURATED_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_winter_palace_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_unique_winter_palace_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_unique_gyeongbokgung|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_gyeongbokgung.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_gyeongbokgung_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_gyeongbokgung_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_gyeongbokgung_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_gyeongbokgung_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_gyeongbokgung_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_gyeongbokgung_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_UNIQUE_GYEONGBOKGUNG_INAUGURATED_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_gyeongbokgung_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_unique_gyeongbokgung_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_unique_changbai_mountain_altar|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_changbai_mountain_altar.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_changbai_mountain_altar_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_changbai_mountain_altar_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_changbai_mountain_altar_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_changbai_mountain_altar_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_changbai_mountain_altar_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_changbai_mountain_altar_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_UNIQUE_CHANGBAI_MOUNTAIN_ALTAR_INAUGURATED_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_changbai_mountain_altar_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_unique_changbai_mountain_altar_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_unique_belgrade_fortress|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_belgrade_fortress.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_belgrade_fortress_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_belgrade_fortress_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_belgrade_fortress_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_belgrade_fortress_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_belgrade_fortress_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_belgrade_fortress_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_UNIQUE_BELGRADE_FORTRESS_INAUGURATED_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_belgrade_fortress_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_unique_belgrade_fortress_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_unique_meteora_monasteries|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_meteora_monasteries.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_meteora_monasteries_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_meteora_monasteries_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_meteora_monasteries_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_meteora_monasteries_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_meteora_monasteries_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_unique_meteora_monasteries_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_UNIQUE_METEORA_MONASTERIES_INAUGURATED_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_unique_meteora_monasteries_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_unique_meteora_monasteries_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_sacred_mountain_level').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
@@ -15057,6 +16617,666 @@ template tv_location_wonder_tooltip {
 							}
 						}
 					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_megalithic_circle|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_megalithic_circle.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_megalithic_circle_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_megalithic_circle_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_megalithic_circle_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_megalithic_circle_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_megalithic_circle_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_megalithic_circle_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_SOLSTICE_GATHERING_CIRCLE_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_megalithic_circle_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').GetValue, '(CFixedPoint)2.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_ASTRAL_ALIGNMENT_CIRCLE_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').GetValue, '(CFixedPoint)2.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_megalithic_circle_ritual_2_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').GetValue, '(CFixedPoint)3.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_ANCESTRAL_MOOT_CIRCLE_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_megalithic_circle_ritual_style').GetValue, '(CFixedPoint)3.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_megalithic_circle_ritual_3_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_grand_cathedral|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_grand_cathedral.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_grand_cathedral_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_grand_cathedral_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_grand_cathedral_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_grand_cathedral_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_grand_cathedral_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_grand_cathedral_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_HIGH_CHOIR_CATHEDRAL_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_grand_cathedral_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').GetValue, '(CFixedPoint)2.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_PILGRIM_NAVE_CATHEDRAL_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').GetValue, '(CFixedPoint)2.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_grand_cathedral_ritual_2_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').GetValue, '(CFixedPoint)3.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_CIVIC_BELLS_CATHEDRAL_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_grand_cathedral_ritual_style').GetValue, '(CFixedPoint)3.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_grand_cathedral_ritual_3_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
+					widget = {
+						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').IsSet]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						minimumsize = { 400 -1 }
+						using = bg_paper_card
+						using = bg_cabinet_card_frame
+						vbox = {
+							set_parent_size_to_minimum = yes
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = shrinking
+							spacing = 4
+							hbox = {
+								set_parent_size_to_minimum = yes
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = shrinking
+								spacing = 4
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										margin_left = 8
+										margin_right = 8
+										margin_top = 6
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										spacing = 4
+										ignoreinvisible = yes
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[tv_wonder_great_monastery|E]"
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 15
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { -1 18 }
+											spacing = 4
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = left|nobaseline
+												fontsize = 13
+											}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').GetValue|0]"
+												align = left|nobaseline
+												fontsize = 13
+											}
+										}
+									}
+								}
+								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 198 116 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										margin_top = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											using = bg_cabinet_card_frame
+											size = { 198 116 }
+											background = {
+												texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_great_monastery.dds"
+												texture_density = 2
+												fittype = centercrop
+											}
+										}
+									}
+								}
+							}
+							widget = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = shrinking
+								size = { 400 -1 }
+								vbox = {
+									set_parent_size_to_minimum = yes
+									margin_left = 8
+									margin_right = 8
+									margin_bottom = 6
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									spacing = 0
+									ignoreinvisible = yes
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').GetValue, '(CFixedPoint)1.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_great_monastery_level_1')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').GetValue, '(CFixedPoint)2.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_great_monastery_level_2')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').GetValue, '(CFixedPoint)3.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_great_monastery_level_3')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').GetValue, '(CFixedPoint)4.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_great_monastery_level_4')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').GetValue, '(CFixedPoint)5.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_great_monastery_level_5')]"
+									}
+									TooltipStringPairList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').GetValue, '(CFixedPoint)6.0'))]"
+										textcontext = "[ShowModifierEffect('tv_wonder_great_monastery_level_6')]"
+									}
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_SCRIPTORIUM_MONASTERY_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_great_monastery_ritual_1_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').GetValue, '(CFixedPoint)2.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_PILGRIM_REFECTORY_MONASTERY_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').GetValue, '(CFixedPoint)2.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_great_monastery_ritual_2_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+									hbox = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').GetValue, '(CFixedPoint)3.0'))]"
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										margin_top = 6
+										spacing = 0
+										text_single = {
+											text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"
+											align = left|nobaseline
+											fontsize = 13
+										}
+										text_single = {
+											text = "TV_ENGINEERING_CEREMONY_FORTIFIED_CLOISTER_MONASTERY_BUTTON"
+											layoutpolicy_horizontal = expanding
+											align = left|nobaseline
+											autoresize = no
+											fontsize = 13
+										}
+									}
+									TooltipRequirementsList = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_great_monastery_ritual_style').GetValue, '(CFixedPoint)3.0'))]"
+										layoutpolicy_horizontal = expanding
+										textcontext = "[ShowScriptedEffectForScope('tv_wonder_great_monastery_ritual_3_location_tooltip_effect',LocationView.GetLocation.MakeScope.Self)]"
+										blockoverride "block_title" {
+											block "block_title" {
+												visible = no
+											}
+										}
+										blockoverride "requirementslist_datamodel_is_empty" {
+											visible = no
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -19090,6 +21310,86 @@ lateralview = {
 													autoresize = no
 													fontsize = 15
 												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)141.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_stonehenge|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)142.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_tower_of_london|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)143.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_notre_dame_de_paris|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)144.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_st_basils_cathedral|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)145.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_trinity_lavra|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)146.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_winter_palace|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)147.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_gyeongbokgung|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)148.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_changbai_mountain_altar|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)149.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_belgrade_fortress|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)150.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_meteora_monasteries|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
 												hbox = {
 													layoutpolicy_horizontal = expanding
 													layoutpolicy_vertical = fixed
@@ -19559,6 +21859,116 @@ lateralview = {
 														size = { 120 56 }
 														background = {
 															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_jerusalem_holy_city.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)141.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_stonehenge.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)142.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_tower_of_london.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)143.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_notre_dame_de_paris.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)144.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_st_basils_cathedral.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)145.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_trinity_lavra.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)146.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_winter_palace.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)147.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_gyeongbokgung.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)148.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_changbai_mountain_altar.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)149.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_belgrade_fortress.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)150.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_meteora_monasteries.dds"
 															texture_density = 2
 															fittype = centercrop
 														}
@@ -19930,6 +22340,86 @@ lateralview = {
 													autoresize = no
 													fontsize = 15
 												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)141.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_stonehenge|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)142.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_tower_of_london|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)143.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_notre_dame_de_paris|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)144.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_st_basils_cathedral|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)145.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_trinity_lavra|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)146.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_winter_palace|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)147.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_gyeongbokgung|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)148.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_changbai_mountain_altar|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)149.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_belgrade_fortress|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)150.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_meteora_monasteries|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
 												hbox = {
 													layoutpolicy_horizontal = expanding
 													layoutpolicy_vertical = fixed
@@ -20403,6 +22893,116 @@ lateralview = {
 															fittype = centercrop
 														}
 													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)141.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_stonehenge.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)142.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_tower_of_london.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)143.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_notre_dame_de_paris.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)144.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_st_basils_cathedral.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)145.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_trinity_lavra.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)146.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_winter_palace.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)147.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_gyeongbokgung.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)148.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_changbai_mountain_altar.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)149.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_belgrade_fortress.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)150.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_meteora_monasteries.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
 												}
 											}
 										}
@@ -20753,6 +23353,86 @@ lateralview = {
 													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)140.0'))]"
 													layoutpolicy_horizontal = expanding
 													text = "[tv_wonder_unique_jerusalem_holy_city|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)141.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_stonehenge|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)142.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_tower_of_london|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)143.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_notre_dame_de_paris|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)144.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_st_basils_cathedral|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)145.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_trinity_lavra|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)146.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_winter_palace|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)147.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_gyeongbokgung|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)148.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_changbai_mountain_altar|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)149.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_belgrade_fortress|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)150.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_meteora_monasteries|E]"
 													align = left|nobaseline
 													autoresize = no
 													fontsize = 15
@@ -21226,6 +23906,116 @@ lateralview = {
 														size = { 120 56 }
 														background = {
 															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_jerusalem_holy_city.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)141.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_stonehenge.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)142.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_tower_of_london.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)143.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_notre_dame_de_paris.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)144.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_st_basils_cathedral.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)145.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_trinity_lavra.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)146.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_winter_palace.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)147.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_gyeongbokgung.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)148.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_changbai_mountain_altar.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)149.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_belgrade_fortress.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)150.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_meteora_monasteries.dds"
 															texture_density = 2
 															fittype = centercrop
 														}
@@ -21597,6 +24387,86 @@ lateralview = {
 													autoresize = no
 													fontsize = 15
 												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)141.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_stonehenge|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)142.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_tower_of_london|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)143.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_notre_dame_de_paris|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)144.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_st_basils_cathedral|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)145.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_trinity_lavra|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)146.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_winter_palace|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)147.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_gyeongbokgung|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)148.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_changbai_mountain_altar|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)149.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_belgrade_fortress|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)150.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_meteora_monasteries|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
 												hbox = {
 													layoutpolicy_horizontal = expanding
 													layoutpolicy_vertical = fixed
@@ -22070,6 +24940,116 @@ lateralview = {
 															fittype = centercrop
 														}
 													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)141.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_stonehenge.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)142.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_tower_of_london.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)143.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_notre_dame_de_paris.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)144.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_st_basils_cathedral.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)145.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_trinity_lavra.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)146.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_winter_palace.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)147.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_gyeongbokgung.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)148.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_changbai_mountain_altar.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)149.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_belgrade_fortress.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue, '(CFixedPoint)150.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_meteora_monasteries.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
 												}
 											}
 										}
@@ -22420,6 +25400,86 @@ lateralview = {
 													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)140.0'))]"
 													layoutpolicy_horizontal = expanding
 													text = "[tv_wonder_unique_jerusalem_holy_city|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)141.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_stonehenge|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)142.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_tower_of_london|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)143.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_notre_dame_de_paris|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)144.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_st_basils_cathedral|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)145.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_trinity_lavra|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)146.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_winter_palace|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)147.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_gyeongbokgung|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)148.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_changbai_mountain_altar|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)149.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_belgrade_fortress|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)150.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_meteora_monasteries|E]"
 													align = left|nobaseline
 													autoresize = no
 													fontsize = 15
@@ -22897,6 +25957,116 @@ lateralview = {
 															fittype = centercrop
 														}
 													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)141.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_stonehenge.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)142.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_tower_of_london.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)143.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_notre_dame_de_paris.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)144.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_st_basils_cathedral.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)145.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_trinity_lavra.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)146.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_winter_palace.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)147.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_gyeongbokgung.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)148.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_changbai_mountain_altar.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)149.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_belgrade_fortress.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue, '(CFixedPoint)150.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_meteora_monasteries.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
 												}
 											}
 										}
@@ -23247,6 +26417,86 @@ lateralview = {
 													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)140.0'))]"
 													layoutpolicy_horizontal = expanding
 													text = "[tv_wonder_unique_jerusalem_holy_city|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)141.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_stonehenge|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)142.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_tower_of_london|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)143.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_notre_dame_de_paris|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)144.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_st_basils_cathedral|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)145.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_trinity_lavra|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)146.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_winter_palace|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)147.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_gyeongbokgung|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)148.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_changbai_mountain_altar|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)149.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_belgrade_fortress|E]"
+													align = left|nobaseline
+													autoresize = no
+													fontsize = 15
+												}
+												text_single = {
+													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)150.0'))]"
+													layoutpolicy_horizontal = expanding
+													text = "[tv_wonder_unique_meteora_monasteries|E]"
 													align = left|nobaseline
 													autoresize = no
 													fontsize = 15
@@ -23720,6 +26970,116 @@ lateralview = {
 														size = { 120 56 }
 														background = {
 															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_jerusalem_holy_city.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)141.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_stonehenge.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)142.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_tower_of_london.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)143.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_notre_dame_de_paris.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)144.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_st_basils_cathedral.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)145.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_trinity_lavra.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)146.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_winter_palace.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)147.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_gyeongbokgung.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)148.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_changbai_mountain_altar.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)149.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_belgrade_fortress.dds"
+															texture_density = 2
+															fittype = centercrop
+														}
+													}
+													widget = {
+														visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue, '(CFixedPoint)150.0'))]"
+														layoutpolicy_horizontal = fixed
+														layoutpolicy_vertical = fixed
+														size = { 120 56 }
+														background = {
+															texture = "gfx/interface/illustrations/towards_victory/wonders/tv_wonder_unique_meteora_monasteries.dds"
 															texture_density = 2
 															fittype = centercrop
 														}

@@ -599,6 +599,51 @@ wonders:
   base_key: city_expansion_project
   mechanic_key: city_expansion_project
   base_effect_multiplier: 1
+- id: 41
+  key: megalithic_circle
+  concept: tv_wonder_megalithic_circle
+  size: small
+  category: cultural_category
+  pop_type: clergy
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_solstice_gathering_circle
+    2: tv_wonder_astral_alignment_circle
+    3: tv_wonder_ancestral_moot_circle
+  is_unique: false
+  base_key: megalithic_circle
+  mechanic_key: megalithic_circle
+  base_effect_multiplier: 1
+- id: 42
+  key: grand_cathedral
+  concept: tv_wonder_grand_cathedral
+  size: medium
+  category: cultural_category
+  pop_type: clergy
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_high_choir_cathedral
+    2: tv_wonder_pilgrim_nave_cathedral
+    3: tv_wonder_civic_bells_cathedral
+  is_unique: false
+  base_key: grand_cathedral
+  mechanic_key: grand_cathedral
+  base_effect_multiplier: 1
+- id: 43
+  key: great_monastery
+  concept: tv_wonder_great_monastery
+  size: medium
+  category: cultural_category
+  pop_type: clergy
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_scriptorium_monastery
+    2: tv_wonder_pilgrim_refectory_monastery
+    3: tv_wonder_fortified_cloister_monastery
+  is_unique: false
+  base_key: great_monastery
+  mechanic_key: great_monastery
+  base_effect_multiplier: 1
 parts:
 - key: foundation
 - key: body
