@@ -32,6 +32,20 @@ dist/
 *.so
 *.dylib
 
+# Checked-in static support site outputs
+!unique_wonders_site/
+!unique_wonders_site/dist/
+!unique_wonders_site/dist/index.html
+!unique_wonders_site/dist/app.css
+!unique_wonders_site/dist/app.js
+!unique_wonders_site/dist/data/
+!unique_wonders_site/dist/data/**
+!unique_wonders_site/dist/tiles/
+!unique_wonders_site/dist/tiles/**
+!unique_wonders_site/scripts/
+!unique_wonders_site/scripts/build/
+!unique_wonders_site/scripts/build/*.py
+
 # Go specific
 *.test
 *.out

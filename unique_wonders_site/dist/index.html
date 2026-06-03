@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Unique Wonders Atlas</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="app.css" />
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <header class="site-header">
+      <div>
+        <h1 id="app-title">独特奇观</h1>
+        <div id="app-subtitle" class="subtitle">世界地图</div>
+      </div>
+      <div class="language-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="zh" class="active">中文</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </header>
+    <div id="search-row">
+      <input type="search" id="search" placeholder="搜索奇观或地点..." autocomplete="off" />
+      <div id="count-line"></div>
+    </div>
+    <div id="wonder-list" role="listbox" aria-label="Unique wonders"></div>
+  </aside>
+  <main id="map-pane">
+    <div id="map"></div>
+    <section id="detail" hidden>
+      <header>
+        <h2 id="detail-name"></h2>
+        <button type="button" id="detail-close" aria-label="Close">x</button>
+      </header>
+      <div id="detail-body"></div>
+    </section>
+  </main>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,427 @@
+const NATIVE_W = 16384;
+const NATIVE_H = 8192;
+const MAX_ZOOM = 6;
+const TILE_SIZE = 256;
+
+const TEXT = {
+  zh: {
+    title: "独特奇观",
+    subtitle: "世界地图",
+    search: "搜索奇观或地点...",
+    count: (shown, total) => `${shown} / ${total} 个奇观`,
+    location: "地点",
+    base: "原型",
+    size: "规模",
+    category: "类别",
+    requirements: "建造条件",
+    effects: "效果",
+    modifier: "Modifier",
+    scope: "Scope",
+    years: "years",
+  },
+  en: {
+    title: "Unique Wonders",
+    subtitle: "World Map",
+    search: "Search wonders or locations...",
+    count: (shown, total) => `${shown} / ${total} wonders`,
+    location: "Location",
+    base: "Prototype",
+    size: "Size",
+    category: "Category",
+    requirements: "Build Conditions",
+    effects: "Effects",
+    modifier: "Modifier",
+    scope: "Scope",
+    years: "years",
+  },
+};
+
+const elements = {
+  title: document.getElementById("app-title"),
+  subtitle: document.getElementById("app-subtitle"),
+  search: document.getElementById("search"),
+  count: document.getElementById("count-line"),
+  list: document.getElementById("wonder-list"),
+  detail: document.getElementById("detail"),
+  detailName: document.getElementById("detail-name"),
+  detailBody: document.getElementById("detail-body"),
+  detailClose: document.getElementById("detail-close"),
+  languageButtons: Array.from(document.querySelectorAll("[data-lang]")),
+};
+
+const state = {
+  lang: "zh",
+  query: "",
+  wonders: [],
+  selectedKey: "",
+};
+
+const customCRS = L.extend({}, L.CRS.Simple, {
+  scale: (zoom) => Math.pow(2, zoom - MAX_ZOOM),
+  zoom: (scale) => Math.log(scale) / Math.LN2 + MAX_ZOOM,
+  wrapLng: [0, NATIVE_W],
+});
+
+function computeMinZoom() {
+  const mapEl = document.getElementById("map");
+  const viewportWidth = mapEl.clientWidth || window.innerWidth;
+  const minZoom = Math.log2(viewportWidth / NATIVE_W) + MAX_ZOOM;
+  return Math.max(0, Math.min(MAX_ZOOM, minZoom));
+}
+
+const map = L.map("map", {
+  crs: customCRS,
+  minZoom: computeMinZoom(),
+  maxZoom: MAX_ZOOM,
+  zoomControl: false,
+  attributionControl: false,
+  zoomSnap: 0.25,
+  preferCanvas: true,
+  maxBoundsViscosity: 1.0,
+});
+
+L.control.zoom({ position: "bottomright" }).addTo(map);
+
+const visibleBounds = [[-NATIVE_H, 0], [0, NATIVE_W]];
+L.tileLayer("tiles/{z}/{x}/{y}.png", {
+  tileSize: TILE_SIZE,
+  minZoom: 0,
+  maxZoom: MAX_ZOOM,
+  noWrap: false,
+  bounds: visibleBounds,
+}).addTo(map);
+map.setMaxBounds([[-NATIVE_H, -Infinity], [0, Infinity]]);
+map.fitBounds(visibleBounds);
+
+window.addEventListener("resize", () => {
+  const zoom = computeMinZoom();
+  map.setMinZoom(zoom);
+  if (map.getZoom() < zoom) {
+    map.setZoom(zoom);
+  }
+});
+
+const pinLayers = new Map();
+
+function t(key) {
+  return TEXT[state.lang][key];
+}
+
+function localized(value) {
+  if (!value || typeof value !== "object") {
+    return String(value ?? "");
+  }
+  return value[state.lang] || value.en || value.zh || "";
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function formatValue(value) {
+  if (value === null || value === undefined) {
+    return "";
+  }
+  if (typeof value === "number") {
+    if (Number.isInteger(value)) {
+      return String(value);
+    }
+    return String(Number(value.toFixed(5))).replace(/\.0+$/, "");
+  }
+  return String(value);
+}
+
+function colorForKey(key) {
+  const fixed = {
+    cultural_category: "#d98c72",
+    government_category: "#e0be63",
+    infrastructure_category: "#68b7a8",
+    military_category: "#c75f6a",
+    religious_category: "#a78bd8",
+    commerce_category: "#6ea2d9",
+    industry_category: "#9ea35f",
+  };
+  if (fixed[key]) {
+    return fixed[key];
+  }
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < key.length; index += 1) {
+    hash ^= key.charCodeAt(index);
+    hash = (hash * 0x01000193) >>> 0;
+  }
+  return `hsl(${hash % 360}, 58%, 62%)`;
+}
+
+function visibleWorldIndexes() {
+  const bounds = map.getBounds();
+  const west = Math.floor(bounds.getWest() / NATIVE_W) - 1;
+  const east = Math.floor(bounds.getEast() / NATIVE_W) + 1;
+  const indexes = [];
+  for (let index = west; index <= east; index += 1) {
+    indexes.push(index);
+  }
+  return indexes;
+}
+
+function px(x, y, worldIndex = 0) {
+  return L.latLng(-y, x + worldIndex * NATIVE_W);
+}
+
+function filteredWonders() {
+  const query = state.query.trim().toLowerCase();
+  if (!query) {
+    return state.wonders;
+  }
+  return state.wonders.filter((wonder) => wonder._haystack.includes(query));
+}
+
+function selectedWonder() {
+  return state.wonders.find((wonder) => wonder.key === state.selectedKey) || null;
+}
+
+function markerIcon(wonder, selected) {
+  const color = colorForKey(wonder.category);
+  return L.divIcon({
+    className: "",
+    iconSize: selected ? [23, 23] : [18, 18],
+    iconAnchor: selected ? [11, 11] : [9, 9],
+    html: `<div class="wonder-pin${selected ? " selected" : ""}" style="--pin-color:${color}"></div>`,
+  });
+}
+
+function syncPinLayers() {
+  const wantedIndexes = new Set(visibleWorldIndexes());
+  for (const [index, layer] of pinLayers) {
+    if (!wantedIndexes.has(index)) {
+      layer.remove();
+      pinLayers.delete(index);
+    }
+  }
+  for (const index of wantedIndexes) {
+    const oldLayer = pinLayers.get(index);
+    if (oldLayer) {
+      oldLayer.remove();
+    }
+    const group = L.layerGroup();
+    for (const wonder of filteredWonders()) {
+      const [x, y] = wonder.centroid;
+      const selected = wonder.key === state.selectedKey;
+      const marker = L.marker(px(x, y, index), {
+        icon: markerIcon(wonder, selected),
+        title: localized(wonder.name),
+        riseOnHover: true,
+      });
+      marker.on("click", () => selectWonder(wonder.key, { pan: false }));
+      marker.bindTooltip(localized(wonder.name), {
+        direction: "top",
+        opacity: 0.92,
+        sticky: true,
+      });
+      group.addLayer(marker);
+    }
+    group.addTo(map);
+    pinLayers.set(index, group);
+  }
+}
+
+function renderLanguage() {
+  elements.title.textContent = t("title");
+  elements.subtitle.textContent = t("subtitle");
+  elements.search.placeholder = t("search");
+  elements.languageButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.lang === state.lang);
+  });
+}
+
+function renderList() {
+  const visible = filteredWonders();
+  elements.count.textContent = t("count")(visible.length, state.wonders.length);
+  elements.list.innerHTML = "";
+
+  for (const wonder of visible) {
+    const row = document.createElement("button");
+    row.type = "button";
+    row.className = `wonder-row${wonder.key === state.selectedKey ? " selected" : ""}`;
+    row.setAttribute("role", "option");
+    row.setAttribute("aria-selected", wonder.key === state.selectedKey ? "true" : "false");
+    row.innerHTML = `
+      <div class="wonder-row-main">
+        <span class="wonder-name">${escapeHtml(localized(wonder.name))}</span>
+        <span class="wonder-id">${escapeHtml(String(wonder.id))}</span>
+      </div>
+      <div class="wonder-meta">
+        <span class="swatch" style="background:${colorForKey(wonder.category)}"></span>
+        <span>${escapeHtml(localized(wonder.location_name))}</span>
+        <span>${escapeHtml(localized(wonder.size_label))}</span>
+      </div>
+    `;
+    row.addEventListener("click", () => selectWonder(wonder.key));
+    elements.list.append(row);
+  }
+}
+
+function metaLine(label, value) {
+  return `<div><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</div>`;
+}
+
+function renderEffectSection(effect) {
+  const title = localized(effect.title);
+  const valueLabel = localized(effect.value_label);
+  const rows = Array.isArray(effect.rows) ? effect.rows : [];
+  const metaEntries = Object.entries(effect.meta || {}).filter(([, value]) => value !== null && value !== "");
+  const metaHtml = metaEntries.length
+    ? `<div class="effect-meta">${metaEntries.map(([key, value]) => `<span class="meta-pill">${escapeHtml(key)}: ${escapeHtml(formatValue(value))}</span>`).join("")}</div>`
+    : "";
+  const rowHtml = rows.length
+    ? `
+      <div class="effect-table">
+        <div class="effect-row header">
+          <span>${escapeHtml(effect.scope === "reward" ? "Type" : t("modifier"))}</span>
+          <span>${escapeHtml(valueLabel)}</span>
+        </div>
+        ${rows.map((row) => `
+          <div class="effect-row">
+            <span class="effect-key">${escapeHtml(row.key)}</span>
+            <span class="effect-value">${escapeHtml(formatValue(row.value))}</span>
+          </div>
+        `).join("")}
+      </div>
+    `
+    : "";
+
+  return `
+    <section class="effect-group">
+      <div class="effect-head">
+        <h4>${escapeHtml(title)}</h4>
+        <span class="effect-scope">${escapeHtml(effect.scope || "")}</span>
+      </div>
+      ${metaHtml}
+      ${rowHtml}
+    </section>
+  `;
+}
+
+function renderDetail() {
+  const wonder = selectedWonder();
+  if (!wonder) {
+    elements.detail.hidden = true;
+    return;
+  }
+
+  elements.detail.hidden = false;
+  elements.detailName.textContent = localized(wonder.name);
+  const effects = Array.isArray(wonder.effects) ? wonder.effects : [];
+  elements.detailBody.innerHTML = `
+    <div class="detail-meta">
+      ${metaLine(t("location"), localized(wonder.location_name))}
+      ${metaLine(t("base"), localized(wonder.base_name))}
+      ${metaLine(t("size"), localized(wonder.size_label))}
+      ${metaLine(t("category"), localized(wonder.category_label))}
+    </div>
+    <p class="detail-description">${escapeHtml(localized(wonder.description))}</p>
+    <section class="detail-section">
+      <h3>${escapeHtml(t("requirements"))}</h3>
+      <div class="requirements-slot"></div>
+    </section>
+    <section class="detail-section">
+      <h3>${escapeHtml(t("effects"))}</h3>
+      ${effects.map(renderEffectSection).join("")}
+    </section>
+  `;
+}
+
+function selectWonder(key, options = {}) {
+  state.selectedKey = key;
+  renderList();
+  renderDetail();
+  syncPinLayers();
+  if (options.pan === false) {
+    return;
+  }
+  const wonder = selectedWonder();
+  if (wonder) {
+    const [x, y] = wonder.centroid;
+    map.flyTo(px(x, y), Math.max(map.getZoom(), 4), { duration: 0.45 });
+  }
+}
+
+function renderAll() {
+  renderLanguage();
+  renderList();
+  renderDetail();
+  syncPinLayers();
+}
+
+async function loadData() {
+  const response = await fetch("data/unique_wonders.json");
+  if (!response.ok) {
+    throw new Error(`Failed to load unique_wonders.json: ${response.status}`);
+  }
+  const payload = await response.json();
+  state.wonders = [...(payload.wonders || [])].sort((a, b) =>
+    localized(a.name).localeCompare(localized(b.name), state.lang === "zh" ? "zh-CN" : "en")
+  );
+  for (const wonder of state.wonders) {
+    wonder._haystack = [
+      wonder.key,
+      wonder.base_key,
+      wonder.location_key,
+      localized(wonder.name),
+      wonder.name?.en,
+      wonder.name?.zh,
+      localized(wonder.location_name),
+      wonder.location_name?.en,
+      localized(wonder.base_name),
+      wonder.base_name?.en,
+    ].join(" ").toLowerCase();
+  }
+  if (state.wonders.length) {
+    state.selectedKey = state.wonders[0].key;
+  }
+  renderAll();
+}
+
+elements.search.addEventListener("input", () => {
+  state.query = elements.search.value;
+  renderList();
+  syncPinLayers();
+});
+
+elements.detailClose.addEventListener("click", () => {
+  state.selectedKey = "";
+  renderAll();
+});
+
+elements.languageButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    state.lang = button.dataset.lang;
+    state.wonders.sort((a, b) =>
+      localized(a.name).localeCompare(localized(b.name), state.lang === "zh" ? "zh-CN" : "en")
+    );
+    for (const wonder of state.wonders) {
+      wonder._haystack = [
+        wonder.key,
+        wonder.base_key,
+        wonder.location_key,
+        wonder.name?.en,
+        wonder.name?.zh,
+        wonder.location_name?.en,
+        wonder.base_name?.en,
+        wonder.base_name?.zh,
+      ].join(" ").toLowerCase();
+    }
+    renderAll();
+  });
+});
+
+map.on("moveend zoomend", syncPinLayers);
+
+loadData().catch((error) => {
+  elements.list.innerHTML = `<div class="wonder-row"><span class="wonder-name">${escapeHtml(error.message)}</span></div>`;
+  throw error;
+});
+

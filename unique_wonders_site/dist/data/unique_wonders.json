@@ -1,0 +1,6394 @@
+{
+  "version": 1,
+  "wonders": [
+    {
+      "id": 101,
+      "key": "unique_pharos_lighthouse",
+      "name": {
+        "en": "Pharos Lighthouse",
+        "zh": "法罗斯灯塔"
+      },
+      "description": {
+        "en": "A tower of white stone rises from the Alexandrian harbor, turning royal ambition into a light that sailors can trust.",
+        "zh": "白石高塔矗立于亚历山大港口，将王权的野心化作水手可以信赖的灯火。"
+      },
+      "base_key": "great_lighthouse",
+      "base_name": {
+        "en": "Great Lighthouse",
+        "zh": "大灯塔"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "alexandria",
+      "location_name": {
+        "en": "Alexandria",
+        "zh": "Alexandria"
+      },
+      "centroid": [
+        9043.186295503212,
+        3102.5524625267667
+      ],
+      "bbox": [
+        9022,
+        3080,
+        9060,
+        3115
+      ],
+      "image": "tv_wonder_unique_pharos_lighthouse",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "trade_range",
+              "value": 400
+            },
+            {
+              "key": "naval_range",
+              "value": 400
+            },
+            {
+              "key": "monthly_towards_naval",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "naval_range",
+              "value": 300
+            },
+            {
+              "key": "trade_range",
+              "value": 100
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_pharos_lighthouse_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "key": "unique_hagia_sophia",
+      "name": {
+        "en": "Hagia Sophia",
+        "zh": "圣索菲亚大教堂"
+      },
+      "description": {
+        "en": "The rebuilt dome gathers gold, marble, incense, and imperial memory beneath a vault that seems to float.",
+        "zh": "重建的穹顶收拢黄金、大理石、香烟与帝国记忆，仿佛悬浮于尘世之上。"
+      },
+      "base_key": "sky_dome_grand_temple",
+      "base_name": {
+        "en": "Sky Dome Grand Temple",
+        "zh": "天穹大圣殿"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "constantinople",
+      "location_name": {
+        "en": "Constantinople",
+        "zh": "Constantinople"
+      },
+      "centroid": [
+        9003.336,
+        2482.058666666667
+      ],
+      "bbox": [
+        8993,
+        2471,
+        9016,
+        2493
+      ],
+      "image": "tv_wonder_unique_hagia_sophia",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "stability_investment",
+              "value": -0.2
+            },
+            {
+              "key": "global_pop_conversion_speed",
+              "value": 10
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 2
+            },
+            {
+              "key": "stability_investment",
+              "value": -0.1
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_hagia_sophia_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "key": "unique_dome_of_the_rock",
+      "name": {
+        "en": "Dome of the Rock",
+        "zh": "岩石圆顶圣殿"
+      },
+      "description": {
+        "en": "A golden dome crowns the sacred platform of Jerusalem, binding pilgrimage, sovereignty, and contested memory.",
+        "zh": "金色穹顶覆盖耶路撒冷圣台，将朝觐、主权与纷争记忆紧密相连。"
+      },
+      "base_key": "sky_dome_grand_temple",
+      "base_name": {
+        "en": "Sky Dome Grand Temple",
+        "zh": "天穹大圣殿"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "jerusalem",
+      "location_name": {
+        "en": "Jerusalem",
+        "zh": "Jerusalem"
+      },
+      "centroid": [
+        9296.015209125475,
+        3050.283269961977
+      ],
+      "bbox": [
+        9283,
+        3036,
+        9309,
+        3067
+      ],
+      "image": "tv_wonder_unique_dome_of_the_rock",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "stability_investment",
+              "value": -0.2
+            },
+            {
+              "key": "global_pop_conversion_speed",
+              "value": 10
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 1
+            },
+            {
+              "key": "diplomatic_reputation",
+              "value": 1
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_dome_of_the_rock_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "key": "unique_angkor_wat",
+      "name": {
+        "en": "Angkor Wat",
+        "zh": "吴哥窟"
+      },
+      "description": {
+        "en": "Five towers rise above galleries and moats, making the king's temple a stone diagram of cosmic order.",
+        "zh": "五座塔尖越过回廊与护城河，使国王的神庙成为宇宙秩序的石质图谱。"
+      },
+      "base_key": "giant_tower_temple",
+      "base_name": {
+        "en": "Giant Tower Temple",
+        "zh": "巨塔式神庙"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "angkor",
+      "location_name": {
+        "en": "Angkor",
+        "zh": "Angkor"
+      },
+      "centroid": [
+        12417.5,
+        4100.626865671642
+      ],
+      "bbox": [
+        12403,
+        4086,
+        12433,
+        4115
+      ],
+      "image": "tv_wonder_unique_angkor_wat",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_pop_assimilation_speed",
+              "value": 40
+            },
+            {
+              "key": "local_pop_conversion_speed",
+              "value": 40
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.1
+            },
+            {
+              "key": "tolerance_own",
+              "value": 1
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_angkor_wat_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "key": "unique_potala_palace",
+      "name": {
+        "en": "Potala Palace",
+        "zh": "波塔拉宫"
+      },
+      "description": {
+        "en": "White walls and red halls climb the hill above Lhasa, turning elevation into sacred administration.",
+        "zh": "白墙与红殿攀上拉萨山丘，将高处本身化为神圣的治理秩序。"
+      },
+      "base_key": "sacred_mountain",
+      "base_name": {
+        "en": "Sacred Mountain",
+        "zh": "圣山"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "lhasa",
+      "location_name": {
+        "en": "Lhasa",
+        "zh": "Lhasa"
+      },
+      "centroid": [
+        11842.879573170732,
+        3169.934451219512
+      ],
+      "bbox": [
+        11826,
+        3152,
+        11857,
+        3189
+      ],
+      "image": "tv_wonder_unique_potala_palace",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.4
+            },
+            {
+              "key": "tolerance_own",
+              "value": 2
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.05
+            },
+            {
+              "key": "tolerance_own",
+              "value": 1
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_potala_palace_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "key": "unique_alhambra",
+      "name": {
+        "en": "Alhambra",
+        "zh": "阿尔罕布拉宫"
+      },
+      "description": {
+        "en": "Muqarnas ceilings, water courts, and red walls preserve a courtly world at the edge of surrender.",
+        "zh": "蜂巢穹顶、水庭与红墙保存着一个走到投降边缘的宫廷世界。"
+      },
+      "base_key": "palace_of_nations",
+      "base_name": {
+        "en": "Palace of Nations",
+        "zh": "万国宫城"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "government_category",
+      "category_label": {
+        "en": "Government",
+        "zh": "政务"
+      },
+      "location_key": "granada",
+      "location_name": {
+        "en": "Granada",
+        "zh": "Granada"
+      },
+      "centroid": [
+        7526.708333333333,
+        2733.0641025641025
+      ],
+      "bbox": [
+        7519,
+        2722,
+        7537,
+        2746
+      ],
+      "image": "tv_wonder_unique_alhambra",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_distance_from_capital_speed_propagation",
+              "value": 0.1
+            },
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.08
+            },
+            {
+              "key": "diplomatic_reputation",
+              "value": 1
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_alhambra_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "key": "unique_machu_picchu",
+      "name": {
+        "en": "Machu Picchu",
+        "zh": "马丘比丘"
+      },
+      "description": {
+        "en": "Stone terraces and temples cling to the cloud forest ridge, a royal retreat balanced between mountain and sky.",
+        "zh": "石质梯田与神庙依附云林山脊，一座皇家居所悬置于山与天之间。"
+      },
+      "base_key": "sacred_mountain",
+      "base_name": {
+        "en": "Sacred Mountain",
+        "zh": "圣山"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "picchu",
+      "location_name": {
+        "en": "Picchu",
+        "zh": "Picchu"
+      },
+      "centroid": [
+        4382.793721973094,
+        5567.910313901345
+      ],
+      "bbox": [
+        4376,
+        5552,
+        4392,
+        5582
+      ],
+      "image": "tv_wonder_unique_machu_picchu",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.4
+            },
+            {
+              "key": "tolerance_own",
+              "value": 2
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.003
+            },
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_machu_picchu_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 108,
+      "key": "unique_himeji_castle",
+      "name": {
+        "en": "Himeji Castle",
+        "zh": "姬路城"
+      },
+      "description": {
+        "en": "White plaster keeps, layered gates, and twisting approaches turn grace into defense.",
+        "zh": "白灰天守、重重城门与曲折通路，将优雅本身转化为防御。"
+      },
+      "base_key": "star_fortress_city",
+      "base_name": {
+        "en": "Star Fortress City",
+        "zh": "星型要塞城"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "military_category",
+      "category_label": {
+        "en": "Military",
+        "zh": "军事"
+      },
+      "location_key": "shikama",
+      "location_name": {
+        "en": "Shikama",
+        "zh": "Shikama"
+      },
+      "centroid": [
+        13822.272727272728,
+        2860.6022727272725
+      ],
+      "bbox": [
+        13818,
+        2848,
+        13828,
+        2873
+      ],
+      "image": "tv_wonder_unique_himeji_castle",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_defensive",
+              "value": 0.4
+            },
+            {
+              "key": "local_garrison_size",
+              "value": 500
+            },
+            {
+              "key": "fort_level",
+              "value": 2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_defensive",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_garrison_size_modifier",
+              "value": 0.1
+            },
+            {
+              "key": "land_morale_modifier",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_himeji_castle_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 109,
+      "key": "unique_taj_mahal",
+      "name": {
+        "en": "Taj Mahal",
+        "zh": "泰姬陵"
+      },
+      "description": {
+        "en": "White marble answers grief with symmetry, gardens, river light, and a tomb made for imperial memory.",
+        "zh": "白色大理石以对称、花园、河光与陵寝回应哀悼，保存帝国的记忆。"
+      },
+      "base_key": "giant_necropolis",
+      "base_name": {
+        "en": "Giant Necropolis Complex",
+        "zh": "国家陵墓"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "agra",
+      "location_name": {
+        "en": "Agra",
+        "zh": "Agra"
+      },
+      "centroid": [
+        11244.956775700935,
+        3332.1495327102803
+      ],
+      "bbox": [
+        11220,
+        3316,
+        11279,
+        3347
+      ],
+      "image": "tv_wonder_unique_taj_mahal",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "pop_join_rebel_threshold",
+              "value": -0.04
+            },
+            {
+              "key": "monthly_towards_traditionalist",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.1
+            },
+            {
+              "key": "monthly_prestige",
+              "value": 0.1
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_taj_mahal_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 110,
+      "key": "unique_forbidden_city",
+      "name": {
+        "en": "Forbidden City",
+        "zh": "紫禁城"
+      },
+      "description": {
+        "en": "A disciplined palace axis orders gates, halls, courts, and bureaucracy around the person of the emperor.",
+        "zh": "严整的宫城中轴将城门、殿宇、庭院与百官秩序环绕于皇帝一身。"
+      },
+      "base_key": "triumphal_axis",
+      "base_name": {
+        "en": "Triumphal Axis",
+        "zh": "凯旋轴线"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "government_category",
+      "category_label": {
+        "en": "Government",
+        "zh": "政务"
+      },
+      "location_key": "dadu",
+      "location_name": {
+        "en": "Dadu",
+        "zh": "Dadu"
+      },
+      "centroid": [
+        12985.622596153846,
+        2556.6826923076924
+      ],
+      "bbox": [
+        12973,
+        2544,
+        13000,
+        2568
+      ],
+      "image": "tv_wonder_unique_forbidden_city",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.2
+            },
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.15
+            },
+            {
+              "key": "global_distance_from_capital_speed_propagation",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_forbidden_city_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 111,
+      "key": "unique_topkapi_palace",
+      "name": {
+        "en": "Topkapi Palace",
+        "zh": "托普卡帕宫"
+      },
+      "description": {
+        "en": "Courtyards, gates, treasuries, and sea views turn conquest into a daily choreography of rule.",
+        "zh": "庭院、门阙、珍宝库与海景将征服转化为日复一日的统治仪程。"
+      },
+      "base_key": "palace_of_nations",
+      "base_name": {
+        "en": "Palace of Nations",
+        "zh": "万国宫城"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "government_category",
+      "category_label": {
+        "en": "Government",
+        "zh": "政务"
+      },
+      "location_key": "constantinople",
+      "location_name": {
+        "en": "Constantinople",
+        "zh": "Constantinople"
+      },
+      "centroid": [
+        9003.336,
+        2482.058666666667
+      ],
+      "bbox": [
+        8993,
+        2471,
+        9016,
+        2493
+      ],
+      "image": "tv_wonder_unique_topkapi_palace",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_distance_from_capital_speed_propagation",
+              "value": 0.1
+            },
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.05
+            },
+            {
+              "key": "diplomatic_reputation",
+              "value": 1
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_topkapi_palace_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 112,
+      "key": "unique_st_peters_basilica",
+      "name": {
+        "en": "Saint Peter's Basilica",
+        "zh": "圣亚彼得大教堂"
+      },
+      "description": {
+        "en": "A great basilica rises over the apostolic tomb, gathering pilgrims, cardinals, artists, and sovereign claims.",
+        "zh": "宏伟圣堂覆于宗徒墓上，汇聚朝圣者、枢机、艺术家与主权宣称。"
+      },
+      "base_key": "sky_dome_grand_temple",
+      "base_name": {
+        "en": "Sky Dome Grand Temple",
+        "zh": "天穹大圣殿"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "rome",
+      "location_name": {
+        "en": "Rome",
+        "zh": "Rome"
+      },
+      "centroid": [
+        8260.591304347827,
+        2443.586956521739
+      ],
+      "bbox": [
+        8249,
+        2432,
+        8269,
+        2456
+      ],
+      "image": "tv_wonder_unique_st_peters_basilica",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "stability_investment",
+              "value": -0.2
+            },
+            {
+              "key": "global_pop_conversion_speed",
+              "value": 10
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 1
+            },
+            {
+              "key": "clergy_estate_target_satisfaction",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_st_peters_basilica_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 113,
+      "key": "unique_lalibela_churches",
+      "name": {
+        "en": "Rock-Hewn Churches of Lalibela",
+        "zh": "拉利贝拉岩石教堂群"
+      },
+      "description": {
+        "en": "Churches cut downward from living rock make a new Jerusalem in the Ethiopian highlands.",
+        "zh": "从整块岩石向下凿出的教堂，在埃塞俄比亚高地塑造出新的耶路撒冷。"
+      },
+      "base_key": "sacred_mountain",
+      "base_name": {
+        "en": "Sacred Mountain",
+        "zh": "圣山"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "lalibela",
+      "location_name": {
+        "en": "Lalibela",
+        "zh": "Lalibela"
+      },
+      "centroid": [
+        9458.093100581878,
+        4171.911055694098
+      ],
+      "bbox": [
+        9441,
+        4141,
+        9481,
+        4201
+      ],
+      "image": "tv_wonder_unique_lalibela_churches",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.4
+            },
+            {
+              "key": "tolerance_own",
+              "value": 2
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.05
+            },
+            {
+              "key": "tolerance_own",
+              "value": 1
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_lalibela_churches_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 114,
+      "key": "unique_venetian_arsenal",
+      "name": {
+        "en": "Venetian Arsenal",
+        "zh": "威尼斯军港"
+      },
+      "description": {
+        "en": "Docks, ropewalks, foundries, and guarded basins make shipbuilding a state secret and a civic ritual.",
+        "zh": "船坞、绳场、铸坊与戒备水域使造船成为国家秘密与城邦仪式。"
+      },
+      "base_key": "national_shipyard",
+      "base_name": {
+        "en": "National Shipyard",
+        "zh": "国家船坞"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "venice",
+      "location_name": {
+        "en": "Venice",
+        "zh": "Venice"
+      },
+      "centroid": [
+        8257.89,
+        2210.19
+      ],
+      "bbox": [
+        8251,
+        2204,
+        8268,
+        2220
+      ],
+      "image": "tv_wonder_unique_venetian_arsenal",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_ship_build_speed",
+              "value": 0.8
+            },
+            {
+              "key": "max_ships_built_at_same_time",
+              "value": 2
+            },
+            {
+              "key": "harbor_suitability",
+              "value": 0.2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_naval",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "ship_build_speed",
+              "value": 0.1
+            },
+            {
+              "key": "naval_morale_modifier",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_venetian_arsenal_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 115,
+      "key": "unique_malacca_port",
+      "name": {
+        "en": "Port of Malacca",
+        "zh": "马六甲港"
+      },
+      "description": {
+        "en": "Monsoon routes, warehouses, translators, and merchant law turn a strait into a world market.",
+        "zh": "季风航线、货栈、译员与商法将一处海峡化为世界市场。"
+      },
+      "base_key": "great_port",
+      "base_name": {
+        "en": "Great Port",
+        "zh": "巨港"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "malacca",
+      "location_name": {
+        "en": "Malacca",
+        "zh": "Malacca"
+      },
+      "centroid": [
+        12349.345622119816,
+        4716.5737327188945
+      ],
+      "bbox": [
+        12334,
+        4704,
+        12362,
+        4729
+      ],
+      "image": "tv_wonder_unique_malacca_port",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "harbor_suitability",
+              "value": 0.2
+            },
+            {
+              "key": "local_trade_center_power",
+              "value": 0.4
+            },
+            {
+              "key": "local_migration_attraction",
+              "value": 2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_naval",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "trade_income",
+              "value": 0.05
+            },
+            {
+              "key": "trade_range",
+              "value": 100
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_malacca_port_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 116,
+      "key": "unique_red_fort_delhi",
+      "name": {
+        "en": "Red Fort of Delhi",
+        "zh": "德里红堡"
+      },
+      "description": {
+        "en": "Red sandstone walls enclose marble halls, gardens, and a throne room for imperial display.",
+        "zh": "红砂岩城墙围合大理石殿堂、花园与展示帝国威仪的御座厅。"
+      },
+      "base_key": "star_fortress_city",
+      "base_name": {
+        "en": "Star Fortress City",
+        "zh": "星型要塞城"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "military_category",
+      "category_label": {
+        "en": "Military",
+        "zh": "军事"
+      },
+      "location_key": "delhi",
+      "location_name": {
+        "en": "Delhi",
+        "zh": "Delhi"
+      },
+      "centroid": [
+        11197.908482142857,
+        3235.0290178571427
+      ],
+      "bbox": [
+        11185,
+        3224,
+        11211,
+        3249
+      ],
+      "image": "tv_wonder_unique_red_fort_delhi",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_defensive",
+              "value": 0.4
+            },
+            {
+              "key": "local_garrison_size",
+              "value": 500
+            },
+            {
+              "key": "fort_level",
+              "value": 2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_defensive",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.1
+            },
+            {
+              "key": "global_garrison_size_modifier",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_red_fort_delhi_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 117,
+      "key": "unique_versailles_palace",
+      "name": {
+        "en": "Palace of Versailles",
+        "zh": "凡尔赛宫"
+      },
+      "description": {
+        "en": "A palace, gardens, mirrors, and ceremony draw the nobility into the orbit of a single sun.",
+        "zh": "宫殿、花园、镜厅与仪典把贵族吸入一轮太阳的轨道。"
+      },
+      "base_key": "triumphal_axis",
+      "base_name": {
+        "en": "Triumphal Axis",
+        "zh": "凯旋轴线"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "government_category",
+      "category_label": {
+        "en": "Government",
+        "zh": "政务"
+      },
+      "location_key": "paris",
+      "location_name": {
+        "en": "Paris",
+        "zh": "Paris"
+      },
+      "centroid": [
+        7797.621761658031,
+        1985.5958549222798
+      ],
+      "bbox": [
+        7789,
+        1978,
+        7806,
+        1993
+      ],
+      "image": "tv_wonder_unique_versailles_palace",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.2
+            },
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.2
+            },
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_versailles_palace_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 118,
+      "key": "unique_tenochtitlan_causeways",
+      "name": {
+        "en": "Tenochtitlan Causeways",
+        "zh": "特诺奇蒂特兰堤道"
+      },
+      "description": {
+        "en": "Causeways, canals, aqueducts, and island districts bind the lake city to markets, temples, and war.",
+        "zh": "堤道、运河、水渠与岛上城区把湖中城市连接到市场、神庙与战争。"
+      },
+      "base_key": "river_extension",
+      "base_name": {
+        "en": "River Extension",
+        "zh": "河道拓宽工程"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "tenochtitlan",
+      "location_name": {
+        "en": "Tenochtitlan",
+        "zh": "Tenochtitlan"
+      },
+      "centroid": [
+        3174.48031496063,
+        3773.181102362205
+      ],
+      "bbox": [
+        3168,
+        3764,
+        3181,
+        3782
+      ],
+      "image": "tv_wonder_unique_tenochtitlan_causeways",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_distance_from_capital_speed_propagation",
+              "value": 0.2
+            },
+            {
+              "key": "local_monthly_development_modifier",
+              "value": 0.2
+            },
+            {
+              "key": "local_pop_conversion_speed",
+              "value": 40
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "army_movement_speed",
+              "value": 0.05
+            },
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.002
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_tenochtitlan_causeways_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 119,
+      "key": "unique_amsterdam_canal_ring",
+      "name": {
+        "en": "Amsterdam Canal Ring",
+        "zh": "阿姆斯特丹运河圈"
+      },
+      "description": {
+        "en": "Concentric canals, quays, warehouses, and counting houses turn a marsh city into a financial engine.",
+        "zh": "同心运河、码头、仓库与账房把沼泽城市改造成金融机器。"
+      },
+      "base_key": "canal_hub_city",
+      "base_name": {
+        "en": "Canal Hub City",
+        "zh": "运河枢纽城"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "amsterdam",
+      "location_name": {
+        "en": "Amsterdam",
+        "zh": "Amsterdam"
+      },
+      "centroid": [
+        7912.894160583942,
+        1751.9197080291972
+      ],
+      "bbox": [
+        7897,
+        1740,
+        7933,
+        1761
+      ],
+      "image": "tv_wonder_unique_amsterdam_canal_ring",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_trade_center_power",
+              "value": 0.8
+            },
+            {
+              "key": "local_production_efficiency",
+              "value": 0.6
+            },
+            {
+              "key": "local_distance_from_capital_speed_propagation",
+              "value": 0.2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "trade_income",
+              "value": 0.04
+            },
+            {
+              "key": "global_production_efficiency",
+              "value": 0.04
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "trade_income",
+              "value": 0.05
+            },
+            {
+              "key": "global_production_efficiency",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_amsterdam_canal_ring_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 120,
+      "key": "unique_mecca_haram_expansion",
+      "name": {
+        "en": "Great Mosque of Mecca Expansion",
+        "zh": "麦加禁寺扩建"
+      },
+      "description": {
+        "en": "Arcades, courtyards, and pilgrim routes expand around the Kaaba, making sacred space hold a world of believers.",
+        "zh": "回廊、庭院与朝觐道路围绕克尔白扩展，使圣域容纳一个信众世界。"
+      },
+      "base_key": "sky_dome_grand_temple",
+      "base_name": {
+        "en": "Sky Dome Grand Temple",
+        "zh": "天穹大圣殿"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "mecca",
+      "location_name": {
+        "en": "Mecca",
+        "zh": "Mecca"
+      },
+      "centroid": [
+        9509.240102171138,
+        3662.397190293742
+      ],
+      "bbox": [
+        9489,
+        3644,
+        9524,
+        3679
+      ],
+      "image": "tv_wonder_unique_mecca_haram_expansion",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "stability_investment",
+              "value": -0.2
+            },
+            {
+              "key": "global_pop_conversion_speed",
+              "value": 10
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 2
+            },
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_mecca_haram_expansion_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 121,
+      "key": "unique_ming_great_wall",
+      "name": {
+        "en": "Ming Great Wall",
+        "zh": "明长城"
+      },
+      "description": {
+        "en": "Walls, passes, garrisons, beacon towers, and border towns turn frontier anxiety into masonry and smoke.",
+        "zh": "城墙、关隘、军镇、烽燧与边城把边患焦虑化作砖石与烟火。"
+      },
+      "base_key": "great_wall",
+      "base_name": {
+        "en": "Great Wall",
+        "zh": "长城"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "military_category",
+      "category_label": {
+        "en": "Military",
+        "zh": "军事"
+      },
+      "location_key": "dadu",
+      "location_name": {
+        "en": "Dadu",
+        "zh": "Dadu"
+      },
+      "centroid": [
+        12985.622596153846,
+        2556.6826923076924
+      ],
+      "bbox": [
+        12973,
+        2544,
+        13000,
+        2568
+      ],
+      "image": "tv_wonder_unique_ming_great_wall",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_defensive",
+              "value": 0.4
+            },
+            {
+              "key": "local_garrison_size",
+              "value": 500
+            },
+            {
+              "key": "fort_level",
+              "value": 2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_defensive",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_garrison_size_modifier",
+              "value": 0.1
+            },
+            {
+              "key": "army_movement_speed",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_ming_great_wall_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 122,
+      "key": "unique_bank_of_saint_george",
+      "name": {
+        "en": "Bank of Saint George",
+        "zh": "圣乔治银行"
+      },
+      "description": {
+        "en": "Ledgers, state debts, merchant syndicates, and fortified counters make public credit into an institution.",
+        "zh": "账簿、国债、商人集团与坚固柜台把公共信用变成制度。"
+      },
+      "base_key": "royal_mint_system",
+      "base_name": {
+        "en": "Royal Mint",
+        "zh": "皇家铸币厂"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "government_category",
+      "category_label": {
+        "en": "Government",
+        "zh": "政务"
+      },
+      "location_key": "genoa",
+      "location_name": {
+        "en": "Genoa",
+        "zh": "Genoa"
+      },
+      "centroid": [
+        8090.512110726643,
+        2266.1314878892736
+      ],
+      "bbox": [
+        8076,
+        2256,
+        8105,
+        2276
+      ],
+      "image": "tv_wonder_unique_bank_of_saint_george",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "minting_income_factor",
+              "value": 0.2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "minting_income_factor",
+              "value": 0.08
+            },
+            {
+              "key": "tax_income_efficiency",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_bank_of_saint_george_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 123,
+      "key": "unique_cahokia_mounds",
+      "name": {
+        "en": "Cahokia Mound City",
+        "zh": "卡霍基亚土丘城"
+      },
+      "description": {
+        "en": "Earthen pyramids, plazas, palisades, and solar alignments make a river city into a ceremonial center.",
+        "zh": "土丘金字塔、广场、木栅与太阳方位把河畔城市塑造成礼仪中心。"
+      },
+      "base_key": "world_monument_group",
+      "base_name": {
+        "en": "World Monument Group",
+        "zh": "纪念碑群"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "cahokia",
+      "location_name": {
+        "en": "Cahokia",
+        "zh": "Cahokia"
+      },
+      "centroid": [
+        3605.2118147951037,
+        2609.5774348057475
+      ],
+      "bbox": [
+        3583,
+        2581,
+        3629,
+        2635
+      ],
+      "image": "tv_wonder_unique_cahokia_mounds",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_cultural_tradition",
+              "value": 1.6
+            },
+            {
+              "key": "local_cultural_influence",
+              "value": 3.6
+            },
+            {
+              "key": "local_manpower_modifier",
+              "value": 0.2
+            },
+            {
+              "key": "local_unrest",
+              "value": -0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.1
+            },
+            {
+              "key": "great_power_score",
+              "value": 10
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.1
+            },
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.003
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_cahokia_mounds_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 124,
+      "key": "unique_great_zimbabwe",
+      "name": {
+        "en": "Great Zimbabwe Stone City",
+        "zh": "大津巴布韦石城"
+      },
+      "description": {
+        "en": "Dry-stone walls, conical towers, cattle wealth, and gold routes anchor a highland commercial kingdom.",
+        "zh": "干砌石墙、锥形塔、牛群财富与黄金路线支撑起高地商业王国。"
+      },
+      "base_key": "world_market",
+      "base_name": {
+        "en": "World Market",
+        "zh": "万国大市场"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "great_zimbabwe",
+      "location_name": {
+        "en": "Great Zimbabwe",
+        "zh": "Great Zimbabwe"
+      },
+      "centroid": [
+        9097.01475409836,
+        5955.725409836065
+      ],
+      "bbox": [
+        9075,
+        5923,
+        9115,
+        5981
+      ],
+      "image": "tv_wonder_unique_great_zimbabwe",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_trade_center_power",
+              "value": 0.9
+            },
+            {
+              "key": "local_migration_attraction",
+              "value": 2
+            },
+            {
+              "key": "local_unrest",
+              "value": -0.1
+            },
+            {
+              "key": "local_distance_from_capital_speed_propagation",
+              "value": 0.2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "trade_income",
+              "value": 0.06
+            },
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.002
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "trade_income",
+              "value": 0.06
+            },
+            {
+              "key": "global_raw_material_output",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_great_zimbabwe_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 125,
+      "key": "unique_isfahan_square",
+      "name": {
+        "en": "Royal Square of Isfahan",
+        "zh": "伊斯法罕王家广场"
+      },
+      "description": {
+        "en": "Mosques, palaces, bazaars, and a polo field frame the capital as a theater of Safavid rule.",
+        "zh": "清真寺、宫殿、巴扎与马球场把首都构成萨法维统治的剧场。"
+      },
+      "base_key": "triumphal_axis",
+      "base_name": {
+        "en": "Triumphal Axis",
+        "zh": "凯旋轴线"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "government_category",
+      "category_label": {
+        "en": "Government",
+        "zh": "政务"
+      },
+      "location_key": "isfahan",
+      "location_name": {
+        "en": "Isfahan",
+        "zh": "Isfahan"
+      },
+      "centroid": [
+        10030.15721040189,
+        2999.691489361702
+      ],
+      "bbox": [
+        9993,
+        2979,
+        10071,
+        3015
+      ],
+      "image": "tv_wonder_unique_isfahan_square",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.2
+            },
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.1
+            },
+            {
+              "key": "trade_income",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_isfahan_square_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 126,
+      "key": "unique_grand_canal",
+      "name": {
+        "en": "Grand Canal of China",
+        "zh": "京杭大运河"
+      },
+      "description": {
+        "en": "Locks, embankments, granaries, and barge routes bind northern courts to southern harvests.",
+        "zh": "船闸、堤岸、粮仓与漕船航线把北方朝廷同南方粮赋连接起来。"
+      },
+      "base_key": "large_canal_system",
+      "base_name": {
+        "en": "Large Canal",
+        "zh": "大水渠"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "shangyuan",
+      "location_name": {
+        "en": "Shangyuan",
+        "zh": "Shangyuan"
+      },
+      "centroid": [
+        13099.908088235294,
+        3032.4117647058824
+      ],
+      "bbox": [
+        13090,
+        3023,
+        13118,
+        3045
+      ],
+      "image": "tv_wonder_unique_grand_canal",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_monthly_development_modifier",
+              "value": 0.2
+            },
+            {
+              "key": "local_distance_from_capital_speed_propagation",
+              "value": 0.4
+            },
+            {
+              "key": "local_unrest",
+              "value": -0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.06
+            },
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.002
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_distance_from_capital_speed_propagation",
+              "value": 0.08
+            },
+            {
+              "key": "global_raw_material_output",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_grand_canal_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 127,
+      "key": "unique_inca_royal_road",
+      "name": {
+        "en": "Inca Royal Road Network",
+        "zh": "印加皇家道路网"
+      },
+      "description": {
+        "en": "Stone roads, rope bridges, tambos, and runners stitch the Andes into a state that can speak across mountains.",
+        "zh": "石路、索桥、驿站与飞跑信使把安第斯缝合成能穿山传令的国家。"
+      },
+      "base_key": "imperial_post_road_network",
+      "base_name": {
+        "en": "Imperial Post Road Network",
+        "zh": "帝国驿道网络"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "picchu",
+      "location_name": {
+        "en": "Picchu",
+        "zh": "Picchu"
+      },
+      "centroid": [
+        4382.793721973094,
+        5567.910313901345
+      ],
+      "bbox": [
+        4376,
+        5552,
+        4392,
+        5582
+      ],
+      "image": "tv_wonder_unique_inca_royal_road",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_distance_from_capital_speed_propagation",
+              "value": 0.3
+            },
+            {
+              "key": "local_monthly_development_modifier",
+              "value": 0.1
+            },
+            {
+              "key": "local_manpower_modifier",
+              "value": 0.3
+            },
+            {
+              "key": "local_trade_center_power",
+              "value": 0.3
+            },
+            {
+              "key": "local_nobles_estate_power",
+              "value": 0.5
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_distance_from_capital_speed_propagation",
+              "value": 0.1
+            },
+            {
+              "key": "army_movement_speed",
+              "value": 0.04
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "army_movement_speed",
+              "value": 0.05
+            },
+            {
+              "key": "global_distance_from_capital_speed_propagation",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_inca_royal_road_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 128,
+      "key": "unique_roman_aqueducts",
+      "name": {
+        "en": "Roman Aqueducts",
+        "zh": "罗马引水道"
+      },
+      "description": {
+        "en": "Arches march across valleys to feed baths, fountains, mills, and the confidence of an urban empire.",
+        "zh": "拱券跨过山谷，供养浴场、喷泉、磨坊与城市帝国的自信。"
+      },
+      "base_key": "hydraulic_workshop",
+      "base_name": {
+        "en": "Hydraulic Workshop Complex",
+        "zh": "水利工坊复合体"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "rome",
+      "location_name": {
+        "en": "Rome",
+        "zh": "Rome"
+      },
+      "centroid": [
+        8260.591304347827,
+        2443.586956521739
+      ],
+      "bbox": [
+        8249,
+        2432,
+        8269,
+        2456
+      ],
+      "image": "tv_wonder_unique_roman_aqueducts",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_production_efficiency",
+              "value": 0.4
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_free_subjects",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.003
+            },
+            {
+              "key": "global_production_efficiency",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_roman_aqueducts_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 129,
+      "key": "unique_suez_ancient_canal",
+      "name": {
+        "en": "Ancient Suez Canal Attempts",
+        "zh": "苏伊士古运河尝试"
+      },
+      "description": {
+        "en": "Survey lines, desert cuts, Nile branches, and Red Sea harbors preserve the old dream of joining waters.",
+        "zh": "测线、沙漠河槽、尼罗支流与红海港口保存着连通两水的古老梦想。"
+      },
+      "base_key": "large_canal_system",
+      "base_name": {
+        "en": "Large Canal",
+        "zh": "大水渠"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "suez",
+      "location_name": {
+        "en": "Suez",
+        "zh": "Suez"
+      },
+      "centroid": [
+        9172.327868852459,
+        3155.7868852459014
+      ],
+      "bbox": [
+        9155,
+        3144,
+        9187,
+        3170
+      ],
+      "image": "tv_wonder_unique_suez_ancient_canal",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_monthly_development_modifier",
+              "value": 0.2
+            },
+            {
+              "key": "local_distance_from_capital_speed_propagation",
+              "value": 0.4
+            },
+            {
+              "key": "local_unrest",
+              "value": -0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.06
+            },
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.002
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "trade_range",
+              "value": 150
+            },
+            {
+              "key": "trade_income",
+              "value": 0.04
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_suez_ancient_canal_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 130,
+      "key": "unique_kremlin",
+      "name": {
+        "en": "Moscow Kremlin",
+        "zh": "莫斯科克里姆林宫"
+      },
+      "description": {
+        "en": "Brick walls, towers, cathedrals, armories, and palaces compress fortress and sovereignty into one citadel.",
+        "zh": "砖墙、高塔、教堂、军械库与宫殿把堡垒和主权压缩进同一座城塞。"
+      },
+      "base_key": "star_fortress_city",
+      "base_name": {
+        "en": "Star Fortress City",
+        "zh": "星型要塞城"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "military_category",
+      "category_label": {
+        "en": "Military",
+        "zh": "军事"
+      },
+      "location_key": "moscow",
+      "location_name": {
+        "en": "Moscow",
+        "zh": "Moscow"
+      },
+      "centroid": [
+        9414.185185185184,
+        1513.4671445639187
+      ],
+      "bbox": [
+        9394,
+        1499,
+        9434,
+        1529
+      ],
+      "image": "tv_wonder_unique_kremlin",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_defensive",
+              "value": 0.4
+            },
+            {
+              "key": "local_garrison_size",
+              "value": 500
+            },
+            {
+              "key": "fort_level",
+              "value": 2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_defensive",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.1
+            },
+            {
+              "key": "land_morale_modifier",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_kremlin_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 131,
+      "key": "unique_teotihuacan",
+      "name": {
+        "en": "Sacred City of Teotihuacan",
+        "zh": "特奥蒂瓦坎圣城"
+      },
+      "description": {
+        "en": "Avenue, pyramids, compounds, and painted walls survive as the plan of a city built for cosmic scale.",
+        "zh": "大道、金字塔、院落与彩绘墙保存着一座按宇宙尺度规划的城市。"
+      },
+      "base_key": "world_monument_group",
+      "base_name": {
+        "en": "World Monument Group",
+        "zh": "纪念碑群"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "tenochtitlan",
+      "location_name": {
+        "en": "Tenochtitlan",
+        "zh": "Tenochtitlan"
+      },
+      "centroid": [
+        3174.48031496063,
+        3773.181102362205
+      ],
+      "bbox": [
+        3168,
+        3764,
+        3181,
+        3782
+      ],
+      "image": "tv_wonder_unique_teotihuacan",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_cultural_tradition",
+              "value": 1.6
+            },
+            {
+              "key": "local_cultural_influence",
+              "value": 3.6
+            },
+            {
+              "key": "local_manpower_modifier",
+              "value": 0.2
+            },
+            {
+              "key": "local_unrest",
+              "value": -0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.1
+            },
+            {
+              "key": "great_power_score",
+              "value": 10
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.1
+            },
+            {
+              "key": "tolerance_own",
+              "value": 1
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_teotihuacan_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 132,
+      "key": "unique_angkor_hydraulic_system",
+      "name": {
+        "en": "Angkor Waterworks",
+        "zh": "吴哥水利工程"
+      },
+      "description": {
+        "en": "Barays, canals, embankments, and rice fields make Angkor's sacred city depend on engineered water.",
+        "zh": "水库、运河、堤岸与稻田让吴哥圣城依赖被工程化的水。"
+      },
+      "base_key": "hydraulic_workshop",
+      "base_name": {
+        "en": "Hydraulic Workshop Complex",
+        "zh": "水利工坊复合体"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "angkor",
+      "location_name": {
+        "en": "Angkor",
+        "zh": "Angkor"
+      },
+      "centroid": [
+        12417.5,
+        4100.626865671642
+      ],
+      "bbox": [
+        12403,
+        4086,
+        12433,
+        4115
+      ],
+      "image": "tv_wonder_unique_angkor_hydraulic_system",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_production_efficiency",
+              "value": 0.4
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_free_subjects",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_raw_material_output",
+              "value": 0.04
+            },
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.003
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_angkor_hydraulic_system_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 133,
+      "key": "unique_dutch_polders",
+      "name": {
+        "en": "Dutch Polder Works",
+        "zh": "荷兰围海工程"
+      },
+      "description": {
+        "en": "Dikes, pumps, windmills, drainage boards, and reclaimed fields turn the sea into taxable land.",
+        "zh": "堤坝、水泵、风车、水务委员会与围垦田把海面变成可征税的土地。"
+      },
+      "base_key": "giant_dam_project",
+      "base_name": {
+        "en": "Giant Dam Project",
+        "zh": "巨堤"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "amsterdam",
+      "location_name": {
+        "en": "Amsterdam",
+        "zh": "Amsterdam"
+      },
+      "centroid": [
+        7912.894160583942,
+        1751.9197080291972
+      ],
+      "bbox": [
+        7897,
+        1740,
+        7933,
+        1761
+      ],
+      "image": "tv_wonder_unique_dutch_polders",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_defensive",
+              "value": 0.4
+            },
+            {
+              "key": "local_production_efficiency",
+              "value": 0.6
+            },
+            {
+              "key": "local_max_rgo_size_modifier",
+              "value": 0.3
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.06
+            },
+            {
+              "key": "global_production_efficiency",
+              "value": 0.04
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_raw_material_output",
+              "value": 0.04
+            },
+            {
+              "key": "global_production_efficiency",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_dutch_polders_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 134,
+      "key": "unique_machu_picchu_terraces",
+      "name": {
+        "en": "Machu Picchu Terraces",
+        "zh": "马丘比丘梯田"
+      },
+      "description": {
+        "en": "Retaining walls, drainage, soil layers, and ritual fields make steep mountains feed a royal estate.",
+        "zh": "挡土墙、排水层、土壤分层与礼仪田地让陡峭山地供养皇家居所。"
+      },
+      "base_key": "mountain_terrace_network",
+      "base_name": {
+        "en": "Mountain Terrace Network",
+        "zh": "山地梯田网络"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "picchu",
+      "location_name": {
+        "en": "Picchu",
+        "zh": "Picchu"
+      },
+      "centroid": [
+        4382.793721973094,
+        5567.910313901345
+      ],
+      "bbox": [
+        4376,
+        5552,
+        4392,
+        5582
+      ],
+      "image": "tv_wonder_unique_machu_picchu_terraces",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_max_rgo_size_modifier",
+              "value": 0.9
+            },
+            {
+              "key": "local_raw_material_output",
+              "value": 0.3
+            },
+            {
+              "key": "local_clergy_estate_power",
+              "value": 0.5
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_raw_material_output",
+              "value": 0.04
+            },
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.002
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_raw_material_output",
+              "value": 0.05
+            },
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.002
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_machu_picchu_terraces_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 135,
+      "key": "unique_british_navy_dockyards",
+      "name": {
+        "en": "British Navy Dockyards",
+        "zh": "皇家海军船坞"
+      },
+      "description": {
+        "en": "Dockyards, ropewalks, victualling yards, ordnance stores, and officers prepare fleets before war reaches the horizon.",
+        "zh": "船坞、绳场、补给场、军械库与军官在战云抵达地平线前整备舰队。"
+      },
+      "base_key": "national_shipyard",
+      "base_name": {
+        "en": "National Shipyard",
+        "zh": "国家船坞"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "portsmouth",
+      "location_name": {
+        "en": "Portsmouth",
+        "zh": "Portsmouth"
+      },
+      "centroid": [
+        7640.324758842444,
+        1845.6109324758843
+      ],
+      "bbox": [
+        7631,
+        1835,
+        7651,
+        1856
+      ],
+      "image": "tv_wonder_unique_british_navy_dockyards",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_ship_build_speed",
+              "value": 0.8
+            },
+            {
+              "key": "max_ships_built_at_same_time",
+              "value": 2
+            },
+            {
+              "key": "harbor_suitability",
+              "value": 0.2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_naval",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "naval_morale_modifier",
+              "value": 0.2
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_british_navy_dockyards_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 136,
+      "key": "unique_spanish_silver_fleet",
+      "name": {
+        "en": "Spanish Silver Fleet",
+        "zh": "西班牙白银舰队"
+      },
+      "description": {
+        "en": "Convoys, ledgers, fortified ports, and royal warehouses make Atlantic silver move under guard and seal.",
+        "zh": "护航舰队、账册、设防港口与王家仓库让大西洋白银在封印与护卫下流动。"
+      },
+      "base_key": "maritime_trade_station_network",
+      "base_name": {
+        "en": "Maritime Trade Station Network",
+        "zh": "海上贸易站网络"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "sevilla",
+      "location_name": {
+        "en": "Sevilla",
+        "zh": "Sevilla"
+      },
+      "centroid": [
+        7425.23,
+        2727.18
+      ],
+      "bbox": [
+        7415,
+        2711,
+        7435,
+        2742
+      ],
+      "image": "tv_wonder_unique_spanish_silver_fleet",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_trade_center_power",
+              "value": 0.8
+            },
+            {
+              "key": "local_ship_build_speed",
+              "value": 0.5
+            },
+            {
+              "key": "local_migration_attraction",
+              "value": -1.0
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "trade_range",
+              "value": 100
+            },
+            {
+              "key": "trade_income",
+              "value": 0.04
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "trade_income",
+              "value": 0.06
+            },
+            {
+              "key": "minting_income_factor",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_spanish_silver_fleet_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 137,
+      "key": "unique_ottoman_hajj_road",
+      "name": {
+        "en": "Ottoman Hajj Road",
+        "zh": "奥斯曼朝觐道路"
+      },
+      "description": {
+        "en": "Caravan roads, forts, wells, banners, and imperial subsidies bind pilgrimage to state logistics.",
+        "zh": "驿路、堡垒、水井、旗帜与帝国补助把朝觐同国家后勤绑在一起。"
+      },
+      "base_key": "imperial_post_road_network",
+      "base_name": {
+        "en": "Imperial Post Road Network",
+        "zh": "帝国驿道网络"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "mecca",
+      "location_name": {
+        "en": "Mecca",
+        "zh": "Mecca"
+      },
+      "centroid": [
+        9509.240102171138,
+        3662.397190293742
+      ],
+      "bbox": [
+        9489,
+        3644,
+        9524,
+        3679
+      ],
+      "image": "tv_wonder_unique_ottoman_hajj_road",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_distance_from_capital_speed_propagation",
+              "value": 0.3
+            },
+            {
+              "key": "local_monthly_development_modifier",
+              "value": 0.1
+            },
+            {
+              "key": "local_manpower_modifier",
+              "value": 0.3
+            },
+            {
+              "key": "local_trade_center_power",
+              "value": 0.3
+            },
+            {
+              "key": "local_nobles_estate_power",
+              "value": 0.5
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_distance_from_capital_speed_propagation",
+              "value": 0.1
+            },
+            {
+              "key": "army_movement_speed",
+              "value": 0.04
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 1
+            },
+            {
+              "key": "global_distance_from_capital_speed_propagation",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_ottoman_hajj_road_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 138,
+      "key": "unique_persian_qanat",
+      "name": {
+        "en": "Persian Qanat Network",
+        "zh": "坎儿井"
+      },
+      "description": {
+        "en": "Underground channels, mother wells, shaft lines, gardens, and water shares make desert settlement possible.",
+        "zh": "地下水道、母井、竖井线、花园与水权份额让沙漠聚落成为可能。"
+      },
+      "base_key": "hydraulic_workshop",
+      "base_name": {
+        "en": "Hydraulic Workshop Complex",
+        "zh": "水利工坊复合体"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "isfahan",
+      "location_name": {
+        "en": "Isfahan",
+        "zh": "Isfahan"
+      },
+      "centroid": [
+        10030.15721040189,
+        2999.691489361702
+      ],
+      "bbox": [
+        9993,
+        2979,
+        10071,
+        3015
+      ],
+      "image": "tv_wonder_unique_persian_qanat",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_production_efficiency",
+              "value": 0.4
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_free_subjects",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.003
+            },
+            {
+              "key": "global_raw_material_output",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_persian_qanat_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 139,
+      "key": "unique_longjiang_shipyard",
+      "name": {
+        "en": "Ming Longjiang Shipyard",
+        "zh": "明龙江船厂"
+      },
+      "description": {
+        "en": "Slipways, timber basins, workshops, and treasure ships make river shipbuilding serve oceanic ambition.",
+        "zh": "船台、木料池、作坊与宝船使江上造船服务于远洋雄心。"
+      },
+      "base_key": "national_shipyard",
+      "base_name": {
+        "en": "National Shipyard",
+        "zh": "国家船坞"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "shangyuan",
+      "location_name": {
+        "en": "Shangyuan",
+        "zh": "Shangyuan"
+      },
+      "centroid": [
+        13099.908088235294,
+        3032.4117647058824
+      ],
+      "bbox": [
+        13090,
+        3023,
+        13118,
+        3045
+      ],
+      "image": "tv_wonder_unique_longjiang_shipyard",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_ship_build_speed",
+              "value": 0.8
+            },
+            {
+              "key": "max_ships_built_at_same_time",
+              "value": 2
+            },
+            {
+              "key": "harbor_suitability",
+              "value": 0.2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_naval",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "naval_range",
+              "value": 150
+            },
+            {
+              "key": "ship_build_speed",
+              "value": 0.1
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_longjiang_shipyard_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 140,
+      "key": "unique_jerusalem_holy_city",
+      "name": {
+        "en": "Holy City of Jerusalem",
+        "zh": "耶路撒冷圣城"
+      },
+      "description": {
+        "en": "Walls, shrines, quarters, gates, and processions make one city carry several maps of sacred authority.",
+        "zh": "城墙、圣所、街区、城门与游行使同一座城市承载多套神圣权威地图。"
+      },
+      "base_key": "world_monument_group",
+      "base_name": {
+        "en": "World Monument Group",
+        "zh": "纪念碑群"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "jerusalem",
+      "location_name": {
+        "en": "Jerusalem",
+        "zh": "Jerusalem"
+      },
+      "centroid": [
+        9296.015209125475,
+        3050.283269961977
+      ],
+      "bbox": [
+        9283,
+        3036,
+        9309,
+        3067
+      ],
+      "image": "tv_wonder_unique_jerusalem_holy_city",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_cultural_tradition",
+              "value": 1.6
+            },
+            {
+              "key": "local_cultural_influence",
+              "value": 3.6
+            },
+            {
+              "key": "local_manpower_modifier",
+              "value": 0.2
+            },
+            {
+              "key": "local_unrest",
+              "value": -0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.1
+            },
+            {
+              "key": "great_power_score",
+              "value": 10
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 1
+            },
+            {
+              "key": "diplomatic_reputation",
+              "value": 1
+            },
+            {
+              "key": "monthly_prestige",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_jerusalem_holy_city_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 141,
+      "key": "unique_stonehenge",
+      "name": {
+        "en": "Stonehenge",
+        "zh": "巨石阵"
+      },
+      "description": {
+        "en": "Standing stones, solstice sightlines, and burial memory turn Salisbury Plain into a sacred calendar.",
+        "zh": "立石、至日准线与墓冢记忆让索尔兹伯里平原成为神圣历法。"
+      },
+      "base_key": "megalithic_circle",
+      "base_name": {
+        "en": "Megalithic Circle",
+        "zh": "巨石环"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "salisbury",
+      "location_name": {
+        "en": "Salisbury",
+        "zh": "Salisbury"
+      },
+      "centroid": [
+        7605.490625,
+        1836.05625
+      ],
+      "bbox": [
+        7594,
+        1826,
+        7615,
+        1846
+      ],
+      "image": "tv_wonder_unique_stonehenge",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_cultural_tradition",
+              "value": 1.4
+            },
+            {
+              "key": "local_unrest",
+              "value": -0.1
+            },
+            {
+              "key": "local_migration_attraction",
+              "value": 1.0
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_traditionalist",
+              "value": 0.08
+            },
+            {
+              "key": "global_monthly_prosperity",
+              "value": 0.002
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_traditionalist",
+              "value": 0.05
+            },
+            {
+              "key": "stability_investment",
+              "value": -0.05
+            },
+            {
+              "key": "monthly_prestige",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_stonehenge_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 142,
+      "key": "unique_tower_of_london",
+      "name": {
+        "en": "Tower of London",
+        "zh": "伦敦塔"
+      },
+      "description": {
+        "en": "Keep, wall, river gate, prison, armoury, and jewel house make royal authority visible at London's throat.",
+        "zh": "主塔、城墙、水门、监狱、军械库与珠宝库把王权显现在伦敦要害处。"
+      },
+      "base_key": "star_fortress_city",
+      "base_name": {
+        "en": "Star Fortress City",
+        "zh": "星型要塞城"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "military_category",
+      "category_label": {
+        "en": "Military",
+        "zh": "军事"
+      },
+      "location_key": "london",
+      "location_name": {
+        "en": "London",
+        "zh": "London"
+      },
+      "centroid": [
+        7687.220183486239,
+        1805.7981651376147
+      ],
+      "bbox": [
+        7677,
+        1796,
+        7697,
+        1814
+      ],
+      "image": "tv_wonder_unique_tower_of_london",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_defensive",
+              "value": 0.4
+            },
+            {
+              "key": "local_garrison_size",
+              "value": 500
+            },
+            {
+              "key": "fort_level",
+              "value": 2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_defensive",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_garrison_size_modifier",
+              "value": 0.08
+            },
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.08
+            },
+            {
+              "key": "global_crown_estate_power",
+              "value": 0.05
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_tower_of_london_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 143,
+      "key": "unique_notre_dame_de_paris",
+      "name": {
+        "en": "Notre-Dame de Paris",
+        "zh": "巴黎圣母院"
+      },
+      "description": {
+        "en": "Gothic vaults, rose windows, flying buttresses, and the Seine make Parisian devotion into a civic center.",
+        "zh": "哥特拱顶、玫瑰窗、飞扶壁与塞纳河让巴黎虔敬成为城市中心。"
+      },
+      "base_key": "grand_cathedral",
+      "base_name": {
+        "en": "Grand Cathedral",
+        "zh": "大教堂"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "paris",
+      "location_name": {
+        "en": "Paris",
+        "zh": "Paris"
+      },
+      "centroid": [
+        7797.621761658031,
+        1985.5958549222798
+      ],
+      "bbox": [
+        7789,
+        1978,
+        7806,
+        1993
+      ],
+      "image": "tv_wonder_unique_notre_dame_de_paris",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_pop_conversion_speed",
+              "value": 40
+            },
+            {
+              "key": "local_cultural_influence",
+              "value": 1.0
+            },
+            {
+              "key": "local_clergy_estate_power",
+              "value": 0.5
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 2
+            },
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.1
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.08
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "clergy_estate_target_satisfaction",
+              "value": 0.04
+            },
+            {
+              "key": "cultural_influence",
+              "value": 0.5
+            },
+            {
+              "key": "stability_investment",
+              "value": -0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_notre_dame_de_paris_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 144,
+      "key": "unique_st_basils_cathedral",
+      "name": {
+        "en": "Saint Basil's Cathedral",
+        "zh": "圣瓦西里大教堂"
+      },
+      "description": {
+        "en": "Clustered chapels, bright domes, processions, and Red Square make Moscow's victory visible as sacred architecture.",
+        "zh": "成组礼拜堂、彩色洋葱顶、游行与红场让莫斯科胜利成为神圣建筑。"
+      },
+      "base_key": "grand_cathedral",
+      "base_name": {
+        "en": "Grand Cathedral",
+        "zh": "大教堂"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "moscow",
+      "location_name": {
+        "en": "Moscow",
+        "zh": "Moscow"
+      },
+      "centroid": [
+        9414.185185185184,
+        1513.4671445639187
+      ],
+      "bbox": [
+        9394,
+        1499,
+        9434,
+        1529
+      ],
+      "image": "tv_wonder_unique_st_basils_cathedral",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_pop_conversion_speed",
+              "value": 40
+            },
+            {
+              "key": "local_cultural_influence",
+              "value": 1.0
+            },
+            {
+              "key": "local_clergy_estate_power",
+              "value": 0.5
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 2
+            },
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.1
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.08
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.08
+            },
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.04
+            },
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.04
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_st_basils_cathedral_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 145,
+      "key": "unique_trinity_lavra",
+      "name": {
+        "en": "Trinity Lavra",
+        "zh": "三一修道院"
+      },
+      "description": {
+        "en": "Fortified walls, domes, cloisters, scriptoria, and pilgrim roads make the Trinity Lavra a spiritual fortress.",
+        "zh": "城墙、金顶、回廊、缮写院与朝圣道路让三一修道院成为精神堡垒。"
+      },
+      "base_key": "great_monastery",
+      "base_name": {
+        "en": "Great Monastery",
+        "zh": "大型修道院"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "moscow",
+      "location_name": {
+        "en": "Moscow",
+        "zh": "Moscow"
+      },
+      "centroid": [
+        9414.185185185184,
+        1513.4671445639187
+      ],
+      "bbox": [
+        9394,
+        1499,
+        9434,
+        1529
+      ],
+      "image": "tv_wonder_unique_trinity_lavra",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_max_literacy",
+              "value": 20
+            },
+            {
+              "key": "local_pop_conversion_speed",
+              "value": 30
+            },
+            {
+              "key": "local_clergy_estate_power",
+              "value": 0.8
+            },
+            {
+              "key": "local_defensive",
+              "value": 0.2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "research_speed",
+              "value": 0.06
+            },
+            {
+              "key": "global_monthly_literacy",
+              "value": 0.004
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.06
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "research_speed",
+              "value": 0.03
+            },
+            {
+              "key": "tolerance_own",
+              "value": 1
+            },
+            {
+              "key": "global_garrison_size_modifier",
+              "value": 0.04
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_trinity_lavra_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 146,
+      "key": "unique_winter_palace",
+      "name": {
+        "en": "Winter Palace",
+        "zh": "冬宫"
+      },
+      "description": {
+        "en": "River facade, ceremonial halls, guarded galleries, and court ritual turn the Neva capital into an imperial stage.",
+        "zh": "河岸立面、礼仪大厅、守卫长廊与宫廷仪式让涅瓦首都成为帝国舞台。"
+      },
+      "base_key": "triumphal_axis",
+      "base_name": {
+        "en": "Triumphal Axis",
+        "zh": "凯旋轴线"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "government_category",
+      "category_label": {
+        "en": "Government",
+        "zh": "政务"
+      },
+      "location_key": "neva",
+      "location_name": {
+        "en": "Neva",
+        "zh": "Neva"
+      },
+      "centroid": [
+        9069.242302543507,
+        1206.0133868808568
+      ],
+      "bbox": [
+        9051,
+        1183,
+        9085,
+        1227
+      ],
+      "image": "tv_wonder_unique_winter_palace",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.2
+            },
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.12
+            },
+            {
+              "key": "country_cabinet_efficiency",
+              "value": 0.03
+            },
+            {
+              "key": "diplomatic_reputation",
+              "value": 0.5
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_winter_palace_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 147,
+      "key": "unique_gyeongbokgung",
+      "name": {
+        "en": "Gyeongbokgung",
+        "zh": "景福宫"
+      },
+      "description": {
+        "en": "Gates, throne hall, mountain axis, and ritual courtyards make Joseon kingship visible in Hanseong.",
+        "zh": "宫门、勤政殿、山脉轴线与礼仪庭院让朝鲜王权在汉阳显形。"
+      },
+      "base_key": "triumphal_axis",
+      "base_name": {
+        "en": "Triumphal Axis",
+        "zh": "凯旋轴线"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "government_category",
+      "category_label": {
+        "en": "Government",
+        "zh": "政务"
+      },
+      "location_key": "hanyang",
+      "location_name": {
+        "en": "Hanyang",
+        "zh": "Hanyang"
+      },
+      "centroid": [
+        12878.219101123595,
+        3132.9353932584268
+      ],
+      "bbox": [
+        12867,
+        3118,
+        12890,
+        3147
+      ],
+      "image": "tv_wonder_unique_gyeongbokgung",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.2
+            },
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.08
+            },
+            {
+              "key": "country_cabinet_efficiency",
+              "value": 0.03
+            },
+            {
+              "key": "global_distance_from_capital_speed_propagation",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_gyeongbokgung_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 148,
+      "key": "unique_changbai_mountain_altar",
+      "name": {
+        "en": "Changbai Mountain Altar",
+        "zh": "长白山祭坛"
+      },
+      "description": {
+        "en": "Volcanic peak, heavenly lake, forest, altar terrace, and banners make Changbai Mountain a sacred dynastic source.",
+        "zh": "火山峰、天池、森林、祭坛台地与旗帜让长白山成为神圣王朝源头。"
+      },
+      "base_key": "sacred_mountain",
+      "base_name": {
+        "en": "Sacred Mountain",
+        "zh": "圣山"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "girin_ula",
+      "location_name": {
+        "en": "Girin Ula",
+        "zh": "Girin Ula"
+      },
+      "centroid": [
+        13449.47922636103,
+        2313.8764326647565
+      ],
+      "bbox": [
+        13417,
+        2282,
+        13481,
+        2351
+      ],
+      "image": "tv_wonder_unique_changbai_mountain_altar",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.4
+            },
+            {
+              "key": "tolerance_own",
+              "value": 2
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 1
+            },
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.06
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.04
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_changbai_mountain_altar_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 149,
+      "key": "unique_belgrade_fortress",
+      "name": {
+        "en": "Belgrade Fortress",
+        "zh": "贝尔格莱德要塞"
+      },
+      "description": {
+        "en": "Walls, bastions, towers, and river gates command the meeting of the Danube and Sava.",
+        "zh": "城墙、棱堡、高塔与河门控制多瑙河和萨瓦河交汇处。"
+      },
+      "base_key": "star_fortress_city",
+      "base_name": {
+        "en": "Star Fortress City",
+        "zh": "星型要塞城"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "military_category",
+      "category_label": {
+        "en": "Military",
+        "zh": "军事"
+      },
+      "location_key": "belgrad",
+      "location_name": {
+        "en": "Belgrad",
+        "zh": "Belgrad"
+      },
+      "centroid": [
+        8621.668161434978,
+        2263.2937219730943
+      ],
+      "bbox": [
+        8612,
+        2247,
+        8632,
+        2281
+      ],
+      "image": "tv_wonder_unique_belgrade_fortress",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_defensive",
+              "value": 0.4
+            },
+            {
+              "key": "local_garrison_size",
+              "value": 500
+            },
+            {
+              "key": "fort_level",
+              "value": 2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_defensive",
+              "value": 0.1
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_defensive",
+              "value": 0.05
+            },
+            {
+              "key": "global_garrison_size_modifier",
+              "value": 0.06
+            },
+            {
+              "key": "army_movement_speed",
+              "value": 0.02
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_belgrade_fortress_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 150,
+      "key": "unique_meteora_monasteries",
+      "name": {
+        "en": "Meteora Monasteries",
+        "zh": "梅黛奥拉修道院"
+      },
+      "description": {
+        "en": "Cliff pillars, suspended chapels, rope hoists, icons, and narrow stairs make Meteora a monastery above ordinary reach.",
+        "zh": "岩柱、悬空礼拜堂、绳索吊篮、圣像与窄梯让梅黛奥拉成为远离尘世的修道院群。"
+      },
+      "base_key": "great_monastery",
+      "base_name": {
+        "en": "Great Monastery",
+        "zh": "大型修道院"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "trikala",
+      "location_name": {
+        "en": "Trikala",
+        "zh": "Trikala"
+      },
+      "centroid": [
+        8677.846905537459,
+        2571.57328990228
+      ],
+      "bbox": [
+        8658,
+        2560,
+        8699,
+        2583
+      ],
+      "image": "tv_wonder_unique_meteora_monasteries",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_max_literacy",
+              "value": 20
+            },
+            {
+              "key": "local_pop_conversion_speed",
+              "value": 30
+            },
+            {
+              "key": "local_clergy_estate_power",
+              "value": 0.8
+            },
+            {
+              "key": "local_defensive",
+              "value": 0.2
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "research_speed",
+              "value": 0.06
+            },
+            {
+              "key": "global_monthly_literacy",
+              "value": 0.004
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.06
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "stability_investment",
+              "value": -0.05
+            },
+            {
+              "key": "global_defensive",
+              "value": 0.04
+            },
+            {
+              "key": "clergy_estate_target_satisfaction",
+              "value": 0.03
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_meteora_monasteries_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "unique_wonders": 50,
+    "missing_locations": 0
+  }
+}
