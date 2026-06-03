@@ -7,135 +7,135 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import load_all_wonder_mechanics_data, render_header
-from wonder_mechanics_lib import ceremony_styles, final_building_for_style
+from wonder_mechanics_lib import render_header
 
 VANILLA_FILE = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "gui" / "location_window.gui"
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "gui" / "location_window.gui"
 SCRIPT_REL = "scripts/in_game/gui/gen_location_window.py"
 T = "\t"
 
-COUNT_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_count')"
 ANY_WONDER_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_any_wonder')"
+OVERFLOW_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_overflow_count')"
 LOCATION_SCOPE = "LocationView.GetLocation.MakeScope.Self"
+DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
+IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
+COMPACT_SLOT_MAX = 3
+TOOLTIP_SLOT_MAX = 5
 WONDER_TEXT_COLUMN_WIDTH = 120
 WONDER_PREVIEW_COLUMN_WIDTH = 120
 WONDER_ROW_SPACING = 4
 PANEL_WIDTH = WONDER_TEXT_COLUMN_WIDTH + WONDER_ROW_SPACING + WONDER_PREVIEW_COLUMN_WIDTH
-PANEL_HEIGHTS = {1: 68, 2: 136, 3: 204}
+LOCATION_SCENE_CARD_MARGIN = 8
 PANEL_ROW_HEIGHT = 64
 PANEL_SEPARATOR_HEIGHT = 4
+PANEL_HEIGHT = PANEL_ROW_HEIGHT * COMPACT_SLOT_MAX + PANEL_SEPARATOR_HEIGHT * (COMPACT_SLOT_MAX - 1)
+PANEL_PREVIEW_HEIGHT = PANEL_ROW_HEIGHT - 8
 TOOLTIP_ROW_WIDTH = 400
 TOOLTIP_TEXT_COLUMN_WIDTH = (TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING) // 2
 TOOLTIP_PREVIEW_COLUMN_WIDTH = TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING - TOOLTIP_TEXT_COLUMN_WIDTH
 TOOLTIP_PREVIEW_HEIGHT = 116
 TOOLTIP_ROW_SPACING = 6
-PANEL_PREVIEW_HEIGHT = PANEL_ROW_HEIGHT - 8
 
 
-def ordered_wonders() -> list[dict]:
-    wonders, _ = load_all_wonder_mechanics_data()
-    unique_wonders = [wonder for wonder in wonders if wonder.get("is_unique")]
-    generic_wonders = [wonder for wonder in wonders if not wonder.get("is_unique")]
-    return [*unique_wonders, *generic_wonders]
+def location_var(name: str) -> str:
+    return f"LocationView.GetLocation.MakeScope.GetVariable('{name}')"
 
 
-def display_wonders() -> list[dict]:
-    return [wonder for wonder in ordered_wonders() if wonder.get("is_unique")]
+def compact_slot_var(slot: int, suffix: str) -> str:
+    return location_var(f"tv_wonder_display_slot_{slot}_{suffix}")
 
 
-def preview_texture(wonder: dict) -> str:
-    image = wonder.get("image", f"tv_wonder_{wonder['key']}")
-    return f"gfx/interface/illustrations/towards_victory/wonders/{image}.dds"
+def tooltip_slot_var(slot: int, suffix: str) -> str:
+    return location_var(f"tv_wonder_tooltip_slot_{slot}_{suffix}")
 
 
-def slot_id_var(slot: int) -> str:
-    return f"LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_{slot}_id')"
+def slot_id_var(slot_type: str, slot: int) -> str:
+    return compact_slot_var(slot, "id") if slot_type == "compact" else tooltip_slot_var(slot, "id")
 
 
-def slot_level_var(slot: int) -> str:
-    return f"LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_{slot}_level')"
+def slot_level_var(slot_type: str, slot: int) -> str:
+    return compact_slot_var(slot, "level") if slot_type == "compact" else tooltip_slot_var(slot, "level")
 
 
-def wonder_level_var(wonder: dict) -> str:
-    return f"LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_{wonder['key']}_level')"
+def slot_ritual_style_var(slot_type: str, slot: int) -> str:
+    return compact_slot_var(slot, "ritual_style") if slot_type == "compact" else tooltip_slot_var(slot, "ritual_style")
 
 
-def wonder_ritual_style_var(wonder: dict) -> str:
-    return f"LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_{wonder['key']}_ritual_style')"
+def fixed_point_to_int_string(var_expr: str) -> str:
+    return f"ToString_int32(FixedPointToInt({var_expr}.GetValue))"
 
 
-def eq_fixed_point(var_expr: str, value: int) -> str:
-    return f"And({var_expr}.IsSet, EqualTo_CFixedPoint({var_expr}.GetValue, '(CFixedPoint){value}.0'))"
+def slot_id_string(slot_type: str, slot: int) -> str:
+    return fixed_point_to_int_string(slot_id_var(slot_type, slot))
 
 
-def count_visible_expr(count: int) -> str:
-    return eq_fixed_point(COUNT_VAR, count)
+def slot_level_string(slot_type: str, slot: int) -> str:
+    return fixed_point_to_int_string(slot_level_var(slot_type, slot))
+
+
+def slot_ritual_style_string(slot_type: str, slot: int) -> str:
+    return fixed_point_to_int_string(slot_ritual_style_var(slot_type, slot))
+
+
+def var_enabled_expr(var_expr: str) -> str:
+    return f"And({var_expr}.IsSet, Not(EqualTo_CFixedPoint({var_expr}.GetValue, '(CFixedPoint)0.0')))"
 
 
 def any_wonder_visible_expr() -> str:
-    return f"And({ANY_WONDER_VAR}.IsSet, Not(EqualTo_CFixedPoint({ANY_WONDER_VAR}.GetValue, '(CFixedPoint)0.0')))"
+    return var_enabled_expr(ANY_WONDER_VAR)
 
 
-def slot_matches_expr(slot: int, wonder: dict) -> str:
-    return eq_fixed_point(slot_id_var(slot), wonder["id"])
+def slot_has_id_expr(slot_type: str, slot: int) -> str:
+    return f"{slot_id_var(slot_type, slot)}.IsSet"
 
 
-def level_is_expr(var_expr: str, level: int) -> str:
-    return eq_fixed_point(var_expr, level)
-
-
-def ritual_style_is_expr(wonder: dict, style: int) -> str:
-    return eq_fixed_point(wonder_ritual_style_var(wonder), style)
-
-
-def ceremony_name_key(wonder: dict, style: int) -> str:
-    building = final_building_for_style(wonder, style)
-    return f"TV_ENGINEERING_CEREMONY_{building.removeprefix('tv_wonder_').upper()}_BUTTON"
-
-
-def ritual_location_tooltip_effect_name(wonder: dict, style: int) -> str:
-    return f"tv_wonder_{wonder['key']}_ritual_{style}_location_tooltip_effect"
-
-
-def render_separator(indent: str, *, visible: str | None = None) -> list[str]:
-    lines = [f"{indent}widget = {{"]
-    if visible is not None:
-        lines.append(f'{indent}{T}visible = "[{visible}]"')
-    lines.extend(
-        [
-            f"{indent}{T}layoutpolicy_horizontal = expanding",
-            f"{indent}{T}size = {{ -1 {PANEL_SEPARATOR_HEIGHT} }}",
-            f"{indent}{T}background = {{",
-            f'{indent}{T}{T}texture = "gfx/interface/colors/black.dds"',
-            f"{indent}{T}{T}alpha = 0.16",
-            f"{indent}{T}}}",
-            f"{indent}}}",
-        ]
+def slot_has_payload_expr(slot_type: str, slot: int) -> str:
+    return (
+        f"And({slot_id_var(slot_type, slot)}.IsSet, "
+        f"And({slot_level_var(slot_type, slot)}.IsSet, {slot_ritual_style_var(slot_type, slot)}.IsSet))"
     )
-    return lines
 
 
-def render_slot_name_branches(indent: str, *, slot: int) -> list[str]:
-    lines: list[str] = []
-    for wonder in display_wonders():
-        lines.extend(
-            [
-                f"{indent}text_single = {{",
-                f'{indent}{T}visible = "[{slot_matches_expr(slot, wonder)}]"',
-                f"{indent}{T}layoutpolicy_horizontal = expanding",
-                f'{indent}{T}text = "[{wonder["concept"]}|E]"',
-                f"{indent}{T}align = left|nobaseline",
-                f"{indent}{T}autoresize = no",
-                f"{indent}{T}fontsize = 15",
-                f"{indent}}}",
-            ]
-        )
-    return lines
+def slot_name_expr(slot_type: str, slot: int) -> str:
+    return f"Localize(Concatenate('game_concept_{DISPLAY_CONCEPT_PREFIX}', {slot_id_string(slot_type, slot)}))"
 
 
-def render_level_line(indent: str, *, level_var: str) -> list[str]:
-    lines = [
+def slot_image_expr(slot_type: str, slot: int) -> str:
+    return f"GetConceptTexture(Concatenate('{IMAGE_CONCEPT_PREFIX}', {slot_id_string(slot_type, slot)}))"
+
+
+def slot_modifier_key_expr(slot_type: str, slot: int) -> str:
+    return (
+        f"Concatenate('{DISPLAY_CONCEPT_PREFIX}', "
+        f"Concatenate({slot_id_string(slot_type, slot)}, Concatenate('_level_', {slot_level_string(slot_type, slot)})))"
+    )
+
+
+def slot_ritual_effect_key_expr(slot_type: str, slot: int) -> str:
+    return (
+        f"Concatenate('{DISPLAY_CONCEPT_PREFIX}', "
+        f"Concatenate({slot_id_string(slot_type, slot)}, "
+        f"Concatenate('_ritual_', Concatenate({slot_ritual_style_string(slot_type, slot)}, "
+        "'_location_tooltip_effect'))))"
+    )
+
+
+def render_separator(indent: str) -> list[str]:
+    return [
+        f"{indent}widget = {{",
+        f"{indent}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}size = {{ -1 {PANEL_SEPARATOR_HEIGHT} }}",
+        f"{indent}{T}background = {{",
+        f'{indent}{T}{T}texture = "gfx/interface/colors/black.dds"',
+        f"{indent}{T}{T}alpha = 0.16",
+        f"{indent}{T}}}",
+        f"{indent}}}",
+    ]
+
+
+def render_level_line(indent: str, *, slot_type: str, slot: int) -> list[str]:
+    level_var = slot_level_var(slot_type, slot)
+    return [
         f"{indent}hbox = {{",
         f"{indent}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}layoutpolicy_vertical = fixed",
@@ -154,39 +154,42 @@ def render_level_line(indent: str, *, level_var: str) -> list[str]:
         f"{indent}{T}}}",
         f"{indent}}}",
     ]
+
+
+def render_compact_slot_summary(indent: str, *, slot: int) -> list[str]:
+    visible = slot_has_id_expr("compact", slot)
+    lines = [
+        f"{indent}text_single = {{",
+        f'{indent}{T}visible = "[{visible}]"',
+        f"{indent}{T}layoutpolicy_horizontal = expanding",
+        f'{indent}{T}text = "[{slot_name_expr("compact", slot)}]"',
+        f"{indent}{T}align = left|nobaseline",
+        f"{indent}{T}autoresize = no",
+        f"{indent}{T}fontsize = 15",
+        f"{indent}}}",
+    ]
+    lines.extend(render_level_line(indent, slot_type="compact", slot=slot))
     return lines
 
 
-def render_slot_summary_block(indent: str, *, slot: int) -> list[str]:
-    slot_level = slot_level_var(slot)
-    lines: list[str] = []
-    lines.extend(render_slot_name_branches(indent, slot=slot))
-    lines.extend(render_level_line(indent, level_var=slot_level))
-    return lines
+def render_dynamic_image(indent: str, *, slot_type: str, slot: int, width: int, height: int) -> list[str]:
+    visible = slot_has_id_expr(slot_type, slot)
+    return [
+        f"{indent}widget = {{",
+        f'{indent}{T}visible = "[{visible}]"',
+        f"{indent}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}size = {{ {width} {height} }}",
+        f"{indent}{T}background = {{",
+        f'{indent}{T}{T}texture = "[{slot_image_expr(slot_type, slot)}]"',
+        f"{indent}{T}{T}texture_density = 2",
+        f"{indent}{T}{T}fittype = centercrop",
+        f"{indent}{T}}}",
+        f"{indent}}}",
+    ]
 
 
-def render_slot_image_branches(indent: str, *, slot: int, height: int) -> list[str]:
-    lines: list[str] = []
-    for wonder in display_wonders():
-        lines.extend(
-            [
-                f"{indent}widget = {{",
-                f'{indent}{T}visible = "[{slot_matches_expr(slot, wonder)}]"',
-                f"{indent}{T}layoutpolicy_horizontal = fixed",
-                f"{indent}{T}layoutpolicy_vertical = fixed",
-                f"{indent}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {height} }}",
-                f"{indent}{T}background = {{",
-                f'{indent}{T}{T}texture = "{preview_texture(wonder)}"',
-                f"{indent}{T}{T}texture_density = 2",
-                f"{indent}{T}{T}fittype = centercrop",
-                f"{indent}{T}}}",
-                f"{indent}}}",
-            ]
-        )
-    return lines
-
-
-def render_slot_row(indent: str, *, slot: int) -> list[str]:
+def render_compact_slot_row(indent: str, *, slot: int) -> list[str]:
     lines = [
         f"{indent}widget = {{",
         f"{indent}{T}layoutpolicy_horizontal = expanding",
@@ -210,7 +213,7 @@ def render_slot_row(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}{T}{T}{T}spacing = 4",
         f"{indent}{T}{T}{T}{T}ignoreinvisible = yes",
     ]
-    lines.extend(render_slot_summary_block(indent + T * 4, slot=slot))
+    lines.extend(render_compact_slot_summary(indent + T * 4, slot=slot))
     lines.extend(
         [
             f"{indent}{T}{T}{T}{T}}}",
@@ -220,39 +223,38 @@ def render_slot_row(indent: str, *, slot: int) -> list[str]:
             f"{indent}{T}{T}{T}layoutpolicy_vertical = fixed",
             f"{indent}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {PANEL_ROW_HEIGHT} }}",
             f"{indent}{T}{T}{T}vbox = {{",
-            f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
-            f"{indent}{T}{T}{T}margin_top = 4",
-            f"{indent}{T}{T}{T}margin_bottom = 4",
-            f"{indent}{T}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = fixed",
-            f"{indent}{T}{T}{T}{T}using = bg_cabinet_card_frame",
-            f"{indent}{T}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {PANEL_PREVIEW_HEIGHT} }}",
+            f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
+            f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
+            f"{indent}{T}{T}{T}{T}margin_top = 4",
+            f"{indent}{T}{T}{T}{T}margin_bottom = 4",
+            f"{indent}{T}{T}{T}{T}widget = {{",
+            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
+            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_vertical = fixed",
+            f"{indent}{T}{T}{T}{T}{T}using = bg_cabinet_card_frame",
+            f"{indent}{T}{T}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {PANEL_PREVIEW_HEIGHT} }}",
         ]
     )
-    lines.extend(render_slot_image_branches(indent + T * 5, slot=slot, height=PANEL_PREVIEW_HEIGHT))
+    lines.extend(render_dynamic_image(indent + T * 6, slot_type="compact", slot=slot, width=WONDER_PREVIEW_COLUMN_WIDTH, height=PANEL_PREVIEW_HEIGHT))
     lines.extend(
         [
+            f"{indent}{T}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}{T}}}",
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",
-            f"{indent}{T}}}",
             f"{indent}}}",
         ]
     )
     return lines
 
 
-def render_panel_card(indent: str, *, count: int) -> list[str]:
-    height = PANEL_HEIGHTS.get(count, PANEL_HEIGHTS[1])
+def render_panel_card(indent: str) -> list[str]:
     lines = [
         f"{indent}widget = {{",
-        f'{indent}{T}visible = "[And({any_wonder_visible_expr()}, {count_visible_expr(count)})]"',
-        f"{indent}{T}size = {{ {PANEL_WIDTH} {height} }}",
+        f'{indent}{T}visible = "[{any_wonder_visible_expr()}]"',
+        f"{indent}{T}size = {{ {PANEL_WIDTH} {PANEL_HEIGHT} }}",
         f"{indent}{T}parentanchor = right|top",
         f"{indent}{T}widgetanchor = right|top",
-        f"{indent}{T}position = {{ -8 8 }}",
+        f"{indent}{T}position = {{ -{LOCATION_SCENE_CARD_MARGIN} {LOCATION_SCENE_CARD_MARGIN} }}",
         f"{indent}{T}allow_outside = yes",
         f"{indent}{T}using = bg_paper_card",
         f"{indent}{T}using = bg_cabinet_card_frame",
@@ -266,9 +268,9 @@ def render_panel_card(indent: str, *, count: int) -> list[str]:
         f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
         f"{indent}{T}{T}{T}spacing = {PANEL_SEPARATOR_HEIGHT}",
     ]
-    for slot in range(1, count + 1):
-        lines.extend(render_slot_row(indent + T * 4, slot=slot))
-        if slot < count:
+    for slot in range(1, COMPACT_SLOT_MAX + 1):
+        lines.extend(render_compact_slot_row(indent + T * 4, slot=slot))
+        if slot < COMPACT_SLOT_MAX:
             lines.extend(render_separator(indent + T * 4))
     lines.extend(
         [
@@ -280,89 +282,8 @@ def render_panel_card(indent: str, *, count: int) -> list[str]:
     return lines
 
 
-def render_tooltip_modifier_blocks(indent: str, *, wonder: dict) -> list[str]:
-    level_var = wonder_level_var(wonder)
-    lines: list[str] = []
-    for level in range(1, 7):
-        lines.extend(
-            [
-                f"{indent}TooltipStringPairList = {{",
-                f'{indent}{T}visible = "[{level_is_expr(level_var, level)}]"',
-                f'{indent}{T}textcontext = "[ShowModifierEffect(\'tv_wonder_{wonder["key"]}_level_{level}\')]"',
-                f"{indent}}}",
-            ]
-        )
-    lines.extend(
-        [
-            f"{indent}TooltipTextBlock = {{",
-            f'{indent}{T}visible = "[{level_is_expr(level_var, 0)}]"',
-            f'{indent}{T}blockoverride "text" {{',
-            f'{indent}{T}{T}text = "TV_LOCATION_WONDER_NO_EFFECT"',
-            f"{indent}{T}}}",
-            f"{indent}}}",
-        ]
-    )
-    return lines
-
-
-def render_tooltip_scripted_effect(indent: str, *, effect_name: str, visible: str) -> list[str]:
-    return [
-        f"{indent}TooltipRequirementsList = {{",
-        f'{indent}{T}visible = "[{visible}]"',
-        f"{indent}{T}layoutpolicy_horizontal = expanding",
-        f'{indent}{T}textcontext = "[ShowScriptedEffectForScope(\'{effect_name}\',{LOCATION_SCOPE})]"',
-        f'{indent}{T}blockoverride "block_title" {{',
-        f'{indent}{T}{T}block "block_title" {{',
-        f"{indent}{T}{T}{T}visible = no",
-        f"{indent}{T}{T}}}",
-        f"{indent}{T}}}",
-        f'{indent}{T}blockoverride "requirementslist_datamodel_is_empty" {{',
-        f"{indent}{T}{T}visible = no",
-        f"{indent}{T}}}",
-        f"{indent}}}",
-    ]
-
-
-def render_tooltip_ritual_title(indent: str, *, wonder: dict, style: int, visible: str) -> list[str]:
-    return [
-        f"{indent}hbox = {{",
-        f'{indent}{T}visible = "[{visible}]"',
-        f"{indent}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}layoutpolicy_vertical = shrinking",
-        f"{indent}{T}margin_top = 6",
-        f"{indent}{T}spacing = 0",
-        f"{indent}{T}text_single = {{",
-        f'{indent}{T}{T}text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"',
-        f"{indent}{T}{T}align = left|nobaseline",
-        f"{indent}{T}{T}fontsize = 13",
-        f"{indent}{T}}}",
-        f"{indent}{T}text_single = {{",
-        f'{indent}{T}{T}text = "{ceremony_name_key(wonder, style)}"',
-        f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}{T}align = left|nobaseline",
-        f"{indent}{T}{T}autoresize = no",
-        f"{indent}{T}{T}fontsize = 13",
-        f"{indent}{T}}}",
-        f"{indent}}}",
-    ]
-
-
-def render_tooltip_ritual_blocks(indent: str, *, wonder: dict) -> list[str]:
-    lines: list[str] = []
-    for style in ceremony_styles(wonder):
-        visible = ritual_style_is_expr(wonder, style)
-        lines.extend(render_tooltip_ritual_title(indent, wonder=wonder, style=style, visible=visible))
-        lines.extend(
-            render_tooltip_scripted_effect(
-                indent,
-                effect_name=ritual_location_tooltip_effect_name(wonder, style),
-                visible=visible,
-            )
-        )
-    return lines
-
-
-def render_tooltip_text_column(indent: str, *, wonder: dict, level_var: str) -> list[str]:
+def render_tooltip_text_column(indent: str, *, slot: int) -> list[str]:
+    visible = slot_has_id_expr("tooltip", slot)
     lines = [
         f"{indent}widget = {{",
         f"{indent}{T}layoutpolicy_horizontal = fixed",
@@ -377,14 +298,15 @@ def render_tooltip_text_column(indent: str, *, wonder: dict, level_var: str) -> 
         f"{indent}{T}{T}spacing = 4",
         f"{indent}{T}{T}ignoreinvisible = yes",
         f"{indent}{T}{T}text_single = {{",
-        f'{indent}{T}{T}{T}layoutpolicy_horizontal = expanding',
-        f'{indent}{T}{T}{T}text = "[{wonder["concept"]}|E]"',
+        f'{indent}{T}{T}{T}visible = "[{visible}]"',
+        f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f'{indent}{T}{T}{T}text = "[{slot_name_expr("tooltip", slot)}]"',
         f"{indent}{T}{T}{T}align = left|nobaseline",
         f"{indent}{T}{T}{T}autoresize = no",
         f"{indent}{T}{T}{T}fontsize = 15",
         f"{indent}{T}{T}}}",
     ]
-    lines.extend(render_level_line(indent + T * 2, level_var=level_var))
+    lines.extend(render_level_line(indent + T * 2, slot_type="tooltip", slot=slot))
     lines.extend(
         [
             f"{indent}{T}}}",
@@ -394,7 +316,7 @@ def render_tooltip_text_column(indent: str, *, wonder: dict, level_var: str) -> 
     return lines
 
 
-def render_tooltip_preview_column(indent: str, *, wonder: dict) -> list[str]:
+def render_tooltip_preview_column(indent: str, *, slot: int) -> list[str]:
     lines = [
         f"{indent}widget = {{",
         f"{indent}{T}layoutpolicy_horizontal = fixed",
@@ -409,20 +331,23 @@ def render_tooltip_preview_column(indent: str, *, wonder: dict) -> list[str]:
         f"{indent}{T}{T}{T}layoutpolicy_vertical = fixed",
         f"{indent}{T}{T}{T}using = bg_cabinet_card_frame",
         f"{indent}{T}{T}{T}size = {{ {TOOLTIP_PREVIEW_COLUMN_WIDTH} {TOOLTIP_PREVIEW_HEIGHT} }}",
-        f"{indent}{T}{T}{T}background = {{",
-        f'{indent}{T}{T}{T}{T}texture = "{preview_texture(wonder)}"',
-        f"{indent}{T}{T}{T}{T}texture_density = 2",
-        f"{indent}{T}{T}{T}{T}fittype = centercrop",
-        f"{indent}{T}{T}{T}}}",
-        f"{indent}{T}{T}}}",
-        f"{indent}{T}}}",
-        f"{indent}}}",
     ]
+    lines.extend(render_dynamic_image(indent + T * 4, slot_type="tooltip", slot=slot, width=TOOLTIP_PREVIEW_COLUMN_WIDTH, height=TOOLTIP_PREVIEW_HEIGHT))
+    lines.extend(
+        [
+            f"{indent}{T}{T}{T}}}",
+            f"{indent}{T}{T}}}",
+            f"{indent}{T}}}",
+        ]
+    )
     return lines
 
 
-def render_tooltip_effect_block(indent: str, *, wonder: dict) -> list[str]:
-    lines = [
+def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
+    visible = slot_has_payload_expr("tooltip", slot)
+    modifier_key = slot_modifier_key_expr("tooltip", slot)
+    ritual_effect_key = slot_ritual_effect_key_expr("tooltip", slot)
+    return [
         f"{indent}widget = {{",
         f"{indent}{T}layoutpolicy_horizontal = fixed",
         f"{indent}{T}layoutpolicy_vertical = shrinking",
@@ -436,23 +361,44 @@ def render_tooltip_effect_block(indent: str, *, wonder: dict) -> list[str]:
         f"{indent}{T}{T}layoutpolicy_vertical = shrinking",
         f"{indent}{T}{T}spacing = 0",
         f"{indent}{T}{T}ignoreinvisible = yes",
+        f"{indent}{T}{T}TooltipStringPairList = {{",
+        f'{indent}{T}{T}{T}visible = "[{visible}]"',
+        f'{indent}{T}{T}{T}textcontext = "[ShowModifierEffect({modifier_key})]"',
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}{T}hbox = {{",
+        f'{indent}{T}{T}{T}visible = "[{visible}]"',
+        f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}{T}{T}margin_top = 6",
+        f"{indent}{T}{T}{T}text_single = {{",
+        f'{indent}{T}{T}{T}{T}text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"',
+        f"{indent}{T}{T}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}{T}{T}fontsize = 13",
+        f"{indent}{T}{T}{T}}}",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}{T}TooltipRequirementsList = {{",
+        f'{indent}{T}{T}{T}visible = "[{visible}]"',
+        f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f'{indent}{T}{T}{T}textcontext = "[ShowScriptedEffectForScope({ritual_effect_key},{LOCATION_SCOPE})]"',
+        f'{indent}{T}{T}{T}blockoverride "block_title" {{',
+        f'{indent}{T}{T}{T}{T}block "block_title" {{',
+        f"{indent}{T}{T}{T}{T}{T}visible = no",
+        f"{indent}{T}{T}{T}{T}}}",
+        f"{indent}{T}{T}{T}}}",
+        f'{indent}{T}{T}{T}blockoverride "requirementslist_datamodel_is_empty" {{',
+        f"{indent}{T}{T}{T}{T}visible = no",
+        f"{indent}{T}{T}{T}}}",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}}}",
+        f"{indent}}}",
     ]
-    lines.extend(render_tooltip_modifier_blocks(indent + T * 2, wonder=wonder))
-    lines.extend(render_tooltip_ritual_blocks(indent + T * 2, wonder=wonder))
-    lines.extend(
-        [
-            f"{indent}{T}}}",
-            f"{indent}}}",
-        ]
-    )
-    return lines
 
 
-def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
-    level_var = wonder_level_var(wonder)
+def render_tooltip_row(indent: str, *, slot: int) -> list[str]:
+    visible = slot_has_id_expr("tooltip", slot)
     lines = [
         f"{indent}widget = {{",
-        f'{indent}{T}visible = "[{level_var}.IsSet]"',
+        f'{indent}{T}visible = "[{visible}]"',
         f"{indent}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}layoutpolicy_vertical = shrinking",
         f"{indent}{T}minimumsize = {{ {TOOLTIP_ROW_WIDTH} -1 }}",
@@ -469,14 +415,10 @@ def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
         f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
         f"{indent}{T}{T}{T}spacing = {WONDER_ROW_SPACING}",
     ]
-    lines.extend(render_tooltip_text_column(indent + T * 3, wonder=wonder, level_var=level_var))
-    lines.extend(render_tooltip_preview_column(indent + T * 3, wonder=wonder))
-    lines.extend(
-        [
-            f"{indent}{T}{T}}}",
-        ]
-    )
-    lines.extend(render_tooltip_effect_block(indent + T * 2, wonder=wonder))
+    lines.extend(render_tooltip_text_column(indent + T * 3, slot=slot))
+    lines.extend(render_tooltip_preview_column(indent + T * 3, slot=slot))
+    lines.append(f"{indent}{T}{T}}}")
+    lines.extend(render_tooltip_effect_block(indent + T * 2, slot=slot))
     lines.extend(
         [
             f"{indent}{T}}}",
@@ -484,6 +426,35 @@ def render_tooltip_row(indent: str, *, wonder: dict) -> list[str]:
         ]
     )
     return lines
+
+
+def render_overflow_line(indent: str) -> list[str]:
+    visible = var_enabled_expr(OVERFLOW_VAR)
+    return [
+        f"{indent}hbox = {{",
+        f'{indent}{T}visible = "[{visible}]"',
+        f"{indent}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}size = {{ {TOOLTIP_ROW_WIDTH} 20 }}",
+        f"{indent}{T}margin_left = 8",
+        f"{indent}{T}spacing = 4",
+        f"{indent}{T}text_single = {{",
+        f'{indent}{T}{T}text = "TV_LOCATION_WONDER_OVERFLOW_PREFIX"',
+        f"{indent}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}fontsize = 13",
+        f"{indent}{T}}}",
+        f"{indent}{T}text_single = {{",
+        f'{indent}{T}{T}text = "[{OVERFLOW_VAR}.GetValue|0]"',
+        f"{indent}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}fontsize = 13",
+        f"{indent}{T}}}",
+        f"{indent}{T}text_single = {{",
+        f'{indent}{T}{T}text = "TV_LOCATION_WONDER_OVERFLOW_SUFFIX"',
+        f"{indent}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}fontsize = 13",
+        f"{indent}{T}}}",
+        f"{indent}}}",
+    ]
 
 
 def render_tooltip_template() -> str:
@@ -503,8 +474,9 @@ def render_tooltip_template() -> str:
         f"{T}{T}{T}{T}{T}ignoreinvisible = yes",
         f"{T}{T}{T}{T}{T}spacing = {TOOLTIP_ROW_SPACING}",
     ]
-    for wonder in ordered_wonders():
-        lines.extend(render_tooltip_row(T * 5, wonder=wonder))
+    for slot in range(1, TOOLTIP_SLOT_MAX + 1):
+        lines.extend(render_tooltip_row(T * 5, slot=slot))
+    lines.extend(render_overflow_line(T * 5))
     lines.extend(
         [
             f"{T}{T}{T}{T}}}",
@@ -519,10 +491,7 @@ def render_tooltip_template() -> str:
 
 
 def render_scene_overlay() -> str:
-    lines: list[str] = []
-    for count in (0, 1, 2, 3):
-        lines.extend(render_panel_card(T * 4, count=count))
-    return "\n".join(lines)
+    return "\n".join(render_panel_card(T * 4))
 
 
 def inject_overlay(vanilla: str) -> str:
@@ -538,7 +507,7 @@ def generate() -> str:
     lines = render_header(SCRIPT_REL)
     lines.append(render_tooltip_template())
     lines.append(inject_overlay(vanilla))
-    return "\n".join(lines).rstrip() + "\n"
+    return "\n".join(line.rstrip() for line in "\n".join(lines).splitlines()).rstrip() + "\n"
 
 
 def main() -> None:

@@ -21,6 +21,13 @@ ICONS = {
     "cultural_category": "gfx/interface/icons/flat_icons/cultural_influence.dds",
     "government_category": "gfx/interface/icons/flat_icons/diplomatic_reputation.dds",
 }
+WONDER_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
+WONDER_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
+
+
+def wonder_image_texture(wonder: dict) -> str:
+    image = wonder.get("image", f"tv_wonder_{wonder['key']}")
+    return f"towards_victory/wonders/{image}"
 
 
 def generate() -> str:
@@ -32,6 +39,25 @@ def generate() -> str:
             [
                 f"{wonder['concept']} = {{",
                 f'\ttexture = "{texture}"',
+                "}",
+                "",
+            ]
+        )
+    for wonder in wonders:
+        texture = ICONS.get(wonder["category"], ICONS["infrastructure_category"])
+        lines.extend(
+            [
+                f"{WONDER_DISPLAY_CONCEPT_PREFIX}{wonder['id']} = {{",
+                f'\ttexture = "{texture}"',
+                "}",
+                "",
+            ]
+        )
+    for wonder in wonders:
+        lines.extend(
+            [
+                f"{WONDER_IMAGE_CONCEPT_PREFIX}{wonder['id']} = {{",
+                f'\ttexture = "{wonder_image_texture(wonder)}"',
                 "}",
                 "",
             ]

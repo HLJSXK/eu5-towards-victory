@@ -13792,6 +13792,10 @@ tv_wonder_sacred_mountain_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_1_ritual_1_location_tooltip_effect = {
+	tv_wonder_sacred_mountain_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_sacred_mountain_ritual_2_requirement_tooltip_effect = {
 	var:tv_wonder_site ?= {
 		construct_building = { building_type = building_type:tv_wonder_sacred_mountain_ritual_annex }
@@ -13806,6 +13810,10 @@ tv_wonder_sacred_mountain_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_sacred_mountain_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_sacred_mountain_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_1_ritual_2_location_tooltip_effect = {
+	tv_wonder_sacred_mountain_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_sacred_mountain_ritual_3_requirement_tooltip_effect = {
@@ -13823,6 +13831,10 @@ tv_wonder_sacred_mountain_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_1_ritual_3_location_tooltip_effect = {
+	tv_wonder_sacred_mountain_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_triumphal_axis_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_triumphal_axis_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -13835,6 +13847,10 @@ tv_wonder_triumphal_axis_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_triumphal_axis_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_2_ritual_1_location_tooltip_effect = {
+	tv_wonder_triumphal_axis_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_triumphal_axis_ritual_2_requirement_tooltip_effect = {
@@ -13853,6 +13869,10 @@ tv_wonder_triumphal_axis_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_triumphal_axis_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_2_ritual_2_location_tooltip_effect = {
+	tv_wonder_triumphal_axis_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_triumphal_axis_ritual_3_requirement_tooltip_effect = {
 	change_gold_effect = { scale = -5 }
 }
@@ -13865,6 +13885,10 @@ tv_wonder_triumphal_axis_ritual_3_location_tooltip_effect = {
 	owner ?= {
 		ruler ?= { add_mil = 20 }
 	}
+}
+
+tv_wonder_display_2_ritual_3_location_tooltip_effect = {
+	tv_wonder_triumphal_axis_ritual_3_location_tooltip_effect = yes
 }
 
 tv_wonder_great_port_ritual_1_requirement_tooltip_effect = {
@@ -13881,6 +13905,10 @@ tv_wonder_great_port_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_3_ritual_1_location_tooltip_effect = {
+	tv_wonder_great_port_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_great_port_ritual_2_requirement_tooltip_effect = {
 	var:tv_wonder_site ?= {
 		construct_building = { building_type = building_type:tv_wonder_great_port_ritual_annex }
@@ -13895,6 +13923,10 @@ tv_wonder_great_port_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_great_port_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_great_port_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_3_ritual_2_location_tooltip_effect = {
+	tv_wonder_great_port_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_great_port_ritual_3_requirement_tooltip_effect = {
@@ -13915,6 +13947,10 @@ tv_wonder_great_port_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_3_ritual_3_location_tooltip_effect = {
+	tv_wonder_great_port_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_giant_necropolis_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_giant_necropolis_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -13927,6 +13963,10 @@ tv_wonder_giant_necropolis_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_giant_necropolis_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_4_ritual_1_location_tooltip_effect = {
+	tv_wonder_giant_necropolis_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_giant_necropolis_ritual_2_requirement_tooltip_effect = {
@@ -13943,6 +13983,10 @@ tv_wonder_giant_necropolis_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_giant_necropolis_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_giant_necropolis_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_4_ritual_2_location_tooltip_effect = {
+	tv_wonder_giant_necropolis_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_giant_necropolis_ritual_3_requirement_tooltip_effect = {
@@ -13964,6 +14008,10 @@ tv_wonder_giant_necropolis_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_4_ritual_3_location_tooltip_effect = {
+	tv_wonder_giant_necropolis_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_great_lighthouse_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_great_lighthouse_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -13976,6 +14024,10 @@ tv_wonder_great_lighthouse_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_great_lighthouse_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_5_ritual_1_location_tooltip_effect = {
+	tv_wonder_great_lighthouse_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_great_lighthouse_ritual_2_requirement_tooltip_effect = {
@@ -13994,6 +14046,10 @@ tv_wonder_great_lighthouse_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_great_lighthouse_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_5_ritual_2_location_tooltip_effect = {
+	tv_wonder_great_lighthouse_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_great_lighthouse_ritual_3_requirement_tooltip_effect = {
 	change_gold_effect = { scale = -5 }
 }
@@ -14010,6 +14066,10 @@ tv_wonder_great_lighthouse_ritual_3_location_tooltip_effect = {
 	change_prosperity = 0.2
 }
 
+tv_wonder_display_5_ritual_3_location_tooltip_effect = {
+	tv_wonder_great_lighthouse_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_hydraulic_workshop_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14022,6 +14082,10 @@ tv_wonder_hydraulic_workshop_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_6_ritual_1_location_tooltip_effect = {
+	tv_wonder_hydraulic_workshop_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_hydraulic_workshop_ritual_2_requirement_tooltip_effect = {
@@ -14040,6 +14104,10 @@ tv_wonder_hydraulic_workshop_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_hydraulic_workshop_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_6_ritual_2_location_tooltip_effect = {
+	tv_wonder_hydraulic_workshop_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_hydraulic_workshop_ritual_3_requirement_tooltip_effect = {
 	change_gold_effect = { scale = -5 }
 }
@@ -14056,6 +14124,10 @@ tv_wonder_hydraulic_workshop_ritual_3_location_tooltip_effect = {
 	change_prosperity = 0.2
 }
 
+tv_wonder_display_6_ritual_3_location_tooltip_effect = {
+	tv_wonder_hydraulic_workshop_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_mining_city_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_mining_city_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14068,6 +14140,10 @@ tv_wonder_mining_city_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_mining_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_7_ritual_1_location_tooltip_effect = {
+	tv_wonder_mining_city_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_mining_city_ritual_2_requirement_tooltip_effect = {
@@ -14084,6 +14160,10 @@ tv_wonder_mining_city_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_mining_city_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_mining_city_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_7_ritual_2_location_tooltip_effect = {
+	tv_wonder_mining_city_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_mining_city_ritual_3_requirement_tooltip_effect = {
@@ -14104,6 +14184,10 @@ tv_wonder_mining_city_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_7_ritual_3_location_tooltip_effect = {
+	tv_wonder_mining_city_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_giant_observatory_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_giant_observatory_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14116,6 +14200,10 @@ tv_wonder_giant_observatory_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_giant_observatory_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_8_ritual_1_location_tooltip_effect = {
+	tv_wonder_giant_observatory_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_giant_observatory_ritual_2_requirement_tooltip_effect = {
@@ -14134,6 +14222,10 @@ tv_wonder_giant_observatory_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_giant_observatory_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_8_ritual_2_location_tooltip_effect = {
+	tv_wonder_giant_observatory_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_giant_observatory_ritual_3_requirement_tooltip_effect = {
 	random_work_of_art_in_country = { save_scope_as = tv_wonder_sacrificed_artwork }
 	destroy_art = scope:tv_wonder_sacrificed_artwork
@@ -14147,6 +14239,10 @@ tv_wonder_giant_observatory_ritual_3_location_tooltip_effect = {
 	owner ?= {
 		add_research_progress = research_progress_extreme_bonus
 	}
+}
+
+tv_wonder_display_8_ritual_3_location_tooltip_effect = {
+	tv_wonder_giant_observatory_ritual_3_location_tooltip_effect = yes
 }
 
 tv_wonder_palace_of_nations_ritual_1_requirement_tooltip_effect = {
@@ -14163,6 +14259,10 @@ tv_wonder_palace_of_nations_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_9_ritual_1_location_tooltip_effect = {
+	tv_wonder_palace_of_nations_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_palace_of_nations_ritual_2_requirement_tooltip_effect = {
 	var:tv_wonder_site ?= {
 		construct_building = { building_type = building_type:tv_wonder_palace_of_nations_ritual_annex }
@@ -14177,6 +14277,10 @@ tv_wonder_palace_of_nations_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_palace_of_nations_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_palace_of_nations_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_9_ritual_2_location_tooltip_effect = {
+	tv_wonder_palace_of_nations_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_palace_of_nations_ritual_3_requirement_tooltip_effect = {
@@ -14197,6 +14301,10 @@ tv_wonder_palace_of_nations_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_9_ritual_3_location_tooltip_effect = {
+	tv_wonder_palace_of_nations_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_university_city_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_university_city_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14209,6 +14317,10 @@ tv_wonder_university_city_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_university_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_10_ritual_1_location_tooltip_effect = {
+	tv_wonder_university_city_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_university_city_ritual_2_requirement_tooltip_effect = {
@@ -14225,6 +14337,10 @@ tv_wonder_university_city_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_university_city_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_university_city_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_10_ritual_2_location_tooltip_effect = {
+	tv_wonder_university_city_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_university_city_ritual_3_requirement_tooltip_effect = {
@@ -14246,6 +14362,10 @@ tv_wonder_university_city_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_10_ritual_3_location_tooltip_effect = {
+	tv_wonder_university_city_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_sky_dome_grand_temple_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_sky_dome_grand_temple_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14258,6 +14378,10 @@ tv_wonder_sky_dome_grand_temple_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_sky_dome_grand_temple_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_11_ritual_1_location_tooltip_effect = {
+	tv_wonder_sky_dome_grand_temple_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_sky_dome_grand_temple_ritual_2_requirement_tooltip_effect = {
@@ -14274,6 +14398,10 @@ tv_wonder_sky_dome_grand_temple_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_sky_dome_grand_temple_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_sky_dome_grand_temple_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_11_ritual_2_location_tooltip_effect = {
+	tv_wonder_sky_dome_grand_temple_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_sky_dome_grand_temple_ritual_3_requirement_tooltip_effect = {
@@ -14301,6 +14429,10 @@ tv_wonder_sky_dome_grand_temple_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_11_ritual_3_location_tooltip_effect = {
+	tv_wonder_sky_dome_grand_temple_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_giant_tower_temple_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_giant_tower_temple_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14313,6 +14445,10 @@ tv_wonder_giant_tower_temple_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_giant_tower_temple_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_12_ritual_1_location_tooltip_effect = {
+	tv_wonder_giant_tower_temple_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_giant_tower_temple_ritual_2_requirement_tooltip_effect = {
@@ -14329,6 +14465,10 @@ tv_wonder_giant_tower_temple_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_giant_tower_temple_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_giant_tower_temple_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_12_ritual_2_location_tooltip_effect = {
+	tv_wonder_giant_tower_temple_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_giant_tower_temple_ritual_3_requirement_tooltip_effect = {
@@ -14349,6 +14489,10 @@ tv_wonder_giant_tower_temple_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_12_ritual_3_location_tooltip_effect = {
+	tv_wonder_giant_tower_temple_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_river_extension_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_river_extension_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14361,6 +14505,10 @@ tv_wonder_river_extension_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_river_extension_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_13_ritual_1_location_tooltip_effect = {
+	tv_wonder_river_extension_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_river_extension_ritual_2_requirement_tooltip_effect = {
@@ -14379,6 +14527,10 @@ tv_wonder_river_extension_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_river_extension_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_13_ritual_2_location_tooltip_effect = {
+	tv_wonder_river_extension_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_river_extension_ritual_3_requirement_tooltip_effect = {
 	change_gold_effect = { scale = -5 }
 }
@@ -14395,6 +14547,10 @@ tv_wonder_river_extension_ritual_3_location_tooltip_effect = {
 	change_prosperity = 0.25
 }
 
+tv_wonder_display_13_ritual_3_location_tooltip_effect = {
+	tv_wonder_river_extension_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_national_shipyard_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_national_shipyard_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14407,6 +14563,10 @@ tv_wonder_national_shipyard_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_national_shipyard_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_14_ritual_1_location_tooltip_effect = {
+	tv_wonder_national_shipyard_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_national_shipyard_ritual_2_requirement_tooltip_effect = {
@@ -14425,6 +14585,10 @@ tv_wonder_national_shipyard_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_national_shipyard_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_14_ritual_2_location_tooltip_effect = {
+	tv_wonder_national_shipyard_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_national_shipyard_ritual_3_requirement_tooltip_effect = {
 	change_gold_effect = { scale = -5 }
 }
@@ -14439,6 +14603,10 @@ tv_wonder_national_shipyard_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_14_ritual_3_location_tooltip_effect = {
+	tv_wonder_national_shipyard_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_star_fortress_city_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_star_fortress_city_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14451,6 +14619,10 @@ tv_wonder_star_fortress_city_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_star_fortress_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_15_ritual_1_location_tooltip_effect = {
+	tv_wonder_star_fortress_city_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_star_fortress_city_ritual_2_requirement_tooltip_effect = {
@@ -14469,6 +14641,10 @@ tv_wonder_star_fortress_city_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_star_fortress_city_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_15_ritual_2_location_tooltip_effect = {
+	tv_wonder_star_fortress_city_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_star_fortress_city_ritual_3_requirement_tooltip_effect = {
 	change_gold_effect = { scale = -5 }
 }
@@ -14481,6 +14657,10 @@ tv_wonder_star_fortress_city_ritual_3_location_tooltip_effect = {
 	owner ?= {
 		add_army_tradition = 10
 	}
+}
+
+tv_wonder_display_15_ritual_3_location_tooltip_effect = {
+	tv_wonder_star_fortress_city_ritual_3_location_tooltip_effect = yes
 }
 
 tv_wonder_great_wall_ritual_1_requirement_tooltip_effect = {
@@ -14497,6 +14677,10 @@ tv_wonder_great_wall_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_16_ritual_1_location_tooltip_effect = {
+	tv_wonder_great_wall_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_great_wall_ritual_2_requirement_tooltip_effect = {
 	var:tv_wonder_site ?= {
 		construct_building = { building_type = building_type:tv_wonder_great_wall_ritual_annex }
@@ -14511,6 +14695,10 @@ tv_wonder_great_wall_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_great_wall_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_great_wall_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_16_ritual_2_location_tooltip_effect = {
+	tv_wonder_great_wall_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_great_wall_ritual_3_requirement_tooltip_effect = {
@@ -14531,6 +14719,10 @@ tv_wonder_great_wall_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_16_ritual_3_location_tooltip_effect = {
+	tv_wonder_great_wall_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_giant_armory_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_giant_armory_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14543,6 +14735,10 @@ tv_wonder_giant_armory_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_giant_armory_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_17_ritual_1_location_tooltip_effect = {
+	tv_wonder_giant_armory_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_giant_armory_ritual_2_requirement_tooltip_effect = {
@@ -14559,6 +14755,10 @@ tv_wonder_giant_armory_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_giant_armory_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_giant_armory_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_17_ritual_2_location_tooltip_effect = {
+	tv_wonder_giant_armory_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_giant_armory_ritual_3_requirement_tooltip_effect = {
@@ -14579,6 +14779,10 @@ tv_wonder_giant_armory_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_17_ritual_3_location_tooltip_effect = {
+	tv_wonder_giant_armory_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_library_of_nation_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_library_of_nation_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14591,6 +14795,10 @@ tv_wonder_library_of_nation_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_library_of_nation_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_18_ritual_1_location_tooltip_effect = {
+	tv_wonder_library_of_nation_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_library_of_nation_ritual_2_requirement_tooltip_effect = {
@@ -14607,6 +14815,10 @@ tv_wonder_library_of_nation_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_library_of_nation_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_library_of_nation_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_18_ritual_2_location_tooltip_effect = {
+	tv_wonder_library_of_nation_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_library_of_nation_ritual_3_requirement_tooltip_effect = {
@@ -14628,6 +14840,10 @@ tv_wonder_library_of_nation_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_18_ritual_3_location_tooltip_effect = {
+	tv_wonder_library_of_nation_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_large_canal_system_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_large_canal_system_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14640,6 +14856,10 @@ tv_wonder_large_canal_system_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_large_canal_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_19_ritual_1_location_tooltip_effect = {
+	tv_wonder_large_canal_system_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_large_canal_system_ritual_2_requirement_tooltip_effect = {
@@ -14658,6 +14878,10 @@ tv_wonder_large_canal_system_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_large_canal_system_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_19_ritual_2_location_tooltip_effect = {
+	tv_wonder_large_canal_system_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_large_canal_system_ritual_3_requirement_tooltip_effect = {
 	change_gold_effect = { scale = -5 }
 }
@@ -14674,6 +14898,10 @@ tv_wonder_large_canal_system_ritual_3_location_tooltip_effect = {
 	change_prosperity = 0.3
 }
 
+tv_wonder_display_19_ritual_3_location_tooltip_effect = {
+	tv_wonder_large_canal_system_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_mountain_terrace_network_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_mountain_terrace_network_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14686,6 +14914,10 @@ tv_wonder_mountain_terrace_network_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_mountain_terrace_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_20_ritual_1_location_tooltip_effect = {
+	tv_wonder_mountain_terrace_network_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_mountain_terrace_network_ritual_2_requirement_tooltip_effect = {
@@ -14704,6 +14936,10 @@ tv_wonder_mountain_terrace_network_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_mountain_terrace_network_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_20_ritual_2_location_tooltip_effect = {
+	tv_wonder_mountain_terrace_network_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_mountain_terrace_network_ritual_3_requirement_tooltip_effect = {
 	add_prestige = -50
 }
@@ -14720,6 +14956,10 @@ tv_wonder_mountain_terrace_network_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_20_ritual_3_location_tooltip_effect = {
+	tv_wonder_mountain_terrace_network_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_giant_dam_project_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_giant_dam_project_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14732,6 +14972,10 @@ tv_wonder_giant_dam_project_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_giant_dam_project_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_21_ritual_1_location_tooltip_effect = {
+	tv_wonder_giant_dam_project_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_giant_dam_project_ritual_2_requirement_tooltip_effect = {
@@ -14750,6 +14994,10 @@ tv_wonder_giant_dam_project_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_giant_dam_project_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_21_ritual_2_location_tooltip_effect = {
+	tv_wonder_giant_dam_project_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_giant_dam_project_ritual_3_requirement_tooltip_effect = {
 	change_gold_effect = { scale = -5 }
 }
@@ -14766,6 +15014,10 @@ tv_wonder_giant_dam_project_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_21_ritual_3_location_tooltip_effect = {
+	tv_wonder_giant_dam_project_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_royal_granary_system_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_royal_granary_system_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14778,6 +15030,10 @@ tv_wonder_royal_granary_system_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_royal_granary_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_22_ritual_1_location_tooltip_effect = {
+	tv_wonder_royal_granary_system_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_royal_granary_system_ritual_2_requirement_tooltip_effect = {
@@ -14794,6 +15050,10 @@ tv_wonder_royal_granary_system_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_royal_granary_system_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_royal_granary_system_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_22_ritual_2_location_tooltip_effect = {
+	tv_wonder_royal_granary_system_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_royal_granary_system_ritual_3_requirement_tooltip_effect = {
@@ -14814,6 +15074,10 @@ tv_wonder_royal_granary_system_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_22_ritual_3_location_tooltip_effect = {
+	tv_wonder_royal_granary_system_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_imperial_post_road_network_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_imperial_post_road_network_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14826,6 +15090,10 @@ tv_wonder_imperial_post_road_network_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_imperial_post_road_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_23_ritual_1_location_tooltip_effect = {
+	tv_wonder_imperial_post_road_network_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_imperial_post_road_network_ritual_2_requirement_tooltip_effect = {
@@ -14842,6 +15110,10 @@ tv_wonder_imperial_post_road_network_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_imperial_post_road_network_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_imperial_post_road_network_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_23_ritual_2_location_tooltip_effect = {
+	tv_wonder_imperial_post_road_network_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_imperial_post_road_network_ritual_3_requirement_tooltip_effect = {
@@ -14862,6 +15134,10 @@ tv_wonder_imperial_post_road_network_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_23_ritual_3_location_tooltip_effect = {
+	tv_wonder_imperial_post_road_network_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_canal_hub_city_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_canal_hub_city_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14874,6 +15150,10 @@ tv_wonder_canal_hub_city_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_canal_hub_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_24_ritual_1_location_tooltip_effect = {
+	tv_wonder_canal_hub_city_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_canal_hub_city_ritual_2_requirement_tooltip_effect = {
@@ -14890,6 +15170,10 @@ tv_wonder_canal_hub_city_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_canal_hub_city_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_canal_hub_city_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_24_ritual_2_location_tooltip_effect = {
+	tv_wonder_canal_hub_city_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_canal_hub_city_ritual_3_requirement_tooltip_effect = {
@@ -14910,6 +15194,10 @@ tv_wonder_canal_hub_city_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_24_ritual_3_location_tooltip_effect = {
+	tv_wonder_canal_hub_city_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_frontier_colonization_belt_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_frontier_colonization_belt_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14922,6 +15210,10 @@ tv_wonder_frontier_colonization_belt_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_frontier_colonization_belt_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_25_ritual_1_location_tooltip_effect = {
+	tv_wonder_frontier_colonization_belt_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_frontier_colonization_belt_ritual_2_requirement_tooltip_effect = {
@@ -14940,6 +15232,10 @@ tv_wonder_frontier_colonization_belt_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_frontier_colonization_belt_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_25_ritual_2_location_tooltip_effect = {
+	tv_wonder_frontier_colonization_belt_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_frontier_colonization_belt_ritual_3_requirement_tooltip_effect = {
 	add_prestige = -50
 }
@@ -14956,6 +15252,10 @@ tv_wonder_frontier_colonization_belt_ritual_3_location_tooltip_effect = {
 	change_prosperity = 0.2
 }
 
+tv_wonder_display_25_ritual_3_location_tooltip_effect = {
+	tv_wonder_frontier_colonization_belt_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_coastal_beacon_network_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_coastal_beacon_network_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -14968,6 +15268,10 @@ tv_wonder_coastal_beacon_network_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_coastal_beacon_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_26_ritual_1_location_tooltip_effect = {
+	tv_wonder_coastal_beacon_network_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_coastal_beacon_network_ritual_2_requirement_tooltip_effect = {
@@ -14984,6 +15288,10 @@ tv_wonder_coastal_beacon_network_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_coastal_beacon_network_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_coastal_beacon_network_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_26_ritual_2_location_tooltip_effect = {
+	tv_wonder_coastal_beacon_network_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_coastal_beacon_network_ritual_3_requirement_tooltip_effect = {
@@ -15004,6 +15312,10 @@ tv_wonder_coastal_beacon_network_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_26_ritual_3_location_tooltip_effect = {
+	tv_wonder_coastal_beacon_network_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_knightly_fortress_order_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_knightly_fortress_order_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15016,6 +15328,10 @@ tv_wonder_knightly_fortress_order_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_knightly_fortress_order_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_27_ritual_1_location_tooltip_effect = {
+	tv_wonder_knightly_fortress_order_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_knightly_fortress_order_ritual_2_requirement_tooltip_effect = {
@@ -15032,6 +15348,10 @@ tv_wonder_knightly_fortress_order_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_knightly_fortress_order_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_knightly_fortress_order_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_27_ritual_2_location_tooltip_effect = {
+	tv_wonder_knightly_fortress_order_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_knightly_fortress_order_ritual_3_requirement_tooltip_effect = {
@@ -15059,6 +15379,10 @@ tv_wonder_knightly_fortress_order_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_27_ritual_3_location_tooltip_effect = {
+	tv_wonder_knightly_fortress_order_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_war_college_system_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_war_college_system_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15071,6 +15395,10 @@ tv_wonder_war_college_system_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_war_college_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_28_ritual_1_location_tooltip_effect = {
+	tv_wonder_war_college_system_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_war_college_system_ritual_2_requirement_tooltip_effect = {
@@ -15087,6 +15415,10 @@ tv_wonder_war_college_system_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_war_college_system_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_war_college_system_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_28_ritual_2_location_tooltip_effect = {
+	tv_wonder_war_college_system_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_war_college_system_ritual_3_requirement_tooltip_effect = {
@@ -15107,6 +15439,10 @@ tv_wonder_war_college_system_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_28_ritual_3_location_tooltip_effect = {
+	tv_wonder_war_college_system_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_great_clock_bell_system_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_great_clock_bell_system_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15119,6 +15455,10 @@ tv_wonder_great_clock_bell_system_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_great_clock_bell_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_29_ritual_1_location_tooltip_effect = {
+	tv_wonder_great_clock_bell_system_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_great_clock_bell_system_ritual_2_requirement_tooltip_effect = {
@@ -15135,6 +15475,10 @@ tv_wonder_great_clock_bell_system_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_great_clock_bell_system_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_great_clock_bell_system_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_29_ritual_2_location_tooltip_effect = {
+	tv_wonder_great_clock_bell_system_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_great_clock_bell_system_ritual_3_requirement_tooltip_effect = {
@@ -15156,6 +15500,10 @@ tv_wonder_great_clock_bell_system_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_29_ritual_3_location_tooltip_effect = {
+	tv_wonder_great_clock_bell_system_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_royal_art_district_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_royal_art_district_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15168,6 +15516,10 @@ tv_wonder_royal_art_district_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_royal_art_district_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_30_ritual_1_location_tooltip_effect = {
+	tv_wonder_royal_art_district_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_royal_art_district_ritual_2_requirement_tooltip_effect = {
@@ -15184,6 +15536,10 @@ tv_wonder_royal_art_district_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_royal_art_district_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_royal_art_district_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_30_ritual_2_location_tooltip_effect = {
+	tv_wonder_royal_art_district_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_royal_art_district_ritual_3_requirement_tooltip_effect = {
@@ -15205,6 +15561,10 @@ tv_wonder_royal_art_district_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_30_ritual_3_location_tooltip_effect = {
+	tv_wonder_royal_art_district_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_grand_theater_festival_district_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_grand_theater_festival_district_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15217,6 +15577,10 @@ tv_wonder_grand_theater_festival_district_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_grand_theater_festival_district_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_31_ritual_1_location_tooltip_effect = {
+	tv_wonder_grand_theater_festival_district_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_grand_theater_festival_district_ritual_2_requirement_tooltip_effect = {
@@ -15233,6 +15597,10 @@ tv_wonder_grand_theater_festival_district_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_grand_theater_festival_district_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_grand_theater_festival_district_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_31_ritual_2_location_tooltip_effect = {
+	tv_wonder_grand_theater_festival_district_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_grand_theater_festival_district_ritual_3_requirement_tooltip_effect = {
@@ -15252,6 +15620,10 @@ tv_wonder_grand_theater_festival_district_ritual_3_location_tooltip_effect = {
 	change_prosperity = 0.2
 }
 
+tv_wonder_display_31_ritual_3_location_tooltip_effect = {
+	tv_wonder_grand_theater_festival_district_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_world_embassy_quarter_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_world_embassy_quarter_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15264,6 +15636,10 @@ tv_wonder_world_embassy_quarter_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_world_embassy_quarter_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_32_ritual_1_location_tooltip_effect = {
+	tv_wonder_world_embassy_quarter_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_world_embassy_quarter_ritual_2_requirement_tooltip_effect = {
@@ -15280,6 +15656,10 @@ tv_wonder_world_embassy_quarter_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_world_embassy_quarter_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_world_embassy_quarter_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_32_ritual_2_location_tooltip_effect = {
+	tv_wonder_world_embassy_quarter_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_world_embassy_quarter_ritual_3_requirement_tooltip_effect = {
@@ -15300,6 +15680,10 @@ tv_wonder_world_embassy_quarter_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_32_ritual_3_location_tooltip_effect = {
+	tv_wonder_world_embassy_quarter_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_law_code_stele_project_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_law_code_stele_project_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15312,6 +15696,10 @@ tv_wonder_law_code_stele_project_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_law_code_stele_project_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_33_ritual_1_location_tooltip_effect = {
+	tv_wonder_law_code_stele_project_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_law_code_stele_project_ritual_2_requirement_tooltip_effect = {
@@ -15328,6 +15716,10 @@ tv_wonder_law_code_stele_project_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_law_code_stele_project_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_law_code_stele_project_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_33_ritual_2_location_tooltip_effect = {
+	tv_wonder_law_code_stele_project_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_law_code_stele_project_ritual_3_requirement_tooltip_effect = {
@@ -15349,6 +15741,10 @@ tv_wonder_law_code_stele_project_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_33_ritual_3_location_tooltip_effect = {
+	tv_wonder_law_code_stele_project_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_world_market_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_world_market_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15361,6 +15757,10 @@ tv_wonder_world_market_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_world_market_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_34_ritual_1_location_tooltip_effect = {
+	tv_wonder_world_market_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_world_market_ritual_2_requirement_tooltip_effect = {
@@ -15379,6 +15779,10 @@ tv_wonder_world_market_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_world_market_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_34_ritual_2_location_tooltip_effect = {
+	tv_wonder_world_market_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_world_market_ritual_3_requirement_tooltip_effect = {
 	change_gold_effect = { scale = -5 }
 }
@@ -15395,6 +15799,10 @@ tv_wonder_world_market_ritual_3_location_tooltip_effect = {
 	change_prosperity = 0.2
 }
 
+tv_wonder_display_34_ritual_3_location_tooltip_effect = {
+	tv_wonder_world_market_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_royal_mint_system_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_royal_mint_system_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15407,6 +15815,10 @@ tv_wonder_royal_mint_system_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_royal_mint_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_35_ritual_1_location_tooltip_effect = {
+	tv_wonder_royal_mint_system_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_royal_mint_system_ritual_2_requirement_tooltip_effect = {
@@ -15425,6 +15837,10 @@ tv_wonder_royal_mint_system_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_royal_mint_system_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_35_ritual_2_location_tooltip_effect = {
+	tv_wonder_royal_mint_system_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_royal_mint_system_ritual_3_requirement_tooltip_effect = {
 	add_prestige = -50
 }
@@ -15437,6 +15853,10 @@ tv_wonder_royal_mint_system_ritual_3_location_tooltip_effect = {
 	owner ?= {
 		add_gold = 20000
 	}
+}
+
+tv_wonder_display_35_ritual_3_location_tooltip_effect = {
+	tv_wonder_royal_mint_system_ritual_3_location_tooltip_effect = yes
 }
 
 tv_wonder_guild_alliance_ritual_1_requirement_tooltip_effect = {
@@ -15453,6 +15873,10 @@ tv_wonder_guild_alliance_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_36_ritual_1_location_tooltip_effect = {
+	tv_wonder_guild_alliance_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_guild_alliance_ritual_2_requirement_tooltip_effect = {
 	var:tv_wonder_site ?= {
 		construct_building = { building_type = building_type:tv_wonder_guild_alliance_ritual_annex }
@@ -15467,6 +15891,10 @@ tv_wonder_guild_alliance_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_guild_alliance_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_guild_alliance_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_36_ritual_2_location_tooltip_effect = {
+	tv_wonder_guild_alliance_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_guild_alliance_ritual_3_requirement_tooltip_effect = {
@@ -15493,6 +15921,10 @@ tv_wonder_guild_alliance_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_36_ritual_3_location_tooltip_effect = {
+	tv_wonder_guild_alliance_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_maritime_trade_station_network_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_maritime_trade_station_network_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15505,6 +15937,10 @@ tv_wonder_maritime_trade_station_network_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_maritime_trade_station_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_37_ritual_1_location_tooltip_effect = {
+	tv_wonder_maritime_trade_station_network_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_maritime_trade_station_network_ritual_2_requirement_tooltip_effect = {
@@ -15521,6 +15957,10 @@ tv_wonder_maritime_trade_station_network_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_maritime_trade_station_network_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_maritime_trade_station_network_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_37_ritual_2_location_tooltip_effect = {
+	tv_wonder_maritime_trade_station_network_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_maritime_trade_station_network_ritual_3_requirement_tooltip_effect = {
@@ -15541,6 +15981,10 @@ tv_wonder_maritime_trade_station_network_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_37_ritual_3_location_tooltip_effect = {
+	tv_wonder_maritime_trade_station_network_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_giant_workshop_complex_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_giant_workshop_complex_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15553,6 +15997,10 @@ tv_wonder_giant_workshop_complex_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_giant_workshop_complex_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_38_ritual_1_location_tooltip_effect = {
+	tv_wonder_giant_workshop_complex_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_giant_workshop_complex_ritual_2_requirement_tooltip_effect = {
@@ -15569,6 +16017,10 @@ tv_wonder_giant_workshop_complex_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_giant_workshop_complex_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_giant_workshop_complex_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_38_ritual_2_location_tooltip_effect = {
+	tv_wonder_giant_workshop_complex_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_giant_workshop_complex_ritual_3_requirement_tooltip_effect = {
@@ -15589,6 +16041,10 @@ tv_wonder_giant_workshop_complex_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_38_ritual_3_location_tooltip_effect = {
+	tv_wonder_giant_workshop_complex_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_world_monument_group_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_world_monument_group_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15601,6 +16057,10 @@ tv_wonder_world_monument_group_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_world_monument_group_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_39_ritual_1_location_tooltip_effect = {
+	tv_wonder_world_monument_group_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_world_monument_group_ritual_2_requirement_tooltip_effect = {
@@ -15617,6 +16077,10 @@ tv_wonder_world_monument_group_ritual_2_effect_tooltip_effect = {
 
 tv_wonder_world_monument_group_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_world_monument_group_ritual_annex_display_modifier years = -1 mode = add_and_extend }
+}
+
+tv_wonder_display_39_ritual_2_location_tooltip_effect = {
+	tv_wonder_world_monument_group_ritual_2_location_tooltip_effect = yes
 }
 
 tv_wonder_world_monument_group_ritual_3_requirement_tooltip_effect = {
@@ -15638,6 +16102,10 @@ tv_wonder_world_monument_group_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_39_ritual_3_location_tooltip_effect = {
+	tv_wonder_world_monument_group_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_city_expansion_project_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_city_expansion_project_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15650,6 +16118,10 @@ tv_wonder_city_expansion_project_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_city_expansion_project_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_40_ritual_1_location_tooltip_effect = {
+	tv_wonder_city_expansion_project_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_city_expansion_project_ritual_2_requirement_tooltip_effect = {
@@ -15668,6 +16140,10 @@ tv_wonder_city_expansion_project_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_city_expansion_project_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_40_ritual_2_location_tooltip_effect = {
+	tv_wonder_city_expansion_project_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_city_expansion_project_ritual_3_requirement_tooltip_effect = {
 	change_gold_effect = { scale = -5 }
 }
@@ -15684,6 +16160,10 @@ tv_wonder_city_expansion_project_ritual_3_location_tooltip_effect = {
 	change_prosperity = 0.25
 }
 
+tv_wonder_display_40_ritual_3_location_tooltip_effect = {
+	tv_wonder_city_expansion_project_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_megalithic_circle_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_megalithic_circle_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15696,6 +16176,10 @@ tv_wonder_megalithic_circle_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_megalithic_circle_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_41_ritual_1_location_tooltip_effect = {
+	tv_wonder_megalithic_circle_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_megalithic_circle_ritual_2_requirement_tooltip_effect = {
@@ -15714,6 +16198,10 @@ tv_wonder_megalithic_circle_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_megalithic_circle_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_41_ritual_2_location_tooltip_effect = {
+	tv_wonder_megalithic_circle_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_megalithic_circle_ritual_3_requirement_tooltip_effect = {
 	add_prestige = -50
 }
@@ -15728,6 +16216,10 @@ tv_wonder_megalithic_circle_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_41_ritual_3_location_tooltip_effect = {
+	tv_wonder_megalithic_circle_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_grand_cathedral_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_grand_cathedral_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15740,6 +16232,10 @@ tv_wonder_grand_cathedral_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_grand_cathedral_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_42_ritual_1_location_tooltip_effect = {
+	tv_wonder_grand_cathedral_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_grand_cathedral_ritual_2_requirement_tooltip_effect = {
@@ -15758,6 +16254,10 @@ tv_wonder_grand_cathedral_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_grand_cathedral_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_42_ritual_2_location_tooltip_effect = {
+	tv_wonder_grand_cathedral_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_grand_cathedral_ritual_3_requirement_tooltip_effect = {
 	random_work_of_art_in_country = { save_scope_as = tv_wonder_sacrificed_artwork }
 	destroy_art = scope:tv_wonder_sacrificed_artwork
@@ -15773,6 +16273,10 @@ tv_wonder_grand_cathedral_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_42_ritual_3_location_tooltip_effect = {
+	tv_wonder_grand_cathedral_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_great_monastery_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_great_monastery_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -15785,6 +16289,10 @@ tv_wonder_great_monastery_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_great_monastery_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_43_ritual_1_location_tooltip_effect = {
+	tv_wonder_great_monastery_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_great_monastery_ritual_2_requirement_tooltip_effect = {
@@ -15803,6 +16311,10 @@ tv_wonder_great_monastery_ritual_2_location_tooltip_effect = {
 	add_location_modifier = { modifier = tv_wonder_great_monastery_ritual_annex_display_modifier years = -1 mode = add_and_extend }
 }
 
+tv_wonder_display_43_ritual_2_location_tooltip_effect = {
+	tv_wonder_great_monastery_ritual_2_location_tooltip_effect = yes
+}
+
 tv_wonder_great_monastery_ritual_3_requirement_tooltip_effect = {
 	add_prestige = -50
 }
@@ -15817,6 +16329,10 @@ tv_wonder_great_monastery_ritual_3_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_43_ritual_3_location_tooltip_effect = {
+	tv_wonder_great_monastery_ritual_3_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_pharos_lighthouse_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_pharos_lighthouse_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -15825,6 +16341,10 @@ tv_wonder_unique_pharos_lighthouse_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_pharos_lighthouse_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_101_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_pharos_lighthouse_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_hagia_sophia_ritual_1_effect_tooltip_effect = {
@@ -15837,6 +16357,10 @@ tv_wonder_unique_hagia_sophia_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_102_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_hagia_sophia_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_dome_of_the_rock_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_dome_of_the_rock_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -15845,6 +16369,10 @@ tv_wonder_unique_dome_of_the_rock_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_dome_of_the_rock_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_103_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_dome_of_the_rock_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_angkor_wat_ritual_1_effect_tooltip_effect = {
@@ -15857,6 +16385,10 @@ tv_wonder_unique_angkor_wat_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_104_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_angkor_wat_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_potala_palace_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_potala_palace_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -15865,6 +16397,10 @@ tv_wonder_unique_potala_palace_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_potala_palace_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_105_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_potala_palace_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_alhambra_ritual_1_effect_tooltip_effect = {
@@ -15877,6 +16413,10 @@ tv_wonder_unique_alhambra_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_106_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_alhambra_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_machu_picchu_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_machu_picchu_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -15885,6 +16425,10 @@ tv_wonder_unique_machu_picchu_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_machu_picchu_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_107_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_machu_picchu_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_himeji_castle_ritual_1_effect_tooltip_effect = {
@@ -15897,6 +16441,10 @@ tv_wonder_unique_himeji_castle_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_108_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_himeji_castle_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_taj_mahal_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_taj_mahal_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -15905,6 +16453,10 @@ tv_wonder_unique_taj_mahal_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_taj_mahal_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_109_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_taj_mahal_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_forbidden_city_ritual_1_effect_tooltip_effect = {
@@ -15917,6 +16469,10 @@ tv_wonder_unique_forbidden_city_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_110_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_forbidden_city_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_topkapi_palace_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_topkapi_palace_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -15925,6 +16481,10 @@ tv_wonder_unique_topkapi_palace_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_topkapi_palace_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_111_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_topkapi_palace_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_st_peters_basilica_ritual_1_effect_tooltip_effect = {
@@ -15937,6 +16497,10 @@ tv_wonder_unique_st_peters_basilica_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_112_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_st_peters_basilica_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_lalibela_churches_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_lalibela_churches_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -15945,6 +16509,10 @@ tv_wonder_unique_lalibela_churches_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_lalibela_churches_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_113_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_lalibela_churches_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_venetian_arsenal_ritual_1_effect_tooltip_effect = {
@@ -15957,6 +16525,10 @@ tv_wonder_unique_venetian_arsenal_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_114_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_venetian_arsenal_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_malacca_port_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_malacca_port_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -15965,6 +16537,10 @@ tv_wonder_unique_malacca_port_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_malacca_port_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_115_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_malacca_port_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_red_fort_delhi_ritual_1_effect_tooltip_effect = {
@@ -15977,6 +16553,10 @@ tv_wonder_unique_red_fort_delhi_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_116_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_red_fort_delhi_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_versailles_palace_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_versailles_palace_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -15985,6 +16565,10 @@ tv_wonder_unique_versailles_palace_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_versailles_palace_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_117_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_versailles_palace_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_tenochtitlan_causeways_ritual_1_effect_tooltip_effect = {
@@ -15997,6 +16581,10 @@ tv_wonder_unique_tenochtitlan_causeways_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_118_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_tenochtitlan_causeways_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_amsterdam_canal_ring_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_amsterdam_canal_ring_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16005,6 +16593,10 @@ tv_wonder_unique_amsterdam_canal_ring_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_amsterdam_canal_ring_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_119_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_amsterdam_canal_ring_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_mecca_haram_expansion_ritual_1_effect_tooltip_effect = {
@@ -16017,6 +16609,10 @@ tv_wonder_unique_mecca_haram_expansion_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_120_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_mecca_haram_expansion_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_ming_great_wall_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_ming_great_wall_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16025,6 +16621,10 @@ tv_wonder_unique_ming_great_wall_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_ming_great_wall_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_121_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_ming_great_wall_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_bank_of_saint_george_ritual_1_effect_tooltip_effect = {
@@ -16037,6 +16637,10 @@ tv_wonder_unique_bank_of_saint_george_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_122_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_bank_of_saint_george_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_cahokia_mounds_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_cahokia_mounds_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16045,6 +16649,10 @@ tv_wonder_unique_cahokia_mounds_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_cahokia_mounds_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_123_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_cahokia_mounds_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_great_zimbabwe_ritual_1_effect_tooltip_effect = {
@@ -16057,6 +16665,10 @@ tv_wonder_unique_great_zimbabwe_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_124_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_great_zimbabwe_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_isfahan_square_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_isfahan_square_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16065,6 +16677,10 @@ tv_wonder_unique_isfahan_square_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_isfahan_square_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_125_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_isfahan_square_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_grand_canal_ritual_1_effect_tooltip_effect = {
@@ -16077,6 +16693,10 @@ tv_wonder_unique_grand_canal_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_126_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_grand_canal_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_inca_royal_road_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_inca_royal_road_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16085,6 +16705,10 @@ tv_wonder_unique_inca_royal_road_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_inca_royal_road_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_127_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_inca_royal_road_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_roman_aqueducts_ritual_1_effect_tooltip_effect = {
@@ -16097,6 +16721,10 @@ tv_wonder_unique_roman_aqueducts_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_128_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_roman_aqueducts_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_suez_ancient_canal_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_suez_ancient_canal_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16105,6 +16733,10 @@ tv_wonder_unique_suez_ancient_canal_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_suez_ancient_canal_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_129_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_suez_ancient_canal_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_kremlin_ritual_1_effect_tooltip_effect = {
@@ -16117,6 +16749,10 @@ tv_wonder_unique_kremlin_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_130_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_kremlin_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_teotihuacan_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_teotihuacan_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16125,6 +16761,10 @@ tv_wonder_unique_teotihuacan_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_teotihuacan_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_131_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_teotihuacan_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_angkor_hydraulic_system_ritual_1_effect_tooltip_effect = {
@@ -16137,6 +16777,10 @@ tv_wonder_unique_angkor_hydraulic_system_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_132_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_angkor_hydraulic_system_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_dutch_polders_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_dutch_polders_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16145,6 +16789,10 @@ tv_wonder_unique_dutch_polders_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_dutch_polders_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_133_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_dutch_polders_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_machu_picchu_terraces_ritual_1_effect_tooltip_effect = {
@@ -16157,6 +16805,10 @@ tv_wonder_unique_machu_picchu_terraces_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_134_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_machu_picchu_terraces_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_british_navy_dockyards_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_british_navy_dockyards_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16165,6 +16817,10 @@ tv_wonder_unique_british_navy_dockyards_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_british_navy_dockyards_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_135_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_british_navy_dockyards_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_spanish_silver_fleet_ritual_1_effect_tooltip_effect = {
@@ -16177,6 +16833,10 @@ tv_wonder_unique_spanish_silver_fleet_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_136_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_spanish_silver_fleet_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_ottoman_hajj_road_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_ottoman_hajj_road_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16185,6 +16845,10 @@ tv_wonder_unique_ottoman_hajj_road_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_ottoman_hajj_road_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_137_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_ottoman_hajj_road_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_persian_qanat_ritual_1_effect_tooltip_effect = {
@@ -16197,6 +16861,10 @@ tv_wonder_unique_persian_qanat_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_138_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_persian_qanat_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_longjiang_shipyard_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_longjiang_shipyard_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16205,6 +16873,10 @@ tv_wonder_unique_longjiang_shipyard_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_longjiang_shipyard_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_139_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_longjiang_shipyard_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_jerusalem_holy_city_ritual_1_effect_tooltip_effect = {
@@ -16217,6 +16889,10 @@ tv_wonder_unique_jerusalem_holy_city_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_140_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_jerusalem_holy_city_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_stonehenge_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_stonehenge_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16225,6 +16901,10 @@ tv_wonder_unique_stonehenge_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_stonehenge_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_141_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_stonehenge_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_tower_of_london_ritual_1_effect_tooltip_effect = {
@@ -16237,6 +16917,10 @@ tv_wonder_unique_tower_of_london_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_142_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_tower_of_london_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_notre_dame_de_paris_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_notre_dame_de_paris_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16245,6 +16929,10 @@ tv_wonder_unique_notre_dame_de_paris_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_notre_dame_de_paris_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_143_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_notre_dame_de_paris_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_st_basils_cathedral_ritual_1_effect_tooltip_effect = {
@@ -16257,6 +16945,10 @@ tv_wonder_unique_st_basils_cathedral_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_144_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_st_basils_cathedral_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_trinity_lavra_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_trinity_lavra_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16265,6 +16957,10 @@ tv_wonder_unique_trinity_lavra_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_trinity_lavra_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_145_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_trinity_lavra_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_winter_palace_ritual_1_effect_tooltip_effect = {
@@ -16277,6 +16973,10 @@ tv_wonder_unique_winter_palace_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_146_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_winter_palace_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_gyeongbokgung_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_gyeongbokgung_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16285,6 +16985,10 @@ tv_wonder_unique_gyeongbokgung_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_gyeongbokgung_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_147_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_gyeongbokgung_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_changbai_mountain_altar_ritual_1_effect_tooltip_effect = {
@@ -16297,6 +17001,10 @@ tv_wonder_unique_changbai_mountain_altar_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_148_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_changbai_mountain_altar_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_unique_belgrade_fortress_ritual_1_effect_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_unique_belgrade_fortress_ceremony_modifier years = -1 mode = add_and_extend }
 }
@@ -16305,6 +17013,10 @@ tv_wonder_unique_belgrade_fortress_ritual_1_location_tooltip_effect = {
 	owner ?= {
 		add_country_modifier = { modifier = tv_wonder_unique_belgrade_fortress_ceremony_modifier years = -1 mode = add_and_extend }
 	}
+}
+
+tv_wonder_display_149_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_belgrade_fortress_ritual_1_location_tooltip_effect = yes
 }
 
 tv_wonder_unique_meteora_monasteries_ritual_1_effect_tooltip_effect = {
@@ -16317,6 +17029,10 @@ tv_wonder_unique_meteora_monasteries_ritual_1_location_tooltip_effect = {
 	}
 }
 
+tv_wonder_display_150_ritual_1_location_tooltip_effect = {
+	tv_wonder_unique_meteora_monasteries_ritual_1_location_tooltip_effect = yes
+}
+
 tv_wonder_mechanics_push_location_display_slot_effect = {
 	if = {
 		limit = { NOT = { has_variable = tv_wonder_display_count } }
@@ -16326,19 +17042,71 @@ tv_wonder_mechanics_push_location_display_slot_effect = {
 		limit = { var:tv_wonder_display_count < 1 }
 		set_variable = { name = tv_wonder_display_slot_1_id value = $wonder_id$ }
 		set_variable = { name = tv_wonder_display_slot_1_level value = $wonder_level$ }
+		set_variable = { name = tv_wonder_display_slot_1_ritual_style value = $wonder_ritual_style$ }
 		change_variable = { name = tv_wonder_display_count add = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_display_count < 2 }
 		set_variable = { name = tv_wonder_display_slot_2_id value = $wonder_id$ }
 		set_variable = { name = tv_wonder_display_slot_2_level value = $wonder_level$ }
+		set_variable = { name = tv_wonder_display_slot_2_ritual_style value = $wonder_ritual_style$ }
 		change_variable = { name = tv_wonder_display_count add = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_display_count < 3 }
 		set_variable = { name = tv_wonder_display_slot_3_id value = $wonder_id$ }
 		set_variable = { name = tv_wonder_display_slot_3_level value = $wonder_level$ }
+		set_variable = { name = tv_wonder_display_slot_3_ritual_style value = $wonder_ritual_style$ }
 		change_variable = { name = tv_wonder_display_count add = 1 }
+	}
+}
+
+tv_wonder_mechanics_push_location_tooltip_slot_effect = {
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_tooltip_fill_count } }
+		set_variable = { name = tv_wonder_tooltip_fill_count value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_tooltip_overflow_count } }
+		set_variable = { name = tv_wonder_tooltip_overflow_count value = 0 }
+	}
+	if = {
+		limit = { var:tv_wonder_tooltip_fill_count < 1 }
+		set_variable = { name = tv_wonder_tooltip_slot_1_id value = $wonder_id$ }
+		set_variable = { name = tv_wonder_tooltip_slot_1_level value = $wonder_level$ }
+		set_variable = { name = tv_wonder_tooltip_slot_1_ritual_style value = $wonder_ritual_style$ }
+		change_variable = { name = tv_wonder_tooltip_fill_count add = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_tooltip_fill_count < 2 }
+		set_variable = { name = tv_wonder_tooltip_slot_2_id value = $wonder_id$ }
+		set_variable = { name = tv_wonder_tooltip_slot_2_level value = $wonder_level$ }
+		set_variable = { name = tv_wonder_tooltip_slot_2_ritual_style value = $wonder_ritual_style$ }
+		change_variable = { name = tv_wonder_tooltip_fill_count add = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_tooltip_fill_count < 3 }
+		set_variable = { name = tv_wonder_tooltip_slot_3_id value = $wonder_id$ }
+		set_variable = { name = tv_wonder_tooltip_slot_3_level value = $wonder_level$ }
+		set_variable = { name = tv_wonder_tooltip_slot_3_ritual_style value = $wonder_ritual_style$ }
+		change_variable = { name = tv_wonder_tooltip_fill_count add = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_tooltip_fill_count < 4 }
+		set_variable = { name = tv_wonder_tooltip_slot_4_id value = $wonder_id$ }
+		set_variable = { name = tv_wonder_tooltip_slot_4_level value = $wonder_level$ }
+		set_variable = { name = tv_wonder_tooltip_slot_4_ritual_style value = $wonder_ritual_style$ }
+		change_variable = { name = tv_wonder_tooltip_fill_count add = 1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_tooltip_fill_count < 5 }
+		set_variable = { name = tv_wonder_tooltip_slot_5_id value = $wonder_id$ }
+		set_variable = { name = tv_wonder_tooltip_slot_5_level value = $wonder_level$ }
+		set_variable = { name = tv_wonder_tooltip_slot_5_ritual_style value = $wonder_ritual_style$ }
+		change_variable = { name = tv_wonder_tooltip_fill_count add = 1 }
+	}
+	else = {
+		change_variable = { name = tv_wonder_tooltip_overflow_count add = 1 }
 	}
 }
 
@@ -16346,12 +17114,32 @@ tv_wonder_mechanics_clear_location_display_state_effect = {
 	remove_variable = tv_wonder_display_id
 	set_variable = { name = tv_wonder_display_count value = 0 }
 	set_variable = { name = tv_wonder_display_any_wonder value = 0 }
+	set_variable = { name = tv_wonder_tooltip_fill_count value = 0 }
+	set_variable = { name = tv_wonder_tooltip_overflow_count value = 0 }
 	remove_variable = tv_wonder_display_slot_1_id
 	remove_variable = tv_wonder_display_slot_1_level
+	remove_variable = tv_wonder_display_slot_1_ritual_style
 	remove_variable = tv_wonder_display_slot_2_id
 	remove_variable = tv_wonder_display_slot_2_level
+	remove_variable = tv_wonder_display_slot_2_ritual_style
 	remove_variable = tv_wonder_display_slot_3_id
 	remove_variable = tv_wonder_display_slot_3_level
+	remove_variable = tv_wonder_display_slot_3_ritual_style
+	remove_variable = tv_wonder_tooltip_slot_1_id
+	remove_variable = tv_wonder_tooltip_slot_1_level
+	remove_variable = tv_wonder_tooltip_slot_1_ritual_style
+	remove_variable = tv_wonder_tooltip_slot_2_id
+	remove_variable = tv_wonder_tooltip_slot_2_level
+	remove_variable = tv_wonder_tooltip_slot_2_ritual_style
+	remove_variable = tv_wonder_tooltip_slot_3_id
+	remove_variable = tv_wonder_tooltip_slot_3_level
+	remove_variable = tv_wonder_tooltip_slot_3_ritual_style
+	remove_variable = tv_wonder_tooltip_slot_4_id
+	remove_variable = tv_wonder_tooltip_slot_4_level
+	remove_variable = tv_wonder_tooltip_slot_4_ritual_style
+	remove_variable = tv_wonder_tooltip_slot_5_id
+	remove_variable = tv_wonder_tooltip_slot_5_level
+	remove_variable = tv_wonder_tooltip_slot_5_ritual_style
 	remove_variable = tv_wonder_display_unique_pharos_lighthouse_level
 	remove_variable = tv_wonder_display_unique_pharos_lighthouse_ritual_style
 	remove_variable = tv_wonder_display_unique_hagia_sophia_level
@@ -16545,11 +17333,11 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
-				this = location:alexandria
 				has_building = building_type:tv_wonder_unique_pharos_lighthouse_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_pharos_lighthouse_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_pharos_lighthouse_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -16603,16 +17391,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_pharos_lighthouse_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_pharos_lighthouse_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 101 wonder_level = var:tv_wonder_display_unique_pharos_lighthouse_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 101 wonder_level = var:tv_wonder_display_unique_pharos_lighthouse_level wonder_ritual_style = var:tv_wonder_display_unique_pharos_lighthouse_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 101 wonder_level = var:tv_wonder_display_unique_pharos_lighthouse_level wonder_ritual_style = var:tv_wonder_display_unique_pharos_lighthouse_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:constantinople
 				has_building = building_type:tv_wonder_unique_hagia_sophia_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_hagia_sophia_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_hagia_sophia_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -16666,16 +17455,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_hagia_sophia_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_hagia_sophia_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 102 wonder_level = var:tv_wonder_display_unique_hagia_sophia_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 102 wonder_level = var:tv_wonder_display_unique_hagia_sophia_level wonder_ritual_style = var:tv_wonder_display_unique_hagia_sophia_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 102 wonder_level = var:tv_wonder_display_unique_hagia_sophia_level wonder_ritual_style = var:tv_wonder_display_unique_hagia_sophia_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:jerusalem
 				has_building = building_type:tv_wonder_unique_dome_of_the_rock_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_dome_of_the_rock_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_dome_of_the_rock_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -16729,16 +17519,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_dome_of_the_rock_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_dome_of_the_rock_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 103 wonder_level = var:tv_wonder_display_unique_dome_of_the_rock_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 103 wonder_level = var:tv_wonder_display_unique_dome_of_the_rock_level wonder_ritual_style = var:tv_wonder_display_unique_dome_of_the_rock_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 103 wonder_level = var:tv_wonder_display_unique_dome_of_the_rock_level wonder_ritual_style = var:tv_wonder_display_unique_dome_of_the_rock_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:angkor
 				has_building = building_type:tv_wonder_unique_angkor_wat_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_angkor_wat_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_angkor_wat_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -16792,16 +17583,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_angkor_wat_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_angkor_wat_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 104 wonder_level = var:tv_wonder_display_unique_angkor_wat_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 104 wonder_level = var:tv_wonder_display_unique_angkor_wat_level wonder_ritual_style = var:tv_wonder_display_unique_angkor_wat_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 104 wonder_level = var:tv_wonder_display_unique_angkor_wat_level wonder_ritual_style = var:tv_wonder_display_unique_angkor_wat_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:lhasa
 				has_building = building_type:tv_wonder_unique_potala_palace_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_potala_palace_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_potala_palace_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -16855,16 +17647,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_potala_palace_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_potala_palace_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 105 wonder_level = var:tv_wonder_display_unique_potala_palace_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 105 wonder_level = var:tv_wonder_display_unique_potala_palace_level wonder_ritual_style = var:tv_wonder_display_unique_potala_palace_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 105 wonder_level = var:tv_wonder_display_unique_potala_palace_level wonder_ritual_style = var:tv_wonder_display_unique_potala_palace_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:granada
 				has_building = building_type:tv_wonder_unique_alhambra_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_alhambra_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_alhambra_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -16918,16 +17711,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_alhambra_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_alhambra_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 106 wonder_level = var:tv_wonder_display_unique_alhambra_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 106 wonder_level = var:tv_wonder_display_unique_alhambra_level wonder_ritual_style = var:tv_wonder_display_unique_alhambra_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 106 wonder_level = var:tv_wonder_display_unique_alhambra_level wonder_ritual_style = var:tv_wonder_display_unique_alhambra_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:picchu
 				has_building = building_type:tv_wonder_unique_machu_picchu_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_machu_picchu_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_machu_picchu_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -16981,16 +17775,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_machu_picchu_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_machu_picchu_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 107 wonder_level = var:tv_wonder_display_unique_machu_picchu_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 107 wonder_level = var:tv_wonder_display_unique_machu_picchu_level wonder_ritual_style = var:tv_wonder_display_unique_machu_picchu_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 107 wonder_level = var:tv_wonder_display_unique_machu_picchu_level wonder_ritual_style = var:tv_wonder_display_unique_machu_picchu_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:shikama
 				has_building = building_type:tv_wonder_unique_himeji_castle_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_himeji_castle_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_himeji_castle_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17044,16 +17839,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_himeji_castle_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_himeji_castle_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 108 wonder_level = var:tv_wonder_display_unique_himeji_castle_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 108 wonder_level = var:tv_wonder_display_unique_himeji_castle_level wonder_ritual_style = var:tv_wonder_display_unique_himeji_castle_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 108 wonder_level = var:tv_wonder_display_unique_himeji_castle_level wonder_ritual_style = var:tv_wonder_display_unique_himeji_castle_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:agra
 				has_building = building_type:tv_wonder_unique_taj_mahal_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_taj_mahal_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_taj_mahal_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17107,16 +17903,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_taj_mahal_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_taj_mahal_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 109 wonder_level = var:tv_wonder_display_unique_taj_mahal_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 109 wonder_level = var:tv_wonder_display_unique_taj_mahal_level wonder_ritual_style = var:tv_wonder_display_unique_taj_mahal_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 109 wonder_level = var:tv_wonder_display_unique_taj_mahal_level wonder_ritual_style = var:tv_wonder_display_unique_taj_mahal_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:dadu
 				has_building = building_type:tv_wonder_unique_forbidden_city_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_forbidden_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_forbidden_city_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17170,16 +17967,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_forbidden_city_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_forbidden_city_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 110 wonder_level = var:tv_wonder_display_unique_forbidden_city_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 110 wonder_level = var:tv_wonder_display_unique_forbidden_city_level wonder_ritual_style = var:tv_wonder_display_unique_forbidden_city_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 110 wonder_level = var:tv_wonder_display_unique_forbidden_city_level wonder_ritual_style = var:tv_wonder_display_unique_forbidden_city_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:constantinople
 				has_building = building_type:tv_wonder_unique_topkapi_palace_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_topkapi_palace_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_topkapi_palace_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17233,16 +18031,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_topkapi_palace_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_topkapi_palace_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 111 wonder_level = var:tv_wonder_display_unique_topkapi_palace_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 111 wonder_level = var:tv_wonder_display_unique_topkapi_palace_level wonder_ritual_style = var:tv_wonder_display_unique_topkapi_palace_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 111 wonder_level = var:tv_wonder_display_unique_topkapi_palace_level wonder_ritual_style = var:tv_wonder_display_unique_topkapi_palace_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:rome
 				has_building = building_type:tv_wonder_unique_st_peters_basilica_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_st_peters_basilica_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_st_peters_basilica_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17296,16 +18095,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_st_peters_basilica_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_st_peters_basilica_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 112 wonder_level = var:tv_wonder_display_unique_st_peters_basilica_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 112 wonder_level = var:tv_wonder_display_unique_st_peters_basilica_level wonder_ritual_style = var:tv_wonder_display_unique_st_peters_basilica_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 112 wonder_level = var:tv_wonder_display_unique_st_peters_basilica_level wonder_ritual_style = var:tv_wonder_display_unique_st_peters_basilica_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:lalibela
 				has_building = building_type:tv_wonder_unique_lalibela_churches_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_lalibela_churches_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_lalibela_churches_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17359,16 +18159,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_lalibela_churches_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_lalibela_churches_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 113 wonder_level = var:tv_wonder_display_unique_lalibela_churches_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 113 wonder_level = var:tv_wonder_display_unique_lalibela_churches_level wonder_ritual_style = var:tv_wonder_display_unique_lalibela_churches_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 113 wonder_level = var:tv_wonder_display_unique_lalibela_churches_level wonder_ritual_style = var:tv_wonder_display_unique_lalibela_churches_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:venice
 				has_building = building_type:tv_wonder_unique_venetian_arsenal_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_venetian_arsenal_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_venetian_arsenal_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17422,16 +18223,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_venetian_arsenal_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_venetian_arsenal_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 114 wonder_level = var:tv_wonder_display_unique_venetian_arsenal_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 114 wonder_level = var:tv_wonder_display_unique_venetian_arsenal_level wonder_ritual_style = var:tv_wonder_display_unique_venetian_arsenal_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 114 wonder_level = var:tv_wonder_display_unique_venetian_arsenal_level wonder_ritual_style = var:tv_wonder_display_unique_venetian_arsenal_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:malacca
 				has_building = building_type:tv_wonder_unique_malacca_port_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_malacca_port_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_malacca_port_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17485,16 +18287,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_malacca_port_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_malacca_port_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 115 wonder_level = var:tv_wonder_display_unique_malacca_port_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 115 wonder_level = var:tv_wonder_display_unique_malacca_port_level wonder_ritual_style = var:tv_wonder_display_unique_malacca_port_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 115 wonder_level = var:tv_wonder_display_unique_malacca_port_level wonder_ritual_style = var:tv_wonder_display_unique_malacca_port_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:delhi
 				has_building = building_type:tv_wonder_unique_red_fort_delhi_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_red_fort_delhi_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_red_fort_delhi_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17548,16 +18351,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_red_fort_delhi_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_red_fort_delhi_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 116 wonder_level = var:tv_wonder_display_unique_red_fort_delhi_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 116 wonder_level = var:tv_wonder_display_unique_red_fort_delhi_level wonder_ritual_style = var:tv_wonder_display_unique_red_fort_delhi_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 116 wonder_level = var:tv_wonder_display_unique_red_fort_delhi_level wonder_ritual_style = var:tv_wonder_display_unique_red_fort_delhi_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:paris
 				has_building = building_type:tv_wonder_unique_versailles_palace_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_versailles_palace_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_versailles_palace_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17611,16 +18415,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_versailles_palace_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_versailles_palace_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 117 wonder_level = var:tv_wonder_display_unique_versailles_palace_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 117 wonder_level = var:tv_wonder_display_unique_versailles_palace_level wonder_ritual_style = var:tv_wonder_display_unique_versailles_palace_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 117 wonder_level = var:tv_wonder_display_unique_versailles_palace_level wonder_ritual_style = var:tv_wonder_display_unique_versailles_palace_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:tenochtitlan
 				has_building = building_type:tv_wonder_unique_tenochtitlan_causeways_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_tenochtitlan_causeways_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_tenochtitlan_causeways_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17674,16 +18479,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_tenochtitlan_causeways_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_tenochtitlan_causeways_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 118 wonder_level = var:tv_wonder_display_unique_tenochtitlan_causeways_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 118 wonder_level = var:tv_wonder_display_unique_tenochtitlan_causeways_level wonder_ritual_style = var:tv_wonder_display_unique_tenochtitlan_causeways_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 118 wonder_level = var:tv_wonder_display_unique_tenochtitlan_causeways_level wonder_ritual_style = var:tv_wonder_display_unique_tenochtitlan_causeways_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:amsterdam
 				has_building = building_type:tv_wonder_unique_amsterdam_canal_ring_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_amsterdam_canal_ring_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_amsterdam_canal_ring_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17737,16 +18543,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_amsterdam_canal_ring_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_amsterdam_canal_ring_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 119 wonder_level = var:tv_wonder_display_unique_amsterdam_canal_ring_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 119 wonder_level = var:tv_wonder_display_unique_amsterdam_canal_ring_level wonder_ritual_style = var:tv_wonder_display_unique_amsterdam_canal_ring_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 119 wonder_level = var:tv_wonder_display_unique_amsterdam_canal_ring_level wonder_ritual_style = var:tv_wonder_display_unique_amsterdam_canal_ring_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:mecca
 				has_building = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_mecca_haram_expansion_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_mecca_haram_expansion_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17800,16 +18607,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_mecca_haram_expansion_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 120 wonder_level = var:tv_wonder_display_unique_mecca_haram_expansion_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 120 wonder_level = var:tv_wonder_display_unique_mecca_haram_expansion_level wonder_ritual_style = var:tv_wonder_display_unique_mecca_haram_expansion_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 120 wonder_level = var:tv_wonder_display_unique_mecca_haram_expansion_level wonder_ritual_style = var:tv_wonder_display_unique_mecca_haram_expansion_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:dadu
 				has_building = building_type:tv_wonder_unique_ming_great_wall_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_ming_great_wall_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_ming_great_wall_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17863,16 +18671,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_ming_great_wall_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_ming_great_wall_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 121 wonder_level = var:tv_wonder_display_unique_ming_great_wall_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 121 wonder_level = var:tv_wonder_display_unique_ming_great_wall_level wonder_ritual_style = var:tv_wonder_display_unique_ming_great_wall_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 121 wonder_level = var:tv_wonder_display_unique_ming_great_wall_level wonder_ritual_style = var:tv_wonder_display_unique_ming_great_wall_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:genoa
 				has_building = building_type:tv_wonder_unique_bank_of_saint_george_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_bank_of_saint_george_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_bank_of_saint_george_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17926,16 +18735,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_bank_of_saint_george_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_bank_of_saint_george_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 122 wonder_level = var:tv_wonder_display_unique_bank_of_saint_george_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 122 wonder_level = var:tv_wonder_display_unique_bank_of_saint_george_level wonder_ritual_style = var:tv_wonder_display_unique_bank_of_saint_george_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 122 wonder_level = var:tv_wonder_display_unique_bank_of_saint_george_level wonder_ritual_style = var:tv_wonder_display_unique_bank_of_saint_george_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:cahokia
 				has_building = building_type:tv_wonder_unique_cahokia_mounds_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_cahokia_mounds_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_cahokia_mounds_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -17989,16 +18799,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_cahokia_mounds_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_cahokia_mounds_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 123 wonder_level = var:tv_wonder_display_unique_cahokia_mounds_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 123 wonder_level = var:tv_wonder_display_unique_cahokia_mounds_level wonder_ritual_style = var:tv_wonder_display_unique_cahokia_mounds_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 123 wonder_level = var:tv_wonder_display_unique_cahokia_mounds_level wonder_ritual_style = var:tv_wonder_display_unique_cahokia_mounds_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:great_zimbabwe
 				has_building = building_type:tv_wonder_unique_great_zimbabwe_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_great_zimbabwe_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_great_zimbabwe_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18052,16 +18863,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_great_zimbabwe_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_great_zimbabwe_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 124 wonder_level = var:tv_wonder_display_unique_great_zimbabwe_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 124 wonder_level = var:tv_wonder_display_unique_great_zimbabwe_level wonder_ritual_style = var:tv_wonder_display_unique_great_zimbabwe_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 124 wonder_level = var:tv_wonder_display_unique_great_zimbabwe_level wonder_ritual_style = var:tv_wonder_display_unique_great_zimbabwe_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:isfahan
 				has_building = building_type:tv_wonder_unique_isfahan_square_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_isfahan_square_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_isfahan_square_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18115,16 +18927,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_isfahan_square_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_isfahan_square_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 125 wonder_level = var:tv_wonder_display_unique_isfahan_square_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 125 wonder_level = var:tv_wonder_display_unique_isfahan_square_level wonder_ritual_style = var:tv_wonder_display_unique_isfahan_square_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 125 wonder_level = var:tv_wonder_display_unique_isfahan_square_level wonder_ritual_style = var:tv_wonder_display_unique_isfahan_square_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:shangyuan
 				has_building = building_type:tv_wonder_unique_grand_canal_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_grand_canal_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_grand_canal_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18178,16 +18991,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_grand_canal_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_grand_canal_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 126 wonder_level = var:tv_wonder_display_unique_grand_canal_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 126 wonder_level = var:tv_wonder_display_unique_grand_canal_level wonder_ritual_style = var:tv_wonder_display_unique_grand_canal_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 126 wonder_level = var:tv_wonder_display_unique_grand_canal_level wonder_ritual_style = var:tv_wonder_display_unique_grand_canal_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:picchu
 				has_building = building_type:tv_wonder_unique_inca_royal_road_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_inca_royal_road_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_inca_royal_road_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18241,16 +19055,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_inca_royal_road_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_inca_royal_road_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 127 wonder_level = var:tv_wonder_display_unique_inca_royal_road_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 127 wonder_level = var:tv_wonder_display_unique_inca_royal_road_level wonder_ritual_style = var:tv_wonder_display_unique_inca_royal_road_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 127 wonder_level = var:tv_wonder_display_unique_inca_royal_road_level wonder_ritual_style = var:tv_wonder_display_unique_inca_royal_road_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:rome
 				has_building = building_type:tv_wonder_unique_roman_aqueducts_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_roman_aqueducts_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_roman_aqueducts_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18304,16 +19119,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_roman_aqueducts_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_roman_aqueducts_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 128 wonder_level = var:tv_wonder_display_unique_roman_aqueducts_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 128 wonder_level = var:tv_wonder_display_unique_roman_aqueducts_level wonder_ritual_style = var:tv_wonder_display_unique_roman_aqueducts_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 128 wonder_level = var:tv_wonder_display_unique_roman_aqueducts_level wonder_ritual_style = var:tv_wonder_display_unique_roman_aqueducts_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:suez
 				has_building = building_type:tv_wonder_unique_suez_ancient_canal_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_suez_ancient_canal_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_suez_ancient_canal_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18367,16 +19183,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_suez_ancient_canal_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_suez_ancient_canal_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 129 wonder_level = var:tv_wonder_display_unique_suez_ancient_canal_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 129 wonder_level = var:tv_wonder_display_unique_suez_ancient_canal_level wonder_ritual_style = var:tv_wonder_display_unique_suez_ancient_canal_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 129 wonder_level = var:tv_wonder_display_unique_suez_ancient_canal_level wonder_ritual_style = var:tv_wonder_display_unique_suez_ancient_canal_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:moscow
 				has_building = building_type:tv_wonder_unique_kremlin_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_kremlin_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_kremlin_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18430,16 +19247,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_kremlin_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_kremlin_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 130 wonder_level = var:tv_wonder_display_unique_kremlin_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 130 wonder_level = var:tv_wonder_display_unique_kremlin_level wonder_ritual_style = var:tv_wonder_display_unique_kremlin_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 130 wonder_level = var:tv_wonder_display_unique_kremlin_level wonder_ritual_style = var:tv_wonder_display_unique_kremlin_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:tenochtitlan
 				has_building = building_type:tv_wonder_unique_teotihuacan_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_teotihuacan_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_teotihuacan_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18493,16 +19311,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_teotihuacan_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_teotihuacan_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 131 wonder_level = var:tv_wonder_display_unique_teotihuacan_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 131 wonder_level = var:tv_wonder_display_unique_teotihuacan_level wonder_ritual_style = var:tv_wonder_display_unique_teotihuacan_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 131 wonder_level = var:tv_wonder_display_unique_teotihuacan_level wonder_ritual_style = var:tv_wonder_display_unique_teotihuacan_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:angkor
 				has_building = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_angkor_hydraulic_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_angkor_hydraulic_system_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18556,16 +19375,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_angkor_hydraulic_system_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 132 wonder_level = var:tv_wonder_display_unique_angkor_hydraulic_system_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 132 wonder_level = var:tv_wonder_display_unique_angkor_hydraulic_system_level wonder_ritual_style = var:tv_wonder_display_unique_angkor_hydraulic_system_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 132 wonder_level = var:tv_wonder_display_unique_angkor_hydraulic_system_level wonder_ritual_style = var:tv_wonder_display_unique_angkor_hydraulic_system_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:amsterdam
 				has_building = building_type:tv_wonder_unique_dutch_polders_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_dutch_polders_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_dutch_polders_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18619,16 +19439,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_dutch_polders_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_dutch_polders_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 133 wonder_level = var:tv_wonder_display_unique_dutch_polders_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 133 wonder_level = var:tv_wonder_display_unique_dutch_polders_level wonder_ritual_style = var:tv_wonder_display_unique_dutch_polders_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 133 wonder_level = var:tv_wonder_display_unique_dutch_polders_level wonder_ritual_style = var:tv_wonder_display_unique_dutch_polders_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:picchu
 				has_building = building_type:tv_wonder_unique_machu_picchu_terraces_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_machu_picchu_terraces_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_machu_picchu_terraces_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18682,16 +19503,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_machu_picchu_terraces_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_machu_picchu_terraces_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 134 wonder_level = var:tv_wonder_display_unique_machu_picchu_terraces_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 134 wonder_level = var:tv_wonder_display_unique_machu_picchu_terraces_level wonder_ritual_style = var:tv_wonder_display_unique_machu_picchu_terraces_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 134 wonder_level = var:tv_wonder_display_unique_machu_picchu_terraces_level wonder_ritual_style = var:tv_wonder_display_unique_machu_picchu_terraces_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:portsmouth
 				has_building = building_type:tv_wonder_unique_british_navy_dockyards_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_british_navy_dockyards_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_british_navy_dockyards_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18745,16 +19567,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_british_navy_dockyards_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_british_navy_dockyards_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 135 wonder_level = var:tv_wonder_display_unique_british_navy_dockyards_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 135 wonder_level = var:tv_wonder_display_unique_british_navy_dockyards_level wonder_ritual_style = var:tv_wonder_display_unique_british_navy_dockyards_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 135 wonder_level = var:tv_wonder_display_unique_british_navy_dockyards_level wonder_ritual_style = var:tv_wonder_display_unique_british_navy_dockyards_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:sevilla
 				has_building = building_type:tv_wonder_unique_spanish_silver_fleet_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_spanish_silver_fleet_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_spanish_silver_fleet_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18808,16 +19631,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_spanish_silver_fleet_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_spanish_silver_fleet_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 136 wonder_level = var:tv_wonder_display_unique_spanish_silver_fleet_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 136 wonder_level = var:tv_wonder_display_unique_spanish_silver_fleet_level wonder_ritual_style = var:tv_wonder_display_unique_spanish_silver_fleet_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 136 wonder_level = var:tv_wonder_display_unique_spanish_silver_fleet_level wonder_ritual_style = var:tv_wonder_display_unique_spanish_silver_fleet_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:mecca
 				has_building = building_type:tv_wonder_unique_ottoman_hajj_road_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_ottoman_hajj_road_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_ottoman_hajj_road_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18871,16 +19695,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_ottoman_hajj_road_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_ottoman_hajj_road_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 137 wonder_level = var:tv_wonder_display_unique_ottoman_hajj_road_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 137 wonder_level = var:tv_wonder_display_unique_ottoman_hajj_road_level wonder_ritual_style = var:tv_wonder_display_unique_ottoman_hajj_road_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 137 wonder_level = var:tv_wonder_display_unique_ottoman_hajj_road_level wonder_ritual_style = var:tv_wonder_display_unique_ottoman_hajj_road_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:isfahan
 				has_building = building_type:tv_wonder_unique_persian_qanat_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_persian_qanat_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_persian_qanat_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18934,16 +19759,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_persian_qanat_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_persian_qanat_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 138 wonder_level = var:tv_wonder_display_unique_persian_qanat_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 138 wonder_level = var:tv_wonder_display_unique_persian_qanat_level wonder_ritual_style = var:tv_wonder_display_unique_persian_qanat_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 138 wonder_level = var:tv_wonder_display_unique_persian_qanat_level wonder_ritual_style = var:tv_wonder_display_unique_persian_qanat_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:shangyuan
 				has_building = building_type:tv_wonder_unique_longjiang_shipyard_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_longjiang_shipyard_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_longjiang_shipyard_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -18997,16 +19823,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_longjiang_shipyard_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_longjiang_shipyard_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 139 wonder_level = var:tv_wonder_display_unique_longjiang_shipyard_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 139 wonder_level = var:tv_wonder_display_unique_longjiang_shipyard_level wonder_ritual_style = var:tv_wonder_display_unique_longjiang_shipyard_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 139 wonder_level = var:tv_wonder_display_unique_longjiang_shipyard_level wonder_ritual_style = var:tv_wonder_display_unique_longjiang_shipyard_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:jerusalem
 				has_building = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_jerusalem_holy_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_jerusalem_holy_city_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19060,16 +19887,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_jerusalem_holy_city_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 140 wonder_level = var:tv_wonder_display_unique_jerusalem_holy_city_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 140 wonder_level = var:tv_wonder_display_unique_jerusalem_holy_city_level wonder_ritual_style = var:tv_wonder_display_unique_jerusalem_holy_city_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 140 wonder_level = var:tv_wonder_display_unique_jerusalem_holy_city_level wonder_ritual_style = var:tv_wonder_display_unique_jerusalem_holy_city_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:salisbury
 				has_building = building_type:tv_wonder_unique_stonehenge_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_stonehenge_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_stonehenge_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19123,16 +19951,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_stonehenge_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_stonehenge_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 141 wonder_level = var:tv_wonder_display_unique_stonehenge_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 141 wonder_level = var:tv_wonder_display_unique_stonehenge_level wonder_ritual_style = var:tv_wonder_display_unique_stonehenge_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 141 wonder_level = var:tv_wonder_display_unique_stonehenge_level wonder_ritual_style = var:tv_wonder_display_unique_stonehenge_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:london
 				has_building = building_type:tv_wonder_unique_tower_of_london_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_tower_of_london_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_tower_of_london_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19186,16 +20015,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_tower_of_london_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_tower_of_london_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 142 wonder_level = var:tv_wonder_display_unique_tower_of_london_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 142 wonder_level = var:tv_wonder_display_unique_tower_of_london_level wonder_ritual_style = var:tv_wonder_display_unique_tower_of_london_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 142 wonder_level = var:tv_wonder_display_unique_tower_of_london_level wonder_ritual_style = var:tv_wonder_display_unique_tower_of_london_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:paris
 				has_building = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_notre_dame_de_paris_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_notre_dame_de_paris_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19249,16 +20079,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_notre_dame_de_paris_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 143 wonder_level = var:tv_wonder_display_unique_notre_dame_de_paris_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 143 wonder_level = var:tv_wonder_display_unique_notre_dame_de_paris_level wonder_ritual_style = var:tv_wonder_display_unique_notre_dame_de_paris_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 143 wonder_level = var:tv_wonder_display_unique_notre_dame_de_paris_level wonder_ritual_style = var:tv_wonder_display_unique_notre_dame_de_paris_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:moscow
 				has_building = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_st_basils_cathedral_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_st_basils_cathedral_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19312,16 +20143,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_st_basils_cathedral_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 144 wonder_level = var:tv_wonder_display_unique_st_basils_cathedral_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 144 wonder_level = var:tv_wonder_display_unique_st_basils_cathedral_level wonder_ritual_style = var:tv_wonder_display_unique_st_basils_cathedral_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 144 wonder_level = var:tv_wonder_display_unique_st_basils_cathedral_level wonder_ritual_style = var:tv_wonder_display_unique_st_basils_cathedral_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:moscow
 				has_building = building_type:tv_wonder_unique_trinity_lavra_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_trinity_lavra_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_trinity_lavra_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19375,16 +20207,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_trinity_lavra_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_trinity_lavra_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 145 wonder_level = var:tv_wonder_display_unique_trinity_lavra_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 145 wonder_level = var:tv_wonder_display_unique_trinity_lavra_level wonder_ritual_style = var:tv_wonder_display_unique_trinity_lavra_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 145 wonder_level = var:tv_wonder_display_unique_trinity_lavra_level wonder_ritual_style = var:tv_wonder_display_unique_trinity_lavra_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:neva
 				has_building = building_type:tv_wonder_unique_winter_palace_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_winter_palace_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_winter_palace_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19438,16 +20271,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_winter_palace_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_winter_palace_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 146 wonder_level = var:tv_wonder_display_unique_winter_palace_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 146 wonder_level = var:tv_wonder_display_unique_winter_palace_level wonder_ritual_style = var:tv_wonder_display_unique_winter_palace_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 146 wonder_level = var:tv_wonder_display_unique_winter_palace_level wonder_ritual_style = var:tv_wonder_display_unique_winter_palace_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:hanyang
 				has_building = building_type:tv_wonder_unique_gyeongbokgung_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_gyeongbokgung_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_gyeongbokgung_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19501,16 +20335,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_gyeongbokgung_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_gyeongbokgung_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 147 wonder_level = var:tv_wonder_display_unique_gyeongbokgung_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 147 wonder_level = var:tv_wonder_display_unique_gyeongbokgung_level wonder_ritual_style = var:tv_wonder_display_unique_gyeongbokgung_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 147 wonder_level = var:tv_wonder_display_unique_gyeongbokgung_level wonder_ritual_style = var:tv_wonder_display_unique_gyeongbokgung_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:girin_ula
 				has_building = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_changbai_mountain_altar_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_changbai_mountain_altar_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19564,16 +20399,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_changbai_mountain_altar_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 148 wonder_level = var:tv_wonder_display_unique_changbai_mountain_altar_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 148 wonder_level = var:tv_wonder_display_unique_changbai_mountain_altar_level wonder_ritual_style = var:tv_wonder_display_unique_changbai_mountain_altar_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 148 wonder_level = var:tv_wonder_display_unique_changbai_mountain_altar_level wonder_ritual_style = var:tv_wonder_display_unique_changbai_mountain_altar_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:belgrad
 				has_building = building_type:tv_wonder_unique_belgrade_fortress_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_belgrade_fortress_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_belgrade_fortress_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19627,16 +20463,17 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_belgrade_fortress_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_belgrade_fortress_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 149 wonder_level = var:tv_wonder_display_unique_belgrade_fortress_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 149 wonder_level = var:tv_wonder_display_unique_belgrade_fortress_level wonder_ritual_style = var:tv_wonder_display_unique_belgrade_fortress_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 149 wonder_level = var:tv_wonder_display_unique_belgrade_fortress_level wonder_ritual_style = var:tv_wonder_display_unique_belgrade_fortress_ritual_style }
 	}
 	if = {
 		limit = {
 			OR = {
-				this = location:trikala
 				has_building = building_type:tv_wonder_unique_meteora_monasteries_inaugurated
 			}
 		}
 		set_variable = { name = tv_wonder_display_unique_meteora_monasteries_level value = 0 }
+		set_variable = { name = tv_wonder_display_unique_meteora_monasteries_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19690,7 +20527,8 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_unique_meteora_monasteries_inaugurated }
 			set_variable = { name = tv_wonder_display_unique_meteora_monasteries_ritual_style value = 1 }
 		}
-		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 150 wonder_level = var:tv_wonder_display_unique_meteora_monasteries_level }
+		tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = 150 wonder_level = var:tv_wonder_display_unique_meteora_monasteries_level wonder_ritual_style = var:tv_wonder_display_unique_meteora_monasteries_ritual_style }
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 150 wonder_level = var:tv_wonder_display_unique_meteora_monasteries_level wonder_ritual_style = var:tv_wonder_display_unique_meteora_monasteries_ritual_style }
 	}
 	if = {
 		limit = {
@@ -19701,6 +20539,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_sacred_mountain_level value = 0 }
+		set_variable = { name = tv_wonder_display_sacred_mountain_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19774,6 +20613,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_theocratic_center }
 			set_variable = { name = tv_wonder_display_sacred_mountain_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 1 wonder_level = var:tv_wonder_display_sacred_mountain_level wonder_ritual_style = var:tv_wonder_display_sacred_mountain_ritual_style }
 	}
 	if = {
 		limit = {
@@ -19784,6 +20624,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_triumphal_axis_level value = 0 }
+		set_variable = { name = tv_wonder_display_triumphal_axis_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19857,6 +20698,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_civic_capital }
 			set_variable = { name = tv_wonder_display_triumphal_axis_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 2 wonder_level = var:tv_wonder_display_triumphal_axis_level wonder_ritual_style = var:tv_wonder_display_triumphal_axis_ritual_style }
 	}
 	if = {
 		limit = {
@@ -19867,6 +20709,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_great_port_level value = 0 }
+		set_variable = { name = tv_wonder_display_great_port_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -19940,6 +20783,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_free_trade_metropolis }
 			set_variable = { name = tv_wonder_display_great_port_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 3 wonder_level = var:tv_wonder_display_great_port_level wonder_ritual_style = var:tv_wonder_display_great_port_ritual_style }
 	}
 	if = {
 		limit = {
@@ -19950,6 +20794,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_necropolis_level value = 0 }
+		set_variable = { name = tv_wonder_display_giant_necropolis_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20023,6 +20868,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_quiet_land }
 			set_variable = { name = tv_wonder_display_giant_necropolis_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 4 wonder_level = var:tv_wonder_display_giant_necropolis_level wonder_ritual_style = var:tv_wonder_display_giant_necropolis_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20033,6 +20879,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_great_lighthouse_level value = 0 }
+		set_variable = { name = tv_wonder_display_great_lighthouse_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20106,6 +20953,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_long_watch_lighthouse }
 			set_variable = { name = tv_wonder_display_great_lighthouse_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 5 wonder_level = var:tv_wonder_display_great_lighthouse_level wonder_ritual_style = var:tv_wonder_display_great_lighthouse_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20116,6 +20964,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_hydraulic_workshop_level value = 0 }
+		set_variable = { name = tv_wonder_display_hydraulic_workshop_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20189,6 +21038,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_waterwheel_workshop }
 			set_variable = { name = tv_wonder_display_hydraulic_workshop_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 6 wonder_level = var:tv_wonder_display_hydraulic_workshop_level wonder_ritual_style = var:tv_wonder_display_hydraulic_workshop_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20199,6 +21049,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_mining_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_mining_city_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20272,6 +21123,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_deep_shaft_city }
 			set_variable = { name = tv_wonder_display_mining_city_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 7 wonder_level = var:tv_wonder_display_mining_city_level wonder_ritual_style = var:tv_wonder_display_mining_city_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20282,6 +21134,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_observatory_level value = 0 }
+		set_variable = { name = tv_wonder_display_giant_observatory_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20355,6 +21208,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_eclipse_observatory }
 			set_variable = { name = tv_wonder_display_giant_observatory_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 8 wonder_level = var:tv_wonder_display_giant_observatory_level wonder_ritual_style = var:tv_wonder_display_giant_observatory_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20365,6 +21219,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_palace_of_nations_level value = 0 }
+		set_variable = { name = tv_wonder_display_palace_of_nations_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20438,6 +21293,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_embassy_palace }
 			set_variable = { name = tv_wonder_display_palace_of_nations_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 9 wonder_level = var:tv_wonder_display_palace_of_nations_level wonder_ritual_style = var:tv_wonder_display_palace_of_nations_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20448,6 +21304,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_university_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_university_city_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20521,6 +21378,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_collegiate_charter }
 			set_variable = { name = tv_wonder_display_university_city_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 10 wonder_level = var:tv_wonder_display_university_city_level wonder_ritual_style = var:tv_wonder_display_university_city_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20531,6 +21389,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_sky_dome_grand_temple_level value = 0 }
+		set_variable = { name = tv_wonder_display_sky_dome_grand_temple_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20604,6 +21463,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_celestial_synod }
 			set_variable = { name = tv_wonder_display_sky_dome_grand_temple_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 11 wonder_level = var:tv_wonder_display_sky_dome_grand_temple_level wonder_ritual_style = var:tv_wonder_display_sky_dome_grand_temple_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20614,6 +21474,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_tower_temple_level value = 0 }
+		set_variable = { name = tv_wonder_display_giant_tower_temple_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20687,6 +21548,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_temple_school_tower }
 			set_variable = { name = tv_wonder_display_giant_tower_temple_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 12 wonder_level = var:tv_wonder_display_giant_tower_temple_level wonder_ritual_style = var:tv_wonder_display_giant_tower_temple_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20697,6 +21559,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_river_extension_level value = 0 }
+		set_variable = { name = tv_wonder_display_river_extension_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20770,6 +21633,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_canal_authority }
 			set_variable = { name = tv_wonder_display_river_extension_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 13 wonder_level = var:tv_wonder_display_river_extension_level wonder_ritual_style = var:tv_wonder_display_river_extension_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20780,6 +21644,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_national_shipyard_level value = 0 }
+		set_variable = { name = tv_wonder_display_national_shipyard_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20853,6 +21718,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_admiralty_yard }
 			set_variable = { name = tv_wonder_display_national_shipyard_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 14 wonder_level = var:tv_wonder_display_national_shipyard_level wonder_ritual_style = var:tv_wonder_display_national_shipyard_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20863,6 +21729,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_star_fortress_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_star_fortress_city_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -20936,6 +21803,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_arsenal_quarter_fortress }
 			set_variable = { name = tv_wonder_display_star_fortress_city_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 15 wonder_level = var:tv_wonder_display_star_fortress_city_level wonder_ritual_style = var:tv_wonder_display_star_fortress_city_ritual_style }
 	}
 	if = {
 		limit = {
@@ -20946,6 +21814,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_great_wall_level value = 0 }
+		set_variable = { name = tv_wonder_display_great_wall_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21019,6 +21888,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_wall_oath }
 			set_variable = { name = tv_wonder_display_great_wall_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 16 wonder_level = var:tv_wonder_display_great_wall_level wonder_ritual_style = var:tv_wonder_display_great_wall_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21029,6 +21899,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_armory_level value = 0 }
+		set_variable = { name = tv_wonder_display_giant_armory_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21102,6 +21973,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_master_armourers }
 			set_variable = { name = tv_wonder_display_giant_armory_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 17 wonder_level = var:tv_wonder_display_giant_armory_level wonder_ritual_style = var:tv_wonder_display_giant_armory_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21112,6 +21984,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_library_of_nation_level value = 0 }
+		set_variable = { name = tv_wonder_display_library_of_nation_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21185,6 +22058,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_legal_deposit_library }
 			set_variable = { name = tv_wonder_display_library_of_nation_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 18 wonder_level = var:tv_wonder_display_library_of_nation_level wonder_ritual_style = var:tv_wonder_display_library_of_nation_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21195,6 +22069,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_large_canal_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_large_canal_system_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21268,6 +22143,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_flood_control_canal_system }
 			set_variable = { name = tv_wonder_display_large_canal_system_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 19 wonder_level = var:tv_wonder_display_large_canal_system_level wonder_ritual_style = var:tv_wonder_display_large_canal_system_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21278,6 +22154,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_mountain_terrace_network_level value = 0 }
+		set_variable = { name = tv_wonder_display_mountain_terrace_network_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21351,6 +22228,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_sacred_mountain_terraces }
 			set_variable = { name = tv_wonder_display_mountain_terrace_network_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 20 wonder_level = var:tv_wonder_display_mountain_terrace_network_level wonder_ritual_style = var:tv_wonder_display_mountain_terrace_network_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21361,6 +22239,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_dam_project_level value = 0 }
+		set_variable = { name = tv_wonder_display_giant_dam_project_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21434,6 +22313,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_water_powered_workshops }
 			set_variable = { name = tv_wonder_display_giant_dam_project_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 21 wonder_level = var:tv_wonder_display_giant_dam_project_level wonder_ritual_style = var:tv_wonder_display_giant_dam_project_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21444,6 +22324,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_royal_granary_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_royal_granary_system_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21517,6 +22398,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_disaster_relief_granaries }
 			set_variable = { name = tv_wonder_display_royal_granary_system_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 22 wonder_level = var:tv_wonder_display_royal_granary_system_level wonder_ritual_style = var:tv_wonder_display_royal_granary_system_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21527,6 +22409,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_imperial_post_road_network_level value = 0 }
+		set_variable = { name = tv_wonder_display_imperial_post_road_network_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21600,6 +22483,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_royal_tour_avenue }
 			set_variable = { name = tv_wonder_display_imperial_post_road_network_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 23 wonder_level = var:tv_wonder_display_imperial_post_road_network_level wonder_ritual_style = var:tv_wonder_display_imperial_post_road_network_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21610,6 +22494,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_canal_hub_city_level value = 0 }
+		set_variable = { name = tv_wonder_display_canal_hub_city_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21683,6 +22568,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_industrial_workshop_belt }
 			set_variable = { name = tv_wonder_display_canal_hub_city_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 24 wonder_level = var:tv_wonder_display_canal_hub_city_level wonder_ritual_style = var:tv_wonder_display_canal_hub_city_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21693,6 +22579,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_frontier_colonization_belt_level value = 0 }
+		set_variable = { name = tv_wonder_display_frontier_colonization_belt_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21766,6 +22653,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_religious_colonization_belt }
 			set_variable = { name = tv_wonder_display_frontier_colonization_belt_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 25 wonder_level = var:tv_wonder_display_frontier_colonization_belt_level wonder_ritual_style = var:tv_wonder_display_frontier_colonization_belt_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21776,6 +22664,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_coastal_beacon_network_level value = 0 }
+		set_variable = { name = tv_wonder_display_coastal_beacon_network_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21849,6 +22738,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_customs_patrol_network }
 			set_variable = { name = tv_wonder_display_coastal_beacon_network_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 26 wonder_level = var:tv_wonder_display_coastal_beacon_network_level wonder_ritual_style = var:tv_wonder_display_coastal_beacon_network_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21859,6 +22749,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_knightly_fortress_order_level value = 0 }
+		set_variable = { name = tv_wonder_display_knightly_fortress_order_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -21932,6 +22823,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_mercenary_fortress_system }
 			set_variable = { name = tv_wonder_display_knightly_fortress_order_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 27 wonder_level = var:tv_wonder_display_knightly_fortress_order_level wonder_ritual_style = var:tv_wonder_display_knightly_fortress_order_ritual_style }
 	}
 	if = {
 		limit = {
@@ -21942,6 +22834,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_war_college_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_war_college_system_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22015,6 +22908,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_naval_command_college }
 			set_variable = { name = tv_wonder_display_war_college_system_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 28 wonder_level = var:tv_wonder_display_war_college_system_level wonder_ritual_style = var:tv_wonder_display_war_college_system_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22025,6 +22919,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_great_clock_bell_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_great_clock_bell_system_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22098,6 +22993,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_astronomical_calendar_bells }
 			set_variable = { name = tv_wonder_display_great_clock_bell_system_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 29 wonder_level = var:tv_wonder_display_great_clock_bell_system_level wonder_ritual_style = var:tv_wonder_display_great_clock_bell_system_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22108,6 +23004,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_royal_art_district_level value = 0 }
+		set_variable = { name = tv_wonder_display_royal_art_district_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22181,6 +23078,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_foreign_style_district }
 			set_variable = { name = tv_wonder_display_royal_art_district_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 30 wonder_level = var:tv_wonder_display_royal_art_district_level wonder_ritual_style = var:tv_wonder_display_royal_art_district_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22191,6 +23089,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_grand_theater_festival_district_level value = 0 }
+		set_variable = { name = tv_wonder_display_grand_theater_festival_district_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22264,6 +23163,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_popular_festival_ground }
 			set_variable = { name = tv_wonder_display_grand_theater_festival_district_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 31 wonder_level = var:tv_wonder_display_grand_theater_festival_district_level wonder_ritual_style = var:tv_wonder_display_grand_theater_festival_district_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22274,6 +23174,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_world_embassy_quarter_level value = 0 }
+		set_variable = { name = tv_wonder_display_world_embassy_quarter_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22347,6 +23248,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_religious_diplomacy_embassies }
 			set_variable = { name = tv_wonder_display_world_embassy_quarter_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 32 wonder_level = var:tv_wonder_display_world_embassy_quarter_level wonder_ritual_style = var:tv_wonder_display_world_embassy_quarter_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22357,6 +23259,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_law_code_stele_project_level value = 0 }
+		set_variable = { name = tv_wonder_display_law_code_stele_project_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22430,6 +23333,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_imperial_edict_steles }
 			set_variable = { name = tv_wonder_display_law_code_stele_project_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 33 wonder_level = var:tv_wonder_display_law_code_stele_project_level wonder_ritual_style = var:tv_wonder_display_law_code_stele_project_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22440,6 +23344,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_world_market_level value = 0 }
+		set_variable = { name = tv_wonder_display_world_market_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22513,6 +23418,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_entrepot_market }
 			set_variable = { name = tv_wonder_display_world_market_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 34 wonder_level = var:tv_wonder_display_world_market_level wonder_ritual_style = var:tv_wonder_display_world_market_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22523,6 +23429,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_royal_mint_system_level value = 0 }
+		set_variable = { name = tv_wonder_display_royal_mint_system_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22596,6 +23503,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_international_settlement_mint }
 			set_variable = { name = tv_wonder_display_royal_mint_system_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 35 wonder_level = var:tv_wonder_display_royal_mint_system_level wonder_ritual_style = var:tv_wonder_display_royal_mint_system_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22606,6 +23514,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_guild_alliance_level value = 0 }
+		set_variable = { name = tv_wonder_display_guild_alliance_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22679,6 +23588,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_financial_guilds }
 			set_variable = { name = tv_wonder_display_guild_alliance_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 36 wonder_level = var:tv_wonder_display_guild_alliance_level wonder_ritual_style = var:tv_wonder_display_guild_alliance_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22689,6 +23599,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_maritime_trade_station_network_level value = 0 }
+		set_variable = { name = tv_wonder_display_maritime_trade_station_network_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22762,6 +23673,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_colonial_supply_stations }
 			set_variable = { name = tv_wonder_display_maritime_trade_station_network_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 37 wonder_level = var:tv_wonder_display_maritime_trade_station_network_level wonder_ritual_style = var:tv_wonder_display_maritime_trade_station_network_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22772,6 +23684,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_giant_workshop_complex_level value = 0 }
+		set_variable = { name = tv_wonder_display_giant_workshop_complex_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22845,6 +23758,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_luxury_craft_workshop_complex }
 			set_variable = { name = tv_wonder_display_giant_workshop_complex_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 38 wonder_level = var:tv_wonder_display_giant_workshop_complex_level wonder_ritual_style = var:tv_wonder_display_giant_workshop_complex_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22855,6 +23769,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_world_monument_group_level value = 0 }
+		set_variable = { name = tv_wonder_display_world_monument_group_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -22928,6 +23843,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_world_exposition_monument_group }
 			set_variable = { name = tv_wonder_display_world_monument_group_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 39 wonder_level = var:tv_wonder_display_world_monument_group_level wonder_ritual_style = var:tv_wonder_display_world_monument_group_ritual_style }
 	}
 	if = {
 		limit = {
@@ -22938,6 +23854,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_city_expansion_project_level value = 0 }
+		set_variable = { name = tv_wonder_display_city_expansion_project_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -23011,6 +23928,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_urban_renewal }
 			set_variable = { name = tv_wonder_display_city_expansion_project_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 40 wonder_level = var:tv_wonder_display_city_expansion_project_level wonder_ritual_style = var:tv_wonder_display_city_expansion_project_ritual_style }
 	}
 	if = {
 		limit = {
@@ -23021,6 +23939,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_megalithic_circle_level value = 0 }
+		set_variable = { name = tv_wonder_display_megalithic_circle_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -23094,6 +24013,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_ancestral_moot_circle }
 			set_variable = { name = tv_wonder_display_megalithic_circle_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 41 wonder_level = var:tv_wonder_display_megalithic_circle_level wonder_ritual_style = var:tv_wonder_display_megalithic_circle_ritual_style }
 	}
 	if = {
 		limit = {
@@ -23104,6 +24024,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_grand_cathedral_level value = 0 }
+		set_variable = { name = tv_wonder_display_grand_cathedral_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -23177,6 +24098,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_civic_bells_cathedral }
 			set_variable = { name = tv_wonder_display_grand_cathedral_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 42 wonder_level = var:tv_wonder_display_grand_cathedral_level wonder_ritual_style = var:tv_wonder_display_grand_cathedral_ritual_style }
 	}
 	if = {
 		limit = {
@@ -23187,6 +24109,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_display_great_monastery_level value = 0 }
+		set_variable = { name = tv_wonder_display_great_monastery_ritual_style value = 0 }
 		set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 		if = {
 			limit = {
@@ -23260,7 +24183,9 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = { has_building = building_type:tv_wonder_fortified_cloister_monastery }
 			set_variable = { name = tv_wonder_display_great_monastery_ritual_style value = 3 }
 		}
+		tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = 43 wonder_level = var:tv_wonder_display_great_monastery_level wonder_ritual_style = var:tv_wonder_display_great_monastery_ritual_style }
 	}
+	remove_variable = tv_wonder_tooltip_fill_count
 }
 
 tv_wonder_mechanics_refresh_world_location_display_state_effect = {

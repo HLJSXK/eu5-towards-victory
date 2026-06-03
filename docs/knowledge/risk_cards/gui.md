@@ -81,6 +81,36 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     target link and can spam scope-mismatch errors. Use `owner ?= { ... }` for
     country effects shown from a location-root tooltip.
 
+15. Avoid dynamic concept links from localized keys.
+    `SelectGameConcept` can produce a localized display string before the
+    square-bracket concept-link parser consumes it. If the key is dynamic, use
+    `Localize(Concatenate('game_concept_', key))` for plain text. For an actual
+    clickable concept link, generate static branches with literal `[concept|E]`
+    text.
+
+16. Use EU5 image fit enums, not CSS names.
+    Vanilla GUI uses `fittype` values such as `centercrop`, `fill`, `start`,
+    and `end`. `contain` is not accepted and logs `Unknown fit type 'contain'`
+    during GUI loading.
+
+17. Do not treat `GetFlagName` as a raw key.
+    A flag stored in a variable or variable map can render through localization
+    in GUI, especially for game-concept-like ids. If a widget must build
+    modifier names, localization keys, texture keys, or scripted-effect names,
+    store a numeric id and generate static id branches, or use a typed object
+    with a verified `GetKey` accessor.
+
+18. Do not build raw DDS paths with `Concatenate` inside `texture`.
+    Static `texture = "gfx/...dds"` paths are parsed by the GUI loader, but a
+    runtime expression that returns a CString path does not behave like a texture
+    handle. In the location-window test, `GetConceptTexture(Concatenate(...))`
+    rendered while nested, suffix-only, and flat `Concatenate('gfx/...dds', '')`
+    path expressions stayed blank without useful log errors. For arbitrary
+    dynamic mod images, register image-only game concepts with matching
+    `game_concept_*` and `game_concept_*_desc` localization, then route through
+    `GetConceptTexture`, preferably with numeric ids such as
+    `tv_wonder_display_image_<id>`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

@@ -33,6 +33,7 @@ OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_e
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py"
 T = "\t"
 DISPLAY_SLOT_MAX = 3
+TOOLTIP_SLOT_MAX = 5
 RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_auxiliary_building_finished",
     "tv_wonder_ritual_total_buildings_baseline",
@@ -203,6 +204,10 @@ def ritual_location_tooltip_effect_name(wonder: dict, style: int) -> str:
     return f"tv_wonder_{wonder['key']}_ritual_{style}_location_tooltip_effect"
 
 
+def ritual_location_tooltip_effect_alias_name(wonder: dict, style: int) -> str:
+    return f"tv_wonder_display_{wonder['id']}_ritual_{style}_location_tooltip_effect"
+
+
 def location_tooltip_country_modifier_lines(modifier_name: str, indent: int) -> list[str]:
     prefix = T * indent
     return [
@@ -319,6 +324,11 @@ def append_ritual_tooltip_effects(lines: list[str], ritual_entry_list: list[tupl
         lines.append("}")
         lines.append("")
 
+        lines.append(f"{ritual_location_tooltip_effect_alias_name(wonder, style)} = {{")
+        lines.append(f"{T}{ritual_location_tooltip_effect_name(wonder, style)} = yes")
+        lines.append("}")
+        lines.append("")
+
 
 def loc_level(building: str, op: str, level: int) -> str:
     return f"location_building_level = {{ building_type = building_type:{building} value {op} {level} }}"
@@ -338,6 +348,22 @@ def slot_id_var(slot: int) -> str:
 
 def slot_level_var(slot: int) -> str:
     return f"tv_wonder_display_slot_{slot}_level"
+
+
+def slot_ritual_style_var(slot: int) -> str:
+    return f"tv_wonder_display_slot_{slot}_ritual_style"
+
+
+def tooltip_slot_id_var(slot: int) -> str:
+    return f"tv_wonder_tooltip_slot_{slot}_id"
+
+
+def tooltip_slot_level_var(slot: int) -> str:
+    return f"tv_wonder_tooltip_slot_{slot}_level"
+
+
+def tooltip_slot_ritual_style_var(slot: int) -> str:
+    return f"tv_wonder_tooltip_slot_{slot}_ritual_style"
 
 
 def append_location_display_level_detection(lines: list[str], wonder: dict, *, indent: int, var_name: str) -> None:
@@ -366,14 +392,7 @@ def append_location_display_ritual_style_detection(lines: list[str], wonder: dic
         lines.append(f"{prefix}}}")
 
 
-def append_location_display_effects(
-    lines: list[str],
-    *,
-    unique_wonders: list[dict],
-    generic_wonders: list[dict],
-) -> None:
-    all_wonders = [*unique_wonders, *generic_wonders]
-
+def append_location_display_push_effects(lines: list[str]) -> None:
     lines.append("tv_wonder_mechanics_push_location_display_slot_effect = {")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ NOT = {{ has_variable = tv_wonder_display_count }} }}")
@@ -385,63 +404,104 @@ def append_location_display_effects(
         lines.append(f"{T}{T}limit = {{ var:tv_wonder_display_count < {slot} }}")
         lines.append(f"{T}{T}set_variable = {{ name = {slot_id_var(slot)} value = $wonder_id$ }}")
         lines.append(f"{T}{T}set_variable = {{ name = {slot_level_var(slot)} value = $wonder_level$ }}")
+        lines.append(f"{T}{T}set_variable = {{ name = {slot_ritual_style_var(slot)} value = $wonder_ritual_style$ }}")
         lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_display_count add = 1 }}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
+    lines.append("tv_wonder_mechanics_push_location_tooltip_slot_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ NOT = {{ has_variable = tv_wonder_tooltip_fill_count }} }}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_tooltip_fill_count value = 0 }}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ NOT = {{ has_variable = tv_wonder_tooltip_overflow_count }} }}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_tooltip_overflow_count value = 0 }}")
+    lines.append(f"{T}}}")
+    for slot in range(1, TOOLTIP_SLOT_MAX + 1):
+        head = "if" if slot == 1 else "else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_tooltip_fill_count < {slot} }}")
+        lines.append(f"{T}{T}set_variable = {{ name = {tooltip_slot_id_var(slot)} value = $wonder_id$ }}")
+        lines.append(f"{T}{T}set_variable = {{ name = {tooltip_slot_level_var(slot)} value = $wonder_level$ }}")
+        lines.append(f"{T}{T}set_variable = {{ name = {tooltip_slot_ritual_style_var(slot)} value = $wonder_ritual_style$ }}")
+        lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_tooltip_fill_count add = 1 }}")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}else = {{")
+    lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_tooltip_overflow_count add = 1 }}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_location_display_clear_effect(lines: list[str], all_wonders: list[dict]) -> None:
     lines.append("tv_wonder_mechanics_clear_location_display_state_effect = {")
     lines.append(f"{T}remove_variable = tv_wonder_display_id")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_display_count value = 0 }}")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 0 }}")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_tooltip_fill_count value = 0 }}")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_tooltip_overflow_count value = 0 }}")
     for slot in range(1, DISPLAY_SLOT_MAX + 1):
         lines.append(f"{T}remove_variable = {slot_id_var(slot)}")
         lines.append(f"{T}remove_variable = {slot_level_var(slot)}")
+        lines.append(f"{T}remove_variable = {slot_ritual_style_var(slot)}")
+    for slot in range(1, TOOLTIP_SLOT_MAX + 1):
+        lines.append(f"{T}remove_variable = {tooltip_slot_id_var(slot)}")
+        lines.append(f"{T}remove_variable = {tooltip_slot_level_var(slot)}")
+        lines.append(f"{T}remove_variable = {tooltip_slot_ritual_style_var(slot)}")
     for wonder in all_wonders:
         lines.append(f"{T}remove_variable = {location_display_level_var(wonder)}")
         lines.append(f"{T}remove_variable = {location_display_ritual_style_var(wonder)}")
     lines.append("}")
     lines.append("")
 
+
+def append_location_display_wonder_projection(lines: list[str], wonder: dict, *, compact: bool) -> None:
+    level_var = location_display_level_var(wonder)
+    ritual_style_var = location_display_ritual_style_var(wonder)
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}OR = {{")
+    for building in wonder["final_buildings"].values():
+        lines.append(f"{T}{T}{T}{T}has_building = building_type:{building}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}set_variable = {{ name = {level_var} value = 0 }}")
+    lines.append(f"{T}{T}set_variable = {{ name = {ritual_style_var} value = 0 }}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 1 }}")
+    append_location_display_level_detection(lines, wonder, indent=2, var_name=level_var)
+    append_location_display_ritual_style_detection(lines, wonder, indent=2, var_name=ritual_style_var)
+    if compact:
+        lines.append(
+            f"{T}{T}tv_wonder_mechanics_push_location_display_slot_effect = {{ "
+            f"wonder_id = {wonder['id']} wonder_level = var:{level_var} wonder_ritual_style = var:{ritual_style_var} }}"
+        )
+    lines.append(
+        f"{T}{T}tv_wonder_mechanics_push_location_tooltip_slot_effect = {{ "
+        f"wonder_id = {wonder['id']} wonder_level = var:{level_var} wonder_ritual_style = var:{ritual_style_var} }}"
+    )
+    lines.append(f"{T}}}")
+
+
+def append_location_display_effects(
+    lines: list[str],
+    *,
+    unique_wonders: list[dict],
+    generic_wonders: list[dict],
+) -> None:
+    all_wonders = [*unique_wonders, *generic_wonders]
+
+    append_location_display_push_effects(lines)
+    append_location_display_clear_effect(lines, all_wonders)
+
     lines.append("tv_wonder_mechanics_refresh_location_display_state_effect = {")
     lines.append(f"{T}tv_wonder_mechanics_clear_location_display_state_effect = yes")
     for wonder in unique_wonders:
-        level_var = location_display_level_var(wonder)
-        ritual_style_var = location_display_ritual_style_var(wonder)
-        lines.append(f"{T}if = {{")
-        lines.append(f"{T}{T}limit = {{")
-        lines.append(f"{T}{T}{T}OR = {{")
-        lines.append(f"{T}{T}{T}{T}this = location:{wonder['location']}")
-        for building in wonder["final_buildings"].values():
-            lines.append(f"{T}{T}{T}{T}has_building = building_type:{building}")
-        lines.append(f"{T}{T}{T}}}")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}set_variable = {{ name = {level_var} value = 0 }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 1 }}")
-        append_location_display_level_detection(lines, wonder, indent=2, var_name=level_var)
-        append_location_display_ritual_style_detection(lines, wonder, indent=2, var_name=ritual_style_var)
-        lines.append(
-            f"{T}{T}tv_wonder_mechanics_push_location_display_slot_effect = {{ wonder_id = {wonder['id']} wonder_level = var:{level_var} }}"
-        )
-        lines.append(f"{T}}}")
-
-    # Generic wonders stay available to the tooltip but do not occupy location UI display slots.
+        append_location_display_wonder_projection(lines, wonder, compact=True)
     for wonder in generic_wonders:
-        level_var = location_display_level_var(wonder)
-        ritual_style_var = location_display_ritual_style_var(wonder)
-        lines.append(f"{T}if = {{")
-        lines.append(f"{T}{T}limit = {{")
-        lines.append(f"{T}{T}{T}OR = {{")
-        for building in wonder["final_buildings"].values():
-            lines.append(f"{T}{T}{T}{T}has_building = building_type:{building}")
-        lines.append(f"{T}{T}{T}}}")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}set_variable = {{ name = {level_var} value = 0 }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 1 }}")
-        append_location_display_level_detection(lines, wonder, indent=2, var_name=level_var)
-        append_location_display_ritual_style_detection(lines, wonder, indent=2, var_name=ritual_style_var)
-        lines.append(f"{T}}}")
-
+        append_location_display_wonder_projection(lines, wonder, compact=False)
+    lines.append(f"{T}remove_variable = tv_wonder_tooltip_fill_count")
     lines.append("}")
     lines.append("")
 

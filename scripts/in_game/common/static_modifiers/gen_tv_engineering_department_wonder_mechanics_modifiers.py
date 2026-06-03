@@ -21,6 +21,7 @@ from wonder_mechanics_lib import (
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "static_modifiers" / "tv_engineering_department_wonder_mechanics_modifiers.txt"
 SCRIPT_REL = "scripts/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_mechanics_modifiers.py"
 T = "\t"
+DISPLAY_MODIFIER_PREFIX = "tv_wonder_display_"
 
 
 def fmt_value(value: object) -> str:
@@ -58,6 +59,10 @@ def modifier_block(name: str, modifiers: dict) -> list[str]:
     return lines
 
 
+def display_modifier_name(wonder: dict, level: int) -> str:
+    return f"{DISPLAY_MODIFIER_PREFIX}{wonder['id']}_level_{level}"
+
+
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
@@ -65,7 +70,9 @@ def generate() -> str:
         base = mechanics["base_modifiers"][mechanic_key(wonder)]
         multiplier = wonder.get("base_effect_multiplier", 1)
         for level in range(1, 7):
-            lines.extend(modifier_block(f"tv_wonder_{wonder['key']}_level_{level}", scaled_modifiers(base, level, multiplier)))
+            modifiers = scaled_modifiers(base, level, multiplier)
+            lines.extend(modifier_block(f"tv_wonder_{wonder['key']}_level_{level}", modifiers))
+            lines.extend(modifier_block(display_modifier_name(wonder, level), modifiers))
     for wonder in wonders:
         has_timed_ritual = False
         for style in ceremony_styles(wonder):

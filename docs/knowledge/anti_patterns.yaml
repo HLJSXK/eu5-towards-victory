@@ -1128,6 +1128,39 @@
   source: "reference_game_files/game/main_menu/common/game_concepts/00_game_concepts.txt:73-75; runtime error.log: Data error in loc string 'tv_cultural_m1_io_grant_tt'"
   notes: "Unregistered custom concepts in square brackets are parsed as data-system functions. The engine logs 'Could not find data system function <concept>' and renders ERROR:<concept> in tooltip text."
 
+- id: gui_dynamic_selectgameconcept_localized_key
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['gui']
+  bad: "Using SelectGameConcept with a dynamic key expression that can be localized before the concept-link parser consumes it"
+  correction: "For dynamic display names, render plain text with Localize(Concatenate('game_concept_', key)). For clickable concept links, generate static [concept|E] branches keyed by a saved id."
+  category: gui
+  scope: localization
+  source: "runtime error.log from location_window.gui dynamic wonder display: Data error in loc string '[圣山|e]'"
+  notes: "A flag-derived wonder concept key rendered through dynamic SelectGameConcept became the localized Chinese name before link parsing. The parser then looked for a data-system function named after the localized text and logged Could not find data system function."
+
+- id: gui_getflagname_used_as_raw_key
+  detectability: advisory
+  pattern: 'GetFlagName'
+  only_in_paths: ['gui']
+  bad: "Using GetFlagName from a script variable or variable_map value as a raw script key for localization, modifier, texture, or effect-name concatenation"
+  correction: "If the downstream GUI needs a stable script key, store a numeric id and generate static id branches, or use a typed datamodel object with a real GetKey accessor. Treat GetFlagName as display/localization-prone text."
+  category: gui
+  scope: variable_map
+  source: "in-game location_window dynamic display test: GetFlagName for flag:tv_wonder_unique_pharos_lighthouse rendered 法罗斯灯塔"
+  notes: "Concept/localized flags can return their localized display name in GUI. Concatenating that result produced game_concept_法罗斯灯塔 and 法罗斯灯塔_level_3 instead of raw script keys."
+
+- id: gui_css_like_fittype_contain
+  detectability: advisory
+  pattern: 'fittype\s*=\s*contain'
+  only_in_paths: ['gui']
+  bad: "Using CSS-like GUI image fittype = contain"
+  correction: "Use a vanilla-supported EU5 fittype such as centercrop, fill, start, or end, or omit fittype when no fit transform is needed."
+  category: gui
+  scope: image
+  source: "runtime error.log from location_window.gui: Unknown fit type 'contain'; vanilla GUI search shows fittype values centercrop/fill/start/end"
+  notes: "EU5 GUI fittype names are not CSS object-fit names. The location-window dynamic test icon used contain and failed static GUI conversion at startup."
+
 - id: engineering_building_loc_used_as_game_concept
   detectability: lint
   pattern: '\[(tv_wonder_labor_camp|tv_wonder_material_depot|tv_wonder_material_dispatch_point)\|[Ee]\]'
@@ -1529,3 +1562,13 @@
   scope: character
   source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:5924-5943"
   notes: "country_cabinet_efficiency is a country modifier type and has no effect on a character modifier; the character-scoped equivalent is character_cabinet_efficiency."
+
+- id: gui_texture_concatenate_raw_path
+  pattern: ''
+  detectability: advisory
+  bad: "Using texture = \"[Concatenate('gfx/...', key, '.dds')]\" to dynamically select a raw DDS path"
+  correction: "Route dynamic images through a GUI function that returns a texture handle, such as GetConceptTexture(...). For arbitrary mod DDS assets, register image-only game concepts like tv_wonder_display_image_<id>, add matching game_concept_* and game_concept_*_desc localization, and build that concept id from a numeric slot id."
+  category: gui
+  scope: texture
+  source: "runtime-tested in src/in_game/gui/location_window.gui dynamic wonder display test; reference_official_defines/docs/data_types_uncategorized.txt lists GetConceptTexture"
+  notes: "In the location-window test, GetConceptTexture(Concatenate(...)) rendered, but nested, suffix-only, and flat Concatenate expressions that returned raw DDS path strings did not render and produced no useful error log. Static texture paths are parsed by the GUI loader, while runtime texture expressions need a texture-like return value rather than a CString path."
