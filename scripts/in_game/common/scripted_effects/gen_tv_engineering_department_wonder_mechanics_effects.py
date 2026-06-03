@@ -733,6 +733,30 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
+    lines.append("tv_wonder_mechanics_clear_completed_survey_from_location_effect = {")
+    for idx, wonder in enumerate(all_wonders):
+        head = "if" if idx == 0 else "else_if"
+        key = wonder["key"]
+        rows = suitability_knowledge_for_wonder(mechanics, wonder)
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}exists = scope:tv_wonder_selected_survey_site")
+        lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}scope:tv_wonder_selected_survey_site = {{")
+        lines.append(f"{T}{T}{T}remove_variable = tv_wonder_surveyed_{key}")
+        lines.append(f"{T}{T}{T}remove_variable = tv_wonder_{key}_scale_competence")
+        lines.append(f"{T}{T}{T}remove_variable = tv_wonder_{key}_logistics_competence")
+        lines.append(f"{T}{T}{T}remove_variable = tv_wonder_{key}_organization_competence")
+        lines.append(f"{T}{T}{T}remove_variable = tv_wonder_{key}_scale_tier")
+        for row_index, _row in enumerate(rows, start=1):
+            actual_var = suitability_actual_variable_for_wonder(wonder, row_index)
+            lines.append(f"{T}{T}{T}remove_variable = {actual_var}")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
     lines.append("tv_wonder_mechanics_store_survey_on_location_effect = {")
     for idx, wonder in enumerate(all_wonders):
         head = "if" if idx == 0 else "else_if"

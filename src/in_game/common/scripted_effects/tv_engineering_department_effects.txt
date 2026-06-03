@@ -1584,6 +1584,10 @@ tv_wonder_store_survey_on_location_effect = {
 	tv_wonder_mechanics_store_survey_on_location_effect = yes
 }
 
+tv_wonder_clear_completed_survey_from_location_effect = {
+	tv_wonder_mechanics_clear_completed_survey_from_location_effect = yes
+}
+
 tv_wonder_apply_survey_site_preference_effect = {
 	tv_wonder_mechanics_apply_survey_site_preference_effect = yes
 }
@@ -1649,6 +1653,24 @@ tv_wonder_prepare_survey_competence_targets_effect = {
 
 tv_wonder_start_survey_effect = {
 	tv_wonder_mechanics_start_survey_effect = yes
+}
+
+tv_wonder_rerun_survey_effect = {
+	if = {
+		limit = { tv_wonder_can_rerun_survey_trigger = yes }
+		var:tv_wonder_survey_site ?= { save_scope_as = tv_wonder_selected_survey_site }
+		if = {
+			limit = { exists = scope:tv_wonder_selected_survey_site }
+			tv_wonder_clear_completed_survey_from_location_effect = yes
+			tv_wonder_clear_current_survey_effect = yes
+			tv_wonder_mechanics_clear_suitability_actuals_effect = yes
+			set_variable = { name = tv_wonder_survey_site value = scope:tv_wonder_selected_survey_site }
+			set_variable = { name = tv_wonder_stage value = 2 }
+			set_variable = { name = tv_wonder_survey_active value = 1 }
+			tv_wonder_prepare_survey_competence_targets_effect = yes
+			tv_wonder_set_io_survey_progress_effect = { value = 0 }
+		}
+	}
 }
 
 tv_wonder_complete_survey_effect = {

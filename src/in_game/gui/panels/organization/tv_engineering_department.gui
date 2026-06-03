@@ -11435,11 +11435,15 @@ widget = {
 										action_name = "tv_wonder_start_survey"
 									}
 								}
-								button_regular_diamond = {
+								action_button_diamond = {
 									size = { 228 30 }
-									using = button_common_textobj_template
-									tooltip_enabled = no
 									text = "TV_ENGINEERING_RERUN_SURVEY_BUTTON"
+									title = "tv_wonder_rerun_survey"
+									description = "tv_wonder_rerun_survey_desc"
+									actor = "[InternationalOrganizationsView.GetPlayer]"
+									left_action = {
+										action_name = "tv_wonder_rerun_survey"
+									}
 								}
 							}
 							hbox = {

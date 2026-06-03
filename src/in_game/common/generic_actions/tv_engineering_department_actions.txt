@@ -235,6 +235,28 @@ tv_wonder_start_survey = {
 	ai_will_do = { add = -100 }
 }
 
+tv_wonder_rerun_survey = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = { scope:actor = { has_variable = tv_engineering_department_member } }
+	allow = {
+		scope:actor = {
+			tv_wonder_can_rerun_survey_trigger = yes
+		}
+	}
+	effect = {
+		scope:actor = {
+			if = {
+				limit = { tv_wonder_can_rerun_survey_trigger = yes }
+				hidden_effect = { tv_wonder_rerun_survey_effect = yes }
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_wonder_select_construction_site = {
 	type = owncountry
 	sound = UI_action_religion_generic

@@ -7511,6 +7511,1450 @@ tv_wonder_mechanics_copy_completed_survey_from_location_effect = {
 	}
 }
 
+tv_wonder_mechanics_clear_completed_survey_from_location_effect = {
+	if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 1
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_sacred_mountain
+			remove_variable = tv_wonder_sacred_mountain_scale_competence
+			remove_variable = tv_wonder_sacred_mountain_logistics_competence
+			remove_variable = tv_wonder_sacred_mountain_organization_competence
+			remove_variable = tv_wonder_sacred_mountain_scale_tier
+			remove_variable = tv_wonder_suitability_actual_sacred_mountain_1
+			remove_variable = tv_wonder_suitability_actual_sacred_mountain_2
+			remove_variable = tv_wonder_suitability_actual_sacred_mountain_3
+			remove_variable = tv_wonder_suitability_actual_sacred_mountain_4
+			remove_variable = tv_wonder_suitability_actual_sacred_mountain_5
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 2
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_triumphal_axis
+			remove_variable = tv_wonder_triumphal_axis_scale_competence
+			remove_variable = tv_wonder_triumphal_axis_logistics_competence
+			remove_variable = tv_wonder_triumphal_axis_organization_competence
+			remove_variable = tv_wonder_triumphal_axis_scale_tier
+			remove_variable = tv_wonder_suitability_actual_triumphal_axis_1
+			remove_variable = tv_wonder_suitability_actual_triumphal_axis_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 3
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_great_port
+			remove_variable = tv_wonder_great_port_scale_competence
+			remove_variable = tv_wonder_great_port_logistics_competence
+			remove_variable = tv_wonder_great_port_organization_competence
+			remove_variable = tv_wonder_great_port_scale_tier
+			remove_variable = tv_wonder_suitability_actual_great_port_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 4
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_giant_necropolis
+			remove_variable = tv_wonder_giant_necropolis_scale_competence
+			remove_variable = tv_wonder_giant_necropolis_logistics_competence
+			remove_variable = tv_wonder_giant_necropolis_organization_competence
+			remove_variable = tv_wonder_giant_necropolis_scale_tier
+			remove_variable = tv_wonder_suitability_actual_giant_necropolis_1
+			remove_variable = tv_wonder_suitability_actual_giant_necropolis_2
+			remove_variable = tv_wonder_suitability_actual_giant_necropolis_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 5
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_great_lighthouse
+			remove_variable = tv_wonder_great_lighthouse_scale_competence
+			remove_variable = tv_wonder_great_lighthouse_logistics_competence
+			remove_variable = tv_wonder_great_lighthouse_organization_competence
+			remove_variable = tv_wonder_great_lighthouse_scale_tier
+			remove_variable = tv_wonder_suitability_actual_great_lighthouse_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 6
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_hydraulic_workshop
+			remove_variable = tv_wonder_hydraulic_workshop_scale_competence
+			remove_variable = tv_wonder_hydraulic_workshop_logistics_competence
+			remove_variable = tv_wonder_hydraulic_workshop_organization_competence
+			remove_variable = tv_wonder_hydraulic_workshop_scale_tier
+			remove_variable = tv_wonder_suitability_actual_hydraulic_workshop_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 7
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_mining_city
+			remove_variable = tv_wonder_mining_city_scale_competence
+			remove_variable = tv_wonder_mining_city_logistics_competence
+			remove_variable = tv_wonder_mining_city_organization_competence
+			remove_variable = tv_wonder_mining_city_scale_tier
+			remove_variable = tv_wonder_suitability_actual_mining_city_1
+			remove_variable = tv_wonder_suitability_actual_mining_city_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 8
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_giant_observatory
+			remove_variable = tv_wonder_giant_observatory_scale_competence
+			remove_variable = tv_wonder_giant_observatory_logistics_competence
+			remove_variable = tv_wonder_giant_observatory_organization_competence
+			remove_variable = tv_wonder_giant_observatory_scale_tier
+			remove_variable = tv_wonder_suitability_actual_giant_observatory_1
+			remove_variable = tv_wonder_suitability_actual_giant_observatory_2
+			remove_variable = tv_wonder_suitability_actual_giant_observatory_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 9
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_palace_of_nations
+			remove_variable = tv_wonder_palace_of_nations_scale_competence
+			remove_variable = tv_wonder_palace_of_nations_logistics_competence
+			remove_variable = tv_wonder_palace_of_nations_organization_competence
+			remove_variable = tv_wonder_palace_of_nations_scale_tier
+			remove_variable = tv_wonder_suitability_actual_palace_of_nations_1
+			remove_variable = tv_wonder_suitability_actual_palace_of_nations_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 10
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_university_city
+			remove_variable = tv_wonder_university_city_scale_competence
+			remove_variable = tv_wonder_university_city_logistics_competence
+			remove_variable = tv_wonder_university_city_organization_competence
+			remove_variable = tv_wonder_university_city_scale_tier
+			remove_variable = tv_wonder_suitability_actual_university_city_1
+			remove_variable = tv_wonder_suitability_actual_university_city_2
+			remove_variable = tv_wonder_suitability_actual_university_city_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 11
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_sky_dome_grand_temple
+			remove_variable = tv_wonder_sky_dome_grand_temple_scale_competence
+			remove_variable = tv_wonder_sky_dome_grand_temple_logistics_competence
+			remove_variable = tv_wonder_sky_dome_grand_temple_organization_competence
+			remove_variable = tv_wonder_sky_dome_grand_temple_scale_tier
+			remove_variable = tv_wonder_suitability_actual_sky_dome_grand_temple_1
+			remove_variable = tv_wonder_suitability_actual_sky_dome_grand_temple_2
+			remove_variable = tv_wonder_suitability_actual_sky_dome_grand_temple_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 12
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_giant_tower_temple
+			remove_variable = tv_wonder_giant_tower_temple_scale_competence
+			remove_variable = tv_wonder_giant_tower_temple_logistics_competence
+			remove_variable = tv_wonder_giant_tower_temple_organization_competence
+			remove_variable = tv_wonder_giant_tower_temple_scale_tier
+			remove_variable = tv_wonder_suitability_actual_giant_tower_temple_1
+			remove_variable = tv_wonder_suitability_actual_giant_tower_temple_2
+			remove_variable = tv_wonder_suitability_actual_giant_tower_temple_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 13
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_river_extension
+			remove_variable = tv_wonder_river_extension_scale_competence
+			remove_variable = tv_wonder_river_extension_logistics_competence
+			remove_variable = tv_wonder_river_extension_organization_competence
+			remove_variable = tv_wonder_river_extension_scale_tier
+			remove_variable = tv_wonder_suitability_actual_river_extension_1
+			remove_variable = tv_wonder_suitability_actual_river_extension_2
+			remove_variable = tv_wonder_suitability_actual_river_extension_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 14
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_national_shipyard
+			remove_variable = tv_wonder_national_shipyard_scale_competence
+			remove_variable = tv_wonder_national_shipyard_logistics_competence
+			remove_variable = tv_wonder_national_shipyard_organization_competence
+			remove_variable = tv_wonder_national_shipyard_scale_tier
+			remove_variable = tv_wonder_suitability_actual_national_shipyard_1
+			remove_variable = tv_wonder_suitability_actual_national_shipyard_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 15
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_star_fortress_city
+			remove_variable = tv_wonder_star_fortress_city_scale_competence
+			remove_variable = tv_wonder_star_fortress_city_logistics_competence
+			remove_variable = tv_wonder_star_fortress_city_organization_competence
+			remove_variable = tv_wonder_star_fortress_city_scale_tier
+			remove_variable = tv_wonder_suitability_actual_star_fortress_city_1
+			remove_variable = tv_wonder_suitability_actual_star_fortress_city_2
+			remove_variable = tv_wonder_suitability_actual_star_fortress_city_3
+			remove_variable = tv_wonder_suitability_actual_star_fortress_city_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 16
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_great_wall
+			remove_variable = tv_wonder_great_wall_scale_competence
+			remove_variable = tv_wonder_great_wall_logistics_competence
+			remove_variable = tv_wonder_great_wall_organization_competence
+			remove_variable = tv_wonder_great_wall_scale_tier
+			remove_variable = tv_wonder_suitability_actual_great_wall_1
+			remove_variable = tv_wonder_suitability_actual_great_wall_2
+			remove_variable = tv_wonder_suitability_actual_great_wall_3
+			remove_variable = tv_wonder_suitability_actual_great_wall_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 17
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_giant_armory
+			remove_variable = tv_wonder_giant_armory_scale_competence
+			remove_variable = tv_wonder_giant_armory_logistics_competence
+			remove_variable = tv_wonder_giant_armory_organization_competence
+			remove_variable = tv_wonder_giant_armory_scale_tier
+			remove_variable = tv_wonder_suitability_actual_giant_armory_1
+			remove_variable = tv_wonder_suitability_actual_giant_armory_2
+			remove_variable = tv_wonder_suitability_actual_giant_armory_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 18
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_library_of_nation
+			remove_variable = tv_wonder_library_of_nation_scale_competence
+			remove_variable = tv_wonder_library_of_nation_logistics_competence
+			remove_variable = tv_wonder_library_of_nation_organization_competence
+			remove_variable = tv_wonder_library_of_nation_scale_tier
+			remove_variable = tv_wonder_suitability_actual_library_of_nation_1
+			remove_variable = tv_wonder_suitability_actual_library_of_nation_2
+			remove_variable = tv_wonder_suitability_actual_library_of_nation_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 19
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_large_canal_system
+			remove_variable = tv_wonder_large_canal_system_scale_competence
+			remove_variable = tv_wonder_large_canal_system_logistics_competence
+			remove_variable = tv_wonder_large_canal_system_organization_competence
+			remove_variable = tv_wonder_large_canal_system_scale_tier
+			remove_variable = tv_wonder_suitability_actual_large_canal_system_1
+			remove_variable = tv_wonder_suitability_actual_large_canal_system_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 20
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_mountain_terrace_network
+			remove_variable = tv_wonder_mountain_terrace_network_scale_competence
+			remove_variable = tv_wonder_mountain_terrace_network_logistics_competence
+			remove_variable = tv_wonder_mountain_terrace_network_organization_competence
+			remove_variable = tv_wonder_mountain_terrace_network_scale_tier
+			remove_variable = tv_wonder_suitability_actual_mountain_terrace_network_1
+			remove_variable = tv_wonder_suitability_actual_mountain_terrace_network_2
+			remove_variable = tv_wonder_suitability_actual_mountain_terrace_network_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 21
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_giant_dam_project
+			remove_variable = tv_wonder_giant_dam_project_scale_competence
+			remove_variable = tv_wonder_giant_dam_project_logistics_competence
+			remove_variable = tv_wonder_giant_dam_project_organization_competence
+			remove_variable = tv_wonder_giant_dam_project_scale_tier
+			remove_variable = tv_wonder_suitability_actual_giant_dam_project_1
+			remove_variable = tv_wonder_suitability_actual_giant_dam_project_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 22
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_royal_granary_system
+			remove_variable = tv_wonder_royal_granary_system_scale_competence
+			remove_variable = tv_wonder_royal_granary_system_logistics_competence
+			remove_variable = tv_wonder_royal_granary_system_organization_competence
+			remove_variable = tv_wonder_royal_granary_system_scale_tier
+			remove_variable = tv_wonder_suitability_actual_royal_granary_system_1
+			remove_variable = tv_wonder_suitability_actual_royal_granary_system_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 23
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_imperial_post_road_network
+			remove_variable = tv_wonder_imperial_post_road_network_scale_competence
+			remove_variable = tv_wonder_imperial_post_road_network_logistics_competence
+			remove_variable = tv_wonder_imperial_post_road_network_organization_competence
+			remove_variable = tv_wonder_imperial_post_road_network_scale_tier
+			remove_variable = tv_wonder_suitability_actual_imperial_post_road_network_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 24
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_canal_hub_city
+			remove_variable = tv_wonder_canal_hub_city_scale_competence
+			remove_variable = tv_wonder_canal_hub_city_logistics_competence
+			remove_variable = tv_wonder_canal_hub_city_organization_competence
+			remove_variable = tv_wonder_canal_hub_city_scale_tier
+			remove_variable = tv_wonder_suitability_actual_canal_hub_city_1
+			remove_variable = tv_wonder_suitability_actual_canal_hub_city_2
+			remove_variable = tv_wonder_suitability_actual_canal_hub_city_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 25
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_frontier_colonization_belt
+			remove_variable = tv_wonder_frontier_colonization_belt_scale_competence
+			remove_variable = tv_wonder_frontier_colonization_belt_logistics_competence
+			remove_variable = tv_wonder_frontier_colonization_belt_organization_competence
+			remove_variable = tv_wonder_frontier_colonization_belt_scale_tier
+			remove_variable = tv_wonder_suitability_actual_frontier_colonization_belt_1
+			remove_variable = tv_wonder_suitability_actual_frontier_colonization_belt_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 26
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_coastal_beacon_network
+			remove_variable = tv_wonder_coastal_beacon_network_scale_competence
+			remove_variable = tv_wonder_coastal_beacon_network_logistics_competence
+			remove_variable = tv_wonder_coastal_beacon_network_organization_competence
+			remove_variable = tv_wonder_coastal_beacon_network_scale_tier
+			remove_variable = tv_wonder_suitability_actual_coastal_beacon_network_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 27
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_knightly_fortress_order
+			remove_variable = tv_wonder_knightly_fortress_order_scale_competence
+			remove_variable = tv_wonder_knightly_fortress_order_logistics_competence
+			remove_variable = tv_wonder_knightly_fortress_order_organization_competence
+			remove_variable = tv_wonder_knightly_fortress_order_scale_tier
+			remove_variable = tv_wonder_suitability_actual_knightly_fortress_order_1
+			remove_variable = tv_wonder_suitability_actual_knightly_fortress_order_2
+			remove_variable = tv_wonder_suitability_actual_knightly_fortress_order_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 28
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_war_college_system
+			remove_variable = tv_wonder_war_college_system_scale_competence
+			remove_variable = tv_wonder_war_college_system_logistics_competence
+			remove_variable = tv_wonder_war_college_system_organization_competence
+			remove_variable = tv_wonder_war_college_system_scale_tier
+			remove_variable = tv_wonder_suitability_actual_war_college_system_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 29
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_great_clock_bell_system
+			remove_variable = tv_wonder_great_clock_bell_system_scale_competence
+			remove_variable = tv_wonder_great_clock_bell_system_logistics_competence
+			remove_variable = tv_wonder_great_clock_bell_system_organization_competence
+			remove_variable = tv_wonder_great_clock_bell_system_scale_tier
+			remove_variable = tv_wonder_suitability_actual_great_clock_bell_system_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 30
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_royal_art_district
+			remove_variable = tv_wonder_royal_art_district_scale_competence
+			remove_variable = tv_wonder_royal_art_district_logistics_competence
+			remove_variable = tv_wonder_royal_art_district_organization_competence
+			remove_variable = tv_wonder_royal_art_district_scale_tier
+			remove_variable = tv_wonder_suitability_actual_royal_art_district_1
+			remove_variable = tv_wonder_suitability_actual_royal_art_district_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 31
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_grand_theater_festival_district
+			remove_variable = tv_wonder_grand_theater_festival_district_scale_competence
+			remove_variable = tv_wonder_grand_theater_festival_district_logistics_competence
+			remove_variable = tv_wonder_grand_theater_festival_district_organization_competence
+			remove_variable = tv_wonder_grand_theater_festival_district_scale_tier
+			remove_variable = tv_wonder_suitability_actual_grand_theater_festival_district_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 32
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_world_embassy_quarter
+			remove_variable = tv_wonder_world_embassy_quarter_scale_competence
+			remove_variable = tv_wonder_world_embassy_quarter_logistics_competence
+			remove_variable = tv_wonder_world_embassy_quarter_organization_competence
+			remove_variable = tv_wonder_world_embassy_quarter_scale_tier
+			remove_variable = tv_wonder_suitability_actual_world_embassy_quarter_1
+			remove_variable = tv_wonder_suitability_actual_world_embassy_quarter_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 33
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_law_code_stele_project
+			remove_variable = tv_wonder_law_code_stele_project_scale_competence
+			remove_variable = tv_wonder_law_code_stele_project_logistics_competence
+			remove_variable = tv_wonder_law_code_stele_project_organization_competence
+			remove_variable = tv_wonder_law_code_stele_project_scale_tier
+			remove_variable = tv_wonder_suitability_actual_law_code_stele_project_1
+			remove_variable = tv_wonder_suitability_actual_law_code_stele_project_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 34
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_world_market
+			remove_variable = tv_wonder_world_market_scale_competence
+			remove_variable = tv_wonder_world_market_logistics_competence
+			remove_variable = tv_wonder_world_market_organization_competence
+			remove_variable = tv_wonder_world_market_scale_tier
+			remove_variable = tv_wonder_suitability_actual_world_market_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 35
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_royal_mint_system
+			remove_variable = tv_wonder_royal_mint_system_scale_competence
+			remove_variable = tv_wonder_royal_mint_system_logistics_competence
+			remove_variable = tv_wonder_royal_mint_system_organization_competence
+			remove_variable = tv_wonder_royal_mint_system_scale_tier
+			remove_variable = tv_wonder_suitability_actual_royal_mint_system_1
+			remove_variable = tv_wonder_suitability_actual_royal_mint_system_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 36
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_guild_alliance
+			remove_variable = tv_wonder_guild_alliance_scale_competence
+			remove_variable = tv_wonder_guild_alliance_logistics_competence
+			remove_variable = tv_wonder_guild_alliance_organization_competence
+			remove_variable = tv_wonder_guild_alliance_scale_tier
+			remove_variable = tv_wonder_suitability_actual_guild_alliance_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 37
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_maritime_trade_station_network
+			remove_variable = tv_wonder_maritime_trade_station_network_scale_competence
+			remove_variable = tv_wonder_maritime_trade_station_network_logistics_competence
+			remove_variable = tv_wonder_maritime_trade_station_network_organization_competence
+			remove_variable = tv_wonder_maritime_trade_station_network_scale_tier
+			remove_variable = tv_wonder_suitability_actual_maritime_trade_station_network_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 38
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_giant_workshop_complex
+			remove_variable = tv_wonder_giant_workshop_complex_scale_competence
+			remove_variable = tv_wonder_giant_workshop_complex_logistics_competence
+			remove_variable = tv_wonder_giant_workshop_complex_organization_competence
+			remove_variable = tv_wonder_giant_workshop_complex_scale_tier
+			remove_variable = tv_wonder_suitability_actual_giant_workshop_complex_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 39
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_world_monument_group
+			remove_variable = tv_wonder_world_monument_group_scale_competence
+			remove_variable = tv_wonder_world_monument_group_logistics_competence
+			remove_variable = tv_wonder_world_monument_group_organization_competence
+			remove_variable = tv_wonder_world_monument_group_scale_tier
+			remove_variable = tv_wonder_suitability_actual_world_monument_group_1
+			remove_variable = tv_wonder_suitability_actual_world_monument_group_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 40
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_city_expansion_project
+			remove_variable = tv_wonder_city_expansion_project_scale_competence
+			remove_variable = tv_wonder_city_expansion_project_logistics_competence
+			remove_variable = tv_wonder_city_expansion_project_organization_competence
+			remove_variable = tv_wonder_city_expansion_project_scale_tier
+			remove_variable = tv_wonder_suitability_actual_city_expansion_project_1
+			remove_variable = tv_wonder_suitability_actual_city_expansion_project_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 41
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_megalithic_circle
+			remove_variable = tv_wonder_megalithic_circle_scale_competence
+			remove_variable = tv_wonder_megalithic_circle_logistics_competence
+			remove_variable = tv_wonder_megalithic_circle_organization_competence
+			remove_variable = tv_wonder_megalithic_circle_scale_tier
+			remove_variable = tv_wonder_suitability_actual_megalithic_circle_1
+			remove_variable = tv_wonder_suitability_actual_megalithic_circle_2
+			remove_variable = tv_wonder_suitability_actual_megalithic_circle_3
+			remove_variable = tv_wonder_suitability_actual_megalithic_circle_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 42
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_grand_cathedral
+			remove_variable = tv_wonder_grand_cathedral_scale_competence
+			remove_variable = tv_wonder_grand_cathedral_logistics_competence
+			remove_variable = tv_wonder_grand_cathedral_organization_competence
+			remove_variable = tv_wonder_grand_cathedral_scale_tier
+			remove_variable = tv_wonder_suitability_actual_grand_cathedral_1
+			remove_variable = tv_wonder_suitability_actual_grand_cathedral_2
+			remove_variable = tv_wonder_suitability_actual_grand_cathedral_3
+			remove_variable = tv_wonder_suitability_actual_grand_cathedral_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 43
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_great_monastery
+			remove_variable = tv_wonder_great_monastery_scale_competence
+			remove_variable = tv_wonder_great_monastery_logistics_competence
+			remove_variable = tv_wonder_great_monastery_organization_competence
+			remove_variable = tv_wonder_great_monastery_scale_tier
+			remove_variable = tv_wonder_suitability_actual_great_monastery_1
+			remove_variable = tv_wonder_suitability_actual_great_monastery_2
+			remove_variable = tv_wonder_suitability_actual_great_monastery_3
+			remove_variable = tv_wonder_suitability_actual_great_monastery_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 101
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_pharos_lighthouse
+			remove_variable = tv_wonder_unique_pharos_lighthouse_scale_competence
+			remove_variable = tv_wonder_unique_pharos_lighthouse_logistics_competence
+			remove_variable = tv_wonder_unique_pharos_lighthouse_organization_competence
+			remove_variable = tv_wonder_unique_pharos_lighthouse_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_pharos_lighthouse_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 102
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_hagia_sophia
+			remove_variable = tv_wonder_unique_hagia_sophia_scale_competence
+			remove_variable = tv_wonder_unique_hagia_sophia_logistics_competence
+			remove_variable = tv_wonder_unique_hagia_sophia_organization_competence
+			remove_variable = tv_wonder_unique_hagia_sophia_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_hagia_sophia_1
+			remove_variable = tv_wonder_suitability_actual_unique_hagia_sophia_2
+			remove_variable = tv_wonder_suitability_actual_unique_hagia_sophia_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 103
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_dome_of_the_rock
+			remove_variable = tv_wonder_unique_dome_of_the_rock_scale_competence
+			remove_variable = tv_wonder_unique_dome_of_the_rock_logistics_competence
+			remove_variable = tv_wonder_unique_dome_of_the_rock_organization_competence
+			remove_variable = tv_wonder_unique_dome_of_the_rock_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_dome_of_the_rock_1
+			remove_variable = tv_wonder_suitability_actual_unique_dome_of_the_rock_2
+			remove_variable = tv_wonder_suitability_actual_unique_dome_of_the_rock_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 104
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_angkor_wat
+			remove_variable = tv_wonder_unique_angkor_wat_scale_competence
+			remove_variable = tv_wonder_unique_angkor_wat_logistics_competence
+			remove_variable = tv_wonder_unique_angkor_wat_organization_competence
+			remove_variable = tv_wonder_unique_angkor_wat_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_angkor_wat_1
+			remove_variable = tv_wonder_suitability_actual_unique_angkor_wat_2
+			remove_variable = tv_wonder_suitability_actual_unique_angkor_wat_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 105
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_potala_palace
+			remove_variable = tv_wonder_unique_potala_palace_scale_competence
+			remove_variable = tv_wonder_unique_potala_palace_logistics_competence
+			remove_variable = tv_wonder_unique_potala_palace_organization_competence
+			remove_variable = tv_wonder_unique_potala_palace_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_potala_palace_1
+			remove_variable = tv_wonder_suitability_actual_unique_potala_palace_2
+			remove_variable = tv_wonder_suitability_actual_unique_potala_palace_3
+			remove_variable = tv_wonder_suitability_actual_unique_potala_palace_4
+			remove_variable = tv_wonder_suitability_actual_unique_potala_palace_5
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 106
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_alhambra
+			remove_variable = tv_wonder_unique_alhambra_scale_competence
+			remove_variable = tv_wonder_unique_alhambra_logistics_competence
+			remove_variable = tv_wonder_unique_alhambra_organization_competence
+			remove_variable = tv_wonder_unique_alhambra_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_alhambra_1
+			remove_variable = tv_wonder_suitability_actual_unique_alhambra_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 107
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_machu_picchu
+			remove_variable = tv_wonder_unique_machu_picchu_scale_competence
+			remove_variable = tv_wonder_unique_machu_picchu_logistics_competence
+			remove_variable = tv_wonder_unique_machu_picchu_organization_competence
+			remove_variable = tv_wonder_unique_machu_picchu_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_machu_picchu_1
+			remove_variable = tv_wonder_suitability_actual_unique_machu_picchu_2
+			remove_variable = tv_wonder_suitability_actual_unique_machu_picchu_3
+			remove_variable = tv_wonder_suitability_actual_unique_machu_picchu_4
+			remove_variable = tv_wonder_suitability_actual_unique_machu_picchu_5
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 108
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_himeji_castle
+			remove_variable = tv_wonder_unique_himeji_castle_scale_competence
+			remove_variable = tv_wonder_unique_himeji_castle_logistics_competence
+			remove_variable = tv_wonder_unique_himeji_castle_organization_competence
+			remove_variable = tv_wonder_unique_himeji_castle_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_himeji_castle_1
+			remove_variable = tv_wonder_suitability_actual_unique_himeji_castle_2
+			remove_variable = tv_wonder_suitability_actual_unique_himeji_castle_3
+			remove_variable = tv_wonder_suitability_actual_unique_himeji_castle_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 109
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_taj_mahal
+			remove_variable = tv_wonder_unique_taj_mahal_scale_competence
+			remove_variable = tv_wonder_unique_taj_mahal_logistics_competence
+			remove_variable = tv_wonder_unique_taj_mahal_organization_competence
+			remove_variable = tv_wonder_unique_taj_mahal_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_taj_mahal_1
+			remove_variable = tv_wonder_suitability_actual_unique_taj_mahal_2
+			remove_variable = tv_wonder_suitability_actual_unique_taj_mahal_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 110
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_forbidden_city
+			remove_variable = tv_wonder_unique_forbidden_city_scale_competence
+			remove_variable = tv_wonder_unique_forbidden_city_logistics_competence
+			remove_variable = tv_wonder_unique_forbidden_city_organization_competence
+			remove_variable = tv_wonder_unique_forbidden_city_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_forbidden_city_1
+			remove_variable = tv_wonder_suitability_actual_unique_forbidden_city_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 111
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_topkapi_palace
+			remove_variable = tv_wonder_unique_topkapi_palace_scale_competence
+			remove_variable = tv_wonder_unique_topkapi_palace_logistics_competence
+			remove_variable = tv_wonder_unique_topkapi_palace_organization_competence
+			remove_variable = tv_wonder_unique_topkapi_palace_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_topkapi_palace_1
+			remove_variable = tv_wonder_suitability_actual_unique_topkapi_palace_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 112
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_st_peters_basilica
+			remove_variable = tv_wonder_unique_st_peters_basilica_scale_competence
+			remove_variable = tv_wonder_unique_st_peters_basilica_logistics_competence
+			remove_variable = tv_wonder_unique_st_peters_basilica_organization_competence
+			remove_variable = tv_wonder_unique_st_peters_basilica_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_st_peters_basilica_1
+			remove_variable = tv_wonder_suitability_actual_unique_st_peters_basilica_2
+			remove_variable = tv_wonder_suitability_actual_unique_st_peters_basilica_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 113
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_lalibela_churches
+			remove_variable = tv_wonder_unique_lalibela_churches_scale_competence
+			remove_variable = tv_wonder_unique_lalibela_churches_logistics_competence
+			remove_variable = tv_wonder_unique_lalibela_churches_organization_competence
+			remove_variable = tv_wonder_unique_lalibela_churches_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_lalibela_churches_1
+			remove_variable = tv_wonder_suitability_actual_unique_lalibela_churches_2
+			remove_variable = tv_wonder_suitability_actual_unique_lalibela_churches_3
+			remove_variable = tv_wonder_suitability_actual_unique_lalibela_churches_4
+			remove_variable = tv_wonder_suitability_actual_unique_lalibela_churches_5
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 114
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_venetian_arsenal
+			remove_variable = tv_wonder_unique_venetian_arsenal_scale_competence
+			remove_variable = tv_wonder_unique_venetian_arsenal_logistics_competence
+			remove_variable = tv_wonder_unique_venetian_arsenal_organization_competence
+			remove_variable = tv_wonder_unique_venetian_arsenal_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_venetian_arsenal_1
+			remove_variable = tv_wonder_suitability_actual_unique_venetian_arsenal_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 115
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_malacca_port
+			remove_variable = tv_wonder_unique_malacca_port_scale_competence
+			remove_variable = tv_wonder_unique_malacca_port_logistics_competence
+			remove_variable = tv_wonder_unique_malacca_port_organization_competence
+			remove_variable = tv_wonder_unique_malacca_port_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_malacca_port_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 116
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_red_fort_delhi
+			remove_variable = tv_wonder_unique_red_fort_delhi_scale_competence
+			remove_variable = tv_wonder_unique_red_fort_delhi_logistics_competence
+			remove_variable = tv_wonder_unique_red_fort_delhi_organization_competence
+			remove_variable = tv_wonder_unique_red_fort_delhi_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_red_fort_delhi_1
+			remove_variable = tv_wonder_suitability_actual_unique_red_fort_delhi_2
+			remove_variable = tv_wonder_suitability_actual_unique_red_fort_delhi_3
+			remove_variable = tv_wonder_suitability_actual_unique_red_fort_delhi_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 117
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_versailles_palace
+			remove_variable = tv_wonder_unique_versailles_palace_scale_competence
+			remove_variable = tv_wonder_unique_versailles_palace_logistics_competence
+			remove_variable = tv_wonder_unique_versailles_palace_organization_competence
+			remove_variable = tv_wonder_unique_versailles_palace_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_versailles_palace_1
+			remove_variable = tv_wonder_suitability_actual_unique_versailles_palace_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 118
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_tenochtitlan_causeways
+			remove_variable = tv_wonder_unique_tenochtitlan_causeways_scale_competence
+			remove_variable = tv_wonder_unique_tenochtitlan_causeways_logistics_competence
+			remove_variable = tv_wonder_unique_tenochtitlan_causeways_organization_competence
+			remove_variable = tv_wonder_unique_tenochtitlan_causeways_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_tenochtitlan_causeways_1
+			remove_variable = tv_wonder_suitability_actual_unique_tenochtitlan_causeways_2
+			remove_variable = tv_wonder_suitability_actual_unique_tenochtitlan_causeways_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 119
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_amsterdam_canal_ring
+			remove_variable = tv_wonder_unique_amsterdam_canal_ring_scale_competence
+			remove_variable = tv_wonder_unique_amsterdam_canal_ring_logistics_competence
+			remove_variable = tv_wonder_unique_amsterdam_canal_ring_organization_competence
+			remove_variable = tv_wonder_unique_amsterdam_canal_ring_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_amsterdam_canal_ring_1
+			remove_variable = tv_wonder_suitability_actual_unique_amsterdam_canal_ring_2
+			remove_variable = tv_wonder_suitability_actual_unique_amsterdam_canal_ring_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 120
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_mecca_haram_expansion
+			remove_variable = tv_wonder_unique_mecca_haram_expansion_scale_competence
+			remove_variable = tv_wonder_unique_mecca_haram_expansion_logistics_competence
+			remove_variable = tv_wonder_unique_mecca_haram_expansion_organization_competence
+			remove_variable = tv_wonder_unique_mecca_haram_expansion_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_mecca_haram_expansion_1
+			remove_variable = tv_wonder_suitability_actual_unique_mecca_haram_expansion_2
+			remove_variable = tv_wonder_suitability_actual_unique_mecca_haram_expansion_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 121
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_ming_great_wall
+			remove_variable = tv_wonder_unique_ming_great_wall_scale_competence
+			remove_variable = tv_wonder_unique_ming_great_wall_logistics_competence
+			remove_variable = tv_wonder_unique_ming_great_wall_organization_competence
+			remove_variable = tv_wonder_unique_ming_great_wall_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_ming_great_wall_1
+			remove_variable = tv_wonder_suitability_actual_unique_ming_great_wall_2
+			remove_variable = tv_wonder_suitability_actual_unique_ming_great_wall_3
+			remove_variable = tv_wonder_suitability_actual_unique_ming_great_wall_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 122
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_bank_of_saint_george
+			remove_variable = tv_wonder_unique_bank_of_saint_george_scale_competence
+			remove_variable = tv_wonder_unique_bank_of_saint_george_logistics_competence
+			remove_variable = tv_wonder_unique_bank_of_saint_george_organization_competence
+			remove_variable = tv_wonder_unique_bank_of_saint_george_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_bank_of_saint_george_1
+			remove_variable = tv_wonder_suitability_actual_unique_bank_of_saint_george_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 123
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_cahokia_mounds
+			remove_variable = tv_wonder_unique_cahokia_mounds_scale_competence
+			remove_variable = tv_wonder_unique_cahokia_mounds_logistics_competence
+			remove_variable = tv_wonder_unique_cahokia_mounds_organization_competence
+			remove_variable = tv_wonder_unique_cahokia_mounds_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_cahokia_mounds_1
+			remove_variable = tv_wonder_suitability_actual_unique_cahokia_mounds_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 124
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_great_zimbabwe
+			remove_variable = tv_wonder_unique_great_zimbabwe_scale_competence
+			remove_variable = tv_wonder_unique_great_zimbabwe_logistics_competence
+			remove_variable = tv_wonder_unique_great_zimbabwe_organization_competence
+			remove_variable = tv_wonder_unique_great_zimbabwe_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_great_zimbabwe_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 125
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_isfahan_square
+			remove_variable = tv_wonder_unique_isfahan_square_scale_competence
+			remove_variable = tv_wonder_unique_isfahan_square_logistics_competence
+			remove_variable = tv_wonder_unique_isfahan_square_organization_competence
+			remove_variable = tv_wonder_unique_isfahan_square_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_isfahan_square_1
+			remove_variable = tv_wonder_suitability_actual_unique_isfahan_square_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 126
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_grand_canal
+			remove_variable = tv_wonder_unique_grand_canal_scale_competence
+			remove_variable = tv_wonder_unique_grand_canal_logistics_competence
+			remove_variable = tv_wonder_unique_grand_canal_organization_competence
+			remove_variable = tv_wonder_unique_grand_canal_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_grand_canal_1
+			remove_variable = tv_wonder_suitability_actual_unique_grand_canal_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 127
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_inca_royal_road
+			remove_variable = tv_wonder_unique_inca_royal_road_scale_competence
+			remove_variable = tv_wonder_unique_inca_royal_road_logistics_competence
+			remove_variable = tv_wonder_unique_inca_royal_road_organization_competence
+			remove_variable = tv_wonder_unique_inca_royal_road_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_inca_royal_road_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 128
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_roman_aqueducts
+			remove_variable = tv_wonder_unique_roman_aqueducts_scale_competence
+			remove_variable = tv_wonder_unique_roman_aqueducts_logistics_competence
+			remove_variable = tv_wonder_unique_roman_aqueducts_organization_competence
+			remove_variable = tv_wonder_unique_roman_aqueducts_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_roman_aqueducts_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 129
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_suez_ancient_canal
+			remove_variable = tv_wonder_unique_suez_ancient_canal_scale_competence
+			remove_variable = tv_wonder_unique_suez_ancient_canal_logistics_competence
+			remove_variable = tv_wonder_unique_suez_ancient_canal_organization_competence
+			remove_variable = tv_wonder_unique_suez_ancient_canal_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_suez_ancient_canal_1
+			remove_variable = tv_wonder_suitability_actual_unique_suez_ancient_canal_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 130
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_kremlin
+			remove_variable = tv_wonder_unique_kremlin_scale_competence
+			remove_variable = tv_wonder_unique_kremlin_logistics_competence
+			remove_variable = tv_wonder_unique_kremlin_organization_competence
+			remove_variable = tv_wonder_unique_kremlin_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_kremlin_1
+			remove_variable = tv_wonder_suitability_actual_unique_kremlin_2
+			remove_variable = tv_wonder_suitability_actual_unique_kremlin_3
+			remove_variable = tv_wonder_suitability_actual_unique_kremlin_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 131
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_teotihuacan
+			remove_variable = tv_wonder_unique_teotihuacan_scale_competence
+			remove_variable = tv_wonder_unique_teotihuacan_logistics_competence
+			remove_variable = tv_wonder_unique_teotihuacan_organization_competence
+			remove_variable = tv_wonder_unique_teotihuacan_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_teotihuacan_1
+			remove_variable = tv_wonder_suitability_actual_unique_teotihuacan_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 132
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_angkor_hydraulic_system
+			remove_variable = tv_wonder_unique_angkor_hydraulic_system_scale_competence
+			remove_variable = tv_wonder_unique_angkor_hydraulic_system_logistics_competence
+			remove_variable = tv_wonder_unique_angkor_hydraulic_system_organization_competence
+			remove_variable = tv_wonder_unique_angkor_hydraulic_system_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_angkor_hydraulic_system_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 133
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_dutch_polders
+			remove_variable = tv_wonder_unique_dutch_polders_scale_competence
+			remove_variable = tv_wonder_unique_dutch_polders_logistics_competence
+			remove_variable = tv_wonder_unique_dutch_polders_organization_competence
+			remove_variable = tv_wonder_unique_dutch_polders_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_dutch_polders_1
+			remove_variable = tv_wonder_suitability_actual_unique_dutch_polders_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 134
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_machu_picchu_terraces
+			remove_variable = tv_wonder_unique_machu_picchu_terraces_scale_competence
+			remove_variable = tv_wonder_unique_machu_picchu_terraces_logistics_competence
+			remove_variable = tv_wonder_unique_machu_picchu_terraces_organization_competence
+			remove_variable = tv_wonder_unique_machu_picchu_terraces_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_machu_picchu_terraces_1
+			remove_variable = tv_wonder_suitability_actual_unique_machu_picchu_terraces_2
+			remove_variable = tv_wonder_suitability_actual_unique_machu_picchu_terraces_3
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 135
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_british_navy_dockyards
+			remove_variable = tv_wonder_unique_british_navy_dockyards_scale_competence
+			remove_variable = tv_wonder_unique_british_navy_dockyards_logistics_competence
+			remove_variable = tv_wonder_unique_british_navy_dockyards_organization_competence
+			remove_variable = tv_wonder_unique_british_navy_dockyards_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_british_navy_dockyards_1
+			remove_variable = tv_wonder_suitability_actual_unique_british_navy_dockyards_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 136
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_spanish_silver_fleet
+			remove_variable = tv_wonder_unique_spanish_silver_fleet_scale_competence
+			remove_variable = tv_wonder_unique_spanish_silver_fleet_logistics_competence
+			remove_variable = tv_wonder_unique_spanish_silver_fleet_organization_competence
+			remove_variable = tv_wonder_unique_spanish_silver_fleet_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_spanish_silver_fleet_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 137
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_ottoman_hajj_road
+			remove_variable = tv_wonder_unique_ottoman_hajj_road_scale_competence
+			remove_variable = tv_wonder_unique_ottoman_hajj_road_logistics_competence
+			remove_variable = tv_wonder_unique_ottoman_hajj_road_organization_competence
+			remove_variable = tv_wonder_unique_ottoman_hajj_road_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_ottoman_hajj_road_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 138
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_persian_qanat
+			remove_variable = tv_wonder_unique_persian_qanat_scale_competence
+			remove_variable = tv_wonder_unique_persian_qanat_logistics_competence
+			remove_variable = tv_wonder_unique_persian_qanat_organization_competence
+			remove_variable = tv_wonder_unique_persian_qanat_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_persian_qanat_1
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 139
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_longjiang_shipyard
+			remove_variable = tv_wonder_unique_longjiang_shipyard_scale_competence
+			remove_variable = tv_wonder_unique_longjiang_shipyard_logistics_competence
+			remove_variable = tv_wonder_unique_longjiang_shipyard_organization_competence
+			remove_variable = tv_wonder_unique_longjiang_shipyard_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_longjiang_shipyard_1
+			remove_variable = tv_wonder_suitability_actual_unique_longjiang_shipyard_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 140
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_jerusalem_holy_city
+			remove_variable = tv_wonder_unique_jerusalem_holy_city_scale_competence
+			remove_variable = tv_wonder_unique_jerusalem_holy_city_logistics_competence
+			remove_variable = tv_wonder_unique_jerusalem_holy_city_organization_competence
+			remove_variable = tv_wonder_unique_jerusalem_holy_city_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_jerusalem_holy_city_1
+			remove_variable = tv_wonder_suitability_actual_unique_jerusalem_holy_city_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 141
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_stonehenge
+			remove_variable = tv_wonder_unique_stonehenge_scale_competence
+			remove_variable = tv_wonder_unique_stonehenge_logistics_competence
+			remove_variable = tv_wonder_unique_stonehenge_organization_competence
+			remove_variable = tv_wonder_unique_stonehenge_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_stonehenge_1
+			remove_variable = tv_wonder_suitability_actual_unique_stonehenge_2
+			remove_variable = tv_wonder_suitability_actual_unique_stonehenge_3
+			remove_variable = tv_wonder_suitability_actual_unique_stonehenge_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 142
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_tower_of_london
+			remove_variable = tv_wonder_unique_tower_of_london_scale_competence
+			remove_variable = tv_wonder_unique_tower_of_london_logistics_competence
+			remove_variable = tv_wonder_unique_tower_of_london_organization_competence
+			remove_variable = tv_wonder_unique_tower_of_london_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_tower_of_london_1
+			remove_variable = tv_wonder_suitability_actual_unique_tower_of_london_2
+			remove_variable = tv_wonder_suitability_actual_unique_tower_of_london_3
+			remove_variable = tv_wonder_suitability_actual_unique_tower_of_london_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 143
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_notre_dame_de_paris
+			remove_variable = tv_wonder_unique_notre_dame_de_paris_scale_competence
+			remove_variable = tv_wonder_unique_notre_dame_de_paris_logistics_competence
+			remove_variable = tv_wonder_unique_notre_dame_de_paris_organization_competence
+			remove_variable = tv_wonder_unique_notre_dame_de_paris_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_notre_dame_de_paris_1
+			remove_variable = tv_wonder_suitability_actual_unique_notre_dame_de_paris_2
+			remove_variable = tv_wonder_suitability_actual_unique_notre_dame_de_paris_3
+			remove_variable = tv_wonder_suitability_actual_unique_notre_dame_de_paris_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 144
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_st_basils_cathedral
+			remove_variable = tv_wonder_unique_st_basils_cathedral_scale_competence
+			remove_variable = tv_wonder_unique_st_basils_cathedral_logistics_competence
+			remove_variable = tv_wonder_unique_st_basils_cathedral_organization_competence
+			remove_variable = tv_wonder_unique_st_basils_cathedral_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_st_basils_cathedral_1
+			remove_variable = tv_wonder_suitability_actual_unique_st_basils_cathedral_2
+			remove_variable = tv_wonder_suitability_actual_unique_st_basils_cathedral_3
+			remove_variable = tv_wonder_suitability_actual_unique_st_basils_cathedral_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 145
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_trinity_lavra
+			remove_variable = tv_wonder_unique_trinity_lavra_scale_competence
+			remove_variable = tv_wonder_unique_trinity_lavra_logistics_competence
+			remove_variable = tv_wonder_unique_trinity_lavra_organization_competence
+			remove_variable = tv_wonder_unique_trinity_lavra_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_trinity_lavra_1
+			remove_variable = tv_wonder_suitability_actual_unique_trinity_lavra_2
+			remove_variable = tv_wonder_suitability_actual_unique_trinity_lavra_3
+			remove_variable = tv_wonder_suitability_actual_unique_trinity_lavra_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 146
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_winter_palace
+			remove_variable = tv_wonder_unique_winter_palace_scale_competence
+			remove_variable = tv_wonder_unique_winter_palace_logistics_competence
+			remove_variable = tv_wonder_unique_winter_palace_organization_competence
+			remove_variable = tv_wonder_unique_winter_palace_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_winter_palace_1
+			remove_variable = tv_wonder_suitability_actual_unique_winter_palace_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 147
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_gyeongbokgung
+			remove_variable = tv_wonder_unique_gyeongbokgung_scale_competence
+			remove_variable = tv_wonder_unique_gyeongbokgung_logistics_competence
+			remove_variable = tv_wonder_unique_gyeongbokgung_organization_competence
+			remove_variable = tv_wonder_unique_gyeongbokgung_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_gyeongbokgung_1
+			remove_variable = tv_wonder_suitability_actual_unique_gyeongbokgung_2
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 148
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_changbai_mountain_altar
+			remove_variable = tv_wonder_unique_changbai_mountain_altar_scale_competence
+			remove_variable = tv_wonder_unique_changbai_mountain_altar_logistics_competence
+			remove_variable = tv_wonder_unique_changbai_mountain_altar_organization_competence
+			remove_variable = tv_wonder_unique_changbai_mountain_altar_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_changbai_mountain_altar_1
+			remove_variable = tv_wonder_suitability_actual_unique_changbai_mountain_altar_2
+			remove_variable = tv_wonder_suitability_actual_unique_changbai_mountain_altar_3
+			remove_variable = tv_wonder_suitability_actual_unique_changbai_mountain_altar_4
+			remove_variable = tv_wonder_suitability_actual_unique_changbai_mountain_altar_5
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 149
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_belgrade_fortress
+			remove_variable = tv_wonder_unique_belgrade_fortress_scale_competence
+			remove_variable = tv_wonder_unique_belgrade_fortress_logistics_competence
+			remove_variable = tv_wonder_unique_belgrade_fortress_organization_competence
+			remove_variable = tv_wonder_unique_belgrade_fortress_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_belgrade_fortress_1
+			remove_variable = tv_wonder_suitability_actual_unique_belgrade_fortress_2
+			remove_variable = tv_wonder_suitability_actual_unique_belgrade_fortress_3
+			remove_variable = tv_wonder_suitability_actual_unique_belgrade_fortress_4
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:tv_wonder_selected_survey_site
+			var:tv_wonder_locked ?= 150
+		}
+		scope:tv_wonder_selected_survey_site = {
+			remove_variable = tv_wonder_surveyed_unique_meteora_monasteries
+			remove_variable = tv_wonder_unique_meteora_monasteries_scale_competence
+			remove_variable = tv_wonder_unique_meteora_monasteries_logistics_competence
+			remove_variable = tv_wonder_unique_meteora_monasteries_organization_competence
+			remove_variable = tv_wonder_unique_meteora_monasteries_scale_tier
+			remove_variable = tv_wonder_suitability_actual_unique_meteora_monasteries_1
+			remove_variable = tv_wonder_suitability_actual_unique_meteora_monasteries_2
+			remove_variable = tv_wonder_suitability_actual_unique_meteora_monasteries_3
+			remove_variable = tv_wonder_suitability_actual_unique_meteora_monasteries_4
+		}
+	}
+}
+
 tv_wonder_mechanics_store_survey_on_location_effect = {
 	if = {
 		limit = {

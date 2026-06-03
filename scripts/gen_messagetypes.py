@@ -513,6 +513,16 @@ PERFORM_tv_wonder_start_survey_ACTION={
 \tmessage_category = society
 }
 
+PERFORM_tv_wonder_rerun_survey_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+
 PERFORM_tv_wonder_select_construction_site_ACTION={
 	log=yes
 	onmap=no
