@@ -9,6 +9,7 @@ from copy import deepcopy
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
 import yaml
 
@@ -67,6 +68,8 @@ ROMAN_NUMERALS = {
 WONDER_LOCALIZATION_DATA_REL = "data/wonder_localization.yaml"
 GENERATED_LOC_DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
 WONDER_EDITOR_CATALOG_FILE = REPO_ROOT / "data" / "wonder_editor_catalog.yaml"
+GENERATED_WONDER_IMAGES_DIR = REPO_ROOT / "data" / "generated_wonders"
+WONDER_IMAGE_URL_PREFIX = "/wonder-images"
 GENERATED_LOC_FILES = {
     "english": REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml",
     "simp_chinese": REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml",
@@ -2079,6 +2082,28 @@ class WonderLocalizationService:
     def _wonder_name(self, wonder: dict[str, Any], language: str) -> str:
         return self._localization_value(language, wonder_name_key(wonder))
 
+    def _wonder_image_info(self, wonder: dict[str, Any]) -> dict[str, Any]:
+        raw_stem = str(wonder.get("image") or f"tv_wonder_{wonder['key']}").strip()
+        filename = raw_stem if raw_stem.lower().endswith(".png") else f"{raw_stem}.png"
+        if not filename or Path(filename).name != filename:
+            return {
+                "stem": raw_stem,
+                "filename": filename,
+                "path": "",
+                "url": None,
+                "exists": False,
+            }
+
+        image_path = GENERATED_WONDER_IMAGES_DIR / filename
+        exists = image_path.is_file()
+        return {
+            "stem": Path(filename).stem,
+            "filename": filename,
+            "path": f"data/generated_wonders/{filename}",
+            "url": f"{WONDER_IMAGE_URL_PREFIX}/{quote(filename)}" if exists else None,
+            "exists": exists,
+        }
+
     def _wonder_summary(self, wonder: dict[str, Any]) -> dict[str, Any]:
         kind_label = "Unique" if wonder.get("is_unique") else "Generic"
         name_en = self._wonder_name(wonder, "english")
@@ -2092,6 +2117,7 @@ class WonderLocalizationService:
             "name_en": name_en,
             "name_zh": name_zh,
             "display_name": f"{name_zh} / {name_en}",
+            "image": self._wonder_image_info(wonder),
         }
 
     def _wonder_meta(self, wonder: dict[str, Any]) -> dict[str, Any]:
@@ -2102,6 +2128,7 @@ class WonderLocalizationService:
             "name_en": self._wonder_name(wonder, "english"),
             "name_zh": self._wonder_name(wonder, "simp_chinese"),
             "is_unique": bool(wonder.get("is_unique")),
+            "image": self._wonder_image_info(wonder),
         }
         if wonder.get("is_unique"):
             meta["base_key"] = wonder.get("base_key")

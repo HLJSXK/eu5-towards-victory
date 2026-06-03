@@ -175,8 +175,11 @@ textarea {
 
 .wonder-item {
     display: grid;
-    gap: 6px;
-    padding: 14px;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    min-height: 92px;
+    padding: 10px;
     border: 1px solid rgba(238, 244, 247, 0.12);
     border-radius: var(--radius-lg);
     background: rgba(255, 255, 255, 0.06);
@@ -195,6 +198,33 @@ textarea {
 .wonder-item.active {
     border-color: rgba(255, 255, 255, 0.6);
     background: linear-gradient(135deg, rgba(179, 92, 46, 0.24), rgba(15, 108, 117, 0.22));
+}
+
+.wonder-list-copy {
+    display: grid;
+    min-width: 0;
+    gap: 6px;
+}
+
+.wonder-list-copy strong,
+.wonder-subtitle,
+.wonder-item code {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wonder-thumb {
+    width: 72px;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.wonder-thumb-missing {
+    display: block;
+    border: 1px dashed rgba(238, 244, 247, 0.26);
 }
 
 .wonder-row {
@@ -248,11 +278,61 @@ textarea {
     padding: 24px;
 }
 
+.hero-copy {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
 .hero-description {
     margin: 10px 0 0;
     color: var(--muted);
     line-height: 1.65;
     max-width: 860px;
+}
+
+.wonder-image-frame {
+    position: relative;
+    display: grid;
+    flex: 0 0 clamp(240px, 24vw, 380px);
+    height: clamp(220px, 20vw, 320px);
+    min-height: 220px;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(15, 108, 117, 0.12), rgba(179, 92, 46, 0.12));
+}
+
+.wonder-image-frame img,
+.wonder-image-placeholder {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: 100%;
+}
+
+.wonder-image-frame img {
+    object-fit: cover;
+}
+
+.wonder-image-placeholder {
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    color: var(--muted);
+    text-align: center;
+}
+
+.wonder-image-frame figcaption {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 10px 12px;
+    background: linear-gradient(180deg, transparent, rgba(13, 31, 42, 0.82));
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 0.78rem;
+    line-height: 1.35;
+    word-break: break-word;
 }
 
 .hero-actions {
@@ -810,6 +890,13 @@ textarea {
         flex-direction: column;
     }
 
+    .wonder-image-frame {
+        flex-basis: auto;
+        width: 100%;
+        height: clamp(220px, 42vw, 340px);
+        min-height: 220px;
+    }
+
     .hero-actions {
         width: 100%;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -846,6 +933,15 @@ textarea {
 
     .structured-row {
         grid-template-columns: 1fr;
+    }
+
+    .wonder-item {
+        grid-template-columns: 56px minmax(0, 1fr);
+        min-height: 78px;
+    }
+
+    .wonder-thumb {
+        width: 56px;
     }
 
     .mini-button {

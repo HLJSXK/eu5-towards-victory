@@ -16,6 +16,7 @@ const elements = {
     wonderCount: document.getElementById("wonder-count"),
     wonderList: document.getElementById("wonder-list"),
     wonderMeta: document.getElementById("wonder-meta"),
+    wonderImageFrame: document.getElementById("wonder-image-frame"),
     wonderNameEditors: document.getElementById("wonder-name-editors"),
     searchInput: document.getElementById("search-input"),
     languageTabs: document.getElementById("language-tabs"),
@@ -174,6 +175,56 @@ function currentWonderKind() {
     return state.currentWonder?.summary?.is_unique ? "unique" : "generic";
 }
 
+function wonderImageForSummary(wonder) {
+    return wonder?.image || null;
+}
+
+function currentWonderImage() {
+    return state.currentWonder?.summary?.image || state.currentWonder?.meta?.image || null;
+}
+
+function wonderImageAlt(wonder) {
+    const summary = wonder?.summary || wonder || {};
+    const name = summary.name_zh || summary.name_en || summary.key || "wonder";
+    return `${name} image`;
+}
+
+function renderWonderImage() {
+    const frame = elements.wonderImageFrame;
+    if (!frame) {
+        return;
+    }
+    frame.innerHTML = "";
+    frame.classList.remove("has-image", "is-missing");
+
+    if (!state.currentWonder) {
+        frame.classList.add("is-missing");
+        return;
+    }
+
+    const image = currentWonderImage();
+    if (image?.url) {
+        const img = document.createElement("img");
+        img.src = image.url;
+        img.alt = wonderImageAlt(state.currentWonder);
+        img.loading = "eager";
+        frame.append(img);
+        frame.classList.add("has-image");
+    } else {
+        const placeholder = document.createElement("div");
+        placeholder.className = "wonder-image-placeholder";
+        placeholder.textContent = "No generated image";
+        frame.append(placeholder);
+        frame.classList.add("is-missing");
+    }
+
+    if (image?.filename) {
+        const caption = document.createElement("figcaption");
+        caption.textContent = image.path || image.filename;
+        frame.append(caption);
+    }
+}
+
 function findWonderByKey(key, isUnique = null) {
     return state.wonders.find((wonder) => {
         if (wonder.key !== key) {
@@ -238,14 +289,21 @@ function renderWonderList() {
         if (state.currentWonder && state.currentWonder.summary.id === wonder.id) {
             button.classList.add("active");
         }
+        const image = wonderImageForSummary(wonder);
+        const thumbnailHtml = image?.url
+            ? `<img class="wonder-thumb" src="${escapeHtml(image.url)}" alt="${escapeHtml(wonderImageAlt(wonder))}" loading="lazy">`
+            : `<span class="wonder-thumb wonder-thumb-missing" aria-hidden="true"></span>`;
         button.innerHTML = `
-            <span class="wonder-row">
-                <span class="wonder-id">#${wonder.id}</span>
-                <span class="wonder-kind">${escapeHtml(wonder.kind_label)}</span>
+            ${thumbnailHtml}
+            <span class="wonder-list-copy">
+                <span class="wonder-row">
+                    <span class="wonder-id">#${wonder.id}</span>
+                    <span class="wonder-kind">${escapeHtml(wonder.kind_label)}</span>
+                </span>
+                <strong>${escapeHtml(wonder.name_zh || wonder.key)}</strong>
+                <span class="wonder-subtitle">${escapeHtml(wonder.name_en || wonder.concept)}</span>
+                <code>${escapeHtml(wonder.key)}</code>
             </span>
-            <strong>${escapeHtml(wonder.name_zh || wonder.key)}</strong>
-            <span class="wonder-subtitle">${escapeHtml(wonder.name_en || wonder.concept)}</span>
-            <code>${escapeHtml(wonder.key)}</code>
         `;
         button.addEventListener("click", () => {
             void selectWonder(wonder.id);
@@ -277,6 +335,10 @@ function renderMeta() {
     }
     if (meta.location) {
         entries.push(["固定地点", meta.location]);
+    }
+
+    if (meta.image?.filename) {
+        entries.push(["Image", meta.image.exists ? meta.image.filename : `${meta.image.filename} (missing)`]);
     }
 
     for (const [label, value] of entries) {
@@ -1773,6 +1835,7 @@ function render() {
     renderWonderKindTabs();
     renderWonderList();
     renderMeta();
+    renderWonderImage();
     renderWonderNameEditors();
     renderEditorTabs();
     renderEditorPanels();

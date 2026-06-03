@@ -8,7 +8,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from .service import WonderLocalizationService
+from .service import GENERATED_WONDER_IMAGES_DIR, WONDER_IMAGE_URL_PREFIX, WonderLocalizationService
 
 PACKAGE_ROOT = Path(__file__).resolve().parent
 STATIC_DIR = PACKAGE_ROOT / "static"
@@ -72,6 +72,11 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=500, detail=str(exc)) from exc
 
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+    app.mount(
+        WONDER_IMAGE_URL_PREFIX,
+        StaticFiles(directory=GENERATED_WONDER_IMAGES_DIR, check_dir=False),
+        name="wonder-images",
+    )
     return app
 
 
