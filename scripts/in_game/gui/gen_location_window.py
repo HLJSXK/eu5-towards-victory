@@ -28,7 +28,6 @@ PANEL_WIDTH = WONDER_TEXT_COLUMN_WIDTH + WONDER_ROW_SPACING + WONDER_PREVIEW_COL
 LOCATION_SCENE_CARD_MARGIN = 8
 PANEL_ROW_HEIGHT = 64
 PANEL_SEPARATOR_HEIGHT = 4
-PANEL_HEIGHT = PANEL_ROW_HEIGHT * COMPACT_SLOT_MAX + PANEL_SEPARATOR_HEIGHT * (COMPACT_SLOT_MAX - 1)
 PANEL_PREVIEW_HEIGHT = PANEL_ROW_HEIGHT - 8
 TOOLTIP_ROW_WIDTH = 400
 TOOLTIP_TEXT_COLUMN_WIDTH = (TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING) // 2
@@ -148,6 +147,18 @@ def render_separator(indent: str, *, before_slot: int, after_slot: int) -> list[
     ]
 
 
+def compact_panel_height(slot_count: int) -> int:
+    return PANEL_ROW_HEIGHT * slot_count + PANEL_SEPARATOR_HEIGHT * (slot_count - 1)
+
+
+def compact_panel_visible_expr(slot_count: int) -> str:
+    current_slot = slot_has_id_expr("compact", slot_count)
+    if slot_count == COMPACT_SLOT_MAX:
+        return current_slot
+    next_slot = slot_has_id_expr("compact", slot_count + 1)
+    return f"And({current_slot}, Not({next_slot}))"
+
+
 def render_level_line(indent: str, *, slot_type: str, slot: int) -> list[str]:
     level_var = slot_level_var(slot_type, slot)
     return [
@@ -264,11 +275,11 @@ def render_compact_slot_row(indent: str, *, slot: int) -> list[str]:
     return lines
 
 
-def render_panel_card(indent: str) -> list[str]:
+def render_panel_card_variant(indent: str, *, slot_count: int) -> list[str]:
     lines = [
         f"{indent}widget = {{",
-        f'{indent}{T}visible = "[{any_wonder_visible_expr()}]"',
-        f"{indent}{T}size = {{ {PANEL_WIDTH} {PANEL_HEIGHT} }}",
+        f'{indent}{T}visible = "[{compact_panel_visible_expr(slot_count)}]"',
+        f"{indent}{T}size = {{ {PANEL_WIDTH} {compact_panel_height(slot_count)} }}",
         f"{indent}{T}parentanchor = right|top",
         f"{indent}{T}widgetanchor = right|top",
         f"{indent}{T}position = {{ -{LOCATION_SCENE_CARD_MARGIN} {LOCATION_SCENE_CARD_MARGIN} }}",
@@ -286,9 +297,9 @@ def render_panel_card(indent: str) -> list[str]:
         f"{indent}{T}{T}{T}spacing = {PANEL_SEPARATOR_HEIGHT}",
         f"{indent}{T}{T}{T}ignoreinvisible = yes",
     ]
-    for slot in range(1, COMPACT_SLOT_MAX + 1):
+    for slot in range(1, slot_count + 1):
         lines.extend(render_compact_slot_row(indent + T * 4, slot=slot))
-        if slot < COMPACT_SLOT_MAX:
+        if slot < slot_count:
             lines.extend(render_separator(indent + T * 4, before_slot=slot, after_slot=slot + 1))
     lines.extend(
         [
@@ -297,6 +308,13 @@ def render_panel_card(indent: str) -> list[str]:
             f"{indent}}}",
         ]
     )
+    return lines
+
+
+def render_panel_card(indent: str) -> list[str]:
+    lines: list[str] = []
+    for slot_count in range(1, COMPACT_SLOT_MAX + 1):
+        lines.extend(render_panel_card_variant(indent, slot_count=slot_count))
     return lines
 
 
