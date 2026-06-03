@@ -81,6 +81,8 @@ def generate() -> str:
                 elif blessing:
                     lines.extend(modifier_block(ritual_burden_modifier_name(wonder), burden_modifiers(blessing)))
                 has_timed_ritual = True
+            if not wonder.get("is_unique"):
+                continue
             ceremony_modifier = ceremony_modifier_for_style(wonder, mechanics, style)
             if ceremony_modifier is None:
                 continue
