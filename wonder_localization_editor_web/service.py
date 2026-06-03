@@ -68,6 +68,7 @@ ROMAN_NUMERALS = {
 WONDER_LOCALIZATION_DATA_REL = "data/wonder_localization.yaml"
 GENERATED_LOC_DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
 WONDER_EDITOR_CATALOG_FILE = REPO_ROOT / "data" / "wonder_editor_catalog.yaml"
+MODIFIER_LOCALIZATION_INDEX_FILE = REPO_ROOT / "data" / "index" / "modifier_localization.json"
 GENERATED_WONDER_IMAGES_DIR = REPO_ROOT / "data" / "generated_wonders"
 WONDER_IMAGE_URL_PREFIX = "/wonder-images"
 GENERATED_LOC_FILES = {
@@ -125,6 +126,34 @@ GENERIC_STYLE_2_DERIVED_HELP_TEXT = (
     "The auxiliary building generator always adds this +0.5 local estate power effect "
     "for the wonder's pop_type on top of the editable local modifiers."
 )
+INDEX_LANGUAGE_BY_EDITOR_LANGUAGE = {
+    "english": "en",
+    "simp_chinese": "zh",
+}
+REFERENCE_LOC_DIR_BY_EDITOR_LANGUAGE = {
+    "english": REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "localization" / "english",
+    "simp_chinese": REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "localization" / "simp_chinese",
+}
+OPTION_LOC_LINE_RE = re.compile(r'^\s*([A-Za-z0-9_.-]+):(?:\d+)?\s+"(.*)"\s*$')
+REWARD_LABEL_CANDIDATES = {
+    "all_estate_satisfaction": ("estate_satisfaction", "game_concept_estate_satisfaction"),
+    "estate_satisfaction": ("estate_satisfaction", "game_concept_estate_satisfaction"),
+    "ruler_adm": ("administration", "game_concept_administration", "adm"),
+    "ruler_dip": ("diplomacy", "game_concept_diplomacy", "dip"),
+    "ruler_mil": ("military", "game_concept_military", "mil"),
+    "site_prosperity": ("prosperity", "game_concept_prosperity"),
+}
+REWARD_FALLBACK_LABELS = {
+    "all_estate_satisfaction": "All Estate Satisfaction",
+    "estate_satisfaction": "Estate Satisfaction",
+    "ruler_adm": "Ruler Administrative Skill",
+    "ruler_dip": "Ruler Diplomatic Skill",
+    "ruler_mil": "Ruler Military Skill",
+    "site_prosperity": "Site Prosperity",
+    "yearly_gold": "Yearly Gold",
+    "yearly_manpower": "Yearly Manpower",
+    "yearly_sailors": "Yearly Sailors",
+}
 COMMON_LOCALIZATION_KEYS = (
     "tv_wonder_confirm_ceremony",
     "tv_wonder_confirm_ceremony_desc",
@@ -233,7 +262,7 @@ class MechanicsFieldSpec:
     target_key: str
     target_parent_key: str = ""
     height: int = 3
-    options: list[dict[str, str]] = field(default_factory=list)
+    options: list[dict[str, Any]] = field(default_factory=list)
     help_text: str = ""
     source_path: str = ""
     target_path: str = ""
@@ -460,7 +489,7 @@ def build_modifier_editor_state(
     mapping: dict[str, object],
     *,
     modifier_scope: str,
-    options: list[dict[str, str]],
+    options: list[dict[str, Any]],
     derived_mapping: dict[str, object] | None = None,
     derived_title: str = "",
     derived_help_text: str = "",
@@ -488,7 +517,7 @@ def generic_style_2_derived_modifier_mapping(wonder: dict[str, Any]) -> dict[str
 def build_reward_editor_state(
     *,
     rows: list[dict[str, str]],
-    options: list[dict[str, str]],
+    options: list[dict[str, Any]],
     cost_type: str | None = None,
     cost_options: list[dict[str, str]] | None = None,
 ) -> dict[str, Any]:
@@ -510,9 +539,9 @@ def _optional_editor_text(value: object) -> str | None:
 def build_unique_ritual_editor_state(
     ritual: dict[str, Any],
     *,
-    country_modifier_options: list[dict[str, str]],
-    local_modifier_options: list[dict[str, str]],
-    reward_type_options: list[dict[str, str]],
+    country_modifier_options: list[dict[str, Any]],
+    local_modifier_options: list[dict[str, Any]],
+    reward_type_options: list[dict[str, Any]],
 ) -> dict[str, Any]:
     return {
         "key": ritual.get("key", ""),
@@ -653,8 +682,195 @@ def unique_ritual_from_editor_state(raw_value: object, *, context: str) -> dict[
     }
 
 
-def _sorted_unique_options(values: set[str]) -> list[dict[str, str]]:
-    return [{"value": value, "label": value} for value in sorted(values)]
+def _prettify_option_key(value: object) -> str:
+    return str(value).replace("_", " ").strip().title()
+
+
+def _scrub_option_markup(value: object) -> str:
+    text = str(value or "")
+
+    def concept_replacement(match: re.Match[str]) -> str:
+        return _prettify_option_key(match.group(1))
+
+    text = re.sub(r"\[([^|\]]+)\|[A-Za-z]+\]", concept_replacement, text)
+    text = re.sub(r"@([A-Za-z0-9_]+)!", "", text)
+    text = re.sub(r"#\w+\s*", "", text).replace("#!", "")
+    return " ".join(text.split())
+
+
+def _best_localized_label(labels: dict[str, str], fallback: str) -> str:
+    for language in ("simp_chinese", "english"):
+        label = _scrub_option_markup(labels.get(language, ""))
+        if label:
+            return label
+    return fallback
+
+
+def _localized_option(
+    value: str,
+    labels: dict[str, str] | None = None,
+    *,
+    descriptions: dict[str, str] | None = None,
+    source: str = "",
+    extra: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    labels = labels or {}
+    descriptions = descriptions or {}
+    fallback = _prettify_option_key(value)
+    label_en = _scrub_option_markup(labels.get("english") or fallback)
+    label_zh = _scrub_option_markup(labels.get("simp_chinese") or label_en)
+    description_en = _scrub_option_markup(descriptions.get("english", ""))
+    description_zh = _scrub_option_markup(descriptions.get("simp_chinese", ""))
+    localized_label = _best_localized_label(
+        {
+            "english": label_en,
+            "simp_chinese": label_zh,
+        },
+        fallback,
+    )
+    search_parts = [
+        value,
+        localized_label,
+        label_en,
+        label_zh,
+        description_en,
+        description_zh,
+        source,
+    ]
+    option: dict[str, Any] = {
+        "value": value,
+        "label": localized_label,
+        "key_label": value,
+        "localized_label": localized_label,
+        "label_en": label_en,
+        "label_zh": label_zh,
+        "description_en": description_en,
+        "description_zh": description_zh,
+        "search_text": " ".join(part for part in search_parts if part).lower(),
+    }
+    if source:
+        option["source"] = source
+    if extra:
+        option.update(extra)
+    return option
+
+
+def _load_json_index(path: Path, root_key: str) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    if not isinstance(payload, dict):
+        return {}
+    records = payload.get(root_key, {})
+    return records if isinstance(records, dict) else {}
+
+
+def _localized_pair_from_index_entry(entry: dict[str, Any], field_name: str, fallback: str) -> dict[str, str]:
+    labels: dict[str, str] = {}
+    for language in LANGUAGES:
+        index_language = INDEX_LANGUAGE_BY_EDITOR_LANGUAGE[language]
+        language_entry = entry.get(index_language, {}) if isinstance(entry, dict) else {}
+        value = language_entry.get(field_name) if isinstance(language_entry, dict) else None
+        labels[language] = _scrub_option_markup(value or fallback)
+    return labels
+
+
+def _modifier_options(values: set[str], modifier_index: dict[str, Any]) -> list[dict[str, Any]]:
+    options: list[dict[str, Any]] = []
+    for value in sorted(values):
+        entry = modifier_index.get(value, {})
+        if not isinstance(entry, dict):
+            entry = {}
+        fallback = _prettify_option_key(value)
+        labels = _localized_pair_from_index_entry(entry, "name", fallback)
+        descriptions = _localized_pair_from_index_entry(entry, "description", "")
+        extra = {
+            key: entry[key]
+            for key in ("value_kind", "decimals", "category", "color")
+            if key in entry
+        }
+        options.append(_localized_option(value, labels, descriptions=descriptions, extra=extra))
+    return options
+
+
+def _parse_reference_loc_value(raw_value: str) -> str:
+    return raw_value.replace(r"\"", '"').replace(r"\n", "\n")
+
+
+def _load_reference_localization_subset(language: str, wanted_keys: set[str]) -> dict[str, str]:
+    root = REFERENCE_LOC_DIR_BY_EDITOR_LANGUAGE[language]
+    if not wanted_keys or not root.exists():
+        return {}
+    remaining = set(wanted_keys)
+    values: dict[str, str] = {}
+    for path in sorted(root.rglob("*.yml")):
+        try:
+            lines = path.read_text(encoding="utf-8-sig").splitlines()
+        except UnicodeDecodeError:
+            continue
+        for line in lines:
+            match = OPTION_LOC_LINE_RE.match(line)
+            if match is None:
+                continue
+            key = match.group(1)
+            if key not in remaining:
+                continue
+            values[key] = _parse_reference_loc_value(match.group(2))
+            remaining.remove(key)
+        if not remaining:
+            break
+    return values
+
+
+def _reward_label_candidates(reward_type: str, source: str = "") -> list[str]:
+    candidates: list[str] = []
+    for candidate in REWARD_LABEL_CANDIDATES.get(reward_type, ()):
+        candidates.append(candidate)
+    candidates.extend([reward_type, f"game_concept_{reward_type}"])
+    if reward_type.startswith("yearly_"):
+        base = reward_type.removeprefix("yearly_")
+        candidates.extend([base, f"game_concept_{base}"])
+    if source.startswith("add_"):
+        source_base = source.removeprefix("add_")
+        candidates.extend([source_base, f"game_concept_{source_base}"])
+    seen: set[str] = set()
+    unique: list[str] = []
+    for candidate in candidates:
+        if candidate and candidate not in seen:
+            seen.add(candidate)
+            unique.append(candidate)
+    return unique
+
+
+def _reward_options(reward_types: set[str], reward_sources: dict[str, str]) -> list[dict[str, Any]]:
+    candidate_map = {
+        reward_type: _reward_label_candidates(reward_type, reward_sources.get(reward_type, ""))
+        for reward_type in reward_types
+    }
+    wanted_keys = {candidate for candidates in candidate_map.values() for candidate in candidates}
+    loc_values = {
+        language: _load_reference_localization_subset(language, wanted_keys)
+        for language in LANGUAGES
+    }
+    options: list[dict[str, Any]] = []
+    for reward_type in sorted(reward_types):
+        source = reward_sources.get(reward_type, "")
+        fallback = REWARD_FALLBACK_LABELS.get(reward_type, _prettify_option_key(reward_type))
+        labels: dict[str, str] = {}
+        for language in LANGUAGES:
+            labels[language] = ""
+            for candidate in candidate_map[reward_type]:
+                value = loc_values[language].get(candidate)
+                if value:
+                    labels[language] = value
+                    break
+            if not labels[language]:
+                labels[language] = fallback
+        options.append(_localized_option(reward_type, labels, source=source))
+    return options
 
 
 def _catalog_string_values(raw_value: object) -> set[str]:
@@ -675,11 +891,16 @@ def _load_wonder_editor_catalog() -> dict[str, Any]:
 def _modifier_option_catalog(
     mechanics_data: dict[str, Any],
     unique_wonders_data: dict[str, Any],
-) -> tuple[list[dict[str, str]], list[dict[str, str]], list[dict[str, str]]]:
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
     country_modifiers: set[str] = set()
     local_modifiers: set[str] = set()
     reward_types: set[str] = set()
     editor_catalog = _load_wonder_editor_catalog()
+    modifier_index = _load_json_index(MODIFIER_LOCALIZATION_INDEX_FILE, "modifiers")
+    reward_sources = {
+        str(key): str(value)
+        for key, value in (editor_catalog.get("style_3_reward_sources", {}) or {}).items()
+    }
     catalog_modifier_types = editor_catalog.get("modifier_types", {})
     if isinstance(catalog_modifier_types, dict):
         country_modifiers.update(_catalog_string_values(catalog_modifier_types.get("country", [])))
@@ -750,7 +971,11 @@ def _modifier_option_catalog(
         local_modifiers.add("local_production_efficiency")
     if not reward_types:
         reward_types.update({"prestige", "gold"})
-    return _sorted_unique_options(country_modifiers), _sorted_unique_options(local_modifiers), _sorted_unique_options(reward_types)
+    return (
+        _modifier_options(country_modifiers, modifier_index),
+        _modifier_options(local_modifiers, modifier_index),
+        _reward_options(reward_types, reward_sources),
+    )
 
 
 def normalize_inline_script(text: str) -> str:
@@ -1761,9 +1986,9 @@ class WonderLocalizationService:
         self.unique_wonders_data: dict[str, Any] = {}
         self.event_suffixes: dict[int, str] = {}
         self.localization_data: dict[str, dict[str, str]] = {}
-        self.country_modifier_options: list[dict[str, str]] = []
-        self.local_modifier_options: list[dict[str, str]] = []
-        self.reward_type_options: list[dict[str, str]] = []
+        self.country_modifier_options: list[dict[str, Any]] = []
+        self.local_modifier_options: list[dict[str, Any]] = []
+        self.reward_type_options: list[dict[str, Any]] = []
         self.reload_from_disk()
         self._append_log("[server] Wonder Localization Editor ready\n")
 
@@ -2556,7 +2781,7 @@ class WonderLocalizationService:
         target_key: str,
         target_parent_key: str = "",
         height: int = 3,
-        options: list[dict[str, str]] | None = None,
+        options: list[dict[str, Any]] | None = None,
         help_text: str = "",
         target_path: str = "",
         structured_value: Any | None = None,

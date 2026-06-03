@@ -673,6 +673,127 @@ textarea {
     font-size: 0.9rem;
 }
 
+.option-combobox {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: #fffdf8;
+}
+
+.field-card .option-combobox input,
+.option-combobox input {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    background: transparent;
+    color: var(--text);
+    line-height: 1.4;
+    resize: none;
+}
+
+.field-card .option-combobox input:focus,
+.option-combobox input:focus {
+    outline: none;
+    border-color: transparent;
+}
+
+.option-combobox:focus-within {
+    outline: 2px solid rgba(15, 108, 117, 0.22);
+    border-color: rgba(15, 108, 117, 0.35);
+}
+
+.option-mode-button,
+.option-open-button {
+    min-width: 44px;
+    padding: 0 10px;
+    border-left: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--accent-strong);
+    font-size: 0.82rem;
+}
+
+.option-open-button {
+    min-width: 34px;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.option-menu {
+    position: absolute;
+    z-index: 30;
+    top: calc(100% + 6px);
+    right: 0;
+    left: 0;
+    display: grid;
+    gap: 4px;
+    max-height: 280px;
+    overflow: auto;
+    padding: 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-md);
+    background: #fffdf8;
+    box-shadow: 0 14px 28px rgba(38, 44, 59, 0.18);
+}
+
+.option-menu[hidden] {
+    display: none;
+}
+
+.option-item {
+    display: grid;
+    gap: 3px;
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text);
+    text-align: left;
+}
+
+.option-item:hover,
+.option-item:focus-visible,
+.option-item.selected {
+    background: var(--accent-soft);
+}
+
+.option-item-main,
+.option-item-sub,
+.option-item-desc {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.option-item-main {
+    font-weight: 650;
+}
+
+.option-item-sub,
+.option-item-desc {
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+}
+
+.option-item-desc {
+    font-family: var(--font-sans);
+}
+
+.option-empty {
+    padding: 12px;
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
 .mini-button {
     padding: 9px 12px;
     border: 1px solid var(--line);

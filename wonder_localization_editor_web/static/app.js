@@ -461,7 +461,6 @@ const STRUCTURED_FIELD_TYPES = new Set([
     "site_preference_template",
     "suitability_knowledge_editor",
 ]);
-let optionListCounter = 0;
 
 function isStructuredFieldType(fieldType) {
     return STRUCTURED_FIELD_TYPES.has(fieldType);
@@ -819,20 +818,265 @@ function previewTextForField(field, stateValue) {
     return lines.join("\n");
 }
 
-function attachOptionList(input, options) {
-    if (!options || !options.length) {
-        return;
+function normalizeOption(option) {
+    if (typeof option === "string") {
+        return {
+            value: option,
+            label: option,
+            key_label: option,
+            localized_label: option,
+            search_text: option.toLowerCase(),
+        };
     }
-    const list = document.createElement("datalist");
-    list.id = `structured-options-${++optionListCounter}`;
-    for (const option of options) {
-        const node = document.createElement("option");
-        node.value = option.value;
-        node.label = option.label || option.value;
-        list.append(node);
+    const value = String(option?.value ?? "");
+    const label = String(option?.label ?? value);
+    const keyLabel = String(option?.key_label ?? value);
+    const localizedLabel = String(option?.localized_label ?? label);
+    const searchText = String(
+        option?.search_text ||
+            [
+                value,
+                label,
+                keyLabel,
+                localizedLabel,
+                option?.label_en,
+                option?.label_zh,
+                option?.description_en,
+                option?.description_zh,
+                option?.source,
+            ]
+                .filter(Boolean)
+                .join(" "),
+    ).toLowerCase();
+    return {
+        ...option,
+        value,
+        label,
+        key_label: keyLabel,
+        localized_label: localizedLabel,
+        search_text: searchText,
+    };
+}
+
+function normalizeOptionList(options) {
+    return (options || []).map(normalizeOption);
+}
+
+function optionsWithBlank(options, blankLabel) {
+    const normalized = normalizeOptionList(options);
+    if (normalized.some((option) => option.value === "")) {
+        return normalized;
     }
-    input.setAttribute("list", list.id);
-    input.after(list);
+    return [
+        normalizeOption({
+            value: "",
+            label: blankLabel,
+            key_label: "",
+            localized_label: blankLabel,
+        }),
+        ...normalized,
+    ];
+}
+
+function optionPrimaryText(option, displayMode) {
+    if (!option) {
+        return "";
+    }
+    return displayMode === "key" ? option.key_label || option.value : option.localized_label || option.label || option.value;
+}
+
+function optionSecondaryText(option, displayMode) {
+    if (!option) {
+        return "";
+    }
+    return displayMode === "key" ? option.localized_label || option.label || "" : option.key_label || option.value || "";
+}
+
+function createSearchableSelect(options, value, config = {}) {
+    const normalizedOptions = normalizeOptionList(options);
+    const wrapper = document.createElement("div");
+    wrapper.className = "option-combobox";
+    wrapper.dataset.displayMode = "localized";
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.autocomplete = "off";
+    input.spellcheck = false;
+    input.placeholder = config.placeholder || "Search...";
+
+    const modeButton = document.createElement("button");
+    modeButton.type = "button";
+    modeButton.className = "option-mode-button";
+    modeButton.textContent = "Text";
+
+    const openButton = document.createElement("button");
+    openButton.type = "button";
+    openButton.className = "option-open-button";
+    openButton.textContent = "v";
+    openButton.setAttribute("aria-label", "Open options");
+
+    const menu = document.createElement("div");
+    menu.className = "option-menu";
+    menu.hidden = true;
+
+    let currentValue = String(value ?? "");
+    let query = "";
+    let displayMode = "localized";
+
+    const selectedOption = () => normalizedOptions.find((option) => option.value === currentValue) || null;
+
+    const displayForValue = () => {
+        const option = selectedOption();
+        if (option) {
+            return optionPrimaryText(option, displayMode);
+        }
+        return currentValue;
+    };
+
+    const filteredOptions = () => {
+        const normalizedQuery = query.trim().toLowerCase();
+        if (!normalizedQuery) {
+            return normalizedOptions;
+        }
+        return normalizedOptions.filter((option) => option.search_text.includes(normalizedQuery));
+    };
+
+    const setOpen = (isOpen) => {
+        menu.hidden = !isOpen;
+        wrapper.classList.toggle("open", isOpen);
+        if (isOpen) {
+            renderMenu();
+        }
+    };
+
+    const renderInput = () => {
+        input.value = displayForValue();
+        const option = selectedOption();
+        input.title = option
+            ? `${option.key_label || option.value}\n${option.localized_label || option.label || ""}`
+            : currentValue;
+        modeButton.textContent = displayMode === "key" ? "Key" : "Text";
+        wrapper.dataset.displayMode = displayMode;
+    };
+
+    const commitValue = (nextValue) => {
+        currentValue = String(nextValue ?? "");
+        query = "";
+        renderInput();
+        setOpen(false);
+        wrapper.dispatchEvent(new Event("input", { bubbles: true }));
+        wrapper.dispatchEvent(new Event("change", { bubbles: true }));
+    };
+
+    const renderMenu = () => {
+        menu.innerHTML = "";
+        const matches = filteredOptions();
+        if (!matches.length) {
+            const empty = document.createElement("div");
+            empty.className = "option-empty";
+            empty.textContent = "No matching entries";
+            menu.append(empty);
+            return;
+        }
+        for (const option of matches) {
+            const item = document.createElement("button");
+            item.type = "button";
+            item.className = "option-item";
+            if (option.value === currentValue) {
+                item.classList.add("selected");
+            }
+            const primary = optionPrimaryText(option, displayMode);
+            const secondary = optionSecondaryText(option, displayMode);
+            const description = displayMode === "key" ? option.description_zh || option.description_en : "";
+            item.innerHTML = `
+                <span class="option-item-main">${escapeHtml(primary || option.value || "(empty)")}</span>
+                <span class="option-item-sub">${escapeHtml(secondary || option.source || "")}</span>
+                ${description ? `<span class="option-item-desc">${escapeHtml(description)}</span>` : ""}
+            `;
+            item.addEventListener("mousedown", (event) => {
+                event.preventDefault();
+                commitValue(option.value);
+            });
+            menu.append(item);
+        }
+    };
+
+    Object.defineProperty(wrapper, "value", {
+        get() {
+            return currentValue;
+        },
+        set(nextValue) {
+            currentValue = String(nextValue ?? "");
+            query = "";
+            renderInput();
+            renderMenu();
+        },
+    });
+    Object.defineProperty(wrapper, "disabled", {
+        get() {
+            return input.disabled;
+        },
+        set(isDisabled) {
+            input.disabled = Boolean(isDisabled);
+            modeButton.disabled = Boolean(isDisabled);
+            openButton.disabled = Boolean(isDisabled);
+            wrapper.classList.toggle("disabled", Boolean(isDisabled));
+            if (isDisabled) {
+                setOpen(false);
+            }
+        },
+    });
+
+    input.addEventListener("focus", () => {
+        query = "";
+        input.select();
+        setOpen(true);
+    });
+    input.addEventListener("input", () => {
+        query = input.value;
+        setOpen(true);
+    });
+    input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            const first = filteredOptions()[0];
+            if (first) {
+                event.preventDefault();
+                commitValue(first.value);
+            }
+        } else if (event.key === "Escape") {
+            query = "";
+            renderInput();
+            setOpen(false);
+        }
+    });
+    modeButton.addEventListener("click", () => {
+        displayMode = displayMode === "key" ? "localized" : "key";
+        renderInput();
+        renderMenu();
+    });
+    openButton.addEventListener("click", () => {
+        const shouldOpen = menu.hidden;
+        query = "";
+        renderInput();
+        setOpen(shouldOpen);
+        if (shouldOpen) {
+            input.focus();
+        }
+    });
+    wrapper.addEventListener("focusout", () => {
+        window.setTimeout(() => {
+            if (wrapper.contains(document.activeElement)) {
+                return;
+            }
+            query = "";
+            renderInput();
+            setOpen(false);
+        }, 0);
+    });
+
+    wrapper.append(input, modeButton, openButton, menu);
+    renderInput();
+    return wrapper;
 }
 
 function createEditorBinding(field, scope) {
@@ -843,13 +1087,9 @@ function createEditorBinding(field, scope) {
         input.value = field.original_value;
     } else if (fieldType === "select") {
         input.remove();
-        const select = document.createElement("select");
-        for (const option of field.options || []) {
-            const optionNode = document.createElement("option");
-            optionNode.value = option.value;
-            optionNode.textContent = option.label;
-            select.append(optionNode);
-        }
+        const select = createSearchableSelect(field.options || [], field.value, {
+            placeholder: `Search ${field.label || "entries"}`,
+        });
         select.value = field.value;
         select.dataset.editorField = "true";
         select.dataset.fieldScope = scope;
@@ -1020,25 +1260,23 @@ function buildRowListEditor(config) {
             const primaryOptions = config.primaryOptions || [];
             const primaryControl = config.primaryControl || "text";
             let primary;
-            if (primaryControl === "select") {
-                primary = document.createElement("select");
-                const blankOption = document.createElement("option");
-                blankOption.value = "";
-                blankOption.textContent = config.primaryPlaceholder || `Choose ${config.primaryLabel || "value"}`;
-                primary.append(blankOption);
-                for (const option of primaryOptions) {
-                    const optionNode = document.createElement("option");
-                    optionNode.value = option.value;
-                    optionNode.textContent = option.label;
-                    primary.append(optionNode);
-                }
+            if (primaryControl === "select" || primaryOptions.length) {
+                primary = createSearchableSelect(
+                    optionsWithBlank(
+                        primaryOptions,
+                        config.primaryPlaceholder || `Choose ${config.primaryLabel || "value"}`,
+                    ),
+                    row[config.primaryKey] || "",
+                    {
+                        placeholder: config.primaryPlaceholder || `Search ${config.primaryLabel || "value"}`,
+                    },
+                );
             } else {
                 primary = document.createElement("input");
                 primary.type = "text";
                 primary.placeholder = config.primaryPlaceholder || config.primaryLabel;
-                attachOptionList(primary, primaryOptions);
+                primary.value = row[config.primaryKey] || "";
             }
-            primary.value = row[config.primaryKey] || "";
             if (readonly) {
                 primary.disabled = true;
             } else {
@@ -1057,25 +1295,23 @@ function buildRowListEditor(config) {
                 const secondaryOptions = config.secondaryOptions || [];
                 const secondaryControl = config.secondaryControl || "text";
                 let secondary;
-                if (secondaryControl === "select") {
-                    secondary = document.createElement("select");
-                    const blankOption = document.createElement("option");
-                    blankOption.value = "";
-                    blankOption.textContent = config.secondaryPlaceholder || `Choose ${config.secondaryLabel || "value"}`;
-                    secondary.append(blankOption);
-                    for (const option of secondaryOptions) {
-                        const optionNode = document.createElement("option");
-                        optionNode.value = option.value;
-                        optionNode.textContent = option.label;
-                        secondary.append(optionNode);
-                    }
+                if (secondaryControl === "select" || secondaryOptions.length) {
+                    secondary = createSearchableSelect(
+                        optionsWithBlank(
+                            secondaryOptions,
+                            config.secondaryPlaceholder || `Choose ${config.secondaryLabel || "value"}`,
+                        ),
+                        row[config.secondaryKey] || "",
+                        {
+                            placeholder: config.secondaryPlaceholder || `Search ${config.secondaryLabel || "value"}`,
+                        },
+                    );
                 } else {
                     secondary = document.createElement("input");
                     secondary.type = "text";
                     secondary.placeholder = config.secondaryPlaceholder || config.secondaryLabel;
-                    attachOptionList(secondary, secondaryOptions);
+                    secondary.value = row[config.secondaryKey] || "";
                 }
-                secondary.value = row[config.secondaryKey] || "";
                 if (readonly) {
                     secondary.disabled = true;
                 } else {
@@ -1146,21 +1382,15 @@ function buildTableListEditor(config) {
                 const options =
                     typeof column.options === "function" ? column.options(row) : column.options || [];
                 let input;
-                if (column.control === "select") {
-                    input = document.createElement("select");
-                    for (const option of options) {
-                        const optionNode = document.createElement("option");
-                        optionNode.value = option.value;
-                        optionNode.textContent = option.label;
-                        input.append(optionNode);
-                    }
-                    input.value = row[column.key] || "";
+                if (column.control === "select" || options.length) {
+                    input = createSearchableSelect(options, row[column.key] || "", {
+                        placeholder: `Search ${column.label || "value"}`,
+                    });
                 } else {
                     input = document.createElement("input");
                     input.type = "text";
                     input.value = row[column.key] || "";
                     input.placeholder = column.label;
-                    attachOptionList(input, options);
                 }
                 input.addEventListener("input", () => {
                     row[column.key] = input.value;
@@ -1209,14 +1439,9 @@ function buildScalarEditor(label, value, onChange, options = null) {
 
     let input;
     if (options && options.length) {
-        input = document.createElement("select");
-        for (const option of options) {
-            const optionNode = document.createElement("option");
-            optionNode.value = option.value;
-            optionNode.textContent = option.label;
-            input.append(optionNode);
-        }
-        input.value = value ?? "";
+        input = createSearchableSelect(options, value ?? "", {
+            placeholder: `Search ${label || "value"}`,
+        });
     } else {
         input = document.createElement("input");
         input.type = "text";
