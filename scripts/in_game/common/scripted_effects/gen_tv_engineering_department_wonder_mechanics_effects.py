@@ -502,7 +502,7 @@ def append_location_display_effects(
     for wonder in unique_wonders:
         append_location_display_wonder_projection(lines, wonder, compact=True)
     for wonder in generic_wonders:
-        append_location_display_wonder_projection(lines, wonder, compact=False)
+        append_location_display_wonder_projection(lines, wonder, compact=True)
     lines.append(f"{T}remove_variable = tv_wonder_tooltip_fill_count")
     lines.append("}")
     lines.append("")
