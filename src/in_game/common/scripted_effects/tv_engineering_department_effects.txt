@@ -36,7 +36,7 @@ tv_engineering_department_create_effect = {
 			set_leader_country = prev
 		}
 	}
-	tv_wonder_reinitialize_building_state_effect = yes
+	tv_wonder_reinitialize_building_state_core_effect = yes
 }
 
 tv_change_wonder_domestic_support_effect = {
@@ -2487,6 +2487,11 @@ tv_wonder_retire_great_engineer_effect = {
 }
 
 tv_wonder_reinitialize_building_state_effect = {
+	tv_wonder_reinitialize_building_state_core_effect = yes
+	tv_wonder_mechanics_refresh_world_location_display_state_effect = yes
+}
+
+tv_wonder_reinitialize_building_state_core_effect = {
 	every_owned_location = {
 		tv_wonder_combine_completed_modules_at_location_effect = yes
 		if = {
@@ -2510,7 +2515,6 @@ tv_wonder_reinitialize_building_state_effect = {
 		tv_wonder_update_construction_progress_display_effect = yes
 	}
 	tv_wonder_initialize_ceremony_runtime_state_effect = yes
-	tv_wonder_mechanics_refresh_world_location_display_state_effect = yes
 }
 
 tv_wonder_clear_project_state_effect = {
