@@ -114,12 +114,18 @@ template tv_location_wonder_tooltip {
 									layoutpolicy_vertical = shrinking
 									spacing = 0
 									ignoreinvisible = yes
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
 									TooltipStringPairList = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue, '(CFixedPoint)0.0'))))]"
 										textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue))))))]"
 									}
 									hbox = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = shrinking
 										margin_top = 6
@@ -130,7 +136,7 @@ template tv_location_wonder_tooltip {
 										}
 									}
 									TooltipRequirementsList = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = expanding
 										textcontext = "[ShowScriptedEffectForScope(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').GetValue)), Concatenate('_ritual_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_ritual_style').GetValue)), '_location_tooltip_effect')))),LocationView.GetLocation.MakeScope.Self)]"
 										blockoverride "block_title" {
@@ -243,12 +249,18 @@ template tv_location_wonder_tooltip {
 									layoutpolicy_vertical = shrinking
 									spacing = 0
 									ignoreinvisible = yes
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
 									TooltipStringPairList = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue, '(CFixedPoint)0.0'))))]"
 										textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue))))))]"
 									}
 									hbox = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = shrinking
 										margin_top = 6
@@ -259,7 +271,7 @@ template tv_location_wonder_tooltip {
 										}
 									}
 									TooltipRequirementsList = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = expanding
 										textcontext = "[ShowScriptedEffectForScope(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').GetValue)), Concatenate('_ritual_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_ritual_style').GetValue)), '_location_tooltip_effect')))),LocationView.GetLocation.MakeScope.Self)]"
 										blockoverride "block_title" {
@@ -372,12 +384,18 @@ template tv_location_wonder_tooltip {
 									layoutpolicy_vertical = shrinking
 									spacing = 0
 									ignoreinvisible = yes
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
 									TooltipStringPairList = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue, '(CFixedPoint)0.0'))))]"
 										textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue))))))]"
 									}
 									hbox = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = shrinking
 										margin_top = 6
@@ -388,7 +406,7 @@ template tv_location_wonder_tooltip {
 										}
 									}
 									TooltipRequirementsList = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = expanding
 										textcontext = "[ShowScriptedEffectForScope(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').GetValue)), Concatenate('_ritual_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_ritual_style').GetValue)), '_location_tooltip_effect')))),LocationView.GetLocation.MakeScope.Self)]"
 										blockoverride "block_title" {
@@ -501,12 +519,18 @@ template tv_location_wonder_tooltip {
 									layoutpolicy_vertical = shrinking
 									spacing = 0
 									ignoreinvisible = yes
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
 									TooltipStringPairList = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue, '(CFixedPoint)0.0'))))]"
 										textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue))))))]"
 									}
 									hbox = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = shrinking
 										margin_top = 6
@@ -517,7 +541,7 @@ template tv_location_wonder_tooltip {
 										}
 									}
 									TooltipRequirementsList = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = expanding
 										textcontext = "[ShowScriptedEffectForScope(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').GetValue)), Concatenate('_ritual_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_ritual_style').GetValue)), '_location_tooltip_effect')))),LocationView.GetLocation.MakeScope.Self)]"
 										blockoverride "block_title" {
@@ -630,12 +654,18 @@ template tv_location_wonder_tooltip {
 									layoutpolicy_vertical = shrinking
 									spacing = 0
 									ignoreinvisible = yes
+									TooltipTextBlock = {
+										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue, '(CFixedPoint)0.0'))]"
+										blockoverride "text" {
+											text = "TV_LOCATION_WONDER_NO_EFFECT"
+										}
+									}
 									TooltipStringPairList = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue, '(CFixedPoint)0.0'))))]"
 										textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue))))))]"
 									}
 									hbox = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = shrinking
 										margin_top = 6
@@ -646,7 +676,7 @@ template tv_location_wonder_tooltip {
 										}
 									}
 									TooltipRequirementsList = {
-										visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_ritual_style').IsSet))]"
+										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = expanding
 										textcontext = "[ShowScriptedEffectForScope(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').GetValue)), Concatenate('_ritual_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_ritual_style').GetValue)), '_location_tooltip_effect')))),LocationView.GetLocation.MakeScope.Self)]"
 										blockoverride "block_title" {

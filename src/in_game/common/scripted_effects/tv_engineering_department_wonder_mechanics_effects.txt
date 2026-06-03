@@ -17333,6 +17333,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:alexandria
 				has_building = building_type:tv_wonder_unique_pharos_lighthouse_inaugurated
 			}
 		}
@@ -17397,6 +17398,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:constantinople
 				has_building = building_type:tv_wonder_unique_hagia_sophia_inaugurated
 			}
 		}
@@ -17461,6 +17463,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:jerusalem
 				has_building = building_type:tv_wonder_unique_dome_of_the_rock_inaugurated
 			}
 		}
@@ -17525,6 +17528,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:angkor
 				has_building = building_type:tv_wonder_unique_angkor_wat_inaugurated
 			}
 		}
@@ -17589,6 +17593,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:lhasa
 				has_building = building_type:tv_wonder_unique_potala_palace_inaugurated
 			}
 		}
@@ -17653,6 +17658,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:granada
 				has_building = building_type:tv_wonder_unique_alhambra_inaugurated
 			}
 		}
@@ -17717,6 +17723,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:picchu
 				has_building = building_type:tv_wonder_unique_machu_picchu_inaugurated
 			}
 		}
@@ -17781,6 +17788,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:shikama
 				has_building = building_type:tv_wonder_unique_himeji_castle_inaugurated
 			}
 		}
@@ -17845,6 +17853,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:agra
 				has_building = building_type:tv_wonder_unique_taj_mahal_inaugurated
 			}
 		}
@@ -17909,6 +17918,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:dadu
 				has_building = building_type:tv_wonder_unique_forbidden_city_inaugurated
 			}
 		}
@@ -17973,6 +17983,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:constantinople
 				has_building = building_type:tv_wonder_unique_topkapi_palace_inaugurated
 			}
 		}
@@ -18037,6 +18048,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:rome
 				has_building = building_type:tv_wonder_unique_st_peters_basilica_inaugurated
 			}
 		}
@@ -18101,6 +18113,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:lalibela
 				has_building = building_type:tv_wonder_unique_lalibela_churches_inaugurated
 			}
 		}
@@ -18165,6 +18178,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:venice
 				has_building = building_type:tv_wonder_unique_venetian_arsenal_inaugurated
 			}
 		}
@@ -18229,6 +18243,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:malacca
 				has_building = building_type:tv_wonder_unique_malacca_port_inaugurated
 			}
 		}
@@ -18293,6 +18308,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:delhi
 				has_building = building_type:tv_wonder_unique_red_fort_delhi_inaugurated
 			}
 		}
@@ -18357,6 +18373,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:paris
 				has_building = building_type:tv_wonder_unique_versailles_palace_inaugurated
 			}
 		}
@@ -18421,6 +18438,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:tenochtitlan
 				has_building = building_type:tv_wonder_unique_tenochtitlan_causeways_inaugurated
 			}
 		}
@@ -18485,6 +18503,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:amsterdam
 				has_building = building_type:tv_wonder_unique_amsterdam_canal_ring_inaugurated
 			}
 		}
@@ -18549,6 +18568,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:mecca
 				has_building = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated
 			}
 		}
@@ -18613,6 +18633,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:dadu
 				has_building = building_type:tv_wonder_unique_ming_great_wall_inaugurated
 			}
 		}
@@ -18677,6 +18698,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:genoa
 				has_building = building_type:tv_wonder_unique_bank_of_saint_george_inaugurated
 			}
 		}
@@ -18741,6 +18763,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:cahokia
 				has_building = building_type:tv_wonder_unique_cahokia_mounds_inaugurated
 			}
 		}
@@ -18805,6 +18828,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:great_zimbabwe
 				has_building = building_type:tv_wonder_unique_great_zimbabwe_inaugurated
 			}
 		}
@@ -18869,6 +18893,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:isfahan
 				has_building = building_type:tv_wonder_unique_isfahan_square_inaugurated
 			}
 		}
@@ -18933,6 +18958,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:shangyuan
 				has_building = building_type:tv_wonder_unique_grand_canal_inaugurated
 			}
 		}
@@ -18997,6 +19023,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:picchu
 				has_building = building_type:tv_wonder_unique_inca_royal_road_inaugurated
 			}
 		}
@@ -19061,6 +19088,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:rome
 				has_building = building_type:tv_wonder_unique_roman_aqueducts_inaugurated
 			}
 		}
@@ -19125,6 +19153,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:suez
 				has_building = building_type:tv_wonder_unique_suez_ancient_canal_inaugurated
 			}
 		}
@@ -19189,6 +19218,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:moscow
 				has_building = building_type:tv_wonder_unique_kremlin_inaugurated
 			}
 		}
@@ -19253,6 +19283,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:tenochtitlan
 				has_building = building_type:tv_wonder_unique_teotihuacan_inaugurated
 			}
 		}
@@ -19317,6 +19348,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:angkor
 				has_building = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated
 			}
 		}
@@ -19381,6 +19413,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:amsterdam
 				has_building = building_type:tv_wonder_unique_dutch_polders_inaugurated
 			}
 		}
@@ -19445,6 +19478,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:picchu
 				has_building = building_type:tv_wonder_unique_machu_picchu_terraces_inaugurated
 			}
 		}
@@ -19509,6 +19543,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:portsmouth
 				has_building = building_type:tv_wonder_unique_british_navy_dockyards_inaugurated
 			}
 		}
@@ -19573,6 +19608,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:sevilla
 				has_building = building_type:tv_wonder_unique_spanish_silver_fleet_inaugurated
 			}
 		}
@@ -19637,6 +19673,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:mecca
 				has_building = building_type:tv_wonder_unique_ottoman_hajj_road_inaugurated
 			}
 		}
@@ -19701,6 +19738,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:isfahan
 				has_building = building_type:tv_wonder_unique_persian_qanat_inaugurated
 			}
 		}
@@ -19765,6 +19803,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:shangyuan
 				has_building = building_type:tv_wonder_unique_longjiang_shipyard_inaugurated
 			}
 		}
@@ -19829,6 +19868,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:jerusalem
 				has_building = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated
 			}
 		}
@@ -19893,6 +19933,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:salisbury
 				has_building = building_type:tv_wonder_unique_stonehenge_inaugurated
 			}
 		}
@@ -19957,6 +19998,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:london
 				has_building = building_type:tv_wonder_unique_tower_of_london_inaugurated
 			}
 		}
@@ -20021,6 +20063,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:paris
 				has_building = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated
 			}
 		}
@@ -20085,6 +20128,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:moscow
 				has_building = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated
 			}
 		}
@@ -20149,6 +20193,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:moscow
 				has_building = building_type:tv_wonder_unique_trinity_lavra_inaugurated
 			}
 		}
@@ -20213,6 +20258,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:neva
 				has_building = building_type:tv_wonder_unique_winter_palace_inaugurated
 			}
 		}
@@ -20277,6 +20323,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:hanyang
 				has_building = building_type:tv_wonder_unique_gyeongbokgung_inaugurated
 			}
 		}
@@ -20341,6 +20388,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:girin_ula
 				has_building = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated
 			}
 		}
@@ -20405,6 +20453,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:belgrad
 				has_building = building_type:tv_wonder_unique_belgrade_fortress_inaugurated
 			}
 		}
@@ -20469,6 +20518,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	if = {
 		limit = {
 			OR = {
+				this = location:trikala
 				has_building = building_type:tv_wonder_unique_meteora_monasteries_inaugurated
 			}
 		}

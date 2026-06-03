@@ -96,6 +96,15 @@ def slot_has_payload_expr(slot_type: str, slot: int) -> str:
     )
 
 
+def slot_level_is_expr(slot_type: str, slot: int, level: int) -> str:
+    level_var = slot_level_var(slot_type, slot)
+    return f"And({level_var}.IsSet, EqualTo_CFixedPoint({level_var}.GetValue, '(CFixedPoint){level}.0'))"
+
+
+def slot_has_effect_payload_expr(slot_type: str, slot: int) -> str:
+    return f"And({slot_has_payload_expr(slot_type, slot)}, Not({slot_level_is_expr(slot_type, slot, 0)}))"
+
+
 def slot_name_expr(slot_type: str, slot: int) -> str:
     return f"Localize(Concatenate('game_concept_{DISPLAY_CONCEPT_PREFIX}', {slot_id_string(slot_type, slot)}))"
 
@@ -344,7 +353,8 @@ def render_tooltip_preview_column(indent: str, *, slot: int) -> list[str]:
 
 
 def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
-    visible = slot_has_payload_expr("tooltip", slot)
+    visible = slot_has_effect_payload_expr("tooltip", slot)
+    no_effect_visible = slot_level_is_expr("tooltip", slot, 0)
     modifier_key = slot_modifier_key_expr("tooltip", slot)
     ritual_effect_key = slot_ritual_effect_key_expr("tooltip", slot)
     return [
@@ -361,6 +371,12 @@ def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}{T}layoutpolicy_vertical = shrinking",
         f"{indent}{T}{T}spacing = 0",
         f"{indent}{T}{T}ignoreinvisible = yes",
+        f"{indent}{T}{T}TooltipTextBlock = {{",
+        f'{indent}{T}{T}{T}visible = "[{no_effect_visible}]"',
+        f'{indent}{T}{T}{T}blockoverride "text" {{',
+        f'{indent}{T}{T}{T}{T}text = "TV_LOCATION_WONDER_NO_EFFECT"',
+        f"{indent}{T}{T}{T}}}",
+        f"{indent}{T}{T}}}",
         f"{indent}{T}{T}TooltipStringPairList = {{",
         f'{indent}{T}{T}{T}visible = "[{visible}]"',
         f'{indent}{T}{T}{T}textcontext = "[ShowModifierEffect({modifier_key})]"',
