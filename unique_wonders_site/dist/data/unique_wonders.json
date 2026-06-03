@@ -838,8 +838,24 @@
           },
           "rows": [
             {
+              "key": "global_pop_conversion_speed",
+              "value": 0.004,
+              "label": {
+                "en": "Pop Conversion Speed",
+                "zh": "人口皈依速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in all Locations of the country.",
+                "zh": "影响全国所有地点的人口Convert速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
               "key": "global_pop_conversion_speed_modifier",
-              "value": 0.4,
+              "value": 0.2,
               "label": {
                 "en": "Pop Conversion Speed %",
                 "zh": "人口皈依速度 %"
@@ -849,22 +865,6 @@
                 "zh": "影响全国所有地点的人口Convert速度。"
               },
               "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "tolerance_own",
-              "value": 2,
-              "label": {
-                "en": "Tolerance of the True Faith",
-                "zh": "正统信仰容忍度"
-              },
-              "description": {
-                "en": "This impacts the Tolerance of the State Religion.",
-                "zh": "影响State Religion的Tolerance。"
-              },
-              "value_kind": "number",
               "decimals": 2,
               "category": "country",
               "color": "good"
@@ -1215,8 +1215,24 @@
           },
           "rows": [
             {
+              "key": "global_pop_conversion_speed",
+              "value": 0.004,
+              "label": {
+                "en": "Pop Conversion Speed",
+                "zh": "人口皈依速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in all Locations of the country.",
+                "zh": "影响全国所有地点的人口Convert速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
               "key": "global_pop_conversion_speed_modifier",
-              "value": 0.4,
+              "value": 0.2,
               "label": {
                 "en": "Pop Conversion Speed %",
                 "zh": "人口皈依速度 %"
@@ -1226,22 +1242,6 @@
                 "zh": "影响全国所有地点的人口Convert速度。"
               },
               "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "tolerance_own",
-              "value": 2,
-              "label": {
-                "en": "Tolerance of the True Faith",
-                "zh": "正统信仰容忍度"
-              },
-              "description": {
-                "en": "This impacts the Tolerance of the State Religion.",
-                "zh": "影响State Religion的Tolerance。"
-              },
-              "value_kind": "number",
               "decimals": 2,
               "category": "country",
               "color": "good"
@@ -2346,8 +2346,24 @@
           },
           "rows": [
             {
+              "key": "global_pop_conversion_speed",
+              "value": 0.004,
+              "label": {
+                "en": "Pop Conversion Speed",
+                "zh": "人口皈依速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in all Locations of the country.",
+                "zh": "影响全国所有地点的人口Convert速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
               "key": "global_pop_conversion_speed_modifier",
-              "value": 0.4,
+              "value": 0.2,
               "label": {
                 "en": "Pop Conversion Speed %",
                 "zh": "人口皈依速度 %"
@@ -2357,22 +2373,6 @@
                 "zh": "影响全国所有地点的人口Convert速度。"
               },
               "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "tolerance_own",
-              "value": 2,
-              "label": {
-                "en": "Tolerance of the True Faith",
-                "zh": "正统信仰容忍度"
-              },
-              "description": {
-                "en": "This impacts the Tolerance of the State Religion.",
-                "zh": "影响State Religion的Tolerance。"
-              },
-              "value_kind": "number",
               "decimals": 2,
               "category": "country",
               "color": "good"
@@ -8649,69 +8649,6 @@
       "construction_requirements": [],
       "effects": [
         {
-          "id": "final_local",
-          "title": {
-            "en": "Inherited final local effects",
-            "zh": "继承的最终建筑本地效果"
-          },
-          "scope": "local",
-          "value_label": {
-            "en": "Value",
-            "zh": "数值"
-          },
-          "rows": [
-            {
-              "key": "local_cultural_tradition",
-              "value": 1.4,
-              "label": {
-                "en": "Cultural Tradition",
-                "zh": "文化传统"
-              },
-              "description": {
-                "en": "This impacts the Cultural Tradition of our Primary Culture.",
-                "zh": "影响我国Primary Culture的Cultural Tradition。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_unrest",
-              "value": -0.1,
-              "label": {
-                "en": "Unrest",
-                "zh": "本地叛乱度"
-              },
-              "description": {
-                "en": "This impacts the Unrest in a Location.",
-                "zh": "影响地点的Unrest。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "bad"
-            },
-            {
-              "key": "local_migration_attraction",
-              "value": 1.0,
-              "label": {
-                "en": "Migration Attraction",
-                "zh": "移民吸引力"
-              },
-              "description": {
-                "en": "This impacts if Pops want Migrate to this Location or away from it.",
-                "zh": "影响人口是否愿意Migrate到该地点或离开那里。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            }
-          ],
-          "meta": {}
-        },
-        {
           "id": "base_modifiers",
           "title": {
             "en": "Per-level country effects",
@@ -8724,8 +8661,24 @@
           },
           "rows": [
             {
+              "key": "cultural_tradition_modifier",
+              "value": 0.2,
+              "label": {
+                "en": "Cultural Tradition %",
+                "zh": "文化传统%"
+              },
+              "description": {
+                "en": "This impacts the Cultural Tradition of our Primary Culture.",
+                "zh": "影响我国Primary Culture的Cultural Tradition。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
               "key": "monthly_towards_traditionalist",
-              "value": 0.08,
+              "value": 0.1,
               "label": {
                 "en": "Monthly Progress to Traditionalist",
                 "zh": "每月守旧倾向"
@@ -8738,22 +8691,6 @@
               "decimals": 2,
               "category": "country",
               "color": "neutral"
-            },
-            {
-              "key": "global_monthly_prosperity",
-              "value": 0.002,
-              "label": {
-                "en": "Monthly Prosperity",
-                "zh": "每月繁荣度"
-              },
-              "description": {
-                "en": "This impacts how much Prosperity changes monthly in all Locations in a Country.",
-                "zh": "影响国家中所有地点的Prosperity每月变化量。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
             }
           ],
           "meta": {}
@@ -8771,24 +8708,8 @@
           },
           "rows": [
             {
-              "key": "monthly_towards_traditionalist",
-              "value": 0.05,
-              "label": {
-                "en": "Monthly Progress to Traditionalist",
-                "zh": "每月守旧倾向"
-              },
-              "description": {
-                "en": "This impacts the change towards the [ShowSocietyDirectionName('traditionalist')] Societal Values.",
-                "zh": "这影响Societal Values向[ShowSocietyDirectionName('traditionalist')]改变的进度。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "neutral"
-            },
-            {
               "key": "stability_investment",
-              "value": -0.05,
+              "value": -0.1,
               "label": {
                 "en": "Stability Investment",
                 "zh": "稳定度投资"
@@ -8796,22 +8717,6 @@
               "description": {
                 "en": "This will either give a bonus or penalty to the Stability Investment we get from Budget.",
                 "zh": "对我们从Budget中获得的Stability Investment给予奖励或惩罚。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "monthly_prestige",
-              "value": 0.05,
-              "label": {
-                "en": "Monthly Prestige",
-                "zh": "每月威望"
-              },
-              "description": {
-                "en": "This impacts how much Prestige we will get each month.",
-                "zh": "影响每月获得多少Prestige。"
               },
               "value_kind": "number",
               "decimals": 2,
@@ -9004,40 +8909,8 @@
           },
           "rows": [
             {
-              "key": "global_garrison_size_modifier",
-              "value": 0.08,
-              "label": {
-                "en": "Garrison Size",
-                "zh": "驻军规模"
-              },
-              "description": {
-                "en": "This impacts the size of all Garrisons that a Country has.",
-                "zh": "影响国家所有Garrisons的规模。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "monthly_legitimacy",
-              "value": 0.08,
-              "label": {
-                "en": "Monthly Legitimacy",
-                "zh": "每月正统性"
-              },
-              "description": {
-                "en": "This impacts how much Legitimacy a Country gets each month.",
-                "zh": "影响一个国家每月获得的Legitimacy数量。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
               "key": "global_crown_estate_power",
-              "value": 0.05,
+              "value": 0.1,
               "label": {
                 "en": "Crown Power",
                 "zh": "王室力量"
@@ -9131,69 +9004,6 @@
       ],
       "effects": [
         {
-          "id": "final_local",
-          "title": {
-            "en": "Inherited final local effects",
-            "zh": "继承的最终建筑本地效果"
-          },
-          "scope": "local",
-          "value_label": {
-            "en": "Value",
-            "zh": "数值"
-          },
-          "rows": [
-            {
-              "key": "local_pop_conversion_speed",
-              "value": 40,
-              "label": {
-                "en": "Local Pop Conversion Speed",
-                "zh": "本地人口皈依速度"
-              },
-              "description": {
-                "en": "This impacts how quickly Pops Convert in this Location.",
-                "zh": "影响该处地点中的人口Convert速度。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_cultural_influence",
-              "value": 1.0,
-              "label": {
-                "en": "Local Cultural Influence",
-                "zh": "本地文化影响力"
-              },
-              "description": {
-                "en": "This impacts the Cultural Influence of our Primary Culture in a Location.",
-                "zh": "影响我国Primary Culture在一处地点的Cultural Influence。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_clergy_estate_power",
-              "value": 0.5,
-              "label": {
-                "en": "Local Clergy Power",
-                "zh": "本地教士阶层力量"
-              },
-              "description": {
-                "en": "This impacts the Estate Power of the Clergy in this Location.",
-                "zh": "这影响该地点的教士的Estate Power。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "bad"
-            }
-          ],
-          "meta": {}
-        },
-        {
           "id": "base_modifiers",
           "title": {
             "en": "Per-level country effects",
@@ -9222,24 +9032,8 @@
               "color": "good"
             },
             {
-              "key": "global_pop_conversion_speed_modifier",
-              "value": 0.1,
-              "label": {
-                "en": "Pop Conversion Speed %",
-                "zh": "人口皈依速度 %"
-              },
-              "description": {
-                "en": "This impacts how quickly Pops Convert in all Locations of the country.",
-                "zh": "影响全国所有地点的人口Convert速度。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
               "key": "monthly_towards_spiritualist",
-              "value": 0.08,
+              "value": 0.1,
               "label": {
                 "en": "Monthly Progress to Spiritualist",
                 "zh": "每月属灵倾向"
@@ -9269,50 +9063,18 @@
           },
           "rows": [
             {
-              "key": "clergy_estate_target_satisfaction",
-              "value": 0.04,
+              "key": "num_possible_artists",
+              "value": 1,
               "label": {
-                "en": "Clergy Estate Satisfaction Equilibrium",
-                "zh": "教士阶层满意度均衡点"
+                "en": "Possible Number of Artists",
+                "zh": "艺术家招募上限"
               },
               "description": {
-                "en": "This impacts the Estate Satisfaction Equilibrium of the Clergy in this Country.",
-                "zh": "这影响该国家教士的Estate Satisfaction Equilibrium。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "cultural_influence",
-              "value": 0.5,
-              "label": {
-                "en": "Cultural Influence",
-                "zh": "文化影响力"
-              },
-              "description": {
-                "en": "This impacts the Cultural Influence of our Primary Culture.",
-                "zh": "影响我国Primary Culture的Cultural Influence。"
+                "en": "This impacts how many Artists a Country can support.",
+                "zh": "影响一个国家有能力支持的Artists数量。"
               },
               "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "stability_investment",
-              "value": -0.03,
-              "label": {
-                "en": "Stability Investment",
-                "zh": "稳定度投资"
-              },
-              "description": {
-                "en": "This will either give a bonus or penalty to the Stability Investment we get from Budget.",
-                "zh": "对我们从Budget中获得的Stability Investment给予奖励或惩罚。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
+              "decimals": 0,
               "category": "country",
               "color": "good"
             }
@@ -9396,69 +9158,6 @@
       ],
       "effects": [
         {
-          "id": "final_local",
-          "title": {
-            "en": "Inherited final local effects",
-            "zh": "继承的最终建筑本地效果"
-          },
-          "scope": "local",
-          "value_label": {
-            "en": "Value",
-            "zh": "数值"
-          },
-          "rows": [
-            {
-              "key": "local_pop_conversion_speed",
-              "value": 40,
-              "label": {
-                "en": "Local Pop Conversion Speed",
-                "zh": "本地人口皈依速度"
-              },
-              "description": {
-                "en": "This impacts how quickly Pops Convert in this Location.",
-                "zh": "影响该处地点中的人口Convert速度。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_cultural_influence",
-              "value": 1.0,
-              "label": {
-                "en": "Local Cultural Influence",
-                "zh": "本地文化影响力"
-              },
-              "description": {
-                "en": "This impacts the Cultural Influence of our Primary Culture in a Location.",
-                "zh": "影响我国Primary Culture在一处地点的Cultural Influence。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_clergy_estate_power",
-              "value": 0.5,
-              "label": {
-                "en": "Local Clergy Power",
-                "zh": "本地教士阶层力量"
-              },
-              "description": {
-                "en": "This impacts the Estate Power of the Clergy in this Location.",
-                "zh": "这影响该地点的教士的Estate Power。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "bad"
-            }
-          ],
-          "meta": {}
-        },
-        {
           "id": "base_modifiers",
           "title": {
             "en": "Per-level country effects",
@@ -9487,24 +9186,8 @@
               "color": "good"
             },
             {
-              "key": "global_pop_conversion_speed_modifier",
-              "value": 0.1,
-              "label": {
-                "en": "Pop Conversion Speed %",
-                "zh": "人口皈依速度 %"
-              },
-              "description": {
-                "en": "This impacts how quickly Pops Convert in all Locations of the country.",
-                "zh": "影响全国所有地点的人口Convert速度。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
               "key": "monthly_towards_spiritualist",
-              "value": 0.08,
+              "value": 0.1,
               "label": {
                 "en": "Monthly Progress to Spiritualist",
                 "zh": "每月属灵倾向"
@@ -9534,40 +9217,8 @@
           },
           "rows": [
             {
-              "key": "monthly_prestige",
-              "value": 0.08,
-              "label": {
-                "en": "Monthly Prestige",
-                "zh": "每月威望"
-              },
-              "description": {
-                "en": "This impacts how much Prestige we will get each month.",
-                "zh": "影响每月获得多少Prestige。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_pop_conversion_speed_modifier",
-              "value": 0.04,
-              "label": {
-                "en": "Pop Conversion Speed %",
-                "zh": "人口皈依速度 %"
-              },
-              "description": {
-                "en": "This impacts how quickly Pops Convert in all Locations of the country.",
-                "zh": "影响全国所有地点的人口Convert速度。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
               "key": "monthly_legitimacy",
-              "value": 0.04,
+              "value": 0.05,
               "label": {
                 "en": "Monthly Legitimacy",
                 "zh": "每月正统性"
@@ -9661,15 +9312,15 @@
           },
           "rows": [
             {
-              "key": "local_max_literacy",
+              "key": "local_clergy_max_literacy",
               "value": 20,
               "label": {
-                "en": "Local Max Literacy",
-                "zh": "本地最大识字率"
+                "en": "Local Max Literacy for Clergy",
+                "zh": "本地教士最大识字率"
               },
               "description": {
-                "en": "This impacts the maximum Literacy of all Pops in a Location.",
-                "zh": "影响一个地点中所有人口的最大Literacy。"
+                "en": "This impacts the Literacy for all [ShowPopTypeName('clergy')] in this Location.",
+                "zh": "影响该地点所有[ShowPopTypeName('clergy')]的Literacy。"
               },
               "value_kind": "already_percent",
               "decimals": 2,
@@ -9678,7 +9329,7 @@
             },
             {
               "key": "local_pop_conversion_speed",
-              "value": 30,
+              "value": 10,
               "label": {
                 "en": "Local Pop Conversion Speed",
                 "zh": "本地人口皈依速度"
@@ -9693,31 +9344,15 @@
               "color": "good"
             },
             {
-              "key": "local_clergy_estate_power",
-              "value": 0.8,
+              "key": "local_pop_conversion_speed_modifier",
+              "value": 0.4,
               "label": {
-                "en": "Local Clergy Power",
-                "zh": "本地教士阶层力量"
+                "en": "Local Pop Conversion Speed %",
+                "zh": "本地人口皈依速度 %"
               },
               "description": {
-                "en": "This impacts the Estate Power of the Clergy in this Location.",
-                "zh": "这影响该地点的教士的Estate Power。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "bad"
-            },
-            {
-              "key": "local_defensive",
-              "value": 0.2,
-              "label": {
-                "en": "Fort Defense",
-                "zh": "要塞防御"
-              },
-              "description": {
-                "en": "This impacts how quick a Siege will go against a Location.",
-                "zh": "影响该地点在Siege中被攻陷的速度。"
+                "en": "This impacts how quickly Pops Convert in this Location.",
+                "zh": "影响该处地点中的人口Convert速度。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -9740,40 +9375,8 @@
           },
           "rows": [
             {
-              "key": "research_speed",
-              "value": 0.06,
-              "label": {
-                "en": "Monthly Research Progress",
-                "zh": "每月研究进度"
-              },
-              "description": {
-                "en": "This impacts the generation of Research Progress of a Country.",
-                "zh": "影响国家的Research Progress增长速度。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_monthly_literacy",
-              "value": 0.004,
-              "label": {
-                "en": "Monthly Literacy",
-                "zh": "每月识字率"
-              },
-              "description": {
-                "en": "This impacts how Literacy changes for Pops in a Country.",
-                "zh": "影响国家中人口的Literacy变化。"
-              },
-              "value_kind": "already_percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
               "key": "monthly_towards_spiritualist",
-              "value": 0.06,
+              "value": 0.1,
               "label": {
                 "en": "Monthly Progress to Spiritualist",
                 "zh": "每月属灵倾向"
@@ -9804,7 +9407,7 @@
           "rows": [
             {
               "key": "research_speed",
-              "value": 0.03,
+              "value": 0.05,
               "label": {
                 "en": "Monthly Research Progress",
                 "zh": "每月研究进度"
@@ -9814,38 +9417,6 @@
                 "zh": "影响国家的Research Progress增长速度。"
               },
               "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "tolerance_own",
-              "value": 1,
-              "label": {
-                "en": "Tolerance of the True Faith",
-                "zh": "正统信仰容忍度"
-              },
-              "description": {
-                "en": "This impacts the Tolerance of the State Religion.",
-                "zh": "影响State Religion的Tolerance。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_garrison_size_modifier",
-              "value": 0.04,
-              "label": {
-                "en": "Garrison Size",
-                "zh": "驻军规模"
-              },
-              "description": {
-                "en": "This impacts the size of all Garrisons that a Country has.",
-                "zh": "影响国家所有Garrisons的规模。"
-              },
-              "value_kind": "percent",
               "decimals": 2,
               "category": "country",
               "color": "good"
@@ -10000,40 +9571,8 @@
           },
           "rows": [
             {
-              "key": "monthly_prestige",
-              "value": 0.12,
-              "label": {
-                "en": "Monthly Prestige",
-                "zh": "每月威望"
-              },
-              "description": {
-                "en": "This impacts how much Prestige we will get each month.",
-                "zh": "影响每月获得多少Prestige。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "country_cabinet_efficiency",
-              "value": 0.03,
-              "label": {
-                "en": "Efficiency of Our Cabinet",
-                "zh": "内阁效率"
-              },
-              "description": {
-                "en": "This impacts the Cabinet Efficiency of all Characters in the Cabinet of a Country.",
-                "zh": "影响国家内所有Characters在Cabinet中的Cabinet Efficiency。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
               "key": "diplomatic_reputation",
-              "value": 0.5,
+              "value": 1,
               "label": {
                 "en": "Diplomatic Reputation",
                 "zh": "外交声誉"
@@ -10197,24 +9736,8 @@
           },
           "rows": [
             {
-              "key": "monthly_legitimacy",
-              "value": 0.08,
-              "label": {
-                "en": "Monthly Legitimacy",
-                "zh": "每月正统性"
-              },
-              "description": {
-                "en": "This impacts how much Legitimacy a Country gets each month.",
-                "zh": "影响一个国家每月获得的Legitimacy数量。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
               "key": "country_cabinet_efficiency",
-              "value": 0.03,
+              "value": 0.2,
               "label": {
                 "en": "Efficiency of Our Cabinet",
                 "zh": "内阁效率"
@@ -10222,22 +9745,6 @@
               "description": {
                 "en": "This impacts the Cabinet Efficiency of all Characters in the Cabinet of a Country.",
                 "zh": "影响国家内所有Characters在Cabinet中的Cabinet Efficiency。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_distance_from_capital_speed_propagation",
-              "value": 0.03,
-              "label": {
-                "en": "Proximity Speed",
-                "zh": "邻近度速度"
-              },
-              "description": {
-                "en": "This impacts how quickly Proximity moves between all Locations in a Country.",
-                "zh": "影响邻近度在一个国家所有地点之间移动的速度。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -10358,8 +9865,24 @@
           },
           "rows": [
             {
+              "key": "global_pop_conversion_speed",
+              "value": 0.004,
+              "label": {
+                "en": "Pop Conversion Speed",
+                "zh": "人口皈依速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in all Locations of the country.",
+                "zh": "影响全国所有地点的人口Convert速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
               "key": "global_pop_conversion_speed_modifier",
-              "value": 0.4,
+              "value": 0.2,
               "label": {
                 "en": "Pop Conversion Speed %",
                 "zh": "人口皈依速度 %"
@@ -10369,22 +9892,6 @@
                 "zh": "影响全国所有地点的人口Convert速度。"
               },
               "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "tolerance_own",
-              "value": 2,
-              "label": {
-                "en": "Tolerance of the True Faith",
-                "zh": "正统信仰容忍度"
-              },
-              "description": {
-                "en": "This impacts the Tolerance of the State Religion.",
-                "zh": "影响State Religion的Tolerance。"
-              },
-              "value_kind": "number",
               "decimals": 2,
               "category": "country",
               "color": "good"
@@ -10421,52 +9928,20 @@
           },
           "rows": [
             {
-              "key": "tolerance_own",
-              "value": 1,
+              "key": "court_spending_cost_modifier",
+              "value": -0.1,
               "label": {
-                "en": "Tolerance of the True Faith",
-                "zh": "正统信仰容忍度"
+                "en": "Expected Cost of Court",
+                "zh": "预期宫廷支出"
               },
               "description": {
-                "en": "This impacts the Tolerance of the State Religion.",
-                "zh": "影响State Religion的Tolerance。"
+                "en": "This impacts how much of the Tax Base that is expected to be Court Maintenance.",
+                "zh": "影响预计用于Court Maintenance的Tax Base数额。"
               },
-              "value_kind": "number",
+              "value_kind": "percent",
               "decimals": 2,
               "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "monthly_legitimacy",
-              "value": 0.06,
-              "label": {
-                "en": "Monthly Legitimacy",
-                "zh": "每月正统性"
-              },
-              "description": {
-                "en": "This impacts how much Legitimacy a Country gets each month.",
-                "zh": "影响一个国家每月获得的Legitimacy数量。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "monthly_towards_spiritualist",
-              "value": 0.04,
-              "label": {
-                "en": "Monthly Progress to Spiritualist",
-                "zh": "每月属灵倾向"
-              },
-              "description": {
-                "en": "This impacts the change towards the [ShowSocietyDirectionName('spiritualist')] Societal Values.",
-                "zh": "这影响Societal Values向[ShowSocietyDirectionName('spiritualist')]改变的进度。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "neutral"
+              "color": "bad"
             }
           ],
           "meta": {
@@ -10654,52 +10129,20 @@
           },
           "rows": [
             {
-              "key": "global_defensive",
-              "value": 0.05,
+              "key": "antagonism_received_modifier",
+              "value": -0.1,
               "label": {
-                "en": "Fort Defense",
-                "zh": "要塞防御"
+                "en": "Antagonism Received",
+                "zh": "敌意产生修正"
               },
               "description": {
-                "en": "This impacts how quick a Siege will go against a Country.",
-                "zh": "影响国家在Siege中被攻陷的速度。"
+                "en": "This impacts how much Antagonism a Country generates from its actions.",
+                "zh": "影响一个国家因其行为会产生多少Antagonism。"
               },
               "value_kind": "percent",
               "decimals": 2,
               "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_garrison_size_modifier",
-              "value": 0.06,
-              "label": {
-                "en": "Garrison Size",
-                "zh": "驻军规模"
-              },
-              "description": {
-                "en": "This impacts the size of all Garrisons that a Country has.",
-                "zh": "影响国家所有Garrisons的规模。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "army_movement_speed",
-              "value": 0.02,
-              "label": {
-                "en": "Army Movement Speed",
-                "zh": "陆军移动速度"
-              },
-              "description": {
-                "en": "This impacts how fast an Army can move between Locations.",
-                "zh": "影响Army在地点之间移动的快慢。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "unit",
-              "color": "good"
+              "color": "bad"
             }
           ],
           "meta": {
@@ -10781,15 +10224,15 @@
           },
           "rows": [
             {
-              "key": "local_max_literacy",
+              "key": "local_clergy_max_literacy",
               "value": 20,
               "label": {
-                "en": "Local Max Literacy",
-                "zh": "本地最大识字率"
+                "en": "Local Max Literacy for Clergy",
+                "zh": "本地教士最大识字率"
               },
               "description": {
-                "en": "This impacts the maximum Literacy of all Pops in a Location.",
-                "zh": "影响一个地点中所有人口的最大Literacy。"
+                "en": "This impacts the Literacy for all [ShowPopTypeName('clergy')] in this Location.",
+                "zh": "影响该地点所有[ShowPopTypeName('clergy')]的Literacy。"
               },
               "value_kind": "already_percent",
               "decimals": 2,
@@ -10798,7 +10241,7 @@
             },
             {
               "key": "local_pop_conversion_speed",
-              "value": 30,
+              "value": 10,
               "label": {
                 "en": "Local Pop Conversion Speed",
                 "zh": "本地人口皈依速度"
@@ -10813,31 +10256,15 @@
               "color": "good"
             },
             {
-              "key": "local_clergy_estate_power",
-              "value": 0.8,
+              "key": "local_pop_conversion_speed_modifier",
+              "value": 0.4,
               "label": {
-                "en": "Local Clergy Power",
-                "zh": "本地教士阶层力量"
+                "en": "Local Pop Conversion Speed %",
+                "zh": "本地人口皈依速度 %"
               },
               "description": {
-                "en": "This impacts the Estate Power of the Clergy in this Location.",
-                "zh": "这影响该地点的教士的Estate Power。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "bad"
-            },
-            {
-              "key": "local_defensive",
-              "value": 0.2,
-              "label": {
-                "en": "Fort Defense",
-                "zh": "要塞防御"
-              },
-              "description": {
-                "en": "This impacts how quick a Siege will go against a Location.",
-                "zh": "影响该地点在Siege中被攻陷的速度。"
+                "en": "This impacts how quickly Pops Convert in this Location.",
+                "zh": "影响该处地点中的人口Convert速度。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -10860,40 +10287,8 @@
           },
           "rows": [
             {
-              "key": "research_speed",
-              "value": 0.06,
-              "label": {
-                "en": "Monthly Research Progress",
-                "zh": "每月研究进度"
-              },
-              "description": {
-                "en": "This impacts the generation of Research Progress of a Country.",
-                "zh": "影响国家的Research Progress增长速度。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_monthly_literacy",
-              "value": 0.004,
-              "label": {
-                "en": "Monthly Literacy",
-                "zh": "每月识字率"
-              },
-              "description": {
-                "en": "This impacts how Literacy changes for Pops in a Country.",
-                "zh": "影响国家中人口的Literacy变化。"
-              },
-              "value_kind": "already_percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
               "key": "monthly_towards_spiritualist",
-              "value": 0.06,
+              "value": 0.1,
               "label": {
                 "en": "Monthly Progress to Spiritualist",
                 "zh": "每月属灵倾向"
@@ -10924,7 +10319,7 @@
           "rows": [
             {
               "key": "stability_investment",
-              "value": -0.05,
+              "value": 0.05,
               "label": {
                 "en": "Stability Investment",
                 "zh": "稳定度投资"
@@ -10934,38 +10329,6 @@
                 "zh": "对我们从Budget中获得的Stability Investment给予奖励或惩罚。"
               },
               "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_defensive",
-              "value": 0.04,
-              "label": {
-                "en": "Fort Defense",
-                "zh": "要塞防御"
-              },
-              "description": {
-                "en": "This impacts how quick a Siege will go against a Country.",
-                "zh": "影响国家在Siege中被攻陷的速度。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "clergy_estate_target_satisfaction",
-              "value": 0.03,
-              "label": {
-                "en": "Clergy Estate Satisfaction Equilibrium",
-                "zh": "教士阶层满意度均衡点"
-              },
-              "description": {
-                "en": "This impacts the Estate Satisfaction Equilibrium of the Clergy in this Country.",
-                "zh": "这影响该国家教士的Estate Satisfaction Equilibrium。"
-              },
-              "value_kind": "percent",
               "decimals": 2,
               "category": "country",
               "color": "good"
