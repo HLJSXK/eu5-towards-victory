@@ -4386,7 +4386,9 @@ lateralview = {
 							layoutpolicy_horizontal = expanding
 							layoutpolicy_vertical = expanding
 							spacing = 4
+							ignoreinvisible = yes
 								widget = {
+									visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet]"
 									layoutpolicy_horizontal = expanding
 									size = { -1 64 }
 									using = bg_dark_paper_card
@@ -4465,6 +4467,7 @@ lateralview = {
 										}
 								}
 								widget = {
+									visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet)]"
 									layoutpolicy_horizontal = expanding
 									size = { -1 4 }
 									background = {
@@ -4473,6 +4476,7 @@ lateralview = {
 									}
 								}
 								widget = {
+									visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet]"
 									layoutpolicy_horizontal = expanding
 									size = { -1 64 }
 									using = bg_dark_paper_card
@@ -4551,6 +4555,7 @@ lateralview = {
 										}
 								}
 								widget = {
+									visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet)]"
 									layoutpolicy_horizontal = expanding
 									size = { -1 4 }
 									background = {
@@ -4559,6 +4564,7 @@ lateralview = {
 									}
 								}
 								widget = {
+									visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet]"
 									layoutpolicy_horizontal = expanding
 									size = { -1 64 }
 									using = bg_dark_paper_card

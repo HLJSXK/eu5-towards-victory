@@ -133,9 +133,11 @@ def slot_ritual_effect_key_expr(slot_type: str, slot: int) -> str:
     )
 
 
-def render_separator(indent: str) -> list[str]:
+def render_separator(indent: str, *, before_slot: int, after_slot: int) -> list[str]:
+    visible = f"And({slot_has_id_expr('compact', before_slot)}, {slot_has_id_expr('compact', after_slot)})"
     return [
         f"{indent}widget = {{",
+        f'{indent}{T}visible = "[{visible}]"',
         f"{indent}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}size = {{ -1 {PANEL_SEPARATOR_HEIGHT} }}",
         f"{indent}{T}background = {{",
@@ -203,8 +205,10 @@ def render_dynamic_image(indent: str, *, slot_type: str, slot: int, width: int, 
 
 
 def render_compact_slot_row(indent: str, *, slot: int) -> list[str]:
+    visible = slot_has_id_expr("compact", slot)
     lines = [
         f"{indent}widget = {{",
+        f'{indent}{T}visible = "[{visible}]"',
         f"{indent}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}size = {{ -1 {PANEL_ROW_HEIGHT} }}",
         f"{indent}{T}using = bg_dark_paper_card",
@@ -280,11 +284,12 @@ def render_panel_card(indent: str) -> list[str]:
         f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
         f"{indent}{T}{T}{T}spacing = {PANEL_SEPARATOR_HEIGHT}",
+        f"{indent}{T}{T}{T}ignoreinvisible = yes",
     ]
     for slot in range(1, COMPACT_SLOT_MAX + 1):
         lines.extend(render_compact_slot_row(indent + T * 4, slot=slot))
         if slot < COMPACT_SLOT_MAX:
-            lines.extend(render_separator(indent + T * 4))
+            lines.extend(render_separator(indent + T * 4, before_slot=slot, after_slot=slot + 1))
     lines.extend(
         [
             f"{indent}{T}{T}}}",
