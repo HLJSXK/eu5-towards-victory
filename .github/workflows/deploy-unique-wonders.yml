@@ -27,6 +27,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      
+      - name: Debug checkout
+        run: |
+          pwd
+          git rev-parse --show-toplevel
+          git rev-parse HEAD
+          git branch --show-current || true
+          git ls-tree -r --name-only HEAD | grep -E '^unique_wonders_site/(dist|Dist)/' | head -50 || true
+          find . -maxdepth 4 -type d | sort | grep -E 'unique|wonder|dist' || true
 
       - name: Disable Jekyll
         run: touch unique_wonders_site/dist/.nojekyll
