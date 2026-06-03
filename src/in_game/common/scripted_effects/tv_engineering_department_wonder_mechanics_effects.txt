@@ -26121,6 +26121,17 @@ tv_wonder_mechanics_start_auxiliary_building_ritual_effect = {
 	tv_wonder_complete_active_ritual_effect = yes
 }
 
+tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect = {
+	if = {
+		limit = {
+			has_variable = tv_wonder_ritual_in_progress
+			tv_wonder_selected_generic_auxiliary_building_ritual_trigger = yes
+		}
+		set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+}
+
 tv_wonder_mechanics_start_deferred_immediate_ritual_effect = {
 }
 

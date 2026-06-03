@@ -911,12 +911,16 @@ building_id = {
     build_time = large_capital_build_time       # time reference (NOT price = X)
     construction_demand = university_construction  # cost reference (NOT price = X)
     on_built = { ... }            # fires when construction completes; root = location
+    on_construction_started = { ... }  # vanilla trade company construction-task hook
+    on_construction_ended = { ... }    # vanilla trade company construction-task hook
     on_destroyed = { ... }        # fires when building is removed
     remove_if = { ... }           # auto-destroy trigger; root = building
 }
 ```
 
 **Critical: EU5 uses `construction_demand = X`, NOT `price = X` (EU4 style).** Using `price =` is silently ignored.
+
+`on_construction_started` / `on_construction_ended` are used by vanilla `trade_company_headquarters` even though the official `types/building_types.txt` summary only lists `on_built`. Use `on_construction_ended` when a mechanic must react to building-level upgrades as well as first construction. If the completion is tied to the construction task itself, complete directly from this hook rather than requiring `location_building_level` to update inside the same callback.
 
 **Modifier scope note:** `modifier` and `raw_modifier` are location effects. `capital_country_modifier` is a country modifier only when the building is built in the capital (verified in `reference_official_defines/types/building_types.txt`). For event-created buildings that may appear outside the capital, apply national effects separately with `add_country_modifier` and keep the building's own modifier local.
 

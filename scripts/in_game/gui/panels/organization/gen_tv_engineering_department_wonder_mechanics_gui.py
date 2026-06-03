@@ -59,6 +59,7 @@ SUITABILITY_KNOWLEDGE_COLUMN_WIDTH = 218
 SUITABILITY_KNOWLEDGE_COLUMN_SPACING = 8
 SUITABILITY_ROW_LABEL_MAX_WIDTH = 168
 SUITABILITY_ROW_HIDDEN_MAX_WIDTH = 214
+SUITABILITY_LOCATION_CONDITION_ROW_HEIGHT = 22
 
 
 def eq(var: str, value: int) -> str:
@@ -233,6 +234,10 @@ def trigger_conditions_list(trigger_name: str, indent: int, width: int | None = 
         [
             f'{prefix}{T}blockoverride "field_text_format" {{',
             f"{prefix}{T}{T}fontsize = 13",
+            f"{prefix}{T}}}",
+            f'{prefix}{T}blockoverride "row_size" {{',
+            f"{prefix}{T}{T}maximumsize = {{ -1 {SUITABILITY_LOCATION_CONDITION_ROW_HEIGHT} }}",
+            f"{prefix}{T}{T}minimumsize = {{ -1 {SUITABILITY_LOCATION_CONDITION_ROW_HEIGHT} }}",
             f"{prefix}{T}}}",
             f'{prefix}{T}blockoverride "block_title" {{',
             f'{prefix}{T}{T}block "block_title" {{',

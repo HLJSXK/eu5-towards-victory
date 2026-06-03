@@ -2109,6 +2109,7 @@ tv_wonder_construct_final_building_in_site_effect = {
 			change_building_level_in_location = { building = $building$ value = 1 owner = prev }
 		}
 	}
+	tv_wonder_mechanics_refresh_location_display_state_effect = yes
 }
 
 tv_wonder_construct_generic_final_building_effect = {

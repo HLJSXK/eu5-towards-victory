@@ -97,6 +97,7 @@ def building_block(
     construction_demand: str | None = None,
     price: str | None = None,
     on_built_lines: list[str] | None = None,
+    on_construction_ended_lines: list[str] | None = None,
 ) -> list[str]:
     attrs = attributes or {}
     normal_modifier, raw_modifier = split_modifiers(modifiers)
@@ -155,6 +156,10 @@ def building_block(
         lines.extend(["", f"{T}on_built = {{"])
         lines.extend(on_built_lines)
         lines.append(f"{T}}}")
+    if on_construction_ended_lines:
+        lines.extend(["", f"{T}on_construction_ended = {{"])
+        lines.extend(on_construction_ended_lines)
+        lines.append(f"{T}}}")
     lines.extend(["}", ""])
     return lines
 
@@ -172,6 +177,16 @@ def auxiliary_on_built_lines(wonder: dict, style: int) -> list[str]:
         f"{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ritual_auxiliary_building_finished value = 1 }}",
         f"{T}{T}{T}{T}{T}tv_wonder_complete_active_ritual_effect = yes",
         f"{T}{T}{T}{T}}}",
+        f"{T}{T}{T}}}",
+        f"{T}{T}}}",
+    ]
+
+
+def auxiliary_on_construction_ended_lines() -> list[str]:
+    return [
+        f"{T}{T}hidden_effect = {{",
+        f"{T}{T}{T}owner = {{",
+        f"{T}{T}{T}{T}tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect = yes",
         f"{T}{T}{T}}}",
         f"{T}{T}}}",
     ]
@@ -227,13 +242,14 @@ def generate() -> str:
                     price=auxiliary.get("price") or price,
                     attributes=auxiliary.get("attributes", {}),
                     on_built_lines=auxiliary_on_built_lines(wonder, style),
+                    on_construction_ended_lines=auxiliary_on_construction_ended_lines(),
                 )
             )
     return "\n".join(lines).rstrip() + "\n"
 
 
 def main() -> None:
-    OUT_FILE.write_text(generate(), encoding="utf-8")
+    OUT_FILE.write_text(generate(), encoding="utf-8-sig")
     print(f"Wrote {OUT_FILE.relative_to(REPO_ROOT)}")
 
 

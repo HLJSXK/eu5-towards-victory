@@ -1019,6 +1019,18 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
+    lines.append("tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_ritual_in_progress")
+    lines.append(f"{T}{T}{T}tv_wonder_selected_generic_auxiliary_building_ritual_trigger = yes")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_auxiliary_building_finished value = 1 }}")
+    lines.append(f"{T}{T}tv_wonder_complete_active_ritual_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
     lines.append("tv_wonder_mechanics_start_deferred_immediate_ritual_effect = {")
     first = True
     for wonder, style, ritual_plan in ritual_entry_list:

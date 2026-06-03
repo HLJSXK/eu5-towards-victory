@@ -1470,6 +1470,17 @@
   source: "fixed in src/in_game/common/scripted_effects/tv_engineering_department_effects.txt; runtime behavior: construct_building instant = yes queues a 0-day task rather than synchronously updating the level"
   notes: "Wonder selection/finalization previously used while loops that assumed instant construction updated the location building level during the same effect. That can deadlock or spin forever because the engine only creates a queued task. Treat instant construction as asynchronous for script control flow."
 
+- id: building_upgrade_completion_relying_on_on_built
+  pattern: ''
+  only_in_paths: ['building_types', 'scripted_effects']
+  bad: "Using building on_built as the only completion signal for a mechanic that also upgrades existing building levels"
+  correction: "Use on_construction_ended to directly mark the active auxiliary-building ritual finished and run the normal ritual completion effect. Do not depend on on_built for upgrades, and do not require location_building_level to have updated inside the construction-ended hook."
+  category: script
+  scope: building
+  detectability: advisory
+  source: "reference_official_defines/types/building_types.txt:36 lists on_built; reference_game_files/game/in_game/common/building_types/trade_company_buildings.txt:66-78 uses on_construction_started/on_construction_ended; fixed in scripts/in_game/common/building_types/gen_tv_engineering_department_wonder_mechanics_buildings.py"
+  notes: "Engineering Department style-2 ritual annex completion relied on on_built. Fresh annex construction completed, but expansion reused the same annex building as a higher level, so the ritual needed construction-ended direct completion."
+
 - id: country_trigger_reused_inside_io_monthly_change
   pattern: ''
   only_in_paths: ['international_organizations']
