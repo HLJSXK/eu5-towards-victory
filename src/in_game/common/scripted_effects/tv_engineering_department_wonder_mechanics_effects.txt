@@ -17773,6 +17773,7 @@ tv_wonder_mechanics_reveal_suitability_knowledge_effect = {
 }
 
 tv_wonder_mechanics_construct_generic_final_building_effect = {
+	tv_wonder_index_rebuild_global_maps_if_needed_effect = yes
 	if = {
 		limit = {
 			tv_wonder_construction_site_selected_trigger = yes
@@ -17783,657 +17784,130 @@ tv_wonder_mechanics_construct_generic_final_building_effect = {
 			var:tv_wonder_level ?= { this >= 1 }
 			var:tv_wonder_level ?= { this <= 6 }
 		}
-		var:tv_wonder_site ?= {
-			if = {
-				limit = { prev = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 101 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_golden_sanctuary }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 102 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_ascetic_mountain }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 1 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 103 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_theocratic_center }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 201 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_sun_king_axis }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 202 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_military_city }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 2 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 203 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_civic_capital }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 301 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_golden_trade_port }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 302 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_imperial_naval_port }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 3 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 303 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_free_trade_metropolis }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 401 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_dynastic_necropolis }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 402 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_ancestor_shrine }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 4 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 403 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_quiet_land }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 501 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_eternal_lighthouse }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 502 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_navigator_lighthouse }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 5 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 503 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_long_watch_lighthouse }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 601 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_water_god_workshop }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 602 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_hydraulic_artisan_guildhall }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 6 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 603 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_waterwheel_workshop }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 701 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_miners_oath_city }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 702 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_royal_mint_city }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 7 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 703 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_deep_shaft_city }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 801 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_star_catalog_observatory }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 802 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_nautical_almanac_observatory }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 8 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 803 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_eclipse_observatory }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 901 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_congress_palace }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 902 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_tribute_gallery }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 9 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 903 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_embassy_palace }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1001 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_scholars_convocation }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1002 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_public_lectures }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 10 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1003 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_collegiate_charter }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1101 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_dome_consecration }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1102 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_pilgrim_treasury }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 11 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1103 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_celestial_synod }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1201 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_beacon_rite_temple }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1202 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_pilgrim_stair_temple }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 12 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1203 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_temple_school_tower }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1301 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_bridge_opening }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1302 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_river_fair }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 13 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1303 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_canal_authority }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1401 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_keel_laying_yard }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1402 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_fleet_muster_yard }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 14 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1403 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_admiralty_yard }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1501 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_bastion_trial_fortress }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1502 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_siege_games_fortress }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 15 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1503 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_arsenal_quarter_fortress }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1601 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_frontier_muster_wall }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1602 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_signal_fires_wall }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 16 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1603 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_wall_oath }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1701 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_muster_of_arms }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1702 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_foundry_contracts }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 17 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1703 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_master_armourers }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1801 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_national_catalog_library }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1802 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_copyists_endowment_library }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 18 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1803 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_legal_deposit_library }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 19 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1901 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_irrigation_canal_system }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 19 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1902 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_grain_transport_canal_system }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 19 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 1903 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_flood_control_canal_system }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 20 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2001 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_grain_terraces }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 20 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2002 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_cash_crop_terraces }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 20 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2003 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_sacred_mountain_terraces }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 21 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2101 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_estuary_flood_dam }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 21 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2102 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_marsh_reclamation_dam }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 21 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2103 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_water_powered_workshops }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 22 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2201 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_grain_price_granaries }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 22 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2202 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_wartime_granaries }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 22 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2203 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_disaster_relief_granaries }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 23 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2301 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_military_post_roads }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 23 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2302 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_trade_post_roads }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 23 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2303 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_royal_tour_avenue }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 24 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2401 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_grain_transport_hub }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 24 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2402 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_financial_warehouse_hub }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 24 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2403 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_industrial_workshop_belt }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 25 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2501 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_military_colony_belt }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 25 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2502 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_settler_reclamation_belt }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 25 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2503 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_religious_colonization_belt }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 26 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2601 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_beacon_communication_network }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 26 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2602 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_coastal_battery_network }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 26 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2603 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_customs_patrol_network }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 27 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2701 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_crusader_knightly_order }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 27 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2702 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_frontier_lord_order }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 27 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2703 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_mercenary_fortress_system }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 28 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2801 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_firearms_tactics_college }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 28 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2802 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_cavalry_tradition_college }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 28 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2803 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_naval_command_college }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 29 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2901 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_worship_clock_bells }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 29 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2902 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_curfew_clock_bells }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 29 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 2903 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_astronomical_calendar_bells }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 30 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3001 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_court_art_district }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 30 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3002 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_folk_art_district }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 30 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3003 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_foreign_style_district }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 31 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3101 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_court_theater }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 31 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3102 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_religious_theater }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 31 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3103 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_popular_festival_ground }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 32 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3201 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_trade_diplomacy_embassies }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 32 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3202 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_intelligence_embassies }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 32 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3203 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_religious_diplomacy_embassies }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 33 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3301 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_religious_law_steles }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 33 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3302 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_written_law_steles }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 33 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3303 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_imperial_edict_steles }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 34 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3401 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_luxury_goods_market }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 34 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3402 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_grain_market }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 34 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3403 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_entrepot_market }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 35 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3501 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_silver_gold_standard_mint }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 35 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3502 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_copper_coinage_mint }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 35 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3503 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_international_settlement_mint }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 36 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3601 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_artisan_guild_alliance }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 36 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3602 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_overseas_merchant_guilds }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 36 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3603 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_financial_guilds }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 37 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3701 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_spice_trade_stations }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 37 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3702 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_slave_trade_stations }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 37 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3703 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_colonial_supply_stations }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 38 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3801 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_textile_workshop_complex }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 38 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3802 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_military_workshop_complex }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 38 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3803 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_luxury_craft_workshop_complex }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3901 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_conquest_monument_group }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3902 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_national_unity_monument_group }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 39 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 3903 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_world_exposition_monument_group }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4001 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_city_charter }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4002 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_civic_grid }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 40 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4003 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_urban_renewal }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4101 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_solstice_gathering_circle }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4102 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_astral_alignment_circle }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 41 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4103 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_ancestral_moot_circle }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4201 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_high_choir_cathedral }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4202 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_pilgrim_nave_cathedral }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 42 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4203 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_civic_bells_cathedral }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4301 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_scriptorium_monastery }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 2 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4302 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_pilgrim_refectory_monastery }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 43 var:tv_wonder_ceremony_style ?= 3 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 4303 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_fortified_cloister_monastery }
-			}
+		set_variable = { name = tv_wonder_final_building value = var:tv_wonder_locked }
+		change_variable = { name = tv_wonder_final_building multiply = 100 }
+		change_variable = { name = tv_wonder_final_building add = var:tv_wonder_ceremony_style }
+		if = {
+			limit = {
+				has_global_variable_map = tv_wonder_final_key_to_building_type
+				is_key_in_global_variable_map = { name = tv_wonder_final_key_to_building_type target = var:tv_wonder_final_building }
+			}
+			set_local_variable = {
+				name = tv_wonder_final_building_type
+				value = "global_variable_map(tv_wonder_final_key_to_building_type|var:tv_wonder_final_building)"
+			}
+			var:tv_wonder_site ?= {
+				if = {
+					limit = {
+						NOT = { has_building = local_var:tv_wonder_final_building_type }
+						prev = { var:tv_wonder_level ?= { this >= 1 } }
+					}
+					construct_building = { building_type = local_var:tv_wonder_final_building_type cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 5 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 2 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 5 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 4 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 3 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 2 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 1 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 5 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 2 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+			remove_local_variable = tv_wonder_final_building_type
 		}
 	}
 }
 
 tv_wonder_mechanics_construct_unique_final_building_effect = {
+	tv_wonder_index_rebuild_global_maps_if_needed_effect = yes
 	if = {
 		limit = {
 			tv_wonder_construction_site_selected_trigger = yes
@@ -18444,257 +17918,124 @@ tv_wonder_mechanics_construct_unique_final_building_effect = {
 			var:tv_wonder_level ?= { this >= 1 }
 			var:tv_wonder_level ?= { this <= 6 }
 		}
-		var:tv_wonder_site ?= {
-			if = {
-				limit = { prev = { var:tv_wonder_locked ?= 101 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 10101 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_pharos_lighthouse_inaugurated }
+		set_variable = { name = tv_wonder_final_building value = var:tv_wonder_locked }
+		change_variable = { name = tv_wonder_final_building multiply = 100 }
+		change_variable = { name = tv_wonder_final_building add = var:tv_wonder_ceremony_style }
+		if = {
+			limit = {
+				has_global_variable_map = tv_wonder_final_key_to_building_type
+				is_key_in_global_variable_map = { name = tv_wonder_final_key_to_building_type target = var:tv_wonder_final_building }
 			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 102 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 10201 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_hagia_sophia_inaugurated }
+			set_local_variable = {
+				name = tv_wonder_final_building_type
+				value = "global_variable_map(tv_wonder_final_key_to_building_type|var:tv_wonder_final_building)"
 			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 103 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 10301 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_dome_of_the_rock_inaugurated }
+			var:tv_wonder_site ?= {
+				if = {
+					limit = {
+						NOT = { has_building = local_var:tv_wonder_final_building_type }
+						prev = { var:tv_wonder_level ?= { this >= 1 } }
+					}
+					construct_building = { building_type = local_var:tv_wonder_final_building_type cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 5 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 2 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 5 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 4 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 3 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 2 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 1 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 5 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 2 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
 			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 104 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 10401 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_angkor_wat_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 105 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 10501 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_potala_palace_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 106 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 10601 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_alhambra_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 107 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 10701 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_machu_picchu_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 108 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 10801 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_himeji_castle_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 109 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 10901 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_taj_mahal_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 110 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 11001 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_forbidden_city_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 111 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 11101 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_topkapi_palace_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 112 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 11201 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_st_peters_basilica_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 113 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 11301 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_lalibela_churches_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 114 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 11401 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_venetian_arsenal_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 115 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 11501 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_malacca_port_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 116 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 11601 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_red_fort_delhi_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 117 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 11701 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_versailles_palace_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 118 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 11801 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_tenochtitlan_causeways_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 119 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 11901 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_amsterdam_canal_ring_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 120 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 12001 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 121 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 12101 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_ming_great_wall_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 122 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 12201 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_bank_of_saint_george_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 123 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 12301 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_cahokia_mounds_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 124 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 12401 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_great_zimbabwe_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 125 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 12501 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_isfahan_square_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 126 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 12601 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_grand_canal_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 127 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 12701 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_inca_royal_road_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 128 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 12801 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_roman_aqueducts_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 129 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 12901 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_suez_ancient_canal_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 130 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 13001 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_kremlin_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 131 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 13101 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_teotihuacan_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 132 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 13201 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 133 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 13301 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_dutch_polders_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 134 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 13401 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_machu_picchu_terraces_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 135 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 13501 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_british_navy_dockyards_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 136 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 13601 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_spanish_silver_fleet_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 137 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 13701 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_ottoman_hajj_road_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 138 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 13801 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_persian_qanat_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 139 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 13901 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_longjiang_shipyard_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 140 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 14001 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 141 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 14101 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_stonehenge_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 142 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 14201 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_tower_of_london_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 143 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 14301 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 144 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 14401 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 145 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 14501 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_trinity_lavra_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 146 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 14601 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_winter_palace_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 147 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 14701 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_gyeongbokgung_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 148 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 14801 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 149 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 14901 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_belgrade_fortress_inaugurated }
-			}
-			else_if = {
-				limit = { prev = { var:tv_wonder_locked ?= 150 var:tv_wonder_ceremony_style ?= 1 } }
-				prev = { set_variable = { name = tv_wonder_final_building value = 15001 } }
-				tv_wonder_construct_final_building_in_site_effect = { building = building_type:tv_wonder_unique_meteora_monasteries_inaugurated }
-			}
+			remove_local_variable = tv_wonder_final_building_type
 		}
 	}
 }

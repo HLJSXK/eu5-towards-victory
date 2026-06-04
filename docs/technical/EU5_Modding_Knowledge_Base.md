@@ -497,6 +497,12 @@ var:tv_wonder_site ?= {
 }
 ```
 
+This direction is valid: `set_local_variable` is performed before entering the later
+`var:X ?= {}` / location scope, and `local_var:helper_building_type` is read inside that
+nested scope. Do not confuse it with the separate bad pattern where a local variable is
+created inside a dynamic scope and then read outward through `prev = {}` or after leaving
+that scope.
+
 If the mapped value needs to persist on the current scope, use `set_variable = { name = X value = "variable_map(...)" }` first, then read `var:X` from that same owning scope or capture it into a local variable before switching scopes.
 
 Variable maps can be iterated over their keys. Use `every_key_in_variable_map` or `ordered_key_in_variable_map` as effects, and `any_key_in_variable_map` as a trigger; use the `global_` and `local_` variants for global/local maps. Inside a key iterator, `this` is the current key. Enter the mapped value through the scope link:

@@ -22,16 +22,47 @@ HEADER = [
 ]
 
 T = "\t"
+HELPER_BUILDING_TYPE_MAP = "tv_wonder_id_to_helper_building_type"
+MODULE_BUILDING_TYPE_MAP = "tv_wonder_module_key_to_building_type"
+FINAL_BUILDING_TYPE_MAP = "tv_wonder_final_key_to_building_type"
+MODULE_BUILDING_KEY_VAR = "tv_wonder_module_building_key"
+HELPER_BUILDING_TYPE_VAR = "tv_wonder_helper_building_type"
+MODULE_BUILDING_TYPE_VAR = "tv_wonder_module_building_type"
+
+
+def building_type_ref(building: str) -> str:
+    if (
+        building.startswith('"')
+        or building.startswith("building_type:")
+        or building.startswith("local_var:")
+        or building.startswith("var:")
+    ):
+        return building
+    return f"building_type:{building}"
+
+
+def global_map_expr(map_name: str, key: str) -> str:
+    return f'"global_variable_map({map_name}|{key})"'
+
+
+def capture_global_map_value(var_name: str, map_name: str, key: str, indent: int = 1) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}set_local_variable = {{",
+        f"{prefix}{T}name = {var_name}",
+        f"{prefix}{T}value = {global_map_expr(map_name, key)}",
+        f"{prefix}}}",
+    ]
 
 
 def loc_level(building: str, op: str, level: int) -> str:
-    return f"location_building_level = {{ building_type = building_type:{building} value {op} {level} }}"
+    return f"location_building_level = {{ building_type = {building_type_ref(building)} value {op} {level} }}"
 
 
 def change_level(building: str, value: int) -> list[str]:
     return [
         f"{T}change_building_level_in_location = {{",
-        f"{T}{T}building = building_type:{building}",
+        f"{T}{T}building = {building_type_ref(building)}",
         f"{T}{T}value = {value}",
         f"{T}{T}owner = prev",
         f"{T}}}",
@@ -41,7 +72,7 @@ def change_level(building: str, value: int) -> list[str]:
 def change_level_by_value(building: str, value_lines: list[str]) -> list[str]:
     return [
         f"{T}change_building_level_in_location = {{",
-        f"{T}{T}building = building_type:{building}",
+        f"{T}{T}building = {building_type_ref(building)}",
         f"{T}{T}value = {{",
         *[f"{T}{T}{T}{line}" for line in value_lines],
         f"{T}{T}}}",
@@ -89,8 +120,8 @@ def add_building_level(branch_limit: str, building: str, indent: int = 1) -> lis
         f"{prefix}if = {{",
         f"{prefix}{T}limit = {{ {branch_limit} }}",
         f"{prefix}{T}if = {{",
-        f"{prefix}{T}{T}limit = {{ NOT = {{ has_building = building_type:{building} }} }}",
-        f"{prefix}{T}{T}construct_building = {{ building_type = building_type:{building} cost_multiplier = 0 cost_multiplier_reason = \"game_concept_event\" instant = yes }}",
+        f"{prefix}{T}{T}limit = {{ NOT = {{ has_building = {building_type_ref(building)} }} }}",
+        f"{prefix}{T}{T}construct_building = {{ building_type = {building_type_ref(building)} cost_multiplier = 0 cost_multiplier_reason = \"game_concept_event\" instant = yes }}",
         f"{prefix}{T}}}",
         f"{prefix}{T}else = {{",
         *[f"{prefix}{T}{line}" for line in change_level(building, 1)],
@@ -103,8 +134,8 @@ def add_building_level_if_missing(branch_limit: str, building: str, indent: int 
     prefix = T * indent
     return [
         f"{prefix}if = {{",
-        f"{prefix}{T}limit = {{ {branch_limit} NOT = {{ has_building = building_type:{building} }} }}",
-        f"{prefix}{T}construct_building = {{ building_type = building_type:{building} cost_multiplier = 0 cost_multiplier_reason = \"game_concept_event\" instant = yes }}",
+        f"{prefix}{T}limit = {{ {branch_limit} NOT = {{ has_building = {building_type_ref(building)} }} }}",
+        f"{prefix}{T}construct_building = {{ building_type = {building_type_ref(building)} cost_multiplier = 0 cost_multiplier_reason = \"game_concept_event\" instant = yes }}",
         f"{prefix}}}",
     ]
 
@@ -117,7 +148,7 @@ def any_building_block(buildings: list[str], indent: int) -> list[str]:
     prefix = T * indent
     lines = [f"{prefix}OR = {{"]
     for building in buildings:
-        lines.append(f"{prefix}{T}has_building = building_type:{building}")
+        lines.append(f"{prefix}{T}has_building = {building_type_ref(building)}")
     lines.append(f"{prefix}}}")
     return lines
 
@@ -158,9 +189,9 @@ def sync_building_to_literal_level(building: str, target_level: int, indent: int
     branch_head = "if"
     if target_level > 0:
         lines.append(f"{prefix}if = {{")
-        lines.append(f"{prefix}{T}limit = {{ NOT = {{ has_building = building_type:{building} }} }}")
+        lines.append(f"{prefix}{T}limit = {{ NOT = {{ has_building = {building_type_ref(building)} }} }}")
         lines.append(
-            f'{prefix}{T}construct_building = {{ building_type = building_type:{building} cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }}'
+            f'{prefix}{T}construct_building = {{ building_type = {building_type_ref(building)} cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }}'
         )
         if target_level > 1:
             lines.extend([f"{prefix}{T}{line}" for line in change_level(building, target_level - 1)])
@@ -291,7 +322,7 @@ def combine_modules_to_helper_once(
             lines.append(f"{prefix}{T}{T}{loc_level(module, '>=', level)}")
         lines.append(f"{prefix}{T}}}")
         lines.append(f"{prefix}{T}if = {{")
-        lines.append(f"{prefix}{T}{T}limit = {{ has_building = building_type:{helper} }}")
+        lines.append(f"{prefix}{T}{T}limit = {{ has_building = {building_type_ref(helper)} }}")
         lines.extend(
             [
                 f"{prefix}{T}{line}"
@@ -301,7 +332,7 @@ def combine_modules_to_helper_once(
         lines.append(f"{prefix}{T}}}")
         lines.append(f"{prefix}{T}else = {{")
         lines.append(
-            f'{prefix}{T}{T}construct_building = {{ building_type = building_type:{helper} cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }}'
+            f'{prefix}{T}{T}construct_building = {{ building_type = {building_type_ref(helper)} cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }}'
         )
         if level > 1:
             lines.extend(
@@ -433,21 +464,29 @@ def main() -> None:
     lines.append("")
 
     lines.append("tv_wonder_construct_module_for_last_completed_part_effect = {")
+    lines.append(f"{T}tv_wonder_index_rebuild_global_maps_if_needed_effect = yes")
     lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
-    lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
-    lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    for wonder_idx, wonder in enumerate(wonders):
-        head = "if" if wonder_idx == 0 else "else_if"
-        lines.append(f"{T}{T}{T}{head} = {{")
-        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
-        for idx, part in enumerate(parts, start=1):
-            building = f"tv_wonder_{wonder['key']}_{part['key']}"
-            limit = f"prev = {{ var:tv_wonder_last_completed_part ?= {idx} }}"
-            lines.extend(add_building_level(limit, building, 4))
-        lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}{T}{T}var:tv_wonder_last_completed_part ?= {{ this >= 1 }}")
+    lines.append(f"{T}{T}{T}var:tv_wonder_last_completed_part ?= {{ this <= {len(parts)} }}")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {MODULE_BUILDING_TYPE_MAP}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}set_variable = {{ name = {MODULE_BUILDING_KEY_VAR} value = var:tv_wonder_locked }}")
+    lines.append(f"{T}{T}change_variable = {{ name = {MODULE_BUILDING_KEY_VAR} multiply = 10 }}")
+    lines.append(f"{T}{T}change_variable = {{ name = {MODULE_BUILDING_KEY_VAR} add = var:tv_wonder_last_completed_part }}")
+    lines.append(f"{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}limit = {{ is_key_in_global_variable_map = {{ name = {MODULE_BUILDING_TYPE_MAP} target = var:{MODULE_BUILDING_KEY_VAR} }} }}")
+    lines.extend(capture_global_map_value(MODULE_BUILDING_TYPE_VAR, MODULE_BUILDING_TYPE_MAP, f"var:{MODULE_BUILDING_KEY_VAR}", 3))
+    lines.append(f"{T}{T}{T}save_scope_as = tv_wonder_module_owner")
+    lines.append(f"{T}{T}{T}var:tv_wonder_site ?= {{")
+    lines.extend(add_building_level("always = yes", f"local_var:{MODULE_BUILDING_TYPE_VAR}", 4))
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}remove_local_variable = {MODULE_BUILDING_TYPE_VAR}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
+    lines.append(f"{T}remove_variable = {MODULE_BUILDING_KEY_VAR}")
     lines.append("}")
     lines.append("")
 
@@ -585,36 +624,64 @@ def main() -> None:
     lines.append("")
 
     lines.append("tv_wonder_apply_helper_building_to_final_site_effect = {")
+    lines.append(f"{T}tv_wonder_index_rebuild_global_maps_if_needed_effect = yes")
     lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {HELPER_BUILDING_TYPE_MAP}")
+    lines.append(f"{T}{T}{T}is_key_in_global_variable_map = {{ name = {HELPER_BUILDING_TYPE_MAP} target = var:tv_wonder_locked }}")
+    lines.append(f"{T}{T}}}")
+    lines.extend(capture_global_map_value(HELPER_BUILDING_TYPE_VAR, HELPER_BUILDING_TYPE_MAP, "var:tv_wonder_locked", 2))
     lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    for wonder_idx, wonder in enumerate(wonders):
-        head = "if" if wonder_idx == 0 else "else_if"
-        lines.append(f"{T}{T}{T}{head} = {{")
-        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
-        lines.extend(sync_helper_building_to_wonder_level(wonder, 4))
-        lines.append(f"{T}{T}{T}}}")
+    lines.extend(
+        set_building_level_from_level_var(
+            f"local_var:{HELPER_BUILDING_TYPE_VAR}",
+            "tv_wonder_level",
+            "tv_wonder_helper_current_level",
+            3,
+        )
+    )
     lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}remove_local_variable = {HELPER_BUILDING_TYPE_VAR}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_materialize_module_buildings_from_unit_vars_effect = {")
+    lines.append(f"{T}tv_wonder_index_rebuild_global_maps_if_needed_effect = yes")
     lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
-    lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
-    lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    for wonder_idx, wonder in enumerate(wonders):
-        head = "if" if wonder_idx == 0 else "else_if"
-        lines.append(f"{T}{T}{T}{head} = {{")
-        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
-        for part in parts:
-            building = f"tv_wonder_{wonder['key']}_{part['key']}"
-            lines.extend(sync_module_building_to_unit_gap(wonder, part["key"], building, 4))
-        lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {MODULE_BUILDING_TYPE_MAP}")
     lines.append(f"{T}{T}}}")
+    for part_index, part in enumerate(parts, start=1):
+        lines.append(f"{T}{T}set_variable = {{ name = {MODULE_BUILDING_KEY_VAR} value = var:tv_wonder_locked }}")
+        lines.append(f"{T}{T}change_variable = {{ name = {MODULE_BUILDING_KEY_VAR} multiply = 10 }}")
+        lines.append(f"{T}{T}change_variable = {{ name = {MODULE_BUILDING_KEY_VAR} add = {part_index} }}")
+        lines.append(f"{T}{T}if = {{")
+        lines.append(
+            f"{T}{T}{T}limit = {{ "
+            f"is_key_in_global_variable_map = {{ name = {MODULE_BUILDING_TYPE_MAP} target = var:{MODULE_BUILDING_KEY_VAR} }} }}"
+        )
+        lines.extend(capture_global_map_value(MODULE_BUILDING_TYPE_VAR, MODULE_BUILDING_TYPE_MAP, f"var:{MODULE_BUILDING_KEY_VAR}", 3))
+        lines.append(f"{T}{T}{T}save_scope_as = tv_wonder_module_owner")
+        lines.append(f"{T}{T}{T}var:tv_wonder_site ?= {{")
+        lines.extend(
+            sync_module_building_to_unit_gap(
+                {},
+                part["key"],
+                f"local_var:{MODULE_BUILDING_TYPE_VAR}",
+                4,
+            )
+        )
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}remove_local_variable = {MODULE_BUILDING_TYPE_VAR}")
+        lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
+    lines.append(f"{T}remove_variable = {MODULE_BUILDING_KEY_VAR}")
     lines.append("}")
     lines.append("")
 

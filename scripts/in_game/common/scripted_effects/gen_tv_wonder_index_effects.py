@@ -8,6 +8,7 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
+    PARTS,
     WONDER_MAP_SCHEMA_VERSION,
     WONDER_RITUAL_COST_TYPE_IDS,
     WONDER_RITUAL_MODE_IDS,
@@ -17,6 +18,7 @@ from wonder_mechanics_lib import (
     render_header,
     ritual_plan_for_style,
     suitability_knowledge_for_wonder,
+    wonder_module_composite_id,
     wonder_ritual_composite_id,
     wonder_suitability_row_composite_id,
 )
@@ -89,7 +91,7 @@ RITUAL_CACHE_MAPS = [
 ]
 
 
-def map_replace_line(map_name: str, key: str, value: int, indent: int = 1) -> list[str]:
+def map_replace_line(map_name: str, key: str, value: object, indent: int = 1) -> list[str]:
     prefix = T * indent
     return [
         f"{prefix}remove_from_global_variable_map = {{ name = {map_name} key = {key} }}",
@@ -97,11 +99,11 @@ def map_replace_line(map_name: str, key: str, value: int, indent: int = 1) -> li
     ]
 
 
-def map_init_lines(map_name: str, indent: int = 1) -> list[str]:
+def map_init_lines(map_name: str, indent: int = 1, value: object = 0) -> list[str]:
     prefix = T * indent
     return [
         f"{prefix}remove_from_global_variable_map = {{ name = {map_name} key = 0 }}",
-        f"{prefix}add_to_global_variable_map = {{ name = {map_name} key = 0 value = 0 }}",
+        f"{prefix}add_to_global_variable_map = {{ name = {map_name} key = 0 value = {value} }}",
     ]
 
 
@@ -168,13 +170,23 @@ def append_refresh_country_cache(lines: list[str]) -> None:
 def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics: dict) -> None:
     by_key = {wonder["key"]: wonder for wonder in wonders}
     all_map_names = [*WONDER_MAP_NAMES, *RITUAL_MAP_NAMES, *SUITABILITY_ROW_MAP_NAMES]
+    first_wonder = wonders[0]
+    first_style = ceremony_styles(first_wonder)[0]
+    building_map_defaults = [
+        ("tv_wonder_id_to_helper_building_type", f"building_type:tv_wonder_{first_wonder['key']}"),
+        ("tv_wonder_module_key_to_building_type", f"building_type:tv_wonder_{first_wonder['key']}_{PARTS[0]}"),
+        ("tv_wonder_final_key_to_building_type", f"building_type:{first_wonder['final_buildings'][first_style]}"),
+    ]
 
     lines.append("tv_wonder_index_rebuild_global_maps_effect = {")
     lines.append(f"{T}# ID contract: existing wonder ids are canonical. Runtime map keys use numeric ids directly.")
     lines.append(f"{T}# Ritual branch id = wonder_id * 100 + style.")
+    lines.append(f"{T}# Module building id = wonder_id * 10 + part index. Final building id = wonder_id * 100 + style.")
     lines.append(f"{T}# Suitability row id = mechanic_id * 10 + row, because unique wonders share mechanic rows.")
     for map_name in all_map_names:
         lines.extend(map_init_lines(map_name))
+    for map_name, default_value in building_map_defaults:
+        lines.extend(map_init_lines(map_name, value=default_value))
 
     for wonder in wonders:
         wonder_id = int(wonder["id"])
@@ -192,6 +204,12 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
         lines.extend(map_replace_line("tv_wonder_id_to_display_id", key, wonder_id))
         lines.extend(map_replace_line("tv_wonder_id_to_concept_display_id", key, wonder_id))
         lines.extend(map_replace_line("tv_wonder_id_to_image_display_id", key, wonder_id))
+        lines.extend(map_replace_line("tv_wonder_id_to_helper_building_type", key, f"building_type:tv_wonder_{wonder['key']}"))
+
+        for part_index, part in enumerate(PARTS, start=1):
+            module_key = str(wonder_module_composite_id(wonder_id, part_index))
+            module_building = f"building_type:tv_wonder_{wonder['key']}_{part}"
+            lines.extend(map_replace_line("tv_wonder_module_key_to_building_type", module_key, module_building))
 
         for style in ceremony_styles(wonder):
             ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
@@ -207,6 +225,8 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
             lines.extend(map_replace_line("tv_wonder_ritual_id_to_style", ritual_key, style))
             lines.extend(map_replace_line("tv_wonder_ritual_id_to_mode", ritual_key, WONDER_RITUAL_MODE_IDS[mode]))
             lines.extend(map_replace_line("tv_wonder_ritual_id_to_cost_type", ritual_key, WONDER_RITUAL_COST_TYPE_IDS[cost_type]))
+            final_building = f"building_type:{wonder['final_buildings'][style]}"
+            lines.extend(map_replace_line("tv_wonder_final_key_to_building_type", ritual_key, final_building))
 
     for wonder in wonders:
         if wonder.get("is_unique"):

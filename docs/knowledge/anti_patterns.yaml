@@ -902,13 +902,14 @@
   notes: "move_country called unilaterally from a generic_action (owncountry type) does NOT grant is_courtier = yes in the destination court. Only formal country_interaction invitations (e.g. invite_artist where the recipient accepts) produce a true courtier relationship. The result: every_character { is_courtier = yes } silently skips the dispatched character in both yearly and monthly pulses — timer never increments, no events fire."
 
 - id: local_var_lost_across_var_scope_switch
-  pattern: 'var:\w+\s*\?=\s*\{[^}]*local_var:|prev\s*=\s*\{[^}]*local_var:'
-  bad: "set_local_variable inside var:X ?= {} then reading local_var: from prev = {} — or setting local_var: before var:X ?= {} and reading inside after. Example: var:tv_chief_artist ?= { set_local_variable = { name = ca value = artist_skill } change_local_variable = { name = ca multiply = 0.002 }  prev = { set_variable = { name = tv_chief_artist_monthly_bonus value = local_var:ca } } }"
-  correction: "Use chained scope access from the original scope instead of switching. To read a character skill stored in a country variable: value = var:tv_chief_artist.artist_skill (reads artist_skill on the referenced character without a scope switch). Wrap in a scripted value block if math is needed: set_variable = { name = tv_chief_artist_monthly_bonus  value = { value = var:tv_chief_artist.artist_skill  multiply = 0.002 } }. Check liveness in the limit: var:tv_chief_artist = { is_alive = yes }."
+  pattern: ''
+  detectability: needs_parser
+  bad: "set_local_variable inside var:X ?= {} and then reading that local_var from prev = {} or after leaving the dynamic scope. Example: var:tv_chief_artist ?= { set_local_variable = { name = ca value = artist_skill } change_local_variable = { name = ca multiply = 0.002 }  prev = { set_variable = { name = tv_chief_artist_monthly_bonus value = local_var:ca } } }"
+  correction: "Use chained scope access from the original scope instead of switching when possible. To read a character skill stored in a country variable: value = var:tv_chief_artist.artist_skill. If a temporary value is needed inside a later scope, set_local_variable before entering that scope and read local_var:X inside it; that direction is valid."
   category: scope
   scope: any
   source: "reference_game_files/game/in_game/common/country_interactions/invite_artist.txt:129 (add = scope:target.artist_skill confirms chained character-scope access); hellenism_religion.txt:2866 (value = artist_skill as direct scripted value)"
-  notes: "local_var is NOT reliably propagated when reading it from prev = {} after a var:X ?= {} block. The local variable appears to be tied to the scope frame of the block where it was set; on exit via prev or other scope navigation, the local_var reference resolves to 0 or causes an error. The fix is to eliminate scope switching entirely: var:X.some_scripted_value reads the scripted value directly on the referenced character from the current scope."
+  notes: "The unreliable direction is dynamic-scope local_var escaping outward through prev or later outer-scope reads. The opposite direction is valid: set_local_variable before a var:X ?= {} / location scope switch, then use local_var:X inside the nested scope."
 
 - id: create_io_inner_effects_must_be_hidden
   pattern: ''
