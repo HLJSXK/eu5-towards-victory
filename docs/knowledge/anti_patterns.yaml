@@ -1161,6 +1161,16 @@
   source: "in-game location_window dynamic display test: GetFlagName for flag:tv_wonder_unique_pharos_lighthouse rendered 法罗斯灯塔"
   notes: "Concept/localized flags can return their localized display name in GUI. Concatenating that result produced game_concept_法罗斯灯塔 and 法罗斯灯塔_level_3 instead of raw script keys."
 
+- id: variable_map_scope_link_used_direct_rhs
+  pattern: ''
+  detectability: needs_parser
+  bad: "Using a quoted variable_map/global_variable_map/local_variable_map lookup directly as an equality right-hand side, trigger comparison RHS, or effect parameter after scope switching"
+  correction: "Use variable-map lookups primarily as left-side scope links. When the mapped value is needed as a RHS, first capture it with set_local_variable or set_variable in the map-owning scope, then use local_var:X or var:X. Prefer local_var for temporary values."
+  category: scope
+  scope: variable_map
+  source: "User-provided Variable maps reference excerpt, 2026-06-04; TV runtime test with Engineering Department wonder helper building probes"
+  notes: "Quoted variable-map expressions are reliable for entering the mapped value scope on the left side. Runtime tests found direct RHS use unreliable for value extraction or comparisons, e.g. building_type = \"variable_map(...)\" inside a later location/building scope. Cache the mapped value before entering the later scope."
+
 - id: gui_css_like_fittype_contain
   detectability: advisory
   pattern: 'fittype\s*=\s*contain'

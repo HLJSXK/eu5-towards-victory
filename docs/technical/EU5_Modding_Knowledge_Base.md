@@ -404,6 +404,118 @@ When a mechanic needs market route control rather than a country's own trade, it
 
 A **scope** refers to the specific game object (e.g., a country, a character, a location) that a script is currently focused on. **Scope links** are used to access data from or apply effects to other scopes. For example, `c:FRA.gold` would access the treasury of the country with the tag FRA.
 
+#### Variable Maps
+
+Source authority: this subsection preserves the user-provided Variable maps reference excerpt [14] plus TV runtime tests from 2026-06-04. Treat [14] as the local authoritative source for variable-map basics because official defines and vanilla references currently expose very little `variable_map` detail.
+
+Variable maps are associative arrays: one key scope or number maps to one value scope or number. They follow the same three-storage pattern as variables and variable lists:
+
+| Type | Stored on a scope | Persistent | Add effect | Scope link |
+|---|---|---|---|---|
+| regular | yes | yes | `add_to_variable_map` | `"variable_map(name|key)"` |
+| global | no | yes | `add_to_global_variable_map` | `"global_variable_map(name|key)"` |
+| local | no | no | `add_to_local_variable_map` | `"local_variable_map(name|key)"` |
+
+Add entries with `name`, `key`, and `value`. The key and value can be game scopes such as countries, locations, buildings, or characters; integer keys also work, so a map can act like a sparse indexed array.
+
+```pdx
+add_to_variable_map = {
+    name = rival_map
+    key = c:FRA
+    value = c:ENG
+}
+```
+
+Adding an already existing key does not overwrite the value; the add effect silently keeps the old entry. To update a mapping, remove the key first and then re-add it:
+
+```pdx
+remove_from_variable_map = {
+    name = rival_map
+    key = c:FRA
+}
+add_to_variable_map = {
+    name = rival_map
+    key = c:FRA
+    value = c:SPA
+}
+```
+
+The normal and safest use of a variable-map lookup is as a quoted scope link on the left side, entering the saved value scope:
+
+```pdx
+"variable_map(rival_map|c:FRA)" = {
+    # this is c:ENG; prev is the caller scope
+    add_prestige = -10
+}
+```
+
+The quoted expression takes the map name before `|` and the key expression after it. Because the expression is quoted, scripted effect/trigger arguments are not expanded inside it. Save a dynamic key to a variable first:
+
+```pdx
+set_local_variable = {
+    name = temp_key
+    value = $key$
+}
+"global_variable_map(my_map|local_var:temp_key)" = {
+    # Work with the mapped value scope here.
+}
+```
+
+Only the key can be made dynamic this way. The map name is an identifier, not a scope or value expression, so `"global_variable_map($map$|c:ENG)"` and `"global_variable_map(local_var:map_name|c:ENG)"` should be treated as invalid.
+
+TV runtime tests found an important limitation: although some references describe direct numeric extraction from `"variable_map(name|key)"`, treat direct right-hand-side use as unreliable in this project. Variable-map scope links are reliable for entering the mapped scope on the left side, but can fail or compare as the wrong type when used directly as an equality RHS, trigger RHS, or effect parameter after scope changes.
+
+Do not write:
+
+```pdx
+set_local_variable = { name = probe_key value = 1 }
+var:tv_wonder_site ?= {
+    every_buildings_in_location = {
+        limit = {
+            building_type = "variable_map(tv_wonder_probe_helper_by_wonder_id|local_var:probe_key)"
+        }
+        location = { destroy_building = prev }
+    }
+}
+```
+
+Instead, capture the mapped value before entering the later scope, then use the captured variable as the RHS. Prefer `set_local_variable` for temporary use unless a persistent scoped variable is actually needed:
+
+```pdx
+set_local_variable = { name = probe_key value = 1 }
+set_local_variable = {
+    name = helper_building_type
+    value = "variable_map(tv_wonder_probe_helper_by_wonder_id|local_var:probe_key)"
+}
+var:tv_wonder_site ?= {
+    every_buildings_in_location = {
+        limit = {
+            building_type = local_var:helper_building_type
+        }
+        location = { destroy_building = prev }
+    }
+}
+```
+
+If the mapped value needs to persist on the current scope, use `set_variable = { name = X value = "variable_map(...)" }` first, then read `var:X` from that same owning scope or capture it into a local variable before switching scopes.
+
+Variable maps can be iterated over their keys. Use `every_key_in_variable_map` or `ordered_key_in_variable_map` as effects, and `any_key_in_variable_map` as a trigger; use the `global_` and `local_` variants for global/local maps. Inside a key iterator, `this` is the current key. Enter the mapped value through the scope link:
+
+```pdx
+every_key_in_variable_map = {
+    variable = rival_map
+    "variable_map(rival_map|this)" = {
+        # this is the mapped value; prev is the key
+    }
+}
+```
+
+`ordered_key_in_variable_map` selects only one key by default. Add `max = N` when multiple keys should be processed.
+
+GUI has separate variable-map data functions. Use `Scope.GetMapKeys('<name>')` and `GetGlobalMapKeys('<name>')` for key datamodels, and `Scope.GetVariableFromVariableMap('<name>', Scope)` / `GetVariableFromGlobalVariableMap('<name>', Scope)` to retrieve values from a typed GUI scope. GUI string recovery has its own traps; do not use `GetFlagName` from variable-map values as a raw script key.
+
+Variable maps are unordered. Their internal iteration order is stable but not insertion order; sort with ordered key iterators when order matters. They are useful when many scopes need key-based lookup, when a map substitutes for variables on scopes that cannot store variables directly, or when an indexed array-like structure is clearer than hundreds of generated branches.
+
 #### `root` vs `prev` in reusable country triggers
 
 Do not assume `root` is the country just because a scripted trigger is country-scoped. `root` stays the root scope of the caller. If a country trigger is called from a situation `every_country` block, the current country is `this`, but `root` can still be the situation.
@@ -1101,3 +1213,4 @@ audio selection rather than music-player song conditions.
 [11] [Interface modding guide - Europa Universalis 5 Wiki](https://eu5.paradoxwikis.com/Interface_modding_guide)
 [12] [Map modding - Europa Universalis 5 Wiki](https://eu5.paradoxwikis.com/Map_modding)
 [13] [Flag modding - Europa Universalis 5 Wiki](https://eu5.paradoxwikis.com/Flag_modding)
+[14] User-provided Variable maps reference excerpt, pasted into the 2026-06-04 TV knowledge-capture task; source article noted some sections were last verified for EU5 1.1. Summarized in section 5.2 as a local authoritative source for `variable_map`.
