@@ -1216,7 +1216,7 @@ def scale_numeric_modifier_mapping(mapping: dict[str, object], multiplier: int |
         return dict(mapping)
     scaled: dict[str, object] = {}
     for key, value in mapping.items():
-        if isinstance(value, (int, float)):
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
             scaled[key] = value * multiplier
         else:
             scaled[key] = value

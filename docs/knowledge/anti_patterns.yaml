@@ -558,6 +558,17 @@
   source: "reference_official_defines/types/building_types.txt:18, reference_game_files/game/in_game/common/building_types/estate_buildings.txt:416"
   notes: "EU5 building gold cost uses named price constants from common/prices/ (e.g. price = expensive_estate_building at line 416 of estate_buildings.txt). Direct numeric literals like price = 200 are silently ignored. Named constants ARE valid."
 
+- id: boolean_modifier_can_recruit_regiment_numeric
+  pattern: 'can_recruit_regiment_in_this_location\s*=\s*(?:0|1)\b'
+  detectability: lint
+  only_in_paths: ['building_types', 'static_modifiers']
+  bad: "Boolean location modifier can_recruit_regiment_in_this_location assigned numeric 0/1"
+  correction: "Use can_recruit_regiment_in_this_location = yes or no. The modifier type is declared boolean=yes, and vanilla building modifiers use yes."
+  category: modifier
+  scope: location
+  source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:9910; reference_game_files/game/in_game/common/building_types/manpower_buildings.txt:29"
+  notes: "EU5 logs Malformed token near the numeric literal when a boolean modifier value is emitted as 1. Generated YAML data must preserve bools and render them as yes/no, not Python True/False or 1/0."
+
 - id: utf8_bom_mandatory_on_common_scripts
   pattern: ''
   bad: "Saving common/ scripts (static_modifiers, situations, scripted_effects, on_action, etc.) as plain UTF-8 without a byte-order mark"

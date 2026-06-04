@@ -932,6 +932,8 @@ building_id = {
 
 **Modifier scope note:** `modifier` and `raw_modifier` are location effects. `capital_country_modifier` is a country modifier only when the building is built in the capital (verified in `reference_official_defines/types/building_types.txt`). For event-created buildings that may appear outside the capital, apply national effects separately with `add_country_modifier` and keep the building's own modifier local.
 
+Boolean modifier types must use `yes` or `no`, not `1` or `0`. For example, `can_recruit_regiment_in_this_location` is declared with `boolean=yes` in modifier type definitions, and vanilla buildings write `can_recruit_regiment_in_this_location = yes`. Emitting `= 1` caused a startup `Malformed token: 1` error in a generated building file.
+
 ### 10.2 Valid Category Values
 
 Confirmed from vanilla building definitions: `basic_industry_category`, `colonial_category`, `consumer_goods_category`, `cultural_category`, `defense_category`, `estate_category`, `government_category`, `infrastructure_category`, `military_category`, `naval_category`, `religious_category`, `rgo_building_category`, `trade_category`, `village_category`, `weapons_industry_category`.

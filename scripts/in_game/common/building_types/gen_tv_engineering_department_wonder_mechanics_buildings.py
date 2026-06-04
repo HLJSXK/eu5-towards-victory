@@ -33,6 +33,8 @@ PORT_WONDERS = {
 }
 
 def fmt_value(value: object) -> str:
+    if isinstance(value, bool):
+        return "yes" if value else "no"
     if isinstance(value, float):
         return f"{value:.3f}".rstrip("0").rstrip(".")
     return str(value)
@@ -53,7 +55,12 @@ def merge_modifiers(*maps: dict | None) -> dict:
         if not mapping:
             continue
         for key, value in mapping.items():
-            if isinstance(value, (int, float)) and isinstance(merged.get(key), (int, float)):
+            if (
+                isinstance(value, (int, float))
+                and not isinstance(value, bool)
+                and isinstance(merged.get(key), (int, float))
+                and not isinstance(merged.get(key), bool)
+            ):
                 merged[key] = merged[key] + value
             else:
                 merged[key] = value
