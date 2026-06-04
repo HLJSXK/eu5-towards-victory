@@ -895,6 +895,15 @@ my_event.1.desc: "Current value: [ROOT.GetVariable('my_var').GetValue|0]"
 
 Do not insert `MakeScope` after `ROOT` or `THIS` in event localization. `ROOT.MakeScope.GetVariable(...)` treats an already script-scoped object like a GUI object and can log `Could not find promote for 'MakeScope'` / `Failed converting statement`. Use `Country.MakeScope.GetVariable(...)`, `Location.MakeScope.GetVariable(...)`, and similar chains only when the starting object is a GUI-layer binding such as `Country`, `Location`, `Player`, or a typed view object.
 
+Generic action title/description localization can be fetched through a contextless prefetch path
+before or alongside the real hover render. A scoped expression such as
+`SCOPE.sCountry('actor')...` may display correctly in the real tooltip and still spam
+`No context supplied ... wanted context of type 'Container'` from that prefetch. For action
+description keys that must stay dynamic and read player-country state, prefer a
+context-independent global binding such as `Player.MakeScope.GetVariable(...)`; use an explicitly
+scoped GUI widget/tooltip only when the text needs non-player scopes. Do not replace requested
+dynamic action text with static fallback merely to silence the log.
+
 #### Customizable Localization Database Keys
 
 Customizable localization files under `in_game/common/customizable_localization/` are parsed as database entries keyed by the top-level block name. These keys are not additive merge blocks. For example, adding a second file with `character_title_prefix = { ... }` causes the engine to ignore the duplicate and log `Duplicated key character_title_prefix will not be created`.

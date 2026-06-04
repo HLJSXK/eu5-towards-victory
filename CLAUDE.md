@@ -155,6 +155,11 @@ Then stop. Do not guess.
 
 When a script/GUI pattern causes a bug: verify and replace with correct syntax. Do NOT remove the feature. Removal is only allowed if Steps 2 and 3 both fail to find any reference, and the user is explicitly told.
 
+Do not treat a static fallback as a bug fix for a dynamic UI feature. If dynamic text,
+tooltips, generated id routing, or map-based selection is the requested behavior, keep that
+behavior and fix the failing scope/context path. If the only known safe option would remove
+the dynamic behavior, stop and explain the tradeoff before editing.
+
 ## Refactor Goal Preservation Rule
 
 When the task is explicitly a refactor toward a target architecture, such as `variable_map`,

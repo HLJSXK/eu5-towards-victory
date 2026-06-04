@@ -1207,12 +1207,12 @@
   detectability: advisory
   pattern: ''
   only_in_paths: ['localization']
-  bad: "Using GUI-only Country.MakeScope bindings inside generic action title/description/custom_tooltip localization"
-  correction: "Use the generic action script scope, such as SCOPE.sCountry('actor').MakeScope.GetVariable(...), instead of Country.MakeScope.GetVariable(...)."
+  bad: "Using datacontext-dependent Country.MakeScope or container-dependent SCOPE.sCountry('actor') reads inside generic action title/description localization"
+  correction: "Generic action description loc may be prefetched with no Country datacontext and no script-scope Container. Preserve player-country dynamic features by using a context-independent global binding such as Player.MakeScope, or move non-player-scope dynamic lines to a GUI widget/tooltip with an explicit datacontext. Do not replace the dynamic feature with static text without user approval."
   category: localization
   scope: generic_actions
   source: "runtime error.log from Engineering Department accept-proposal description, 2026-06-04"
-  notes: "action_button descriptions may be localized without a GUI Country datacontext, producing 'No context supplied (Use SetDataContext), wanted context of type Country'. Generic action localization can still access action scopes such as actor."
+  notes: "action_button descriptions may be localized once through a contextless prefetch path and again through the real action hover. Country.MakeScope.GetVariable(...) and SCOPE.sCountry('actor').MakeScope.GetVariable(...) produced continuous PdxDataFetchLocalizedData errors even while the visible tooltip rendered the selected wonder correctly."
 
 - id: gui_no_get_area_accessor
   pattern: 'GetVariable\([^)]*\)\.GetArea\.'
