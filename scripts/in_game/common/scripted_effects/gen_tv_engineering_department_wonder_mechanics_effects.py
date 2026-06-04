@@ -705,9 +705,6 @@ def generate() -> str:
     lines.append("tv_wonder_mechanics_clear_feasible_deck_effect = {")
     lines.append(f"{T}clear_variable_map = {FEASIBLE_GENERIC_DECK_MAP}")
     lines.append(f"{T}clear_variable_map = {FEASIBLE_UNIQUE_DECK_MAP}")
-    lines.append(f"{T}# Legacy cleanup for pre-id-deck saves.")
-    for wonder in all_wonders:
-        lines.append(f"{T}remove_variable = tv_wonder_feasible_{wonder['key']}")
     lines.append("}")
     lines.append("")
 
@@ -1228,13 +1225,13 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_mechanics_clear_project_state_effect = {")
+    lines.append(f"{T}clear_variable_map = {FEASIBLE_GENERIC_DECK_MAP}")
+    lines.append(f"{T}clear_variable_map = {FEASIBLE_UNIQUE_DECK_MAP}")
     runtime_cleanup_vars: list[str] = list(RITUAL_SHARED_RUNTIME_VARS)
     for _wonder, _style, ritual_plan in ritual_entry_list:
         for variable in ritual_plan.get("runtime_variables", []):
             if variable not in runtime_cleanup_vars:
                 runtime_cleanup_vars.append(variable)
-    for wonder in all_wonders:
-        lines.append(f"{T}remove_variable = tv_wonder_feasible_{wonder['key']}")
     for variable in runtime_cleanup_vars:
         lines.append(f"{T}remove_variable = {variable}")
     for wonder in all_wonders:
