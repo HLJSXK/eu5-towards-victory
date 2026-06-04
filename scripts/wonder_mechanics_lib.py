@@ -34,6 +34,23 @@ SUPPORTED_RITUAL_COST_TYPES = {None, "artwork", "scaled_gold", "prestige"}
 SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
 SUPPORTED_RITUAL_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
 SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
+WONDER_MAP_SCHEMA_VERSION = 2
+WONDER_SIZE_IDS = {
+    "small": 1,
+    "medium": 2,
+    "large": 3,
+}
+WONDER_RITUAL_MODE_IDS = {
+    "immediate": 1,
+    "timed": 2,
+    "auxiliary_building": 3,
+}
+WONDER_RITUAL_COST_TYPE_IDS = {
+    None: 0,
+    "artwork": 1,
+    "scaled_gold": 2,
+    "prestige": 3,
+}
 STYLE_3_REWARD_EFFECTS = {
     "all_estate_satisfaction": {"effect": "add_all_estate_satisfaction", "scope": "country_value_block"},
     "army_tradition": {"effect": "add_army_tradition", "scope": "country_scalar"},
@@ -648,6 +665,14 @@ def load_manual_game_concept_ids(path: Path = MANUAL_TV_GAME_CONCEPTS_FILE) -> s
 
 def mechanic_key(wonder: dict) -> str:
     return _require_string(wonder["mechanic_key"], f"{wonder['key']}.mechanic_key")
+
+
+def wonder_ritual_composite_id(wonder_id: int, style: int) -> int:
+    return int(wonder_id) * 100 + int(style)
+
+
+def wonder_suitability_row_composite_id(mechanic_id: int, row: int) -> int:
+    return int(mechanic_id) * 10 + int(row)
 
 
 def suitability_reveal_variable_for_key(key: str) -> str:

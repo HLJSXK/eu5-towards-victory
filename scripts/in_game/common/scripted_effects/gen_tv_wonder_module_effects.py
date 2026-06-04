@@ -517,6 +517,7 @@ def main() -> None:
         lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
+    lines.append(f"{T}tv_wonder_index_refresh_country_cache_effect = yes")
     lines.append("}")
     lines.append("")
 
@@ -546,6 +547,7 @@ def main() -> None:
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append(f"{T}tv_wonder_update_wonder_level_effect = yes")
+    lines.append(f"{T}tv_wonder_index_refresh_country_cache_effect = yes")
     lines.append("}")
     lines.append("")
 
@@ -578,6 +580,7 @@ def main() -> None:
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append(f"{T}tv_wonder_update_wonder_level_effect = yes")
+    lines.append(f"{T}tv_wonder_index_refresh_country_cache_effect = yes")
     lines.append("}")
     lines.append("")
 

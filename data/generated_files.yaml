@@ -173,6 +173,10 @@ generated:
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_module_effects.txt
 
+  - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_index_effects.py
+    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
+    output: src/in_game/common/scripted_effects/tv_wonder_index_effects.txt
+
   - script: scripts/in_game/common/scripted_triggers/gen_tv_wonder_construction_event_triggers.py
     data:   data/wonder_construction_events.yaml
     output: src/in_game/common/scripted_triggers/tv_wonder_construction_event_triggers.txt

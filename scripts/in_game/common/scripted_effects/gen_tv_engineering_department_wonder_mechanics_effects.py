@@ -1178,6 +1178,7 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_confirm_ceremony_effect = {")
+    lines.append(f"{T}tv_wonder_index_refresh_country_cache_effect = yes")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ tv_wonder_ceremony_ready_for_confirmation_trigger = yes }}")
     lines.append(f"{T}{T}if = {{")

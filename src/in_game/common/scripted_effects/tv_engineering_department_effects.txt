@@ -829,6 +829,7 @@ tv_wonder_accept_proposal_effect = {
 			limit = { var:tv_wonder_proposal ?= { this >= 1 } }
 			tv_wonder_clear_current_survey_effect = yes
 			set_variable = { name = tv_wonder_locked value = var:tv_wonder_proposal }
+			tv_wonder_index_refresh_country_cache_effect = yes
 			if = {
 				limit = { has_variable = tv_wonder_proposal_mode }
 				tv_wonder_prepare_priority_project_effect = yes
@@ -1974,6 +1975,7 @@ tv_wonder_choose_ceremony_style_effect = {
 			limit = { NOT = { var:tv_wonder_ceremony_style ?= $style$ } }
 			set_variable = { name = tv_wonder_ceremony_style value = $style$ }
 		}
+		tv_wonder_index_refresh_country_cache_effect = yes
 	}
 }
 
@@ -1982,10 +1984,11 @@ tv_wonder_initialize_ceremony_runtime_state_effect = {
 		limit = {
 			tv_wonder_unique_locked_trigger = yes
 			tv_wonder_ceremony_ready_trigger = yes
-		}
-		set_variable = { name = tv_wonder_ceremony_style value = 1 }
-		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 	}
+	set_variable = { name = tv_wonder_ceremony_style value = 1 }
+	set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+	tv_wonder_index_refresh_country_cache_effect = yes
+}
 }
 
 tv_wonder_apply_generic_base_modifier_effect = {
@@ -2658,6 +2661,8 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_previous_level
 	tv_wonder_clear_feasible_deck_effect = yes
 	tv_wonder_mechanics_clear_project_state_effect = yes
+	tv_wonder_index_clear_locked_wonder_cache_effect = yes
+	tv_wonder_index_clear_selected_ritual_cache_effect = yes
 	set_variable = { name = tv_wonder_stage value = 0 }
 	tv_wonder_reset_io_progress_effect = yes
 	if = {

@@ -11,6 +11,8 @@ from wonder_mechanics_lib import (
     ALL_WONDER_MAX_ID,
     ALL_WONDER_MIN_ID,
     PARTS,
+    WONDER_RITUAL_COST_TYPE_IDS,
+    WONDER_RITUAL_MODE_IDS,
     ceremony_styles,
     indent_script_block,
     load_all_wonder_mechanics,
@@ -234,6 +236,17 @@ def grouped_selected_trigger(
     return lines
 
 
+def selected_ritual_attribute_trigger(name: str, cache_var: str, expected_value: int) -> list[str]:
+    return [
+        f"{name} = {{",
+        f"{T}tv_wonder_has_selected_ceremony_trigger = yes",
+        f"{T}has_variable = {cache_var}",
+        f"{T}var:{cache_var} ?= {expected_value}",
+        "}",
+        "",
+    ]
+
+
 def completion_trigger_lines(ritual_plan: dict, indent: int) -> list[str]:
     if ritual_has_custom_completion_trigger(ritual_plan):
         return indent_script_block(ritual_plan.get("completion_trigger_script", ""), indent)
@@ -362,27 +375,24 @@ def generate() -> str:
     lines.append("")
 
     lines.extend(
-        grouped_selected_trigger(
+        selected_ritual_attribute_trigger(
             "tv_wonder_selected_generic_timed_ritual_trigger",
-            all_wonders,
-            mechanics,
-            lambda _wonder, _style, ritual_plan: ritual_plan["mode"] == "timed",
+            "tv_wonder_selected_ritual_mode",
+            WONDER_RITUAL_MODE_IDS["timed"],
         )
     )
     lines.extend(
-        grouped_selected_trigger(
+        selected_ritual_attribute_trigger(
             "tv_wonder_selected_generic_auxiliary_building_ritual_trigger",
-            all_wonders,
-            mechanics,
-            lambda _wonder, _style, ritual_plan: ritual_plan["mode"] == "auxiliary_building",
+            "tv_wonder_selected_ritual_mode",
+            WONDER_RITUAL_MODE_IDS["auxiliary_building"],
         )
     )
     lines.extend(
-        grouped_selected_trigger(
+        selected_ritual_attribute_trigger(
             "tv_wonder_selected_generic_immediate_ritual_trigger",
-            all_wonders,
-            mechanics,
-            lambda _wonder, _style, ritual_plan: ritual_plan["mode"] == "immediate",
+            "tv_wonder_selected_ritual_mode",
+            WONDER_RITUAL_MODE_IDS["immediate"],
         )
     )
     lines.extend(
@@ -394,27 +404,31 @@ def generate() -> str:
         )
     )
     lines.extend(
-        grouped_selected_trigger(
+        selected_ritual_attribute_trigger(
+            "tv_wonder_selected_generic_no_decoration_cost_ritual_trigger",
+            "tv_wonder_selected_ritual_cost_type",
+            WONDER_RITUAL_COST_TYPE_IDS[None],
+        )
+    )
+    lines.extend(
+        selected_ritual_attribute_trigger(
             "tv_wonder_selected_generic_artwork_decoration_ritual_trigger",
-            all_wonders,
-            mechanics,
-            lambda _wonder, _style, ritual_plan: ritual_plan["cost_type"] == "artwork",
+            "tv_wonder_selected_ritual_cost_type",
+            WONDER_RITUAL_COST_TYPE_IDS["artwork"],
         )
     )
     lines.extend(
-        grouped_selected_trigger(
+        selected_ritual_attribute_trigger(
             "tv_wonder_selected_generic_scaled_gold_decoration_ritual_trigger",
-            all_wonders,
-            mechanics,
-            lambda _wonder, _style, ritual_plan: ritual_plan["cost_type"] == "scaled_gold",
+            "tv_wonder_selected_ritual_cost_type",
+            WONDER_RITUAL_COST_TYPE_IDS["scaled_gold"],
         )
     )
     lines.extend(
-        grouped_selected_trigger(
+        selected_ritual_attribute_trigger(
             "tv_wonder_selected_generic_prestige_decoration_ritual_trigger",
-            all_wonders,
-            mechanics,
-            lambda _wonder, _style, ritual_plan: ritual_plan["cost_type"] == "prestige",
+            "tv_wonder_selected_ritual_cost_type",
+            WONDER_RITUAL_COST_TYPE_IDS["prestige"],
         )
     )
 
@@ -473,9 +487,7 @@ def generate() -> str:
     lines.append(f"{T}OR = {{")
     lines.append(f"{T}{T}AND = {{")
     lines.append(f"{T}{T}{T}tv_wonder_selected_generic_immediate_ritual_trigger = yes")
-    lines.append(f"{T}{T}{T}NOT = {{ tv_wonder_selected_generic_scaled_gold_decoration_ritual_trigger = yes }}")
-    lines.append(f"{T}{T}{T}NOT = {{ tv_wonder_selected_generic_prestige_decoration_ritual_trigger = yes }}")
-    lines.append(f"{T}{T}{T}NOT = {{ tv_wonder_selected_generic_artwork_decoration_ritual_trigger = yes }}")
+    lines.append(f"{T}{T}{T}tv_wonder_selected_generic_no_decoration_cost_ritual_trigger = yes")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}tv_wonder_selected_generic_timed_ritual_trigger = yes")
     lines.append(f"{T}{T}tv_wonder_selected_generic_auxiliary_building_ritual_trigger = yes")
@@ -500,12 +512,9 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_unique_locked_trigger = {")
-    for idx, wonder in enumerate(unique_wonders):
-        head = "trigger_if" if idx == 0 else "trigger_else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}}}")
-    lines.append(f"{T}trigger_else = {{ always = no }}")
+    lines.append(f"{T}tv_wonder_has_locked_wonder_trigger = yes")
+    lines.append(f"{T}has_variable = tv_wonder_locked_is_unique")
+    lines.append(f"{T}var:tv_wonder_locked_is_unique ?= 1")
     lines.append("}")
     lines.append("")
 

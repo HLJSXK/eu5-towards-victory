@@ -28211,6 +28211,7 @@ tv_wonder_mechanics_broadcast_completion_event_effect = {
 }
 
 tv_wonder_confirm_ceremony_effect = {
+	tv_wonder_index_refresh_country_cache_effect = yes
 	if = {
 		limit = { tv_wonder_ceremony_ready_for_confirmation_trigger = yes }
 		if = {
