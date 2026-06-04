@@ -358,7 +358,7 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
     ]
     lines.extend(
         trigger_conditions_list(
-            f"tv_wonder_player_visible_site_rules_{wonder['key']}_trigger",
+            "tv_wonder_site_rule_player_visible_locked_wonder_trigger",
             5,
             width=SUITABILITY_KNOWLEDGE_COLUMN_WIDTH,
         )

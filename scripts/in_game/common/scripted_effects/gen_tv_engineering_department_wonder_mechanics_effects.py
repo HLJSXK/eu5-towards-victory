@@ -40,6 +40,7 @@ DISPLAY_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
 FEASIBLE_GENERIC_DECK_MAP = "tv_wonder_feasible_generic_deck"
 FEASIBLE_UNIQUE_DECK_MAP = "tv_wonder_feasible_unique_deck"
+SITE_RULE_DISPATCH_VAR = "tv_wonder_site_rule_dispatch_id"
 LOCATION_SURVEYED_MAP = "tv_wonder_surveyed"
 LOCATION_SURVEY_SCALE_MAP = "tv_wonder_survey_scale_competence"
 LOCATION_SURVEY_LOGISTICS_MAP = "tv_wonder_survey_logistics_competence"
@@ -1062,12 +1063,15 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_mechanics_rebuild_feasible_deck_effect = {")
+    lines.append(f"{T}remove_variable = {SITE_RULE_DISPATCH_VAR}")
     for wonder in all_wonders:
         deck_map = FEASIBLE_UNIQUE_DECK_MAP if wonder.get("is_unique") else FEASIBLE_GENERIC_DECK_MAP
+        lines.append(f"{T}set_variable = {{ name = {SITE_RULE_DISPATCH_VAR} value = {wonder['id']} }}")
         lines.append(f"{T}if = {{")
-        lines.append(f"{T}{T}limit = {{ tv_wonder_can_build_{wonder['key']}_trigger = yes }}")
+        lines.append(f"{T}{T}limit = {{ tv_wonder_site_rule_can_build_candidate_trigger = yes }}")
         lines.append(f"{T}{T}add_to_variable_map = {{ name = {deck_map} key = {wonder['id']} value = 1 }}")
         lines.append(f"{T}}}")
+    lines.append(f"{T}remove_variable = {SITE_RULE_DISPATCH_VAR}")
     lines.append("}")
     lines.append("")
 

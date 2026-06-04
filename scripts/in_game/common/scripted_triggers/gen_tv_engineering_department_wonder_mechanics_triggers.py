@@ -8,8 +8,6 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
-    ALL_WONDER_MAX_ID,
-    ALL_WONDER_MIN_ID,
     PARTS,
     WONDER_RITUAL_COST_TYPE_IDS,
     WONDER_RITUAL_MODE_IDS,
@@ -31,6 +29,7 @@ FEASIBLE_GENERIC_DECK_MAP = "tv_wonder_feasible_generic_deck"
 FEASIBLE_UNIQUE_DECK_MAP = "tv_wonder_feasible_unique_deck"
 LOCATION_SURVEYED_MAP = "tv_wonder_surveyed"
 LOCATION_SURVEY_SCALE_TIER_MAP = "tv_wonder_survey_scale_tier"
+SITE_RULE_DISPATCH_VAR = "tv_wonder_site_rule_dispatch_id"
 
 
 def trigger_conditions(wonder: dict, mechanics: dict, indent: int = 1) -> list[str]:
@@ -273,6 +272,59 @@ def selected_ritual_attribute_trigger(name: str, cache_var: str, expected_value:
     ]
 
 
+def append_id_dispatch_trigger(
+    lines: list[str],
+    name: str,
+    wonders: list[dict],
+    *,
+    limit_line,
+    target_line,
+) -> None:
+    lines.append(f"{name} = {{")
+    for idx, wonder in enumerate(wonders):
+        head = "trigger_if" if idx == 0 else "trigger_else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ {limit_line(wonder)} }}")
+        lines.append(f"{T}{T}{target_line(wonder)}")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else = {{ always = no }}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_site_rule_dispatch_triggers(lines: list[str], wonders: list[dict]) -> None:
+    append_id_dispatch_trigger(
+        lines,
+        "tv_wonder_site_rule_can_build_candidate_trigger",
+        wonders,
+        limit_line=lambda wonder: f"var:{SITE_RULE_DISPATCH_VAR} ?= {wonder['id']}",
+        target_line=lambda wonder: f"tv_wonder_can_build_{wonder['key']}_trigger = yes",
+    )
+    append_id_dispatch_trigger(
+        lines,
+        "tv_wonder_site_rule_can_build_locked_wonder_trigger",
+        wonders,
+        limit_line=lambda wonder: f"var:tv_wonder_locked ?= {wonder['id']}",
+        target_line=lambda wonder: f"tv_wonder_can_build_{wonder['key']}_trigger = yes",
+    )
+    append_id_dispatch_trigger(
+        lines,
+        "tv_wonder_site_rule_player_visible_locked_wonder_trigger",
+        wonders,
+        limit_line=lambda wonder: f"var:tv_wonder_locked ?= {wonder['id']}",
+        target_line=lambda wonder: f"tv_wonder_player_visible_site_rules_{wonder['key']}_trigger = yes",
+    )
+    append_id_dispatch_trigger(
+        lines,
+        "tv_wonder_location_can_host_locked_wonder_trigger",
+        wonders,
+        limit_line=lambda wonder: (
+            f"exists = scope:actor scope:actor = {{ var:tv_wonder_locked ?= {wonder['id']} }}"
+        ),
+        target_line=lambda wonder: f"tv_wonder_location_can_host_{wonder['key']}_trigger = yes",
+    )
+
+
 def completion_trigger_lines(ritual_plan: dict, indent: int) -> list[str]:
     if ritual_has_custom_completion_trigger(ritual_plan):
         return indent_script_block(ritual_plan.get("completion_trigger_script", ""), indent)
@@ -361,25 +413,10 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_mechanics_has_valid_site_candidate_trigger = {")
-    for idx, wonder in enumerate(all_wonders):
-        head = "trigger_if" if idx == 0 else "trigger_else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}tv_wonder_can_build_{wonder['key']}_trigger = yes")
-        lines.append(f"{T}}}")
-    lines.append(f"{T}trigger_else = {{ always = no }}")
-    lines.append("}")
-    lines.append("")
+    append_site_rule_dispatch_triggers(lines, all_wonders)
 
-    lines.append("tv_wonder_location_can_host_locked_wonder_trigger = {")
-    for idx, wonder in enumerate(all_wonders):
-        head = "trigger_if" if idx == 0 else "trigger_else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ scope:actor = {{ var:tv_wonder_locked ?= {wonder['id']} }} }}")
-        lines.append(f"{T}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes")
-        lines.append(f"{T}}}")
-    lines.append(f"{T}trigger_else = {{ always = no }}")
+    lines.append("tv_wonder_mechanics_has_valid_site_candidate_trigger = {")
+    lines.append(f"{T}tv_wonder_site_rule_can_build_locked_wonder_trigger = yes")
     lines.append("}")
     lines.append("")
 

@@ -22490,7 +22490,383 @@ tv_wonder_mechanics_has_any_feasible_proposal_trigger = {
 	}
 }
 
-tv_wonder_mechanics_has_valid_site_candidate_trigger = {
+tv_wonder_site_rule_can_build_candidate_trigger = {
+	trigger_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 1 }
+		tv_wonder_can_build_sacred_mountain_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 2 }
+		tv_wonder_can_build_triumphal_axis_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 3 }
+		tv_wonder_can_build_great_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 4 }
+		tv_wonder_can_build_giant_necropolis_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 5 }
+		tv_wonder_can_build_great_lighthouse_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 6 }
+		tv_wonder_can_build_hydraulic_workshop_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 7 }
+		tv_wonder_can_build_mining_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 8 }
+		tv_wonder_can_build_giant_observatory_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 9 }
+		tv_wonder_can_build_palace_of_nations_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 10 }
+		tv_wonder_can_build_university_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 11 }
+		tv_wonder_can_build_sky_dome_grand_temple_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 12 }
+		tv_wonder_can_build_giant_tower_temple_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 13 }
+		tv_wonder_can_build_river_extension_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 14 }
+		tv_wonder_can_build_national_shipyard_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 15 }
+		tv_wonder_can_build_star_fortress_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 16 }
+		tv_wonder_can_build_great_wall_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 17 }
+		tv_wonder_can_build_giant_armory_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 18 }
+		tv_wonder_can_build_library_of_nation_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 19 }
+		tv_wonder_can_build_large_canal_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 20 }
+		tv_wonder_can_build_mountain_terrace_network_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 21 }
+		tv_wonder_can_build_giant_dam_project_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 22 }
+		tv_wonder_can_build_royal_granary_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 23 }
+		tv_wonder_can_build_imperial_post_road_network_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 24 }
+		tv_wonder_can_build_canal_hub_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 25 }
+		tv_wonder_can_build_frontier_colonization_belt_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 26 }
+		tv_wonder_can_build_coastal_beacon_network_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 27 }
+		tv_wonder_can_build_knightly_fortress_order_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 28 }
+		tv_wonder_can_build_war_college_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 29 }
+		tv_wonder_can_build_great_clock_bell_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 30 }
+		tv_wonder_can_build_royal_art_district_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 31 }
+		tv_wonder_can_build_grand_theater_festival_district_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 32 }
+		tv_wonder_can_build_world_embassy_quarter_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 33 }
+		tv_wonder_can_build_law_code_stele_project_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 34 }
+		tv_wonder_can_build_world_market_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 35 }
+		tv_wonder_can_build_royal_mint_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 36 }
+		tv_wonder_can_build_guild_alliance_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 37 }
+		tv_wonder_can_build_maritime_trade_station_network_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 38 }
+		tv_wonder_can_build_giant_workshop_complex_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 39 }
+		tv_wonder_can_build_world_monument_group_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 40 }
+		tv_wonder_can_build_city_expansion_project_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 41 }
+		tv_wonder_can_build_megalithic_circle_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 42 }
+		tv_wonder_can_build_grand_cathedral_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 43 }
+		tv_wonder_can_build_great_monastery_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 101 }
+		tv_wonder_can_build_unique_pharos_lighthouse_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 102 }
+		tv_wonder_can_build_unique_hagia_sophia_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 103 }
+		tv_wonder_can_build_unique_dome_of_the_rock_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 104 }
+		tv_wonder_can_build_unique_angkor_wat_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 105 }
+		tv_wonder_can_build_unique_potala_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 106 }
+		tv_wonder_can_build_unique_alhambra_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 107 }
+		tv_wonder_can_build_unique_machu_picchu_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 108 }
+		tv_wonder_can_build_unique_himeji_castle_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 109 }
+		tv_wonder_can_build_unique_taj_mahal_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 110 }
+		tv_wonder_can_build_unique_forbidden_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 111 }
+		tv_wonder_can_build_unique_topkapi_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 112 }
+		tv_wonder_can_build_unique_st_peters_basilica_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 113 }
+		tv_wonder_can_build_unique_lalibela_churches_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 114 }
+		tv_wonder_can_build_unique_venetian_arsenal_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 115 }
+		tv_wonder_can_build_unique_malacca_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 116 }
+		tv_wonder_can_build_unique_red_fort_delhi_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 117 }
+		tv_wonder_can_build_unique_versailles_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 118 }
+		tv_wonder_can_build_unique_tenochtitlan_causeways_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 119 }
+		tv_wonder_can_build_unique_amsterdam_canal_ring_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 120 }
+		tv_wonder_can_build_unique_mecca_haram_expansion_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 121 }
+		tv_wonder_can_build_unique_ming_great_wall_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 122 }
+		tv_wonder_can_build_unique_bank_of_saint_george_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 123 }
+		tv_wonder_can_build_unique_cahokia_mounds_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 124 }
+		tv_wonder_can_build_unique_great_zimbabwe_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 125 }
+		tv_wonder_can_build_unique_isfahan_square_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 126 }
+		tv_wonder_can_build_unique_grand_canal_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 127 }
+		tv_wonder_can_build_unique_inca_royal_road_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 128 }
+		tv_wonder_can_build_unique_roman_aqueducts_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 129 }
+		tv_wonder_can_build_unique_suez_ancient_canal_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 130 }
+		tv_wonder_can_build_unique_kremlin_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 131 }
+		tv_wonder_can_build_unique_teotihuacan_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 132 }
+		tv_wonder_can_build_unique_angkor_hydraulic_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 133 }
+		tv_wonder_can_build_unique_dutch_polders_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 134 }
+		tv_wonder_can_build_unique_machu_picchu_terraces_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 135 }
+		tv_wonder_can_build_unique_british_navy_dockyards_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 136 }
+		tv_wonder_can_build_unique_spanish_silver_fleet_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 137 }
+		tv_wonder_can_build_unique_ottoman_hajj_road_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 138 }
+		tv_wonder_can_build_unique_persian_qanat_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 139 }
+		tv_wonder_can_build_unique_longjiang_shipyard_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 140 }
+		tv_wonder_can_build_unique_jerusalem_holy_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 141 }
+		tv_wonder_can_build_unique_stonehenge_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 142 }
+		tv_wonder_can_build_unique_tower_of_london_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 143 }
+		tv_wonder_can_build_unique_notre_dame_de_paris_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 144 }
+		tv_wonder_can_build_unique_st_basils_cathedral_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 145 }
+		tv_wonder_can_build_unique_trinity_lavra_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 146 }
+		tv_wonder_can_build_unique_winter_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 147 }
+		tv_wonder_can_build_unique_gyeongbokgung_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 148 }
+		tv_wonder_can_build_unique_changbai_mountain_altar_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 149 }
+		tv_wonder_can_build_unique_belgrade_fortress_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 150 }
+		tv_wonder_can_build_unique_meteora_monasteries_trigger = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_site_rule_can_build_locked_wonder_trigger = {
 	trigger_if = {
 		limit = { var:tv_wonder_locked ?= 1 }
 		tv_wonder_can_build_sacred_mountain_trigger = yes
@@ -22866,380 +23242,760 @@ tv_wonder_mechanics_has_valid_site_candidate_trigger = {
 	trigger_else = { always = no }
 }
 
+tv_wonder_site_rule_player_visible_locked_wonder_trigger = {
+	trigger_if = {
+		limit = { var:tv_wonder_locked ?= 1 }
+		tv_wonder_player_visible_site_rules_sacred_mountain_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 2 }
+		tv_wonder_player_visible_site_rules_triumphal_axis_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 3 }
+		tv_wonder_player_visible_site_rules_great_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 4 }
+		tv_wonder_player_visible_site_rules_giant_necropolis_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 5 }
+		tv_wonder_player_visible_site_rules_great_lighthouse_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 6 }
+		tv_wonder_player_visible_site_rules_hydraulic_workshop_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 7 }
+		tv_wonder_player_visible_site_rules_mining_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 8 }
+		tv_wonder_player_visible_site_rules_giant_observatory_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 9 }
+		tv_wonder_player_visible_site_rules_palace_of_nations_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 10 }
+		tv_wonder_player_visible_site_rules_university_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 11 }
+		tv_wonder_player_visible_site_rules_sky_dome_grand_temple_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 12 }
+		tv_wonder_player_visible_site_rules_giant_tower_temple_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 13 }
+		tv_wonder_player_visible_site_rules_river_extension_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 14 }
+		tv_wonder_player_visible_site_rules_national_shipyard_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 15 }
+		tv_wonder_player_visible_site_rules_star_fortress_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 16 }
+		tv_wonder_player_visible_site_rules_great_wall_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 17 }
+		tv_wonder_player_visible_site_rules_giant_armory_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 18 }
+		tv_wonder_player_visible_site_rules_library_of_nation_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 19 }
+		tv_wonder_player_visible_site_rules_large_canal_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 20 }
+		tv_wonder_player_visible_site_rules_mountain_terrace_network_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 21 }
+		tv_wonder_player_visible_site_rules_giant_dam_project_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 22 }
+		tv_wonder_player_visible_site_rules_royal_granary_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 23 }
+		tv_wonder_player_visible_site_rules_imperial_post_road_network_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 24 }
+		tv_wonder_player_visible_site_rules_canal_hub_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 25 }
+		tv_wonder_player_visible_site_rules_frontier_colonization_belt_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 26 }
+		tv_wonder_player_visible_site_rules_coastal_beacon_network_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 27 }
+		tv_wonder_player_visible_site_rules_knightly_fortress_order_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 28 }
+		tv_wonder_player_visible_site_rules_war_college_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 29 }
+		tv_wonder_player_visible_site_rules_great_clock_bell_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 30 }
+		tv_wonder_player_visible_site_rules_royal_art_district_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 31 }
+		tv_wonder_player_visible_site_rules_grand_theater_festival_district_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 32 }
+		tv_wonder_player_visible_site_rules_world_embassy_quarter_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 33 }
+		tv_wonder_player_visible_site_rules_law_code_stele_project_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 34 }
+		tv_wonder_player_visible_site_rules_world_market_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 35 }
+		tv_wonder_player_visible_site_rules_royal_mint_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 36 }
+		tv_wonder_player_visible_site_rules_guild_alliance_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 37 }
+		tv_wonder_player_visible_site_rules_maritime_trade_station_network_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 38 }
+		tv_wonder_player_visible_site_rules_giant_workshop_complex_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 39 }
+		tv_wonder_player_visible_site_rules_world_monument_group_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 40 }
+		tv_wonder_player_visible_site_rules_city_expansion_project_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 41 }
+		tv_wonder_player_visible_site_rules_megalithic_circle_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 42 }
+		tv_wonder_player_visible_site_rules_grand_cathedral_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 43 }
+		tv_wonder_player_visible_site_rules_great_monastery_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 101 }
+		tv_wonder_player_visible_site_rules_unique_pharos_lighthouse_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 102 }
+		tv_wonder_player_visible_site_rules_unique_hagia_sophia_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 103 }
+		tv_wonder_player_visible_site_rules_unique_dome_of_the_rock_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 104 }
+		tv_wonder_player_visible_site_rules_unique_angkor_wat_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 105 }
+		tv_wonder_player_visible_site_rules_unique_potala_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 106 }
+		tv_wonder_player_visible_site_rules_unique_alhambra_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 107 }
+		tv_wonder_player_visible_site_rules_unique_machu_picchu_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 108 }
+		tv_wonder_player_visible_site_rules_unique_himeji_castle_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 109 }
+		tv_wonder_player_visible_site_rules_unique_taj_mahal_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 110 }
+		tv_wonder_player_visible_site_rules_unique_forbidden_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 111 }
+		tv_wonder_player_visible_site_rules_unique_topkapi_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 112 }
+		tv_wonder_player_visible_site_rules_unique_st_peters_basilica_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 113 }
+		tv_wonder_player_visible_site_rules_unique_lalibela_churches_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 114 }
+		tv_wonder_player_visible_site_rules_unique_venetian_arsenal_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 115 }
+		tv_wonder_player_visible_site_rules_unique_malacca_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 116 }
+		tv_wonder_player_visible_site_rules_unique_red_fort_delhi_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 117 }
+		tv_wonder_player_visible_site_rules_unique_versailles_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 118 }
+		tv_wonder_player_visible_site_rules_unique_tenochtitlan_causeways_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 119 }
+		tv_wonder_player_visible_site_rules_unique_amsterdam_canal_ring_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 120 }
+		tv_wonder_player_visible_site_rules_unique_mecca_haram_expansion_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 121 }
+		tv_wonder_player_visible_site_rules_unique_ming_great_wall_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 122 }
+		tv_wonder_player_visible_site_rules_unique_bank_of_saint_george_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 123 }
+		tv_wonder_player_visible_site_rules_unique_cahokia_mounds_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 124 }
+		tv_wonder_player_visible_site_rules_unique_great_zimbabwe_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 125 }
+		tv_wonder_player_visible_site_rules_unique_isfahan_square_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 126 }
+		tv_wonder_player_visible_site_rules_unique_grand_canal_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 127 }
+		tv_wonder_player_visible_site_rules_unique_inca_royal_road_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 128 }
+		tv_wonder_player_visible_site_rules_unique_roman_aqueducts_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 129 }
+		tv_wonder_player_visible_site_rules_unique_suez_ancient_canal_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 130 }
+		tv_wonder_player_visible_site_rules_unique_kremlin_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 131 }
+		tv_wonder_player_visible_site_rules_unique_teotihuacan_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 132 }
+		tv_wonder_player_visible_site_rules_unique_angkor_hydraulic_system_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 133 }
+		tv_wonder_player_visible_site_rules_unique_dutch_polders_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 134 }
+		tv_wonder_player_visible_site_rules_unique_machu_picchu_terraces_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 135 }
+		tv_wonder_player_visible_site_rules_unique_british_navy_dockyards_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 136 }
+		tv_wonder_player_visible_site_rules_unique_spanish_silver_fleet_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 137 }
+		tv_wonder_player_visible_site_rules_unique_ottoman_hajj_road_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 138 }
+		tv_wonder_player_visible_site_rules_unique_persian_qanat_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 139 }
+		tv_wonder_player_visible_site_rules_unique_longjiang_shipyard_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 140 }
+		tv_wonder_player_visible_site_rules_unique_jerusalem_holy_city_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		tv_wonder_player_visible_site_rules_unique_stonehenge_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		tv_wonder_player_visible_site_rules_unique_tower_of_london_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		tv_wonder_player_visible_site_rules_unique_notre_dame_de_paris_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		tv_wonder_player_visible_site_rules_unique_st_basils_cathedral_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		tv_wonder_player_visible_site_rules_unique_trinity_lavra_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		tv_wonder_player_visible_site_rules_unique_winter_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		tv_wonder_player_visible_site_rules_unique_gyeongbokgung_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		tv_wonder_player_visible_site_rules_unique_changbai_mountain_altar_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		tv_wonder_player_visible_site_rules_unique_belgrade_fortress_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		tv_wonder_player_visible_site_rules_unique_meteora_monasteries_trigger = yes
+	}
+	trigger_else = { always = no }
+}
+
 tv_wonder_location_can_host_locked_wonder_trigger = {
 	trigger_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 1 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 1 } }
 		tv_wonder_location_can_host_sacred_mountain_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 2 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 2 } }
 		tv_wonder_location_can_host_triumphal_axis_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 3 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 3 } }
 		tv_wonder_location_can_host_great_port_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 4 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 4 } }
 		tv_wonder_location_can_host_giant_necropolis_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 5 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 5 } }
 		tv_wonder_location_can_host_great_lighthouse_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 6 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 6 } }
 		tv_wonder_location_can_host_hydraulic_workshop_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 7 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 7 } }
 		tv_wonder_location_can_host_mining_city_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 8 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 8 } }
 		tv_wonder_location_can_host_giant_observatory_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 9 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 9 } }
 		tv_wonder_location_can_host_palace_of_nations_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 10 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 10 } }
 		tv_wonder_location_can_host_university_city_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 11 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 11 } }
 		tv_wonder_location_can_host_sky_dome_grand_temple_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 12 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 12 } }
 		tv_wonder_location_can_host_giant_tower_temple_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 13 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 13 } }
 		tv_wonder_location_can_host_river_extension_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 14 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 14 } }
 		tv_wonder_location_can_host_national_shipyard_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 15 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 15 } }
 		tv_wonder_location_can_host_star_fortress_city_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 16 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 16 } }
 		tv_wonder_location_can_host_great_wall_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 17 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 17 } }
 		tv_wonder_location_can_host_giant_armory_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 18 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 18 } }
 		tv_wonder_location_can_host_library_of_nation_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 19 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 19 } }
 		tv_wonder_location_can_host_large_canal_system_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 20 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 20 } }
 		tv_wonder_location_can_host_mountain_terrace_network_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 21 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 21 } }
 		tv_wonder_location_can_host_giant_dam_project_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 22 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 22 } }
 		tv_wonder_location_can_host_royal_granary_system_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 23 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 23 } }
 		tv_wonder_location_can_host_imperial_post_road_network_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 24 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 24 } }
 		tv_wonder_location_can_host_canal_hub_city_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 25 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 25 } }
 		tv_wonder_location_can_host_frontier_colonization_belt_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 26 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 26 } }
 		tv_wonder_location_can_host_coastal_beacon_network_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 27 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 27 } }
 		tv_wonder_location_can_host_knightly_fortress_order_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 28 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 28 } }
 		tv_wonder_location_can_host_war_college_system_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 29 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 29 } }
 		tv_wonder_location_can_host_great_clock_bell_system_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 30 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 30 } }
 		tv_wonder_location_can_host_royal_art_district_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 31 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 31 } }
 		tv_wonder_location_can_host_grand_theater_festival_district_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 32 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 32 } }
 		tv_wonder_location_can_host_world_embassy_quarter_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 33 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 33 } }
 		tv_wonder_location_can_host_law_code_stele_project_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 34 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 34 } }
 		tv_wonder_location_can_host_world_market_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 35 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 35 } }
 		tv_wonder_location_can_host_royal_mint_system_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 36 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 36 } }
 		tv_wonder_location_can_host_guild_alliance_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 37 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 37 } }
 		tv_wonder_location_can_host_maritime_trade_station_network_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 38 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 38 } }
 		tv_wonder_location_can_host_giant_workshop_complex_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 39 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 39 } }
 		tv_wonder_location_can_host_world_monument_group_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 40 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 40 } }
 		tv_wonder_location_can_host_city_expansion_project_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 41 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 41 } }
 		tv_wonder_location_can_host_megalithic_circle_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 42 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 42 } }
 		tv_wonder_location_can_host_grand_cathedral_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 43 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 43 } }
 		tv_wonder_location_can_host_great_monastery_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 101 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 101 } }
 		tv_wonder_location_can_host_unique_pharos_lighthouse_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 102 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 102 } }
 		tv_wonder_location_can_host_unique_hagia_sophia_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 103 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 103 } }
 		tv_wonder_location_can_host_unique_dome_of_the_rock_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 104 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 104 } }
 		tv_wonder_location_can_host_unique_angkor_wat_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 105 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 105 } }
 		tv_wonder_location_can_host_unique_potala_palace_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 106 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 106 } }
 		tv_wonder_location_can_host_unique_alhambra_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 107 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 107 } }
 		tv_wonder_location_can_host_unique_machu_picchu_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 108 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 108 } }
 		tv_wonder_location_can_host_unique_himeji_castle_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 109 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 109 } }
 		tv_wonder_location_can_host_unique_taj_mahal_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 110 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 110 } }
 		tv_wonder_location_can_host_unique_forbidden_city_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 111 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 111 } }
 		tv_wonder_location_can_host_unique_topkapi_palace_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 112 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 112 } }
 		tv_wonder_location_can_host_unique_st_peters_basilica_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 113 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 113 } }
 		tv_wonder_location_can_host_unique_lalibela_churches_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 114 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 114 } }
 		tv_wonder_location_can_host_unique_venetian_arsenal_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 115 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 115 } }
 		tv_wonder_location_can_host_unique_malacca_port_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 116 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 116 } }
 		tv_wonder_location_can_host_unique_red_fort_delhi_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 117 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 117 } }
 		tv_wonder_location_can_host_unique_versailles_palace_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 118 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 118 } }
 		tv_wonder_location_can_host_unique_tenochtitlan_causeways_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 119 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 119 } }
 		tv_wonder_location_can_host_unique_amsterdam_canal_ring_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 120 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 120 } }
 		tv_wonder_location_can_host_unique_mecca_haram_expansion_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 121 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 121 } }
 		tv_wonder_location_can_host_unique_ming_great_wall_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 122 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 122 } }
 		tv_wonder_location_can_host_unique_bank_of_saint_george_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 123 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 123 } }
 		tv_wonder_location_can_host_unique_cahokia_mounds_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 124 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 124 } }
 		tv_wonder_location_can_host_unique_great_zimbabwe_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 125 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 125 } }
 		tv_wonder_location_can_host_unique_isfahan_square_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 126 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 126 } }
 		tv_wonder_location_can_host_unique_grand_canal_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 127 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 127 } }
 		tv_wonder_location_can_host_unique_inca_royal_road_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 128 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 128 } }
 		tv_wonder_location_can_host_unique_roman_aqueducts_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 129 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 129 } }
 		tv_wonder_location_can_host_unique_suez_ancient_canal_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 130 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 130 } }
 		tv_wonder_location_can_host_unique_kremlin_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 131 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 131 } }
 		tv_wonder_location_can_host_unique_teotihuacan_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 132 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 132 } }
 		tv_wonder_location_can_host_unique_angkor_hydraulic_system_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 133 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 133 } }
 		tv_wonder_location_can_host_unique_dutch_polders_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 134 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 134 } }
 		tv_wonder_location_can_host_unique_machu_picchu_terraces_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 135 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 135 } }
 		tv_wonder_location_can_host_unique_british_navy_dockyards_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 136 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 136 } }
 		tv_wonder_location_can_host_unique_spanish_silver_fleet_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 137 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 137 } }
 		tv_wonder_location_can_host_unique_ottoman_hajj_road_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 138 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 138 } }
 		tv_wonder_location_can_host_unique_persian_qanat_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 139 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 139 } }
 		tv_wonder_location_can_host_unique_longjiang_shipyard_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 140 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 140 } }
 		tv_wonder_location_can_host_unique_jerusalem_holy_city_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 141 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 141 } }
 		tv_wonder_location_can_host_unique_stonehenge_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 142 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 142 } }
 		tv_wonder_location_can_host_unique_tower_of_london_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 143 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 143 } }
 		tv_wonder_location_can_host_unique_notre_dame_de_paris_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 144 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 144 } }
 		tv_wonder_location_can_host_unique_st_basils_cathedral_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 145 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 145 } }
 		tv_wonder_location_can_host_unique_trinity_lavra_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 146 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 146 } }
 		tv_wonder_location_can_host_unique_winter_palace_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 147 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 147 } }
 		tv_wonder_location_can_host_unique_gyeongbokgung_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 148 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 148 } }
 		tv_wonder_location_can_host_unique_changbai_mountain_altar_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 149 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 149 } }
 		tv_wonder_location_can_host_unique_belgrade_fortress_trigger = yes
 	}
 	trigger_else_if = {
-		limit = { scope:actor = { var:tv_wonder_locked ?= 150 } }
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 150 } }
 		tv_wonder_location_can_host_unique_meteora_monasteries_trigger = yes
 	}
 	trigger_else = { always = no }
+}
+
+tv_wonder_mechanics_has_valid_site_candidate_trigger = {
+	tv_wonder_site_rule_can_build_locked_wonder_trigger = yes
 }
 
 tv_wonder_selected_survey_already_cached_trigger = {
