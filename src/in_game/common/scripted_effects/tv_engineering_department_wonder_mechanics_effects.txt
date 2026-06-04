@@ -479,9 +479,10 @@ tv_wonder_mechanics_rebuild_feasible_deck_effect = {
 
 tv_wonder_generic_roll_random_feasible_proposal_effect = {
 	remove_variable = tv_wonder_proposal
+	save_scope_as = tv_wonder_proposal_owner
 	random_key_in_variable_map = {
 		variable = tv_wonder_feasible_generic_deck
-		root = {
+		scope:tv_wonder_proposal_owner = {
 			set_variable = { name = tv_wonder_proposal value = prev }
 		}
 	}
@@ -489,9 +490,10 @@ tv_wonder_generic_roll_random_feasible_proposal_effect = {
 
 tv_wonder_unique_roll_random_feasible_proposal_effect = {
 	remove_variable = tv_wonder_proposal
+	save_scope_as = tv_wonder_proposal_owner
 	random_key_in_variable_map = {
 		variable = tv_wonder_feasible_unique_deck
-		root = {
+		scope:tv_wonder_proposal_owner = {
 			set_variable = { name = tv_wonder_proposal value = prev }
 		}
 	}

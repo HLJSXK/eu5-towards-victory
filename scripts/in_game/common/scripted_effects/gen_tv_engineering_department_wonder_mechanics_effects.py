@@ -685,9 +685,10 @@ def append_completion_broadcast_scope_effect(lines: list[str], name: str, wonder
 def append_roll_random_feasible_proposal_effect(lines: list[str], name: str, deck_map: str) -> None:
     lines.append(f"{name} = {{")
     lines.append(f"{T}remove_variable = tv_wonder_proposal")
+    lines.append(f"{T}save_scope_as = tv_wonder_proposal_owner")
     lines.append(f"{T}random_key_in_variable_map = {{")
     lines.append(f"{T}{T}variable = {deck_map}")
-    lines.append(f"{T}{T}root = {{")
+    lines.append(f"{T}{T}scope:tv_wonder_proposal_owner = {{")
     lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_proposal value = prev }}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")

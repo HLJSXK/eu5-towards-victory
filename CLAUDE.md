@@ -155,6 +155,14 @@ Then stop. Do not guess.
 
 When a script/GUI pattern causes a bug: verify and replace with correct syntax. Do NOT remove the feature. Removal is only allowed if Steps 2 and 3 both fail to find any reference, and the user is explicitly told.
 
+## Refactor Goal Preservation Rule
+
+When the task is explicitly a refactor toward a target architecture, such as `variable_map`,
+numeric id flow, generated index maps, or branch removal, do not fix runtime errors by
+reintroducing the old branch structure or generated per-key enumerations. Preserve the target
+architecture and fix the failing scope/syntax. If a rollback or fallback would materially undo
+the stated refactor goal, stop and report that tradeoff before editing.
+
 ## Early Development: Ask-First Policy
 
 This mod is in early development (v0.1.0). When in doubt about design intent, **ask the user before implementing**.

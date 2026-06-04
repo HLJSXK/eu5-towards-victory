@@ -48,7 +48,12 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    `amount = { value = scope:io.var:X }`. Direct dynamic reads in these slots can collapse
    to `1` at runtime.
 
-8. Register the action outside the action file.
+8. Preserve requested map/id-flow refactors.
+   If a generic-action pre-evaluation bug appears inside a `variable_map` helper, do not replace
+   map key iteration or `random_key_in_variable_map` with generated per-id branches. Save the
+   current owner scope before the map callback and write back through that named scope.
+
+9. Register the action outside the action file.
    Every new generic action also needs a `common/generic_action_ai_lists` entry and a
    `PERFORM_<action_id>_ACTION` message type.
 
@@ -108,3 +113,6 @@ rationale.
 - `generic_action_cleanup_effect_must_be_hidden` [needs_parser]: Cleanup-only helper calls from
   generic action effects should be inside `hidden_effect`; `validate.py` enforces the registered
   high-risk helper list.
+- `variable_map_callback_root_in_generic_action` [needs_parser]: A variable-map key callback
+  called from a generic-action effect should not rely on `root` to write back to the action actor;
+  save the actor/current country as a named scope before the callback.

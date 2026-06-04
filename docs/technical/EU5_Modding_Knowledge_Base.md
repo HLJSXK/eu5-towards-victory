@@ -512,6 +512,23 @@ every_key_in_variable_map = {
 
 `ordered_key_in_variable_map` selects only one key by default. Add `max = N` when multiple keys should be processed.
 
+When a variable-map key callback is reached from a generic action effect or selector tooltip,
+do not assume `root` is a valid country event target. Save the current country before entering
+the callback, then write through the named scope:
+
+```pdx
+save_scope_as = proposal_owner
+random_key_in_variable_map = {
+    variable = feasible_deck
+    scope:proposal_owner = {
+        set_variable = { name = selected_id value = prev }
+    }
+}
+```
+
+This preserves the variable-map key stream while avoiding `Event target link 'root' returned an
+unset scope` during hover pre-evaluation.
+
 GUI has separate variable-map data functions. Use `Scope.GetMapKeys('<name>')` and `GetGlobalMapKeys('<name>')` for key datamodels, and `Scope.GetVariableFromVariableMap('<name>', Scope)` / `GetVariableFromGlobalVariableMap('<name>', Scope)` to retrieve values from a typed GUI scope. GUI string recovery has its own traps; do not use `GetFlagName` from variable-map values as a raw script key.
 
 Variable maps are unordered. Their internal iteration order is stable but not insertion order; sort with ordered key iterators when order matters. They are useful when many scopes need key-based lookup, when a map substitutes for variables on scopes that cannot store variables directly, or when an indexed array-like structure is clearer than hundreds of generated branches.
