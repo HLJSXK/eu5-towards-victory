@@ -53,7 +53,12 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    map key iteration or `random_key_in_variable_map` with generated per-id branches. Save the
    current owner scope before the map callback and write back through that named scope.
 
-9. Register the action outside the action file.
+9. Use action scopes in action localization.
+   Generic action title/description/custom tooltip localization may not have a GUI `Country`
+   datacontext. Use `SCOPE.sCountry('actor')` / `SCOPE.sCountry('recipient')` rather than
+   `Country.MakeScope` when the text is owned by an action.
+
+10. Register the action outside the action file.
    Every new generic action also needs a `common/generic_action_ai_lists` entry and a
    `PERFORM_<action_id>_ACTION` message type.
 
@@ -116,3 +121,5 @@ rationale.
 - `variable_map_callback_root_in_generic_action` [needs_parser]: A variable-map key callback
   called from a generic-action effect should not rely on `root` to write back to the action actor;
   save the actor/current country as a named scope before the callback.
+- `generic_action_loc_uses_gui_country_binding` [advisory]: Action title/description/custom
+  tooltip localization should use `SCOPE.sCountry('actor')` rather than GUI `Country.MakeScope`.

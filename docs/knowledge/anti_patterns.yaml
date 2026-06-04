@@ -1203,6 +1203,17 @@
   source: "runtime error.log: pdx_gui_localize.cpp:302 in tv_engineering_department.gui; fixed in src/main_menu/localization/english/tv_engineering_department_l_english.yml"
   notes: "These support buildings have normal localization keys, not game_concept definitions. In GUI-bound localized text, [tv_wonder_labor_camp|E] is parsed as a data-system function and logs Could not find data system function."
 
+- id: generic_action_loc_uses_gui_country_binding
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['localization']
+  bad: "Using GUI-only Country.MakeScope bindings inside generic action title/description/custom_tooltip localization"
+  correction: "Use the generic action script scope, such as SCOPE.sCountry('actor').MakeScope.GetVariable(...), instead of Country.MakeScope.GetVariable(...)."
+  category: localization
+  scope: generic_actions
+  source: "runtime error.log from Engineering Department accept-proposal description, 2026-06-04"
+  notes: "action_button descriptions may be localized without a GUI Country datacontext, producing 'No context supplied (Use SetDataContext), wanted context of type Country'. Generic action localization can still access action scopes such as actor."
+
 - id: gui_no_get_area_accessor
   pattern: 'GetVariable\([^)]*\)\.GetArea\.'
   bad: "GetVariable('tv_governed_area').GetArea.GetName — navigating from a scope variable that stores an Area to call .GetName directly via .GetArea"
