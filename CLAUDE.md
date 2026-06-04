@@ -78,7 +78,7 @@ For the categories below, you MUST go to Step 2 or 3 before writing any code. No
 
 ## IO Architecture Invariants
 
-The three TV IOs (`tv_arts_exhibition`, `tv_diplomatic_alliance`, `tv_academy_of_sciences`) enforce these rules with no exceptions:
+TV IOs enforce these rules with no exceptions:
 
 1. **`international_organization_chooses_new_leader` is globally banned** on all TV IO-related code — this triggers the vanilla election process and violates the no-elections design. The code correctly omits it everywhere.
 
@@ -88,7 +88,9 @@ The three TV IOs (`tv_arts_exhibition`, `tv_diplomatic_alliance`, `tv_academy_of
 
 4. **Great person characters are country variables on the `leader_country`, not the vanilla ruler.** Monthly_change blocks must use `leader_country.var:tv_xxx_leader_char.attribute` — never `appointed_leader.attribute`.
 
-5. **IO header uses `blockoverride` to display the appointed character variable** — not the vanilla `GetRuler` or `GetLeaderCountry.GetGovernment.GetRulerOrRegent` accessor.
+5. **Visible IO typed variables keep their monthly source logic in `monthly_change`.** If an IO variable's UI, progress bar, or monthly tooltip breakdown is supposed to show automatic monthly contributions, the real monthly arithmetic belongs in that variable's `monthly_change`. Do NOT move that contribution into `monthly_country_pulse`, country scripted effects, or IO `monthly_effect` as a bug fix. If progress does not advance, fix the `monthly_change` scope/conditions or its cached country inputs while preserving the `monthly_change` source. Country pulses may compute/mirror helper variables and run completion/event side effects, but must not become the source of truth for visible IO variable monthly gain.
+
+6. **IO header uses `blockoverride` to display the appointed character variable** — not the vanilla `GetRuler` or `GetLeaderCountry.GetGovernment.GetRulerOrRegent` accessor.
 
 ## Milestone Trigger Tooltip Pattern
 

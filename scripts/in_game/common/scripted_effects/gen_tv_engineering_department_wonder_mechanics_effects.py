@@ -24,9 +24,13 @@ from wonder_mechanics_lib import (
     ritual_burden_modifier_name,
     ritual_uses_deferred_completion,
     site_preference_lines_for_wonder,
-    suitability_actual_variable_for_wonder,
+    SUITABILITY_ACTUAL_MAP,
+    SUITABILITY_REVEAL_MAP,
+    mechanic_key,
+    suitability_current_actual_variable,
+    suitability_current_revealed_variable,
     suitability_knowledge_for_wonder,
-    suitability_reveal_variable_for_wonder,
+    wonder_suitability_row_composite_id,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_engineering_department_wonder_mechanics_effects.txt"
@@ -36,6 +40,22 @@ DISPLAY_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
 FEASIBLE_GENERIC_DECK_MAP = "tv_wonder_feasible_generic_deck"
 FEASIBLE_UNIQUE_DECK_MAP = "tv_wonder_feasible_unique_deck"
+LOCATION_SURVEYED_MAP = "tv_wonder_surveyed"
+LOCATION_SURVEY_SCALE_MAP = "tv_wonder_survey_scale_competence"
+LOCATION_SURVEY_LOGISTICS_MAP = "tv_wonder_survey_logistics_competence"
+LOCATION_SURVEY_ORGANIZATION_MAP = "tv_wonder_survey_organization_competence"
+LOCATION_SURVEY_SCALE_TIER_MAP = "tv_wonder_survey_scale_tier"
+LOCATION_SURVEY_ACTUAL_MAP = "tv_wonder_survey_suitability_actual"
+SUITABILITY_ROW_COUNT_MAP = "tv_wonder_mechanic_id_to_suitability_row_count"
+SURVEY_WONDER_KEY_VAR = "tv_wonder_survey_wonder_key"
+SURVEY_MECHANIC_KEY_VAR = "tv_wonder_survey_mechanic_key"
+SURVEY_ROW_KEY_VAR = "tv_wonder_survey_row_key"
+SURVEY_LOCATION_COPY_TEMP_VAR = "tv_wonder_survey_location_cache_temp"
+SUITABILITY_ACTUAL_TEMP_VAR = "tv_wonder_suitability_row_temp"
+SUITABILITY_MECHANIC_KEY_LOCAL = "tv_wonder_suitability_mechanic_key"
+SUITABILITY_ROW_KEY_LOCAL = "tv_wonder_suitability_row_key"
+SUITABILITY_ROW_COUNT_LOCAL = "tv_wonder_suitability_row_count"
+SUITABILITY_REVEAL_VALUE_LOCAL = "tv_wonder_suitability_reveal_value"
 RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_auxiliary_building_finished",
     "tv_wonder_ritual_total_buildings_baseline",
@@ -90,6 +110,68 @@ def fmt_value(value: object) -> str:
     if isinstance(value, float):
         return f"{value:.3f}".rstrip("0").rstrip(".")
     return str(value)
+
+
+def all_wonders_by_key(wonders: list[dict]) -> dict[str, dict]:
+    return {str(wonder["key"]): wonder for wonder in wonders}
+
+
+def mechanic_id_for_wonder(wonder: dict, by_key: dict[str, dict]) -> int:
+    return int(by_key[mechanic_key(wonder)]["id"])
+
+
+def suitability_row_key_for_wonder(wonder: dict, row_index: int, by_key: dict[str, dict]) -> int:
+    return wonder_suitability_row_composite_id(mechanic_id_for_wonder(wonder, by_key), row_index)
+
+
+def map_key_exists_condition(map_name: str, key: object, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}has_variable_map = {map_name}",
+        f"{prefix}is_key_in_variable_map = {{ name = {map_name} target = {key} }}",
+    ]
+
+
+def map_replace_lines(map_name: str, key: object, value: str, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}remove_from_variable_map = {{ name = {map_name} key = {key} }}",
+        f"{prefix}add_to_variable_map = {{ name = {map_name} key = {key} value = {value} }}",
+    ]
+
+
+def set_suitability_row_key_lines(row_index: int, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}set_local_variable = {{ name = {SUITABILITY_ROW_KEY_LOCAL} value = local_var:{SUITABILITY_MECHANIC_KEY_LOCAL} }}",
+        f"{prefix}change_local_variable = {{ name = {SUITABILITY_ROW_KEY_LOCAL} multiply = 10 }}",
+        f"{prefix}change_local_variable = {{ name = {SUITABILITY_ROW_KEY_LOCAL} add = {row_index} }}",
+    ]
+
+
+def set_survey_row_key_var_lines(row_index: int, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}set_variable = {{ name = {SURVEY_ROW_KEY_VAR} value = var:{SURVEY_MECHANIC_KEY_VAR} }}",
+        f"{prefix}change_variable = {{ name = {SURVEY_ROW_KEY_VAR} multiply = 10 }}",
+        f"{prefix}change_variable = {{ name = {SURVEY_ROW_KEY_VAR} add = {row_index} }}",
+    ]
+
+
+def clear_current_suitability_actual_cache_lines(max_rows: int, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}remove_variable = {suitability_current_actual_variable(row_index)}"
+        for row_index in range(1, max_rows + 1)
+    ]
+
+
+def clear_current_suitability_display_cache_lines(max_rows: int, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}remove_variable = {suitability_current_revealed_variable()}",
+        *clear_current_suitability_actual_cache_lines(max_rows, indent),
+    ]
 
 
 def country_reward_effect_lines(reward: list[dict], indent: int = 1) -> list[str]:
@@ -517,24 +599,116 @@ def append_location_display_effects(
     lines.append("")
 
 
-def append_suitability_reveal_effect(lines: list[str], wonders: list[dict], mechanics: dict) -> None:
+def append_current_suitability_display_cache_effects(
+    lines: list[str],
+    wonders: list[dict],
+    mechanics: dict,
+) -> None:
+    max_rows = max(len(suitability_knowledge_for_wonder(mechanics, wonder)) for wonder in wonders)
+    lines.append("tv_wonder_mechanics_clear_current_suitability_display_cache_effect = {")
+    lines.extend(clear_current_suitability_display_cache_lines(max_rows, 1))
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_clear_current_suitability_actual_cache_effect = {")
+    lines.extend(clear_current_suitability_actual_cache_lines(max_rows, 1))
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = {")
+    lines.append(f"{T}tv_wonder_mechanics_clear_current_suitability_display_cache_effect = yes")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_locked_mechanic_id }}")
+    lines.append(f"{T}{T}set_variable = {{ name = {suitability_current_revealed_variable()} value = 0 }}")
+    lines.append(f"{T}{T}set_local_variable = {{ name = {SUITABILITY_MECHANIC_KEY_LOCAL} value = var:tv_wonder_locked_mechanic_id }}")
+    lines.append(f"{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}limit = {{")
+    lines.extend(map_key_exists_condition(SUITABILITY_REVEAL_MAP, f"local_var:{SUITABILITY_MECHANIC_KEY_LOCAL}", 4))
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(
+        f"{T}{T}{T}set_variable = {{ name = {suitability_current_revealed_variable()} "
+        f"value = \"variable_map({SUITABILITY_REVEAL_MAP}|local_var:{SUITABILITY_MECHANIC_KEY_LOCAL})\" }}"
+    )
+    lines.append(f"{T}{T}}}")
+    for row_index in range(1, max_rows + 1):
+        current_actual = suitability_current_actual_variable(row_index)
+        lines.append(f"{T}{T}set_local_variable = {{ name = {SUITABILITY_ROW_KEY_LOCAL} value = var:tv_wonder_locked_mechanic_id }}")
+        lines.append(f"{T}{T}change_local_variable = {{ name = {SUITABILITY_ROW_KEY_LOCAL} multiply = 10 }}")
+        lines.append(f"{T}{T}change_local_variable = {{ name = {SUITABILITY_ROW_KEY_LOCAL} add = {row_index} }}")
+        lines.append(f"{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}limit = {{")
+        lines.extend(map_key_exists_condition(SUITABILITY_ACTUAL_MAP, f"local_var:{SUITABILITY_ROW_KEY_LOCAL}", 4))
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(
+            f"{T}{T}{T}set_variable = {{ name = {current_actual} "
+            f"value = \"variable_map({SUITABILITY_ACTUAL_MAP}|local_var:{SUITABILITY_ROW_KEY_LOCAL})\" }}"
+        )
+        lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}remove_local_variable = {SUITABILITY_ROW_KEY_LOCAL}")
+    lines.append(f"{T}{T}remove_local_variable = {SUITABILITY_MECHANIC_KEY_LOCAL}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_suitability_reveal_effect(lines: list[str]) -> None:
     lines.append("tv_wonder_mechanics_reveal_suitability_knowledge_effect = {")
-    for idx, wonder in enumerate(wonders):
-        head = "if" if idx == 0 else "else_if"
-        reveal_var = suitability_reveal_variable_for_wonder(wonder)
-        row_count = len(suitability_knowledge_for_wonder(mechanics, wonder))
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}if = {{")
-        lines.append(f"{T}{T}{T}limit = {{ NOT = {{ has_variable = {reveal_var} }} }}")
-        lines.append(f"{T}{T}{T}set_variable = {{ name = {reveal_var} value = 0 }}")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}if = {{")
-        lines.append(f"{T}{T}{T}limit = {{ var:{reveal_var} < {row_count} }}")
-        lines.append(f"{T}{T}{T}change_variable = {{ name = {reveal_var} add = 1 }}")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}clamp_variable = {{ name = {reveal_var} min = 0 max = {row_count} }}")
-        lines.append(f"{T}}}")
+    lines.append(f"{T}tv_wonder_index_refresh_country_cache_effect = yes")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked_mechanic_id")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {SUITABILITY_ROW_COUNT_MAP}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}set_local_variable = {{ name = {SUITABILITY_MECHANIC_KEY_LOCAL} value = var:tv_wonder_locked_mechanic_id }}")
+    lines.append(f"{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}is_key_in_global_variable_map = {{ name = {SUITABILITY_ROW_COUNT_MAP} target = local_var:{SUITABILITY_MECHANIC_KEY_LOCAL} }}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(
+        f"{T}{T}{T}set_local_variable = {{ name = {SUITABILITY_ROW_COUNT_LOCAL} "
+        f"value = \"global_variable_map({SUITABILITY_ROW_COUNT_MAP}|local_var:{SUITABILITY_MECHANIC_KEY_LOCAL})\" }}"
+    )
+    lines.append(f"{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}{T}OR = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}NOT = {{ has_variable_map = {SUITABILITY_REVEAL_MAP} }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}AND = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}has_variable_map = {SUITABILITY_REVEAL_MAP}")
+    lines.append(
+        f"{T}{T}{T}{T}{T}{T}{T}NOT = {{ is_key_in_variable_map = {{ "
+        f"name = {SUITABILITY_REVEAL_MAP} target = local_var:{SUITABILITY_MECHANIC_KEY_LOCAL} }} }}"
+    )
+    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.extend(map_replace_lines(SUITABILITY_REVEAL_MAP, f"local_var:{SUITABILITY_MECHANIC_KEY_LOCAL}", "0", 4))
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(
+        f"{T}{T}{T}set_local_variable = {{ name = {SUITABILITY_REVEAL_VALUE_LOCAL} "
+        f"value = \"variable_map({SUITABILITY_REVEAL_MAP}|local_var:{SUITABILITY_MECHANIC_KEY_LOCAL})\" }}"
+    )
+    lines.append(f"{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}limit = {{ local_var:{SUITABILITY_REVEAL_VALUE_LOCAL} < local_var:{SUITABILITY_ROW_COUNT_LOCAL} }}")
+    lines.append(f"{T}{T}{T}{T}change_local_variable = {{ name = {SUITABILITY_REVEAL_VALUE_LOCAL} add = 1 }}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}limit = {{ local_var:{SUITABILITY_REVEAL_VALUE_LOCAL} > local_var:{SUITABILITY_ROW_COUNT_LOCAL} }}")
+    lines.append(f"{T}{T}{T}{T}set_local_variable = {{ name = {SUITABILITY_REVEAL_VALUE_LOCAL} value = local_var:{SUITABILITY_ROW_COUNT_LOCAL} }}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.extend(
+        map_replace_lines(
+            SUITABILITY_REVEAL_MAP,
+            f"local_var:{SUITABILITY_MECHANIC_KEY_LOCAL}",
+            f"local_var:{SUITABILITY_REVEAL_VALUE_LOCAL}",
+            3,
+        )
+    )
+    lines.append(f"{T}{T}{T}tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes")
+    lines.append(f"{T}{T}{T}remove_local_variable = {SUITABILITY_REVEAL_VALUE_LOCAL}")
+    lines.append(f"{T}{T}{T}remove_local_variable = {SUITABILITY_ROW_COUNT_LOCAL}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}remove_local_variable = {SUITABILITY_MECHANIC_KEY_LOCAL}")
+    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
@@ -548,16 +722,23 @@ def append_suitability_condition_limit(lines: list[str], condition: str, indent:
     lines.append(f"{prefix}}}")
 
 
-def append_suitability_actual_row(lines: list[str], wonder: dict, row: dict[str, str], row_index: int, indent: int) -> None:
+def append_suitability_actual_row(
+    lines: list[str],
+    wonder: dict,
+    row: dict[str, str],
+    row_index: int,
+    by_key: dict[str, dict],
+    indent: int,
+) -> None:
     prefix = T * indent
-    variable = suitability_actual_variable_for_wonder(wonder, row_index)
-    lines.append(f"{prefix}set_variable = {{ name = {variable} value = 0 }}")
+    row_key = suitability_row_key_for_wonder(wonder, row_index, by_key)
+    lines.extend(map_replace_lines(SUITABILITY_ACTUAL_MAP, row_key, "0", indent))
     if row["type"] == "condition_bonus":
         lines.append(f"{prefix}if = {{")
         lines.append(f"{prefix}{T}limit = {{")
         append_suitability_condition_limit(lines, row["condition"], indent + 2)
         lines.append(f"{prefix}{T}}}")
-        lines.append(f"{prefix}{T}set_variable = {{ name = {variable} value = {fmt_value(row['value'])} }}")
+        lines.extend(map_replace_lines(SUITABILITY_ACTUAL_MAP, row_key, fmt_value(row["value"]), indent + 1))
         lines.append(f"{prefix}}}")
         return
 
@@ -567,18 +748,26 @@ def append_suitability_actual_row(lines: list[str], wonder: dict, row: dict[str,
     source_expression = SUITABILITY_SOURCE_EXPRESSIONS[source]
     lines.append(f"{prefix}if = {{")
     lines.append(f"{prefix}{T}limit = {{ tv_wonder_survey_site_selected_trigger = yes }}")
-    lines.append(f"{prefix}{T}set_variable = {{ name = {variable} value = var:tv_wonder_survey_site.{source_expression} }}")
-    lines.append(f"{prefix}{T}clamp_variable = {{ name = {variable} min = {fmt_value(row['min'])} max = {fmt_value(row['max'])} }}")
-    lines.append(f"{prefix}{T}change_variable = {{ name = {variable} multiply = {fmt_value(row['multiplier'])} }}")
+    lines.append(f"{prefix}{T}set_variable = {{ name = {SUITABILITY_ACTUAL_TEMP_VAR} value = var:tv_wonder_survey_site.{source_expression} }}")
+    lines.append(
+        f"{prefix}{T}clamp_variable = {{ name = {SUITABILITY_ACTUAL_TEMP_VAR} "
+        f"min = {fmt_value(row['min'])} max = {fmt_value(row['max'])} }}"
+    )
+    lines.append(f"{prefix}{T}change_variable = {{ name = {SUITABILITY_ACTUAL_TEMP_VAR} multiply = {fmt_value(row['multiplier'])} }}")
+    lines.extend(map_replace_lines(SUITABILITY_ACTUAL_MAP, row_key, f"var:{SUITABILITY_ACTUAL_TEMP_VAR}", indent + 1))
+    lines.append(f"{prefix}{T}remove_variable = {SUITABILITY_ACTUAL_TEMP_VAR}")
     lines.append(f"{prefix}}}")
 
 
-def append_suitability_actual_effects(lines: list[str], wonders: list[dict], mechanics: dict) -> None:
+def append_suitability_actual_effects(
+    lines: list[str],
+    wonders: list[dict],
+    mechanics: dict,
+    by_key: dict[str, dict],
+) -> None:
     lines.append("tv_wonder_mechanics_clear_suitability_actuals_effect = {")
-    for wonder in wonders:
-        rows = suitability_knowledge_for_wonder(mechanics, wonder)
-        for row_index, _row in enumerate(rows, start=1):
-            lines.append(f"{T}remove_variable = {suitability_actual_variable_for_wonder(wonder, row_index)}")
+    lines.append(f"{T}clear_variable_map = {SUITABILITY_ACTUAL_MAP}")
+    lines.append(f"{T}tv_wonder_mechanics_clear_current_suitability_actual_cache_effect = yes")
     lines.append("}")
     lines.append("")
 
@@ -586,7 +775,8 @@ def append_suitability_actual_effects(lines: list[str], wonders: list[dict], mec
         rows = suitability_knowledge_for_wonder(mechanics, wonder)
         lines.append(f"tv_wonder_calculate_{wonder['key']}_suitability_actuals_effect = {{")
         for row_index, row in enumerate(rows, start=1):
-            append_suitability_actual_row(lines, wonder, row, row_index, 1)
+            append_suitability_actual_row(lines, wonder, row, row_index, by_key, 1)
+        lines.append(f"{T}tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes")
         lines.append("}")
         lines.append("")
 
@@ -597,6 +787,168 @@ def append_suitability_actual_effects(lines: list[str], wonders: list[dict], mec
         lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
         lines.append(f"{T}{T}tv_wonder_calculate_{wonder['key']}_suitability_actuals_effect = yes")
         lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_survey_cache_transfer_effects(lines: list[str], max_rows: int) -> None:
+    completed_survey_maps = [
+        LOCATION_SURVEYED_MAP,
+        LOCATION_SURVEY_SCALE_MAP,
+        LOCATION_SURVEY_LOGISTICS_MAP,
+        LOCATION_SURVEY_ORGANIZATION_MAP,
+        LOCATION_SURVEY_SCALE_TIER_MAP,
+    ]
+    competence_maps = [
+        (LOCATION_SURVEY_SCALE_MAP, "tv_wonder_scale_competence"),
+        (LOCATION_SURVEY_LOGISTICS_MAP, "tv_wonder_logistics_competence"),
+        (LOCATION_SURVEY_ORGANIZATION_MAP, "tv_wonder_organization_competence"),
+        (LOCATION_SURVEY_SCALE_TIER_MAP, "tv_wonder_scale_tier"),
+    ]
+
+    lines.append("tv_wonder_mechanics_copy_completed_survey_from_location_effect = {")
+    lines.append(f"{T}tv_wonder_index_refresh_country_cache_effect = yes")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked_mechanic_id")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}set_variable = {{ name = {SURVEY_WONDER_KEY_VAR} value = var:tv_wonder_locked }}")
+    lines.append(f"{T}{T}set_variable = {{ name = {SURVEY_MECHANIC_KEY_VAR} value = var:tv_wonder_locked_mechanic_id }}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = {SURVEY_WONDER_KEY_VAR}")
+    lines.append(f"{T}{T}{T}has_variable = {SURVEY_MECHANIC_KEY_VAR}")
+    lines.append(f"{T}{T}{T}exists = scope:tv_wonder_selected_survey_site")
+    lines.append(f"{T}{T}{T}scope:tv_wonder_selected_survey_site = {{")
+    lines.extend(map_key_exists_condition(LOCATION_SURVEYED_MAP, "prev.var:" + SURVEY_WONDER_KEY_VAR, 4))
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}scope:tv_wonder_selected_survey_site = {{")
+    for map_name, target_var in competence_maps:
+        lines.append(f"{T}{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}{T}limit = {{")
+        lines.extend(map_key_exists_condition(map_name, "prev.var:" + SURVEY_WONDER_KEY_VAR, 5))
+        lines.append(f"{T}{T}{T}{T}}}")
+        lines.append(
+            f"{T}{T}{T}{T}set_variable = {{ name = {SURVEY_LOCATION_COPY_TEMP_VAR} "
+            f"value = \"variable_map({map_name}|prev.var:{SURVEY_WONDER_KEY_VAR})\" }}"
+        )
+        lines.append(
+            f"{T}{T}{T}{T}prev = {{ set_variable = {{ name = {target_var} "
+            f"value = scope:tv_wonder_selected_survey_site.var:{SURVEY_LOCATION_COPY_TEMP_VAR} }} }}"
+        )
+        lines.append(f"{T}{T}{T}{T}remove_variable = {SURVEY_LOCATION_COPY_TEMP_VAR}")
+        lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_survey_complete value = 1 }}")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_survey_active")
+    lines.append(f"{T}{T}tv_wonder_set_io_survey_progress_effect = {{ value = 100 }}")
+    lines.append(f"{T}{T}tv_wonder_update_construction_tiers_from_competence_effect = yes")
+    lines.append(f"{T}{T}tv_wonder_mechanics_calculate_suitability_actuals_effect = yes")
+    for row_index in range(1, max_rows + 1):
+        lines.extend(set_survey_row_key_var_lines(row_index, 2))
+        lines.append(f"{T}{T}scope:tv_wonder_selected_survey_site = {{")
+        lines.append(f"{T}{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}{T}limit = {{")
+        lines.extend(map_key_exists_condition(LOCATION_SURVEY_ACTUAL_MAP, "prev.var:" + SURVEY_ROW_KEY_VAR, 5))
+        lines.append(f"{T}{T}{T}{T}}}")
+        lines.append(
+            f"{T}{T}{T}{T}set_variable = {{ name = {SURVEY_LOCATION_COPY_TEMP_VAR} "
+            f"value = \"variable_map({LOCATION_SURVEY_ACTUAL_MAP}|prev.var:{SURVEY_ROW_KEY_VAR})\" }}"
+        )
+        lines.append(f"{T}{T}{T}{T}prev = {{")
+        lines.extend(
+            map_replace_lines(
+                SUITABILITY_ACTUAL_MAP,
+                "var:" + SURVEY_ROW_KEY_VAR,
+                f"scope:tv_wonder_selected_survey_site.var:{SURVEY_LOCATION_COPY_TEMP_VAR}",
+                5,
+            )
+        )
+        lines.append(f"{T}{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}{T}remove_variable = {SURVEY_LOCATION_COPY_TEMP_VAR}")
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}remove_variable = {SURVEY_ROW_KEY_VAR}")
+    lines.append(f"{T}remove_variable = {SURVEY_MECHANIC_KEY_VAR}")
+    lines.append(f"{T}remove_variable = {SURVEY_WONDER_KEY_VAR}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_clear_completed_survey_from_location_effect = {")
+    lines.append(f"{T}tv_wonder_index_refresh_country_cache_effect = yes")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}exists = scope:tv_wonder_selected_survey_site")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked_mechanic_id")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}set_variable = {{ name = {SURVEY_WONDER_KEY_VAR} value = var:tv_wonder_locked }}")
+    lines.append(f"{T}{T}set_variable = {{ name = {SURVEY_MECHANIC_KEY_VAR} value = var:tv_wonder_locked_mechanic_id }}")
+    lines.append(f"{T}{T}scope:tv_wonder_selected_survey_site = {{")
+    for map_name in completed_survey_maps:
+        lines.append(f"{T}{T}{T}remove_from_variable_map = {{ name = {map_name} key = prev.var:{SURVEY_WONDER_KEY_VAR} }}")
+    lines.append(f"{T}{T}}}")
+    for row_index in range(1, max_rows + 1):
+        lines.extend(set_survey_row_key_var_lines(row_index, 2))
+        lines.append(f"{T}{T}scope:tv_wonder_selected_survey_site = {{")
+        lines.append(f"{T}{T}{T}remove_from_variable_map = {{ name = {LOCATION_SURVEY_ACTUAL_MAP} key = prev.var:{SURVEY_ROW_KEY_VAR} }}")
+        lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}remove_variable = {SURVEY_ROW_KEY_VAR}")
+    lines.append(f"{T}{T}remove_variable = {SURVEY_MECHANIC_KEY_VAR}")
+    lines.append(f"{T}{T}remove_variable = {SURVEY_WONDER_KEY_VAR}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_store_survey_on_location_effect = {")
+    lines.append(f"{T}tv_wonder_index_refresh_country_cache_effect = yes")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}tv_wonder_survey_site_selected_trigger = yes")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked_mechanic_id")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}tv_wonder_mechanics_calculate_suitability_actuals_effect = yes")
+    lines.append(f"{T}{T}set_variable = {{ name = {SURVEY_WONDER_KEY_VAR} value = var:tv_wonder_locked }}")
+    lines.append(f"{T}{T}set_variable = {{ name = {SURVEY_MECHANIC_KEY_VAR} value = var:tv_wonder_locked_mechanic_id }}")
+    lines.append(f"{T}{T}var:tv_wonder_survey_site ?= {{")
+    lines.extend(map_replace_lines(LOCATION_SURVEYED_MAP, "prev.var:" + SURVEY_WONDER_KEY_VAR, "1", 3))
+    lines.extend(map_replace_lines(LOCATION_SURVEY_SCALE_MAP, "prev.var:" + SURVEY_WONDER_KEY_VAR, "prev.var:tv_wonder_scale_competence", 3))
+    lines.extend(map_replace_lines(LOCATION_SURVEY_LOGISTICS_MAP, "prev.var:" + SURVEY_WONDER_KEY_VAR, "prev.var:tv_wonder_logistics_competence", 3))
+    lines.extend(map_replace_lines(LOCATION_SURVEY_ORGANIZATION_MAP, "prev.var:" + SURVEY_WONDER_KEY_VAR, "prev.var:tv_wonder_organization_competence", 3))
+    lines.extend(map_replace_lines(LOCATION_SURVEY_SCALE_TIER_MAP, "prev.var:" + SURVEY_WONDER_KEY_VAR, "prev.var:tv_wonder_scale_tier", 3))
+    lines.append(f"{T}{T}}}")
+    for row_index in range(1, max_rows + 1):
+        lines.extend(set_survey_row_key_var_lines(row_index, 2))
+        lines.append(f"{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}limit = {{")
+        lines.extend(map_key_exists_condition(SUITABILITY_ACTUAL_MAP, "var:" + SURVEY_ROW_KEY_VAR, 4))
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(
+            f"{T}{T}{T}set_variable = {{ name = {SURVEY_LOCATION_COPY_TEMP_VAR} "
+            f"value = \"variable_map({SUITABILITY_ACTUAL_MAP}|var:{SURVEY_ROW_KEY_VAR})\" }}"
+        )
+        lines.append(f"{T}{T}{T}var:tv_wonder_survey_site ?= {{")
+        lines.extend(
+            map_replace_lines(
+                LOCATION_SURVEY_ACTUAL_MAP,
+                "prev.var:" + SURVEY_ROW_KEY_VAR,
+                f"prev.var:{SURVEY_LOCATION_COPY_TEMP_VAR}",
+                4,
+            )
+        )
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}remove_variable = {SURVEY_LOCATION_COPY_TEMP_VAR}")
+        lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}remove_variable = {SURVEY_ROW_KEY_VAR}")
+    lines.append(f"{T}{T}remove_variable = {SURVEY_MECHANIC_KEY_VAR}")
+    lines.append(f"{T}{T}remove_variable = {SURVEY_WONDER_KEY_VAR}")
+    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
@@ -698,6 +1050,7 @@ def append_roll_random_feasible_proposal_effect(lines: list[str], name: str, dec
 
 def generate() -> str:
     all_wonders, mechanics = load_all_wonder_mechanics()
+    by_key = all_wonders_by_key(all_wonders)
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
     unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
     lines = render_header(SCRIPT_REL)
@@ -757,95 +1110,10 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    append_suitability_actual_effects(lines, all_wonders, mechanics)
-
-    for wonder in all_wonders:
-        key = wonder["key"]
-        rows = suitability_knowledge_for_wonder(mechanics, wonder)
-        lines.append(f"tv_wonder_copy_{key}_survey_from_location_effect = {{")
-        lines.append(f"{T}if = {{")
-        lines.append(f"{T}{T}limit = {{ exists = scope:tv_wonder_selected_survey_site }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_scale_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_{key}_scale_competence }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_logistics_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_{key}_logistics_competence }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_organization_competence value = scope:tv_wonder_selected_survey_site.var:tv_wonder_{key}_organization_competence }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_survey_complete value = 1 }}")
-        lines.append(f"{T}{T}remove_variable = tv_wonder_survey_active")
-        lines.append(f"{T}{T}tv_wonder_set_io_survey_progress_effect = {{ value = 100 }}")
-        lines.append(f"{T}{T}tv_wonder_update_construction_tiers_from_competence_effect = yes")
-        lines.append(f"{T}{T}tv_wonder_calculate_{key}_suitability_actuals_effect = yes")
-        for row_index, _row in enumerate(rows, start=1):
-            actual_var = suitability_actual_variable_for_wonder(wonder, row_index)
-            lines.append(f"{T}{T}if = {{")
-            lines.append(f"{T}{T}{T}limit = {{ scope:tv_wonder_selected_survey_site = {{ has_variable = {actual_var} }} }}")
-            lines.append(f"{T}{T}{T}set_variable = {{ name = {actual_var} value = scope:tv_wonder_selected_survey_site.var:{actual_var} }}")
-            lines.append(f"{T}{T}}}")
-        lines.append(f"{T}}}")
-        lines.append("}")
-        lines.append("")
-
-    lines.append("tv_wonder_mechanics_copy_completed_survey_from_location_effect = {")
-    for idx, wonder in enumerate(all_wonders):
-        head = "if" if idx == 0 else "else_if"
-        key = wonder["key"]
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{")
-        lines.append(f"{T}{T}{T}exists = scope:tv_wonder_selected_survey_site")
-        lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
-        lines.append(f"{T}{T}{T}scope:tv_wonder_selected_survey_site = {{ has_variable = tv_wonder_surveyed_{key} }}")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}tv_wonder_copy_{key}_survey_from_location_effect = yes")
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_mechanics_clear_completed_survey_from_location_effect = {")
-    for idx, wonder in enumerate(all_wonders):
-        head = "if" if idx == 0 else "else_if"
-        key = wonder["key"]
-        rows = suitability_knowledge_for_wonder(mechanics, wonder)
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{")
-        lines.append(f"{T}{T}{T}exists = scope:tv_wonder_selected_survey_site")
-        lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}scope:tv_wonder_selected_survey_site = {{")
-        lines.append(f"{T}{T}{T}remove_variable = tv_wonder_surveyed_{key}")
-        lines.append(f"{T}{T}{T}remove_variable = tv_wonder_{key}_scale_competence")
-        lines.append(f"{T}{T}{T}remove_variable = tv_wonder_{key}_logistics_competence")
-        lines.append(f"{T}{T}{T}remove_variable = tv_wonder_{key}_organization_competence")
-        lines.append(f"{T}{T}{T}remove_variable = tv_wonder_{key}_scale_tier")
-        for row_index, _row in enumerate(rows, start=1):
-            actual_var = suitability_actual_variable_for_wonder(wonder, row_index)
-            lines.append(f"{T}{T}{T}remove_variable = {actual_var}")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_mechanics_store_survey_on_location_effect = {")
-    for idx, wonder in enumerate(all_wonders):
-        head = "if" if idx == 0 else "else_if"
-        key = wonder["key"]
-        rows = suitability_knowledge_for_wonder(mechanics, wonder)
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{")
-        lines.append(f"{T}{T}{T}tv_wonder_survey_site_selected_trigger = yes")
-        lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}tv_wonder_calculate_{key}_suitability_actuals_effect = yes")
-        lines.append(f"{T}{T}var:tv_wonder_survey_site ?= {{")
-        lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_surveyed_{key} value = 1 }}")
-        lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_{key}_scale_competence value = prev.var:tv_wonder_scale_competence }}")
-        lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_{key}_logistics_competence value = prev.var:tv_wonder_logistics_competence }}")
-        lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_{key}_organization_competence value = prev.var:tv_wonder_organization_competence }}")
-        lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_{key}_scale_tier value = prev.var:tv_wonder_scale_tier }}")
-        for row_index, _row in enumerate(rows, start=1):
-            actual_var = suitability_actual_variable_for_wonder(wonder, row_index)
-            lines.append(f"{T}{T}{T}set_variable = {{ name = {actual_var} value = prev.var:{actual_var} }}")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
+    append_current_suitability_display_cache_effects(lines, all_wonders, mechanics)
+    append_suitability_actual_effects(lines, all_wonders, mechanics, by_key)
+    max_rows = max(len(suitability_knowledge_for_wonder(mechanics, wonder)) for wonder in all_wonders)
+    append_survey_cache_transfer_effects(lines, max_rows)
 
     lines.append("tv_wonder_mechanics_apply_survey_site_preference_effect = {")
     for idx, wonder in enumerate(all_wonders):
@@ -862,14 +1130,10 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_selected_survey_already_cached_effect = {")
-    first = True
-    for wonder in all_wonders:
-        head = "if" if first else "else_if"
-        first = False
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} scope:tv_wonder_selected_survey_site = {{ has_variable = tv_wonder_surveyed_{wonder['key']} }} }}")
-        lines.append(f"{T}{T}tv_wonder_copy_completed_survey_from_location_effect = yes")
-        lines.append(f"{T}}}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ tv_wonder_selected_survey_already_cached_trigger = yes }}")
+    lines.append(f"{T}{T}tv_wonder_copy_completed_survey_from_location_effect = yes")
+    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
@@ -953,7 +1217,7 @@ def generate() -> str:
     append_ritual_tooltip_effects(lines, ritual_entries(all_wonders, mechanics), mechanics)
 
     append_location_display_effects(lines, unique_wonders=unique_wonders, generic_wonders=generic_wonders)
-    append_suitability_reveal_effect(lines, all_wonders, mechanics)
+    append_suitability_reveal_effect(lines)
 
     append_construct_final_building_effect(lines, "tv_wonder_mechanics_construct_generic_final_building_effect", generic_wonders)
     append_construct_final_building_effect(lines, "tv_wonder_mechanics_construct_unique_final_building_effect", unique_wonders)

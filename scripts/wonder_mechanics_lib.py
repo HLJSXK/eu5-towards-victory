@@ -675,16 +675,17 @@ def wonder_suitability_row_composite_id(mechanic_id: int, row: int) -> int:
     return int(mechanic_id) * 10 + int(row)
 
 
-def suitability_reveal_variable_for_key(key: str) -> str:
-    return f"tv_wonder_suitability_revealed_{key}"
+SUITABILITY_REVEAL_MAP = "tv_wonder_suitability_revealed"
+SUITABILITY_ACTUAL_MAP = "tv_wonder_suitability_actual"
+SUITABILITY_CURRENT_REVEALED_VARIABLE = "tv_wonder_suitability_current_revealed"
 
 
-def suitability_reveal_variable_for_wonder(wonder: dict) -> str:
-    return suitability_reveal_variable_for_key(mechanic_key(wonder))
+def suitability_current_revealed_variable() -> str:
+    return SUITABILITY_CURRENT_REVEALED_VARIABLE
 
 
-def suitability_actual_variable_for_wonder(wonder: dict, row_index: int) -> str:
-    return f"tv_wonder_suitability_actual_{wonder['key']}_{row_index}"
+def suitability_current_actual_variable(row_index: int) -> str:
+    return f"tv_wonder_suitability_current_actual_{int(row_index)}"
 
 
 def ceremony_styles(wonder: dict) -> list[int]:

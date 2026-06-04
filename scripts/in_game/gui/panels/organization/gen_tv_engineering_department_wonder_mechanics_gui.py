@@ -14,9 +14,9 @@ from wonder_mechanics_lib import (
     load_all_wonder_mechanics_data,
     render_header,
     ritual_plan_for_style,
-    suitability_actual_variable_for_wonder,
+    suitability_current_actual_variable,
+    suitability_current_revealed_variable,
     suitability_knowledge_for_wonder,
-    suitability_reveal_variable_for_wonder,
 )
 
 OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_mechanics.gui"
@@ -297,10 +297,10 @@ def suitability_row_unknown_text(row: dict[str, str]) -> str:
     return f"#T ?#!/{suitability_row_value(row)}"
 
 
-def suitability_knowledge_row(wonder: dict, row: dict[str, str], reveal_var: str, row_index: int, indent: int) -> list[str]:
+def suitability_knowledge_row(row: dict[str, str], reveal_var: str, row_index: int, indent: int) -> list[str]:
     prefix = T * indent
     revealed = reveal_progress_visible(reveal_var, row_index)
-    actual_var = suitability_actual_variable_for_wonder(wonder, row_index)
+    actual_var = suitability_current_actual_variable(row_index)
     completed = suitability_row_actual_complete_visible(actual_var)
     return [
         f"{prefix}hbox = {{",
@@ -324,7 +324,7 @@ def suitability_knowledge_row(wonder: dict, row: dict[str, str], reveal_var: str
 
 def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
     rows = suitability_knowledge_for_wonder(mechanics, wonder)
-    reveal_var = suitability_reveal_variable_for_wonder(wonder)
+    reveal_var = suitability_current_revealed_variable()
     visible = f"And({PLAYER}.GetVariable('tv_wonder_locked').IsSet, {eq('tv_wonder_locked', wonder['id'])})"
     min_height = 82 + len(rows) * 20
     lines: list[str] = [
@@ -382,7 +382,7 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
             ]
         )
     for row_index, row in enumerate(rows, start=1):
-        lines.extend(suitability_knowledge_row(wonder, row, reveal_var, row_index, 5))
+        lines.extend(suitability_knowledge_row(row, reveal_var, row_index, 5))
     lines.extend(
         [
             f"{T}{T}{T}{T}{T}expand = {{}}",

@@ -29,6 +29,8 @@ SCRIPT_REL = "scripts/in_game/common/scripted_triggers/gen_tv_engineering_depart
 T = "\t"
 FEASIBLE_GENERIC_DECK_MAP = "tv_wonder_feasible_generic_deck"
 FEASIBLE_UNIQUE_DECK_MAP = "tv_wonder_feasible_unique_deck"
+LOCATION_SURVEYED_MAP = "tv_wonder_surveyed"
+LOCATION_SURVEY_SCALE_TIER_MAP = "tv_wonder_survey_scale_tier"
 
 
 def trigger_conditions(wonder: dict, mechanics: dict, indent: int = 1) -> list[str]:
@@ -71,11 +73,22 @@ def final_building_level_exact(building: str, level: int, indent: int) -> list[s
 
 def stored_tier_can_expand(wonder: dict, final_building: str, level: int, indent: int) -> list[str]:
     prefix = T * indent
-    tier_var = f"tv_wonder_{wonder['key']}_scale_tier"
+    wonder_id = int(wonder["id"])
     lines = final_building_level_exact(final_building, level, indent)
     lines.append(f"{prefix}OR = {{")
-    lines.append(f"{prefix}{T}var:{tier_var} ?= {{ this >= {level + 1} }}")
-    lines.append(f"{prefix}{T}NOT = {{ has_variable = {tier_var} }}")
+    lines.append(f"{prefix}{T}NOT = {{ has_variable_map = {LOCATION_SURVEY_SCALE_TIER_MAP} }}")
+    lines.append(f"{prefix}{T}AND = {{")
+    lines.append(f"{prefix}{T}{T}has_variable_map = {LOCATION_SURVEY_SCALE_TIER_MAP}")
+    lines.append(
+        f"{prefix}{T}{T}NOT = {{ is_key_in_variable_map = {{ "
+        f"name = {LOCATION_SURVEY_SCALE_TIER_MAP} target = {wonder_id} }} }}"
+    )
+    lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}{T}AND = {{")
+    lines.append(f"{prefix}{T}{T}has_variable_map = {LOCATION_SURVEY_SCALE_TIER_MAP}")
+    lines.append(f"{prefix}{T}{T}is_key_in_variable_map = {{ name = {LOCATION_SURVEY_SCALE_TIER_MAP} target = {wonder_id} }}")
+    lines.append(f"{prefix}{T}{T}\"variable_map({LOCATION_SURVEY_SCALE_TIER_MAP}|{wonder_id})\" ?= {{ this >= {level + 1} }}")
+    lines.append(f"{prefix}{T}}}")
     lines.append(f"{prefix}}}")
     return lines
 
@@ -371,13 +384,11 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_selected_survey_already_cached_trigger = {")
-    for idx, wonder in enumerate(all_wonders):
-        head = "trigger_if" if idx == 0 else "trigger_else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}scope:tv_wonder_selected_survey_site = {{ has_variable = tv_wonder_surveyed_{wonder['key']} }}")
-        lines.append(f"{T}}}")
-    lines.append(f"{T}trigger_else = {{ always = no }}")
+    lines.append(f"{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}scope:tv_wonder_selected_survey_site = {{")
+    lines.append(f"{T}{T}has_variable_map = {LOCATION_SURVEYED_MAP}")
+    lines.append(f"{T}{T}is_key_in_variable_map = {{ name = {LOCATION_SURVEYED_MAP} target = prev.var:tv_wonder_locked }}")
+    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 

@@ -875,12 +875,12 @@
 
 - id: io_typed_variable_update_in_on_action
   pattern: ''
-  bad: "Applying a computed bonus to an IO typed variable via change_variable inside on_action (e.g. every_international_organizations_member_of { change_variable { name = tv_arts_intl_influence add = local_var:X } }) to implement a monthly character contribution"
-  correction: "Put the contribution in the IO type's monthly_change scripted value using leader_country.var:X chained access: if = { limit = { international_organization_has_leader = yes  leader_country = { has_variable = X } }  add = { desc = KEY  value = leader_country.var:X } }. Store the computed value on the country (tv_chief_artist_monthly_bonus) via on_action for GUI display only. The monthly_change runs automatically and shows in the IO variable tooltip."
+  bad: "Applying a computed bonus to an IO typed variable via change_variable inside on_action (e.g. every_international_organizations_member_of { change_variable { name = tv_arts_intl_influence add = local_var:X } }) to implement a monthly character contribution, or moving an existing visible IO variable's monthly gain from monthly_change into monthly_country_pulse/country effects"
+  correction: "Put the contribution in the IO type's monthly_change scripted value using leader_country.var:X chained access: if = { limit = { international_organization_has_leader = yes  leader_country = { has_variable = X } }  add = { desc = KEY  value = leader_country.var:X } }. Store computed helper values on the country via on_action only for cached inputs or GUI display. If a visible IO variable stops advancing, fix the monthly_change scope/conditions or its cached inputs; do not migrate the source arithmetic out of monthly_change."
   category: script
   scope: any
   source: "reference_game_files/game/in_game/events/situations/red_turban_rebellions.txt:3371 (value = root.var:X); reference_game_files/game/in_game/common/laws/christian_tenets.txt:359 (value = scope:recipient.leader_country.modifier:X); src/in_game/common/international_organizations/tv_diplomatic_alliance.txt (leader_country.modifier: in monthly_change)"
-  notes: "IO typed variables (in the variables = {} block of the IO type) have a monthly_change scripted value that drives the tooltip. Contributions applied externally via on_action change_variable are invisible to the tooltip. The leader_country.var:X chain is valid in scripted value context (same family as root.var:X); it is NOT valid in change_variable { add = } effect context (see change_variable_add_prev_var anti-pattern). Set leader_type = country and call set_leader_country in on_creation or the creation block."
+  notes: "IO typed variables (in the variables = {} block of the IO type) have a monthly_change scripted value that drives the tooltip and automatic monthly breakdown. Contributions applied externally via on_action or country pulse change_variable are invisible to that breakdown and can make the UI lie even when the number changes. The leader_country.var:X chain is valid in scripted value context (same family as root.var:X); it is NOT valid in change_variable { add = } effect context (see change_variable_add_prev_var anti-pattern). Set leader_type = country and call set_leader_country in on_creation or the creation block."
 
 - id: io_non_unique_scope_link
   pattern: ''
@@ -1559,12 +1559,12 @@
 - id: country_trigger_reused_inside_io_monthly_change
   pattern: ''
   only_in_paths: ['international_organizations']
-  bad: "Calling a country-scoped scripted_trigger from an IO variable monthly_change when that trigger depends on root.var country variables"
-  correction: "Write the monthly_change condition in IO scope, or create a separate IO-scoped trigger. Use leader_country ?= { ... } for country state and compare IO variables directly against leader_country.var:X from the IO scope."
+  bad: "Calling a country-scoped scripted_trigger from an IO variable monthly_change when that trigger depends on root, prev, caller-specific saved scopes, or country variables"
+  correction: "Write the monthly_change condition in IO scope, or create a separate IO-scoped trigger. Use leader_country ?= { ... } for country state, compare IO variables directly against leader_country.var:X from the IO scope, and inline ownership/state checks whose prev/root chain must point at the leader country."
   category: scope
   scope: international_organization
-  source: "fixed in src/in_game/common/international_organizations/tv_engineering_department.txt; runtime report: Engineering Department construction progressed while materials stockpile never decreased"
-  notes: "monthly_change evaluates from the international organization/variable context. A nested leader_country block does not make root inside a called scripted_trigger become the country; triggers that use root.var:X can keep reading the IO root and silently return false."
+  source: "fixed in src/in_game/common/international_organizations/tv_engineering_department.txt; runtime reports: Engineering Department construction progressed while materials stockpile never decreased; Engineering Department survey active state passed in country pulse but survey progress did not advance from IO monthly_change"
+  notes: "monthly_change evaluates from the international organization/variable context. A nested leader_country block does not make root inside a called scripted_trigger become the country, and caller-sensitive prev/root chains can differ from the same trigger's country-pulse behavior. In Engineering Department survey progress, reusing tv_wonder_survey_active_trigger inside the IO variable monthly_change silently prevented the visible IO progress variable from gaining monthly progress; inlining the active-survey conditions under leader_country preserved monthly_change as the tooltip-visible source."
 
 - id: random_list_branch_modifier_filter
   pattern: '(?m)^\s*\d+\s*=\s*\{\s*\n\s*modifier\s*=\s*\{\s*factor\s*=\s*0'

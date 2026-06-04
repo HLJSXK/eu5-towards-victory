@@ -33,6 +33,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 0 value = 0 }
 	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 0 }
 	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 0 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 0 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 0 value = 0 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 0 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 0 value = 0 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 0 }
@@ -3315,6 +3317,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 15001 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 15001 }
 	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 15001 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 1 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 1 value = 5 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 11 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 11 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 11 }
@@ -3335,6 +3339,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 15 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 15 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 15 value = 5 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 2 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 2 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 21 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 21 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 21 }
@@ -3343,10 +3349,14 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 22 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 22 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 22 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 3 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 3 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 31 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 31 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 31 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 31 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 4 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 4 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 41 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 41 value = 4 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 41 }
@@ -3359,14 +3369,20 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 43 value = 4 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 43 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 43 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 5 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 5 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 51 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 51 value = 5 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 51 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 51 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 6 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 6 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 61 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 61 value = 6 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 61 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 61 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 7 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 7 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 71 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 71 value = 7 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 71 }
@@ -3375,6 +3391,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 72 value = 7 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 72 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 72 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 8 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 8 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 81 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 81 value = 8 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 81 }
@@ -3387,6 +3405,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 83 value = 8 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 83 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 83 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 9 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 9 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 91 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 91 value = 9 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 91 }
@@ -3395,6 +3415,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 92 value = 9 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 92 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 92 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 10 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 10 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 101 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 101 value = 10 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 101 }
@@ -3407,6 +3429,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 103 value = 10 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 103 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 103 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 11 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 11 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 111 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 111 value = 11 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 111 }
@@ -3419,6 +3443,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 113 value = 11 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 113 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 113 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 12 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 12 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 121 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 121 value = 12 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 121 }
@@ -3431,6 +3457,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 123 value = 12 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 123 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 123 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 13 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 13 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 131 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 131 value = 13 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 131 }
@@ -3443,6 +3471,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 133 value = 13 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 133 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 133 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 14 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 14 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 141 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 141 value = 14 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 141 }
@@ -3451,6 +3481,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 142 value = 14 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 142 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 142 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 15 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 15 value = 4 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 151 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 151 value = 15 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 151 }
@@ -3467,6 +3499,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 154 value = 15 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 154 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 154 value = 4 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 16 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 16 value = 4 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 161 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 161 value = 16 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 161 }
@@ -3483,6 +3517,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 164 value = 16 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 164 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 164 value = 4 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 17 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 17 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 171 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 171 value = 17 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 171 }
@@ -3495,6 +3531,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 173 value = 17 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 173 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 173 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 18 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 18 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 181 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 181 value = 18 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 181 }
@@ -3507,6 +3545,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 183 value = 18 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 183 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 183 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 19 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 19 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 191 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 191 value = 19 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 191 }
@@ -3515,6 +3555,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 192 value = 19 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 192 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 192 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 20 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 20 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 201 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 201 value = 20 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 201 }
@@ -3527,6 +3569,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 203 value = 20 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 203 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 203 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 21 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 21 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 211 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 211 value = 21 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 211 }
@@ -3535,6 +3579,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 212 value = 21 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 212 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 212 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 22 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 22 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 221 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 221 value = 22 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 221 }
@@ -3543,10 +3589,14 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 222 value = 22 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 222 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 222 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 23 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 23 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 231 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 231 value = 23 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 231 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 231 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 24 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 24 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 241 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 241 value = 24 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 241 }
@@ -3559,6 +3609,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 243 value = 24 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 243 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 243 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 25 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 25 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 251 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 251 value = 25 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 251 }
@@ -3567,10 +3619,14 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 252 value = 25 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 252 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 252 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 26 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 26 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 261 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 261 value = 26 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 261 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 261 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 27 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 27 value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 271 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 271 value = 27 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 271 }
@@ -3583,14 +3639,20 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 273 value = 27 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 273 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 273 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 28 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 28 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 281 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 281 value = 28 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 281 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 281 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 29 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 29 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 291 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 291 value = 29 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 291 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 291 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 30 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 30 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 301 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 301 value = 30 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 301 }
@@ -3599,10 +3661,14 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 302 value = 30 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 302 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 302 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 31 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 31 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 311 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 311 value = 31 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 311 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 311 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 32 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 32 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 321 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 321 value = 32 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 321 }
@@ -3611,6 +3677,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 322 value = 32 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 322 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 322 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 33 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 33 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 331 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 331 value = 33 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 331 }
@@ -3619,10 +3687,14 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 332 value = 33 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 332 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 332 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 34 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 34 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 341 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 341 value = 34 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 341 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 341 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 35 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 35 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 351 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 351 value = 35 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 351 }
@@ -3631,18 +3703,26 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 352 value = 35 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 352 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 352 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 36 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 36 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 361 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 361 value = 36 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 361 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 361 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 37 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 37 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 371 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 371 value = 37 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 371 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 371 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 38 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 38 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 381 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 381 value = 38 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 381 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 381 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 39 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 39 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 391 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 391 value = 39 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 391 }
@@ -3651,6 +3731,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 392 value = 39 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 392 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 392 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 40 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 40 value = 2 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 401 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 401 value = 40 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 401 }
@@ -3659,6 +3741,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 402 value = 40 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 402 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 402 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 41 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 41 value = 4 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 411 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 411 value = 41 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 411 }
@@ -3675,6 +3759,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 414 value = 41 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 414 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 414 value = 4 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 42 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 42 value = 4 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 421 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 421 value = 42 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 421 }
@@ -3691,6 +3777,8 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 424 value = 42 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 424 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 424 value = 4 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 43 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 43 value = 4 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 431 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_row_to_mechanic_id key = 431 value = 43 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_row_to_row key = 431 }
@@ -3806,4 +3894,5 @@ tv_wonder_index_refresh_country_cache_effect = {
 	else = {
 		tv_wonder_index_clear_selected_ritual_cache_effect = yes
 	}
+	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
 }

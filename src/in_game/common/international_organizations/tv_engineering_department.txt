@@ -74,12 +74,22 @@ tv_engineering_department = {
 						international_organization_has_leader = yes
 						leader_country ?= {
 							has_variable = tv_engineering_department_member
-							tv_wonder_survey_active_trigger = yes
+							var:tv_wonder_stage ?= { this >= 2 }
+							var:tv_wonder_locked ?= { this >= 1 }
 							custom_tooltip = {
 								text = TV_HAS_GREAT_ENGINEER_CHAR_TT
 								has_variable = tv_great_engineer_char
 							}
 							var:tv_great_engineer_char ?= { is_alive = yes }
+							NOT = { has_variable = tv_wonder_site }
+							NOT = { has_variable = tv_wonder_construction_complete }
+							has_variable = tv_wonder_survey_site
+							var:tv_wonder_survey_site ?= {
+								has_owner = yes
+								owner ?= prev
+							}
+							has_variable = tv_wonder_survey_active
+							NOT = { has_variable = tv_wonder_survey_complete }
 						}
 					}
 					add = {

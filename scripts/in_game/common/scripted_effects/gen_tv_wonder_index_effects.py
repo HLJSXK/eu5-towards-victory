@@ -64,6 +64,7 @@ RITUAL_MAP_NAMES = [
 ]
 
 SUITABILITY_ROW_MAP_NAMES = [
+    "tv_wonder_mechanic_id_to_suitability_row_count",
     "tv_wonder_suitability_row_to_mechanic_id",
     "tv_wonder_suitability_row_to_row",
 ]
@@ -159,6 +160,7 @@ def append_refresh_country_cache(lines: list[str]) -> None:
     lines.append(f"{T}else = {{")
     lines.append(f"{T}{T}tv_wonder_index_clear_selected_ritual_cache_effect = yes")
     lines.append(f"{T}}}")
+    lines.append(f"{T}tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes")
     lines.append("}")
     lines.append("")
 
@@ -210,7 +212,9 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
         if wonder.get("is_unique"):
             continue
         mechanic_id = int(wonder["id"])
-        for row_index, _row in enumerate(suitability_knowledge_for_wonder(mechanics, wonder), start=1):
+        rows = suitability_knowledge_for_wonder(mechanics, wonder)
+        lines.extend(map_replace_line("tv_wonder_mechanic_id_to_suitability_row_count", str(mechanic_id), len(rows)))
+        for row_index, _row in enumerate(rows, start=1):
             if row_index > 9:
                 raise ValueError(f"Suitability row key only reserves row 1..9: {wonder['key']} row {row_index}")
             row_key = str(wonder_suitability_row_composite_id(mechanic_id, row_index))
