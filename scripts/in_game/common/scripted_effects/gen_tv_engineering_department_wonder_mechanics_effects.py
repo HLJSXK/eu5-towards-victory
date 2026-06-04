@@ -57,7 +57,6 @@ SUITABILITY_MECHANIC_KEY_LOCAL = "tv_wonder_suitability_mechanic_key"
 SUITABILITY_ROW_KEY_LOCAL = "tv_wonder_suitability_row_key"
 SUITABILITY_ROW_COUNT_LOCAL = "tv_wonder_suitability_row_count"
 SUITABILITY_REVEAL_VALUE_LOCAL = "tv_wonder_suitability_reveal_value"
-FINAL_BUILDING_TYPE_MAP = "tv_wonder_final_key_to_building_type"
 FINAL_BUILDING_TYPE_VAR = "tv_wonder_final_building_type"
 RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_auxiliary_building_finished",
@@ -425,8 +424,12 @@ def dynamic_final_building_expr() -> str:
     return f"local_var:{FINAL_BUILDING_TYPE_VAR}"
 
 
-def final_building_map_expr() -> str:
-    return f'"global_variable_map({FINAL_BUILDING_TYPE_MAP}|var:tv_wonder_final_building)"'
+def final_building_type_map_name(style: int) -> str:
+    return f"tv_wonder_id_to_style_{style}_final_building_type"
+
+
+def final_building_map_expr(style: int) -> str:
+    return f'"global_variable_map({final_building_type_map_name(style)}|var:tv_wonder_locked)"'
 
 
 def append_dynamic_final_building_construction(lines: list[str], indent: int) -> None:
@@ -1053,23 +1056,24 @@ def append_construct_final_building_effect(lines: list[str], name: str, wonders:
     lines.append(f"{T}{T}{T}var:tv_wonder_level ?= {{ this >= 1 }}")
     lines.append(f"{T}{T}{T}var:tv_wonder_level ?= {{ this <= 6 }}")
     lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_final_building value = var:tv_wonder_locked }}")
-    lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_final_building multiply = 100 }}")
-    lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_final_building add = var:tv_wonder_ceremony_style }}")
-    lines.append(f"{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}{T}has_global_variable_map = {FINAL_BUILDING_TYPE_MAP}")
-    lines.append(f"{T}{T}{T}{T}is_key_in_global_variable_map = {{ name = {FINAL_BUILDING_TYPE_MAP} target = var:tv_wonder_final_building }}")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}set_local_variable = {{")
-    lines.append(f"{T}{T}{T}{T}name = {FINAL_BUILDING_TYPE_VAR}")
-    lines.append(f"{T}{T}{T}{T}value = {final_building_map_expr()}")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}var:tv_wonder_site ?= {{")
-    append_dynamic_final_building_construction(lines, 4)
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}remove_local_variable = {FINAL_BUILDING_TYPE_VAR}")
-    lines.append(f"{T}{T}}}")
+    for style in range(1, max_style + 1):
+        final_map = final_building_type_map_name(style)
+        head = "if" if style == 1 else "else_if"
+        lines.append(f"{T}{T}{head} = {{")
+        lines.append(f"{T}{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}{T}var:tv_wonder_ceremony_style ?= {style}")
+        lines.append(f"{T}{T}{T}{T}has_global_variable_map = {final_map}")
+        lines.append(f"{T}{T}{T}{T}is_key_in_global_variable_map = {{ name = {final_map} target = var:tv_wonder_locked }}")
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}set_local_variable = {{")
+        lines.append(f"{T}{T}{T}{T}name = {FINAL_BUILDING_TYPE_VAR}")
+        lines.append(f"{T}{T}{T}{T}value = {final_building_map_expr(style)}")
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}var:tv_wonder_site ?= {{")
+        append_dynamic_final_building_construction(lines, 4)
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}remove_local_variable = {FINAL_BUILDING_TYPE_VAR}")
+        lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")

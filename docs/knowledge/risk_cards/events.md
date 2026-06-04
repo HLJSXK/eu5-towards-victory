@@ -23,6 +23,13 @@ called directly from event options.
    `*_current_module_level`, or `*_target_module_level`. For rounded division displays such as
    remaining-month counters, prefer verified script-value operators like `ceiling = yes` over
    writing a temporary check variable and comparing it later in the same hover-rendered chain.
+   Dynamic building effects are not inherently unrenderable in event option tooltips:
+   `building_type = local_var:X` / `building = local_var:X` can render when `X` is captured
+   from a variable map keyed by persistent state before switching to the location scope. The
+   unsafe pattern is computing a temporary composite map key earlier in the same visible chain
+   and then immediately using that key for `global_variable_map(...)`. For tooltip-visible
+   module/final-building effects, branch over bounded dimensions such as part/style and map
+   directly from persistent project ids.
 
 3. Guard stale event confirmations.
    Final confirmation events can sit open while project state changes through another path.

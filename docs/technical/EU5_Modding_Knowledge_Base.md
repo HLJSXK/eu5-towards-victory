@@ -503,6 +503,19 @@ nested scope. Do not confuse it with the separate bad pattern where a local vari
 created inside a dynamic scope and then read outward through `prev = {}` or after leaving
 that scope.
 
+Runtime tests from 2026-06-05 narrowed this limitation for event-option building tooltips:
+dynamic building effects themselves can render. `construct_building = { building_type =
+local_var:X ... }` and `change_building_level_in_location = { building = local_var:X value =
+-N ... }` both rendered in `tv_engineering_department.200` / `.201` when `X` was captured
+from a `global_variable_map` lookup keyed directly by persistent project state such as
+`var:tv_wonder_locked`. The failing module-construction chain computed a composite key
+(`tv_wonder_locked * 10 + tv_wonder_last_completed_part`) with `set_variable` /
+`change_variable` earlier in the same visible option chain, then immediately used that key
+for the map lookup. Treat that as an event-tooltip pre-render dependency failure, not as
+proof that `building_type = local_var:X` or dynamic `change_building_level_in_location`
+cannot render. The safe pattern is to branch over a bounded non-wonder dimension, such as
+the four module parts, and use a direct map keyed by already-existing wonder state.
+
 If the mapped value needs to persist on the current scope, use `set_variable = { name = X value = "variable_map(...)" }` first, then read `var:X` from that same owning scope or capture it into a local variable before switching scopes.
 
 Variable maps can be iterated over their keys. Use `every_key_in_variable_map` or `ordered_key_in_variable_map` as effects, and `any_key_in_variable_map` as a trigger; use the `global_` and `local_` variants for global/local maps. Inside a key iterator, `this` is the current key. Enter the mapped value through the scope link:

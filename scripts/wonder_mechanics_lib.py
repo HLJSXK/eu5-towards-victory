@@ -34,7 +34,7 @@ SUPPORTED_RITUAL_COST_TYPES = {None, "artwork", "scaled_gold", "prestige"}
 SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
 SUPPORTED_RITUAL_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
 SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
-WONDER_MAP_SCHEMA_VERSION = 3
+WONDER_MAP_SCHEMA_VERSION = 5
 WONDER_SIZE_IDS = {
     "small": 1,
     "medium": 2,
@@ -669,10 +669,6 @@ def mechanic_key(wonder: dict) -> str:
 
 def wonder_ritual_composite_id(wonder_id: int, style: int) -> int:
     return int(wonder_id) * 100 + int(style)
-
-
-def wonder_module_composite_id(wonder_id: int, part_index: int) -> int:
-    return int(wonder_id) * 10 + int(part_index)
 
 
 def wonder_suitability_row_composite_id(mechanic_id: int, row: int) -> int:

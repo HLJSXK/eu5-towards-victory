@@ -17784,17 +17784,249 @@ tv_wonder_mechanics_construct_generic_final_building_effect = {
 			var:tv_wonder_level ?= { this >= 1 }
 			var:tv_wonder_level ?= { this <= 6 }
 		}
-		set_variable = { name = tv_wonder_final_building value = var:tv_wonder_locked }
-		change_variable = { name = tv_wonder_final_building multiply = 100 }
-		change_variable = { name = tv_wonder_final_building add = var:tv_wonder_ceremony_style }
 		if = {
 			limit = {
-				has_global_variable_map = tv_wonder_final_key_to_building_type
-				is_key_in_global_variable_map = { name = tv_wonder_final_key_to_building_type target = var:tv_wonder_final_building }
+				var:tv_wonder_ceremony_style ?= 1
+				has_global_variable_map = tv_wonder_id_to_style_1_final_building_type
+				is_key_in_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type target = var:tv_wonder_locked }
 			}
 			set_local_variable = {
 				name = tv_wonder_final_building_type
-				value = "global_variable_map(tv_wonder_final_key_to_building_type|var:tv_wonder_final_building)"
+				value = "global_variable_map(tv_wonder_id_to_style_1_final_building_type|var:tv_wonder_locked)"
+			}
+			var:tv_wonder_site ?= {
+				if = {
+					limit = {
+						NOT = { has_building = local_var:tv_wonder_final_building_type }
+						prev = { var:tv_wonder_level ?= { this >= 1 } }
+					}
+					construct_building = { building_type = local_var:tv_wonder_final_building_type cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 5 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 2 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 5 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 4 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 3 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 2 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 1 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 5 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 2 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+			remove_local_variable = tv_wonder_final_building_type
+		}
+		else_if = {
+			limit = {
+				var:tv_wonder_ceremony_style ?= 2
+				has_global_variable_map = tv_wonder_id_to_style_2_final_building_type
+				is_key_in_global_variable_map = { name = tv_wonder_id_to_style_2_final_building_type target = var:tv_wonder_locked }
+			}
+			set_local_variable = {
+				name = tv_wonder_final_building_type
+				value = "global_variable_map(tv_wonder_id_to_style_2_final_building_type|var:tv_wonder_locked)"
+			}
+			var:tv_wonder_site ?= {
+				if = {
+					limit = {
+						NOT = { has_building = local_var:tv_wonder_final_building_type }
+						prev = { var:tv_wonder_level ?= { this >= 1 } }
+					}
+					construct_building = { building_type = local_var:tv_wonder_final_building_type cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 5 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 2 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 5 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 4 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 3 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 2 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = local_var:tv_wonder_final_building_type value >= 1 } }
+					if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 6 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 5 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 5 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 4 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 4 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 3 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 3 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 2 owner = prev }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_level ?= { this >= 2 } } }
+						change_building_level_in_location = { building = local_var:tv_wonder_final_building_type value = 1 owner = prev }
+					}
+				}
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+			remove_local_variable = tv_wonder_final_building_type
+		}
+		else_if = {
+			limit = {
+				var:tv_wonder_ceremony_style ?= 3
+				has_global_variable_map = tv_wonder_id_to_style_3_final_building_type
+				is_key_in_global_variable_map = { name = tv_wonder_id_to_style_3_final_building_type target = var:tv_wonder_locked }
+			}
+			set_local_variable = {
+				name = tv_wonder_final_building_type
+				value = "global_variable_map(tv_wonder_id_to_style_3_final_building_type|var:tv_wonder_locked)"
 			}
 			var:tv_wonder_site ?= {
 				if = {
@@ -17918,17 +18150,15 @@ tv_wonder_mechanics_construct_unique_final_building_effect = {
 			var:tv_wonder_level ?= { this >= 1 }
 			var:tv_wonder_level ?= { this <= 6 }
 		}
-		set_variable = { name = tv_wonder_final_building value = var:tv_wonder_locked }
-		change_variable = { name = tv_wonder_final_building multiply = 100 }
-		change_variable = { name = tv_wonder_final_building add = var:tv_wonder_ceremony_style }
 		if = {
 			limit = {
-				has_global_variable_map = tv_wonder_final_key_to_building_type
-				is_key_in_global_variable_map = { name = tv_wonder_final_key_to_building_type target = var:tv_wonder_final_building }
+				var:tv_wonder_ceremony_style ?= 1
+				has_global_variable_map = tv_wonder_id_to_style_1_final_building_type
+				is_key_in_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type target = var:tv_wonder_locked }
 			}
 			set_local_variable = {
 				name = tv_wonder_final_building_type
-				value = "global_variable_map(tv_wonder_final_key_to_building_type|var:tv_wonder_final_building)"
+				value = "global_variable_map(tv_wonder_id_to_style_1_final_building_type|var:tv_wonder_locked)"
 			}
 			var:tv_wonder_site ?= {
 				if = {

@@ -23,11 +23,14 @@ HEADER = [
 
 T = "\t"
 HELPER_BUILDING_TYPE_MAP = "tv_wonder_id_to_helper_building_type"
-MODULE_BUILDING_TYPE_MAP = "tv_wonder_module_key_to_building_type"
-FINAL_BUILDING_TYPE_MAP = "tv_wonder_final_key_to_building_type"
-MODULE_BUILDING_KEY_VAR = "tv_wonder_module_building_key"
 HELPER_BUILDING_TYPE_VAR = "tv_wonder_helper_building_type"
 MODULE_BUILDING_TYPE_VAR = "tv_wonder_module_building_type"
+
+
+def module_building_type_map_name(part_key: str) -> str:
+    # Event option tooltips can render local_var building types, but the pre-renderer
+    # failed when the map key was computed earlier in the same visible option chain.
+    return f"tv_wonder_id_to_{part_key}_module_building_type"
 
 
 def building_type_ref(building: str) -> str:
@@ -471,22 +474,25 @@ def main() -> None:
     lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
     lines.append(f"{T}{T}{T}var:tv_wonder_last_completed_part ?= {{ this >= 1 }}")
     lines.append(f"{T}{T}{T}var:tv_wonder_last_completed_part ?= {{ this <= {len(parts)} }}")
-    lines.append(f"{T}{T}{T}has_global_variable_map = {MODULE_BUILDING_TYPE_MAP}")
     lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}set_variable = {{ name = {MODULE_BUILDING_KEY_VAR} value = var:tv_wonder_locked }}")
-    lines.append(f"{T}{T}change_variable = {{ name = {MODULE_BUILDING_KEY_VAR} multiply = 10 }}")
-    lines.append(f"{T}{T}change_variable = {{ name = {MODULE_BUILDING_KEY_VAR} add = var:tv_wonder_last_completed_part }}")
-    lines.append(f"{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}limit = {{ is_key_in_global_variable_map = {{ name = {MODULE_BUILDING_TYPE_MAP} target = var:{MODULE_BUILDING_KEY_VAR} }} }}")
-    lines.extend(capture_global_map_value(MODULE_BUILDING_TYPE_VAR, MODULE_BUILDING_TYPE_MAP, f"var:{MODULE_BUILDING_KEY_VAR}", 3))
-    lines.append(f"{T}{T}{T}save_scope_as = tv_wonder_module_owner")
-    lines.append(f"{T}{T}{T}var:tv_wonder_site ?= {{")
-    lines.extend(add_building_level("always = yes", f"local_var:{MODULE_BUILDING_TYPE_VAR}", 4))
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}remove_local_variable = {MODULE_BUILDING_TYPE_VAR}")
-    lines.append(f"{T}{T}}}")
+    for part_index, part in enumerate(parts, start=1):
+        part_key = part["key"]
+        module_map = module_building_type_map_name(part_key)
+        head = "if" if part_index == 1 else "else_if"
+        lines.append(f"{T}{T}{head} = {{")
+        lines.append(f"{T}{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}{T}var:tv_wonder_last_completed_part ?= {part_index}")
+        lines.append(f"{T}{T}{T}{T}has_global_variable_map = {module_map}")
+        lines.append(f"{T}{T}{T}{T}is_key_in_global_variable_map = {{ name = {module_map} target = var:tv_wonder_locked }}")
+        lines.append(f"{T}{T}{T}}}")
+        lines.extend(capture_global_map_value(MODULE_BUILDING_TYPE_VAR, module_map, "var:tv_wonder_locked", 3))
+        lines.append(f"{T}{T}{T}save_scope_as = tv_wonder_module_owner")
+        lines.append(f"{T}{T}{T}var:tv_wonder_site ?= {{")
+        lines.extend(add_building_level("always = yes", f"local_var:{MODULE_BUILDING_TYPE_VAR}", 4))
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}remove_local_variable = {MODULE_BUILDING_TYPE_VAR}")
+        lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
-    lines.append(f"{T}remove_variable = {MODULE_BUILDING_KEY_VAR}")
     lines.append("}")
     lines.append("")
 
@@ -655,24 +661,23 @@ def main() -> None:
     lines.append(f"{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
     lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
-    lines.append(f"{T}{T}{T}has_global_variable_map = {MODULE_BUILDING_TYPE_MAP}")
     lines.append(f"{T}{T}}}")
-    for part_index, part in enumerate(parts, start=1):
-        lines.append(f"{T}{T}set_variable = {{ name = {MODULE_BUILDING_KEY_VAR} value = var:tv_wonder_locked }}")
-        lines.append(f"{T}{T}change_variable = {{ name = {MODULE_BUILDING_KEY_VAR} multiply = 10 }}")
-        lines.append(f"{T}{T}change_variable = {{ name = {MODULE_BUILDING_KEY_VAR} add = {part_index} }}")
+    for part in parts:
+        part_key = part["key"]
+        module_map = module_building_type_map_name(part_key)
         lines.append(f"{T}{T}if = {{")
         lines.append(
             f"{T}{T}{T}limit = {{ "
-            f"is_key_in_global_variable_map = {{ name = {MODULE_BUILDING_TYPE_MAP} target = var:{MODULE_BUILDING_KEY_VAR} }} }}"
+            f"has_global_variable_map = {module_map} "
+            f"is_key_in_global_variable_map = {{ name = {module_map} target = var:tv_wonder_locked }} }}"
         )
-        lines.extend(capture_global_map_value(MODULE_BUILDING_TYPE_VAR, MODULE_BUILDING_TYPE_MAP, f"var:{MODULE_BUILDING_KEY_VAR}", 3))
+        lines.extend(capture_global_map_value(MODULE_BUILDING_TYPE_VAR, module_map, "var:tv_wonder_locked", 3))
         lines.append(f"{T}{T}{T}save_scope_as = tv_wonder_module_owner")
         lines.append(f"{T}{T}{T}var:tv_wonder_site ?= {{")
         lines.extend(
             sync_module_building_to_unit_gap(
                 {},
-                part["key"],
+                part_key,
                 f"local_var:{MODULE_BUILDING_TYPE_VAR}",
                 4,
             )
@@ -681,7 +686,6 @@ def main() -> None:
         lines.append(f"{T}{T}{T}remove_local_variable = {MODULE_BUILDING_TYPE_VAR}")
         lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
-    lines.append(f"{T}remove_variable = {MODULE_BUILDING_KEY_VAR}")
     lines.append("}")
     lines.append("")
 

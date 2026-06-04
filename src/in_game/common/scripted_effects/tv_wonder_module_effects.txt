@@ -1450,16 +1450,103 @@ tv_wonder_construct_module_for_last_completed_part_effect = {
 			has_variable = tv_wonder_locked
 			var:tv_wonder_last_completed_part ?= { this >= 1 }
 			var:tv_wonder_last_completed_part ?= { this <= 4 }
-			has_global_variable_map = tv_wonder_module_key_to_building_type
 		}
-		set_variable = { name = tv_wonder_module_building_key value = var:tv_wonder_locked }
-		change_variable = { name = tv_wonder_module_building_key multiply = 10 }
-		change_variable = { name = tv_wonder_module_building_key add = var:tv_wonder_last_completed_part }
 		if = {
-			limit = { is_key_in_global_variable_map = { name = tv_wonder_module_key_to_building_type target = var:tv_wonder_module_building_key } }
+			limit = {
+				var:tv_wonder_last_completed_part ?= 1
+				has_global_variable_map = tv_wonder_id_to_foundation_module_building_type
+				is_key_in_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type target = var:tv_wonder_locked }
+			}
 			set_local_variable = {
 				name = tv_wonder_module_building_type
-				value = "global_variable_map(tv_wonder_module_key_to_building_type|var:tv_wonder_module_building_key)"
+				value = "global_variable_map(tv_wonder_id_to_foundation_module_building_type|var:tv_wonder_locked)"
+			}
+			save_scope_as = tv_wonder_module_owner
+			var:tv_wonder_site ?= {
+				if = {
+					limit = { always = yes }
+					if = {
+						limit = { NOT = { has_building = local_var:tv_wonder_module_building_type } }
+						construct_building = { building_type = local_var:tv_wonder_module_building_type cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+					}
+					else = {
+						change_building_level_in_location = {
+							building = local_var:tv_wonder_module_building_type
+							value = 1
+							owner = prev
+						}
+					}
+				}
+			}
+			remove_local_variable = tv_wonder_module_building_type
+		}
+		else_if = {
+			limit = {
+				var:tv_wonder_last_completed_part ?= 2
+				has_global_variable_map = tv_wonder_id_to_body_module_building_type
+				is_key_in_global_variable_map = { name = tv_wonder_id_to_body_module_building_type target = var:tv_wonder_locked }
+			}
+			set_local_variable = {
+				name = tv_wonder_module_building_type
+				value = "global_variable_map(tv_wonder_id_to_body_module_building_type|var:tv_wonder_locked)"
+			}
+			save_scope_as = tv_wonder_module_owner
+			var:tv_wonder_site ?= {
+				if = {
+					limit = { always = yes }
+					if = {
+						limit = { NOT = { has_building = local_var:tv_wonder_module_building_type } }
+						construct_building = { building_type = local_var:tv_wonder_module_building_type cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+					}
+					else = {
+						change_building_level_in_location = {
+							building = local_var:tv_wonder_module_building_type
+							value = 1
+							owner = prev
+						}
+					}
+				}
+			}
+			remove_local_variable = tv_wonder_module_building_type
+		}
+		else_if = {
+			limit = {
+				var:tv_wonder_last_completed_part ?= 3
+				has_global_variable_map = tv_wonder_id_to_function_module_building_type
+				is_key_in_global_variable_map = { name = tv_wonder_id_to_function_module_building_type target = var:tv_wonder_locked }
+			}
+			set_local_variable = {
+				name = tv_wonder_module_building_type
+				value = "global_variable_map(tv_wonder_id_to_function_module_building_type|var:tv_wonder_locked)"
+			}
+			save_scope_as = tv_wonder_module_owner
+			var:tv_wonder_site ?= {
+				if = {
+					limit = { always = yes }
+					if = {
+						limit = { NOT = { has_building = local_var:tv_wonder_module_building_type } }
+						construct_building = { building_type = local_var:tv_wonder_module_building_type cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+					}
+					else = {
+						change_building_level_in_location = {
+							building = local_var:tv_wonder_module_building_type
+							value = 1
+							owner = prev
+						}
+					}
+				}
+			}
+			remove_local_variable = tv_wonder_module_building_type
+		}
+		else_if = {
+			limit = {
+				var:tv_wonder_last_completed_part ?= 4
+				has_global_variable_map = tv_wonder_id_to_decoration_module_building_type
+				is_key_in_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type target = var:tv_wonder_locked }
+			}
+			set_local_variable = {
+				name = tv_wonder_module_building_type
+				value = "global_variable_map(tv_wonder_id_to_decoration_module_building_type|var:tv_wonder_locked)"
 			}
 			save_scope_as = tv_wonder_module_owner
 			var:tv_wonder_site ?= {
@@ -1481,7 +1568,6 @@ tv_wonder_construct_module_for_last_completed_part_effect = {
 			remove_local_variable = tv_wonder_module_building_type
 		}
 	}
-	remove_variable = tv_wonder_module_building_key
 }
 
 tv_wonder_combine_completed_modules_effect = {
@@ -121051,16 +121137,12 @@ tv_wonder_materialize_module_buildings_from_unit_vars_effect = {
 		limit = {
 			tv_wonder_construction_site_selected_trigger = yes
 			has_variable = tv_wonder_locked
-			has_global_variable_map = tv_wonder_module_key_to_building_type
 		}
-		set_variable = { name = tv_wonder_module_building_key value = var:tv_wonder_locked }
-		change_variable = { name = tv_wonder_module_building_key multiply = 10 }
-		change_variable = { name = tv_wonder_module_building_key add = 1 }
 		if = {
-			limit = { is_key_in_global_variable_map = { name = tv_wonder_module_key_to_building_type target = var:tv_wonder_module_building_key } }
+			limit = { has_global_variable_map = tv_wonder_id_to_foundation_module_building_type is_key_in_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type target = var:tv_wonder_locked } }
 			set_local_variable = {
 				name = tv_wonder_module_building_type
-				value = "global_variable_map(tv_wonder_module_key_to_building_type|var:tv_wonder_module_building_key)"
+				value = "global_variable_map(tv_wonder_id_to_foundation_module_building_type|var:tv_wonder_locked)"
 			}
 			save_scope_as = tv_wonder_module_owner
 			var:tv_wonder_site ?= {
@@ -121744,14 +121826,11 @@ tv_wonder_materialize_module_buildings_from_unit_vars_effect = {
 			}
 			remove_local_variable = tv_wonder_module_building_type
 		}
-		set_variable = { name = tv_wonder_module_building_key value = var:tv_wonder_locked }
-		change_variable = { name = tv_wonder_module_building_key multiply = 10 }
-		change_variable = { name = tv_wonder_module_building_key add = 2 }
 		if = {
-			limit = { is_key_in_global_variable_map = { name = tv_wonder_module_key_to_building_type target = var:tv_wonder_module_building_key } }
+			limit = { has_global_variable_map = tv_wonder_id_to_body_module_building_type is_key_in_global_variable_map = { name = tv_wonder_id_to_body_module_building_type target = var:tv_wonder_locked } }
 			set_local_variable = {
 				name = tv_wonder_module_building_type
-				value = "global_variable_map(tv_wonder_module_key_to_building_type|var:tv_wonder_module_building_key)"
+				value = "global_variable_map(tv_wonder_id_to_body_module_building_type|var:tv_wonder_locked)"
 			}
 			save_scope_as = tv_wonder_module_owner
 			var:tv_wonder_site ?= {
@@ -122435,14 +122514,11 @@ tv_wonder_materialize_module_buildings_from_unit_vars_effect = {
 			}
 			remove_local_variable = tv_wonder_module_building_type
 		}
-		set_variable = { name = tv_wonder_module_building_key value = var:tv_wonder_locked }
-		change_variable = { name = tv_wonder_module_building_key multiply = 10 }
-		change_variable = { name = tv_wonder_module_building_key add = 3 }
 		if = {
-			limit = { is_key_in_global_variable_map = { name = tv_wonder_module_key_to_building_type target = var:tv_wonder_module_building_key } }
+			limit = { has_global_variable_map = tv_wonder_id_to_function_module_building_type is_key_in_global_variable_map = { name = tv_wonder_id_to_function_module_building_type target = var:tv_wonder_locked } }
 			set_local_variable = {
 				name = tv_wonder_module_building_type
-				value = "global_variable_map(tv_wonder_module_key_to_building_type|var:tv_wonder_module_building_key)"
+				value = "global_variable_map(tv_wonder_id_to_function_module_building_type|var:tv_wonder_locked)"
 			}
 			save_scope_as = tv_wonder_module_owner
 			var:tv_wonder_site ?= {
@@ -123126,14 +123202,11 @@ tv_wonder_materialize_module_buildings_from_unit_vars_effect = {
 			}
 			remove_local_variable = tv_wonder_module_building_type
 		}
-		set_variable = { name = tv_wonder_module_building_key value = var:tv_wonder_locked }
-		change_variable = { name = tv_wonder_module_building_key multiply = 10 }
-		change_variable = { name = tv_wonder_module_building_key add = 4 }
 		if = {
-			limit = { is_key_in_global_variable_map = { name = tv_wonder_module_key_to_building_type target = var:tv_wonder_module_building_key } }
+			limit = { has_global_variable_map = tv_wonder_id_to_decoration_module_building_type is_key_in_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type target = var:tv_wonder_locked } }
 			set_local_variable = {
 				name = tv_wonder_module_building_type
-				value = "global_variable_map(tv_wonder_module_key_to_building_type|var:tv_wonder_module_building_key)"
+				value = "global_variable_map(tv_wonder_id_to_decoration_module_building_type|var:tv_wonder_locked)"
 			}
 			save_scope_as = tv_wonder_module_owner
 			var:tv_wonder_site ?= {
@@ -123818,7 +123891,6 @@ tv_wonder_materialize_module_buildings_from_unit_vars_effect = {
 			remove_local_variable = tv_wonder_module_building_type
 		}
 	}
-	remove_variable = tv_wonder_module_building_key
 }
 
 tv_wonder_combine_completed_modules_at_location_effect = {
