@@ -281,7 +281,7 @@
 
  # Wonder debate actions
  tv_wonder_accept_proposal: "Accept Proposal"
- tv_wonder_accept_proposal_desc: "Lock the selected wonder proposal and begin the domestic debate."
+ tv_wonder_accept_proposal_desc: "Lock [SelectGameConcept(Country.MakeScope.GetVariable('tv_wonder_proposal').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(Country.MakeScope.GetVariable('tv_wonder_proposal').GetValue))), 'tv_wonder_construction')] and begin the domestic debate."
  tv_wonder_select_proposal_slot_1: "Review First Proposal"
  tv_wonder_select_proposal_slot_1_desc: "Ask the [tv_great_engineer|E] for the brief on this design."
  tv_wonder_select_proposal_slot_2: "Review Second Proposal"

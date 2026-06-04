@@ -305,6 +305,7 @@ tv_wonder_clear_feasible_deck_effect = {
 
 tv_wonder_clear_current_proposal_effect = {
 	remove_variable = tv_wonder_proposal
+	remove_variable = tv_wonder_selected_proposal_id
 	remove_variable = tv_wonder_proposal_slot_1
 	remove_variable = tv_wonder_proposal_slot_2
 	remove_variable = tv_wonder_proposal_slot_3
@@ -422,7 +423,7 @@ tv_wonder_restore_proposal_from_great_engineer_effect = {
 
 tv_wonder_roll_random_feasible_proposal_effect = {
 	remove_variable = tv_wonder_proposal
-	tv_wonder_generic_roll_random_feasible_proposal_effect = yes
+	tv_wonder_roll_next_slot_from_priority_deck_effect = yes
 }
 
 tv_wonder_copy_current_proposal_to_slot_1_effect = {
@@ -446,39 +447,40 @@ tv_wonder_copy_current_proposal_to_slot_3_effect = {
 	}
 }
 
-tv_wonder_select_proposal_slot_1_effect = {
+tv_wonder_select_proposal_id_effect = {
 	if = {
-		limit = { var:tv_wonder_proposal_slot_1 ?= { this >= 1 } }
+		limit = { var:tv_wonder_selected_proposal_id ?= { this >= 1 } }
 		remove_variable = tv_wonder_proposal_mode
 		remove_variable = tv_wonder_proposal_site
 		remove_variable = tv_wonder_priority_found
 		remove_variable = tv_wonder_resume_project
-		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_1 }
+		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_selected_proposal_id }
+		remove_variable = tv_wonder_selected_proposal_id
 		tv_wonder_set_proposal_on_great_engineer_effect = yes
+	}
+}
+
+tv_wonder_select_proposal_slot_1_effect = {
+	if = {
+		limit = { var:tv_wonder_proposal_slot_1 ?= { this >= 1 } }
+		set_variable = { name = tv_wonder_selected_proposal_id value = var:tv_wonder_proposal_slot_1 }
+		tv_wonder_select_proposal_id_effect = yes
 	}
 }
 
 tv_wonder_select_proposal_slot_2_effect = {
 	if = {
 		limit = { var:tv_wonder_proposal_slot_2 ?= { this >= 1 } }
-		remove_variable = tv_wonder_proposal_mode
-		remove_variable = tv_wonder_proposal_site
-		remove_variable = tv_wonder_priority_found
-		remove_variable = tv_wonder_resume_project
-		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_2 }
-		tv_wonder_set_proposal_on_great_engineer_effect = yes
+		set_variable = { name = tv_wonder_selected_proposal_id value = var:tv_wonder_proposal_slot_2 }
+		tv_wonder_select_proposal_id_effect = yes
 	}
 }
 
 tv_wonder_select_proposal_slot_3_effect = {
 	if = {
 		limit = { var:tv_wonder_proposal_slot_3 ?= { this >= 1 } }
-		remove_variable = tv_wonder_proposal_mode
-		remove_variable = tv_wonder_proposal_site
-		remove_variable = tv_wonder_priority_found
-		remove_variable = tv_wonder_resume_project
-		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_3 }
-		tv_wonder_set_proposal_on_great_engineer_effect = yes
+		set_variable = { name = tv_wonder_selected_proposal_id value = var:tv_wonder_proposal_slot_3 }
+		tv_wonder_select_proposal_id_effect = yes
 	}
 }
 

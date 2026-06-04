@@ -27,6 +27,8 @@ from wonder_mechanics_lib import (
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers" / "tv_engineering_department_wonder_mechanics_triggers.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py"
 T = "\t"
+FEASIBLE_GENERIC_DECK_MAP = "tv_wonder_feasible_generic_deck"
+FEASIBLE_UNIQUE_DECK_MAP = "tv_wonder_feasible_unique_deck"
 
 
 def trigger_conditions(wonder: dict, mechanics: dict, indent: int = 1) -> list[str]:
@@ -236,6 +238,17 @@ def grouped_selected_trigger(
     return lines
 
 
+def has_any_key_in_map_trigger(map_name: str, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}has_variable_map = {map_name}",
+        f"{prefix}any_key_in_variable_map = {{",
+        f"{prefix}{T}variable = {map_name}",
+        f"{prefix}{T}always = yes",
+        f"{prefix}}}",
+    ]
+
+
 def selected_ritual_attribute_trigger(name: str, cache_var: str, expected_value: int) -> list[str]:
     return [
         f"{name} = {{",
@@ -317,26 +330,20 @@ def generate() -> str:
         lines.append("}")
         lines.append("")
 
-    lines.append("tv_wonder_mechanics_has_any_feasible_proposal_trigger = {")
-    lines.append(f"{T}OR = {{")
-    for wonder in all_wonders:
-        lines.append(f"{T}{T}has_variable = tv_wonder_feasible_{wonder['key']}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
     lines.append("tv_wonder_generic_has_any_feasible_proposal_trigger = {")
-    lines.append(f"{T}OR = {{")
-    for wonder in generic_wonders:
-        lines.append(f"{T}{T}has_variable = tv_wonder_feasible_{wonder['key']}")
-    lines.append(f"{T}}}")
+    lines.extend(has_any_key_in_map_trigger(FEASIBLE_GENERIC_DECK_MAP, 1))
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_unique_has_any_feasible_proposal_trigger = {")
+    lines.extend(has_any_key_in_map_trigger(FEASIBLE_UNIQUE_DECK_MAP, 1))
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_has_any_feasible_proposal_trigger = {")
     lines.append(f"{T}OR = {{")
-    for wonder in unique_wonders:
-        lines.append(f"{T}{T}has_variable = tv_wonder_feasible_{wonder['key']}")
+    lines.append(f"{T}{T}tv_wonder_generic_has_any_feasible_proposal_trigger = yes")
+    lines.append(f"{T}{T}tv_wonder_unique_has_any_feasible_proposal_trigger = yes")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")

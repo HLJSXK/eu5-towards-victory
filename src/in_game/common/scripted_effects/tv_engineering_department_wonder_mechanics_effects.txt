@@ -4,6 +4,9 @@
 # Do not edit directly - modify the data file and re-run the generator.
 
 tv_wonder_mechanics_clear_feasible_deck_effect = {
+	clear_variable_map = tv_wonder_feasible_generic_deck
+	clear_variable_map = tv_wonder_feasible_unique_deck
+	# Legacy cleanup for pre-id-deck saves.
 	remove_variable = tv_wonder_feasible_sacred_mountain
 	remove_variable = tv_wonder_feasible_triumphal_axis
 	remove_variable = tv_wonder_feasible_great_port
@@ -102,756 +105,394 @@ tv_wonder_mechanics_clear_feasible_deck_effect = {
 tv_wonder_mechanics_rebuild_feasible_deck_effect = {
 	if = {
 		limit = { tv_wonder_can_build_sacred_mountain_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_sacred_mountain value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 1 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_triumphal_axis_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_triumphal_axis value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 2 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_great_port_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_great_port value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 3 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_giant_necropolis_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_giant_necropolis value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 4 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_great_lighthouse_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_great_lighthouse value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 5 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_hydraulic_workshop_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_hydraulic_workshop value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 6 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_mining_city_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_mining_city value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 7 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_giant_observatory_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_giant_observatory value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 8 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_palace_of_nations_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_palace_of_nations value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 9 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_university_city_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_university_city value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 10 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_sky_dome_grand_temple_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_sky_dome_grand_temple value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 11 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_giant_tower_temple_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_giant_tower_temple value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 12 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_river_extension_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_river_extension value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 13 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_national_shipyard_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_national_shipyard value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 14 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_star_fortress_city_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_star_fortress_city value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 15 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_great_wall_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_great_wall value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 16 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_giant_armory_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_giant_armory value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 17 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_library_of_nation_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_library_of_nation value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 18 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_large_canal_system_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_large_canal_system value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 19 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_mountain_terrace_network_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_mountain_terrace_network value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 20 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_giant_dam_project_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_giant_dam_project value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 21 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_royal_granary_system_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_royal_granary_system value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 22 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_imperial_post_road_network_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_imperial_post_road_network value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 23 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_canal_hub_city_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_canal_hub_city value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 24 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_frontier_colonization_belt_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_frontier_colonization_belt value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 25 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_coastal_beacon_network_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_coastal_beacon_network value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 26 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_knightly_fortress_order_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_knightly_fortress_order value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 27 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_war_college_system_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_war_college_system value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 28 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_great_clock_bell_system_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_great_clock_bell_system value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 29 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_royal_art_district_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_royal_art_district value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 30 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_grand_theater_festival_district_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_grand_theater_festival_district value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 31 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_world_embassy_quarter_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_world_embassy_quarter value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 32 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_law_code_stele_project_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_law_code_stele_project value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 33 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_world_market_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_world_market value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 34 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_royal_mint_system_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_royal_mint_system value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 35 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_guild_alliance_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_guild_alliance value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 36 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_maritime_trade_station_network_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_maritime_trade_station_network value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 37 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_giant_workshop_complex_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_giant_workshop_complex value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 38 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_world_monument_group_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_world_monument_group value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 39 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_city_expansion_project_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_city_expansion_project value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 40 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_megalithic_circle_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_megalithic_circle value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 41 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_grand_cathedral_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_grand_cathedral value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 42 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_great_monastery_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_great_monastery value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 43 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_pharos_lighthouse_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_pharos_lighthouse value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 101 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_hagia_sophia_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_hagia_sophia value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 102 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_dome_of_the_rock_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_dome_of_the_rock value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 103 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_angkor_wat_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_angkor_wat value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 104 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_potala_palace_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_potala_palace value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 105 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_alhambra_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_alhambra value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 106 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_machu_picchu_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_machu_picchu value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 107 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_himeji_castle_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_himeji_castle value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 108 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_taj_mahal_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_taj_mahal value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 109 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_forbidden_city_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_forbidden_city value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 110 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_topkapi_palace_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_topkapi_palace value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 111 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_st_peters_basilica_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_st_peters_basilica value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 112 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_lalibela_churches_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_lalibela_churches value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 113 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_venetian_arsenal_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_venetian_arsenal value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 114 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_malacca_port_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_malacca_port value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 115 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_red_fort_delhi_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_red_fort_delhi value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 116 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_versailles_palace_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_versailles_palace value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 117 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_tenochtitlan_causeways_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_tenochtitlan_causeways value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 118 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_amsterdam_canal_ring_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_amsterdam_canal_ring value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 119 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_mecca_haram_expansion_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_mecca_haram_expansion value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 120 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_ming_great_wall_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_ming_great_wall value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 121 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_bank_of_saint_george_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_bank_of_saint_george value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 122 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_cahokia_mounds_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_cahokia_mounds value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 123 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_great_zimbabwe_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_great_zimbabwe value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 124 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_isfahan_square_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_isfahan_square value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 125 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_grand_canal_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_grand_canal value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 126 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_inca_royal_road_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_inca_royal_road value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 127 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_roman_aqueducts_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_roman_aqueducts value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 128 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_suez_ancient_canal_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_suez_ancient_canal value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 129 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_kremlin_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_kremlin value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 130 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_teotihuacan_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_teotihuacan value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 131 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_angkor_hydraulic_system_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_angkor_hydraulic_system value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 132 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_dutch_polders_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_dutch_polders value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 133 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_machu_picchu_terraces_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_machu_picchu_terraces value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 134 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_british_navy_dockyards_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_british_navy_dockyards value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 135 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_spanish_silver_fleet_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_spanish_silver_fleet value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 136 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_ottoman_hajj_road_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_ottoman_hajj_road value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 137 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_persian_qanat_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_persian_qanat value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 138 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_longjiang_shipyard_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_longjiang_shipyard value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 139 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_jerusalem_holy_city_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_jerusalem_holy_city value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 140 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_stonehenge_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_stonehenge value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 141 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_tower_of_london_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_tower_of_london value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 142 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_notre_dame_de_paris_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_notre_dame_de_paris value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 143 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_st_basils_cathedral_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_st_basils_cathedral value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 144 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_trinity_lavra_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_trinity_lavra value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 145 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_winter_palace_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_winter_palace value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 146 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_gyeongbokgung_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_gyeongbokgung value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 147 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_changbai_mountain_altar_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_changbai_mountain_altar value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 148 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_belgrade_fortress_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_belgrade_fortress value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 149 value = 1 }
 	}
 	if = {
 		limit = { tv_wonder_can_build_unique_meteora_monasteries_trigger = yes }
-		set_variable = { name = tv_wonder_feasible_unique_meteora_monasteries value = 1 }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 150 value = 1 }
 	}
 }
 
 tv_wonder_generic_roll_random_feasible_proposal_effect = {
-	random_list = {
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_sacred_mountain }
-			set_variable = { name = tv_wonder_proposal value = 1 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_triumphal_axis }
-			set_variable = { name = tv_wonder_proposal value = 2 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_great_port }
-			set_variable = { name = tv_wonder_proposal value = 3 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_giant_necropolis }
-			set_variable = { name = tv_wonder_proposal value = 4 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_great_lighthouse }
-			set_variable = { name = tv_wonder_proposal value = 5 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_hydraulic_workshop }
-			set_variable = { name = tv_wonder_proposal value = 6 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_mining_city }
-			set_variable = { name = tv_wonder_proposal value = 7 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_giant_observatory }
-			set_variable = { name = tv_wonder_proposal value = 8 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_palace_of_nations }
-			set_variable = { name = tv_wonder_proposal value = 9 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_university_city }
-			set_variable = { name = tv_wonder_proposal value = 10 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_sky_dome_grand_temple }
-			set_variable = { name = tv_wonder_proposal value = 11 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_giant_tower_temple }
-			set_variable = { name = tv_wonder_proposal value = 12 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_river_extension }
-			set_variable = { name = tv_wonder_proposal value = 13 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_national_shipyard }
-			set_variable = { name = tv_wonder_proposal value = 14 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_star_fortress_city }
-			set_variable = { name = tv_wonder_proposal value = 15 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_great_wall }
-			set_variable = { name = tv_wonder_proposal value = 16 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_giant_armory }
-			set_variable = { name = tv_wonder_proposal value = 17 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_library_of_nation }
-			set_variable = { name = tv_wonder_proposal value = 18 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_large_canal_system }
-			set_variable = { name = tv_wonder_proposal value = 19 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_mountain_terrace_network }
-			set_variable = { name = tv_wonder_proposal value = 20 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_giant_dam_project }
-			set_variable = { name = tv_wonder_proposal value = 21 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_royal_granary_system }
-			set_variable = { name = tv_wonder_proposal value = 22 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_imperial_post_road_network }
-			set_variable = { name = tv_wonder_proposal value = 23 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_canal_hub_city }
-			set_variable = { name = tv_wonder_proposal value = 24 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_frontier_colonization_belt }
-			set_variable = { name = tv_wonder_proposal value = 25 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_coastal_beacon_network }
-			set_variable = { name = tv_wonder_proposal value = 26 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_knightly_fortress_order }
-			set_variable = { name = tv_wonder_proposal value = 27 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_war_college_system }
-			set_variable = { name = tv_wonder_proposal value = 28 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_great_clock_bell_system }
-			set_variable = { name = tv_wonder_proposal value = 29 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_royal_art_district }
-			set_variable = { name = tv_wonder_proposal value = 30 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_grand_theater_festival_district }
-			set_variable = { name = tv_wonder_proposal value = 31 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_world_embassy_quarter }
-			set_variable = { name = tv_wonder_proposal value = 32 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_law_code_stele_project }
-			set_variable = { name = tv_wonder_proposal value = 33 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_world_market }
-			set_variable = { name = tv_wonder_proposal value = 34 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_royal_mint_system }
-			set_variable = { name = tv_wonder_proposal value = 35 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_guild_alliance }
-			set_variable = { name = tv_wonder_proposal value = 36 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_maritime_trade_station_network }
-			set_variable = { name = tv_wonder_proposal value = 37 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_giant_workshop_complex }
-			set_variable = { name = tv_wonder_proposal value = 38 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_world_monument_group }
-			set_variable = { name = tv_wonder_proposal value = 39 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_city_expansion_project }
-			set_variable = { name = tv_wonder_proposal value = 40 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_megalithic_circle }
-			set_variable = { name = tv_wonder_proposal value = 41 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_grand_cathedral }
-			set_variable = { name = tv_wonder_proposal value = 42 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_great_monastery }
-			set_variable = { name = tv_wonder_proposal value = 43 }
+	remove_variable = tv_wonder_proposal
+	random_key_in_variable_map = {
+		variable = tv_wonder_feasible_generic_deck
+		root = {
+			set_variable = { name = tv_wonder_proposal value = prev }
 		}
 	}
 }
 
 tv_wonder_unique_roll_random_feasible_proposal_effect = {
-	random_list = {
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_pharos_lighthouse }
-			set_variable = { name = tv_wonder_proposal value = 101 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_hagia_sophia }
-			set_variable = { name = tv_wonder_proposal value = 102 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_dome_of_the_rock }
-			set_variable = { name = tv_wonder_proposal value = 103 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_angkor_wat }
-			set_variable = { name = tv_wonder_proposal value = 104 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_potala_palace }
-			set_variable = { name = tv_wonder_proposal value = 105 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_alhambra }
-			set_variable = { name = tv_wonder_proposal value = 106 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_machu_picchu }
-			set_variable = { name = tv_wonder_proposal value = 107 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_himeji_castle }
-			set_variable = { name = tv_wonder_proposal value = 108 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_taj_mahal }
-			set_variable = { name = tv_wonder_proposal value = 109 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_forbidden_city }
-			set_variable = { name = tv_wonder_proposal value = 110 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_topkapi_palace }
-			set_variable = { name = tv_wonder_proposal value = 111 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_st_peters_basilica }
-			set_variable = { name = tv_wonder_proposal value = 112 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_lalibela_churches }
-			set_variable = { name = tv_wonder_proposal value = 113 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_venetian_arsenal }
-			set_variable = { name = tv_wonder_proposal value = 114 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_malacca_port }
-			set_variable = { name = tv_wonder_proposal value = 115 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_red_fort_delhi }
-			set_variable = { name = tv_wonder_proposal value = 116 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_versailles_palace }
-			set_variable = { name = tv_wonder_proposal value = 117 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_tenochtitlan_causeways }
-			set_variable = { name = tv_wonder_proposal value = 118 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_amsterdam_canal_ring }
-			set_variable = { name = tv_wonder_proposal value = 119 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_mecca_haram_expansion }
-			set_variable = { name = tv_wonder_proposal value = 120 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_ming_great_wall }
-			set_variable = { name = tv_wonder_proposal value = 121 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_bank_of_saint_george }
-			set_variable = { name = tv_wonder_proposal value = 122 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_cahokia_mounds }
-			set_variable = { name = tv_wonder_proposal value = 123 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_great_zimbabwe }
-			set_variable = { name = tv_wonder_proposal value = 124 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_isfahan_square }
-			set_variable = { name = tv_wonder_proposal value = 125 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_grand_canal }
-			set_variable = { name = tv_wonder_proposal value = 126 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_inca_royal_road }
-			set_variable = { name = tv_wonder_proposal value = 127 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_roman_aqueducts }
-			set_variable = { name = tv_wonder_proposal value = 128 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_suez_ancient_canal }
-			set_variable = { name = tv_wonder_proposal value = 129 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_kremlin }
-			set_variable = { name = tv_wonder_proposal value = 130 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_teotihuacan }
-			set_variable = { name = tv_wonder_proposal value = 131 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_angkor_hydraulic_system }
-			set_variable = { name = tv_wonder_proposal value = 132 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_dutch_polders }
-			set_variable = { name = tv_wonder_proposal value = 133 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_machu_picchu_terraces }
-			set_variable = { name = tv_wonder_proposal value = 134 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_british_navy_dockyards }
-			set_variable = { name = tv_wonder_proposal value = 135 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_spanish_silver_fleet }
-			set_variable = { name = tv_wonder_proposal value = 136 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_ottoman_hajj_road }
-			set_variable = { name = tv_wonder_proposal value = 137 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_persian_qanat }
-			set_variable = { name = tv_wonder_proposal value = 138 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_longjiang_shipyard }
-			set_variable = { name = tv_wonder_proposal value = 139 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_jerusalem_holy_city }
-			set_variable = { name = tv_wonder_proposal value = 140 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_stonehenge }
-			set_variable = { name = tv_wonder_proposal value = 141 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_tower_of_london }
-			set_variable = { name = tv_wonder_proposal value = 142 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_notre_dame_de_paris }
-			set_variable = { name = tv_wonder_proposal value = 143 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_st_basils_cathedral }
-			set_variable = { name = tv_wonder_proposal value = 144 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_trinity_lavra }
-			set_variable = { name = tv_wonder_proposal value = 145 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_winter_palace }
-			set_variable = { name = tv_wonder_proposal value = 146 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_gyeongbokgung }
-			set_variable = { name = tv_wonder_proposal value = 147 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_changbai_mountain_altar }
-			set_variable = { name = tv_wonder_proposal value = 148 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_belgrade_fortress }
-			set_variable = { name = tv_wonder_proposal value = 149 }
-		}
-		1 = {
-			trigger = { has_variable = tv_wonder_feasible_unique_meteora_monasteries }
-			set_variable = { name = tv_wonder_proposal value = 150 }
+	remove_variable = tv_wonder_proposal
+	random_key_in_variable_map = {
+		variable = tv_wonder_feasible_unique_deck
+		root = {
+			set_variable = { name = tv_wonder_proposal value = prev }
 		}
 	}
 }
@@ -869,752 +510,16 @@ tv_wonder_roll_next_slot_from_priority_deck_effect = {
 
 tv_wonder_mechanics_remove_current_proposal_from_deck_effect = {
 	if = {
-		limit = { var:tv_wonder_proposal ?= 1 }
-		remove_variable = tv_wonder_feasible_sacred_mountain
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 2 }
-		remove_variable = tv_wonder_feasible_triumphal_axis
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 3 }
-		remove_variable = tv_wonder_feasible_great_port
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 4 }
-		remove_variable = tv_wonder_feasible_giant_necropolis
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 5 }
-		remove_variable = tv_wonder_feasible_great_lighthouse
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 6 }
-		remove_variable = tv_wonder_feasible_hydraulic_workshop
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 7 }
-		remove_variable = tv_wonder_feasible_mining_city
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 8 }
-		remove_variable = tv_wonder_feasible_giant_observatory
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 9 }
-		remove_variable = tv_wonder_feasible_palace_of_nations
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 10 }
-		remove_variable = tv_wonder_feasible_university_city
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 11 }
-		remove_variable = tv_wonder_feasible_sky_dome_grand_temple
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 12 }
-		remove_variable = tv_wonder_feasible_giant_tower_temple
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 13 }
-		remove_variable = tv_wonder_feasible_river_extension
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 14 }
-		remove_variable = tv_wonder_feasible_national_shipyard
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 15 }
-		remove_variable = tv_wonder_feasible_star_fortress_city
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 16 }
-		remove_variable = tv_wonder_feasible_great_wall
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 17 }
-		remove_variable = tv_wonder_feasible_giant_armory
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 18 }
-		remove_variable = tv_wonder_feasible_library_of_nation
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 19 }
-		remove_variable = tv_wonder_feasible_large_canal_system
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 20 }
-		remove_variable = tv_wonder_feasible_mountain_terrace_network
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 21 }
-		remove_variable = tv_wonder_feasible_giant_dam_project
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 22 }
-		remove_variable = tv_wonder_feasible_royal_granary_system
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 23 }
-		remove_variable = tv_wonder_feasible_imperial_post_road_network
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 24 }
-		remove_variable = tv_wonder_feasible_canal_hub_city
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 25 }
-		remove_variable = tv_wonder_feasible_frontier_colonization_belt
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 26 }
-		remove_variable = tv_wonder_feasible_coastal_beacon_network
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 27 }
-		remove_variable = tv_wonder_feasible_knightly_fortress_order
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 28 }
-		remove_variable = tv_wonder_feasible_war_college_system
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 29 }
-		remove_variable = tv_wonder_feasible_great_clock_bell_system
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 30 }
-		remove_variable = tv_wonder_feasible_royal_art_district
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 31 }
-		remove_variable = tv_wonder_feasible_grand_theater_festival_district
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 32 }
-		remove_variable = tv_wonder_feasible_world_embassy_quarter
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 33 }
-		remove_variable = tv_wonder_feasible_law_code_stele_project
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 34 }
-		remove_variable = tv_wonder_feasible_world_market
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 35 }
-		remove_variable = tv_wonder_feasible_royal_mint_system
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 36 }
-		remove_variable = tv_wonder_feasible_guild_alliance
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 37 }
-		remove_variable = tv_wonder_feasible_maritime_trade_station_network
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 38 }
-		remove_variable = tv_wonder_feasible_giant_workshop_complex
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 39 }
-		remove_variable = tv_wonder_feasible_world_monument_group
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 40 }
-		remove_variable = tv_wonder_feasible_city_expansion_project
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 41 }
-		remove_variable = tv_wonder_feasible_megalithic_circle
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 42 }
-		remove_variable = tv_wonder_feasible_grand_cathedral
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 43 }
-		remove_variable = tv_wonder_feasible_great_monastery
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 101 }
-		remove_variable = tv_wonder_feasible_unique_pharos_lighthouse
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 102 }
-		remove_variable = tv_wonder_feasible_unique_hagia_sophia
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 103 }
-		remove_variable = tv_wonder_feasible_unique_dome_of_the_rock
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 104 }
-		remove_variable = tv_wonder_feasible_unique_angkor_wat
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 105 }
-		remove_variable = tv_wonder_feasible_unique_potala_palace
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 106 }
-		remove_variable = tv_wonder_feasible_unique_alhambra
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 107 }
-		remove_variable = tv_wonder_feasible_unique_machu_picchu
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 108 }
-		remove_variable = tv_wonder_feasible_unique_himeji_castle
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 109 }
-		remove_variable = tv_wonder_feasible_unique_taj_mahal
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 110 }
-		remove_variable = tv_wonder_feasible_unique_forbidden_city
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 111 }
-		remove_variable = tv_wonder_feasible_unique_topkapi_palace
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 112 }
-		remove_variable = tv_wonder_feasible_unique_st_peters_basilica
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 113 }
-		remove_variable = tv_wonder_feasible_unique_lalibela_churches
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 114 }
-		remove_variable = tv_wonder_feasible_unique_venetian_arsenal
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 115 }
-		remove_variable = tv_wonder_feasible_unique_malacca_port
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 116 }
-		remove_variable = tv_wonder_feasible_unique_red_fort_delhi
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 117 }
-		remove_variable = tv_wonder_feasible_unique_versailles_palace
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 118 }
-		remove_variable = tv_wonder_feasible_unique_tenochtitlan_causeways
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 119 }
-		remove_variable = tv_wonder_feasible_unique_amsterdam_canal_ring
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 120 }
-		remove_variable = tv_wonder_feasible_unique_mecca_haram_expansion
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 121 }
-		remove_variable = tv_wonder_feasible_unique_ming_great_wall
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 122 }
-		remove_variable = tv_wonder_feasible_unique_bank_of_saint_george
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 123 }
-		remove_variable = tv_wonder_feasible_unique_cahokia_mounds
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 124 }
-		remove_variable = tv_wonder_feasible_unique_great_zimbabwe
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 125 }
-		remove_variable = tv_wonder_feasible_unique_isfahan_square
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 126 }
-		remove_variable = tv_wonder_feasible_unique_grand_canal
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 127 }
-		remove_variable = tv_wonder_feasible_unique_inca_royal_road
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 128 }
-		remove_variable = tv_wonder_feasible_unique_roman_aqueducts
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 129 }
-		remove_variable = tv_wonder_feasible_unique_suez_ancient_canal
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 130 }
-		remove_variable = tv_wonder_feasible_unique_kremlin
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 131 }
-		remove_variable = tv_wonder_feasible_unique_teotihuacan
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 132 }
-		remove_variable = tv_wonder_feasible_unique_angkor_hydraulic_system
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 133 }
-		remove_variable = tv_wonder_feasible_unique_dutch_polders
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 134 }
-		remove_variable = tv_wonder_feasible_unique_machu_picchu_terraces
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 135 }
-		remove_variable = tv_wonder_feasible_unique_british_navy_dockyards
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 136 }
-		remove_variable = tv_wonder_feasible_unique_spanish_silver_fleet
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 137 }
-		remove_variable = tv_wonder_feasible_unique_ottoman_hajj_road
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 138 }
-		remove_variable = tv_wonder_feasible_unique_persian_qanat
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 139 }
-		remove_variable = tv_wonder_feasible_unique_longjiang_shipyard
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 140 }
-		remove_variable = tv_wonder_feasible_unique_jerusalem_holy_city
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 141 }
-		remove_variable = tv_wonder_feasible_unique_stonehenge
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 142 }
-		remove_variable = tv_wonder_feasible_unique_tower_of_london
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 143 }
-		remove_variable = tv_wonder_feasible_unique_notre_dame_de_paris
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 144 }
-		remove_variable = tv_wonder_feasible_unique_st_basils_cathedral
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 145 }
-		remove_variable = tv_wonder_feasible_unique_trinity_lavra
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 146 }
-		remove_variable = tv_wonder_feasible_unique_winter_palace
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 147 }
-		remove_variable = tv_wonder_feasible_unique_gyeongbokgung
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 148 }
-		remove_variable = tv_wonder_feasible_unique_changbai_mountain_altar
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 149 }
-		remove_variable = tv_wonder_feasible_unique_belgrade_fortress
-	}
-	if = {
-		limit = { var:tv_wonder_proposal ?= 150 }
-		remove_variable = tv_wonder_feasible_unique_meteora_monasteries
+		limit = { var:tv_wonder_proposal ?= { this >= 1 } }
+		set_local_variable = { name = tv_wonder_current_proposal_id value = var:tv_wonder_proposal }
+		remove_from_variable_map = { name = tv_wonder_feasible_generic_deck key = local_var:tv_wonder_current_proposal_id }
+		remove_from_variable_map = { name = tv_wonder_feasible_unique_deck key = local_var:tv_wonder_current_proposal_id }
+		remove_local_variable = tv_wonder_current_proposal_id
 	}
 }
 
 tv_wonder_mechanics_accept_proposal_tooltip_effect = {
-	if = {
-		limit = { var:tv_wonder_proposal ?= 1 }
-		custom_tooltip = { text = TV_WONDER_LOCK_SACRED_MOUNTAIN_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 2 }
-		custom_tooltip = { text = TV_WONDER_LOCK_TRIUMPHAL_AXIS_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 3 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GREAT_PORT_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 4 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GIANT_NECROPOLIS_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 5 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GREAT_LIGHTHOUSE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 6 }
-		custom_tooltip = { text = TV_WONDER_LOCK_HYDRAULIC_WORKSHOP_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 7 }
-		custom_tooltip = { text = TV_WONDER_LOCK_MINING_CITY_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 8 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GIANT_OBSERVATORY_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 9 }
-		custom_tooltip = { text = TV_WONDER_LOCK_PALACE_OF_NATIONS_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 10 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIVERSITY_CITY_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 11 }
-		custom_tooltip = { text = TV_WONDER_LOCK_SKY_DOME_GRAND_TEMPLE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 12 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GIANT_TOWER_TEMPLE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 13 }
-		custom_tooltip = { text = TV_WONDER_LOCK_RIVER_EXTENSION_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 14 }
-		custom_tooltip = { text = TV_WONDER_LOCK_NATIONAL_SHIPYARD_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 15 }
-		custom_tooltip = { text = TV_WONDER_LOCK_STAR_FORTRESS_CITY_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 16 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GREAT_WALL_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 17 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GIANT_ARMORY_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 18 }
-		custom_tooltip = { text = TV_WONDER_LOCK_LIBRARY_OF_NATION_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 19 }
-		custom_tooltip = { text = TV_WONDER_LOCK_LARGE_CANAL_SYSTEM_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 20 }
-		custom_tooltip = { text = TV_WONDER_LOCK_MOUNTAIN_TERRACE_NETWORK_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 21 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GIANT_DAM_PROJECT_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 22 }
-		custom_tooltip = { text = TV_WONDER_LOCK_ROYAL_GRANARY_SYSTEM_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 23 }
-		custom_tooltip = { text = TV_WONDER_LOCK_IMPERIAL_POST_ROAD_NETWORK_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 24 }
-		custom_tooltip = { text = TV_WONDER_LOCK_CANAL_HUB_CITY_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 25 }
-		custom_tooltip = { text = TV_WONDER_LOCK_FRONTIER_COLONIZATION_BELT_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 26 }
-		custom_tooltip = { text = TV_WONDER_LOCK_COASTAL_BEACON_NETWORK_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 27 }
-		custom_tooltip = { text = TV_WONDER_LOCK_KNIGHTLY_FORTRESS_ORDER_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 28 }
-		custom_tooltip = { text = TV_WONDER_LOCK_WAR_COLLEGE_SYSTEM_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 29 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GREAT_CLOCK_BELL_SYSTEM_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 30 }
-		custom_tooltip = { text = TV_WONDER_LOCK_ROYAL_ART_DISTRICT_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 31 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GRAND_THEATER_FESTIVAL_DISTRICT_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 32 }
-		custom_tooltip = { text = TV_WONDER_LOCK_WORLD_EMBASSY_QUARTER_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 33 }
-		custom_tooltip = { text = TV_WONDER_LOCK_LAW_CODE_STELE_PROJECT_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 34 }
-		custom_tooltip = { text = TV_WONDER_LOCK_WORLD_MARKET_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 35 }
-		custom_tooltip = { text = TV_WONDER_LOCK_ROYAL_MINT_SYSTEM_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 36 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GUILD_ALLIANCE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 37 }
-		custom_tooltip = { text = TV_WONDER_LOCK_MARITIME_TRADE_STATION_NETWORK_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 38 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GIANT_WORKSHOP_COMPLEX_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 39 }
-		custom_tooltip = { text = TV_WONDER_LOCK_WORLD_MONUMENT_GROUP_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 40 }
-		custom_tooltip = { text = TV_WONDER_LOCK_CITY_EXPANSION_PROJECT_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 41 }
-		custom_tooltip = { text = TV_WONDER_LOCK_MEGALITHIC_CIRCLE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 42 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GRAND_CATHEDRAL_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 43 }
-		custom_tooltip = { text = TV_WONDER_LOCK_GREAT_MONASTERY_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 101 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_PHAROS_LIGHTHOUSE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 102 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_HAGIA_SOPHIA_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 103 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_DOME_OF_THE_ROCK_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 104 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_ANGKOR_WAT_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 105 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_POTALA_PALACE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 106 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_ALHAMBRA_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 107 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_MACHU_PICCHU_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 108 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_HIMEJI_CASTLE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 109 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_TAJ_MAHAL_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 110 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_FORBIDDEN_CITY_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 111 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_TOPKAPI_PALACE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 112 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_ST_PETERS_BASILICA_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 113 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_LALIBELA_CHURCHES_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 114 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_VENETIAN_ARSENAL_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 115 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_MALACCA_PORT_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 116 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_RED_FORT_DELHI_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 117 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_VERSAILLES_PALACE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 118 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_TENOCHTITLAN_CAUSEWAYS_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 119 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_AMSTERDAM_CANAL_RING_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 120 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_MECCA_HARAM_EXPANSION_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 121 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_MING_GREAT_WALL_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 122 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_BANK_OF_SAINT_GEORGE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 123 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_CAHOKIA_MOUNDS_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 124 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_GREAT_ZIMBABWE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 125 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_ISFAHAN_SQUARE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 126 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_GRAND_CANAL_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 127 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_INCA_ROYAL_ROAD_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 128 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_ROMAN_AQUEDUCTS_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 129 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_SUEZ_ANCIENT_CANAL_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 130 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_KREMLIN_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 131 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_TEOTIHUACAN_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 132 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_ANGKOR_HYDRAULIC_SYSTEM_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 133 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_DUTCH_POLDERS_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 134 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_MACHU_PICCHU_TERRACES_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 135 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_BRITISH_NAVY_DOCKYARDS_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 136 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_SPANISH_SILVER_FLEET_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 137 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_OTTOMAN_HAJJ_ROAD_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 138 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_PERSIAN_QANAT_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 139 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_LONGJIANG_SHIPYARD_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 140 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_JERUSALEM_HOLY_CITY_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 141 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_STONEHENGE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 142 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_TOWER_OF_LONDON_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 143 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_NOTRE_DAME_DE_PARIS_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 144 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_ST_BASILS_CATHEDRAL_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 145 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_TRINITY_LAVRA_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 146 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_WINTER_PALACE_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 147 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_GYEONGBOKGUNG_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 148 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_CHANGBAI_MOUNTAIN_ALTAR_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 149 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_BELGRADE_FORTRESS_TT }
-	}
-	else_if = {
-		limit = { var:tv_wonder_proposal ?= 150 }
-		custom_tooltip = { text = TV_WONDER_LOCK_UNIQUE_METEORA_MONASTERIES_TT }
-	}
+	custom_tooltip = { text = tv_wonder_accept_proposal_desc }
 }
 
 tv_wonder_mechanics_clear_suitability_actuals_effect = {

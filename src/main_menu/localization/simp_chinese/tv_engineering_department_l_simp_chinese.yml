@@ -281,7 +281,7 @@
 
  # Wonder debate actions
  tv_wonder_accept_proposal: "接受提案"
- tv_wonder_accept_proposal_desc: "锁定当前选中的奇观提案，并开始国内辩论。"
+ tv_wonder_accept_proposal_desc: "锁定[SelectGameConcept(Country.MakeScope.GetVariable('tv_wonder_proposal').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(Country.MakeScope.GetVariable('tv_wonder_proposal').GetValue))), 'tv_wonder_construction')]，并开始国内辩论。"
  tv_wonder_select_proposal_slot_1: "查看第一提案"
  tv_wonder_select_proposal_slot_1_desc: "请[tv_great_engineer|E]简述这项图样。"
  tv_wonder_select_proposal_slot_2: "查看第二提案"

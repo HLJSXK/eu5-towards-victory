@@ -135,11 +135,21 @@ def ritual_pair_visible(pairs: list[tuple[int, int]]) -> str:
     )
 
 
-def proposal_button(slot: int, wonder: dict) -> str:
-    visible = eq(f"tv_wonder_proposal_slot_{slot}", wonder["id"])
+def fixed_point_to_int_string(var_expr: str) -> str:
+    return f"ToString_int32(FixedPointToInt({var_expr}.GetValue))"
+
+
+def proposal_slot_var(slot: int) -> str:
+    return f"{PLAYER}.GetVariable('tv_wonder_proposal_slot_{slot}')"
+
+
+def proposal_button(slot: int) -> str:
+    slot_var = proposal_slot_var(slot)
+    slot_id_string = fixed_point_to_int_string(slot_var)
+    text = f"[SelectGameConcept({slot_var}.IsSet, Concatenate('tv_wonder_display_', {slot_id_string}), 'tv_wonder_construction')]"
     return (
-        f'{T}action_button_diamond = {{ size = {{ 152 30 }} visible = "[{visible}]" '
-        f'text = "TV_ENGINEERING_PROPOSAL_BUTTON_{wonder["key"].upper()}" title = "tv_wonder_select_proposal_slot_{slot}" '
+        f'{T}action_button_diamond = {{ size = {{ 152 30 }} visible = "[{slot_var}.IsSet]" '
+        f'text = "{text}" title = "tv_wonder_select_proposal_slot_{slot}" '
         f'description = "tv_wonder_select_proposal_slot_{slot}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
         f'left_action = {{ action_name = "tv_wonder_select_proposal_slot_{slot}" }} }}'
     )
@@ -545,8 +555,7 @@ def generate() -> str:
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_BUTTONS")
     for slot in range(1, 4):
-        for wonder in wonders:
-            lines.append(proposal_button(slot, wonder))
+        lines.append(proposal_button(slot))
     lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_BUTTONS")
     lines.append("")
     for style in range(1, 4):

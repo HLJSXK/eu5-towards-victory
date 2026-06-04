@@ -34,6 +34,8 @@ SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_engineering_departm
 T = "\t"
 DISPLAY_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
+FEASIBLE_GENERIC_DECK_MAP = "tv_wonder_feasible_generic_deck"
+FEASIBLE_UNIQUE_DECK_MAP = "tv_wonder_feasible_unique_deck"
 RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_auxiliary_building_finished",
     "tv_wonder_ritual_total_buildings_baseline",
@@ -680,6 +682,19 @@ def append_completion_broadcast_scope_effect(lines: list[str], name: str, wonder
     lines.append("")
 
 
+def append_roll_random_feasible_proposal_effect(lines: list[str], name: str, deck_map: str) -> None:
+    lines.append(f"{name} = {{")
+    lines.append(f"{T}remove_variable = tv_wonder_proposal")
+    lines.append(f"{T}random_key_in_variable_map = {{")
+    lines.append(f"{T}{T}variable = {deck_map}")
+    lines.append(f"{T}{T}root = {{")
+    lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_proposal value = prev }}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def generate() -> str:
     all_wonders, mechanics = load_all_wonder_mechanics()
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
@@ -687,6 +702,9 @@ def generate() -> str:
     lines = render_header(SCRIPT_REL)
 
     lines.append("tv_wonder_mechanics_clear_feasible_deck_effect = {")
+    lines.append(f"{T}clear_variable_map = {FEASIBLE_GENERIC_DECK_MAP}")
+    lines.append(f"{T}clear_variable_map = {FEASIBLE_UNIQUE_DECK_MAP}")
+    lines.append(f"{T}# Legacy cleanup for pre-id-deck saves.")
     for wonder in all_wonders:
         lines.append(f"{T}remove_variable = tv_wonder_feasible_{wonder['key']}")
     lines.append("}")
@@ -694,34 +712,24 @@ def generate() -> str:
 
     lines.append("tv_wonder_mechanics_rebuild_feasible_deck_effect = {")
     for wonder in all_wonders:
+        deck_map = FEASIBLE_UNIQUE_DECK_MAP if wonder.get("is_unique") else FEASIBLE_GENERIC_DECK_MAP
         lines.append(f"{T}if = {{")
         lines.append(f"{T}{T}limit = {{ tv_wonder_can_build_{wonder['key']}_trigger = yes }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_feasible_{wonder['key']} value = 1 }}")
+        lines.append(f"{T}{T}add_to_variable_map = {{ name = {deck_map} key = {wonder['id']} value = 1 }}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_generic_roll_random_feasible_proposal_effect = {")
-    lines.append(f"{T}random_list = {{")
-    for wonder in generic_wonders:
-        lines.append(f"{T}{T}1 = {{")
-        lines.append(f"{T}{T}{T}trigger = {{ has_variable = tv_wonder_feasible_{wonder['key']} }}")
-        lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_proposal value = {wonder['id']} }}")
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_unique_roll_random_feasible_proposal_effect = {")
-    lines.append(f"{T}random_list = {{")
-    for wonder in unique_wonders:
-        lines.append(f"{T}{T}1 = {{")
-        lines.append(f"{T}{T}{T}trigger = {{ has_variable = tv_wonder_feasible_{wonder['key']} }}")
-        lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_proposal value = {wonder['id']} }}")
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
+    append_roll_random_feasible_proposal_effect(
+        lines,
+        "tv_wonder_generic_roll_random_feasible_proposal_effect",
+        FEASIBLE_GENERIC_DECK_MAP,
+    )
+    append_roll_random_feasible_proposal_effect(
+        lines,
+        "tv_wonder_unique_roll_random_feasible_proposal_effect",
+        FEASIBLE_UNIQUE_DECK_MAP,
+    )
 
     lines.append("tv_wonder_roll_next_slot_from_priority_deck_effect = {")
     lines.append(f"{T}if = {{")
@@ -736,21 +744,18 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_mechanics_remove_current_proposal_from_deck_effect = {")
-    for wonder in all_wonders:
-        lines.append(f"{T}if = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_proposal ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}remove_variable = tv_wonder_feasible_{wonder['key']}")
-        lines.append(f"{T}}}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ var:tv_wonder_proposal ?= {{ this >= {ALL_WONDER_MIN_ID} }} }}")
+    lines.append(f"{T}{T}set_local_variable = {{ name = tv_wonder_current_proposal_id value = var:tv_wonder_proposal }}")
+    lines.append(f"{T}{T}remove_from_variable_map = {{ name = {FEASIBLE_GENERIC_DECK_MAP} key = local_var:tv_wonder_current_proposal_id }}")
+    lines.append(f"{T}{T}remove_from_variable_map = {{ name = {FEASIBLE_UNIQUE_DECK_MAP} key = local_var:tv_wonder_current_proposal_id }}")
+    lines.append(f"{T}{T}remove_local_variable = tv_wonder_current_proposal_id")
+    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_mechanics_accept_proposal_tooltip_effect = {")
-    for idx, wonder in enumerate(all_wonders):
-        head = "if" if idx == 0 else "else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_proposal ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}custom_tooltip = {{ text = TV_WONDER_LOCK_{wonder['key'].upper()}_TT }}")
-        lines.append(f"{T}}}")
+    lines.append(f"{T}custom_tooltip = {{ text = tv_wonder_accept_proposal_desc }}")
     lines.append("}")
     lines.append("")
 
