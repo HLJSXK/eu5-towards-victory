@@ -11,12 +11,15 @@ from wonder_mechanics_lib import (
     PARTS,
     WONDER_MAP_SCHEMA_VERSION,
     WONDER_RITUAL_COST_TYPE_IDS,
+    WONDER_RITUAL_LISTENER_KEYS,
     WONDER_RITUAL_MODE_IDS,
     WONDER_SIZE_IDS,
     ceremony_styles,
     load_all_wonder_mechanics,
     render_header,
     ritual_plan_for_style,
+    ritual_has_custom_completion_trigger,
+    ritual_uses_deferred_completion,
     suitability_knowledge_for_wonder,
     wonder_ritual_composite_id,
     wonder_suitability_row_composite_id,
@@ -43,6 +46,10 @@ RITUAL_CACHE_VARS = [
     "tv_wonder_selected_ritual_style",
     "tv_wonder_selected_ritual_mode",
     "tv_wonder_selected_ritual_cost_type",
+    "tv_wonder_selected_ritual_deferred_completion",
+    "tv_wonder_selected_ritual_has_confirmation_trigger",
+    "tv_wonder_selected_ritual_has_custom_completion_trigger",
+    *[f"tv_wonder_selected_ritual_listener_{listener}" for listener in WONDER_RITUAL_LISTENER_KEYS],
 ]
 
 WONDER_MAP_NAMES = [
@@ -62,6 +69,10 @@ RITUAL_MAP_NAMES = [
     "tv_wonder_ritual_id_to_style",
     "tv_wonder_ritual_id_to_mode",
     "tv_wonder_ritual_id_to_cost_type",
+    "tv_wonder_ritual_id_to_deferred_completion",
+    "tv_wonder_ritual_id_to_has_confirmation_trigger",
+    "tv_wonder_ritual_id_to_has_custom_completion_trigger",
+    *[f"tv_wonder_ritual_id_to_listener_{listener}" for listener in WONDER_RITUAL_LISTENER_KEYS],
 ]
 
 SUITABILITY_ROW_MAP_NAMES = [
@@ -87,6 +98,13 @@ RITUAL_CACHE_MAPS = [
     ("tv_wonder_ritual_id_to_style", "tv_wonder_selected_ritual_style"),
     ("tv_wonder_ritual_id_to_mode", "tv_wonder_selected_ritual_mode"),
     ("tv_wonder_ritual_id_to_cost_type", "tv_wonder_selected_ritual_cost_type"),
+    ("tv_wonder_ritual_id_to_deferred_completion", "tv_wonder_selected_ritual_deferred_completion"),
+    ("tv_wonder_ritual_id_to_has_confirmation_trigger", "tv_wonder_selected_ritual_has_confirmation_trigger"),
+    ("tv_wonder_ritual_id_to_has_custom_completion_trigger", "tv_wonder_selected_ritual_has_custom_completion_trigger"),
+    *[
+        (f"tv_wonder_ritual_id_to_listener_{listener}", f"tv_wonder_selected_ritual_listener_{listener}")
+        for listener in WONDER_RITUAL_LISTENER_KEYS
+    ],
 ]
 
 
@@ -241,6 +259,36 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
             lines.extend(map_replace_line("tv_wonder_ritual_id_to_style", ritual_key, style))
             lines.extend(map_replace_line("tv_wonder_ritual_id_to_mode", ritual_key, WONDER_RITUAL_MODE_IDS[mode]))
             lines.extend(map_replace_line("tv_wonder_ritual_id_to_cost_type", ritual_key, WONDER_RITUAL_COST_TYPE_IDS[cost_type]))
+            lines.extend(
+                map_replace_line(
+                    "tv_wonder_ritual_id_to_deferred_completion",
+                    ritual_key,
+                    1 if ritual_uses_deferred_completion(ritual_plan) else 0,
+                )
+            )
+            lines.extend(
+                map_replace_line(
+                    "tv_wonder_ritual_id_to_has_confirmation_trigger",
+                    ritual_key,
+                    1 if ritual_plan.get("confirmation_trigger_script") else 0,
+                )
+            )
+            lines.extend(
+                map_replace_line(
+                    "tv_wonder_ritual_id_to_has_custom_completion_trigger",
+                    ritual_key,
+                    1 if ritual_has_custom_completion_trigger(ritual_plan) else 0,
+                )
+            )
+            listeners = set(ritual_plan.get("listeners", []))
+            for listener in WONDER_RITUAL_LISTENER_KEYS:
+                lines.extend(
+                    map_replace_line(
+                        f"tv_wonder_ritual_id_to_listener_{listener}",
+                        ritual_key,
+                        1 if listener in listeners else 0,
+                    )
+                )
             final_building = f"building_type:{wonder['final_buildings'][style]}"
             lines.extend(map_replace_line(final_building_type_map_name(style), key, final_building))
 

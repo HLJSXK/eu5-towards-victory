@@ -9,11 +9,11 @@ REPO_ROOT = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
+    WONDER_RITUAL_COST_TYPE_IDS,
     ceremony_styles,
     final_building_for_style,
     load_all_wonder_mechanics_data,
     render_header,
-    ritual_plan_for_style,
     suitability_current_actual_variable,
     suitability_current_revealed_variable,
     suitability_knowledge_for_wonder,
@@ -121,17 +121,6 @@ def wonder_visible(wonder_id: int) -> str:
         f"And({PLAYER}.GetVariable('tv_wonder_locked').IsSet, {eq('tv_wonder_locked', wonder_id)}), "
         f"And3(Not({PLAYER}.GetVariable('tv_wonder_locked').IsSet), {PLAYER}.GetVariable('tv_wonder_proposal').IsSet, {eq('tv_wonder_proposal', wonder_id)})"
         ")]"
-    )
-
-
-def or_eq(var: str, values: list[int]) -> str:
-    return fold_bool("Or", [eq(var, value) for value in values])
-
-
-def ritual_pair_visible(pairs: list[tuple[int, int]]) -> str:
-    return fold_bool(
-        "Or",
-        [f"And({eq('tv_wonder_locked', wonder_id)}, {eq('tv_wonder_ceremony_style', style)})" for wonder_id, style in pairs],
     )
 
 
@@ -487,6 +476,13 @@ def hold_button_base_visible(max_wonder_id: int) -> str:
     )
 
 
+def selected_ritual_cost_visible(cost_type_id: int) -> str:
+    return (
+        f"And({PLAYER}.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, "
+        f"{eq('tv_wonder_selected_ritual_cost_type', cost_type_id)})"
+    )
+
+
 def hold_button(action_name: str, visible: str) -> str:
     return (
         f'{T}action_button_diamond = {{ visible = "[{visible}]" '
@@ -499,16 +495,6 @@ def hold_button(action_name: str, visible: str) -> str:
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics_data()
     max_wonder_id = max(wonder["id"] for wonder in wonders)
-    gold_ritual_pairs: list[tuple[int, int]] = []
-    prestige_ritual_pairs: list[tuple[int, int]] = []
-    for wonder in wonders:
-        for style in ceremony_styles(wonder):
-            ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
-            cost_type = ritual_plan["cost_type"]
-            if cost_type == "scaled_gold":
-                gold_ritual_pairs.append((wonder["id"], style))
-            elif cost_type == "prestige":
-                prestige_ritual_pairs.append((wonder["id"], style))
 
     lines = render_header(SCRIPT_REL)
     lines.append("### BEGIN TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
@@ -573,11 +559,14 @@ def generate() -> str:
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
     base_visible = hold_button_base_visible(max_wonder_id)
-    gold_pair_visible = ritual_pair_visible(gold_ritual_pairs)
-    prestige_pair_visible = ritual_pair_visible(prestige_ritual_pairs)
-    gold_visible = f"And({base_visible}, {gold_pair_visible})"
-    prestige_visible = f"And({base_visible}, {prestige_pair_visible})"
-    free_visible = f"And3({base_visible}, Not({gold_pair_visible}), Not({prestige_pair_visible}))"
+    gold_visible = f"And({base_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
+    prestige_visible = f"And({base_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
+    free_visible = (
+        f"And3({base_visible}, "
+        f"{PLAYER}.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, "
+        f"Not(Or({selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])}, "
+        f"{selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})))"
+    )
     lines.append(hold_button("tv_wonder_confirm_ceremony", free_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_scaled_gold", gold_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_prestige", prestige_visible))

@@ -2278,78 +2278,6 @@ tv_wonder_broadcast_generic_completion_event_effect = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
 		var:tv_wonder_site ?= { save_scope_as = tv_wonder_completed_site }
 	}
-	if = {
-		limit = { var:tv_wonder_locked ?= 1 }
-		save_scope_as = tv_wonder_completed_sacred
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 2 }
-		save_scope_as = tv_wonder_completed_axis
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 3 }
-		save_scope_as = tv_wonder_completed_port
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 4 }
-		save_scope_as = tv_wonder_completed_necropolis
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 5 }
-		save_scope_as = tv_wonder_completed_lighthouse
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 6 }
-		save_scope_as = tv_wonder_completed_hydraulic
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 7 }
-		save_scope_as = tv_wonder_completed_mining
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 8 }
-		save_scope_as = tv_wonder_completed_observatory
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 9 }
-		save_scope_as = tv_wonder_completed_palace
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 10 }
-		save_scope_as = tv_wonder_completed_university
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 11 }
-		save_scope_as = tv_wonder_completed_sky_dome
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 12 }
-		save_scope_as = tv_wonder_completed_tower_temple
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 13 }
-		save_scope_as = tv_wonder_completed_river
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 14 }
-		save_scope_as = tv_wonder_completed_shipyard
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 15 }
-		save_scope_as = tv_wonder_completed_star_fortress
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 16 }
-		save_scope_as = tv_wonder_completed_great_wall
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 17 }
-		save_scope_as = tv_wonder_completed_armory
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 18 }
-		save_scope_as = tv_wonder_completed_library
-	}
 	tv_wonder_mechanics_broadcast_generic_completion_event_effect = yes
 	every_country = {
 		limit = {
@@ -2458,16 +2386,20 @@ tv_wonder_complete_finalization_cleanup_effect = {
 	}
 }
 
+tv_wonder_complete_finalization_reward_and_cleanup_effect = {
+	tv_wonder_apply_completion_celebration_rewards_effect = yes
+	tv_wonder_reward_current_ruler_and_engineer_effect = yes
+	tv_wonder_apply_final_support_rewards_effect = yes
+	tv_wonder_complete_finalization_cleanup_effect = yes
+}
+
 tv_wonder_complete_generic_finalization_effect = {
 	if = {
 		limit = { has_variable = tv_wonder_finalization_preview_ready }
 		hidden_effect = {
 			tv_wonder_construct_generic_final_building_effect = yes
 			tv_wonder_apply_generic_base_modifier_effect = yes
-			tv_wonder_apply_completion_celebration_rewards_effect = yes
-			tv_wonder_reward_current_ruler_and_engineer_effect = yes
-			tv_wonder_apply_final_support_rewards_effect = yes
-			tv_wonder_complete_finalization_cleanup_effect = yes
+			tv_wonder_complete_finalization_reward_and_cleanup_effect = yes
 			tv_wonder_destroy_generic_intermediate_buildings_effect = yes
 			tv_wonder_broadcast_generic_completion_event_effect = yes
 			tv_wonder_cache_post_finalization_priority_effect = yes
@@ -2483,10 +2415,7 @@ tv_wonder_complete_unique_finalization_effect = {
 			tv_wonder_construct_unique_final_building_effect = yes
 			tv_wonder_apply_unique_base_modifier_effect = yes
 			tv_wonder_apply_unique_ceremony_modifier_effect = yes
-			tv_wonder_apply_completion_celebration_rewards_effect = yes
-			tv_wonder_reward_current_ruler_and_engineer_effect = yes
-			tv_wonder_apply_final_support_rewards_effect = yes
-			tv_wonder_complete_finalization_cleanup_effect = yes
+			tv_wonder_complete_finalization_reward_and_cleanup_effect = yes
 			tv_wonder_destroy_unique_intermediate_buildings_effect = yes
 			tv_wonder_broadcast_unique_completion_event_effect = yes
 			tv_wonder_cache_post_finalization_priority_effect = yes

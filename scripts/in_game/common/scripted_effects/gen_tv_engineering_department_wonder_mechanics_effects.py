@@ -30,6 +30,7 @@ from wonder_mechanics_lib import (
     suitability_current_actual_variable,
     suitability_current_revealed_variable,
     suitability_knowledge_for_wonder,
+    wonder_ritual_composite_id,
     wonder_suitability_row_composite_id,
 )
 
@@ -63,6 +64,25 @@ RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_total_buildings_baseline",
     "tv_wonder_ritual_current_total_buildings",
 ]
+COMPLETION_BROADCAST_SCOPE_ALIASES = {
+    "sacred_mountain": ["sacred"],
+    "triumphal_axis": ["axis"],
+    "great_port": ["port"],
+    "giant_necropolis": ["necropolis"],
+    "great_lighthouse": ["lighthouse"],
+    "hydraulic_workshop": ["hydraulic"],
+    "mining_city": ["mining"],
+    "giant_observatory": ["observatory"],
+    "palace_of_nations": ["palace"],
+    "university_city": ["university"],
+    "sky_dome_grand_temple": ["sky_dome"],
+    "giant_tower_temple": ["tower_temple"],
+    "river_extension": ["river"],
+    "national_shipyard": ["shipyard"],
+    "star_fortress_city": ["star_fortress"],
+    "giant_armory": ["armory"],
+    "library_of_nation": ["library"],
+}
 SUITABILITY_CONDITION_SCRIPTS = {
     "topography_mountains": "topography = mountains",
     "topography_plateau": "topography = plateau",
@@ -239,6 +259,11 @@ def ritual_entries(wonders: list[dict], mechanics: dict) -> list[tuple[dict, int
         for style in ceremony_styles(wonder):
             entries.append((wonder, style, ritual_plan_for_style(wonder, mechanics, style)))
     return entries
+
+
+def selected_ritual_limit(wonder: dict, style: int) -> str:
+    ritual_id = wonder_ritual_composite_id(int(wonder["id"]), int(style))
+    return f"var:tv_wonder_selected_ritual_id ?= {ritual_id}"
 
 
 def ritual_runtime_variables(ritual_plan: dict) -> list[str]:
@@ -529,42 +554,34 @@ def append_location_display_ritual_style_detection(lines: list[str], wonder: dic
 
 def append_location_display_push_effects(lines: list[str]) -> None:
     lines.append("tv_wonder_mechanics_push_location_display_slot_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ NOT = {{ has_variable = tv_wonder_display_count }} }}")
-    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_display_count value = 0 }}")
-    lines.append(f"{T}}}")
     for slot in range(1, DISPLAY_SLOT_MAX + 1):
         head = "if" if slot == 1 else "else_if"
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_display_count < {slot} }}")
+        lines.append(f"{T}{T}limit = {{ NOT = {{ has_variable = {slot_id_var(slot)} }} }}")
         lines.append(f"{T}{T}set_variable = {{ name = {slot_id_var(slot)} value = $wonder_id$ }}")
         lines.append(f"{T}{T}set_variable = {{ name = {slot_level_var(slot)} value = $wonder_level$ }}")
         lines.append(f"{T}{T}set_variable = {{ name = {slot_ritual_style_var(slot)} value = $wonder_ritual_style$ }}")
-        lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_display_count add = 1 }}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_mechanics_push_location_tooltip_slot_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ NOT = {{ has_variable = tv_wonder_tooltip_fill_count }} }}")
-    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_tooltip_fill_count value = 0 }}")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ NOT = {{ has_variable = tv_wonder_tooltip_overflow_count }} }}")
-    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_tooltip_overflow_count value = 0 }}")
-    lines.append(f"{T}}}")
     for slot in range(1, TOOLTIP_SLOT_MAX + 1):
         head = "if" if slot == 1 else "else_if"
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_tooltip_fill_count < {slot} }}")
+        lines.append(f"{T}{T}limit = {{ NOT = {{ has_variable = {tooltip_slot_id_var(slot)} }} }}")
         lines.append(f"{T}{T}set_variable = {{ name = {tooltip_slot_id_var(slot)} value = $wonder_id$ }}")
         lines.append(f"{T}{T}set_variable = {{ name = {tooltip_slot_level_var(slot)} value = $wonder_level$ }}")
         lines.append(f"{T}{T}set_variable = {{ name = {tooltip_slot_ritual_style_var(slot)} value = $wonder_ritual_style$ }}")
-        lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_tooltip_fill_count add = 1 }}")
         lines.append(f"{T}}}")
     lines.append(f"{T}else = {{")
-    lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_tooltip_overflow_count add = 1 }}")
+    lines.append(f"{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}limit = {{ has_variable = tv_wonder_tooltip_overflow_count }}")
+    lines.append(f"{T}{T}{T}change_variable = {{ name = tv_wonder_tooltip_overflow_count add = 1 }}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}else = {{")
+    lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_tooltip_overflow_count value = 1 }}")
+    lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -573,9 +590,15 @@ def append_location_display_push_effects(lines: list[str]) -> None:
 def append_location_display_clear_effect(lines: list[str], all_wonders: list[dict]) -> None:
     lines.append("tv_wonder_mechanics_clear_location_display_state_effect = {")
     lines.append(f"{T}remove_variable = tv_wonder_display_id")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_display_count value = 0 }}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_display_count }}")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_display_count")
+    lines.append(f"{T}}}")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 0 }}")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_tooltip_fill_count value = 0 }}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_tooltip_fill_count }}")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_tooltip_fill_count")
+    lines.append(f"{T}}}")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_tooltip_overflow_count value = 0 }}")
     for slot in range(1, DISPLAY_SLOT_MAX + 1):
         lines.append(f"{T}remove_variable = {slot_id_var(slot)}")
@@ -638,7 +661,6 @@ def append_location_display_effects(
         append_location_display_wonder_projection(lines, wonder, compact=True)
     for wonder in generic_wonders:
         append_location_display_wonder_projection(lines, wonder, compact=True)
-    lines.append(f"{T}remove_variable = tv_wonder_tooltip_fill_count")
     lines.append("}")
     lines.append("")
 
@@ -1085,7 +1107,9 @@ def append_completion_broadcast_scope_effect(lines: list[str], name: str, wonder
         head = "if" if idx == 0 else "else_if"
         lines.append(f"{T}{head} = {{")
         lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}save_scope_as = tv_wonder_completed_{wonder['key']}")
+        scope_keys = [wonder["key"], *COMPLETION_BROADCAST_SCOPE_ALIASES.get(wonder["key"], [])]
+        for scope_key in dict.fromkeys(scope_keys):
+            lines.append(f"{T}{T}save_scope_as = tv_wonder_completed_{scope_key}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -1319,7 +1343,7 @@ def generate() -> str:
         head = "if" if first else "else_if"
         first = False
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
         for variable in custom_variables:
             lines.append(f"{T}{T}remove_variable = {variable}")
         lines.append(f"{T}}}")
@@ -1334,7 +1358,7 @@ def generate() -> str:
         head = "if" if first else "else_if"
         first = False
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
         lines.extend(snapshot_ritual_payload_lines(ritual_plan, 2))
         lines.append(f"{T}}}")
     lines.append("}")
@@ -1348,7 +1372,7 @@ def generate() -> str:
         head = "if" if first else "else_if"
         first = False
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
         lines.extend(progress_ritual_payload_lines(ritual_plan, 2))
         lines.append(f"{T}}}")
     lines.append("}")
@@ -1363,7 +1387,7 @@ def generate() -> str:
         first = False
         timed = ritual_plan.get("timed", {})
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
         lines.append(f"{T}{T}tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_in_progress value = 1 }}")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
@@ -1391,7 +1415,7 @@ def generate() -> str:
         head = "if" if first else "else_if"
         first = False
         lines.append(f"{T}{T}{T}{head} = {{")
-        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }} }}")
+        lines.append(f"{T}{T}{T}{T}limit = {{ prev = {{ {selected_ritual_limit(wonder, style)} }} }}")
         lines.append(f"{T}{T}{T}{T}construct_building = {{ building_type = building_type:{ritual_auxiliary_building(wonder)} }}")
         lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
@@ -1399,7 +1423,7 @@ def generate() -> str:
         if ritual_plan["mode"] != "auxiliary_building":
             continue
         lines.append(f"{T}{T}if = {{")
-        lines.append(f"{T}{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
         lines.extend(indent_script_block(ritual_plan.get("start_effect_script", ""), 3))
         lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
@@ -1428,7 +1452,7 @@ def generate() -> str:
         head = "if" if first else "else_if"
         first = False
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
         lines.append(f"{T}{T}tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_in_progress value = 1 }}")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
@@ -1447,7 +1471,7 @@ def generate() -> str:
         head = "if" if first else "else_if"
         first = False
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
         lines.extend(immediate_ritual_payload_lines(ritual_plan, 2))
         lines.append(f"{T}}}")
     lines.append("}")
@@ -1461,7 +1485,7 @@ def generate() -> str:
         head = "if" if first else "else_if"
         first = False
         lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
         lines.extend(completion_ritual_payload_lines(wonder, ritual_plan, 2))
         lines.append(f"{T}}}")
     lines.append("}")

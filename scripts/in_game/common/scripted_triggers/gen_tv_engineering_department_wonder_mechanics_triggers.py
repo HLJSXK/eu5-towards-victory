@@ -10,16 +10,15 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from wonder_mechanics_lib import (
     PARTS,
     WONDER_RITUAL_COST_TYPE_IDS,
+    WONDER_RITUAL_LISTENER_KEYS,
     WONDER_RITUAL_MODE_IDS,
     ceremony_styles,
     indent_script_block,
     load_all_wonder_mechanics,
     render_header,
-    ritual_has_custom_completion_trigger,
-    ritual_listens_to,
     ritual_plan_for_style,
-    ritual_uses_deferred_completion,
     site_trigger_lines_for_wonder,
+    wonder_ritual_composite_id,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers" / "tv_engineering_department_wonder_mechanics_triggers.txt"
@@ -213,43 +212,6 @@ def add_project_occupancy_triggers(lines: list[str], wonders: list[dict]) -> Non
     lines.append("")
 
 
-def grouped_selected_trigger(
-    name: str,
-    wonders: list[dict],
-    mechanics: dict,
-    predicate,
-    *,
-    include_confirmation_script: bool = False,
-) -> list[str]:
-    lines = [f"{name} = {{", f"{T}tv_wonder_has_selected_ceremony_trigger = yes"]
-    matched = False
-    for wonder in wonders:
-        for style in ceremony_styles(wonder):
-            ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
-            if not predicate(wonder, style, ritual_plan):
-                continue
-            head = "trigger_if" if not matched else "trigger_else_if"
-            matched = True
-            lines.append(f"{T}{head} = {{")
-            lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
-            if include_confirmation_script:
-                confirmation_lines = indent_script_block(ritual_plan.get("confirmation_trigger_script", ""), 2)
-                if confirmation_lines:
-                    lines.extend(confirmation_lines)
-                else:
-                    lines.append(f"{T}{T}always = yes")
-            else:
-                lines.append(f"{T}{T}always = yes")
-            lines.append(f"{T}}}")
-    if matched:
-        lines.append(f"{T}trigger_else = {{ always = no }}")
-    else:
-        lines.append(f"{T}always = no")
-    lines.append("}")
-    lines.append("")
-    return lines
-
-
 def has_any_key_in_map_trigger(map_name: str, indent: int) -> list[str]:
     prefix = T * indent
     return [
@@ -270,6 +232,40 @@ def selected_ritual_attribute_trigger(name: str, cache_var: str, expected_value:
         "}",
         "",
     ]
+
+
+def selected_ritual_id_limit(wonder: dict, style: int) -> str:
+    return f"var:tv_wonder_selected_ritual_id ?= {wonder_ritual_composite_id(int(wonder['id']), int(style))}"
+
+
+def selected_ritual_script_trigger(
+    name: str,
+    wonders: list[dict],
+    mechanics: dict,
+    *,
+    script_field: str,
+) -> list[str]:
+    lines = [f"{name} = {{", f"{T}tv_wonder_has_selected_ceremony_trigger = yes"]
+    matched = False
+    for wonder in wonders:
+        for style in ceremony_styles(wonder):
+            ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
+            script_lines = indent_script_block(ritual_plan.get(script_field, ""), 2)
+            if not script_lines:
+                continue
+            head = "trigger_if" if not matched else "trigger_else_if"
+            matched = True
+            lines.append(f"{T}{head} = {{")
+            lines.append(f"{T}{T}limit = {{ {selected_ritual_id_limit(wonder, style)} }}")
+            lines.extend(script_lines)
+            lines.append(f"{T}}}")
+    if matched:
+        lines.append(f"{T}trigger_else = {{ always = no }}")
+    else:
+        lines.append(f"{T}always = no")
+    lines.append("}")
+    lines.append("")
+    return lines
 
 
 def append_id_dispatch_trigger(
@@ -323,45 +319,6 @@ def append_site_rule_dispatch_triggers(lines: list[str], wonders: list[dict]) ->
         ),
         target_line=lambda wonder: f"tv_wonder_location_can_host_{wonder['key']}_trigger = yes",
     )
-
-
-def completion_trigger_lines(ritual_plan: dict, indent: int) -> list[str]:
-    if ritual_has_custom_completion_trigger(ritual_plan):
-        return indent_script_block(ritual_plan.get("completion_trigger_script", ""), indent)
-
-    prefix = T * indent
-    if ritual_plan["mode"] == "timed":
-        return [f"{prefix}NOT = {{ has_variable = tv_wonder_ritual_timer }}"]
-    if ritual_plan["mode"] == "auxiliary_building":
-        return [f"{prefix}has_variable = tv_wonder_ritual_auxiliary_building_finished"]
-    return [f"{prefix}always = yes"]
-
-
-def grouped_selected_completion_trigger(name: str, wonders: list[dict], mechanics: dict) -> list[str]:
-    lines = [f"{name} = {{", f"{T}tv_wonder_has_selected_ceremony_trigger = yes"]
-    matched = False
-    for wonder in wonders:
-        for style in ceremony_styles(wonder):
-            ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
-            if not ritual_uses_deferred_completion(ritual_plan):
-                continue
-            head = "trigger_if" if not matched else "trigger_else_if"
-            matched = True
-            lines.append(f"{T}{head} = {{")
-            lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
-            completion_lines = completion_trigger_lines(ritual_plan, 2)
-            if completion_lines:
-                lines.extend(completion_lines)
-            else:
-                lines.append(f"{T}{T}always = yes")
-            lines.append(f"{T}}}")
-    if matched:
-        lines.append(f"{T}trigger_else = {{ always = no }}")
-    else:
-        lines.append(f"{T}always = no")
-    lines.append("}")
-    lines.append("")
-    return lines
 
 
 def generate() -> str:
@@ -450,14 +407,12 @@ def generate() -> str:
             WONDER_RITUAL_MODE_IDS["immediate"],
         )
     )
-    lines.extend(
-        grouped_selected_trigger(
-            "tv_wonder_selected_deferred_immediate_ritual_trigger",
-            all_wonders,
-            mechanics,
-            lambda _wonder, _style, ritual_plan: ritual_plan["mode"] == "immediate" and ritual_uses_deferred_completion(ritual_plan),
-        )
-    )
+    lines.append("tv_wonder_selected_deferred_immediate_ritual_trigger = {")
+    lines.append(f"{T}tv_wonder_selected_generic_immediate_ritual_trigger = yes")
+    lines.append(f"{T}has_variable = tv_wonder_selected_ritual_deferred_completion")
+    lines.append(f"{T}var:tv_wonder_selected_ritual_deferred_completion ?= 1")
+    lines.append("}")
+    lines.append("")
     lines.extend(
         selected_ritual_attribute_trigger(
             "tv_wonder_selected_generic_no_decoration_cost_ritual_trigger",
@@ -488,47 +443,63 @@ def generate() -> str:
     )
 
     lines.extend(
-        grouped_selected_trigger(
-            "tv_wonder_selected_ritual_confirmation_requirements_met_trigger",
+        selected_ritual_script_trigger(
+            "tv_wonder_selected_ritual_custom_confirmation_requirements_met_trigger",
             all_wonders,
             mechanics,
-            lambda _wonder, _style, _ritual_plan: True,
-            include_confirmation_script=True,
+            script_field="confirmation_trigger_script",
         )
     )
+    lines.append("tv_wonder_selected_ritual_confirmation_requirements_met_trigger = {")
+    lines.append(f"{T}tv_wonder_has_selected_ceremony_trigger = yes")
+    lines.append(f"{T}trigger_if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_selected_ritual_has_confirmation_trigger")
+    lines.append(f"{T}{T}{T}var:tv_wonder_selected_ritual_has_confirmation_trigger ?= 1")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}tv_wonder_selected_ritual_custom_confirmation_requirements_met_trigger = yes")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else = {{ always = yes }}")
+    lines.append("}")
+    lines.append("")
+
+    for listener in WONDER_RITUAL_LISTENER_KEYS:
+        lines.extend(
+            selected_ritual_attribute_trigger(
+                f"tv_wonder_selected_ritual_{listener}_listener_trigger",
+                f"tv_wonder_selected_ritual_listener_{listener}",
+                1,
+            )
+        )
+
     lines.extend(
-        grouped_selected_trigger(
-            "tv_wonder_selected_ritual_monthly_listener_trigger",
+        selected_ritual_script_trigger(
+            "tv_wonder_selected_ritual_custom_completion_requirements_met_trigger",
             all_wonders,
             mechanics,
-            lambda _wonder, _style, ritual_plan: ritual_listens_to(ritual_plan, "monthly"),
+            script_field="completion_trigger_script",
         )
     )
-    lines.extend(
-        grouped_selected_trigger(
-            "tv_wonder_selected_ritual_ruler_death_listener_trigger",
-            all_wonders,
-            mechanics,
-            lambda _wonder, _style, ritual_plan: ritual_listens_to(ritual_plan, "ruler_death"),
-        )
-    )
-    lines.extend(
-        grouped_selected_trigger(
-            "tv_wonder_selected_ritual_pre_winning_war_listener_trigger",
-            all_wonders,
-            mechanics,
-            lambda _wonder, _style, ritual_plan: ritual_listens_to(ritual_plan, "pre_winning_war"),
-        )
-    )
-    lines.extend(
-        grouped_selected_trigger(
-            "tv_wonder_selected_ritual_ending_war_listener_trigger",
-            all_wonders,
-            mechanics,
-            lambda _wonder, _style, ritual_plan: ritual_listens_to(ritual_plan, "ending_war"),
-        )
-    )
-    lines.extend(grouped_selected_completion_trigger("tv_wonder_selected_ritual_completion_requirements_met_trigger", all_wonders, mechanics))
+    lines.append("tv_wonder_selected_ritual_completion_requirements_met_trigger = {")
+    lines.append(f"{T}tv_wonder_has_selected_ceremony_trigger = yes")
+    lines.append(f"{T}trigger_if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_selected_ritual_has_custom_completion_trigger")
+    lines.append(f"{T}{T}{T}var:tv_wonder_selected_ritual_has_custom_completion_trigger ?= 1")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}tv_wonder_selected_ritual_custom_completion_requirements_met_trigger = yes")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else_if = {{")
+    lines.append(f"{T}{T}limit = {{ tv_wonder_selected_generic_timed_ritual_trigger = yes }}")
+    lines.append(f"{T}{T}NOT = {{ has_variable = tv_wonder_ritual_timer }}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else_if = {{")
+    lines.append(f"{T}{T}limit = {{ tv_wonder_selected_generic_auxiliary_building_ritual_trigger = yes }}")
+    lines.append(f"{T}{T}has_variable = tv_wonder_ritual_auxiliary_building_finished")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}trigger_else = {{ always = yes }}")
+    lines.append("}")
+    lines.append("")
 
     lines.append("tv_wonder_ceremony_ready_for_confirmation_trigger = {")
     lines.append(f"{T}tv_wonder_has_selected_ceremony_trigger = yes")
