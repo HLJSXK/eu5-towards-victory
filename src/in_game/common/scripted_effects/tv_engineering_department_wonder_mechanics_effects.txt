@@ -6265,15 +6265,6 @@ tv_wonder_mechanics_apply_generic_base_modifier_effect = {
 		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_giant_tower_temple_level_6 years = -1 mode = add_and_extend } }
 	}
 	else_if = {
-		limit = { var:tv_wonder_locked ?= 13 }
-		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_river_extension_level_1 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 2 } add_country_modifier = { modifier = tv_wonder_river_extension_level_2 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 3 } add_country_modifier = { modifier = tv_wonder_river_extension_level_3 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 4 } add_country_modifier = { modifier = tv_wonder_river_extension_level_4 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_river_extension_level_5 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_river_extension_level_6 years = -1 mode = add_and_extend } }
-	}
-	else_if = {
 		limit = { var:tv_wonder_locked ?= 14 }
 		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_national_shipyard_level_1 years = -1 mode = add_and_extend } }
 		else_if = { limit = { var:tv_wonder_level ?= 2 } add_country_modifier = { modifier = tv_wonder_national_shipyard_level_2 years = -1 mode = add_and_extend } }
@@ -6508,15 +6499,6 @@ tv_wonder_mechanics_apply_generic_base_modifier_effect = {
 		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_world_monument_group_level_6 years = -1 mode = add_and_extend } }
 	}
 	else_if = {
-		limit = { var:tv_wonder_locked ?= 40 }
-		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_city_expansion_project_level_1 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 2 } add_country_modifier = { modifier = tv_wonder_city_expansion_project_level_2 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 3 } add_country_modifier = { modifier = tv_wonder_city_expansion_project_level_3 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 4 } add_country_modifier = { modifier = tv_wonder_city_expansion_project_level_4 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_city_expansion_project_level_5 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_city_expansion_project_level_6 years = -1 mode = add_and_extend } }
-	}
-	else_if = {
 		limit = { var:tv_wonder_locked ?= 41 }
 		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_megalithic_circle_level_1 years = -1 mode = add_and_extend } }
 		else_if = { limit = { var:tv_wonder_level ?= 2 } add_country_modifier = { modifier = tv_wonder_megalithic_circle_level_2 years = -1 mode = add_and_extend } }
@@ -6698,15 +6680,6 @@ tv_wonder_mechanics_apply_unique_base_modifier_effect = {
 		else_if = { limit = { var:tv_wonder_level ?= 4 } add_country_modifier = { modifier = tv_wonder_unique_versailles_palace_level_4 years = -1 mode = add_and_extend } }
 		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_unique_versailles_palace_level_5 years = -1 mode = add_and_extend } }
 		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_unique_versailles_palace_level_6 years = -1 mode = add_and_extend } }
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 118 }
-		if = { limit = { var:tv_wonder_level ?= 1 } add_country_modifier = { modifier = tv_wonder_unique_tenochtitlan_causeways_level_1 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 2 } add_country_modifier = { modifier = tv_wonder_unique_tenochtitlan_causeways_level_2 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 3 } add_country_modifier = { modifier = tv_wonder_unique_tenochtitlan_causeways_level_3 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 4 } add_country_modifier = { modifier = tv_wonder_unique_tenochtitlan_causeways_level_4 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 5 } add_country_modifier = { modifier = tv_wonder_unique_tenochtitlan_causeways_level_5 years = -1 mode = add_and_extend } }
-		else_if = { limit = { var:tv_wonder_level ?= 6 } add_country_modifier = { modifier = tv_wonder_unique_tenochtitlan_causeways_level_6 years = -1 mode = add_and_extend } }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 119 }

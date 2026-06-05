@@ -1062,9 +1062,13 @@ def append_survey_cache_transfer_effects(lines: list[str], max_rows: int) -> Non
     lines.append("")
 
 
-def append_base_modifier_effect(lines: list[str], name: str, wonders: list[dict]) -> None:
+def append_base_modifier_effect(lines: list[str], name: str, wonders: list[dict], mechanics: dict) -> None:
     lines.append(f"{name} = {{")
-    for idx, wonder in enumerate(wonders):
+    applicable_wonders = [
+        wonder for wonder in wonders
+        if mechanics["base_modifiers"][mechanic_key(wonder)]
+    ]
+    for idx, wonder in enumerate(applicable_wonders):
         head = "if" if idx == 0 else "else_if"
         lines.append(f"{T}{head} = {{")
         lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
@@ -1312,8 +1316,8 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    append_base_modifier_effect(lines, "tv_wonder_mechanics_apply_generic_base_modifier_effect", generic_wonders)
-    append_base_modifier_effect(lines, "tv_wonder_mechanics_apply_unique_base_modifier_effect", unique_wonders)
+    append_base_modifier_effect(lines, "tv_wonder_mechanics_apply_generic_base_modifier_effect", generic_wonders, mechanics)
+    append_base_modifier_effect(lines, "tv_wonder_mechanics_apply_unique_base_modifier_effect", unique_wonders, mechanics)
     lines.append("tv_wonder_mechanics_apply_base_modifier_effect = {")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ tv_wonder_unique_locked_trigger = yes }}")
