@@ -1183,6 +1183,16 @@
   source: "User-provided Variable maps reference excerpt, 2026-06-04; TV runtime test with Engineering Department wonder helper building probes"
   notes: "Quoted variable-map expressions are reliable for entering the mapped value scope on the left side. Runtime tests found direct RHS use unreliable for value extraction or comparisons, e.g. building_type = \"variable_map(...)\" inside a later location/building scope. Cache the mapped value before entering the later scope."
 
+- id: variable_map_rebuild_on_read_path
+  pattern: ''
+  detectability: advisory
+  bad: "Calling a variable-map/global-map rebuild effect from GUI refresh, country cache refresh, tooltip/projection, selection, monthly read, or other hot/read paths as a compatibility fallback"
+  correction: "Build global variable-map indexes only at lifecycle points: startup, save-load, schema/version migration, data-change regeneration, or explicit initialization. If a read misses a map, fix the lifecycle hook or the call order that reads before initialization."
+  category: performance
+  scope: variable_map
+  source: "Engineering Department locked-wonder image fix review, 2026-06-05"
+  notes: "A locked-wonder image bug was caused by refreshing the locked cache before tv_wonder_stage was set to debate. Adding tv_wonder_index_rebuild_global_maps_if_needed_effect to every country-cache refresh would hide the ordering bug and charge all refresh callers for a defensive global-map check."
+
 - id: variable_map_callback_root_in_generic_action
   pattern: ''
   detectability: needs_parser

@@ -518,6 +518,14 @@ the four module parts, and use a direct map keyed by already-existing wonder sta
 
 If the mapped value needs to persist on the current scope, use `set_variable = { name = X value = "variable_map(...)" }` first, then read `var:X` from that same owning scope or capture it into a local variable before switching scopes.
 
+Do not compensate for missing variable-map data by rebuilding maps from read paths. Global
+map indexes belong to lifecycle effects: startup, save-load, schema/version migration,
+data-change regeneration, and explicit initialization. GUI refresh, country cache refresh,
+tooltip/projection effects, selection handlers, and monthly readers are hot paths; adding
+`*_rebuild_*_maps*_effect` calls there hides ordering bugs and makes every read pay for a
+global compatibility check. If a cache read sees an uninitialized map, fix the lifecycle
+hook or move the dependent state write earlier so the existing refresh condition is true.
+
 Variable maps can be iterated over their keys. Use `every_key_in_variable_map` or `ordered_key_in_variable_map` as effects, and `any_key_in_variable_map` as a trigger; use the `global_` and `local_` variants for global/local maps. Inside a key iterator, `this` is the current key. Enter the mapped value through the scope link:
 
 ```pdx

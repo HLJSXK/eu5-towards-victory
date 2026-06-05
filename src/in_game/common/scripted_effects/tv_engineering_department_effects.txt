@@ -831,6 +831,7 @@ tv_wonder_accept_proposal_effect = {
 			limit = { var:tv_wonder_proposal ?= { this >= 1 } }
 			tv_wonder_clear_current_survey_effect = yes
 			set_variable = { name = tv_wonder_locked value = var:tv_wonder_proposal }
+			set_variable = { name = tv_wonder_stage value = 1 }
 			tv_wonder_index_refresh_country_cache_effect = yes
 			if = {
 				limit = { has_variable = tv_wonder_proposal_mode }
@@ -838,7 +839,6 @@ tv_wonder_accept_proposal_effect = {
 			}
 			tv_wonder_clear_current_proposal_effect = yes
 			remove_variable = tv_wonder_priority_found
-			set_variable = { name = tv_wonder_stage value = 1 }
 			tv_wonder_reset_io_progress_effect = yes
 			if = {
 				limit = { tv_wonder_unique_locked_trigger = yes }

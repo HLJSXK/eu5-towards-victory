@@ -84,6 +84,12 @@ For the categories below, you MUST go to Step 2 or 3 before writing any code. No
   Setting `set_local_variable` before entering `var:X ?= {}` / a location scope and
   reading `local_var:X` inside that nested scope is valid; the separate bad pattern is
   creating the local inside the dynamic scope and reading it outward through `prev = {}`.
+- **No defensive map rebuilds on read paths** — `variable_map` / `global_variable_map`
+  indexes must be built at lifecycle points: startup, save-load, schema/version migration,
+  data-change regeneration, or explicit initialization effects. Do not add
+  `*_rebuild_*_maps*_effect` calls to GUI refresh, country cache refresh, tooltip,
+  projection, selection, monthly read, or other hot/read paths as a compatibility fallback.
+  If a map is missing, fix the lifecycle hook or the call-order bug that reads before init.
 - **`select_trigger` pre-evaluation** — EU5 pre-evaluates a generic action's `effect` block at each selection step before the user confirms: after step 1 only the first `target_flag` scope is set; after step 2 the character is set but any variables that would be written by the effect itself (e.g. `tv_governed_area`) do not yet exist on the character. Guard multi-step effects with `if = { limit = { exists = scope:target  exists = scope:target_1 } }` and use `?=` on any variable access that may be absent on a freshly selected character.
 - **Wonder/building effect split** — EU5 building `modifier` and `raw_modifier` are local; `capital_country_modifier` only applies country effects when the building is in the capital. Engineering Department wonders may be outside the capital, so put designed local effects on final/helper buildings (`modifier` for per-level local effects, `raw_modifier` for flat local ceremony effects) and apply all national/global wonder effects through permanent country modifiers during finalization. Never put global effects directly on wonder buildings.
 
