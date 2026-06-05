@@ -374,15 +374,15 @@ request_elector_status = {
 		}
 		if = {
 			limit = {
-				scope:actor.great_power_score > 0
-				scope:recipient.great_power_score > 0
+				scope:actor.country_economical_base > 0
+				scope:recipient.country_economical_base > 0
 			}
 			if = {
-				limit = { scope:actor.great_power_score < scope:recipient.great_power_score }
+				limit = { scope:actor.country_economical_base < scope:recipient.country_economical_base }
 				subtract = {
-					desc = "RELATIVE_GREAT_POWER_SCORE"
-					value = scope:actor.great_power_score
-					divide = scope:recipient.great_power_score
+					desc = "RELATIVE_ECONOMICAL_BASE"
+					value = scope:actor.country_economical_base
+					divide = scope:recipient.country_economical_base
 					multiply = 100
 					if = {
 						limit = {
@@ -401,9 +401,9 @@ request_elector_status = {
 			}
 			else = {
 				add = {
-					desc = "RELATIVE_GREAT_POWER_SCORE"
-					value = scope:recipient.great_power_score
-					divide = scope:actor.great_power_score
+					desc = "RELATIVE_ECONOMICAL_BASE"
+					value = scope:recipient.country_economical_base
+					divide = scope:actor.country_economical_base
 					multiply = 100
 					min = -50
 					max = 50
@@ -867,6 +867,7 @@ bestow_kingdom_title = {
 			is_member_of_international_organization = international_organization:hre
 			country_rank_level = 2
 			government_type = government_type:monarchy
+			is_subject = no
 			OR = {
 				NOT = { has_global_variable_map = hre_kingdoms_map }
 				NOT = { is_value_in_global_variable_map = { name = hre_kingdoms_map target = root } }
@@ -928,6 +929,7 @@ request_kingdom_title = {
 			is_member_of_international_organization = international_organization:hre
 			country_rank_level = 2
 			government_type = government_type:monarchy
+			is_subject = no
 			OR = {
 				NOT = { has_global_variable_map = hre_kingdoms_map }
 				NOT = { is_value_in_global_variable_map = { name = hre_kingdoms_map target = scope:actor } }
@@ -978,12 +980,32 @@ request_kingdom_title = {
 			scope:actor.capital = { is_in_scripted_geography = root }
 		}
 		enabled = {
-			any_location_in_scripted_geography = {
-				OR = {
-					is_ownable = no
-					owner = scope:actor
+			OR = {
+				any_location_in_scripted_geography = {
+					OR = {
+						is_ownable = no
+						owner = scope:actor
+					}
+					percent >= 0.5
 				}
-				percent >= 0.5
+				AND = {
+					custom_tooltip = {
+						text = gag_ghibellines_winner_may_request_kingdom_of_italy_title_tt
+						scope:actor = {
+							has_variable = gag_ghibellines_winner_may_request_kingdom_of_italy_title
+						}
+					}
+					scope:target ?= {
+						this = scripted_geography:kingdom_of_italy_geography
+					}
+					any_location_in_scripted_geography = {
+						OR = {
+							is_ownable = no
+							owner = scope:actor
+						}
+						percent >= 0.1
+					}
+				}
 			}
 		}
 	}
@@ -1095,6 +1117,7 @@ ask_for_dukedom = {
 		scope:actor = {
 			is_member_of_international_organization = international_organization:hre
 			country_rank_level < 2
+			is_subject = no
 		}
 	}
 	allow = {
@@ -1213,6 +1236,7 @@ elevate_county = {
 		visible = {
 			is_member_of_international_organization = international_organization:hre
 			country_rank_level < 2
+			is_subject = no
 			can_upgrade_country_rank = { rank = rank_duchy }
 		}
         enabled = {
@@ -1500,6 +1524,7 @@ enforce_landfriede = {
 	type = diplomacy
 	category = CATEGORY_HRE_ACTIONS
 	potential = {
+		exists = international_organization:hre
 		scope:actor = {
 			modifier:allow_landfriede = yes
 			is_emperor = yes
@@ -1529,6 +1554,10 @@ enforce_landfriede = {
 				defender_leader = { is_member_of_international_organization = international_organization:hre }
 			}
 			NOT = { is_at_war_with = scope:actor }
+			scope:actor = {
+				NOT = { has_truce_with = root }
+				NOT = { in_union_with = root }
+			}
 		}
 	}
 	select_trigger = {
@@ -1537,8 +1566,12 @@ enforce_landfriede = {
 		target_flag = target
 		name = "enforce_landfriede_select_title"
 		none_available_msg_key = "enforce_landfriede_no_wars"
+		default_sort = select_target_acceptance_total
 		column = {
 			data = name
+		}
+		column = {
+			data = select_target_acceptance_total
 		}
 		visible = {
 			attacker_leader = scope:recipient
@@ -1550,6 +1583,16 @@ enforce_landfriede = {
 				casus_belli ?= {
 					NOT = { has_tag = cannot_be_enforced_peace_on }
 				}
+			}
+		}
+	}
+	cooldown = {
+		type = enforce_landfriede
+		years = {
+			value = 5
+			if = {
+				limit = { scope:actor.modifier:landfriede_flat_cost >= -5 }
+				add = scope:actor.modifier:landfriede_cooldown
 			}
 		}
 	}
@@ -1566,20 +1609,140 @@ enforce_landfriede = {
 		else = { custom_tooltip = select_a_war_to_leave }
 		scope:recipient = { add_opinion = { target = scope:actor modifier = opinion_forced_landfriede_upon } }
 	}
-	cooldown = {
-		type = enforce_landfriede
-		years = {
-			value = 5
-			if = {
-				limit = { scope:actor.modifier:landfriede_flat_cost >= -5 }
-				add = scope:actor.modifier:landfriede_cooldown
+	reject_effect = {
+		pay_gold_org_country_effect = {
+			international_organization = international_organization:hre
+			country = scope:actor
+			value = enforce_landfriede_cost
+		}
+		scope:actor = {
+			add_prestige = prestige_mild_penalty
+			join_war_against = {
+				war = scope:target
+				target = scope:recipient 
+				call_in_subjects = yes
+				ignore_rules = yes
+				notify_opposing_side = yes
 			}
 		}
 	}
 	ai_will_do = {
+		subtract = {
+			desc = "VOTE_BASE_VALUE"
+			value = 10
+		}
+		if = {
+			limit = { scope:actor = { at_war = yes } }
+			subtract = {
+				desc = "IS_AT_WAR"
+				value = 200
+			}
+		}
+		if = {
+			limit = { scope:actor = { is_during_bankruptcy = yes } }
+			subtract = {
+				desc = "IS_BANKRUPT_TOOLTIP"
+				value = 1000
+			}
+		}
+		subtract = {
+			desc = "DIPLOREASON_NUM_OF_LOANS"
+			value = scope:actor.num_loans
+			multiply = 25
+		}
+		if = {
+			limit = { exists = scope:recipient }
+			if = {
+				limit = {
+					scope:actor = {
+						OR = {
+							wants_to_attack = scope:recipient
+							country_interaction_acceptance = {
+								type = country_interaction:enforce_landfriede
+								target = scope:recipient
+								value > 0
+							}
+						}
+					}
+				}
+				add = {
+					desc = "WANTS_TO_CONTAIN_TARGET"
+					value = 100
+				}
+			}
+			if = {
+				limit = { scope:recipient = { is_rival_of = scope:actor } }
+				add = {
+					desc = "game_concept_rival"
+					value = 50
+				}
+			}
+			if = {
+				limit = { scope:recipient = { is_enemy_of = scope:actor } }
+				add = {
+					desc = "game_concept_enemy"
+					value = 15
+				}
+			}
+			add = {
+				desc = "DIPLOREASON_ANTAGONISM"
+				value = "scope:actor.antagonism(scope:recipient)"
+				multiply = 1.75
+			}
+			if = {
+				limit = {
+					scope:recipient.military_strength > scope:actor.military_strength
+				}
+				add = {
+					desc = "MILITARY_STRENGTH_IN_COMPARISON_TO_TARGET"
+					value = scope:actor.military_strength
+					subtract = {
+						value = scope:recipient.military_strength
+						multiply = 1.5
+					}
+				}
+			}
+			if = {
+				limit = { exists = scope:target }
+				add = {
+					desc = "OPINION_OF_DEFENDER_IN_COMPARISON_TO_TARGET"
+					value = "scope:actor.opinion(scope:target.defender_leader)"
+					multiply = 2
+					subtract = "scope:actor.opinion(scope:recipient)"
+				}
+			}
+		}
+	}
+	accept = {
+		subtract = {
+			desc = "VOTE_BASE_VALUE"
+			value = 10
+		}
+		add = hre_default_diplo_action_acceptance
+		if = {
+			limit = { scope:recipient = { is_member_of_international_organization = international_organization:hre } }
+			add = {
+				desc = "imperial_authority"
+				value = international_organization:hre.var:imperial_authority
+			}
+		}
 		add = {
-			desc = "POLICY_BIAS_GOOD_IDEA"
-			value = 20
+			desc = "MILITARY_STRENGTH_IN_COMPARISON_TO_ACTOR"
+			value = scope:actor.military_strength
+			subtract = scope:recipient.military_strength
+		}
+		if = {
+			limit = { exists = scope:target }
+			subtract = {
+				desc = "DIPLOREASON_WARSCORE"
+				value = "scope:recipient.war_score_in_war(scope:target)"
+				multiply = 2
+			}
+		}
+		subtract = {
+			desc = "PERSONALITY_OF_TARGET"
+			value = scope:recipient.modifier:aggressiveness_modifier
+			multiply = 100
 		}
 	}
 }
@@ -1617,6 +1780,7 @@ enforce_religious_unity = {
 		visible = {
 			is_member_of_international_organization = international_organization:hre
 			religion != scope:actor.religion
+			is_subject = no
 		}
         enabled = {
 			trigger_if = {
@@ -1628,11 +1792,21 @@ enforce_religious_unity = {
 			}
 			trigger_if = {
 				limit = {
-					is_situation_active = situation:hussite_wars 
+					is_situation_active = situation:hussite_wars
 					religion = religion:hussite
 				}
 				custom_tooltip = {
 					text = HUSSITE_WARS_UNRESOLVED
+					always = no
+				}
+			}
+			trigger_if = {
+				limit = {
+					has_global_variable = hussites_won_hussite_wars
+					religion = religion:hussite
+				}
+				custom_tooltip = {
+					text = HUSSITES_WON_HUSSITE_WARS
 					always = no
 				}
 			}
@@ -1738,6 +1912,16 @@ enforce_religious_unity = {
 			desc = "VOTE_BASE_VALUE"
 			value = 50
 		}
+		subtract = {
+			desc = "MODIFIER_TYPE_NAME_tolerance_own"
+			value = "scope:recipient.modifier:tolerance_own"
+			multiply = 10
+		}
+		add = {
+			desc = "MODIFIER_TYPE_NAME_tolerance_heretic"
+			value = "scope:recipient.modifier:tolerance_heretic"
+			multiply = 10
+		}
 		add = hre_default_diplo_action_acceptance
 		add = hre_add_recipient_trust
 	}
@@ -1766,15 +1950,22 @@ demand_unlawful_territory = {
 			is_subject = no
 			is_rebel_country = no
 			this != scope:actor
+			modifier:ghibelline_imperial_protection = no
 			NOT = { at_war = yes }
+			modifier:ghibelline_imperial_protection = no
 			OR = {
 				any_province = {
 					any_location_in_province = {
 						is_owned_by_international_organization = international_organization:hre
 						integration_level = conquered
 						any_core_in_location = {
-							exists = this
-							is_member_of_international_organization = international_organization:hre
+							OR = {
+								AND = {
+									country_exists = this
+									is_member_of_international_organization = international_organization:hre
+								}
+								NOT = { country_exists = this }
+							}
 						}
 					}
 				}
@@ -1784,8 +1975,13 @@ demand_unlawful_territory = {
 							is_owned_by_international_organization = international_organization:hre
 							integration_level = conquered
 							any_core_in_location = {
-								exists = this
-								is_member_of_international_organization = international_organization:hre
+								OR = {
+									AND = {
+										country_exists = this
+										is_member_of_international_organization = international_organization:hre
+									}
+									NOT = { country_exists = this }
+								}
 							}
 						}
 					}
@@ -1807,8 +2003,13 @@ demand_unlawful_territory = {
 							is_owned_by_international_organization = international_organization:hre
 							integration_level = conquered
 							any_core_in_location = {
-								exists = this
-								is_member_of_international_organization = international_organization:hre
+								OR = {
+									AND = {
+										country_exists = this
+										is_member_of_international_organization = international_organization:hre
+									}
+									NOT = { country_exists = this }
+								}
 							}
 						}
 					}
@@ -1821,8 +2022,13 @@ demand_unlawful_territory = {
 								is_owned_by_international_organization = international_organization:hre
 								integration_level = conquered
 								any_core_in_location = {
-									exists = this
-									is_member_of_international_organization = international_organization:hre
+									OR = {
+										AND = {
+											country_exists = this
+											is_member_of_international_organization = international_organization:hre
+										}
+										NOT = { country_exists = this }
+									}
 								}
 							}
 						}
@@ -2547,8 +2753,12 @@ bolster_imperial_army = {
 		target_flag = target
 		name = "bolster_imperial_army_select_title"
 		none_available_msg_key = "bolster_imperial_army_no_wars"
+		default_sort = select_target_acceptance_total
 		column = {
 			data = name
+		}
+		column = {
+			data = select_target_acceptance_total
 		}
 		visible = {
 			NOT = {
@@ -2594,16 +2804,16 @@ bolster_imperial_army = {
 			}
 			international_organization:hre = {
 				add_gold = {
-					value = scope:recipient.country_tax_base
-					multiply = -6
+					value = bolster_imperial_army_cost
+					multiply = -1
 				}
 			}
 		}
 		else = {
 			scope:actor = {
 				add_gold = {
-					value = scope:recipient.country_tax_base
-					multiply = -6
+					value = bolster_imperial_army_cost
+					multiply = -1
 				}
 			}
 		}
@@ -2620,8 +2830,7 @@ bolster_imperial_army = {
 		}
 		scope:recipient = {
 			add_gold = {
-				value = scope:recipient.country_tax_base
-				multiply = 6
+				value = bolster_imperial_army_cost
 			}
 		}
 	}
