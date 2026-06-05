@@ -728,11 +728,6 @@ def main() -> None:
         "tv_wonder_destroy_intermediate_buildings_at_location_effect",
     )
 
-    lines.append("tv_wonder_ensure_helper_building_from_final_buildings_effect = {")
-    lines.append(f"{T}# Final buildings are authoritative after inauguration; helper buildings stay construction-only.")
-    lines.append("}")
-    lines.append("")
-
     lines.append("tv_wonder_scan_priority_proposal_effect = {")
     lines.append(f"{T}remove_variable = tv_wonder_priority_found")
     lines.append(f"{T}remove_variable = tv_wonder_proposal_site")

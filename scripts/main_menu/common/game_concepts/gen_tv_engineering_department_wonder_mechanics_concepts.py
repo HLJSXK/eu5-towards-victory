@@ -29,7 +29,7 @@ WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 
 def wonder_image_texture(wonder: dict) -> str:
     image = wonder.get("image", f"tv_wonder_{wonder['key']}")
-    return f"towards_victory/wonders/{image}"
+    return f"gfx/interface/icons/towards_victory/wonders/{image}.dds"
 
 
 def generate() -> str:

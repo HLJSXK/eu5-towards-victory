@@ -53,10 +53,6 @@ def final_buildings(wonder: dict) -> list[str]:
     return list(dict.fromkeys(wonder["final_buildings"].values()))
 
 
-def project_buildings(wonder: dict) -> list[str]:
-    return [*intermediate_buildings(wonder), *final_buildings(wonder)]
-
-
 def loc_level(building: str, op: str, level: int) -> str:
     return f"location_building_level = {{ building_type = building_type:{building} value {op} {level} }}"
 
@@ -134,10 +130,6 @@ def add_project_occupancy_triggers(lines: list[str], wonders: list[dict]) -> Non
         lines.append("")
         lines.append(f"tv_wonder_location_has_{key}_final_building_trigger = {{")
         lines.extend(building_or_block(final_buildings(wonder), 1))
-        lines.append("}")
-        lines.append("")
-        lines.append(f"tv_wonder_location_has_{key}_project_building_trigger = {{")
-        lines.extend(building_or_block(project_buildings(wonder), 1))
         lines.append("}")
         lines.append("")
         lines.append(f"tv_wonder_location_has_{key}_expandable_final_building_trigger = {{")

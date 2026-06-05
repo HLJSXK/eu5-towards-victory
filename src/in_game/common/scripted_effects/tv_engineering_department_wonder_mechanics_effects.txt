@@ -19505,16 +19505,6 @@ tv_wonder_mechanics_construct_unique_final_building_effect = {
 	}
 }
 
-tv_wonder_mechanics_construct_final_building_effect = {
-	if = {
-		limit = { tv_wonder_unique_locked_trigger = yes }
-		tv_wonder_mechanics_construct_unique_final_building_effect = yes
-	}
-	else = {
-		tv_wonder_mechanics_construct_generic_final_building_effect = yes
-	}
-}
-
 tv_wonder_mechanics_recalculate_total_owned_buildings_effect = {
 	set_variable = { name = tv_wonder_ritual_current_total_buildings value = 0 }
 	every_owned_location = {

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate Towards Victory wonder illustrations through Packy gpt-image-2.
+Generate Towards Victory wonder image assets through Packy gpt-image-2.
 
 Usage:
   1. Edit data/wonder_image_prompts.yaml for generic prompts and data/unique_wonders.yaml for unique prompts.
@@ -47,7 +47,7 @@ DEFAULT_WONDERS_DIR = (
     / "main_menu"
     / "gfx"
     / "interface"
-    / "illustrations"
+    / "icons"
     / "towards_victory"
     / "wonders"
 )

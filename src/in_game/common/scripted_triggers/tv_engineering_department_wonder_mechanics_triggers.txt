@@ -21,19 +21,6 @@ tv_wonder_location_has_sacred_mountain_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_sacred_mountain_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_sacred_mountain
-		has_building = building_type:tv_wonder_sacred_mountain_foundation
-		has_building = building_type:tv_wonder_sacred_mountain_body
-		has_building = building_type:tv_wonder_sacred_mountain_function
-		has_building = building_type:tv_wonder_sacred_mountain_decoration
-		has_building = building_type:tv_wonder_golden_sanctuary
-		has_building = building_type:tv_wonder_ascetic_mountain
-		has_building = building_type:tv_wonder_theocratic_center
-	}
-}
-
 tv_wonder_location_has_sacred_mountain_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -311,19 +298,6 @@ tv_wonder_location_has_triumphal_axis_intermediate_building_trigger = {
 
 tv_wonder_location_has_triumphal_axis_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_sun_king_axis
-		has_building = building_type:tv_wonder_military_city
-		has_building = building_type:tv_wonder_civic_capital
-	}
-}
-
-tv_wonder_location_has_triumphal_axis_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_triumphal_axis
-		has_building = building_type:tv_wonder_triumphal_axis_foundation
-		has_building = building_type:tv_wonder_triumphal_axis_body
-		has_building = building_type:tv_wonder_triumphal_axis_function
-		has_building = building_type:tv_wonder_triumphal_axis_decoration
 		has_building = building_type:tv_wonder_sun_king_axis
 		has_building = building_type:tv_wonder_military_city
 		has_building = building_type:tv_wonder_civic_capital
@@ -613,19 +587,6 @@ tv_wonder_location_has_great_port_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_great_port_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_great_port
-		has_building = building_type:tv_wonder_great_port_foundation
-		has_building = building_type:tv_wonder_great_port_body
-		has_building = building_type:tv_wonder_great_port_function
-		has_building = building_type:tv_wonder_great_port_decoration
-		has_building = building_type:tv_wonder_golden_trade_port
-		has_building = building_type:tv_wonder_imperial_naval_port
-		has_building = building_type:tv_wonder_free_trade_metropolis
-	}
-}
-
 tv_wonder_location_has_great_port_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -903,19 +864,6 @@ tv_wonder_location_has_giant_necropolis_intermediate_building_trigger = {
 
 tv_wonder_location_has_giant_necropolis_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_dynastic_necropolis
-		has_building = building_type:tv_wonder_ancestor_shrine
-		has_building = building_type:tv_wonder_quiet_land
-	}
-}
-
-tv_wonder_location_has_giant_necropolis_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_giant_necropolis
-		has_building = building_type:tv_wonder_giant_necropolis_foundation
-		has_building = building_type:tv_wonder_giant_necropolis_body
-		has_building = building_type:tv_wonder_giant_necropolis_function
-		has_building = building_type:tv_wonder_giant_necropolis_decoration
 		has_building = building_type:tv_wonder_dynastic_necropolis
 		has_building = building_type:tv_wonder_ancestor_shrine
 		has_building = building_type:tv_wonder_quiet_land
@@ -1205,19 +1153,6 @@ tv_wonder_location_has_great_lighthouse_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_great_lighthouse_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_great_lighthouse
-		has_building = building_type:tv_wonder_great_lighthouse_foundation
-		has_building = building_type:tv_wonder_great_lighthouse_body
-		has_building = building_type:tv_wonder_great_lighthouse_function
-		has_building = building_type:tv_wonder_great_lighthouse_decoration
-		has_building = building_type:tv_wonder_eternal_lighthouse
-		has_building = building_type:tv_wonder_navigator_lighthouse
-		has_building = building_type:tv_wonder_long_watch_lighthouse
-	}
-}
-
 tv_wonder_location_has_great_lighthouse_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -1495,19 +1430,6 @@ tv_wonder_location_has_hydraulic_workshop_intermediate_building_trigger = {
 
 tv_wonder_location_has_hydraulic_workshop_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_water_god_workshop
-		has_building = building_type:tv_wonder_hydraulic_artisan_guildhall
-		has_building = building_type:tv_wonder_waterwheel_workshop
-	}
-}
-
-tv_wonder_location_has_hydraulic_workshop_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_hydraulic_workshop
-		has_building = building_type:tv_wonder_hydraulic_workshop_foundation
-		has_building = building_type:tv_wonder_hydraulic_workshop_body
-		has_building = building_type:tv_wonder_hydraulic_workshop_function
-		has_building = building_type:tv_wonder_hydraulic_workshop_decoration
 		has_building = building_type:tv_wonder_water_god_workshop
 		has_building = building_type:tv_wonder_hydraulic_artisan_guildhall
 		has_building = building_type:tv_wonder_waterwheel_workshop
@@ -1797,19 +1719,6 @@ tv_wonder_location_has_mining_city_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_mining_city_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_mining_city
-		has_building = building_type:tv_wonder_mining_city_foundation
-		has_building = building_type:tv_wonder_mining_city_body
-		has_building = building_type:tv_wonder_mining_city_function
-		has_building = building_type:tv_wonder_mining_city_decoration
-		has_building = building_type:tv_wonder_miners_oath_city
-		has_building = building_type:tv_wonder_royal_mint_city
-		has_building = building_type:tv_wonder_deep_shaft_city
-	}
-}
-
 tv_wonder_location_has_mining_city_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -2087,19 +1996,6 @@ tv_wonder_location_has_giant_observatory_intermediate_building_trigger = {
 
 tv_wonder_location_has_giant_observatory_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_star_catalog_observatory
-		has_building = building_type:tv_wonder_nautical_almanac_observatory
-		has_building = building_type:tv_wonder_eclipse_observatory
-	}
-}
-
-tv_wonder_location_has_giant_observatory_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_giant_observatory
-		has_building = building_type:tv_wonder_giant_observatory_foundation
-		has_building = building_type:tv_wonder_giant_observatory_body
-		has_building = building_type:tv_wonder_giant_observatory_function
-		has_building = building_type:tv_wonder_giant_observatory_decoration
 		has_building = building_type:tv_wonder_star_catalog_observatory
 		has_building = building_type:tv_wonder_nautical_almanac_observatory
 		has_building = building_type:tv_wonder_eclipse_observatory
@@ -2389,19 +2285,6 @@ tv_wonder_location_has_palace_of_nations_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_palace_of_nations_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_palace_of_nations
-		has_building = building_type:tv_wonder_palace_of_nations_foundation
-		has_building = building_type:tv_wonder_palace_of_nations_body
-		has_building = building_type:tv_wonder_palace_of_nations_function
-		has_building = building_type:tv_wonder_palace_of_nations_decoration
-		has_building = building_type:tv_wonder_congress_palace
-		has_building = building_type:tv_wonder_tribute_gallery
-		has_building = building_type:tv_wonder_embassy_palace
-	}
-}
-
 tv_wonder_location_has_palace_of_nations_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -2679,19 +2562,6 @@ tv_wonder_location_has_university_city_intermediate_building_trigger = {
 
 tv_wonder_location_has_university_city_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_scholars_convocation
-		has_building = building_type:tv_wonder_public_lectures
-		has_building = building_type:tv_wonder_collegiate_charter
-	}
-}
-
-tv_wonder_location_has_university_city_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_university_city
-		has_building = building_type:tv_wonder_university_city_foundation
-		has_building = building_type:tv_wonder_university_city_body
-		has_building = building_type:tv_wonder_university_city_function
-		has_building = building_type:tv_wonder_university_city_decoration
 		has_building = building_type:tv_wonder_scholars_convocation
 		has_building = building_type:tv_wonder_public_lectures
 		has_building = building_type:tv_wonder_collegiate_charter
@@ -2981,19 +2851,6 @@ tv_wonder_location_has_sky_dome_grand_temple_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_sky_dome_grand_temple_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_sky_dome_grand_temple
-		has_building = building_type:tv_wonder_sky_dome_grand_temple_foundation
-		has_building = building_type:tv_wonder_sky_dome_grand_temple_body
-		has_building = building_type:tv_wonder_sky_dome_grand_temple_function
-		has_building = building_type:tv_wonder_sky_dome_grand_temple_decoration
-		has_building = building_type:tv_wonder_dome_consecration
-		has_building = building_type:tv_wonder_pilgrim_treasury
-		has_building = building_type:tv_wonder_celestial_synod
-	}
-}
-
 tv_wonder_location_has_sky_dome_grand_temple_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -3271,19 +3128,6 @@ tv_wonder_location_has_giant_tower_temple_intermediate_building_trigger = {
 
 tv_wonder_location_has_giant_tower_temple_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_beacon_rite_temple
-		has_building = building_type:tv_wonder_pilgrim_stair_temple
-		has_building = building_type:tv_wonder_temple_school_tower
-	}
-}
-
-tv_wonder_location_has_giant_tower_temple_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_giant_tower_temple
-		has_building = building_type:tv_wonder_giant_tower_temple_foundation
-		has_building = building_type:tv_wonder_giant_tower_temple_body
-		has_building = building_type:tv_wonder_giant_tower_temple_function
-		has_building = building_type:tv_wonder_giant_tower_temple_decoration
 		has_building = building_type:tv_wonder_beacon_rite_temple
 		has_building = building_type:tv_wonder_pilgrim_stair_temple
 		has_building = building_type:tv_wonder_temple_school_tower
@@ -3573,19 +3417,6 @@ tv_wonder_location_has_river_extension_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_river_extension_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_river_extension
-		has_building = building_type:tv_wonder_river_extension_foundation
-		has_building = building_type:tv_wonder_river_extension_body
-		has_building = building_type:tv_wonder_river_extension_function
-		has_building = building_type:tv_wonder_river_extension_decoration
-		has_building = building_type:tv_wonder_bridge_opening
-		has_building = building_type:tv_wonder_river_fair
-		has_building = building_type:tv_wonder_canal_authority
-	}
-}
-
 tv_wonder_location_has_river_extension_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -3863,19 +3694,6 @@ tv_wonder_location_has_national_shipyard_intermediate_building_trigger = {
 
 tv_wonder_location_has_national_shipyard_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_keel_laying_yard
-		has_building = building_type:tv_wonder_fleet_muster_yard
-		has_building = building_type:tv_wonder_admiralty_yard
-	}
-}
-
-tv_wonder_location_has_national_shipyard_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_national_shipyard
-		has_building = building_type:tv_wonder_national_shipyard_foundation
-		has_building = building_type:tv_wonder_national_shipyard_body
-		has_building = building_type:tv_wonder_national_shipyard_function
-		has_building = building_type:tv_wonder_national_shipyard_decoration
 		has_building = building_type:tv_wonder_keel_laying_yard
 		has_building = building_type:tv_wonder_fleet_muster_yard
 		has_building = building_type:tv_wonder_admiralty_yard
@@ -4165,19 +3983,6 @@ tv_wonder_location_has_star_fortress_city_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_star_fortress_city_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_star_fortress_city
-		has_building = building_type:tv_wonder_star_fortress_city_foundation
-		has_building = building_type:tv_wonder_star_fortress_city_body
-		has_building = building_type:tv_wonder_star_fortress_city_function
-		has_building = building_type:tv_wonder_star_fortress_city_decoration
-		has_building = building_type:tv_wonder_bastion_trial_fortress
-		has_building = building_type:tv_wonder_siege_games_fortress
-		has_building = building_type:tv_wonder_arsenal_quarter_fortress
-	}
-}
-
 tv_wonder_location_has_star_fortress_city_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -4455,19 +4260,6 @@ tv_wonder_location_has_great_wall_intermediate_building_trigger = {
 
 tv_wonder_location_has_great_wall_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_frontier_muster_wall
-		has_building = building_type:tv_wonder_signal_fires_wall
-		has_building = building_type:tv_wonder_wall_oath
-	}
-}
-
-tv_wonder_location_has_great_wall_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_great_wall
-		has_building = building_type:tv_wonder_great_wall_foundation
-		has_building = building_type:tv_wonder_great_wall_body
-		has_building = building_type:tv_wonder_great_wall_function
-		has_building = building_type:tv_wonder_great_wall_decoration
 		has_building = building_type:tv_wonder_frontier_muster_wall
 		has_building = building_type:tv_wonder_signal_fires_wall
 		has_building = building_type:tv_wonder_wall_oath
@@ -4757,19 +4549,6 @@ tv_wonder_location_has_giant_armory_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_giant_armory_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_giant_armory
-		has_building = building_type:tv_wonder_giant_armory_foundation
-		has_building = building_type:tv_wonder_giant_armory_body
-		has_building = building_type:tv_wonder_giant_armory_function
-		has_building = building_type:tv_wonder_giant_armory_decoration
-		has_building = building_type:tv_wonder_muster_of_arms
-		has_building = building_type:tv_wonder_foundry_contracts
-		has_building = building_type:tv_wonder_master_armourers
-	}
-}
-
 tv_wonder_location_has_giant_armory_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -5047,19 +4826,6 @@ tv_wonder_location_has_library_of_nation_intermediate_building_trigger = {
 
 tv_wonder_location_has_library_of_nation_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_national_catalog_library
-		has_building = building_type:tv_wonder_copyists_endowment_library
-		has_building = building_type:tv_wonder_legal_deposit_library
-	}
-}
-
-tv_wonder_location_has_library_of_nation_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_library_of_nation
-		has_building = building_type:tv_wonder_library_of_nation_foundation
-		has_building = building_type:tv_wonder_library_of_nation_body
-		has_building = building_type:tv_wonder_library_of_nation_function
-		has_building = building_type:tv_wonder_library_of_nation_decoration
 		has_building = building_type:tv_wonder_national_catalog_library
 		has_building = building_type:tv_wonder_copyists_endowment_library
 		has_building = building_type:tv_wonder_legal_deposit_library
@@ -5349,19 +5115,6 @@ tv_wonder_location_has_large_canal_system_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_large_canal_system_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_large_canal_system
-		has_building = building_type:tv_wonder_large_canal_system_foundation
-		has_building = building_type:tv_wonder_large_canal_system_body
-		has_building = building_type:tv_wonder_large_canal_system_function
-		has_building = building_type:tv_wonder_large_canal_system_decoration
-		has_building = building_type:tv_wonder_irrigation_canal_system
-		has_building = building_type:tv_wonder_grain_transport_canal_system
-		has_building = building_type:tv_wonder_flood_control_canal_system
-	}
-}
-
 tv_wonder_location_has_large_canal_system_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -5639,19 +5392,6 @@ tv_wonder_location_has_mountain_terrace_network_intermediate_building_trigger = 
 
 tv_wonder_location_has_mountain_terrace_network_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_grain_terraces
-		has_building = building_type:tv_wonder_cash_crop_terraces
-		has_building = building_type:tv_wonder_sacred_mountain_terraces
-	}
-}
-
-tv_wonder_location_has_mountain_terrace_network_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_mountain_terrace_network
-		has_building = building_type:tv_wonder_mountain_terrace_network_foundation
-		has_building = building_type:tv_wonder_mountain_terrace_network_body
-		has_building = building_type:tv_wonder_mountain_terrace_network_function
-		has_building = building_type:tv_wonder_mountain_terrace_network_decoration
 		has_building = building_type:tv_wonder_grain_terraces
 		has_building = building_type:tv_wonder_cash_crop_terraces
 		has_building = building_type:tv_wonder_sacred_mountain_terraces
@@ -5941,19 +5681,6 @@ tv_wonder_location_has_giant_dam_project_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_giant_dam_project_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_giant_dam_project
-		has_building = building_type:tv_wonder_giant_dam_project_foundation
-		has_building = building_type:tv_wonder_giant_dam_project_body
-		has_building = building_type:tv_wonder_giant_dam_project_function
-		has_building = building_type:tv_wonder_giant_dam_project_decoration
-		has_building = building_type:tv_wonder_estuary_flood_dam
-		has_building = building_type:tv_wonder_marsh_reclamation_dam
-		has_building = building_type:tv_wonder_water_powered_workshops
-	}
-}
-
 tv_wonder_location_has_giant_dam_project_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -6231,19 +5958,6 @@ tv_wonder_location_has_royal_granary_system_intermediate_building_trigger = {
 
 tv_wonder_location_has_royal_granary_system_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_grain_price_granaries
-		has_building = building_type:tv_wonder_wartime_granaries
-		has_building = building_type:tv_wonder_disaster_relief_granaries
-	}
-}
-
-tv_wonder_location_has_royal_granary_system_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_royal_granary_system
-		has_building = building_type:tv_wonder_royal_granary_system_foundation
-		has_building = building_type:tv_wonder_royal_granary_system_body
-		has_building = building_type:tv_wonder_royal_granary_system_function
-		has_building = building_type:tv_wonder_royal_granary_system_decoration
 		has_building = building_type:tv_wonder_grain_price_granaries
 		has_building = building_type:tv_wonder_wartime_granaries
 		has_building = building_type:tv_wonder_disaster_relief_granaries
@@ -6533,19 +6247,6 @@ tv_wonder_location_has_imperial_post_road_network_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_imperial_post_road_network_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_imperial_post_road_network
-		has_building = building_type:tv_wonder_imperial_post_road_network_foundation
-		has_building = building_type:tv_wonder_imperial_post_road_network_body
-		has_building = building_type:tv_wonder_imperial_post_road_network_function
-		has_building = building_type:tv_wonder_imperial_post_road_network_decoration
-		has_building = building_type:tv_wonder_military_post_roads
-		has_building = building_type:tv_wonder_trade_post_roads
-		has_building = building_type:tv_wonder_royal_tour_avenue
-	}
-}
-
 tv_wonder_location_has_imperial_post_road_network_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -6823,19 +6524,6 @@ tv_wonder_location_has_canal_hub_city_intermediate_building_trigger = {
 
 tv_wonder_location_has_canal_hub_city_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_grain_transport_hub
-		has_building = building_type:tv_wonder_financial_warehouse_hub
-		has_building = building_type:tv_wonder_industrial_workshop_belt
-	}
-}
-
-tv_wonder_location_has_canal_hub_city_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_canal_hub_city
-		has_building = building_type:tv_wonder_canal_hub_city_foundation
-		has_building = building_type:tv_wonder_canal_hub_city_body
-		has_building = building_type:tv_wonder_canal_hub_city_function
-		has_building = building_type:tv_wonder_canal_hub_city_decoration
 		has_building = building_type:tv_wonder_grain_transport_hub
 		has_building = building_type:tv_wonder_financial_warehouse_hub
 		has_building = building_type:tv_wonder_industrial_workshop_belt
@@ -7125,19 +6813,6 @@ tv_wonder_location_has_frontier_colonization_belt_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_frontier_colonization_belt_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_frontier_colonization_belt
-		has_building = building_type:tv_wonder_frontier_colonization_belt_foundation
-		has_building = building_type:tv_wonder_frontier_colonization_belt_body
-		has_building = building_type:tv_wonder_frontier_colonization_belt_function
-		has_building = building_type:tv_wonder_frontier_colonization_belt_decoration
-		has_building = building_type:tv_wonder_military_colony_belt
-		has_building = building_type:tv_wonder_settler_reclamation_belt
-		has_building = building_type:tv_wonder_religious_colonization_belt
-	}
-}
-
 tv_wonder_location_has_frontier_colonization_belt_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -7415,19 +7090,6 @@ tv_wonder_location_has_coastal_beacon_network_intermediate_building_trigger = {
 
 tv_wonder_location_has_coastal_beacon_network_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_beacon_communication_network
-		has_building = building_type:tv_wonder_coastal_battery_network
-		has_building = building_type:tv_wonder_customs_patrol_network
-	}
-}
-
-tv_wonder_location_has_coastal_beacon_network_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_coastal_beacon_network
-		has_building = building_type:tv_wonder_coastal_beacon_network_foundation
-		has_building = building_type:tv_wonder_coastal_beacon_network_body
-		has_building = building_type:tv_wonder_coastal_beacon_network_function
-		has_building = building_type:tv_wonder_coastal_beacon_network_decoration
 		has_building = building_type:tv_wonder_beacon_communication_network
 		has_building = building_type:tv_wonder_coastal_battery_network
 		has_building = building_type:tv_wonder_customs_patrol_network
@@ -7717,19 +7379,6 @@ tv_wonder_location_has_knightly_fortress_order_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_knightly_fortress_order_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_knightly_fortress_order
-		has_building = building_type:tv_wonder_knightly_fortress_order_foundation
-		has_building = building_type:tv_wonder_knightly_fortress_order_body
-		has_building = building_type:tv_wonder_knightly_fortress_order_function
-		has_building = building_type:tv_wonder_knightly_fortress_order_decoration
-		has_building = building_type:tv_wonder_crusader_knightly_order
-		has_building = building_type:tv_wonder_frontier_lord_order
-		has_building = building_type:tv_wonder_mercenary_fortress_system
-	}
-}
-
 tv_wonder_location_has_knightly_fortress_order_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -8007,19 +7656,6 @@ tv_wonder_location_has_war_college_system_intermediate_building_trigger = {
 
 tv_wonder_location_has_war_college_system_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_firearms_tactics_college
-		has_building = building_type:tv_wonder_cavalry_tradition_college
-		has_building = building_type:tv_wonder_naval_command_college
-	}
-}
-
-tv_wonder_location_has_war_college_system_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_war_college_system
-		has_building = building_type:tv_wonder_war_college_system_foundation
-		has_building = building_type:tv_wonder_war_college_system_body
-		has_building = building_type:tv_wonder_war_college_system_function
-		has_building = building_type:tv_wonder_war_college_system_decoration
 		has_building = building_type:tv_wonder_firearms_tactics_college
 		has_building = building_type:tv_wonder_cavalry_tradition_college
 		has_building = building_type:tv_wonder_naval_command_college
@@ -8309,19 +7945,6 @@ tv_wonder_location_has_great_clock_bell_system_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_great_clock_bell_system_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_great_clock_bell_system
-		has_building = building_type:tv_wonder_great_clock_bell_system_foundation
-		has_building = building_type:tv_wonder_great_clock_bell_system_body
-		has_building = building_type:tv_wonder_great_clock_bell_system_function
-		has_building = building_type:tv_wonder_great_clock_bell_system_decoration
-		has_building = building_type:tv_wonder_worship_clock_bells
-		has_building = building_type:tv_wonder_curfew_clock_bells
-		has_building = building_type:tv_wonder_astronomical_calendar_bells
-	}
-}
-
 tv_wonder_location_has_great_clock_bell_system_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -8599,19 +8222,6 @@ tv_wonder_location_has_royal_art_district_intermediate_building_trigger = {
 
 tv_wonder_location_has_royal_art_district_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_court_art_district
-		has_building = building_type:tv_wonder_folk_art_district
-		has_building = building_type:tv_wonder_foreign_style_district
-	}
-}
-
-tv_wonder_location_has_royal_art_district_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_royal_art_district
-		has_building = building_type:tv_wonder_royal_art_district_foundation
-		has_building = building_type:tv_wonder_royal_art_district_body
-		has_building = building_type:tv_wonder_royal_art_district_function
-		has_building = building_type:tv_wonder_royal_art_district_decoration
 		has_building = building_type:tv_wonder_court_art_district
 		has_building = building_type:tv_wonder_folk_art_district
 		has_building = building_type:tv_wonder_foreign_style_district
@@ -8901,19 +8511,6 @@ tv_wonder_location_has_grand_theater_festival_district_final_building_trigger = 
 	}
 }
 
-tv_wonder_location_has_grand_theater_festival_district_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_grand_theater_festival_district
-		has_building = building_type:tv_wonder_grand_theater_festival_district_foundation
-		has_building = building_type:tv_wonder_grand_theater_festival_district_body
-		has_building = building_type:tv_wonder_grand_theater_festival_district_function
-		has_building = building_type:tv_wonder_grand_theater_festival_district_decoration
-		has_building = building_type:tv_wonder_court_theater
-		has_building = building_type:tv_wonder_religious_theater
-		has_building = building_type:tv_wonder_popular_festival_ground
-	}
-}
-
 tv_wonder_location_has_grand_theater_festival_district_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -9191,19 +8788,6 @@ tv_wonder_location_has_world_embassy_quarter_intermediate_building_trigger = {
 
 tv_wonder_location_has_world_embassy_quarter_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_trade_diplomacy_embassies
-		has_building = building_type:tv_wonder_intelligence_embassies
-		has_building = building_type:tv_wonder_religious_diplomacy_embassies
-	}
-}
-
-tv_wonder_location_has_world_embassy_quarter_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_world_embassy_quarter
-		has_building = building_type:tv_wonder_world_embassy_quarter_foundation
-		has_building = building_type:tv_wonder_world_embassy_quarter_body
-		has_building = building_type:tv_wonder_world_embassy_quarter_function
-		has_building = building_type:tv_wonder_world_embassy_quarter_decoration
 		has_building = building_type:tv_wonder_trade_diplomacy_embassies
 		has_building = building_type:tv_wonder_intelligence_embassies
 		has_building = building_type:tv_wonder_religious_diplomacy_embassies
@@ -9493,19 +9077,6 @@ tv_wonder_location_has_law_code_stele_project_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_law_code_stele_project_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_law_code_stele_project
-		has_building = building_type:tv_wonder_law_code_stele_project_foundation
-		has_building = building_type:tv_wonder_law_code_stele_project_body
-		has_building = building_type:tv_wonder_law_code_stele_project_function
-		has_building = building_type:tv_wonder_law_code_stele_project_decoration
-		has_building = building_type:tv_wonder_religious_law_steles
-		has_building = building_type:tv_wonder_written_law_steles
-		has_building = building_type:tv_wonder_imperial_edict_steles
-	}
-}
-
 tv_wonder_location_has_law_code_stele_project_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -9783,19 +9354,6 @@ tv_wonder_location_has_world_market_intermediate_building_trigger = {
 
 tv_wonder_location_has_world_market_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_luxury_goods_market
-		has_building = building_type:tv_wonder_grain_market
-		has_building = building_type:tv_wonder_entrepot_market
-	}
-}
-
-tv_wonder_location_has_world_market_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_world_market
-		has_building = building_type:tv_wonder_world_market_foundation
-		has_building = building_type:tv_wonder_world_market_body
-		has_building = building_type:tv_wonder_world_market_function
-		has_building = building_type:tv_wonder_world_market_decoration
 		has_building = building_type:tv_wonder_luxury_goods_market
 		has_building = building_type:tv_wonder_grain_market
 		has_building = building_type:tv_wonder_entrepot_market
@@ -10085,19 +9643,6 @@ tv_wonder_location_has_royal_mint_system_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_royal_mint_system_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_royal_mint_system
-		has_building = building_type:tv_wonder_royal_mint_system_foundation
-		has_building = building_type:tv_wonder_royal_mint_system_body
-		has_building = building_type:tv_wonder_royal_mint_system_function
-		has_building = building_type:tv_wonder_royal_mint_system_decoration
-		has_building = building_type:tv_wonder_silver_gold_standard_mint
-		has_building = building_type:tv_wonder_copper_coinage_mint
-		has_building = building_type:tv_wonder_international_settlement_mint
-	}
-}
-
 tv_wonder_location_has_royal_mint_system_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -10375,19 +9920,6 @@ tv_wonder_location_has_guild_alliance_intermediate_building_trigger = {
 
 tv_wonder_location_has_guild_alliance_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_artisan_guild_alliance
-		has_building = building_type:tv_wonder_overseas_merchant_guilds
-		has_building = building_type:tv_wonder_financial_guilds
-	}
-}
-
-tv_wonder_location_has_guild_alliance_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_guild_alliance
-		has_building = building_type:tv_wonder_guild_alliance_foundation
-		has_building = building_type:tv_wonder_guild_alliance_body
-		has_building = building_type:tv_wonder_guild_alliance_function
-		has_building = building_type:tv_wonder_guild_alliance_decoration
 		has_building = building_type:tv_wonder_artisan_guild_alliance
 		has_building = building_type:tv_wonder_overseas_merchant_guilds
 		has_building = building_type:tv_wonder_financial_guilds
@@ -10677,19 +10209,6 @@ tv_wonder_location_has_maritime_trade_station_network_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_maritime_trade_station_network_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_maritime_trade_station_network
-		has_building = building_type:tv_wonder_maritime_trade_station_network_foundation
-		has_building = building_type:tv_wonder_maritime_trade_station_network_body
-		has_building = building_type:tv_wonder_maritime_trade_station_network_function
-		has_building = building_type:tv_wonder_maritime_trade_station_network_decoration
-		has_building = building_type:tv_wonder_spice_trade_stations
-		has_building = building_type:tv_wonder_slave_trade_stations
-		has_building = building_type:tv_wonder_colonial_supply_stations
-	}
-}
-
 tv_wonder_location_has_maritime_trade_station_network_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -10967,19 +10486,6 @@ tv_wonder_location_has_giant_workshop_complex_intermediate_building_trigger = {
 
 tv_wonder_location_has_giant_workshop_complex_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_textile_workshop_complex
-		has_building = building_type:tv_wonder_military_workshop_complex
-		has_building = building_type:tv_wonder_luxury_craft_workshop_complex
-	}
-}
-
-tv_wonder_location_has_giant_workshop_complex_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_giant_workshop_complex
-		has_building = building_type:tv_wonder_giant_workshop_complex_foundation
-		has_building = building_type:tv_wonder_giant_workshop_complex_body
-		has_building = building_type:tv_wonder_giant_workshop_complex_function
-		has_building = building_type:tv_wonder_giant_workshop_complex_decoration
 		has_building = building_type:tv_wonder_textile_workshop_complex
 		has_building = building_type:tv_wonder_military_workshop_complex
 		has_building = building_type:tv_wonder_luxury_craft_workshop_complex
@@ -11269,19 +10775,6 @@ tv_wonder_location_has_world_monument_group_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_world_monument_group_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_world_monument_group
-		has_building = building_type:tv_wonder_world_monument_group_foundation
-		has_building = building_type:tv_wonder_world_monument_group_body
-		has_building = building_type:tv_wonder_world_monument_group_function
-		has_building = building_type:tv_wonder_world_monument_group_decoration
-		has_building = building_type:tv_wonder_conquest_monument_group
-		has_building = building_type:tv_wonder_national_unity_monument_group
-		has_building = building_type:tv_wonder_world_exposition_monument_group
-	}
-}
-
 tv_wonder_location_has_world_monument_group_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -11559,19 +11052,6 @@ tv_wonder_location_has_city_expansion_project_intermediate_building_trigger = {
 
 tv_wonder_location_has_city_expansion_project_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_city_charter
-		has_building = building_type:tv_wonder_civic_grid
-		has_building = building_type:tv_wonder_urban_renewal
-	}
-}
-
-tv_wonder_location_has_city_expansion_project_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_city_expansion_project
-		has_building = building_type:tv_wonder_city_expansion_project_foundation
-		has_building = building_type:tv_wonder_city_expansion_project_body
-		has_building = building_type:tv_wonder_city_expansion_project_function
-		has_building = building_type:tv_wonder_city_expansion_project_decoration
 		has_building = building_type:tv_wonder_city_charter
 		has_building = building_type:tv_wonder_civic_grid
 		has_building = building_type:tv_wonder_urban_renewal
@@ -11861,19 +11341,6 @@ tv_wonder_location_has_megalithic_circle_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_megalithic_circle_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_megalithic_circle
-		has_building = building_type:tv_wonder_megalithic_circle_foundation
-		has_building = building_type:tv_wonder_megalithic_circle_body
-		has_building = building_type:tv_wonder_megalithic_circle_function
-		has_building = building_type:tv_wonder_megalithic_circle_decoration
-		has_building = building_type:tv_wonder_solstice_gathering_circle
-		has_building = building_type:tv_wonder_astral_alignment_circle
-		has_building = building_type:tv_wonder_ancestral_moot_circle
-	}
-}
-
 tv_wonder_location_has_megalithic_circle_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -12151,19 +11618,6 @@ tv_wonder_location_has_grand_cathedral_intermediate_building_trigger = {
 
 tv_wonder_location_has_grand_cathedral_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_high_choir_cathedral
-		has_building = building_type:tv_wonder_pilgrim_nave_cathedral
-		has_building = building_type:tv_wonder_civic_bells_cathedral
-	}
-}
-
-tv_wonder_location_has_grand_cathedral_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_grand_cathedral
-		has_building = building_type:tv_wonder_grand_cathedral_foundation
-		has_building = building_type:tv_wonder_grand_cathedral_body
-		has_building = building_type:tv_wonder_grand_cathedral_function
-		has_building = building_type:tv_wonder_grand_cathedral_decoration
 		has_building = building_type:tv_wonder_high_choir_cathedral
 		has_building = building_type:tv_wonder_pilgrim_nave_cathedral
 		has_building = building_type:tv_wonder_civic_bells_cathedral
@@ -12453,19 +11907,6 @@ tv_wonder_location_has_great_monastery_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_great_monastery_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_great_monastery
-		has_building = building_type:tv_wonder_great_monastery_foundation
-		has_building = building_type:tv_wonder_great_monastery_body
-		has_building = building_type:tv_wonder_great_monastery_function
-		has_building = building_type:tv_wonder_great_monastery_decoration
-		has_building = building_type:tv_wonder_scriptorium_monastery
-		has_building = building_type:tv_wonder_pilgrim_refectory_monastery
-		has_building = building_type:tv_wonder_fortified_cloister_monastery
-	}
-}
-
 tv_wonder_location_has_great_monastery_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -12747,17 +12188,6 @@ tv_wonder_location_has_unique_pharos_lighthouse_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_pharos_lighthouse_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_pharos_lighthouse
-		has_building = building_type:tv_wonder_unique_pharos_lighthouse_foundation
-		has_building = building_type:tv_wonder_unique_pharos_lighthouse_body
-		has_building = building_type:tv_wonder_unique_pharos_lighthouse_function
-		has_building = building_type:tv_wonder_unique_pharos_lighthouse_decoration
-		has_building = building_type:tv_wonder_unique_pharos_lighthouse_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_pharos_lighthouse_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -12875,17 +12305,6 @@ tv_wonder_location_has_unique_hagia_sophia_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_hagia_sophia_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_hagia_sophia_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_hagia_sophia_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_hagia_sophia
-		has_building = building_type:tv_wonder_unique_hagia_sophia_foundation
-		has_building = building_type:tv_wonder_unique_hagia_sophia_body
-		has_building = building_type:tv_wonder_unique_hagia_sophia_function
-		has_building = building_type:tv_wonder_unique_hagia_sophia_decoration
 		has_building = building_type:tv_wonder_unique_hagia_sophia_inaugurated
 	}
 }
@@ -13011,17 +12430,6 @@ tv_wonder_location_has_unique_dome_of_the_rock_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_dome_of_the_rock_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_dome_of_the_rock
-		has_building = building_type:tv_wonder_unique_dome_of_the_rock_foundation
-		has_building = building_type:tv_wonder_unique_dome_of_the_rock_body
-		has_building = building_type:tv_wonder_unique_dome_of_the_rock_function
-		has_building = building_type:tv_wonder_unique_dome_of_the_rock_decoration
-		has_building = building_type:tv_wonder_unique_dome_of_the_rock_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_dome_of_the_rock_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -13139,17 +12547,6 @@ tv_wonder_location_has_unique_angkor_wat_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_angkor_wat_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_angkor_wat_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_angkor_wat_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_angkor_wat
-		has_building = building_type:tv_wonder_unique_angkor_wat_foundation
-		has_building = building_type:tv_wonder_unique_angkor_wat_body
-		has_building = building_type:tv_wonder_unique_angkor_wat_function
-		has_building = building_type:tv_wonder_unique_angkor_wat_decoration
 		has_building = building_type:tv_wonder_unique_angkor_wat_inaugurated
 	}
 }
@@ -13275,17 +12672,6 @@ tv_wonder_location_has_unique_potala_palace_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_potala_palace_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_potala_palace
-		has_building = building_type:tv_wonder_unique_potala_palace_foundation
-		has_building = building_type:tv_wonder_unique_potala_palace_body
-		has_building = building_type:tv_wonder_unique_potala_palace_function
-		has_building = building_type:tv_wonder_unique_potala_palace_decoration
-		has_building = building_type:tv_wonder_unique_potala_palace_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_potala_palace_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -13403,17 +12789,6 @@ tv_wonder_location_has_unique_alhambra_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_alhambra_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_alhambra_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_alhambra_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_alhambra
-		has_building = building_type:tv_wonder_unique_alhambra_foundation
-		has_building = building_type:tv_wonder_unique_alhambra_body
-		has_building = building_type:tv_wonder_unique_alhambra_function
-		has_building = building_type:tv_wonder_unique_alhambra_decoration
 		has_building = building_type:tv_wonder_unique_alhambra_inaugurated
 	}
 }
@@ -13539,17 +12914,6 @@ tv_wonder_location_has_unique_machu_picchu_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_machu_picchu_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_machu_picchu
-		has_building = building_type:tv_wonder_unique_machu_picchu_foundation
-		has_building = building_type:tv_wonder_unique_machu_picchu_body
-		has_building = building_type:tv_wonder_unique_machu_picchu_function
-		has_building = building_type:tv_wonder_unique_machu_picchu_decoration
-		has_building = building_type:tv_wonder_unique_machu_picchu_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_machu_picchu_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -13667,17 +13031,6 @@ tv_wonder_location_has_unique_himeji_castle_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_himeji_castle_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_himeji_castle_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_himeji_castle_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_himeji_castle
-		has_building = building_type:tv_wonder_unique_himeji_castle_foundation
-		has_building = building_type:tv_wonder_unique_himeji_castle_body
-		has_building = building_type:tv_wonder_unique_himeji_castle_function
-		has_building = building_type:tv_wonder_unique_himeji_castle_decoration
 		has_building = building_type:tv_wonder_unique_himeji_castle_inaugurated
 	}
 }
@@ -13803,17 +13156,6 @@ tv_wonder_location_has_unique_taj_mahal_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_taj_mahal_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_taj_mahal
-		has_building = building_type:tv_wonder_unique_taj_mahal_foundation
-		has_building = building_type:tv_wonder_unique_taj_mahal_body
-		has_building = building_type:tv_wonder_unique_taj_mahal_function
-		has_building = building_type:tv_wonder_unique_taj_mahal_decoration
-		has_building = building_type:tv_wonder_unique_taj_mahal_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_taj_mahal_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -13931,17 +13273,6 @@ tv_wonder_location_has_unique_forbidden_city_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_forbidden_city_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_forbidden_city_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_forbidden_city_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_forbidden_city
-		has_building = building_type:tv_wonder_unique_forbidden_city_foundation
-		has_building = building_type:tv_wonder_unique_forbidden_city_body
-		has_building = building_type:tv_wonder_unique_forbidden_city_function
-		has_building = building_type:tv_wonder_unique_forbidden_city_decoration
 		has_building = building_type:tv_wonder_unique_forbidden_city_inaugurated
 	}
 }
@@ -14067,17 +13398,6 @@ tv_wonder_location_has_unique_topkapi_palace_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_topkapi_palace_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_topkapi_palace
-		has_building = building_type:tv_wonder_unique_topkapi_palace_foundation
-		has_building = building_type:tv_wonder_unique_topkapi_palace_body
-		has_building = building_type:tv_wonder_unique_topkapi_palace_function
-		has_building = building_type:tv_wonder_unique_topkapi_palace_decoration
-		has_building = building_type:tv_wonder_unique_topkapi_palace_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_topkapi_palace_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -14195,17 +13515,6 @@ tv_wonder_location_has_unique_st_peters_basilica_intermediate_building_trigger =
 
 tv_wonder_location_has_unique_st_peters_basilica_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_st_peters_basilica_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_st_peters_basilica_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_st_peters_basilica
-		has_building = building_type:tv_wonder_unique_st_peters_basilica_foundation
-		has_building = building_type:tv_wonder_unique_st_peters_basilica_body
-		has_building = building_type:tv_wonder_unique_st_peters_basilica_function
-		has_building = building_type:tv_wonder_unique_st_peters_basilica_decoration
 		has_building = building_type:tv_wonder_unique_st_peters_basilica_inaugurated
 	}
 }
@@ -14331,17 +13640,6 @@ tv_wonder_location_has_unique_lalibela_churches_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_lalibela_churches_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_lalibela_churches
-		has_building = building_type:tv_wonder_unique_lalibela_churches_foundation
-		has_building = building_type:tv_wonder_unique_lalibela_churches_body
-		has_building = building_type:tv_wonder_unique_lalibela_churches_function
-		has_building = building_type:tv_wonder_unique_lalibela_churches_decoration
-		has_building = building_type:tv_wonder_unique_lalibela_churches_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_lalibela_churches_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -14459,17 +13757,6 @@ tv_wonder_location_has_unique_venetian_arsenal_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_venetian_arsenal_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_venetian_arsenal_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_venetian_arsenal_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_venetian_arsenal
-		has_building = building_type:tv_wonder_unique_venetian_arsenal_foundation
-		has_building = building_type:tv_wonder_unique_venetian_arsenal_body
-		has_building = building_type:tv_wonder_unique_venetian_arsenal_function
-		has_building = building_type:tv_wonder_unique_venetian_arsenal_decoration
 		has_building = building_type:tv_wonder_unique_venetian_arsenal_inaugurated
 	}
 }
@@ -14595,17 +13882,6 @@ tv_wonder_location_has_unique_malacca_port_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_malacca_port_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_malacca_port
-		has_building = building_type:tv_wonder_unique_malacca_port_foundation
-		has_building = building_type:tv_wonder_unique_malacca_port_body
-		has_building = building_type:tv_wonder_unique_malacca_port_function
-		has_building = building_type:tv_wonder_unique_malacca_port_decoration
-		has_building = building_type:tv_wonder_unique_malacca_port_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_malacca_port_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -14723,17 +13999,6 @@ tv_wonder_location_has_unique_red_fort_delhi_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_red_fort_delhi_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_red_fort_delhi_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_red_fort_delhi_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_red_fort_delhi
-		has_building = building_type:tv_wonder_unique_red_fort_delhi_foundation
-		has_building = building_type:tv_wonder_unique_red_fort_delhi_body
-		has_building = building_type:tv_wonder_unique_red_fort_delhi_function
-		has_building = building_type:tv_wonder_unique_red_fort_delhi_decoration
 		has_building = building_type:tv_wonder_unique_red_fort_delhi_inaugurated
 	}
 }
@@ -14859,17 +14124,6 @@ tv_wonder_location_has_unique_versailles_palace_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_versailles_palace_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_versailles_palace
-		has_building = building_type:tv_wonder_unique_versailles_palace_foundation
-		has_building = building_type:tv_wonder_unique_versailles_palace_body
-		has_building = building_type:tv_wonder_unique_versailles_palace_function
-		has_building = building_type:tv_wonder_unique_versailles_palace_decoration
-		has_building = building_type:tv_wonder_unique_versailles_palace_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_versailles_palace_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -14987,17 +14241,6 @@ tv_wonder_location_has_unique_tenochtitlan_causeways_intermediate_building_trigg
 
 tv_wonder_location_has_unique_tenochtitlan_causeways_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_tenochtitlan_causeways_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_tenochtitlan_causeways_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_tenochtitlan_causeways
-		has_building = building_type:tv_wonder_unique_tenochtitlan_causeways_foundation
-		has_building = building_type:tv_wonder_unique_tenochtitlan_causeways_body
-		has_building = building_type:tv_wonder_unique_tenochtitlan_causeways_function
-		has_building = building_type:tv_wonder_unique_tenochtitlan_causeways_decoration
 		has_building = building_type:tv_wonder_unique_tenochtitlan_causeways_inaugurated
 	}
 }
@@ -15123,17 +14366,6 @@ tv_wonder_location_has_unique_amsterdam_canal_ring_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_amsterdam_canal_ring_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_amsterdam_canal_ring
-		has_building = building_type:tv_wonder_unique_amsterdam_canal_ring_foundation
-		has_building = building_type:tv_wonder_unique_amsterdam_canal_ring_body
-		has_building = building_type:tv_wonder_unique_amsterdam_canal_ring_function
-		has_building = building_type:tv_wonder_unique_amsterdam_canal_ring_decoration
-		has_building = building_type:tv_wonder_unique_amsterdam_canal_ring_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_amsterdam_canal_ring_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -15251,17 +14483,6 @@ tv_wonder_location_has_unique_mecca_haram_expansion_intermediate_building_trigge
 
 tv_wonder_location_has_unique_mecca_haram_expansion_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_mecca_haram_expansion_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_mecca_haram_expansion
-		has_building = building_type:tv_wonder_unique_mecca_haram_expansion_foundation
-		has_building = building_type:tv_wonder_unique_mecca_haram_expansion_body
-		has_building = building_type:tv_wonder_unique_mecca_haram_expansion_function
-		has_building = building_type:tv_wonder_unique_mecca_haram_expansion_decoration
 		has_building = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated
 	}
 }
@@ -15387,17 +14608,6 @@ tv_wonder_location_has_unique_ming_great_wall_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_ming_great_wall_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_ming_great_wall
-		has_building = building_type:tv_wonder_unique_ming_great_wall_foundation
-		has_building = building_type:tv_wonder_unique_ming_great_wall_body
-		has_building = building_type:tv_wonder_unique_ming_great_wall_function
-		has_building = building_type:tv_wonder_unique_ming_great_wall_decoration
-		has_building = building_type:tv_wonder_unique_ming_great_wall_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_ming_great_wall_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -15515,17 +14725,6 @@ tv_wonder_location_has_unique_bank_of_saint_george_intermediate_building_trigger
 
 tv_wonder_location_has_unique_bank_of_saint_george_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_bank_of_saint_george_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_bank_of_saint_george_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_bank_of_saint_george
-		has_building = building_type:tv_wonder_unique_bank_of_saint_george_foundation
-		has_building = building_type:tv_wonder_unique_bank_of_saint_george_body
-		has_building = building_type:tv_wonder_unique_bank_of_saint_george_function
-		has_building = building_type:tv_wonder_unique_bank_of_saint_george_decoration
 		has_building = building_type:tv_wonder_unique_bank_of_saint_george_inaugurated
 	}
 }
@@ -15651,17 +14850,6 @@ tv_wonder_location_has_unique_cahokia_mounds_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_cahokia_mounds_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_cahokia_mounds
-		has_building = building_type:tv_wonder_unique_cahokia_mounds_foundation
-		has_building = building_type:tv_wonder_unique_cahokia_mounds_body
-		has_building = building_type:tv_wonder_unique_cahokia_mounds_function
-		has_building = building_type:tv_wonder_unique_cahokia_mounds_decoration
-		has_building = building_type:tv_wonder_unique_cahokia_mounds_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_cahokia_mounds_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -15779,17 +14967,6 @@ tv_wonder_location_has_unique_great_zimbabwe_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_great_zimbabwe_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_great_zimbabwe_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_great_zimbabwe_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_great_zimbabwe
-		has_building = building_type:tv_wonder_unique_great_zimbabwe_foundation
-		has_building = building_type:tv_wonder_unique_great_zimbabwe_body
-		has_building = building_type:tv_wonder_unique_great_zimbabwe_function
-		has_building = building_type:tv_wonder_unique_great_zimbabwe_decoration
 		has_building = building_type:tv_wonder_unique_great_zimbabwe_inaugurated
 	}
 }
@@ -15915,17 +15092,6 @@ tv_wonder_location_has_unique_isfahan_square_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_isfahan_square_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_isfahan_square
-		has_building = building_type:tv_wonder_unique_isfahan_square_foundation
-		has_building = building_type:tv_wonder_unique_isfahan_square_body
-		has_building = building_type:tv_wonder_unique_isfahan_square_function
-		has_building = building_type:tv_wonder_unique_isfahan_square_decoration
-		has_building = building_type:tv_wonder_unique_isfahan_square_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_isfahan_square_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -16043,17 +15209,6 @@ tv_wonder_location_has_unique_grand_canal_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_grand_canal_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_grand_canal_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_grand_canal_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_grand_canal
-		has_building = building_type:tv_wonder_unique_grand_canal_foundation
-		has_building = building_type:tv_wonder_unique_grand_canal_body
-		has_building = building_type:tv_wonder_unique_grand_canal_function
-		has_building = building_type:tv_wonder_unique_grand_canal_decoration
 		has_building = building_type:tv_wonder_unique_grand_canal_inaugurated
 	}
 }
@@ -16179,17 +15334,6 @@ tv_wonder_location_has_unique_inca_royal_road_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_inca_royal_road_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_inca_royal_road
-		has_building = building_type:tv_wonder_unique_inca_royal_road_foundation
-		has_building = building_type:tv_wonder_unique_inca_royal_road_body
-		has_building = building_type:tv_wonder_unique_inca_royal_road_function
-		has_building = building_type:tv_wonder_unique_inca_royal_road_decoration
-		has_building = building_type:tv_wonder_unique_inca_royal_road_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_inca_royal_road_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -16307,17 +15451,6 @@ tv_wonder_location_has_unique_roman_aqueducts_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_roman_aqueducts_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_roman_aqueducts_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_roman_aqueducts_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_roman_aqueducts
-		has_building = building_type:tv_wonder_unique_roman_aqueducts_foundation
-		has_building = building_type:tv_wonder_unique_roman_aqueducts_body
-		has_building = building_type:tv_wonder_unique_roman_aqueducts_function
-		has_building = building_type:tv_wonder_unique_roman_aqueducts_decoration
 		has_building = building_type:tv_wonder_unique_roman_aqueducts_inaugurated
 	}
 }
@@ -16443,17 +15576,6 @@ tv_wonder_location_has_unique_suez_ancient_canal_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_suez_ancient_canal_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_suez_ancient_canal
-		has_building = building_type:tv_wonder_unique_suez_ancient_canal_foundation
-		has_building = building_type:tv_wonder_unique_suez_ancient_canal_body
-		has_building = building_type:tv_wonder_unique_suez_ancient_canal_function
-		has_building = building_type:tv_wonder_unique_suez_ancient_canal_decoration
-		has_building = building_type:tv_wonder_unique_suez_ancient_canal_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_suez_ancient_canal_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -16571,17 +15693,6 @@ tv_wonder_location_has_unique_kremlin_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_kremlin_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_kremlin_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_kremlin_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_kremlin
-		has_building = building_type:tv_wonder_unique_kremlin_foundation
-		has_building = building_type:tv_wonder_unique_kremlin_body
-		has_building = building_type:tv_wonder_unique_kremlin_function
-		has_building = building_type:tv_wonder_unique_kremlin_decoration
 		has_building = building_type:tv_wonder_unique_kremlin_inaugurated
 	}
 }
@@ -16707,17 +15818,6 @@ tv_wonder_location_has_unique_teotihuacan_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_teotihuacan_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_teotihuacan
-		has_building = building_type:tv_wonder_unique_teotihuacan_foundation
-		has_building = building_type:tv_wonder_unique_teotihuacan_body
-		has_building = building_type:tv_wonder_unique_teotihuacan_function
-		has_building = building_type:tv_wonder_unique_teotihuacan_decoration
-		has_building = building_type:tv_wonder_unique_teotihuacan_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_teotihuacan_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -16835,17 +15935,6 @@ tv_wonder_location_has_unique_angkor_hydraulic_system_intermediate_building_trig
 
 tv_wonder_location_has_unique_angkor_hydraulic_system_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_angkor_hydraulic_system_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_angkor_hydraulic_system
-		has_building = building_type:tv_wonder_unique_angkor_hydraulic_system_foundation
-		has_building = building_type:tv_wonder_unique_angkor_hydraulic_system_body
-		has_building = building_type:tv_wonder_unique_angkor_hydraulic_system_function
-		has_building = building_type:tv_wonder_unique_angkor_hydraulic_system_decoration
 		has_building = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated
 	}
 }
@@ -16971,17 +16060,6 @@ tv_wonder_location_has_unique_dutch_polders_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_dutch_polders_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_dutch_polders
-		has_building = building_type:tv_wonder_unique_dutch_polders_foundation
-		has_building = building_type:tv_wonder_unique_dutch_polders_body
-		has_building = building_type:tv_wonder_unique_dutch_polders_function
-		has_building = building_type:tv_wonder_unique_dutch_polders_decoration
-		has_building = building_type:tv_wonder_unique_dutch_polders_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_dutch_polders_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -17099,17 +16177,6 @@ tv_wonder_location_has_unique_machu_picchu_terraces_intermediate_building_trigge
 
 tv_wonder_location_has_unique_machu_picchu_terraces_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_machu_picchu_terraces_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_machu_picchu_terraces_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_machu_picchu_terraces
-		has_building = building_type:tv_wonder_unique_machu_picchu_terraces_foundation
-		has_building = building_type:tv_wonder_unique_machu_picchu_terraces_body
-		has_building = building_type:tv_wonder_unique_machu_picchu_terraces_function
-		has_building = building_type:tv_wonder_unique_machu_picchu_terraces_decoration
 		has_building = building_type:tv_wonder_unique_machu_picchu_terraces_inaugurated
 	}
 }
@@ -17235,17 +16302,6 @@ tv_wonder_location_has_unique_british_navy_dockyards_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_british_navy_dockyards_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_british_navy_dockyards
-		has_building = building_type:tv_wonder_unique_british_navy_dockyards_foundation
-		has_building = building_type:tv_wonder_unique_british_navy_dockyards_body
-		has_building = building_type:tv_wonder_unique_british_navy_dockyards_function
-		has_building = building_type:tv_wonder_unique_british_navy_dockyards_decoration
-		has_building = building_type:tv_wonder_unique_british_navy_dockyards_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_british_navy_dockyards_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -17363,17 +16419,6 @@ tv_wonder_location_has_unique_spanish_silver_fleet_intermediate_building_trigger
 
 tv_wonder_location_has_unique_spanish_silver_fleet_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_spanish_silver_fleet_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_spanish_silver_fleet_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_spanish_silver_fleet
-		has_building = building_type:tv_wonder_unique_spanish_silver_fleet_foundation
-		has_building = building_type:tv_wonder_unique_spanish_silver_fleet_body
-		has_building = building_type:tv_wonder_unique_spanish_silver_fleet_function
-		has_building = building_type:tv_wonder_unique_spanish_silver_fleet_decoration
 		has_building = building_type:tv_wonder_unique_spanish_silver_fleet_inaugurated
 	}
 }
@@ -17499,17 +16544,6 @@ tv_wonder_location_has_unique_ottoman_hajj_road_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_ottoman_hajj_road_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_ottoman_hajj_road
-		has_building = building_type:tv_wonder_unique_ottoman_hajj_road_foundation
-		has_building = building_type:tv_wonder_unique_ottoman_hajj_road_body
-		has_building = building_type:tv_wonder_unique_ottoman_hajj_road_function
-		has_building = building_type:tv_wonder_unique_ottoman_hajj_road_decoration
-		has_building = building_type:tv_wonder_unique_ottoman_hajj_road_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_ottoman_hajj_road_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -17627,17 +16661,6 @@ tv_wonder_location_has_unique_persian_qanat_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_persian_qanat_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_persian_qanat_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_persian_qanat_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_persian_qanat
-		has_building = building_type:tv_wonder_unique_persian_qanat_foundation
-		has_building = building_type:tv_wonder_unique_persian_qanat_body
-		has_building = building_type:tv_wonder_unique_persian_qanat_function
-		has_building = building_type:tv_wonder_unique_persian_qanat_decoration
 		has_building = building_type:tv_wonder_unique_persian_qanat_inaugurated
 	}
 }
@@ -17763,17 +16786,6 @@ tv_wonder_location_has_unique_longjiang_shipyard_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_longjiang_shipyard_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_longjiang_shipyard
-		has_building = building_type:tv_wonder_unique_longjiang_shipyard_foundation
-		has_building = building_type:tv_wonder_unique_longjiang_shipyard_body
-		has_building = building_type:tv_wonder_unique_longjiang_shipyard_function
-		has_building = building_type:tv_wonder_unique_longjiang_shipyard_decoration
-		has_building = building_type:tv_wonder_unique_longjiang_shipyard_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_longjiang_shipyard_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -17891,17 +16903,6 @@ tv_wonder_location_has_unique_jerusalem_holy_city_intermediate_building_trigger 
 
 tv_wonder_location_has_unique_jerusalem_holy_city_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_jerusalem_holy_city_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_jerusalem_holy_city
-		has_building = building_type:tv_wonder_unique_jerusalem_holy_city_foundation
-		has_building = building_type:tv_wonder_unique_jerusalem_holy_city_body
-		has_building = building_type:tv_wonder_unique_jerusalem_holy_city_function
-		has_building = building_type:tv_wonder_unique_jerusalem_holy_city_decoration
 		has_building = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated
 	}
 }
@@ -18027,17 +17028,6 @@ tv_wonder_location_has_unique_stonehenge_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_stonehenge_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_stonehenge
-		has_building = building_type:tv_wonder_unique_stonehenge_foundation
-		has_building = building_type:tv_wonder_unique_stonehenge_body
-		has_building = building_type:tv_wonder_unique_stonehenge_function
-		has_building = building_type:tv_wonder_unique_stonehenge_decoration
-		has_building = building_type:tv_wonder_unique_stonehenge_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_stonehenge_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -18155,17 +17145,6 @@ tv_wonder_location_has_unique_tower_of_london_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_tower_of_london_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_tower_of_london_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_tower_of_london_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_tower_of_london
-		has_building = building_type:tv_wonder_unique_tower_of_london_foundation
-		has_building = building_type:tv_wonder_unique_tower_of_london_body
-		has_building = building_type:tv_wonder_unique_tower_of_london_function
-		has_building = building_type:tv_wonder_unique_tower_of_london_decoration
 		has_building = building_type:tv_wonder_unique_tower_of_london_inaugurated
 	}
 }
@@ -18291,17 +17270,6 @@ tv_wonder_location_has_unique_notre_dame_de_paris_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_notre_dame_de_paris_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_notre_dame_de_paris
-		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_foundation
-		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_body
-		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_function
-		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_decoration
-		has_building = building_type:tv_wonder_unique_notre_dame_de_paris_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_notre_dame_de_paris_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -18419,17 +17387,6 @@ tv_wonder_location_has_unique_st_basils_cathedral_intermediate_building_trigger 
 
 tv_wonder_location_has_unique_st_basils_cathedral_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_st_basils_cathedral_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_st_basils_cathedral
-		has_building = building_type:tv_wonder_unique_st_basils_cathedral_foundation
-		has_building = building_type:tv_wonder_unique_st_basils_cathedral_body
-		has_building = building_type:tv_wonder_unique_st_basils_cathedral_function
-		has_building = building_type:tv_wonder_unique_st_basils_cathedral_decoration
 		has_building = building_type:tv_wonder_unique_st_basils_cathedral_inaugurated
 	}
 }
@@ -18555,17 +17512,6 @@ tv_wonder_location_has_unique_trinity_lavra_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_trinity_lavra_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_trinity_lavra
-		has_building = building_type:tv_wonder_unique_trinity_lavra_foundation
-		has_building = building_type:tv_wonder_unique_trinity_lavra_body
-		has_building = building_type:tv_wonder_unique_trinity_lavra_function
-		has_building = building_type:tv_wonder_unique_trinity_lavra_decoration
-		has_building = building_type:tv_wonder_unique_trinity_lavra_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_trinity_lavra_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -18683,17 +17629,6 @@ tv_wonder_location_has_unique_winter_palace_intermediate_building_trigger = {
 
 tv_wonder_location_has_unique_winter_palace_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_winter_palace_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_winter_palace_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_winter_palace
-		has_building = building_type:tv_wonder_unique_winter_palace_foundation
-		has_building = building_type:tv_wonder_unique_winter_palace_body
-		has_building = building_type:tv_wonder_unique_winter_palace_function
-		has_building = building_type:tv_wonder_unique_winter_palace_decoration
 		has_building = building_type:tv_wonder_unique_winter_palace_inaugurated
 	}
 }
@@ -18819,17 +17754,6 @@ tv_wonder_location_has_unique_gyeongbokgung_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_gyeongbokgung_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_gyeongbokgung
-		has_building = building_type:tv_wonder_unique_gyeongbokgung_foundation
-		has_building = building_type:tv_wonder_unique_gyeongbokgung_body
-		has_building = building_type:tv_wonder_unique_gyeongbokgung_function
-		has_building = building_type:tv_wonder_unique_gyeongbokgung_decoration
-		has_building = building_type:tv_wonder_unique_gyeongbokgung_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_gyeongbokgung_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -18947,17 +17871,6 @@ tv_wonder_location_has_unique_changbai_mountain_altar_intermediate_building_trig
 
 tv_wonder_location_has_unique_changbai_mountain_altar_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_changbai_mountain_altar_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_changbai_mountain_altar
-		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_foundation
-		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_body
-		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_function
-		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_decoration
 		has_building = building_type:tv_wonder_unique_changbai_mountain_altar_inaugurated
 	}
 }
@@ -19083,17 +17996,6 @@ tv_wonder_location_has_unique_belgrade_fortress_final_building_trigger = {
 	}
 }
 
-tv_wonder_location_has_unique_belgrade_fortress_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_belgrade_fortress
-		has_building = building_type:tv_wonder_unique_belgrade_fortress_foundation
-		has_building = building_type:tv_wonder_unique_belgrade_fortress_body
-		has_building = building_type:tv_wonder_unique_belgrade_fortress_function
-		has_building = building_type:tv_wonder_unique_belgrade_fortress_decoration
-		has_building = building_type:tv_wonder_unique_belgrade_fortress_inaugurated
-	}
-}
-
 tv_wonder_location_has_unique_belgrade_fortress_expandable_final_building_trigger = {
 	OR = {
 		AND = {
@@ -19211,17 +18113,6 @@ tv_wonder_location_has_unique_meteora_monasteries_intermediate_building_trigger 
 
 tv_wonder_location_has_unique_meteora_monasteries_final_building_trigger = {
 	OR = {
-		has_building = building_type:tv_wonder_unique_meteora_monasteries_inaugurated
-	}
-}
-
-tv_wonder_location_has_unique_meteora_monasteries_project_building_trigger = {
-	OR = {
-		has_building = building_type:tv_wonder_unique_meteora_monasteries
-		has_building = building_type:tv_wonder_unique_meteora_monasteries_foundation
-		has_building = building_type:tv_wonder_unique_meteora_monasteries_body
-		has_building = building_type:tv_wonder_unique_meteora_monasteries_function
-		has_building = building_type:tv_wonder_unique_meteora_monasteries_decoration
 		has_building = building_type:tv_wonder_unique_meteora_monasteries_inaugurated
 	}
 }

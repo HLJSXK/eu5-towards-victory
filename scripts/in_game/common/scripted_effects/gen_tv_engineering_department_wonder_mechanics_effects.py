@@ -1341,16 +1341,6 @@ def generate() -> str:
 
     append_construct_final_building_effect(lines, "tv_wonder_mechanics_construct_generic_final_building_effect", generic_wonders)
     append_construct_final_building_effect(lines, "tv_wonder_mechanics_construct_unique_final_building_effect", unique_wonders)
-    lines.append("tv_wonder_mechanics_construct_final_building_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_unique_locked_trigger = yes }}")
-    lines.append(f"{T}{T}tv_wonder_mechanics_construct_unique_final_building_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else = {{")
-    lines.append(f"{T}{T}tv_wonder_mechanics_construct_generic_final_building_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
 
     ritual_entry_list = ritual_entries(all_wonders, mechanics)
 
