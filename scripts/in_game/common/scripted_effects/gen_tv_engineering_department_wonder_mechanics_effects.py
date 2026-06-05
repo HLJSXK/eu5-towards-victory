@@ -439,6 +439,42 @@ def append_ritual_tooltip_effects(lines: list[str], ritual_entry_list: list[tupl
         lines.append(f"{T}{ritual_location_tooltip_effect_name(wonder, style)} = yes")
         lines.append("}")
         lines.append("")
+    append_selected_ritual_tooltip_dispatch_effect(
+        lines,
+        "tv_wonder_selected_ritual_requirement_tooltip_effect",
+        [
+            (wonder, style, ritual_requirement_tooltip_effect_name(wonder, style))
+            for wonder, style, _ritual_plan in ritual_entry_list
+            if not wonder.get("is_unique")
+        ],
+    )
+    append_selected_ritual_tooltip_dispatch_effect(
+        lines,
+        "tv_wonder_selected_ritual_effect_tooltip_effect",
+        [
+            (wonder, style, ritual_effect_tooltip_effect_name(wonder, style))
+            for wonder, style, _ritual_plan in ritual_entry_list
+        ],
+    )
+
+
+def append_selected_ritual_tooltip_dispatch_effect(
+    lines: list[str],
+    effect_name: str,
+    dispatch_entries: list[tuple[dict, int, str]],
+) -> None:
+    lines.append(f"{effect_name} = {{")
+    for index, (wonder, style, target_effect_name) in enumerate(dispatch_entries):
+        branch = "if" if index == 0 else "else_if"
+        lines.append(f"{T}{branch} = {{")
+        lines.append(f"{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
+        lines.append(f"{T}{T}{target_effect_name} = yes")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}else = {{")
+    lines.append(f"{T}{T}custom_tooltip = {{ text = NOTHING_HAPPENS_EFFECT }}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
 
 
 def loc_level(building: str, op: str, level: int) -> str:
