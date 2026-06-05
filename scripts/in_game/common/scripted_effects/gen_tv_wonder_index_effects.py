@@ -16,6 +16,7 @@ from wonder_mechanics_lib import (
     WONDER_SIZE_IDS,
     ceremony_styles,
     load_all_wonder_mechanics,
+    load_wonders_source_data,
     render_header,
     ritual_plan_for_style,
     ritual_has_custom_completion_trigger,
@@ -61,6 +62,7 @@ WONDER_MAP_NAMES = [
     "tv_wonder_id_to_display_id",
     "tv_wonder_id_to_concept_display_id",
     "tv_wonder_id_to_image_display_id",
+    "tv_wonder_id_to_required_progress",
 ]
 
 RITUAL_MAP_NAMES = [
@@ -192,8 +194,9 @@ def append_refresh_country_cache(lines: list[str]) -> None:
     lines.append("")
 
 
-def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics: dict) -> None:
+def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics: dict, source_data: dict) -> None:
     by_key = {wonder["key"]: wonder for wonder in wonders}
+    size_progress = {size: int(record["progress"]) for size, record in source_data["sizes"].items()}
     all_map_names = [*WONDER_MAP_NAMES, *RITUAL_MAP_NAMES, *SUITABILITY_ROW_MAP_NAMES]
     first_wonder = wonders[0]
     all_styles = sorted({style for wonder in wonders for style in ceremony_styles(wonder)})
@@ -239,6 +242,7 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
         lines.extend(map_replace_line("tv_wonder_id_to_display_id", key, wonder_id))
         lines.extend(map_replace_line("tv_wonder_id_to_concept_display_id", key, wonder_id))
         lines.extend(map_replace_line("tv_wonder_id_to_image_display_id", key, wonder_id))
+        lines.extend(map_replace_line("tv_wonder_id_to_required_progress", key, size_progress[wonder["size"]]))
         lines.extend(map_replace_line("tv_wonder_id_to_helper_building_type", key, f"building_type:tv_wonder_{wonder['key']}"))
 
         for part in PARTS:
@@ -343,11 +347,12 @@ def append_rebuild_if_needed(lines: list[str], first_wonder: dict) -> None:
 
 
 def generate() -> str:
+    source_data = load_wonders_source_data()
     wonders, mechanics = load_all_wonder_mechanics()
     wonders = sorted(wonders, key=lambda item: int(item["id"]))
 
     lines = render_header(SCRIPT_REL)
-    append_rebuild_global_maps(lines, wonders, mechanics)
+    append_rebuild_global_maps(lines, wonders, mechanics, source_data)
     append_rebuild_if_needed(lines, wonders[0])
     append_clear_cache_effect(lines, "tv_wonder_index_clear_locked_wonder_cache_effect", WONDER_CACHE_VARS)
     append_clear_cache_effect(lines, "tv_wonder_index_clear_selected_ritual_cache_effect", RITUAL_CACHE_VARS)

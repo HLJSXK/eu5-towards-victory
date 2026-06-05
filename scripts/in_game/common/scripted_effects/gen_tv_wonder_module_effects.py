@@ -25,6 +25,8 @@ T = "\t"
 HELPER_BUILDING_TYPE_MAP = "tv_wonder_id_to_helper_building_type"
 HELPER_BUILDING_TYPE_VAR = "tv_wonder_helper_building_type"
 MODULE_BUILDING_TYPE_VAR = "tv_wonder_module_building_type"
+REQUIRED_PROGRESS_MAP = "tv_wonder_id_to_required_progress"
+REQUIRED_PROGRESS_VAR = "tv_wonder_required_progress"
 
 
 def module_building_type_map_name(part_key: str) -> str:
@@ -456,13 +458,18 @@ def main() -> None:
 
     lines.append("tv_wonder_set_required_progress_effect = {")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_unit_required_progress value = 300000 }}")
-    for wonder in wonders:
-        progress = data["sizes"][wonder["size"]]["progress"]
-        prefix = "if" if wonder is wonders[0] else "else_if"
-        lines.append(f"{T}{prefix} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_unit_required_progress value = {progress} }}")
-        lines.append(f"{T}}}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {REQUIRED_PROGRESS_MAP}")
+    lines.append(
+        f"{T}{T}{T}is_key_in_global_variable_map = {{ name = {REQUIRED_PROGRESS_MAP} target = var:tv_wonder_locked }}"
+    )
+    lines.append(f"{T}{T}}}")
+    lines.extend(capture_global_map_value(REQUIRED_PROGRESS_VAR, REQUIRED_PROGRESS_MAP, "var:tv_wonder_locked", 2))
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_unit_required_progress value = local_var:{REQUIRED_PROGRESS_VAR} }}")
+    lines.append(f"{T}{T}remove_local_variable = {REQUIRED_PROGRESS_VAR}")
+    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
