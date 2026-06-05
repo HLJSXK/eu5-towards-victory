@@ -488,7 +488,7 @@ paths:
         threshold: 5000
         extra_trigger_block: null
         modifier:
-          global_build_buildings_cost: -0.25
+          global_build_buildings_efficiency: 0.25
           city_upgrade_cost_modifier: -0.25
           town_upgrade_cost_modifier: -0.25
           rural_settlement_upgrade_cost_modifier: -0.25
@@ -708,7 +708,7 @@ paths:
         threshold: 200
         extra_trigger_block: null
         modifier:
-          global_foreign_build_buildings_cost: -0.20
+          global_foreign_build_buildings_efficiency: 0.20
         modifier_name:
           en: "Foreign Investment"
           zh: "海外投资"

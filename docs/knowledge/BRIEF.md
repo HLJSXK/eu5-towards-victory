@@ -409,6 +409,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | advisory | script | any | Passing a generic-action value selector or scoped variable directly as set_variable value, add_temporary_demand scale, or add_goods_supply amount | Wrap dynamic numeric reads in an explicit script-value block, e.g. value = { value = scope:target_1 }, value = { value = scope:target_1 divide = 2 }, scale = { value = scope:io.var:X }, or amount = { value = scope:io.var:X }. | Direct scoped numeric reads in these dynamic value slots can be interpreted as existence/truthy values and collapse to 1. The script-value block preserves the selected number and supports inline arithmetic. |
 | advisory | script | any | Calling cleanup-only scripted effects from a visible generic action effect | Wrap cleanup/rebuild-only helper calls in hidden_effect = { ... }. scripts/validate.py enforces the registered high-risk helper list, including tv_governor_remove_effect. | Generic action effect tooltips can pre-evaluate cleanup helpers, causing variable/list cleanup chains to run through unsafe reads while merely hovering the button. Hidden output is required for these internal maintenance effects. |
 | lint | modifier | country | trade_efficiency = <value> | Use trade_land_efficiency and trade_sea_efficiency separately (both category=country, percent) | trade_efficiency does not exist in EU5; split into trade_land_efficiency + trade_sea_efficiency |
+| lint | modifier | any | EU5 1.2-era cost modifier name after the 1.3 efficiency rename | Use the matching *_efficiency modifier from current reference files and invert the numeric sign to preserve old cost semantics. | EU5 1.3 renamed this cost-modifier family to efficiency. The new definitions are color=good, so positive values reduce costs; old negative cost modifiers become positive efficiency. |
 | lint | localization | any | Smart/curly quotes (“”‘’) in localization YAML | Use straight ASCII double-quotes (") only; escape with \" inside values | PDX parser rejects non-ASCII quote characters; the failure is silent |
 | needs_parser | localization | any | Defining the same localization key in more than one YAML file for the same language | Keep each localization key owned by exactly one file per language. When a generator takes over a key family, remove the stale manual copies instead of redefining them. | Main-menu localization YAML does not merge duplicate keys across files within one language pack. Startup logs a duplicate-key error and only one definition can win, so manual and generated files must have unambiguous ownership. |
 | advisory | localization | international_organization | Custom IO law category localized only by raw category id (e.g. tv_science_factions) | Also define <CATEGORY_ID_UPPERCASE>_LAW_CATEGORY in main_menu localization, e.g. TV_SCIENCE_FACTIONS_LAW_CATEGORY | The vanilla IO Laws tab displays InternationalOrganizationLawCategory.GetName and looks up the uppercase *_LAW_CATEGORY key for law category headers; missing keys render literally. |
@@ -577,10 +578,10 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 
 | Category | Count | Index file | Notes |
 | --- | --- | --- | --- |
-| GUI Icons (`@xxx!`) | 351 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
-| Scripted Triggers | 1607 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
-| Scripted Effects | 2027 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
-| Static Modifiers | 2334 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
+| GUI Icons (`@xxx!`) | 355 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
+| Scripted Triggers | 1614 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
+| Scripted Effects | 2040 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
+| Static Modifiers | 2424 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
 | English Loc Keys | 7966 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map

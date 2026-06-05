@@ -1850,7 +1850,7 @@ generic_rituals:
   city_expansion_project:
     style_1:
       country_modifier:
-        global_urban_build_buildings_cost: -0.05
+        global_urban_build_buildings_efficiency: 0.05
     style_2:
       local_modifier:
         local_monthly_development_modifier: 0.1
@@ -1877,7 +1877,7 @@ generic_rituals:
   grand_cathedral:
     style_1:
       country_modifier:
-        court_spending_cost_modifier: -0.05
+        court_spending_efficiency: 0.05
     style_2:
       local_modifier:
         local_monthly_prosperity: 0.002

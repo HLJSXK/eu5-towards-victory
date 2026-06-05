@@ -247,6 +247,16 @@
   source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:10044"
   notes: "trade_efficiency does not exist in EU5; split into trade_land_efficiency + trade_sea_efficiency"
 
+- id: eu5_13_cost_modifier_renamed_efficiency
+  pattern: '\b(?:global(?:_(?:foreign|fort|port|urban|rural|mills))?_build_buildings_cost|local(?:_(?:port|mills))?_build_buildings_cost|court_spending_cost_modifier|stability_cost|global_bureaucracy_maintenance_cost_modifier)\s*[=:]'
+  detectability: lint
+  bad: "EU5 1.2-era cost modifier name after the 1.3 efficiency rename"
+  correction: "Use the matching *_efficiency modifier from current reference files and invert the numeric sign to preserve old cost semantics."
+  category: modifier
+  scope: any
+  source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:3193,4103,4135,4167,6822,6838,15764"
+  notes: "EU5 1.3 renamed this cost-modifier family to efficiency. The new definitions are color=good, so positive values reduce costs; old negative cost modifiers become positive efficiency."
+
 - id: yaml_localization_non_ascii_quotes
   pattern: "[“”‘’]"
   bad: "Smart/curly quotes (“”‘’) in localization YAML"

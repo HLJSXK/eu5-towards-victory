@@ -106,6 +106,12 @@ io_opinion_tv_trade_league = {
 
 If the bias is missing, startup logs can report that the international organization type needs an opinion of other members. Existing TV IOs usually use small positive values such as 10, while stronger alliance-like systems may use a higher value by design.
 
+#### EU5 1.3 Cost Modifier Rename
+
+Several vanilla cost-family modifier types were renamed to efficiency modifiers in EU5 1.3. Verify current names in `reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt` before applying cost-related modifiers. Known renamed keys include `global_build_buildings_efficiency`, `global_foreign_build_buildings_efficiency`, `global_urban_build_buildings_efficiency`, `local_build_buildings_efficiency`, `court_spending_efficiency`, `stability_cost_efficiency`, and `global_bureaucracy_maintenance_efficiency`.
+
+The new definitions are positive-good (`color=good`), so migrating from the old cost names requires a sign flip: an old `global_build_buildings_cost = -0.10` cost reduction becomes `global_build_buildings_efficiency = 0.10`; an old cost penalty of `0.10` becomes efficiency `-0.10`.
+
 #### Production Method Base Profit
 
 EU5 checks production-method base profit at startup using each involved good's `default_market_price`. If the output value is too high relative to the input value, the engine logs an error from `production_methods.cpp` that the production method has too high base profit and should be no more than 30%.

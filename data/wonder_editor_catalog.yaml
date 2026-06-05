@@ -7,7 +7,6 @@ modifier_types:
   country:
   - antagonism_monthly_change_modifier
   - antagonism_received_modifier
-  - appanage_prevented_from_call_to_war
   - army_artillery_build_cost_modifier
   - army_artillery_maintenance_cost_modifier
   - army_artillery_reinforce_cost_modifier
@@ -55,15 +54,16 @@ modifier_types:
   - clergy_estate_min_tax
   - clergy_estate_satisfaction_decay
   - clergy_estate_target_satisfaction
-  - colonial_maintenance_cost
+  - colonial_maintenance_efficiency
   - colonial_migration_size_modifier
   - colonial_range_modifier
   - cossacks_estate_levy_size
   - counter_espionage
   - country_cabinet_efficiency
   - country_child_education
-  - court_spending_cost_modifier
+  - court_spending_efficiency
   - create_colonial_charter_cost_modifier
+  - crown_power_from_population
   - cultural_influence
   - cultural_influence_modifier
   - cultural_tradition
@@ -72,7 +72,7 @@ modifier_types:
   - declaring_war_cost_modifier
   - dhimmi_estate_max_tax
   - diplomacy_importance_modifier
-  - diplomatic_annexation_cost
+  - diplomatic_annexation_efficiency
   - diplomatic_capacity
   - diplomatic_capacity_modifier
   - diplomatic_range
@@ -84,14 +84,15 @@ modifier_types:
   - expand_rgo_farming_cost_modifier
   - expand_rgo_hunting_cost_modifier
   - expected_army_size_modifier
-  - exploration_maintenance_cost
+  - exploration_maintenance_efficiency
   - exploration_mission_speed
   - exploration_preparation_time_modifier
   - export_efficiency
   - fort_limit
-  - fort_maintenance_cost
+  - fort_maintenance_efficiency
+  - french_subject_prevented_from_call_to_war
   - global_beeswax_output_modifier
-  - global_build_buildings_cost
+  - global_build_buildings_efficiency
   - global_burghers_estate_power
   - global_burghers_max_literacy
   - global_cannons_output_modifier
@@ -117,7 +118,7 @@ modifier_types:
   - global_fine_cloth_pop_demand
   - global_firearms_output_modifier
   - global_food_capacity_modifier
-  - global_fort_build_buildings_cost
+  - global_fort_build_buildings_efficiency
   - global_fur_output_modifier
   - global_heretic_pop_conversion_speed_modifier
   - global_horses_output_modifier
@@ -166,7 +167,8 @@ modifier_types:
   - global_raw_material_output
   - global_rice_output_modifier
   - global_road_building_time
-  - global_rural_build_buildings_cost
+  - global_rural_build_buildings_efficiency
+  - global_sailors_modifier
   - global_separatism
   - global_silk_output_modifier
   - global_silver_output_modifier
@@ -179,7 +181,7 @@ modifier_types:
   - global_trade_center_power
   - global_trades_per_burgher
   - global_tribesmen_food_consumption
-  - global_urban_build_buildings_cost
+  - global_urban_build_buildings_efficiency
   - global_war_score_efficiency
   - global_weaponry_output_modifier
   - global_wheat_output_modifier
@@ -189,6 +191,8 @@ modifier_types:
   - government_reform_slots
   - government_size
   - head_of_cabinet_promotion_cost_modifier
+  - hire_artist_cost_modifier
+  - hire_mercenary_leader_cost_modifier
   - hire_mercenary_premium_cost_modifier
   - hire_privateer_cost_modifier
   - import_efficiency
@@ -201,6 +205,7 @@ modifier_types:
   - max_diplomats
   - megalopolis_upgrade_cost_modifier
   - mercenary_maintenance_efficiency
+  - mercenary_range_modifier
   - merchant_maintenance_efficiency
   - minting_income_factor
   - minting_inflation_threshold
@@ -276,7 +281,11 @@ modifier_types:
   - nobles_estate_min_tax
   - nobles_estate_target_satisfaction
   - non_rural_migration_attraction
+  - num_italian_administrations
+  - num_of_cataphracts_modifier
+  - num_of_legionaries_modifier
   - num_possible_artists
+  - num_possible_rivals
   - orthodox_monastery_building_cost_modifier
   - orthodox_synod_cost_modifier
   - parliament_abolished
@@ -299,7 +308,6 @@ modifier_types:
   - religious_icon_power_modifier
   - remove_government_reform_cost_modifier
   - replace_cabinet_member_cost_modifier
-  - research_speed
   - research_speed_modifier
   - revoke_privilege_cost_modifier
   - rural_migration_attraction
@@ -310,7 +318,7 @@ modifier_types:
   - skill_of_new_artists
   - slave_raid_efficiency
   - spy_network_construction
-  - stability_cost
+  - stability_cost_efficiency
   - stability_investment
   - start_exploration_land_cost_modifier
   - start_exploration_sea_cost_modifier
@@ -335,13 +343,14 @@ modifier_types:
   - war_no_cb_cost_modifier
   - war_on_same_religion_cb_cost_modifier
   - war_score_vs_other_religion_efficiency
+  - work_of_art_sell_value_modifier
   local:
   - can_recruit_regiment_in_this_location
   - free_building_levels
   - growth_is_primary_culture
   - harbor_suitability
   - local_beer_output_modifier
-  - local_build_buildings_cost
+  - local_build_buildings_efficiency
   - local_burghers_desired_pop
   - local_burghers_estate_power
   - local_clergy_desired_pop
@@ -357,9 +366,10 @@ modifier_types:
   - local_devastation_recovery
   - local_disease_resistance
   - local_distance_from_capital_speed_propagation
+  - local_fine_cloth_output_modifier
   - local_food_capacity
   - local_food_capacity_modifier
-  - local_fort_maintenance_cost
+  - local_fort_maintenance_efficiency
   - local_frontage_allowed
   - local_garrison_growth
   - local_glass_output_modifier
@@ -403,9 +413,10 @@ modifier_types:
   - local_population_capacity_modifier
   - local_population_growth
   - local_porcelain_output_modifier
-  - local_port_build_buildings_cost
+  - local_port_build_buildings_efficiency
   - local_port_cost_distance_impact
   - local_production_efficiency
+  - local_prosperity_decay
   - local_proximity_source
   - local_raw_material_output
   - local_rgo_build_time
@@ -501,8 +512,8 @@ style_3_reward_sources:
   yearly_manpower: add_yearly_manpower
   yearly_sailors: add_yearly_sailors
 scan_summary:
-  event_country_static_modifier_count: 1122
-  event_local_static_modifier_count: 310
-  country_modifier_count: 330
-  local_modifier_count: 92
+  event_country_static_modifier_count: 1157
+  event_local_static_modifier_count: 323
+  country_modifier_count: 339
+  local_modifier_count: 94
   style_3_reward_type_count: 35
