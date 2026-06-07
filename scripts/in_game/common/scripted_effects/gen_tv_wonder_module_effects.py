@@ -464,6 +464,64 @@ def append_destroy_intermediate_buildings_at_location_effect(
     lines.append("")
 
 
+def append_destroy_locked_intermediate_buildings_effect(lines: list[str], name: str, parts: list[dict]) -> None:
+    lines.append(f"{name} = {{")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {HELPER_BUILDING_TYPE_MAP}")
+    lines.append(f"{T}{T}{T}is_key_in_global_variable_map = {{ name = {HELPER_BUILDING_TYPE_MAP} target = var:tv_wonder_locked }}")
+    for part in parts:
+        module_map = module_building_type_map_name(part["key"])
+        lines.append(f"{T}{T}{T}has_global_variable_map = {module_map}")
+        lines.append(f"{T}{T}{T}is_key_in_global_variable_map = {{ name = {module_map} target = var:tv_wonder_locked }}")
+    lines.append(f"{T}{T}}}")
+    lines.extend(capture_global_map_value(HELPER_BUILDING_TYPE_VAR, HELPER_BUILDING_TYPE_MAP, "var:tv_wonder_locked", 2))
+    for part in parts:
+        part_key = part["key"]
+        lines.extend(
+            capture_global_map_value(
+                module_building_type_var_name(part_key),
+                module_building_type_map_name(part_key),
+                "var:tv_wonder_locked",
+                2,
+            )
+        )
+    lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
+    lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
+    for building_var in [HELPER_BUILDING_TYPE_VAR, *[module_building_type_var_name(part["key"]) for part in parts]]:
+        lines.append(f"{T}{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}{T}limit = {{ has_building = local_var:{building_var} }}")
+        lines.append(f"{T}{T}{T}{T}change_building_level_in_location = {{")
+        lines.append(f"{T}{T}{T}{T}{T}building = local_var:{building_var}")
+        lines.append(f"{T}{T}{T}{T}{T}value = -6")
+        lines.append(f"{T}{T}{T}{T}{T}owner = prev")
+        lines.append(f"{T}{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    for part in parts:
+        lines.append(f"{T}{T}remove_local_variable = {module_building_type_var_name(part['key'])}")
+    lines.append(f"{T}{T}remove_local_variable = {HELPER_BUILDING_TYPE_VAR}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_destroy_intermediate_buildings_alias_effect(lines: list[str], name: str, target: str) -> None:
+    lines.append(f"{name} = {{")
+    lines.append(f"{T}{target} = yes")
+    lines.append("}")
+    lines.append("")
+
+
+def append_destroy_intermediate_buildings_at_location_alias_effect(lines: list[str], name: str, target: str) -> None:
+    lines.append(f"{name} = {{")
+    lines.append(f"{T}prev = {{ {target} = yes }}")
+    lines.append("}")
+    lines.append("")
+
+
 def append_destroy_intermediate_buildings_effect(lines: list[str], name: str, at_location_effect_name: str) -> None:
     lines.append(f"{name} = {{")
     lines.append(f"{T}if = {{")
@@ -794,33 +852,48 @@ def main() -> None:
     lines.append("}")
     lines.append("")
 
-    append_destroy_intermediate_buildings_at_location_effect(
+    append_destroy_locked_intermediate_buildings_effect(
+        lines,
+        "tv_wonder_destroy_locked_intermediate_buildings_effect",
+        parts,
+    )
+    append_destroy_intermediate_buildings_alias_effect(
+        lines,
+        "tv_wonder_destroy_generic_intermediate_buildings_effect",
+        "tv_wonder_destroy_locked_intermediate_buildings_effect",
+    )
+    append_destroy_intermediate_buildings_alias_effect(
+        lines,
+        "tv_wonder_destroy_unique_intermediate_buildings_effect",
+        "tv_wonder_destroy_locked_intermediate_buildings_effect",
+    )
+    append_destroy_intermediate_buildings_at_location_alias_effect(
         lines,
         "tv_wonder_destroy_generic_intermediate_buildings_at_location_effect",
+        "tv_wonder_destroy_generic_intermediate_buildings_effect",
+    )
+    append_destroy_intermediate_buildings_at_location_alias_effect(
+        lines,
+        "tv_wonder_destroy_unique_intermediate_buildings_at_location_effect",
+        "tv_wonder_destroy_unique_intermediate_buildings_effect",
+    )
+    append_destroy_intermediate_buildings_at_location_effect(
+        lines,
+        "tv_wonder_destroy_discovered_generic_intermediate_buildings_at_location_effect",
         generic_wonders,
         parts,
     )
     append_destroy_intermediate_buildings_at_location_effect(
         lines,
-        "tv_wonder_destroy_unique_intermediate_buildings_at_location_effect",
+        "tv_wonder_destroy_discovered_unique_intermediate_buildings_at_location_effect",
         unique_wonders,
         parts,
     )
     lines.append("tv_wonder_destroy_intermediate_buildings_at_location_effect = {")
-    lines.append(f"{T}tv_wonder_destroy_generic_intermediate_buildings_at_location_effect = yes")
-    lines.append(f"{T}tv_wonder_destroy_unique_intermediate_buildings_at_location_effect = yes")
+    lines.append(f"{T}tv_wonder_destroy_discovered_generic_intermediate_buildings_at_location_effect = yes")
+    lines.append(f"{T}tv_wonder_destroy_discovered_unique_intermediate_buildings_at_location_effect = yes")
     lines.append("}")
     lines.append("")
-    append_destroy_intermediate_buildings_effect(
-        lines,
-        "tv_wonder_destroy_generic_intermediate_buildings_effect",
-        "tv_wonder_destroy_generic_intermediate_buildings_at_location_effect",
-    )
-    append_destroy_intermediate_buildings_effect(
-        lines,
-        "tv_wonder_destroy_unique_intermediate_buildings_effect",
-        "tv_wonder_destroy_unique_intermediate_buildings_at_location_effect",
-    )
     append_destroy_intermediate_buildings_effect(
         lines,
         "tv_wonder_destroy_intermediate_buildings_effect",

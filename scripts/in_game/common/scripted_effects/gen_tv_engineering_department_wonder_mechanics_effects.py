@@ -13,6 +13,7 @@ from wonder_mechanics_lib import (
     WONDER_MECHANICS_MAX_ID,
     ceremony_modifier_for_style,
     ceremony_styles,
+    finalization_event_id,
     indent_script_block,
     load_all_wonder_mechanics,
     render_header,
@@ -1222,6 +1223,18 @@ def append_completion_broadcast_scope_effect(lines: list[str], name: str, wonder
     lines.append("")
 
 
+def append_finalization_event_dispatch_effect(lines: list[str], name: str, wonders: list[dict]) -> None:
+    lines.append(f"{name} = {{")
+    for idx, wonder in enumerate(wonders):
+        head = "if" if idx == 0 else "else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
+        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.{finalization_event_id(wonder)} }}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def append_roll_random_feasible_proposal_effect(lines: list[str], name: str, deck_map: str) -> None:
     lines.append(f"{name} = {{")
     lines.append(f"{T}remove_variable = tv_wonder_proposal")
@@ -1611,6 +1624,12 @@ def generate() -> str:
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
+
+    append_finalization_event_dispatch_effect(
+        lines,
+        "tv_wonder_mechanics_trigger_finalization_event_effect",
+        all_wonders,
+    )
 
     append_completion_broadcast_scope_effect(lines, "tv_wonder_mechanics_broadcast_generic_completion_event_effect", generic_wonders)
     append_completion_broadcast_scope_effect(lines, "tv_wonder_mechanics_broadcast_unique_completion_event_effect", unique_wonders)

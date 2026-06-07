@@ -2133,13 +2133,9 @@ tv_wonder_finalize_effect = {
 		limit = { tv_wonder_has_selected_ceremony_trigger = yes }
 		set_variable = { name = tv_wonder_finalized value = 1 }
 		set_variable = { name = tv_wonder_stage value = 5 }
-		if = {
-			limit = { tv_wonder_unique_locked_trigger = yes }
-			trigger_event_non_silently = { id = tv_engineering_department.501 }
-		}
-		else = {
-			trigger_event_non_silently = { id = tv_engineering_department.500 }
-		}
+		tv_wonder_prepare_final_support_rewards_effect = yes
+		tv_wonder_prepare_finalization_preview_effect = yes
+		tv_wonder_mechanics_trigger_finalization_event_effect = yes
 	}
 }
 
@@ -2156,6 +2152,32 @@ tv_wonder_complete_generic_finalization_preview_effect = {
 tv_wonder_complete_unique_finalization_preview_effect = {
 	if = {
 		limit = { has_variable = tv_wonder_finalization_preview_ready }
+		tv_wonder_mechanics_apply_unique_base_modifier_effect = yes
+		tv_wonder_mechanics_apply_unique_ceremony_modifier_effect = yes
+		tv_wonder_apply_completion_celebration_rewards_effect = yes
+		tv_wonder_reward_current_ruler_and_engineer_effect = yes
+		tv_wonder_apply_final_support_rewards_effect = yes
+	}
+}
+
+tv_wonder_complete_generic_finalization_visible_effect = {
+	if = {
+		limit = { has_variable = tv_wonder_finalization_preview_ready }
+		hidden_effect = { tv_wonder_clear_current_generic_base_modifiers_effect = yes }
+		tv_wonder_mechanics_apply_generic_base_modifier_effect = yes
+		tv_wonder_apply_completion_celebration_rewards_effect = yes
+		tv_wonder_reward_current_ruler_and_engineer_effect = yes
+		tv_wonder_apply_final_support_rewards_effect = yes
+	}
+}
+
+tv_wonder_complete_unique_finalization_visible_effect = {
+	if = {
+		limit = { has_variable = tv_wonder_finalization_preview_ready }
+		hidden_effect = {
+			tv_wonder_clear_current_unique_base_modifiers_effect = yes
+			tv_wonder_clear_current_unique_ceremony_modifiers_effect = yes
+		}
 		tv_wonder_mechanics_apply_unique_base_modifier_effect = yes
 		tv_wonder_mechanics_apply_unique_ceremony_modifier_effect = yes
 		tv_wonder_apply_completion_celebration_rewards_effect = yes
@@ -2182,6 +2204,34 @@ tv_wonder_complete_finalization_cleanup_effect = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
 		var:tv_wonder_site ?= {
 			remove_location_modifier = tv_wonder_deep_drainage_location_modifier
+		}
+	}
+}
+
+tv_wonder_complete_generic_finalization_hidden_effect = {
+	if = {
+		limit = { has_variable = tv_wonder_finalization_preview_ready }
+		hidden_effect = {
+			tv_wonder_construct_generic_final_building_effect = yes
+			tv_wonder_complete_finalization_cleanup_effect = yes
+			tv_wonder_destroy_generic_intermediate_buildings_effect = yes
+			tv_wonder_broadcast_generic_completion_event_effect = yes
+			tv_wonder_cache_post_finalization_priority_effect = yes
+			tv_wonder_clear_project_state_effect = yes
+		}
+	}
+}
+
+tv_wonder_complete_unique_finalization_hidden_effect = {
+	if = {
+		limit = { has_variable = tv_wonder_finalization_preview_ready }
+		hidden_effect = {
+			tv_wonder_construct_unique_final_building_effect = yes
+			tv_wonder_complete_finalization_cleanup_effect = yes
+			tv_wonder_destroy_unique_intermediate_buildings_effect = yes
+			tv_wonder_broadcast_unique_completion_event_effect = yes
+			tv_wonder_cache_post_finalization_priority_effect = yes
+			tv_wonder_clear_project_state_effect = yes
 		}
 	}
 }

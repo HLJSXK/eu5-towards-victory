@@ -693,6 +693,10 @@ def ceremony_styles(wonder: dict) -> list[int]:
     return sorted(int(style) for style in wonder["final_buildings"])
 
 
+def finalization_event_id(wonder: dict) -> int:
+    return 5000 + int(wonder["id"])
+
+
 def normalize_loc_map(value: object) -> dict[str, str]:
     return _validate_localized_text_map(value, "localized text")
 
