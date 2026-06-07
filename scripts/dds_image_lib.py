@@ -469,32 +469,106 @@ def flatten_rgba(image: RgbaImage, background: tuple[int, int, int]) -> RgbaImag
     return RgbaImage(width=image.width, height=image.height, rgba=bytes(rgba))
 
 
-def build_dds_header(width: int, height: int, data_size: int, fourcc: str) -> bytes:
+def _downsample_mipmap(image: RgbaImage) -> RgbaImage:
+    if image.width == 1 and image.height == 1:
+        raise ValueError("cannot downsample a 1x1 mipmap")
+
+    width = max(1, image.width // 2)
+    height = max(1, image.height // 2)
+    rgba = bytearray(width * height * 4)
+    out = 0
+
+    for y in range(height):
+        y0 = y * image.height // height
+        y1 = max(y0 + 1, (y + 1) * image.height // height)
+        for x in range(width):
+            x0 = x * image.width // width
+            x1 = max(x0 + 1, (x + 1) * image.width // width)
+            red_sum = green_sum = blue_sum = alpha_sum = 0
+            red_alpha_sum = green_alpha_sum = blue_alpha_sum = 0
+            sample_count = 0
+
+            for src_y in range(y0, min(y1, image.height)):
+                row = src_y * image.width * 4
+                for src_x in range(x0, min(x1, image.width)):
+                    pos = row + src_x * 4
+                    red = image.rgba[pos]
+                    green = image.rgba[pos + 1]
+                    blue = image.rgba[pos + 2]
+                    alpha = image.rgba[pos + 3]
+                    red_sum += red
+                    green_sum += green
+                    blue_sum += blue
+                    alpha_sum += alpha
+                    red_alpha_sum += red * alpha
+                    green_alpha_sum += green * alpha
+                    blue_alpha_sum += blue * alpha
+                    sample_count += 1
+
+            if alpha_sum:
+                rgba[out] = (red_alpha_sum + alpha_sum // 2) // alpha_sum
+                rgba[out + 1] = (green_alpha_sum + alpha_sum // 2) // alpha_sum
+                rgba[out + 2] = (blue_alpha_sum + alpha_sum // 2) // alpha_sum
+            else:
+                rgba[out] = (red_sum + sample_count // 2) // sample_count
+                rgba[out + 1] = (green_sum + sample_count // 2) // sample_count
+                rgba[out + 2] = (blue_sum + sample_count // 2) // sample_count
+            rgba[out + 3] = (alpha_sum + sample_count // 2) // sample_count
+            out += 4
+
+    return RgbaImage(width=width, height=height, rgba=bytes(rgba))
+
+
+def build_mipmaps(image: RgbaImage) -> tuple[RgbaImage, ...]:
+    mipmaps = [image]
+    while mipmaps[-1].width > 1 or mipmaps[-1].height > 1:
+        mipmaps.append(_downsample_mipmap(mipmaps[-1]))
+    return tuple(mipmaps)
+
+
+def build_dds_header(
+    width: int,
+    height: int,
+    data_size: int,
+    fourcc: str,
+    mipmap_count: int = 1,
+) -> bytes:
     if fourcc not in {"DXT1", "DXT5"}:
         raise ValueError("DDS fourcc must be DXT1 or DXT5")
+    if mipmap_count <= 0:
+        raise ValueError("DDS mipmap_count must be positive")
     ddsd_caps = 0x00000001
     ddsd_height = 0x00000002
     ddsd_width = 0x00000004
     ddsd_pixel_format = 0x00001000
+    ddsd_mipmap_count = 0x00020000
     ddsd_linear_size = 0x00080000
     ddpf_fourcc = 0x00000004
+    ddscaps_complex = 0x00000008
     ddscaps_texture = 0x00001000
+    ddscaps_mipmap = 0x00400000
+
+    flags = ddsd_caps | ddsd_height | ddsd_width | ddsd_pixel_format | ddsd_linear_size
+    caps = ddscaps_texture
+    if mipmap_count > 1:
+        flags |= ddsd_mipmap_count
+        caps |= ddscaps_complex | ddscaps_mipmap
 
     header = bytearray()
     header += b"DDS "
     header += struct.pack(
         "<IIIIIII",
         124,
-        ddsd_caps | ddsd_height | ddsd_width | ddsd_pixel_format | ddsd_linear_size,
+        flags,
         height,
         width,
         data_size,
         0,
-        1,
+        mipmap_count,
     )
     header += struct.pack("<11I", *([0] * 11))
     header += struct.pack("<II4sIIIII", 32, ddpf_fourcc, fourcc.encode("ascii"), 0, 0, 0, 0, 0)
-    header += struct.pack("<IIIII", ddscaps_texture, 0, 0, 0, 0)
+    header += struct.pack("<IIIII", caps, 0, 0, 0, 0)
     if len(header) != 128:
         raise AssertionError(f"invalid DDS header length: {len(header)}")
     return bytes(header)
@@ -506,6 +580,7 @@ def write_dds(
     dds_format: str = "DXT5",
     overwrite: bool = False,
     opaque_background: tuple[int, int, int] = (0, 0, 0),
+    generate_mipmaps: bool = True,
 ) -> None:
     dds_format = dds_format.upper()
     if dds_format not in {"DXT1", "DXT5"}:
@@ -514,8 +589,12 @@ def write_dds(
         raise FileExistsError(f"refusing to overwrite existing DDS: {path}")
     path.parent.mkdir(parents=True, exist_ok=True)
     out_image = flatten_rgba(image, opaque_background) if dds_format == "DXT1" else image
-    dxt_data = encode_dxt1(out_image) if dds_format == "DXT1" else encode_dxt5(out_image)
-    path.write_bytes(build_dds_header(out_image.width, out_image.height, len(dxt_data), dds_format) + dxt_data)
+    mipmaps = build_mipmaps(out_image) if generate_mipmaps else (out_image,)
+    dxt_levels = [encode_dxt1(level) if dds_format == "DXT1" else encode_dxt5(level) for level in mipmaps]
+    path.write_bytes(
+        build_dds_header(out_image.width, out_image.height, len(dxt_levels[0]), dds_format, len(dxt_levels))
+        + b"".join(dxt_levels)
+    )
 
 
 def _decode_dxt1_color_block(block: bytes, force_four_color: bool) -> list[tuple[int, int, int, int]]:

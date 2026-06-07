@@ -7,14 +7,15 @@ Usage:
   2. Set PACKY_API_KEY, or put api.api_key in generate_wonder_image.local.json.
   3. Use generate_wonder_image_config.json only for selection, task_overrides, and runtime defaults; then run: python generate_wonder_image.py
 
-The script intentionally has no command-line arguments. It reads a batch of
-image tasks from the JSON config, skips tasks whose output already exists when
-overwrite is false, and writes generated PNGs as DXT1 DDS files without
-requiring ImageMagick, texconv, Pillow, or other third-party packages.
+The script reads a batch of image tasks from the JSON config, skips tasks whose
+output already exists when overwrite is false, and writes generated PNGs as
+mipmapped DXT1 DDS files without requiring ImageMagick, texconv, Pillow, or
+other third-party packages.
 """
 
 from __future__ import annotations
 
+import argparse
 import base64
 import binascii
 import json
@@ -55,6 +56,7 @@ DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_wonders"
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
 from wonder_mechanics_lib import load_wonder_image_tasks  # noqa: E402
+from dds_image_lib import RgbaImage, read_image_rgba, write_dds  # noqa: E402
 
 
 @dataclass(frozen=True)
@@ -128,6 +130,16 @@ def require_list(config: dict[str, Any], key: str) -> list[Any]:
     if not isinstance(value, list):
         raise ValueError(f"{key} must be a JSON array")
     return value
+
+
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate or rebuild Towards Victory wonder image DDS assets.")
+    parser.add_argument(
+        "--convert-existing-assets",
+        action="store_true",
+        help="Rebuild selected DDS files from existing PNGs, falling back to existing DDS files, without calling the API.",
+    )
+    return parser.parse_args(argv)
 
 
 def normalize_task_key(value: str) -> str:
@@ -606,117 +618,134 @@ def decode_png_rgb(png_bytes: bytes, background: tuple[int, int, int]) -> Decode
     return DecodedPng(width=width, height=height, rgb=bytes(rgb))
 
 
-def rgb_to_565(red: int, green: int, blue: int) -> int:
-    return ((red >> 3) << 11) | ((green >> 2) << 5) | (blue >> 3)
-
-
-def rgb_from_565(value: int) -> tuple[int, int, int]:
-    red = ((value >> 11) & 0x1F) * 255 // 31
-    green = ((value >> 5) & 0x3F) * 255 // 63
-    blue = (value & 0x1F) * 255 // 31
-    return red, green, blue
-
-
-def color_distance_sq(a: tuple[int, int, int], b: tuple[int, int, int]) -> int:
-    return (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2
-
-
-def choose_dxt1_endpoints(block: list[tuple[int, int, int]]) -> tuple[int, int]:
-    avg = (
-        sum(pixel[0] for pixel in block) // len(block),
-        sum(pixel[1] for pixel in block) // len(block),
-        sum(pixel[2] for pixel in block) // len(block),
-    )
-    first = max(block, key=lambda pixel: color_distance_sq(pixel, avg))
-    second = max(block, key=lambda pixel: color_distance_sq(pixel, first))
-
-    color0 = rgb_to_565(*first)
-    color1 = rgb_to_565(*second)
-    if color0 < color1:
-        color0, color1 = color1, color0
-    return color0, color1
-
-
-def encode_dxt1_block(block: list[tuple[int, int, int]]) -> bytes:
-    color0, color1 = choose_dxt1_endpoints(block)
-    palette0 = rgb_from_565(color0)
-    palette1 = rgb_from_565(color1)
-    palette = [
-        palette0,
-        palette1,
-        (
-            (2 * palette0[0] + palette1[0]) // 3,
-            (2 * palette0[1] + palette1[1]) // 3,
-            (2 * palette0[2] + palette1[2]) // 3,
-        ),
-        (
-            (palette0[0] + 2 * palette1[0]) // 3,
-            (palette0[1] + 2 * palette1[1]) // 3,
-            (palette0[2] + 2 * palette1[2]) // 3,
-        ),
-    ]
-
-    indices = 0
-    for index, pixel in enumerate(block):
-        best = min(range(4), key=lambda palette_index: color_distance_sq(pixel, palette[palette_index]))
-        indices |= best << (2 * index)
-    return struct.pack("<HHI", color0, color1, indices)
-
-
-def encode_dxt1(image: DecodedPng) -> bytes:
-    if image.width % 4 or image.height % 4:
-        raise ValueError("DXT1 output requires image width and height to be multiples of 4")
-
-    encoded = bytearray((image.width // 4) * (image.height // 4) * 8)
+def decoded_png_to_rgba(image: DecodedPng) -> RgbaImage:
+    rgba = bytearray(image.width * image.height * 4)
     out = 0
-    for block_y in range(0, image.height, 4):
-        for block_x in range(0, image.width, 4):
-            block: list[tuple[int, int, int]] = []
-            for y in range(4):
-                row = ((block_y + y) * image.width + block_x) * 3
-                for x in range(4):
-                    pos = row + x * 3
-                    block.append((image.rgb[pos], image.rgb[pos + 1], image.rgb[pos + 2]))
-            encoded[out : out + 8] = encode_dxt1_block(block)
-            out += 8
-    return bytes(encoded)
-
-
-def build_dds_header(width: int, height: int, data_size: int) -> bytes:
-    ddsd_caps = 0x00000001
-    ddsd_height = 0x00000002
-    ddsd_width = 0x00000004
-    ddsd_pixel_format = 0x00001000
-    ddsd_linear_size = 0x00080000
-    ddpf_fourcc = 0x00000004
-    ddscaps_texture = 0x00001000
-
-    header = bytearray()
-    header += b"DDS "
-    header += struct.pack(
-        "<IIIIIII",
-        124,
-        ddsd_caps | ddsd_height | ddsd_width | ddsd_pixel_format | ddsd_linear_size,
-        height,
-        width,
-        data_size,
-        0,
-        1,
-    )
-    header += struct.pack("<11I", *([0] * 11))
-    header += struct.pack("<II4sIIIII", 32, ddpf_fourcc, b"DXT1", 0, 0, 0, 0, 0)
-    header += struct.pack("<IIIII", ddscaps_texture, 0, 0, 0, 0)
-    if len(header) != 128:
-        raise AssertionError(f"Invalid DDS header length: {len(header)}")
-    return bytes(header)
+    for pos in range(0, len(image.rgb), 3):
+        rgba[out] = image.rgb[pos]
+        rgba[out + 1] = image.rgb[pos + 1]
+        rgba[out + 2] = image.rgb[pos + 2]
+        rgba[out + 3] = 255
+        out += 4
+    return RgbaImage(width=image.width, height=image.height, rgba=bytes(rgba))
 
 
 def write_dxt1_dds(image: DecodedPng, path: Path, overwrite: bool) -> None:
     if path.exists() and not overwrite:
         raise FileExistsError(f"Refusing to overwrite existing DDS: {path}")
     path.parent.mkdir(parents=True, exist_ok=True)
-    dxt_data = encode_dxt1(image)
-    path.write_bytes(build_dds_header(image.width, image.height, len(dxt_data)) + dxt_data)
+    write_dds(decoded_png_to_rgba(image), path, dds_format="DXT1", overwrite=True)
+
+
+def read_dds_mipmap_count(path: Path) -> int:
+    data = path.read_bytes()
+    if len(data) < 32 or not data.startswith(b"DDS "):
+        raise ValueError(f"{path} is not a DDS file")
+    return int.from_bytes(data[28:32], "little")
+
+
+def _dds_level_size(width: int, height: int, fourcc: str) -> int:
+    block_bytes = 8 if fourcc == "DXT1" else 16
+    return ((width + 3) // 4) * ((height + 3) // 4) * block_bytes
+
+
+def dds_has_complete_mipmaps(path: Path) -> bool:
+    data = path.read_bytes()
+    if len(data) < 128 or not data.startswith(b"DDS "):
+        return False
+    height = int.from_bytes(data[12:16], "little")
+    width = int.from_bytes(data[16:20], "little")
+    mipmap_count = int.from_bytes(data[28:32], "little")
+    fourcc = data[84:88].decode("ascii", errors="replace").upper()
+    if mipmap_count <= 1 or fourcc not in {"DXT1", "DXT5"}:
+        return False
+
+    expected_size = 128
+    level_width = width
+    level_height = height
+    for _ in range(mipmap_count):
+        expected_size += _dds_level_size(level_width, level_height, fourcc)
+        level_width = max(1, level_width // 2)
+        level_height = max(1, level_height // 2)
+    return len(data) >= expected_size
+
+
+def convert_existing_dds(
+    source_path: Path,
+    dds_path: Path,
+    background: tuple[int, int, int],
+    label: str,
+) -> None:
+    image = read_image_rgba(source_path)
+    write_dds(
+        image,
+        dds_path,
+        dds_format="DXT1",
+        overwrite=True,
+        opaque_background=background,
+    )
+    mipmap_count = read_dds_mipmap_count(dds_path)
+    file_size = dds_path.stat().st_size
+    print(
+        f"{label}: source={pretty_repo_path(source_path)}, "
+        f"mips={mipmap_count}, size={file_size:,} bytes"
+    )
+
+
+def convert_existing_assets(
+    tasks: list[dict[str, Any]],
+    background: tuple[int, int, int],
+) -> int:
+    converted = 0
+    skipped = 0
+    seen_dds_paths: set[Path] = set()
+    dds_dirs: set[Path] = set()
+    task_total = len(tasks)
+    for index, task in enumerate(tasks, start=1):
+        name = str(task.get("name") or "").strip()
+        enabled = bool(task.get("enabled", True))
+        stem = wonder_file_stem({"name": name})
+        png_dir = resolve_repo_path(task.get("png_dir"), DEFAULT_PNG_DIR)
+        dds_dir = resolve_repo_path(task.get("dds_dir"), DEFAULT_WONDERS_DIR)
+        png_path = png_dir / f"{stem}.png"
+        dds_path = dds_dir / f"{stem}.dds"
+        seen_dds_paths.add(dds_path.resolve())
+        dds_dirs.add(dds_dir)
+
+        if not enabled:
+            print(f"[skip {index}/{task_total}] {stem}: disabled")
+            skipped += 1
+            continue
+        if dds_path.exists() and dds_has_complete_mipmaps(dds_path):
+            print(f"[skip {index}/{task_total}] {stem}: already has mipmaps")
+            skipped += 1
+            continue
+
+        if png_path.exists():
+            source_path = png_path
+        elif dds_path.exists():
+            source_path = dds_path
+        else:
+            print(f"[skip {index}/{task_total}] {stem}: no existing PNG or DDS")
+            skipped += 1
+            continue
+
+        convert_existing_dds(source_path, dds_path, background, f"[convert {index}/{task_total}] {stem}")
+        converted += 1
+
+    extra_total = 0
+    for dds_dir in sorted(dds_dirs):
+        for dds_path in sorted(dds_dir.glob("*.dds")):
+            if dds_path.resolve() in seen_dds_paths or dds_has_complete_mipmaps(dds_path):
+                continue
+            extra_total += 1
+            convert_existing_dds(dds_path, dds_path, background, f"[convert extra] {dds_path.stem}")
+            converted += 1
+
+    if extra_total:
+        print(f"[summary] converted extra DDS files not listed in image tasks: {extra_total}")
+    print(f"[summary] converted={converted}, skipped={skipped}")
+    return 0
 
 
 def parse_background(value: Any) -> tuple[int, int, int]:
@@ -754,7 +783,8 @@ def write_metadata(path: Path, payload: dict[str, Any], response: dict[str, Any]
     path.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(sys.argv[1:] if argv is None else argv)
     config = load_config()
     api_config = require_object(config, "api")
     dds_config = require_object(config, "dds")
@@ -765,12 +795,15 @@ def main() -> int:
     retry_settings = load_retry_settings(api_config)
     proxy_url = load_proxy_url(api_config)
     opener = build_url_opener(proxy_url)
-    api_key = resolve_api_key(api_config)
     dds_format = str(dds_config.get("format", "DXT1")).upper()
     if dds_format != "DXT1":
         raise ValueError("dds.format currently supports only DXT1")
     background = parse_background(dds_config.get("opaque_background", [0, 0, 0]))
 
+    if args.convert_existing_assets:
+        return convert_existing_assets(tasks, background)
+
+    api_key = resolve_api_key(api_config)
     if proxy_url:
         print(f"[network] proxy={proxy_url}")
 

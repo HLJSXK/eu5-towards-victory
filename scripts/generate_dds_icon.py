@@ -215,6 +215,11 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         help="Validate config, references, prompt, and payload without calling the API or writing output art.",
     )
     parser.add_argument(
+        "--convert-existing-png",
+        metavar="PATH",
+        help="Convert an existing PNG into the selected DDS target without calling the image API.",
+    )
+    parser.add_argument(
         "--list-targets",
         action="store_true",
         help="Print supported generation targets and exit.",
@@ -844,6 +849,7 @@ def write_target(output_config: dict[str, Any], source_png_path: Path, target: T
         opaque_background=target.opaque_background,
     )
     file_size = target.path.stat().st_size
+    mipmap_count = read_dds_mipmap_count(target.path)
     if file_size > target.max_file_size_bytes:
         raise RuntimeError(
             f"{target.name} output is {format_bytes(file_size)}, above the "
@@ -852,7 +858,7 @@ def write_target(output_config: dict[str, Any], source_png_path: Path, target: T
     print(
         f"[dds] {display_path(target.path)} "
         f"({target.width}x{target.height} {target.dds_format}, resize={target.resize}, "
-        f"{format_bytes(file_size)} <= {format_bytes(target.max_file_size_bytes)})"
+        f"mips={mipmap_count}, {format_bytes(file_size)} <= {format_bytes(target.max_file_size_bytes)})"
     )
     return {
         "name": target.name,
@@ -862,9 +868,43 @@ def write_target(output_config: dict[str, Any], source_png_path: Path, target: T
         "height": target.height,
         "resize": target.resize,
         "dds_format": target.dds_format,
+        "mipmap_count": mipmap_count,
         "file_size_bytes": file_size,
         "max_file_size_bytes": target.max_file_size_bytes,
     }
+
+
+def read_dds_mipmap_count(path: Path) -> int:
+    data = path.read_bytes()
+    if len(data) < 32 or not data.startswith(b"DDS "):
+        raise ValueError(f"{path} is not a DDS file")
+    return int.from_bytes(data[28:32], "little")
+
+
+def update_existing_metadata_target(
+    output_config: dict[str, Any],
+    target: TargetSpec,
+    written_target: dict[str, Any],
+) -> None:
+    if not bool(output_config.get("write_metadata", True)):
+        return
+    metadata_dir = resolve_repo_path(output_config.get("metadata_dir"), DEFAULT_PNG_DIR)
+    metadata_path = metadata_dir / f"{output_artifact_stem(output_config, target)}.json"
+    if not metadata_path.exists():
+        return
+    metadata = load_json_object(metadata_path)
+    targets = metadata.get("targets")
+    if not isinstance(targets, list):
+        metadata["targets"] = [written_target]
+    else:
+        for index, existing in enumerate(targets):
+            if isinstance(existing, dict) and existing.get("name") == target.name:
+                targets[index] = written_target
+                break
+        else:
+            targets.append(written_target)
+    metadata_path.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"[metadata] updated {display_path(metadata_path)}")
 
 
 def write_metadata(
@@ -912,17 +952,27 @@ def main(argv: list[str] | None = None) -> int:
     target = load_target_spec(config, output_config, style_config, args.target)
     image_config = apply_target_image_settings(image_config, target)
 
+    print(
+        f"[target] {target.name}: {target.width}x{target.height}, "
+        f"request_size={target.image_size}, max={format_bytes(target.max_file_size_bytes)}"
+    )
+    print(f"[target] output={display_path(target.path)}")
+
+    if args.convert_existing_png:
+        source_png_path = resolve_repo_path(args.convert_existing_png)
+        if not source_png_path.exists():
+            raise FileNotFoundError(f"Missing source PNG: {source_png_path}")
+        print(f"[png] source={display_path(source_png_path)}")
+        written_target = write_target(output_config, source_png_path, target)
+        update_existing_metadata_target(output_config, target, written_target)
+        return 0
+
     timeout = float(api_config.get("timeout_seconds", 180))
     retry_settings = load_retry_settings(api_config)
     proxy_url = load_proxy_url(api_config)
     opener = build_url_opener(proxy_url)
     if proxy_url:
         print(f"[network] proxy={proxy_url}")
-    print(
-        f"[target] {target.name}: {target.width}x{target.height}, "
-        f"request_size={target.image_size}, max={format_bytes(target.max_file_size_bytes)}"
-    )
-    print(f"[target] output={display_path(target.path)}")
     style_uploads = collect_style_references(style_config, target, dry_run=bool(args.dry_run))
 
     final_prompt = refine_prompt(prompt_config, image_config, target)
