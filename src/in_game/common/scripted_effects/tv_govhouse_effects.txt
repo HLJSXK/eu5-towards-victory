@@ -1376,6 +1376,12 @@ tv_govhouse_refresh_region_list_effect = {
 				set_variable = { name = tv_govhouse_display_governor_char value = scope:tv_display_governor }
 				set_variable = { name = tv_govhouse_display_task_type value = scope:tv_display_governor.var:tv_gov_current_task }
 				set_variable = { name = tv_govhouse_display_task_value value = scope:tv_display_governor.var:tv_gov_current_task_value }
+				if = {
+					limit = {
+						scope:tv_display_governor = { var:tv_gov_current_task ?= 6 }
+					}
+					change_variable = { name = tv_govhouse_display_task_value multiply = 1000 }
+				}
 				set_variable = { name = tv_govhouse_display_weight_restore_prosperity value = scope:tv_display_governor.var:tv_gov_weight_restore_prosperity }
 				set_variable = { name = tv_govhouse_display_weight_integrate_region value = scope:tv_display_governor.var:tv_gov_weight_integrate_region }
 				set_variable = { name = tv_govhouse_display_weight_convert_culture value = scope:tv_display_governor.var:tv_gov_weight_convert_culture }
@@ -1534,7 +1540,7 @@ tv_governor_select_yearly_task_effect = {
 	set_variable = { name = tv_gov_task_convert_culture_value value = { value = this.dip multiply = 0.0001 } }
 	set_variable = { name = tv_gov_task_convert_religion_value value = { value = this.dip multiply = 0.0001 } }
 	set_variable = { name = tv_gov_task_strengthen_recruitment_value value = { value = this.mil multiply = 0.005 } }
-	set_variable = { name = tv_gov_task_strengthen_order_value value = { value = this.mil multiply = 0.05 } }
+	set_variable = { name = tv_gov_task_strengthen_order_value value = { value = this.mil multiply = 0.00005 } }
 	if = {
 		limit = {
 			scope:tv_governing_country = {
@@ -1783,7 +1789,7 @@ tv_governor_apply_modifiers_effect = {
 		set_variable = { name = tv_gov_task_convert_culture_value value = { value = this.dip multiply = 0.0001 } }
 		set_variable = { name = tv_gov_task_convert_religion_value value = { value = this.dip multiply = 0.0001 } }
 		set_variable = { name = tv_gov_task_strengthen_recruitment_value value = { value = this.mil multiply = 0.005 } }
-		set_variable = { name = tv_gov_task_strengthen_order_value value = { value = this.mil multiply = 0.05 } }
+		set_variable = { name = tv_gov_task_strengthen_order_value value = { value = this.mil multiply = 0.00005 } }
 		if = {
 			limit = {
 				scope:tv_governing_country = {
