@@ -4546,22 +4546,6 @@
               "decimals": 2,
               "category": "country",
               "color": "good"
-            },
-            {
-              "key": "great_power_score",
-              "value": 10,
-              "label": {
-                "en": "Great Power Score",
-                "zh": "列强分数"
-              },
-              "description": {
-                "en": "This impacts how much Great Power Score a Country gets. It may be forfeited to an Overlord depending on Subject Type.",
-                "zh": "影响国家获得的Great Power Score。根据Subject Type，该分数可能会转让给Overlord。"
-              },
-              "value_kind": "number",
-              "decimals": 0,
-              "category": "country",
-              "color": "good"
             }
           ],
           "meta": {}
@@ -6433,22 +6417,6 @@
               },
               "value_kind": "number",
               "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "great_power_score",
-              "value": 10,
-              "label": {
-                "en": "Great Power Score",
-                "zh": "列强分数"
-              },
-              "description": {
-                "en": "This impacts how much Great Power Score a Country gets. It may be forfeited to an Overlord depending on Subject Type.",
-                "zh": "影响国家获得的Great Power Score。根据Subject Type，该分数可能会转让给Overlord。"
-              },
-              "value_kind": "number",
-              "decimals": 0,
               "category": "country",
               "color": "good"
             }
@@ -8501,22 +8469,6 @@
               "decimals": 2,
               "category": "country",
               "color": "good"
-            },
-            {
-              "key": "great_power_score",
-              "value": 10,
-              "label": {
-                "en": "Great Power Score",
-                "zh": "列强分数"
-              },
-              "description": {
-                "en": "This impacts how much Great Power Score a Country gets. It may be forfeited to an Overlord depending on Subject Type.",
-                "zh": "影响国家获得的Great Power Score。根据Subject Type，该分数可能会转让给Overlord。"
-              },
-              "value_kind": "number",
-              "decimals": 0,
-              "category": "country",
-              "color": "good"
             }
           ],
           "meta": {}
@@ -8708,20 +8660,20 @@
           },
           "rows": [
             {
-              "key": "stability_investment",
+              "key": "stability_cost",
               "value": -0.1,
               "label": {
-                "en": "Stability Investment",
-                "zh": "稳定度投资"
+                "en": "Stability Investment Cost",
+                "zh": "稳定度投资花费"
               },
               "description": {
-                "en": "This will either give a bonus or penalty to the Stability Investment we get from Budget.",
-                "zh": "对我们从Budget中获得的Stability Investment给予奖励或惩罚。"
+                "en": "This impacts the cost of Stability Investment.",
+                "zh": "影响Stability Investment的花费。"
               },
-              "value_kind": "number",
+              "value_kind": "percent",
               "decimals": 2,
               "category": "country",
-              "color": "good"
+              "color": "bad"
             }
           ],
           "meta": {
