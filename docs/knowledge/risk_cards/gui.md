@@ -112,6 +112,13 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     `GetConceptTexture`, preferably with numeric ids such as
     `tv_wonder_display_image_<id>`.
 
+19. Give dynamic `ShowModifierEffect` routes static script references.
+    If GUI builds modifier ids with `Concatenate(...)`, such as
+    `tv_wonder_display_<id>_level_<level>`, do not rely on the GUI expression as
+    the only reference. Generate an unreachable script block with
+    `if = { limit = { always = no } ... }` that applies every possible country or
+    location display modifier through the correct `add_*_modifier` effect.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

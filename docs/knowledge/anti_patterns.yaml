@@ -1656,3 +1656,14 @@
   scope: texture
   source: "runtime-tested in src/in_game/gui/location_window.gui dynamic wonder display test; reference_official_defines/docs/data_types_uncategorized.txt lists GetConceptTexture"
   notes: "In the location-window test, GetConceptTexture(Concatenate(...)) rendered, but nested, suffix-only, and flat Concatenate expressions that returned raw DDS path strings did not render and produced no useful error log. Static texture paths are parsed by the GUI loader, while runtime texture expressions need a texture-like return value rather than a CString path."
+
+- id: gui_show_modifier_effect_dynamic_key_needs_static_reference
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Calling ShowModifierEffect with modifier ids built only by GUI Concatenate(...) and never referenced from script effects"
+  correction: "Keep the dynamic GUI id flow, but generate unreachable script references under if = { limit = { always = no } ... } using add_country_modifier/add_location_modifier for every possible modifier id."
+  category: gui
+  scope: modifier
+  source: "Location-window wonder display route, 2026-06; fixed by tv_wonder_mechanics_reference_display_modifiers_effect"
+  notes: "The GUI can build ids such as tv_wonder_display_<id>_level_<level> at runtime, but engine/static lookup paths may not recognize modifier ids that only occur inside Concatenate. The unreachable effect gives the loader static modifier references without changing runtime state."

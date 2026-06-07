@@ -964,6 +964,22 @@ Dynamic game-concept links are safe only when the dynamic value is a registered 
 
 GUI `texture = "[...]"` expressions need a function/object that returns a texture-like value, not an arbitrary CString path. In the location-window dynamic display test, `GetConceptTexture(Concatenate(...))` rendered, but all raw DDS path forms built with `Concatenate` stayed blank: nested path+filename, suffix-only `.dds`, and even `Concatenate('gfx/.../file.dds', '')`. Use `GetConceptTexture` as a dynamic routing bridge when no typed datamodel object is available. For arbitrary mod DDS files, register image-only game concepts such as `tv_wonder_display_image_<id>` whose `texture` points at the DDS, add matching `game_concept_*` and `game_concept_*_desc` localization, then build that concept id from a numeric slot id in GUI.
 
+`ShowModifierEffect(Concatenate(...))` can build the correct modifier id at runtime, but the GUI expression alone may not make the engine/static lookup path recognize every generated modifier. For generated display modifier routes such as `tv_wonder_display_<id>_level_<level>` or `tv_wonder_display_<id>_local_level_<level>`, keep the dynamic GUI route and add generated unreachable script references:
+
+```txt
+tv_reference_display_modifiers_effect = {
+    if = {
+        limit = { always = no }
+        add_country_modifier = { modifier = my_display_country_modifier years = -1 mode = add_and_extend }
+        capital = {
+            add_location_modifier = { modifier = my_display_location_modifier years = -1 mode = add_and_extend }
+        }
+    }
+}
+```
+
+The `always = no` guard prevents runtime state changes while leaving static modifier references in a loaded script file.
+
 For ordinary localization keys such as building names, use `$key$` substitution instead of square-bracket game concept syntax. GUI-bound localized text can parse `[building_key|E]` as a data-system function when `building_key` is not registered as a game concept, producing `Could not find data system function '<key>'`.
 
 `MakeScope.GetVariable('x')` returns a GUI variable wrapper, not an arbitrary typed object constructor. Do not chain `.GetGoods` or `.GetInternationalOrganization` from it. Goods icons/names must come from a real typed goods datacontext such as `Trade.GetGoods` or `GoodsMarketEntry.GetGoods`, or from static generated branches keyed by a saved numeric goods id. `OpenInternationalOrganizationView(...)` likewise needs a typed `InternationalOrganization` object from a verified GUI chain such as `InternationalOrganization.Self`, `OrgItem.GetOrg.Self`, or `GetUniqueInternationalOrganization('hre').Self`; a saved script variable cannot be promoted with `.GetInternationalOrganization`.

@@ -31,6 +31,8 @@ DISPLAY_MODIFIER_PREFIX = "tv_wonder_display_"
 
 
 def fmt_value(value: object) -> str:
+    if isinstance(value, bool):
+        return "yes" if value else "no"
     if isinstance(value, float):
         return f"{value:.3f}".rstrip("0").rstrip(".")
     return str(value)
@@ -55,7 +57,7 @@ def modifier_block(name: str, modifiers: dict) -> list[str]:
 def scaled_modifiers(base: dict, level: int) -> dict:
     result: dict[str, object] = {}
     for key, value in base.items():
-        if isinstance(value, (int, float)):
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
             result[key] = value * level
         else:
             result[key] = value

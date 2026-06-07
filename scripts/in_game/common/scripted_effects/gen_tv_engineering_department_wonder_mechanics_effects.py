@@ -123,6 +123,14 @@ def fmt_value(value: object) -> str:
     return str(value)
 
 
+def display_country_modifier_name(wonder: dict, level: int) -> str:
+    return f"tv_wonder_display_{wonder['id']}_level_{level}"
+
+
+def display_local_modifier_name(wonder: dict, level: int) -> str:
+    return f"tv_wonder_display_{wonder['id']}_local_level_{level}"
+
+
 def all_wonders_by_key(wonders: list[dict]) -> dict[str, dict]:
     return {str(wonder["key"]): wonder for wonder in wonders}
 
@@ -445,6 +453,28 @@ def append_ritual_tooltip_effects(lines: list[str], ritual_entry_list: list[tupl
             for wonder, style, _ritual_plan in ritual_entry_list
         ],
     )
+
+
+def append_display_modifier_reference_effect(lines: list[str], wonders: list[dict]) -> None:
+    lines.append("tv_wonder_mechanics_reference_display_modifiers_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ always = no }}")
+    lines.append(f"{T}{T}# Static references for location-window ShowModifierEffect dynamic keys.")
+    for wonder in wonders:
+        for level in range(1, 7):
+            lines.append(
+                f"{T}{T}add_country_modifier = {{ modifier = {display_country_modifier_name(wonder, level)} years = -1 mode = add_and_extend }}"
+            )
+    lines.append(f"{T}{T}capital = {{")
+    for wonder in wonders:
+        for level in range(1, 7):
+            lines.append(
+                f"{T}{T}{T}add_location_modifier = {{ modifier = {display_local_modifier_name(wonder, level)} years = -1 mode = add_and_extend }}"
+            )
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
 
 
 def append_selected_ritual_tooltip_dispatch_effect(
@@ -1080,6 +1110,7 @@ def generate() -> str:
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
     unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
     lines = render_header(SCRIPT_REL)
+    append_display_modifier_reference_effect(lines, all_wonders)
 
     lines.append("tv_wonder_mechanics_clear_feasible_deck_effect = {")
     lines.append(f"{T}clear_variable_map = {FEASIBLE_GENERIC_DECK_MAP}")

@@ -73,6 +73,10 @@ def broadcast_effect_name(wonder: dict) -> str:
     return f"tv_wonder_{wonder['key']}_broadcast_finalization_completion_event_effect"
 
 
+def base_modifiers_for_wonder(wonder: dict, mechanics: dict) -> dict:
+    return mechanics["base_modifiers"].get(mechanic_key(wonder), {})
+
+
 def unique_ceremony_modifier_names(wonder: dict, mechanics: dict) -> list[str]:
     if not wonder.get("is_unique"):
         return []
@@ -135,17 +139,18 @@ def append_trigger_event_dispatch_effect(lines: list[str], wonders: list[dict]) 
     lines.append("")
 
 
-def append_clear_base_modifier_effect(lines: list[str], wonder: dict) -> None:
+def append_clear_base_modifier_effect(lines: list[str], wonder: dict, mechanics: dict) -> None:
     lines.append(f"{clear_base_effect_name(wonder)} = {{")
-    for level in range(1, 7):
-        lines.append(f"{T}remove_country_modifier = tv_wonder_{wonder['key']}_level_{level}")
+    if base_modifiers_for_wonder(wonder, mechanics):
+        for level in range(1, 7):
+            lines.append(f"{T}remove_country_modifier = tv_wonder_{wonder['key']}_level_{level}")
     lines.append("}")
     lines.append("")
 
 
 def append_apply_base_modifier_effect(lines: list[str], wonder: dict, mechanics: dict) -> None:
     lines.append(f"{apply_base_effect_name(wonder)} = {{")
-    if mechanics["base_modifiers"][mechanic_key(wonder)]:
+    if base_modifiers_for_wonder(wonder, mechanics):
         for level in range(1, 7):
             head = "if" if level == 1 else "else_if"
             lines.append(
@@ -274,7 +279,7 @@ def generate() -> str:
     lines = render_header(SCRIPT_REL)
     append_trigger_event_dispatch_effect(lines, wonders)
     for wonder in wonders:
-        append_clear_base_modifier_effect(lines, wonder)
+        append_clear_base_modifier_effect(lines, wonder, mechanics)
         append_apply_base_modifier_effect(lines, wonder, mechanics)
         append_unique_ceremony_modifier_effects(lines, wonder, mechanics)
         for style in ceremony_styles(wonder):
