@@ -21267,7 +21267,7 @@ tv_wonder_location_can_host_unique_gyeongbokgung_trigger = {
 	OR = {
 		tv_wonder_location_is_valid_priority_project_for_unique_gyeongbokgung_trigger = yes
 		AND = {
-			this = location:hanyang
+			this = location:namgyeong
 			OR = {
 				location_rank ?= location_rank:city
 				location_rank ?= location_rank:megalopolis
@@ -21278,14 +21278,14 @@ tv_wonder_location_can_host_unique_gyeongbokgung_trigger = {
 }
 
 tv_wonder_can_build_unique_gyeongbokgung_trigger = {
-	owns = location:hanyang
-	location:hanyang = {
+	owns = location:namgyeong
+	location:namgyeong = {
 		tv_wonder_location_can_host_unique_gyeongbokgung_trigger = yes
 	}
 }
 
 tv_wonder_player_visible_site_rules_unique_gyeongbokgung_trigger = {
-	owns = location:hanyang
+	owns = location:namgyeong
 }
 
 tv_wonder_location_can_host_unique_changbai_mountain_altar_trigger = {
