@@ -849,7 +849,6 @@ def write_target(output_config: dict[str, Any], source_png_path: Path, target: T
         opaque_background=target.opaque_background,
     )
     file_size = target.path.stat().st_size
-    mipmap_count = read_dds_mipmap_count(target.path)
     if file_size > target.max_file_size_bytes:
         raise RuntimeError(
             f"{target.name} output is {format_bytes(file_size)}, above the "
@@ -858,7 +857,7 @@ def write_target(output_config: dict[str, Any], source_png_path: Path, target: T
     print(
         f"[dds] {display_path(target.path)} "
         f"({target.width}x{target.height} {target.dds_format}, resize={target.resize}, "
-        f"mips={mipmap_count}, {format_bytes(file_size)} <= {format_bytes(target.max_file_size_bytes)})"
+        f"levels=1, {format_bytes(file_size)} <= {format_bytes(target.max_file_size_bytes)})"
     )
     return {
         "name": target.name,
@@ -868,17 +867,10 @@ def write_target(output_config: dict[str, Any], source_png_path: Path, target: T
         "height": target.height,
         "resize": target.resize,
         "dds_format": target.dds_format,
-        "mipmap_count": mipmap_count,
+        "dds_levels": 1,
         "file_size_bytes": file_size,
         "max_file_size_bytes": target.max_file_size_bytes,
     }
-
-
-def read_dds_mipmap_count(path: Path) -> int:
-    data = path.read_bytes()
-    if len(data) < 32 or not data.startswith(b"DDS "):
-        raise ValueError(f"{path} is not a DDS file")
-    return int.from_bytes(data[28:32], "little")
 
 
 def update_existing_metadata_target(

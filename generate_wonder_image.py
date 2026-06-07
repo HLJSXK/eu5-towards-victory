@@ -9,7 +9,7 @@ Usage:
 
 The script reads a batch of image tasks from the JSON config, skips tasks whose
 output already exists when overwrite is false, and writes generated PNGs as
-mipmapped DXT1 DDS files without requiring ImageMagick, texconv, Pillow, or
+single-level DXT1 DDS files without requiring ImageMagick, texconv, Pillow, or
 other third-party packages.
 """
 
@@ -637,39 +637,6 @@ def write_dxt1_dds(image: DecodedPng, path: Path, overwrite: bool) -> None:
     write_dds(decoded_png_to_rgba(image), path, dds_format="DXT1", overwrite=True)
 
 
-def read_dds_mipmap_count(path: Path) -> int:
-    data = path.read_bytes()
-    if len(data) < 32 or not data.startswith(b"DDS "):
-        raise ValueError(f"{path} is not a DDS file")
-    return int.from_bytes(data[28:32], "little")
-
-
-def _dds_level_size(width: int, height: int, fourcc: str) -> int:
-    block_bytes = 8 if fourcc == "DXT1" else 16
-    return ((width + 3) // 4) * ((height + 3) // 4) * block_bytes
-
-
-def dds_has_complete_mipmaps(path: Path) -> bool:
-    data = path.read_bytes()
-    if len(data) < 128 or not data.startswith(b"DDS "):
-        return False
-    height = int.from_bytes(data[12:16], "little")
-    width = int.from_bytes(data[16:20], "little")
-    mipmap_count = int.from_bytes(data[28:32], "little")
-    fourcc = data[84:88].decode("ascii", errors="replace").upper()
-    if mipmap_count <= 1 or fourcc not in {"DXT1", "DXT5"}:
-        return False
-
-    expected_size = 128
-    level_width = width
-    level_height = height
-    for _ in range(mipmap_count):
-        expected_size += _dds_level_size(level_width, level_height, fourcc)
-        level_width = max(1, level_width // 2)
-        level_height = max(1, level_height // 2)
-    return len(data) >= expected_size
-
-
 def convert_existing_dds(
     source_path: Path,
     dds_path: Path,
@@ -684,11 +651,10 @@ def convert_existing_dds(
         overwrite=True,
         opaque_background=background,
     )
-    mipmap_count = read_dds_mipmap_count(dds_path)
     file_size = dds_path.stat().st_size
     print(
         f"{label}: source={pretty_repo_path(source_path)}, "
-        f"mips={mipmap_count}, size={file_size:,} bytes"
+        f"levels=1, size={file_size:,} bytes"
     )
 
 
@@ -716,11 +682,6 @@ def convert_existing_assets(
             print(f"[skip {index}/{task_total}] {stem}: disabled")
             skipped += 1
             continue
-        if dds_path.exists() and dds_has_complete_mipmaps(dds_path):
-            print(f"[skip {index}/{task_total}] {stem}: already has mipmaps")
-            skipped += 1
-            continue
-
         if png_path.exists():
             source_path = png_path
         elif dds_path.exists():
@@ -736,7 +697,7 @@ def convert_existing_assets(
     extra_total = 0
     for dds_dir in sorted(dds_dirs):
         for dds_path in sorted(dds_dir.glob("*.dds")):
-            if dds_path.resolve() in seen_dds_paths or dds_has_complete_mipmaps(dds_path):
+            if dds_path.resolve() in seen_dds_paths:
                 continue
             extra_total += 1
             convert_existing_dds(dds_path, dds_path, background, f"[convert extra] {dds_path.stem}")
