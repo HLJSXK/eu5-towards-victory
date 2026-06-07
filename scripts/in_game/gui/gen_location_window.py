@@ -395,7 +395,7 @@ def render_tooltip_modifier_column(indent: str, *, title_key: str, modifier_key:
     return [
         f"{indent}vbox = {{",
         f"{indent}{T}layoutpolicy_horizontal = fixed",
-        f"{indent}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}layoutpolicy_vertical = expanding",
         f"{indent}{T}minimumsize = {{ {TOOLTIP_MODIFIER_COLUMN_WIDTH} -1 }}",
         f"{indent}{T}maximumsize = {{ {TOOLTIP_MODIFIER_COLUMN_WIDTH} -1 }}",
         f"{indent}{T}spacing = 2",
@@ -418,6 +418,7 @@ def render_tooltip_modifier_column(indent: str, *, title_key: str, modifier_key:
         f"{indent}{T}{T}}}",
         f'{indent}{T}{T}textcontext = "[ShowModifierEffect({modifier_key})]"',
         f"{indent}{T}}}",
+        f"{indent}{T}expand = {{}}",
         f"{indent}}}",
     ]
 
@@ -578,6 +579,7 @@ def render_tooltip_template() -> str:
         f'{T}{T}blockoverride "concept_link" {{ text = "[tv_wonder_construction|E]" }}',
         f'{T}{T}blockoverride "tooltip_content" {{',
         f"{T}{T}{T}widget = {{",
+        f"{T}{T}{T}{T}minimumsize = {{ {TOOLTIP_ROW_WIDTH} -1 }}",
         f"{T}{T}{T}{T}vbox = {{",
         f"{T}{T}{T}{T}{T}set_parent_dimension_to_minimum = height",
         f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
