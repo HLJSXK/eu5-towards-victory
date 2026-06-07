@@ -7,7 +7,12 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import ceremony_modifier_for_building, load_all_wonder_mechanics, load_wonders_source_data
+from wonder_mechanics_lib import (
+    ceremony_modifier_for_building,
+    load_all_wonder_mechanics,
+    load_wonders_source_data,
+    mechanic_key,
+)
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_module_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_module_effects.py"
@@ -398,9 +403,14 @@ def restore_final_building_state_for_style(
     return lines
 
 
-def append_clear_current_base_modifiers_effect(lines: list[str], name: str, wonders: list[dict]) -> None:
+def has_base_country_modifier(wonder: dict, mechanics: dict) -> bool:
+    return bool(mechanics["base_modifiers"][mechanic_key(wonder)])
+
+
+def append_clear_current_base_modifiers_effect(lines: list[str], name: str, wonders: list[dict], mechanics: dict) -> None:
     lines.append(f"{name} = {{")
-    for idx, wonder in enumerate(wonders):
+    applicable_wonders = [wonder for wonder in wonders if has_base_country_modifier(wonder, mechanics)]
+    for idx, wonder in enumerate(applicable_wonders):
         head = "if" if idx == 0 else "else_if"
         lines.append(f"{T}{head} = {{")
         lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
@@ -475,8 +485,8 @@ def main() -> None:
     final_styles = sorted({int(style) for wonder in wonders for style in wonder["final_buildings"]})
     lines = HEADER[:]
 
-    append_clear_current_base_modifiers_effect(lines, "tv_wonder_clear_current_generic_base_modifiers_effect", generic_wonders)
-    append_clear_current_base_modifiers_effect(lines, "tv_wonder_clear_current_unique_base_modifiers_effect", unique_wonders)
+    append_clear_current_base_modifiers_effect(lines, "tv_wonder_clear_current_generic_base_modifiers_effect", generic_wonders, mechanics)
+    append_clear_current_base_modifiers_effect(lines, "tv_wonder_clear_current_unique_base_modifiers_effect", unique_wonders, mechanics)
     lines.append("tv_wonder_clear_current_base_modifiers_effect = {")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ tv_wonder_unique_locked_trigger = yes }}")

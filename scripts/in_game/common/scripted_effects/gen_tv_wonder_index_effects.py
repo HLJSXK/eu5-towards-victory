@@ -83,6 +83,11 @@ SUITABILITY_ROW_MAP_NAMES = [
     "tv_wonder_suitability_row_to_row",
 ]
 
+FINAL_BUILDING_DISPLAY_ID_MAP = "tv_wonder_final_building_type_to_display_id"
+FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style"
+UNIQUE_WONDER_LOCATION_MAP = "tv_wonder_unique_id_to_location"
+UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP = "tv_wonder_unique_id_to_final_building_type"
+
 WONDER_CACHE_MAPS = [
     ("tv_wonder_id_to_is_unique", "tv_wonder_locked_is_unique"),
     ("tv_wonder_id_to_base_id", "tv_wonder_locked_base_id"),
@@ -221,6 +226,7 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
     lines.append(f"{T}# Tooltip-safe module/final building maps key each fixed part/style directly by wonder_id.")
     lines.append(f"{T}# Event option tooltips can render dynamic local_var building types, but not same-chain computed map keys.")
     lines.append(f"{T}# Suitability row id = mechanic_id * 10 + row, because unique wonders share mechanic rows.")
+    lines.append(f"{T}# Location display maps use building_type/location scopes directly and avoid numeric sentinel scope keys.")
     for map_name in all_map_names:
         lines.extend(map_init_lines(map_name))
     for map_name, default_value in building_map_defaults:
@@ -295,6 +301,23 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
                 )
             final_building = f"building_type:{wonder['final_buildings'][style]}"
             lines.extend(map_replace_line(final_building_type_map_name(style), key, final_building))
+            if not wonder.get("is_unique"):
+                lines.extend(map_replace_line(FINAL_BUILDING_DISPLAY_ID_MAP, final_building, wonder_id))
+                lines.extend(map_replace_line(FINAL_BUILDING_RITUAL_STYLE_MAP, final_building, style))
+
+        if wonder.get("is_unique"):
+            location_key = wonder.get("location")
+            if location_key:
+                first_style = ceremony_styles(wonder)[0]
+                final_building = f"building_type:{wonder['final_buildings'][first_style]}"
+                lines.extend(map_replace_line(UNIQUE_WONDER_LOCATION_MAP, key, f"location:{location_key}"))
+                lines.extend(
+                    map_replace_line(
+                        UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP,
+                        key,
+                        final_building,
+                    )
+                )
 
     for wonder in wonders:
         if wonder.get("is_unique"):

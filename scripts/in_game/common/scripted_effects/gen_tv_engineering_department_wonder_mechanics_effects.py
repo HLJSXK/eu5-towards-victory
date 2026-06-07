@@ -13,7 +13,6 @@ from wonder_mechanics_lib import (
     WONDER_MECHANICS_MAX_ID,
     ceremony_modifier_for_style,
     ceremony_styles,
-    final_building_for_style,
     indent_script_block,
     load_all_wonder_mechanics,
     render_header,
@@ -59,6 +58,16 @@ SUITABILITY_ROW_KEY_LOCAL = "tv_wonder_suitability_row_key"
 SUITABILITY_ROW_COUNT_LOCAL = "tv_wonder_suitability_row_count"
 SUITABILITY_REVEAL_VALUE_LOCAL = "tv_wonder_suitability_reveal_value"
 FINAL_BUILDING_TYPE_VAR = "tv_wonder_final_building_type"
+FINAL_BUILDING_DISPLAY_ID_MAP = "tv_wonder_final_building_type_to_display_id"
+FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style"
+UNIQUE_WONDER_LOCATION_MAP = "tv_wonder_unique_id_to_location"
+UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP = "tv_wonder_unique_id_to_final_building_type"
+LOCATION_DISPLAY_SCOPE = "tv_wonder_location_display_location"
+LOCATION_DISPLAY_WONDER_ID_LOCAL = "tv_wonder_location_display_wonder_id"
+LOCATION_DISPLAY_BUILDING_TYPE_LOCAL = "tv_wonder_location_display_building_type"
+LOCATION_DISPLAY_ID_VAR = "tv_wonder_location_display_id"
+LOCATION_DISPLAY_LEVEL_VAR = "tv_wonder_location_display_level"
+LOCATION_DISPLAY_RITUAL_STYLE_VAR = "tv_wonder_location_display_ritual_style"
 RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_auxiliary_building_finished",
     "tv_wonder_ritual_total_buildings_baseline",
@@ -477,8 +486,8 @@ def append_selected_ritual_tooltip_dispatch_effect(
     lines.append("")
 
 
-def loc_level(building: str, op: str, level: int) -> str:
-    return f"location_building_level = {{ building_type = building_type:{building} value {op} {level} }}"
+def dynamic_loc_level(building_var: str, op: str, level: int) -> str:
+    return f"location_building_level = {{ building_type = {building_var} value {op} {level} }}"
 
 
 def dynamic_final_building_expr() -> str:
@@ -530,14 +539,6 @@ def append_dynamic_final_building_construction(lines: list[str], indent: int) ->
     lines.append(f"{prefix}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
 
 
-def location_display_level_var(wonder: dict) -> str:
-    return f"tv_wonder_display_{wonder['key']}_level"
-
-
-def location_display_ritual_style_var(wonder: dict) -> str:
-    return f"tv_wonder_display_{wonder['key']}_ritual_style"
-
-
 def slot_id_var(slot: int) -> str:
     return f"tv_wonder_display_slot_{slot}_id"
 
@@ -562,30 +563,33 @@ def tooltip_slot_ritual_style_var(slot: int) -> str:
     return f"tv_wonder_tooltip_slot_{slot}_ritual_style"
 
 
-def append_location_display_level_detection(lines: list[str], wonder: dict, *, indent: int, var_name: str) -> None:
+def append_location_display_level_detection(lines: list[str], *, indent: int, building_var: str, var_name: str) -> None:
     prefix = T * indent
     for level in range(6, 0, -1):
         head = "if" if level == 6 else "else_if"
         lines.append(f"{prefix}{head} = {{")
         lines.append(f"{prefix}{T}limit = {{")
-        lines.append(f"{prefix}{T}{T}OR = {{")
-        for building in wonder["final_buildings"].values():
-            lines.append(f"{prefix}{T}{T}{T}{loc_level(building, '>=', level)}")
-        lines.append(f"{prefix}{T}{T}}}")
+        lines.append(f"{prefix}{T}{T}{dynamic_loc_level(building_var, '>=', level)}")
         lines.append(f"{prefix}{T}}}")
         lines.append(f"{prefix}{T}set_variable = {{ name = {var_name} value = {level} }}")
         lines.append(f"{prefix}}}")
 
 
-def append_location_display_ritual_style_detection(lines: list[str], wonder: dict, *, indent: int, var_name: str) -> None:
+def append_location_display_slot_push(lines: list[str], *, indent: int, compact: bool) -> None:
     prefix = T * indent
-    for style in ceremony_styles(wonder):
-        building = final_building_for_style(wonder, style)
-        head = "if" if style == ceremony_styles(wonder)[0] else "else_if"
-        lines.append(f"{prefix}{head} = {{")
-        lines.append(f"{prefix}{T}limit = {{ has_building = building_type:{building} }}")
-        lines.append(f"{prefix}{T}set_variable = {{ name = {var_name} value = {style} }}")
-        lines.append(f"{prefix}}}")
+    if compact:
+        lines.append(
+            f"{prefix}tv_wonder_mechanics_push_location_display_slot_effect = {{ "
+            f"wonder_id = var:{LOCATION_DISPLAY_ID_VAR} "
+            f"wonder_level = var:{LOCATION_DISPLAY_LEVEL_VAR} "
+            f"wonder_ritual_style = var:{LOCATION_DISPLAY_RITUAL_STYLE_VAR} }}"
+        )
+    lines.append(
+        f"{prefix}tv_wonder_mechanics_push_location_tooltip_slot_effect = {{ "
+        f"wonder_id = var:{LOCATION_DISPLAY_ID_VAR} "
+        f"wonder_level = var:{LOCATION_DISPLAY_LEVEL_VAR} "
+        f"wonder_ritual_style = var:{LOCATION_DISPLAY_RITUAL_STYLE_VAR} }}"
+    )
 
 
 def append_location_display_push_effects(lines: list[str]) -> None:
@@ -623,9 +627,12 @@ def append_location_display_push_effects(lines: list[str]) -> None:
     lines.append("")
 
 
-def append_location_display_clear_effect(lines: list[str], all_wonders: list[dict]) -> None:
+def append_location_display_clear_effect(lines: list[str]) -> None:
     lines.append("tv_wonder_mechanics_clear_location_display_state_effect = {")
     lines.append(f"{T}remove_variable = tv_wonder_display_id")
+    lines.append(f"{T}remove_variable = {LOCATION_DISPLAY_ID_VAR}")
+    lines.append(f"{T}remove_variable = {LOCATION_DISPLAY_LEVEL_VAR}")
+    lines.append(f"{T}remove_variable = {LOCATION_DISPLAY_RITUAL_STYLE_VAR}")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_display_count }}")
     lines.append(f"{T}{T}remove_variable = tv_wonder_display_count")
@@ -644,59 +651,119 @@ def append_location_display_clear_effect(lines: list[str], all_wonders: list[dic
         lines.append(f"{T}remove_variable = {tooltip_slot_id_var(slot)}")
         lines.append(f"{T}remove_variable = {tooltip_slot_level_var(slot)}")
         lines.append(f"{T}remove_variable = {tooltip_slot_ritual_style_var(slot)}")
-    for wonder in all_wonders:
-        lines.append(f"{T}remove_variable = {location_display_level_var(wonder)}")
-        lines.append(f"{T}remove_variable = {location_display_ritual_style_var(wonder)}")
     lines.append("}")
     lines.append("")
 
 
-def append_location_display_wonder_projection(lines: list[str], wonder: dict, *, compact: bool) -> None:
-    level_var = location_display_level_var(wonder)
-    ritual_style_var = location_display_ritual_style_var(wonder)
+def append_location_display_unique_location_projection(lines: list[str], *, compact: bool) -> None:
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}OR = {{")
-    if wonder.get("is_unique"):
-        lines.append(f"{T}{T}{T}{T}this = location:{wonder['location']}")
-    for building in wonder["final_buildings"].values():
-        lines.append(f"{T}{T}{T}{T}has_building = building_type:{building}")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {UNIQUE_WONDER_LOCATION_MAP}")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}every_key_in_global_variable_map = {{")
+    lines.append(f"{T}{T}{T}variable = {UNIQUE_WONDER_LOCATION_MAP}")
+    lines.append(f"{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}is_key_in_global_variable_map = {{ name = {UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP} target = this }}")
+    lines.append(f"{T}{T}{T}{T}OR = {{")
+    lines.append(
+        f"{T}{T}{T}{T}{T}\"global_variable_map({UNIQUE_WONDER_LOCATION_MAP}|this)\" = {{ "
+        f"this = scope:{LOCATION_DISPLAY_SCOPE} }}"
+    )
+    lines.append(
+        f"{T}{T}{T}{T}{T}\"global_variable_map({UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP}|this)\" = {{"
+    )
+    lines.append(f"{T}{T}{T}{T}{T}{T}scope:{LOCATION_DISPLAY_SCOPE} = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}has_building = prev")
+    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}scope:{LOCATION_DISPLAY_SCOPE} = {{")
+    lines.append(f"{T}{T}{T}{T}set_local_variable = {{ name = {LOCATION_DISPLAY_WONDER_ID_LOCAL} value = prev }}")
+    lines.append(f"{T}{T}{T}{T}set_local_variable = {{")
+    lines.append(f"{T}{T}{T}{T}{T}name = {LOCATION_DISPLAY_BUILDING_TYPE_LOCAL}")
+    lines.append(
+        f"{T}{T}{T}{T}{T}value = "
+        f"\"global_variable_map({UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP}|local_var:{LOCATION_DISPLAY_WONDER_ID_LOCAL})\""
+    )
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(
+        f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_ID_VAR} "
+        f"value = local_var:{LOCATION_DISPLAY_WONDER_ID_LOCAL} }}"
+    )
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_LEVEL_VAR} value = 0 }}")
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_RITUAL_STYLE_VAR} value = 0 }}")
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 1 }}")
+    append_location_display_level_detection(
+        lines,
+        indent=4,
+        building_var=f"local_var:{LOCATION_DISPLAY_BUILDING_TYPE_LOCAL}",
+        var_name=LOCATION_DISPLAY_LEVEL_VAR,
+    )
+    lines.append(f"{T}{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}{T}limit = {{ has_building = local_var:{LOCATION_DISPLAY_BUILDING_TYPE_LOCAL} }}")
+    lines.append(f"{T}{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_RITUAL_STYLE_VAR} value = 1 }}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    append_location_display_slot_push(lines, indent=4, compact=compact)
+    lines.append(f"{T}{T}{T}{T}remove_local_variable = {LOCATION_DISPLAY_BUILDING_TYPE_LOCAL}")
+    lines.append(f"{T}{T}{T}{T}remove_local_variable = {LOCATION_DISPLAY_WONDER_ID_LOCAL}")
     lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}set_variable = {{ name = {level_var} value = 0 }}")
-    lines.append(f"{T}{T}set_variable = {{ name = {ritual_style_var} value = 0 }}")
-    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 1 }}")
-    append_location_display_level_detection(lines, wonder, indent=2, var_name=level_var)
-    append_location_display_ritual_style_detection(lines, wonder, indent=2, var_name=ritual_style_var)
-    if compact:
-        lines.append(
-            f"{T}{T}tv_wonder_mechanics_push_location_display_slot_effect = {{ "
-            f"wonder_id = {wonder['id']} wonder_level = var:{level_var} wonder_ritual_style = var:{ritual_style_var} }}"
-        )
-    lines.append(
-        f"{T}{T}tv_wonder_mechanics_push_location_tooltip_slot_effect = {{ "
-        f"wonder_id = {wonder['id']} wonder_level = var:{level_var} wonder_ritual_style = var:{ritual_style_var} }}"
-    )
     lines.append(f"{T}}}")
 
 
-def append_location_display_effects(
-    lines: list[str],
-    *,
-    unique_wonders: list[dict],
-    generic_wonders: list[dict],
-) -> None:
-    all_wonders = [*unique_wonders, *generic_wonders]
+def append_location_display_final_building_projection(lines: list[str], *, compact: bool) -> None:
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {FINAL_BUILDING_DISPLAY_ID_MAP}")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {FINAL_BUILDING_RITUAL_STYLE_MAP}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}every_key_in_global_variable_map = {{")
+    lines.append(f"{T}{T}{T}variable = {FINAL_BUILDING_DISPLAY_ID_MAP}")
+    lines.append(f"{T}{T}{T}limit = {{")
+    lines.append(
+        f"{T}{T}{T}{T}is_key_in_global_variable_map = {{ "
+        f"name = {FINAL_BUILDING_RITUAL_STYLE_MAP} target = this }}"
+    )
+    lines.append(f"{T}{T}{T}{T}scope:{LOCATION_DISPLAY_SCOPE} = {{")
+    lines.append(f"{T}{T}{T}{T}{T}has_building = prev")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}scope:{LOCATION_DISPLAY_SCOPE} = {{")
+    lines.append(f"{T}{T}{T}{T}set_local_variable = {{ name = {LOCATION_DISPLAY_BUILDING_TYPE_LOCAL} value = prev }}")
+    lines.append(
+        f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_ID_VAR} "
+        f"value = \"global_variable_map({FINAL_BUILDING_DISPLAY_ID_MAP}|local_var:{LOCATION_DISPLAY_BUILDING_TYPE_LOCAL})\" }}"
+    )
+    lines.append(
+        f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_RITUAL_STYLE_VAR} "
+        f"value = \"global_variable_map({FINAL_BUILDING_RITUAL_STYLE_MAP}|local_var:{LOCATION_DISPLAY_BUILDING_TYPE_LOCAL})\" }}"
+    )
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_LEVEL_VAR} value = 0 }}")
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 1 }}")
+    append_location_display_level_detection(
+        lines,
+        indent=4,
+        building_var=f"local_var:{LOCATION_DISPLAY_BUILDING_TYPE_LOCAL}",
+        var_name=LOCATION_DISPLAY_LEVEL_VAR,
+    )
+    append_location_display_slot_push(lines, indent=4, compact=compact)
+    lines.append(f"{T}{T}{T}{T}remove_local_variable = {LOCATION_DISPLAY_BUILDING_TYPE_LOCAL}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
 
+
+def append_location_display_effects(lines: list[str]) -> None:
     append_location_display_push_effects(lines)
-    append_location_display_clear_effect(lines, all_wonders)
+    append_location_display_clear_effect(lines)
 
     lines.append("tv_wonder_mechanics_refresh_location_display_state_effect = {")
     lines.append(f"{T}tv_wonder_mechanics_clear_location_display_state_effect = yes")
-    for wonder in unique_wonders:
-        append_location_display_wonder_projection(lines, wonder, compact=True)
-    for wonder in generic_wonders:
-        append_location_display_wonder_projection(lines, wonder, compact=True)
+    lines.append(f"{T}save_scope_as = {LOCATION_DISPLAY_SCOPE}")
+    append_location_display_unique_location_projection(lines, compact=True)
+    append_location_display_final_building_projection(lines, compact=True)
     lines.append("}")
     lines.append("")
 
@@ -1340,7 +1407,7 @@ def generate() -> str:
 
     append_ritual_tooltip_effects(lines, ritual_entries(all_wonders, mechanics), mechanics)
 
-    append_location_display_effects(lines, unique_wonders=unique_wonders, generic_wonders=generic_wonders)
+    append_location_display_effects(lines)
     append_suitability_reveal_effect(lines)
 
     append_construct_final_building_effect(lines, "tv_wonder_mechanics_construct_generic_final_building_effect", generic_wonders)

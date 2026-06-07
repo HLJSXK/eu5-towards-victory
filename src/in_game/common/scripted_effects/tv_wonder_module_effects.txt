@@ -113,15 +113,6 @@ tv_wonder_clear_current_generic_base_modifiers_effect = {
 		remove_country_modifier = tv_wonder_giant_tower_temple_level_6
 	}
 	else_if = {
-		limit = { var:tv_wonder_locked ?= 13 }
-		remove_country_modifier = tv_wonder_river_extension_level_1
-		remove_country_modifier = tv_wonder_river_extension_level_2
-		remove_country_modifier = tv_wonder_river_extension_level_3
-		remove_country_modifier = tv_wonder_river_extension_level_4
-		remove_country_modifier = tv_wonder_river_extension_level_5
-		remove_country_modifier = tv_wonder_river_extension_level_6
-	}
-	else_if = {
 		limit = { var:tv_wonder_locked ?= 14 }
 		remove_country_modifier = tv_wonder_national_shipyard_level_1
 		remove_country_modifier = tv_wonder_national_shipyard_level_2
@@ -356,15 +347,6 @@ tv_wonder_clear_current_generic_base_modifiers_effect = {
 		remove_country_modifier = tv_wonder_world_monument_group_level_6
 	}
 	else_if = {
-		limit = { var:tv_wonder_locked ?= 40 }
-		remove_country_modifier = tv_wonder_city_expansion_project_level_1
-		remove_country_modifier = tv_wonder_city_expansion_project_level_2
-		remove_country_modifier = tv_wonder_city_expansion_project_level_3
-		remove_country_modifier = tv_wonder_city_expansion_project_level_4
-		remove_country_modifier = tv_wonder_city_expansion_project_level_5
-		remove_country_modifier = tv_wonder_city_expansion_project_level_6
-	}
-	else_if = {
 		limit = { var:tv_wonder_locked ?= 41 }
 		remove_country_modifier = tv_wonder_megalithic_circle_level_1
 		remove_country_modifier = tv_wonder_megalithic_circle_level_2
@@ -546,15 +528,6 @@ tv_wonder_clear_current_unique_base_modifiers_effect = {
 		remove_country_modifier = tv_wonder_unique_versailles_palace_level_4
 		remove_country_modifier = tv_wonder_unique_versailles_palace_level_5
 		remove_country_modifier = tv_wonder_unique_versailles_palace_level_6
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 118 }
-		remove_country_modifier = tv_wonder_unique_tenochtitlan_causeways_level_1
-		remove_country_modifier = tv_wonder_unique_tenochtitlan_causeways_level_2
-		remove_country_modifier = tv_wonder_unique_tenochtitlan_causeways_level_3
-		remove_country_modifier = tv_wonder_unique_tenochtitlan_causeways_level_4
-		remove_country_modifier = tv_wonder_unique_tenochtitlan_causeways_level_5
-		remove_country_modifier = tv_wonder_unique_tenochtitlan_causeways_level_6
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 119 }
