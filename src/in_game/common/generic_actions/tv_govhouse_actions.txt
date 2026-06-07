@@ -255,7 +255,16 @@ tv_enable_governor_automation = {
 			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
+		custom_tooltip = {
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
 		scope:actor = {
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				is_female = no
+				is_artist = no
+			}
 			custom_tooltip = {
 				text = TV_GOVHOUSE_GOVERNOR_AUTOMATION_DISABLED_TT
 				NOT = { has_variable = tv_govhouse_governor_automation_enabled }
@@ -295,7 +304,16 @@ tv_disable_governor_automation = {
 			text = TV_HAS_GOVHOUSE_MEMBER_TT
 			scope:actor = { has_variable = tv_govhouse_member }
 		}
+		custom_tooltip = {
+			text = TV_HAS_CONQUEST_GENERAL_CHAR_TT
+			scope:actor = { has_variable = tv_conquest_general_char }
+		}
 		scope:actor = {
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				is_female = no
+				is_artist = no
+			}
 			custom_tooltip = {
 				text = TV_GOVHOUSE_GOVERNOR_AUTOMATION_ENABLED_TT
 				has_variable = tv_govhouse_governor_automation_enabled
