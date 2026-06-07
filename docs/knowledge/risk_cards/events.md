@@ -42,6 +42,13 @@ called directly from event options.
    text, but it is not a commit boundary: helpers inside still must read persistent state or use
    literal bounded branches instead of same-chain scratch variables.
 
+5. Keep numeric event IDs below 10000.
+   EU5 accepts event IDs as `<namespace>.<integer>`, but the integer must be `< 10000`.
+   For generated high-cardinality systems, do not encode multiple dimensions into the numeric
+   event ID if that crosses the limit. Move large wonder/type dispatch before the event fires;
+   small event-local branches are acceptable only for dimensions that are already within a
+   single typed event, such as ceremony style inside one wonder's finalization event.
+
 ## Validation
 
 Run:

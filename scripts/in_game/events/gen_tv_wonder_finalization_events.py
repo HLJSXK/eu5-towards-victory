@@ -13,6 +13,9 @@ from wonder_localization_lib import load_wonder_localization_data
 from wonder_mechanics_lib import (
     ceremony_styles,
     finalization_event_id,
+    finalization_hidden_effect_name,
+    finalization_visible_effect_name,
+    finalization_world_event_id,
     load_all_wonder_mechanics,
     render_header,
 )
@@ -56,58 +59,62 @@ def unique_desc_key(wonder: dict) -> str:
     return f"tv_engineering_department.500.d_unique_{wonder['key']}"
 
 
-def append_finalization_option(lines: list[str], wonder: dict) -> None:
-    visible_effect = (
-        "tv_wonder_complete_unique_finalization_visible_effect"
-        if wonder.get("is_unique")
-        else "tv_wonder_complete_generic_finalization_visible_effect"
-    )
-    hidden_effect = (
-        "tv_wonder_complete_unique_finalization_hidden_effect"
-        if wonder.get("is_unique")
-        else "tv_wonder_complete_generic_finalization_hidden_effect"
-    )
-    wonder_id = int(wonder["id"])
-    lines.append(f"{T}option = {{")
-    lines.append(f"{T}{T}name = tv_engineering_department.500.a")
-    lines.append(f"{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder_id} }}")
-    lines.append(f"{T}{T}{T}{visible_effect} = yes")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}hidden_effect = {{")
-    lines.append(f"{T}{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder_id} }}")
-    lines.append(f"{T}{T}{T}{T}{hidden_effect} = yes")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
+def world_desc_key(wonder: dict, loc_keys: set[str]) -> str:
+    if wonder.get("is_unique"):
+        desc_key = f"tv_engineering_department.600.d_unique_{wonder['key']}"
+        return desc_key if desc_key in loc_keys else "tv_engineering_department.600.d"
+    suffix = GENERIC_FINALIZATION_DESC_SUFFIXES.get(wonder["key"], wonder["key"])
+    desc_key = f"tv_engineering_department.600.d_{suffix}"
+    return desc_key if desc_key in loc_keys else "tv_engineering_department.600.d"
 
 
 def append_desc(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:
-    if wonder.get("is_unique"):
-        desc_key = unique_desc_key(wonder)
-        lines.append(f"{T}desc = {desc_key if desc_key in loc_keys else 'tv_engineering_department.500.d'}")
-        return
-
-    desc_entries = [
-        (style, generic_desc_key(wonder, style))
-        for style in ceremony_styles(wonder)
-        if generic_desc_key(wonder, style) in loc_keys
-    ]
-    if not desc_entries:
-        lines.append(f"{T}desc = tv_engineering_department.500.d")
+    styles = ceremony_styles(wonder)
+    if len(styles) == 1:
+        lines.append(f"{T}desc = {desc_key_for_style(wonder, styles[0], loc_keys)}")
         return
 
     lines.append(f"{T}desc = {{")
     lines.append(f"{T}{T}first_valid = {{")
-    for style, desc_key in desc_entries:
+    for style in styles:
         lines.append(f"{T}{T}{T}triggered_desc = {{")
         lines.append(f"{T}{T}{T}{T}trigger = {{ var:tv_wonder_ceremony_style ?= {style} }}")
-        lines.append(f"{T}{T}{T}{T}desc = {desc_key}")
+        lines.append(f"{T}{T}{T}{T}desc = {desc_key_for_style(wonder, style, loc_keys)}")
         lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}desc = tv_engineering_department.500.d")
+    lines.append(f"{T}{T}{T}desc = {desc_key_for_style(wonder, styles[0], loc_keys)}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
+
+
+def append_hidden_style_dispatch(lines: list[str], wonder: dict) -> None:
+    styles = ceremony_styles(wonder)
+    lines.append(f"{T}{T}hidden_effect = {{")
+    if len(styles) == 1:
+        lines.append(f"{T}{T}{T}{finalization_hidden_effect_name(wonder, styles[0])} = yes")
+    else:
+        for index, style in enumerate(styles):
+            head = "if" if index == 0 else "else_if"
+            lines.append(f"{T}{T}{T}{head} = {{")
+            lines.append(f"{T}{T}{T}{T}limit = {{ var:tv_wonder_ceremony_style ?= {style} }}")
+            lines.append(f"{T}{T}{T}{T}{finalization_hidden_effect_name(wonder, style)} = yes")
+            lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+
+
+def append_finalization_option(lines: list[str], wonder: dict) -> None:
+    lines.append(f"{T}option = {{")
+    lines.append(f"{T}{T}name = tv_engineering_department.500.a")
+    lines.append(f"{T}{T}{finalization_visible_effect_name(wonder)} = yes")
+    append_hidden_style_dispatch(lines, wonder)
+    lines.append(f"{T}}}")
+
+
+def desc_key_for_style(wonder: dict, style: int, loc_keys: set[str]) -> str:
+    if wonder.get("is_unique"):
+        desc_key = unique_desc_key(wonder)
+        return desc_key if desc_key in loc_keys else "tv_engineering_department.500.d"
+    desc_key = generic_desc_key(wonder, style)
+    return desc_key if desc_key in loc_keys else "tv_engineering_department.500.d"
 
 
 def append_event(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:
@@ -122,6 +129,20 @@ def append_event(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:
     lines.append("")
 
 
+def append_world_news_event(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:
+    lines.append(f"tv_engineering_department.{finalization_world_event_id(wonder)} = {{")
+    lines.append(f"{T}type = country_event")
+    lines.append(f"{T}title = tv_engineering_department.600.t")
+    lines.append(f"{T}desc = {world_desc_key(wonder, loc_keys)}")
+    lines.append(f"{T}outcome = neutral")
+    lines.append("")
+    lines.append(f"{T}option = {{")
+    lines.append(f"{T}{T}name = tv_engineering_department.600.a")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def generate() -> str:
     wonders, _mechanics = load_all_wonder_mechanics()
     loc_keys = known_loc_keys()
@@ -130,11 +151,13 @@ def generate() -> str:
     lines.append("")
     for wonder in wonders:
         append_event(lines, wonder, loc_keys)
+    for wonder in wonders:
+        append_world_news_event(lines, wonder, loc_keys)
     return "\n".join(lines).rstrip() + "\n"
 
 
 def main() -> None:
-    OUT_FILE.write_text(generate(), encoding="utf-8")
+    OUT_FILE.write_text("\ufeff" + generate(), encoding="utf-8")
     print(f"Wrote {OUT_FILE.relative_to(REPO_ROOT)}")
 
 

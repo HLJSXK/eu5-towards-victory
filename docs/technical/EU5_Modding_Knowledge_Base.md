@@ -829,6 +829,12 @@ This section covers the modding of specific game content types.
 
 Events are pop-up messages that present the player with information and choices. They are defined in `.txt` files within the `in_game/events/` folder. Unlike EU4, EU5 does not use `mean_time_to_happen` for events; all events must be fired explicitly through on_actions, decisions, or other scripts. [7]
 
+#### Event ID Range
+
+Event IDs use `<namespace>.<integer>`, and the numeric part must be below 10000. Runtime logs from `jomini_eventmanager.cpp:141` reject IDs such as `tv_engineering_department.50011` with "not a valid event ID, has to be < 10000"; duplicate-ID errors may appear afterward as parser fallout.
+
+For generated systems, do not encode high-cardinality dimensions directly into the event ID. Dispatch large dimensions before firing the event, and keep any event-local branch limited to a small dimension that is already scoped to that event, such as ceremony style inside a single wonder finalization event.
+
 #### Event Option Tooltips
 
 When hovering over an option button, the tooltip is rendered by `ContextualTooltipType` (defined in `eventwindow.gui`). It has two parts:

@@ -78,6 +78,16 @@
   source: "reference_game_files/game/in_game/common/character_interactions/ali_qushji_settles.txt"
   notes: "AI wrongly removed custom_tooltip thinking dotted key format was invalid. Never remove; only verify format."
 
+- id: event_numeric_id_over_9999
+  pattern: ''
+  detectability: advisory
+  bad: "Generating or referencing an event ID whose numeric part is 10000 or higher, such as tv_engineering_department.50011"
+  correction: "EU5 event IDs must be <namespace>.<integer> with the integer below 10000. Do high-cardinality dispatch before firing the event, or branch only over a small non-event-id dimension inside an already typed event."
+  category: event
+  scope: any
+  source: "runtime error.log: jomini_eventmanager.cpp:141, 2026-06-08"
+  notes: "The engine logs that five-digit numeric event IDs are invalid and can then report duplicate IDs as parser fallout. scripts/validate.py scans src/data/scripts for dotted event references whose numeric part is >= 10000."
+
 - id: blockoverride_widget_child_invalid
   pattern: 'blockoverride\s+"common_header_text"\s*\{[^}]*text_single'
   bad: "text_single widget inside blockoverride \"common_header_text\""

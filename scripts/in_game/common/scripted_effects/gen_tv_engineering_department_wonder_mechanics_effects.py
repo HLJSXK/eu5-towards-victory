@@ -13,7 +13,6 @@ from wonder_mechanics_lib import (
     WONDER_MECHANICS_MAX_ID,
     ceremony_modifier_for_style,
     ceremony_styles,
-    finalization_event_id,
     indent_script_block,
     load_all_wonder_mechanics,
     render_header,
@@ -58,7 +57,6 @@ SUITABILITY_MECHANIC_KEY_LOCAL = "tv_wonder_suitability_mechanic_key"
 SUITABILITY_ROW_KEY_LOCAL = "tv_wonder_suitability_row_key"
 SUITABILITY_ROW_COUNT_LOCAL = "tv_wonder_suitability_row_count"
 SUITABILITY_REVEAL_VALUE_LOCAL = "tv_wonder_suitability_reveal_value"
-FINAL_BUILDING_TYPE_VAR = "tv_wonder_final_building_type"
 FINAL_BUILDING_DISPLAY_ID_MAP = "tv_wonder_final_building_type_to_display_id"
 FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style"
 UNIQUE_WONDER_LOCATION_MAP = "tv_wonder_unique_id_to_location"
@@ -74,25 +72,6 @@ RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_total_buildings_baseline",
     "tv_wonder_ritual_current_total_buildings",
 ]
-COMPLETION_BROADCAST_SCOPE_ALIASES = {
-    "sacred_mountain": ["sacred"],
-    "triumphal_axis": ["axis"],
-    "great_port": ["port"],
-    "giant_necropolis": ["necropolis"],
-    "great_lighthouse": ["lighthouse"],
-    "hydraulic_workshop": ["hydraulic"],
-    "mining_city": ["mining"],
-    "giant_observatory": ["observatory"],
-    "palace_of_nations": ["palace"],
-    "university_city": ["university"],
-    "sky_dome_grand_temple": ["sky_dome"],
-    "giant_tower_temple": ["tower_temple"],
-    "river_extension": ["river"],
-    "national_shipyard": ["shipyard"],
-    "star_fortress_city": ["star_fortress"],
-    "giant_armory": ["armory"],
-    "library_of_nation": ["library"],
-}
 SUITABILITY_CONDITION_SCRIPTS = {
     "topography_mountains": "topography = mountains",
     "topography_plateau": "topography = plateau",
@@ -489,55 +468,6 @@ def append_selected_ritual_tooltip_dispatch_effect(
 
 def dynamic_loc_level(building_var: str, op: str, level: int) -> str:
     return f"location_building_level = {{ building_type = {building_var} value {op} {level} }}"
-
-
-def dynamic_final_building_expr() -> str:
-    return f"local_var:{FINAL_BUILDING_TYPE_VAR}"
-
-
-def final_building_type_map_name(style: int) -> str:
-    return f"tv_wonder_id_to_style_{style}_final_building_type"
-
-
-def final_building_map_expr(style: int) -> str:
-    return f'"global_variable_map({final_building_type_map_name(style)}|var:tv_wonder_locked)"'
-
-
-def append_dynamic_final_building_construction(lines: list[str], indent: int) -> None:
-    prefix = T * indent
-    branch = "if"
-    building = dynamic_final_building_expr()
-    lines.append(f"{prefix}{branch} = {{")
-    lines.append(f"{prefix}{T}limit = {{")
-    lines.append(f"{prefix}{T}{T}NOT = {{ has_building = {building} }}")
-    lines.append(f"{prefix}{T}{T}prev = {{ var:tv_wonder_level ?= {{ this >= 1 }} }}")
-    lines.append(f"{prefix}{T}}}")
-    lines.append(
-        f"{prefix}{T}construct_building = {{ building_type = {building} "
-        f"cost_multiplier = 0 cost_multiplier_reason = \"game_concept_event\" instant = yes }}"
-    )
-    for level in range(6, 1, -1):
-        level_branch = "if" if level == 6 else "else_if"
-        lines.append(f"{prefix}{T}{level_branch} = {{")
-        lines.append(f"{prefix}{T}{T}limit = {{ prev = {{ var:tv_wonder_level ?= {{ this >= {level} }} }} }}")
-        lines.append(f"{prefix}{T}{T}change_building_level_in_location = {{ building = {building} value = {level - 1} owner = prev }}")
-        lines.append(f"{prefix}{T}}}")
-    lines.append(f"{prefix}}}")
-    for current_level in range(5, 0, -1):
-        branch = "else_if"
-        lines.append(f"{prefix}{branch} = {{")
-        lines.append(f"{prefix}{T}limit = {{ location_building_level = {{ building_type = {building} value >= {current_level} }} }}")
-        first_target = True
-        for target_level in range(6, current_level, -1):
-            delta = target_level - current_level
-            level_branch = "if" if first_target else "else_if"
-            first_target = False
-            lines.append(f"{prefix}{T}{level_branch} = {{")
-            lines.append(f"{prefix}{T}{T}limit = {{ prev = {{ var:tv_wonder_level ?= {{ this >= {target_level} }} }} }}")
-            lines.append(f"{prefix}{T}{T}change_building_level_in_location = {{ building = {building} value = {delta} owner = prev }}")
-            lines.append(f"{prefix}{T}}}")
-        lines.append(f"{prefix}}}")
-    lines.append(f"{prefix}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
 
 
 def slot_id_var(slot: int) -> str:
@@ -1130,111 +1060,6 @@ def append_survey_cache_transfer_effects(lines: list[str], max_rows: int) -> Non
     lines.append("")
 
 
-def append_base_modifier_effect(lines: list[str], name: str, wonders: list[dict], mechanics: dict) -> None:
-    lines.append(f"{name} = {{")
-    applicable_wonders = [
-        wonder for wonder in wonders
-        if mechanics["base_modifiers"][mechanic_key(wonder)]
-    ]
-    for idx, wonder in enumerate(applicable_wonders):
-        head = "if" if idx == 0 else "else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        for level in range(1, 7):
-            level_head = "if" if level == 1 else "else_if"
-            lines.append(
-                f"{T}{T}{level_head} = {{ limit = {{ var:tv_wonder_level ?= {level} }} "
-                f"add_country_modifier = {{ modifier = tv_wonder_{wonder['key']}_level_{level} years = -1 mode = add_and_extend }} }}"
-            )
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_ceremony_modifier_effect(lines: list[str], name: str, wonders: list[dict], mechanics: dict) -> None:
-    lines.append(f"{name} = {{")
-    first = True
-    for wonder in wonders:
-        for style in ceremony_styles(wonder):
-            ceremony_modifier = ceremony_modifier_for_style(wonder, mechanics, style)
-            if ceremony_modifier is None:
-                continue
-            modifier_name, _ = ceremony_modifier
-            head = "if" if first else "else_if"
-            first = False
-            lines.append(f"{T}{head} = {{")
-            lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {style} }}")
-            lines.append(f"{T}{T}add_country_modifier = {{ modifier = {modifier_name} years = -1 mode = add_and_extend }}")
-            lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_construct_final_building_effect(lines: list[str], name: str, wonders: list[dict]) -> None:
-    min_id = min(wonder["id"] for wonder in wonders)
-    max_id = max(wonder["id"] for wonder in wonders)
-    max_style = max(max(ceremony_styles(wonder)) for wonder in wonders)
-    lines.append(f"{name} = {{")
-    lines.append(f"{T}tv_wonder_index_rebuild_global_maps_if_needed_effect = yes")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
-    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this >= {min_id} }}")
-    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {{ this <= {max_id} }}")
-    lines.append(f"{T}{T}{T}var:tv_wonder_ceremony_style ?= {{ this >= 1 }}")
-    lines.append(f"{T}{T}{T}var:tv_wonder_ceremony_style ?= {{ this <= {max_style} }}")
-    lines.append(f"{T}{T}{T}var:tv_wonder_level ?= {{ this >= 1 }}")
-    lines.append(f"{T}{T}{T}var:tv_wonder_level ?= {{ this <= 6 }}")
-    lines.append(f"{T}{T}}}")
-    for style in range(1, max_style + 1):
-        final_map = final_building_type_map_name(style)
-        head = "if" if style == 1 else "else_if"
-        lines.append(f"{T}{T}{head} = {{")
-        lines.append(f"{T}{T}{T}limit = {{")
-        lines.append(f"{T}{T}{T}{T}var:tv_wonder_ceremony_style ?= {style}")
-        lines.append(f"{T}{T}{T}{T}has_global_variable_map = {final_map}")
-        lines.append(f"{T}{T}{T}{T}is_key_in_global_variable_map = {{ name = {final_map} target = var:tv_wonder_locked }}")
-        lines.append(f"{T}{T}{T}}}")
-        lines.append(f"{T}{T}{T}set_local_variable = {{")
-        lines.append(f"{T}{T}{T}{T}name = {FINAL_BUILDING_TYPE_VAR}")
-        lines.append(f"{T}{T}{T}{T}value = {final_building_map_expr(style)}")
-        lines.append(f"{T}{T}{T}}}")
-        lines.append(f"{T}{T}{T}var:tv_wonder_site ?= {{")
-        append_dynamic_final_building_construction(lines, 4)
-        lines.append(f"{T}{T}{T}}}")
-        lines.append(f"{T}{T}{T}remove_local_variable = {FINAL_BUILDING_TYPE_VAR}")
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_completion_broadcast_scope_effect(lines: list[str], name: str, wonders: list[dict]) -> None:
-    lines.append(f"{name} = {{")
-    for idx, wonder in enumerate(wonders):
-        head = "if" if idx == 0 else "else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        scope_keys = [wonder["key"], *COMPLETION_BROADCAST_SCOPE_ALIASES.get(wonder["key"], [])]
-        for scope_key in dict.fromkeys(scope_keys):
-            lines.append(f"{T}{T}save_scope_as = tv_wonder_completed_{scope_key}")
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_finalization_event_dispatch_effect(lines: list[str], name: str, wonders: list[dict]) -> None:
-    lines.append(f"{name} = {{")
-    for idx, wonder in enumerate(wonders):
-        head = "if" if idx == 0 else "else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.{finalization_event_id(wonder)} }}")
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
 def append_roll_random_feasible_proposal_effect(lines: list[str], name: str, deck_map: str) -> None:
     lines.append(f"{name} = {{")
     lines.append(f"{T}remove_variable = tv_wonder_proposal")
@@ -1396,35 +1221,10 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    append_base_modifier_effect(lines, "tv_wonder_mechanics_apply_generic_base_modifier_effect", generic_wonders, mechanics)
-    append_base_modifier_effect(lines, "tv_wonder_mechanics_apply_unique_base_modifier_effect", unique_wonders, mechanics)
-    lines.append("tv_wonder_mechanics_apply_base_modifier_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_unique_locked_trigger = yes }}")
-    lines.append(f"{T}{T}tv_wonder_mechanics_apply_unique_base_modifier_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else = {{")
-    lines.append(f"{T}{T}tv_wonder_mechanics_apply_generic_base_modifier_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    append_ceremony_modifier_effect(lines, "tv_wonder_mechanics_apply_unique_ceremony_modifier_effect", unique_wonders, mechanics)
-    lines.append("tv_wonder_mechanics_apply_ceremony_modifier_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_unique_locked_trigger = yes }}")
-    lines.append(f"{T}{T}tv_wonder_mechanics_apply_unique_ceremony_modifier_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
     append_ritual_tooltip_effects(lines, ritual_entries(all_wonders, mechanics), mechanics)
 
     append_location_display_effects(lines)
     append_suitability_reveal_effect(lines)
-
-    append_construct_final_building_effect(lines, "tv_wonder_mechanics_construct_generic_final_building_effect", generic_wonders)
-    append_construct_final_building_effect(lines, "tv_wonder_mechanics_construct_unique_final_building_effect", unique_wonders)
 
     ritual_entry_list = ritual_entries(all_wonders, mechanics)
 
@@ -1621,25 +1421,6 @@ def generate() -> str:
     lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_ritual_in_progress }}")
     lines.append(f"{T}{T}tv_wonder_mechanics_apply_selected_ritual_progress_effect = yes")
     lines.append(f"{T}{T}tv_wonder_mechanics_maybe_complete_active_ritual_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    append_finalization_event_dispatch_effect(
-        lines,
-        "tv_wonder_mechanics_trigger_finalization_event_effect",
-        all_wonders,
-    )
-
-    append_completion_broadcast_scope_effect(lines, "tv_wonder_mechanics_broadcast_generic_completion_event_effect", generic_wonders)
-    append_completion_broadcast_scope_effect(lines, "tv_wonder_mechanics_broadcast_unique_completion_event_effect", unique_wonders)
-    lines.append("tv_wonder_mechanics_broadcast_completion_event_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_unique_locked_trigger = yes }}")
-    lines.append(f"{T}{T}tv_wonder_mechanics_broadcast_unique_completion_event_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else = {{")
-    lines.append(f"{T}{T}tv_wonder_mechanics_broadcast_generic_completion_event_effect = yes")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")

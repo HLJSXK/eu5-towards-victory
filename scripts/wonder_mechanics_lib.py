@@ -697,6 +697,18 @@ def finalization_event_id(wonder: dict) -> int:
     return 5000 + int(wonder["id"])
 
 
+def finalization_world_event_id(wonder: dict) -> int:
+    return 6000 + int(wonder["id"])
+
+
+def finalization_visible_effect_name(wonder: dict) -> str:
+    return f"tv_wonder_{wonder['key']}_finalization_visible_effect"
+
+
+def finalization_hidden_effect_name(wonder: dict, style: int) -> str:
+    return f"tv_wonder_{wonder['key']}_style_{int(style)}_finalization_hidden_effect"
+
+
 def normalize_loc_map(value: object) -> dict[str, str]:
     return _validate_localized_text_map(value, "localized text")
 
