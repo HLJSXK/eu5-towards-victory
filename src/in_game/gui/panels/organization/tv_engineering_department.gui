@@ -33,7 +33,7 @@ organization_panel = {
 	blockoverride "extra_titles" {}
 	blockoverride "organization_panel_extra_item" {
 		widget = {
-			size = { 310 100 }
+			size = { 260 100 }
 			parentanchor = top|right
 			widgetanchor = top|right
 			position = { -12 16 }
@@ -42,8 +42,8 @@ organization_panel = {
 			card_common = {
 				layoutpolicy_horizontal = fixed
 				layoutpolicy_vertical = fixed
-				minimumsize = { 310 100 }
-				maximumsize = { 310 100 }
+				minimumsize = { 260 100 }
+				maximumsize = { 260 100 }
 
 				blockoverride "header_size" { size = {-1 0} }
 				blockoverride "header_decor_templates" {}
@@ -54,7 +54,7 @@ organization_panel = {
 
 				blockoverride "common_bottom_content" {
 					vbox = {
-						size = { 286 84 }
+						size = { 236 84 }
 						layoutpolicy_horizontal = fixed
 						layoutpolicy_vertical = fixed
 						ignoreinvisible = yes
