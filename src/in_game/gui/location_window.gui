@@ -12,6 +12,7 @@ template tv_location_wonder_tooltip {
 		blockoverride "concept_link" { text = "[tv_wonder_construction|E]" }
 		blockoverride "tooltip_content" {
 			widget = {
+				minimumsize = { 462 -1 }
 				vbox = {
 					set_parent_dimension_to_minimum = height
 					layoutpolicy_horizontal = expanding
