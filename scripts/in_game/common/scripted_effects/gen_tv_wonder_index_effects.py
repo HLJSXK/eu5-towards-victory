@@ -23,7 +23,6 @@ from wonder_mechanics_lib import (
     ritual_uses_deferred_completion,
     suitability_knowledge_for_wonder,
     wonder_ritual_composite_id,
-    wonder_suitability_row_composite_id,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_index_effects.txt"
@@ -79,14 +78,13 @@ RITUAL_MAP_NAMES = [
 
 SUITABILITY_ROW_MAP_NAMES = [
     "tv_wonder_mechanic_id_to_suitability_row_count",
-    "tv_wonder_suitability_row_to_mechanic_id",
-    "tv_wonder_suitability_row_to_row",
 ]
 
 FINAL_BUILDING_DISPLAY_ID_MAP = "tv_wonder_final_building_type_to_display_id"
 FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style"
 UNIQUE_WONDER_LOCATION_MAP = "tv_wonder_unique_id_to_location"
 UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP = "tv_wonder_unique_id_to_final_building_type"
+PRIORITY_CANDIDATE_WONDER_ID_MAP = "tv_wonder_priority_candidate_wonder_ids"
 
 WONDER_CACHE_MAPS = [
     ("tv_wonder_id_to_is_unique", "tv_wonder_locked_is_unique"),
@@ -250,6 +248,7 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
         lines.extend(map_replace_line("tv_wonder_id_to_image_display_id", key, wonder_id))
         lines.extend(map_replace_line("tv_wonder_id_to_required_progress", key, size_progress[wonder["size"]]))
         lines.extend(map_replace_line("tv_wonder_id_to_helper_building_type", key, f"building_type:tv_wonder_{wonder['key']}"))
+        lines.extend(map_replace_line(PRIORITY_CANDIDATE_WONDER_ID_MAP, key, 1))
 
         for part in PARTS:
             module_building = f"building_type:tv_wonder_{wonder['key']}_{part}"
@@ -328,15 +327,6 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
         for row_index, _row in enumerate(rows, start=1):
             if row_index > 9:
                 raise ValueError(f"Suitability row key only reserves row 1..9: {wonder['key']} row {row_index}")
-            row_key = str(wonder_suitability_row_composite_id(mechanic_id, row_index))
-            lines.extend(
-                map_replace_line(
-                    "tv_wonder_suitability_row_to_mechanic_id",
-                    row_key,
-                    mechanic_id,
-                )
-            )
-            lines.extend(map_replace_line("tv_wonder_suitability_row_to_row", row_key, row_index))
 
     lines.append(f"{T}set_global_variable = {{ name = tv_wonder_map_version value = {WONDER_MAP_SCHEMA_VERSION} }}")
     lines.append("}")

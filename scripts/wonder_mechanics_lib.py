@@ -35,7 +35,7 @@ SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
 WONDER_RITUAL_LISTENER_KEYS = ["monthly", "ruler_death", "pre_winning_war", "ending_war"]
 SUPPORTED_RITUAL_LISTENERS = set(WONDER_RITUAL_LISTENER_KEYS)
 SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
-WONDER_MAP_SCHEMA_VERSION = 8
+WONDER_MAP_SCHEMA_VERSION = 9
 WONDER_SIZE_IDS = {
     "small": 1,
     "medium": 2,

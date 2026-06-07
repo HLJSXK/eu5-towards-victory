@@ -711,14 +711,12 @@ def rolling_chart_percent_block(
 def trade_income_chart_effect() -> str:
     prefix = "tv_trade_income_chart"
     max_variable = "tv_trade_income_chart_max"
-    latest_variable = "tv_trade_income_chart_latest"
     display_prefix = "tv_trade_income_chart_pct"
     return f"""\
 tv_trade_league_update_trade_income_chart_effect = {{
 \thidden_effect = {{
 {rolling_chart_shift_block(prefix, CHART_SLOT_COUNT, "\t\t")}
 \t\tset_variable = {{ name = {prefix}_{CHART_SLOT_COUNT} value = monthly_trade_income }}
-\t\tset_variable = {{ name = {latest_variable} value = var:{prefix}_{CHART_SLOT_COUNT} }}
 {rolling_chart_max_block(prefix, CHART_SLOT_COUNT, max_variable, "\t\t")}
 {rolling_chart_percent_block(prefix, CHART_SLOT_COUNT, max_variable, display_prefix, "\t\t")}
 \t}}
@@ -729,7 +727,6 @@ tv_trade_league_update_trade_income_chart_effect = {{
 def trade_income_chart_clear_effect() -> str:
     lines: list[str] = [
         "\t\tset_variable = { name = tv_trade_income_chart_max value = 0 }",
-        "\t\tset_variable = { name = tv_trade_income_chart_latest value = 0 }",
     ]
     for slot in range(1, CHART_SLOT_COUNT + 1):
         lines.append(f"\t\tset_variable = {{ name = tv_trade_income_chart_{slot} value = 0 }}")

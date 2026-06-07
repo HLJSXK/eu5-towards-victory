@@ -536,7 +536,6 @@ def preview_widget(var_name: str, visible: str | None = None) -> str:
             f"{T}size = {{ 100% 100% }}",
             f"{T}background = {{",
             f'{T}{T}texture = "[{dynamic_image_texture(var_name)}]"',
-            f"{T}{T}texture_density = 2",
             f"{T}{T}fittype = centercrop",
             f"{T}}}",
             "}",

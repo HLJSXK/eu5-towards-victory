@@ -590,19 +590,9 @@ def append_location_display_push_effects(lines: list[str]) -> None:
 
 def append_location_display_clear_effect(lines: list[str]) -> None:
     lines.append("tv_wonder_mechanics_clear_location_display_state_effect = {")
-    lines.append(f"{T}remove_variable = tv_wonder_display_id")
     lines.append(f"{T}remove_variable = {LOCATION_DISPLAY_ID_VAR}")
     lines.append(f"{T}remove_variable = {LOCATION_DISPLAY_LEVEL_VAR}")
     lines.append(f"{T}remove_variable = {LOCATION_DISPLAY_RITUAL_STYLE_VAR}")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_display_count }}")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_display_count")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 0 }}")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_tooltip_fill_count }}")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_tooltip_fill_count")
-    lines.append(f"{T}}}")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_tooltip_overflow_count value = 0 }}")
     for slot in range(1, DISPLAY_SLOT_MAX + 1):
         lines.append(f"{T}remove_variable = {slot_id_var(slot)}")
@@ -655,7 +645,6 @@ def append_location_display_unique_location_projection(lines: list[str], *, comp
     )
     lines.append(f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_LEVEL_VAR} value = 0 }}")
     lines.append(f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_RITUAL_STYLE_VAR} value = 0 }}")
-    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 1 }}")
     append_location_display_level_detection(
         lines,
         indent=4,
@@ -702,7 +691,6 @@ def append_location_display_final_building_projection(lines: list[str], *, compa
         f"value = \"global_variable_map({FINAL_BUILDING_RITUAL_STYLE_MAP}|local_var:{LOCATION_DISPLAY_BUILDING_TYPE_LOCAL})\" }}"
     )
     lines.append(f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_LEVEL_VAR} value = 0 }}")
-    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_display_any_wonder value = 1 }}")
     append_location_display_level_detection(
         lines,
         indent=4,

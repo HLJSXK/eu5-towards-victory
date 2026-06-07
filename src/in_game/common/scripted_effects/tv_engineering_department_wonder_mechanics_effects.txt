@@ -11843,19 +11843,9 @@ tv_wonder_mechanics_push_location_tooltip_slot_effect = {
 }
 
 tv_wonder_mechanics_clear_location_display_state_effect = {
-	remove_variable = tv_wonder_display_id
 	remove_variable = tv_wonder_location_display_id
 	remove_variable = tv_wonder_location_display_level
 	remove_variable = tv_wonder_location_display_ritual_style
-	if = {
-		limit = { has_variable = tv_wonder_display_count }
-		remove_variable = tv_wonder_display_count
-	}
-	set_variable = { name = tv_wonder_display_any_wonder value = 0 }
-	if = {
-		limit = { has_variable = tv_wonder_tooltip_fill_count }
-		remove_variable = tv_wonder_tooltip_fill_count
-	}
 	set_variable = { name = tv_wonder_tooltip_overflow_count value = 0 }
 	remove_variable = tv_wonder_display_slot_1_id
 	remove_variable = tv_wonder_display_slot_1_level
@@ -11913,7 +11903,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 				set_variable = { name = tv_wonder_location_display_id value = local_var:tv_wonder_location_display_wonder_id }
 				set_variable = { name = tv_wonder_location_display_level value = 0 }
 				set_variable = { name = tv_wonder_location_display_ritual_style value = 0 }
-				set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 				if = {
 					limit = {
 						location_building_level = { building_type = local_var:tv_wonder_location_display_building_type value >= 6 }
@@ -11979,7 +11968,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 				set_variable = { name = tv_wonder_location_display_id value = "global_variable_map(tv_wonder_final_building_type_to_display_id|local_var:tv_wonder_location_display_building_type)" }
 				set_variable = { name = tv_wonder_location_display_ritual_style value = "global_variable_map(tv_wonder_final_building_type_to_ritual_style|local_var:tv_wonder_location_display_building_type)" }
 				set_variable = { name = tv_wonder_location_display_level value = 0 }
-				set_variable = { name = tv_wonder_display_any_wonder value = 1 }
 				if = {
 					limit = {
 						location_building_level = { building_type = local_var:tv_wonder_location_display_building_type value >= 6 }

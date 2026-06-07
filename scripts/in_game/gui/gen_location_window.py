@@ -14,7 +14,6 @@ OUT_FILE = REPO_ROOT / "src" / "in_game" / "gui" / "location_window.gui"
 SCRIPT_REL = "scripts/in_game/gui/gen_location_window.py"
 T = "\t"
 
-ANY_WONDER_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_any_wonder')"
 OVERFLOW_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_overflow_count')"
 LOCATION_SCOPE = "LocationView.GetLocation.MakeScope.Self"
 DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
@@ -87,10 +86,6 @@ def slot_display_concept_expr(slot_type: str, slot: int) -> str:
 
 def var_enabled_expr(var_expr: str) -> str:
     return f"And({var_expr}.IsSet, Not(EqualTo_CFixedPoint({var_expr}.GetValue, '(CFixedPoint)0.0')))"
-
-
-def any_wonder_visible_expr() -> str:
-    return var_enabled_expr(ANY_WONDER_VAR)
 
 
 def slot_has_id_expr(slot_type: str, slot: int) -> str:
@@ -220,7 +215,6 @@ def render_dynamic_image(indent: str, *, slot_type: str, slot: int, width: int, 
         f"{indent}{T}size = {{ {width} {height} }}",
         f"{indent}{T}background = {{",
         f'{indent}{T}{T}texture = "[{slot_image_expr(slot_type, slot)}]"',
-        f"{indent}{T}{T}texture_density = 2",
         f"{indent}{T}{T}fittype = centercrop",
         f"{indent}{T}}}",
         f"{indent}}}",

@@ -9,7 +9,6 @@ widget = {
 	size = { 100% 100% }
 	background = {
 		texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_image_display_id').GetValue))))]"
-		texture_density = 2
 		fittype = centercrop
 	}
 }
@@ -18,7 +17,6 @@ widget = {
 	size = { 100% 100% }
 	background = {
 		texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]"
-		texture_density = 2
 		fittype = centercrop
 	}
 }
