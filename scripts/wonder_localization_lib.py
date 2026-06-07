@@ -189,14 +189,13 @@ def _engineering_gui_text_route_pairs() -> list[tuple[str, str]]:
 
 def _display_modifier_pairs() -> list[tuple[str, str]]:
     wonders, _ = load_all_wonder_mechanics_data()
-    return [
-        (
-            f"STATIC_MODIFIER_NAME_tv_wonder_{wonder['key']}_level_{level}",
-            f"STATIC_MODIFIER_NAME_tv_wonder_display_{wonder['id']}_level_{level}",
-        )
-        for wonder in wonders
-        for level in range(1, 7)
-    ]
+    pairs: list[tuple[str, str]] = []
+    for wonder in wonders:
+        for level in range(1, 7):
+            source_key = f"STATIC_MODIFIER_NAME_tv_wonder_{wonder['key']}_level_{level}"
+            pairs.append((source_key, f"STATIC_MODIFIER_NAME_tv_wonder_display_{wonder['id']}_level_{level}"))
+            pairs.append((source_key, f"STATIC_MODIFIER_NAME_tv_wonder_display_{wonder['id']}_local_level_{level}"))
+    return pairs
 
 
 def _auxiliary_display_modifier_pairs() -> list[tuple[str, str]]:
