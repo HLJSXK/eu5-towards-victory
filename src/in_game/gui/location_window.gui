@@ -124,40 +124,58 @@ template tv_location_wonder_tooltip {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = shrinking
-										size = { 446 -1 }
+										size = { 444 -1 }
 										spacing = 8
 										ignoreinvisible = yes
 										vbox = {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = shrinking
-											minimumsize = { 219 -1 }
-											maximumsize = { 219 -1 }
+											minimumsize = { 218 -1 }
+											maximumsize = { 218 -1 }
 											spacing = 2
 											text_single = {
 												text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-												max_width = 219
+												max_width = 218
 												align = left|nobaseline
 												fontsize = 13
 											}
 											TooltipStringPairList = {
-												layoutpolicy_horizontal = expanding
+												layoutpolicy_horizontal = fixed
+												maximumsize = { 218 -1 }
+												blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+												blockoverride "field_text_format" {
+													fontsize = 13
+												}
+												blockoverride "row_size" {
+													maximumsize = { -1 22 }
+													minimumsize = { -1 22 }
+												}
 												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue))))))]"
 											}
 										}
 										vbox = {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = shrinking
-											minimumsize = { 219 -1 }
-											maximumsize = { 219 -1 }
+											minimumsize = { 218 -1 }
+											maximumsize = { 218 -1 }
 											spacing = 2
 											text_single = {
 												text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-												max_width = 219
+												max_width = 218
 												align = left|nobaseline
 												fontsize = 13
 											}
 											TooltipStringPairList = {
-												layoutpolicy_horizontal = expanding
+												layoutpolicy_horizontal = fixed
+												maximumsize = { 218 -1 }
+												blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+												blockoverride "field_text_format" {
+													fontsize = 13
+												}
+												blockoverride "row_size" {
+													maximumsize = { -1 22 }
+													minimumsize = { -1 22 }
+												}
 												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue))))))]"
 											}
 										}
@@ -297,40 +315,58 @@ template tv_location_wonder_tooltip {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = shrinking
-										size = { 446 -1 }
+										size = { 444 -1 }
 										spacing = 8
 										ignoreinvisible = yes
 										vbox = {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = shrinking
-											minimumsize = { 219 -1 }
-											maximumsize = { 219 -1 }
+											minimumsize = { 218 -1 }
+											maximumsize = { 218 -1 }
 											spacing = 2
 											text_single = {
 												text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-												max_width = 219
+												max_width = 218
 												align = left|nobaseline
 												fontsize = 13
 											}
 											TooltipStringPairList = {
-												layoutpolicy_horizontal = expanding
+												layoutpolicy_horizontal = fixed
+												maximumsize = { 218 -1 }
+												blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+												blockoverride "field_text_format" {
+													fontsize = 13
+												}
+												blockoverride "row_size" {
+													maximumsize = { -1 22 }
+													minimumsize = { -1 22 }
+												}
 												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue))))))]"
 											}
 										}
 										vbox = {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = shrinking
-											minimumsize = { 219 -1 }
-											maximumsize = { 219 -1 }
+											minimumsize = { 218 -1 }
+											maximumsize = { 218 -1 }
 											spacing = 2
 											text_single = {
 												text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-												max_width = 219
+												max_width = 218
 												align = left|nobaseline
 												fontsize = 13
 											}
 											TooltipStringPairList = {
-												layoutpolicy_horizontal = expanding
+												layoutpolicy_horizontal = fixed
+												maximumsize = { 218 -1 }
+												blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+												blockoverride "field_text_format" {
+													fontsize = 13
+												}
+												blockoverride "row_size" {
+													maximumsize = { -1 22 }
+													minimumsize = { -1 22 }
+												}
 												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue))))))]"
 											}
 										}
@@ -470,40 +506,58 @@ template tv_location_wonder_tooltip {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = shrinking
-										size = { 446 -1 }
+										size = { 444 -1 }
 										spacing = 8
 										ignoreinvisible = yes
 										vbox = {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = shrinking
-											minimumsize = { 219 -1 }
-											maximumsize = { 219 -1 }
+											minimumsize = { 218 -1 }
+											maximumsize = { 218 -1 }
 											spacing = 2
 											text_single = {
 												text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-												max_width = 219
+												max_width = 218
 												align = left|nobaseline
 												fontsize = 13
 											}
 											TooltipStringPairList = {
-												layoutpolicy_horizontal = expanding
+												layoutpolicy_horizontal = fixed
+												maximumsize = { 218 -1 }
+												blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+												blockoverride "field_text_format" {
+													fontsize = 13
+												}
+												blockoverride "row_size" {
+													maximumsize = { -1 22 }
+													minimumsize = { -1 22 }
+												}
 												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue))))))]"
 											}
 										}
 										vbox = {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = shrinking
-											minimumsize = { 219 -1 }
-											maximumsize = { 219 -1 }
+											minimumsize = { 218 -1 }
+											maximumsize = { 218 -1 }
 											spacing = 2
 											text_single = {
 												text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-												max_width = 219
+												max_width = 218
 												align = left|nobaseline
 												fontsize = 13
 											}
 											TooltipStringPairList = {
-												layoutpolicy_horizontal = expanding
+												layoutpolicy_horizontal = fixed
+												maximumsize = { 218 -1 }
+												blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+												blockoverride "field_text_format" {
+													fontsize = 13
+												}
+												blockoverride "row_size" {
+													maximumsize = { -1 22 }
+													minimumsize = { -1 22 }
+												}
 												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue))))))]"
 											}
 										}
@@ -643,40 +697,58 @@ template tv_location_wonder_tooltip {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = shrinking
-										size = { 446 -1 }
+										size = { 444 -1 }
 										spacing = 8
 										ignoreinvisible = yes
 										vbox = {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = shrinking
-											minimumsize = { 219 -1 }
-											maximumsize = { 219 -1 }
+											minimumsize = { 218 -1 }
+											maximumsize = { 218 -1 }
 											spacing = 2
 											text_single = {
 												text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-												max_width = 219
+												max_width = 218
 												align = left|nobaseline
 												fontsize = 13
 											}
 											TooltipStringPairList = {
-												layoutpolicy_horizontal = expanding
+												layoutpolicy_horizontal = fixed
+												maximumsize = { 218 -1 }
+												blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+												blockoverride "field_text_format" {
+													fontsize = 13
+												}
+												blockoverride "row_size" {
+													maximumsize = { -1 22 }
+													minimumsize = { -1 22 }
+												}
 												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue))))))]"
 											}
 										}
 										vbox = {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = shrinking
-											minimumsize = { 219 -1 }
-											maximumsize = { 219 -1 }
+											minimumsize = { 218 -1 }
+											maximumsize = { 218 -1 }
 											spacing = 2
 											text_single = {
 												text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-												max_width = 219
+												max_width = 218
 												align = left|nobaseline
 												fontsize = 13
 											}
 											TooltipStringPairList = {
-												layoutpolicy_horizontal = expanding
+												layoutpolicy_horizontal = fixed
+												maximumsize = { 218 -1 }
+												blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+												blockoverride "field_text_format" {
+													fontsize = 13
+												}
+												blockoverride "row_size" {
+													maximumsize = { -1 22 }
+													minimumsize = { -1 22 }
+												}
 												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue))))))]"
 											}
 										}
@@ -816,40 +888,58 @@ template tv_location_wonder_tooltip {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue, '(CFixedPoint)0.0'))))]"
 										layoutpolicy_horizontal = fixed
 										layoutpolicy_vertical = shrinking
-										size = { 446 -1 }
+										size = { 444 -1 }
 										spacing = 8
 										ignoreinvisible = yes
 										vbox = {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = shrinking
-											minimumsize = { 219 -1 }
-											maximumsize = { 219 -1 }
+											minimumsize = { 218 -1 }
+											maximumsize = { 218 -1 }
 											spacing = 2
 											text_single = {
 												text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-												max_width = 219
+												max_width = 218
 												align = left|nobaseline
 												fontsize = 13
 											}
 											TooltipStringPairList = {
-												layoutpolicy_horizontal = expanding
+												layoutpolicy_horizontal = fixed
+												maximumsize = { 218 -1 }
+												blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+												blockoverride "field_text_format" {
+													fontsize = 13
+												}
+												blockoverride "row_size" {
+													maximumsize = { -1 22 }
+													minimumsize = { -1 22 }
+												}
 												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue))))))]"
 											}
 										}
 										vbox = {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = shrinking
-											minimumsize = { 219 -1 }
-											maximumsize = { 219 -1 }
+											minimumsize = { 218 -1 }
+											maximumsize = { 218 -1 }
 											spacing = 2
 											text_single = {
 												text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-												max_width = 219
+												max_width = 218
 												align = left|nobaseline
 												fontsize = 13
 											}
 											TooltipStringPairList = {
-												layoutpolicy_horizontal = expanding
+												layoutpolicy_horizontal = fixed
+												maximumsize = { 218 -1 }
+												blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+												blockoverride "field_text_format" {
+													fontsize = 13
+												}
+												blockoverride "row_size" {
+													maximumsize = { -1 22 }
+													minimumsize = { -1 22 }
+												}
 												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue))))))]"
 											}
 										}

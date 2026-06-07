@@ -36,7 +36,8 @@ TOOLTIP_PREVIEW_HEIGHT = 116
 TOOLTIP_ROW_SPACING = 6
 TOOLTIP_EFFECT_MARGIN_X = 8
 TOOLTIP_MODIFIER_COLUMN_SPACING = 8
-TOOLTIP_MODIFIER_COLUMNS_WIDTH = TOOLTIP_ROW_WIDTH - TOOLTIP_EFFECT_MARGIN_X * 2
+# Match Engineering Department suitability columns: 444 = 218 + 8 + 218.
+TOOLTIP_MODIFIER_COLUMNS_WIDTH = TOOLTIP_ROW_WIDTH - TOOLTIP_EFFECT_MARGIN_X * 2 - 2
 TOOLTIP_MODIFIER_COLUMN_WIDTH = (TOOLTIP_MODIFIER_COLUMNS_WIDTH - TOOLTIP_MODIFIER_COLUMN_SPACING) // 2
 
 
@@ -405,7 +406,16 @@ def render_tooltip_modifier_column(indent: str, *, title_key: str, modifier_key:
         f"{indent}{T}{T}fontsize = 13",
         f"{indent}{T}}}",
         f"{indent}{T}TooltipStringPairList = {{",
-        f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}{T}maximumsize = {{ {TOOLTIP_MODIFIER_COLUMN_WIDTH} -1 }}",
+        f'{indent}{T}{T}blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {TOOLTIP_MODIFIER_COLUMN_WIDTH} -1 }} }}',
+        f'{indent}{T}{T}blockoverride "field_text_format" {{',
+        f"{indent}{T}{T}{T}fontsize = 13",
+        f"{indent}{T}{T}}}",
+        f'{indent}{T}{T}blockoverride "row_size" {{',
+        f"{indent}{T}{T}{T}maximumsize = {{ -1 22 }}",
+        f"{indent}{T}{T}{T}minimumsize = {{ -1 22 }}",
+        f"{indent}{T}{T}}}",
         f'{indent}{T}{T}textcontext = "[ShowModifierEffect({modifier_key})]"',
         f"{indent}{T}}}",
         f"{indent}}}",
