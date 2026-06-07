@@ -8,6 +8,7 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
+    authored_final_building_local_modifiers,
     ceremony_modifier_for_style,
     ceremony_styles,
     load_all_wonder_mechanics,
@@ -63,17 +64,24 @@ def display_modifier_name(wonder: dict, level: int) -> str:
     return f"{DISPLAY_MODIFIER_PREFIX}{wonder['id']}_level_{level}"
 
 
+def display_local_modifier_name(wonder: dict, level: int) -> str:
+    return f"{DISPLAY_MODIFIER_PREFIX}{wonder['id']}_local_level_{level}"
+
+
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
         base = mechanics["base_modifiers"][mechanic_key(wonder)]
         multiplier = wonder.get("base_effect_multiplier", 1)
+        local_base = authored_final_building_local_modifiers(wonder, mechanics)
         for level in range(1, 7):
             modifiers = scaled_modifiers(base, level, multiplier)
+            local_modifiers = scaled_modifiers(local_base, level)
             if modifiers:
                 lines.extend(modifier_block(f"tv_wonder_{wonder['key']}_level_{level}", modifiers))
             lines.extend(modifier_block(display_modifier_name(wonder, level), modifiers))
+            lines.extend(modifier_block(display_local_modifier_name(wonder, level), local_modifiers))
     for wonder in wonders:
         has_timed_ritual = False
         for style in ceremony_styles(wonder):

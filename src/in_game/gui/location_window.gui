@@ -21,7 +21,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 400 -1 }
+						minimumsize = { 462 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -37,7 +37,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 198 116 }
+									size = { 229 116 }
 									vbox = {
 										margin_left = 8
 										margin_right = 8
@@ -76,7 +76,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 198 116 }
+									size = { 229 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -85,12 +85,12 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 198 116 }
+											size = { 229 116 }
 												widget = {
 													visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').IsSet]"
 													layoutpolicy_horizontal = fixed
 													layoutpolicy_vertical = fixed
-													size = { 198 116 }
+													size = { 229 116 }
 													background = {
 														texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').GetValue))))]"
 														texture_density = 2
@@ -104,7 +104,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 400 -1 }
+								size = { 462 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -120,9 +120,47 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									TooltipStringPairList = {
+									hbox = {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue, '(CFixedPoint)0.0'))))]"
-										textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue))))))]"
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = shrinking
+										size = { 446 -1 }
+										spacing = 8
+										ignoreinvisible = yes
+										vbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = shrinking
+											minimumsize = { 219 -1 }
+											maximumsize = { 219 -1 }
+											spacing = 2
+											text_single = {
+												text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
+												max_width = 219
+												align = left|nobaseline
+												fontsize = 13
+											}
+											TooltipStringPairList = {
+												layoutpolicy_horizontal = expanding
+												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue))))))]"
+											}
+										}
+										vbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = shrinking
+											minimumsize = { 219 -1 }
+											maximumsize = { 219 -1 }
+											spacing = 2
+											text_single = {
+												text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
+												max_width = 219
+												align = left|nobaseline
+												fontsize = 13
+											}
+											TooltipStringPairList = {
+												layoutpolicy_horizontal = expanding
+												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue))))))]"
+											}
+										}
 									}
 									hbox = {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_level').GetValue, '(CFixedPoint)0.0'))))]"
@@ -156,7 +194,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 400 -1 }
+						minimumsize = { 462 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -172,7 +210,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 198 116 }
+									size = { 229 116 }
 									vbox = {
 										margin_left = 8
 										margin_right = 8
@@ -211,7 +249,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 198 116 }
+									size = { 229 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -220,12 +258,12 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 198 116 }
+											size = { 229 116 }
 												widget = {
 													visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').IsSet]"
 													layoutpolicy_horizontal = fixed
 													layoutpolicy_vertical = fixed
-													size = { 198 116 }
+													size = { 229 116 }
 													background = {
 														texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').GetValue))))]"
 														texture_density = 2
@@ -239,7 +277,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 400 -1 }
+								size = { 462 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -255,9 +293,47 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									TooltipStringPairList = {
+									hbox = {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue, '(CFixedPoint)0.0'))))]"
-										textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue))))))]"
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = shrinking
+										size = { 446 -1 }
+										spacing = 8
+										ignoreinvisible = yes
+										vbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = shrinking
+											minimumsize = { 219 -1 }
+											maximumsize = { 219 -1 }
+											spacing = 2
+											text_single = {
+												text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
+												max_width = 219
+												align = left|nobaseline
+												fontsize = 13
+											}
+											TooltipStringPairList = {
+												layoutpolicy_horizontal = expanding
+												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue))))))]"
+											}
+										}
+										vbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = shrinking
+											minimumsize = { 219 -1 }
+											maximumsize = { 219 -1 }
+											spacing = 2
+											text_single = {
+												text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
+												max_width = 219
+												align = left|nobaseline
+												fontsize = 13
+											}
+											TooltipStringPairList = {
+												layoutpolicy_horizontal = expanding
+												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue))))))]"
+											}
+										}
 									}
 									hbox = {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_level').GetValue, '(CFixedPoint)0.0'))))]"
@@ -291,7 +367,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 400 -1 }
+						minimumsize = { 462 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -307,7 +383,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 198 116 }
+									size = { 229 116 }
 									vbox = {
 										margin_left = 8
 										margin_right = 8
@@ -346,7 +422,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 198 116 }
+									size = { 229 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -355,12 +431,12 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 198 116 }
+											size = { 229 116 }
 												widget = {
 													visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').IsSet]"
 													layoutpolicy_horizontal = fixed
 													layoutpolicy_vertical = fixed
-													size = { 198 116 }
+													size = { 229 116 }
 													background = {
 														texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').GetValue))))]"
 														texture_density = 2
@@ -374,7 +450,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 400 -1 }
+								size = { 462 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -390,9 +466,47 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									TooltipStringPairList = {
+									hbox = {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue, '(CFixedPoint)0.0'))))]"
-										textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue))))))]"
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = shrinking
+										size = { 446 -1 }
+										spacing = 8
+										ignoreinvisible = yes
+										vbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = shrinking
+											minimumsize = { 219 -1 }
+											maximumsize = { 219 -1 }
+											spacing = 2
+											text_single = {
+												text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
+												max_width = 219
+												align = left|nobaseline
+												fontsize = 13
+											}
+											TooltipStringPairList = {
+												layoutpolicy_horizontal = expanding
+												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue))))))]"
+											}
+										}
+										vbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = shrinking
+											minimumsize = { 219 -1 }
+											maximumsize = { 219 -1 }
+											spacing = 2
+											text_single = {
+												text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
+												max_width = 219
+												align = left|nobaseline
+												fontsize = 13
+											}
+											TooltipStringPairList = {
+												layoutpolicy_horizontal = expanding
+												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue))))))]"
+											}
+										}
 									}
 									hbox = {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_level').GetValue, '(CFixedPoint)0.0'))))]"
@@ -426,7 +540,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 400 -1 }
+						minimumsize = { 462 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -442,7 +556,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 198 116 }
+									size = { 229 116 }
 									vbox = {
 										margin_left = 8
 										margin_right = 8
@@ -481,7 +595,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 198 116 }
+									size = { 229 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -490,12 +604,12 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 198 116 }
+											size = { 229 116 }
 												widget = {
 													visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').IsSet]"
 													layoutpolicy_horizontal = fixed
 													layoutpolicy_vertical = fixed
-													size = { 198 116 }
+													size = { 229 116 }
 													background = {
 														texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').GetValue))))]"
 														texture_density = 2
@@ -509,7 +623,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 400 -1 }
+								size = { 462 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -525,9 +639,47 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									TooltipStringPairList = {
+									hbox = {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue, '(CFixedPoint)0.0'))))]"
-										textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue))))))]"
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = shrinking
+										size = { 446 -1 }
+										spacing = 8
+										ignoreinvisible = yes
+										vbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = shrinking
+											minimumsize = { 219 -1 }
+											maximumsize = { 219 -1 }
+											spacing = 2
+											text_single = {
+												text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
+												max_width = 219
+												align = left|nobaseline
+												fontsize = 13
+											}
+											TooltipStringPairList = {
+												layoutpolicy_horizontal = expanding
+												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue))))))]"
+											}
+										}
+										vbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = shrinking
+											minimumsize = { 219 -1 }
+											maximumsize = { 219 -1 }
+											spacing = 2
+											text_single = {
+												text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
+												max_width = 219
+												align = left|nobaseline
+												fontsize = 13
+											}
+											TooltipStringPairList = {
+												layoutpolicy_horizontal = expanding
+												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue))))))]"
+											}
+										}
 									}
 									hbox = {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_level').GetValue, '(CFixedPoint)0.0'))))]"
@@ -561,7 +713,7 @@ template tv_location_wonder_tooltip {
 						visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').IsSet]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = shrinking
-						minimumsize = { 400 -1 }
+						minimumsize = { 462 -1 }
 						using = bg_paper_card
 						using = bg_cabinet_card_frame
 						vbox = {
@@ -577,7 +729,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 198 116 }
+									size = { 229 116 }
 									vbox = {
 										margin_left = 8
 										margin_right = 8
@@ -616,7 +768,7 @@ template tv_location_wonder_tooltip {
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 198 116 }
+									size = { 229 116 }
 									vbox = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
@@ -625,12 +777,12 @@ template tv_location_wonder_tooltip {
 											layoutpolicy_horizontal = fixed
 											layoutpolicy_vertical = fixed
 											using = bg_cabinet_card_frame
-											size = { 198 116 }
+											size = { 229 116 }
 												widget = {
 													visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').IsSet]"
 													layoutpolicy_horizontal = fixed
 													layoutpolicy_vertical = fixed
-													size = { 198 116 }
+													size = { 229 116 }
 													background = {
 														texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').GetValue))))]"
 														texture_density = 2
@@ -644,7 +796,7 @@ template tv_location_wonder_tooltip {
 							widget = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
-								size = { 400 -1 }
+								size = { 462 -1 }
 								vbox = {
 									set_parent_size_to_minimum = yes
 									margin_left = 8
@@ -660,9 +812,47 @@ template tv_location_wonder_tooltip {
 											text = "TV_LOCATION_WONDER_NO_EFFECT"
 										}
 									}
-									TooltipStringPairList = {
+									hbox = {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue, '(CFixedPoint)0.0'))))]"
-										textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue))))))]"
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = shrinking
+										size = { 446 -1 }
+										spacing = 8
+										ignoreinvisible = yes
+										vbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = shrinking
+											minimumsize = { 219 -1 }
+											maximumsize = { 219 -1 }
+											spacing = 2
+											text_single = {
+												text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
+												max_width = 219
+												align = left|nobaseline
+												fontsize = 13
+											}
+											TooltipStringPairList = {
+												layoutpolicy_horizontal = expanding
+												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue))))))]"
+											}
+										}
+										vbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = shrinking
+											minimumsize = { 219 -1 }
+											maximumsize = { 219 -1 }
+											spacing = 2
+											text_single = {
+												text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
+												max_width = 219
+												align = left|nobaseline
+												fontsize = 13
+											}
+											TooltipStringPairList = {
+												layoutpolicy_horizontal = expanding
+												textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue))))))]"
+											}
+										}
 									}
 									hbox = {
 										visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_level').GetValue, '(CFixedPoint)0.0'))))]"
@@ -696,7 +886,7 @@ template tv_location_wonder_tooltip {
 						visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_overflow_count').IsSet, Not(EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_overflow_count').GetValue, '(CFixedPoint)0.0')))]"
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = fixed
-						size = { 400 20 }
+						size = { 462 20 }
 						margin_left = 8
 						spacing = 4
 						text_single = {
