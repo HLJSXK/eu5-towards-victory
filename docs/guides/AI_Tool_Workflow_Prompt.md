@@ -52,6 +52,18 @@ Then stop and ask the user for guidance. Do NOT guess.
 - If you cannot verify a command using the steps above, explicitly tell the user: "I cannot verify this syntax, please check the official wiki or logs."
 - If a syntax pattern causes bugs, do NOT remove the feature as a first response. You MUST follow the 3-step rule in order (Direct Edit -> reference_official_defines/ -> reference_game_files/) and replace it with a verified working syntax.
 
+### Unreleased Project: No Compatibility Policy
+
+This mod has not shipped. There are no user save files, published mod versions, or public
+APIs to preserve. Do not add old-save migrations, legacy alias variables, duplicate old/new
+branches, wrapper launchers, defensive fallback paths, or "if old state exists" repair logic
+unless the user explicitly names an external consumer that must keep working.
+
+When the architecture changes, update the canonical data, generators, callers, and docs to
+one current shape, then delete stale paths. Reusing existing helpers is not a goal: if a
+helper has the wrong scope, lifecycle, data model, or performance shape, split, replace, or
+refactor it. Efficiency-improving refactors are desirable.
+
 ### Early Development: Ask-First Policy
 
 This mod is in early development (v0.1.0). The design is still being refined. **When in doubt, ask the user before implementing.**
@@ -119,11 +131,14 @@ When a new EU5 behavior or recurring AI failure is discovered:
 
 ## Required Behavior For Bug Fixing
 
+- This project is unreleased. Do not preserve old internal schemas, old save states, legacy
+  wrappers, alias variables, or duplicate old/new code paths unless the user explicitly asks.
+  Prefer one current architecture and remove stale implementation paths.
 - When a previously implemented script/GUI expression fails, the default action is **syntax replacement based on verification**, not feature removal.
 - Do not convert a requested dynamic UI feature into static text merely to silence logs. Static fallback is a feature removal unless the user explicitly approves that tradeoff.
 - Do not move visible IO typed-variable monthly arithmetic out of `variables = { <var> = { monthly_change = { ... } } }`. These blocks drive the IO variable UI and monthly tooltip breakdown. If such a variable stops advancing, fix the `monthly_change` scope/conditions or its cached country inputs; country pulses may compute helper caches or completion side effects, but must not become the source of truth for visible IO variable gain.
 - When the current task is a refactor toward a specific architecture, preserve that architecture while fixing bugs. Do not replace `variable_map` / numeric-id-flow work with generated per-key branches or an older key-branch structure unless the user explicitly approves that rollback.
-- Do not hide `variable_map` lifecycle or call-order bugs by adding map rebuilds to read paths. Global-map rebuilds belong at startup, save-load, schema/version migration, data-change regeneration, or explicit initialization; GUI refresh, cache refresh, tooltip/projection, selection, and monthly read paths must use already-built maps and fix the actual ordering/init bug when a map is missing.
+- Do not hide `variable_map` lifecycle or call-order bugs by adding map rebuilds to read paths. Global-map rebuilds belong at startup, save-load initialization, data-change regeneration, or explicit initialization; GUI refresh, cache refresh, tooltip/projection, selection, and monthly read paths must use already-built maps and fix the actual ordering/init bug when a map is missing. Do not add old-schema repair or legacy state preservation.
 - Removal or fallback simplification is only allowed when:
   - the syntax cannot be verified in `reference_official_defines/`, `reference_game_files/` and `reference_mods/`, and
   - the tool explicitly reports this uncertainty to the user.

@@ -22,6 +22,16 @@
 # To add a new entry: append a YAML dict with all fields, then run:
 #   python scripts/gen_brief.py
 
+- id: unreleased_project_compatibility_layer
+  pattern: ''
+  detectability: advisory
+  bad: "Adding or preserving compatibility layers, legacy save migrations, alias variables, wrapper launchers, duplicate old/new paths, or defensive fallback branches for a previous internal implementation"
+  correction: "Treat this unreleased v0.1.0 project as mutable. Update all callers, generators, data, and docs to the current architecture, delete stale branches/state, and prefer direct efficient refactors over compatibility shims. Only add compatibility when the user explicitly requests it for a named external consumer."
+  category: workflow
+  scope: any
+  source: "Project owner directive, 2026-06-07"
+  notes: "There are no shipped saves or public APIs to protect. Compatibility code creates hot-path cost, hides call-order bugs, and teaches future agents to preserve obsolete structures."
+
 - id: location_auto_modifier_nonfunctional
   pattern: 'category\s*=\s*location'
   only_in_paths: ['auto_modifiers']
@@ -1187,7 +1197,7 @@
   pattern: ''
   detectability: advisory
   bad: "Calling a variable-map/global-map rebuild effect from GUI refresh, country cache refresh, tooltip/projection, selection, monthly read, or other hot/read paths as a compatibility fallback"
-  correction: "Build global variable-map indexes only at lifecycle points: startup, save-load, schema/version migration, data-change regeneration, or explicit initialization. If a read misses a map, fix the lifecycle hook or the call order that reads before initialization."
+  correction: "Build global variable-map indexes only at lifecycle points: startup, save-load initialization, data-change regeneration, or explicit initialization. If a read misses a map, fix the current lifecycle hook or the call order that reads before initialization; do not add old-schema repair or legacy state preservation."
   category: performance
   scope: variable_map
   source: "Engineering Department locked-wonder image fix review, 2026-06-05"
