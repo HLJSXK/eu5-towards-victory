@@ -3504,10 +3504,10 @@
         "en": "Canal Hub City",
         "zh": "运河枢纽城"
       },
-      "size": "medium",
+      "size": "small",
       "size_label": {
-        "en": "Medium",
-        "zh": "中型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "infrastructure_category",
       "category_label": {
@@ -3588,7 +3588,7 @@
           "rows": [
             {
               "key": "local_trade_center_power",
-              "value": 0.8,
+              "value": 0.2,
               "label": {
                 "en": "Market Attraction",
                 "zh": "市场吸引力"
@@ -3603,31 +3603,15 @@
               "color": "good"
             },
             {
-              "key": "local_production_efficiency",
-              "value": 0.6,
-              "label": {
-                "en": "Production Efficiency",
-                "zh": "加工生产效率"
-              },
-              "description": {
-                "en": "This impacts the Production Efficiency in this Location.",
-                "zh": "影响该地点的Production Efficiency。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_distance_from_capital_speed_propagation",
+              "key": "local_monthly_prosperity",
               "value": 0.2,
               "label": {
-                "en": "Local Proximity Speed",
-                "zh": "本地邻近度速度"
+                "en": "Local Monthly Prosperity",
+                "zh": "本地每月繁荣度"
               },
               "description": {
-                "en": "This impacts how quickly Proximity moves in this Location.",
-                "zh": "影响邻近度在该地点移动的速度。"
+                "en": "This impacts the increase or decrease of Prosperity in a Location.",
+                "zh": "影响该地点中Prosperity的增减。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -3650,36 +3634,20 @@
           },
           "rows": [
             {
-              "key": "trade_income",
-              "value": 0.04,
+              "key": "monthly_towards_mercantilism",
+              "value": 0.1,
               "label": {
-                "en": "Trade Income",
-                "zh": "贸易收入"
+                "en": "Monthly Progress to Mercantilism",
+                "zh": "每月重商主义倾向"
               },
               "description": {
-                "en": "This is the money gained from Trades With Icon when selling Goods With Icon to Markets With Icon. Trade income is split between the Crown and the Estates With Icon according to their Estate Power With Icon. Only the percentage of Crown Power With Icon goes to the Treasury.",
-                "zh": "这是向Markets With Icon出售Goods With Icon时所得的Trades With Icon收入。 贸易收入会根据Estate Power With Icon分配给王室和Estates With Icon。基于Crown Power With Icon的相对比例，只有属于王室的那一份会进入Treasury。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('mercantilism')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('mercantilism')]改变的进度。"
               },
-              "value_kind": "percent",
+              "value_kind": "number",
               "decimals": 2,
               "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_production_efficiency",
-              "value": 0.04,
-              "label": {
-                "en": "Production Efficiency",
-                "zh": "加工生产效率"
-              },
-              "description": {
-                "en": "This impacts the Production Efficiency in the entire Country.",
-                "zh": "影响整个国家的Production Efficiency。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -4292,6 +4260,22 @@
               "decimals": 2,
               "category": "country",
               "color": "good"
+            },
+            {
+              "key": "monthly_towards_capital_economy",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Capital Economy",
+                "zh": "每月资本经济倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('capital_economy')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('capital_economy')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -4379,10 +4363,10 @@
         "en": "World Monument Group",
         "zh": "纪念碑群"
       },
-      "size": "large",
+      "size": "medium",
       "size_label": {
-        "en": "Large",
-        "zh": "大型"
+        "en": "Medium",
+        "zh": "中型"
       },
       "category": "cultural_category",
       "category_label": {
@@ -4453,54 +4437,6 @@
           },
           "rows": [
             {
-              "key": "local_cultural_tradition",
-              "value": 1.6,
-              "label": {
-                "en": "Cultural Tradition",
-                "zh": "文化传统"
-              },
-              "description": {
-                "en": "This impacts the Cultural Tradition of our Primary Culture.",
-                "zh": "影响我国Primary Culture的Cultural Tradition。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_cultural_influence",
-              "value": 3.6,
-              "label": {
-                "en": "Local Cultural Influence",
-                "zh": "本地文化影响力"
-              },
-              "description": {
-                "en": "This impacts the Cultural Influence of our Primary Culture in a Location.",
-                "zh": "影响我国Primary Culture在一处地点的Cultural Influence。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_manpower_modifier",
-              "value": 0.2,
-              "label": {
-                "en": "Monthly Manpower",
-                "zh": "每月人力"
-              },
-              "description": {
-                "en": "This impacts how much Manpower a Location can provide each month.",
-                "zh": "影响地点每月提供Manpower的效率。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
               "key": "local_unrest",
               "value": -0.1,
               "label": {
@@ -4532,20 +4468,36 @@
           },
           "rows": [
             {
-              "key": "monthly_prestige",
-              "value": 0.1,
+              "key": "cultures_capacity",
+              "value": 1.0,
               "label": {
-                "en": "Monthly Prestige",
-                "zh": "每月威望"
+                "en": "Cultures Capacity",
+                "zh": "文化容量"
               },
               "description": {
-                "en": "This impacts how much Prestige we will get each month.",
-                "zh": "影响每月获得多少Prestige。"
+                "en": "This impacts how many Accepted Cultures and Tolerated Cultures a Country can have. Some cultures cost less.",
+                "zh": "影响一个国家可拥有多少Accepted Cultures与Tolerated Cultures。某些文化所需的更低。"
               },
               "value_kind": "number",
               "decimals": 2,
               "category": "country",
               "color": "good"
+            },
+            {
+              "key": "monthly_towards_humanist",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Humanist",
+                "zh": "每月人文倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('humanist')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('humanist')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -4708,7 +4660,7 @@
           "rows": [
             {
               "key": "local_trade_center_power",
-              "value": 0.9,
+              "value": 0.4,
               "label": {
                 "en": "Market Attraction",
                 "zh": "市场吸引力"
@@ -4737,38 +4689,6 @@
               "decimals": 2,
               "category": "location",
               "color": "good"
-            },
-            {
-              "key": "local_unrest",
-              "value": -0.1,
-              "label": {
-                "en": "Unrest",
-                "zh": "本地叛乱度"
-              },
-              "description": {
-                "en": "This impacts the Unrest in a Location.",
-                "zh": "影响地点的Unrest。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "bad"
-            },
-            {
-              "key": "local_distance_from_capital_speed_propagation",
-              "value": 0.2,
-              "label": {
-                "en": "Local Proximity Speed",
-                "zh": "本地邻近度速度"
-              },
-              "description": {
-                "en": "This impacts how quickly Proximity moves in this Location.",
-                "zh": "影响邻近度在该地点移动的速度。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
             }
           ],
           "meta": {}
@@ -4786,15 +4706,15 @@
           },
           "rows": [
             {
-              "key": "trade_income",
-              "value": 0.06,
+              "key": "global_trade_center_power",
+              "value": 0.2,
               "label": {
-                "en": "Trade Income",
-                "zh": "贸易收入"
+                "en": "Market Attraction",
+                "zh": "市场吸引力"
               },
               "description": {
-                "en": "This is the money gained from Trades With Icon when selling Goods With Icon to Markets With Icon. Trade income is split between the Crown and the Estates With Icon according to their Estate Power With Icon. Only the percentage of Crown Power With Icon goes to the Treasury.",
-                "zh": "这是向Markets With Icon出售Goods With Icon时所得的Trades With Icon收入。 贸易收入会根据Estate Power With Icon分配给王室和Estates With Icon。基于Crown Power With Icon的相对比例，只有属于王室的那一份会进入Treasury。"
+                "en": "This impacts the Market Attraction that our Markets have on Locations.",
+                "zh": "影响我们的Markets对地点的Market Attraction。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -4802,20 +4722,20 @@
               "color": "good"
             },
             {
-              "key": "global_monthly_prosperity",
-              "value": 0.002,
+              "key": "monthly_towards_free_trade",
+              "value": 0.1,
               "label": {
-                "en": "Monthly Prosperity",
-                "zh": "每月繁荣度"
+                "en": "Monthly Progress to Free Trade",
+                "zh": "每月自由贸易倾向"
               },
               "description": {
-                "en": "This impacts how much Prosperity changes monthly in all Locations in a Country.",
-                "zh": "影响国家中所有地点的Prosperity每月变化量。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('free_trade')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('free_trade')]改变的进度。"
               },
-              "value_kind": "percent",
+              "value_kind": "number",
               "decimals": 2,
               "category": "country",
-              "color": "good"
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -5336,10 +5256,10 @@
         "en": "Imperial Post Road Network",
         "zh": "帝国驿道网络"
       },
-      "size": "large",
+      "size": "small",
       "size_label": {
-        "en": "Large",
-        "zh": "大型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "infrastructure_category",
       "category_label": {
@@ -5378,7 +5298,7 @@
           "rows": [
             {
               "key": "local_distance_from_capital_speed_propagation",
-              "value": 0.3,
+              "value": 0.2,
               "label": {
                 "en": "Local Proximity Speed",
                 "zh": "本地邻近度速度"
@@ -5393,63 +5313,15 @@
               "color": "good"
             },
             {
-              "key": "local_monthly_development_modifier",
-              "value": 0.1,
+              "key": "movement_cost",
+              "value": -0.2,
               "label": {
-                "en": "Local Monthly Development Growth",
-                "zh": "本地每月发展度增长"
+                "en": "Movement Cost",
+                "zh": "移动耗时"
               },
               "description": {
-                "en": "This impacts how much Development changes monthly in a Location.",
-                "zh": "影响该地点中发展度每月的变化量。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_manpower_modifier",
-              "value": 0.3,
-              "label": {
-                "en": "Monthly Manpower",
-                "zh": "每月人力"
-              },
-              "description": {
-                "en": "This impacts how much Manpower a Location can provide each month.",
-                "zh": "影响地点每月提供Manpower的效率。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_trade_center_power",
-              "value": 0.3,
-              "label": {
-                "en": "Market Attraction",
-                "zh": "市场吸引力"
-              },
-              "description": {
-                "en": "This impacts the Market Attraction of the Market Center here.",
-                "zh": "影响此地Market Center的Market Attraction。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_nobles_estate_power",
-              "value": 0.5,
-              "label": {
-                "en": "Local Nobles Power",
-                "zh": "本地贵族阶层力量"
-              },
-              "description": {
-                "en": "This impacts the Estate Power of the Nobility in this Location.",
-                "zh": "这影响该地点的贵族的Estate Power。"
+                "en": "This impacts how slow it is to move an Army through this Location.",
+                "zh": "影响Army穿越该地点的耗时。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -5472,36 +5344,20 @@
           },
           "rows": [
             {
-              "key": "global_distance_from_capital_speed_propagation",
+              "key": "monthly_towards_centralization",
               "value": 0.1,
               "label": {
-                "en": "Proximity Speed",
-                "zh": "邻近度速度"
+                "en": "Monthly Progress to Centralization",
+                "zh": "每月中央集权倾向"
               },
               "description": {
-                "en": "This impacts how quickly Proximity moves between all Locations in a Country.",
-                "zh": "影响邻近度在一个国家所有地点之间移动的速度。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('centralization')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('centralization')]改变的进度。"
               },
-              "value_kind": "percent",
+              "value_kind": "number",
               "decimals": 2,
               "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "army_movement_speed",
-              "value": 0.04,
-              "label": {
-                "en": "Army Movement Speed",
-                "zh": "陆军移动速度"
-              },
-              "description": {
-                "en": "This impacts how fast an Army can move between Locations.",
-                "zh": "影响Army在地点之间移动的快慢。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "unit",
-              "color": "good"
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -6252,10 +6108,10 @@
         "en": "World Monument Group",
         "zh": "纪念碑群"
       },
-      "size": "large",
+      "size": "medium",
       "size_label": {
-        "en": "Large",
-        "zh": "大型"
+        "en": "Medium",
+        "zh": "中型"
       },
       "category": "cultural_category",
       "category_label": {
@@ -6326,54 +6182,6 @@
           },
           "rows": [
             {
-              "key": "local_cultural_tradition",
-              "value": 1.6,
-              "label": {
-                "en": "Cultural Tradition",
-                "zh": "文化传统"
-              },
-              "description": {
-                "en": "This impacts the Cultural Tradition of our Primary Culture.",
-                "zh": "影响我国Primary Culture的Cultural Tradition。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_cultural_influence",
-              "value": 3.6,
-              "label": {
-                "en": "Local Cultural Influence",
-                "zh": "本地文化影响力"
-              },
-              "description": {
-                "en": "This impacts the Cultural Influence of our Primary Culture in a Location.",
-                "zh": "影响我国Primary Culture在一处地点的Cultural Influence。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_manpower_modifier",
-              "value": 0.2,
-              "label": {
-                "en": "Monthly Manpower",
-                "zh": "每月人力"
-              },
-              "description": {
-                "en": "This impacts how much Manpower a Location can provide each month.",
-                "zh": "影响地点每月提供Manpower的效率。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
               "key": "local_unrest",
               "value": -0.1,
               "label": {
@@ -6405,20 +6213,36 @@
           },
           "rows": [
             {
-              "key": "monthly_prestige",
-              "value": 0.1,
+              "key": "cultures_capacity",
+              "value": 1.0,
               "label": {
-                "en": "Monthly Prestige",
-                "zh": "每月威望"
+                "en": "Cultures Capacity",
+                "zh": "文化容量"
               },
               "description": {
-                "en": "This impacts how much Prestige we will get each month.",
-                "zh": "影响每月获得多少Prestige。"
+                "en": "This impacts how many Accepted Cultures and Tolerated Cultures a Country can have. Some cultures cost less.",
+                "zh": "影响一个国家可拥有多少Accepted Cultures与Tolerated Cultures。某些文化所需的更低。"
               },
               "value_kind": "number",
               "decimals": 2,
               "category": "country",
               "color": "good"
+            },
+            {
+              "key": "monthly_towards_humanist",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Humanist",
+                "zh": "每月人文倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('humanist')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('humanist')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -6700,10 +6524,10 @@
         "en": "Giant Dam Project",
         "zh": "巨堤"
       },
-      "size": "large",
+      "size": "small",
       "size_label": {
-        "en": "Large",
-        "zh": "大型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "infrastructure_category",
       "category_label": {
@@ -6772,15 +6596,15 @@
           },
           "rows": [
             {
-              "key": "local_defensive",
+              "key": "local_monthly_food_modifier",
               "value": 0.4,
               "label": {
-                "en": "Fort Defense",
-                "zh": "要塞防御"
+                "en": "Local Food Production %",
+                "zh": "本地食物产出 %"
               },
               "description": {
-                "en": "This impacts how quick a Siege will go against a Location.",
-                "zh": "影响该地点在Siege中被攻陷的速度。"
+                "en": "This impacts how much Food is produced in a Location.",
+                "zh": "影响这一地点的Food产量。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -6788,31 +6612,15 @@
               "color": "good"
             },
             {
-              "key": "local_production_efficiency",
-              "value": 0.6,
+              "key": "local_population_growth",
+              "value": 0.0005,
               "label": {
-                "en": "Production Efficiency",
-                "zh": "加工生产效率"
+                "en": "Population Growth",
+                "zh": "本地人口增长"
               },
               "description": {
-                "en": "This impacts the Production Efficiency in this Location.",
-                "zh": "影响该地点的Production Efficiency。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_max_rgo_size_modifier",
-              "value": 0.3,
-              "label": {
-                "en": "Maximum RGO Size",
-                "zh": "最大原产雇佣规模"
-              },
-              "description": {
-                "en": "This impacts the maximum size of Rgo in a Location",
-                "zh": "影响一个地点中Rgo的最大规模。"
+                "en": "This impacts the Population Growth in a Location.",
+                "zh": "影响该地点中的Population Growth。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -6835,36 +6643,20 @@
           },
           "rows": [
             {
-              "key": "monthly_towards_centralization",
-              "value": 0.06,
+              "key": "monthly_towards_free_subjects",
+              "value": 0.1,
               "label": {
-                "en": "Monthly Progress to Centralization",
-                "zh": "每月中央集权倾向"
+                "en": "Monthly Progress to Free Subjects",
+                "zh": "每月自由民倾向"
               },
               "description": {
-                "en": "This impacts the change towards the [ShowSocietyDirectionName('centralization')] Societal Values.",
-                "zh": "这影响Societal Values向[ShowSocietyDirectionName('centralization')]改变的进度。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('free_subjects')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('free_subjects')]改变的进度。"
               },
               "value_kind": "number",
               "decimals": 2,
               "category": "country",
               "color": "neutral"
-            },
-            {
-              "key": "global_production_efficiency",
-              "value": 0.04,
-              "label": {
-                "en": "Production Efficiency",
-                "zh": "加工生产效率"
-              },
-              "description": {
-                "en": "This impacts the Production Efficiency in the entire Country.",
-                "zh": "影响整个国家的Production Efficiency。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
             }
           ],
           "meta": {}
@@ -7407,10 +7199,10 @@
         "en": "Maritime Trade Station Network",
         "zh": "海上贸易站网络"
       },
-      "size": "large",
+      "size": "small",
       "size_label": {
-        "en": "Large",
-        "zh": "大型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "infrastructure_category",
       "category_label": {
@@ -7459,31 +7251,31 @@
           },
           "rows": [
             {
-              "key": "local_trade_center_power",
-              "value": 0.8,
+              "key": "local_merchant_capacity",
+              "value": 2,
               "label": {
-                "en": "Market Attraction",
-                "zh": "市场吸引力"
+                "en": "Trade Capacity",
+                "zh": "贸易容量"
               },
               "description": {
-                "en": "This impacts the Market Attraction of the Market Center here.",
-                "zh": "影响此地Market Center的Market Attraction。"
+                "en": "This impacts how much Merchant Capacity the Owner of the Location would get.",
+                "zh": "影响该地点的Owner可获得多少Merchant Capacity。"
               },
-              "value_kind": "percent",
+              "value_kind": "number",
               "decimals": 2,
               "category": "location",
               "color": "good"
             },
             {
-              "key": "local_ship_build_speed",
+              "key": "local_merchant_capacity_modifier",
               "value": 0.5,
               "label": {
-                "en": "Local Ship-building Speed",
-                "zh": "本地舰船建造速度"
+                "en": "Trade Capacity",
+                "zh": "贸易容量"
               },
               "description": {
-                "en": "This impacts how quickly a Ship can be built in a Location.",
-                "zh": "这影响在一个地点建造Ship的速度。"
+                "en": "This impacts how much Merchant Capacity the Owner of the Location would get.",
+                "zh": "影响该地点的Owner可获得多少Merchant Capacity。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -7491,15 +7283,15 @@
               "color": "good"
             },
             {
-              "key": "local_migration_attraction",
-              "value": -1.0,
+              "key": "local_merchant_power",
+              "value": 2,
               "label": {
-                "en": "Migration Attraction",
-                "zh": "移民吸引力"
+                "en": "Trade Advantage",
+                "zh": "贸易优势"
               },
               "description": {
-                "en": "This impacts if Pops want Migrate to this Location or away from it.",
-                "zh": "影响人口是否愿意Migrate到该地点或离开那里。"
+                "en": "This impacts how much Merchant Power the Owner would get from this Location.",
+                "zh": "影响该地点的Owner可获得多少Merchant Power。"
               },
               "value_kind": "number",
               "decimals": 2,
@@ -7522,36 +7314,20 @@
           },
           "rows": [
             {
-              "key": "trade_range",
-              "value": 100,
+              "key": "monthly_towards_free_trade",
+              "value": 0.1,
               "label": {
-                "en": "Trade Range",
-                "zh": "贸易范围"
+                "en": "Monthly Progress to Free Trade",
+                "zh": "每月自由贸易倾向"
               },
               "description": {
-                "en": "This impacts the Trade Range of a Country.",
-                "zh": "这影响了一个国家的Trade Range。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('free_trade')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('free_trade')]改变的进度。"
               },
               "value_kind": "number",
-              "decimals": 0,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "trade_income",
-              "value": 0.04,
-              "label": {
-                "en": "Trade Income",
-                "zh": "贸易收入"
-              },
-              "description": {
-                "en": "This is the money gained from Trades With Icon when selling Goods With Icon to Markets With Icon. Trade income is split between the Crown and the Estates With Icon according to their Estate Power With Icon. Only the percentage of Crown Power With Icon goes to the Treasury.",
-                "zh": "这是向Markets With Icon出售Goods With Icon时所得的Trades With Icon收入。 贸易收入会根据Estate Power With Icon分配给王室和Estates With Icon。基于Crown Power With Icon的相对比例，只有属于王室的那一份会进入Treasury。"
-              },
-              "value_kind": "percent",
               "decimals": 2,
               "category": "country",
-              "color": "good"
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -7639,10 +7415,10 @@
         "en": "Imperial Post Road Network",
         "zh": "帝国驿道网络"
       },
-      "size": "large",
+      "size": "small",
       "size_label": {
-        "en": "Large",
-        "zh": "大型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "infrastructure_category",
       "category_label": {
@@ -7681,7 +7457,7 @@
           "rows": [
             {
               "key": "local_distance_from_capital_speed_propagation",
-              "value": 0.3,
+              "value": 0.2,
               "label": {
                 "en": "Local Proximity Speed",
                 "zh": "本地邻近度速度"
@@ -7696,63 +7472,15 @@
               "color": "good"
             },
             {
-              "key": "local_monthly_development_modifier",
-              "value": 0.1,
+              "key": "movement_cost",
+              "value": -0.2,
               "label": {
-                "en": "Local Monthly Development Growth",
-                "zh": "本地每月发展度增长"
+                "en": "Movement Cost",
+                "zh": "移动耗时"
               },
               "description": {
-                "en": "This impacts how much Development changes monthly in a Location.",
-                "zh": "影响该地点中发展度每月的变化量。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_manpower_modifier",
-              "value": 0.3,
-              "label": {
-                "en": "Monthly Manpower",
-                "zh": "每月人力"
-              },
-              "description": {
-                "en": "This impacts how much Manpower a Location can provide each month.",
-                "zh": "影响地点每月提供Manpower的效率。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_trade_center_power",
-              "value": 0.3,
-              "label": {
-                "en": "Market Attraction",
-                "zh": "市场吸引力"
-              },
-              "description": {
-                "en": "This impacts the Market Attraction of the Market Center here.",
-                "zh": "影响此地Market Center的Market Attraction。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_nobles_estate_power",
-              "value": 0.5,
-              "label": {
-                "en": "Local Nobles Power",
-                "zh": "本地贵族阶层力量"
-              },
-              "description": {
-                "en": "This impacts the Estate Power of the Nobility in this Location.",
-                "zh": "这影响该地点的贵族的Estate Power。"
+                "en": "This impacts how slow it is to move an Army through this Location.",
+                "zh": "影响Army穿越该地点的耗时。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -7775,36 +7503,20 @@
           },
           "rows": [
             {
-              "key": "global_distance_from_capital_speed_propagation",
+              "key": "monthly_towards_centralization",
               "value": 0.1,
               "label": {
-                "en": "Proximity Speed",
-                "zh": "邻近度速度"
+                "en": "Monthly Progress to Centralization",
+                "zh": "每月中央集权倾向"
               },
               "description": {
-                "en": "This impacts how quickly Proximity moves between all Locations in a Country.",
-                "zh": "影响邻近度在一个国家所有地点之间移动的速度。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('centralization')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('centralization')]改变的进度。"
               },
-              "value_kind": "percent",
+              "value_kind": "number",
               "decimals": 2,
               "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "army_movement_speed",
-              "value": 0.04,
-              "label": {
-                "en": "Army Movement Speed",
-                "zh": "陆军移动速度"
-              },
-              "description": {
-                "en": "This impacts how fast an Army can move between Locations.",
-                "zh": "影响Army在地点之间移动的快慢。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "unit",
-              "color": "good"
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -8302,10 +8014,10 @@
         "en": "World Monument Group",
         "zh": "纪念碑群"
       },
-      "size": "large",
+      "size": "medium",
       "size_label": {
-        "en": "Large",
-        "zh": "大型"
+        "en": "Medium",
+        "zh": "中型"
       },
       "category": "cultural_category",
       "category_label": {
@@ -8376,54 +8088,6 @@
           },
           "rows": [
             {
-              "key": "local_cultural_tradition",
-              "value": 1.6,
-              "label": {
-                "en": "Cultural Tradition",
-                "zh": "文化传统"
-              },
-              "description": {
-                "en": "This impacts the Cultural Tradition of our Primary Culture.",
-                "zh": "影响我国Primary Culture的Cultural Tradition。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_cultural_influence",
-              "value": 3.6,
-              "label": {
-                "en": "Local Cultural Influence",
-                "zh": "本地文化影响力"
-              },
-              "description": {
-                "en": "This impacts the Cultural Influence of our Primary Culture in a Location.",
-                "zh": "影响我国Primary Culture在一处地点的Cultural Influence。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_manpower_modifier",
-              "value": 0.2,
-              "label": {
-                "en": "Monthly Manpower",
-                "zh": "每月人力"
-              },
-              "description": {
-                "en": "This impacts how much Manpower a Location can provide each month.",
-                "zh": "影响地点每月提供Manpower的效率。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
               "key": "local_unrest",
               "value": -0.1,
               "label": {
@@ -8455,20 +8119,36 @@
           },
           "rows": [
             {
-              "key": "monthly_prestige",
-              "value": 0.1,
+              "key": "cultures_capacity",
+              "value": 1.0,
               "label": {
-                "en": "Monthly Prestige",
-                "zh": "每月威望"
+                "en": "Cultures Capacity",
+                "zh": "文化容量"
               },
               "description": {
-                "en": "This impacts how much Prestige we will get each month.",
-                "zh": "影响每月获得多少Prestige。"
+                "en": "This impacts how many Accepted Cultures and Tolerated Cultures a Country can have. Some cultures cost less.",
+                "zh": "影响一个国家可拥有多少Accepted Cultures与Tolerated Cultures。某些文化所需的更低。"
               },
               "value_kind": "number",
               "decimals": 2,
               "category": "country",
               "color": "good"
+            },
+            {
+              "key": "monthly_towards_humanist",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Humanist",
+                "zh": "每月人文倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('humanist')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('humanist')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -8969,7 +8649,7 @@
           "rows": [
             {
               "key": "tolerance_own",
-              "value": 2,
+              "value": 1.0,
               "label": {
                 "en": "Tolerance of the True Faith",
                 "zh": "正统信仰容忍度"
@@ -9123,7 +8803,7 @@
           "rows": [
             {
               "key": "tolerance_own",
-              "value": 2,
+              "value": 1.0,
               "label": {
                 "en": "Tolerance of the True Faith",
                 "zh": "正统信仰容忍度"
@@ -9223,10 +8903,10 @@
         "en": "Great Monastery",
         "zh": "大型修道院"
       },
-      "size": "medium",
+      "size": "small",
       "size_label": {
-        "en": "Medium",
-        "zh": "中型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "cultural_category",
       "category_label": {
@@ -10135,10 +9815,10 @@
         "en": "Great Monastery",
         "zh": "大型修道院"
       },
-      "size": "medium",
+      "size": "small",
       "size_label": {
-        "en": "Medium",
-        "zh": "中型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "cultural_category",
       "category_label": {
@@ -10377,15 +10057,15 @@
           },
           "rows": [
             {
-              "key": "local_defensive",
+              "key": "local_max_control",
               "value": 0.2,
               "label": {
-                "en": "Fort Defense",
-                "zh": "要塞防御"
+                "en": "Max Control",
+                "zh": "最大控制力"
               },
               "description": {
-                "en": "This impacts how quick a Siege will go against a Location.",
-                "zh": "影响该地点在Siege中被攻陷的速度。"
+                "en": "This modifies the maximum Control of a Location.",
+                "zh": "修正地点的最大Control值。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -10393,31 +10073,31 @@
               "color": "good"
             },
             {
-              "key": "local_garrison_size",
-              "value": 200,
+              "key": "local_market_access",
+              "value": 0.2,
               "label": {
-                "en": "Garrison Size",
-                "zh": "驻军规模"
+                "en": "Market Access",
+                "zh": "市场接入度"
               },
               "description": {
-                "en": "This impacts the size of the Garrison in this Location.",
-                "zh": "影响该地点中Garrison的规模。"
+                "en": "This impacts how much Market Access the Location would get.",
+                "zh": "影响该地点可获得多少Market Access。"
               },
-              "value_kind": "number",
-              "decimals": 0,
+              "value_kind": "percent",
+              "decimals": 2,
               "category": "location",
               "color": "good"
             },
             {
-              "key": "local_trade_center_power",
-              "value": 0.2,
+              "key": "local_crown_estate_power",
+              "value": 1.0,
               "label": {
-                "en": "Market Attraction",
-                "zh": "市场吸引力"
+                "en": "Local Crown Power",
+                "zh": "本地王室力量"
               },
               "description": {
-                "en": "This impacts the Market Attraction of the Market Center here.",
-                "zh": "影响此地Market Center的Market Attraction。"
+                "en": "This impacts the Estate Power of the government or in other words the Crown Power in this Location.",
+                "zh": "影响该地点中政府的Estate Power，即Crown Power。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -10440,36 +10120,20 @@
           },
           "rows": [
             {
-              "key": "monthly_prestige",
+              "key": "monthly_towards_inward",
               "value": 0.1,
               "label": {
-                "en": "Monthly Prestige",
-                "zh": "每月威望"
+                "en": "Monthly Progress to Inward",
+                "zh": "每月注重内政倾向"
               },
               "description": {
-                "en": "This impacts how much Prestige we will get each month.",
-                "zh": "影响每月获得多少Prestige。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('inward')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('inward')]改变的进度。"
               },
               "value_kind": "number",
               "decimals": 2,
               "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_build_buildings_cost",
-              "value": -0.04,
-              "label": {
-                "en": "Buildings Cost",
-                "zh": "建筑建造花费"
-              },
-              "description": {
-                "en": "This impacts how much it Costs to build a Building in all Locations in a Country.",
-                "zh": "影响在国家所有地点建造建筑的Costs。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "bad"
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -10557,10 +10221,10 @@
         "en": "Great Monastery",
         "zh": "大型修道院"
       },
-      "size": "medium",
+      "size": "small",
       "size_label": {
-        "en": "Medium",
-        "zh": "中型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "cultural_category",
       "category_label": {
@@ -10816,7 +10480,7 @@
           "rows": [
             {
               "key": "tolerance_own",
-              "value": 2,
+              "value": 1.0,
               "label": {
                 "en": "Tolerance of the True Faith",
                 "zh": "正统信仰容忍度"
@@ -10985,15 +10649,15 @@
           },
           "rows": [
             {
-              "key": "local_defensive",
+              "key": "local_max_control",
               "value": 0.2,
               "label": {
-                "en": "Fort Defense",
-                "zh": "要塞防御"
+                "en": "Max Control",
+                "zh": "最大控制力"
               },
               "description": {
-                "en": "This impacts how quick a Siege will go against a Location.",
-                "zh": "影响该地点在Siege中被攻陷的速度。"
+                "en": "This modifies the maximum Control of a Location.",
+                "zh": "修正地点的最大Control值。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -11001,31 +10665,31 @@
               "color": "good"
             },
             {
-              "key": "local_garrison_size",
-              "value": 200,
+              "key": "local_market_access",
+              "value": 0.2,
               "label": {
-                "en": "Garrison Size",
-                "zh": "驻军规模"
+                "en": "Market Access",
+                "zh": "市场接入度"
               },
               "description": {
-                "en": "This impacts the size of the Garrison in this Location.",
-                "zh": "影响该地点中Garrison的规模。"
+                "en": "This impacts how much Market Access the Location would get.",
+                "zh": "影响该地点可获得多少Market Access。"
               },
-              "value_kind": "number",
-              "decimals": 0,
+              "value_kind": "percent",
+              "decimals": 2,
               "category": "location",
               "color": "good"
             },
             {
-              "key": "local_trade_center_power",
-              "value": 0.2,
+              "key": "local_crown_estate_power",
+              "value": 1.0,
               "label": {
-                "en": "Market Attraction",
-                "zh": "市场吸引力"
+                "en": "Local Crown Power",
+                "zh": "本地王室力量"
               },
               "description": {
-                "en": "This impacts the Market Attraction of the Market Center here.",
-                "zh": "影响此地Market Center的Market Attraction。"
+                "en": "This impacts the Estate Power of the government or in other words the Crown Power in this Location.",
+                "zh": "影响该地点中政府的Estate Power，即Crown Power。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -11048,36 +10712,20 @@
           },
           "rows": [
             {
-              "key": "monthly_prestige",
+              "key": "monthly_towards_inward",
               "value": 0.1,
               "label": {
-                "en": "Monthly Prestige",
-                "zh": "每月威望"
+                "en": "Monthly Progress to Inward",
+                "zh": "每月注重内政倾向"
               },
               "description": {
-                "en": "This impacts how much Prestige we will get each month.",
-                "zh": "影响每月获得多少Prestige。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('inward')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('inward')]改变的进度。"
               },
               "value_kind": "number",
               "decimals": 2,
               "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_build_buildings_cost",
-              "value": -0.04,
-              "label": {
-                "en": "Buildings Cost",
-                "zh": "建筑建造花费"
-              },
-              "description": {
-                "en": "This impacts how much it Costs to build a Building in all Locations in a Country.",
-                "zh": "影响在国家所有地点建造建筑的Costs。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "bad"
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -11219,7 +10867,7 @@
           "rows": [
             {
               "key": "tolerance_own",
-              "value": 2,
+              "value": 1.0,
               "label": {
                 "en": "Tolerance of the True Faith",
                 "zh": "正统信仰容忍度"
@@ -11690,10 +11338,10 @@
         "en": "Giant Dam Project",
         "zh": "巨堤"
       },
-      "size": "large",
+      "size": "small",
       "size_label": {
-        "en": "Large",
-        "zh": "大型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "infrastructure_category",
       "category_label": {
@@ -11762,15 +11410,15 @@
           },
           "rows": [
             {
-              "key": "local_defensive",
+              "key": "local_monthly_food_modifier",
               "value": 0.4,
               "label": {
-                "en": "Fort Defense",
-                "zh": "要塞防御"
+                "en": "Local Food Production %",
+                "zh": "本地食物产出 %"
               },
               "description": {
-                "en": "This impacts how quick a Siege will go against a Location.",
-                "zh": "影响该地点在Siege中被攻陷的速度。"
+                "en": "This impacts how much Food is produced in a Location.",
+                "zh": "影响这一地点的Food产量。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -11778,31 +11426,15 @@
               "color": "good"
             },
             {
-              "key": "local_production_efficiency",
-              "value": 0.6,
+              "key": "local_population_growth",
+              "value": 0.0005,
               "label": {
-                "en": "Production Efficiency",
-                "zh": "加工生产效率"
+                "en": "Population Growth",
+                "zh": "本地人口增长"
               },
               "description": {
-                "en": "This impacts the Production Efficiency in this Location.",
-                "zh": "影响该地点的Production Efficiency。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_max_rgo_size_modifier",
-              "value": 0.3,
-              "label": {
-                "en": "Maximum RGO Size",
-                "zh": "最大原产雇佣规模"
-              },
-              "description": {
-                "en": "This impacts the maximum size of Rgo in a Location",
-                "zh": "影响一个地点中Rgo的最大规模。"
+                "en": "This impacts the Population Growth in a Location.",
+                "zh": "影响该地点中的Population Growth。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -11825,36 +11457,20 @@
           },
           "rows": [
             {
-              "key": "monthly_towards_centralization",
-              "value": 0.06,
+              "key": "monthly_towards_free_subjects",
+              "value": 0.1,
               "label": {
-                "en": "Monthly Progress to Centralization",
-                "zh": "每月中央集权倾向"
+                "en": "Monthly Progress to Free Subjects",
+                "zh": "每月自由民倾向"
               },
               "description": {
-                "en": "This impacts the change towards the [ShowSocietyDirectionName('centralization')] Societal Values.",
-                "zh": "这影响Societal Values向[ShowSocietyDirectionName('centralization')]改变的进度。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('free_subjects')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('free_subjects')]改变的进度。"
               },
               "value_kind": "number",
               "decimals": 2,
               "category": "country",
               "color": "neutral"
-            },
-            {
-              "key": "global_production_efficiency",
-              "value": 0.04,
-              "label": {
-                "en": "Production Efficiency",
-                "zh": "加工生产效率"
-              },
-              "description": {
-                "en": "This impacts the Production Efficiency in the entire Country.",
-                "zh": "影响整个国家的Production Efficiency。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
             }
           ],
           "meta": {}
@@ -12131,10 +11747,10 @@
         "en": "Giant Workshop Complex",
         "zh": "巨型工坊"
       },
-      "size": "large",
+      "size": "small",
       "size_label": {
-        "en": "Large",
-        "zh": "大型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "infrastructure_category",
       "category_label": {
@@ -12185,7 +11801,7 @@
           "rows": [
             {
               "key": "local_production_efficiency",
-              "value": 0.9,
+              "value": 0.1,
               "label": {
                 "en": "Production Efficiency",
                 "zh": "加工生产效率"
@@ -12195,54 +11811,6 @@
                 "zh": "影响该地点的Production Efficiency。"
               },
               "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_pop_promotion_speed",
-              "value": 10,
-              "label": {
-                "en": "Local Pop Promotion Speed",
-                "zh": "本地人口升级速度"
-              },
-              "description": {
-                "en": "This impacts how quickly Pops Promote in this Location.",
-                "zh": "影响该地点的人口的Promote速度。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_manpower_modifier",
-              "value": 0.3,
-              "label": {
-                "en": "Monthly Manpower",
-                "zh": "每月人力"
-              },
-              "description": {
-                "en": "This impacts how much Manpower a Location can provide each month.",
-                "zh": "影响地点每月提供Manpower的效率。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_cultural_influence",
-              "value": 1.6,
-              "label": {
-                "en": "Local Cultural Influence",
-                "zh": "本地文化影响力"
-              },
-              "description": {
-                "en": "This impacts the Cultural Influence of our Primary Culture in a Location.",
-                "zh": "影响我国Primary Culture在一处地点的Cultural Influence。"
-              },
-              "value_kind": "number",
               "decimals": 2,
               "category": "location",
               "color": "good"
@@ -12263,36 +11831,20 @@
           },
           "rows": [
             {
-              "key": "global_production_efficiency",
-              "value": 0.08,
+              "key": "monthly_towards_capital_economy",
+              "value": 0.1,
               "label": {
-                "en": "Production Efficiency",
-                "zh": "加工生产效率"
+                "en": "Monthly Progress to Capital Economy",
+                "zh": "每月资本经济倾向"
               },
               "description": {
-                "en": "This impacts the Production Efficiency in the entire Country.",
-                "zh": "影响整个国家的Production Efficiency。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('capital_economy')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('capital_economy')]改变的进度。"
               },
-              "value_kind": "percent",
+              "value_kind": "number",
               "decimals": 2,
               "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_pop_promotion_speed_modifier",
-              "value": 0.02,
-              "label": {
-                "en": "Pop Promotion Speed %",
-                "zh": "人口升级速度 %"
-              },
-              "description": {
-                "en": "This impacts how quickly Pops Promote in all Locations of the country.",
-                "zh": "影响全国所有地点的人口的Promote速度。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -12380,10 +11932,10 @@
         "en": "Great Sculpture Group",
         "zh": "大雕塑群"
       },
-      "size": "medium",
+      "size": "large",
       "size_label": {
-        "en": "Medium",
-        "zh": "中型"
+        "en": "Large",
+        "zh": "大型"
       },
       "category": "cultural_category",
       "category_label": {
@@ -12408,65 +11960,40 @@
       "image": "tv_wonder_unique_mogao_caves",
       "construction_requirements": [
         {
-          "key": "location_rank",
-          "operator": "?=",
-          "value": "location_rank:rural_settlement",
-          "logic": "all",
-          "negated": true,
+          "key": "topography",
+          "operator": "=",
+          "value": "mountains",
+          "logic": "any",
+          "negated": false,
           "label": {
-            "en": "Is NOT a Rural Settlement",
-            "zh": "不是乡村定居点"
+            "en": "Is Mountains Topography",
+            "zh": "是山地地形"
+          }
+        },
+        {
+          "key": "topography",
+          "operator": "=",
+          "value": "plateau",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Is Plateau Topography",
+            "zh": "是高原地形"
+          }
+        },
+        {
+          "key": "topography",
+          "operator": "=",
+          "value": "hills",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Is Hills Topography",
+            "zh": "是丘陵地形"
           }
         }
       ],
       "effects": [
-        {
-          "id": "final_local",
-          "title": {
-            "en": "Inherited final local effects",
-            "zh": "继承的最终建筑本地效果"
-          },
-          "scope": "local",
-          "value_label": {
-            "en": "Value",
-            "zh": "数值"
-          },
-          "rows": [
-            {
-              "key": "local_cultural_tradition",
-              "value": 1.0,
-              "label": {
-                "en": "Cultural Tradition",
-                "zh": "文化传统"
-              },
-              "description": {
-                "en": "This impacts the Cultural Tradition of our Primary Culture.",
-                "zh": "影响我国Primary Culture的Cultural Tradition。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_production_efficiency",
-              "value": 0.2,
-              "label": {
-                "en": "Production Efficiency",
-                "zh": "加工生产效率"
-              },
-              "description": {
-                "en": "This impacts the Production Efficiency in this Location.",
-                "zh": "影响该地点的Production Efficiency。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            }
-          ],
-          "meta": {}
-        },
         {
           "id": "base_modifiers",
           "title": {
@@ -12480,36 +12007,52 @@
           },
           "rows": [
             {
-              "key": "monthly_prestige",
-              "value": 0.1,
+              "key": "pop_join_rebel_threshold",
+              "value": 0.05,
               "label": {
-                "en": "Monthly Prestige",
-                "zh": "每月威望"
+                "en": "Pop Join Rebels Threshold",
+                "zh": "人口加入叛军的阈值"
               },
               "description": {
-                "en": "This impacts how much Prestige we will get each month.",
-                "zh": "影响每月获得多少Prestige。"
-              },
-              "value_kind": "number",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "cultural_tradition_modifier",
-              "value": 0.08,
-              "label": {
-                "en": "Cultural Tradition %",
-                "zh": "文化传统%"
-              },
-              "description": {
-                "en": "This impacts the Cultural Tradition of our Primary Culture.",
-                "zh": "影响我国Primary Culture的Cultural Tradition。"
+                "en": "This impact the level of Pop Satisfaction a Pop has to be below to join Rebels. It can never be lower than [GetDefine('NPop','REBEL_JOIN_MIN_THRESHOLD')|%V].",
+                "zh": "影响Pop加入Rebels所需的Pop Satisfaction阈值。该值永远不会低于[GetDefine('NPop','REBEL_JOIN_MIN_THRESHOLD')|%V]。"
               },
               "value_kind": "percent",
               "decimals": 2,
               "category": "country",
-              "color": "good"
+              "color": "bad"
+            },
+            {
+              "key": "pop_leave_rebels_threshold",
+              "value": 0.05,
+              "label": {
+                "en": "Pop Leave Rebels Threshold",
+                "zh": "人口脱离叛军的阈值"
+              },
+              "description": {
+                "en": "This impact the level of Pop Satisfaction a Pop has to be above to leave Rebels.",
+                "zh": "影响Pop脱离Rebels所需的Pop Satisfaction阈值。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "bad"
+            },
+            {
+              "key": "monthly_towards_humanist",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Humanist",
+                "zh": "每月人文倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('humanist')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('humanist')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -12650,15 +12193,15 @@
           },
           "rows": [
             {
-              "key": "local_production_efficiency",
-              "value": 0.6,
+              "key": "local_market_access",
+              "value": 0.2,
               "label": {
-                "en": "Production Efficiency",
-                "zh": "加工生产效率"
+                "en": "Market Access",
+                "zh": "市场接入度"
               },
               "description": {
-                "en": "This impacts the Production Efficiency in this Location.",
-                "zh": "影响该地点的Production Efficiency。"
+                "en": "This impacts how much Market Access the Location would get.",
+                "zh": "影响该地点可获得多少Market Access。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -12666,24 +12209,24 @@
               "color": "good"
             },
             {
-              "key": "local_burghers_estate_power",
-              "value": 1.0,
+              "key": "local_monthly_prosperity",
+              "value": 0.2,
               "label": {
-                "en": "Local Burghers Power",
-                "zh": "本地市民阶层力量"
+                "en": "Local Monthly Prosperity",
+                "zh": "本地每月繁荣度"
               },
               "description": {
-                "en": "This impacts the Estate Power of the Burghers in this Location.",
-                "zh": "这影响该地点的市民的Estate Power。"
+                "en": "This impacts the increase or decrease of Prosperity in a Location.",
+                "zh": "影响该地点中Prosperity的增减。"
               },
               "value_kind": "percent",
               "decimals": 2,
               "category": "location",
-              "color": "bad"
+              "color": "good"
             },
             {
               "key": "local_trade_center_power",
-              "value": 0.3,
+              "value": 0.2,
               "label": {
                 "en": "Market Attraction",
                 "zh": "市场吸引力"
@@ -12713,36 +12256,20 @@
           },
           "rows": [
             {
-              "key": "global_production_efficiency",
-              "value": 0.06,
+              "key": "monthly_towards_plutocracy",
+              "value": 0.1,
               "label": {
-                "en": "Production Efficiency",
-                "zh": "加工生产效率"
+                "en": "Monthly Progress to Plutocracy",
+                "zh": "每月财阀政治倾向"
               },
               "description": {
-                "en": "This impacts the Production Efficiency in the entire Country.",
-                "zh": "影响整个国家的Production Efficiency。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('plutocracy')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('plutocracy')]改变的进度。"
               },
-              "value_kind": "percent",
+              "value_kind": "number",
               "decimals": 2,
               "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "trade_income",
-              "value": 0.02,
-              "label": {
-                "en": "Trade Income",
-                "zh": "贸易收入"
-              },
-              "description": {
-                "en": "This is the money gained from Trades With Icon when selling Goods With Icon to Markets With Icon. Trade income is split between the Crown and the Estates With Icon according to their Estate Power With Icon. Only the percentage of Crown Power With Icon goes to the Treasury.",
-                "zh": "这是向Markets With Icon出售Goods With Icon时所得的Trades With Icon收入。 贸易收入会根据Estate Power With Icon分配给王室和Estates With Icon。基于Crown Power With Icon的相对比例，只有属于王室的那一份会进入Treasury。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "country",
-              "color": "good"
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -12830,10 +12357,10 @@
         "en": "Coastal Defense Cannon",
         "zh": "海防大炮"
       },
-      "size": "medium",
+      "size": "small",
       "size_label": {
-        "en": "Medium",
-        "zh": "中型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "military_category",
       "category_label": {
@@ -12882,36 +12409,36 @@
           },
           "rows": [
             {
-              "key": "local_defensive",
-              "value": 0.5,
+              "key": "local_maritime_presence",
+              "value": 0.2,
               "label": {
-                "en": "Fort Defense",
-                "zh": "要塞防御"
+                "en": "Local Maritime Presence",
+                "zh": "本地海上存在"
               },
               "description": {
-                "en": "This impacts how quick a Siege will go against a Location.",
-                "zh": "影响该地点在Siege中被攻陷的速度。"
+                "en": "This impacts the Maritime Presence in adjacent Seazones for the Owner of a Location.",
+                "zh": "影响地点的Owner在相邻Seazones中的Maritime Presence。"
               },
-              "value_kind": "percent",
+              "value_kind": "number",
               "decimals": 2,
               "category": "location",
               "color": "good"
             },
             {
-              "key": "local_garrison_size",
-              "value": 400,
+              "key": "local_navy_attrition",
+              "value": 0.1,
               "label": {
-                "en": "Garrison Size",
-                "zh": "驻军规模"
+                "en": "Naval Attrition",
+                "zh": "海军损耗"
               },
               "description": {
-                "en": "This impacts the size of the Garrison in this Location.",
-                "zh": "影响该地点中Garrison的规模。"
+                "en": "This impacts the Attrition in the Seazone for Navies.",
+                "zh": "影响Seazone中Navies的Attrition。"
               },
               "value_kind": "number",
-              "decimals": 0,
+              "decimals": 2,
               "category": "location",
-              "color": "good"
+              "color": "bad"
             }
           ],
           "meta": {}
@@ -12929,52 +12456,20 @@
           },
           "rows": [
             {
-              "key": "naval_morale_modifier",
-              "value": 0.06,
+              "key": "monthly_towards_defensive",
+              "value": 0.1,
               "label": {
-                "en": "Navy Morale",
-                "zh": "海军士气"
+                "en": "Monthly Progress to Defensive",
+                "zh": "每月聚焦防守倾向"
               },
               "description": {
-                "en": "This modifies the maximum Morale that a Ship can have by a percentage.",
-                "zh": "以百分比修正Ship的Morale上限。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('defensive')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('defensive')]改变的进度。"
               },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "unit",
-              "color": "good"
-            },
-            {
-              "key": "global_defensive",
-              "value": 0.06,
-              "label": {
-                "en": "Fort Defense",
-                "zh": "要塞防御"
-              },
-              "description": {
-                "en": "This impacts how quick a Siege will go against a Country.",
-                "zh": "影响国家在Siege中被攻陷的速度。"
-              },
-              "value_kind": "percent",
+              "value_kind": "number",
               "decimals": 2,
               "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "global_maritime_presence_modifier",
-              "value": 0.06,
-              "label": {
-                "en": "Maritime Presence %",
-                "zh": "海上存在 %"
-              },
-              "description": {
-                "en": "This impacts the Maritime Presence in all Seazones adjacent to all Locations owned by a Country.",
-                "zh": "影响国家在所有其拥有地点所邻接的Seazones中的Maritime Presence。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "unit",
-              "color": "good"
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -13062,10 +12557,10 @@
         "en": "Great Monastery",
         "zh": "大型修道院"
       },
-      "size": "medium",
+      "size": "small",
       "size_label": {
-        "en": "Medium",
-        "zh": "中型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "cultural_category",
       "category_label": {
@@ -13468,10 +12963,10 @@
         "en": "Imperial Post Road Network",
         "zh": "帝国驿道网络"
       },
-      "size": "large",
+      "size": "small",
       "size_label": {
-        "en": "Large",
-        "zh": "大型"
+        "en": "Small",
+        "zh": "小型"
       },
       "category": "infrastructure_category",
       "category_label": {
@@ -13510,7 +13005,7 @@
           "rows": [
             {
               "key": "local_distance_from_capital_speed_propagation",
-              "value": 0.3,
+              "value": 0.2,
               "label": {
                 "en": "Local Proximity Speed",
                 "zh": "本地邻近度速度"
@@ -13525,63 +13020,15 @@
               "color": "good"
             },
             {
-              "key": "local_monthly_development_modifier",
-              "value": 0.1,
+              "key": "movement_cost",
+              "value": -0.2,
               "label": {
-                "en": "Local Monthly Development Growth",
-                "zh": "本地每月发展度增长"
+                "en": "Movement Cost",
+                "zh": "移动耗时"
               },
               "description": {
-                "en": "This impacts how much Development changes monthly in a Location.",
-                "zh": "影响该地点中发展度每月的变化量。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_manpower_modifier",
-              "value": 0.3,
-              "label": {
-                "en": "Monthly Manpower",
-                "zh": "每月人力"
-              },
-              "description": {
-                "en": "This impacts how much Manpower a Location can provide each month.",
-                "zh": "影响地点每月提供Manpower的效率。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_trade_center_power",
-              "value": 0.3,
-              "label": {
-                "en": "Market Attraction",
-                "zh": "市场吸引力"
-              },
-              "description": {
-                "en": "This impacts the Market Attraction of the Market Center here.",
-                "zh": "影响此地Market Center的Market Attraction。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_nobles_estate_power",
-              "value": 0.5,
-              "label": {
-                "en": "Local Nobles Power",
-                "zh": "本地贵族阶层力量"
-              },
-              "description": {
-                "en": "This impacts the Estate Power of the Nobility in this Location.",
-                "zh": "这影响该地点的贵族的Estate Power。"
+                "en": "This impacts how slow it is to move an Army through this Location.",
+                "zh": "影响Army穿越该地点的耗时。"
               },
               "value_kind": "percent",
               "decimals": 2,
@@ -13604,36 +13051,20 @@
           },
           "rows": [
             {
-              "key": "global_distance_from_capital_speed_propagation",
+              "key": "monthly_towards_centralization",
               "value": 0.1,
               "label": {
-                "en": "Proximity Speed",
-                "zh": "邻近度速度"
+                "en": "Monthly Progress to Centralization",
+                "zh": "每月中央集权倾向"
               },
               "description": {
-                "en": "This impacts how quickly Proximity moves between all Locations in a Country.",
-                "zh": "影响邻近度在一个国家所有地点之间移动的速度。"
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('centralization')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('centralization')]改变的进度。"
               },
-              "value_kind": "percent",
+              "value_kind": "number",
               "decimals": 2,
               "category": "country",
-              "color": "good"
-            },
-            {
-              "key": "army_movement_speed",
-              "value": 0.04,
-              "label": {
-                "en": "Army Movement Speed",
-                "zh": "陆军移动速度"
-              },
-              "description": {
-                "en": "This impacts how fast an Army can move between Locations.",
-                "zh": "影响Army在地点之间移动的快慢。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "unit",
-              "color": "good"
+              "color": "neutral"
             }
           ],
           "meta": {}
@@ -13721,10 +13152,10 @@
         "en": "Naval School",
         "zh": "海军学校"
       },
-      "size": "small",
+      "size": "medium",
       "size_label": {
-        "en": "Small",
-        "zh": "小型"
+        "en": "Medium",
+        "zh": "中型"
       },
       "category": "military_category",
       "category_label": {
@@ -13761,53 +13192,6 @@
       ],
       "effects": [
         {
-          "id": "final_local",
-          "title": {
-            "en": "Inherited final local effects",
-            "zh": "继承的最终建筑本地效果"
-          },
-          "scope": "local",
-          "value_label": {
-            "en": "Value",
-            "zh": "数值"
-          },
-          "rows": [
-            {
-              "key": "local_ship_build_speed",
-              "value": 0.2,
-              "label": {
-                "en": "Local Ship-building Speed",
-                "zh": "本地舰船建造速度"
-              },
-              "description": {
-                "en": "This impacts how quickly a Ship can be built in a Location.",
-                "zh": "这影响在一个地点建造Ship的速度。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            },
-            {
-              "key": "local_trade_center_power",
-              "value": 0.2,
-              "label": {
-                "en": "Market Attraction",
-                "zh": "市场吸引力"
-              },
-              "description": {
-                "en": "This impacts the Market Attraction of the Market Center here.",
-                "zh": "影响此地Market Center的Market Attraction。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "location",
-              "color": "good"
-            }
-          ],
-          "meta": {}
-        },
-        {
           "id": "base_modifiers",
           "title": {
             "en": "Per-level country effects",
@@ -13820,40 +13204,24 @@
           },
           "rows": [
             {
-              "key": "naval_range",
-              "value": 50,
+              "key": "monthly_navy_tradition",
+              "value": 0.1,
               "label": {
-                "en": "Naval Range",
-                "zh": "海军范围"
+                "en": "Monthly Navy Tradition",
+                "zh": "每月海军传统"
               },
               "description": {
-                "en": "This impacts the Naval Range of a Country.",
-                "zh": "影响国家的Naval Range。"
+                "en": "This impacts how much Navy Tradition we will get each month.",
+                "zh": "影响我们每月获得多少Navy Tradition。"
               },
               "value_kind": "number",
-              "decimals": 0,
+              "decimals": 2,
               "category": "country",
               "color": "good"
             },
             {
-              "key": "naval_morale_modifier",
-              "value": 0.02,
-              "label": {
-                "en": "Navy Morale",
-                "zh": "海军士气"
-              },
-              "description": {
-                "en": "This modifies the maximum Morale that a Ship can have by a percentage.",
-                "zh": "以百分比修正Ship的Morale上限。"
-              },
-              "value_kind": "percent",
-              "decimals": 2,
-              "category": "unit",
-              "color": "good"
-            },
-            {
               "key": "monthly_towards_naval",
-              "value": 0.06,
+              "value": 0.1,
               "label": {
                 "en": "Monthly Progress to Naval",
                 "zh": "每月海权主义倾向"
