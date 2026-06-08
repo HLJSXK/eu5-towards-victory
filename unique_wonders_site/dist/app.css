@@ -212,9 +212,21 @@ input {
   width: 18px;
   height: 18px;
   border: 2px solid #111419;
-  border-radius: 50%;
   background: var(--pin-color);
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.16), 0 8px 18px rgba(0, 0, 0, 0.45);
+}
+
+.wonder-pin-circle {
+  border-radius: 50%;
+}
+
+.wonder-pin-square {
+  border-radius: 3px;
+}
+
+.wonder-pin-polygon {
+  border-radius: 0;
+  clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%);
 }
 
 .wonder-pin.selected {

@@ -146,25 +146,13 @@ function formatValue(value, row = {}) {
   return String(value);
 }
 
-function colorForKey(key) {
-  const fixed = {
-    cultural_category: "#d98c72",
-    government_category: "#e0be63",
-    infrastructure_category: "#68b7a8",
-    military_category: "#c75f6a",
-    religious_category: "#a78bd8",
-    commerce_category: "#6ea2d9",
-    industry_category: "#9ea35f",
+function pinColorForSize(size) {
+  const colors = {
+    small: "#78a47a",
+    medium: "#c4b268",
+    large: "#c1736f",
   };
-  if (fixed[key]) {
-    return fixed[key];
-  }
-  let hash = 0x811c9dc5;
-  for (let index = 0; index < key.length; index += 1) {
-    hash ^= key.charCodeAt(index);
-    hash = (hash * 0x01000193) >>> 0;
-  }
-  return `hsl(${hash % 360}, 58%, 62%)`;
+  return colors[String(size || "").toLowerCase()] || "#9aa1a8";
 }
 
 function visibleWorldIndexes() {
@@ -194,13 +182,23 @@ function selectedWonder() {
   return state.wonders.find((wonder) => wonder.key === state.selectedKey) || null;
 }
 
+function pinShapeForSize(size) {
+  const shapes = {
+    small: "circle",
+    medium: "square",
+    large: "polygon",
+  };
+  return shapes[String(size || "").toLowerCase()] || "circle";
+}
+
 function markerIcon(wonder, selected) {
-  const color = colorForKey(wonder.category);
+  const color = pinColorForSize(wonder.size);
+  const shape = pinShapeForSize(wonder.size);
   return L.divIcon({
     className: "",
     iconSize: selected ? [23, 23] : [18, 18],
     iconAnchor: selected ? [11, 11] : [9, 9],
-    html: `<div class="wonder-pin${selected ? " selected" : ""}" style="--pin-color:${color}"></div>`,
+    html: `<div class="wonder-pin wonder-pin-${shape}${selected ? " selected" : ""}" style="--pin-color:${color}"></div>`,
   });
 }
 
@@ -265,7 +263,7 @@ function renderList() {
         <span class="wonder-id">${escapeHtml(String(wonder.id))}</span>
       </div>
       <div class="wonder-meta">
-        <span class="swatch" style="background:${colorForKey(wonder.category)}"></span>
+        <span class="swatch" style="background:${pinColorForSize(wonder.size)}"></span>
         <span>${escapeHtml(localized(wonder.location_name))}</span>
         <span>${escapeHtml(localized(wonder.size_label))}</span>
       </div>
