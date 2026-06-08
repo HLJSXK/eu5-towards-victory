@@ -8228,6 +8228,706 @@ tv_wonder_naval_school = {
 	}
 }
 
+tv_wonder_colonial_trade_company_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_colonial_trade_company_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_colonial_trade_company_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_colonial_trade_company_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_colonial_trade_company = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_great_assembly_hall_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_great_assembly_hall_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_great_assembly_hall_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_great_assembly_hall_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_great_assembly_hall = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_mobile_fortress_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_mobile_fortress_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_mobile_fortress_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_mobile_fortress_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_mobile_fortress = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_ancient_city_ruins_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_ancient_city_ruins_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_ancient_city_ruins_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_ancient_city_ruins_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_ancient_city_ruins = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
 tv_wonder_unique_pharos_lighthouse_foundation = {
 	is_special = yes
 	is_foreign = no
@@ -20447,6 +21147,3681 @@ tv_wonder_unique_carrara_marble_quarries = {
 	is_special = yes
 	is_foreign = no
 	pop_type = laborers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_east_india_company_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_east_india_company_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_east_india_company_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_east_india_company_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_east_india_company = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_peacock_throne_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_peacock_throne_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_peacock_throne_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_peacock_throne_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_peacock_throne = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_varanasi_ghats_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_varanasi_ghats_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_varanasi_ghats_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_varanasi_ghats_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_varanasi_ghats = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_brihadishvara_temple_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_brihadishvara_temple_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_brihadishvara_temple_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_brihadishvara_temple_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_brihadishvara_temple = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_konark_sun_temple_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_konark_sun_temple_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_konark_sun_temple_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_konark_sun_temple_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_konark_sun_temple = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_fatehpur_sikri_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_fatehpur_sikri_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_fatehpur_sikri_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_fatehpur_sikri_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_fatehpur_sikri = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_calicut_port_city_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_calicut_port_city_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_calicut_port_city_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_calicut_port_city_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_calicut_port_city = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_wieliczka_salt_mine_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = laborers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_wieliczka_salt_mine_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = laborers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_wieliczka_salt_mine_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = laborers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_wieliczka_salt_mine_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = laborers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_wieliczka_salt_mine = {
+	is_special = yes
+	is_foreign = no
+	pop_type = laborers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_wawel_castle_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_wawel_castle_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_wawel_castle_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_wawel_castle_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_wawel_castle = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_zamosc_ideal_city_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_zamosc_ideal_city_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_zamosc_ideal_city_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_zamosc_ideal_city_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_zamosc_ideal_city = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_gdansk_port_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_gdansk_port_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_gdansk_port_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_gdansk_port_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_gdansk_port = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_malbork_castle_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_malbork_castle_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_malbork_castle_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_malbork_castle_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_malbork_castle = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_brest_synagogue_quarter_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_brest_synagogue_quarter_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_brest_synagogue_quarter_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_brest_synagogue_quarter_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_brest_synagogue_quarter = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_vilnius_university_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_vilnius_university_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_vilnius_university_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_vilnius_university_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_vilnius_university = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_cave_monastery_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_cave_monastery_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_cave_monastery_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_cave_monastery_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_cave_monastery = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_zaporizhian_sich_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_zaporizhian_sich_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_zaporizhian_sich_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_zaporizhian_sich_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_zaporizhian_sich = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_registan_square_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_registan_square_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_registan_square_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_registan_square_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_registan_square = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_khiva_old_city_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_khiva_old_city_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_khiva_old_city_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_khiva_old_city_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_khiva_old_city = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_bukhara_kalyan_minaret_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_bukhara_kalyan_minaret_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_bukhara_kalyan_minaret_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_bukhara_kalyan_minaret_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_bukhara_kalyan_minaret = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_ferghana_palace_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_ferghana_palace_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_ferghana_palace_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_ferghana_palace_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_ferghana_palace = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.4
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_tashkent_old_bazaar_foundation = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_tashkent_old_bazaar_body = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_tashkent_old_bazaar_function = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_tashkent_old_bazaar_decoration = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = village_build_time
+
+	modifier = {
+		local_cultural_tradition = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+}
+
+tv_wonder_unique_tashkent_old_bazaar = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
 	max_levels = 6
 	employment_size = 0.1
 	category = infrastructure_category

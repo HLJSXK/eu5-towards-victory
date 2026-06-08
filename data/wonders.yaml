@@ -704,6 +704,66 @@ wonders:
   base_key: naval_school
   mechanic_key: naval_school
   base_effect_multiplier: 1
+- id: 48
+  key: colonial_trade_company
+  concept: tv_wonder_colonial_trade_company
+  size: medium
+  category: infrastructure_category
+  pop_type: burghers
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_chartered_company_exchange
+    2: tv_wonder_overseas_factory_forts
+    3: tv_wonder_colonial_ledger_house
+  is_unique: false
+  base_key: colonial_trade_company
+  mechanic_key: colonial_trade_company
+  base_effect_multiplier: 1
+- id: 49
+  key: great_assembly_hall
+  concept: tv_wonder_great_assembly_hall
+  size: medium
+  category: government_category
+  pop_type: nobles
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_estates_convocation_hall
+    2: tv_wonder_royal_audience_hall
+    3: tv_wonder_public_deliberation_hall
+  is_unique: false
+  base_key: great_assembly_hall
+  mechanic_key: great_assembly_hall
+  base_effect_multiplier: 1
+- id: 50
+  key: mobile_fortress
+  concept: tv_wonder_mobile_fortress
+  size: medium
+  category: military_category
+  pop_type: soldiers
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_wagon_camp_muster
+    2: tv_wonder_frontier_sich_camp
+    3: tv_wonder_steppe_field_fort
+  is_unique: false
+  base_key: mobile_fortress
+  mechanic_key: mobile_fortress
+  base_effect_multiplier: 1
+- id: 51
+  key: ancient_city_ruins
+  concept: tv_wonder_ancient_city_ruins
+  size: medium
+  category: cultural_category
+  pop_type: nobles
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_restored_citadel_ruins
+    2: tv_wonder_antiquarian_quarter_ruins
+    3: tv_wonder_pilgrim_ruins_preserve
+  is_unique: false
+  base_key: ancient_city_ruins
+  mechanic_key: ancient_city_ruins
+  base_effect_multiplier: 1
 parts:
 - key: foundation
 - key: body

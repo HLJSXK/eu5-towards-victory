@@ -1033,7 +1033,141 @@ designs:
         en: Oceanic Command Academy
         completion: 献上远洋指挥学院祭品后完成落成仪式。
         effect: +15 海军传统，+30 威望。
+  colonial_trade_company:
+    status: 已实现
+    positioning: 殖民商业、特许垄断与海外商馆
+    site: 港口、城市或大都会
+    preference: 港口适宜度、城市等级与发展度提高适性。
+    base_effect: 每级：贸易范围、殖民范围与贸易收入提高；所在地提升贸易中心力量和商人力量。
+    branches:
+      1:
+        zh: 公司特许状
+        en: Company Charter
+        completion: 确认公司特许状方案后完成落成仪式。
+        effect: +5% 贸易公司属国缴纳。
+      2:
+        zh: 商馆堡垒
+        en: Factory Forts
+        completion: 确认商馆堡垒方案后完成落成仪式。
+        effect: +15% 本地贸易中心力量与 +10% 本地防御。
+      3:
+        zh: 殖民账簿
+        en: Colonial Ledgers
+        completion: 确认殖民账簿方案后完成落成仪式。
+        effect: 付费仪式后获得 +500 金币。
+  great_assembly_hall:
+    status: 已实现
+    positioning: 宫廷集会、帝国朝觐与公共议政
+    site: 非乡村地点，尤其首都与发达城市
+    preference: 首都、城市等级与发展度提高适性。
+    base_effect: 每级：内阁效率和月度正统性提高；所在地提升文化影响和繁荣。
+    branches:
+      1:
+        zh: 等级会议
+        en: Estates Convocation
+        completion: 确认等级会议方案后完成落成仪式。
+        effect: +0.08 月度威望。
+      2:
+        zh: 王廷朝会
+        en: Royal Audience
+        completion: 确认王廷朝会方案后完成落成仪式。
+        effect: +0.5 本地文化影响。
+      3:
+        zh: 公共议政
+        en: Public Deliberation
+        completion: 确认公共议政方案后完成落成仪式。
+        effect: 付费仪式后获得 +15 正统性。
+  mobile_fortress:
+    status: 已实现
+    positioning: 边疆营垒、车阵防御与机动军事共同体
+    site: 任意己方地点，偏好乡村边疆地点
+    preference: 乡村地点、既有要塞与发展度提高适性。
+    base_effect: 每级：陆军士气和人力提高；所在地提升防御与敌军损耗。
+    branches:
+      1:
+        zh: 车营集结
+        en: Wagon Camp Muster
+        completion: 确认车营集结方案后完成落成仪式。
+        effect: +4% 陆军士气。
+      2:
+        zh: 边疆塞契
+        en: Frontier Sich
+        completion: 确认边疆塞契方案后完成落成仪式。
+        effect: +15% 本地防御与 +5% 敌军损耗。
+      3:
+        zh: 草原野战堡
+        en: Steppe Field Fort
+        completion: 确认草原野战堡方案后完成落成仪式。
+        effect: 付费仪式后获得 +15 陆军传统。
+  ancient_city_ruins:
+    status: 已实现
+    positioning: 遗产修复、王朝记忆与城市古迹
+    site: 任意己方地点，尤其古老城市与设防地点
+    preference: 城市等级、既有要塞、发展度与识字率提高适性。
+    base_effect: 每级：月度威望和月度正统性提高；所在地提升文化影响和繁荣。
+    branches:
+      1:
+        zh: 城堡修复
+        en: Citadel Restoration
+        completion: 确认城堡修复方案后完成落成仪式。
+        effect: +0.06 月度正统性。
+      2:
+        zh: 博古学街区
+        en: Antiquarian Quarter
+        completion: 确认博古学街区方案后完成落成仪式。
+        effect: +0.5 本地文化影响。
+      3:
+        zh: 朝圣遗址保护区
+        en: Pilgrim Preserve
+        completion: 确认朝圣遗址保护区方案后完成落成仪式。
+        effect: 付费仪式后获得 +1 稳定度。
 buildings:
+  colonial_trade_company:
+    final_local:
+      local_trade_center_power: 0.2
+      local_merchant_power: 1
+    final_maintenance:
+      tv_wonder_chartered_company_exchange: tv_wonder_port_monument_maintenance
+      tv_wonder_overseas_factory_forts: tv_wonder_port_monument_maintenance
+      tv_wonder_colonial_ledger_house: tv_wonder_port_monument_maintenance
+    final_attributes:
+      tv_wonder_chartered_company_exchange:
+        rural_settlement: false
+      tv_wonder_overseas_factory_forts:
+        rural_settlement: false
+      tv_wonder_colonial_ledger_house:
+        rural_settlement: false
+  great_assembly_hall:
+    final_local:
+      local_cultural_influence: 0.25
+      local_monthly_prosperity: 0.05
+    final_maintenance:
+      tv_wonder_estates_convocation_hall: tv_wonder_axis_monument_maintenance
+      tv_wonder_royal_audience_hall: tv_wonder_axis_monument_maintenance
+      tv_wonder_public_deliberation_hall: tv_wonder_axis_monument_maintenance
+    final_attributes:
+      tv_wonder_estates_convocation_hall:
+        rural_settlement: false
+      tv_wonder_royal_audience_hall:
+        rural_settlement: false
+      tv_wonder_public_deliberation_hall:
+        rural_settlement: false
+  mobile_fortress:
+    final_local:
+      local_defensive: 0.2
+      local_hostile_attrition: 0.05
+    final_maintenance:
+      tv_wonder_wagon_camp_muster: tv_wonder_axis_monument_maintenance
+      tv_wonder_frontier_sich_camp: tv_wonder_axis_monument_maintenance
+      tv_wonder_steppe_field_fort: tv_wonder_axis_monument_maintenance
+  ancient_city_ruins:
+    final_local:
+      local_cultural_influence: 0.4
+      local_monthly_prosperity: 0.1
+    final_maintenance:
+      tv_wonder_restored_citadel_ruins: tv_wonder_sacred_monument_maintenance
+      tv_wonder_antiquarian_quarter_ruins: tv_wonder_sacred_monument_maintenance
+      tv_wonder_pilgrim_ruins_preserve: tv_wonder_sacred_monument_maintenance
   sacred_mountain:
     final_local: {}
     final_maintenance:
@@ -1393,6 +1527,56 @@ buildings:
       tv_wonder_oceanic_command_academy:
         category: military_category
 generic_rituals:
+  colonial_trade_company:
+    style_1:
+      country_modifier:
+        subject_pays_trade_company_cost_modifier: 0.05
+    style_2:
+      local_modifier:
+        local_trade_center_power: 0.15
+        local_defensive: 0.1
+    style_3:
+      cost_type: scaled_gold
+      reward:
+      - type: gold
+        value: 500
+  great_assembly_hall:
+    style_1:
+      country_modifier:
+        monthly_prestige: 0.08
+    style_2:
+      local_modifier:
+        local_cultural_influence: 0.5
+    style_3:
+      cost_type: prestige
+      reward:
+      - type: legitimacy
+        value: 15
+  mobile_fortress:
+    style_1:
+      country_modifier:
+        land_morale_modifier: 0.04
+    style_2:
+      local_modifier:
+        local_defensive: 0.15
+        local_hostile_attrition: 0.05
+    style_3:
+      cost_type: prestige
+      reward:
+      - type: army_tradition
+        value: 15
+  ancient_city_ruins:
+    style_1:
+      country_modifier:
+        monthly_legitimacy: 0.06
+    style_2:
+      local_modifier:
+        local_cultural_influence: 0.5
+    style_3:
+      cost_type: prestige
+      reward:
+      - type: stability
+        value: 1
   sacred_mountain:
     style_1:
       country_modifier:
@@ -2011,6 +2195,19 @@ generic_rituals:
       - type: research_progress
         value: 15
 base_modifiers:
+  colonial_trade_company:
+    trade_range: 40
+    colonial_range: 40
+    trade_income: 0.01
+  great_assembly_hall:
+    country_cabinet_efficiency: 0.02
+    monthly_legitimacy: 0.02
+  mobile_fortress:
+    land_morale_modifier: 0.01
+    global_manpower_modifier: 0.02
+  ancient_city_ruins:
+    monthly_prestige: 0.02
+    monthly_legitimacy: 0.02
   sacred_mountain:
     global_pop_conversion_speed: 0.002
     global_pop_conversion_speed_modifier: 0.1
@@ -2425,6 +2622,74 @@ ceremony_modifiers:
     naval_morale_modifier: 0.04
     exploration_mission_speed: 0.05
 site_rules:
+  colonial_trade_company:
+    trigger_script: "OR = {\n\tis_port = yes\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
+    preference_script: |-
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { is_port = yes } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  great_assembly_hall:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: |-
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  mobile_fortress:
+    trigger_script: always = yes
+    preference_script: |-
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  ancient_city_ruins:
+    trigger_script: always = yes
+    preference_script: |-
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
   canal_hub_city:
     trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n\tis_port = yes\n}\nNOT = { location_rank ?= location_rank:rural_settlement }"
     preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
