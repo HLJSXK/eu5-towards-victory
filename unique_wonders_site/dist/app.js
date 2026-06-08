@@ -565,6 +565,18 @@ function renderLocationSwitcher(wonder) {
   `;
 }
 
+function renderFlavorText(wonder) {
+  const description = localized(wonder.description).trim();
+  if (!description) {
+    return "";
+  }
+  return `
+    <section class="detail-flavor">
+      <p>${escapeHtml(description)}</p>
+    </section>
+  `;
+}
+
 function bindDetailControls() {
   elements.detailBody.querySelectorAll("[data-wonder-image]").forEach((image) => {
     image.addEventListener("error", () => {
@@ -607,7 +619,7 @@ function renderDetail() {
     </div>
     ${renderWonderImage(wonder)}
     ${renderLocationSwitcher(wonder)}
-    <p class="detail-description">${escapeHtml(localized(wonder.description))}</p>
+    ${renderFlavorText(wonder)}
     <section class="detail-section">
       <h3>${escapeHtml(t("requirements"))}</h3>
       ${renderRequirementList(requirements)}
