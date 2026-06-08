@@ -50,7 +50,6 @@ from scripts.wonder_mechanics_lib import (
     save_yaml_document,
     site_preference_script_for_key,
     site_trigger_script_for_key,
-    suitability_knowledge_for_key,
 )
 
 LANGUAGES = ("english", "simp_chinese")
@@ -1158,6 +1157,11 @@ PREFERENCE_CONDITION_OPTIONS = [
     {"value": "topography_hills", "label": "Topography: hills", "script": "topography = hills"},
     {"value": "vegetation_forest", "label": "Vegetation: forest", "script": "vegetation = forest"},
     {"value": "vegetation_woods", "label": "Vegetation: woods", "script": "vegetation = woods"},
+    {
+        "value": "vegetation_forest_or_woods",
+        "label": "Vegetation: forest or woods",
+        "script": "OR = { vegetation = forest vegetation = woods }",
+    },
     {"value": "rank_rural", "label": "Rank: rural settlement", "script": "location_rank ?= location_rank:rural_settlement"},
     {"value": "rank_city", "label": "Rank: city", "script": "location_rank ?= location_rank:city"},
     {"value": "rank_megalopolis", "label": "Rank: megalopolis", "script": "location_rank ?= location_rank:megalopolis"},
@@ -1788,65 +1792,6 @@ def render_preference_script_from_state(raw_value: object, *, context: str) -> s
     return "\n".join(lines)
 
 
-def build_suitability_knowledge_editor_state(rows: list[dict[str, str]]) -> dict[str, Any]:
-    return {
-        "row_type_options": [
-            {"value": "condition_bonus", "label": "Condition bonus"},
-            {"value": "scaled_bonus", "label": "Scaled bonus"},
-        ],
-        "condition_options": deepcopy(PREFERENCE_CONDITION_OPTIONS),
-        "scale_source_options": deepcopy(PREFERENCE_SCALE_SOURCE_OPTIONS),
-        "rows": deepcopy(rows),
-    }
-
-
-def suitability_knowledge_from_editor_state(raw_value: object, *, context: str) -> list[dict[str, str]]:
-    payload = parse_structured_editor_value(raw_value, context=context)
-    if not isinstance(payload, dict):
-        raise ValueError(f"{context} must be an object")
-    rows = payload.get("rows", [])
-    if not isinstance(rows, list):
-        raise ValueError(f"{context}.rows must be a list")
-
-    normalized: list[dict[str, str]] = []
-    for index, row in enumerate(rows, start=1):
-        if not isinstance(row, dict):
-            raise ValueError(f"{context}.rows[{index}] must be an object")
-        row_type = str(row.get("type", "")).strip()
-        if row_type == "condition_bonus":
-            condition = str(row.get("condition", "")).strip()
-            value = str(row.get("value", "")).strip()
-            if condition not in PREFERENCE_CONDITION_BY_ID:
-                raise ValueError(f"{context}.rows[{index}] has unknown condition {condition!r}")
-            if not value:
-                raise ValueError(f"{context}.rows[{index}] is missing value")
-            normalized.append({"type": row_type, "condition": condition, "value": value})
-            continue
-        if row_type == "scaled_bonus":
-            source = str(row.get("source", "")).strip()
-            minimum = str(row.get("min", "")).strip()
-            maximum = str(row.get("max", "")).strip()
-            multiplier = str(row.get("multiplier", "")).strip()
-            if source not in PREFERENCE_SCALE_SOURCE_BY_ID:
-                raise ValueError(f"{context}.rows[{index}] has unknown source {source!r}")
-            if not minimum or not maximum or not multiplier:
-                raise ValueError(f"{context}.rows[{index}] must define min, max, and multiplier")
-            normalized.append(
-                {
-                    "type": row_type,
-                    "source": source,
-                    "min": minimum,
-                    "max": maximum,
-                    "multiplier": multiplier,
-                }
-            )
-            continue
-        raise ValueError(f"{context}.rows[{index}] has unsupported type {row_type!r}")
-    if not normalized:
-        raise ValueError(f"{context}.rows must define at least one suitability row")
-    return normalized
-
-
 def concept_key_for_wonder(wonder: dict[str, Any]) -> str:
     return f"game_concept_{wonder['concept']}"
 
@@ -2138,7 +2083,6 @@ class WonderLocalizationService:
                 "unique_ritual_editor",
                 "site_trigger_template",
                 "site_preference_template",
-                "suitability_knowledge_editor",
             }:
                 value = str(raw_value)
             else:
@@ -2153,12 +2097,6 @@ class WonderLocalizationService:
                     rendered_script = render_trigger_script_from_state(value, context=spec.key)
                 elif spec.field_type == "site_preference_template":
                     rendered_script = render_preference_script_from_state(value, context=spec.key)
-                elif spec.field_type == "suitability_knowledge_editor":
-                    self.mechanics_data["site_rules"][spec.target_key][spec.target_parent_key] = (
-                        suitability_knowledge_from_editor_state(value, context=spec.key)
-                    )
-                    mechanics_file_changed = True
-                    continue
                 else:
                     rendered_script = value
                 if not rendered_script:
@@ -2533,12 +2471,7 @@ class WonderLocalizationService:
         preference_help_text = (
             "Inherited from the prototype. Use the prototype selector to change this rule set; edit the prototype wonder to modify the script."
             if inherits_from_prototype
-            else "Choose a preference template, then edit condition bonus rows and scaled bonus rows without hand-writing script blocks."
-        )
-        suitability_help_text = (
-            "Inherited from the prototype. These rows are revealed to the player one completed survey at a time."
-            if inherits_from_prototype
-            else "Player-visible suitability rows. Keep the order aligned with the semantic clues you want surveys to reveal."
+            else "Choose a preference template, then edit condition bonus rows and scaled bonus rows; player-visible suitability rows are derived from these rules."
         )
         base_modifier_help_text = (
             (
@@ -2622,29 +2555,6 @@ class WonderLocalizationService:
             editable=not inherits_from_prototype,
             prototype_key=prototype_key if inherits_from_prototype else "",
         )
-        suitability_rows = suitability_knowledge_for_key(self.mechanics_data, prototype_key)
-        self._add_mechanics_spec(
-            specs,
-            group="Site Rules",
-            label="Player suitability knowledge rows",
-            key=f"mechanics.suitability_knowledge.{wonder['key']}",
-            source_kind=shared_source_kind,
-            file_path=MECHANICS_FILE,
-            original_value=serialize_structured_editor_value(
-                build_suitability_knowledge_editor_state(suitability_rows)
-            ),
-            field_type="suitability_knowledge_editor",
-            target_kind="site_rule",
-            target_key=prototype_key,
-            target_parent_key="suitability_knowledge",
-            height=12,
-            help_text=suitability_help_text,
-            target_path=f"site_rules.{prototype_key}.suitability_knowledge",
-            structured_value=build_suitability_knowledge_editor_state(suitability_rows),
-            editable=not inherits_from_prototype,
-            prototype_key=prototype_key if inherits_from_prototype else "",
-        )
-
         if inherits_from_prototype:
             inherited_local_state = build_modifier_editor_state(
                 displayed_final_building_local_mapping,

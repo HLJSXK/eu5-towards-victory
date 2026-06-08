@@ -35,6 +35,53 @@ SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
 WONDER_RITUAL_LISTENER_KEYS = ["monthly", "ruler_death", "pre_winning_war", "ending_war"]
 SUPPORTED_RITUAL_LISTENERS = set(WONDER_RITUAL_LISTENER_KEYS)
 SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
+PREFERENCE_CONDITION_SCRIPT_TO_SUITABILITY_ID = {
+    "topography = mountains": "topography_mountains",
+    "topography = plateau": "topography_plateau",
+    "topography = hills": "topography_hills",
+    "vegetation = forest": "vegetation_forest",
+    "vegetation = woods": "vegetation_woods",
+    "OR = { vegetation = forest vegetation = woods }": "vegetation_forest_or_woods",
+    "location_rank ?= location_rank:rural_settlement": "rank_rural",
+    "location_rank ?= location_rank:city": "rank_city",
+    "location_rank ?= location_rank:megalopolis": "rank_megalopolis",
+    "any_neighbor_location = { tv_wonder_location_is_city_trigger = yes }": "neighbor_city",
+    "any_neighbor_location = { tv_wonder_location_is_town_trigger = yes }": "neighbor_town",
+    "has_building = building_type:monastery": "has_monastery",
+    "has_building = building_type:cathedral": "has_cathedral",
+    "dominant_religion = owner.religion": "dominant_religion_owner",
+    "has_building = building_type:bridge_infrastructure": "has_bridge_infrastructure",
+    "any_neighbor_location = { has_building = building_type:tv_wonder_bridge_opening }": "neighbor_bridge_opening",
+    "OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes }": "waterway_or_port",
+    "is_port = yes": "is_port",
+    "modifier:fort_level > 0": "fort_level",
+    "OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis }": "urban_rank",
+    "is_capital = yes": "is_capital",
+    "OR = { raw_material = goods:goods_gold raw_material = goods:silver raw_material = goods:copper }": "raw_coin_metal",
+    "has_building = building_type:armory": "has_armory",
+}
+PREFERENCE_SCALE_SOURCE_PATH_TO_SUITABILITY_ID = {
+    "development": "development",
+    "total_building_levels": "total_building_levels",
+    "modifier:harbor_suitability": "harbor_suitability",
+    "average_location_literacy": "average_location_literacy",
+}
+PREFERENCE_SET_RE = re.compile(
+    r"^set_variable = \{ name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site\.([A-Za-z0-9_:]+) \}$"
+)
+PREFERENCE_CLAMP_RE = re.compile(
+    r"^clamp_variable = \{ name = tv_wonder_site_preference_bonus min = ([^ ]+) max = ([^ ]+) \}$"
+)
+PREFERENCE_MULTIPLY_RE = re.compile(
+    r"^change_variable = \{ name = tv_wonder_site_preference_bonus multiply = ([^ ]+) \}$"
+)
+PREFERENCE_RULE_RE = re.compile(
+    r"^(if|else_if) = \{ limit = \{ var:tv_wonder_survey_site \?= \{ (.+?) \} \} tv_wonder_change_all_survey_competence_target_effect = \{ value = (.+?) \} \}$"
+)
+PREFERENCE_REMOVE_TEMP = "remove_variable = tv_wonder_site_preference_bonus"
+PREFERENCE_APPLY_TEMP = (
+    "tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }"
+)
 WONDER_MAP_SCHEMA_VERSION = 11
 WONDER_SIZE_IDS = {
     "small": 1,
@@ -240,6 +287,109 @@ def _validate_script_text(value: object, context: str, *, allow_empty: bool = Tr
     return text.strip("\n")
 
 
+def _normalize_multiline_script(value: str) -> str:
+    return value.replace("\r\n", "\n").replace("\r", "\n").strip()
+
+
+def normalize_inline_script(text: str) -> str:
+    return " ".join(_normalize_multiline_script(text).split())
+
+
+def split_top_level_statements(script: str, *, context: str) -> list[str]:
+    statements: list[str] = []
+    current: list[str] = []
+    balance = 0
+    for raw_line in _normalize_multiline_script(script).splitlines():
+        stripped = raw_line.rstrip()
+        if not stripped and not current:
+            continue
+        current.append(stripped)
+        balance += stripped.count("{") - stripped.count("}")
+        if balance == 0 and current:
+            statements.append("\n".join(current).strip())
+            current = []
+    if current:
+        raise ValueError(f"Unbalanced script block in {context}: {script}")
+    return statements
+
+
+def _parse_scaled_suitability_row(statements: list[str], index: int) -> tuple[dict[str, str], int] | None:
+    if index + 3 >= len(statements):
+        return None
+    set_match = PREFERENCE_SET_RE.match(statements[index])
+    clamp_match = PREFERENCE_CLAMP_RE.match(statements[index + 1])
+    multiply_match = PREFERENCE_MULTIPLY_RE.match(statements[index + 2])
+    if not (
+        set_match
+        and clamp_match
+        and multiply_match
+        and statements[index + 3] == PREFERENCE_APPLY_TEMP
+    ):
+        return None
+
+    source = PREFERENCE_SCALE_SOURCE_PATH_TO_SUITABILITY_ID.get(set_match.group(1))
+    if source is None:
+        raise ValueError(f"Unknown suitability scale source path: {set_match.group(1)}")
+
+    next_index = index + 4
+    if next_index < len(statements) and statements[next_index] == PREFERENCE_REMOVE_TEMP:
+        next_index += 1
+    return (
+        {
+            "type": "scaled_bonus",
+            "source": source,
+            "min": clamp_match.group(1),
+            "max": clamp_match.group(2),
+            "multiplier": multiply_match.group(1),
+        },
+        next_index,
+    )
+
+
+def derive_suitability_knowledge_from_preference_script(script: str, *, context: str) -> list[dict[str, str]]:
+    condition_rows: list[dict[str, str]] = []
+    scaled_rows: list[dict[str, str]] = []
+    statements = [
+        normalize_inline_script(statement)
+        for statement in split_top_level_statements(script, context=context)
+    ]
+    index = 0
+    while index < len(statements):
+        statement = statements[index]
+        match = PREFERENCE_RULE_RE.match(statement)
+        if match:
+            _branch, condition_script, value = match.groups()
+            condition = PREFERENCE_CONDITION_SCRIPT_TO_SUITABILITY_ID.get(normalize_inline_script(condition_script))
+            if condition is None:
+                raise ValueError(f"Unknown suitability condition in {context}: {condition_script}")
+            condition_rows.append(
+                {
+                    "type": "condition_bonus",
+                    "condition": condition,
+                    "value": _require_number_text(value, f"{context}.condition_bonus.value"),
+                }
+            )
+            index += 1
+            continue
+
+        scaled = _parse_scaled_suitability_row(statements, index)
+        if scaled is not None:
+            row, index = scaled
+            scaled_rows.append(row)
+            continue
+
+        if statement == PREFERENCE_REMOVE_TEMP:
+            index += 1
+            continue
+
+        raise ValueError(f"Cannot derive suitability knowledge from {context}: {statement}")
+
+    return _validate_suitability_knowledge_rows(
+        [*condition_rows, *scaled_rows],
+        f"{context}.derived_suitability_knowledge",
+    )
+
+
 def _validate_string_list(value: object, context: str) -> list[str]:
     items = _require_list(value, context)
     normalized: list[str] = []
@@ -411,21 +561,22 @@ def _validate_site_rules(raw: object, *, design_keys: set[str]) -> dict[str, dic
         entry = _require_mapping(site_rules[key], entry_context)
         _expect_keys(
             entry,
-            required={"trigger_script", "preference_script", "suitability_knowledge"},
+            required={"trigger_script", "preference_script"},
             optional=set(),
             context=entry_context,
         )
+        preference_script = _validate_script_text(
+            entry["preference_script"],
+            f"{entry_context}.preference_script",
+            allow_empty=False,
+        )
+        derive_suitability_knowledge_from_preference_script(
+            preference_script,
+            context=f"{entry_context}.preference_script",
+        )
         normalized[key] = {
             "trigger_script": _validate_script_text(entry["trigger_script"], f"{entry_context}.trigger_script", allow_empty=False),
-            "preference_script": _validate_script_text(
-                entry["preference_script"],
-                f"{entry_context}.preference_script",
-                allow_empty=False,
-            ),
-            "suitability_knowledge": _validate_suitability_knowledge_rows(
-                entry["suitability_knowledge"],
-                f"{entry_context}.suitability_knowledge",
-            ),
+            "preference_script": preference_script,
         }
     return normalized
 
@@ -1120,7 +1271,7 @@ def site_rule_config(mechanics: dict, key: str) -> dict:
     entry = _require_mapping(site_rules[key], f"{MECHANICS_FILE}.site_rules.{key}")
     _expect_keys(
         entry,
-        required={"trigger_script", "preference_script", "suitability_knowledge"},
+        required={"trigger_script", "preference_script"},
         optional=set(),
         context=f"{MECHANICS_FILE}.site_rules.{key}",
     )
@@ -1144,9 +1295,9 @@ def site_preference_script_for_key(mechanics: dict, key: str) -> str:
 
 
 def suitability_knowledge_for_key(mechanics: dict, key: str) -> list[dict[str, str]]:
-    return _validate_suitability_knowledge_rows(
-        site_rule_config(mechanics, key)["suitability_knowledge"],
-        f"{MECHANICS_FILE}.site_rules.{key}.suitability_knowledge",
+    return derive_suitability_knowledge_from_preference_script(
+        site_preference_script_for_key(mechanics, key),
+        context=f"{MECHANICS_FILE}.site_rules.{key}.preference_script",
     )
 
 
