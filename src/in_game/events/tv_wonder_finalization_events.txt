@@ -1811,10 +1811,178 @@ tv_engineering_department.5043 = {
 	}
 }
 
+tv_engineering_department.5044 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_city_great_tower_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_city_great_tower_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_city_great_tower_3
+			}
+			desc = tv_engineering_department.500.d_city_great_tower_1
+		}
+	}
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_city_great_tower_finalization_visible_effect = yes
+		hidden_effect = {
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_city_great_tower_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_city_great_tower_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_city_great_tower_style_3_finalization_hidden_effect = yes
+			}
+		}
+	}
+}
+
+tv_engineering_department.5045 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_great_sculpture_group_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_great_sculpture_group_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_great_sculpture_group_3
+			}
+			desc = tv_engineering_department.500.d_great_sculpture_group_1
+		}
+	}
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_great_sculpture_group_finalization_visible_effect = yes
+		hidden_effect = {
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_great_sculpture_group_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_great_sculpture_group_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_great_sculpture_group_style_3_finalization_hidden_effect = yes
+			}
+		}
+	}
+}
+
+tv_engineering_department.5046 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_coastal_defense_cannon_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_coastal_defense_cannon_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_coastal_defense_cannon_3
+			}
+			desc = tv_engineering_department.500.d_coastal_defense_cannon_1
+		}
+	}
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_coastal_defense_cannon_finalization_visible_effect = yes
+		hidden_effect = {
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_coastal_defense_cannon_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_coastal_defense_cannon_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_coastal_defense_cannon_style_3_finalization_hidden_effect = yes
+			}
+		}
+	}
+}
+
+tv_engineering_department.5047 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_naval_school_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_naval_school_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_naval_school_3
+			}
+			desc = tv_engineering_department.500.d_naval_school_1
+		}
+	}
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_naval_school_finalization_visible_effect = yes
+		hidden_effect = {
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_naval_school_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_naval_school_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_naval_school_style_3_finalization_hidden_effect = yes
+			}
+		}
+	}
+}
+
 tv_engineering_department.5101 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_pharos_lighthouse
 	outcome = good
 
 	option = {
@@ -1829,7 +1997,7 @@ tv_engineering_department.5101 = {
 tv_engineering_department.5102 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_hagia_sophia
 	outcome = good
 
 	option = {
@@ -1844,7 +2012,7 @@ tv_engineering_department.5102 = {
 tv_engineering_department.5103 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_dome_of_the_rock
 	outcome = good
 
 	option = {
@@ -1859,7 +2027,7 @@ tv_engineering_department.5103 = {
 tv_engineering_department.5104 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_angkor_wat
 	outcome = good
 
 	option = {
@@ -1874,7 +2042,7 @@ tv_engineering_department.5104 = {
 tv_engineering_department.5105 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_potala_palace
 	outcome = good
 
 	option = {
@@ -1889,7 +2057,7 @@ tv_engineering_department.5105 = {
 tv_engineering_department.5106 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_alhambra
 	outcome = good
 
 	option = {
@@ -1904,7 +2072,7 @@ tv_engineering_department.5106 = {
 tv_engineering_department.5107 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_machu_picchu
 	outcome = good
 
 	option = {
@@ -1919,7 +2087,7 @@ tv_engineering_department.5107 = {
 tv_engineering_department.5108 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_himeji_castle
 	outcome = good
 
 	option = {
@@ -1934,7 +2102,7 @@ tv_engineering_department.5108 = {
 tv_engineering_department.5109 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_taj_mahal
 	outcome = good
 
 	option = {
@@ -1949,7 +2117,7 @@ tv_engineering_department.5109 = {
 tv_engineering_department.5110 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_forbidden_city
 	outcome = good
 
 	option = {
@@ -1964,7 +2132,7 @@ tv_engineering_department.5110 = {
 tv_engineering_department.5111 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_topkapi_palace
 	outcome = good
 
 	option = {
@@ -1979,7 +2147,7 @@ tv_engineering_department.5111 = {
 tv_engineering_department.5112 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_st_peters_basilica
 	outcome = good
 
 	option = {
@@ -1994,7 +2162,7 @@ tv_engineering_department.5112 = {
 tv_engineering_department.5113 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_lalibela_churches
 	outcome = good
 
 	option = {
@@ -2009,7 +2177,7 @@ tv_engineering_department.5113 = {
 tv_engineering_department.5114 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_venetian_arsenal
 	outcome = good
 
 	option = {
@@ -2024,7 +2192,7 @@ tv_engineering_department.5114 = {
 tv_engineering_department.5115 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_malacca_port
 	outcome = good
 
 	option = {
@@ -2039,7 +2207,7 @@ tv_engineering_department.5115 = {
 tv_engineering_department.5116 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_red_fort_delhi
 	outcome = good
 
 	option = {
@@ -2054,7 +2222,7 @@ tv_engineering_department.5116 = {
 tv_engineering_department.5117 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_versailles_palace
 	outcome = good
 
 	option = {
@@ -2069,7 +2237,7 @@ tv_engineering_department.5117 = {
 tv_engineering_department.5118 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_tenochtitlan_causeways
 	outcome = good
 
 	option = {
@@ -2084,7 +2252,7 @@ tv_engineering_department.5118 = {
 tv_engineering_department.5119 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_amsterdam_canal_ring
 	outcome = good
 
 	option = {
@@ -2099,7 +2267,7 @@ tv_engineering_department.5119 = {
 tv_engineering_department.5120 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_mecca_haram_expansion
 	outcome = good
 
 	option = {
@@ -2114,7 +2282,7 @@ tv_engineering_department.5120 = {
 tv_engineering_department.5121 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_ming_great_wall
 	outcome = good
 
 	option = {
@@ -2129,7 +2297,7 @@ tv_engineering_department.5121 = {
 tv_engineering_department.5122 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_bank_of_saint_george
 	outcome = good
 
 	option = {
@@ -2144,7 +2312,7 @@ tv_engineering_department.5122 = {
 tv_engineering_department.5123 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_cahokia_mounds
 	outcome = good
 
 	option = {
@@ -2159,7 +2327,7 @@ tv_engineering_department.5123 = {
 tv_engineering_department.5124 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_great_zimbabwe
 	outcome = good
 
 	option = {
@@ -2174,7 +2342,7 @@ tv_engineering_department.5124 = {
 tv_engineering_department.5125 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_isfahan_square
 	outcome = good
 
 	option = {
@@ -2189,7 +2357,7 @@ tv_engineering_department.5125 = {
 tv_engineering_department.5126 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_grand_canal
 	outcome = good
 
 	option = {
@@ -2204,7 +2372,7 @@ tv_engineering_department.5126 = {
 tv_engineering_department.5127 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_inca_royal_road
 	outcome = good
 
 	option = {
@@ -2219,7 +2387,7 @@ tv_engineering_department.5127 = {
 tv_engineering_department.5128 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_roman_aqueducts
 	outcome = good
 
 	option = {
@@ -2234,7 +2402,7 @@ tv_engineering_department.5128 = {
 tv_engineering_department.5129 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_suez_ancient_canal
 	outcome = good
 
 	option = {
@@ -2249,7 +2417,7 @@ tv_engineering_department.5129 = {
 tv_engineering_department.5130 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_kremlin
 	outcome = good
 
 	option = {
@@ -2264,7 +2432,7 @@ tv_engineering_department.5130 = {
 tv_engineering_department.5131 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_teotihuacan
 	outcome = good
 
 	option = {
@@ -2279,7 +2447,7 @@ tv_engineering_department.5131 = {
 tv_engineering_department.5132 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_angkor_hydraulic_system
 	outcome = good
 
 	option = {
@@ -2294,7 +2462,7 @@ tv_engineering_department.5132 = {
 tv_engineering_department.5133 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_dutch_polders
 	outcome = good
 
 	option = {
@@ -2309,7 +2477,7 @@ tv_engineering_department.5133 = {
 tv_engineering_department.5134 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_machu_picchu_terraces
 	outcome = good
 
 	option = {
@@ -2324,7 +2492,7 @@ tv_engineering_department.5134 = {
 tv_engineering_department.5135 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_british_navy_dockyards
 	outcome = good
 
 	option = {
@@ -2339,7 +2507,7 @@ tv_engineering_department.5135 = {
 tv_engineering_department.5136 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_spanish_silver_fleet
 	outcome = good
 
 	option = {
@@ -2354,7 +2522,7 @@ tv_engineering_department.5136 = {
 tv_engineering_department.5137 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_ottoman_hajj_road
 	outcome = good
 
 	option = {
@@ -2369,7 +2537,7 @@ tv_engineering_department.5137 = {
 tv_engineering_department.5138 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_persian_qanat
 	outcome = good
 
 	option = {
@@ -2384,7 +2552,7 @@ tv_engineering_department.5138 = {
 tv_engineering_department.5139 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_longjiang_shipyard
 	outcome = good
 
 	option = {
@@ -2399,7 +2567,7 @@ tv_engineering_department.5139 = {
 tv_engineering_department.5140 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_jerusalem_holy_city
 	outcome = good
 
 	option = {
@@ -2414,7 +2582,7 @@ tv_engineering_department.5140 = {
 tv_engineering_department.5141 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_stonehenge
 	outcome = good
 
 	option = {
@@ -2429,7 +2597,7 @@ tv_engineering_department.5141 = {
 tv_engineering_department.5142 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_tower_of_london
 	outcome = good
 
 	option = {
@@ -2444,7 +2612,7 @@ tv_engineering_department.5142 = {
 tv_engineering_department.5143 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_notre_dame_de_paris
 	outcome = good
 
 	option = {
@@ -2459,7 +2627,7 @@ tv_engineering_department.5143 = {
 tv_engineering_department.5144 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_st_basils_cathedral
 	outcome = good
 
 	option = {
@@ -2474,7 +2642,7 @@ tv_engineering_department.5144 = {
 tv_engineering_department.5145 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_trinity_lavra
 	outcome = good
 
 	option = {
@@ -2489,7 +2657,7 @@ tv_engineering_department.5145 = {
 tv_engineering_department.5146 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_winter_palace
 	outcome = good
 
 	option = {
@@ -2504,7 +2672,7 @@ tv_engineering_department.5146 = {
 tv_engineering_department.5147 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_gyeongbokgung
 	outcome = good
 
 	option = {
@@ -2519,7 +2687,7 @@ tv_engineering_department.5147 = {
 tv_engineering_department.5148 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_changbai_mountain_altar
 	outcome = good
 
 	option = {
@@ -2534,7 +2702,7 @@ tv_engineering_department.5148 = {
 tv_engineering_department.5149 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_belgrade_fortress
 	outcome = good
 
 	option = {
@@ -2549,7 +2717,7 @@ tv_engineering_department.5149 = {
 tv_engineering_department.5150 = {
 	type = country_event
 	title = tv_engineering_department.500.t
-	desc = tv_engineering_department.500.d
+	desc = tv_engineering_department.500.d_unique_meteora_monasteries
 	outcome = good
 
 	option = {
@@ -2557,6 +2725,306 @@ tv_engineering_department.5150 = {
 		tv_wonder_unique_meteora_monasteries_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_unique_meteora_monasteries_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5151 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_belem_tower
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_belem_tower_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_belem_tower_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5152 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_iberian_inquisition
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_iberian_inquisition_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_iberian_inquisition_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5153 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_santa_maria_del_fiore
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_santa_maria_del_fiore_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_santa_maria_del_fiore_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5154 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_leaning_tower_of_pisa
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_leaning_tower_of_pisa_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_leaning_tower_of_pisa_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5155 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_milan_cathedral
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_milan_cathedral_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_milan_cathedral_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5156 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_vatican_archives
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_vatican_archives_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_vatican_archives_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5157 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_temple_of_heaven
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_temple_of_heaven_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_temple_of_heaven_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5158 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_dujiangyan
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_dujiangyan_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_dujiangyan_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5159 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_porcelain_tower_of_nanjing
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_porcelain_tower_of_nanjing_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_porcelain_tower_of_nanjing_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5160 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_jingdezhen_imperial_kilns
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_jingdezhen_imperial_kilns_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_jingdezhen_imperial_kilns_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5161 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_mogao_caves
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_mogao_caves_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_mogao_caves_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5162 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_canton_thirteen_factories
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_canton_thirteen_factories_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_canton_thirteen_factories_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5163 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_dardanelles_fortress
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_dardanelles_fortress_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_dardanelles_fortress_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5164 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_escorial_monastery
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_escorial_monastery_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_escorial_monastery_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5165 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_toledo_armory
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_toledo_armory_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_toledo_armory_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5166 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_camino_de_santiago
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_camino_de_santiago_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_camino_de_santiago_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5167 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_sagres_navigation_school
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_sagres_navigation_school_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_sagres_navigation_school_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5168 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_milan_arsenal
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_milan_arsenal_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_milan_arsenal_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5169 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_university_of_bologna
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_university_of_bologna_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_university_of_bologna_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5170 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_carrara_marble_quarries
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_carrara_marble_quarries_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_unique_carrara_marble_quarries_style_1_finalization_hidden_effect = yes
 		}
 	}
 }
@@ -3027,6 +3495,50 @@ tv_engineering_department.6043 = {
 	type = country_event
 	title = tv_engineering_department.600.t
 	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6044 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_city_great_tower
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6045 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_great_sculpture_group
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6046 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_coastal_defense_cannon
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6047 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_naval_school
 	outcome = neutral
 
 	option = {
@@ -3574,6 +4086,226 @@ tv_engineering_department.6149 = {
 }
 
 tv_engineering_department.6150 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6151 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6152 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6153 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6154 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6155 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6156 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6157 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6158 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6159 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6160 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6161 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6162 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6163 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6164 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6165 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6166 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6167 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6168 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6169 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6170 = {
 	type = country_event
 	title = tv_engineering_department.600.t
 	desc = tv_engineering_department.600.d

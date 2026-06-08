@@ -3941,12 +3941,12 @@
       "id": 121,
       "key": "unique_ming_great_wall",
       "name": {
-        "en": "Ming Great Wall",
-        "zh": "明长城"
+        "en": "Nine Borders Great Wall",
+        "zh": "长城九边"
       },
       "description": {
-        "en": "Walls, passes, garrisons, beacon towers, and border towns turn frontier anxiety into masonry and smoke.",
-        "zh": "城墙、关隘、军镇、烽燧与边城把边患焦虑化作砖石与烟火。"
+        "en": "Walls, passes, garrisons, beacon towers, and border towns organize the northern frontier into nine military borders.",
+        "zh": "城墙、关隘、军镇、烽燧与边城把北方边疆组织为九处军事边镇。"
       },
       "base_key": "great_wall",
       "base_name": {
@@ -9587,20 +9587,20 @@
         "en": "Government",
         "zh": "政务"
       },
-      "location_key": "hanyang",
+      "location_key": "namgyeong",
       "location_name": {
-        "en": "Hanyang",
-        "zh": "Hanyang"
+        "en": "Namgyeong",
+        "zh": "Namgyeong"
       },
       "centroid": [
-        12878.219101123595,
-        3132.9353932584268
+        13469.645299145299,
+        2703.2991452991455
       ],
       "bbox": [
-        12867,
-        3118,
-        12890,
-        3147
+        13459,
+        2695,
+        13479,
+        2712
       ],
       "image": "tv_wonder_unique_gyeongbokgung",
       "construction_requirements": [
@@ -10307,10 +10307,4308 @@
           }
         }
       ]
+    },
+    {
+      "id": 151,
+      "key": "unique_belem_tower",
+      "name": {
+        "en": "Belém Tower",
+        "zh": "贝伦塔"
+      },
+      "description": {
+        "en": "A limestone tower stands at the Tagus mouth, watching ships leave Lisbon for oceans wider than old maps.",
+        "zh": "石灰岩塔楼矗立于塔霍河口，守望从里斯本驶向旧地图之外海洋的船只。"
+      },
+      "base_key": "city_great_tower",
+      "base_name": {
+        "en": "City Great Tower",
+        "zh": "城市巨塔"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "government_category",
+      "category_label": {
+        "en": "Government",
+        "zh": "政务"
+      },
+      "location_key": "lisbon",
+      "location_name": {
+        "en": "Lisbon",
+        "zh": "Lisbon"
+      },
+      "centroid": [
+        7276.604743083004,
+        2622.1660079051385
+      ],
+      "bbox": [
+        7265,
+        2611,
+        7289,
+        2634
+      ],
+      "image": "tv_wonder_unique_belem_tower",
+      "construction_requirements": [
+        {
+          "key": "location_rank",
+          "operator": "?=",
+          "value": "location_rank:rural_settlement",
+          "logic": "all",
+          "negated": true,
+          "label": {
+            "en": "Is NOT a Rural Settlement",
+            "zh": "不是乡村定居点"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_defensive",
+              "value": 0.2,
+              "label": {
+                "en": "Fort Defense",
+                "zh": "要塞防御"
+              },
+              "description": {
+                "en": "This impacts how quick a Siege will go against a Location.",
+                "zh": "影响该地点在Siege中被攻陷的速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_garrison_size",
+              "value": 200,
+              "label": {
+                "en": "Garrison Size",
+                "zh": "驻军规模"
+              },
+              "description": {
+                "en": "This impacts the size of the Garrison in this Location.",
+                "zh": "影响该地点中Garrison的规模。"
+              },
+              "value_kind": "number",
+              "decimals": 0,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_trade_center_power",
+              "value": 0.2,
+              "label": {
+                "en": "Market Attraction",
+                "zh": "市场吸引力"
+              },
+              "description": {
+                "en": "This impacts the Market Attraction of the Market Center here.",
+                "zh": "影响此地Market Center的Market Attraction。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Prestige",
+                "zh": "每月威望"
+              },
+              "description": {
+                "en": "This impacts how much Prestige we will get each month.",
+                "zh": "影响每月获得多少Prestige。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "global_build_buildings_cost",
+              "value": -0.04,
+              "label": {
+                "en": "Buildings Cost",
+                "zh": "建筑建造花费"
+              },
+              "description": {
+                "en": "This impacts how much it Costs to build a Building in all Locations in a Country.",
+                "zh": "影响在国家所有地点建造建筑的Costs。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "bad"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "naval_range",
+              "value": 150,
+              "label": {
+                "en": "Naval Range",
+                "zh": "海军范围"
+              },
+              "description": {
+                "en": "This impacts the Naval Range of a Country.",
+                "zh": "影响国家的Naval Range。"
+              },
+              "value_kind": "number",
+              "decimals": 0,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "trade_income",
+              "value": 0.04,
+              "label": {
+                "en": "Trade Income",
+                "zh": "贸易收入"
+              },
+              "description": {
+                "en": "This is the money gained from Trades With Icon when selling Goods With Icon to Markets With Icon. Trade income is split between the Crown and the Estates With Icon according to their Estate Power With Icon. Only the percentage of Crown Power With Icon goes to the Treasury.",
+                "zh": "这是向Markets With Icon出售Goods With Icon时所得的Trades With Icon收入。 贸易收入会根据Estate Power With Icon分配给王室和Estates With Icon。基于Crown Power With Icon的相对比例，只有属于王室的那一份会进入Treasury。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_belem_tower_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 152,
+      "key": "unique_iberian_inquisition",
+      "name": {
+        "en": "Iberian Inquisition",
+        "zh": "伊比利亚宗教裁判所"
+      },
+      "description": {
+        "en": "Tribunal halls, archives, cloisters, and guarded pulpits turn religious discipline into an institution.",
+        "zh": "审判厅、档案室、回廊与受守卫的讲坛把宗教纪律转化为制度。"
+      },
+      "base_key": "great_monastery",
+      "base_name": {
+        "en": "Great Monastery",
+        "zh": "大型修道院"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "toledo",
+      "location_name": {
+        "en": "Toledo",
+        "zh": "Toledo"
+      },
+      "centroid": [
+        7508.985772357723,
+        2568.1849593495936
+      ],
+      "bbox": [
+        7493,
+        2554,
+        7524,
+        2579
+      ],
+      "image": "tv_wonder_unique_iberian_inquisition",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_clergy_max_literacy",
+              "value": 20,
+              "label": {
+                "en": "Local Max Literacy for Clergy",
+                "zh": "本地教士最大识字率"
+              },
+              "description": {
+                "en": "This impacts the Literacy for all [ShowPopTypeName('clergy')] in this Location.",
+                "zh": "影响该地点所有[ShowPopTypeName('clergy')]的Literacy。"
+              },
+              "value_kind": "already_percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_pop_conversion_speed",
+              "value": 10,
+              "label": {
+                "en": "Local Pop Conversion Speed",
+                "zh": "本地人口皈依速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in this Location.",
+                "zh": "影响该处地点中的人口Convert速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_pop_conversion_speed_modifier",
+              "value": 0.4,
+              "label": {
+                "en": "Local Pop Conversion Speed %",
+                "zh": "本地人口皈依速度 %"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in this Location.",
+                "zh": "影响该处地点中的人口Convert速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Spiritualist",
+                "zh": "每月属灵倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('spiritualist')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('spiritualist')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.08,
+              "label": {
+                "en": "Pop Conversion Speed %",
+                "zh": "人口皈依速度 %"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in all Locations of the country.",
+                "zh": "影响全国所有地点的人口Convert速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "stability_investment",
+              "value": -0.05,
+              "label": {
+                "en": "Stability Investment",
+                "zh": "稳定度投资"
+              },
+              "description": {
+                "en": "This will either give a bonus or penalty to the Stability Investment we get from Budget.",
+                "zh": "对我们从Budget中获得的Stability Investment给予奖励或惩罚。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_iberian_inquisition_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 153,
+      "key": "unique_santa_maria_del_fiore",
+      "name": {
+        "en": "Santa Maria del Fiore",
+        "zh": "圣母百花大教堂"
+      },
+      "description": {
+        "en": "Brunelleschi's great dome gathers marble, guild pride, and city faith over Florence.",
+        "zh": "布鲁内莱斯基的大穹顶把大理石、行会骄傲与城市信仰覆于佛罗伦萨之上。"
+      },
+      "base_key": "grand_cathedral",
+      "base_name": {
+        "en": "Grand Cathedral",
+        "zh": "大教堂"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "florence",
+      "location_name": {
+        "en": "Florence",
+        "zh": "Florence"
+      },
+      "centroid": [
+        8212.005882352942,
+        2329.7323529411765
+      ],
+      "bbox": [
+        8203,
+        2315,
+        8225,
+        2342
+      ],
+      "image": "tv_wonder_unique_santa_maria_del_fiore",
+      "construction_requirements": [
+        {
+          "key": "location_rank",
+          "operator": "?=",
+          "value": "location_rank:rural_settlement",
+          "logic": "all",
+          "negated": true,
+          "label": {
+            "en": "Is NOT a Rural Settlement",
+            "zh": "不是乡村定居点"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 2,
+              "label": {
+                "en": "Tolerance of the True Faith",
+                "zh": "正统信仰容忍度"
+              },
+              "description": {
+                "en": "This impacts the Tolerance of the State Religion.",
+                "zh": "影响State Religion的Tolerance。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Spiritualist",
+                "zh": "每月属灵倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('spiritualist')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('spiritualist')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Prestige",
+                "zh": "每月威望"
+              },
+              "description": {
+                "en": "This impacts how much Prestige we will get each month.",
+                "zh": "影响每月获得多少Prestige。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "cultural_tradition_modifier",
+              "value": 0.05,
+              "label": {
+                "en": "Cultural Tradition %",
+                "zh": "文化传统%"
+              },
+              "description": {
+                "en": "This impacts the Cultural Tradition of our Primary Culture.",
+                "zh": "影响我国Primary Culture的Cultural Tradition。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_santa_maria_del_fiore_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 154,
+      "key": "unique_leaning_tower_of_pisa",
+      "name": {
+        "en": "Leaning Tower of Pisa",
+        "zh": "比萨斜塔"
+      },
+      "description": {
+        "en": "A white marble bell tower leans over Pisa's cathedral square, making imperfection famous.",
+        "zh": "白色大理石钟塔倾斜于比萨主教座堂广场之上，让不完美本身成名。"
+      },
+      "base_key": "city_great_tower",
+      "base_name": {
+        "en": "City Great Tower",
+        "zh": "城市巨塔"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "government_category",
+      "category_label": {
+        "en": "Government",
+        "zh": "政务"
+      },
+      "location_key": "pisa",
+      "location_name": {
+        "en": "Pisa",
+        "zh": "Pisa"
+      },
+      "centroid": [
+        8166.8,
+        2321.8739130434783
+      ],
+      "bbox": [
+        8159,
+        2312,
+        8175,
+        2334
+      ],
+      "image": "tv_wonder_unique_leaning_tower_of_pisa",
+      "construction_requirements": [
+        {
+          "key": "location_rank",
+          "operator": "?=",
+          "value": "location_rank:rural_settlement",
+          "logic": "all",
+          "negated": true,
+          "label": {
+            "en": "Is NOT a Rural Settlement",
+            "zh": "不是乡村定居点"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_defensive",
+              "value": 0.2,
+              "label": {
+                "en": "Fort Defense",
+                "zh": "要塞防御"
+              },
+              "description": {
+                "en": "This impacts how quick a Siege will go against a Location.",
+                "zh": "影响该地点在Siege中被攻陷的速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_garrison_size",
+              "value": 200,
+              "label": {
+                "en": "Garrison Size",
+                "zh": "驻军规模"
+              },
+              "description": {
+                "en": "This impacts the size of the Garrison in this Location.",
+                "zh": "影响该地点中Garrison的规模。"
+              },
+              "value_kind": "number",
+              "decimals": 0,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_trade_center_power",
+              "value": 0.2,
+              "label": {
+                "en": "Market Attraction",
+                "zh": "市场吸引力"
+              },
+              "description": {
+                "en": "This impacts the Market Attraction of the Market Center here.",
+                "zh": "影响此地Market Center的Market Attraction。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Prestige",
+                "zh": "每月威望"
+              },
+              "description": {
+                "en": "This impacts how much Prestige we will get each month.",
+                "zh": "影响每月获得多少Prestige。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "global_build_buildings_cost",
+              "value": -0.04,
+              "label": {
+                "en": "Buildings Cost",
+                "zh": "建筑建造花费"
+              },
+              "description": {
+                "en": "This impacts how much it Costs to build a Building in all Locations in a Country.",
+                "zh": "影响在国家所有地点建造建筑的Costs。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "bad"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.08,
+              "label": {
+                "en": "Monthly Prestige",
+                "zh": "每月威望"
+              },
+              "description": {
+                "en": "This impacts how much Prestige we will get each month.",
+                "zh": "影响每月获得多少Prestige。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "research_speed",
+              "value": 0.03,
+              "label": {
+                "en": "Monthly Research Progress",
+                "zh": "每月研究进度"
+              },
+              "description": {
+                "en": "This impacts the generation of Research Progress of a Country.",
+                "zh": "影响国家的Research Progress增长速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_leaning_tower_of_pisa_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 155,
+      "key": "unique_milan_cathedral",
+      "name": {
+        "en": "Milan Cathedral",
+        "zh": "米兰大教堂"
+      },
+      "description": {
+        "en": "A forest of marble spires rises over Milan, turning the city into a roofline of devotion.",
+        "zh": "大理石尖塔森林升起于米兰之上，把城市变成一条虔敬的天际线。"
+      },
+      "base_key": "grand_cathedral",
+      "base_name": {
+        "en": "Grand Cathedral",
+        "zh": "大教堂"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "milano",
+      "location_name": {
+        "en": "Milano",
+        "zh": "Milano"
+      },
+      "centroid": [
+        8110.2018779342725,
+        2209.018779342723
+      ],
+      "bbox": [
+        8102,
+        2199,
+        8119,
+        2217
+      ],
+      "image": "tv_wonder_unique_milan_cathedral",
+      "construction_requirements": [
+        {
+          "key": "location_rank",
+          "operator": "?=",
+          "value": "location_rank:rural_settlement",
+          "logic": "all",
+          "negated": true,
+          "label": {
+            "en": "Is NOT a Rural Settlement",
+            "zh": "不是乡村定居点"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 2,
+              "label": {
+                "en": "Tolerance of the True Faith",
+                "zh": "正统信仰容忍度"
+              },
+              "description": {
+                "en": "This impacts the Tolerance of the State Religion.",
+                "zh": "影响State Religion的Tolerance。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Spiritualist",
+                "zh": "每月属灵倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('spiritualist')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('spiritualist')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "tolerance_own",
+              "value": 1,
+              "label": {
+                "en": "Tolerance of the True Faith",
+                "zh": "正统信仰容忍度"
+              },
+              "description": {
+                "en": "This impacts the Tolerance of the State Religion.",
+                "zh": "影响State Religion的Tolerance。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "monthly_prestige",
+              "value": 0.08,
+              "label": {
+                "en": "Monthly Prestige",
+                "zh": "每月威望"
+              },
+              "description": {
+                "en": "This impacts how much Prestige we will get each month.",
+                "zh": "影响每月获得多少Prestige。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_milan_cathedral_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 156,
+      "key": "unique_vatican_archives",
+      "name": {
+        "en": "Vatican Archives",
+        "zh": "梵蒂冈档案馆"
+      },
+      "description": {
+        "en": "Manuscript vaults, papal registers, and sealed rooms make memory a diplomatic instrument.",
+        "zh": "手稿库、教宗登记册与封存房间让记忆成为外交工具。"
+      },
+      "base_key": "library_of_nation",
+      "base_name": {
+        "en": "Library of Nation",
+        "zh": "国家图书馆"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "rome",
+      "location_name": {
+        "en": "Rome",
+        "zh": "Rome"
+      },
+      "centroid": [
+        8260.591304347827,
+        2443.586956521739
+      ],
+      "bbox": [
+        8249,
+        2432,
+        8269,
+        2456
+      ],
+      "image": "tv_wonder_unique_vatican_archives",
+      "construction_requirements": [
+        {
+          "key": "is_capital",
+          "operator": "=",
+          "logic": "all",
+          "negated": false,
+          "label": {
+            "en": "Is a Capital",
+            "zh": "是首都"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_pop_promotion_speed",
+              "value": 10,
+              "label": {
+                "en": "Pop Promotion Speed",
+                "zh": "人口升级速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Promote in all Locations of the country.",
+                "zh": "影响全国所有地点的人口的Promote速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "monthly_towards_innovative",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Innovative",
+                "zh": "每月创新倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('innovative')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('innovative')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "research_speed",
+              "value": 0.04,
+              "label": {
+                "en": "Monthly Research Progress",
+                "zh": "每月研究进度"
+              },
+              "description": {
+                "en": "This impacts the generation of Research Progress of a Country.",
+                "zh": "影响国家的Research Progress增长速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "diplomatic_reputation",
+              "value": 1,
+              "label": {
+                "en": "Diplomatic Reputation",
+                "zh": "外交声誉"
+              },
+              "description": {
+                "en": "This impacts the Diplomatic Reputation of a Country.",
+                "zh": "影响国家的Diplomatic Reputation。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_vatican_archives_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 157,
+      "key": "unique_temple_of_heaven",
+      "name": {
+        "en": "Temple of Heaven",
+        "zh": "天坛"
+      },
+      "description": {
+        "en": "Circular altars and blue-tiled halls bind imperial rule to the ordered sky.",
+        "zh": "圆坛与蓝瓦殿宇把帝国统治同有序天穹绑定在一起。"
+      },
+      "base_key": "sky_dome_grand_temple",
+      "base_name": {
+        "en": "Sky Dome Grand Temple",
+        "zh": "天穹大圣殿"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "dadu",
+      "location_name": {
+        "en": "Dadu",
+        "zh": "Dadu"
+      },
+      "centroid": [
+        12985.622596153846,
+        2556.6826923076924
+      ],
+      "bbox": [
+        12973,
+        2544,
+        13000,
+        2568
+      ],
+      "image": "tv_wonder_unique_temple_of_heaven",
+      "construction_requirements": [
+        {
+          "key": "dominant_religion",
+          "operator": "=",
+          "value": "owner.religion",
+          "logic": "all",
+          "negated": false,
+          "label": {
+            "en": "The Dominant Religion of this Location is Owner's Religion",
+            "zh": "该地点的优势宗教是拥有者宗教"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "stability_investment",
+              "value": -0.2,
+              "label": {
+                "en": "Stability Investment",
+                "zh": "稳定度投资"
+              },
+              "description": {
+                "en": "This will either give a bonus or penalty to the Stability Investment we get from Budget.",
+                "zh": "对我们从Budget中获得的Stability Investment给予奖励或惩罚。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "global_pop_conversion_speed",
+              "value": 10,
+              "label": {
+                "en": "Pop Conversion Speed",
+                "zh": "人口皈依速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in all Locations of the country.",
+                "zh": "影响全国所有地点的人口Convert速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Spiritualist",
+                "zh": "每月属灵倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('spiritualist')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('spiritualist')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Legitimacy",
+                "zh": "每月正统性"
+              },
+              "description": {
+                "en": "This impacts how much Legitimacy a Country gets each month.",
+                "zh": "影响一个国家每月获得的Legitimacy数量。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "tolerance_own",
+              "value": 1,
+              "label": {
+                "en": "Tolerance of the True Faith",
+                "zh": "正统信仰容忍度"
+              },
+              "description": {
+                "en": "This impacts the Tolerance of the State Religion.",
+                "zh": "影响State Religion的Tolerance。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_temple_of_heaven_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 158,
+      "key": "unique_dujiangyan",
+      "name": {
+        "en": "Dujiangyan",
+        "zh": "都江堰"
+      },
+      "description": {
+        "en": "Levees, channels, and the Fish Mouth divide the Min River without strangling it.",
+        "zh": "堰堤、渠道与鱼嘴分水在不扼杀岷江的情况下分驯其流。"
+      },
+      "base_key": "giant_dam_project",
+      "base_name": {
+        "en": "Giant Dam Project",
+        "zh": "巨堤"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "chengdu",
+      "location_name": {
+        "en": "Chengdu",
+        "zh": "Chengdu"
+      },
+      "centroid": [
+        12436.380813953489,
+        3117.735465116279
+      ],
+      "bbox": [
+        12422,
+        3104,
+        12448,
+        3129
+      ],
+      "image": "tv_wonder_unique_dujiangyan",
+      "construction_requirements": [
+        {
+          "key": "has_river",
+          "operator": "=",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Has a river",
+            "zh": "有河流"
+          }
+        },
+        {
+          "key": "is_adjacent_to_lake",
+          "operator": "=",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Is adjacent to a lake",
+            "zh": "毗邻湖泊"
+          }
+        },
+        {
+          "key": "is_port",
+          "operator": "=",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Is Port",
+            "zh": "是港口"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_defensive",
+              "value": 0.4,
+              "label": {
+                "en": "Fort Defense",
+                "zh": "要塞防御"
+              },
+              "description": {
+                "en": "This impacts how quick a Siege will go against a Location.",
+                "zh": "影响该地点在Siege中被攻陷的速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_production_efficiency",
+              "value": 0.6,
+              "label": {
+                "en": "Production Efficiency",
+                "zh": "加工生产效率"
+              },
+              "description": {
+                "en": "This impacts the Production Efficiency in this Location.",
+                "zh": "影响该地点的Production Efficiency。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_max_rgo_size_modifier",
+              "value": 0.3,
+              "label": {
+                "en": "Maximum RGO Size",
+                "zh": "最大原产雇佣规模"
+              },
+              "description": {
+                "en": "This impacts the maximum size of Rgo in a Location",
+                "zh": "影响一个地点中Rgo的最大规模。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_centralization",
+              "value": 0.06,
+              "label": {
+                "en": "Monthly Progress to Centralization",
+                "zh": "每月中央集权倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('centralization')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('centralization')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            },
+            {
+              "key": "global_production_efficiency",
+              "value": 0.04,
+              "label": {
+                "en": "Production Efficiency",
+                "zh": "加工生产效率"
+              },
+              "description": {
+                "en": "This impacts the Production Efficiency in the entire Country.",
+                "zh": "影响整个国家的Production Efficiency。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_production_efficiency",
+              "value": 0.04,
+              "label": {
+                "en": "Production Efficiency",
+                "zh": "加工生产效率"
+              },
+              "description": {
+                "en": "This impacts the Production Efficiency in the entire Country.",
+                "zh": "影响整个国家的Production Efficiency。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "global_build_buildings_cost",
+              "value": -0.03,
+              "label": {
+                "en": "Buildings Cost",
+                "zh": "建筑建造花费"
+              },
+              "description": {
+                "en": "This impacts how much it Costs to build a Building in all Locations in a Country.",
+                "zh": "影响在国家所有地点建造建筑的Costs。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "bad"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_dujiangyan_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 159,
+      "key": "unique_porcelain_tower_of_nanjing",
+      "name": {
+        "en": "Porcelain Tower of Nanjing",
+        "zh": "大报恩寺琉璃塔"
+      },
+      "description": {
+        "en": "Glazed tiles and temple lights make the Nanjing tower shine like a vertical reliquary.",
+        "zh": "琉璃砖瓦与寺灯让南京高塔像一座垂直舍利匣般发光。"
+      },
+      "base_key": "giant_tower_temple",
+      "base_name": {
+        "en": "Giant Tower Temple",
+        "zh": "巨塔式神庙"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "shangyuan",
+      "location_name": {
+        "en": "Shangyuan",
+        "zh": "Shangyuan"
+      },
+      "centroid": [
+        13099.908088235294,
+        3032.4117647058824
+      ],
+      "bbox": [
+        13090,
+        3023,
+        13118,
+        3045
+      ],
+      "image": "tv_wonder_unique_porcelain_tower_of_nanjing",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_pop_assimilation_speed",
+              "value": 40,
+              "label": {
+                "en": "Pop Assimilation Speed",
+                "zh": "本地人口同化速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Assimilate in this Location.",
+                "zh": "影响该地点的人口Assimilate速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_pop_conversion_speed",
+              "value": 40,
+              "label": {
+                "en": "Local Pop Conversion Speed",
+                "zh": "本地人口皈依速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in this Location.",
+                "zh": "影响该处地点中的人口Convert速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Spiritualist",
+                "zh": "每月属灵倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('spiritualist')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('spiritualist')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Prestige",
+                "zh": "每月威望"
+              },
+              "description": {
+                "en": "This impacts how much Prestige we will get each month.",
+                "zh": "影响每月获得多少Prestige。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.05,
+              "label": {
+                "en": "Pop Conversion Speed %",
+                "zh": "人口皈依速度 %"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in all Locations of the country.",
+                "zh": "影响全国所有地点的人口Convert速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_porcelain_tower_of_nanjing_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 160,
+      "key": "unique_jingdezhen_imperial_kilns",
+      "name": {
+        "en": "Jingdezhen Imperial Kilns",
+        "zh": "景德镇官窑"
+      },
+      "description": {
+        "en": "Kilns, clay yards, painters, and inspectors turn porcelain into imperial industry.",
+        "zh": "窑炉、瓷土场、画工与督造官把瓷器转化为帝国工业。"
+      },
+      "base_key": "giant_workshop_complex",
+      "base_name": {
+        "en": "Giant Workshop Complex",
+        "zh": "巨型工坊"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "fuliang",
+      "location_name": {
+        "en": "Fuliang",
+        "zh": "Fuliang"
+      },
+      "centroid": [
+        13029.690815006468,
+        3185.3880983182407
+      ],
+      "bbox": [
+        13018,
+        3162,
+        13048,
+        3206
+      ],
+      "image": "tv_wonder_unique_jingdezhen_imperial_kilns",
+      "construction_requirements": [
+        {
+          "key": "location_rank",
+          "operator": "?=",
+          "value": "location_rank:rural_settlement",
+          "logic": "all",
+          "negated": true,
+          "label": {
+            "en": "Is NOT a Rural Settlement",
+            "zh": "不是乡村定居点"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_production_efficiency",
+              "value": 0.9,
+              "label": {
+                "en": "Production Efficiency",
+                "zh": "加工生产效率"
+              },
+              "description": {
+                "en": "This impacts the Production Efficiency in this Location.",
+                "zh": "影响该地点的Production Efficiency。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_pop_promotion_speed",
+              "value": 10,
+              "label": {
+                "en": "Local Pop Promotion Speed",
+                "zh": "本地人口升级速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Promote in this Location.",
+                "zh": "影响该地点的人口的Promote速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_manpower_modifier",
+              "value": 0.3,
+              "label": {
+                "en": "Monthly Manpower",
+                "zh": "每月人力"
+              },
+              "description": {
+                "en": "This impacts how much Manpower a Location can provide each month.",
+                "zh": "影响地点每月提供Manpower的效率。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_cultural_influence",
+              "value": 1.6,
+              "label": {
+                "en": "Local Cultural Influence",
+                "zh": "本地文化影响力"
+              },
+              "description": {
+                "en": "This impacts the Cultural Influence of our Primary Culture in a Location.",
+                "zh": "影响我国Primary Culture在一处地点的Cultural Influence。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_production_efficiency",
+              "value": 0.08,
+              "label": {
+                "en": "Production Efficiency",
+                "zh": "加工生产效率"
+              },
+              "description": {
+                "en": "This impacts the Production Efficiency in the entire Country.",
+                "zh": "影响整个国家的Production Efficiency。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "global_pop_promotion_speed_modifier",
+              "value": 0.02,
+              "label": {
+                "en": "Pop Promotion Speed %",
+                "zh": "人口升级速度 %"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Promote in all Locations of the country.",
+                "zh": "影响全国所有地点的人口的Promote速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_production_efficiency",
+              "value": 0.05,
+              "label": {
+                "en": "Production Efficiency",
+                "zh": "加工生产效率"
+              },
+              "description": {
+                "en": "This impacts the Production Efficiency in the entire Country.",
+                "zh": "影响整个国家的Production Efficiency。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "trade_income",
+              "value": 0.04,
+              "label": {
+                "en": "Trade Income",
+                "zh": "贸易收入"
+              },
+              "description": {
+                "en": "This is the money gained from Trades With Icon when selling Goods With Icon to Markets With Icon. Trade income is split between the Crown and the Estates With Icon according to their Estate Power With Icon. Only the percentage of Crown Power With Icon goes to the Treasury.",
+                "zh": "这是向Markets With Icon出售Goods With Icon时所得的Trades With Icon收入。 贸易收入会根据Estate Power With Icon分配给王室和Estates With Icon。基于Crown Power With Icon的相对比例，只有属于王室的那一份会进入Treasury。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_jingdezhen_imperial_kilns_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 161,
+      "key": "unique_mogao_caves",
+      "name": {
+        "en": "Mogao Caves",
+        "zh": "莫高窟"
+      },
+      "description": {
+        "en": "Painted caves, colossal Buddhas, manuscripts, and desert pilgrims make Dunhuang a corridor of memory.",
+        "zh": "彩绘洞窟、巨佛、经卷与沙漠香客让敦煌成为记忆走廊。"
+      },
+      "base_key": "great_sculpture_group",
+      "base_name": {
+        "en": "Great Sculpture Group",
+        "zh": "大雕塑群"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "shazhou",
+      "location_name": {
+        "en": "Shazhou",
+        "zh": "Shazhou"
+      },
+      "centroid": [
+        11994.428302950573,
+        2523.1740274384515
+      ],
+      "bbox": [
+        11960,
+        2452,
+        12040,
+        2575
+      ],
+      "image": "tv_wonder_unique_mogao_caves",
+      "construction_requirements": [
+        {
+          "key": "location_rank",
+          "operator": "?=",
+          "value": "location_rank:rural_settlement",
+          "logic": "all",
+          "negated": true,
+          "label": {
+            "en": "Is NOT a Rural Settlement",
+            "zh": "不是乡村定居点"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_cultural_tradition",
+              "value": 1.0,
+              "label": {
+                "en": "Cultural Tradition",
+                "zh": "文化传统"
+              },
+              "description": {
+                "en": "This impacts the Cultural Tradition of our Primary Culture.",
+                "zh": "影响我国Primary Culture的Cultural Tradition。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_production_efficiency",
+              "value": 0.2,
+              "label": {
+                "en": "Production Efficiency",
+                "zh": "加工生产效率"
+              },
+              "description": {
+                "en": "This impacts the Production Efficiency in this Location.",
+                "zh": "影响该地点的Production Efficiency。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_prestige",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Prestige",
+                "zh": "每月威望"
+              },
+              "description": {
+                "en": "This impacts how much Prestige we will get each month.",
+                "zh": "影响每月获得多少Prestige。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "cultural_tradition_modifier",
+              "value": 0.08,
+              "label": {
+                "en": "Cultural Tradition %",
+                "zh": "文化传统%"
+              },
+              "description": {
+                "en": "This impacts the Cultural Tradition of our Primary Culture.",
+                "zh": "影响我国Primary Culture的Cultural Tradition。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "cultural_tradition_modifier",
+              "value": 0.06,
+              "label": {
+                "en": "Cultural Tradition %",
+                "zh": "文化传统%"
+              },
+              "description": {
+                "en": "This impacts the Cultural Tradition of our Primary Culture.",
+                "zh": "影响我国Primary Culture的Cultural Tradition。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "monthly_prestige",
+              "value": 0.08,
+              "label": {
+                "en": "Monthly Prestige",
+                "zh": "每月威望"
+              },
+              "description": {
+                "en": "This impacts how much Prestige we will get each month.",
+                "zh": "影响每月获得多少Prestige。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_mogao_caves_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 162,
+      "key": "unique_canton_thirteen_factories",
+      "name": {
+        "en": "Canton Thirteen Factories",
+        "zh": "广州十三行"
+      },
+      "description": {
+        "en": "Merchant hongs, foreign factories, warehouses, and river wharves make Canton a managed gate to overseas trade.",
+        "zh": "行商会馆、洋行、货栈与江边码头让广州成为受管理的海外贸易门户。"
+      },
+      "base_key": "guild_alliance",
+      "base_name": {
+        "en": "Guild Alliance",
+        "zh": "商业行会大厅"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "guangzhou",
+      "location_name": {
+        "en": "Guangzhou",
+        "zh": "Guangzhou"
+      },
+      "centroid": [
+        12851.033846153847,
+        3550.726153846154
+      ],
+      "bbox": [
+        12842,
+        3539,
+        12861,
+        3562
+      ],
+      "image": "tv_wonder_unique_canton_thirteen_factories",
+      "construction_requirements": [
+        {
+          "key": "location_rank",
+          "operator": "?=",
+          "value": "location_rank:rural_settlement",
+          "logic": "all",
+          "negated": true,
+          "label": {
+            "en": "Is NOT a Rural Settlement",
+            "zh": "不是乡村定居点"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_production_efficiency",
+              "value": 0.6,
+              "label": {
+                "en": "Production Efficiency",
+                "zh": "加工生产效率"
+              },
+              "description": {
+                "en": "This impacts the Production Efficiency in this Location.",
+                "zh": "影响该地点的Production Efficiency。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_burghers_estate_power",
+              "value": 1.0,
+              "label": {
+                "en": "Local Burghers Power",
+                "zh": "本地市民阶层力量"
+              },
+              "description": {
+                "en": "This impacts the Estate Power of the Burghers in this Location.",
+                "zh": "这影响该地点的市民的Estate Power。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "bad"
+            },
+            {
+              "key": "local_trade_center_power",
+              "value": 0.3,
+              "label": {
+                "en": "Market Attraction",
+                "zh": "市场吸引力"
+              },
+              "description": {
+                "en": "This impacts the Market Attraction of the Market Center here.",
+                "zh": "影响此地Market Center的Market Attraction。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_production_efficiency",
+              "value": 0.06,
+              "label": {
+                "en": "Production Efficiency",
+                "zh": "加工生产效率"
+              },
+              "description": {
+                "en": "This impacts the Production Efficiency in the entire Country.",
+                "zh": "影响整个国家的Production Efficiency。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "trade_income",
+              "value": 0.02,
+              "label": {
+                "en": "Trade Income",
+                "zh": "贸易收入"
+              },
+              "description": {
+                "en": "This is the money gained from Trades With Icon when selling Goods With Icon to Markets With Icon. Trade income is split between the Crown and the Estates With Icon according to their Estate Power With Icon. Only the percentage of Crown Power With Icon goes to the Treasury.",
+                "zh": "这是向Markets With Icon出售Goods With Icon时所得的Trades With Icon收入。 贸易收入会根据Estate Power With Icon分配给王室和Estates With Icon。基于Crown Power With Icon的相对比例，只有属于王室的那一份会进入Treasury。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "trade_income",
+              "value": 0.05,
+              "label": {
+                "en": "Trade Income",
+                "zh": "贸易收入"
+              },
+              "description": {
+                "en": "This is the money gained from Trades With Icon when selling Goods With Icon to Markets With Icon. Trade income is split between the Crown and the Estates With Icon according to their Estate Power With Icon. Only the percentage of Crown Power With Icon goes to the Treasury.",
+                "zh": "这是向Markets With Icon出售Goods With Icon时所得的Trades With Icon收入。 贸易收入会根据Estate Power With Icon分配给王室和Estates With Icon。基于Crown Power With Icon的相对比例，只有属于王室的那一份会进入Treasury。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "diplomatic_reputation",
+              "value": 1,
+              "label": {
+                "en": "Diplomatic Reputation",
+                "zh": "外交声誉"
+              },
+              "description": {
+                "en": "This impacts the Diplomatic Reputation of a Country.",
+                "zh": "影响国家的Diplomatic Reputation。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_canton_thirteen_factories_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 163,
+      "key": "unique_dardanelles_fortress",
+      "name": {
+        "en": "Dardanelles Fortress",
+        "zh": "达达尼尔海峡要塞"
+      },
+      "description": {
+        "en": "Guns, towers, and shore batteries command the narrow water between Aegean and Marmara.",
+        "zh": "火炮、高塔与岸防炮台控制着爱琴海与马尔马拉海之间的狭窄水道。"
+      },
+      "base_key": "coastal_defense_cannon",
+      "base_name": {
+        "en": "Coastal Defense Cannon",
+        "zh": "海防大炮"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "military_category",
+      "category_label": {
+        "en": "Military",
+        "zh": "军事"
+      },
+      "location_key": "gallipoli",
+      "location_name": {
+        "en": "Gallipoli",
+        "zh": "Gallipoli"
+      },
+      "centroid": [
+        8902.557788944723,
+        2525.645728643216
+      ],
+      "bbox": [
+        8883,
+        2505,
+        8921,
+        2550
+      ],
+      "image": "tv_wonder_unique_dardanelles_fortress",
+      "construction_requirements": [
+        {
+          "key": "is_port",
+          "operator": "=",
+          "logic": "all",
+          "negated": false,
+          "label": {
+            "en": "Is Port",
+            "zh": "是港口"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_defensive",
+              "value": 0.5,
+              "label": {
+                "en": "Fort Defense",
+                "zh": "要塞防御"
+              },
+              "description": {
+                "en": "This impacts how quick a Siege will go against a Location.",
+                "zh": "影响该地点在Siege中被攻陷的速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_garrison_size",
+              "value": 400,
+              "label": {
+                "en": "Garrison Size",
+                "zh": "驻军规模"
+              },
+              "description": {
+                "en": "This impacts the size of the Garrison in this Location.",
+                "zh": "影响该地点中Garrison的规模。"
+              },
+              "value_kind": "number",
+              "decimals": 0,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "naval_morale_modifier",
+              "value": 0.06,
+              "label": {
+                "en": "Navy Morale",
+                "zh": "海军士气"
+              },
+              "description": {
+                "en": "This modifies the maximum Morale that a Ship can have by a percentage.",
+                "zh": "以百分比修正Ship的Morale上限。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "unit",
+              "color": "good"
+            },
+            {
+              "key": "global_defensive",
+              "value": 0.06,
+              "label": {
+                "en": "Fort Defense",
+                "zh": "要塞防御"
+              },
+              "description": {
+                "en": "This impacts how quick a Siege will go against a Country.",
+                "zh": "影响国家在Siege中被攻陷的速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "global_maritime_presence_modifier",
+              "value": 0.06,
+              "label": {
+                "en": "Maritime Presence %",
+                "zh": "海上存在 %"
+              },
+              "description": {
+                "en": "This impacts the Maritime Presence in all Seazones adjacent to all Locations owned by a Country.",
+                "zh": "影响国家在所有其拥有地点所邻接的Seazones中的Maritime Presence。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "unit",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "naval_morale_modifier",
+              "value": 0.06,
+              "label": {
+                "en": "Navy Morale",
+                "zh": "海军士气"
+              },
+              "description": {
+                "en": "This modifies the maximum Morale that a Ship can have by a percentage.",
+                "zh": "以百分比修正Ship的Morale上限。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "unit",
+              "color": "good"
+            },
+            {
+              "key": "global_defensive",
+              "value": 0.05,
+              "label": {
+                "en": "Fort Defense",
+                "zh": "要塞防御"
+              },
+              "description": {
+                "en": "This impacts how quick a Siege will go against a Country.",
+                "zh": "影响国家在Siege中被攻陷的速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_dardanelles_fortress_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 164,
+      "key": "unique_escorial_monastery",
+      "name": {
+        "en": "El Escorial Monastery",
+        "zh": "埃斯科里亚尔修道院"
+      },
+      "description": {
+        "en": "A royal monastery, palace, library, and dynastic memory stand together in austere stone.",
+        "zh": "王家修道院、宫殿、图书馆与王朝记忆共同立于肃穆石墙之中。"
+      },
+      "base_key": "great_monastery",
+      "base_name": {
+        "en": "Great Monastery",
+        "zh": "大型修道院"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "el_escorial",
+      "location_name": {
+        "en": "El Escorial",
+        "zh": "El Escorial"
+      },
+      "centroid": [
+        7502.408560311284,
+        2524.4357976653696
+      ],
+      "bbox": [
+        7494,
+        2512,
+        7511,
+        2537
+      ],
+      "image": "tv_wonder_unique_escorial_monastery",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_clergy_max_literacy",
+              "value": 20,
+              "label": {
+                "en": "Local Max Literacy for Clergy",
+                "zh": "本地教士最大识字率"
+              },
+              "description": {
+                "en": "This impacts the Literacy for all [ShowPopTypeName('clergy')] in this Location.",
+                "zh": "影响该地点所有[ShowPopTypeName('clergy')]的Literacy。"
+              },
+              "value_kind": "already_percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_pop_conversion_speed",
+              "value": 10,
+              "label": {
+                "en": "Local Pop Conversion Speed",
+                "zh": "本地人口皈依速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in this Location.",
+                "zh": "影响该处地点中的人口Convert速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_pop_conversion_speed_modifier",
+              "value": 0.4,
+              "label": {
+                "en": "Local Pop Conversion Speed %",
+                "zh": "本地人口皈依速度 %"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in this Location.",
+                "zh": "影响该处地点中的人口Convert速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_spiritualist",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Spiritualist",
+                "zh": "每月属灵倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('spiritualist')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('spiritualist')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_legitimacy",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Legitimacy",
+                "zh": "每月正统性"
+              },
+              "description": {
+                "en": "This impacts how much Legitimacy a Country gets each month.",
+                "zh": "影响一个国家每月获得的Legitimacy数量。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "stability_investment",
+              "value": -0.05,
+              "label": {
+                "en": "Stability Investment",
+                "zh": "稳定度投资"
+              },
+              "description": {
+                "en": "This will either give a bonus or penalty to the Stability Investment we get from Budget.",
+                "zh": "对我们从Budget中获得的Stability Investment给予奖励或惩罚。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_escorial_monastery_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 165,
+      "key": "unique_toledo_armory",
+      "name": {
+        "en": "Toledo Armory",
+        "zh": "托莱多兵工厂"
+      },
+      "description": {
+        "en": "Smithies, blade halls, proof yards, and royal stores make Toledo steel a military institution.",
+        "zh": "锻坊、刀剑厅、试锋场与王家库房让托莱多钢成为军事制度。"
+      },
+      "base_key": "giant_armory",
+      "base_name": {
+        "en": "Giant Armory",
+        "zh": "巨型军械库"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "military_category",
+      "category_label": {
+        "en": "Military",
+        "zh": "军事"
+      },
+      "location_key": "toledo",
+      "location_name": {
+        "en": "Toledo",
+        "zh": "Toledo"
+      },
+      "centroid": [
+        7508.985772357723,
+        2568.1849593495936
+      ],
+      "bbox": [
+        7493,
+        2554,
+        7524,
+        2579
+      ],
+      "image": "tv_wonder_unique_toledo_armory",
+      "construction_requirements": [
+        {
+          "key": "location_rank",
+          "operator": "?=",
+          "value": "location_rank:rural_settlement",
+          "logic": "all",
+          "negated": true,
+          "label": {
+            "en": "Is NOT a Rural Settlement",
+            "zh": "不是乡村定居点"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_manpower_modifier",
+              "value": 1.0,
+              "label": {
+                "en": "Monthly Manpower",
+                "zh": "每月人力"
+              },
+              "description": {
+                "en": "This impacts how much Manpower a Location can provide each month.",
+                "zh": "影响地点每月提供Manpower的效率。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "max_manpower",
+              "value": 40,
+              "label": {
+                "en": "Max Manpower",
+                "zh": "最大人力"
+              },
+              "description": {
+                "en": "This increases the maximum amount of Manpower a Country can have at its disposal.",
+                "zh": "这将增加国家最多可积攒的Manpower数量上限。"
+              },
+              "value_kind": "number",
+              "decimals": 0,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "monthly_towards_offensive",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Offensive",
+                "zh": "每月聚焦进攻倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('offensive')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('offensive')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "land_morale_modifier",
+              "value": 0.05,
+              "label": {
+                "en": "Army Morale",
+                "zh": "陆军士气"
+              },
+              "description": {
+                "en": "This modifies the maximum Morale that a Regiment can have by a percentage.",
+                "zh": "以百分比修正Regiment的Morale上限。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "unit",
+              "color": "good"
+            },
+            {
+              "key": "global_manpower_modifier",
+              "value": 0.05,
+              "label": {
+                "en": "Manpower",
+                "zh": "人力"
+              },
+              "description": {
+                "en": "This impacts how much Manpower a Country will get monthly.",
+                "zh": "影响国家获得的Manpower数量。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_toledo_armory_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 166,
+      "key": "unique_camino_de_santiago",
+      "name": {
+        "en": "Camino de Santiago",
+        "zh": "圣地亚哥朝圣路"
+      },
+      "description": {
+        "en": "Roads, hostels, shrines, bridges, and scallop-marked waystations carry pilgrims toward Compostela.",
+        "zh": "道路、客舍、圣龛、桥梁与贝壳标识的驿站把香客带向孔波斯特拉。"
+      },
+      "base_key": "imperial_post_road_network",
+      "base_name": {
+        "en": "Imperial Post Road Network",
+        "zh": "帝国驿道网络"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "santiago_compostela",
+      "location_name": {
+        "en": "Santiago Compostela",
+        "zh": "Santiago Compostela"
+      },
+      "centroid": [
+        7297.046189376443,
+        2370.0046189376444
+      ],
+      "bbox": [
+        7285,
+        2357,
+        7309,
+        2382
+      ],
+      "image": "tv_wonder_unique_camino_de_santiago",
+      "construction_requirements": [],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_distance_from_capital_speed_propagation",
+              "value": 0.3,
+              "label": {
+                "en": "Local Proximity Speed",
+                "zh": "本地邻近度速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Proximity moves in this Location.",
+                "zh": "影响邻近度在该地点移动的速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_monthly_development_modifier",
+              "value": 0.1,
+              "label": {
+                "en": "Local Monthly Development Growth",
+                "zh": "本地每月发展度增长"
+              },
+              "description": {
+                "en": "This impacts how much Development changes monthly in a Location.",
+                "zh": "影响该地点中发展度每月的变化量。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_manpower_modifier",
+              "value": 0.3,
+              "label": {
+                "en": "Monthly Manpower",
+                "zh": "每月人力"
+              },
+              "description": {
+                "en": "This impacts how much Manpower a Location can provide each month.",
+                "zh": "影响地点每月提供Manpower的效率。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_trade_center_power",
+              "value": 0.3,
+              "label": {
+                "en": "Market Attraction",
+                "zh": "市场吸引力"
+              },
+              "description": {
+                "en": "This impacts the Market Attraction of the Market Center here.",
+                "zh": "影响此地Market Center的Market Attraction。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_nobles_estate_power",
+              "value": 0.5,
+              "label": {
+                "en": "Local Nobles Power",
+                "zh": "本地贵族阶层力量"
+              },
+              "description": {
+                "en": "This impacts the Estate Power of the Nobility in this Location.",
+                "zh": "这影响该地点的贵族的Estate Power。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "bad"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_distance_from_capital_speed_propagation",
+              "value": 0.1,
+              "label": {
+                "en": "Proximity Speed",
+                "zh": "邻近度速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Proximity moves between all Locations in a Country.",
+                "zh": "影响邻近度在一个国家所有地点之间移动的速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "army_movement_speed",
+              "value": 0.04,
+              "label": {
+                "en": "Army Movement Speed",
+                "zh": "陆军移动速度"
+              },
+              "description": {
+                "en": "This impacts how fast an Army can move between Locations.",
+                "zh": "影响Army在地点之间移动的快慢。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "unit",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_pop_conversion_speed_modifier",
+              "value": 0.05,
+              "label": {
+                "en": "Pop Conversion Speed %",
+                "zh": "人口皈依速度 %"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Convert in all Locations of the country.",
+                "zh": "影响全国所有地点的人口Convert速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "diplomatic_reputation",
+              "value": 1,
+              "label": {
+                "en": "Diplomatic Reputation",
+                "zh": "外交声誉"
+              },
+              "description": {
+                "en": "This impacts the Diplomatic Reputation of a Country.",
+                "zh": "影响国家的Diplomatic Reputation。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_camino_de_santiago_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 167,
+      "key": "unique_sagres_navigation_school",
+      "name": {
+        "en": "Sagres Navigation School",
+        "zh": "萨格里什航海学校"
+      },
+      "description": {
+        "en": "Charts, astrolabes, pilots, and Atlantic winds gather near Lagos to train oceanic command.",
+        "zh": "海图、星盘、领航员与大西洋海风汇聚于拉各斯附近，训练远洋指挥。"
+      },
+      "base_key": "naval_school",
+      "base_name": {
+        "en": "Naval School",
+        "zh": "海军学校"
+      },
+      "size": "small",
+      "size_label": {
+        "en": "Small",
+        "zh": "小型"
+      },
+      "category": "military_category",
+      "category_label": {
+        "en": "Military",
+        "zh": "军事"
+      },
+      "location_key": "lagos",
+      "location_name": {
+        "en": "Lagos",
+        "zh": "Lagos"
+      },
+      "centroid": [
+        7293.858433734939,
+        2723.8614457831327
+      ],
+      "bbox": [
+        7282,
+        2712,
+        7304,
+        2737
+      ],
+      "image": "tv_wonder_unique_sagres_navigation_school",
+      "construction_requirements": [
+        {
+          "key": "is_port",
+          "operator": "=",
+          "logic": "all",
+          "negated": false,
+          "label": {
+            "en": "Is Port",
+            "zh": "是港口"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_ship_build_speed",
+              "value": 0.2,
+              "label": {
+                "en": "Local Ship-building Speed",
+                "zh": "本地舰船建造速度"
+              },
+              "description": {
+                "en": "This impacts how quickly a Ship can be built in a Location.",
+                "zh": "这影响在一个地点建造Ship的速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_trade_center_power",
+              "value": 0.2,
+              "label": {
+                "en": "Market Attraction",
+                "zh": "市场吸引力"
+              },
+              "description": {
+                "en": "This impacts the Market Attraction of the Market Center here.",
+                "zh": "影响此地Market Center的Market Attraction。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "naval_range",
+              "value": 50,
+              "label": {
+                "en": "Naval Range",
+                "zh": "海军范围"
+              },
+              "description": {
+                "en": "This impacts the Naval Range of a Country.",
+                "zh": "影响国家的Naval Range。"
+              },
+              "value_kind": "number",
+              "decimals": 0,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "naval_morale_modifier",
+              "value": 0.02,
+              "label": {
+                "en": "Navy Morale",
+                "zh": "海军士气"
+              },
+              "description": {
+                "en": "This modifies the maximum Morale that a Ship can have by a percentage.",
+                "zh": "以百分比修正Ship的Morale上限。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "unit",
+              "color": "good"
+            },
+            {
+              "key": "monthly_towards_naval",
+              "value": 0.06,
+              "label": {
+                "en": "Monthly Progress to Naval",
+                "zh": "每月海权主义倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('naval')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('naval')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "naval_range",
+              "value": 150,
+              "label": {
+                "en": "Naval Range",
+                "zh": "海军范围"
+              },
+              "description": {
+                "en": "This impacts the Naval Range of a Country.",
+                "zh": "影响国家的Naval Range。"
+              },
+              "value_kind": "number",
+              "decimals": 0,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "naval_morale_modifier",
+              "value": 0.04,
+              "label": {
+                "en": "Navy Morale",
+                "zh": "海军士气"
+              },
+              "description": {
+                "en": "This modifies the maximum Morale that a Ship can have by a percentage.",
+                "zh": "以百分比修正Ship的Morale上限。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "unit",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_sagres_navigation_school_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 168,
+      "key": "unique_milan_arsenal",
+      "name": {
+        "en": "Milan Arsenal",
+        "zh": "米兰兵工厂"
+      },
+      "description": {
+        "en": "Armorers, foundries, drill courts, and ducal stores bind Lombard industry to war.",
+        "zh": "甲匠、铸坊、操场与公爵库房把伦巴第工业同战争绑定起来。"
+      },
+      "base_key": "giant_armory",
+      "base_name": {
+        "en": "Giant Armory",
+        "zh": "巨型军械库"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "military_category",
+      "category_label": {
+        "en": "Military",
+        "zh": "军事"
+      },
+      "location_key": "milano",
+      "location_name": {
+        "en": "Milano",
+        "zh": "Milano"
+      },
+      "centroid": [
+        8110.2018779342725,
+        2209.018779342723
+      ],
+      "bbox": [
+        8102,
+        2199,
+        8119,
+        2217
+      ],
+      "image": "tv_wonder_unique_milan_arsenal",
+      "construction_requirements": [
+        {
+          "key": "location_rank",
+          "operator": "?=",
+          "value": "location_rank:rural_settlement",
+          "logic": "all",
+          "negated": true,
+          "label": {
+            "en": "Is NOT a Rural Settlement",
+            "zh": "不是乡村定居点"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_manpower_modifier",
+              "value": 1.0,
+              "label": {
+                "en": "Monthly Manpower",
+                "zh": "每月人力"
+              },
+              "description": {
+                "en": "This impacts how much Manpower a Location can provide each month.",
+                "zh": "影响地点每月提供Manpower的效率。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "max_manpower",
+              "value": 40,
+              "label": {
+                "en": "Max Manpower",
+                "zh": "最大人力"
+              },
+              "description": {
+                "en": "This increases the maximum amount of Manpower a Country can have at its disposal.",
+                "zh": "这将增加国家最多可积攒的Manpower数量上限。"
+              },
+              "value_kind": "number",
+              "decimals": 0,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "monthly_towards_offensive",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Offensive",
+                "zh": "每月聚焦进攻倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('offensive')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('offensive')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "land_morale_modifier",
+              "value": 0.04,
+              "label": {
+                "en": "Army Morale",
+                "zh": "陆军士气"
+              },
+              "description": {
+                "en": "This modifies the maximum Morale that a Regiment can have by a percentage.",
+                "zh": "以百分比修正Regiment的Morale上限。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "unit",
+              "color": "good"
+            },
+            {
+              "key": "global_production_efficiency",
+              "value": 0.04,
+              "label": {
+                "en": "Production Efficiency",
+                "zh": "加工生产效率"
+              },
+              "description": {
+                "en": "This impacts the Production Efficiency in the entire Country.",
+                "zh": "影响整个国家的Production Efficiency。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_milan_arsenal_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 169,
+      "key": "unique_university_of_bologna",
+      "name": {
+        "en": "University of Bologna",
+        "zh": "博洛尼亚大学"
+      },
+      "description": {
+        "en": "Lecture halls, law schools, student nations, and arcades make Bologna a city of learning.",
+        "zh": "讲堂、法学院、学生团体与拱廊让博洛尼亚成为学识之城。"
+      },
+      "base_key": "university_city",
+      "base_name": {
+        "en": "University City",
+        "zh": "大学城"
+      },
+      "size": "medium",
+      "size_label": {
+        "en": "Medium",
+        "zh": "中型"
+      },
+      "category": "cultural_category",
+      "category_label": {
+        "en": "Cultural",
+        "zh": "文化"
+      },
+      "location_key": "bologna",
+      "location_name": {
+        "en": "Bologna",
+        "zh": "Bologna"
+      },
+      "centroid": [
+        8203.567901234568,
+        2263.7012345679013
+      ],
+      "bbox": [
+        8193,
+        2248,
+        8214,
+        2280
+      ],
+      "image": "tv_wonder_unique_university_of_bologna",
+      "construction_requirements": [
+        {
+          "key": "location_rank",
+          "operator": "?=",
+          "value": "location_rank:rural_settlement",
+          "logic": "all",
+          "negated": true,
+          "label": {
+            "en": "Is NOT a Rural Settlement",
+            "zh": "不是乡村定居点"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_pop_promotion_speed",
+              "value": 20,
+              "label": {
+                "en": "Local Pop Promotion Speed",
+                "zh": "本地人口升级速度"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Promote in this Location.",
+                "zh": "影响该地点的人口的Promote速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_max_literacy",
+              "value": 20,
+              "label": {
+                "en": "Local Max Literacy",
+                "zh": "本地最大识字率"
+              },
+              "description": {
+                "en": "This impacts the maximum Literacy of all Pops in a Location.",
+                "zh": "影响一个地点中所有人口的最大Literacy。"
+              },
+              "value_kind": "already_percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_innovative",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Innovative",
+                "zh": "每月创新倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('innovative')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('innovative')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "research_speed",
+              "value": 0.05,
+              "label": {
+                "en": "Monthly Research Progress",
+                "zh": "每月研究进度"
+              },
+              "description": {
+                "en": "This impacts the generation of Research Progress of a Country.",
+                "zh": "影响国家的Research Progress增长速度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "global_pop_promotion_speed_modifier",
+              "value": 0.04,
+              "label": {
+                "en": "Pop Promotion Speed %",
+                "zh": "人口升级速度 %"
+              },
+              "description": {
+                "en": "This impacts how quickly Pops Promote in all Locations of the country.",
+                "zh": "影响全国所有地点的人口的Promote速度。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_university_of_bologna_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": 170,
+      "key": "unique_carrara_marble_quarries",
+      "name": {
+        "en": "Carrara Marble Quarries",
+        "zh": "卡拉拉大理石矿"
+      },
+      "description": {
+        "en": "White quarry faces, sled roads, cranes, and sculptors' contracts turn mountain stone into state material.",
+        "zh": "白色采石面、拖石道路、吊机与雕刻家契约把山中石材转化为国家材料。"
+      },
+      "base_key": "mining_city",
+      "base_name": {
+        "en": "Mining City",
+        "zh": "矿业都市"
+      },
+      "size": "large",
+      "size_label": {
+        "en": "Large",
+        "zh": "大型"
+      },
+      "category": "infrastructure_category",
+      "category_label": {
+        "en": "Infrastructure",
+        "zh": "基建"
+      },
+      "location_key": "prato",
+      "location_name": {
+        "en": "Prato",
+        "zh": "Prato"
+      },
+      "centroid": [
+        8198.102040816326,
+        2310.7755102040815
+      ],
+      "bbox": [
+        8184,
+        2301,
+        8208,
+        2318
+      ],
+      "image": "tv_wonder_unique_carrara_marble_quarries",
+      "construction_requirements": [
+        {
+          "key": "raw_material",
+          "operator": "=",
+          "value": "goods:iron",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Produces Iron",
+            "zh": "生产铁"
+          }
+        },
+        {
+          "key": "raw_material",
+          "operator": "=",
+          "value": "goods:copper",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Produces Copper",
+            "zh": "生产铜"
+          }
+        },
+        {
+          "key": "raw_material",
+          "operator": "=",
+          "value": "goods:tin",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Produces Tin",
+            "zh": "生产锡"
+          }
+        },
+        {
+          "key": "raw_material",
+          "operator": "=",
+          "value": "goods:lead",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Produces Lead",
+            "zh": "生产铅"
+          }
+        },
+        {
+          "key": "raw_material",
+          "operator": "=",
+          "value": "goods:silver",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Produces Silver",
+            "zh": "生产白银"
+          }
+        },
+        {
+          "key": "raw_material",
+          "operator": "=",
+          "value": "goods:goods_gold",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Produces Gold",
+            "zh": "生产黄金"
+          }
+        },
+        {
+          "key": "raw_material",
+          "operator": "=",
+          "value": "goods:marble",
+          "logic": "any",
+          "negated": false,
+          "label": {
+            "en": "Produces Marble",
+            "zh": "生产Marble"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "id": "final_local",
+          "title": {
+            "en": "Inherited final local effects",
+            "zh": "继承的最终建筑本地效果"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "local_max_rgo_size_modifier",
+              "value": 1.0,
+              "label": {
+                "en": "Maximum RGO Size",
+                "zh": "最大原产雇佣规模"
+              },
+              "description": {
+                "en": "This impacts the maximum size of Rgo in a Location",
+                "zh": "影响一个地点中Rgo的最大规模。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            },
+            {
+              "key": "local_raw_material_output",
+              "value": 0.2,
+              "label": {
+                "en": "Raw Materials Output",
+                "zh": "原料生产产出"
+              },
+              "description": {
+                "en": "This impacts the Output of Raw Materials from a Location.",
+                "zh": "影响该地点中Raw Materials的Output。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "location",
+              "color": "good"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "base_modifiers",
+          "title": {
+            "en": "Per-level country effects",
+            "zh": "每级国家效果"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "monthly_towards_traditional_economy",
+              "value": 0.1,
+              "label": {
+                "en": "Monthly Progress to Traditional Economy",
+                "zh": "每月传统经济倾向"
+              },
+              "description": {
+                "en": "This impacts the change towards the [ShowSocietyDirectionName('traditional_economy')] Societal Values.",
+                "zh": "这影响Societal Values向[ShowSocietyDirectionName('traditional_economy')]改变的进度。"
+              },
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "neutral"
+            }
+          ],
+          "meta": {}
+        },
+        {
+          "id": "ritual_country_modifier",
+          "title": {
+            "en": "Ritual country modifiers",
+            "zh": "仪式国家修正"
+          },
+          "scope": "country",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [
+            {
+              "key": "global_build_buildings_cost",
+              "value": -0.05,
+              "label": {
+                "en": "Buildings Cost",
+                "zh": "建筑建造花费"
+              },
+              "description": {
+                "en": "This impacts how much it Costs to build a Building in all Locations in a Country.",
+                "zh": "影响在国家所有地点建造建筑的Costs。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "bad"
+            },
+            {
+              "key": "global_production_efficiency",
+              "value": 0.03,
+              "label": {
+                "en": "Production Efficiency",
+                "zh": "加工生产效率"
+              },
+              "description": {
+                "en": "This impacts the Production Efficiency in the entire Country.",
+                "zh": "影响整个国家的Production Efficiency。"
+              },
+              "value_kind": "percent",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            }
+          ],
+          "meta": {
+            "source": "tv_wonder_unique_carrara_marble_quarries_ceremony_modifier"
+          }
+        },
+        {
+          "id": "auxiliary_local",
+          "title": {
+            "en": "Auxiliary local modifiers",
+            "zh": "附属建筑本地修正"
+          },
+          "scope": "local",
+          "value_label": {
+            "en": "Value",
+            "zh": "数值"
+          },
+          "rows": [],
+          "meta": {
+            "max_levels": 6
+          }
+        }
+      ]
     }
   ],
   "counts": {
-    "unique_wonders": 50,
+    "unique_wonders": 70,
     "missing_locations": 0
   }
 }

@@ -805,14 +805,14 @@ unique_wonders:
   concept: tv_wonder_unique_ming_great_wall
   location: dadu
   image: tv_wonder_unique_ming_great_wall
-  prompt: Ming Great Wall system across northern China, brick walls over mountains, watchtowers, fortified passes, nine frontier garrisons lighting beacon fires, soldiers and horsemen, historically grounded world wonder key art, cinematic frontier panorama, ultra-detailed, no modern elements.
+  prompt: Nine Borders Great Wall system across northern China, brick walls over mountains, watchtowers, fortified passes, nine frontier garrisons lighting beacon fires, soldiers and horsemen, historically grounded world wonder key art, cinematic frontier panorama, ultra-detailed, no modern elements.
   is_unique: true
   mechanic_key: great_wall
   base_effect_multiplier: 2
   final_buildings:
     1: tv_wonder_unique_ming_great_wall_inaugurated
   ritual:
-    key: nine_garrisons_beacons
+    key: nine_borders_beacons
     mode: immediate
     cost_type: null
     listeners: []
@@ -1970,6 +1970,806 @@ unique_wonders:
     runtime_variables: []
     country_modifier:
       stability_investment: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 151
+  key: unique_belem_tower
+  base_key: city_great_tower
+  concept: tv_wonder_unique_belem_tower
+  location: lisbon
+  image: tv_wonder_unique_belem_tower
+  prompt: Belém Tower at the mouth of the Tagus in the Age of Discovery, pale Manueline stone tower, carved battlements, river traffic, caravels departing Lisbon, royal banners, sunset over the Atlantic approach, historically grounded world wonder key art, cinematic coastal panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: city_great_tower
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_belem_tower_inaugurated
+  ritual:
+    key: tagus_watch_rite
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      naval_range: 150
+      trade_income: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 152
+  key: unique_iberian_inquisition
+  base_key: great_monastery
+  concept: tv_wonder_unique_iberian_inquisition
+  location: toledo
+  image: tv_wonder_unique_iberian_inquisition
+  prompt: The Iberian Inquisition as a late medieval monastery-tribunal complex in Toledo, cloisters, archive rooms, council chamber, guarded chapel, scribes, friars, banners, stone courtyards, historically grounded solemn world wonder key art, cinematic interior courtyard, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: great_monastery
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_iberian_inquisition_inaugurated
+  ritual:
+    key: tribunal_register
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_pop_conversion_speed_modifier: 0.08
+      stability_investment: -0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 153
+  key: unique_santa_maria_del_fiore
+  base_key: grand_cathedral
+  concept: tv_wonder_unique_santa_maria_del_fiore
+  location: florence
+  image: tv_wonder_unique_santa_maria_del_fiore
+  prompt: Santa Maria del Fiore in Renaissance Florence, immense red-tiled dome by Brunelleschi, marble cathedral facade, Giotto campanile, guild banners, scaffolds, crowded piazza, historically grounded world wonder key art, cinematic urban panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: grand_cathedral
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_santa_maria_del_fiore_inaugurated
+  ritual:
+    key: florentine_dome_consecration
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_prestige: 0.1
+      cultural_tradition_modifier: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 154
+  key: unique_leaning_tower_of_pisa
+  base_key: city_great_tower
+  concept: tv_wonder_unique_leaning_tower_of_pisa
+  location: pisa
+  image: tv_wonder_unique_leaning_tower_of_pisa
+  prompt: The Leaning Tower of Pisa beside the cathedral and baptistery, white marble arcades visibly tilted, medieval scholars and masons in the Piazza dei Miracoli, Tuscan light, historically grounded world wonder key art, cinematic architectural view, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: city_great_tower
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_leaning_tower_of_pisa_inaugurated
+  ritual:
+    key: campanile_stabilization
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_prestige: 0.08
+      research_speed: 0.03
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 155
+  key: unique_milan_cathedral
+  base_key: grand_cathedral
+  concept: tv_wonder_unique_milan_cathedral
+  location: milano
+  image: tv_wonder_unique_milan_cathedral
+  prompt: Milan Cathedral under construction in the late medieval era, white marble Gothic spires, flying buttresses, sculptors, cranes, dense Lombard city, clergy procession, historically grounded world wonder key art, cinematic urban panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: grand_cathedral
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_milan_cathedral_inaugurated
+  ritual:
+    key: marble_spire_consecration
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      tolerance_own: 1
+      monthly_prestige: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 156
+  key: unique_vatican_archives
+  base_key: library_of_nation
+  concept: tv_wonder_unique_vatican_archives
+  location: rome
+  image: tv_wonder_unique_vatican_archives
+  prompt: The Vatican Archives in an early modern papal palace, manuscript vaults, high shelves, sealed chests, scribes, cardinals, candlelit corridors, marble courtyards of Rome, historically grounded world wonder key art, cinematic scholarly interior, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: library_of_nation
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_vatican_archives_inaugurated
+  ritual:
+    key: apostolic_archive_seal
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      research_speed: 0.04
+      diplomatic_reputation: 1
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 157
+  key: unique_temple_of_heaven
+  base_key: sky_dome_grand_temple
+  concept: tv_wonder_unique_temple_of_heaven
+  location: dadu
+  image: tv_wonder_unique_temple_of_heaven
+  prompt: The Temple of Heaven in imperial Beijing, circular Hall of Prayer for Good Harvests with blue tiles, marble altar terraces, ceremonial procession, cypress groves, imperial banners, historically grounded world wonder key art, cinematic sacred panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: sky_dome_grand_temple
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_temple_of_heaven_inaugurated
+  ritual:
+    key: heavenly_sacrifice
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_legitimacy: 0.1
+      tolerance_own: 1
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 158
+  key: unique_dujiangyan
+  base_key: giant_dam_project
+  concept: tv_wonder_unique_dujiangyan
+  location: chengdu
+  image: tv_wonder_unique_dujiangyan
+  prompt: Dujiangyan irrigation system on the Min River, Fish Mouth levee, flying sand weir, stone channels, Sichuan fields, engineers and laborers, misty mountains near Chengdu, historically grounded world wonder key art, cinematic waterworks panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: giant_dam_project
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_dujiangyan_inaugurated
+  ritual:
+    key: fish_mouth_water_division
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_production_efficiency: 0.04
+      global_build_buildings_cost: -0.03
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 159
+  key: unique_porcelain_tower_of_nanjing
+  base_key: giant_tower_temple
+  concept: tv_wonder_unique_porcelain_tower_of_nanjing
+  location: shangyuan
+  image: tv_wonder_unique_porcelain_tower_of_nanjing
+  prompt: The Porcelain Tower of Nanjing at Bao'en Temple, glazed multicolored tiles, tall pagoda tiers, lanterns, Buddhist monks, Ming-era city and river beyond, historically grounded world wonder key art, cinematic luminous evening view, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: giant_tower_temple
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_porcelain_tower_of_nanjing_inaugurated
+  ritual:
+    key: glazed_lantern_rite
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_prestige: 0.1
+      global_pop_conversion_speed_modifier: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 160
+  key: unique_jingdezhen_imperial_kilns
+  base_key: giant_workshop_complex
+  concept: tv_wonder_unique_jingdezhen_imperial_kilns
+  location: fuliang
+  image: tv_wonder_unique_jingdezhen_imperial_kilns
+  prompt: Jingdezhen imperial porcelain kilns in Fuliang, dragon kilns glowing, porcelain painters, clay yards, inspectors, stacks of blue-and-white wares, Jiangxi hills, historically grounded world wonder key art, cinematic workshop panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: giant_workshop_complex
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated
+  ritual:
+    key: imperial_kiln_seal
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_production_efficiency: 0.05
+      trade_income: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 161
+  key: unique_mogao_caves
+  base_key: great_sculpture_group
+  concept: tv_wonder_unique_mogao_caves
+  location: shazhou
+  image: tv_wonder_unique_mogao_caves
+  prompt: Mogao Caves near Dunhuang in the medieval Silk Road era, cliff face with cave temples, colossal Buddha statues, painted murals, monks, merchants, desert light, manuscripts, historically grounded world wonder key art, cinematic oasis-cliff panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: great_sculpture_group
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_mogao_caves_inaugurated
+  ritual:
+    key: thousand_buddha_dedication
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      cultural_tradition_modifier: 0.06
+      monthly_prestige: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 162
+  key: unique_canton_thirteen_factories
+  base_key: guild_alliance
+  concept: tv_wonder_unique_canton_thirteen_factories
+  location: guangzhou
+  image: tv_wonder_unique_canton_thirteen_factories
+  prompt: Canton Thirteen Factories on the Pearl River, foreign factory buildings, Chinese merchant hongs, warehouses, flags, river junks, crowded wharves, late imperial Guangzhou, historically grounded world wonder key art, cinematic trade waterfront, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: guild_alliance
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_canton_thirteen_factories_inaugurated
+  ritual:
+    key: hong_merchant_charter
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      trade_income: 0.05
+      diplomatic_reputation: 1
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 163
+  key: unique_dardanelles_fortress
+  base_key: coastal_defense_cannon
+  concept: tv_wonder_unique_dardanelles_fortress
+  location: gallipoli
+  image: tv_wonder_unique_dardanelles_fortress
+  prompt: Dardanelles fortress batteries at Gallipoli, heavy coastal cannons, stone towers on both shores, Ottoman gunners, war galleys in the strait, smoke and flags over narrow water, historically grounded world wonder key art, cinematic maritime fortress panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: coastal_defense_cannon
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_dardanelles_fortress_inaugurated
+  ritual:
+    key: strait_battery_muster
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      naval_morale_modifier: 0.06
+      global_defensive: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 164
+  key: unique_escorial_monastery
+  base_key: great_monastery
+  concept: tv_wonder_unique_escorial_monastery
+  location: el_escorial
+  image: tv_wonder_unique_escorial_monastery
+  prompt: El Escorial monastery-palace in early modern Spain, austere granite courtyards, basilica dome, royal library, monks and royal officials, Sierra landscape, historically grounded world wonder key art, cinematic architectural panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: great_monastery
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_escorial_monastery_inaugurated
+  ritual:
+    key: royal_cloister_dedication
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_legitimacy: 0.1
+      stability_investment: -0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 165
+  key: unique_toledo_armory
+  base_key: giant_armory
+  concept: tv_wonder_unique_toledo_armory
+  location: toledo
+  image: tv_wonder_unique_toledo_armory
+  prompt: Toledo armory and sword workshops, master smiths forging steel blades, armor racks, proofing courtyard, royal inspectors, Tagus cliffs and medieval city beyond, historically grounded world wonder key art, cinematic military workshop, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: giant_armory
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_toledo_armory_inaugurated
+  ritual:
+    key: blade_proofing
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      land_morale_modifier: 0.05
+      global_manpower_modifier: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 166
+  key: unique_camino_de_santiago
+  base_key: imperial_post_road_network
+  concept: tv_wonder_unique_camino_de_santiago
+  location: santiago_compostela
+  image: tv_wonder_unique_camino_de_santiago
+  prompt: Camino de Santiago pilgrimage road approaching Compostela, medieval pilgrims with scallop shells, bridges, hostels, roadside shrines, cathedral towers in distance, green Galician hills, historically grounded world wonder key art, cinematic road panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: imperial_post_road_network
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_camino_de_santiago_inaugurated
+  ritual:
+    key: pilgrim_way_blessing
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_pop_conversion_speed_modifier: 0.05
+      diplomatic_reputation: 1
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 167
+  key: unique_sagres_navigation_school
+  base_key: naval_school
+  concept: tv_wonder_unique_sagres_navigation_school
+  location: lagos
+  image: tv_wonder_unique_sagres_navigation_school
+  prompt: Sagres Navigation School near Lagos in early Portuguese exploration, sea cliffs, map rooms, astrolabes, pilots, caravels offshore, Prince Henry-era scholars, Atlantic horizon, historically grounded world wonder key art, cinematic maritime academy, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: naval_school
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_sagres_navigation_school_inaugurated
+  ritual:
+    key: oceanic_chart_lecture
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      naval_range: 150
+      naval_morale_modifier: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 168
+  key: unique_milan_arsenal
+  base_key: giant_armory
+  concept: tv_wonder_unique_milan_arsenal
+  location: milano
+  image: tv_wonder_unique_milan_arsenal
+  prompt: Milan arsenal in a Renaissance Lombard city, armor workshops, cannon foundries, drill courtyards, ducal banners, racks of plate armor, busy craftsmen, historically grounded world wonder key art, cinematic military-industrial view, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: giant_armory
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_milan_arsenal_inaugurated
+  ritual:
+    key: lombard_foundry_contract
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      land_morale_modifier: 0.04
+      global_production_efficiency: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 169
+  key: unique_university_of_bologna
+  base_key: university_city
+  concept: tv_wonder_unique_university_of_bologna
+  location: bologna
+  image: tv_wonder_unique_university_of_bologna
+  prompt: University of Bologna in the medieval era, arcaded streets, lecture halls, jurists, students from many nations, manuscript desks, civic towers, historically grounded world wonder key art, cinematic scholarly city view, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: university_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_university_of_bologna_inaugurated
+  ritual:
+    key: doctorate_convocation
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      research_speed: 0.05
+      global_pop_promotion_speed_modifier: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 170
+  key: unique_carrara_marble_quarries
+  base_key: mining_city
+  concept: tv_wonder_unique_carrara_marble_quarries
+  location: prato
+  image: tv_wonder_unique_carrara_marble_quarries
+  prompt: Carrara marble quarries worked in the late medieval period, white mountain quarry faces, ox sledges hauling marble blocks, cranes, masons, sculptors, Tuscan foothills, historically grounded world wonder key art, cinematic mining landscape, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: mining_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_carrara_marble_quarries_inaugurated
+  ritual:
+    key: marble_contract
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_build_buildings_cost: -0.05
+      global_production_efficiency: 0.03
     reward: []
     confirmation_trigger_script: ''
     start_effect_script: ''

@@ -56,12 +56,12 @@ def generic_desc_key(wonder: dict, style: int) -> str:
 
 
 def unique_desc_key(wonder: dict) -> str:
-    return f"tv_engineering_department.500.d_unique_{wonder['key']}"
+    return f"tv_engineering_department.500.d_{wonder['key']}"
 
 
 def world_desc_key(wonder: dict, loc_keys: set[str]) -> str:
     if wonder.get("is_unique"):
-        desc_key = f"tv_engineering_department.600.d_unique_{wonder['key']}"
+        desc_key = f"tv_engineering_department.600.d_{wonder['key']}"
         return desc_key if desc_key in loc_keys else "tv_engineering_department.600.d"
     suffix = GENERIC_FINALIZATION_DESC_SUFFIXES.get(wonder["key"], wonder["key"])
     desc_key = f"tv_engineering_department.600.d_{suffix}"

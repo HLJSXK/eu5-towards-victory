@@ -644,6 +644,66 @@ wonders:
   base_key: great_monastery
   mechanic_key: great_monastery
   base_effect_multiplier: 1
+- id: 44
+  key: city_great_tower
+  concept: tv_wonder_city_great_tower
+  size: small
+  category: government_category
+  pop_type: burghers
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_civic_watchtower
+    2: tv_wonder_bell_campanile
+    3: tv_wonder_merchant_tower
+  is_unique: false
+  base_key: city_great_tower
+  mechanic_key: city_great_tower
+  base_effect_multiplier: 1
+- id: 45
+  key: great_sculpture_group
+  concept: tv_wonder_great_sculpture_group
+  size: medium
+  category: cultural_category
+  pop_type: burghers
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_royal_sculpture_yard
+    2: tv_wonder_pilgrim_statue_garden
+    3: tv_wonder_civic_hero_gallery
+  is_unique: false
+  base_key: great_sculpture_group
+  mechanic_key: great_sculpture_group
+  base_effect_multiplier: 1
+- id: 46
+  key: coastal_defense_cannon
+  concept: tv_wonder_coastal_defense_cannon
+  size: medium
+  category: military_category
+  pop_type: soldiers
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_strait_battery_cannon
+    2: tv_wonder_harbor_chain_cannon
+    3: tv_wonder_admiralty_gun_foundry
+  is_unique: false
+  base_key: coastal_defense_cannon
+  mechanic_key: coastal_defense_cannon
+  base_effect_multiplier: 1
+- id: 47
+  key: naval_school
+  concept: tv_wonder_naval_school
+  size: small
+  category: military_category
+  pop_type: soldiers
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_admiralty_navigation_school
+    2: tv_wonder_pilotage_chart_house
+    3: tv_wonder_oceanic_command_academy
+  is_unique: false
+  base_key: naval_school
+  mechanic_key: naval_school
+  base_effect_multiplier: 1
 parts:
 - key: foundation
 - key: body

@@ -15,9 +15,9 @@ UNIQUE_WONDERS_FILE = REPO_ROOT / "data" / "unique_wonders.yaml"
 GENERIC_WONDER_IMAGE_PROMPTS_FILE = REPO_ROOT / "data" / "wonder_image_prompts.yaml"
 MANUAL_TV_GAME_CONCEPTS_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_game_concepts.txt"
 ALL_WONDER_MIN_ID = 1
-ALL_WONDER_MAX_ID = 43
+ALL_WONDER_MAX_ID = 47
 UNIQUE_WONDER_MIN_ID = 101
-UNIQUE_WONDER_MAX_ID = 150
+UNIQUE_WONDER_MAX_ID = 170
 WONDER_MECHANICS_MIN_ID = ALL_WONDER_MIN_ID
 WONDER_MECHANICS_MAX_ID = UNIQUE_WONDER_MAX_ID
 PARTS = ["foundation", "body", "function", "decoration"]
@@ -35,7 +35,7 @@ SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
 WONDER_RITUAL_LISTENER_KEYS = ["monthly", "ruler_death", "pre_winning_war", "ending_war"]
 SUPPORTED_RITUAL_LISTENERS = set(WONDER_RITUAL_LISTENER_KEYS)
 SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
-WONDER_MAP_SCHEMA_VERSION = 9
+WONDER_MAP_SCHEMA_VERSION = 11
 WONDER_SIZE_IDS = {
     "small": 1,
     "medium": 2,
