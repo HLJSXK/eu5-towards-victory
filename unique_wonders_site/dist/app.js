@@ -43,11 +43,13 @@ const EXTRA_TEXT = {
     localWonders: "\u5f53\u5730\u5947\u89c2",
     previousLocalWonder: "\u4e0a\u4e00\u4e2a\u5f53\u5730\u5947\u89c2",
     nextLocalWonder: "\u4e0b\u4e00\u4e2a\u5f53\u5730\u5947\u89c2",
+    imageMissing: "\u56fe\u7247\u7f3a\u5931",
   },
   en: {
     localWonders: "Local wonders",
     previousLocalWonder: "Previous local wonder",
     nextLocalWonder: "Next local wonder",
+    imageMissing: "Image missing",
   },
 };
 
@@ -400,6 +402,29 @@ function metaLine(label, value) {
   return `<div><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</div>`;
 }
 
+function renderWonderImage(wonder) {
+  const imageId = wonder.image || wonder.image_id || wonder.key || "";
+  const imagePath = typeof wonder.image_path === "string" ? wonder.image_path : "";
+  const alt = localized(wonder.name) || imageId;
+
+  if (!imagePath) {
+    return `
+      <figure class="wonder-image-shell missing">
+        <div class="wonder-image-missing">${escapeHtml(t("imageMissing"))}</div>
+        <figcaption>${escapeHtml(imageId)}</figcaption>
+      </figure>
+    `;
+  }
+
+  return `
+    <figure class="wonder-image-shell">
+      <img class="wonder-image" data-wonder-image src="${escapeHtml(imagePath)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />
+      <div class="wonder-image-missing">${escapeHtml(t("imageMissing"))}</div>
+      <figcaption>${escapeHtml(imageId)}</figcaption>
+    </figure>
+  `;
+}
+
 function renderRowLabel(row) {
   const label = localized(row.label) || row.key;
   const key = row.key && row.key !== label
@@ -494,6 +519,15 @@ function renderLocationSwitcher(wonder) {
 }
 
 function bindDetailControls() {
+  elements.detailBody.querySelectorAll("[data-wonder-image]").forEach((image) => {
+    image.addEventListener("error", () => {
+      const shell = image.closest(".wonder-image-shell");
+      if (shell) {
+        shell.classList.add("missing");
+      }
+      image.remove();
+    }, { once: true });
+  });
   elements.detailBody.querySelectorAll("[data-local-wonder-key]").forEach((button) => {
     button.addEventListener("click", () => selectWonder(button.dataset.localWonderKey, { pan: false }));
   });
@@ -520,6 +554,7 @@ function renderDetail() {
       ${metaLine(t("size"), localized(wonder.size_label))}
       ${metaLine(t("category"), localized(wonder.category_label))}
     </div>
+    ${renderWonderImage(wonder)}
     ${renderLocationSwitcher(wonder)}
     <p class="detail-description">${escapeHtml(localized(wonder.description))}</p>
     <section class="detail-section">
@@ -570,6 +605,7 @@ async function loadData() {
       wonder.key,
       wonder.base_key,
       wonder.location_key,
+      wonder.image,
       localized(wonder.name),
       wonder.name?.en,
       wonder.name?.zh,
@@ -622,6 +658,7 @@ elements.languageButtons.forEach((button) => {
         wonder.key,
         wonder.base_key,
         wonder.location_key,
+        wonder.image,
         wonder.name?.en,
         wonder.name?.zh,
         wonder.location_name?.en,

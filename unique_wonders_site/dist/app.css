@@ -389,6 +389,66 @@ input {
   line-height: 1.45;
 }
 
+.wonder-image-shell {
+  position: relative;
+  display: grid;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #111419;
+  aspect-ratio: 16 / 9;
+}
+
+.wonder-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wonder-image-shell figcaption {
+  position: absolute;
+  right: 8px;
+  bottom: 7px;
+  max-width: calc(100% - 16px);
+  padding: 4px 7px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  background: rgba(16, 17, 20, 0.78);
+  color: var(--muted);
+  font-family: Consolas, "Liberation Mono", monospace;
+  font-size: 10px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wonder-image-missing {
+  display: none;
+  place-self: center;
+  padding: 6px 10px;
+  border: 1px solid rgba(214, 107, 107, 0.42);
+  border-radius: 4px;
+  color: var(--danger);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.wonder-image-shell.missing {
+  border-style: dashed;
+  background:
+    linear-gradient(135deg, rgba(214, 107, 107, 0.10), rgba(98, 182, 163, 0.06)),
+    #111419;
+}
+
+.wonder-image-shell.missing .wonder-image-missing {
+  display: grid;
+}
+
 .detail-description {
   margin: 0;
   color: var(--text);

@@ -47,6 +47,9 @@ DEFAULT_REFERENCE_LOC = (
 DEFAULT_OUT = SITE_ROOT / "dist" / "data" / "unique_wonders.json"
 DEFAULT_MODIFIER_LOCALIZATION_INDEX = REPO_ROOT / "data" / "index" / "modifier_localization.json"
 DEFAULT_TRIGGER_LOCALIZATION_INDEX = REPO_ROOT / "data" / "index" / "trigger_localization.json"
+WONDER_IMAGE_SOURCE_ROOT = REPO_ROOT / "data" / "generated_wonders"
+DIST_WONDER_IMAGE_ROOT = Path("images") / "wonders"
+IMAGE_EXTENSIONS = (".png", ".jpg", ".jpeg", ".webp")
 
 LANGUAGES = ("en", "zh")
 SOURCE_LANGUAGE = {
@@ -179,6 +182,14 @@ def load_index_payload(path: Path, root_key: str) -> dict[str, Any]:
     if not isinstance(records, dict):
         raise TypeError(f"{path}.{root_key} must be an object")
     return records
+
+
+def wonder_image_source(image_id: str) -> Path | None:
+    for extension in IMAGE_EXTENSIONS:
+        candidate = WONDER_IMAGE_SOURCE_ROOT / f"{image_id}{extension}"
+        if candidate.exists():
+            return candidate
+    return None
 
 
 def localization_value(
@@ -568,6 +579,13 @@ def build_record(
         wonder.get("base_effect_multiplier", 1),
     )
     final_local_modifiers = authored_final_building_local_modifiers(wonder, mechanics)
+    image_id = str(wonder.get("image") or f"tv_wonder_{wonder['key']}")
+    image_source = wonder_image_source(image_id)
+    image_path = (
+        (DIST_WONDER_IMAGE_ROOT / image_source.name).as_posix()
+        if image_source is not None
+        else ""
+    )
 
     effects: list[dict[str, object]] = []
     for section in (
@@ -692,7 +710,9 @@ def build_record(
         "location_name": reference_loc_pair(reference_loc, location_key),
         "centroid": location_info["centroid"],
         "bbox": location_info["bbox"],
-        "image": wonder.get("image") or f"tv_wonder_{wonder['key']}",
+        "image": image_id,
+        "image_path": image_path,
+        "image_exists": image_source is not None,
         "construction_requirements": rows_from_trigger_script(
             site_trigger_script_for_key(mechanics, base_key),
             trigger_index=trigger_index,
@@ -753,6 +773,7 @@ def build_payload(
         "counts": {
             "unique_wonders": len(records),
             "missing_locations": 0,
+            "missing_images": sum(1 for record in records if not record.get("image_exists")),
         },
     }
 
