@@ -2828,15 +2828,11 @@ tv_wonder_calculate_giant_dam_project_suitability_actuals_effect = {
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
-				OR = {
-					has_river = yes
-					is_adjacent_to_lake = yes
-					is_port = yes
-				}
+				has_building = building_type:bridge_infrastructure
 			}
 		}
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 211 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 211 value = 10 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 211 value = 5 }
 	}
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 212 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 212 value = 0 }
@@ -2844,7 +2840,7 @@ tv_wonder_calculate_giant_dam_project_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.2 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 212 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 212 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -2870,7 +2866,7 @@ tv_wonder_calculate_royal_granary_system_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.2 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 222 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 222 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -2885,7 +2881,7 @@ tv_wonder_calculate_imperial_post_road_network_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.25 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 231 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 231 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -2900,38 +2896,23 @@ tv_wonder_calculate_canal_hub_city_suitability_actuals_effect = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
 				OR = {
-					has_river = yes
-					is_adjacent_to_lake = yes
-					is_port = yes
-				}
-			}
-		}
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 241 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 241 value = 10 }
-	}
-	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 242 }
-	add_to_variable_map = { name = tv_wonder_suitability_actual key = 242 value = 0 }
-	if = {
-		limit = {
-			var:tv_wonder_survey_site ?= {
-				OR = {
 					location_rank ?= location_rank:city
 					location_rank ?= location_rank:megalopolis
 				}
 			}
 		}
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 242 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 242 value = 5 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 241 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 241 value = 5 }
 	}
-	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 243 }
-	add_to_variable_map = { name = tv_wonder_suitability_actual key = 243 value = 0 }
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 242 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 242 value = 0 }
 	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 243 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 243 value = var:tv_wonder_suitability_row_temp }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.2 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 242 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 242 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -2943,21 +2924,43 @@ tv_wonder_calculate_frontier_colonization_belt_suitability_actuals_effect = {
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
-				location_rank ?= location_rank:rural_settlement
+				dominant_religion = owner.religion
 			}
 		}
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 251 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 251 value = 10 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 251 value = 5 }
 	}
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 252 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 252 value = 0 }
+	if = {
+		limit = {
+			var:tv_wonder_survey_site ?= {
+				any_neighbor_location = { has_building = building_type:tv_wonder_bridge_opening }
+			}
+		}
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 252 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 252 value = 5 }
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 253 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 253 value = 0 }
+	if = {
+		limit = {
+			var:tv_wonder_survey_site ?= {
+				is_port = yes
+			}
+		}
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 253 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 253 value = 5 }
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 254 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 254 value = 0 }
 	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
 		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 252 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 252 value = var:tv_wonder_suitability_row_temp }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 254 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 254 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -2967,13 +2970,24 @@ tv_wonder_calculate_coastal_beacon_network_suitability_actuals_effect = {
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 261 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 261 value = 0 }
 	if = {
-		limit = {
-			var:tv_wonder_survey_site ?= {
-				is_port = yes
-			}
-		}
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.15 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 261 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 261 value = 15 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 261 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 262 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 262 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 262 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 262 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
 }
@@ -3020,9 +3034,9 @@ tv_wonder_calculate_war_college_system_suitability_actuals_effect = {
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 281 value = 0 }
 	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
-		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.25 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 281 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 281 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -3034,12 +3048,34 @@ tv_wonder_calculate_great_clock_bell_system_suitability_actuals_effect = {
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 291 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 291 value = 0 }
 	if = {
+		limit = {
+			var:tv_wonder_survey_site ?= {
+				location_rank ?= location_rank:city
+			}
+		}
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 291 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 291 value = 5 }
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 292 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 292 value = 0 }
+	if = {
+		limit = {
+			var:tv_wonder_survey_site ?= {
+				location_rank ?= location_rank:megalopolis
+			}
+		}
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 292 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 292 value = 10 }
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 293 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 293 value = 0 }
+	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 291 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 291 value = var:tv_wonder_suitability_row_temp }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.15 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 293 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 293 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -3055,7 +3091,7 @@ tv_wonder_calculate_royal_art_district_suitability_actuals_effect = {
 			}
 		}
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 301 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 301 value = 10 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 301 value = 5 }
 	}
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 302 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 302 value = 0 }
@@ -3068,6 +3104,17 @@ tv_wonder_calculate_royal_art_district_suitability_actuals_effect = {
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 302 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 303 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 303 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 303 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 303 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
+	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
 }
 
@@ -3075,12 +3122,34 @@ tv_wonder_calculate_grand_theater_festival_district_suitability_actuals_effect =
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 311 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 311 value = 0 }
 	if = {
+		limit = {
+			var:tv_wonder_survey_site ?= {
+				location_rank ?= location_rank:megalopolis
+			}
+		}
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 311 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 311 value = 5 }
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 312 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 312 value = 0 }
+	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
 		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 311 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 311 value = var:tv_wonder_suitability_row_temp }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 312 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 312 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 313 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 313 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 313 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 313 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -3102,9 +3171,9 @@ tv_wonder_calculate_world_embassy_quarter_suitability_actuals_effect = {
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 322 value = 0 }
 	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
-		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.15 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 322 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 322 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -3128,9 +3197,9 @@ tv_wonder_calculate_law_code_stele_project_suitability_actuals_effect = {
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 332 value = 0 }
 	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
-		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.15 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 332 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 332 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -3190,7 +3259,7 @@ tv_wonder_calculate_guild_alliance_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.25 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 361 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 361 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -3204,11 +3273,25 @@ tv_wonder_calculate_maritime_trade_station_network_suitability_actuals_effect = 
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
-				is_port = yes
+				OR = {
+					location_rank ?= location_rank:city
+					location_rank ?= location_rank:megalopolis
+				}
 			}
 		}
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 371 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 371 value = 15 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 371 value = 10 }
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 372 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 372 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.15 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 372 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 372 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
 }
@@ -3220,7 +3303,7 @@ tv_wonder_calculate_giant_workshop_complex_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.25 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 381 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 381 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -3246,9 +3329,20 @@ tv_wonder_calculate_world_monument_group_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.05 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 392 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 392 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 393 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 393 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 393 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 393 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -3453,6 +3547,17 @@ tv_wonder_calculate_city_great_tower_suitability_actuals_effect = {
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 442 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 443 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 443 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.total_building_levels }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 443 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 443 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
+	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
 }
 
@@ -3462,24 +3567,43 @@ tv_wonder_calculate_great_sculpture_group_suitability_actuals_effect = {
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
-				OR = {
-					location_rank ?= location_rank:city
-					location_rank ?= location_rank:megalopolis
-				}
+				topography = mountains
 			}
 		}
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 451 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 451 value = 5 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 451 value = 15 }
 	}
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 452 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 452 value = 0 }
+	if = {
+		limit = {
+			var:tv_wonder_survey_site ?= {
+				topography = plateau
+			}
+		}
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 452 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 452 value = 10 }
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 453 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 453 value = 0 }
+	if = {
+		limit = {
+			var:tv_wonder_survey_site ?= {
+				topography = hills
+			}
+		}
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 453 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 453 value = 5 }
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 454 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 454 value = 0 }
 	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
 		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 452 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 452 value = var:tv_wonder_suitability_row_temp }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 454 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 454 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -3518,7 +3642,7 @@ tv_wonder_calculate_naval_school_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.modifier:harbor_suitability }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 1 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 25 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 15 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 471 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 471 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -3526,16 +3650,13 @@ tv_wonder_calculate_naval_school_suitability_actuals_effect = {
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 472 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 472 value = 0 }
 	if = {
-		limit = {
-			var:tv_wonder_survey_site ?= {
-				OR = {
-					location_rank ?= location_rank:city
-					location_rank ?= location_rank:megalopolis
-				}
-			}
-		}
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 472 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 472 value = 5 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 472 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
 }
@@ -4209,38 +4330,23 @@ tv_wonder_calculate_unique_amsterdam_canal_ring_suitability_actuals_effect = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
 				OR = {
-					has_river = yes
-					is_adjacent_to_lake = yes
-					is_port = yes
-				}
-			}
-		}
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 241 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 241 value = 10 }
-	}
-	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 242 }
-	add_to_variable_map = { name = tv_wonder_suitability_actual key = 242 value = 0 }
-	if = {
-		limit = {
-			var:tv_wonder_survey_site ?= {
-				OR = {
 					location_rank ?= location_rank:city
 					location_rank ?= location_rank:megalopolis
 				}
 			}
 		}
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 242 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 242 value = 5 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 241 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 241 value = 5 }
 	}
-	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 243 }
-	add_to_variable_map = { name = tv_wonder_suitability_actual key = 243 value = 0 }
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 242 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 242 value = 0 }
 	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 243 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 243 value = var:tv_wonder_suitability_row_temp }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.2 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 242 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 242 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -4379,9 +4485,20 @@ tv_wonder_calculate_unique_cahokia_mounds_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.05 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 392 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 392 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 393 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 393 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 393 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 393 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -4465,7 +4582,7 @@ tv_wonder_calculate_unique_inca_royal_road_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.25 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 231 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 231 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -4587,9 +4704,20 @@ tv_wonder_calculate_unique_teotihuacan_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.05 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 392 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 392 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 393 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 393 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 393 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 393 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -4616,15 +4744,11 @@ tv_wonder_calculate_unique_dutch_polders_suitability_actuals_effect = {
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
-				OR = {
-					has_river = yes
-					is_adjacent_to_lake = yes
-					is_port = yes
-				}
+				has_building = building_type:bridge_infrastructure
 			}
 		}
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 211 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 211 value = 10 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 211 value = 5 }
 	}
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 212 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 212 value = 0 }
@@ -4632,7 +4756,7 @@ tv_wonder_calculate_unique_dutch_polders_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.2 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 212 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 212 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -4709,11 +4833,25 @@ tv_wonder_calculate_unique_spanish_silver_fleet_suitability_actuals_effect = {
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
-				is_port = yes
+				OR = {
+					location_rank ?= location_rank:city
+					location_rank ?= location_rank:megalopolis
+				}
 			}
 		}
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 371 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 371 value = 15 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 371 value = 10 }
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 372 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 372 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.15 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 372 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 372 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
 }
@@ -4725,7 +4863,7 @@ tv_wonder_calculate_unique_ottoman_hajj_road_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.25 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 231 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 231 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -4792,9 +4930,20 @@ tv_wonder_calculate_unique_jerusalem_holy_city_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.05 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 392 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 392 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 393 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 393 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 393 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 393 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -5285,6 +5434,17 @@ tv_wonder_calculate_unique_belem_tower_suitability_actuals_effect = {
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 442 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 443 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 443 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.total_building_levels }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 443 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 443 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
+	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
 }
 
@@ -5411,6 +5571,17 @@ tv_wonder_calculate_unique_leaning_tower_of_pisa_suitability_actuals_effect = {
 		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 442 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 442 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 443 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 443 value = 0 }
+	if = {
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.total_building_levels }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 443 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 443 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -5547,15 +5718,11 @@ tv_wonder_calculate_unique_dujiangyan_suitability_actuals_effect = {
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
-				OR = {
-					has_river = yes
-					is_adjacent_to_lake = yes
-					is_port = yes
-				}
+				has_building = building_type:bridge_infrastructure
 			}
 		}
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 211 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 211 value = 10 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 211 value = 5 }
 	}
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 212 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 212 value = 0 }
@@ -5563,7 +5730,7 @@ tv_wonder_calculate_unique_dujiangyan_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.2 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 212 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 212 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -5615,7 +5782,7 @@ tv_wonder_calculate_unique_jingdezhen_imperial_kilns_suitability_actuals_effect 
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.25 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 381 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 381 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -5629,24 +5796,43 @@ tv_wonder_calculate_unique_mogao_caves_suitability_actuals_effect = {
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
-				OR = {
-					location_rank ?= location_rank:city
-					location_rank ?= location_rank:megalopolis
-				}
+				topography = mountains
 			}
 		}
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 451 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 451 value = 5 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 451 value = 15 }
 	}
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 452 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 452 value = 0 }
+	if = {
+		limit = {
+			var:tv_wonder_survey_site ?= {
+				topography = plateau
+			}
+		}
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 452 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 452 value = 10 }
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 453 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 453 value = 0 }
+	if = {
+		limit = {
+			var:tv_wonder_survey_site ?= {
+				topography = hills
+			}
+		}
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 453 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 453 value = 5 }
+	}
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 454 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 454 value = 0 }
 	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
 		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 452 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 452 value = var:tv_wonder_suitability_row_temp }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 454 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 454 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -5659,7 +5845,7 @@ tv_wonder_calculate_unique_canton_thirteen_factories_suitability_actuals_effect 
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.25 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 361 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 361 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -5788,7 +5974,7 @@ tv_wonder_calculate_unique_camino_de_santiago_suitability_actuals_effect = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.25 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 231 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 231 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -5803,7 +5989,7 @@ tv_wonder_calculate_unique_sagres_navigation_school_suitability_actuals_effect =
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.modifier:harbor_suitability }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 1 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 25 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 15 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 471 }
 		add_to_variable_map = { name = tv_wonder_suitability_actual key = 471 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
@@ -5811,16 +5997,13 @@ tv_wonder_calculate_unique_sagres_navigation_school_suitability_actuals_effect =
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 472 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 472 value = 0 }
 	if = {
-		limit = {
-			var:tv_wonder_survey_site ?= {
-				OR = {
-					location_rank ?= location_rank:city
-					location_rank ?= location_rank:megalopolis
-				}
-			}
-		}
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 472 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 472 value = 5 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 472 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
 }
@@ -7083,12 +7266,12 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			tv_wonder_survey_site_selected_trigger = yes
 		}
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes } } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+			limit = { var:tv_wonder_survey_site ?= { has_building = building_type:bridge_infrastructure } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_giant_dam_project_suitability_actuals_effect = yes
@@ -7100,11 +7283,11 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		if = {
 			limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_royal_granary_system_suitability_actuals_effect = yes
@@ -7116,7 +7299,7 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_imperial_post_road_network_suitability_actuals_effect = yes
@@ -7127,16 +7310,12 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			tv_wonder_survey_site_selected_trigger = yes
 		}
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes } } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
-		}
-		if = {
 			limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_canal_hub_city_suitability_actuals_effect = yes
@@ -7147,8 +7326,16 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			tv_wonder_survey_site_selected_trigger = yes
 		}
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+			limit = { var:tv_wonder_survey_site ?= { dominant_religion = owner.religion } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+		}
+		if = {
+			limit = { var:tv_wonder_survey_site ?= { any_neighbor_location = { has_building = building_type:tv_wonder_bridge_opening } } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+		}
+		if = {
+			limit = { var:tv_wonder_survey_site ?= { is_port = yes } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
@@ -7162,10 +7349,15 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			var:tv_wonder_locked ?= 26
 			tv_wonder_survey_site_selected_trigger = yes
 		}
-		if = {
-			limit = { var:tv_wonder_survey_site ?= { is_port = yes } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 15 }
-		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_coastal_beacon_network_suitability_actuals_effect = yes
 	}
 	else_if = {
@@ -7193,9 +7385,9 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			var:tv_wonder_locked ?= 28
 			tv_wonder_survey_site_selected_trigger = yes
 		}
-		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_war_college_system_suitability_actuals_effect = yes
@@ -7205,9 +7397,17 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			var:tv_wonder_locked ?= 29
 			tv_wonder_survey_site_selected_trigger = yes
 		}
+		if = {
+			limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:city } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+		}
+		if = {
+			limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_great_clock_bell_system_suitability_actuals_effect = yes
@@ -7219,9 +7419,13 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		if = {
 			limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
@@ -7233,7 +7437,15 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			var:tv_wonder_locked ?= 31
 			tv_wonder_survey_site_selected_trigger = yes
 		}
+		if = {
+			limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
@@ -7247,11 +7459,11 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		if = {
 			limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
 		}
-		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_world_embassy_quarter_suitability_actuals_effect = yes
@@ -7263,11 +7475,11 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		if = {
 			limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
 		}
-		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_law_code_stele_project_suitability_actuals_effect = yes
@@ -7307,7 +7519,7 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_guild_alliance_suitability_actuals_effect = yes
@@ -7318,9 +7530,14 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			tv_wonder_survey_site_selected_trigger = yes
 		}
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { is_port = yes } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 15 }
+			limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
 		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_maritime_trade_station_network_suitability_actuals_effect = yes
 	}
 	else_if = {
@@ -7330,7 +7547,7 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_giant_workshop_complex_suitability_actuals_effect = yes
@@ -7342,9 +7559,13 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		if = {
 			limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.05 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
@@ -7356,14 +7577,14 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			var:tv_wonder_locked ?= 40
 			tv_wonder_survey_site_selected_trigger = yes
 		}
-		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }
-		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
-		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		if = {
 			limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.20 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_city_expansion_project_suitability_actuals_effect = yes
 	}
@@ -7451,6 +7672,10 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_city_great_tower_suitability_actuals_effect = yes
 	}
@@ -7460,7 +7685,15 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			tv_wonder_survey_site_selected_trigger = yes
 		}
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
+			limit = { var:tv_wonder_survey_site ?= { topography = mountains } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 15 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_survey_site ?= { topography = plateau } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_survey_site ?= { topography = hills } }
 			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
@@ -7493,12 +7726,12 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 25 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 15 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-		if = {
-			limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
-			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
-		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_calculate_naval_school_suitability_actuals_effect = yes
 	}
@@ -7908,16 +8141,12 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			tv_wonder_survey_site_selected_trigger = yes
 		}
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes } } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
-		}
-		if = {
 			limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }
@@ -7999,9 +8228,13 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		if = {
 			limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.05 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
@@ -8071,7 +8304,7 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }
@@ -8146,9 +8379,13 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		if = {
 			limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.05 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
@@ -8179,12 +8416,12 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			tv_wonder_survey_site_selected_trigger = yes
 		}
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes } } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+			limit = { var:tv_wonder_survey_site ?= { has_building = building_type:bridge_infrastructure } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }
@@ -8239,9 +8476,14 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			tv_wonder_survey_site_selected_trigger = yes
 		}
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { is_port = yes } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 15 }
+			limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
 		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }
 		tv_wonder_change_logistics_competence_target_effect = { value = 20 }
 		tv_wonder_change_organization_competence_target_effect = { value = 20 }
@@ -8254,7 +8496,7 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }
@@ -8303,9 +8545,13 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		if = {
 			limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.05 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
@@ -8581,6 +8827,10 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }
 		tv_wonder_change_logistics_competence_target_effect = { value = 20 }
@@ -8650,6 +8900,10 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
@@ -8737,12 +8991,12 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			tv_wonder_survey_site_selected_trigger = yes
 		}
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes } } }
-		tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+			limit = { var:tv_wonder_survey_site ?= { has_building = building_type:bridge_infrastructure } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }
@@ -8779,7 +9033,7 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }
@@ -8793,7 +9047,15 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			tv_wonder_survey_site_selected_trigger = yes
 		}
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
+			limit = { var:tv_wonder_survey_site ?= { topography = mountains } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 15 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_survey_site ?= { topography = plateau } }
+			tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_survey_site ?= { topography = hills } }
 			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
@@ -8813,7 +9075,7 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }
@@ -8896,7 +9158,7 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }
@@ -8911,12 +9173,12 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
-		change_variable = { name = tv_wonder_site_preference_bonus multiply = 25 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 15 }
 		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-		if = {
-			limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
-			tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
-		}
+		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
+		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+		tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
 		remove_variable = tv_wonder_site_preference_bonus
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }
 		tv_wonder_change_logistics_competence_target_effect = { value = 20 }
@@ -10271,19 +10533,16 @@ tv_wonder_display_21_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_giant_dam_project_ritual_3_requirement_tooltip_effect = {
-	change_gold_effect = { scale = -5 }
+	random_work_of_art_in_country = { save_scope_as = tv_wonder_sacrificed_artwork }
+	destroy_art = scope:tv_wonder_sacrificed_artwork
 }
 
 tv_wonder_giant_dam_project_ritual_3_effect_tooltip_effect = {
-	var:tv_wonder_site ?= { change_prosperity = 0.3 }
-	add_stability = 1
+	var:tv_wonder_site ?= { change_prosperity = 50 }
 }
 
 tv_wonder_giant_dam_project_ritual_3_location_tooltip_effect = {
-	change_prosperity = 0.3
-	owner ?= {
-		add_stability = 1
-	}
+	change_prosperity = 50
 }
 
 tv_wonder_display_21_ritual_3_location_tooltip_effect = {
@@ -10329,20 +10588,16 @@ tv_wonder_display_22_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_royal_granary_system_ritual_3_requirement_tooltip_effect = {
-	change_gold_effect = { scale = -5 }
+	add_prestige = -50
 }
 
 tv_wonder_royal_granary_system_ritual_3_effect_tooltip_effect = {
-	add_stability = 1
-	add_gold = 200
+	add_stability = 21
 }
 
 tv_wonder_royal_granary_system_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_stability = 1
-	}
-	owner ?= {
-		add_gold = 200
+		add_stability = 21
 	}
 }
 
@@ -10389,21 +10644,15 @@ tv_wonder_display_23_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_imperial_post_road_network_ritual_3_requirement_tooltip_effect = {
-	add_prestige = -50
+	change_gold_effect = { scale = -5 }
 }
 
 tv_wonder_imperial_post_road_network_ritual_3_effect_tooltip_effect = {
-	add_legitimacy = 10
-	add_prestige = 30
+	var:tv_wonder_site ?= { change_prosperity = 0.5 }
 }
 
 tv_wonder_imperial_post_road_network_ritual_3_location_tooltip_effect = {
-	owner ?= {
-		add_legitimacy = 10
-	}
-	owner ?= {
-		add_prestige = 30
-	}
+	change_prosperity = 0.5
 }
 
 tv_wonder_display_23_ritual_3_location_tooltip_effect = {
@@ -10453,16 +10702,12 @@ tv_wonder_canal_hub_city_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_canal_hub_city_ritual_3_effect_tooltip_effect = {
-	add_gold = 300
-	add_prestige = 20
+	add_all_estate_satisfaction = { value = 0.2 }
 }
 
 tv_wonder_canal_hub_city_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_gold = 300
-	}
-	owner ?= {
-		add_prestige = 20
+		add_all_estate_satisfaction = { value = 0.2 }
 	}
 }
 
@@ -10509,19 +10754,15 @@ tv_wonder_display_25_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_frontier_colonization_belt_ritual_3_requirement_tooltip_effect = {
-	add_prestige = -50
+	change_gold_effect = { scale = -5 }
 }
 
 tv_wonder_frontier_colonization_belt_ritual_3_effect_tooltip_effect = {
-	add_manpower = 6000
-	var:tv_wonder_site ?= { change_prosperity = 0.2 }
+	var:tv_wonder_site ?= { change_prosperity = 0.5 }
 }
 
 tv_wonder_frontier_colonization_belt_ritual_3_location_tooltip_effect = {
-	owner ?= {
-		add_manpower = 6000
-	}
-	change_prosperity = 0.2
+	change_prosperity = 0.5
 }
 
 tv_wonder_display_25_ritual_3_location_tooltip_effect = {
@@ -10571,16 +10812,12 @@ tv_wonder_coastal_beacon_network_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_coastal_beacon_network_ritual_3_effect_tooltip_effect = {
-	add_prestige = 35
-	add_manpower = 4000
+	add_sailors = 50
 }
 
 tv_wonder_coastal_beacon_network_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_prestige = 35
-	}
-	owner ?= {
-		add_manpower = 4000
+		add_sailors = 50
 	}
 }
 
@@ -10627,27 +10864,16 @@ tv_wonder_display_27_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_knightly_fortress_order_ritual_3_requirement_tooltip_effect = {
-	random_work_of_art_in_country = { save_scope_as = tv_wonder_sacrificed_artwork }
-	destroy_art = scope:tv_wonder_sacrificed_artwork
+	add_prestige = -50
 }
 
 tv_wonder_knightly_fortress_order_ritual_3_effect_tooltip_effect = {
-	add_manpower = 5000
-	if = {
-		limit = { country_has_estate = estate_type:nobles_estate }
-		add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.15 }
-	}
+	add_manpower = 50
 }
 
 tv_wonder_knightly_fortress_order_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_manpower = 5000
-	}
-	owner ?= {
-		if = {
-			limit = { country_has_estate = estate_type:nobles_estate }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.15 }
-		}
+		add_manpower = 50
 	}
 }
 
@@ -10698,16 +10924,12 @@ tv_wonder_war_college_system_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_war_college_system_ritual_3_effect_tooltip_effect = {
-	ruler ?= { add_mil = 2 }
-	add_research_progress = research_progress_mild_bonus
+	ruler ?= { add_mil = 20 }
 }
 
 tv_wonder_war_college_system_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		ruler ?= { add_mil = 2 }
-	}
-	owner ?= {
-		add_research_progress = research_progress_mild_bonus
+		ruler ?= { add_mil = 20 }
 	}
 }
 
@@ -10754,21 +10976,16 @@ tv_wonder_display_29_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_great_clock_bell_system_ritual_3_requirement_tooltip_effect = {
-	random_work_of_art_in_country = { save_scope_as = tv_wonder_sacrificed_artwork }
-	destroy_art = scope:tv_wonder_sacrificed_artwork
+	change_gold_effect = { scale = -5 }
 }
 
 tv_wonder_great_clock_bell_system_ritual_3_effect_tooltip_effect = {
-	add_prestige = 40
-	add_stability = 1
+	add_prestige = 50
 }
 
 tv_wonder_great_clock_bell_system_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_prestige = 40
-	}
-	owner ?= {
-		add_stability = 1
+		add_prestige = 50
 	}
 }
 
@@ -10820,16 +11037,12 @@ tv_wonder_royal_art_district_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_royal_art_district_ritual_3_effect_tooltip_effect = {
-	add_prestige = 80
-	add_research_progress = research_progress_mild_bonus
+	add_research_progress = 15
 }
 
 tv_wonder_royal_art_district_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_prestige = 80
-	}
-	owner ?= {
-		add_research_progress = research_progress_mild_bonus
+		add_research_progress = 15
 	}
 }
 
@@ -10881,15 +11094,13 @@ tv_wonder_grand_theater_festival_district_ritual_3_requirement_tooltip_effect = 
 }
 
 tv_wonder_grand_theater_festival_district_ritual_3_effect_tooltip_effect = {
-	add_prestige = 70
-	var:tv_wonder_site ?= { change_prosperity = 0.2 }
+	add_prestige = 100
 }
 
 tv_wonder_grand_theater_festival_district_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_prestige = 70
+		add_prestige = 100
 	}
-	change_prosperity = 0.2
 }
 
 tv_wonder_display_31_ritual_3_location_tooltip_effect = {
@@ -10939,16 +11150,12 @@ tv_wonder_world_embassy_quarter_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_world_embassy_quarter_ritual_3_effect_tooltip_effect = {
-	ruler ?= { add_dip = 2 }
-	add_prestige = 50
+	ruler ?= { add_dip = 20 }
 }
 
 tv_wonder_world_embassy_quarter_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		ruler ?= { add_dip = 2 }
-	}
-	owner ?= {
-		add_prestige = 50
+		ruler ?= { add_dip = 20 }
 	}
 }
 
@@ -10995,21 +11202,16 @@ tv_wonder_display_33_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_law_code_stele_project_ritual_3_requirement_tooltip_effect = {
-	random_work_of_art_in_country = { save_scope_as = tv_wonder_sacrificed_artwork }
-	destroy_art = scope:tv_wonder_sacrificed_artwork
+	add_prestige = -50
 }
 
 tv_wonder_law_code_stele_project_ritual_3_effect_tooltip_effect = {
-	add_legitimacy = 15
-	add_stability = 1
+	add_government_power = 20
 }
 
 tv_wonder_law_code_stele_project_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_legitimacy = 15
-	}
-	owner ?= {
-		add_stability = 1
+		add_government_power = 20
 	}
 }
 
@@ -11060,15 +11262,11 @@ tv_wonder_world_market_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_world_market_ritual_3_effect_tooltip_effect = {
-	add_gold = 400
-	var:tv_wonder_site ?= { change_prosperity = 0.2 }
+	var:tv_wonder_site ?= { change_prosperity = 1 }
 }
 
 tv_wonder_world_market_ritual_3_location_tooltip_effect = {
-	owner ?= {
-		add_gold = 400
-	}
-	change_prosperity = 0.2
+	change_prosperity = 1
 }
 
 tv_wonder_display_34_ritual_3_location_tooltip_effect = {
@@ -11118,12 +11316,12 @@ tv_wonder_royal_mint_system_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_royal_mint_system_ritual_3_effect_tooltip_effect = {
-	add_gold = 20000
+	add_gold = 10000
 }
 
 tv_wonder_royal_mint_system_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_gold = 20000
+		add_gold = 10000
 	}
 }
 
@@ -11174,22 +11372,12 @@ tv_wonder_guild_alliance_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_guild_alliance_ritual_3_effect_tooltip_effect = {
-	add_gold = 350
-	if = {
-		limit = { country_has_estate = estate_type:burghers_estate }
-		add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.15 }
-	}
+	add_inflation = -0.1
 }
 
 tv_wonder_guild_alliance_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_gold = 350
-	}
-	owner ?= {
-		if = {
-			limit = { country_has_estate = estate_type:burghers_estate }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.15 }
-		}
+		add_inflation = -0.1
 	}
 }
 
@@ -11240,16 +11428,12 @@ tv_wonder_maritime_trade_station_network_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_maritime_trade_station_network_ritual_3_effect_tooltip_effect = {
-	add_gold = 300
-	add_prestige = 40
+	add_navy_tradition = 20
 }
 
 tv_wonder_maritime_trade_station_network_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_gold = 300
-	}
-	owner ?= {
-		add_prestige = 40
+		add_navy_tradition = 20
 	}
 }
 
@@ -11296,20 +11480,16 @@ tv_wonder_display_38_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_giant_workshop_complex_ritual_3_requirement_tooltip_effect = {
-	change_gold_effect = { scale = -5 }
+	add_prestige = -50
 }
 
 tv_wonder_giant_workshop_complex_ritual_3_effect_tooltip_effect = {
-	add_gold = 280
-	add_manpower = 4000
+	add_gold = 10000
 }
 
 tv_wonder_giant_workshop_complex_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_gold = 280
-	}
-	owner ?= {
-		add_manpower = 4000
+		add_gold = 10000
 	}
 }
 
@@ -11356,21 +11536,16 @@ tv_wonder_display_39_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_world_monument_group_ritual_3_requirement_tooltip_effect = {
-	random_work_of_art_in_country = { save_scope_as = tv_wonder_sacrificed_artwork }
-	destroy_art = scope:tv_wonder_sacrificed_artwork
+	change_gold_effect = { scale = -5 }
 }
 
 tv_wonder_world_monument_group_ritual_3_effect_tooltip_effect = {
-	add_prestige = 100
-	add_legitimacy = 10
+	add_stability = 21
 }
 
 tv_wonder_world_monument_group_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_prestige = 100
-	}
-	owner ?= {
-		add_legitimacy = 10
+		add_stability = 21
 	}
 }
 
@@ -11644,20 +11819,17 @@ tv_wonder_display_44_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_city_great_tower_ritual_3_requirement_tooltip_effect = {
-	add_prestige = -50
+	random_work_of_art_in_country = { save_scope_as = tv_wonder_sacrificed_artwork }
+	destroy_art = scope:tv_wonder_sacrificed_artwork
 }
 
 tv_wonder_city_great_tower_ritual_3_effect_tooltip_effect = {
-	add_prestige = 50
-	ruler ?= { add_adm = 1 }
+	add_all_estate_satisfaction = { value = 0.2 }
 }
 
 tv_wonder_city_great_tower_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_prestige = 50
-	}
-	owner ?= {
-		ruler ?= { add_adm = 1 }
+		add_all_estate_satisfaction = { value = 0.2 }
 	}
 }
 
@@ -11704,21 +11876,16 @@ tv_wonder_display_45_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_great_sculpture_group_ritual_3_requirement_tooltip_effect = {
-	random_work_of_art_in_country = { save_scope_as = tv_wonder_sacrificed_artwork }
-	destroy_art = scope:tv_wonder_sacrificed_artwork
+	add_prestige = -50
 }
 
 tv_wonder_great_sculpture_group_ritual_3_effect_tooltip_effect = {
-	culture = { add_cultural_tradition = 20 }
-	add_prestige = 30
+	add_diplomats = 5
 }
 
 tv_wonder_great_sculpture_group_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		culture = { add_cultural_tradition = 20 }
-	}
-	owner ?= {
-		add_prestige = 30
+		add_diplomats = 5
 	}
 }
 
@@ -11769,16 +11936,12 @@ tv_wonder_coastal_defense_cannon_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_coastal_defense_cannon_ritual_3_effect_tooltip_effect = {
-	add_navy_tradition = 15
-	add_prestige = 30
+	add_navy_tradition = 20
 }
 
 tv_wonder_coastal_defense_cannon_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_navy_tradition = 15
-	}
-	owner ?= {
-		add_prestige = 30
+		add_navy_tradition = 20
 	}
 }
 
@@ -11825,20 +11988,17 @@ tv_wonder_display_47_ritual_2_location_tooltip_effect = {
 }
 
 tv_wonder_naval_school_ritual_3_requirement_tooltip_effect = {
-	add_prestige = -50
+	random_work_of_art_in_country = { save_scope_as = tv_wonder_sacrificed_artwork }
+	destroy_art = scope:tv_wonder_sacrificed_artwork
 }
 
 tv_wonder_naval_school_ritual_3_effect_tooltip_effect = {
-	add_navy_tradition = 15
-	add_prestige = 30
+	add_research_progress = 15
 }
 
 tv_wonder_naval_school_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_navy_tradition = 15
-	}
-	owner ?= {
-		add_prestige = 30
+		add_research_progress = 15
 	}
 }
 
@@ -15484,103 +15644,79 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2103 }
-		var:tv_wonder_site ?= { change_prosperity = 0.3 }
-		add_stability = 1
+		var:tv_wonder_site ?= { change_prosperity = 50 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2203 }
-		add_stability = 1
-		add_gold = 200
+		add_stability = 21
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2303 }
-		add_legitimacy = 10
-		add_prestige = 30
+		var:tv_wonder_site ?= { change_prosperity = 0.5 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2403 }
-		add_gold = 300
-		add_prestige = 20
+		add_all_estate_satisfaction = { value = 0.2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2503 }
-		add_manpower = 6000
-		var:tv_wonder_site ?= { change_prosperity = 0.2 }
+		var:tv_wonder_site ?= { change_prosperity = 0.5 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2603 }
-		add_prestige = 35
-		add_manpower = 4000
+		add_sailors = 50
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2703 }
-		add_manpower = 5000
-		if = {
-			limit = { country_has_estate = estate_type:nobles_estate }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.15 }
-		}
+		add_manpower = 50
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2803 }
-		ruler ?= { add_mil = 2 }
-		add_research_progress = research_progress_mild_bonus
+		ruler ?= { add_mil = 20 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2903 }
-		add_prestige = 40
-		add_stability = 1
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3003 }
-		add_prestige = 80
-		add_research_progress = research_progress_mild_bonus
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3103 }
-		add_prestige = 70
-		var:tv_wonder_site ?= { change_prosperity = 0.2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3203 }
-		ruler ?= { add_dip = 2 }
 		add_prestige = 50
 	}
 	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3003 }
+		add_research_progress = 15
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3103 }
+		add_prestige = 100
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3203 }
+		ruler ?= { add_dip = 20 }
+	}
+	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3303 }
-		add_legitimacy = 15
-		add_stability = 1
+		add_government_power = 20
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3403 }
-		add_gold = 400
-		var:tv_wonder_site ?= { change_prosperity = 0.2 }
+		var:tv_wonder_site ?= { change_prosperity = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3503 }
-		add_gold = 20000
+		add_gold = 10000
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3603 }
-		add_gold = 350
-		if = {
-			limit = { country_has_estate = estate_type:burghers_estate }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.15 }
-		}
+		add_inflation = -0.1
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3703 }
-		add_gold = 300
-		add_prestige = 40
+		add_navy_tradition = 20
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3803 }
-		add_gold = 280
-		add_manpower = 4000
+		add_gold = 10000
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3903 }
-		add_prestige = 100
-		add_legitimacy = 10
+		add_stability = 21
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4003 }
@@ -15601,23 +15737,19 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4403 }
-		add_prestige = 50
-		ruler ?= { add_adm = 1 }
+		add_all_estate_satisfaction = { value = 0.2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4503 }
-		culture = { add_cultural_tradition = 20 }
-		add_prestige = 30
+		add_diplomats = 5
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4603 }
-		add_navy_tradition = 15
-		add_prestige = 30
+		add_navy_tradition = 20
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4703 }
-		add_navy_tradition = 15
-		add_prestige = 30
+		add_research_progress = 15
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10101 }

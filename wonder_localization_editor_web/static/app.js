@@ -8,6 +8,8 @@ const state = {
     statusKind: "default",
     logText: "",
     busy: false,
+    rendering: false,
+    pageDrafts: {},
 };
 
 const elements = {
@@ -85,6 +87,140 @@ function getEditorFields() {
     );
 }
 
+function emptyDraft() {
+    return {
+        values: {
+            english: {},
+            simp_chinese: {},
+        },
+        mechanics: {},
+    };
+}
+
+function draftHasChanges(draft) {
+    return Boolean(
+        draft &&
+            (Object.values(draft.values || {}).some((values) => Object.keys(values || {}).length > 0) ||
+                Object.keys(draft.mechanics || {}).length > 0),
+    );
+}
+
+function dirtyPageCount() {
+    return Object.values(state.pageDrafts).filter(draftHasChanges).length;
+}
+
+function currentWonderId() {
+    return state.currentWonder?.summary?.id ?? null;
+}
+
+function draftValueForField(draft, field, scope) {
+    if (!draft) {
+        return undefined;
+    }
+    if (scope === "localization") {
+        return draft.values?.[field.language]?.[field.key];
+    }
+    return draft.mechanics?.[field.key];
+}
+
+function setDraftValueForField(draft, field, value) {
+    const scope = field.dataset.fieldScope;
+    if (scope === "localization") {
+        const language = field.dataset.language;
+        draft.values[language] ||= {};
+        draft.values[language][field.dataset.key] = value;
+    } else {
+        draft.mechanics[field.dataset.key] = value;
+    }
+}
+
+function collectCurrentDraft() {
+    const draft = emptyDraft();
+    for (const field of getEditorFields()) {
+        if (normalizeFieldValue(field) === field.dataset.originalValue) {
+            continue;
+        }
+        setDraftValueForField(draft, field, field.value);
+    }
+    return draft;
+}
+
+function cacheCurrentWonderDraft() {
+    const wonderId = currentWonderId();
+    if (wonderId === null || state.rendering) {
+        return;
+    }
+    const draft = collectCurrentDraft();
+    if (draftHasChanges(draft)) {
+        state.pageDrafts[String(wonderId)] = draft;
+    } else {
+        delete state.pageDrafts[String(wonderId)];
+    }
+}
+
+function applyDraftToField(field, scope, draft) {
+    const cachedValue = draftValueForField(draft, field, scope);
+    if (cachedValue === undefined) {
+        return;
+    }
+    field.value = cachedValue;
+    if (isStructuredFieldType(field.field_type || "text")) {
+        try {
+            field.structured_value = JSON.parse(cachedValue);
+        } catch {
+            field.structured_value = field.structured_value ?? {};
+        }
+    }
+}
+
+function applyDraftNamePreview(wonderPayload, draft) {
+    const nameKey = wonderNameKeyForKey(wonderPayload?.summary?.key || "");
+    if (!nameKey) {
+        return;
+    }
+    const englishName = draft.values?.english?.[nameKey];
+    const chineseName = draft.values?.simp_chinese?.[nameKey];
+    if (englishName !== undefined) {
+        const normalized = normalizeLocalizationText(String(englishName));
+        wonderPayload.summary.name_en = normalized;
+        wonderPayload.meta.name_en = normalized;
+    }
+    if (chineseName !== undefined) {
+        const normalized = normalizeLocalizationText(String(chineseName));
+        wonderPayload.summary.name_zh = normalized;
+        wonderPayload.meta.name_zh = normalized;
+    }
+    wonderPayload.summary.display_name = `${wonderPayload.summary.name_zh} / ${wonderPayload.summary.name_en}`;
+}
+
+function applyDraftToWonderPayload(wonderPayload) {
+    if (!wonderPayload?.summary?.id) {
+        return wonderPayload;
+    }
+    const draft = state.pageDrafts[String(wonderPayload.summary.id)];
+    if (!draftHasChanges(draft)) {
+        return wonderPayload;
+    }
+    for (const payload of Object.values(wonderPayload.languages || {})) {
+        for (const section of payload.sections || []) {
+            for (const field of section.fields || []) {
+                applyDraftToField(field, "localization", draft);
+            }
+        }
+    }
+    for (const section of wonderPayload.mechanics?.sections || []) {
+        for (const field of section.fields || []) {
+            applyDraftToField(field, "mechanics", draft);
+        }
+    }
+    applyDraftNamePreview(wonderPayload, draft);
+    return wonderPayload;
+}
+
+function setCurrentWonderPayload(wonderPayload) {
+    state.currentWonder = applyDraftToWonderPayload(wonderPayload);
+}
+
 function normalizeFieldValue(element) {
     const scope = element.dataset.fieldScope;
     const fieldType = element.dataset.fieldType || "text";
@@ -99,16 +235,15 @@ function normalizeFieldValue(element) {
 }
 
 function hasUnsavedChanges() {
-    for (const field of getEditorFields()) {
-        if (normalizeFieldValue(field) !== field.dataset.originalValue) {
-            return true;
-        }
-    }
-    return false;
+    cacheCurrentWonderDraft();
+    return dirtyPageCount() > 0;
 }
 
 function refreshDirtyState() {
-    elements.dirtyBadge.classList.toggle("hidden", !hasUnsavedChanges());
+    const hasChanges = hasUnsavedChanges();
+    const pageCount = dirtyPageCount();
+    elements.dirtyBadge.textContent = pageCount > 1 ? `Unsaved changes (${pageCount} pages)` : "未保存更改";
+    elements.dirtyBadge.classList.toggle("hidden", !hasChanges);
 }
 
 function wonderNameKeyForKey(wonderKey) {
@@ -2062,36 +2197,22 @@ function renderLog() {
 }
 
 function render() {
-    elements.appTitle.textContent = state.title;
-    renderWonderKindTabs();
-    renderWonderList();
-    renderMeta();
-    renderWonderImage();
-    renderWonderNameEditors();
-    renderEditorTabs();
-    renderEditorPanels();
-    renderLog();
-    updateStatus(state.status, state.statusKind);
-}
-
-function collectPayload() {
-    const payload = {
-        values: {
-            english: {},
-            simp_chinese: {},
-        },
-        mechanics: {},
-    };
-
-    for (const field of getEditorFields()) {
-        const key = field.dataset.key;
-        if (field.dataset.fieldScope === "localization") {
-            payload.values[field.dataset.language][key] = field.value;
-        } else {
-            payload.mechanics[key] = field.value;
-        }
+    state.rendering = true;
+    try {
+        elements.appTitle.textContent = state.title;
+        renderWonderKindTabs();
+        renderWonderList();
+        renderMeta();
+        renderWonderImage();
+        renderWonderNameEditors();
+        renderEditorTabs();
+        renderEditorPanels();
+        renderLog();
+        updateStatus(state.status, state.statusKind);
+    } finally {
+        state.rendering = false;
     }
-    return payload;
+    refreshDirtyState();
 }
 
 async function fetchJson(url, options = {}) {
@@ -2129,7 +2250,7 @@ async function loadBootstrap() {
         const payload = await fetchJson("/api/bootstrap");
         state.title = payload.title;
         state.wonders = payload.wonders;
-        state.currentWonder = payload.current_wonder;
+        setCurrentWonderPayload(payload.current_wonder);
         state.logText = payload.log_text || "";
         state.status = payload.status || (state.currentWonder ? state.currentWonder.status : "就绪");
         state.statusKind = "default";
@@ -2151,19 +2272,13 @@ async function selectWonder(wonderId) {
     if (state.currentWonder && state.currentWonder.summary.id === wonderId) {
         return;
     }
-    if (hasUnsavedChanges()) {
-        const shouldDiscard = window.confirm("当前奇观有未保存修改。切换会丢失这些修改，是否继续？");
-        if (!shouldDiscard) {
-            renderWonderList();
-            return;
-        }
-    }
+    cacheCurrentWonderDraft();
 
     setBusy(true);
     updateStatus("正在切换奇观", "working");
     try {
         const payload = await fetchJson(`/api/wonders/${wonderId}`);
-        state.currentWonder = payload;
+        setCurrentWonderPayload(payload);
         state.status = payload.status;
         state.statusKind = "default";
         syncWonderModeWithSelection();
@@ -2181,18 +2296,28 @@ async function saveCurrentWonder() {
     if (!state.currentWonder || state.busy) {
         return;
     }
+    cacheCurrentWonderDraft();
+    const currentId = currentWonderId();
+    const drafts = Object.entries(state.pageDrafts)
+        .filter(([, draft]) => draftHasChanges(draft))
+        .map(([wonderId, draft]) => ({
+            wonder_id: Number.parseInt(wonderId, 10),
+            ...draft,
+        }));
     setBusy(true);
     updateStatus("正在保存并重新生成", "working");
     try {
-        const payload = await fetchJson(`/api/wonders/${state.currentWonder.summary.id}/save`, {
+        const payload = await fetchJson("/api/wonders/save", {
             method: "POST",
             body: JSON.stringify({
                 regenerate: true,
-                ...collectPayload(),
+                current_wonder_id: currentId,
+                wonders: drafts,
             }),
         });
+        state.pageDrafts = {};
         state.wonders = payload.wonders;
-        state.currentWonder = payload.wonder;
+        setCurrentWonderPayload(payload.wonder);
         state.logText = payload.log_text || state.logText;
         state.status = payload.status;
         state.statusKind = "default";
@@ -2212,7 +2337,9 @@ async function reloadCurrentWonder() {
     if (!state.currentWonder || state.busy) {
         return;
     }
-    if (hasUnsavedChanges()) {
+    cacheCurrentWonderDraft();
+    const currentId = currentWonderId();
+    if (draftHasChanges(state.pageDrafts[String(currentId)])) {
         const shouldDiscard = window.confirm("放弃当前未保存编辑并重新读取文件吗？");
         if (!shouldDiscard) {
             return;
@@ -2225,8 +2352,9 @@ async function reloadCurrentWonder() {
         const payload = await fetchJson(`/api/wonders/${state.currentWonder.summary.id}/reload`, {
             method: "POST",
         });
+        delete state.pageDrafts[String(currentId)];
         state.wonders = payload.wonders;
-        state.currentWonder = payload.wonder;
+        setCurrentWonderPayload(payload.wonder);
         state.logText = payload.log_text || state.logText;
         state.status = payload.status;
         state.statusKind = "default";

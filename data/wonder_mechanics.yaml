@@ -1234,113 +1234,72 @@ buildings:
       local_clergy_estate_power: 0.25
   giant_dam_project:
     final_local:
-      local_defensive: 0.2
-      local_production_efficiency: 0.3
-      local_max_rgo_size_modifier: 0.15
+      local_monthly_food_modifier: 0.2
+      local_population_growth: 0.00025
   royal_granary_system:
     final_local:
-      local_migration_attraction: 2
-      local_unrest: -0.1
-      local_garrison_size: 250
+      local_food_capacity_modifier: 5000
   imperial_post_road_network:
     final_local:
-      local_distance_from_capital_speed_propagation: 0.15
-      local_monthly_development_modifier: 0.05
-      local_manpower_modifier: 0.15
-      local_trade_center_power: 0.15
-      local_nobles_estate_power: 0.25
+      local_distance_from_capital_speed_propagation: 0.1
+      movement_cost: -0.1
   canal_hub_city:
     final_local:
-      local_trade_center_power: 0.4
-      local_production_efficiency: 0.3
-      local_distance_from_capital_speed_propagation: 0.1
+      local_trade_center_power: 0.1
+      local_monthly_prosperity: 0.1
   frontier_colonization_belt:
     final_local:
-      local_migration_attraction: 4
-      local_max_rgo_size_modifier: 0.15
-      local_manpower_modifier: 0.2
-      local_pop_conversion_speed: 20
+      local_migration_attraction: 1
+      local_rgo_build_time: -0.1
+      local_raw_material_output: 0.1
   coastal_beacon_network:
     final_local:
-      local_defensive: 0.3
-      local_garrison_size: 400
-      local_distance_from_capital_speed_propagation: 0.1
-      local_trade_center_power: 0.1
+      movement_cost: -0.1
+      local_port_cost_distance_impact: -0.5
   knightly_fortress_order:
     final_local:
-      local_defensive: 0.15
-      local_nobles_estate_power: 0.5
-      local_clergy_estate_power: 0.25
-      local_manpower_modifier: 0.15
+      local_fort_maintenance_cost: -0.1
+      local_defensive: 0.25
+      local_hostile_attrition: 0.05
   war_college_system:
-    final_local:
-      local_manpower_modifier: 0.25
-      local_pop_promotion_speed: 5
-      local_nobles_estate_power: 0.2
-      local_ship_build_speed: 0.1
+    final_local: {}
   great_clock_bell_system:
     final_local:
-      local_cultural_tradition: 0.5
-      local_pop_conversion_speed: 30
-      local_unrest: -0.05
-      local_max_literacy: 5
+      local_build_buildings_cost: -0.1
   royal_art_district:
-    final_local:
-      local_cultural_tradition: 1.8
-      local_cultural_influence: 1.8
-      local_nobles_estate_power: 0.2
+    final_local: {}
   grand_theater_festival_district:
     final_local:
-      local_cultural_tradition: 0.6
-      local_unrest: -0.1
-      local_nobles_estate_power: 0.15
-      local_pop_conversion_speed: 15
-  world_embassy_quarter:
-    final_local:
       local_cultural_influence: 0.5
-      local_trade_center_power: 0.25
-      local_nobles_estate_power: 0.15
-      local_clergy_estate_power: 0.15
+  world_embassy_quarter:
+    final_local: {}
   law_code_stele_project:
-    final_local:
-      local_unrest: -0.05
-      local_cultural_tradition: 0.4
-      local_clergy_estate_power: 0.2
-      local_max_control: 0.05
-      local_nobles_estate_power: 0.2
+    final_local: {}
   world_market:
     final_local:
-      local_trade_center_power: 0.45
+      local_trade_center_power: 0.2
       local_migration_attraction: 1
-      local_unrest: -0.05
-      local_distance_from_capital_speed_propagation: 0.1
   royal_mint_system:
     final_local: {}
   guild_alliance:
     final_local:
-      local_production_efficiency: 0.3
-      local_burghers_estate_power: 0.5
-      local_trade_center_power: 0.15
+      local_market_access: 0.1
+      local_monthly_prosperity: 0.1
+      local_trade_center_power: 0.1
   maritime_trade_station_network:
     final_local:
-      local_trade_center_power: 0.4
-      local_ship_build_speed: 0.25
-      local_migration_attraction: -0.5
+      local_merchant_capacity: 1
+      local_merchant_capacity_modifier: 0.25
+      local_merchant_power: 1
   giant_workshop_complex:
     final_local:
-      local_production_efficiency: 0.45
-      local_pop_promotion_speed: 5
-      local_manpower_modifier: 0.15
-      local_cultural_influence: 0.8
+      local_production_efficiency: 0.05
   world_monument_group:
     final_local:
-      local_cultural_tradition: 0.8
-      local_cultural_influence: 1.8
-      local_manpower_modifier: 0.1
       local_unrest: -0.05
   city_expansion_project:
     final_local:
-      free_building_levels: 20
+      free_building_levels: 25
     final_attributes:
       tv_wonder_city_charter:
         rural_settlement: false
@@ -1378,9 +1337,9 @@ buildings:
       tv_wonder_fortified_cloister_monastery: tv_wonder_axis_monument_maintenance
   city_great_tower:
     final_local:
-      local_defensive: 0.1
-      local_garrison_size: 100
-      local_trade_center_power: 0.1
+      local_max_control: 0.1
+      local_market_access: 0.1
+      local_crown_estate_power: 0.5
     final_maintenance:
       tv_wonder_civic_watchtower: tv_wonder_axis_monument_maintenance
       tv_wonder_bell_campanile: tv_wonder_axis_monument_maintenance
@@ -1393,9 +1352,7 @@ buildings:
       tv_wonder_merchant_tower:
         rural_settlement: false
   great_sculpture_group:
-    final_local:
-      local_cultural_tradition: 0.5
-      local_production_efficiency: 0.1
+    final_local: {}
     final_maintenance:
       tv_wonder_royal_sculpture_yard: tv_wonder_sacred_monument_maintenance
       tv_wonder_pilgrim_statue_garden: tv_wonder_sacred_monument_maintenance
@@ -1409,8 +1366,8 @@ buildings:
         rural_settlement: false
   coastal_defense_cannon:
     final_local:
-      local_defensive: 0.25
-      local_garrison_size: 200
+      local_maritime_presence: 0.1
+      local_navy_attrition: 0.05
     final_maintenance:
       tv_wonder_strait_battery_cannon: tv_wonder_axis_monument_maintenance
       tv_wonder_harbor_chain_cannon: tv_wonder_axis_monument_maintenance
@@ -1423,9 +1380,7 @@ buildings:
       tv_wonder_admiralty_gun_foundry:
         category: military_category
   naval_school:
-    final_local:
-      local_ship_build_speed: 0.1
-      local_trade_center_power: 0.1
+    final_local: {}
     final_maintenance:
       tv_wonder_admiralty_navigation_school: tv_wonder_port_monument_maintenance
       tv_wonder_pilotage_chart_house: tv_wonder_port_monument_maintenance
@@ -1456,7 +1411,7 @@ generic_rituals:
         monthly_prestige: 0.05
     style_2:
       local_modifier:
-        can_recruit_regiment_in_this_location: yes
+        can_recruit_regiment_in_this_location: true
         local_manpower: 0.01
     style_3:
       cost_type: scaled_gold
@@ -1728,274 +1683,234 @@ generic_rituals:
   giant_dam_project:
     style_1:
       country_modifier:
-        global_monthly_prosperity: 0.002
+        peasants_estate_target_satisfaction: 0.025
     style_2:
       local_modifier:
-        local_max_rgo_size_modifier: 0.15
+        local_population_capacity: 10
     style_3:
-      cost_type: scaled_gold
+      cost_type: artwork
       reward:
       - type: site_prosperity
-        value: 0.3
-      - type: stability
-        value: 1
+        value: 50
   royal_granary_system:
     style_1:
       country_modifier:
         tax_income_efficiency: 0.03
     style_2:
       local_modifier:
-        local_garrison_size: 250
+        local_monthly_development_modifier: 0.2
     style_3:
-      cost_type: scaled_gold
+      cost_type: prestige
       reward:
       - type: stability
-        value: 1
-      - type: gold
-        value: 200
+        value: 21
   imperial_post_road_network:
     style_1:
       country_modifier:
-        army_movement_speed: 0.04
+        global_peasants_migration_allowed: true
+        global_laborers_migration_allowed: true
     style_2:
       local_modifier:
-        local_trade_center_power: 0.15
+        local_institution_growth_modifier: 0.5
     style_3:
-      cost_type: prestige
+      cost_type: scaled_gold
       reward:
-      - type: legitimacy
-        value: 10
-      - type: prestige
-        value: 30
+      - type: site_prosperity
+        value: 0.5
   canal_hub_city:
     style_1:
       country_modifier:
-        trade_income: 0.03
+        stability_investment: 0.05
     style_2:
       local_modifier:
-        local_trade_center_power: 0.2
+        local_monthly_development: 0.005
     style_3:
       cost_type: scaled_gold
       reward:
-      - type: gold
-        value: 300
-      - type: prestige
-        value: 20
+      - type: all_estate_satisfaction
+        value: 0.2
   frontier_colonization_belt:
     style_1:
       country_modifier:
-        global_manpower_modifier: 0.06
+        subject_pays_colonial_cost_modifier: 0.1
     style_2:
       local_modifier:
-        local_migration_attraction: 2
+        local_market_access: 0.2
+    style_3:
+      cost_type: scaled_gold
+      reward:
+      - type: site_prosperity
+        value: 0.5
+  coastal_beacon_network:
+    style_1:
+      country_modifier:
+        exploration_preparation_time_modifier: -0.2
+    style_2:
+      local_modifier:
+        max_ships_built_at_same_time: 1
+    style_3:
+      cost_type: scaled_gold
+      reward:
+      - type: sailors
+        value: 50
+  knightly_fortress_order:
+    style_1:
+      country_modifier:
+        land_morale_modifier: 0.1
+    style_2:
+      local_modifier:
+        growth_is_primary_culture: true
+        local_pop_assimilation_speed: 0.01
     style_3:
       cost_type: prestige
       reward:
       - type: manpower
-        value: 6000
-      - type: site_prosperity
-        value: 0.2
-  coastal_beacon_network:
-    style_1:
-      country_modifier:
-        army_movement_speed: 0.03
-    style_2:
-      local_modifier:
-        local_defensive: 0.15
-        local_garrison_size: 250
-    style_3:
-      cost_type: scaled_gold
-      reward:
-      - type: prestige
-        value: 35
-      - type: manpower
-        value: 4000
-  knightly_fortress_order:
-    style_1:
-      country_modifier:
-        land_morale_modifier: 0.04
-    style_2:
-      local_modifier:
-        local_defensive: 0.1
-        local_manpower_modifier: 0.1
-    style_3:
-      cost_type: artwork
-      reward:
-      - type: manpower
-        value: 5000
-      - type: estate_satisfaction
-        estate: nobles_estate
-        value: 0.15
+        value: 50
   war_college_system:
     style_1:
       country_modifier:
-        siege_ability: 0.04
+        siege_ability: 0.2
     style_2:
       local_modifier:
-        local_manpower_modifier: 0.1
-        local_garrison_size: 150
+        can_recruit_regiment_in_this_location: true
+        local_manpower: 0.01
     style_3:
       cost_type: prestige
       reward:
       - type: ruler_mil
-        value: 2
-      - type: research_progress
-        value: research_progress_mild_bonus
+        value: 20
   great_clock_bell_system:
+    style_1:
+      country_modifier:
+        global_road_building_time: -0.2
+    style_2:
+      local_modifier:
+        local_rgo_build_time: -0.4
+    style_3:
+      cost_type: scaled_gold
+      reward:
+      - type: prestige
+        value: 50
+  royal_art_district:
     style_1:
       country_modifier:
         tolerance_own: 1
     style_2:
       local_modifier:
-        local_unrest: -0.05
+        local_migration_attraction: 2
     style_3:
       cost_type: artwork
       reward:
-      - type: prestige
-        value: 40
-      - type: stability
-        value: 1
-  royal_art_district:
-    style_1:
-      country_modifier:
-        monthly_prestige: 0.08
-    style_2:
-      local_modifier:
-        local_cultural_tradition: 1
-    style_3:
-      cost_type: artwork
-      reward:
-      - type: prestige
-        value: 80
       - type: research_progress
-        value: research_progress_mild_bonus
+        value: 15
   grand_theater_festival_district:
     style_1:
       country_modifier:
-        monthly_prestige: 0.06
+        global_monthly_art_start_chance: 0.2
     style_2:
       local_modifier:
-        local_pop_conversion_speed: 15
+        local_unrest: -0.4
     style_3:
       cost_type: artwork
       reward:
       - type: prestige
-        value: 70
-      - type: site_prosperity
-        value: 0.2
+        value: 100
   world_embassy_quarter:
     style_1:
       country_modifier:
-        trade_income: 0.02
-        diplomatic_reputation: 0.5
+        monthly_diplomats: 0.1
     style_2:
       local_modifier:
-        local_cultural_influence: 0.5
+        local_crown_estate_power: 1
     style_3:
       cost_type: prestige
       reward:
       - type: ruler_dip
-        value: 2
-      - type: prestige
-        value: 50
+        value: 20
   law_code_stele_project:
     style_1:
       country_modifier:
-        clergy_estate_target_satisfaction: 0.03
+        country_cabinet_efficiency: 0.2
     style_2:
       local_modifier:
-        local_max_control: 0.05
+        local_proximity_source: 50
     style_3:
-      cost_type: artwork
+      cost_type: prestige
       reward:
-      - type: legitimacy
-        value: 15
-      - type: stability
-        value: 1
+      - type: government_power
+        value: 20
   world_market:
     style_1:
       country_modifier:
-        trade_income: 0.05
+        spy_network_construction: 0.4
     style_2:
       local_modifier:
-        local_unrest: -0.05
+        local_institution_growth_modifier: 1
     style_3:
       cost_type: scaled_gold
       reward:
-      - type: gold
-        value: 400
       - type: site_prosperity
-        value: 0.2
+        value: 1
   royal_mint_system:
     style_1:
       country_modifier:
-        minting_income_factor: 0.1
+        minting_inflation_threshold: 0.05
     style_2:
       local_modifier:
-        local_production_efficiency: 0.2
+        local_raw_material_output: 0.25
     style_3:
       cost_type: prestige
       reward:
       - type: gold
-        value: 20000
+        value: 10000
   guild_alliance:
     style_1:
       country_modifier:
-        global_production_efficiency: 0.04
+        merchant_maintenance_efficiency: 0.25
     style_2:
       local_modifier:
-        local_trade_center_power: 0.15
+        local_production_efficiency: 0.1
     style_3:
       cost_type: scaled_gold
       reward:
-      - type: gold
-        value: 350
-      - type: estate_satisfaction
-        estate: burghers_estate
-        value: 0.15
+      - type: inflation
+        value: -0.1
   maritime_trade_station_network:
     style_1:
       country_modifier:
         trade_income: 0.05
     style_2:
       local_modifier:
-        local_migration_attraction: -0.5
+        local_monthly_development: 0.01
     style_3:
       cost_type: scaled_gold
       reward:
-      - type: gold
-        value: 300
-      - type: prestige
-        value: 40
+      - type: navy_tradition
+        value: 20
   giant_workshop_complex:
     style_1:
       country_modifier:
-        global_production_efficiency: 0.04
+        burghers_estate_target_satisfaction: 0.025
     style_2:
       local_modifier:
-        local_manpower_modifier: 0.15
+        local_pop_promotion_speed_modifier: 0.5
     style_3:
-      cost_type: scaled_gold
+      cost_type: prestige
       reward:
       - type: gold
-        value: 280
-      - type: manpower
-        value: 4000
+        value: 10000
   world_monument_group:
     style_1:
       country_modifier:
-        monthly_prestige: 0.08
-        land_morale_modifier: 0.02
+        monthly_prestige: 0.1
     style_2:
       local_modifier:
-        local_unrest: -0.05
+        local_clergy_desired_pop: 1
     style_3:
-      cost_type: artwork
+      cost_type: scaled_gold
       reward:
-      - type: prestige
-        value: 100
-      - type: legitimacy
-        value: 10
+      - type: stability
+        value: 21
   city_expansion_project:
     style_1:
       country_modifier:
@@ -2050,63 +1965,51 @@ generic_rituals:
   city_great_tower:
     style_1:
       country_modifier:
-        monthly_prestige: 0.05
+        global_estate_power: -0.25
     style_2:
       local_modifier:
-        local_defensive: 0.1
-        local_garrison_size: 100
-    style_3:
-      cost_type: prestige
-      reward:
-      - type: prestige
-        value: 50
-      - type: ruler_adm
-        value: 1
-  great_sculpture_group:
-    style_1:
-      country_modifier:
-        cultural_tradition_modifier: 0.04
-    style_2:
-      local_modifier:
-        local_cultural_tradition: 0.5
-        local_production_efficiency: 0.1
+        local_merchant_capacity_modifier: 0.25
     style_3:
       cost_type: artwork
       reward:
-      - type: cultural_tradition
-        value: 20
-      - type: prestige
-        value: 30
+      - type: all_estate_satisfaction
+        value: 0.2
+  great_sculpture_group:
+    style_1:
+      country_modifier:
+        antagonism_received_modifier: -0.2
+    style_2:
+      local_modifier:
+        local_monthly_prosperity: 0.4
+    style_3:
+      cost_type: prestige
+      reward:
+      - type: diplomats
+        value: 5
   coastal_defense_cannon:
     style_1:
       country_modifier:
-        global_garrison_size_modifier: 0.06
+        trade_sea_efficiency: 0.2
     style_2:
       local_modifier:
-        local_defensive: 0.25
-        local_garrison_size: 200
+        local_unrest: -0.2
     style_3:
       cost_type: scaled_gold
       reward:
       - type: navy_tradition
-        value: 15
-      - type: prestige
-        value: 30
+        value: 20
   naval_school:
     style_1:
       country_modifier:
-        naval_range: 100
+        global_maritime_presence_modifier: 0.2
     style_2:
       local_modifier:
-        local_ship_build_speed: 0.1
-        local_trade_center_power: 0.1
+        local_navy_levy_size_modifier: 1
     style_3:
-      cost_type: prestige
+      cost_type: artwork
       reward:
-      - type: navy_tradition
+      - type: research_progress
         value: 15
-      - type: prestige
-        value: 30
 base_modifiers:
   sacred_mountain:
     global_pop_conversion_speed: 0.002
@@ -2162,83 +2065,74 @@ base_modifiers:
     global_raw_material_output: 0.02
     global_monthly_prosperity: 0.001
   giant_dam_project:
-    monthly_towards_centralization: 0.03
-    global_production_efficiency: 0.02
+    monthly_towards_free_subjects: 0.05
   royal_granary_system:
-    pop_join_rebel_threshold: 0.02
-    global_monthly_prosperity: 0.001
+    global_food_capacity_modifier: 0.2
+    monthly_towards_traditional_economy: 0.05
   imperial_post_road_network:
-    global_distance_from_capital_speed_propagation: 0.05
-    army_movement_speed: 0.02
+    monthly_towards_centralization: 0.05
   canal_hub_city:
-    trade_income: 0.02
-    global_production_efficiency: 0.02
+    monthly_towards_mercantilism: 0.05
   frontier_colonization_belt:
-    global_pop_conversion_speed_modifier: 0.02
-    global_manpower_modifier: 0.02
+    monthly_towards_outward: 0.05
   coastal_beacon_network:
-    naval_morale_modifier: 0.02
-    global_maritime_presence_modifier: 0.02
+    monthly_towards_naval: 0.05
   knightly_fortress_order:
-    land_morale_modifier: 0.02
-    monthly_towards_traditionalist: 0.03
+    monthly_towards_defensive: 0.05
   war_college_system:
-    land_morale_modifier: 0.02
-    siege_ability: 0.01
+    monthly_army_tradition: 0.05
+    monthly_towards_belligerent: 0.05
   great_clock_bell_system:
-    monthly_towards_spiritualist: 0.03
-    global_monthly_literacy: 0.002
+    monthly_towards_inward: 0.05
   royal_art_district:
-    monthly_towards_innovative: 0.03
-    global_pop_promotion_speed_modifier: 0.02
+    num_possible_artists: 1
+    artist_salary_modifier: -0.1
+    monthly_towards_innovative: 0.05
   grand_theater_festival_district:
-    monthly_prestige: 0.03
-    pop_join_rebel_threshold: 0.01
+    cultural_influence_modifier: 0.1
+    skill_of_new_artists: 0.05
+    monthly_towards_humanist: 0.05
   world_embassy_quarter:
-    diplomatic_reputation: 0.2
-    trade_income: 0.01
+    diplomatic_reputation: 1
+    monthly_towards_conciliatory: 0.05
   law_code_stele_project:
-    monthly_legitimacy: 0.03
-    stability_investment: -0.01
+    monthly_rebel_growth: -0.0005
+    monthly_towards_inward: 0.05
   world_market:
-    trade_income: 0.03
-    global_monthly_prosperity: 0.001
+    global_trade_center_power: 0.1
+    monthly_towards_free_trade: 0.05
   royal_mint_system:
     minting_income_factor: 0.1
+    monthly_towards_capital_economy: 0.05
   guild_alliance:
-    global_production_efficiency: 0.03
-    trade_income: 0.01
+    monthly_towards_plutocracy: 0.05
   maritime_trade_station_network:
-    trade_range: 50
-    trade_income: 0.02
+    monthly_towards_free_trade: 0.05
   giant_workshop_complex:
-    global_production_efficiency: 0.04
-    global_pop_promotion_speed_modifier: 0.01
+    monthly_towards_capital_economy: 0.05
   world_monument_group:
-    monthly_prestige: 0.05
+    cultures_capacity: 0.5
+    monthly_towards_humanist: 0.05
   city_expansion_project: {}
   megalithic_circle:
     cultural_tradition_modifier: 0.1
     monthly_towards_traditionalist: 0.05
   grand_cathedral:
-    tolerance_own: 1
+    tolerance_own: 0.5
     monthly_towards_spiritualist: 0.05
   great_monastery:
     monthly_towards_spiritualist: 0.05
   city_great_tower:
-    monthly_prestige: 0.05
-    global_build_buildings_cost: -0.02
+    monthly_towards_inward: 0.05
   great_sculpture_group:
-    monthly_prestige: 0.05
-    cultural_tradition_modifier: 0.04
+    pop_join_rebel_threshold: 0.025
+    pop_leave_rebels_threshold: 0.025
+    monthly_towards_humanist: 0.05
   coastal_defense_cannon:
-    naval_morale_modifier: 0.03
-    global_defensive: 0.03
-    global_maritime_presence_modifier: 0.03
+    monthly_towards_defensive: 0.05
   naval_school:
-    naval_range: 25
-    naval_morale_modifier: 0.01
-    monthly_towards_naval: 0.03
+    monthly_navy_tradition: 0.05
+    monthly_towards_naval: 0.05
 ceremony_modifier_names:
   giant_observatory:
     tv_wonder_nautical_almanac_observatory: tv_wonder_nautical_almanac_modifier
@@ -2533,11 +2427,8 @@ ceremony_modifiers:
 site_rules:
   canal_hub_city:
     trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n\tis_port = yes\n}\nNOT = { location_rank ?= location_rank:rural_settlement }"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
-    - type: condition_bonus
-      condition: waterway_or_port
-      value: '10'
     - type: condition_bonus
       condition: urban_rank
       value: '5'
@@ -2545,10 +2436,10 @@ site_rules:
       source: development
       min: '0'
       max: '100'
-      multiplier: '0.1'
+      multiplier: '0.2'
   city_expansion_project:
     trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
-    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.20 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
     - type: condition_bonus
       condition: rank_megalopolis
@@ -2558,20 +2449,71 @@ site_rules:
       min: '0'
       max: '100'
       multiplier: '0.25'
+  city_great_tower:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.total_building_levels }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+    suitability_knowledge:
+    - type: condition_bonus
+      condition: urban_rank
+      value: '5'
+    - type: scaled_bonus
+      source: development
+      min: '0'
+      max: '100'
+      multiplier: '0.1'
+    - type: scaled_bonus
+      source: total_building_levels
+      min: '0'
+      max: '100'
+      multiplier: '0.1'
   coastal_beacon_network:
     trigger_script: is_port = yes
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_port = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}"
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
     suitability_knowledge:
+    - type: scaled_bonus
+      source: development
+      min: '0'
+      max: '100'
+      multiplier: '0.15'
+    - type: scaled_bonus
+      source: average_location_literacy
+      min: '0'
+      max: '100'
+      multiplier: '0.1'
+  coastal_defense_cannon:
+    trigger_script: is_port = yes
+    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 20 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
+    suitability_knowledge:
+    - type: scaled_bonus
+      source: harbor_suitability
+      min: '0'
+      max: '1'
+      multiplier: '20'
+    - type: condition_bonus
+      condition: fort_level
+      value: '5'
+  frontier_colonization_belt:
+    trigger_script: location_rank ?= location_rank:rural_settlement
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { dominant_religion = owner.religion } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { any_neighbor_location = { has_building = building_type:tv_wonder_bridge_opening } } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_port = yes } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+    suitability_knowledge:
+    - type: condition_bonus
+      condition: dominant_religion_owner
+      value: '5'
+    - type: condition_bonus
+      condition: neighbor_bridge_opening
+      value: '5'
     - type: condition_bonus
       condition: is_port
-      value: '15'
-  frontier_colonization_belt:
-    trigger_script: "OR = {\n\tlocation_rank ?= location_rank:rural_settlement\n\ttopography = hills\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-    suitability_knowledge:
-    - type: condition_bonus
-      condition: rank_rural
-      value: '10'
+      value: '5'
     - type: scaled_bonus
       source: development
       min: '0'
@@ -2594,16 +2536,16 @@ site_rules:
       multiplier: '0.15'
   giant_dam_project:
     trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n\tis_port = yes\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { has_river = yes is_adjacent_to_lake = yes is_port = yes } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building = building_type:bridge_infrastructure } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
     - type: condition_bonus
-      condition: waterway_or_port
-      value: '10'
+      condition: has_bridge_infrastructure
+      value: '5'
     - type: scaled_bonus
       source: development
       min: '0'
       max: '100'
-      multiplier: '0.1'
+      multiplier: '0.2'
   giant_necropolis:
     trigger_script: location_rank ?= location_rank:rural_settlement
     preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = hills } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { any_neighbor_location = { tv_wonder_location_is_city_trigger = yes } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { any_neighbor_location = { tv_wonder_location_is_town_trigger = yes } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}"
@@ -2650,7 +2592,7 @@ site_rules:
     preference_script: |-
       set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
       clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
       tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
       remove_variable = tv_wonder_site_preference_bonus
     suitability_knowledge:
@@ -2658,7 +2600,7 @@ site_rules:
       source: development
       min: '0'
       max: '100'
-      multiplier: '0.1'
+      multiplier: '0.25'
   grand_cathedral:
     trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
     preference_script: |-
@@ -2695,33 +2637,37 @@ site_rules:
       max: '100'
       multiplier: '0.1'
   grand_theater_festival_district:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: |-
-      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-      remove_variable = tv_wonder_site_preference_bonus
+    trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
+    - type: condition_bonus
+      condition: rank_megalopolis
+      value: '5'
     - type: scaled_bonus
       source: development
+      min: '0'
+      max: '100'
+      multiplier: '0.1'
+    - type: scaled_bonus
+      source: average_location_literacy
       min: '0'
       max: '100'
       multiplier: '0.1'
   great_clock_bell_system:
     trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: |-
-      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-      remove_variable = tv_wonder_site_preference_bonus
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:city } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
+    - type: condition_bonus
+      condition: rank_city
+      value: '5'
+    - type: condition_bonus
+      condition: rank_megalopolis
+      value: '10'
     - type: scaled_bonus
       source: development
       min: '0'
       max: '100'
-      multiplier: '0.1'
+      multiplier: '0.15'
   great_lighthouse:
     trigger_script: is_port = yes
     preference_script: |-
@@ -2782,6 +2728,24 @@ site_rules:
       min: '0'
       max: '1'
       multiplier: '25'
+  great_sculpture_group:
+    trigger_script: "OR = {\n\ttopography = mountains\n\ttopography = plateau\n\ttopography = hills\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = mountains } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = plateau } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = hills } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+    suitability_knowledge:
+    - type: condition_bonus
+      condition: topography_mountains
+      value: '15'
+    - type: condition_bonus
+      condition: topography_plateau
+      value: '10'
+    - type: condition_bonus
+      condition: topography_hills
+      value: '5'
+    - type: scaled_bonus
+      source: development
+      min: '0'
+      max: '100'
+      multiplier: '0.1'
   great_wall:
     trigger_script: |-
       NOT = { location_rank ?= location_rank:city }
@@ -2805,7 +2769,7 @@ site_rules:
     preference_script: |-
       set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
       clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
       tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
       remove_variable = tv_wonder_site_preference_bonus
     suitability_knowledge:
@@ -2813,7 +2777,7 @@ site_rules:
       source: development
       min: '0'
       max: '100'
-      multiplier: '0.1'
+      multiplier: '0.25'
   hydraulic_workshop:
     trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n}"
     preference_script: |-
@@ -2833,7 +2797,7 @@ site_rules:
     preference_script: |-
       set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
       clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
       tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
       remove_variable = tv_wonder_site_preference_bonus
     suitability_knowledge:
@@ -2841,9 +2805,9 @@ site_rules:
       source: development
       min: '0'
       max: '100'
-      multiplier: '0.1'
+      multiplier: '0.25'
   knightly_fortress_order:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    trigger_script: always = yes
     preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
     - type: condition_bonus
@@ -2871,16 +2835,16 @@ site_rules:
       multiplier: '0.1'
   law_code_stele_project:
     trigger_script: always = yes
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
     - type: condition_bonus
       condition: is_capital
       value: '10'
     - type: scaled_bonus
-      source: development
+      source: average_location_literacy
       min: '0'
       max: '100'
-      multiplier: '0.1'
+      multiplier: '0.15'
   library_of_nation:
     trigger_script: is_capital = yes
     preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:city } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
@@ -2898,11 +2862,16 @@ site_rules:
       multiplier: '0.15'
   maritime_trade_station_network:
     trigger_script: is_port = yes
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_port = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
     - type: condition_bonus
-      condition: is_port
-      value: '15'
+      condition: urban_rank
+      value: '10'
+    - type: scaled_bonus
+      source: harbor_suitability
+      min: '0'
+      max: '100'
+      multiplier: '0.15'
   megalithic_circle:
     trigger_script: always = yes
     preference_script: |-
@@ -2986,6 +2955,29 @@ site_rules:
       min: '0'
       max: '100'
       multiplier: '0.1'
+  naval_school:
+    trigger_script: is_port = yes
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 15 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+    suitability_knowledge:
+    - type: scaled_bonus
+      source: harbor_suitability
+      min: '0'
+      max: '1'
+      multiplier: '15'
+    - type: scaled_bonus
+      source: average_location_literacy
+      min: '0'
+      max: '100'
+      multiplier: '0.1'
   palace_of_nations:
     trigger_script: is_capital = yes
     preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
@@ -3014,20 +3006,25 @@ site_rules:
       max: '100'
       multiplier: '0.1'
   royal_art_district:
-    trigger_script: "OR = {\n\tis_capital = yes\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+    trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
     - type: condition_bonus
       condition: is_capital
-      value: '10'
+      value: '5'
     - type: scaled_bonus
       source: development
       min: '0'
       max: '100'
       multiplier: '0.1'
+    - type: scaled_bonus
+      source: average_location_literacy
+      min: '0'
+      max: '100'
+      multiplier: '0.1'
   royal_granary_system:
     trigger_script: always = yes
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
     - type: condition_bonus
       condition: rank_rural
@@ -3036,7 +3033,7 @@ site_rules:
       source: development
       min: '0'
       max: '100'
-      multiplier: '0.1'
+      multiplier: '0.2'
   royal_mint_system:
     trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n\traw_material = goods:goods_gold\n\traw_material = goods:silver\n\traw_material = goods:copper\n}"
     preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { raw_material = goods:goods_gold raw_material = goods:silver raw_material = goods:copper } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
@@ -3127,50 +3124,29 @@ site_rules:
   war_college_system:
     trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
     preference_script: |-
-      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
       clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.25 }
       tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
       remove_variable = tv_wonder_site_preference_bonus
     suitability_knowledge:
     - type: scaled_bonus
-      source: development
+      source: average_location_literacy
       min: '0'
       max: '100'
-      multiplier: '0.1'
-  naval_school:
-    trigger_script: is_port = yes
-    preference_script: |-
-      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 25 }
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-      if = {
-        limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
-        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
-      }
-      remove_variable = tv_wonder_site_preference_bonus
-    suitability_knowledge:
-    - type: scaled_bonus
-      source: harbor_suitability
-      min: '0'
-      max: '1'
-      multiplier: '25'
-    - type: condition_bonus
-      condition: urban_rank
-      value: '5'
+      multiplier: '0.25'
   world_embassy_quarter:
     trigger_script: "OR = {\n\tis_capital = yes\n\tNOT = { location_rank ?= location_rank:rural_settlement }\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
     - type: condition_bonus
       condition: is_capital
       value: '10'
     - type: scaled_bonus
-      source: development
+      source: average_location_literacy
       min: '0'
       max: '100'
-      multiplier: '0.1'
+      multiplier: '0.15'
   world_market:
     trigger_script: "OR = {\n\tis_port = yes\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
     preference_script: |-
@@ -3187,7 +3163,7 @@ site_rules:
       multiplier: '0.1'
   world_monument_group:
     trigger_script: "OR = {\n\tis_capital = yes\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.05 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
     suitability_knowledge:
     - type: condition_bonus
       condition: is_capital
@@ -3196,40 +3172,9 @@ site_rules:
       source: development
       min: '0'
       max: '100'
-      multiplier: '0.1'
-  city_great_tower:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-    suitability_knowledge:
-    - type: condition_bonus
-      condition: urban_rank
-      value: '5'
+      multiplier: '0.05'
     - type: scaled_bonus
-      source: development
+      source: average_location_literacy
       min: '0'
       max: '100'
       multiplier: '0.1'
-  great_sculpture_group:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-    suitability_knowledge:
-    - type: condition_bonus
-      condition: urban_rank
-      value: '5'
-    - type: scaled_bonus
-      source: development
-      min: '0'
-      max: '100'
-      multiplier: '0.1'
-  coastal_defense_cannon:
-    trigger_script: is_port = yes
-    preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 20 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
-    suitability_knowledge:
-    - type: scaled_bonus
-      source: harbor_suitability
-      min: '0'
-      max: '1'
-      multiplier: '20'
-    - type: condition_bonus
-      condition: fort_level
-      value: '5'

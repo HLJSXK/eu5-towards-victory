@@ -190,6 +190,14 @@ def _require_string(value: object, context: str, *, allow_empty: bool = False) -
     return value
 
 
+def _validate_wonder_size(value: object, context: str) -> str:
+    size = _require_string(value, context)
+    if size not in WONDER_SIZE_IDS:
+        supported = ", ".join(WONDER_SIZE_IDS)
+        raise ValueError(f"{context} must be one of: {supported}")
+    return size
+
+
 def _require_optional_string(value: object, context: str) -> str | None:
     if value is None:
         return None
@@ -332,7 +340,7 @@ def _validate_generic_wonder_record(raw: object) -> dict:
         "id": _require_int(wonder["id"], f"{context}.id", minimum=1),
         "key": key,
         "concept": _require_string(wonder["concept"], f"{context}.concept"),
-        "size": _require_string(wonder["size"], f"{context}.size"),
+        "size": _validate_wonder_size(wonder["size"], f"{context}.size"),
         "category": _require_string(wonder["category"], f"{context}.category"),
         "pop_type": _require_string(wonder["pop_type"], f"{context}.pop_type"),
         "maintenance": _require_string(wonder["maintenance"], f"{context}.maintenance"),
