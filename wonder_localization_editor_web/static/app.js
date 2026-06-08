@@ -47,6 +47,8 @@ function wonderSearchHaystack(wonder) {
         wonder.name_en,
         wonder.display_name,
         wonder.kind_label,
+        wonder.size,
+        wonder.size_label,
     ]
         .join(" ")
         .toLowerCase();
@@ -298,7 +300,10 @@ function renderWonderList() {
             <span class="wonder-list-copy">
                 <span class="wonder-row">
                     <span class="wonder-id">#${wonder.id}</span>
-                    <span class="wonder-kind">${escapeHtml(wonder.kind_label)}</span>
+                    <span class="wonder-badges">
+                        <span class="wonder-kind">${escapeHtml(wonder.kind_label)}</span>
+                        <span class="wonder-size">${escapeHtml(wonder.size_label || wonder.size || "-")}</span>
+                    </span>
                 </span>
                 <strong>${escapeHtml(wonder.name_zh || wonder.key)}</strong>
                 <span class="wonder-subtitle">${escapeHtml(wonder.name_en || wonder.concept)}</span>
@@ -323,6 +328,7 @@ function renderMeta() {
         ["ID", String(meta.id)],
         ["Key", meta.key],
         ["Concept key", meta.concept],
+        ["Size", meta.size_label || summary.size_label || meta.size || "-"],
         ["类型", summary.kind_label],
         ["中文名", meta.name_zh || "-"],
         ["英文名", meta.name_en || "-"],

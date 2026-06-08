@@ -31,6 +31,7 @@ from scripts.wonder_mechanics_lib import (
     SUPPORTED_RITUAL_LISTENERS,
     SUPPORTED_UNIQUE_RITUAL_MODES,
     UNIQUE_WONDERS_FILE,
+    WONDERS_FILE,
     authored_final_building_local_modifiers,
     ceremony_modifier_for_style,
     ceremony_styles,
@@ -57,6 +58,15 @@ LANGUAGE_LABELS = {
     "english": "English",
     "simp_chinese": "Simplified Chinese",
 }
+WONDER_SIZE_LABELS = {
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+}
+WONDER_SIZE_OPTIONS = [
+    {"value": size, "label": label}
+    for size, label in WONDER_SIZE_LABELS.items()
+]
 ROMAN_NUMERALS = {
     1: "I",
     2: "II",
@@ -273,6 +283,7 @@ class MechanicsFieldSpec:
     def to_api_dict(self) -> dict[str, Any]:
         origin_label = {
             "shared": "Shared mechanics source",
+            "generic": "Generic wonder source",
             "unique": "Unique wonder source",
         }.get(self.source_kind, self.source_kind)
         if not self.editable and self.prototype_key:
@@ -368,6 +379,18 @@ def parse_editor_scalar(raw_value: object) -> object:
         return int(text)
     except ValueError:
         return text
+
+
+def wonder_size_label(size: object) -> str:
+    return WONDER_SIZE_LABELS.get(str(size), str(size))
+
+
+def normalize_editor_wonder_size(raw_value: object, *, context: str) -> str:
+    size = str(raw_value).strip()
+    if size not in WONDER_SIZE_LABELS:
+        supported = ", ".join(WONDER_SIZE_LABELS)
+        raise ValueError(f"{context} must be one of: {supported}")
+    return size
 
 
 def modifier_rows_from_mapping(mapping: dict[str, object]) -> list[dict[str, str]]:
@@ -2044,6 +2067,8 @@ class WonderLocalizationService:
                     wonder["key"],
                     wonder["concept"],
                     wonder.get("base_key", ""),
+                    wonder.get("size", ""),
+                    wonder_size_label(wonder.get("size", "")),
                     self._wonder_name(wonder, "english"),
                     self._wonder_name(wonder, "simp_chinese"),
                 ]
@@ -2105,6 +2130,7 @@ class WonderLocalizationService:
                         continue
                     localization_updates[language][spec.key] = value
 
+            wonders_file_changed = False
             mechanics_file_changed = False
             unique_file_changed = False
             for spec in mechanics_specs:
@@ -2142,6 +2168,13 @@ class WonderLocalizationService:
                         raise ValueError(f"{spec.key} cannot be empty")
                     self.mechanics_data["site_rules"][spec.target_key][spec.target_parent_key] = rendered_script
                     mechanics_file_changed = True
+                    continue
+
+                if spec.target_kind == "generic_size":
+                    size = normalize_editor_wonder_size(value, context=spec.key)
+                    entry = self._get_generic_wonder_source(spec.target_key)
+                    entry["size"] = size
+                    wonders_file_changed = True
                     continue
 
                 if spec.target_kind == "unique_prototype":
@@ -2244,12 +2277,16 @@ class WonderLocalizationService:
                     save_yaml_document(MECHANICS_FILE, self.mechanics_data)
                     changed_files.append(str(MECHANICS_FILE.relative_to(REPO_ROOT)))
 
+                if wonders_file_changed:
+                    save_yaml_document(WONDERS_FILE, self.wonders_data)
+                    changed_files.append(str(WONDERS_FILE.relative_to(REPO_ROOT)))
+
                 if unique_file_changed:
                     save_yaml_document(UNIQUE_WONDERS_FILE, self.unique_wonders_data, preserve_leading_comments=True)
                     changed_files.append(str(UNIQUE_WONDERS_FILE.relative_to(REPO_ROOT)))
 
                 if regenerate:
-                    if mechanics_file_changed or unique_file_changed:
+                    if wonders_file_changed or mechanics_file_changed or unique_file_changed:
                         self._run_generators(WONDER_DATA_REGEN_SCRIPTS)
                     elif any(localization_updates[language] for language in LANGUAGES):
                         self._run_generators(REGEN_SCRIPTS)
@@ -2298,6 +2335,12 @@ class WonderLocalizationService:
                 return wonder
         raise KeyError(f"Unknown unique wonder key: {wonder_key}")
 
+    def _get_generic_wonder_source(self, wonder_key: str) -> dict[str, Any]:
+        for wonder in self.wonders_data.get("wonders", []):
+            if wonder.get("key") == wonder_key:
+                return wonder
+        raise KeyError(f"Unknown generic wonder key: {wonder_key}")
+
     def _get_generic_wonder_by_key(self, wonder_key: str) -> dict[str, Any]:
         for wonder in self.wonders:
             if not wonder.get("is_unique") and wonder.get("key") == wonder_key:
@@ -2333,12 +2376,15 @@ class WonderLocalizationService:
         kind_label = "Unique" if wonder.get("is_unique") else "Generic"
         name_en = self._wonder_name(wonder, "english")
         name_zh = self._wonder_name(wonder, "simp_chinese")
+        size = str(wonder.get("size", ""))
         return {
             "id": int(wonder["id"]),
             "key": wonder["key"],
             "concept": wonder["concept"],
             "is_unique": bool(wonder.get("is_unique")),
             "kind_label": kind_label,
+            "size": size,
+            "size_label": wonder_size_label(size),
             "name_en": name_en,
             "name_zh": name_zh,
             "display_name": f"{name_zh} / {name_en}",
@@ -2353,6 +2399,8 @@ class WonderLocalizationService:
             "name_en": self._wonder_name(wonder, "english"),
             "name_zh": self._wonder_name(wonder, "simp_chinese"),
             "is_unique": bool(wonder.get("is_unique")),
+            "size": str(wonder.get("size", "")),
+            "size_label": wonder_size_label(wonder.get("size", "")),
             "image": self._wonder_image_info(wonder),
         }
         if wonder.get("is_unique"):
@@ -2456,6 +2504,24 @@ class WonderLocalizationService:
             if inherits_from_prototype
             else {}
         )
+
+        if not inherits_from_prototype:
+            self._add_mechanics_spec(
+                specs,
+                group="Core Data",
+                label="Wonder size",
+                key=f"mechanics.generic_size.{wonder['key']}",
+                source_kind="generic",
+                file_path=WONDERS_FILE,
+                original_value=str(wonder["size"]),
+                field_type="select",
+                target_kind="generic_size",
+                target_key=wonder["key"],
+                height=1,
+                options=WONDER_SIZE_OPTIONS,
+                help_text="Small, medium, or large. Unique wonders inherit this value from their prototype wonder.",
+                target_path=f"wonders[{wonder['key']}].size",
+            )
 
         self._add_mechanics_spec(
             specs,
