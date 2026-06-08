@@ -62,6 +62,7 @@ UTF8_BOM = b"\xef\xbb\xbf"
 VALIDATED_SUFFIXES = {".txt", ".gui", ".yml", ".yaml", ".md", ".py"}
 LOCALIZATION_KEY_PATTERN = re.compile(r"^\s+(\w+)\s*:(?:\d+)?")
 GAME_CONCEPT_DECL_PATTERN = re.compile(r"^([A-Za-z0-9_]+)\s*=\s*\{$")
+EVENT_ID_REFERENCE_PATTERN = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\.([1-9][0-9]{4,})\b")
 GENERIC_ACTION_HIDDEN_ONLY_EFFECTS = {
     "tv_governor_remove_effect": (
         "dismisses a regional governor by clearing variables/lists and rebuilding display state; "
@@ -479,6 +480,24 @@ def check_tv_io_icon_assets() -> None:
                     f"[GUI] {path.relative_to(REPO_ROOT)}:{line_num} -- "
                     f"Missing GetIcon asset {icon.relative_to(REPO_ROOT)} for IO type {io_type}"
                 )
+
+
+def check_event_id_numeric_range(path: Path, content: str) -> None:
+    """Catch event IDs whose numeric part exceeds Jomini's four-digit limit."""
+    rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
+    if not (
+        rel.startswith("src/")
+        or rel.startswith("scripts/")
+        or rel.startswith("data/")
+    ):
+        return
+    for match in EVENT_ID_REFERENCE_PATTERN.finditer(content):
+        event_id = f"{match.group(1)}.{match.group(2)}"
+        issues.append(
+            f"[EVENT_ID] {path.relative_to(REPO_ROOT)}:{_line_num(content, match.start())} -- "
+            f"{event_id} is invalid; EU5 event numeric IDs must be < 10000. "
+            "Keep extra dimensions in pre-trigger dispatch or event-local non-wonder branches instead of encoding them into the event ID."
+        )
 
 
 def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
@@ -903,6 +922,8 @@ def main():
 
             if KNOWLEDGE_DIR in path.parents:
                 continue
+
+            check_event_id_numeric_range(path, content)
 
             is_game_content = (
                 path.is_relative_to(REPO_ROOT / "src")

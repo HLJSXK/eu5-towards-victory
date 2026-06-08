@@ -469,7 +469,12 @@ def flatten_rgba(image: RgbaImage, background: tuple[int, int, int]) -> RgbaImag
     return RgbaImage(width=image.width, height=image.height, rgba=bytes(rgba))
 
 
-def build_dds_header(width: int, height: int, data_size: int, fourcc: str) -> bytes:
+def build_dds_header(
+    width: int,
+    height: int,
+    data_size: int,
+    fourcc: str,
+) -> bytes:
     if fourcc not in {"DXT1", "DXT5"}:
         raise ValueError("DDS fourcc must be DXT1 or DXT5")
     ddsd_caps = 0x00000001
@@ -480,12 +485,15 @@ def build_dds_header(width: int, height: int, data_size: int, fourcc: str) -> by
     ddpf_fourcc = 0x00000004
     ddscaps_texture = 0x00001000
 
+    flags = ddsd_caps | ddsd_height | ddsd_width | ddsd_pixel_format | ddsd_linear_size
+    caps = ddscaps_texture
+
     header = bytearray()
     header += b"DDS "
     header += struct.pack(
         "<IIIIIII",
         124,
-        ddsd_caps | ddsd_height | ddsd_width | ddsd_pixel_format | ddsd_linear_size,
+        flags,
         height,
         width,
         data_size,
@@ -494,7 +502,7 @@ def build_dds_header(width: int, height: int, data_size: int, fourcc: str) -> by
     )
     header += struct.pack("<11I", *([0] * 11))
     header += struct.pack("<II4sIIIII", 32, ddpf_fourcc, fourcc.encode("ascii"), 0, 0, 0, 0, 0)
-    header += struct.pack("<IIIII", ddscaps_texture, 0, 0, 0, 0)
+    header += struct.pack("<IIIII", caps, 0, 0, 0, 0)
     if len(header) != 128:
         raise AssertionError(f"invalid DDS header length: {len(header)}")
     return bytes(header)
@@ -514,8 +522,8 @@ def write_dds(
         raise FileExistsError(f"refusing to overwrite existing DDS: {path}")
     path.parent.mkdir(parents=True, exist_ok=True)
     out_image = flatten_rgba(image, opaque_background) if dds_format == "DXT1" else image
-    dxt_data = encode_dxt1(out_image) if dds_format == "DXT1" else encode_dxt5(out_image)
-    path.write_bytes(build_dds_header(out_image.width, out_image.height, len(dxt_data), dds_format) + dxt_data)
+    dxt_level = encode_dxt1(out_image) if dds_format == "DXT1" else encode_dxt5(out_image)
+    path.write_bytes(build_dds_header(out_image.width, out_image.height, len(dxt_level), dds_format) + dxt_level)
 
 
 def _decode_dxt1_color_block(block: bytes, force_four_color: bool) -> list[tuple[int, int, int, int]]:

@@ -31,6 +31,7 @@ from scripts.wonder_mechanics_lib import (
     SUPPORTED_RITUAL_LISTENERS,
     SUPPORTED_UNIQUE_RITUAL_MODES,
     UNIQUE_WONDERS_FILE,
+    WONDERS_FILE,
     authored_final_building_local_modifiers,
     ceremony_modifier_for_style,
     ceremony_styles,
@@ -57,6 +58,15 @@ LANGUAGE_LABELS = {
     "english": "English",
     "simp_chinese": "Simplified Chinese",
 }
+WONDER_SIZE_LABELS = {
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+}
+WONDER_SIZE_OPTIONS = [
+    {"value": size, "label": label}
+    for size, label in WONDER_SIZE_LABELS.items()
+]
 ROMAN_NUMERALS = {
     1: "I",
     2: "II",
@@ -273,6 +283,7 @@ class MechanicsFieldSpec:
     def to_api_dict(self) -> dict[str, Any]:
         origin_label = {
             "shared": "Shared mechanics source",
+            "generic": "Generic wonder source",
             "unique": "Unique wonder source",
         }.get(self.source_kind, self.source_kind)
         if not self.editable and self.prototype_key:
@@ -368,6 +379,18 @@ def parse_editor_scalar(raw_value: object) -> object:
         return int(text)
     except ValueError:
         return text
+
+
+def wonder_size_label(size: object) -> str:
+    return WONDER_SIZE_LABELS.get(str(size), str(size))
+
+
+def normalize_editor_wonder_size(raw_value: object, *, context: str) -> str:
+    size = str(raw_value).strip()
+    if size not in WONDER_SIZE_LABELS:
+        supported = ", ".join(WONDER_SIZE_LABELS)
+        raise ValueError(f"{context} must be one of: {supported}")
+    return size
 
 
 def modifier_rows_from_mapping(mapping: dict[str, object]) -> list[dict[str, str]]:
@@ -2044,6 +2067,8 @@ class WonderLocalizationService:
                     wonder["key"],
                     wonder["concept"],
                     wonder.get("base_key", ""),
+                    wonder.get("size", ""),
+                    wonder_size_label(wonder.get("size", "")),
                     self._wonder_name(wonder, "english"),
                     self._wonder_name(wonder, "simp_chinese"),
                 ]
@@ -2081,156 +2106,197 @@ class WonderLocalizationService:
             "log_text": self.log_text,
         }
 
-    def save_wonder(
+    def _apply_wonder_edits(
         self,
         wonder_id: int,
         values_by_language: dict[str, dict[str, str]] | None,
         mechanics_values: dict[str, Any] | None = None,
+    ) -> dict[str, bool]:
+        wonder = self._get_wonder(wonder_id)
+        specs = self._build_specs_for_wonder(wonder)
+        mechanics_specs = self._build_mechanics_specs_for_wonder(wonder)
+        localization_updates: dict[str, dict[str, str]] = {language: {} for language in LANGUAGES}
+        incoming_values = values_by_language or {}
+        incoming_mechanics = mechanics_values or {}
+
+        for language, language_specs in specs.items():
+            language_values = incoming_values.get(language, {})
+            for spec in language_specs:
+                value = normalize_editor_text(str(language_values.get(spec.key, spec.original_value)))
+                if value == spec.original_value:
+                    continue
+                localization_updates[language][spec.key] = value
+
+        wonders_file_changed = False
+        mechanics_file_changed = False
+        unique_file_changed = False
+        for spec in mechanics_specs:
+            raw_value = incoming_mechanics.get(spec.key, spec.original_value)
+            if spec.field_type in {
+                "modifier_table",
+                "reward_editor",
+                "unique_ritual_editor",
+                "site_trigger_template",
+                "site_preference_template",
+                "suitability_knowledge_editor",
+            }:
+                value = str(raw_value)
+            else:
+                value = normalize_multiline_editor_text(str(raw_value))
+            if value == spec.original_value:
+                continue
+            if not spec.editable:
+                continue
+
+            if spec.target_kind == "site_rule":
+                if spec.field_type == "site_trigger_template":
+                    rendered_script = render_trigger_script_from_state(value, context=spec.key)
+                elif spec.field_type == "site_preference_template":
+                    rendered_script = render_preference_script_from_state(value, context=spec.key)
+                elif spec.field_type == "suitability_knowledge_editor":
+                    self.mechanics_data["site_rules"][spec.target_key][spec.target_parent_key] = (
+                        suitability_knowledge_from_editor_state(value, context=spec.key)
+                    )
+                    mechanics_file_changed = True
+                    continue
+                else:
+                    rendered_script = value
+                if not rendered_script:
+                    raise ValueError(f"{spec.key} cannot be empty")
+                self.mechanics_data["site_rules"][spec.target_key][spec.target_parent_key] = rendered_script
+                mechanics_file_changed = True
+                continue
+
+            if spec.target_kind == "generic_size":
+                size = normalize_editor_wonder_size(value, context=spec.key)
+                entry = self._get_generic_wonder_source(spec.target_key)
+                entry["size"] = size
+                wonders_file_changed = True
+                continue
+
+            if spec.target_kind == "unique_prototype":
+                if not value:
+                    raise ValueError(f"{spec.key} cannot be empty")
+                self._get_generic_wonder_by_key(value)
+                entry = self._get_unique_wonder_source(spec.target_key)
+                entry["base_key"] = value
+                entry["mechanic_key"] = value
+                unique_file_changed = True
+                continue
+
+            if spec.target_kind == "building_local":
+                if spec.field_type == "modifier_table":
+                    parsed = mapping_from_modifier_rows(value, context=spec.key)
+                else:
+                    parsed = parse_yaml_editor_value(value, expected_type=dict)
+                self.mechanics_data.setdefault("buildings", {}).setdefault(spec.target_key, {})[
+                    spec.target_parent_key
+                ] = parsed
+                mechanics_file_changed = True
+                continue
+
+            if spec.target_kind == "base_modifiers":
+                if spec.field_type == "modifier_table":
+                    parsed = mapping_from_modifier_rows(value, context=spec.key)
+                else:
+                    parsed = parse_yaml_editor_value(value, expected_type=dict)
+                self.mechanics_data.setdefault("base_modifiers", {})[spec.target_key] = parsed
+                mechanics_file_changed = True
+                continue
+
+            if spec.target_kind == "generic_ritual":
+                if spec.field_type == "modifier_table":
+                    parsed_modifier = mapping_from_modifier_rows(value, context=spec.key)
+                    modifier_field = "country_modifier" if spec.target_parent_key == "style_1" else "local_modifier"
+                    parsed = {modifier_field: parsed_modifier}
+                elif spec.field_type == "reward_editor":
+                    payload = parse_structured_editor_value(value, context=spec.key)
+                    if not isinstance(payload, dict):
+                        raise ValueError(f"{spec.key} must be an object")
+                    cost_type_value = payload.get("cost_type", "")
+                    cost_type_raw = "" if cost_type_value is None else str(cost_type_value).strip()
+                    cost_type = cost_type_raw or None
+                    if cost_type not in SUPPORTED_RITUAL_COST_TYPES:
+                        supported = ", ".join(sorted(option for option in SUPPORTED_RITUAL_COST_TYPES if option is not None))
+                        raise ValueError(f"{spec.key}.cost_type must be empty or one of: {supported}")
+                    parsed = {
+                        "cost_type": cost_type,
+                        "reward": reward_list_from_rows(value, context=f"{spec.key}.reward"),
+                    }
+                else:
+                    parsed = parse_yaml_editor_value(value, expected_type=dict)
+                self.mechanics_data.setdefault("generic_rituals", {}).setdefault(spec.target_key, {})[
+                    spec.target_parent_key
+                ] = parsed
+                mechanics_file_changed = True
+                continue
+
+            if spec.target_kind == "unique_location":
+                if not value:
+                    raise ValueError(f"{spec.key} cannot be empty")
+                entry = self._get_unique_wonder_source(spec.target_key)
+                entry["location"] = value
+                unique_file_changed = True
+                continue
+
+            if spec.target_kind == "unique_ritual":
+                if spec.field_type == "unique_ritual_editor":
+                    parsed = unique_ritual_from_editor_state(value, context=spec.key)
+                else:
+                    parsed = parse_yaml_editor_value(value, expected_type=dict)
+                entry = self._get_unique_wonder_source(spec.target_key)
+                updated_entry = dict(entry)
+                updated_entry["ritual"] = parsed
+                updated_entry["ritual"] = normalize_unique_ritual(updated_entry)
+                entry["ritual"] = updated_entry["ritual"]
+                unique_file_changed = True
+                continue
+
+            raise ValueError(f"Unsupported mechanics target kind: {spec.target_kind}")
+
+        localization_file_changed = any(localization_updates[language] for language in LANGUAGES)
+        if localization_file_changed:
+            for language, updates in localization_updates.items():
+                if not updates:
+                    continue
+                self.localization_data[language].update(updates)
+
+        return {
+            "localization": localization_file_changed,
+            "mechanics": mechanics_file_changed,
+            "wonders": wonders_file_changed,
+            "unique": unique_file_changed,
+        }
+
+    def save_wonders(
+        self,
+        drafts_by_wonder_id: dict[int, dict[str, Any]],
         *,
+        current_wonder_id: int | None = None,
         regenerate: bool = True,
     ) -> dict[str, Any]:
         with self._lock:
-            wonder = self._get_wonder(wonder_id)
-            specs = self._build_specs_for_wonder(wonder)
-            mechanics_specs = self._build_mechanics_specs_for_wonder(wonder)
-            localization_updates: dict[str, dict[str, str]] = {language: {} for language in LANGUAGES}
-            incoming_values = values_by_language or {}
-            incoming_mechanics = mechanics_values or {}
-
-            for language, language_specs in specs.items():
-                language_values = incoming_values.get(language, {})
-                for spec in language_specs:
-                    value = normalize_editor_text(str(language_values.get(spec.key, spec.original_value)))
-                    if value == spec.original_value:
-                        continue
-                    localization_updates[language][spec.key] = value
-
-            mechanics_file_changed = False
-            unique_file_changed = False
-            for spec in mechanics_specs:
-                raw_value = incoming_mechanics.get(spec.key, spec.original_value)
-                if spec.field_type in {
-                    "modifier_table",
-                    "reward_editor",
-                    "unique_ritual_editor",
-                    "site_trigger_template",
-                    "site_preference_template",
-                    "suitability_knowledge_editor",
-                }:
-                    value = str(raw_value)
-                else:
-                    value = normalize_multiline_editor_text(str(raw_value))
-                if value == spec.original_value:
-                    continue
-                if not spec.editable:
-                    continue
-
-                if spec.target_kind == "site_rule":
-                    if spec.field_type == "site_trigger_template":
-                        rendered_script = render_trigger_script_from_state(value, context=spec.key)
-                    elif spec.field_type == "site_preference_template":
-                        rendered_script = render_preference_script_from_state(value, context=spec.key)
-                    elif spec.field_type == "suitability_knowledge_editor":
-                        self.mechanics_data["site_rules"][spec.target_key][spec.target_parent_key] = (
-                            suitability_knowledge_from_editor_state(value, context=spec.key)
-                        )
-                        mechanics_file_changed = True
-                        continue
-                    else:
-                        rendered_script = value
-                    if not rendered_script:
-                        raise ValueError(f"{spec.key} cannot be empty")
-                    self.mechanics_data["site_rules"][spec.target_key][spec.target_parent_key] = rendered_script
-                    mechanics_file_changed = True
-                    continue
-
-                if spec.target_kind == "unique_prototype":
-                    if not value:
-                        raise ValueError(f"{spec.key} cannot be empty")
-                    self._get_generic_wonder_by_key(value)
-                    entry = self._get_unique_wonder_source(spec.target_key)
-                    entry["base_key"] = value
-                    entry["mechanic_key"] = value
-                    unique_file_changed = True
-                    continue
-
-                if spec.target_kind == "building_local":
-                    if spec.field_type == "modifier_table":
-                        parsed = mapping_from_modifier_rows(value, context=spec.key)
-                    else:
-                        parsed = parse_yaml_editor_value(value, expected_type=dict)
-                    self.mechanics_data.setdefault("buildings", {}).setdefault(spec.target_key, {})[
-                        spec.target_parent_key
-                    ] = parsed
-                    mechanics_file_changed = True
-                    continue
-
-                if spec.target_kind == "base_modifiers":
-                    if spec.field_type == "modifier_table":
-                        parsed = mapping_from_modifier_rows(value, context=spec.key)
-                    else:
-                        parsed = parse_yaml_editor_value(value, expected_type=dict)
-                    self.mechanics_data.setdefault("base_modifiers", {})[spec.target_key] = parsed
-                    mechanics_file_changed = True
-                    continue
-
-                if spec.target_kind == "generic_ritual":
-                    if spec.field_type == "modifier_table":
-                        parsed_modifier = mapping_from_modifier_rows(value, context=spec.key)
-                        modifier_field = "country_modifier" if spec.target_parent_key == "style_1" else "local_modifier"
-                        parsed = {modifier_field: parsed_modifier}
-                    elif spec.field_type == "reward_editor":
-                        payload = parse_structured_editor_value(value, context=spec.key)
-                        if not isinstance(payload, dict):
-                            raise ValueError(f"{spec.key} must be an object")
-                        cost_type_value = payload.get("cost_type", "")
-                        cost_type_raw = "" if cost_type_value is None else str(cost_type_value).strip()
-                        cost_type = cost_type_raw or None
-                        if cost_type not in SUPPORTED_RITUAL_COST_TYPES:
-                            supported = ", ".join(sorted(option for option in SUPPORTED_RITUAL_COST_TYPES if option is not None))
-                            raise ValueError(f"{spec.key}.cost_type must be empty or one of: {supported}")
-                        parsed = {
-                            "cost_type": cost_type,
-                            "reward": reward_list_from_rows(value, context=f"{spec.key}.reward"),
-                        }
-                    else:
-                        parsed = parse_yaml_editor_value(value, expected_type=dict)
-                    self.mechanics_data.setdefault("generic_rituals", {}).setdefault(spec.target_key, {})[
-                        spec.target_parent_key
-                    ] = parsed
-                    mechanics_file_changed = True
-                    continue
-
-                if spec.target_kind == "unique_location":
-                    if not value:
-                        raise ValueError(f"{spec.key} cannot be empty")
-                    entry = self._get_unique_wonder_source(spec.target_key)
-                    entry["location"] = value
-                    unique_file_changed = True
-                    continue
-
-                if spec.target_kind == "unique_ritual":
-                    if spec.field_type == "unique_ritual_editor":
-                        parsed = unique_ritual_from_editor_state(value, context=spec.key)
-                    else:
-                        parsed = parse_yaml_editor_value(value, expected_type=dict)
-                    entry = self._get_unique_wonder_source(spec.target_key)
-                    updated_entry = dict(entry)
-                    updated_entry["ritual"] = parsed
-                    updated_entry["ritual"] = normalize_unique_ritual(updated_entry)
-                    entry["ritual"] = updated_entry["ritual"]
-                    unique_file_changed = True
-                    continue
-
-                raise ValueError(f"Unsupported mechanics target kind: {spec.target_kind}")
-
-            changed_files: list[str] = []
+            changed = {
+                "localization": False,
+                "mechanics": False,
+                "wonders": False,
+                "unique": False,
+            }
+            changed_wonder_ids: list[int] = []
             try:
-                if any(localization_updates[language] for language in LANGUAGES):
-                    for language, updates in localization_updates.items():
-                        if not updates:
-                            continue
-                        self.localization_data[language].update(updates)
+                for wonder_id, draft in sorted(drafts_by_wonder_id.items(), key=lambda item: int(item[0])):
+                    page_changes = self._apply_wonder_edits(
+                        int(wonder_id),
+                        draft.get("values", {}),
+                        draft.get("mechanics", {}),
+                    )
+                    if any(page_changes.values()):
+                        changed_wonder_ids.append(int(wonder_id))
+                    for key, value in page_changes.items():
+                        changed[key] = changed[key] or value
+
+                changed_files: list[str] = []
+                if changed["localization"]:
                     validate_canonical_localization_data(
                         self.wonders,
                         self.mechanics,
@@ -2240,43 +2306,71 @@ class WonderLocalizationService:
                     save_wonder_localization_data(self.localization_data)
                     changed_files.append(str(WONDER_LOCALIZATION_FILE.relative_to(REPO_ROOT)))
 
-                if mechanics_file_changed:
+                if changed["mechanics"]:
                     save_yaml_document(MECHANICS_FILE, self.mechanics_data)
                     changed_files.append(str(MECHANICS_FILE.relative_to(REPO_ROOT)))
 
-                if unique_file_changed:
+                if changed["wonders"]:
+                    save_yaml_document(WONDERS_FILE, self.wonders_data)
+                    changed_files.append(str(WONDERS_FILE.relative_to(REPO_ROOT)))
+
+                if changed["unique"]:
                     save_yaml_document(UNIQUE_WONDERS_FILE, self.unique_wonders_data, preserve_leading_comments=True)
                     changed_files.append(str(UNIQUE_WONDERS_FILE.relative_to(REPO_ROOT)))
 
                 if regenerate:
-                    if mechanics_file_changed or unique_file_changed:
+                    if changed["wonders"] or changed["mechanics"] or changed["unique"]:
                         self._run_generators(WONDER_DATA_REGEN_SCRIPTS)
-                    elif any(localization_updates[language] for language in LANGUAGES):
+                    elif changed["localization"]:
                         self._run_generators(REGEN_SCRIPTS)
 
                 self.reload_from_disk()
-                payload = self.get_wonder_payload(wonder_id)
-                if payload is None:
-                    raise KeyError(f"Unknown wonder id after reload: {wonder_id}")
+                target_wonder_id = current_wonder_id
+                if target_wonder_id is None and drafts_by_wonder_id:
+                    target_wonder_id = int(next(iter(drafts_by_wonder_id)))
+                payload = self.get_wonder_payload(target_wonder_id) if target_wonder_id is not None else None
+                if payload is None and target_wonder_id is not None:
+                    raise KeyError(f"Unknown wonder id after reload: {target_wonder_id}")
 
                 if changed_files:
-                    status = f"Saved: {', '.join(changed_files)}"
-                elif regenerate:
-                    status = "Regenerated without source edits"
+                    page_count = len(changed_wonder_ids)
+                    status = f"Saved {page_count} page{'s' if page_count != 1 else ''}: {', '.join(changed_files)}"
                 else:
                     status = "No changes"
 
-                payload["status"] = status
+                if payload is not None:
+                    payload["status"] = status
                 return {
                     "status": status,
                     "changed_files": changed_files,
+                    "changed_wonder_ids": changed_wonder_ids,
                     "wonders": self.list_wonders(),
                     "wonder": payload,
                     "log_text": self.log_text,
                 }
             except Exception as exc:
                 self._append_log(f"[error] {exc}\n")
+                self.reload_from_disk()
                 raise
+
+    def save_wonder(
+        self,
+        wonder_id: int,
+        values_by_language: dict[str, dict[str, str]] | None,
+        mechanics_values: dict[str, Any] | None = None,
+        *,
+        regenerate: bool = True,
+    ) -> dict[str, Any]:
+        return self.save_wonders(
+            {
+                int(wonder_id): {
+                    "values": values_by_language or {},
+                    "mechanics": mechanics_values or {},
+                }
+            },
+            current_wonder_id=wonder_id,
+            regenerate=regenerate,
+        )
 
     def _localization_value(self, language: str, key: str) -> str:
         if language not in self.localization_data:
@@ -2297,6 +2391,12 @@ class WonderLocalizationService:
             if wonder.get("key") == wonder_key:
                 return wonder
         raise KeyError(f"Unknown unique wonder key: {wonder_key}")
+
+    def _get_generic_wonder_source(self, wonder_key: str) -> dict[str, Any]:
+        for wonder in self.wonders_data.get("wonders", []):
+            if wonder.get("key") == wonder_key:
+                return wonder
+        raise KeyError(f"Unknown generic wonder key: {wonder_key}")
 
     def _get_generic_wonder_by_key(self, wonder_key: str) -> dict[str, Any]:
         for wonder in self.wonders:
@@ -2333,12 +2433,15 @@ class WonderLocalizationService:
         kind_label = "Unique" if wonder.get("is_unique") else "Generic"
         name_en = self._wonder_name(wonder, "english")
         name_zh = self._wonder_name(wonder, "simp_chinese")
+        size = str(wonder.get("size", ""))
         return {
             "id": int(wonder["id"]),
             "key": wonder["key"],
             "concept": wonder["concept"],
             "is_unique": bool(wonder.get("is_unique")),
             "kind_label": kind_label,
+            "size": size,
+            "size_label": wonder_size_label(size),
             "name_en": name_en,
             "name_zh": name_zh,
             "display_name": f"{name_zh} / {name_en}",
@@ -2353,6 +2456,8 @@ class WonderLocalizationService:
             "name_en": self._wonder_name(wonder, "english"),
             "name_zh": self._wonder_name(wonder, "simp_chinese"),
             "is_unique": bool(wonder.get("is_unique")),
+            "size": str(wonder.get("size", "")),
+            "size_label": wonder_size_label(wonder.get("size", "")),
             "image": self._wonder_image_info(wonder),
         }
         if wonder.get("is_unique"):
@@ -2456,6 +2561,24 @@ class WonderLocalizationService:
             if inherits_from_prototype
             else {}
         )
+
+        if not inherits_from_prototype:
+            self._add_mechanics_spec(
+                specs,
+                group="Core Data",
+                label="Wonder size",
+                key=f"mechanics.generic_size.{wonder['key']}",
+                source_kind="generic",
+                file_path=WONDERS_FILE,
+                original_value=str(wonder["size"]),
+                field_type="select",
+                target_kind="generic_size",
+                target_key=wonder["key"],
+                height=1,
+                options=WONDER_SIZE_OPTIONS,
+                help_text="Small, medium, or large. Unique wonders inherit this value from their prototype wonder.",
+                target_path=f"wonders[{wonder['key']}].size",
+            )
 
         self._add_mechanics_spec(
             specs,

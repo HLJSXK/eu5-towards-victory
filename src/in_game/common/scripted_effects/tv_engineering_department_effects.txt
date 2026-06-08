@@ -87,16 +87,6 @@ tv_wonder_set_io_survey_progress_effect = {
 	}
 }
 
-tv_wonder_change_io_survey_progress_effect = {
-	every_international_organizations_member_of = {
-		limit = {
-			international_organization_type = international_organization_type:tv_engineering_department
-		}
-		change_variable = { name = tv_wonder_survey_progress add = $value$ }
-		clamp_variable = { name = tv_wonder_survey_progress min = 0 max = 100 }
-	}
-}
-
 tv_wonder_change_scale_competence_effect = {
 	custom_description = {
 		text = tv_wonder_change_scale_competence_text
@@ -122,12 +112,6 @@ tv_wonder_change_organization_competence_effect = {
 		change_variable = { name = tv_wonder_organization_competence add = $value$ }
 		clamp_variable = { name = tv_wonder_organization_competence min = 0 max = 100 }
 	}
-}
-
-tv_wonder_change_all_survey_competence_effect = {
-	tv_wonder_change_scale_competence_effect = { value = $value$ }
-	tv_wonder_change_logistics_competence_effect = { value = $value$ }
-	tv_wonder_change_organization_competence_effect = { value = $value$ }
 }
 
 tv_wonder_change_scale_competence_target_effect = {
@@ -305,6 +289,7 @@ tv_wonder_clear_feasible_deck_effect = {
 
 tv_wonder_clear_current_proposal_effect = {
 	remove_variable = tv_wonder_proposal
+	remove_variable = tv_wonder_selected_proposal_id
 	remove_variable = tv_wonder_proposal_slot_1
 	remove_variable = tv_wonder_proposal_slot_2
 	remove_variable = tv_wonder_proposal_slot_3
@@ -420,11 +405,6 @@ tv_wonder_restore_proposal_from_great_engineer_effect = {
 	}
 }
 
-tv_wonder_roll_random_feasible_proposal_effect = {
-	remove_variable = tv_wonder_proposal
-	tv_wonder_generic_roll_random_feasible_proposal_effect = yes
-}
-
 tv_wonder_copy_current_proposal_to_slot_1_effect = {
 	if = {
 		limit = { var:tv_wonder_proposal ?= { this >= 1 } }
@@ -446,39 +426,40 @@ tv_wonder_copy_current_proposal_to_slot_3_effect = {
 	}
 }
 
-tv_wonder_select_proposal_slot_1_effect = {
+tv_wonder_select_proposal_id_effect = {
 	if = {
-		limit = { var:tv_wonder_proposal_slot_1 ?= { this >= 1 } }
+		limit = { var:tv_wonder_selected_proposal_id ?= { this >= 1 } }
 		remove_variable = tv_wonder_proposal_mode
 		remove_variable = tv_wonder_proposal_site
 		remove_variable = tv_wonder_priority_found
 		remove_variable = tv_wonder_resume_project
-		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_1 }
+		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_selected_proposal_id }
+		remove_variable = tv_wonder_selected_proposal_id
 		tv_wonder_set_proposal_on_great_engineer_effect = yes
+	}
+}
+
+tv_wonder_select_proposal_slot_1_effect = {
+	if = {
+		limit = { var:tv_wonder_proposal_slot_1 ?= { this >= 1 } }
+		set_variable = { name = tv_wonder_selected_proposal_id value = var:tv_wonder_proposal_slot_1 }
+		tv_wonder_select_proposal_id_effect = yes
 	}
 }
 
 tv_wonder_select_proposal_slot_2_effect = {
 	if = {
 		limit = { var:tv_wonder_proposal_slot_2 ?= { this >= 1 } }
-		remove_variable = tv_wonder_proposal_mode
-		remove_variable = tv_wonder_proposal_site
-		remove_variable = tv_wonder_priority_found
-		remove_variable = tv_wonder_resume_project
-		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_2 }
-		tv_wonder_set_proposal_on_great_engineer_effect = yes
+		set_variable = { name = tv_wonder_selected_proposal_id value = var:tv_wonder_proposal_slot_2 }
+		tv_wonder_select_proposal_id_effect = yes
 	}
 }
 
 tv_wonder_select_proposal_slot_3_effect = {
 	if = {
 		limit = { var:tv_wonder_proposal_slot_3 ?= { this >= 1 } }
-		remove_variable = tv_wonder_proposal_mode
-		remove_variable = tv_wonder_proposal_site
-		remove_variable = tv_wonder_priority_found
-		remove_variable = tv_wonder_resume_project
-		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_proposal_slot_3 }
-		tv_wonder_set_proposal_on_great_engineer_effect = yes
+		set_variable = { name = tv_wonder_selected_proposal_id value = var:tv_wonder_proposal_slot_3 }
+		tv_wonder_select_proposal_id_effect = yes
 	}
 }
 
@@ -829,13 +810,14 @@ tv_wonder_accept_proposal_effect = {
 			limit = { var:tv_wonder_proposal ?= { this >= 1 } }
 			tv_wonder_clear_current_survey_effect = yes
 			set_variable = { name = tv_wonder_locked value = var:tv_wonder_proposal }
+			set_variable = { name = tv_wonder_stage value = 1 }
+			tv_wonder_index_refresh_country_cache_effect = yes
 			if = {
 				limit = { has_variable = tv_wonder_proposal_mode }
 				tv_wonder_prepare_priority_project_effect = yes
 			}
 			tv_wonder_clear_current_proposal_effect = yes
 			remove_variable = tv_wonder_priority_found
-			set_variable = { name = tv_wonder_stage value = 1 }
 			tv_wonder_reset_io_progress_effect = yes
 			if = {
 				limit = { tv_wonder_unique_locked_trigger = yes }
@@ -989,30 +971,6 @@ tv_wonder_loss_stability_agenda_effect = {
 
 tv_wonder_loss_legitimacy_agenda_effect = {
 	add_legitimacy = -5
-}
-
-tv_wonder_loss_other_estates_satisfaction_agenda_effect = {
-	if = {
-		limit = {
-			OR = {
-				var:tv_wonder_nobles_demand ?= 8
-				var:tv_wonder_burghers_demand ?= 8
-				var:tv_wonder_clergy_demand ?= 8
-			}
-		}
-		if = {
-			limit = { country_has_estate = estate_type:nobles_estate }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.05 }
-		}
-		if = {
-			limit = { country_has_estate = estate_type:burghers_estate }
-			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.05 }
-		}
-		if = {
-			limit = { country_has_estate = estate_type:clergy_estate }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.05 }
-		}
-	}
 }
 
 tv_wonder_gain_inflation_agenda_effect = {
@@ -1974,6 +1932,7 @@ tv_wonder_choose_ceremony_style_effect = {
 			limit = { NOT = { var:tv_wonder_ceremony_style ?= $style$ } }
 			set_variable = { name = tv_wonder_ceremony_style value = $style$ }
 		}
+		tv_wonder_index_refresh_country_cache_effect = yes
 	}
 }
 
@@ -1982,178 +1941,11 @@ tv_wonder_initialize_ceremony_runtime_state_effect = {
 		limit = {
 			tv_wonder_unique_locked_trigger = yes
 			tv_wonder_ceremony_ready_trigger = yes
-		}
-		set_variable = { name = tv_wonder_ceremony_style value = 1 }
-		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 	}
+	set_variable = { name = tv_wonder_ceremony_style value = 1 }
+	set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+	tv_wonder_index_refresh_country_cache_effect = yes
 }
-
-tv_wonder_apply_generic_base_modifier_effect = {
-	hidden_effect = {
-		tv_wonder_clear_current_generic_base_modifiers_effect = yes
-		tv_wonder_mechanics_apply_generic_base_modifier_effect = yes
-	}
-}
-
-tv_wonder_apply_unique_base_modifier_effect = {
-	hidden_effect = {
-		tv_wonder_clear_current_unique_base_modifiers_effect = yes
-		tv_wonder_mechanics_apply_unique_base_modifier_effect = yes
-	}
-}
-
-tv_wonder_apply_base_modifier_effect = {
-	if = {
-		limit = { tv_wonder_unique_locked_trigger = yes }
-		tv_wonder_apply_unique_base_modifier_effect = yes
-	}
-	else = {
-		tv_wonder_apply_generic_base_modifier_effect = yes
-	}
-}
-
-tv_wonder_apply_unique_ceremony_modifier_effect = {
-	hidden_effect = {
-		tv_wonder_clear_current_unique_ceremony_modifiers_effect = yes
-		tv_wonder_mechanics_apply_unique_ceremony_modifier_effect = yes
-	}
-}
-
-tv_wonder_apply_ceremony_modifier_effect = {
-	if = {
-		limit = { tv_wonder_unique_locked_trigger = yes }
-		tv_wonder_apply_unique_ceremony_modifier_effect = yes
-	}
-}
-
-tv_wonder_construct_final_building_in_site_effect = {
-	# Event option hover can pre-evaluate this helper before same-chain temp vars commit.
-	# Drive the final building level directly from persistent building state and root wonder level.
-	if = {
-		limit = {
-			NOT = { has_building = $building$ }
-			root = { var:tv_wonder_level ?= { this >= 1 } }
-		}
-		construct_building = { building_type = $building$ cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
-		if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 6 } } }
-			change_building_level_in_location = { building = $building$ value = 5 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 5 } } }
-			change_building_level_in_location = { building = $building$ value = 4 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 4 } } }
-			change_building_level_in_location = { building = $building$ value = 3 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 3 } } }
-			change_building_level_in_location = { building = $building$ value = 2 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 2 } } }
-			change_building_level_in_location = { building = $building$ value = 1 owner = prev }
-		}
-	}
-	else_if = {
-		limit = { location_building_level = { building_type = $building$ value >= 5 } }
-		if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 6 } } }
-			change_building_level_in_location = { building = $building$ value = 1 owner = prev }
-		}
-	}
-	else_if = {
-		limit = { location_building_level = { building_type = $building$ value >= 4 } }
-		if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 6 } } }
-			change_building_level_in_location = { building = $building$ value = 2 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 5 } } }
-			change_building_level_in_location = { building = $building$ value = 1 owner = prev }
-		}
-	}
-	else_if = {
-		limit = { location_building_level = { building_type = $building$ value >= 3 } }
-		if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 6 } } }
-			change_building_level_in_location = { building = $building$ value = 3 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 5 } } }
-			change_building_level_in_location = { building = $building$ value = 2 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 4 } } }
-			change_building_level_in_location = { building = $building$ value = 1 owner = prev }
-		}
-	}
-	else_if = {
-		limit = { location_building_level = { building_type = $building$ value >= 2 } }
-		if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 6 } } }
-			change_building_level_in_location = { building = $building$ value = 4 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 5 } } }
-			change_building_level_in_location = { building = $building$ value = 3 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 4 } } }
-			change_building_level_in_location = { building = $building$ value = 2 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 3 } } }
-			change_building_level_in_location = { building = $building$ value = 1 owner = prev }
-		}
-	}
-	else_if = {
-		limit = { location_building_level = { building_type = $building$ value >= 1 } }
-		if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 6 } } }
-			change_building_level_in_location = { building = $building$ value = 5 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 5 } } }
-			change_building_level_in_location = { building = $building$ value = 4 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 4 } } }
-			change_building_level_in_location = { building = $building$ value = 3 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 3 } } }
-			change_building_level_in_location = { building = $building$ value = 2 owner = prev }
-		}
-		else_if = {
-			limit = { root = { var:tv_wonder_level ?= { this >= 2 } } }
-			change_building_level_in_location = { building = $building$ value = 1 owner = prev }
-		}
-	}
-	tv_wonder_mechanics_refresh_location_display_state_effect = yes
-}
-
-tv_wonder_construct_generic_final_building_effect = {
-	hidden_effect = {
-		tv_wonder_mechanics_construct_generic_final_building_effect = yes
-	}
-}
-
-tv_wonder_construct_unique_final_building_effect = {
-	hidden_effect = {
-		tv_wonder_mechanics_construct_unique_final_building_effect = yes
-	}
-}
-
-tv_wonder_construct_final_building_effect = {
-	if = {
-		limit = { tv_wonder_unique_locked_trigger = yes }
-		tv_wonder_construct_unique_final_building_effect = yes
-	}
-	else = {
-		tv_wonder_construct_generic_final_building_effect = yes
-	}
 }
 
 tv_wonder_prepare_final_support_rewards_effect = {
@@ -2267,168 +2059,21 @@ tv_wonder_reward_current_ruler_and_engineer_effect = {
 	}
 }
 
-tv_wonder_broadcast_generic_completion_event_effect = {
-	save_scope_as = tv_wonder_builder_country
-	if = {
-		limit = { tv_wonder_construction_site_selected_trigger = yes }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_completed_site }
-	}
-	if = {
-		limit = { var:tv_wonder_locked ?= 1 }
-		save_scope_as = tv_wonder_completed_sacred
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 2 }
-		save_scope_as = tv_wonder_completed_axis
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 3 }
-		save_scope_as = tv_wonder_completed_port
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 4 }
-		save_scope_as = tv_wonder_completed_necropolis
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 5 }
-		save_scope_as = tv_wonder_completed_lighthouse
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 6 }
-		save_scope_as = tv_wonder_completed_hydraulic
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 7 }
-		save_scope_as = tv_wonder_completed_mining
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 8 }
-		save_scope_as = tv_wonder_completed_observatory
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 9 }
-		save_scope_as = tv_wonder_completed_palace
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 10 }
-		save_scope_as = tv_wonder_completed_university
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 11 }
-		save_scope_as = tv_wonder_completed_sky_dome
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 12 }
-		save_scope_as = tv_wonder_completed_tower_temple
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 13 }
-		save_scope_as = tv_wonder_completed_river
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 14 }
-		save_scope_as = tv_wonder_completed_shipyard
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 15 }
-		save_scope_as = tv_wonder_completed_star_fortress
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 16 }
-		save_scope_as = tv_wonder_completed_great_wall
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 17 }
-		save_scope_as = tv_wonder_completed_armory
-	}
-	else_if = {
-		limit = { var:tv_wonder_locked ?= 18 }
-		save_scope_as = tv_wonder_completed_library
-	}
-	tv_wonder_mechanics_broadcast_generic_completion_event_effect = yes
-	every_country = {
-		limit = {
-			exists = capital
-			exists = scope:tv_wonder_builder_country
-			exists = scope:tv_wonder_completed_site
-			NOT = { this = scope:tv_wonder_builder_country }
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.600 }
-	}
-}
-
-tv_wonder_broadcast_unique_completion_event_effect = {
-	save_scope_as = tv_wonder_builder_country
-	if = {
-		limit = { tv_wonder_construction_site_selected_trigger = yes }
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_completed_site }
-	}
-	tv_wonder_mechanics_broadcast_unique_completion_event_effect = yes
-	every_country = {
-		limit = {
-			exists = capital
-			exists = scope:tv_wonder_builder_country
-			exists = scope:tv_wonder_completed_site
-			NOT = { this = scope:tv_wonder_builder_country }
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.600 }
-	}
-}
-
-tv_wonder_broadcast_completion_event_effect = {
-	if = {
-		limit = { tv_wonder_unique_locked_trigger = yes }
-		tv_wonder_broadcast_unique_completion_event_effect = yes
-	}
-	else = {
-		tv_wonder_broadcast_generic_completion_event_effect = yes
-	}
-}
-
 tv_wonder_finalize_effect = {
 	if = {
 		limit = { tv_wonder_has_selected_ceremony_trigger = yes }
 		set_variable = { name = tv_wonder_finalized value = 1 }
 		set_variable = { name = tv_wonder_stage value = 5 }
-		if = {
-			limit = { tv_wonder_unique_locked_trigger = yes }
-			trigger_event_non_silently = { id = tv_engineering_department.501 }
-		}
-		else = {
-			trigger_event_non_silently = { id = tv_engineering_department.500 }
-		}
+		tv_wonder_prepare_final_support_rewards_effect = yes
+		tv_wonder_prepare_finalization_preview_effect = yes
+		tv_wonder_mechanics_trigger_finalization_event_effect = yes
 	}
 }
 
-tv_wonder_complete_generic_finalization_preview_effect = {
-	if = {
-		limit = { has_variable = tv_wonder_finalization_preview_ready }
-		tv_wonder_mechanics_apply_generic_base_modifier_effect = yes
-		tv_wonder_apply_completion_celebration_rewards_effect = yes
-		tv_wonder_reward_current_ruler_and_engineer_effect = yes
-		tv_wonder_apply_final_support_rewards_effect = yes
-	}
-}
-
-tv_wonder_complete_unique_finalization_preview_effect = {
-	if = {
-		limit = { has_variable = tv_wonder_finalization_preview_ready }
-		tv_wonder_mechanics_apply_unique_base_modifier_effect = yes
-		tv_wonder_mechanics_apply_unique_ceremony_modifier_effect = yes
-		tv_wonder_apply_completion_celebration_rewards_effect = yes
-		tv_wonder_reward_current_ruler_and_engineer_effect = yes
-		tv_wonder_apply_final_support_rewards_effect = yes
-	}
-}
-
-tv_wonder_complete_finalization_preview_effect = {
-	if = {
-		limit = { tv_wonder_unique_locked_trigger = yes }
-		tv_wonder_complete_unique_finalization_preview_effect = yes
-	}
-	else = {
-		tv_wonder_complete_generic_finalization_preview_effect = yes
-	}
+tv_wonder_apply_finalization_visible_rewards_effect = {
+	tv_wonder_apply_completion_celebration_rewards_effect = yes
+	tv_wonder_reward_current_ruler_and_engineer_effect = yes
+	tv_wonder_apply_final_support_rewards_effect = yes
 }
 
 tv_wonder_complete_finalization_cleanup_effect = {
@@ -2450,53 +2095,6 @@ tv_wonder_complete_finalization_cleanup_effect = {
 		var:tv_wonder_site ?= {
 			remove_location_modifier = tv_wonder_deep_drainage_location_modifier
 		}
-	}
-}
-
-tv_wonder_complete_generic_finalization_effect = {
-	if = {
-		limit = { has_variable = tv_wonder_finalization_preview_ready }
-		hidden_effect = {
-			tv_wonder_construct_generic_final_building_effect = yes
-			tv_wonder_apply_generic_base_modifier_effect = yes
-			tv_wonder_apply_completion_celebration_rewards_effect = yes
-			tv_wonder_reward_current_ruler_and_engineer_effect = yes
-			tv_wonder_apply_final_support_rewards_effect = yes
-			tv_wonder_complete_finalization_cleanup_effect = yes
-			tv_wonder_destroy_generic_intermediate_buildings_effect = yes
-			tv_wonder_broadcast_generic_completion_event_effect = yes
-			tv_wonder_cache_post_finalization_priority_effect = yes
-			tv_wonder_clear_project_state_effect = yes
-		}
-	}
-}
-
-tv_wonder_complete_unique_finalization_effect = {
-	if = {
-		limit = { has_variable = tv_wonder_finalization_preview_ready }
-		hidden_effect = {
-			tv_wonder_construct_unique_final_building_effect = yes
-			tv_wonder_apply_unique_base_modifier_effect = yes
-			tv_wonder_apply_unique_ceremony_modifier_effect = yes
-			tv_wonder_apply_completion_celebration_rewards_effect = yes
-			tv_wonder_reward_current_ruler_and_engineer_effect = yes
-			tv_wonder_apply_final_support_rewards_effect = yes
-			tv_wonder_complete_finalization_cleanup_effect = yes
-			tv_wonder_destroy_unique_intermediate_buildings_effect = yes
-			tv_wonder_broadcast_unique_completion_event_effect = yes
-			tv_wonder_cache_post_finalization_priority_effect = yes
-			tv_wonder_clear_project_state_effect = yes
-		}
-	}
-}
-
-tv_wonder_complete_finalization_effect = {
-	if = {
-		limit = { tv_wonder_unique_locked_trigger = yes }
-		tv_wonder_complete_unique_finalization_effect = yes
-	}
-	else = {
-		tv_wonder_complete_generic_finalization_effect = yes
 	}
 }
 
@@ -2543,7 +2141,6 @@ tv_wonder_reinitialize_building_state_core_effect = {
 			limit = { prev = { NOT = { tv_wonder_construction_site_selected_trigger = yes } } }
 			tv_wonder_destroy_intermediate_buildings_at_location_effect = yes
 		}
-		tv_wonder_ensure_helper_building_from_final_buildings_effect = yes
 	}
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
@@ -2554,7 +2151,6 @@ tv_wonder_reinitialize_building_state_core_effect = {
 		tv_wonder_materialize_module_buildings_from_unit_vars_effect = yes
 		var:tv_wonder_site ?= {
 			tv_wonder_combine_completed_modules_at_location_effect = yes
-			tv_wonder_ensure_helper_building_from_final_buildings_effect = yes
 		}
 		tv_wonder_sync_units_from_buildings_effect = yes
 		tv_wonder_update_construction_progress_display_effect = yes
@@ -2620,7 +2216,6 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_decoration_progress
 	remove_variable = tv_wonder_level
 	remove_variable = tv_wonder_previous_level
-	remove_variable = tv_wonder_final_building
 	remove_variable = tv_wonder_final_building_extra_levels
 	remove_variable = tv_wonder_final_support_reward_source
 	remove_variable = tv_wonder_final_stability_reward
@@ -2658,6 +2253,8 @@ tv_wonder_clear_project_state_effect = {
 	remove_variable = tv_wonder_previous_level
 	tv_wonder_clear_feasible_deck_effect = yes
 	tv_wonder_mechanics_clear_project_state_effect = yes
+	tv_wonder_index_clear_locked_wonder_cache_effect = yes
+	tv_wonder_index_clear_selected_ritual_cache_effect = yes
 	set_variable = { name = tv_wonder_stage value = 0 }
 	tv_wonder_reset_io_progress_effect = yes
 	if = {

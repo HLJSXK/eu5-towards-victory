@@ -22,6 +22,16 @@
 # To add a new entry: append a YAML dict with all fields, then run:
 #   python scripts/gen_brief.py
 
+- id: unreleased_project_compatibility_layer
+  pattern: ''
+  detectability: advisory
+  bad: "Adding or preserving compatibility layers, legacy save migrations, alias variables, wrapper launchers, duplicate old/new paths, or defensive fallback branches for a previous internal implementation"
+  correction: "Treat this unreleased v0.1.0 project as mutable. Update all callers, generators, data, and docs to the current architecture, delete stale branches/state, and prefer direct efficient refactors over compatibility shims. Only add compatibility when the user explicitly requests it for a named external consumer."
+  category: workflow
+  scope: any
+  source: "Project owner directive, 2026-06-07"
+  notes: "There are no shipped saves or public APIs to protect. Compatibility code creates hot-path cost, hides call-order bugs, and teaches future agents to preserve obsolete structures."
+
 - id: location_auto_modifier_nonfunctional
   pattern: 'category\s*=\s*location'
   only_in_paths: ['auto_modifiers']
@@ -67,6 +77,16 @@
   scope: any
   source: "reference_game_files/game/in_game/common/character_interactions/ali_qushji_settles.txt"
   notes: "AI wrongly removed custom_tooltip thinking dotted key format was invalid. Never remove; only verify format."
+
+- id: event_numeric_id_over_9999
+  pattern: ''
+  detectability: advisory
+  bad: "Generating or referencing an event ID whose numeric part is 10000 or higher, such as tv_engineering_department.50011"
+  correction: "EU5 event IDs must be <namespace>.<integer> with the integer below 10000. Do high-cardinality dispatch before firing the event, or branch only over a small non-event-id dimension inside an already typed event."
+  category: event
+  scope: any
+  source: "runtime error.log: jomini_eventmanager.cpp:141, 2026-06-08"
+  notes: "The engine logs that five-digit numeric event IDs are invalid and can then report duplicate IDs as parser fallout. scripts/validate.py scans src/data/scripts for dotted event references whose numeric part is >= 10000."
 
 - id: blockoverride_widget_child_invalid
   pattern: 'blockoverride\s+"common_header_text"\s*\{[^}]*text_single'
@@ -647,6 +667,17 @@
   source: "runtime error.log: tv_engineering_department.500 -> tv_wonder_complete_finalization_effect -> tv_wonder_construct_final_building_effect -> tv_wonder_construct_final_building_in_site_effect; tv_prosperity.1 -> tv_grant_prosperity_milestone_1 -> tv_engineering_department_create_effect -> tv_wonder_reinitialize_building_state_effect -> tv_wonder_combine_completed_modules_at_location_effect; tv_engineering_department.200 -> tv_wonder_after_unit_completed_event_effect -> tv_wonder_apply_helper_building_to_final_site_effect / tv_wonder_materialize_module_buildings_from_unit_vars_effect / tv_wonder_update_construction_progress_display_effect"
   notes: "The event option tooltip pre-evaluator did not commit tv_wonder_final_building_extra_levels before the nested helper ran. The same failure reappeared when Prosperity M1 reinitialized wonder module/helper buildings from partially built wonders, and again when unit-completion hover rebuilt helper/module levels through temporary current/target vars. For bounded 0..6 helper/module sync, emit literal per-level building deltas directly from persistent state instead of temporary combinable/current/target variables. For rounded countdown displays, prefer script-value operators such as ceiling/floor over scratch check variables like tv_wonder_remaining_months_floor_check."
 
+- id: event_option_computed_variable_map_key_for_dynamic_building_tooltip
+  detectability: needs_parser
+  pattern: ''
+  only_in_paths: ['events', 'scripted_effects']
+  bad: "A visible event option/helper computes a temporary variable-map key and immediately uses global_variable_map(...|var:X) to choose a dynamic building for construct_building or change_building_level_in_location"
+  correction: "Do not infer that dynamic building effects are unsupported. For tooltip-visible building effects, use a map key that already exists before the event opens, or branch over bounded non-wonder dimensions such as module part or ceremony style and use direct maps keyed by persistent project state. Capture the mapped building type into a local variable before switching to the location scope."
+  category: event
+  scope: variable_map
+  source: "In-game runtime test, 2026-06-05: tv_engineering_department.200 and .201 rendered dynamic module construct/demolition effects after replacing the same-chain tv_wonder_locked * 10 + part map key with per-part maps keyed directly by tv_wonder_locked; helper-building construction already rendered through tv_wonder_id_to_helper_building_type."
+  notes: "The failed chain was set_variable/change_variable of tv_wonder_module_building_key followed by set_local_variable value = global_variable_map(tv_wonder_module_key_to_building_type|var:tv_wonder_module_building_key) and building_type = local_var:tv_wonder_module_building_type. The working chain branches on tv_wonder_last_completed_part, captures from tv_wonder_id_to_<part>_module_building_type keyed by var:tv_wonder_locked, and then runs construct_building/change_building_level_in_location with local_var:tv_wonder_module_building_type. This preserves variable_map/numeric-id architecture without generated per-wonder dispatch tables."
+
 - id: generic_action_effect_reads_newly_set_variable
   detectability: needs_parser
   pattern: ''
@@ -875,12 +906,12 @@
 
 - id: io_typed_variable_update_in_on_action
   pattern: ''
-  bad: "Applying a computed bonus to an IO typed variable via change_variable inside on_action (e.g. every_international_organizations_member_of { change_variable { name = tv_arts_intl_influence add = local_var:X } }) to implement a monthly character contribution"
-  correction: "Put the contribution in the IO type's monthly_change scripted value using leader_country.var:X chained access: if = { limit = { international_organization_has_leader = yes  leader_country = { has_variable = X } }  add = { desc = KEY  value = leader_country.var:X } }. Store the computed value on the country (tv_chief_artist_monthly_bonus) via on_action for GUI display only. The monthly_change runs automatically and shows in the IO variable tooltip."
+  bad: "Applying a computed bonus to an IO typed variable via change_variable inside on_action (e.g. every_international_organizations_member_of { change_variable { name = tv_arts_intl_influence add = local_var:X } }) to implement a monthly character contribution, or moving an existing visible IO variable's monthly gain from monthly_change into monthly_country_pulse/country effects"
+  correction: "Put the contribution in the IO type's monthly_change scripted value using leader_country.var:X chained access: if = { limit = { international_organization_has_leader = yes  leader_country = { has_variable = X } }  add = { desc = KEY  value = leader_country.var:X } }. Store computed helper values on the country via on_action only for cached inputs or GUI display. If a visible IO variable stops advancing, fix the monthly_change scope/conditions or its cached inputs; do not migrate the source arithmetic out of monthly_change."
   category: script
   scope: any
   source: "reference_game_files/game/in_game/events/situations/red_turban_rebellions.txt:3371 (value = root.var:X); reference_game_files/game/in_game/common/laws/christian_tenets.txt:359 (value = scope:recipient.leader_country.modifier:X); src/in_game/common/international_organizations/tv_diplomatic_alliance.txt (leader_country.modifier: in monthly_change)"
-  notes: "IO typed variables (in the variables = {} block of the IO type) have a monthly_change scripted value that drives the tooltip. Contributions applied externally via on_action change_variable are invisible to the tooltip. The leader_country.var:X chain is valid in scripted value context (same family as root.var:X); it is NOT valid in change_variable { add = } effect context (see change_variable_add_prev_var anti-pattern). Set leader_type = country and call set_leader_country in on_creation or the creation block."
+  notes: "IO typed variables (in the variables = {} block of the IO type) have a monthly_change scripted value that drives the tooltip and automatic monthly breakdown. Contributions applied externally via on_action or country pulse change_variable are invisible to that breakdown and can make the UI lie even when the number changes. The leader_country.var:X chain is valid in scripted value context (same family as root.var:X); it is NOT valid in change_variable { add = } effect context (see change_variable_add_prev_var anti-pattern). Set leader_type = country and call set_leader_country in on_creation or the creation block."
 
 - id: io_non_unique_scope_link
   pattern: ''
@@ -902,13 +933,14 @@
   notes: "move_country called unilaterally from a generic_action (owncountry type) does NOT grant is_courtier = yes in the destination court. Only formal country_interaction invitations (e.g. invite_artist where the recipient accepts) produce a true courtier relationship. The result: every_character { is_courtier = yes } silently skips the dispatched character in both yearly and monthly pulses — timer never increments, no events fire."
 
 - id: local_var_lost_across_var_scope_switch
-  pattern: 'var:\w+\s*\?=\s*\{[^}]*local_var:|prev\s*=\s*\{[^}]*local_var:'
-  bad: "set_local_variable inside var:X ?= {} then reading local_var: from prev = {} — or setting local_var: before var:X ?= {} and reading inside after. Example: var:tv_chief_artist ?= { set_local_variable = { name = ca value = artist_skill } change_local_variable = { name = ca multiply = 0.002 }  prev = { set_variable = { name = tv_chief_artist_monthly_bonus value = local_var:ca } } }"
-  correction: "Use chained scope access from the original scope instead of switching. To read a character skill stored in a country variable: value = var:tv_chief_artist.artist_skill (reads artist_skill on the referenced character without a scope switch). Wrap in a scripted value block if math is needed: set_variable = { name = tv_chief_artist_monthly_bonus  value = { value = var:tv_chief_artist.artist_skill  multiply = 0.002 } }. Check liveness in the limit: var:tv_chief_artist = { is_alive = yes }."
+  pattern: ''
+  detectability: needs_parser
+  bad: "set_local_variable inside var:X ?= {} and then reading that local_var from prev = {} or after leaving the dynamic scope. Example: var:tv_chief_artist ?= { set_local_variable = { name = ca value = artist_skill } change_local_variable = { name = ca multiply = 0.002 }  prev = { set_variable = { name = tv_chief_artist_monthly_bonus value = local_var:ca } } }"
+  correction: "Use chained scope access from the original scope instead of switching when possible. To read a character skill stored in a country variable: value = var:tv_chief_artist.artist_skill. If a temporary value is needed inside a later scope, set_local_variable before entering that scope and read local_var:X inside it; that direction is valid."
   category: scope
   scope: any
   source: "reference_game_files/game/in_game/common/country_interactions/invite_artist.txt:129 (add = scope:target.artist_skill confirms chained character-scope access); hellenism_religion.txt:2866 (value = artist_skill as direct scripted value)"
-  notes: "local_var is NOT reliably propagated when reading it from prev = {} after a var:X ?= {} block. The local variable appears to be tied to the scope frame of the block where it was set; on exit via prev or other scope navigation, the local_var reference resolves to 0 or causes an error. The fix is to eliminate scope switching entirely: var:X.some_scripted_value reads the scripted value directly on the referenced character from the current scope."
+  notes: "The unreliable direction is dynamic-scope local_var escaping outward through prev or later outer-scope reads. The opposite direction is valid: set_local_variable before a var:X ?= {} / location scope switch, then use local_var:X inside the nested scope."
 
 - id: create_io_inner_effects_must_be_hidden
   pattern: ''
@@ -1171,6 +1203,26 @@
   source: "User-provided Variable maps reference excerpt, 2026-06-04; TV runtime test with Engineering Department wonder helper building probes"
   notes: "Quoted variable-map expressions are reliable for entering the mapped value scope on the left side. Runtime tests found direct RHS use unreliable for value extraction or comparisons, e.g. building_type = \"variable_map(...)\" inside a later location/building scope. Cache the mapped value before entering the later scope."
 
+- id: variable_map_rebuild_on_read_path
+  pattern: ''
+  detectability: advisory
+  bad: "Calling a variable-map/global-map rebuild effect from GUI refresh, country cache refresh, tooltip/projection, selection, monthly read, or other hot/read paths as a compatibility fallback"
+  correction: "Build global variable-map indexes only at lifecycle points: startup, save-load initialization, data-change regeneration, or explicit initialization. If a read misses a map, fix the current lifecycle hook or the call order that reads before initialization; do not add old-schema repair or legacy state preservation."
+  category: performance
+  scope: variable_map
+  source: "Engineering Department locked-wonder image fix review, 2026-06-05"
+  notes: "A locked-wonder image bug was caused by refreshing the locked cache before tv_wonder_stage was set to debate. Adding tv_wonder_index_rebuild_global_maps_if_needed_effect to every country-cache refresh would hide the ordering bug and charge all refresh callers for a defensive global-map check."
+
+- id: variable_map_callback_root_in_generic_action
+  pattern: ''
+  detectability: needs_parser
+  bad: "Using root inside a variable-map key callback called from a generic-action effect to write back to the action actor/current country"
+  correction: "Save the current owner scope before random_key_in_variable_map/every_key_in_variable_map, then write back through scope:<saved_owner>; preserve the variable-map key stream instead of replacing it with generated per-id branches."
+  category: scope
+  scope: variable_map
+  source: "Runtime error.log from Engineering Department Great Engineer select-trigger tooltip pre-evaluation, 2026-06-04"
+  notes: "Generic action selector hover can pre-evaluate action effects without a usable root event target. A proposal deck helper using random_key_in_variable_map -> root = { set_variable = { value = prev } } logged Event target link 'root' returned an unset scope and left no proposal slots."
+
 - id: gui_css_like_fittype_contain
   detectability: advisory
   pattern: 'fittype\s*=\s*contain'
@@ -1192,6 +1244,17 @@
   scope: gui
   source: "runtime error.log: pdx_gui_localize.cpp:302 in tv_engineering_department.gui; fixed in src/main_menu/localization/english/tv_engineering_department_l_english.yml"
   notes: "These support buildings have normal localization keys, not game_concept definitions. In GUI-bound localized text, [tv_wonder_labor_camp|E] is parsed as a data-system function and logs Could not find data system function."
+
+- id: generic_action_loc_uses_gui_country_binding
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['localization']
+  bad: "Using datacontext-dependent Country.MakeScope or container-dependent SCOPE.sCountry('actor') reads inside generic action title/description localization"
+  correction: "Generic action description loc may be prefetched with no Country datacontext and no script-scope Container. Preserve player-country dynamic features by using a context-independent global binding such as Player.MakeScope, or move non-player-scope dynamic lines to a GUI widget/tooltip with an explicit datacontext. Do not replace the dynamic feature with static text without user approval."
+  category: localization
+  scope: generic_actions
+  source: "runtime error.log from Engineering Department accept-proposal description, 2026-06-04"
+  notes: "action_button descriptions may be localized once through a contextless prefetch path and again through the real action hover. Country.MakeScope.GetVariable(...) and SCOPE.sCountry('actor').MakeScope.GetVariable(...) produced continuous PdxDataFetchLocalizedData errors even while the visible tooltip rendered the selected wonder correctly."
 
 - id: gui_no_get_area_accessor
   pattern: 'GetVariable\([^)]*\)\.GetArea\.'
@@ -1538,12 +1601,12 @@
 - id: country_trigger_reused_inside_io_monthly_change
   pattern: ''
   only_in_paths: ['international_organizations']
-  bad: "Calling a country-scoped scripted_trigger from an IO variable monthly_change when that trigger depends on root.var country variables"
-  correction: "Write the monthly_change condition in IO scope, or create a separate IO-scoped trigger. Use leader_country ?= { ... } for country state and compare IO variables directly against leader_country.var:X from the IO scope."
+  bad: "Calling a country-scoped scripted_trigger from an IO variable monthly_change when that trigger depends on root, prev, caller-specific saved scopes, or country variables"
+  correction: "Write the monthly_change condition in IO scope, or create a separate IO-scoped trigger. Use leader_country ?= { ... } for country state, compare IO variables directly against leader_country.var:X from the IO scope, and inline ownership/state checks whose prev/root chain must point at the leader country."
   category: scope
   scope: international_organization
-  source: "fixed in src/in_game/common/international_organizations/tv_engineering_department.txt; runtime report: Engineering Department construction progressed while materials stockpile never decreased"
-  notes: "monthly_change evaluates from the international organization/variable context. A nested leader_country block does not make root inside a called scripted_trigger become the country; triggers that use root.var:X can keep reading the IO root and silently return false."
+  source: "fixed in src/in_game/common/international_organizations/tv_engineering_department.txt; runtime reports: Engineering Department construction progressed while materials stockpile never decreased; Engineering Department survey active state passed in country pulse but survey progress did not advance from IO monthly_change"
+  notes: "monthly_change evaluates from the international organization/variable context. A nested leader_country block does not make root inside a called scripted_trigger become the country, and caller-sensitive prev/root chains can differ from the same trigger's country-pulse behavior. In Engineering Department survey progress, reusing tv_wonder_survey_active_trigger inside the IO variable monthly_change silently prevented the visible IO progress variable from gaining monthly progress; inlining the active-survey conditions under leader_country preserved monthly_change as the tooltip-visible source."
 
 - id: random_list_branch_modifier_filter
   pattern: '(?m)^\s*\d+\s*=\s*\{\s*\n\s*modifier\s*=\s*\{\s*factor\s*=\s*0'
@@ -1593,3 +1656,14 @@
   scope: texture
   source: "runtime-tested in src/in_game/gui/location_window.gui dynamic wonder display test; reference_official_defines/docs/data_types_uncategorized.txt lists GetConceptTexture"
   notes: "In the location-window test, GetConceptTexture(Concatenate(...)) rendered, but nested, suffix-only, and flat Concatenate expressions that returned raw DDS path strings did not render and produced no useful error log. Static texture paths are parsed by the GUI loader, while runtime texture expressions need a texture-like return value rather than a CString path."
+
+- id: gui_show_modifier_effect_dynamic_key_needs_static_reference
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Calling ShowModifierEffect with modifier ids built only by GUI Concatenate(...) and never referenced from script effects"
+  correction: "Keep the dynamic GUI id flow, but generate unreachable script references under if = { limit = { always = no } ... } using add_country_modifier/add_location_modifier for every possible modifier id."
+  category: gui
+  scope: modifier
+  source: "Location-window wonder display route, 2026-06; fixed by tv_wonder_mechanics_reference_display_modifiers_effect"
+  notes: "The GUI can build ids such as tv_wonder_display_<id>_level_<level> at runtime, but engine/static lookup paths may not recognize modifier ids that only occur inside Concatenate. The unreachable effect gives the loader static modifier references without changing runtime state."

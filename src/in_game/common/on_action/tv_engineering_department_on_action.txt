@@ -1,10 +1,56 @@
 ﻿# Towards Victory - Engineering Department on_action hooks
 
 on_game_start = {
-	on_actions = { tv_wonder_initialize_location_display_state_on_game_start }
+	on_actions = {
+		tv_wonder_initialize_index_on_game_start
+		tv_wonder_initialize_location_display_state_on_game_start
+	}
+}
+
+on_game_load = {
+	on_actions = {
+		tv_wonder_initialize_index_on_game_load
+		tv_wonder_initialize_location_display_state_on_game_load
+	}
+}
+
+tv_wonder_initialize_index_on_game_start = {
+	effect = {
+		hidden_effect = {
+			tv_wonder_index_rebuild_global_maps_if_needed_effect = yes
+			if = {
+				limit = { has_global_variable_map = tv_wonder_id_to_is_unique }
+				every_country = {
+					tv_wonder_index_refresh_country_cache_effect = yes
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_initialize_index_on_game_load = {
+	effect = {
+		hidden_effect = {
+			tv_wonder_index_rebuild_global_maps_if_needed_effect = yes
+			if = {
+				limit = { has_global_variable_map = tv_wonder_id_to_is_unique }
+				every_country = {
+					tv_wonder_index_refresh_country_cache_effect = yes
+				}
+			}
+		}
+	}
 }
 
 tv_wonder_initialize_location_display_state_on_game_start = {
+	effect = {
+		hidden_effect = {
+			tv_wonder_mechanics_refresh_world_location_display_state_effect = yes
+		}
+	}
+}
+
+tv_wonder_initialize_location_display_state_on_game_load = {
 	effect = {
 		hidden_effect = {
 			tv_wonder_mechanics_refresh_world_location_display_state_effect = yes

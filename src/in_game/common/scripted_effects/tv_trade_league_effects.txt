@@ -7437,7 +7437,6 @@ tv_trade_league_recalculate_action_accounting_slaves_goods_effect = {
 tv_trade_league_clear_trade_income_chart_effect = {
 	hidden_effect = {
 		set_variable = { name = tv_trade_income_chart_max value = 0 }
-		set_variable = { name = tv_trade_income_chart_latest value = 0 }
 		set_variable = { name = tv_trade_income_chart_1 value = 0 }
 		set_variable = { name = tv_trade_income_chart_2 value = 0 }
 		set_variable = { name = tv_trade_income_chart_3 value = 0 }
@@ -7523,7 +7522,6 @@ tv_trade_league_update_trade_income_chart_effect = {
 			set_variable = { name = tv_trade_income_chart_11 value = var:tv_trade_income_chart_12 }
 		}
 		set_variable = { name = tv_trade_income_chart_12 value = monthly_trade_income }
-		set_variable = { name = tv_trade_income_chart_latest value = var:tv_trade_income_chart_12 }
 		set_variable = { name = tv_trade_income_chart_max value = 1 }
 		if = {
 			limit = { var:tv_trade_income_chart_1 > var:tv_trade_income_chart_max }

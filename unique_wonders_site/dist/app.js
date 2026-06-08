@@ -38,6 +38,19 @@ const TEXT = {
   },
 };
 
+const EXTRA_TEXT = {
+  zh: {
+    localWonders: "\u5f53\u5730\u5947\u89c2",
+    previousLocalWonder: "\u4e0a\u4e00\u4e2a\u5f53\u5730\u5947\u89c2",
+    nextLocalWonder: "\u4e0b\u4e00\u4e2a\u5f53\u5730\u5947\u89c2",
+  },
+  en: {
+    localWonders: "Local wonders",
+    previousLocalWonder: "Previous local wonder",
+    nextLocalWonder: "Next local wonder",
+  },
+};
+
 const elements = {
   title: document.getElementById("app-title"),
   subtitle: document.getElementById("app-subtitle"),
@@ -55,6 +68,7 @@ const state = {
   lang: "zh",
   query: "",
   wonders: [],
+  locationGroups: new Map(),
   selectedKey: "",
 };
 
@@ -106,7 +120,7 @@ window.addEventListener("resize", () => {
 const pinLayers = new Map();
 
 function t(key) {
-  return TEXT[state.lang][key];
+  return TEXT[state.lang][key] ?? EXTRA_TEXT[state.lang]?.[key] ?? EXTRA_TEXT.en?.[key] ?? key;
 }
 
 function localized(value) {
@@ -146,25 +160,13 @@ function formatValue(value, row = {}) {
   return String(value);
 }
 
-function colorForKey(key) {
-  const fixed = {
-    cultural_category: "#d98c72",
-    government_category: "#e0be63",
-    infrastructure_category: "#68b7a8",
-    military_category: "#c75f6a",
-    religious_category: "#a78bd8",
-    commerce_category: "#6ea2d9",
-    industry_category: "#9ea35f",
+function pinColorForSize(size) {
+  const colors = {
+    small: "#78a47a",
+    medium: "#c4b268",
+    large: "#c1736f",
   };
-  if (fixed[key]) {
-    return fixed[key];
-  }
-  let hash = 0x811c9dc5;
-  for (let index = 0; index < key.length; index += 1) {
-    hash ^= key.charCodeAt(index);
-    hash = (hash * 0x01000193) >>> 0;
-  }
-  return `hsl(${hash % 360}, 58%, 62%)`;
+  return colors[String(size || "").toLowerCase()] || "#9aa1a8";
 }
 
 function visibleWorldIndexes() {
@@ -194,14 +196,131 @@ function selectedWonder() {
   return state.wonders.find((wonder) => wonder.key === state.selectedKey) || null;
 }
 
-function markerIcon(wonder, selected) {
-  const color = colorForKey(wonder.category);
+function locationKeyForWonder(wonder) {
+  if (wonder.location_key) {
+    return wonder.location_key;
+  }
+  if (Array.isArray(wonder.centroid)) {
+    return `xy:${wonder.centroid.join(",")}`;
+  }
+  return wonder.key;
+}
+
+function groupedByLocation(wonders) {
+  const groups = new Map();
+  for (const wonder of wonders) {
+    const locationKey = locationKeyForWonder(wonder);
+    if (!groups.has(locationKey)) {
+      groups.set(locationKey, []);
+    }
+    groups.get(locationKey).push(wonder);
+  }
+  return groups;
+}
+
+function rebuildLocationGroups() {
+  state.locationGroups = groupedByLocation(state.wonders);
+}
+
+function localWondersFor(wonder) {
+  if (!wonder) {
+    return [];
+  }
+  return state.locationGroups.get(locationKeyForWonder(wonder)) || [wonder];
+}
+
+function filteredLocationGroups() {
+  const visibleGroups = groupedByLocation(filteredWonders());
+  return Array.from(visibleGroups, ([key, wonders]) => ({
+    key,
+    wonders,
+    allWonders: state.locationGroups.get(key) || wonders,
+  }));
+}
+
+function activeWonderForGroup(group) {
+  return group.wonders.find((wonder) => wonder.key === state.selectedKey)
+    || group.allWonders.find((wonder) => wonder.key === state.selectedKey)
+    || group.wonders[0];
+}
+
+function groupCentroid(group) {
+  const activeWonder = activeWonderForGroup(group);
+  return activeWonder?.centroid || group.wonders[0]?.centroid || [0, 0];
+}
+
+function selectLocationGroup(locationKey, options = {}) {
+  const localWonders = state.locationGroups.get(locationKey) || [];
+  if (!localWonders.length) {
+    return;
+  }
+  const currentIndex = localWonders.findIndex((wonder) => wonder.key === state.selectedKey);
+  const nextIndex = currentIndex >= 0 ? (currentIndex + 1) % localWonders.length : 0;
+  selectWonder(localWonders[nextIndex].key, options);
+}
+
+function selectAdjacentLocalWonder(step) {
+  const wonder = selectedWonder();
+  const localWonders = localWondersFor(wonder);
+  if (!wonder || localWonders.length <= 1) {
+    return;
+  }
+  const currentIndex = Math.max(0, localWonders.findIndex((item) => item.key === wonder.key));
+  const nextIndex = (currentIndex + step + localWonders.length) % localWonders.length;
+  selectWonder(localWonders[nextIndex].key, { pan: false });
+}
+
+function pinShapeForSize(size) {
+  const shapes = {
+    small: "circle",
+    medium: "square",
+    large: "large",
+  };
+  return shapes[String(size || "").toLowerCase()] || "circle";
+}
+
+function markerSizeClass(size) {
+  const normalized = String(size || "").toLowerCase();
+  return ["small", "medium", "large"].includes(normalized) ? normalized : "unknown";
+}
+
+function markerMetricsForSize(size, selected) {
+  if (String(size || "").toLowerCase() === "large") {
+    return selected
+      ? { iconSize: [54, 38], iconAnchor: [16, 15] }
+      : { iconSize: [48, 34], iconAnchor: [14, 13] };
+  }
+  return selected
+    ? { iconSize: [44, 30], iconAnchor: [11, 11] }
+    : { iconSize: [39, 26], iconAnchor: [9, 9] };
+}
+
+function markerIcon(wonder, selected, count) {
+  const color = pinColorForSize(wonder.size);
+  const shape = pinShapeForSize(wonder.size);
+  const sizeClass = markerSizeClass(wonder.size);
+  const metrics = markerMetricsForSize(wonder.size, selected);
   return L.divIcon({
     className: "",
-    iconSize: selected ? [23, 23] : [18, 18],
-    iconAnchor: selected ? [11, 11] : [9, 9],
-    html: `<div class="wonder-pin${selected ? " selected" : ""}" style="--pin-color:${color}"></div>`,
+    iconSize: metrics.iconSize,
+    iconAnchor: metrics.iconAnchor,
+    html: `
+      <div class="wonder-marker wonder-marker-${sizeClass}${selected ? " selected" : ""}">
+        <div class="wonder-pin wonder-pin-${shape}${selected ? " selected" : ""}" style="--pin-color:${color}"></div>
+        <span class="wonder-count-badge">${escapeHtml(count)}</span>
+      </div>
+    `,
   });
+}
+
+function markerTooltip(group) {
+  const localWonders = group.allWonders;
+  if (localWonders.length <= 1) {
+    return escapeHtml(localized(localWonders[0]?.name));
+  }
+  const locationName = localized(localWonders[0]?.location_name);
+  const wonderNames = localWonders.map((wonder) => escapeHtml(localized(wonder.name))).join("<br>");
+  return `<strong>${escapeHtml(locationName)}</strong><br>${wonderNames}`;
 }
 
 function syncPinLayers() {
@@ -218,16 +337,18 @@ function syncPinLayers() {
       oldLayer.remove();
     }
     const group = L.layerGroup();
-    for (const wonder of filteredWonders()) {
-      const [x, y] = wonder.centroid;
-      const selected = wonder.key === state.selectedKey;
+    for (const groupInfo of filteredLocationGroups()) {
+      const [x, y] = groupCentroid(groupInfo);
+      const activeWonder = activeWonderForGroup(groupInfo);
+      const selected = groupInfo.allWonders.some((wonder) => wonder.key === state.selectedKey);
+      const count = groupInfo.allWonders.length;
       const marker = L.marker(px(x, y, index), {
-        icon: markerIcon(wonder, selected),
-        title: localized(wonder.name),
+        icon: markerIcon(activeWonder, selected, count),
+        title: `${localized(activeWonder.name)} (${count})`,
         riseOnHover: true,
       });
-      marker.on("click", () => selectWonder(wonder.key, { pan: false }));
-      marker.bindTooltip(localized(wonder.name), {
+      marker.on("click", () => selectLocationGroup(groupInfo.key, { pan: false }));
+      marker.bindTooltip(markerTooltip(groupInfo), {
         direction: "top",
         opacity: 0.92,
         sticky: true,
@@ -265,7 +386,7 @@ function renderList() {
         <span class="wonder-id">${escapeHtml(String(wonder.id))}</span>
       </div>
       <div class="wonder-meta">
-        <span class="swatch" style="background:${colorForKey(wonder.category)}"></span>
+        <span class="swatch" style="background:${pinColorForSize(wonder.size)}"></span>
         <span>${escapeHtml(localized(wonder.location_name))}</span>
         <span>${escapeHtml(localized(wonder.size_label))}</span>
       </div>
@@ -345,6 +466,42 @@ function renderEffectSection(effect) {
   `;
 }
 
+function renderLocationSwitcher(wonder) {
+  const localWonders = localWondersFor(wonder);
+  if (localWonders.length <= 1) {
+    return "";
+  }
+  const currentIndex = Math.max(0, localWonders.findIndex((item) => item.key === wonder.key));
+  return `
+    <section class="local-switcher">
+      <div class="local-switcher-head">
+        <span>${escapeHtml(t("localWonders"))}</span>
+        <span>${currentIndex + 1} / ${localWonders.length}</span>
+      </div>
+      <div class="local-switcher-controls">
+        <button type="button" class="local-cycle-button" data-local-shift="-1" aria-label="${escapeHtml(t("previousLocalWonder"))}" title="${escapeHtml(t("previousLocalWonder"))}">&lt;</button>
+        <div class="local-wonder-tabs">
+          ${localWonders.map((item) => `
+            <button type="button" class="local-wonder-tab${item.key === wonder.key ? " selected" : ""}" data-local-wonder-key="${escapeHtml(item.key)}">
+              ${escapeHtml(localized(item.name))}
+            </button>
+          `).join("")}
+        </div>
+        <button type="button" class="local-cycle-button" data-local-shift="1" aria-label="${escapeHtml(t("nextLocalWonder"))}" title="${escapeHtml(t("nextLocalWonder"))}">&gt;</button>
+      </div>
+    </section>
+  `;
+}
+
+function bindDetailControls() {
+  elements.detailBody.querySelectorAll("[data-local-wonder-key]").forEach((button) => {
+    button.addEventListener("click", () => selectWonder(button.dataset.localWonderKey, { pan: false }));
+  });
+  elements.detailBody.querySelectorAll("[data-local-shift]").forEach((button) => {
+    button.addEventListener("click", () => selectAdjacentLocalWonder(Number(button.dataset.localShift)));
+  });
+}
+
 function renderDetail() {
   const wonder = selectedWonder();
   if (!wonder) {
@@ -363,6 +520,7 @@ function renderDetail() {
       ${metaLine(t("size"), localized(wonder.size_label))}
       ${metaLine(t("category"), localized(wonder.category_label))}
     </div>
+    ${renderLocationSwitcher(wonder)}
     <p class="detail-description">${escapeHtml(localized(wonder.description))}</p>
     <section class="detail-section">
       <h3>${escapeHtml(t("requirements"))}</h3>
@@ -373,6 +531,7 @@ function renderDetail() {
       ${effects.map(renderEffectSection).join("")}
     </section>
   `;
+  bindDetailControls();
 }
 
 function selectWonder(key, options = {}) {
@@ -434,6 +593,7 @@ async function loadData() {
       ),
     ].join(" ").toLowerCase();
   }
+  rebuildLocationGroups();
   if (state.wonders.length) {
     state.selectedKey = state.wonders[0].key;
   }
@@ -481,6 +641,7 @@ elements.languageButtons.forEach((button) => {
         ),
       ].join(" ").toLowerCase();
     }
+    rebuildLocationGroups();
     renderAll();
   });
 });

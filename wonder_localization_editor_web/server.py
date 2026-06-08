@@ -21,12 +21,33 @@ class SaveWonderRequest(BaseModel):
     regenerate: bool = True
 
 
+class WonderDraftRequest(BaseModel):
+    wonder_id: int
+    values: dict[str, dict[str, str]] = Field(default_factory=dict)
+    mechanics: dict[str, Any] = Field(default_factory=dict)
+
+
+class SaveWondersRequest(BaseModel):
+    wonders: list[WonderDraftRequest] = Field(default_factory=list)
+    current_wonder_id: int | None = None
+    regenerate: bool = True
+
+
 def create_app() -> FastAPI:
     app = FastAPI(
         title="Wonder Localization Editor Web",
         docs_url=None,
         redoc_url=None,
     )
+
+    @app.middleware("http")
+    async def no_cache_editor_static(request, call_next):
+        response = await call_next(request)
+        path = request.url.path
+        if path == "/" or path.startswith("/static/"):
+            response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+            response.headers["Pragma"] = "no-cache"
+        return response
 
     @app.get("/")
     def root() -> FileResponse:
@@ -62,6 +83,27 @@ def create_app() -> FastAPI:
                 wonder_id,
                 request.values,
                 mechanics_values=request.mechanics,
+                regenerate=request.regenerate,
+            )
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+        except RuntimeError as exc:
+            raise HTTPException(status_code=500, detail=str(exc)) from exc
+        except Exception as exc:
+            raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+    @app.post("/api/wonders/save")
+    def save_wonders(request: SaveWondersRequest) -> dict:
+        try:
+            return service.save_wonders(
+                {
+                    draft.wonder_id: {
+                        "values": draft.values,
+                        "mechanics": draft.mechanics,
+                    }
+                    for draft in request.wonders
+                },
+                current_wonder_id=request.current_wonder_id,
                 regenerate=request.regenerate,
             )
         except KeyError as exc:

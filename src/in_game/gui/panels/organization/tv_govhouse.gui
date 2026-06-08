@@ -375,11 +375,13 @@ organization_panel = {
 								visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_governor_automation_enabled').IsSet)]"
 								button_checkbox_auto = {
 									size = { 26 26 }
+									enabled = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
 									checked = no
 									tooltip = "tv_enable_governor_automation_desc"
 								}
 								action_button = {
 									size = { 26 26 }
+									enabled = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
 									alpha = 0
 									title = "tv_enable_governor_automation"
 									description = "tv_enable_governor_automation_desc"
@@ -396,11 +398,13 @@ organization_panel = {
 								visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_govhouse_governor_automation_enabled').IsSet]"
 								button_checkbox_auto = {
 									size = { 26 26 }
+									enabled = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
 									checked = yes
 									tooltip = "tv_disable_governor_automation_desc"
 								}
 								action_button = {
 									size = { 26 26 }
+									enabled = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
 									alpha = 0
 									title = "tv_disable_governor_automation"
 									description = "tv_disable_governor_automation_desc"
@@ -744,7 +748,7 @@ organization_panel = {
 											text_single = {
 												visible = "[EqualTo_CFixedPoint(Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_type').GetValue, '(CFixedPoint)6.0')]"
 												size = { 62 22 }
-												raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=1]"
+												raw_text = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_task_value').GetValue|+=2]"
 												align = nobaseline|right
 											}
 										}
@@ -772,6 +776,7 @@ organization_panel = {
 										action_button_diamond = {
 											size = { 130 24 }
 											visible = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet]"
+											enabled = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
 											text = "tv_remove_governor"
 											title = "tv_remove_governor"
 											actor = "[InternationalOrganizationsView.GetPlayer]"
@@ -787,6 +792,7 @@ organization_panel = {
 										action_button_diamond = {
 											size = { 130 24 }
 											visible = "[Scope.GetLocation.MakeScope.GetVariable('tv_govhouse_display_governor_char').IsSet]"
+											enabled = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
 											text = "tv_change_governor"
 											title = "tv_change_governor"
 											actor = "[InternationalOrganizationsView.GetPlayer]"

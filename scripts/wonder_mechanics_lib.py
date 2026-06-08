@@ -15,9 +15,9 @@ UNIQUE_WONDERS_FILE = REPO_ROOT / "data" / "unique_wonders.yaml"
 GENERIC_WONDER_IMAGE_PROMPTS_FILE = REPO_ROOT / "data" / "wonder_image_prompts.yaml"
 MANUAL_TV_GAME_CONCEPTS_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_game_concepts.txt"
 ALL_WONDER_MIN_ID = 1
-ALL_WONDER_MAX_ID = 43
+ALL_WONDER_MAX_ID = 47
 UNIQUE_WONDER_MIN_ID = 101
-UNIQUE_WONDER_MAX_ID = 150
+UNIQUE_WONDER_MAX_ID = 170
 WONDER_MECHANICS_MIN_ID = ALL_WONDER_MIN_ID
 WONDER_MECHANICS_MAX_ID = UNIQUE_WONDER_MAX_ID
 PARTS = ["foundation", "body", "function", "decoration"]
@@ -32,8 +32,26 @@ ROMAN_NUMERALS = {
 }
 SUPPORTED_RITUAL_COST_TYPES = {None, "artwork", "scaled_gold", "prestige"}
 SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
-SUPPORTED_RITUAL_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
+WONDER_RITUAL_LISTENER_KEYS = ["monthly", "ruler_death", "pre_winning_war", "ending_war"]
+SUPPORTED_RITUAL_LISTENERS = set(WONDER_RITUAL_LISTENER_KEYS)
 SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
+WONDER_MAP_SCHEMA_VERSION = 11
+WONDER_SIZE_IDS = {
+    "small": 1,
+    "medium": 2,
+    "large": 3,
+}
+WONDER_RITUAL_MODE_IDS = {
+    "immediate": 1,
+    "timed": 2,
+    "auxiliary_building": 3,
+}
+WONDER_RITUAL_COST_TYPE_IDS = {
+    None: 0,
+    "artwork": 1,
+    "scaled_gold": 2,
+    "prestige": 3,
+}
 STYLE_3_REWARD_EFFECTS = {
     "all_estate_satisfaction": {"effect": "add_all_estate_satisfaction", "scope": "country_value_block"},
     "army_tradition": {"effect": "add_army_tradition", "scope": "country_scalar"},
@@ -170,6 +188,14 @@ def _require_string(value: object, context: str, *, allow_empty: bool = False) -
     if not allow_empty and not value.strip():
         raise ValueError(f"{context} cannot be empty")
     return value
+
+
+def _validate_wonder_size(value: object, context: str) -> str:
+    size = _require_string(value, context)
+    if size not in WONDER_SIZE_IDS:
+        supported = ", ".join(WONDER_SIZE_IDS)
+        raise ValueError(f"{context} must be one of: {supported}")
+    return size
 
 
 def _require_optional_string(value: object, context: str) -> str | None:
@@ -314,7 +340,7 @@ def _validate_generic_wonder_record(raw: object) -> dict:
         "id": _require_int(wonder["id"], f"{context}.id", minimum=1),
         "key": key,
         "concept": _require_string(wonder["concept"], f"{context}.concept"),
-        "size": _require_string(wonder["size"], f"{context}.size"),
+        "size": _validate_wonder_size(wonder["size"], f"{context}.size"),
         "category": _require_string(wonder["category"], f"{context}.category"),
         "pop_type": _require_string(wonder["pop_type"], f"{context}.pop_type"),
         "maintenance": _require_string(wonder["maintenance"], f"{context}.maintenance"),
@@ -650,20 +676,45 @@ def mechanic_key(wonder: dict) -> str:
     return _require_string(wonder["mechanic_key"], f"{wonder['key']}.mechanic_key")
 
 
-def suitability_reveal_variable_for_key(key: str) -> str:
-    return f"tv_wonder_suitability_revealed_{key}"
+def wonder_ritual_composite_id(wonder_id: int, style: int) -> int:
+    return int(wonder_id) * 100 + int(style)
 
 
-def suitability_reveal_variable_for_wonder(wonder: dict) -> str:
-    return suitability_reveal_variable_for_key(mechanic_key(wonder))
+def wonder_suitability_row_composite_id(mechanic_id: int, row: int) -> int:
+    return int(mechanic_id) * 10 + int(row)
 
 
-def suitability_actual_variable_for_wonder(wonder: dict, row_index: int) -> str:
-    return f"tv_wonder_suitability_actual_{wonder['key']}_{row_index}"
+SUITABILITY_REVEAL_MAP = "tv_wonder_suitability_revealed"
+SUITABILITY_ACTUAL_MAP = "tv_wonder_suitability_actual"
+SUITABILITY_CURRENT_REVEALED_VARIABLE = "tv_wonder_suitability_current_revealed"
+
+
+def suitability_current_revealed_variable() -> str:
+    return SUITABILITY_CURRENT_REVEALED_VARIABLE
+
+
+def suitability_current_actual_variable(row_index: int) -> str:
+    return f"tv_wonder_suitability_current_actual_{int(row_index)}"
 
 
 def ceremony_styles(wonder: dict) -> list[int]:
     return sorted(int(style) for style in wonder["final_buildings"])
+
+
+def finalization_event_id(wonder: dict) -> int:
+    return 5000 + int(wonder["id"])
+
+
+def finalization_world_event_id(wonder: dict) -> int:
+    return 6000 + int(wonder["id"])
+
+
+def finalization_visible_effect_name(wonder: dict) -> str:
+    return f"tv_wonder_{wonder['key']}_finalization_visible_effect"
+
+
+def finalization_hidden_effect_name(wonder: dict, style: int) -> str:
+    return f"tv_wonder_{wonder['key']}_style_{int(style)}_finalization_hidden_effect"
 
 
 def normalize_loc_map(value: object) -> dict[str, str]:

@@ -165,6 +165,14 @@ generated:
     data:   data/wonder_construction_events.yaml
     output: src/in_game/events/tv_wonder_construction_events.txt
 
+  - script: scripts/in_game/events/gen_tv_wonder_finalization_events.py
+    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
+    output: src/in_game/events/tv_wonder_finalization_events.txt
+
+  - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py
+    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
+    output: src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt
+
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_construction_event_effects.py
     data:   data/wonder_construction_events.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_construction_event_effects.txt
@@ -172,6 +180,10 @@ generated:
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_module_effects.py
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_module_effects.txt
+
+  - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_index_effects.py
+    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
+    output: src/in_game/common/scripted_effects/tv_wonder_index_effects.txt
 
   - script: scripts/in_game/common/scripted_triggers/gen_tv_wonder_construction_event_triggers.py
     data:   data/wonder_construction_events.yaml

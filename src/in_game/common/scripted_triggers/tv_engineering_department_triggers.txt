@@ -9,13 +9,6 @@ tv_wonder_location_is_town_trigger = {
 	location_rank ?= location_rank:town
 }
 
-tv_wonder_location_is_city_or_town_trigger = {
-	OR = {
-		tv_wonder_location_is_city_trigger = yes
-		tv_wonder_location_is_town_trigger = yes
-	}
-}
-
 tv_wonder_has_any_feasible_proposal_trigger = {
 	tv_wonder_mechanics_has_any_feasible_proposal_trigger = yes
 }
@@ -166,13 +159,6 @@ tv_wonder_can_end_debate_trigger = {
 	any_international_organizations_member_of = {
 		international_organization_type = international_organization_type:tv_engineering_department
 		var:tv_wonder_domestic_support ?= { this >= 100 }
-	}
-}
-
-tv_wonder_domestic_support_empty_trigger = {
-	any_international_organizations_member_of = {
-		international_organization_type = international_organization_type:tv_engineering_department
-		var:tv_wonder_domestic_support ?= { this <= 0 }
 	}
 }
 
@@ -430,23 +416,10 @@ tv_wonder_ceremony_ready_trigger = {
 
 tv_wonder_has_selected_ceremony_trigger = {
 	tv_wonder_ceremony_ready_trigger = yes
+	has_variable = tv_wonder_ceremony_style
+	has_variable = tv_wonder_locked_style_count
 	var:tv_wonder_ceremony_style ?= { this >= 1 }
-	var:tv_wonder_ceremony_style ?= { this <= 3 }
-}
-
-tv_wonder_ceremony_style_1_trigger = {
-	tv_wonder_has_selected_ceremony_trigger = yes
-	var:tv_wonder_ceremony_style ?= 1
-}
-
-tv_wonder_ceremony_style_2_trigger = {
-	tv_wonder_has_selected_ceremony_trigger = yes
-	var:tv_wonder_ceremony_style ?= 2
-}
-
-tv_wonder_ceremony_style_3_trigger = {
-	tv_wonder_has_selected_ceremony_trigger = yes
-	var:tv_wonder_ceremony_style ?= 3
+	var:tv_wonder_ceremony_style <= var:tv_wonder_locked_style_count
 }
 
 tv_wonder_can_choose_ceremony_style_trigger = {

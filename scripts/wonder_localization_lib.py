@@ -12,6 +12,7 @@ if hasattr(sys.stdout, "reconfigure"):
 try:
     from scripts.wonder_mechanics_lib import (
         ceremony_styles,
+        final_building_for_style,
         load_all_wonder_mechanics_data,
         ritual_auxiliary_building,
         ritual_auxiliary_display_modifier_name,
@@ -20,6 +21,7 @@ try:
 except ModuleNotFoundError:
     from wonder_mechanics_lib import (
         ceremony_styles,
+        final_building_for_style,
         load_all_wonder_mechanics_data,
         ritual_auxiliary_building,
         ritual_auxiliary_display_modifier_name,
@@ -34,6 +36,7 @@ WONDER_NAME_PREFIX = "tv_wonder_"
 CONCEPT_NAME_PREFIX = "game_concept_"
 WONDER_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 WONDER_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
+WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 
 LOCALIZATION_LINE_RE = re.compile(r'^(?P<indent>\s*)(?P<key>[A-Za-z0-9_.-]+):(?P<version>0)?\s+(?P<value>"(?:[^"\\]|\\.)*")\s*$')
 LOCALIZATION_HEADER_RE = re.compile(r"^l_[A-Za-z_]+:\s*$")
@@ -111,6 +114,19 @@ def display_route_concept_desc_key(wonder: dict[str, Any]) -> str:
     return f"{display_route_concept_key(wonder)}_desc"
 
 
+def ritual_display_route_concept_key(wonder: dict[str, Any], style: int) -> str:
+    return f"{CONCEPT_NAME_PREFIX}{WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX}{wonder['id']}_ritual_{style}"
+
+
+def ritual_display_route_concept_desc_key(wonder: dict[str, Any], style: int) -> str:
+    return f"{ritual_display_route_concept_key(wonder, style)}_desc"
+
+
+def ceremony_name_key(wonder: dict[str, Any], style: int) -> str:
+    building = final_building_for_style(wonder, style)
+    return f"TV_ENGINEERING_CEREMONY_{building.removeprefix('tv_wonder_').upper()}_BUTTON"
+
+
 def concept_desc_key(wonder: dict[str, Any]) -> str:
     return f"{concept_name_key(wonder)}_desc"
 
@@ -141,16 +157,45 @@ def _wonder_image_route_pairs() -> list[tuple[str, str, str, str]]:
     ]
 
 
-def _display_modifier_pairs() -> list[tuple[str, str]]:
+def _wonder_ritual_display_route_pairs() -> list[tuple[str, str, str]]:
     wonders, _ = load_all_wonder_mechanics_data()
     return [
         (
-            f"STATIC_MODIFIER_NAME_tv_wonder_{wonder['key']}_level_{level}",
-            f"STATIC_MODIFIER_NAME_tv_wonder_display_{wonder['id']}_level_{level}",
+            ceremony_name_key(wonder, style),
+            ritual_display_route_concept_key(wonder, style),
+            ritual_display_route_concept_desc_key(wonder, style),
         )
         for wonder in wonders
-        for level in range(1, 7)
+        for style in ceremony_styles(wonder)
     ]
+
+
+def _engineering_gui_text_route_pairs() -> list[tuple[str, str]]:
+    wonders, _ = load_all_wonder_mechanics_data()
+    pairs: list[tuple[str, str]] = []
+    for wonder in wonders:
+        key = str(wonder["key"]).upper()
+        wonder_id = int(wonder["id"])
+        pairs.extend(
+            [
+                (f"TV_ENGINEERING_PROPOSAL_{key}_TEXT", f"TV_ENGINEERING_PROPOSAL_TEXT_{wonder_id}"),
+                (f"TV_ENGINEERING_PROPOSAL_RESUME_{key}_TEXT", f"TV_ENGINEERING_PROPOSAL_RESUME_TEXT_{wonder_id}"),
+                (f"TV_ENGINEERING_PROPOSAL_EXPAND_{key}_TEXT", f"TV_ENGINEERING_PROPOSAL_EXPAND_TEXT_{wonder_id}"),
+                (f"TV_ENGINEERING_LOCKED_{key}_TEXT", f"TV_ENGINEERING_LOCKED_TEXT_{wonder_id}"),
+            ]
+        )
+    return pairs
+
+
+def _display_modifier_pairs() -> list[tuple[str, str]]:
+    wonders, _ = load_all_wonder_mechanics_data()
+    pairs: list[tuple[str, str]] = []
+    for wonder in wonders:
+        for level in range(1, 7):
+            source_key = f"STATIC_MODIFIER_NAME_tv_wonder_{wonder['key']}_level_{level}"
+            pairs.append((source_key, f"STATIC_MODIFIER_NAME_tv_wonder_display_{wonder['id']}_level_{level}"))
+            pairs.append((source_key, f"STATIC_MODIFIER_NAME_tv_wonder_display_{wonder['id']}_local_level_{level}"))
+    return pairs
 
 
 def _auxiliary_display_modifier_pairs() -> list[tuple[str, str]]:
@@ -196,6 +241,25 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                 raise KeyError(f"Missing wonder concept localization key {concept_desc!r} in {WONDER_LOCALIZATION_FILE} ({language})")
             language_values[route_concept] = language_values[concept_name]
             language_values[route_concept_desc] = language_values[concept_desc]
+    for source_key, route_key in _engineering_gui_text_route_pairs():
+        for language in LANGUAGES:
+            language_values = expanded[language]
+            if source_key not in language_values:
+                raise KeyError(
+                    f"Missing engineering GUI localization key {source_key!r} in "
+                    f"{WONDER_LOCALIZATION_FILE} ({language})"
+                )
+            language_values[route_key] = language_values[source_key]
+    for source_key, route_concept, route_concept_desc in _wonder_ritual_display_route_pairs():
+        for language in LANGUAGES:
+            language_values = expanded[language]
+            if source_key not in language_values:
+                raise KeyError(
+                    f"Missing wonder ritual localization key {source_key!r} in "
+                    f"{WONDER_LOCALIZATION_FILE} ({language})"
+                )
+            language_values[route_concept] = language_values[source_key]
+            language_values[route_concept_desc] = language_values[source_key]
     for source_modifier_loc_key, display_modifier_loc_key in _display_modifier_pairs():
         for language in LANGUAGES:
             language_values = expanded[language]
@@ -227,6 +291,13 @@ def collapse_wonder_localization_data(localization: dict[str, dict[str, str]]) -
             collapsed[language].pop(route_concept, None)
             collapsed[language].pop(route_concept_desc, None)
     for _, _, route_concept, route_concept_desc in _wonder_display_route_pairs():
+        for language in LANGUAGES:
+            collapsed[language].pop(route_concept, None)
+            collapsed[language].pop(route_concept_desc, None)
+    for _, route_key in _engineering_gui_text_route_pairs():
+        for language in LANGUAGES:
+            collapsed[language].pop(route_key, None)
+    for _, route_concept, route_concept_desc in _wonder_ritual_display_route_pairs():
         for language in LANGUAGES:
             collapsed[language].pop(route_concept, None)
             collapsed[language].pop(route_concept_desc, None)

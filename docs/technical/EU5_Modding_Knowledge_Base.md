@@ -497,7 +497,35 @@ var:tv_wonder_site ?= {
 }
 ```
 
+This direction is valid: `set_local_variable` is performed before entering the later
+`var:X ?= {}` / location scope, and `local_var:helper_building_type` is read inside that
+nested scope. Do not confuse it with the separate bad pattern where a local variable is
+created inside a dynamic scope and then read outward through `prev = {}` or after leaving
+that scope.
+
+Runtime tests from 2026-06-05 narrowed this limitation for event-option building tooltips:
+dynamic building effects themselves can render. `construct_building = { building_type =
+local_var:X ... }` and `change_building_level_in_location = { building = local_var:X value =
+-N ... }` both rendered in `tv_engineering_department.200` / `.201` when `X` was captured
+from a `global_variable_map` lookup keyed directly by persistent project state such as
+`var:tv_wonder_locked`. The failing module-construction chain computed a composite key
+(`tv_wonder_locked * 10 + tv_wonder_last_completed_part`) with `set_variable` /
+`change_variable` earlier in the same visible option chain, then immediately used that key
+for the map lookup. Treat that as an event-tooltip pre-render dependency failure, not as
+proof that `building_type = local_var:X` or dynamic `change_building_level_in_location`
+cannot render. The safe pattern is to branch over a bounded non-wonder dimension, such as
+the four module parts, and use a direct map keyed by already-existing wonder state.
+
 If the mapped value needs to persist on the current scope, use `set_variable = { name = X value = "variable_map(...)" }` first, then read `var:X` from that same owning scope or capture it into a local variable before switching scopes.
+
+Do not compensate for missing variable-map data by rebuilding maps from read paths. Global
+map indexes belong to lifecycle effects: startup, save-load initialization,
+data-change regeneration, and explicit initialization. GUI refresh, country cache refresh,
+tooltip/projection effects, selection handlers, and monthly readers are hot paths; adding
+`*_rebuild_*_maps*_effect` calls there hides ordering bugs and makes every read pay for a
+global compatibility check. If a cache read sees an uninitialized map, fix the current
+lifecycle hook or move the dependent state write earlier so the existing refresh condition
+is true; do not add old-schema repair or preserve abandoned internal states.
 
 Variable maps can be iterated over their keys. Use `every_key_in_variable_map` or `ordered_key_in_variable_map` as effects, and `any_key_in_variable_map` as a trigger; use the `global_` and `local_` variants for global/local maps. Inside a key iterator, `this` is the current key. Enter the mapped value through the scope link:
 
@@ -511,6 +539,23 @@ every_key_in_variable_map = {
 ```
 
 `ordered_key_in_variable_map` selects only one key by default. Add `max = N` when multiple keys should be processed.
+
+When a variable-map key callback is reached from a generic action effect or selector tooltip,
+do not assume `root` is a valid country event target. Save the current country before entering
+the callback, then write through the named scope:
+
+```pdx
+save_scope_as = proposal_owner
+random_key_in_variable_map = {
+    variable = feasible_deck
+    scope:proposal_owner = {
+        set_variable = { name = selected_id value = prev }
+    }
+}
+```
+
+This preserves the variable-map key stream while avoiding `Event target link 'root' returned an
+unset scope` during hover pre-evaluation.
 
 GUI has separate variable-map data functions. Use `Scope.GetMapKeys('<name>')` and `GetGlobalMapKeys('<name>')` for key datamodels, and `Scope.GetVariableFromVariableMap('<name>', Scope)` / `GetVariableFromGlobalVariableMap('<name>', Scope)` to retrieve values from a typed GUI scope. GUI string recovery has its own traps; do not use `GetFlagName` from variable-map values as a raw script key.
 
@@ -784,6 +829,12 @@ This section covers the modding of specific game content types.
 
 Events are pop-up messages that present the player with information and choices. They are defined in `.txt` files within the `in_game/events/` folder. Unlike EU4, EU5 does not use `mean_time_to_happen` for events; all events must be fired explicitly through on_actions, decisions, or other scripts. [7]
 
+#### Event ID Range
+
+Event IDs use `<namespace>.<integer>`, and the numeric part must be below 10000. Runtime logs from `jomini_eventmanager.cpp:141` reject IDs such as `tv_engineering_department.50011` with "not a valid event ID, has to be < 10000"; duplicate-ID errors may appear afterward as parser fallout.
+
+For generated systems, do not encode high-cardinality dimensions directly into the event ID. Dispatch large dimensions before firing the event, and keep any event-local branch limited to a small dimension that is already scoped to that event, such as ceremony style inside a single wonder finalization event.
+
 #### Event Option Tooltips
 
 When hovering over an option button, the tooltip is rendered by `ContextualTooltipType` (defined in `eventwindow.gui`). It has two parts:
@@ -878,6 +929,15 @@ my_event.1.desc: "Current value: [ROOT.GetVariable('my_var').GetValue|0]"
 
 Do not insert `MakeScope` after `ROOT` or `THIS` in event localization. `ROOT.MakeScope.GetVariable(...)` treats an already script-scoped object like a GUI object and can log `Could not find promote for 'MakeScope'` / `Failed converting statement`. Use `Country.MakeScope.GetVariable(...)`, `Location.MakeScope.GetVariable(...)`, and similar chains only when the starting object is a GUI-layer binding such as `Country`, `Location`, `Player`, or a typed view object.
 
+Generic action title/description localization can be fetched through a contextless prefetch path
+before or alongside the real hover render. A scoped expression such as
+`SCOPE.sCountry('actor')...` may display correctly in the real tooltip and still spam
+`No context supplied ... wanted context of type 'Container'` from that prefetch. For action
+description keys that must stay dynamic and read player-country state, prefer a
+context-independent global binding such as `Player.MakeScope.GetVariable(...)`; use an explicitly
+scoped GUI widget/tooltip only when the text needs non-player scopes. Do not replace requested
+dynamic action text with static fallback merely to silence the log.
+
 #### Customizable Localization Database Keys
 
 Customizable localization files under `in_game/common/customizable_localization/` are parsed as database entries keyed by the top-level block name. These keys are not additive merge blocks. For example, adding a second file with `character_title_prefix = { ... }` causes the engine to ignore the duplicate and log `Duplicated key character_title_prefix will not be created`.
@@ -903,6 +963,22 @@ Dynamic game-concept links are safe only when the dynamic value is a registered 
 `GetFlagName` is not a safe raw-key accessor for script variables or variable-map values. In a location-window dynamic display test, a value written as `flag:tv_wonder_unique_pharos_lighthouse` rendered through GUI as `法罗斯灯塔`, so string concatenation produced invalid keys such as `game_concept_法罗斯灯塔` and `法罗斯灯塔_level_3`. For display projections that must recover script keys, store a numeric id and generate static id branches, or use a typed datamodel object with a verified `GetKey` accessor.
 
 GUI `texture = "[...]"` expressions need a function/object that returns a texture-like value, not an arbitrary CString path. In the location-window dynamic display test, `GetConceptTexture(Concatenate(...))` rendered, but all raw DDS path forms built with `Concatenate` stayed blank: nested path+filename, suffix-only `.dds`, and even `Concatenate('gfx/.../file.dds', '')`. Use `GetConceptTexture` as a dynamic routing bridge when no typed datamodel object is available. For arbitrary mod DDS files, register image-only game concepts such as `tv_wonder_display_image_<id>` whose `texture` points at the DDS, add matching `game_concept_*` and `game_concept_*_desc` localization, then build that concept id from a numeric slot id in GUI.
+
+`ShowModifierEffect(Concatenate(...))` can build the correct modifier id at runtime, but the GUI expression alone may not make the engine/static lookup path recognize every generated modifier. For generated display modifier routes such as `tv_wonder_display_<id>_level_<level>` or `tv_wonder_display_<id>_local_level_<level>`, keep the dynamic GUI route and add generated unreachable script references:
+
+```txt
+tv_reference_display_modifiers_effect = {
+    if = {
+        limit = { always = no }
+        add_country_modifier = { modifier = my_display_country_modifier years = -1 mode = add_and_extend }
+        capital = {
+            add_location_modifier = { modifier = my_display_location_modifier years = -1 mode = add_and_extend }
+        }
+    }
+}
+```
+
+The `always = no` guard prevents runtime state changes while leaving static modifier references in a loaded script file.
 
 For ordinary localization keys such as building names, use `$key$` substitution instead of square-bracket game concept syntax. GUI-bound localized text can parse `[building_key|E]` as a data-system function when `building_key` is not registered as a game concept, producing `Could not find data system function '<key>'`.
 

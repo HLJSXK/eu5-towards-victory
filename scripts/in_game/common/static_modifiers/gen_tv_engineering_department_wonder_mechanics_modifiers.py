@@ -31,7 +31,7 @@ def fmt_value(value: object) -> str:
 
 
 def scaled_modifiers(base: dict, level: int, multiplier: int | float = 1) -> dict:
-    result: dict[str, object] = {"great_power_score": 10 * level * multiplier}
+    result: dict[str, object] = {}
     for key, value in base.items():
         if isinstance(value, (int, float)):
             result[key] = value * level * multiplier
@@ -71,7 +71,8 @@ def generate() -> str:
         multiplier = wonder.get("base_effect_multiplier", 1)
         for level in range(1, 7):
             modifiers = scaled_modifiers(base, level, multiplier)
-            lines.extend(modifier_block(f"tv_wonder_{wonder['key']}_level_{level}", modifiers))
+            if modifiers:
+                lines.extend(modifier_block(f"tv_wonder_{wonder['key']}_level_{level}", modifiers))
             lines.extend(modifier_block(display_modifier_name(wonder, level), modifiers))
     for wonder in wonders:
         has_timed_ritual = False

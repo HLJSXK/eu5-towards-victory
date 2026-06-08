@@ -36,6 +36,20 @@ DOMAIN_RULES = [
     ("on_action", "src/in_game/common/on_action/", "on_action.md"),
 ]
 
+CONTENT_DOMAIN_MARKERS = {
+    "variable_map": (
+        "variable_map(",
+        "global_variable_map(",
+        "local_variable_map(",
+        "add_to_variable_map",
+        "add_to_global_variable_map",
+        "add_to_local_variable_map",
+        "is_key_in_variable_map",
+        "is_key_in_global_variable_map",
+        "random_key_in_variable_map",
+    ),
+}
+
 
 def _git_names(args: list[str]) -> list[str]:
     result = subprocess.run(
@@ -88,13 +102,26 @@ def detect_domains(files: list[str]) -> set[str]:
                 domains.add(domain)
         if path.endswith(".gui"):
             domains.add("gui")
+        full_path = REPO_ROOT / path
+        if full_path.exists() and full_path.is_file():
+            try:
+                with full_path.open(encoding="utf-8", errors="replace") as f:
+                    for line in f:
+                        for domain, markers in CONTENT_DOMAIN_MARKERS.items():
+                            if any(marker in line for marker in markers):
+                                domains.add(domain)
+                        if domains.issuperset(CONTENT_DOMAIN_MARKERS):
+                            break
+            except OSError:
+                pass
     return domains
 
 
 def relevant_rules(files: list[str], domains: set[str], limit: int = 12) -> list[dict]:
     patterns = load_yaml(KNOWLEDGE_DIR / "anti_patterns.yaml") or []
     normalized = [f.replace("\\", "/") for f in files]
-    picked: list[dict] = []
+    domain_matches: list[dict] = []
+    path_matches: list[dict] = []
     for entry in patterns:
         only_in = entry.get("only_in_paths", [])
         category = entry.get("category", "")
@@ -102,11 +129,11 @@ def relevant_rules(files: list[str], domains: set[str], limit: int = 12) -> list
             any(part in path for part in only_in) for path in normalized
         )
         matched_domain = category in domains or entry.get("scope") in domains
-        if matched_path or matched_domain:
-            picked.append(entry)
-        if len(picked) >= limit:
-            break
-    return picked
+        if matched_domain:
+            domain_matches.append(entry)
+        elif matched_path:
+            path_matches.append(entry)
+    return [*domain_matches, *path_matches][:limit]
 
 
 def maintenance_notes(files: list[str]) -> list[str]:
@@ -206,6 +233,9 @@ def main() -> None:
         if domain in domains and card and card not in printed_cards:
             print(f"- `docs/knowledge/risk_cards/{card}`")
             printed_cards.add(card)
+    if "variable_map" in domains:
+        print("- `docs/technical/EU5_Modding_Knowledge_Base.md` section 5.2 `Variable maps`")
+        print("- `docs/knowledge/anti_patterns.yaml` rule `variable_map_scope_link_used_direct_rhs`")
     print("- `CLAUDE.md`")
     print("- `docs/knowledge/BRIEF.md` for broad project context")
     print("")

@@ -9,14 +9,13 @@ REPO_ROOT = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
-    ceremony_styles,
-    final_building_for_style,
+    WONDER_RITUAL_COST_TYPE_IDS,
     load_all_wonder_mechanics_data,
+    mechanic_key,
     render_header,
-    ritual_plan_for_style,
-    suitability_actual_variable_for_wonder,
+    suitability_current_actual_variable,
+    suitability_current_revealed_variable,
     suitability_knowledge_for_wonder,
-    suitability_reveal_variable_for_wonder,
 )
 
 OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_mechanics.gui"
@@ -115,86 +114,95 @@ def fold_bool(op: str, terms: list[str]) -> str:
     return expr
 
 
-def wonder_visible(wonder_id: int) -> str:
+def fixed_point_to_int_string(var_expr: str) -> str:
+    return f"ToString_int32(FixedPointToInt({var_expr}.GetValue))"
+
+
+def player_var(var_name: str) -> str:
+    return f"{PLAYER}.GetVariable('{var_name}')"
+
+
+def dynamic_localized_text_key(prefix: str, var_name: str) -> str:
+    return f"Localize(Concatenate('{prefix}', {fixed_point_to_int_string(player_var(var_name))}))"
+
+
+def dynamic_image_texture(var_name: str) -> str:
+    return f"GetConceptTexture(Concatenate('tv_wonder_display_image_', {fixed_point_to_int_string(player_var(var_name))}))"
+
+
+def dynamic_ritual_concept_key(style: int) -> str:
+    id_string = fixed_point_to_int_string(player_var("tv_wonder_locked_concept_display_id"))
+    return f"Concatenate(Concatenate('tv_wonder_display_', {id_string}), '_ritual_{style}')"
+
+
+def selected_ritual_style_loc_key(prefix: str) -> str:
+    style_string = fixed_point_to_int_string(player_var("tv_wonder_selected_ritual_style"))
+    return f"Localize(Concatenate('{prefix}', Concatenate({style_string}, '_SUBTITLE')))"
+
+
+def proposal_slot_var(slot: int) -> str:
+    return f"{PLAYER}.GetVariable('tv_wonder_proposal_slot_{slot}')"
+
+
+def proposal_button(slot: int) -> str:
+    slot_var = proposal_slot_var(slot)
+    slot_id_string = fixed_point_to_int_string(slot_var)
+    text = f"[SelectGameConcept({slot_var}.IsSet, Concatenate('tv_wonder_display_', {slot_id_string}), 'tv_wonder_construction')]"
     return (
-        "[Or("
-        f"And({PLAYER}.GetVariable('tv_wonder_locked').IsSet, {eq('tv_wonder_locked', wonder_id)}), "
-        f"And3(Not({PLAYER}.GetVariable('tv_wonder_locked').IsSet), {PLAYER}.GetVariable('tv_wonder_proposal').IsSet, {eq('tv_wonder_proposal', wonder_id)})"
-        ")]"
-    )
-
-
-def or_eq(var: str, values: list[int]) -> str:
-    return fold_bool("Or", [eq(var, value) for value in values])
-
-
-def ritual_pair_visible(pairs: list[tuple[int, int]]) -> str:
-    return fold_bool(
-        "Or",
-        [f"And({eq('tv_wonder_locked', wonder_id)}, {eq('tv_wonder_ceremony_style', style)})" for wonder_id, style in pairs],
-    )
-
-
-def proposal_button(slot: int, wonder: dict) -> str:
-    visible = eq(f"tv_wonder_proposal_slot_{slot}", wonder["id"])
-    return (
-        f'{T}action_button_diamond = {{ size = {{ 152 30 }} visible = "[{visible}]" '
-        f'text = "TV_ENGINEERING_PROPOSAL_BUTTON_{wonder["key"].upper()}" title = "tv_wonder_select_proposal_slot_{slot}" '
+        f'{T}action_button_diamond = {{ size = {{ 152 30 }} visible = "[{slot_var}.IsSet]" '
+        f'text = "{text}" title = "tv_wonder_select_proposal_slot_{slot}" '
         f'description = "tv_wonder_select_proposal_slot_{slot}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
         f'left_action = {{ action_name = "tv_wonder_select_proposal_slot_{slot}" }} }}'
     )
 
 
-def proposal_text(wonder: dict, suffix: str = "") -> str:
-    key = f"TV_ENGINEERING_PROPOSAL{suffix}_{wonder['key'].upper()}_TEXT"
+def dynamic_proposal_text(prefix: str, max_width: int = 352) -> str:
     return (
-        f'{T}text_multi = {{ visible = "[{eq("tv_wonder_proposal", wonder["id"])}]" '
-        f'max_width = 352 autoresize = yes text = "{key}" align = nobaseline|left }}'
+        f'{T}text_multi = {{ visible = "[{player_var("tv_wonder_proposal")}.IsSet]" '
+        f'max_width = {max_width} autoresize = yes text = "[{dynamic_localized_text_key(prefix, "tv_wonder_proposal")}]" '
+        f'align = nobaseline|left }}'
     )
 
 
-def locked_text(wonder: dict, max_width: int = 352) -> str:
+def dynamic_locked_text(max_width: int = 352) -> str:
     return (
-        f'{T}text_multi = {{ visible = "[{eq("tv_wonder_locked", wonder["id"])}]" '
-        f'max_width = {max_width} autoresize = yes text = "TV_ENGINEERING_LOCKED_{wonder["key"].upper()}_TEXT" align = nobaseline|left }}'
+        f'{T}text_multi = {{ visible = "[{player_var("tv_wonder_locked_display_id")}.IsSet]" '
+        f'max_width = {max_width} autoresize = yes text = "[{dynamic_localized_text_key("TV_ENGINEERING_LOCKED_TEXT_", "tv_wonder_locked_display_id")}]" '
+        f'align = nobaseline|left }}'
     )
 
 
-def preview_texture(wonder: dict) -> str:
-    image = wonder.get("image", f"tv_wonder_{wonder['key']}")
-    return f"gfx/interface/illustrations/towards_victory/wonders/{image}.dds"
-
-
-def ceremony_name_key(wonder: dict, style: int) -> str:
-    building = final_building_for_style(wonder, style)
-    return f"TV_ENGINEERING_CEREMONY_{building.removeprefix('tv_wonder_').upper()}_BUTTON"
-
-
-def ceremony_select_button(wonder: dict, style: int) -> str:
-    locked_visible = eq("tv_wonder_locked", wonder["id"])
+def ceremony_select_button(style: int) -> str:
+    locked_visible = fold_bool(
+        "And",
+        [
+            f"{player_var('tv_wonder_locked')}.IsSet",
+            f"{player_var('tv_wonder_locked_style_count')}.IsSet",
+            f"{player_var('tv_wonder_locked_is_unique')}.IsSet",
+            f"Not({eq('tv_wonder_locked_is_unique', 1)})",
+            f"GreaterThanOrEqualTo_CFixedPoint({player_var('tv_wonder_locked_style_count')}.GetValue, '(CFixedPoint){style}.0')",
+        ],
+    )
     selected_down = eq("tv_wonder_ceremony_style", style)
+    display_var = player_var("tv_wonder_locked_concept_display_id")
+    text = (
+        f"[SelectGameConcept({display_var}.IsSet, "
+        f"{dynamic_ritual_concept_key(style)}, 'tv_wonder_construction')]"
+    )
     return (
         f'{T}action_button_diamond = {{ visible = "[{locked_visible}]" size = {{ 150 30 }} '
-        f'text = "{ceremony_name_key(wonder, style)}" '
+        f'text = "{text}" '
         f'down = "[{selected_down}]" title = "tv_wonder_choose_ceremony_style_{style}" '
         f'description = "tv_wonder_choose_ceremony_style_{style}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
         f'left_action = {{ action_name = "tv_wonder_choose_ceremony_style_{style}" }} }}'
     )
 
 
-def ritual_requirement_tooltip_effect_name(wonder: dict, style: int) -> str:
-    return f"tv_wonder_{wonder['key']}_ritual_{style}_requirement_tooltip_effect"
-
-
-def ritual_effect_tooltip_effect_name(wonder: dict, style: int) -> str:
-    return f"tv_wonder_{wonder['key']}_ritual_{style}_effect_tooltip_effect"
-
-
-def active_ritual_visible(wonder: dict, style: int) -> str:
+def active_ritual_visible() -> str:
     return (
-        f"And3({PLAYER}.GetVariable('tv_wonder_locked').IsSet, "
-        f"{PLAYER}.GetVariable('tv_wonder_ceremony_style').IsSet, "
-        f"And({eq('tv_wonder_locked', wonder['id'])}, {eq('tv_wonder_ceremony_style', style)}))"
+        f"And3({player_var('tv_wonder_locked')}.IsSet, "
+        f"{player_var('tv_wonder_ceremony_style')}.IsSet, "
+        f"{player_var('tv_wonder_selected_ritual_id')}.IsSet)"
     )
 
 
@@ -287,10 +295,10 @@ def suitability_row_unknown_text(row: dict[str, str]) -> str:
     return f"#T ?#!/{suitability_row_value(row)}"
 
 
-def suitability_knowledge_row(wonder: dict, row: dict[str, str], reveal_var: str, row_index: int, indent: int) -> list[str]:
+def suitability_knowledge_row(row: dict[str, str], reveal_var: str, row_index: int, indent: int) -> list[str]:
     prefix = T * indent
     revealed = reveal_progress_visible(reveal_var, row_index)
-    actual_var = suitability_actual_variable_for_wonder(wonder, row_index)
+    actual_var = suitability_current_actual_variable(row_index)
     completed = suitability_row_actual_complete_visible(actual_var)
     return [
         f"{prefix}hbox = {{",
@@ -314,8 +322,11 @@ def suitability_knowledge_row(wonder: dict, row: dict[str, str], reveal_var: str
 
 def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
     rows = suitability_knowledge_for_wonder(mechanics, wonder)
-    reveal_var = suitability_reveal_variable_for_wonder(wonder)
-    visible = f"And({PLAYER}.GetVariable('tv_wonder_locked').IsSet, {eq('tv_wonder_locked', wonder['id'])})"
+    reveal_var = suitability_current_revealed_variable()
+    visible = (
+        f"And({player_var('tv_wonder_locked_mechanic_id')}.IsSet, "
+        f"{eq('tv_wonder_locked_mechanic_id', int(wonder['id']))})"
+    )
     min_height = 82 + len(rows) * 20
     lines: list[str] = [
         f"{T}widget = {{",
@@ -348,7 +359,7 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
     ]
     lines.extend(
         trigger_conditions_list(
-            f"tv_wonder_player_visible_site_rules_{wonder['key']}_trigger",
+            "tv_wonder_site_rule_player_visible_locked_wonder_trigger",
             5,
             width=SUITABILITY_KNOWLEDGE_COLUMN_WIDTH,
         )
@@ -372,7 +383,7 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
             ]
         )
     for row_index, row in enumerate(rows, start=1):
-        lines.extend(suitability_knowledge_row(wonder, row, reveal_var, row_index, 5))
+        lines.extend(suitability_knowledge_row(row, reveal_var, row_index, 5))
     lines.extend(
         [
             f"{T}{T}{T}{T}{T}expand = {{}}",
@@ -385,7 +396,15 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
     return "\n".join(lines)
 
 
-def ritual_info_container(title_key: str, subtitle_key: str, effect_name: str | None, indent: int) -> list[str]:
+def ritual_info_container(
+    title_key: str,
+    subtitle_key: str,
+    effect_name: str | None,
+    indent: int,
+    *,
+    visible: str | None = None,
+    subtitle_is_expression: bool = False,
+) -> list[str]:
     prefix = T * indent
     lines = [
         f"{prefix}widget = {{",
@@ -398,8 +417,13 @@ def ritual_info_container(title_key: str, subtitle_key: str, effect_name: str | 
         f"{prefix}{T}{T}ignoreinvisible = yes",
         f"{prefix}{T}{T}spacing = 4",
         f'{prefix}{T}{T}text_single = {{ text = "{title_key}" align = nobaseline|left }}',
-        f'{prefix}{T}{T}text_multi = {{ max_width = 446 autoresize = yes text = "{subtitle_key}" align = nobaseline|left }}',
     ]
+    if visible is not None:
+        lines.insert(1, f'{prefix}{T}visible = "[{visible}]"')
+    subtitle_text = f"[{subtitle_key}]" if subtitle_is_expression else subtitle_key
+    lines.append(
+        f'{prefix}{T}{T}text_multi = {{ max_width = 446 autoresize = yes text = "{subtitle_text}" align = nobaseline|left }}'
+    )
     if effect_name is not None:
         lines.extend(scripted_effect_tooltip(effect_name, indent + 2))
     lines.extend(
@@ -411,54 +435,63 @@ def ritual_info_container(title_key: str, subtitle_key: str, effect_name: str | 
     return lines
 
 
-def active_ritual_display(wonder: dict, style: int) -> str:
-    visible = active_ritual_visible(wonder, style)
-    lines: list[str] = []
-    if wonder.get("is_unique"):
-        lines.append(f"{T}# TODO: Expand unique-wonder ritual requirements/effects after bespoke ritual designs are finalized.")
-    lines.extend(
-        [
-            f"{T}vbox = {{",
-            f'{T}{T}visible = "[{visible}]"',
-            f"{T}{T}layoutpolicy_horizontal = expanding",
-            f"{T}{T}ignoreinvisible = yes",
-            f"{T}{T}spacing = 6",
-        ]
+def active_ritual_display() -> str:
+    visible = active_ritual_visible()
+    is_unique = (
+        f"And({player_var('tv_wonder_locked_is_unique')}.IsSet, "
+        f"{eq('tv_wonder_locked_is_unique', 1)})"
     )
-    if wonder.get("is_unique"):
-        lines.extend(
-            ritual_info_container(
-                "TV_ENGINEERING_RITUAL_REQUIREMENTS_TITLE",
-                "TV_ENGINEERING_RITUAL_REQUIREMENT_UNIQUE_NONE",
-                None,
-                2,
-            )
+    is_generic = (
+        f"And({player_var('tv_wonder_locked_is_unique')}.IsSet, "
+        f"Not({eq('tv_wonder_locked_is_unique', 1)}))"
+    )
+    generic_visible = f"And({visible}, {is_generic})"
+    unique_visible = f"And({visible}, {is_unique})"
+    lines: list[str] = [
+        f"{T}vbox = {{",
+        f'{T}{T}visible = "[{visible}]"',
+        f"{T}{T}layoutpolicy_horizontal = expanding",
+        f"{T}{T}ignoreinvisible = yes",
+        f"{T}{T}spacing = 6",
+    ]
+    lines.extend(
+        ritual_info_container(
+            "TV_ENGINEERING_RITUAL_REQUIREMENTS_TITLE",
+            selected_ritual_style_loc_key("TV_ENGINEERING_RITUAL_REQUIREMENT_STYLE_"),
+            "tv_wonder_selected_ritual_requirement_tooltip_effect",
+            2,
+            visible=generic_visible,
+            subtitle_is_expression=True,
         )
-        lines.extend(
-            ritual_info_container(
-                "TV_ENGINEERING_RITUAL_EFFECTS_TITLE",
-                "TV_ENGINEERING_RITUAL_EFFECT_UNIQUE_SUBTITLE",
-                ritual_effect_tooltip_effect_name(wonder, style),
-                2,
-            )
+    )
+    lines.extend(
+        ritual_info_container(
+            "TV_ENGINEERING_RITUAL_REQUIREMENTS_TITLE",
+            "TV_ENGINEERING_RITUAL_REQUIREMENT_UNIQUE_NONE",
+            None,
+            2,
+            visible=unique_visible,
         )
-    else:
-        lines.extend(
-            ritual_info_container(
-                "TV_ENGINEERING_RITUAL_REQUIREMENTS_TITLE",
-                f"TV_ENGINEERING_RITUAL_REQUIREMENT_STYLE_{style}_SUBTITLE",
-                ritual_requirement_tooltip_effect_name(wonder, style),
-                2,
-            )
+    )
+    lines.extend(
+        ritual_info_container(
+            "TV_ENGINEERING_RITUAL_EFFECTS_TITLE",
+            selected_ritual_style_loc_key("TV_ENGINEERING_RITUAL_EFFECT_STYLE_"),
+            "tv_wonder_selected_ritual_effect_tooltip_effect",
+            2,
+            visible=generic_visible,
+            subtitle_is_expression=True,
         )
-        lines.extend(
-            ritual_info_container(
-                "TV_ENGINEERING_RITUAL_EFFECTS_TITLE",
-                f"TV_ENGINEERING_RITUAL_EFFECT_STYLE_{style}_SUBTITLE",
-                ritual_effect_tooltip_effect_name(wonder, style),
-                2,
-            )
+    )
+    lines.extend(
+        ritual_info_container(
+            "TV_ENGINEERING_RITUAL_EFFECTS_TITLE",
+            "TV_ENGINEERING_RITUAL_EFFECT_UNIQUE_SUBTITLE",
+            "tv_wonder_selected_ritual_effect_tooltip_effect",
+            2,
+            visible=unique_visible,
         )
+    )
     lines.append(f"{T}}}")
     return "\n".join(lines)
 
@@ -477,6 +510,13 @@ def hold_button_base_visible(max_wonder_id: int) -> str:
     )
 
 
+def selected_ritual_cost_visible(cost_type_id: int) -> str:
+    return (
+        f"And({PLAYER}.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, "
+        f"{eq('tv_wonder_selected_ritual_cost_type', cost_type_id)})"
+    )
+
+
 def hold_button(action_name: str, visible: str) -> str:
     return (
         f'{T}action_button_diamond = {{ visible = "[{visible}]" '
@@ -486,89 +526,88 @@ def hold_button(action_name: str, visible: str) -> str:
     )
 
 
+def preview_widget(var_name: str, visible: str | None = None) -> str:
+    var_expr = player_var(var_name)
+    visible_expr = visible or f"{var_expr}.IsSet"
+    return "\n".join(
+        [
+            "widget = {",
+            f'{T}visible = "[{visible_expr}]"',
+            f"{T}size = {{ 100% 100% }}",
+            f"{T}background = {{",
+            f'{T}{T}texture = "[{dynamic_image_texture(var_name)}]"',
+            f"{T}{T}fittype = centercrop",
+            f"{T}}}",
+            "}",
+        ]
+    )
+
+
+def suitability_representatives(wonders: list[dict]) -> list[dict]:
+    wonder_by_key = {wonder["key"]: wonder for wonder in wonders}
+    representatives: dict[str, dict] = {}
+    for wonder in wonders:
+        key = mechanic_key(wonder)
+        representatives.setdefault(key, wonder_by_key.get(key, wonder))
+    return sorted(representatives.values(), key=lambda wonder: int(wonder["id"]))
+
+
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics_data()
     max_wonder_id = max(wonder["id"] for wonder in wonders)
-    gold_ritual_pairs: list[tuple[int, int]] = []
-    prestige_ritual_pairs: list[tuple[int, int]] = []
-    for wonder in wonders:
-        for style in ceremony_styles(wonder):
-            ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
-            cost_type = ritual_plan["cost_type"]
-            if cost_type == "scaled_gold":
-                gold_ritual_pairs.append((wonder["id"], style))
-            elif cost_type == "prestige":
-                prestige_ritual_pairs.append((wonder["id"], style))
 
     lines = render_header(SCRIPT_REL)
     lines.append("### BEGIN TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
-    for wonder in wonders:
-        lines.extend(
-            [
-                "widget = {",
-                f'{T}visible = "{wonder_visible(wonder["id"])}"',
-                f"{T}size = {{ 100% 100% }}",
-                f"{T}background = {{",
-                f'{T}{T}texture = "{preview_texture(wonder)}"',
-                f"{T}{T}texture_density = 2",
-                f"{T}{T}fittype = centercrop",
-                f"{T}}}",
-                "}",
-            ]
-        )
+    lines.append(preview_widget("tv_wonder_locked_image_display_id"))
+    proposal_preview_visible = f"And(Not({player_var('tv_wonder_locked')}.IsSet), {player_var('tv_wonder_proposal')}.IsSet)"
+    lines.append(preview_widget("tv_wonder_proposal", proposal_preview_visible))
     lines.append("### END TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_TEXTS")
-    for wonder in wonders:
-        lines.append(proposal_text(wonder))
+    lines.append(dynamic_proposal_text("TV_ENGINEERING_PROPOSAL_TEXT_"))
     lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_RESUME_TEXTS")
-    for wonder in wonders:
-        lines.append(proposal_text(wonder, "_RESUME"))
+    lines.append(dynamic_proposal_text("TV_ENGINEERING_PROPOSAL_RESUME_TEXT_"))
     lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_RESUME_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_EXPAND_TEXTS")
-    for wonder in wonders:
-        lines.append(proposal_text(wonder, "_EXPAND"))
+    lines.append(dynamic_proposal_text("TV_ENGINEERING_PROPOSAL_EXPAND_TEXT_"))
     lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_EXPAND_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_LOCKED_TEXTS")
-    for wonder in wonders:
-        lines.append(locked_text(wonder))
+    lines.append(dynamic_locked_text())
     lines.append("### END TV_WONDER_MECHANICS_LOCKED_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_SUITABILITY_KNOWLEDGE")
-    for wonder in wonders:
+    for wonder in suitability_representatives(wonders):
         lines.append(suitability_knowledge_display(wonder, mechanics))
     lines.append("### END TV_WONDER_MECHANICS_SUITABILITY_KNOWLEDGE")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_BUTTONS")
     for slot in range(1, 4):
-        for wonder in wonders:
-            lines.append(proposal_button(slot, wonder))
+        lines.append(proposal_button(slot))
     lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_BUTTONS")
     lines.append("")
     for style in range(1, 4):
         lines.append(f"### BEGIN TV_WONDER_MECHANICS_CEREMONY_STYLE_{style}_BUTTONS")
-        for wonder in wonders:
-            if not wonder.get("is_unique") and style in ceremony_styles(wonder):
-                lines.append(ceremony_select_button(wonder, style))
+        lines.append(ceremony_select_button(style))
         lines.append(f"### END TV_WONDER_MECHANICS_CEREMONY_STYLE_{style}_BUTTONS")
         lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS")
-    for wonder in wonders:
-        for style in ceremony_styles(wonder):
-            lines.append(active_ritual_display(wonder, style))
+    lines.append(active_ritual_display())
     lines.append("### END TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
     base_visible = hold_button_base_visible(max_wonder_id)
-    gold_pair_visible = ritual_pair_visible(gold_ritual_pairs)
-    prestige_pair_visible = ritual_pair_visible(prestige_ritual_pairs)
-    gold_visible = f"And({base_visible}, {gold_pair_visible})"
-    prestige_visible = f"And({base_visible}, {prestige_pair_visible})"
-    free_visible = f"And3({base_visible}, Not({gold_pair_visible}), Not({prestige_pair_visible}))"
+    gold_visible = f"And({base_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
+    prestige_visible = f"And({base_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
+    free_visible = (
+        f"And3({base_visible}, "
+        f"{PLAYER}.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, "
+        f"Not(Or({selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])}, "
+        f"{selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})))"
+    )
     lines.append(hold_button("tv_wonder_confirm_ceremony", free_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_scaled_gold", gold_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_prestige", prestige_visible))

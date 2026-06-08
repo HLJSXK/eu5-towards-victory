@@ -23,6 +23,13 @@ called directly from event options.
    `*_current_module_level`, or `*_target_module_level`. For rounded division displays such as
    remaining-month counters, prefer verified script-value operators like `ceiling = yes` over
    writing a temporary check variable and comparing it later in the same hover-rendered chain.
+   Dynamic building effects are not inherently unrenderable in event option tooltips:
+   `building_type = local_var:X` / `building = local_var:X` can render when `X` is captured
+   from a variable map keyed by persistent state before switching to the location scope. The
+   unsafe pattern is computing a temporary composite map key earlier in the same visible chain
+   and then immediately using that key for `global_variable_map(...)`. For tooltip-visible
+   module/final-building effects, branch over bounded dimensions such as part/style and map
+   directly from persistent project ids.
 
 3. Guard stale event confirmations.
    Final confirmation events can sit open while project state changes through another path.
@@ -34,6 +41,13 @@ called directly from event options.
    reuse that state, wrap the sequence in `hidden_effect = { ... }`. This hides nested tooltip
    text, but it is not a commit boundary: helpers inside still must read persistent state or use
    literal bounded branches instead of same-chain scratch variables.
+
+5. Keep numeric event IDs below 10000.
+   EU5 accepts event IDs as `<namespace>.<integer>`, but the integer must be `< 10000`.
+   For generated high-cardinality systems, do not encode multiple dimensions into the numeric
+   event ID if that crosses the limit. Move large wonder/type dispatch before the event fires;
+   small event-local branches are acceptable only for dimensions that are already within a
+   single typed event, such as ceremony style inside one wonder's finalization event.
 
 ## Validation
 

@@ -8,6 +8,7 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
+    authored_final_building_local_modifiers,
     load_all_wonder_mechanics,
     render_header,
     ritual_auxiliary_display_modifier_name,
@@ -26,9 +27,12 @@ OUT_FILE = (
 )
 SCRIPT_REL = "scripts/main_menu/common/static_modifiers/gen_tv_engineering_department_wonder_ritual_auxiliary_location_modifiers.py"
 T = "\t"
+DISPLAY_MODIFIER_PREFIX = "tv_wonder_display_"
 
 
 def fmt_value(value: object) -> str:
+    if isinstance(value, bool):
+        return "yes" if value else "no"
     if isinstance(value, float):
         return f"{value:.3f}".rstrip("0").rstrip(".")
     return str(value)
@@ -50,9 +54,32 @@ def modifier_block(name: str, modifiers: dict) -> list[str]:
     return lines
 
 
+def scaled_modifiers(base: dict, level: int) -> dict:
+    result: dict[str, object] = {}
+    for key, value in base.items():
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            result[key] = value * level
+        else:
+            result[key] = value
+    return result
+
+
+def display_local_modifier_name(wonder: dict, level: int) -> str:
+    return f"{DISPLAY_MODIFIER_PREFIX}{wonder['id']}_local_level_{level}"
+
+
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
+    for wonder in wonders:
+        local_base = authored_final_building_local_modifiers(wonder, mechanics)
+        for level in range(1, 7):
+            lines.extend(
+                modifier_block(
+                    display_local_modifier_name(wonder, level),
+                    scaled_modifiers(local_base, level),
+                )
+            )
     for wonder in wonders:
         for style in ceremony_styles(wonder):
             ritual_plan = ritual_plan_for_style(wonder, mechanics, style)

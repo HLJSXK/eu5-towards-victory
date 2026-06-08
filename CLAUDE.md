@@ -39,6 +39,24 @@ When a turn includes a handoff summary, compaction summary, or explicit prior-ag
 - **Mod source:** `src/` (single mod; files at `src/in_game/`, `src/main_menu/`)
 - **Namespace prefix:** `tv_` — all mod-defined identifiers (situations, triggers, effects, modifiers, variables, events) must use this prefix
 
+## Unreleased Project: No Compatibility Policy
+
+Towards Victory has not shipped. There are no user save files, published mod versions,
+or public APIs to preserve. Treat every internal data shape, helper function, generated
+schema, variable name, and script entry point as mutable implementation detail unless the
+user explicitly names an external consumer that must keep working.
+
+- Do NOT add old-save migrations, legacy alias variables, duplicate old/new branches,
+  compatibility wrappers, defensive fallback paths, or "if old state exists" repair logic.
+- When a mechanic or data model changes, update the canonical data, generators, callers,
+  and docs to the new shape, then delete stale paths instead of preserving both versions.
+- Reusing an existing helper is not a goal. If the helper's scope, lifecycle, data model,
+  or performance shape is wrong for the current architecture, split, replace, or refactor it.
+- Efficiency-improving refactors are desirable: remove branches, collapse duplicate flows,
+  tighten hot paths, regenerate from canonical data, and rename or reshape variables freely.
+- Save-load/startup hooks may initialize the current runtime state. They must not preserve
+  obsolete schemas or repair abandoned internal states unless the user explicitly asks.
+
 ## EU5 Syntax Rules
 
 EU5 uses the Jomini engine. Do NOT assume EU4 syntax works.
@@ -63,6 +81,10 @@ For the categories below, you MUST go to Step 2 or 3 before writing any code. No
 - Any `scripted_trigger` or `scripted_effect` not defined in this mod
 - Localization YAML encoding and quote character rules
 - GUI expression syntax (`GetVariable`, `.IsSet`, `MakeScope`, etc.)
+- Any `variable_map` / `global_variable_map` / `local_variable_map` use: read
+  `docs/technical/EU5_Modding_Knowledge_Base.md` section 5.2 and
+  `docs/knowledge/anti_patterns.yaml` rule `variable_map_scope_link_used_direct_rhs`
+  before writing or changing map lookups.
 - Any GUI icon display — check `reference_game_files/game/main_menu/gui/shared/font_icons.gui`
   for `@xxx!` inline syntax **before** using icon widgets or custom solutions
 
@@ -73,12 +95,26 @@ For the categories below, you MUST go to Step 2 or 3 before writing any code. No
 - **Localization YAML** — must be UTF-8 BOM (not plain UTF-8); only straight ASCII double-quotes `"` are valid
 - **`custom_tooltip`** — never remove it; dotted suffix format IS valid in event options; verify key format before changing
 - **Pre-test validation** — run `conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix` before launching the game
+- **`variable_map` RHS is unreliable** — do not pass quoted `variable_map(...)` /
+  `global_variable_map(...)` directly as equality RHS, trigger RHS, `building_type`,
+  or other effect parameters after scope changes. Capture it first with
+  `set_local_variable` or `set_variable`, then use `local_var:X` / `var:X`.
+  Setting `set_local_variable` before entering `var:X ?= {}` / a location scope and
+  reading `local_var:X` inside that nested scope is valid; the separate bad pattern is
+  creating the local inside the dynamic scope and reading it outward through `prev = {}`.
+- **No defensive map rebuilds on read paths** — `variable_map` / `global_variable_map`
+  indexes must be built at lifecycle points: startup, save-load initialization,
+  data-change regeneration, or explicit initialization effects. Do not add
+  `*_rebuild_*_maps*_effect` calls to GUI refresh, country cache refresh, tooltip,
+  projection, selection, monthly read, or other hot/read paths as a compatibility fallback.
+  If a map is missing, fix the current lifecycle hook or the call-order bug that reads before
+  init; do not add old-schema repair or legacy state preservation.
 - **`select_trigger` pre-evaluation** — EU5 pre-evaluates a generic action's `effect` block at each selection step before the user confirms: after step 1 only the first `target_flag` scope is set; after step 2 the character is set but any variables that would be written by the effect itself (e.g. `tv_governed_area`) do not yet exist on the character. Guard multi-step effects with `if = { limit = { exists = scope:target  exists = scope:target_1 } }` and use `?=` on any variable access that may be absent on a freshly selected character.
 - **Wonder/building effect split** — EU5 building `modifier` and `raw_modifier` are local; `capital_country_modifier` only applies country effects when the building is in the capital. Engineering Department wonders may be outside the capital, so put designed local effects on final/helper buildings (`modifier` for per-level local effects, `raw_modifier` for flat local ceremony effects) and apply all national/global wonder effects through permanent country modifiers during finalization. Never put global effects directly on wonder buildings.
 
 ## IO Architecture Invariants
 
-The three TV IOs (`tv_arts_exhibition`, `tv_diplomatic_alliance`, `tv_academy_of_sciences`) enforce these rules with no exceptions:
+TV IOs enforce these rules with no exceptions:
 
 1. **`international_organization_chooses_new_leader` is globally banned** on all TV IO-related code — this triggers the vanilla election process and violates the no-elections design. The code correctly omits it everywhere.
 
@@ -88,7 +124,9 @@ The three TV IOs (`tv_arts_exhibition`, `tv_diplomatic_alliance`, `tv_academy_of
 
 4. **Great person characters are country variables on the `leader_country`, not the vanilla ruler.** Monthly_change blocks must use `leader_country.var:tv_xxx_leader_char.attribute` — never `appointed_leader.attribute`.
 
-5. **IO header uses `blockoverride` to display the appointed character variable** — not the vanilla `GetRuler` or `GetLeaderCountry.GetGovernment.GetRulerOrRegent` accessor.
+5. **Visible IO typed variables keep their monthly source logic in `monthly_change`.** If an IO variable's UI, progress bar, or monthly tooltip breakdown is supposed to show automatic monthly contributions, the real monthly arithmetic belongs in that variable's `monthly_change`. Do NOT move that contribution into `monthly_country_pulse`, country scripted effects, or IO `monthly_effect` as a bug fix. If progress does not advance, fix the `monthly_change` scope/conditions or its cached country inputs while preserving the `monthly_change` source. Country pulses may compute/mirror helper variables and run completion/event side effects, but must not become the source of truth for visible IO variable monthly gain.
+
+6. **IO header uses `blockoverride` to display the appointed character variable** — not the vanilla `GetRuler` or `GetLeaderCountry.GetGovernment.GetRulerOrRegent` accessor.
 
 ## Milestone Trigger Tooltip Pattern
 
@@ -154,6 +192,19 @@ Then stop. Do not guess.
 ## Bug Fix Rule
 
 When a script/GUI pattern causes a bug: verify and replace with correct syntax. Do NOT remove the feature. Removal is only allowed if Steps 2 and 3 both fail to find any reference, and the user is explicitly told.
+
+Do not treat a static fallback as a bug fix for a dynamic UI feature. If dynamic text,
+tooltips, generated id routing, or map-based selection is the requested behavior, keep that
+behavior and fix the failing scope/context path. If the only known safe option would remove
+the dynamic behavior, stop and explain the tradeoff before editing.
+
+## Refactor Goal Preservation Rule
+
+When the task is explicitly a refactor toward a target architecture, such as `variable_map`,
+numeric id flow, generated index maps, or branch removal, do not fix runtime errors by
+reintroducing the old branch structure or generated per-key enumerations. Preserve the target
+architecture and fix the failing scope/syntax. If a rollback or fallback would materially undo
+the stated refactor goal, stop and report that tradeoff before editing.
 
 ## Early Development: Ask-First Policy
 

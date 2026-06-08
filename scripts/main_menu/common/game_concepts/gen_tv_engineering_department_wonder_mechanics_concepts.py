@@ -8,6 +8,7 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
+    ceremony_styles,
     load_all_wonder_mechanics_data,
     render_header,
 )
@@ -23,11 +24,12 @@ ICONS = {
 }
 WONDER_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 WONDER_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
+WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 
 
 def wonder_image_texture(wonder: dict) -> str:
     image = wonder.get("image", f"tv_wonder_{wonder['key']}")
-    return f"towards_victory/wonders/{image}"
+    return f"gfx/interface/icons/towards_victory/wonders/{image}.dds"
 
 
 def generate() -> str:
@@ -62,6 +64,17 @@ def generate() -> str:
                 "",
             ]
         )
+    for wonder in wonders:
+        texture = ICONS.get(wonder["category"], ICONS["infrastructure_category"])
+        for style in ceremony_styles(wonder):
+            lines.extend(
+                [
+                    f"{WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX}{wonder['id']}_ritual_{style} = {{",
+                    f'\ttexture = "{texture}"',
+                    "}",
+                    "",
+                ]
+            )
     return "\n".join(lines).rstrip() + "\n"
 
 

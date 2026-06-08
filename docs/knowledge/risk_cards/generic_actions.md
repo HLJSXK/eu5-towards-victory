@@ -48,7 +48,21 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    `amount = { value = scope:io.var:X }`. Direct dynamic reads in these slots can collapse
    to `1` at runtime.
 
-8. Register the action outside the action file.
+8. Preserve requested map/id-flow refactors.
+   If a generic-action pre-evaluation bug appears inside a `variable_map` helper, do not replace
+   map key iteration or `random_key_in_variable_map` with generated per-id branches. Save the
+   current owner scope before the map callback and write back through that named scope.
+
+9. Keep action title/description localization safe under contextless prefetch.
+   Generic action title/description localization can be fetched without a GUI datacontext and
+   without a script-scope container, even when the real hover later renders correctly. Do not put
+   datacontext-dependent `Country.MakeScope` or container-dependent `SCOPE.sCountry('actor')`
+   reads in those keys. If the feature requires dynamic text tied to the player country, use a
+   context-independent global GUI binding such as `Player.MakeScope`, or move the dynamic line into
+   a GUI widget/tooltip with an explicit datacontext when it needs non-player scopes.
+   Do not "fix" this class by deleting the dynamic tooltip.
+
+10. Register the action outside the action file.
    Every new generic action also needs a `common/generic_action_ai_lists` entry and a
    `PERFORM_<action_id>_ACTION` message type.
 
@@ -108,3 +122,10 @@ rationale.
 - `generic_action_cleanup_effect_must_be_hidden` [needs_parser]: Cleanup-only helper calls from
   generic action effects should be inside `hidden_effect`; `validate.py` enforces the registered
   high-risk helper list.
+- `variable_map_callback_root_in_generic_action` [needs_parser]: A variable-map key callback
+  called from a generic-action effect should not rely on `root` to write back to the action actor;
+  save the actor/current country as a named scope before the callback.
+- `generic_action_loc_uses_gui_country_binding` [advisory]: Action title/description localization
+  can be fetched without any data container; avoid `Country`/`SCOPE` reads and preserve dynamic
+  player-country features through `Player.MakeScope`, or use an explicitly scoped GUI route for
+  non-player scopes.

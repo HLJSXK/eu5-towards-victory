@@ -20,11 +20,17 @@ that create, find, or mutate TV IOs.
 
 4. Keep maintenance hidden.
    Non-player-facing `monthly_effect` logic should be inside `hidden_effect`. Use IO variable
-   `monthly_change` only for visible breakdowns meant to appear in tooltips.
+   `monthly_change` only for visible breakdowns meant to appear in tooltips. When a visible
+   IO typed variable's progress UI or monthly tooltip depends on automatic monthly gain,
+   keep the real contribution in that variable's `monthly_change`. Do not move it to
+   `monthly_country_pulse`, country scripted effects, or IO `monthly_effect` to fix a
+   runtime bug; repair the `monthly_change` scope/conditions or cached country inputs instead.
 
 5. Match scope to monthly_change.
    IO variable `monthly_change` evaluates from IO/variable context. Do not call country-scoped
-   scripted triggers that depend on `root.var` unless root is verified.
+   scripted triggers that depend on `root`, `prev`, or caller-specific saved scopes unless the
+   full scope chain is verified in the IO variable context. Prefer writing the condition directly
+   under `leader_country ?= { ... }`, or create an IO-scoped helper trigger.
 
 6. Match scope to IO law block type.
    In IO policy `allow`, `on_activate`, and `on_deactivate`, the current root is already the IO.
@@ -97,4 +103,6 @@ that create, find, or mutate TV IOs.
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then inspect shared IO tooltips in game. Tooltip
-rendering is part of the execution surface for IO maintenance and variables.
+rendering is part of the execution surface for IO maintenance and variables. For any visible IO
+typed variable changed during a task, verify that the monthly breakdown still appears in the
+IO variable tooltip.
