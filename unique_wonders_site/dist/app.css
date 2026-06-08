@@ -209,11 +209,67 @@ input {
 
 .wonder-pin {
   --pin-color: var(--accent);
+  position: relative;
   width: 18px;
   height: 18px;
   border: 2px solid #111419;
   background: var(--pin-color);
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.16), 0 8px 18px rgba(0, 0, 0, 0.45);
+}
+
+.wonder-marker {
+  position: relative;
+  width: 39px;
+  height: 26px;
+}
+
+.wonder-marker.selected {
+  width: 44px;
+  height: 30px;
+}
+
+.wonder-marker-large {
+  width: 48px;
+  height: 34px;
+}
+
+.wonder-marker-large.selected {
+  width: 54px;
+  height: 38px;
+}
+
+.wonder-count-badge {
+  position: absolute;
+  top: -7px;
+  left: 15px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 5px;
+  border: 1px solid rgba(255, 244, 207, 0.84);
+  border-radius: 999px;
+  background: rgba(16, 17, 20, 0.94);
+  color: var(--accent);
+  font-family: Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 15px;
+  text-align: center;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.36);
+}
+
+.wonder-marker.selected .wonder-count-badge {
+  top: -8px;
+  left: 20px;
+  background: #fff4cf;
+  color: #16130b;
+}
+
+.wonder-marker-large .wonder-count-badge {
+  left: 24px;
+}
+
+.wonder-marker-large.selected .wonder-count-badge {
+  left: 29px;
 }
 
 .wonder-pin-circle {
@@ -224,9 +280,19 @@ input {
   border-radius: 3px;
 }
 
-.wonder-pin-polygon {
-  border-radius: 0;
-  clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%);
+.wonder-pin-large {
+  width: 27px;
+  height: 25px;
+  border-radius: 7px 7px 10px 10px;
+  clip-path: polygon(50% 0, 96% 24%, 82% 100%, 18% 100%, 4% 24%);
+}
+
+.wonder-pin-large::after {
+  content: "";
+  position: absolute;
+  inset: 5px 8px 6px;
+  border-top: 2px solid rgba(255, 244, 207, 0.46);
+  border-bottom: 2px solid rgba(17, 20, 25, 0.26);
 }
 
 .wonder-pin.selected {
@@ -234,6 +300,15 @@ input {
   height: 23px;
   border-color: #fff4cf;
   box-shadow: 0 0 0 3px rgba(231, 193, 109, 0.25), 0 12px 22px rgba(0, 0, 0, 0.55);
+}
+
+.wonder-pin-large.selected {
+  width: 32px;
+  height: 30px;
+}
+
+.wonder-pin-large.selected::after {
+  inset: 6px 9px 7px;
 }
 
 .leaflet-marker-icon {
@@ -319,6 +394,82 @@ input {
   color: var(--text);
   font-size: 13px;
   line-height: 1.58;
+}
+
+.local-switcher {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.local-switcher-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.local-switcher-head span:first-child {
+  color: var(--accent-2);
+  font-weight: 700;
+}
+
+.local-switcher-controls {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) 30px;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.local-cycle-button,
+.local-wonder-tab {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-2);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.local-cycle-button {
+  min-width: 0;
+  height: 30px;
+  padding: 0;
+  font-weight: 700;
+}
+
+.local-cycle-button:hover,
+.local-wonder-tab:hover {
+  color: var(--text);
+  border-color: var(--accent-2);
+}
+
+.local-wonder-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.local-wonder-tab {
+  min-width: 0;
+  max-width: 100%;
+  padding: 6px 9px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.local-wonder-tab.selected {
+  border-color: var(--accent);
+  background: rgba(231, 193, 109, 0.16);
+  color: var(--accent);
 }
 
 .detail-section {
