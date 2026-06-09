@@ -3153,7 +3153,7 @@ unique_wonders:
   key: unique_zamosc_ideal_city
   base_key: city_expansion_project
   concept: tv_wonder_unique_zamosc_ideal_city
-  location: zamosc
+  location: krasnystaw
   image: tv_wonder_unique_zamosc_ideal_city
   prompt: Zamość ideal city in the Polish-Lithuanian Commonwealth, Renaissance planned grid, central market square, arcaded merchant houses, academy, bastioned walls, surveyors and masons laying out streets, historically grounded world wonder key art, cinematic urban plan view, ultra-detailed, no modern elements.
   is_unique: true
@@ -3610,6 +3610,406 @@ unique_wonders:
     country_modifier:
       trade_income: 0.05
       diplomatic_reputation: 1
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 192
+  key: unique_louvre_palace
+  base_key: palace_of_nations
+  concept: tv_wonder_unique_louvre_palace
+  location: paris
+  image: tv_wonder_unique_louvre_palace
+  prompt: The Louvre Palace in early modern Paris before its museum age, a grand royal palace on the Seine with courtyards, arcades, galleries, sculpted facades, diplomats, artists, guards, and river traffic, historically grounded world wonder key art, cinematic court-and-city panorama, ultra-detailed stone and slate, no modern glass pyramid, no modern elements.
+  is_unique: true
+  mechanic_key: palace_of_nations
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_louvre_palace_inaugurated
+  ritual:
+    key: louvre_court_exhibition
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_prestige: 0.08
+      diplomatic_reputation: 1
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 193
+  key: unique_fontainebleau_palace
+  base_key: summer_palace
+  concept: tv_wonder_unique_fontainebleau_palace
+  location: paris
+  image: tv_wonder_unique_fontainebleau_palace
+  prompt: Fontainebleau Palace as a Renaissance and early modern French royal residence, horseshoe stair, richly painted galleries, formal gardens, hunting forest, courtiers, artists, diplomats, and royal guards, historically grounded world wonder key art, cinematic palace-garden panorama, ultra-detailed stone, slate roofs, frescoes, and greenery, no modern elements.
+  is_unique: true
+  mechanic_key: summer_palace
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_fontainebleau_palace_inaugurated
+  ritual:
+    key: fontainebleau_school_patronage
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_prestige: 0.08
+      monthly_legitimacy: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 194
+  key: unique_bordeaux_port
+  base_key: great_port
+  concept: tv_wonder_unique_bordeaux_port
+  location: bordeaux
+  image: tv_wonder_unique_bordeaux_port
+  prompt: Bordeaux port on the Garonne in the early modern era, broad river quays, wine warehouses, stone merchant houses, cranes, barges, ocean-going ships, customs officers, barrels, and crowded trade streets, historically grounded world wonder key art, cinematic river harbor panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: great_port
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_bordeaux_port_inaugurated
+  ritual:
+    key: garonne_wine_fair
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      trade_income: 0.05
+      trade_range: 100
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 195
+  key: unique_marseille_old_port
+  base_key: great_port
+  concept: tv_wonder_unique_marseille_old_port
+  location: marseille
+  image: tv_wonder_unique_marseille_old_port
+  prompt: Marseille Old Port in the early modern Mediterranean, stone quays between harbor forts, lateen-rigged ships, galleys, fish markets, warehouses, lighthouse beacons, sailors, merchants, and Provencal hills, historically grounded world wonder key art, cinematic coastal harbor panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: great_port
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_marseille_old_port_inaugurated
+  ritual:
+    key: mediterranean_convoy_blessing
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      trade_income: 0.04
+      naval_range: 100
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 196
+  key: unique_lyon_silk_workshops
+  base_key: giant_workshop_complex
+  concept: tv_wonder_unique_lyon_silk_workshops
+  location: lyon
+  image: tv_wonder_unique_lyon_silk_workshops
+  prompt: Lyon silk workshop district in the early modern city, dense streets of looms, dyers, silk merchants, pattern books, guild halls, river bridges, bales of fabric, artisans working by tall windows, historically grounded world wonder key art, cinematic artisan-urban panorama, ultra-detailed textiles, timber, stone, and river light, no modern elements.
+  is_unique: true
+  mechanic_key: giant_workshop_complex
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_lyon_silk_workshops_inaugurated
+  ritual:
+    key: canut_guild_charter
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_production_efficiency: 0.05
+      trade_income: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 197
+  key: unique_mont_saint_michel
+  base_key: sacred_mountain
+  concept: tv_wonder_unique_mont_saint_michel
+  location: avranches
+  image: tv_wonder_unique_mont_saint_michel
+  prompt: Mont Saint-Michel rising from tidal sands in medieval Normandy, abbey spire, fortified walls, pilgrims crossing the causeway at low tide, monks, banners, sea mist, and distant mainland, historically grounded world wonder key art, cinematic sacred coastal panorama, ultra-detailed stone and water, no modern elements.
+  is_unique: true
+  mechanic_key: sacred_mountain
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_mont_saint_michel_inaugurated
+  ritual:
+    key: tidal_pilgrimage
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      tolerance_own: 1
+      monthly_prestige: 0.06
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 198
+  key: unique_bastille
+  base_key: star_fortress_city
+  concept: tv_wonder_unique_bastille
+  location: paris
+  image: tv_wonder_unique_bastille
+  prompt: The Bastille fortress in late medieval to early modern Paris, massive towers, drawbridges, moat, royal guards, prison courtyards, armory stores, nearby city streets, and tense ceremonial authority, historically grounded world wonder key art, cinematic fortress-city panorama, ultra-detailed masonry, no revolutionary crowds, no modern elements.
+  is_unique: true
+  mechanic_key: star_fortress_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_bastille_inaugurated
+  ritual:
+    key: royal_prison_muster
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_garrison_size_modifier: 0.08
+      monthly_legitimacy: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 199
+  key: unique_carcassonne_castle
+  base_key: star_fortress_city
+  concept: tv_wonder_unique_carcassonne_castle
+  location: carcassonne
+  image: tv_wonder_unique_carcassonne_castle
+  prompt: The fortified city and castle of Carcassonne in southern France, double curtain walls, towers, gatehouses, inner castle, armed watchmen, market streets, vineyards and hills beyond, historically grounded world wonder key art, cinematic medieval fortress panorama, ultra-detailed stone battlements, no modern elements.
+  is_unique: true
+  mechanic_key: star_fortress_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_carcassonne_castle_inaugurated
+  ritual:
+    key: double_wall_watch
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_garrison_size_modifier: 0.1
+      land_morale_modifier: 0.03
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 200
+  key: unique_brest_naval_port
+  base_key: national_shipyard
+  concept: tv_wonder_unique_brest_naval_port
+  location: brest
+  image: tv_wonder_unique_brest_naval_port
+  prompt: Brest naval port and arsenal in early modern Brittany, sheltered roadstead, stone docks, ropewalks, timber yards, dry docks, warships under construction, naval officers, cranes, magazines, and Atlantic sea light, historically grounded world wonder key art, cinematic maritime arsenal panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  mechanic_key: national_shipyard
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_brest_naval_port_inaugurated
+  ritual:
+    key: atlantic_fleet_muster
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      naval_morale_modifier: 0.05
+      naval_range: 100
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 201
+  key: unique_colmar_old_town
+  base_key: ancient_city_ruins
+  concept: tv_wonder_unique_colmar_old_town
+  location: colmar
+  image: tv_wonder_unique_colmar_old_town
+  prompt: Colmar old town in Alsace as a preserved late medieval heritage quarter, half-timbered houses, canals, guild signs, stone church, market square, fortified gates, wine merchants, and careful restoration work, historically grounded world wonder key art, cinematic urban heritage panorama, ultra-detailed timber, plaster, water, and cobblestones, no modern elements.
+  is_unique: true
+  mechanic_key: ancient_city_ruins
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_colmar_old_town_inaugurated
+  ritual:
+    key: alsatian_heritage_fair
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_prestige: 0.05
+      monthly_legitimacy: 0.05
     reward: []
     confirmation_trigger_script: ''
     start_effect_script: ''

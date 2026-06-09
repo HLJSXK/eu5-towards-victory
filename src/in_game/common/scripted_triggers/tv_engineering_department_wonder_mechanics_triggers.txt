@@ -14436,6 +14436,289 @@ tv_wonder_location_is_valid_priority_project_for_ancient_city_ruins_trigger = {
 	trigger_else = { always = no }
 }
 
+tv_wonder_location_has_summer_palace_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_summer_palace
+		has_building = building_type:tv_wonder_summer_palace_foundation
+		has_building = building_type:tv_wonder_summer_palace_body
+		has_building = building_type:tv_wonder_summer_palace_function
+		has_building = building_type:tv_wonder_summer_palace_decoration
+	}
+}
+
+tv_wonder_location_has_summer_palace_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_royal_retreat_palace
+		has_building = building_type:tv_wonder_garden_court_palace
+		has_building = building_type:tv_wonder_diplomatic_pavilion_palace
+	}
+}
+
+tv_wonder_location_has_summer_palace_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_royal_retreat_palace value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_royal_retreat_palace value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_royal_retreat_palace value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_royal_retreat_palace value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_royal_retreat_palace value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_royal_retreat_palace value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_royal_retreat_palace value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_royal_retreat_palace value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_royal_retreat_palace value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_royal_retreat_palace value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 6 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_garden_court_palace value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_garden_court_palace value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_garden_court_palace value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_garden_court_palace value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_garden_court_palace value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_garden_court_palace value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_garden_court_palace value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_garden_court_palace value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_garden_court_palace value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_garden_court_palace value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 6 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_diplomatic_pavilion_palace value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_diplomatic_pavilion_palace value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_diplomatic_pavilion_palace value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_diplomatic_pavilion_palace value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_diplomatic_pavilion_palace value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_diplomatic_pavilion_palace value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_diplomatic_pavilion_palace value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_diplomatic_pavilion_palace value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_diplomatic_pavilion_palace value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_diplomatic_pavilion_palace value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 52 }
+					"variable_map(tv_wonder_survey_scale_tier|52)" ?= { this >= 6 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_summer_palace_capped_final_building_trigger = {
+	tv_wonder_location_has_summer_palace_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_summer_palace_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_summer_palace_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_summer_palace_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_summer_palace_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
 tv_wonder_location_has_unique_pharos_lighthouse_intermediate_building_trigger = {
 	OR = {
 		has_building = building_type:tv_wonder_unique_pharos_lighthouse
@@ -25447,6 +25730,1216 @@ tv_wonder_location_is_valid_priority_project_for_unique_tashkent_old_bazaar_trig
 	trigger_else = { always = no }
 }
 
+tv_wonder_location_has_unique_louvre_palace_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_louvre_palace
+		has_building = building_type:tv_wonder_unique_louvre_palace_foundation
+		has_building = building_type:tv_wonder_unique_louvre_palace_body
+		has_building = building_type:tv_wonder_unique_louvre_palace_function
+		has_building = building_type:tv_wonder_unique_louvre_palace_decoration
+	}
+}
+
+tv_wonder_location_has_unique_louvre_palace_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_louvre_palace_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_louvre_palace_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_louvre_palace_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_louvre_palace_inaugurated value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 192 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 192 }
+					"variable_map(tv_wonder_survey_scale_tier|192)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_louvre_palace_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_louvre_palace_inaugurated value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 192 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 192 }
+					"variable_map(tv_wonder_survey_scale_tier|192)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_louvre_palace_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_louvre_palace_inaugurated value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 192 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 192 }
+					"variable_map(tv_wonder_survey_scale_tier|192)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_louvre_palace_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_louvre_palace_inaugurated value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 192 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 192 }
+					"variable_map(tv_wonder_survey_scale_tier|192)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_louvre_palace_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_louvre_palace_inaugurated value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 192 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 192 }
+					"variable_map(tv_wonder_survey_scale_tier|192)" ?= { this >= 6 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_louvre_palace_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_louvre_palace_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_louvre_palace_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_louvre_palace_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_louvre_palace_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_louvre_palace_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_fontainebleau_palace_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_fontainebleau_palace
+		has_building = building_type:tv_wonder_unique_fontainebleau_palace_foundation
+		has_building = building_type:tv_wonder_unique_fontainebleau_palace_body
+		has_building = building_type:tv_wonder_unique_fontainebleau_palace_function
+		has_building = building_type:tv_wonder_unique_fontainebleau_palace_decoration
+	}
+}
+
+tv_wonder_location_has_unique_fontainebleau_palace_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_fontainebleau_palace_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_fontainebleau_palace_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_fontainebleau_palace_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_fontainebleau_palace_inaugurated value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 193 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 193 }
+					"variable_map(tv_wonder_survey_scale_tier|193)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_fontainebleau_palace_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_fontainebleau_palace_inaugurated value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 193 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 193 }
+					"variable_map(tv_wonder_survey_scale_tier|193)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_fontainebleau_palace_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_fontainebleau_palace_inaugurated value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 193 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 193 }
+					"variable_map(tv_wonder_survey_scale_tier|193)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_fontainebleau_palace_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_fontainebleau_palace_inaugurated value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 193 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 193 }
+					"variable_map(tv_wonder_survey_scale_tier|193)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_fontainebleau_palace_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_fontainebleau_palace_inaugurated value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 193 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 193 }
+					"variable_map(tv_wonder_survey_scale_tier|193)" ?= { this >= 6 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_fontainebleau_palace_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_fontainebleau_palace_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_fontainebleau_palace_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_fontainebleau_palace_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_fontainebleau_palace_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_fontainebleau_palace_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_bordeaux_port_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_bordeaux_port
+		has_building = building_type:tv_wonder_unique_bordeaux_port_foundation
+		has_building = building_type:tv_wonder_unique_bordeaux_port_body
+		has_building = building_type:tv_wonder_unique_bordeaux_port_function
+		has_building = building_type:tv_wonder_unique_bordeaux_port_decoration
+	}
+}
+
+tv_wonder_location_has_unique_bordeaux_port_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_bordeaux_port_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_bordeaux_port_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_bordeaux_port_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_bordeaux_port_inaugurated value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 }
+					"variable_map(tv_wonder_survey_scale_tier|194)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_bordeaux_port_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_bordeaux_port_inaugurated value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 }
+					"variable_map(tv_wonder_survey_scale_tier|194)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_bordeaux_port_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_bordeaux_port_inaugurated value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 }
+					"variable_map(tv_wonder_survey_scale_tier|194)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_bordeaux_port_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_bordeaux_port_inaugurated value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 }
+					"variable_map(tv_wonder_survey_scale_tier|194)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_bordeaux_port_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_bordeaux_port_inaugurated value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 }
+					"variable_map(tv_wonder_survey_scale_tier|194)" ?= { this >= 6 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_bordeaux_port_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_bordeaux_port_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_bordeaux_port_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_bordeaux_port_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_bordeaux_port_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_bordeaux_port_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_marseille_old_port_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_marseille_old_port
+		has_building = building_type:tv_wonder_unique_marseille_old_port_foundation
+		has_building = building_type:tv_wonder_unique_marseille_old_port_body
+		has_building = building_type:tv_wonder_unique_marseille_old_port_function
+		has_building = building_type:tv_wonder_unique_marseille_old_port_decoration
+	}
+}
+
+tv_wonder_location_has_unique_marseille_old_port_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_marseille_old_port_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_marseille_old_port_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_marseille_old_port_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_marseille_old_port_inaugurated value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 }
+					"variable_map(tv_wonder_survey_scale_tier|195)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_marseille_old_port_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_marseille_old_port_inaugurated value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 }
+					"variable_map(tv_wonder_survey_scale_tier|195)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_marseille_old_port_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_marseille_old_port_inaugurated value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 }
+					"variable_map(tv_wonder_survey_scale_tier|195)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_marseille_old_port_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_marseille_old_port_inaugurated value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 }
+					"variable_map(tv_wonder_survey_scale_tier|195)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_marseille_old_port_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_marseille_old_port_inaugurated value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 }
+					"variable_map(tv_wonder_survey_scale_tier|195)" ?= { this >= 6 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_marseille_old_port_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_marseille_old_port_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_marseille_old_port_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_marseille_old_port_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_marseille_old_port_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_marseille_old_port_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_lyon_silk_workshops_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_lyon_silk_workshops
+		has_building = building_type:tv_wonder_unique_lyon_silk_workshops_foundation
+		has_building = building_type:tv_wonder_unique_lyon_silk_workshops_body
+		has_building = building_type:tv_wonder_unique_lyon_silk_workshops_function
+		has_building = building_type:tv_wonder_unique_lyon_silk_workshops_decoration
+	}
+}
+
+tv_wonder_location_has_unique_lyon_silk_workshops_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_lyon_silk_workshops_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_lyon_silk_workshops_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_lyon_silk_workshops_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_lyon_silk_workshops_inaugurated value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 196 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 196 }
+					"variable_map(tv_wonder_survey_scale_tier|196)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_lyon_silk_workshops_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_lyon_silk_workshops_inaugurated value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 196 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 196 }
+					"variable_map(tv_wonder_survey_scale_tier|196)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_lyon_silk_workshops_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_lyon_silk_workshops_inaugurated value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 196 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 196 }
+					"variable_map(tv_wonder_survey_scale_tier|196)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_lyon_silk_workshops_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_lyon_silk_workshops_inaugurated value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 196 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 196 }
+					"variable_map(tv_wonder_survey_scale_tier|196)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_lyon_silk_workshops_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_lyon_silk_workshops_inaugurated value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 196 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 196 }
+					"variable_map(tv_wonder_survey_scale_tier|196)" ?= { this >= 6 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_lyon_silk_workshops_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_lyon_silk_workshops_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_lyon_silk_workshops_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_lyon_silk_workshops_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_lyon_silk_workshops_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_lyon_silk_workshops_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_mont_saint_michel_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_mont_saint_michel
+		has_building = building_type:tv_wonder_unique_mont_saint_michel_foundation
+		has_building = building_type:tv_wonder_unique_mont_saint_michel_body
+		has_building = building_type:tv_wonder_unique_mont_saint_michel_function
+		has_building = building_type:tv_wonder_unique_mont_saint_michel_decoration
+	}
+}
+
+tv_wonder_location_has_unique_mont_saint_michel_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_mont_saint_michel_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_mont_saint_michel_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 }
+					"variable_map(tv_wonder_survey_scale_tier|197)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 }
+					"variable_map(tv_wonder_survey_scale_tier|197)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 }
+					"variable_map(tv_wonder_survey_scale_tier|197)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 }
+					"variable_map(tv_wonder_survey_scale_tier|197)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 }
+					"variable_map(tv_wonder_survey_scale_tier|197)" ?= { this >= 6 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_mont_saint_michel_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_mont_saint_michel_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_mont_saint_michel_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_mont_saint_michel_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_mont_saint_michel_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_mont_saint_michel_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_bastille_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_bastille
+		has_building = building_type:tv_wonder_unique_bastille_foundation
+		has_building = building_type:tv_wonder_unique_bastille_body
+		has_building = building_type:tv_wonder_unique_bastille_function
+		has_building = building_type:tv_wonder_unique_bastille_decoration
+	}
+}
+
+tv_wonder_location_has_unique_bastille_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_bastille_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_bastille_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_bastille_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_bastille_inaugurated value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 198 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 198 }
+					"variable_map(tv_wonder_survey_scale_tier|198)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_bastille_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_bastille_inaugurated value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 198 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 198 }
+					"variable_map(tv_wonder_survey_scale_tier|198)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_bastille_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_bastille_inaugurated value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 198 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 198 }
+					"variable_map(tv_wonder_survey_scale_tier|198)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_bastille_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_bastille_inaugurated value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 198 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 198 }
+					"variable_map(tv_wonder_survey_scale_tier|198)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_bastille_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_bastille_inaugurated value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 198 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 198 }
+					"variable_map(tv_wonder_survey_scale_tier|198)" ?= { this >= 6 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_bastille_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_bastille_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_bastille_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_bastille_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_bastille_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_bastille_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_carcassonne_castle_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_carcassonne_castle
+		has_building = building_type:tv_wonder_unique_carcassonne_castle_foundation
+		has_building = building_type:tv_wonder_unique_carcassonne_castle_body
+		has_building = building_type:tv_wonder_unique_carcassonne_castle_function
+		has_building = building_type:tv_wonder_unique_carcassonne_castle_decoration
+	}
+}
+
+tv_wonder_location_has_unique_carcassonne_castle_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_carcassonne_castle_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_carcassonne_castle_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 }
+					"variable_map(tv_wonder_survey_scale_tier|199)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 }
+					"variable_map(tv_wonder_survey_scale_tier|199)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 }
+					"variable_map(tv_wonder_survey_scale_tier|199)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 }
+					"variable_map(tv_wonder_survey_scale_tier|199)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 }
+					"variable_map(tv_wonder_survey_scale_tier|199)" ?= { this >= 6 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_carcassonne_castle_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_carcassonne_castle_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_carcassonne_castle_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_carcassonne_castle_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_carcassonne_castle_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_carcassonne_castle_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_brest_naval_port_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_brest_naval_port
+		has_building = building_type:tv_wonder_unique_brest_naval_port_foundation
+		has_building = building_type:tv_wonder_unique_brest_naval_port_body
+		has_building = building_type:tv_wonder_unique_brest_naval_port_function
+		has_building = building_type:tv_wonder_unique_brest_naval_port_decoration
+	}
+}
+
+tv_wonder_location_has_unique_brest_naval_port_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_brest_naval_port_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_brest_naval_port_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_brest_naval_port_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_brest_naval_port_inaugurated value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 200 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 200 }
+					"variable_map(tv_wonder_survey_scale_tier|200)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_brest_naval_port_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_brest_naval_port_inaugurated value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 200 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 200 }
+					"variable_map(tv_wonder_survey_scale_tier|200)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_brest_naval_port_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_brest_naval_port_inaugurated value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 200 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 200 }
+					"variable_map(tv_wonder_survey_scale_tier|200)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_brest_naval_port_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_brest_naval_port_inaugurated value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 200 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 200 }
+					"variable_map(tv_wonder_survey_scale_tier|200)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_brest_naval_port_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_brest_naval_port_inaugurated value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 200 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 200 }
+					"variable_map(tv_wonder_survey_scale_tier|200)" ?= { this >= 6 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_brest_naval_port_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_brest_naval_port_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_brest_naval_port_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_brest_naval_port_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_brest_naval_port_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_brest_naval_port_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
+tv_wonder_location_has_unique_colmar_old_town_intermediate_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_colmar_old_town
+		has_building = building_type:tv_wonder_unique_colmar_old_town_foundation
+		has_building = building_type:tv_wonder_unique_colmar_old_town_body
+		has_building = building_type:tv_wonder_unique_colmar_old_town_function
+		has_building = building_type:tv_wonder_unique_colmar_old_town_decoration
+	}
+}
+
+tv_wonder_location_has_unique_colmar_old_town_final_building_trigger = {
+	OR = {
+		has_building = building_type:tv_wonder_unique_colmar_old_town_inaugurated
+	}
+}
+
+tv_wonder_location_has_unique_colmar_old_town_expandable_final_building_trigger = {
+	OR = {
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_colmar_old_town_inaugurated value >= 1 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_colmar_old_town_inaugurated value >= 2 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 }
+					"variable_map(tv_wonder_survey_scale_tier|201)" ?= { this >= 2 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_colmar_old_town_inaugurated value >= 2 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_colmar_old_town_inaugurated value >= 3 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 }
+					"variable_map(tv_wonder_survey_scale_tier|201)" ?= { this >= 3 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_colmar_old_town_inaugurated value >= 3 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_colmar_old_town_inaugurated value >= 4 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 }
+					"variable_map(tv_wonder_survey_scale_tier|201)" ?= { this >= 4 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_colmar_old_town_inaugurated value >= 4 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_colmar_old_town_inaugurated value >= 5 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 }
+					"variable_map(tv_wonder_survey_scale_tier|201)" ?= { this >= 5 }
+				}
+			}
+		}
+		AND = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_colmar_old_town_inaugurated value >= 5 }
+			NOT = { location_building_level = { building_type = building_type:tv_wonder_unique_colmar_old_town_inaugurated value >= 6 } }
+			OR = {
+				NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 } }
+				}
+				AND = {
+					has_variable_map = tv_wonder_survey_scale_tier
+					is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 }
+					"variable_map(tv_wonder_survey_scale_tier|201)" ?= { this >= 6 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_location_has_unique_colmar_old_town_capped_final_building_trigger = {
+	tv_wonder_location_has_unique_colmar_old_town_final_building_trigger = yes
+	NOT = { tv_wonder_location_has_unique_colmar_old_town_expandable_final_building_trigger = yes }
+}
+
+tv_wonder_location_is_valid_priority_project_for_unique_colmar_old_town_trigger = {
+	trigger_if = {
+		limit = {
+			tv_wonder_location_has_unique_colmar_old_town_intermediate_building_trigger = yes
+			NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { tv_wonder_location_has_unique_colmar_old_town_expandable_final_building_trigger = yes }
+		always = yes
+	}
+	trigger_else = { always = no }
+}
+
 tv_wonder_location_has_any_wonder_final_building_trigger = {
 	OR = {
 		tv_wonder_location_has_sacred_mountain_final_building_trigger = yes
@@ -25500,6 +26993,7 @@ tv_wonder_location_has_any_wonder_final_building_trigger = {
 		tv_wonder_location_has_great_assembly_hall_final_building_trigger = yes
 		tv_wonder_location_has_mobile_fortress_final_building_trigger = yes
 		tv_wonder_location_has_ancient_city_ruins_final_building_trigger = yes
+		tv_wonder_location_has_summer_palace_final_building_trigger = yes
 		tv_wonder_location_has_unique_pharos_lighthouse_final_building_trigger = yes
 		tv_wonder_location_has_unique_hagia_sophia_final_building_trigger = yes
 		tv_wonder_location_has_unique_dome_of_the_rock_final_building_trigger = yes
@@ -25591,6 +27085,16 @@ tv_wonder_location_has_any_wonder_final_building_trigger = {
 		tv_wonder_location_has_unique_bukhara_kalyan_minaret_final_building_trigger = yes
 		tv_wonder_location_has_unique_ferghana_palace_final_building_trigger = yes
 		tv_wonder_location_has_unique_tashkent_old_bazaar_final_building_trigger = yes
+		tv_wonder_location_has_unique_louvre_palace_final_building_trigger = yes
+		tv_wonder_location_has_unique_fontainebleau_palace_final_building_trigger = yes
+		tv_wonder_location_has_unique_bordeaux_port_final_building_trigger = yes
+		tv_wonder_location_has_unique_marseille_old_port_final_building_trigger = yes
+		tv_wonder_location_has_unique_lyon_silk_workshops_final_building_trigger = yes
+		tv_wonder_location_has_unique_mont_saint_michel_final_building_trigger = yes
+		tv_wonder_location_has_unique_bastille_final_building_trigger = yes
+		tv_wonder_location_has_unique_carcassonne_castle_final_building_trigger = yes
+		tv_wonder_location_has_unique_brest_naval_port_final_building_trigger = yes
+		tv_wonder_location_has_unique_colmar_old_town_final_building_trigger = yes
 	}
 }
 
@@ -25798,6 +27302,10 @@ tv_wonder_location_has_locked_wonder_intermediate_building_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 51 }
 		tv_wonder_location_has_ancient_city_ruins_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 52 }
+		tv_wonder_location_has_summer_palace_intermediate_building_trigger = yes
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
@@ -26163,6 +27671,46 @@ tv_wonder_location_has_locked_wonder_intermediate_building_trigger = {
 		limit = { var:tv_wonder_locked ?= 191 }
 		tv_wonder_location_has_unique_tashkent_old_bazaar_intermediate_building_trigger = yes
 	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		tv_wonder_location_has_unique_louvre_palace_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		tv_wonder_location_has_unique_fontainebleau_palace_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		tv_wonder_location_has_unique_bordeaux_port_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		tv_wonder_location_has_unique_marseille_old_port_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		tv_wonder_location_has_unique_lyon_silk_workshops_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		tv_wonder_location_has_unique_mont_saint_michel_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		tv_wonder_location_has_unique_bastille_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		tv_wonder_location_has_unique_carcassonne_castle_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		tv_wonder_location_has_unique_brest_naval_port_intermediate_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		tv_wonder_location_has_unique_colmar_old_town_intermediate_building_trigger = yes
+	}
 	trigger_else = { always = no }
 }
 
@@ -26370,6 +27918,10 @@ tv_wonder_location_has_locked_wonder_expandable_final_building_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 51 }
 		tv_wonder_location_has_ancient_city_ruins_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 52 }
+		tv_wonder_location_has_summer_palace_expandable_final_building_trigger = yes
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
@@ -26734,6 +28286,46 @@ tv_wonder_location_has_locked_wonder_expandable_final_building_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 191 }
 		tv_wonder_location_has_unique_tashkent_old_bazaar_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		tv_wonder_location_has_unique_louvre_palace_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		tv_wonder_location_has_unique_fontainebleau_palace_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		tv_wonder_location_has_unique_bordeaux_port_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		tv_wonder_location_has_unique_marseille_old_port_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		tv_wonder_location_has_unique_lyon_silk_workshops_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		tv_wonder_location_has_unique_mont_saint_michel_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		tv_wonder_location_has_unique_bastille_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		tv_wonder_location_has_unique_carcassonne_castle_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		tv_wonder_location_has_unique_brest_naval_port_expandable_final_building_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		tv_wonder_location_has_unique_colmar_old_town_expandable_final_building_trigger = yes
 	}
 	trigger_else = { always = no }
 }
@@ -28026,6 +29618,28 @@ tv_wonder_can_build_ancient_city_ruins_trigger = {
 tv_wonder_player_visible_site_rules_ancient_city_ruins_trigger = {
 	any_owned_location = {
 		always = yes
+	}
+}
+
+tv_wonder_location_can_host_summer_palace_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_summer_palace_trigger = yes
+		AND = {
+			NOT = { location_rank ?= location_rank:rural_settlement }
+			NOT = { tv_wonder_location_has_summer_palace_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_summer_palace_trigger = {
+	any_owned_location = {
+		tv_wonder_location_can_host_summer_palace_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_summer_palace_trigger = {
+	any_owned_location = {
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 }
 
@@ -29886,7 +31500,7 @@ tv_wonder_location_can_host_unique_zamosc_ideal_city_trigger = {
 	OR = {
 		tv_wonder_location_is_valid_priority_project_for_unique_zamosc_ideal_city_trigger = yes
 		AND = {
-			this = location:zamosc
+			this = location:krasnystaw
 			OR = {
 				location_rank ?= location_rank:city
 				location_rank ?= location_rank:megalopolis
@@ -29897,14 +31511,14 @@ tv_wonder_location_can_host_unique_zamosc_ideal_city_trigger = {
 }
 
 tv_wonder_can_build_unique_zamosc_ideal_city_trigger = {
-	owns = location:zamosc
-	location:zamosc = {
+	owns = location:krasnystaw
+	location:krasnystaw = {
 		tv_wonder_location_can_host_unique_zamosc_ideal_city_trigger = yes
 	}
 }
 
 tv_wonder_player_visible_site_rules_unique_zamosc_ideal_city_trigger = {
-	owns = location:zamosc
+	owns = location:krasnystaw
 }
 
 tv_wonder_location_can_host_unique_gdansk_port_trigger = {
@@ -30156,6 +31770,230 @@ tv_wonder_player_visible_site_rules_unique_tashkent_old_bazaar_trigger = {
 	owns = location:chach
 }
 
+tv_wonder_location_can_host_unique_louvre_palace_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_louvre_palace_trigger = yes
+		AND = {
+			this = location:paris
+			is_capital = yes
+			NOT = { tv_wonder_location_has_unique_louvre_palace_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_louvre_palace_trigger = {
+	owns = location:paris
+	location:paris = {
+		tv_wonder_location_can_host_unique_louvre_palace_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_louvre_palace_trigger = {
+	owns = location:paris
+}
+
+tv_wonder_location_can_host_unique_fontainebleau_palace_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_fontainebleau_palace_trigger = yes
+		AND = {
+			this = location:paris
+			NOT = { location_rank ?= location_rank:rural_settlement }
+			NOT = { tv_wonder_location_has_unique_fontainebleau_palace_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_fontainebleau_palace_trigger = {
+	owns = location:paris
+	location:paris = {
+		tv_wonder_location_can_host_unique_fontainebleau_palace_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_fontainebleau_palace_trigger = {
+	owns = location:paris
+}
+
+tv_wonder_location_can_host_unique_bordeaux_port_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_bordeaux_port_trigger = yes
+		AND = {
+			this = location:bordeaux
+			is_port = yes
+			NOT = { tv_wonder_location_has_unique_bordeaux_port_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_bordeaux_port_trigger = {
+	owns = location:bordeaux
+	location:bordeaux = {
+		tv_wonder_location_can_host_unique_bordeaux_port_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_bordeaux_port_trigger = {
+	owns = location:bordeaux
+}
+
+tv_wonder_location_can_host_unique_marseille_old_port_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_marseille_old_port_trigger = yes
+		AND = {
+			this = location:marseille
+			is_port = yes
+			NOT = { tv_wonder_location_has_unique_marseille_old_port_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_marseille_old_port_trigger = {
+	owns = location:marseille
+	location:marseille = {
+		tv_wonder_location_can_host_unique_marseille_old_port_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_marseille_old_port_trigger = {
+	owns = location:marseille
+}
+
+tv_wonder_location_can_host_unique_lyon_silk_workshops_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_lyon_silk_workshops_trigger = yes
+		AND = {
+			this = location:lyon
+			NOT = { location_rank ?= location_rank:rural_settlement }
+			NOT = { tv_wonder_location_has_unique_lyon_silk_workshops_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_lyon_silk_workshops_trigger = {
+	owns = location:lyon
+	location:lyon = {
+		tv_wonder_location_can_host_unique_lyon_silk_workshops_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_lyon_silk_workshops_trigger = {
+	owns = location:lyon
+}
+
+tv_wonder_location_can_host_unique_mont_saint_michel_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_mont_saint_michel_trigger = yes
+		AND = {
+			this = location:avranches
+			OR = {
+				topography = mountains
+				topography = plateau
+				topography = hills
+			}
+			NOT = { tv_wonder_location_has_unique_mont_saint_michel_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_mont_saint_michel_trigger = {
+	owns = location:avranches
+	location:avranches = {
+		tv_wonder_location_can_host_unique_mont_saint_michel_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_mont_saint_michel_trigger = {
+	owns = location:avranches
+}
+
+tv_wonder_location_can_host_unique_bastille_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_bastille_trigger = yes
+		AND = {
+			this = location:paris
+			NOT = { location_rank ?= location_rank:rural_settlement }
+			NOT = { tv_wonder_location_has_unique_bastille_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_bastille_trigger = {
+	owns = location:paris
+	location:paris = {
+		tv_wonder_location_can_host_unique_bastille_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_bastille_trigger = {
+	owns = location:paris
+}
+
+tv_wonder_location_can_host_unique_carcassonne_castle_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_carcassonne_castle_trigger = yes
+		AND = {
+			this = location:carcassonne
+			NOT = { location_rank ?= location_rank:rural_settlement }
+			NOT = { tv_wonder_location_has_unique_carcassonne_castle_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_carcassonne_castle_trigger = {
+	owns = location:carcassonne
+	location:carcassonne = {
+		tv_wonder_location_can_host_unique_carcassonne_castle_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_carcassonne_castle_trigger = {
+	owns = location:carcassonne
+}
+
+tv_wonder_location_can_host_unique_brest_naval_port_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_brest_naval_port_trigger = yes
+		AND = {
+			this = location:brest
+			is_port = yes
+			NOT = { tv_wonder_location_has_unique_brest_naval_port_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_brest_naval_port_trigger = {
+	owns = location:brest
+	location:brest = {
+		tv_wonder_location_can_host_unique_brest_naval_port_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_brest_naval_port_trigger = {
+	owns = location:brest
+}
+
+tv_wonder_location_can_host_unique_colmar_old_town_trigger = {
+	OR = {
+		tv_wonder_location_is_valid_priority_project_for_unique_colmar_old_town_trigger = yes
+		AND = {
+			this = location:colmar
+			always = yes
+			NOT = { tv_wonder_location_has_unique_colmar_old_town_capped_final_building_trigger = yes }
+		}
+	}
+}
+
+tv_wonder_can_build_unique_colmar_old_town_trigger = {
+	owns = location:colmar
+	location:colmar = {
+		tv_wonder_location_can_host_unique_colmar_old_town_trigger = yes
+	}
+}
+
+tv_wonder_player_visible_site_rules_unique_colmar_old_town_trigger = {
+	owns = location:colmar
+}
+
 tv_wonder_generic_has_any_feasible_proposal_trigger = {
 	has_variable_map = tv_wonder_feasible_generic_deck
 	any_key_in_variable_map = {
@@ -30383,6 +32221,10 @@ tv_wonder_site_rule_can_build_candidate_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_site_rule_dispatch_id ?= 51 }
 		tv_wonder_can_build_ancient_city_ruins_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 52 }
+		tv_wonder_can_build_summer_palace_trigger = yes
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_site_rule_dispatch_id ?= 101 }
@@ -30748,6 +32590,46 @@ tv_wonder_site_rule_can_build_candidate_trigger = {
 		limit = { var:tv_wonder_site_rule_dispatch_id ?= 191 }
 		tv_wonder_can_build_unique_tashkent_old_bazaar_trigger = yes
 	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 192 }
+		tv_wonder_can_build_unique_louvre_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 193 }
+		tv_wonder_can_build_unique_fontainebleau_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 194 }
+		tv_wonder_can_build_unique_bordeaux_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 195 }
+		tv_wonder_can_build_unique_marseille_old_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 196 }
+		tv_wonder_can_build_unique_lyon_silk_workshops_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 197 }
+		tv_wonder_can_build_unique_mont_saint_michel_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 198 }
+		tv_wonder_can_build_unique_bastille_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 199 }
+		tv_wonder_can_build_unique_carcassonne_castle_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 200 }
+		tv_wonder_can_build_unique_brest_naval_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_site_rule_dispatch_id ?= 201 }
+		tv_wonder_can_build_unique_colmar_old_town_trigger = yes
+	}
 	trigger_else = { always = no }
 }
 
@@ -30955,6 +32837,10 @@ tv_wonder_site_rule_can_build_locked_wonder_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 51 }
 		tv_wonder_can_build_ancient_city_ruins_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 52 }
+		tv_wonder_can_build_summer_palace_trigger = yes
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
@@ -31320,6 +33206,46 @@ tv_wonder_site_rule_can_build_locked_wonder_trigger = {
 		limit = { var:tv_wonder_locked ?= 191 }
 		tv_wonder_can_build_unique_tashkent_old_bazaar_trigger = yes
 	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		tv_wonder_can_build_unique_louvre_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		tv_wonder_can_build_unique_fontainebleau_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		tv_wonder_can_build_unique_bordeaux_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		tv_wonder_can_build_unique_marseille_old_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		tv_wonder_can_build_unique_lyon_silk_workshops_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		tv_wonder_can_build_unique_mont_saint_michel_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		tv_wonder_can_build_unique_bastille_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		tv_wonder_can_build_unique_carcassonne_castle_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		tv_wonder_can_build_unique_brest_naval_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		tv_wonder_can_build_unique_colmar_old_town_trigger = yes
+	}
 	trigger_else = { always = no }
 }
 
@@ -31527,6 +33453,10 @@ tv_wonder_site_rule_player_visible_locked_wonder_trigger = {
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 51 }
 		tv_wonder_player_visible_site_rules_ancient_city_ruins_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 52 }
+		tv_wonder_player_visible_site_rules_summer_palace_trigger = yes
 	}
 	trigger_else_if = {
 		limit = { var:tv_wonder_locked ?= 101 }
@@ -31892,6 +33822,46 @@ tv_wonder_site_rule_player_visible_locked_wonder_trigger = {
 		limit = { var:tv_wonder_locked ?= 191 }
 		tv_wonder_player_visible_site_rules_unique_tashkent_old_bazaar_trigger = yes
 	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		tv_wonder_player_visible_site_rules_unique_louvre_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		tv_wonder_player_visible_site_rules_unique_fontainebleau_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		tv_wonder_player_visible_site_rules_unique_bordeaux_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		tv_wonder_player_visible_site_rules_unique_marseille_old_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		tv_wonder_player_visible_site_rules_unique_lyon_silk_workshops_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		tv_wonder_player_visible_site_rules_unique_mont_saint_michel_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		tv_wonder_player_visible_site_rules_unique_bastille_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		tv_wonder_player_visible_site_rules_unique_carcassonne_castle_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		tv_wonder_player_visible_site_rules_unique_brest_naval_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		tv_wonder_player_visible_site_rules_unique_colmar_old_town_trigger = yes
+	}
 	trigger_else = { always = no }
 }
 
@@ -32099,6 +34069,10 @@ tv_wonder_location_can_host_locked_wonder_trigger = {
 	trigger_else_if = {
 		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 51 } }
 		tv_wonder_location_can_host_ancient_city_ruins_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 52 } }
+		tv_wonder_location_can_host_summer_palace_trigger = yes
 	}
 	trigger_else_if = {
 		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 101 } }
@@ -32463,6 +34437,46 @@ tv_wonder_location_can_host_locked_wonder_trigger = {
 	trigger_else_if = {
 		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 191 } }
 		tv_wonder_location_can_host_unique_tashkent_old_bazaar_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 192 } }
+		tv_wonder_location_can_host_unique_louvre_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 193 } }
+		tv_wonder_location_can_host_unique_fontainebleau_palace_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 194 } }
+		tv_wonder_location_can_host_unique_bordeaux_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 195 } }
+		tv_wonder_location_can_host_unique_marseille_old_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 196 } }
+		tv_wonder_location_can_host_unique_lyon_silk_workshops_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 197 } }
+		tv_wonder_location_can_host_unique_mont_saint_michel_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 198 } }
+		tv_wonder_location_can_host_unique_bastille_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 199 } }
+		tv_wonder_location_can_host_unique_carcassonne_castle_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 200 } }
+		tv_wonder_location_can_host_unique_brest_naval_port_trigger = yes
+	}
+	trigger_else_if = {
+		limit = { exists = scope:actor scope:actor = { var:tv_wonder_locked ?= 201 } }
+		tv_wonder_location_can_host_unique_colmar_old_town_trigger = yes
 	}
 	trigger_else = { always = no }
 }

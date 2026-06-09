@@ -1121,6 +1121,28 @@ designs:
         en: Pilgrim Preserve
         completion: 确认朝圣遗址保护区方案后完成落成仪式。
         effect: 付费仪式后获得 +1 稳定度。
+  summer_palace:
+    status: 已实现
+    positioning: 季节宫廷、园林外交与王权休憩
+    site: 任意非乡村己方地点，尤其首都、城市和高发展高识字地区
+    preference: 首都、城市等级、发展度与识字率提高适性。
+    base_effect: 每级：月度正统性和月度威望提高；所在地提升文化影响和移民吸引力。
+    branches:
+      1:
+        zh: 王家离宫朝会
+        en: Royal Retreat Audience
+        completion: 确认王家离宫朝会方案后完成落成仪式。
+        effect: +0.08 月度正统性与 +0.05 月度威望。
+      2:
+        zh: 园林宫廷
+        en: Garden Court
+        completion: 确认园林宫廷方案后完成落成仪式。
+        effect: +0.5 本地文化影响与 +1 本地移民吸引力。
+      3:
+        zh: 外交凉亭宴
+        en: Diplomatic Pavilion Banquet
+        completion: 确认外交凉亭宴方案后完成落成仪式。
+        effect: 付费仪式后获得 +1 外交官与 +30 威望。
 buildings:
   colonial_trade_company:
     final_local:
@@ -1168,6 +1190,21 @@ buildings:
       tv_wonder_restored_citadel_ruins: tv_wonder_sacred_monument_maintenance
       tv_wonder_antiquarian_quarter_ruins: tv_wonder_sacred_monument_maintenance
       tv_wonder_pilgrim_ruins_preserve: tv_wonder_sacred_monument_maintenance
+  summer_palace:
+    final_local:
+      local_cultural_influence: 0.3
+      local_migration_attraction: 1
+    final_maintenance:
+      tv_wonder_royal_retreat_palace: tv_wonder_axis_monument_maintenance
+      tv_wonder_garden_court_palace: tv_wonder_sacred_monument_maintenance
+      tv_wonder_diplomatic_pavilion_palace: tv_wonder_axis_monument_maintenance
+    final_attributes:
+      tv_wonder_royal_retreat_palace:
+        rural_settlement: false
+      tv_wonder_garden_court_palace:
+        rural_settlement: false
+      tv_wonder_diplomatic_pavilion_palace:
+        rural_settlement: false
   sacred_mountain:
     final_local: {}
     final_maintenance:
@@ -1577,6 +1614,22 @@ generic_rituals:
       reward:
       - type: stability
         value: 1
+  summer_palace:
+    style_1:
+      country_modifier:
+        monthly_legitimacy: 0.08
+        monthly_prestige: 0.05
+    style_2:
+      local_modifier:
+        local_cultural_influence: 0.5
+        local_migration_attraction: 1
+    style_3:
+      cost_type: scaled_gold
+      reward:
+      - type: diplomats
+        value: 1
+      - type: prestige
+        value: 30
   sacred_mountain:
     style_1:
       country_modifier:
@@ -2208,6 +2261,9 @@ base_modifiers:
   ancient_city_ruins:
     monthly_prestige: 0.02
     monthly_legitimacy: 0.02
+  summer_palace:
+    monthly_legitimacy: 0.02
+    monthly_prestige: 0.02
   sacred_mountain:
     global_pop_conversion_speed: 0.002
     global_pop_conversion_speed_modifier: 0.1
@@ -2621,6 +2677,13 @@ ceremony_modifiers:
   tv_wonder_oceanic_command_academy_modifier:
     naval_morale_modifier: 0.04
     exploration_mission_speed: 0.05
+  tv_wonder_royal_retreat_palace_modifier:
+    monthly_legitimacy: 0.08
+    monthly_prestige: 0.05
+  tv_wonder_garden_court_palace_modifier: {}
+  tv_wonder_diplomatic_pavilion_palace_modifier:
+    diplomatic_reputation: 1
+    monthly_prestige: 0.05
 site_rules:
   colonial_trade_company:
     trigger_script: "OR = {\n\tis_port = yes\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
@@ -2922,6 +2985,26 @@ site_rules:
   star_fortress_city:
     trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
     preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 7.5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}"
+  summer_palace:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: |-
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
   triumphal_axis:
     trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
     preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"

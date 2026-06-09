@@ -764,6 +764,21 @@ wonders:
   base_key: ancient_city_ruins
   mechanic_key: ancient_city_ruins
   base_effect_multiplier: 1
+- id: 52
+  key: summer_palace
+  concept: tv_wonder_summer_palace
+  size: medium
+  category: government_category
+  pop_type: nobles
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_royal_retreat_palace
+    2: tv_wonder_garden_court_palace
+    3: tv_wonder_diplomatic_pavilion_palace
+  is_unique: false
+  base_key: summer_palace
+  mechanic_key: summer_palace
+  base_effect_multiplier: 1
 parts:
 - key: foundation
 - key: body
