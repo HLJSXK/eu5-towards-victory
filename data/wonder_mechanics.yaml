@@ -1146,8 +1146,8 @@ designs:
 buildings:
   colonial_trade_company:
     final_local:
-      local_trade_center_power: 0.2
-      local_merchant_power: 1
+      local_merchant_power: 5
+      local_merchant_capacity: 2.5
     final_maintenance:
       tv_wonder_chartered_company_exchange: tv_wonder_port_monument_maintenance
       tv_wonder_overseas_factory_forts: tv_wonder_port_monument_maintenance
@@ -1562,16 +1562,15 @@ generic_rituals:
   colonial_trade_company:
     style_1:
       country_modifier:
-        subject_pays_trade_company_cost_modifier: 0.05
+        trade_income: 0.1
     style_2:
       local_modifier:
-        local_trade_center_power: 0.15
-        local_defensive: 0.1
+        local_max_rgo_size_modifier: 1
     style_3:
       cost_type: scaled_gold
       reward:
       - type: gold
-        value: 500
+        value: 10000
   great_assembly_hall:
     style_1:
       country_modifier:
@@ -2192,9 +2191,9 @@ generic_rituals:
         value: 15
 base_modifiers:
   colonial_trade_company:
-    trade_range: 40
-    colonial_range: 40
-    trade_income: 0.01
+    global_merchant_power: 0.2
+    global_merchant_capacity_modifier: 0.1
+    monthly_towards_free_trade: 0.05
   great_assembly_hall:
     country_cabinet_efficiency: 0.1
     legislative_efficiency: 0.1
@@ -2661,12 +2660,10 @@ site_rules:
     trigger_script: is_port = yes
     preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 20 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
   colonial_trade_company:
-    trigger_script: "OR = {\n\tis_port = yes\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
+    trigger_script: |-
+      is_port = yes
+      AND = { has_owner = yes NOT = { continent = owner.capital.continent } }
     preference_script: |-
-      if = {
-        limit = { var:tv_wonder_survey_site ?= { is_port = yes } }
-        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
-      }
       set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
       clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
       change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }

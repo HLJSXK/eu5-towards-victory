@@ -9389,8 +9389,8 @@ tv_wonder_chartered_company_exchange = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.2
-		local_merchant_power = 1
+		local_merchant_power = 5
+		local_merchant_capacity = 2.5
 	}
 
 	possible_production_methods = {
@@ -9435,8 +9435,8 @@ tv_wonder_overseas_factory_forts = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.2
-		local_merchant_power = 1
+		local_merchant_power = 5
+		local_merchant_capacity = 2.5
 	}
 
 	possible_production_methods = {
@@ -9481,8 +9481,8 @@ tv_wonder_colonial_ledger_house = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.2
-		local_merchant_power = 1
+		local_merchant_power = 5
+		local_merchant_capacity = 2.5
 	}
 
 	possible_production_methods = {
@@ -9528,8 +9528,7 @@ tv_wonder_colonial_trade_company_ritual_annex = {
 	construction_demand = basic_construction_needs
 
 	modifier = {
-		local_trade_center_power = 0.15
-		local_defensive = 0.1
+		local_max_rgo_size_modifier = 1
 		local_burghers_estate_power = 0.5
 	}
 
@@ -13563,8 +13562,8 @@ tv_wonder_unique_east_india_company_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.4
-		local_merchant_power = 2
+		local_merchant_power = 10
+		local_merchant_capacity = 5
 	}
 
 	possible_production_methods = {

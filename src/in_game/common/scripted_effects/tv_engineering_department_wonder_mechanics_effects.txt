@@ -4320,34 +4320,23 @@ tv_wonder_calculate_colonial_trade_company_suitability_actuals_effect = {
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 481 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 481 value = 0 }
 	if = {
-		limit = {
-			var:tv_wonder_survey_site ?= {
-				is_port = yes
-			}
-		}
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.15 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 481 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 481 value = 10 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 481 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
 	}
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 482 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 482 value = 0 }
 	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
-		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.modifier:harbor_suitability }
-		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.15 }
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 482 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 482 value = var:tv_wonder_suitability_row_temp }
-		remove_variable = tv_wonder_suitability_row_temp
-	}
-	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 483 }
-	add_to_variable_map = { name = tv_wonder_suitability_actual key = 483 value = 0 }
-	if = {
-		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
 		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 483 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 483 value = var:tv_wonder_suitability_row_temp }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 482 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 482 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -7063,34 +7052,23 @@ tv_wonder_calculate_unique_east_india_company_suitability_actuals_effect = {
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 481 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 481 value = 0 }
 	if = {
-		limit = {
-			var:tv_wonder_survey_site ?= {
-				is_port = yes
-			}
-		}
+		limit = { tv_wonder_survey_site_selected_trigger = yes }
+		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
+		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.15 }
 		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 481 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 481 value = 10 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 481 value = var:tv_wonder_suitability_row_temp }
+		remove_variable = tv_wonder_suitability_row_temp
 	}
 	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 482 }
 	add_to_variable_map = { name = tv_wonder_suitability_actual key = 482 value = 0 }
 	if = {
 		limit = { tv_wonder_survey_site_selected_trigger = yes }
-		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.modifier:harbor_suitability }
-		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
-		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.15 }
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 482 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 482 value = var:tv_wonder_suitability_row_temp }
-		remove_variable = tv_wonder_suitability_row_temp
-	}
-	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 483 }
-	add_to_variable_map = { name = tv_wonder_suitability_actual key = 483 value = 0 }
-	if = {
-		limit = { tv_wonder_survey_site_selected_trigger = yes }
 		set_variable = { name = tv_wonder_suitability_row_temp value = var:tv_wonder_survey_site.development }
 		clamp_variable = { name = tv_wonder_suitability_row_temp min = 0 max = 100 }
 		change_variable = { name = tv_wonder_suitability_row_temp multiply = 0.1 }
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 483 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 483 value = var:tv_wonder_suitability_row_temp }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 482 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 482 value = var:tv_wonder_suitability_row_temp }
 		remove_variable = tv_wonder_suitability_row_temp
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
@@ -9883,10 +9861,6 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 			var:tv_wonder_locked ?= 48
 			tv_wonder_survey_site_selected_trigger = yes
 		}
-		if = {
-		  limit = { var:tv_wonder_survey_site ?= { is_port = yes } }
-		  tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
-		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
 		change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }
@@ -11543,10 +11517,6 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		limit = {
 			var:tv_wonder_locked ?= 171
 			tv_wonder_survey_site_selected_trigger = yes
-		}
-		if = {
-		  limit = { var:tv_wonder_survey_site ?= { is_port = yes } }
-		  tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
 		}
 		set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
 		clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
@@ -14934,12 +14904,12 @@ tv_wonder_colonial_trade_company_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_colonial_trade_company_ritual_3_effect_tooltip_effect = {
-	add_gold = 500
+	add_gold = 10000
 }
 
 tv_wonder_colonial_trade_company_ritual_3_location_tooltip_effect = {
 	owner ?= {
-		add_gold = 500
+		add_gold = 10000
 	}
 }
 
@@ -19663,7 +19633,7 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4803 }
-		add_gold = 500
+		add_gold = 10000
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4903 }
