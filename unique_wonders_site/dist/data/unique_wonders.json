@@ -12723,10 +12723,10 @@
         "en": "Megalithic Circle",
         "zh": "巨石环"
       },
-      "size": "small",
+      "size": "medium",
       "size_label": {
-        "en": "Small",
-        "zh": "小型"
+        "en": "Medium",
+        "zh": "中型"
       },
       "category": "cultural_category",
       "category_label": {
@@ -12758,17 +12758,33 @@
           },
           "rows": [
             {
-              "key": "cultural_tradition_modifier",
-              "value": 0.1,
+              "key": "tolerance_heretic",
+              "value": 0.5,
               "label": {
-                "en": "Cultural Tradition %",
-                "zh": "文化传统%"
+                "en": "Tolerance of Heretical Beliefs",
+                "zh": "异端容忍度"
               },
               "description": {
-                "en": "This impacts the Cultural Tradition of our Primary Culture.",
-                "zh": "影响我国Primary Culture的Cultural Tradition。"
+                "en": "This impacts the Tolerance of Religions of the same Religion Group as the State Religion.",
+                "zh": "影响与State Religion同属Religion Group的Religions的Tolerance。"
               },
-              "value_kind": "percent",
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "tolerance_heathen",
+              "value": 0.5,
+              "label": {
+                "en": "Tolerance of Heathen Beliefs",
+                "zh": "异教容忍度"
+              },
+              "description": {
+                "en": "This impacts the Tolerance of Religions of a different Religion Group than the State Religion.",
+                "zh": "影响与State Religion不同Religion Group的Religions的Tolerance。"
+              },
+              "value_kind": "number",
               "decimals": 2,
               "category": "country",
               "color": "good"
@@ -25061,10 +25077,10 @@
         "en": "Megalithic Circle",
         "zh": "巨石环"
       },
-      "size": "small",
+      "size": "medium",
       "size_label": {
-        "en": "Small",
-        "zh": "小型"
+        "en": "Medium",
+        "zh": "中型"
       },
       "category": "cultural_category",
       "category_label": {
@@ -25104,17 +25120,33 @@
           },
           "rows": [
             {
-              "key": "cultural_tradition_modifier",
-              "value": 0.2,
+              "key": "tolerance_heretic",
+              "value": 1.0,
               "label": {
-                "en": "Cultural Tradition %",
-                "zh": "文化传统%"
+                "en": "Tolerance of Heretical Beliefs",
+                "zh": "异端容忍度"
               },
               "description": {
-                "en": "This impacts the Cultural Tradition of our Primary Culture.",
-                "zh": "影响我国Primary Culture的Cultural Tradition。"
+                "en": "This impacts the Tolerance of Religions of the same Religion Group as the State Religion.",
+                "zh": "影响与State Religion同属Religion Group的Religions的Tolerance。"
               },
-              "value_kind": "percent",
+              "value_kind": "number",
+              "decimals": 2,
+              "category": "country",
+              "color": "good"
+            },
+            {
+              "key": "tolerance_heathen",
+              "value": 1.0,
+              "label": {
+                "en": "Tolerance of Heathen Beliefs",
+                "zh": "异教容忍度"
+              },
+              "description": {
+                "en": "This impacts the Tolerance of Religions of a different Religion Group than the State Religion.",
+                "zh": "影响与State Religion不同Religion Group的Religions的Tolerance。"
+              },
+              "value_kind": "number",
               "decimals": 2,
               "category": "country",
               "color": "good"
