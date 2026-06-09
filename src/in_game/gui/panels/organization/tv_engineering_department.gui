@@ -1358,7 +1358,7 @@ widget = {
 				widget = {
 					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue, '(CFixedPoint)6.0'))]"
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 462 102 }
+					minimumsize = { 462 162 }
 					using = bg_text_mask_container_dark_blue
 
 					vbox = {
@@ -1416,13 +1416,61 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_TOTAL_BUILDING_LEVELS" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_CITY" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +25#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +25#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0')))]"
+									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
+									max_width = 214
+									fontsize = 13
+									align = nobaseline|left
+								}
+								hbox = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0'))]"
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_MEGALOPOLIS" max_width = 168 fontsize = 13 align = nobaseline|left }
+									expand = {}
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+								}
+								text_single = {
+									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0')))]"
+									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
+									max_width = 214
+									fontsize = 13
+									align = nobaseline|left
+								}
+								hbox = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0'))]"
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_TOTAL_BUILDING_LEVELS" max_width = 168 fontsize = 13 align = nobaseline|left }
+									expand = {}
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+								}
+								text_single = {
+									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0')))]"
+									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
+									max_width = 214
+									fontsize = 13
+									align = nobaseline|left
+								}
+								hbox = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0'))]"
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
+									expand = {}
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+								}
+								text_single = {
+									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0')))]"
 									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
 									max_width = 214
 									fontsize = 13
@@ -1640,7 +1688,7 @@ widget = {
 				widget = {
 					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue, '(CFixedPoint)9.0'))]"
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 462 122 }
+					minimumsize = { 462 142 }
 					using = bg_text_mask_container_dark_blue
 
 					vbox = {
@@ -1698,7 +1746,7 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_MEGALOPOLIS" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_CITY" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
 									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
 									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
@@ -1714,13 +1762,29 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_MEGALOPOLIS" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +20#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +20#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0')))]"
+									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
+									max_width = 214
+									fontsize = 13
+									align = nobaseline|left
+								}
+								hbox = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0'))]"
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
+									expand = {}
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +15#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +15#!" fontsize = 13 align = nobaseline|right }
+								}
+								text_single = {
+									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0')))]"
 									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
 									max_width = 214
 									fontsize = 13
@@ -1810,8 +1874,8 @@ widget = {
 									spacing = 4
 									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_MEGALOPOLIS" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0')))]"
@@ -1826,8 +1890,8 @@ widget = {
 									spacing = 4
 									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_AVERAGE_LOCATION_LITERACY" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +20#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +20#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +15#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +15#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0')))]"
@@ -1844,7 +1908,7 @@ widget = {
 				widget = {
 					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue, '(CFixedPoint)11.0'))]"
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 462 142 }
+					minimumsize = { 462 162 }
 					using = bg_text_mask_container_dark_blue
 
 					vbox = {
@@ -1934,13 +1998,29 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_DOMINANT_RELIGION_OWNER" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_IS_CAPITAL" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +15#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +15#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0')))]"
+									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
+									max_width = 214
+									fontsize = 13
+									align = nobaseline|left
+								}
+								hbox = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0'))]"
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_AVERAGE_LOCATION_LITERACY" max_width = 168 fontsize = 13 align = nobaseline|left }
+									expand = {}
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+								}
+								text_single = {
+									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0')))]"
 									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
 									max_width = 214
 									fontsize = 13
@@ -2232,10 +2312,10 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_HARBOR_SUITABILITY" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_IS_CAPITAL" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +15#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +15#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0')))]"
@@ -2248,10 +2328,10 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_HARBOR_SUITABILITY" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +20#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +20#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0')))]"
@@ -2630,7 +2710,7 @@ widget = {
 				widget = {
 					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue, '(CFixedPoint)18.0'))]"
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 462 142 }
+					minimumsize = { 462 162 }
 					using = bg_text_mask_container_dark_blue
 
 					vbox = {
@@ -2722,11 +2802,27 @@ widget = {
 									spacing = 4
 									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +15#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +15#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0')))]"
+									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
+									max_width = 214
+									fontsize = 13
+									align = nobaseline|left
+								}
+								hbox = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0'))]"
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_AVERAGE_LOCATION_LITERACY" max_width = 168 fontsize = 13 align = nobaseline|left }
+									expand = {}
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+								}
+								text_single = {
+									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0')))]"
 									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
 									max_width = 214
 									fontsize = 13
@@ -2739,6 +2835,84 @@ widget = {
 				}
 				widget = {
 					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue, '(CFixedPoint)19.0'))]"
+					layoutpolicy_vertical = shrinking
+					minimumsize = { 462 102 }
+					using = bg_text_mask_container_dark_blue
+
+					vbox = {
+						set_parent_size_to_minimum = yes
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = shrinking
+						margin = { 6 5 }
+						ignoreinvisible = yes
+						spacing = 3
+						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
+						hbox = {
+							layoutpolicy_horizontal = fixed
+							size = { 444 -1 }
+							spacing = 8
+							ignoreinvisible = yes
+							vbox = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = expanding
+								minimumsize = { 218 -1 }
+								maximumsize = { 218 -1 }
+								ignoreinvisible = yes
+								spacing = 3
+								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
+								TooltipRequirementsList = {
+									layoutpolicy_horizontal = fixed
+									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
+									maximumsize = { 218 -1 }
+									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+									blockoverride "field_text_format" {
+										fontsize = 13
+									}
+									blockoverride "row_size" {
+										maximumsize = { -1 22 }
+										minimumsize = { -1 22 }
+									}
+									blockoverride "block_title" {
+										block "block_title" {
+											visible = no
+										}
+									}
+									blockoverride "requirementslist_datamodel_is_empty" {
+										visible = no
+									}
+								}
+							}
+							vbox = {
+								layoutpolicy_horizontal = fixed
+								layoutpolicy_vertical = expanding
+								minimumsize = { 218 -1 }
+								maximumsize = { 218 -1 }
+								ignoreinvisible = yes
+								spacing = 3
+								text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
+								hbox = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0'))]"
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
+									expand = {}
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +25#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +25#!" fontsize = 13 align = nobaseline|right }
+								}
+								text_single = {
+									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0')))]"
+									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
+									max_width = 214
+									fontsize = 13
+									align = nobaseline|left
+								}
+								expand = {}
+							}
+						}
+					}
+				}
+				widget = {
+					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue, '(CFixedPoint)20.0'))]"
 					layoutpolicy_vertical = shrinking
 					minimumsize = { 462 122 }
 					using = bg_text_mask_container_dark_blue
@@ -2798,7 +2972,7 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_WATERWAY_OR_PORT" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_RURAL" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
 									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
 									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
@@ -2816,121 +2990,11 @@ widget = {
 									spacing = 4
 									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +15#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +15#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0')))]"
-									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
-									max_width = 214
-									fontsize = 13
-									align = nobaseline|left
-								}
-								expand = {}
-							}
-						}
-					}
-				}
-				widget = {
-					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue, '(CFixedPoint)20.0'))]"
-					layoutpolicy_vertical = shrinking
-					minimumsize = { 462 142 }
-					using = bg_text_mask_container_dark_blue
-
-					vbox = {
-						set_parent_size_to_minimum = yes
-						layoutpolicy_horizontal = expanding
-						layoutpolicy_vertical = shrinking
-						margin = { 6 5 }
-						ignoreinvisible = yes
-						spacing = 3
-						text_single = { text = "TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE" fontsize = 18 align = nobaseline|left }
-						hbox = {
-							layoutpolicy_horizontal = fixed
-							size = { 444 -1 }
-							spacing = 8
-							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								hbox = {
-									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0'))]"
-									layoutpolicy_horizontal = expanding
-									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_MOUNTAINS" max_width = 168 fontsize = 13 align = nobaseline|left }
-									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +15#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +15#!" fontsize = 13 align = nobaseline|right }
-								}
-								text_single = {
-									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0')))]"
-									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
-									max_width = 214
-									fontsize = 13
-									align = nobaseline|left
-								}
-								hbox = {
-									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0'))]"
-									layoutpolicy_horizontal = expanding
-									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_PLATEAU" max_width = 168 fontsize = 13 align = nobaseline|left }
-									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +7.5#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +7.5#!" fontsize = 13 align = nobaseline|right }
-								}
-								text_single = {
-									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0')))]"
-									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
-									max_width = 214
-									fontsize = 13
-									align = nobaseline|left
-								}
-								hbox = {
-									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0'))]"
-									layoutpolicy_horizontal = expanding
-									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_HILLS" max_width = 168 fontsize = 13 align = nobaseline|left }
-									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
-								}
-								text_single = {
-									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0')))]"
 									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
 									max_width = 214
 									fontsize = 13
@@ -5768,7 +5832,7 @@ widget = {
 				widget = {
 					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue, '(CFixedPoint)49.0'))]"
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 462 142 }
+					minimumsize = { 462 162 }
 					using = bg_text_mask_container_dark_blue
 
 					vbox = {
@@ -5828,8 +5892,8 @@ widget = {
 									spacing = 4
 									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_IS_CAPITAL" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0')))]"
@@ -5858,13 +5922,29 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_AVERAGE_LOCATION_LITERACY" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
 									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
 									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0')))]"
+									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
+									max_width = 214
+									fontsize = 13
+									align = nobaseline|left
+								}
+								hbox = {
+									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0'))]"
+									layoutpolicy_horizontal = expanding
+									spacing = 4
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
+									expand = {}
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+								}
+								text_single = {
+									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0')))]"
 									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
 									max_width = 214
 									fontsize = 13
@@ -5878,7 +5958,7 @@ widget = {
 				widget = {
 					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue, '(CFixedPoint)50.0'))]"
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 462 142 }
+					minimumsize = { 462 122 }
 					using = bg_text_mask_container_dark_blue
 
 					vbox = {
@@ -5936,10 +6016,10 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_RURAL" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_FORT_LEVEL" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0')))]"
@@ -5952,29 +6032,13 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_FORT_LEVEL" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +20#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +20#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0')))]"
-									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
-									max_width = 214
-									fontsize = 13
-									align = nobaseline|left
-								}
-								hbox = {
-									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0'))]"
-									layoutpolicy_horizontal = expanding
-									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
-									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-								}
-								text_single = {
-									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0')))]"
 									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
 									max_width = 214
 									fontsize = 13
@@ -5988,7 +6052,7 @@ widget = {
 				widget = {
 					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue, '(CFixedPoint)51.0'))]"
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 462 162 }
+					minimumsize = { 462 102 }
 					using = bg_text_mask_container_dark_blue
 
 					vbox = {
@@ -6046,61 +6110,13 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_URBAN_RANK" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +25#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +25#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0')))]"
-									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
-									max_width = 214
-									fontsize = 13
-									align = nobaseline|left
-								}
-								hbox = {
-									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0'))]"
-									layoutpolicy_horizontal = expanding
-									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_FORT_LEVEL" max_width = 168 fontsize = 13 align = nobaseline|left }
-									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
-								}
-								text_single = {
-									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0')))]"
-									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
-									max_width = 214
-									fontsize = 13
-									align = nobaseline|left
-								}
-								hbox = {
-									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0'))]"
-									layoutpolicy_horizontal = expanding
-									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
-									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-								}
-								text_single = {
-									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0')))]"
-									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
-									max_width = 214
-									fontsize = 13
-									align = nobaseline|left
-								}
-								hbox = {
-									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0'))]"
-									layoutpolicy_horizontal = expanding
-									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_AVERAGE_LOCATION_LITERACY" max_width = 168 fontsize = 13 align = nobaseline|left }
-									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-								}
-								text_single = {
-									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0')))]"
 									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
 									max_width = 214
 									fontsize = 13
@@ -6114,7 +6130,7 @@ widget = {
 				widget = {
 					visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue, '(CFixedPoint)52.0'))]"
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 462 162 }
+					minimumsize = { 462 102 }
 					using = bg_text_mask_container_dark_blue
 
 					vbox = {
@@ -6172,61 +6188,13 @@ widget = {
 									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0'))]"
 									layoutpolicy_horizontal = expanding
 									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_IS_CAPITAL" max_width = 168 fontsize = 13 align = nobaseline|left }
+									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
 									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').GetValue|+=]#!/#P +25#!" fontsize = 13 align = nobaseline|right }
+									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_1').IsSet))]" raw_text = "#T ?#!/#P +25#!" fontsize = 13 align = nobaseline|right }
 								}
 								text_single = {
 									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0')))]"
-									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
-									max_width = 214
-									fontsize = 13
-									align = nobaseline|left
-								}
-								hbox = {
-									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0'))]"
-									layoutpolicy_horizontal = expanding
-									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITION_URBAN_RANK" max_width = 168 fontsize = 13 align = nobaseline|left }
-									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').GetValue|+=]#!/#P +5#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_2').IsSet))]" raw_text = "#T ?#!/#P +5#!" fontsize = 13 align = nobaseline|right }
-								}
-								text_single = {
-									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0')))]"
-									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
-									max_width = 214
-									fontsize = 13
-									align = nobaseline|left
-								}
-								hbox = {
-									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0'))]"
-									layoutpolicy_horizontal = expanding
-									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT" max_width = 168 fontsize = 13 align = nobaseline|left }
-									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_3').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-								}
-								text_single = {
-									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0')))]"
-									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
-									max_width = 214
-									fontsize = 13
-									align = nobaseline|left
-								}
-								hbox = {
-									visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0'))]"
-									layoutpolicy_horizontal = expanding
-									spacing = 4
-									text_single = { text = "TV_ENGINEERING_SUITABILITY_SOURCE_AVERAGE_LOCATION_LITERACY" max_width = 168 fontsize = 13 align = nobaseline|left }
-									expand = {}
-									text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet)]" raw_text = "#P [InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').GetValue|+=]#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-									text_single = { visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_actual_4').IsSet))]" raw_text = "#T ?#!/#P +10#!" fontsize = 13 align = nobaseline|right }
-								}
-								text_single = {
-									visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0')))]"
 									text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"
 									max_width = 214
 									fontsize = 13

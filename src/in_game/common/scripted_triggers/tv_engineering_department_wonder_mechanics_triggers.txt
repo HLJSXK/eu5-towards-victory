@@ -28477,6 +28477,7 @@ tv_wonder_location_can_host_hydraulic_workshop_trigger = {
 				has_river = yes
 				is_adjacent_to_lake = yes
 			}
+			NOT = { location_rank ?= location_rank:rural_settlement }
 			NOT = { tv_wonder_location_has_hydraulic_workshop_capped_final_building_trigger = yes }
 		}
 	}
@@ -28494,6 +28495,7 @@ tv_wonder_player_visible_site_rules_hydraulic_workshop_trigger = {
 			has_river = yes
 			is_adjacent_to_lake = yes
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 }
 
@@ -28614,6 +28616,7 @@ tv_wonder_location_can_host_sky_dome_grand_temple_trigger = {
 		tv_wonder_location_is_valid_priority_project_for_sky_dome_grand_temple_trigger = yes
 		AND = {
 			dominant_religion = owner.religion
+			NOT = { location_rank ?= location_rank:rural_settlement }
 			NOT = { tv_wonder_location_has_sky_dome_grand_temple_capped_final_building_trigger = yes }
 		}
 	}
@@ -28628,6 +28631,7 @@ tv_wonder_can_build_sky_dome_grand_temple_trigger = {
 tv_wonder_player_visible_site_rules_sky_dome_grand_temple_trigger = {
 	any_owned_location = {
 		dominant_religion = owner.religion
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 }
 
@@ -29559,7 +29563,10 @@ tv_wonder_location_can_host_great_assembly_hall_trigger = {
 	OR = {
 		tv_wonder_location_is_valid_priority_project_for_great_assembly_hall_trigger = yes
 		AND = {
-			NOT = { location_rank ?= location_rank:rural_settlement }
+			OR = {
+				is_capital = yes
+				NOT = { location_rank ?= location_rank:rural_settlement }
+			}
 			NOT = { tv_wonder_location_has_great_assembly_hall_capped_final_building_trigger = yes }
 		}
 	}
@@ -29573,7 +29580,10 @@ tv_wonder_can_build_great_assembly_hall_trigger = {
 
 tv_wonder_player_visible_site_rules_great_assembly_hall_trigger = {
 	any_owned_location = {
-		NOT = { location_rank ?= location_rank:rural_settlement }
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 }
 
@@ -29581,7 +29591,7 @@ tv_wonder_location_can_host_mobile_fortress_trigger = {
 	OR = {
 		tv_wonder_location_is_valid_priority_project_for_mobile_fortress_trigger = yes
 		AND = {
-			always = yes
+			location_rank ?= location_rank:rural_settlement
 			NOT = { tv_wonder_location_has_mobile_fortress_capped_final_building_trigger = yes }
 		}
 	}
@@ -29595,7 +29605,7 @@ tv_wonder_can_build_mobile_fortress_trigger = {
 
 tv_wonder_player_visible_site_rules_mobile_fortress_trigger = {
 	any_owned_location = {
-		always = yes
+		location_rank ?= location_rank:rural_settlement
 	}
 }
 
@@ -29603,7 +29613,7 @@ tv_wonder_location_can_host_ancient_city_ruins_trigger = {
 	OR = {
 		tv_wonder_location_is_valid_priority_project_for_ancient_city_ruins_trigger = yes
 		AND = {
-			always = yes
+			location_rank ?= location_rank:rural_settlement
 			NOT = { tv_wonder_location_has_ancient_city_ruins_capped_final_building_trigger = yes }
 		}
 	}
@@ -29617,7 +29627,7 @@ tv_wonder_can_build_ancient_city_ruins_trigger = {
 
 tv_wonder_player_visible_site_rules_ancient_city_ruins_trigger = {
 	any_owned_location = {
-		always = yes
+		location_rank ?= location_rank:rural_settlement
 	}
 }
 
@@ -29625,7 +29635,7 @@ tv_wonder_location_can_host_summer_palace_trigger = {
 	OR = {
 		tv_wonder_location_is_valid_priority_project_for_summer_palace_trigger = yes
 		AND = {
-			NOT = { location_rank ?= location_rank:rural_settlement }
+			location_rank ?= location_rank:city
 			NOT = { tv_wonder_location_has_summer_palace_capped_final_building_trigger = yes }
 		}
 	}
@@ -29639,7 +29649,7 @@ tv_wonder_can_build_summer_palace_trigger = {
 
 tv_wonder_player_visible_site_rules_summer_palace_trigger = {
 	any_owned_location = {
-		NOT = { location_rank ?= location_rank:rural_settlement }
+		location_rank ?= location_rank:city
 	}
 }
 
@@ -29671,6 +29681,7 @@ tv_wonder_location_can_host_unique_hagia_sophia_trigger = {
 		AND = {
 			this = location:constantinople
 			dominant_religion = owner.religion
+			NOT = { location_rank ?= location_rank:rural_settlement }
 			NOT = { tv_wonder_location_has_unique_hagia_sophia_capped_final_building_trigger = yes }
 		}
 	}
@@ -29693,6 +29704,7 @@ tv_wonder_location_can_host_unique_dome_of_the_rock_trigger = {
 		AND = {
 			this = location:jerusalem
 			dominant_religion = owner.religion
+			NOT = { location_rank ?= location_rank:rural_settlement }
 			NOT = { tv_wonder_location_has_unique_dome_of_the_rock_capped_final_building_trigger = yes }
 		}
 	}
@@ -29902,6 +29914,7 @@ tv_wonder_location_can_host_unique_st_peters_basilica_trigger = {
 		AND = {
 			this = location:rome
 			dominant_religion = owner.religion
+			NOT = { location_rank ?= location_rank:rural_settlement }
 			NOT = { tv_wonder_location_has_unique_st_peters_basilica_capped_final_building_trigger = yes }
 		}
 	}
@@ -30093,6 +30106,7 @@ tv_wonder_location_can_host_unique_mecca_haram_expansion_trigger = {
 		AND = {
 			this = location:mecca
 			dominant_religion = owner.religion
+			NOT = { location_rank ?= location_rank:rural_settlement }
 			NOT = { tv_wonder_location_has_unique_mecca_haram_expansion_capped_final_building_trigger = yes }
 		}
 	}
@@ -30294,6 +30308,7 @@ tv_wonder_location_can_host_unique_roman_aqueducts_trigger = {
 				has_river = yes
 				is_adjacent_to_lake = yes
 			}
+			NOT = { location_rank ?= location_rank:rural_settlement }
 			NOT = { tv_wonder_location_has_unique_roman_aqueducts_capped_final_building_trigger = yes }
 		}
 	}
@@ -30393,6 +30408,7 @@ tv_wonder_location_can_host_unique_angkor_hydraulic_system_trigger = {
 				has_river = yes
 				is_adjacent_to_lake = yes
 			}
+			NOT = { location_rank ?= location_rank:rural_settlement }
 			NOT = { tv_wonder_location_has_unique_angkor_hydraulic_system_capped_final_building_trigger = yes }
 		}
 	}
@@ -30536,6 +30552,7 @@ tv_wonder_location_can_host_unique_persian_qanat_trigger = {
 				has_river = yes
 				is_adjacent_to_lake = yes
 			}
+			NOT = { location_rank ?= location_rank:rural_settlement }
 			NOT = { tv_wonder_location_has_unique_persian_qanat_capped_final_building_trigger = yes }
 		}
 	}
@@ -30968,6 +30985,7 @@ tv_wonder_location_can_host_unique_temple_of_heaven_trigger = {
 		AND = {
 			this = location:dadu
 			dominant_religion = owner.religion
+			NOT = { location_rank ?= location_rank:rural_settlement }
 			NOT = { tv_wonder_location_has_unique_temple_of_heaven_capped_final_building_trigger = yes }
 		}
 	}
@@ -31340,6 +31358,7 @@ tv_wonder_location_can_host_unique_varanasi_ghats_trigger = {
 		AND = {
 			this = location:varanasi
 			dominant_religion = owner.religion
+			NOT = { location_rank ?= location_rank:rural_settlement }
 			NOT = { tv_wonder_location_has_unique_varanasi_ghats_capped_final_building_trigger = yes }
 		}
 	}
@@ -31405,7 +31424,10 @@ tv_wonder_location_can_host_unique_fatehpur_sikri_trigger = {
 		tv_wonder_location_is_valid_priority_project_for_unique_fatehpur_sikri_trigger = yes
 		AND = {
 			this = location:agra
-			NOT = { location_rank ?= location_rank:rural_settlement }
+			OR = {
+				is_capital = yes
+				NOT = { location_rank ?= location_rank:rural_settlement }
+			}
 			NOT = { tv_wonder_location_has_unique_fatehpur_sikri_capped_final_building_trigger = yes }
 		}
 	}
@@ -31570,7 +31592,10 @@ tv_wonder_location_can_host_unique_brest_synagogue_quarter_trigger = {
 		tv_wonder_location_is_valid_priority_project_for_unique_brest_synagogue_quarter_trigger = yes
 		AND = {
 			this = location:brest_litowsk
-			NOT = { location_rank ?= location_rank:rural_settlement }
+			OR = {
+				is_capital = yes
+				NOT = { location_rank ?= location_rank:rural_settlement }
+			}
 			NOT = { tv_wonder_location_has_unique_brest_synagogue_quarter_capped_final_building_trigger = yes }
 		}
 	}
@@ -31636,7 +31661,7 @@ tv_wonder_location_can_host_unique_zaporizhian_sich_trigger = {
 		tv_wonder_location_is_valid_priority_project_for_unique_zaporizhian_sich_trigger = yes
 		AND = {
 			this = location:kremenchuk
-			always = yes
+			location_rank ?= location_rank:rural_settlement
 			NOT = { tv_wonder_location_has_unique_zaporizhian_sich_capped_final_building_trigger = yes }
 		}
 	}
@@ -31683,7 +31708,7 @@ tv_wonder_location_can_host_unique_khiva_old_city_trigger = {
 		tv_wonder_location_is_valid_priority_project_for_unique_khiva_old_city_trigger = yes
 		AND = {
 			this = location:khiva
-			always = yes
+			location_rank ?= location_rank:rural_settlement
 			NOT = { tv_wonder_location_has_unique_khiva_old_city_capped_final_building_trigger = yes }
 		}
 	}
@@ -31797,7 +31822,7 @@ tv_wonder_location_can_host_unique_fontainebleau_palace_trigger = {
 		tv_wonder_location_is_valid_priority_project_for_unique_fontainebleau_palace_trigger = yes
 		AND = {
 			this = location:paris
-			NOT = { location_rank ?= location_rank:rural_settlement }
+			location_rank ?= location_rank:city
 			NOT = { tv_wonder_location_has_unique_fontainebleau_palace_capped_final_building_trigger = yes }
 		}
 	}
@@ -31977,7 +32002,7 @@ tv_wonder_location_can_host_unique_colmar_old_town_trigger = {
 		tv_wonder_location_is_valid_priority_project_for_unique_colmar_old_town_trigger = yes
 		AND = {
 			this = location:colmar
-			always = yes
+			location_rank ?= location_rank:rural_settlement
 			NOT = { tv_wonder_location_has_unique_colmar_old_town_capped_final_building_trigger = yes }
 		}
 	}

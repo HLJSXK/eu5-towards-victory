@@ -104,6 +104,7 @@ SUITABILITY_SOURCE_EXPRESSIONS = {
     "development": "development",
     "total_building_levels": "total_building_levels",
     "harbor_suitability": "modifier:harbor_suitability",
+    "free_building_levels": "modifier:free_building_levels",
     "average_location_literacy": "average_location_literacy",
 }
 

@@ -223,6 +223,7 @@ COMMON_LOCALIZATION_KEYS = (
     "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT",
     "TV_ENGINEERING_SUITABILITY_SOURCE_TOTAL_BUILDING_LEVELS",
     "TV_ENGINEERING_SUITABILITY_SOURCE_HARBOR_SUITABILITY",
+    "TV_ENGINEERING_SUITABILITY_SOURCE_FREE_BUILDING_LEVELS",
     "TV_ENGINEERING_SUITABILITY_SOURCE_AVERAGE_LOCATION_LITERACY",
 )
 
@@ -1263,6 +1264,14 @@ PREFERENCE_SCALE_SOURCE_OPTIONS = [
         "default_min": "0",
         "default_max": "1",
         "default_multiplier": "25",
+    },
+    {
+        "value": "free_building_levels",
+        "label": "Supported building levels",
+        "path": "modifier:free_building_levels",
+        "default_min": "0",
+        "default_max": "200",
+        "default_multiplier": "0.1",
     },
     {
         "value": "average_location_literacy",

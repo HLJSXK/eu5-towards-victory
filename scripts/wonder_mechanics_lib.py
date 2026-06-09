@@ -64,6 +64,7 @@ PREFERENCE_SCALE_SOURCE_PATH_TO_SUITABILITY_ID = {
     "development": "development",
     "total_building_levels": "total_building_levels",
     "modifier:harbor_suitability": "harbor_suitability",
+    "modifier:free_building_levels": "free_building_levels",
     "average_location_literacy": "average_location_literacy",
 }
 PREFERENCE_SET_RE = re.compile(
