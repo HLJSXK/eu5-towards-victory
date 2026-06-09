@@ -1028,6 +1028,11 @@ def _scaled_rule(source: str, minimum: str | int | float, maximum: str | int | f
 TRIGGER_CONDITION_OPTIONS = [
     {"value": "is_port", "label": "Port location", "script": "is_port = yes"},
     {"value": "is_capital", "label": "Capital location", "script": "is_capital = yes"},
+    {
+        "value": "not_capital_continent",
+        "label": "Different continent from capital",
+        "script": "AND = { has_owner = yes NOT = { continent = owner.capital.continent } }",
+    },
     {"value": "has_river", "label": "Has river", "script": "has_river = yes"},
     {"value": "adjacent_lake", "label": "Adjacent to lake", "script": "is_adjacent_to_lake = yes"},
     {
@@ -1093,6 +1098,12 @@ TRIGGER_TEMPLATE_PRESETS = [
         "all_of": [],
     },
     {"id": "capital_only", "label": "Capital only", "any_of": ["is_capital"], "all_of": []},
+    {
+        "id": "different_continent_from_capital",
+        "label": "Different continent from capital",
+        "any_of": [],
+        "all_of": ["not_capital_continent"],
+    },
     {"id": "non_rural", "label": "Non-rural site", "any_of": [], "all_of": ["not_rural"]},
     {
         "id": "owner_religion_majority",
