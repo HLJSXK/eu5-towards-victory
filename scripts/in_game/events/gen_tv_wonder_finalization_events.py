@@ -13,7 +13,9 @@ from wonder_localization_lib import load_wonder_localization_data
 from wonder_mechanics_lib import (
     ceremony_styles,
     finalization_event_id,
-    finalization_hidden_effect_name,
+    finalization_hidden_event_execute_effect_name,
+    finalization_hidden_event_id,
+    finalization_hidden_event_trigger_effect_name,
     finalization_visible_effect_name,
     finalization_world_event_id,
     load_all_wonder_mechanics,
@@ -87,17 +89,8 @@ def append_desc(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:
 
 
 def append_hidden_style_dispatch(lines: list[str], wonder: dict) -> None:
-    styles = ceremony_styles(wonder)
     lines.append(f"{T}{T}hidden_effect = {{")
-    if len(styles) == 1:
-        lines.append(f"{T}{T}{T}{finalization_hidden_effect_name(wonder, styles[0])} = yes")
-    else:
-        for index, style in enumerate(styles):
-            head = "if" if index == 0 else "else_if"
-            lines.append(f"{T}{T}{T}{head} = {{")
-            lines.append(f"{T}{T}{T}{T}limit = {{ var:tv_wonder_ceremony_style ?= {style} }}")
-            lines.append(f"{T}{T}{T}{T}{finalization_hidden_effect_name(wonder, style)} = yes")
-            lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{finalization_hidden_event_trigger_effect_name()} = yes")
     lines.append(f"{T}{T}}}")
 
 
@@ -143,6 +136,21 @@ def append_world_news_event(lines: list[str], wonder: dict, loc_keys: set[str]) 
     lines.append("")
 
 
+def append_hidden_finalization_event(lines: list[str]) -> None:
+    lines.append(f"tv_engineering_department.{finalization_hidden_event_id()} = {{")
+    lines.append(f"{T}type = country_event")
+    lines.append(f"{T}outcome = neutral")
+    lines.append(f"{T}title = empty_text")
+    lines.append(f"{T}desc = empty_text")
+    lines.append(f"{T}hidden = yes")
+    lines.append("")
+    lines.append(f"{T}immediate = {{")
+    lines.append(f"{T}{T}{finalization_hidden_event_execute_effect_name()} = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def generate() -> str:
     wonders, _mechanics = load_all_wonder_mechanics()
     loc_keys = known_loc_keys()
@@ -151,6 +159,7 @@ def generate() -> str:
     lines.append("")
     for wonder in wonders:
         append_event(lines, wonder, loc_keys)
+    append_hidden_finalization_event(lines)
     for wonder in wonders:
         append_world_news_event(lines, wonder, loc_keys)
     return "\n".join(lines).rstrip() + "\n"

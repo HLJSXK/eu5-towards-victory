@@ -3,6 +3,1211 @@
 #   Regen:   conda run --no-capture-output -n eu5 python scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py
 # Do not edit directly - modify the data file and re-run the generator.
 
+tv_wonder_trigger_finalization_hidden_event_effect = {
+	if = {
+		limit = {
+			has_variable = tv_wonder_finalization_preview_ready
+			has_variable = tv_wonder_locked
+			has_variable = tv_wonder_ceremony_style
+		}
+		trigger_event_silently = tv_engineering_department.6202
+	}
+}
+
+tv_wonder_execute_finalization_hidden_event_effect = {
+	if = {
+		limit = {
+			has_variable = tv_wonder_finalization_preview_ready
+			has_variable = tv_wonder_locked
+			has_variable = tv_wonder_ceremony_style
+		}
+		if = {
+			limit = { var:tv_wonder_locked ?= 1 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_sacred_mountain_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_sacred_mountain_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_sacred_mountain_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 2 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_triumphal_axis_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_triumphal_axis_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_triumphal_axis_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 3 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_great_port_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_great_port_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_great_port_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 4 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_giant_necropolis_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_giant_necropolis_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_giant_necropolis_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 5 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_great_lighthouse_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_great_lighthouse_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_great_lighthouse_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 6 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_hydraulic_workshop_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_hydraulic_workshop_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_hydraulic_workshop_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 7 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_mining_city_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_mining_city_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_mining_city_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 8 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_giant_observatory_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_giant_observatory_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_giant_observatory_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 9 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_palace_of_nations_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_palace_of_nations_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_palace_of_nations_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 10 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_university_city_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_university_city_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_university_city_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 11 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_sky_dome_grand_temple_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_sky_dome_grand_temple_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_sky_dome_grand_temple_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 12 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_giant_tower_temple_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_giant_tower_temple_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_giant_tower_temple_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 13 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_river_extension_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_river_extension_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_river_extension_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 14 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_national_shipyard_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_national_shipyard_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_national_shipyard_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 15 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_star_fortress_city_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_star_fortress_city_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_star_fortress_city_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 16 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_great_wall_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_great_wall_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_great_wall_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 17 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_giant_armory_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_giant_armory_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_giant_armory_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 18 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_library_of_nation_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_library_of_nation_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_library_of_nation_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 19 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_large_canal_system_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_large_canal_system_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_large_canal_system_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 20 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_mountain_terrace_network_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_mountain_terrace_network_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_mountain_terrace_network_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 21 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_giant_dam_project_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_giant_dam_project_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_giant_dam_project_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 22 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_royal_granary_system_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_royal_granary_system_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_royal_granary_system_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 23 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_imperial_post_road_network_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_imperial_post_road_network_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_imperial_post_road_network_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 24 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_canal_hub_city_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_canal_hub_city_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_canal_hub_city_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 25 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_frontier_colonization_belt_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_frontier_colonization_belt_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_frontier_colonization_belt_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 26 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_coastal_beacon_network_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_coastal_beacon_network_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_coastal_beacon_network_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 27 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_knightly_fortress_order_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_knightly_fortress_order_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_knightly_fortress_order_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 28 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_war_college_system_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_war_college_system_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_war_college_system_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 29 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_great_clock_bell_system_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_great_clock_bell_system_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_great_clock_bell_system_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 30 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_royal_art_district_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_royal_art_district_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_royal_art_district_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 31 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_grand_theater_festival_district_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_grand_theater_festival_district_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_grand_theater_festival_district_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 32 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_world_embassy_quarter_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_world_embassy_quarter_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_world_embassy_quarter_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 33 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_law_code_stele_project_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_law_code_stele_project_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_law_code_stele_project_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 34 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_world_market_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_world_market_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_world_market_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 35 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_royal_mint_system_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_royal_mint_system_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_royal_mint_system_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 36 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_guild_alliance_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_guild_alliance_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_guild_alliance_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 37 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_maritime_trade_station_network_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_maritime_trade_station_network_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_maritime_trade_station_network_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 38 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_giant_workshop_complex_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_giant_workshop_complex_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_giant_workshop_complex_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 39 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_world_monument_group_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_world_monument_group_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_world_monument_group_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 40 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_city_expansion_project_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_city_expansion_project_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_city_expansion_project_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 41 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_megalithic_circle_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_megalithic_circle_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_megalithic_circle_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 42 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_grand_cathedral_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_grand_cathedral_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_grand_cathedral_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 43 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_great_monastery_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_great_monastery_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_great_monastery_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 44 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_city_great_tower_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_city_great_tower_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_city_great_tower_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 45 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_great_sculpture_group_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_great_sculpture_group_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_great_sculpture_group_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 46 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_coastal_defense_cannon_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_coastal_defense_cannon_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_coastal_defense_cannon_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 47 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_naval_school_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_naval_school_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_naval_school_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 48 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_colonial_trade_company_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_colonial_trade_company_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_colonial_trade_company_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 49 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_great_assembly_hall_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_great_assembly_hall_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_great_assembly_hall_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 50 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_mobile_fortress_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_mobile_fortress_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_mobile_fortress_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 51 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_ancient_city_ruins_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_ancient_city_ruins_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_ancient_city_ruins_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 52 }
+			if = {
+				limit = { var:tv_wonder_ceremony_style ?= 1 }
+				tv_wonder_summer_palace_style_1_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 2 }
+				tv_wonder_summer_palace_style_2_finalization_hidden_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_wonder_ceremony_style ?= 3 }
+				tv_wonder_summer_palace_style_3_finalization_hidden_effect = yes
+			}
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 101 }
+			tv_wonder_unique_pharos_lighthouse_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 102 }
+			tv_wonder_unique_hagia_sophia_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 103 }
+			tv_wonder_unique_dome_of_the_rock_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 104 }
+			tv_wonder_unique_angkor_wat_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 105 }
+			tv_wonder_unique_potala_palace_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 106 }
+			tv_wonder_unique_alhambra_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 107 }
+			tv_wonder_unique_machu_picchu_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 108 }
+			tv_wonder_unique_himeji_castle_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 109 }
+			tv_wonder_unique_taj_mahal_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 110 }
+			tv_wonder_unique_forbidden_city_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 111 }
+			tv_wonder_unique_topkapi_palace_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 112 }
+			tv_wonder_unique_st_peters_basilica_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 113 }
+			tv_wonder_unique_lalibela_churches_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 114 }
+			tv_wonder_unique_venetian_arsenal_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 115 }
+			tv_wonder_unique_malacca_port_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 116 }
+			tv_wonder_unique_red_fort_delhi_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 117 }
+			tv_wonder_unique_versailles_palace_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 118 }
+			tv_wonder_unique_tenochtitlan_causeways_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 119 }
+			tv_wonder_unique_amsterdam_canal_ring_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 120 }
+			tv_wonder_unique_mecca_haram_expansion_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 121 }
+			tv_wonder_unique_ming_great_wall_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 122 }
+			tv_wonder_unique_bank_of_saint_george_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 123 }
+			tv_wonder_unique_cahokia_mounds_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 124 }
+			tv_wonder_unique_great_zimbabwe_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 125 }
+			tv_wonder_unique_isfahan_square_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 126 }
+			tv_wonder_unique_grand_canal_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 127 }
+			tv_wonder_unique_inca_royal_road_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 128 }
+			tv_wonder_unique_roman_aqueducts_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 129 }
+			tv_wonder_unique_suez_ancient_canal_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 130 }
+			tv_wonder_unique_kremlin_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 131 }
+			tv_wonder_unique_teotihuacan_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 132 }
+			tv_wonder_unique_angkor_hydraulic_system_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 133 }
+			tv_wonder_unique_dutch_polders_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 134 }
+			tv_wonder_unique_machu_picchu_terraces_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 135 }
+			tv_wonder_unique_british_navy_dockyards_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 136 }
+			tv_wonder_unique_spanish_silver_fleet_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 137 }
+			tv_wonder_unique_ottoman_hajj_road_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 138 }
+			tv_wonder_unique_persian_qanat_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 139 }
+			tv_wonder_unique_longjiang_shipyard_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 140 }
+			tv_wonder_unique_jerusalem_holy_city_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 141 }
+			tv_wonder_unique_stonehenge_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 142 }
+			tv_wonder_unique_tower_of_london_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 143 }
+			tv_wonder_unique_notre_dame_de_paris_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 144 }
+			tv_wonder_unique_st_basils_cathedral_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 145 }
+			tv_wonder_unique_trinity_lavra_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 146 }
+			tv_wonder_unique_winter_palace_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 147 }
+			tv_wonder_unique_gyeongbokgung_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 148 }
+			tv_wonder_unique_changbai_mountain_altar_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 149 }
+			tv_wonder_unique_belgrade_fortress_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 150 }
+			tv_wonder_unique_meteora_monasteries_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 151 }
+			tv_wonder_unique_belem_tower_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 152 }
+			tv_wonder_unique_iberian_inquisition_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 153 }
+			tv_wonder_unique_santa_maria_del_fiore_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 154 }
+			tv_wonder_unique_leaning_tower_of_pisa_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 155 }
+			tv_wonder_unique_milan_cathedral_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 156 }
+			tv_wonder_unique_vatican_archives_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 157 }
+			tv_wonder_unique_temple_of_heaven_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 158 }
+			tv_wonder_unique_dujiangyan_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 159 }
+			tv_wonder_unique_porcelain_tower_of_nanjing_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 160 }
+			tv_wonder_unique_jingdezhen_imperial_kilns_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 161 }
+			tv_wonder_unique_mogao_caves_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 162 }
+			tv_wonder_unique_canton_thirteen_factories_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 163 }
+			tv_wonder_unique_dardanelles_fortress_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 164 }
+			tv_wonder_unique_escorial_monastery_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 165 }
+			tv_wonder_unique_toledo_armory_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 166 }
+			tv_wonder_unique_camino_de_santiago_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 167 }
+			tv_wonder_unique_sagres_navigation_school_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 168 }
+			tv_wonder_unique_milan_arsenal_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 169 }
+			tv_wonder_unique_university_of_bologna_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 170 }
+			tv_wonder_unique_carrara_marble_quarries_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 171 }
+			tv_wonder_unique_east_india_company_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 172 }
+			tv_wonder_unique_peacock_throne_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 173 }
+			tv_wonder_unique_varanasi_ghats_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 174 }
+			tv_wonder_unique_brihadishvara_temple_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 175 }
+			tv_wonder_unique_konark_sun_temple_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 176 }
+			tv_wonder_unique_fatehpur_sikri_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 177 }
+			tv_wonder_unique_calicut_port_city_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 178 }
+			tv_wonder_unique_wieliczka_salt_mine_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 179 }
+			tv_wonder_unique_wawel_castle_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 180 }
+			tv_wonder_unique_zamosc_ideal_city_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 181 }
+			tv_wonder_unique_gdansk_port_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 182 }
+			tv_wonder_unique_malbork_castle_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 183 }
+			tv_wonder_unique_brest_synagogue_quarter_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 184 }
+			tv_wonder_unique_vilnius_university_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 185 }
+			tv_wonder_unique_cave_monastery_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 186 }
+			tv_wonder_unique_zaporizhian_sich_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 187 }
+			tv_wonder_unique_registan_square_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 188 }
+			tv_wonder_unique_khiva_old_city_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 189 }
+			tv_wonder_unique_bukhara_kalyan_minaret_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 190 }
+			tv_wonder_unique_ferghana_palace_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 191 }
+			tv_wonder_unique_tashkent_old_bazaar_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 192 }
+			tv_wonder_unique_louvre_palace_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 193 }
+			tv_wonder_unique_fontainebleau_palace_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 194 }
+			tv_wonder_unique_bordeaux_port_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 195 }
+			tv_wonder_unique_marseille_old_port_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 196 }
+			tv_wonder_unique_lyon_silk_workshops_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 197 }
+			tv_wonder_unique_mont_saint_michel_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 198 }
+			tv_wonder_unique_bastille_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 199 }
+			tv_wonder_unique_carcassonne_castle_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 200 }
+			tv_wonder_unique_brest_naval_port_style_1_finalization_hidden_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_locked ?= 201 }
+			tv_wonder_unique_colmar_old_town_style_1_finalization_hidden_effect = yes
+		}
+	}
+}
+
 tv_wonder_mechanics_trigger_finalization_event_effect = {
 	if = {
 		limit = { var:tv_wonder_locked ?= 1 }

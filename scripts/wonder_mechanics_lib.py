@@ -861,12 +861,24 @@ def finalization_world_event_id(wonder: dict) -> int:
     return 6000 + int(wonder["id"])
 
 
+def finalization_hidden_event_id() -> int:
+    return 6202
+
+
 def finalization_visible_effect_name(wonder: dict) -> str:
     return f"tv_wonder_{wonder['key']}_finalization_visible_effect"
 
 
 def finalization_hidden_effect_name(wonder: dict, style: int) -> str:
     return f"tv_wonder_{wonder['key']}_style_{int(style)}_finalization_hidden_effect"
+
+
+def finalization_hidden_event_trigger_effect_name() -> str:
+    return "tv_wonder_trigger_finalization_hidden_event_effect"
+
+
+def finalization_hidden_event_execute_effect_name() -> str:
+    return "tv_wonder_execute_finalization_hidden_event_effect"
 
 
 def normalize_loc_map(value: object) -> dict[str, str]:

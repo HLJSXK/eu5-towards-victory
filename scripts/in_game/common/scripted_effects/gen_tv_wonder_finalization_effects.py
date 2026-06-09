@@ -14,6 +14,9 @@ from wonder_mechanics_lib import (
     ceremony_modifier_for_style,
     ceremony_styles,
     finalization_event_id,
+    finalization_hidden_event_execute_effect_name,
+    finalization_hidden_event_id,
+    finalization_hidden_event_trigger_effect_name,
     finalization_hidden_effect_name,
     finalization_visible_effect_name,
     finalization_world_event_id,
@@ -43,6 +46,50 @@ def change_level_lines(building: str, value: int, indent: int) -> list[str]:
         f"{prefix}{T}owner = prev",
         f"{prefix}}}",
     ]
+
+
+def append_hidden_event_trigger_effect(lines: list[str]) -> None:
+    lines.append(f"{finalization_hidden_event_trigger_effect_name()} = {{")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_finalization_preview_ready")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_ceremony_style")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}trigger_event_silently = tv_engineering_department.{finalization_hidden_event_id()}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_hidden_event_execute_effect(lines: list[str], wonders: list[dict]) -> None:
+    lines.append(f"{finalization_hidden_event_execute_effect_name()} = {{")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_finalization_preview_ready")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_ceremony_style")
+    lines.append(f"{T}{T}}}")
+    first_wonder = True
+    for wonder in wonders:
+        wonder_head = "if" if first_wonder else "else_if"
+        first_wonder = False
+        lines.append(f"{T}{T}{wonder_head} = {{")
+        lines.append(f"{T}{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
+        styles = ceremony_styles(wonder)
+        if len(styles) == 1:
+            lines.append(f"{T}{T}{T}{finalization_hidden_effect_name(wonder, styles[0])} = yes")
+        else:
+            for index, style in enumerate(styles):
+                style_head = "if" if index == 0 else "else_if"
+                lines.append(f"{T}{T}{T}{style_head} = {{")
+                lines.append(f"{T}{T}{T}{T}limit = {{ var:tv_wonder_ceremony_style ?= {style} }}")
+                lines.append(f"{T}{T}{T}{T}{finalization_hidden_effect_name(wonder, style)} = yes")
+                lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
 
 
 def clear_base_effect_name(wonder: dict) -> str:
@@ -277,6 +324,8 @@ def append_hidden_effect(lines: list[str], wonder: dict, style: int) -> None:
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
+    append_hidden_event_trigger_effect(lines)
+    append_hidden_event_execute_effect(lines, wonders)
     append_trigger_event_dispatch_effect(lines, wonders)
     for wonder in wonders:
         append_clear_base_modifier_effect(lines, wonder, mechanics)

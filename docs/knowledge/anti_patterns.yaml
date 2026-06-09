@@ -656,6 +656,17 @@
   source: "runtime error.log: tv_govhouse.40 -> tv_govhouse_approve_pending_tactic_effect -> tv_govhouse_apply_tactic_effect"
   notes: "EU5 event option tooltip generation may pre-evaluate option effects without committing earlier set_variable writes. A later visible direct var:X comparison can fetch an unset variable repeatedly while the event is open."
 
+- id: event_option_hidden_effect_not_performance_boundary
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['events', 'scripted_effects']
+  bad: "Putting global scans, high-cardinality dispatch, broadcasts, construction cleanup, map rebuilds, or other heavy work in an event option hidden_effect and expecting tooltip hover not to evaluate it"
+  correction: "Keep option hidden_effect blocks to light guards or scheduler calls. Run heavy hidden work from a hidden = yes event immediate block or another non-tooltip execution path."
+  category: event
+  scope: any
+  source: "User-reported Engineering Department wonder finalization tooltip stutter, 2026-06-10; fixed in generated tv_wonder_finalization_events.txt / tv_wonder_finalization_effects.txt via tv_engineering_department.6202"
+  notes: "hidden_effect suppresses visible tooltip output, but it does not isolate event-option code from hover evaluation. The wonder finalization hidden chain was expensive because it included per-wonder/per-style dispatch, final building construction, cleanup, world-news broadcast, post-finalization priority caching, and project-state clearing."
+
 - id: event_option_temp_variable_used_by_visible_helper
   detectability: needs_parser
   pattern: ''

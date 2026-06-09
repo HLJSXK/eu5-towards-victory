@@ -42,7 +42,14 @@ called directly from event options.
    text, but it is not a commit boundary: helpers inside still must read persistent state or use
    literal bounded branches instead of same-chain scratch variables.
 
-5. Keep numeric event IDs below 10000.
+5. Do not treat option `hidden_effect` as a performance boundary.
+   Event option hover can still evaluate hidden effect contents while rendering tooltips. Keep
+   option hidden blocks light: guards, simple state checks, or a scheduler/trigger only. Move
+   global scans, high-cardinality dispatch, completion broadcasts, map rebuilds, construction
+   cleanup, and other heavy work to a `hidden = yes` event's `immediate` block or another
+   non-tooltip execution path.
+
+6. Keep numeric event IDs below 10000.
    EU5 accepts event IDs as `<namespace>.<integer>`, but the integer must be `< 10000`.
    For generated high-cardinality systems, do not encode multiple dimensions into the numeric
    event ID if that crosses the limit. Move large wonder/type dispatch before the event fires;
