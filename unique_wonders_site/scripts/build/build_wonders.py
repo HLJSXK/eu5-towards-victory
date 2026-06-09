@@ -17,12 +17,19 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.wonder_localization_lib import load_wonder_localization_data, wonder_name_key
+from scripts.wonder_localization_lib import (
+    concept_desc_key,
+    load_wonder_localization_data,
+    wonder_name_key,
+)
 from scripts.wonder_mechanics_lib import (
     authored_final_building_local_modifiers,
     ceremony_modifier_for_style,
+    ceremony_styles,
+    final_building_for_style,
     load_all_wonder_mechanics_data,
     mechanic_key,
+    ritual_plan_for_style,
     scale_numeric_modifier_mapping,
     site_trigger_script_for_key,
 )
@@ -47,6 +54,9 @@ DEFAULT_REFERENCE_LOC = (
 DEFAULT_OUT = SITE_ROOT / "dist" / "data" / "unique_wonders.json"
 DEFAULT_MODIFIER_LOCALIZATION_INDEX = REPO_ROOT / "data" / "index" / "modifier_localization.json"
 DEFAULT_TRIGGER_LOCALIZATION_INDEX = REPO_ROOT / "data" / "index" / "trigger_localization.json"
+WONDER_IMAGE_SOURCE_ROOT = REPO_ROOT / "data" / "generated_wonders"
+DIST_WONDER_IMAGE_ROOT = Path("images") / "wonders"
+IMAGE_EXTENSIONS = (".png", ".jpg", ".jpeg", ".webp")
 
 LANGUAGES = ("en", "zh")
 SOURCE_LANGUAGE = {
@@ -68,6 +78,16 @@ CATEGORY_LABELS = {
     "religious_category": {"en": "Religious", "zh": "宗教"},
     "commerce_category": {"en": "Commerce", "zh": "商业"},
     "industry_category": {"en": "Industry", "zh": "产业"},
+}
+
+KIND_LABELS = {
+    "generic": {"en": "Generic", "zh": "\u901a\u7528"},
+    "unique": {"en": "Unique", "zh": "\u72ec\u7279"},
+}
+
+GENERIC_LOCATION_LABEL = {
+    "en": "No fixed map location",
+    "zh": "\u65e0\u56fa\u5b9a\u5730\u56fe\u4f4d\u7f6e",
 }
 
 CONCEPT_LABELS = {
@@ -179,6 +199,14 @@ def load_index_payload(path: Path, root_key: str) -> dict[str, Any]:
     if not isinstance(records, dict):
         raise TypeError(f"{path}.{root_key} must be an object")
     return records
+
+
+def wonder_image_source(image_id: str) -> Path | None:
+    for extension in IMAGE_EXTENSIONS:
+        candidate = WONDER_IMAGE_SOURCE_ROOT / f"{image_id}{extension}"
+        if candidate.exists():
+            return candidate
+    return None
 
 
 def localization_value(
@@ -534,11 +562,115 @@ def effect_section(
     }
 
 
+def effect_section_with_title(
+    section_id: str,
+    title: dict[str, str],
+    rows: list[dict[str, object]],
+    *,
+    scope: str,
+    value_label_en: str = "Value",
+    value_label_zh: str = "\u6570\u503c",
+    meta: dict[str, object] | None = None,
+) -> dict[str, object] | None:
+    normalized_meta = meta or {}
+    if not rows and not normalized_meta:
+        return None
+    return {
+        "id": section_id,
+        "title": dict(title),
+        "scope": scope,
+        "value_label": {"en": value_label_en, "zh": value_label_zh},
+        "rows": rows,
+        "meta": normalized_meta,
+    }
+
+
 def localized_label(labels: dict[str, dict[str, str]], key: str) -> dict[str, str]:
     if key in labels:
         return dict(labels[key])
     pretty = prettify(key)
     return {"en": pretty, "zh": pretty}
+
+
+def append_ritual_plan_sections(
+    effects: list[dict[str, object]],
+    *,
+    wonder: dict[str, Any],
+    mechanics: dict[str, Any],
+    loc_data: dict[str, dict[str, str]],
+    modifier_index: dict[str, Any],
+    style: int,
+) -> None:
+    ritual = ritual_plan_for_style(wonder, mechanics, style)
+    title = localized_pair(loc_data, final_building_for_style(wonder, style))
+    ceremony_modifier = ceremony_modifier_for_style(wonder, mechanics, style)
+    ceremony_meta: dict[str, object] = {"style": style}
+    if ceremony_modifier is not None:
+        ceremony_meta["source"] = ceremony_modifier[0]
+
+    for section in (
+        effect_section_with_title(
+            f"style_{style}_country_modifier",
+            title,
+            rows_from_mapping(ritual.get("country_modifier", {}), modifier_index=modifier_index),
+            scope="country",
+            meta=ceremony_meta,
+        ),
+        effect_section_with_title(
+            f"style_{style}_rewards",
+            title,
+            rows_from_rewards(ritual.get("reward", [])),
+            scope="reward",
+            value_label_en="Amount",
+            value_label_zh="\u6570\u91cf",
+            meta={"style": style, "cost_type": ritual.get("cost_type")}
+            if ritual.get("reward")
+            else None,
+        ),
+    ):
+        if section is not None:
+            effects.append(section)
+
+    timed = ritual.get("timed", {})
+    if isinstance(timed, dict):
+        for suffix, rows_key in (
+            ("timed_burden", "burden_modifier"),
+            ("timed_blessing", "blessing_modifier"),
+        ):
+            rows = rows_from_mapping(timed.get(rows_key, {}), modifier_index=modifier_index)
+            section = effect_section_with_title(
+                f"style_{style}_{suffix}",
+                title,
+                rows,
+                scope="country",
+                meta={"style": style, "years": timed.get("years", 1)} if rows else None,
+            )
+            if section is not None:
+                effects.append(section)
+
+    auxiliary = ritual.get("auxiliary_building", {})
+    if isinstance(auxiliary, dict):
+        auxiliary_meta = {
+            key: value
+            for key, value in {
+                "style": style,
+                "maintenance": auxiliary.get("maintenance"),
+                "build_time": auxiliary.get("build_time"),
+                "construction_demand": auxiliary.get("construction_demand"),
+                "price": auxiliary.get("price"),
+                "max_levels": auxiliary.get("max_levels"),
+            }.items()
+            if value not in (None, "", {})
+        }
+        section = effect_section_with_title(
+            f"style_{style}_auxiliary_local",
+            title,
+            rows_from_mapping(auxiliary.get("local_modifier", {}), modifier_index=modifier_index),
+            scope="local",
+            meta=auxiliary_meta,
+        )
+        if section is not None:
+            effects.append(section)
 
 
 def build_record(
@@ -552,15 +684,28 @@ def build_record(
     modifier_index: dict[str, Any],
     trigger_index: dict[str, Any],
 ) -> dict[str, object]:
-    location_key = str(wonder["location"])
-    location_info = locations_index.get(location_key)
-    if not isinstance(location_info, dict):
-        raise KeyError(f"Unique wonder {wonder['key']} references unknown location {location_key}")
+    is_unique = bool(wonder.get("is_unique"))
+    kind = "unique" if is_unique else "generic"
+    location_key = ""
+    location_name = dict(GENERIC_LOCATION_LABEL)
+    location_info: dict[str, Any] | None = None
+    if is_unique:
+        location_key = str(wonder["location"])
+        raw_location_info = locations_index.get(location_key)
+        if not isinstance(raw_location_info, dict):
+            raise KeyError(f"Unique wonder {wonder['key']} references unknown location {location_key}")
+        location_info = raw_location_info
+        location_name = reference_loc_pair(reference_loc, location_key)
 
     base_key = mechanic_key(wonder)
     base_wonder = base_wonders[base_key]
     name_key = wonder_name_key(wonder)
     final_building = next(iter(wonder["final_buildings"].values()))
+    if "ritual" not in wonder:
+        wonder = dict(wonder)
+        wonder["ritual"] = ritual_plan_for_style(wonder, mechanics, 1)
+    record_name_key = final_building if is_unique else name_key
+    record_desc_key = f"{final_building}_desc" if is_unique else concept_desc_key(wonder)
 
     base_modifiers = mechanics.get("base_modifiers", {}).get(base_key, {})
     displayed_base_modifiers = scale_numeric_modifier_mapping(
@@ -568,6 +713,13 @@ def build_record(
         wonder.get("base_effect_multiplier", 1),
     )
     final_local_modifiers = authored_final_building_local_modifiers(wonder, mechanics)
+    image_id = str(wonder.get("image") or f"tv_wonder_{wonder['key']}")
+    image_source = wonder_image_source(image_id)
+    image_path = (
+        (DIST_WONDER_IMAGE_ROOT / image_source.name).as_posix()
+        if image_source is not None
+        else ""
+    )
 
     effects: list[dict[str, object]] = []
     for section in (
@@ -673,13 +825,30 @@ def build_record(
         if section is not None:
             effects.append(section)
 
+    if not is_unique:
+        for style in ceremony_styles(wonder):
+            if style == 1:
+                continue
+            append_ritual_plan_sections(
+                effects,
+                wonder=wonder,
+                mechanics=mechanics,
+                loc_data=loc_data,
+                modifier_index=modifier_index,
+                style=style,
+            )
+
     return {
         "id": wonder["id"],
         "key": wonder["key"],
-        "name": localized_pair(loc_data, final_building, fallback=loc_data["english"].get(name_key)),
+        "kind": kind,
+        "kind_label": localized_label(KIND_LABELS, kind),
+        "is_unique": is_unique,
+        "has_map_marker": is_unique,
+        "name": localized_pair(loc_data, record_name_key, fallback=loc_data["english"].get(name_key)),
         "description": localized_pair(
             loc_data,
-            f"{final_building}_desc",
+            record_desc_key,
             fallback=loc_data["english"].get(f"{name_key}_desc", ""),
         ),
         "base_key": base_key,
@@ -689,10 +858,12 @@ def build_record(
         "category": wonder["category"],
         "category_label": localized_label(CATEGORY_LABELS, wonder["category"]),
         "location_key": location_key,
-        "location_name": reference_loc_pair(reference_loc, location_key),
-        "centroid": location_info["centroid"],
-        "bbox": location_info["bbox"],
-        "image": wonder.get("image") or f"tv_wonder_{wonder['key']}",
+        "location_name": location_name,
+        "centroid": location_info["centroid"] if location_info is not None else None,
+        "bbox": location_info["bbox"] if location_info is not None else None,
+        "image": image_id,
+        "image_path": image_path,
+        "image_exists": image_source is not None,
         "construction_requirements": rows_from_trigger_script(
             site_trigger_script_for_key(mechanics, base_key),
             trigger_index=trigger_index,
@@ -726,11 +897,17 @@ def build_payload(
         for wonder in all_wonders
         if not wonder.get("is_unique")
     }
+    generic_wonders = [
+        wonder
+        for wonder in all_wonders
+        if not wonder.get("is_unique")
+    ]
     unique_wonders = [
         wonder
         for wonder in all_wonders
         if wonder.get("is_unique")
     ]
+    generic_wonders.sort(key=lambda item: int(item["id"]))
     unique_wonders.sort(key=lambda item: int(item["id"]))
 
     records = [
@@ -744,15 +921,18 @@ def build_payload(
             modifier_index=modifier_index,
             trigger_index=trigger_index,
         )
-        for wonder in unique_wonders
+        for wonder in [*generic_wonders, *unique_wonders]
     ]
 
     return {
-        "version": 1,
+        "version": 2,
         "wonders": records,
         "counts": {
-            "unique_wonders": len(records),
+            "generic_wonders": len(generic_wonders),
+            "unique_wonders": len(unique_wonders),
+            "total_wonders": len(records),
             "missing_locations": 0,
+            "missing_images": sum(1 for record in records if not record.get("image_exists")),
         },
     }
 
@@ -787,7 +967,8 @@ def main() -> int:
     )
     print(
         f"wrote {args.out.relative_to(REPO_ROOT)} "
-        f"({payload['counts']['unique_wonders']} unique wonders)"
+        f"({payload['counts']['generic_wonders']} generic, "
+        f"{payload['counts']['unique_wonders']} unique wonders)"
     )
     return 0
 

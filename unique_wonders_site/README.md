@@ -1,6 +1,6 @@
-# Unique Wonders Map Site
+# Wonders Atlas Site
 
-Static atlas for Towards Victory unique wonders.
+Static atlas for Towards Victory generic and unique wonders.
 
 The site reads the mod's authored wonder data and the map assets from
 `reference_mods/national_destinies_site`, then writes a deployable static bundle
@@ -16,6 +16,8 @@ conda run --no-capture-output -n eu5 python unique_wonders_site/scripts/build/bu
 
 The first build copies the reference map tile pyramid into `dist/tiles`, then
 generates `dist/data/locations_index.json` and `dist/data/unique_wonders.json`.
+Unique wonders are displayed as map pins. Generic wonders have no map pins and
+open from the left-side generic wonder list.
 
 ## Preview
 
@@ -25,4 +27,3 @@ conda run --no-capture-output -n eu5 python -m http.server 8790
 ```
 
 Then open `http://127.0.0.1:8790/`.
-

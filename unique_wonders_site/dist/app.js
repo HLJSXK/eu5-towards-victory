@@ -5,11 +5,17 @@ const TILE_SIZE = 256;
 
 const TEXT = {
   zh: {
-    title: "独特奇观",
-    subtitle: "世界地图",
-    search: "搜索奇观或地点...",
-    count: (shown, total) => `${shown} / ${total} 个奇观`,
+    title: "\u5947\u89c2\u56fe\u9274",
+    subtitle: "\u72ec\u7279\u4e0e\u901a\u7528\u5947\u89c2",
+    search: "\u641c\u7d22\u5947\u89c2\u3001\u5730\u70b9\u6216\u6548\u679c...",
+    count: (shown, total, kind) => `${shown} / ${total} ${kind}`,
     location: "地点",
+    type: "\u7c7b\u578b",
+    uniqueTab: "\u72ec\u7279\u5947\u89c2",
+    genericTab: "\u901a\u7528\u5947\u89c2",
+    uniqueWonder: "\u72ec\u7279\u5947\u89c2",
+    genericWonder: "\u901a\u7528\u5947\u89c2",
+    noMapLocation: "\u65e0\u56fa\u5b9a\u5730\u56fe\u4f4d\u7f6e",
     base: "原型",
     size: "规模",
     category: "类别",
@@ -21,11 +27,17 @@ const TEXT = {
     anyOf: "满足任一：",
   },
   en: {
-    title: "Unique Wonders",
-    subtitle: "World Map",
-    search: "Search wonders or locations...",
-    count: (shown, total) => `${shown} / ${total} wonders`,
+    title: "Wonders Atlas",
+    subtitle: "Unique and Generic Wonders",
+    search: "Search wonders, locations, or effects...",
+    count: (shown, total, kind) => `${shown} / ${total} ${kind}`,
     location: "Location",
+    type: "Type",
+    uniqueTab: "Unique Wonders",
+    genericTab: "Generic Wonders",
+    uniqueWonder: "Unique Wonders",
+    genericWonder: "Generic Wonders",
+    noMapLocation: "No fixed map location",
     base: "Prototype",
     size: "Size",
     category: "Category",
@@ -43,11 +55,13 @@ const EXTRA_TEXT = {
     localWonders: "\u5f53\u5730\u5947\u89c2",
     previousLocalWonder: "\u4e0a\u4e00\u4e2a\u5f53\u5730\u5947\u89c2",
     nextLocalWonder: "\u4e0b\u4e00\u4e2a\u5f53\u5730\u5947\u89c2",
+    imageMissing: "\u56fe\u7247\u7f3a\u5931",
   },
   en: {
     localWonders: "Local wonders",
     previousLocalWonder: "Previous local wonder",
     nextLocalWonder: "Next local wonder",
+    imageMissing: "Image missing",
   },
 };
 
@@ -61,11 +75,13 @@ const elements = {
   detailName: document.getElementById("detail-name"),
   detailBody: document.getElementById("detail-body"),
   detailClose: document.getElementById("detail-close"),
+  kindButtons: Array.from(document.querySelectorAll("[data-wonder-kind]")),
   languageButtons: Array.from(document.querySelectorAll("[data-lang]")),
 };
 
 const state = {
   lang: "zh",
+  activeKind: "unique",
   query: "",
   wonders: [],
   locationGroups: new Map(),
@@ -184,12 +200,37 @@ function px(x, y, worldIndex = 0) {
   return L.latLng(-y, x + worldIndex * NATIVE_W);
 }
 
+function wonderKind(wonder) {
+  return wonder?.kind || (wonder?.is_unique || hasMapMarker(wonder) ? "unique" : "generic");
+}
+
+function hasMapMarker(wonder) {
+  return wonder?.has_map_marker !== false
+    && Array.isArray(wonder?.centroid)
+    && wonder.centroid.length >= 2;
+}
+
+function kindText(kind = state.activeKind) {
+  return kind === "generic" ? t("genericWonder") : t("uniqueWonder");
+}
+
+function activeKindWonders() {
+  return state.wonders.filter((wonder) => wonderKind(wonder) === state.activeKind);
+}
+
+function sortWonders() {
+  state.wonders.sort((a, b) =>
+    localized(a.name).localeCompare(localized(b.name), state.lang === "zh" ? "zh-CN" : "en")
+  );
+}
+
 function filteredWonders() {
   const query = state.query.trim().toLowerCase();
+  const candidates = activeKindWonders();
   if (!query) {
-    return state.wonders;
+    return candidates;
   }
-  return state.wonders.filter((wonder) => wonder._haystack.includes(query));
+  return candidates.filter((wonder) => wonder._haystack.includes(query));
 }
 
 function selectedWonder() {
@@ -219,7 +260,7 @@ function groupedByLocation(wonders) {
 }
 
 function rebuildLocationGroups() {
-  state.locationGroups = groupedByLocation(state.wonders);
+  state.locationGroups = groupedByLocation(state.wonders.filter(hasMapMarker));
 }
 
 function localWondersFor(wonder) {
@@ -230,7 +271,7 @@ function localWondersFor(wonder) {
 }
 
 function filteredLocationGroups() {
-  const visibleGroups = groupedByLocation(filteredWonders());
+  const visibleGroups = groupedByLocation(filteredWonders().filter(hasMapMarker));
   return Array.from(visibleGroups, ([key, wonders]) => ({
     key,
     wonders,
@@ -367,14 +408,22 @@ function renderLanguage() {
   elements.languageButtons.forEach((button) => {
     button.classList.toggle("active", button.dataset.lang === state.lang);
   });
+  elements.kindButtons.forEach((button) => {
+    button.textContent = button.dataset.wonderKind === "generic" ? t("genericTab") : t("uniqueTab");
+    button.classList.toggle("active", button.dataset.wonderKind === state.activeKind);
+  });
 }
 
 function renderList() {
   const visible = filteredWonders();
-  elements.count.textContent = t("count")(visible.length, state.wonders.length);
+  const activeTotal = activeKindWonders().length;
+  elements.count.textContent = t("count")(visible.length, activeTotal, kindText());
   elements.list.innerHTML = "";
 
   for (const wonder of visible) {
+    const locationText = hasMapMarker(wonder)
+      ? localized(wonder.location_name)
+      : t("noMapLocation");
     const row = document.createElement("button");
     row.type = "button";
     row.className = `wonder-row${wonder.key === state.selectedKey ? " selected" : ""}`;
@@ -387,7 +436,7 @@ function renderList() {
       </div>
       <div class="wonder-meta">
         <span class="swatch" style="background:${pinColorForSize(wonder.size)}"></span>
-        <span>${escapeHtml(localized(wonder.location_name))}</span>
+        <span>${escapeHtml(locationText)}</span>
         <span>${escapeHtml(localized(wonder.size_label))}</span>
       </div>
     `;
@@ -398,6 +447,29 @@ function renderList() {
 
 function metaLine(label, value) {
   return `<div><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</div>`;
+}
+
+function renderWonderImage(wonder) {
+  const imageId = wonder.image || wonder.image_id || wonder.key || "";
+  const imagePath = typeof wonder.image_path === "string" ? wonder.image_path : "";
+  const alt = localized(wonder.name) || imageId;
+
+  if (!imagePath) {
+    return `
+      <figure class="wonder-image-shell missing">
+        <div class="wonder-image-missing">${escapeHtml(t("imageMissing"))}</div>
+        <figcaption>${escapeHtml(imageId)}</figcaption>
+      </figure>
+    `;
+  }
+
+  return `
+    <figure class="wonder-image-shell">
+      <img class="wonder-image" data-wonder-image src="${escapeHtml(imagePath)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />
+      <div class="wonder-image-missing">${escapeHtml(t("imageMissing"))}</div>
+      <figcaption>${escapeHtml(imageId)}</figcaption>
+    </figure>
+  `;
 }
 
 function renderRowLabel(row) {
@@ -493,7 +565,28 @@ function renderLocationSwitcher(wonder) {
   `;
 }
 
+function renderFlavorText(wonder) {
+  const description = localized(wonder.description).trim();
+  if (!description) {
+    return "";
+  }
+  return `
+    <section class="detail-flavor">
+      <p>${escapeHtml(description)}</p>
+    </section>
+  `;
+}
+
 function bindDetailControls() {
+  elements.detailBody.querySelectorAll("[data-wonder-image]").forEach((image) => {
+    image.addEventListener("error", () => {
+      const shell = image.closest(".wonder-image-shell");
+      if (shell) {
+        shell.classList.add("missing");
+      }
+      image.remove();
+    }, { once: true });
+  });
   elements.detailBody.querySelectorAll("[data-local-wonder-key]").forEach((button) => {
     button.addEventListener("click", () => selectWonder(button.dataset.localWonderKey, { pan: false }));
   });
@@ -513,15 +606,20 @@ function renderDetail() {
   elements.detailName.textContent = localized(wonder.name);
   const effects = Array.isArray(wonder.effects) ? wonder.effects : [];
   const requirements = Array.isArray(wonder.construction_requirements) ? wonder.construction_requirements : [];
+  const locationText = hasMapMarker(wonder)
+    ? localized(wonder.location_name)
+    : t("noMapLocation");
   elements.detailBody.innerHTML = `
     <div class="detail-meta">
-      ${metaLine(t("location"), localized(wonder.location_name))}
+      ${metaLine(t("type"), localized(wonder.kind_label) || kindText(wonderKind(wonder)))}
+      ${metaLine(t("location"), locationText)}
       ${metaLine(t("base"), localized(wonder.base_name))}
       ${metaLine(t("size"), localized(wonder.size_label))}
       ${metaLine(t("category"), localized(wonder.category_label))}
     </div>
+    ${renderWonderImage(wonder)}
     ${renderLocationSwitcher(wonder)}
-    <p class="detail-description">${escapeHtml(localized(wonder.description))}</p>
+    ${renderFlavorText(wonder)}
     <section class="detail-section">
       <h3>${escapeHtml(t("requirements"))}</h3>
       ${renderRequirementList(requirements)}
@@ -543,7 +641,7 @@ function selectWonder(key, options = {}) {
     return;
   }
   const wonder = selectedWonder();
-  if (wonder) {
+  if (hasMapMarker(wonder)) {
     const [x, y] = wonder.centroid;
     map.flyTo(px(x, y), Math.max(map.getZoom(), 4), { duration: 0.45 });
   }
@@ -556,27 +654,26 @@ function renderAll() {
   syncPinLayers();
 }
 
-async function loadData() {
-  const response = await fetch("data/unique_wonders.json");
-  if (!response.ok) {
-    throw new Error(`Failed to load unique_wonders.json: ${response.status}`);
-  }
-  const payload = await response.json();
-  state.wonders = [...(payload.wonders || [])].sort((a, b) =>
-    localized(a.name).localeCompare(localized(b.name), state.lang === "zh" ? "zh-CN" : "en")
-  );
+function rebuildHaystacks() {
   for (const wonder of state.wonders) {
     wonder._haystack = [
       wonder.key,
+      wonder.kind,
       wonder.base_key,
       wonder.location_key,
+      wonder.image,
       localized(wonder.name),
       wonder.name?.en,
       wonder.name?.zh,
+      localized(wonder.kind_label),
+      wonder.kind_label?.en,
+      wonder.kind_label?.zh,
       localized(wonder.location_name),
       wonder.location_name?.en,
+      wonder.location_name?.zh,
       localized(wonder.base_name),
       wonder.base_name?.en,
+      wonder.base_name?.zh,
       ...(wonder.construction_requirements || []).flatMap((row) => [
         row.key,
         localized(row.label),
@@ -593,9 +690,21 @@ async function loadData() {
       ),
     ].join(" ").toLowerCase();
   }
+}
+
+async function loadData() {
+  const response = await fetch("data/unique_wonders.json");
+  if (!response.ok) {
+    throw new Error(`Failed to load unique_wonders.json: ${response.status}`);
+  }
+  const payload = await response.json();
+  state.wonders = [...(payload.wonders || [])];
+  sortWonders();
+  rebuildHaystacks();
   rebuildLocationGroups();
-  if (state.wonders.length) {
-    state.selectedKey = state.wonders[0].key;
+  const firstUnique = state.wonders.find((wonder) => wonderKind(wonder) === state.activeKind);
+  if (firstUnique) {
+    state.selectedKey = firstUnique.key;
   }
   renderAll();
 }
@@ -614,34 +723,17 @@ elements.detailClose.addEventListener("click", () => {
 elements.languageButtons.forEach((button) => {
   button.addEventListener("click", () => {
     state.lang = button.dataset.lang;
-    state.wonders.sort((a, b) =>
-      localized(a.name).localeCompare(localized(b.name), state.lang === "zh" ? "zh-CN" : "en")
-    );
-    for (const wonder of state.wonders) {
-      wonder._haystack = [
-        wonder.key,
-        wonder.base_key,
-        wonder.location_key,
-        wonder.name?.en,
-        wonder.name?.zh,
-        wonder.location_name?.en,
-        wonder.base_name?.en,
-        wonder.base_name?.zh,
-        ...(wonder.construction_requirements || []).flatMap((row) => [
-          row.key,
-          row.label?.en,
-          row.label?.zh,
-        ]),
-        ...(wonder.effects || []).flatMap((effect) =>
-          (effect.rows || []).flatMap((row) => [
-            row.key,
-            row.label?.en,
-            row.label?.zh,
-          ])
-        ),
-      ].join(" ").toLowerCase();
-    }
+    sortWonders();
+    rebuildHaystacks();
     rebuildLocationGroups();
+    renderAll();
+  });
+});
+
+elements.kindButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    state.activeKind = button.dataset.wonderKind;
+    state.selectedKey = "";
     renderAll();
   });
 });

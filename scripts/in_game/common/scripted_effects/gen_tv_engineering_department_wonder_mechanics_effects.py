@@ -78,6 +78,7 @@ SUITABILITY_CONDITION_SCRIPTS = {
     "topography_hills": "topography = hills",
     "vegetation_forest": "vegetation = forest",
     "vegetation_woods": "vegetation = woods",
+    "vegetation_forest_or_woods": "OR = {\n\tvegetation = forest\n\tvegetation = woods\n}",
     "rank_rural": "location_rank ?= location_rank:rural_settlement",
     "rank_city": "location_rank ?= location_rank:city",
     "rank_megalopolis": "location_rank ?= location_rank:megalopolis",
@@ -103,6 +104,7 @@ SUITABILITY_SOURCE_EXPRESSIONS = {
     "development": "development",
     "total_building_levels": "total_building_levels",
     "harbor_suitability": "modifier:harbor_suitability",
+    "free_building_levels": "modifier:free_building_levels",
     "average_location_literacy": "average_location_literacy",
 }
 
