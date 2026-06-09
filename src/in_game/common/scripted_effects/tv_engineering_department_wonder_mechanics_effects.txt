@@ -1854,773 +1854,618 @@ tv_wonder_mechanics_clear_feasible_deck_effect = {
 }
 
 tv_wonder_mechanics_rebuild_feasible_deck_effect = {
-	remove_variable = tv_wonder_site_rule_dispatch_id
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 1 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_sacred_mountain_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 1 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 2 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_triumphal_axis_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 2 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 3 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_great_port_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 3 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 4 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_giant_necropolis_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 4 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 5 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_great_lighthouse_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 5 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 6 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_hydraulic_workshop_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 6 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 7 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_mining_city_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 7 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 8 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_giant_observatory_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 8 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 9 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_palace_of_nations_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 9 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 10 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_university_city_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 10 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 11 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_sky_dome_grand_temple_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 11 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 12 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_giant_tower_temple_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 12 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 13 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_river_extension_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 13 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 14 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_national_shipyard_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 14 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 15 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_star_fortress_city_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 15 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 16 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_great_wall_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 16 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 17 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_giant_armory_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 17 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 18 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_library_of_nation_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 18 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 19 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_large_canal_system_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 19 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 20 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_mountain_terrace_network_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 20 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 21 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_giant_dam_project_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 21 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 22 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_royal_granary_system_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 22 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 23 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_imperial_post_road_network_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 23 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 24 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_canal_hub_city_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 24 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 25 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_frontier_colonization_belt_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 25 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 26 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_coastal_beacon_network_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 26 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 27 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_knightly_fortress_order_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 27 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 28 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_war_college_system_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 28 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 29 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_great_clock_bell_system_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 29 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 30 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_royal_art_district_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 30 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 31 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_grand_theater_festival_district_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 31 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 32 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_world_embassy_quarter_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 32 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 33 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_law_code_stele_project_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 33 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 34 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_world_market_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 34 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 35 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_royal_mint_system_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 35 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 36 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_guild_alliance_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 36 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 37 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_maritime_trade_station_network_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 37 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 38 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_giant_workshop_complex_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 38 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 39 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_world_monument_group_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 39 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 40 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_city_expansion_project_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 40 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 41 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_megalithic_circle_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 41 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 42 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_grand_cathedral_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 42 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 43 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_great_monastery_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 43 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 44 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_city_great_tower_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 44 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 45 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_great_sculpture_group_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 45 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 46 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_coastal_defense_cannon_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 46 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 47 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_naval_school_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 47 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 48 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_colonial_trade_company_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 48 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 49 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_great_assembly_hall_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 49 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 50 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_mobile_fortress_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 50 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 51 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_ancient_city_ruins_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 51 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 52 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_summer_palace_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 52 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 101 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_pharos_lighthouse_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 101 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 102 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_hagia_sophia_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 102 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 103 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_dome_of_the_rock_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 103 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 104 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_angkor_wat_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 104 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 105 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_potala_palace_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 105 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 106 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_alhambra_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 106 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 107 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_machu_picchu_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 107 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 108 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_himeji_castle_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 108 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 109 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_taj_mahal_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 109 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 110 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_forbidden_city_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 110 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 111 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_topkapi_palace_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 111 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 112 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_st_peters_basilica_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 112 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 113 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_lalibela_churches_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 113 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 114 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_venetian_arsenal_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 114 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 115 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_malacca_port_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 115 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 116 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_red_fort_delhi_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 116 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 117 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_versailles_palace_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 117 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 118 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_tenochtitlan_causeways_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 118 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 119 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_amsterdam_canal_ring_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 119 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 120 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_mecca_haram_expansion_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 120 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 121 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_ming_great_wall_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 121 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 122 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_bank_of_saint_george_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 122 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 123 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_cahokia_mounds_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 123 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 124 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_great_zimbabwe_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 124 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 125 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_isfahan_square_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 125 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 126 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_grand_canal_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 126 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 127 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_inca_royal_road_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 127 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 128 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_roman_aqueducts_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 128 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 129 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_suez_ancient_canal_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 129 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 130 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_kremlin_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 130 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 131 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_teotihuacan_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 131 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 132 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_angkor_hydraulic_system_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 132 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 133 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_dutch_polders_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 133 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 134 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_machu_picchu_terraces_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 134 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 135 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_british_navy_dockyards_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 135 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 136 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_spanish_silver_fleet_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 136 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 137 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_ottoman_hajj_road_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 137 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 138 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_persian_qanat_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 138 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 139 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_longjiang_shipyard_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 139 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 140 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_jerusalem_holy_city_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 140 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 141 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_stonehenge_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 141 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 142 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_tower_of_london_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 142 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 143 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_notre_dame_de_paris_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 143 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 144 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_st_basils_cathedral_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 144 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 145 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_trinity_lavra_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 145 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 146 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_winter_palace_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 146 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 147 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_gyeongbokgung_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 147 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 148 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_changbai_mountain_altar_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 148 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 149 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_belgrade_fortress_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 149 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 150 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_meteora_monasteries_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 150 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 151 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_belem_tower_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 151 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 152 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_iberian_inquisition_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 152 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 153 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_santa_maria_del_fiore_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 153 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 154 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_leaning_tower_of_pisa_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 154 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 155 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_milan_cathedral_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 155 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 156 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_vatican_archives_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 156 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 157 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_temple_of_heaven_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 157 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 158 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_dujiangyan_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 158 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 159 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_porcelain_tower_of_nanjing_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 159 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 160 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_jingdezhen_imperial_kilns_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 160 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 161 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_mogao_caves_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 161 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 162 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_canton_thirteen_factories_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 162 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 163 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_dardanelles_fortress_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 163 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 164 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_escorial_monastery_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 164 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 165 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_toledo_armory_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 165 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 166 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_camino_de_santiago_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 166 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 167 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_sagres_navigation_school_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 167 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 168 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_milan_arsenal_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 168 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 169 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_university_of_bologna_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 169 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 170 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_carrara_marble_quarries_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 170 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 171 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_east_india_company_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 171 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 172 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_peacock_throne_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 172 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 173 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_varanasi_ghats_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 173 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 174 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_brihadishvara_temple_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 174 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 175 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_konark_sun_temple_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 175 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 176 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_fatehpur_sikri_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 176 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 177 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_calicut_port_city_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 177 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 178 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_wieliczka_salt_mine_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 178 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 179 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_wawel_castle_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 179 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 180 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_zamosc_ideal_city_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 180 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 181 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_gdansk_port_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 181 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 182 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_malbork_castle_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 182 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 183 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_brest_synagogue_quarter_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 183 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 184 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_vilnius_university_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 184 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 185 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_cave_monastery_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 185 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 186 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_zaporizhian_sich_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 186 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 187 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_registan_square_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 187 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 188 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_khiva_old_city_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 188 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 189 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_bukhara_kalyan_minaret_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 189 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 190 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_ferghana_palace_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 190 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 191 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_tashkent_old_bazaar_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 191 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 192 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_louvre_palace_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 192 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 193 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_fontainebleau_palace_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 193 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 194 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_bordeaux_port_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 194 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 195 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_marseille_old_port_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 195 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 196 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_lyon_silk_workshops_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 196 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 197 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_mont_saint_michel_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 197 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 198 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_bastille_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 198 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 199 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_carcassonne_castle_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 199 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 200 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_brest_naval_port_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 200 value = 1 }
 	}
-	set_variable = { name = tv_wonder_site_rule_dispatch_id value = 201 }
 	if = {
-		limit = { tv_wonder_site_rule_can_build_candidate_trigger = yes }
+		limit = { tv_wonder_can_build_unique_colmar_old_town_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 201 value = 1 }
 	}
-	remove_variable = tv_wonder_site_rule_dispatch_id
 }
 
 tv_wonder_generic_roll_random_feasible_proposal_effect = {
@@ -12169,13 +12014,6 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 	}
 }
 
-tv_wonder_selected_survey_already_cached_effect = {
-	if = {
-		limit = { tv_wonder_selected_survey_already_cached_trigger = yes }
-		tv_wonder_copy_completed_survey_from_location_effect = yes
-	}
-}
-
 tv_wonder_mechanics_start_survey_effect = {
 	if = {
 		limit = {
@@ -18325,12 +18163,10 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			variable = tv_wonder_unique_id_to_location
 			limit = {
 				is_key_in_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type target = this }
-				OR = {
-					"global_variable_map(tv_wonder_unique_id_to_location|this)" = { this = scope:tv_wonder_location_display_location }
-					"global_variable_map(tv_wonder_unique_id_to_final_building_type|this)" = {
-						scope:tv_wonder_location_display_location = {
-							has_building = prev
-						}
+				"global_variable_map(tv_wonder_unique_id_to_location|this)" = { this = scope:tv_wonder_location_display_location }
+				"global_variable_map(tv_wonder_unique_id_to_final_building_type|this)" = {
+					scope:tv_wonder_location_display_location = {
+						NOT = { has_building = prev }
 					}
 				}
 			}
@@ -18343,46 +18179,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 				set_variable = { name = tv_wonder_location_display_id value = local_var:tv_wonder_location_display_wonder_id }
 				set_variable = { name = tv_wonder_location_display_level value = 0 }
 				set_variable = { name = tv_wonder_location_display_ritual_style value = 0 }
-				if = {
-					limit = {
-						location_building_level = { building_type = local_var:tv_wonder_location_display_building_type value >= 6 }
-					}
-					set_variable = { name = tv_wonder_location_display_level value = 6 }
-				}
-				else_if = {
-					limit = {
-						location_building_level = { building_type = local_var:tv_wonder_location_display_building_type value >= 5 }
-					}
-					set_variable = { name = tv_wonder_location_display_level value = 5 }
-				}
-				else_if = {
-					limit = {
-						location_building_level = { building_type = local_var:tv_wonder_location_display_building_type value >= 4 }
-					}
-					set_variable = { name = tv_wonder_location_display_level value = 4 }
-				}
-				else_if = {
-					limit = {
-						location_building_level = { building_type = local_var:tv_wonder_location_display_building_type value >= 3 }
-					}
-					set_variable = { name = tv_wonder_location_display_level value = 3 }
-				}
-				else_if = {
-					limit = {
-						location_building_level = { building_type = local_var:tv_wonder_location_display_building_type value >= 2 }
-					}
-					set_variable = { name = tv_wonder_location_display_level value = 2 }
-				}
-				else_if = {
-					limit = {
-						location_building_level = { building_type = local_var:tv_wonder_location_display_building_type value >= 1 }
-					}
-					set_variable = { name = tv_wonder_location_display_level value = 1 }
-				}
-				if = {
-					limit = { has_building = local_var:tv_wonder_location_display_building_type }
-					set_variable = { name = tv_wonder_location_display_ritual_style value = 1 }
-				}
 				tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style }
 				tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style }
 				remove_local_variable = tv_wonder_location_display_building_type
@@ -18392,11 +18188,11 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 	}
 	if = {
 		limit = {
-			has_global_variable_map = tv_wonder_final_building_type_to_display_id
+			has_global_variable_map = tv_wonder_final_building_type_to_wonder_id
 			has_global_variable_map = tv_wonder_final_building_type_to_ritual_style
 		}
 		every_key_in_global_variable_map = {
-			variable = tv_wonder_final_building_type_to_display_id
+			variable = tv_wonder_final_building_type_to_wonder_id
 			limit = {
 				is_key_in_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style target = this }
 				scope:tv_wonder_location_display_location = {
@@ -18405,7 +18201,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			}
 			scope:tv_wonder_location_display_location = {
 				set_local_variable = { name = tv_wonder_location_display_building_type value = prev }
-				set_variable = { name = tv_wonder_location_display_id value = "global_variable_map(tv_wonder_final_building_type_to_display_id|local_var:tv_wonder_location_display_building_type)" }
+				set_variable = { name = tv_wonder_location_display_id value = "global_variable_map(tv_wonder_final_building_type_to_wonder_id|local_var:tv_wonder_location_display_building_type)" }
 				set_variable = { name = tv_wonder_location_display_ritual_style value = "global_variable_map(tv_wonder_final_building_type_to_ritual_style|local_var:tv_wonder_location_display_building_type)" }
 				set_variable = { name = tv_wonder_location_display_level value = 0 }
 				if = {
@@ -18503,22 +18299,8 @@ tv_wonder_mechanics_reveal_suitability_knowledge_effect = {
 	}
 }
 
-tv_wonder_mechanics_recalculate_total_owned_buildings_effect = {
-	set_variable = { name = tv_wonder_ritual_current_total_buildings value = 0 }
-	every_owned_location = {
-		change_variable = { name = tv_wonder_ritual_current_total_buildings add = this.num_buildings }
-	}
-}
-
-tv_wonder_mechanics_snapshot_total_owned_buildings_effect = {
-	tv_wonder_mechanics_recalculate_total_owned_buildings_effect = yes
-	set_variable = { name = tv_wonder_ritual_total_buildings_baseline value = var:tv_wonder_ritual_current_total_buildings }
-}
-
 tv_wonder_mechanics_clear_selected_ritual_runtime_effect = {
 	remove_variable = tv_wonder_ritual_auxiliary_building_finished
-	remove_variable = tv_wonder_ritual_total_buildings_baseline
-	remove_variable = tv_wonder_ritual_current_total_buildings
 }
 
 tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = {
@@ -20392,8 +20174,6 @@ tv_wonder_mechanics_clear_project_state_effect = {
 	clear_variable_map = tv_wonder_feasible_generic_deck
 	clear_variable_map = tv_wonder_feasible_unique_deck
 	remove_variable = tv_wonder_ritual_auxiliary_building_finished
-	remove_variable = tv_wonder_ritual_total_buildings_baseline
-	remove_variable = tv_wonder_ritual_current_total_buildings
 	remove_country_modifier = tv_wonder_sacred_mountain_ritual_burden_modifier
 	remove_country_modifier = tv_wonder_triumphal_axis_ritual_burden_modifier
 	remove_country_modifier = tv_wonder_great_port_ritual_burden_modifier

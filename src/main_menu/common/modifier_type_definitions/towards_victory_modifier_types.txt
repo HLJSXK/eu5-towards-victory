@@ -70,14 +70,6 @@ tv_local_exhibition_expand_price_cost_modifier = {
 	}
 }
 
-tv_local_exhibition_add_artworks_price_cost_modifier = {
-	color = bad
-	percent = yes
-	game_data = {
-		category = country
-	}
-}
-
 tv_local_exhibition_recruit_artist_price_cost_modifier = {
 	color = bad
 	percent = yes
@@ -227,33 +219,5 @@ tv_wonder_materials_used_for_minting = {
 	boolean = yes
 	game_data = {
 		category = country
-	}
-}
-
-tv_alliance_advocator_can_participate_in_parliament = {
-	boolean = yes
-	game_data = {
-		category = country
-	}
-}
-
-tv_alliance_advocator_agenda_impact = {
-	percent = yes
-	game_data = {
-		category = country
-	}
-}
-
-tv_trade_league_member_status_can_participate_in_parliament = {
-	boolean = yes
-	game_data = {
-		category = internationalorganization
-	}
-}
-
-tv_trade_league_member_status_agenda_impact = {
-	percent = yes
-	game_data = {
-		category = internationalorganization
 	}
 }

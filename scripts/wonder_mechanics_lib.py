@@ -83,7 +83,7 @@ PREFERENCE_REMOVE_TEMP = "remove_variable = tv_wonder_site_preference_bonus"
 PREFERENCE_APPLY_TEMP = (
     "tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }"
 )
-WONDER_MAP_SCHEMA_VERSION = 11
+WONDER_MAP_SCHEMA_VERSION = 12
 WONDER_SIZE_IDS = {
     "small": 1,
     "medium": 2,

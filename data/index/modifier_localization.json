@@ -31602,34 +31602,6 @@
         "name": "[tv_academy_of_sciences|E]第五阶段：建造费用"
       }
     },
-    "tv_alliance_advocator_agenda_impact": {
-      "category": "country",
-      "color": "good",
-      "decimals": 2,
-      "en": {
-        "description": "Modifies the impact of the Advocator's agenda on [tv_diplomatic_alliance|E] proceedings.",
-        "name": "Advocator Agenda Impact"
-      },
-      "value_kind": "percent",
-      "zh": {
-        "description": "调整倡导者议程对[tv_diplomatic_alliance|E]运作的影响程度。",
-        "name": "倡导者议程影响"
-      }
-    },
-    "tv_alliance_advocator_can_participate_in_parliament": {
-      "category": "country",
-      "color": "good",
-      "decimals": 2,
-      "en": {
-        "description": "The Advocator of the [tv_diplomatic_alliance|E] may participate in this country's parliament.",
-        "name": "Advocator Can Participate in Parliament"
-      },
-      "value_kind": "boolean",
-      "zh": {
-        "description": "[tv_diplomatic_alliance|E]的倡导者可参与该国议会。",
-        "name": "倡导者可参与议会"
-      }
-    },
     "tv_host_domestic_exhibition_price_cost_modifier": {
       "category": "country",
       "color": "bad",
@@ -31684,20 +31656,6 @@
       "zh": {
         "description": "修正文艺展览会的建设花费。",
         "name": "文艺展览会花费"
-      }
-    },
-    "tv_local_exhibition_add_artworks_price_cost_modifier": {
-      "category": "country",
-      "color": "bad",
-      "decimals": 2,
-      "en": {
-        "description": "Modifies the cost of committing more exhibits to a [tv_domestic_exhibition|e].",
-        "name": "Add More Exhibits Cost"
-      },
-      "value_kind": "percent",
-      "zh": {
-        "description": "修正为[tv_domestic_exhibition|e]投入更多展品的花费。",
-        "name": "增加更多展品花费"
       }
     },
     "tv_local_exhibition_designate_treasure_price_cost_modifier": {
@@ -31768,34 +31726,6 @@
       "zh": {
         "description": "修正开启艺术交流会的花费。",
         "name": "开启艺术交流会花费"
-      }
-    },
-    "tv_trade_league_member_status_agenda_impact": {
-      "category": "internationalorganization",
-      "color": "good",
-      "decimals": 2,
-      "en": {
-        "description": "Modifies the impact of a [tv_trade_league|E] member status agenda in international organization proceedings.",
-        "name": "[tv_trade_league|E] Member Agenda Impact"
-      },
-      "value_kind": "percent",
-      "zh": {
-        "description": "调整[tv_trade_league|E]成员状态议程在国际组织事务中的影响。",
-        "name": "[tv_trade_league|E]成员议程影响"
-      }
-    },
-    "tv_trade_league_member_status_can_participate_in_parliament": {
-      "category": "internationalorganization",
-      "color": "good",
-      "decimals": 2,
-      "en": {
-        "description": "The [tv_trade_league|E] member status may participate in international organization parliament proceedings.",
-        "name": "[tv_trade_league|E] Member Can Participate in Parliament"
-      },
-      "value_kind": "boolean",
-      "zh": {
-        "description": "[tv_trade_league|E]成员状态可参与国际组织议会事务。",
-        "name": "[tv_trade_league|E]成员可参与议会"
       }
     },
     "tv_wonder_labor_camp_price_cost_modifier": {

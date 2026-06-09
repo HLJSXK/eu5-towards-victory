@@ -8,10 +8,8 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
-    ceremony_modifier_for_building,
     load_all_wonder_mechanics,
     load_wonders_source_data,
-    mechanic_key,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_module_effects.txt"
@@ -33,10 +31,17 @@ MODULE_BUILDING_TYPE_VAR = "tv_wonder_module_building_type"
 REQUIRED_PROGRESS_MAP = "tv_wonder_id_to_required_progress"
 REQUIRED_PROGRESS_VAR = "tv_wonder_required_progress"
 LOCATION_SURVEY_SCALE_TIER_MAP = "tv_wonder_survey_scale_tier"
+INTERMEDIATE_BUILDING_WONDER_ID_MAP = "tv_wonder_intermediate_building_type_to_wonder_id"
+FINAL_BUILDING_WONDER_ID_MAP = "tv_wonder_final_building_type_to_wonder_id"
+FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style"
+REVERSE_BUILDING_MAP_SCAN_MAX = 2000
 PRIORITY_SCALE_TIER_VAR = "tv_wonder_priority_scale_tier"
 PRIORITY_CANDIDATE_WONDER_ID_MAP = "tv_wonder_priority_candidate_wonder_ids"
 PRIORITY_WONDER_ID_LOCAL = "tv_wonder_priority_wonder_id"
 PRIORITY_BUILDING_TYPE_LOCAL = "tv_wonder_priority_building_type"
+EXISTING_WONDER_ID_LOCAL = "tv_wonder_existing_wonder_id"
+EXISTING_RITUAL_STYLE_LOCAL = "tv_wonder_existing_ritual_style"
+EXISTING_FOUND_VAR = "tv_wonder_existing_found"
 
 
 def module_building_type_map_name(part_key: str) -> str:
@@ -60,9 +65,8 @@ def final_building_type_var_name(style: int) -> str:
 def building_type_ref(building: str) -> str:
     if (
         building.startswith('"')
-        or building.startswith("building_type:")
-        or building.startswith("local_var:")
-        or building.startswith("var:")
+        or ":" in building
+        or building in {"prev", "this", "root"}
     ):
         return building
     return f"building_type:{building}"
@@ -455,44 +459,29 @@ def priority_scan_required_map_presence(indent: int) -> list[str]:
 
 def append_priority_scan_intermediate(lines: list[str], indent: int) -> None:
     prefix = T * indent
-    building_vars = [
-        (HELPER_BUILDING_TYPE_VAR, HELPER_BUILDING_TYPE_MAP),
-        *[
-            (module_building_type_var_name(part), module_building_type_map_name(part))
-            for part in ["foundation", "body", "function", "decoration"]
-        ],
-    ]
     lines.append(f"{prefix}if = {{")
     lines.append(f"{prefix}{T}limit = {{")
-    lines.extend(priority_scan_required_map_presence(indent + 2))
+    lines.append(f"{prefix}{T}{T}has_global_variable_map = {INTERMEDIATE_BUILDING_WONDER_ID_MAP}")
     lines.append(f"{prefix}{T}}}")
     lines.append(f"{prefix}{T}ordered_key_in_global_variable_map = {{")
-    lines.append(f"{prefix}{T}{T}variable = {PRIORITY_CANDIDATE_WONDER_ID_MAP}")
-    lines.append(f"{prefix}{T}{T}max = 1000")
+    lines.append(f"{prefix}{T}{T}variable = {INTERMEDIATE_BUILDING_WONDER_ID_MAP}")
+    lines.append(f"{prefix}{T}{T}max = {REVERSE_BUILDING_MAP_SCAN_MAX}")
     lines.append(f"{prefix}{T}{T}limit = {{")
     lines.append(f"{prefix}{T}{T}{T}NOT = {{ scope:tv_wonder_priority_owner = {{ has_variable = tv_wonder_priority_found }} }}")
-    lines.extend(priority_scan_required_map_limits(indent + 3))
+    lines.append(f"{prefix}{T}{T}{T}scope:tv_wonder_priority_site = {{")
+    lines.append(f"{prefix}{T}{T}{T}{T}NOT = {{ tv_wonder_location_has_any_wonder_final_building_trigger = yes }}")
+    lines.append(f"{prefix}{T}{T}{T}{T}has_building = prev")
+    lines.append(f"{prefix}{T}{T}{T}}}")
     lines.append(f"{prefix}{T}{T}}}")
     lines.append(f"{prefix}{T}{T}scope:tv_wonder_priority_site = {{")
-    lines.append(f"{prefix}{T}{T}{T}set_local_variable = {{ name = {PRIORITY_WONDER_ID_LOCAL} value = prev }}")
-    for var_name, map_name in building_vars:
-        lines.extend(capture_global_map_value(var_name, map_name, f"local_var:{PRIORITY_WONDER_ID_LOCAL}", indent + 3))
-    lines.append(f"{prefix}{T}{T}{T}if = {{")
-    lines.append(f"{prefix}{T}{T}{T}{T}limit = {{")
-    lines.append(f"{prefix}{T}{T}{T}{T}{T}NOT = {{ scope:tv_wonder_priority_owner = {{ has_variable = tv_wonder_priority_found }} }}")
-    lines.append(f"{prefix}{T}{T}{T}{T}{T}NOT = {{ tv_wonder_location_has_any_wonder_final_building_trigger = yes }}")
-    lines.extend(any_building_block([f"local_var:{var_name}" for var_name, _map_name in building_vars], indent + 5))
-    lines.append(f"{prefix}{T}{T}{T}{T}}}")
-    lines.append(f"{prefix}{T}{T}{T}{T}scope:tv_wonder_priority_owner = {{")
-    lines.append(f"{prefix}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal value = local_var:{PRIORITY_WONDER_ID_LOCAL} }}")
-    lines.append(f"{prefix}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_mode value = 1 }}")
-    lines.append(f"{prefix}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_priority_found value = 1 }}")
-    lines.append(f"{prefix}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_site value = scope:tv_wonder_priority_site }}")
-    lines.append(f"{prefix}{T}{T}{T}{T}{T}tv_wonder_set_proposal_on_great_engineer_effect = yes")
-    lines.append(f"{prefix}{T}{T}{T}{T}}}")
+    lines.extend(capture_global_map_value(PRIORITY_WONDER_ID_LOCAL, INTERMEDIATE_BUILDING_WONDER_ID_MAP, "prev", indent + 3))
+    lines.append(f"{prefix}{T}{T}{T}scope:tv_wonder_priority_owner = {{")
+    lines.append(f"{prefix}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal value = local_var:{PRIORITY_WONDER_ID_LOCAL} }}")
+    lines.append(f"{prefix}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_mode value = 1 }}")
+    lines.append(f"{prefix}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_priority_found value = 1 }}")
+    lines.append(f"{prefix}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_site value = scope:tv_wonder_priority_site }}")
+    lines.append(f"{prefix}{T}{T}{T}{T}tv_wonder_set_proposal_on_great_engineer_effect = yes")
     lines.append(f"{prefix}{T}{T}{T}}}")
-    for var_name, _map_name in building_vars:
-        lines.append(f"{prefix}{T}{T}{T}remove_local_variable = {var_name}")
     lines.append(f"{prefix}{T}{T}{T}remove_local_variable = {PRIORITY_WONDER_ID_LOCAL}")
     lines.append(f"{prefix}{T}{T}}}")
     lines.append(f"{prefix}{T}}}")
@@ -500,88 +489,43 @@ def append_priority_scan_intermediate(lines: list[str], indent: int) -> None:
 
 
 def append_priority_scan_final(lines: list[str], styles: list[int], indent: int) -> None:
+    del styles
     prefix = T * indent
-    final_maps = [final_building_type_map_name(style) for style in styles]
     lines.append(f"{prefix}if = {{")
     lines.append(f"{prefix}{T}limit = {{")
-    lines.append(f"{prefix}{T}{T}has_global_variable_map = {PRIORITY_CANDIDATE_WONDER_ID_MAP}")
-    for map_name in final_maps:
-        lines.append(f"{prefix}{T}{T}has_global_variable_map = {map_name}")
+    lines.append(f"{prefix}{T}{T}has_global_variable_map = {FINAL_BUILDING_WONDER_ID_MAP}")
+    lines.append(f"{prefix}{T}{T}has_global_variable_map = {FINAL_BUILDING_RITUAL_STYLE_MAP}")
     lines.append(f"{prefix}{T}}}")
     lines.append(f"{prefix}{T}ordered_key_in_global_variable_map = {{")
-    lines.append(f"{prefix}{T}{T}variable = {PRIORITY_CANDIDATE_WONDER_ID_MAP}")
-    lines.append(f"{prefix}{T}{T}max = 1000")
+    lines.append(f"{prefix}{T}{T}variable = {FINAL_BUILDING_WONDER_ID_MAP}")
+    lines.append(f"{prefix}{T}{T}max = {REVERSE_BUILDING_MAP_SCAN_MAX}")
     lines.append(f"{prefix}{T}{T}limit = {{")
     lines.append(f"{prefix}{T}{T}{T}NOT = {{ scope:tv_wonder_priority_owner = {{ has_variable = tv_wonder_priority_found }} }}")
+    lines.append(f"{prefix}{T}{T}{T}is_key_in_global_variable_map = {{ name = {FINAL_BUILDING_RITUAL_STYLE_MAP} target = this }}")
+    lines.append(f"{prefix}{T}{T}{T}scope:tv_wonder_priority_site = {{ has_building = prev }}")
     lines.append(f"{prefix}{T}{T}}}")
     lines.append(f"{prefix}{T}{T}scope:tv_wonder_priority_site = {{")
-    lines.append(f"{prefix}{T}{T}{T}set_local_variable = {{ name = {PRIORITY_WONDER_ID_LOCAL} value = prev }}")
+    lines.append(f"{prefix}{T}{T}{T}set_local_variable = {{ name = {PRIORITY_BUILDING_TYPE_LOCAL} value = prev }}")
+    lines.extend(capture_global_map_value(PRIORITY_WONDER_ID_LOCAL, FINAL_BUILDING_WONDER_ID_MAP, f"local_var:{PRIORITY_BUILDING_TYPE_LOCAL}", indent + 3))
     lines.extend(capture_priority_scale_tier(f"local_var:{PRIORITY_WONDER_ID_LOCAL}", indent + 3))
-    for map_name in final_maps:
-        lines.append(f"{prefix}{T}{T}{T}if = {{")
-        lines.append(f"{prefix}{T}{T}{T}{T}limit = {{")
-        lines.append(f"{prefix}{T}{T}{T}{T}{T}NOT = {{ scope:tv_wonder_priority_owner = {{ has_variable = tv_wonder_priority_found }} }}")
-        lines.append(f"{prefix}{T}{T}{T}{T}{T}has_global_variable_map = {map_name}")
-        lines.append(
-            f"{prefix}{T}{T}{T}{T}{T}is_key_in_global_variable_map = {{ "
-            f"name = {map_name} target = local_var:{PRIORITY_WONDER_ID_LOCAL} }}"
-        )
-        lines.append(f"{prefix}{T}{T}{T}{T}}}")
-        lines.extend(capture_global_map_value(PRIORITY_BUILDING_TYPE_LOCAL, map_name, f"local_var:{PRIORITY_WONDER_ID_LOCAL}", indent + 4))
-        lines.append(f"{prefix}{T}{T}{T}{T}if = {{")
-        lines.append(f"{prefix}{T}{T}{T}{T}{T}limit = {{")
-        lines.extend(final_building_below_cap_conditions(f"local_var:{PRIORITY_BUILDING_TYPE_LOCAL}", indent + 6))
-        lines.append(f"{prefix}{T}{T}{T}{T}{T}}}")
-        lines.append(f"{prefix}{T}{T}{T}{T}{T}scope:tv_wonder_priority_owner = {{")
-        lines.append(f"{prefix}{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal value = local_var:{PRIORITY_WONDER_ID_LOCAL} }}")
-        lines.append(f"{prefix}{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_mode value = 2 }}")
-        lines.append(f"{prefix}{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_priority_found value = 1 }}")
-        lines.append(f"{prefix}{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_site value = scope:tv_wonder_priority_site }}")
-        lines.append(f"{prefix}{T}{T}{T}{T}{T}{T}tv_wonder_set_proposal_on_great_engineer_effect = yes")
-        lines.append(f"{prefix}{T}{T}{T}{T}{T}}}")
-        lines.append(f"{prefix}{T}{T}{T}{T}}}")
-        lines.append(f"{prefix}{T}{T}{T}{T}remove_local_variable = {PRIORITY_BUILDING_TYPE_LOCAL}")
-        lines.append(f"{prefix}{T}{T}{T}}}")
+    lines.append(f"{prefix}{T}{T}{T}if = {{")
+    lines.append(f"{prefix}{T}{T}{T}{T}limit = {{")
+    lines.extend(final_building_below_cap_conditions(f"local_var:{PRIORITY_BUILDING_TYPE_LOCAL}", indent + 5))
+    lines.append(f"{prefix}{T}{T}{T}{T}}}")
+    lines.append(f"{prefix}{T}{T}{T}{T}scope:tv_wonder_priority_owner = {{")
+    lines.append(f"{prefix}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal value = local_var:{PRIORITY_WONDER_ID_LOCAL} }}")
+    lines.append(f"{prefix}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_mode value = 2 }}")
+    lines.append(f"{prefix}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_priority_found value = 1 }}")
+    lines.append(f"{prefix}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_site value = scope:tv_wonder_priority_site }}")
+    lines.append(f"{prefix}{T}{T}{T}{T}{T}tv_wonder_set_proposal_on_great_engineer_effect = yes")
+    lines.append(f"{prefix}{T}{T}{T}{T}}}")
+    lines.append(f"{prefix}{T}{T}{T}}}")
     lines.append(f"{prefix}{T}{T}{T}remove_variable = {PRIORITY_SCALE_TIER_VAR}")
+    lines.append(f"{prefix}{T}{T}{T}remove_local_variable = {PRIORITY_BUILDING_TYPE_LOCAL}")
     lines.append(f"{prefix}{T}{T}{T}remove_local_variable = {PRIORITY_WONDER_ID_LOCAL}")
     lines.append(f"{prefix}{T}{T}}}")
     lines.append(f"{prefix}{T}}}")
     lines.append(f"{prefix}}}")
-
-
-def has_base_country_modifier(wonder: dict, mechanics: dict) -> bool:
-    return bool(mechanics["base_modifiers"][mechanic_key(wonder)])
-
-
-def append_clear_current_base_modifiers_effect(lines: list[str], name: str, wonders: list[dict], mechanics: dict) -> None:
-    lines.append(f"{name} = {{")
-    applicable_wonders = [wonder for wonder in wonders if has_base_country_modifier(wonder, mechanics)]
-    for idx, wonder in enumerate(applicable_wonders):
-        head = "if" if idx == 0 else "else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        for level in range(1, 7):
-            lines.append(f"{T}{T}remove_country_modifier = tv_wonder_{wonder['key']}_level_{level}")
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_clear_current_ceremony_modifiers_effect(lines: list[str], name: str, wonders: list[dict], mechanics: dict) -> None:
-    lines.append(f"{name} = {{")
-    for idx, wonder in enumerate(wonders):
-        head = "if" if idx == 0 else "else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        for building in wonder["final_buildings"].values():
-            ceremony_modifier = ceremony_modifier_for_building(wonder, mechanics, building)
-            if ceremony_modifier is None:
-                continue
-            modifier_name, _ = ceremony_modifier
-            lines.append(f"{T}{T}remove_country_modifier = {modifier_name}")
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
 
 
 def append_destroy_intermediate_buildings_at_location_effect(
@@ -610,76 +554,6 @@ def append_destroy_intermediate_buildings_at_location_effect(
     lines.append("")
 
 
-def append_destroy_locked_intermediate_buildings_effect(lines: list[str], name: str, parts: list[dict]) -> None:
-    lines.append(f"{name} = {{")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
-    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
-    lines.append(f"{T}{T}{T}has_global_variable_map = {HELPER_BUILDING_TYPE_MAP}")
-    lines.append(f"{T}{T}{T}is_key_in_global_variable_map = {{ name = {HELPER_BUILDING_TYPE_MAP} target = var:tv_wonder_locked }}")
-    for part in parts:
-        module_map = module_building_type_map_name(part["key"])
-        lines.append(f"{T}{T}{T}has_global_variable_map = {module_map}")
-        lines.append(f"{T}{T}{T}is_key_in_global_variable_map = {{ name = {module_map} target = var:tv_wonder_locked }}")
-    lines.append(f"{T}{T}}}")
-    lines.extend(capture_global_map_value(HELPER_BUILDING_TYPE_VAR, HELPER_BUILDING_TYPE_MAP, "var:tv_wonder_locked", 2))
-    for part in parts:
-        part_key = part["key"]
-        lines.extend(
-            capture_global_map_value(
-                module_building_type_var_name(part_key),
-                module_building_type_map_name(part_key),
-                "var:tv_wonder_locked",
-                2,
-            )
-        )
-    lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
-    lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    for building_var in [HELPER_BUILDING_TYPE_VAR, *[module_building_type_var_name(part["key"]) for part in parts]]:
-        lines.append(f"{T}{T}{T}if = {{")
-        lines.append(f"{T}{T}{T}{T}limit = {{ has_building = local_var:{building_var} }}")
-        lines.append(f"{T}{T}{T}{T}change_building_level_in_location = {{")
-        lines.append(f"{T}{T}{T}{T}{T}building = local_var:{building_var}")
-        lines.append(f"{T}{T}{T}{T}{T}value = -6")
-        lines.append(f"{T}{T}{T}{T}{T}owner = prev")
-        lines.append(f"{T}{T}{T}{T}}}")
-        lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}}}")
-    for part in parts:
-        lines.append(f"{T}{T}remove_local_variable = {module_building_type_var_name(part['key'])}")
-    lines.append(f"{T}{T}remove_local_variable = {HELPER_BUILDING_TYPE_VAR}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_destroy_intermediate_buildings_alias_effect(lines: list[str], name: str, target: str) -> None:
-    lines.append(f"{name} = {{")
-    lines.append(f"{T}{target} = yes")
-    lines.append("}")
-    lines.append("")
-
-
-def append_destroy_intermediate_buildings_at_location_alias_effect(lines: list[str], name: str, target: str) -> None:
-    lines.append(f"{name} = {{")
-    lines.append(f"{T}prev = {{ {target} = yes }}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_destroy_intermediate_buildings_effect(lines: list[str], name: str, at_location_effect_name: str) -> None:
-    lines.append(f"{name} = {{")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
-    lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    lines.append(f"{T}{T}{T}{at_location_effect_name} = yes")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
 def main() -> None:
     data = load_wonders_source_data()
     wonders, mechanics = load_all_wonder_mechanics()
@@ -688,28 +562,6 @@ def main() -> None:
     parts = data["parts"]
     final_styles = sorted({int(style) for wonder in wonders for style in wonder["final_buildings"]})
     lines = HEADER[:]
-
-    append_clear_current_base_modifiers_effect(lines, "tv_wonder_clear_current_generic_base_modifiers_effect", generic_wonders, mechanics)
-    append_clear_current_base_modifiers_effect(lines, "tv_wonder_clear_current_unique_base_modifiers_effect", unique_wonders, mechanics)
-    lines.append("tv_wonder_clear_current_base_modifiers_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_unique_locked_trigger = yes }}")
-    lines.append(f"{T}{T}tv_wonder_clear_current_unique_base_modifiers_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else = {{")
-    lines.append(f"{T}{T}tv_wonder_clear_current_generic_base_modifiers_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    append_clear_current_ceremony_modifiers_effect(lines, "tv_wonder_clear_current_unique_ceremony_modifiers_effect", unique_wonders, mechanics)
-    lines.append("tv_wonder_clear_current_ceremony_modifiers_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_unique_locked_trigger = yes }}")
-    lines.append(f"{T}{T}tv_wonder_clear_current_unique_ceremony_modifiers_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
 
     lines.append("tv_wonder_set_required_progress_effect = {")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_unit_required_progress value = 300000 }}")
@@ -754,46 +606,6 @@ def main() -> None:
         lines.append(f"{T}{T}{T}}}")
         lines.append(f"{T}{T}{T}remove_local_variable = {MODULE_BUILDING_TYPE_VAR}")
         lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_combine_completed_modules_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
-    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
-    lines.append(f"{T}{T}{T}has_global_variable_map = {HELPER_BUILDING_TYPE_MAP}")
-    lines.append(f"{T}{T}{T}is_key_in_global_variable_map = {{ name = {HELPER_BUILDING_TYPE_MAP} target = var:tv_wonder_locked }}")
-    for part in parts:
-        module_map = module_building_type_map_name(part["key"])
-        lines.append(f"{T}{T}{T}has_global_variable_map = {module_map}")
-        lines.append(f"{T}{T}{T}is_key_in_global_variable_map = {{ name = {module_map} target = var:tv_wonder_locked }}")
-    lines.append(f"{T}{T}}}")
-    lines.extend(capture_global_map_value(HELPER_BUILDING_TYPE_VAR, HELPER_BUILDING_TYPE_MAP, "var:tv_wonder_locked", 2))
-    for part in parts:
-        part_key = part["key"]
-        lines.extend(
-            capture_global_map_value(
-                module_building_type_var_name(part_key),
-                module_building_type_map_name(part_key),
-                "var:tv_wonder_locked",
-                2,
-            )
-        )
-    lines.append(f"{T}{T}save_scope_as = tv_wonder_module_owner")
-    lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    lines.extend(
-        combine_buildings_to_helper_once(
-            f"local_var:{HELPER_BUILDING_TYPE_VAR}",
-            [f"local_var:{module_building_type_var_name(part['key'])}" for part in parts],
-            3,
-        )
-    )
-    lines.append(f"{T}{T}}}")
-    for part in parts:
-        lines.append(f"{T}{T}remove_local_variable = {module_building_type_var_name(part['key'])}")
-    lines.append(f"{T}{T}remove_local_variable = {HELPER_BUILDING_TYPE_VAR}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -848,30 +660,56 @@ def main() -> None:
     lines.append("")
 
     lines.append("tv_wonder_detect_existing_wonder_at_saved_site_effect = {")
+    lines.append(f"{T}remove_variable = {EXISTING_FOUND_VAR}")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
+    lines.append(f"{T}{T}save_scope_as = tv_wonder_existing_owner")
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    for wonder in wonders:
-        all_buildings = [f"tv_wonder_{wonder['key']}"] + [f"tv_wonder_{wonder['key']}_{part['key']}" for part in parts] + list(wonder["final_buildings"].values())
-        lines.append(f"{T}{T}{T}if = {{")
-        lines.append(f"{T}{T}{T}{T}limit = {{")
-        lines.append(f"{T}{T}{T}{T}{T}OR = {{")
-        for building in all_buildings:
-            lines.append(f"{T}{T}{T}{T}{T}{T}has_building = building_type:{building}")
-        lines.append(f"{T}{T}{T}{T}{T}}}")
-        lines.append(f"{T}{T}{T}{T}}}")
-        lines.append(f"{T}{T}{T}{T}prev = {{ set_variable = {{ name = tv_wonder_locked value = {wonder['id']} }} }}")
-        for style, building in wonder["final_buildings"].items():
-            lines.append(f"{T}{T}{T}{T}if = {{")
-            lines.append(f"{T}{T}{T}{T}{T}limit = {{ has_building = building_type:{building} }}")
-            lines.append(f"{T}{T}{T}{T}{T}prev = {{")
-            lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ceremony_style value = {style} }}")
-            lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
-            lines.append(f"{T}{T}{T}{T}{T}}}")
-            lines.append(f"{T}{T}{T}{T}}}")
-        lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}{T}has_global_variable_map = {FINAL_BUILDING_WONDER_ID_MAP}")
+    lines.append(f"{T}{T}{T}{T}{T}has_global_variable_map = {FINAL_BUILDING_RITUAL_STYLE_MAP}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}ordered_key_in_global_variable_map = {{")
+    lines.append(f"{T}{T}{T}{T}{T}variable = {FINAL_BUILDING_WONDER_ID_MAP}")
+    lines.append(f"{T}{T}{T}{T}{T}max = {REVERSE_BUILDING_MAP_SCAN_MAX}")
+    lines.append(f"{T}{T}{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}NOT = {{ scope:tv_wonder_existing_owner = {{ has_variable = {EXISTING_FOUND_VAR} }} }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}is_key_in_global_variable_map = {{ name = {FINAL_BUILDING_RITUAL_STYLE_MAP} target = this }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}prev = {{ has_building = prev }}")
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.extend(capture_global_map_value(EXISTING_WONDER_ID_LOCAL, FINAL_BUILDING_WONDER_ID_MAP, "this", 5))
+    lines.extend(capture_global_map_value(EXISTING_RITUAL_STYLE_LOCAL, FINAL_BUILDING_RITUAL_STYLE_MAP, "this", 5))
+    lines.append(f"{T}{T}{T}{T}{T}scope:tv_wonder_existing_owner = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_locked value = local_var:{EXISTING_WONDER_ID_LOCAL} }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ceremony_style value = local_var:{EXISTING_RITUAL_STYLE_LOCAL} }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = {EXISTING_FOUND_VAR} value = 1 }}")
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}remove_local_variable = {EXISTING_RITUAL_STYLE_LOCAL}")
+    lines.append(f"{T}{T}{T}{T}{T}remove_local_variable = {EXISTING_WONDER_ID_LOCAL}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}limit = {{ has_global_variable_map = {INTERMEDIATE_BUILDING_WONDER_ID_MAP} }}")
+    lines.append(f"{T}{T}{T}{T}ordered_key_in_global_variable_map = {{")
+    lines.append(f"{T}{T}{T}{T}{T}variable = {INTERMEDIATE_BUILDING_WONDER_ID_MAP}")
+    lines.append(f"{T}{T}{T}{T}{T}max = {REVERSE_BUILDING_MAP_SCAN_MAX}")
+    lines.append(f"{T}{T}{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}NOT = {{ scope:tv_wonder_existing_owner = {{ has_variable = {EXISTING_FOUND_VAR} }} }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}prev = {{ has_building = prev }}")
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.extend(capture_global_map_value(EXISTING_WONDER_ID_LOCAL, INTERMEDIATE_BUILDING_WONDER_ID_MAP, "this", 5))
+    lines.append(f"{T}{T}{T}{T}{T}scope:tv_wonder_existing_owner = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_locked value = local_var:{EXISTING_WONDER_ID_LOCAL} }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = {EXISTING_FOUND_VAR} value = 1 }}")
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}remove_local_variable = {EXISTING_WONDER_ID_LOCAL}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
+    lines.append(f"{T}remove_variable = {EXISTING_FOUND_VAR}")
     lines.append(f"{T}tv_wonder_index_refresh_country_cache_effect = yes")
     lines.append("}")
     lines.append("")
@@ -879,26 +717,42 @@ def main() -> None:
     lines.append("tv_wonder_sync_existing_final_building_level_effect = {")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
+    lines.append(f"{T}{T}save_scope_as = tv_wonder_existing_owner")
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    for wonder in wonders:
-        for style, building in wonder["final_buildings"].items():
-            lines.append(f"{T}{T}{T}if = {{")
-            lines.append(f"{T}{T}{T}{T}limit = {{ has_building = building_type:{building} }}")
-            for level in range(6, 0, -1):
-                lines.append(f"{T}{T}{T}{T}if = {{")
-                lines.append(f"{T}{T}{T}{T}{T}limit = {{ {loc_level(building, '>=', level)} }}")
-                lines.append(f"{T}{T}{T}{T}{T}prev = {{")
-                lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_locked value = {wonder['id']} }}")
-                lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ceremony_style value = {style} }}")
-                lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
-                for part in parts:
-                    lines.append(f"{T}{T}{T}{T}{T}{T}if = {{")
-                    lines.append(f"{T}{T}{T}{T}{T}{T}{T}limit = {{ var:tv_wonder_{part['key']}_units < {level} }}")
-                    lines.append(f"{T}{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_{part['key']}_units value = {level} }}")
-                    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
-                lines.append(f"{T}{T}{T}{T}{T}}}")
-                lines.append(f"{T}{T}{T}{T}}}")
-            lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}{T}has_global_variable_map = {FINAL_BUILDING_WONDER_ID_MAP}")
+    lines.append(f"{T}{T}{T}{T}{T}has_global_variable_map = {FINAL_BUILDING_RITUAL_STYLE_MAP}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}ordered_key_in_global_variable_map = {{")
+    lines.append(f"{T}{T}{T}{T}{T}variable = {FINAL_BUILDING_WONDER_ID_MAP}")
+    lines.append(f"{T}{T}{T}{T}{T}max = {REVERSE_BUILDING_MAP_SCAN_MAX}")
+    lines.append(f"{T}{T}{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}is_key_in_global_variable_map = {{ name = {FINAL_BUILDING_RITUAL_STYLE_MAP} target = this }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}prev = {{ has_building = prev }}")
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.extend(capture_global_map_value(EXISTING_WONDER_ID_LOCAL, FINAL_BUILDING_WONDER_ID_MAP, "this", 5))
+    lines.extend(capture_global_map_value(EXISTING_RITUAL_STYLE_LOCAL, FINAL_BUILDING_RITUAL_STYLE_MAP, "this", 5))
+    lines.append(f"{T}{T}{T}{T}{T}prev = {{")
+    for level in range(6, 0, -1):
+        lines.append(f"{T}{T}{T}{T}{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}{T}{T}{T}{T}limit = {{ {loc_level('prev', '>=', level)} }}")
+        lines.append(f"{T}{T}{T}{T}{T}{T}{T}scope:tv_wonder_existing_owner = {{")
+        lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_locked value = local_var:{EXISTING_WONDER_ID_LOCAL} }}")
+        lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ceremony_style value = local_var:{EXISTING_RITUAL_STYLE_LOCAL} }}")
+        lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
+        for part in parts:
+            lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}if = {{")
+            lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}{T}limit = {{ var:tv_wonder_{part['key']}_units < {level} }}")
+            lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_{part['key']}_units value = {level} }}")
+            lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}{T}{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}remove_local_variable = {EXISTING_RITUAL_STYLE_LOCAL}")
+    lines.append(f"{T}{T}{T}{T}{T}remove_local_variable = {EXISTING_WONDER_ID_LOCAL}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append(f"{T}tv_wonder_update_wonder_level_effect = yes")
@@ -998,31 +852,6 @@ def main() -> None:
     lines.append("}")
     lines.append("")
 
-    append_destroy_locked_intermediate_buildings_effect(
-        lines,
-        "tv_wonder_destroy_locked_intermediate_buildings_effect",
-        parts,
-    )
-    append_destroy_intermediate_buildings_alias_effect(
-        lines,
-        "tv_wonder_destroy_generic_intermediate_buildings_effect",
-        "tv_wonder_destroy_locked_intermediate_buildings_effect",
-    )
-    append_destroy_intermediate_buildings_alias_effect(
-        lines,
-        "tv_wonder_destroy_unique_intermediate_buildings_effect",
-        "tv_wonder_destroy_locked_intermediate_buildings_effect",
-    )
-    append_destroy_intermediate_buildings_at_location_alias_effect(
-        lines,
-        "tv_wonder_destroy_generic_intermediate_buildings_at_location_effect",
-        "tv_wonder_destroy_generic_intermediate_buildings_effect",
-    )
-    append_destroy_intermediate_buildings_at_location_alias_effect(
-        lines,
-        "tv_wonder_destroy_unique_intermediate_buildings_at_location_effect",
-        "tv_wonder_destroy_unique_intermediate_buildings_effect",
-    )
     append_destroy_intermediate_buildings_at_location_effect(
         lines,
         "tv_wonder_destroy_discovered_generic_intermediate_buildings_at_location_effect",
@@ -1040,11 +869,6 @@ def main() -> None:
     lines.append(f"{T}tv_wonder_destroy_discovered_unique_intermediate_buildings_at_location_effect = yes")
     lines.append("}")
     lines.append("")
-    append_destroy_intermediate_buildings_effect(
-        lines,
-        "tv_wonder_destroy_intermediate_buildings_effect",
-        "tv_wonder_destroy_intermediate_buildings_at_location_effect",
-    )
 
     lines.append("tv_wonder_scan_priority_proposal_effect = {")
     lines.append(f"{T}remove_variable = tv_wonder_priority_found")

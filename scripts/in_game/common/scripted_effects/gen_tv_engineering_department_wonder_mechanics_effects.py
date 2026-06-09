@@ -40,7 +40,6 @@ DISPLAY_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
 FEASIBLE_GENERIC_DECK_MAP = "tv_wonder_feasible_generic_deck"
 FEASIBLE_UNIQUE_DECK_MAP = "tv_wonder_feasible_unique_deck"
-SITE_RULE_DISPATCH_VAR = "tv_wonder_site_rule_dispatch_id"
 LOCATION_SURVEYED_MAP = "tv_wonder_surveyed"
 LOCATION_SURVEY_SCALE_MAP = "tv_wonder_survey_scale_competence"
 LOCATION_SURVEY_LOGISTICS_MAP = "tv_wonder_survey_logistics_competence"
@@ -58,6 +57,7 @@ SUITABILITY_ROW_KEY_LOCAL = "tv_wonder_suitability_row_key"
 SUITABILITY_ROW_COUNT_LOCAL = "tv_wonder_suitability_row_count"
 SUITABILITY_REVEAL_VALUE_LOCAL = "tv_wonder_suitability_reveal_value"
 FINAL_BUILDING_DISPLAY_ID_MAP = "tv_wonder_final_building_type_to_display_id"
+FINAL_BUILDING_WONDER_ID_MAP = "tv_wonder_final_building_type_to_wonder_id"
 FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style"
 UNIQUE_WONDER_LOCATION_MAP = "tv_wonder_unique_id_to_location"
 UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP = "tv_wonder_unique_id_to_final_building_type"
@@ -69,8 +69,6 @@ LOCATION_DISPLAY_LEVEL_VAR = "tv_wonder_location_display_level"
 LOCATION_DISPLAY_RITUAL_STYLE_VAR = "tv_wonder_location_display_ritual_style"
 RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_auxiliary_building_finished",
-    "tv_wonder_ritual_total_buildings_baseline",
-    "tv_wonder_ritual_current_total_buildings",
 ]
 SUITABILITY_CONDITION_SCRIPTS = {
     "topography_mountains": "topography = mountains",
@@ -618,17 +616,15 @@ def append_location_display_unique_location_projection(lines: list[str], *, comp
     lines.append(f"{T}{T}{T}variable = {UNIQUE_WONDER_LOCATION_MAP}")
     lines.append(f"{T}{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}{T}is_key_in_global_variable_map = {{ name = {UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP} target = this }}")
-    lines.append(f"{T}{T}{T}{T}OR = {{")
     lines.append(
-        f"{T}{T}{T}{T}{T}\"global_variable_map({UNIQUE_WONDER_LOCATION_MAP}|this)\" = {{ "
+        f"{T}{T}{T}{T}\"global_variable_map({UNIQUE_WONDER_LOCATION_MAP}|this)\" = {{ "
         f"this = scope:{LOCATION_DISPLAY_SCOPE} }}"
     )
     lines.append(
-        f"{T}{T}{T}{T}{T}\"global_variable_map({UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP}|this)\" = {{"
+        f"{T}{T}{T}{T}\"global_variable_map({UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP}|this)\" = {{"
     )
-    lines.append(f"{T}{T}{T}{T}{T}{T}scope:{LOCATION_DISPLAY_SCOPE} = {{")
-    lines.append(f"{T}{T}{T}{T}{T}{T}{T}has_building = prev")
-    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}scope:{LOCATION_DISPLAY_SCOPE} = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}NOT = {{ has_building = prev }}")
     lines.append(f"{T}{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}}}")
@@ -647,16 +643,6 @@ def append_location_display_unique_location_projection(lines: list[str], *, comp
     )
     lines.append(f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_LEVEL_VAR} value = 0 }}")
     lines.append(f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_RITUAL_STYLE_VAR} value = 0 }}")
-    append_location_display_level_detection(
-        lines,
-        indent=4,
-        building_var=f"local_var:{LOCATION_DISPLAY_BUILDING_TYPE_LOCAL}",
-        var_name=LOCATION_DISPLAY_LEVEL_VAR,
-    )
-    lines.append(f"{T}{T}{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}{T}{T}limit = {{ has_building = local_var:{LOCATION_DISPLAY_BUILDING_TYPE_LOCAL} }}")
-    lines.append(f"{T}{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_RITUAL_STYLE_VAR} value = 1 }}")
-    lines.append(f"{T}{T}{T}{T}}}")
     append_location_display_slot_push(lines, indent=4, compact=compact)
     lines.append(f"{T}{T}{T}{T}remove_local_variable = {LOCATION_DISPLAY_BUILDING_TYPE_LOCAL}")
     lines.append(f"{T}{T}{T}{T}remove_local_variable = {LOCATION_DISPLAY_WONDER_ID_LOCAL}")
@@ -668,11 +654,11 @@ def append_location_display_unique_location_projection(lines: list[str], *, comp
 def append_location_display_final_building_projection(lines: list[str], *, compact: bool) -> None:
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}has_global_variable_map = {FINAL_BUILDING_DISPLAY_ID_MAP}")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {FINAL_BUILDING_WONDER_ID_MAP}")
     lines.append(f"{T}{T}{T}has_global_variable_map = {FINAL_BUILDING_RITUAL_STYLE_MAP}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}every_key_in_global_variable_map = {{")
-    lines.append(f"{T}{T}{T}variable = {FINAL_BUILDING_DISPLAY_ID_MAP}")
+    lines.append(f"{T}{T}{T}variable = {FINAL_BUILDING_WONDER_ID_MAP}")
     lines.append(f"{T}{T}{T}limit = {{")
     lines.append(
         f"{T}{T}{T}{T}is_key_in_global_variable_map = {{ "
@@ -686,7 +672,7 @@ def append_location_display_final_building_projection(lines: list[str], *, compa
     lines.append(f"{T}{T}{T}{T}set_local_variable = {{ name = {LOCATION_DISPLAY_BUILDING_TYPE_LOCAL} value = prev }}")
     lines.append(
         f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_ID_VAR} "
-        f"value = \"global_variable_map({FINAL_BUILDING_DISPLAY_ID_MAP}|local_var:{LOCATION_DISPLAY_BUILDING_TYPE_LOCAL})\" }}"
+        f"value = \"global_variable_map({FINAL_BUILDING_WONDER_ID_MAP}|local_var:{LOCATION_DISPLAY_BUILDING_TYPE_LOCAL})\" }}"
     )
     lines.append(
         f"{T}{T}{T}{T}set_variable = {{ name = {LOCATION_DISPLAY_RITUAL_STYLE_VAR} "
@@ -1109,15 +1095,12 @@ def generate() -> str:
     lines.append("")
 
     lines.append("tv_wonder_mechanics_rebuild_feasible_deck_effect = {")
-    lines.append(f"{T}remove_variable = {SITE_RULE_DISPATCH_VAR}")
     for wonder in all_wonders:
         deck_map = FEASIBLE_UNIQUE_DECK_MAP if wonder.get("is_unique") else FEASIBLE_GENERIC_DECK_MAP
-        lines.append(f"{T}set_variable = {{ name = {SITE_RULE_DISPATCH_VAR} value = {wonder['id']} }}")
         lines.append(f"{T}if = {{")
-        lines.append(f"{T}{T}limit = {{ tv_wonder_site_rule_can_build_candidate_trigger = yes }}")
+        lines.append(f"{T}{T}limit = {{ tv_wonder_can_build_{wonder['key']}_trigger = yes }}")
         lines.append(f"{T}{T}add_to_variable_map = {{ name = {deck_map} key = {wonder['id']} value = 1 }}")
         lines.append(f"{T}}}")
-    lines.append(f"{T}remove_variable = {SITE_RULE_DISPATCH_VAR}")
     lines.append("}")
     lines.append("")
 
@@ -1176,14 +1159,6 @@ def generate() -> str:
         lines.extend(add_site_preference(wonder, mechanics, 2))
         lines.append(f"{T}{T}tv_wonder_calculate_{wonder['key']}_suitability_actuals_effect = yes")
         lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_selected_survey_already_cached_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_selected_survey_already_cached_trigger = yes }}")
-    lines.append(f"{T}{T}tv_wonder_copy_completed_survey_from_location_effect = yes")
-    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
@@ -1248,20 +1223,6 @@ def generate() -> str:
     append_suitability_reveal_effect(lines)
 
     ritual_entry_list = ritual_entries(all_wonders, mechanics)
-
-    lines.append("tv_wonder_mechanics_recalculate_total_owned_buildings_effect = {")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_ritual_current_total_buildings value = 0 }}")
-    lines.append(f"{T}every_owned_location = {{")
-    lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_ritual_current_total_buildings add = this.num_buildings }}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_mechanics_snapshot_total_owned_buildings_effect = {")
-    lines.append(f"{T}tv_wonder_mechanics_recalculate_total_owned_buildings_effect = yes")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_ritual_total_buildings_baseline value = var:tv_wonder_ritual_current_total_buildings }}")
-    lines.append("}")
-    lines.append("")
 
     lines.append("tv_wonder_mechanics_clear_selected_ritual_runtime_effect = {")
     for variable in RITUAL_SHARED_RUNTIME_VARS:

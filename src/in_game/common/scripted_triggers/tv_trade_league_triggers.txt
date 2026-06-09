@@ -1,11 +1,10 @@
 ﻿# Towards Victory - Trade League scripted triggers
 # All triggers are country-scoped unless noted.
 
-# Grand Merchant busy-state helpers. Trade Chain and Commercial Intelligence
-# are placeholder systems for now, but the mutual-exclusion surface is defined
-# up front so future long-running tasks can set these flags and disable the
-# other Trade League systems consistently. Trade League law votes use the same
-# surface so policy changes cannot overlap with other Grand Merchant work.
+# Grand Merchant busy-state helpers. Trade Chain is currently represented only
+# as a busy-state flag; Commercial Intelligence, monopoly work, and law votes
+# use the same surface so policy changes cannot overlap with other Grand
+# Merchant work.
 tv_grand_merchant_busy_with_law_change_trigger = {
 	any_international_organizations_member_of = {
 		international_organization_type = international_organization_type:tv_trade_league
@@ -40,26 +39,6 @@ tv_grand_merchant_available_for_law_change_trigger = {
 		limit = { tv_grand_merchant_busy_with_law_change_trigger = yes }
 		custom_description = {
 			text = tv_grand_merchant_busy_with_law_change_tt
-			always = no
-		}
-	}
-	trigger_else = {
-		always = yes
-	}
-}
-
-tv_grand_merchant_available_for_trade_chain_trigger = {
-	trigger_if = {
-		limit = { tv_grand_merchant_busy_with_law_change_trigger = yes }
-		custom_description = {
-			text = tv_grand_merchant_busy_with_law_change_tt
-			always = no
-		}
-	}
-	trigger_else_if = {
-		limit = { tv_grand_merchant_busy_with_commercial_intelligence_trigger = yes }
-		custom_description = {
-			text = tv_grand_merchant_busy_with_commercial_intelligence_tt
 			always = no
 		}
 	}

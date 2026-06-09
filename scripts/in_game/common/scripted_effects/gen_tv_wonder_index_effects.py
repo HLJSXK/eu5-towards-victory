@@ -81,6 +81,8 @@ SUITABILITY_ROW_MAP_NAMES = [
 ]
 
 FINAL_BUILDING_DISPLAY_ID_MAP = "tv_wonder_final_building_type_to_display_id"
+INTERMEDIATE_BUILDING_WONDER_ID_MAP = "tv_wonder_intermediate_building_type_to_wonder_id"
+FINAL_BUILDING_WONDER_ID_MAP = "tv_wonder_final_building_type_to_wonder_id"
 FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style"
 UNIQUE_WONDER_LOCATION_MAP = "tv_wonder_unique_id_to_location"
 UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP = "tv_wonder_unique_id_to_final_building_type"
@@ -247,12 +249,15 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
         lines.extend(map_replace_line("tv_wonder_id_to_concept_display_id", key, wonder_id))
         lines.extend(map_replace_line("tv_wonder_id_to_image_display_id", key, wonder_id))
         lines.extend(map_replace_line("tv_wonder_id_to_required_progress", key, size_progress[wonder["size"]]))
-        lines.extend(map_replace_line("tv_wonder_id_to_helper_building_type", key, f"building_type:tv_wonder_{wonder['key']}"))
+        helper_building = f"building_type:tv_wonder_{wonder['key']}"
+        lines.extend(map_replace_line("tv_wonder_id_to_helper_building_type", key, helper_building))
+        lines.extend(map_replace_line(INTERMEDIATE_BUILDING_WONDER_ID_MAP, helper_building, wonder_id))
         lines.extend(map_replace_line(PRIORITY_CANDIDATE_WONDER_ID_MAP, key, 1))
 
         for part in PARTS:
             module_building = f"building_type:tv_wonder_{wonder['key']}_{part}"
             lines.extend(map_replace_line(module_building_type_map_name(part), key, module_building))
+            lines.extend(map_replace_line(INTERMEDIATE_BUILDING_WONDER_ID_MAP, module_building, wonder_id))
 
         for style in ceremony_styles(wonder):
             ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
@@ -300,9 +305,9 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
                 )
             final_building = f"building_type:{wonder['final_buildings'][style]}"
             lines.extend(map_replace_line(final_building_type_map_name(style), key, final_building))
-            if not wonder.get("is_unique"):
-                lines.extend(map_replace_line(FINAL_BUILDING_DISPLAY_ID_MAP, final_building, wonder_id))
-                lines.extend(map_replace_line(FINAL_BUILDING_RITUAL_STYLE_MAP, final_building, style))
+            lines.extend(map_replace_line(FINAL_BUILDING_WONDER_ID_MAP, final_building, wonder_id))
+            lines.extend(map_replace_line(FINAL_BUILDING_DISPLAY_ID_MAP, final_building, wonder_id))
+            lines.extend(map_replace_line(FINAL_BUILDING_RITUAL_STYLE_MAP, final_building, style))
 
         if wonder.get("is_unique"):
             location_key = wonder.get("location")

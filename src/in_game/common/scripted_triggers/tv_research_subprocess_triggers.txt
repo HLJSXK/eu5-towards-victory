@@ -213,14 +213,6 @@ tv_research_check_b_trigger = {
 	}
 }
 
-# ── Sub-process C completion check ────────────────────────────────────────────
-# C is complete when tv_rm_subprocess_c display flag = 2.
-# The actual accumulation is tracked as the IO variable tv_research_c_progress (0-100);
-# the IO monthly_effect sets tv_rm_subprocess_c = 2 when c_progress >= 100.
-tv_research_check_c_trigger = {
-	var:tv_rm_subprocess_c ?= { this >= 2 }
-}
-
 # ── Sub-process D start eligibility ───────────────────────────────────────────
 # D is available only after A, B, and C are all complete, and the cycle is in phase 1.
 tv_research_can_start_d_trigger = {

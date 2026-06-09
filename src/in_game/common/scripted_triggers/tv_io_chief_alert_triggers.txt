@@ -45,14 +45,3 @@ tv_missing_govhouse_chief_alert_trigger = {
 		NOT = { var:tv_conquest_general_char ?= { is_alive = yes } }
 	}
 }
-
-tv_missing_io_chief_alert_trigger = {
-	OR = {
-		tv_missing_arts_exhibition_chief_alert_trigger = yes
-		tv_missing_diplomatic_alliance_chief_alert_trigger = yes
-		tv_missing_academy_chief_alert_trigger = yes
-		tv_missing_engineering_department_chief_alert_trigger = yes
-		tv_missing_trade_league_chief_alert_trigger = yes
-		tv_missing_govhouse_chief_alert_trigger = yes
-	}
-}
