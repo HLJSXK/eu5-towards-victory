@@ -30021,7 +30021,7 @@ tv_wonder_location_can_host_unique_versailles_palace_trigger = {
 	OR = {
 		tv_wonder_location_is_valid_priority_project_for_unique_versailles_palace_trigger = yes
 		AND = {
-			this = location:paris
+			this = location:mantes
 			OR = {
 				location_rank ?= location_rank:city
 				location_rank ?= location_rank:megalopolis
@@ -30032,14 +30032,14 @@ tv_wonder_location_can_host_unique_versailles_palace_trigger = {
 }
 
 tv_wonder_can_build_unique_versailles_palace_trigger = {
-	owns = location:paris
-	location:paris = {
+	owns = location:mantes
+	location:mantes = {
 		tv_wonder_location_can_host_unique_versailles_palace_trigger = yes
 	}
 }
 
 tv_wonder_player_visible_site_rules_unique_versailles_palace_trigger = {
-	owns = location:paris
+	owns = location:mantes
 }
 
 tv_wonder_location_can_host_unique_tenochtitlan_causeways_trigger = {
@@ -31812,7 +31812,7 @@ tv_wonder_location_can_host_unique_fontainebleau_palace_trigger = {
 	OR = {
 		tv_wonder_location_is_valid_priority_project_for_unique_fontainebleau_palace_trigger = yes
 		AND = {
-			this = location:paris
+			this = location:melun
 			location_rank ?= location_rank:city
 			NOT = { tv_wonder_location_has_unique_fontainebleau_palace_capped_final_building_trigger = yes }
 		}
@@ -31820,14 +31820,14 @@ tv_wonder_location_can_host_unique_fontainebleau_palace_trigger = {
 }
 
 tv_wonder_can_build_unique_fontainebleau_palace_trigger = {
-	owns = location:paris
-	location:paris = {
+	owns = location:melun
+	location:melun = {
 		tv_wonder_location_can_host_unique_fontainebleau_palace_trigger = yes
 	}
 }
 
 tv_wonder_player_visible_site_rules_unique_fontainebleau_palace_trigger = {
-	owns = location:paris
+	owns = location:melun
 }
 
 tv_wonder_location_can_host_unique_bordeaux_port_trigger = {
