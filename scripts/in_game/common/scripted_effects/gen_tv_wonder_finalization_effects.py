@@ -345,6 +345,8 @@ def append_hidden_effect(lines: list[str], wonder: dict, style: int) -> None:
     lines.append(f"{T}{T}{T}tv_wonder_complete_finalization_cleanup_effect = yes")
     lines.append(f"{T}{T}{T}{destroy_intermediate_effect_name(wonder)} = yes")
     lines.append(f"{T}{T}{T}{broadcast_effect_name(wonder)} = yes")
+    lines.append(f"{T}{T}{T}tv_wonder_register_current_project_priority_candidate_from_variables_effect = yes")
+    lines.append(f"{T}{T}{T}tv_wonder_clear_project_state_core_effect = yes")
     lines.append(f"{T}{T}{T}tv_wonder_start_concept_effect = {{ reason = 3 }}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")

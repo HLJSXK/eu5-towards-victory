@@ -3331,34 +3331,6 @@ tv_wonder_unregister_current_site_priority_candidate_effect = {
 	remove_variable = tv_wonder_priority_candidate_site_matches
 }
 
-tv_wonder_refresh_locked_priority_candidate_effect = {
-	if = {
-		limit = {
-			tv_wonder_construction_site_selected_trigger = yes
-			has_variable = tv_wonder_locked
-		}
-		save_scope_as = tv_wonder_priority_owner
-		set_variable = { name = tv_wonder_priority_candidate_wonder_id value = var:tv_wonder_locked }
-		remove_variable = tv_wonder_priority_candidate_valid
-		remove_variable = tv_wonder_priority_candidate_current_mode
-		var:tv_wonder_site ?= { save_scope_as = tv_wonder_priority_site }
-		if = {
-			limit = { exists = scope:tv_wonder_priority_site }
-			tv_wonder_unregister_current_site_priority_candidate_effect = yes
-			scope:tv_wonder_priority_site = {
-				tv_wonder_validate_priority_candidate_for_saved_wonder_effect = yes
-			}
-			if = {
-				limit = { has_variable = tv_wonder_priority_candidate_valid }
-				tv_wonder_register_current_priority_candidate_effect = yes
-			}
-		}
-	}
-	remove_variable = tv_wonder_priority_candidate_valid
-	remove_variable = tv_wonder_priority_candidate_current_mode
-	remove_variable = tv_wonder_priority_candidate_wonder_id
-}
-
 tv_wonder_select_saved_priority_proposal_effect = {
 	remove_variable = tv_wonder_priority_found
 	remove_variable = tv_wonder_proposal_site
@@ -3552,7 +3524,6 @@ tv_wonder_construct_module_for_last_completed_part_effect = {
 			}
 			remove_local_variable = tv_wonder_module_building_type
 		}
-		tv_wonder_refresh_locked_priority_candidate_effect = yes
 	}
 }
 
@@ -5443,7 +5414,6 @@ tv_wonder_apply_helper_building_to_final_site_effect = {
 			}
 		}
 		remove_local_variable = tv_wonder_helper_building_type
-		tv_wonder_refresh_locked_priority_candidate_effect = yes
 	}
 }
 
@@ -8205,7 +8175,6 @@ tv_wonder_materialize_module_buildings_from_unit_vars_effect = {
 			}
 			remove_local_variable = tv_wonder_module_building_type
 		}
-		tv_wonder_refresh_locked_priority_candidate_effect = yes
 	}
 }
 

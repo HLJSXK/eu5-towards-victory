@@ -526,6 +526,7 @@ tv_wonder_prepare_priority_project_effect = {
 		}
 		tv_wonder_update_construction_tiers_from_competence_effect = yes
 		set_variable = { name = tv_wonder_resume_project value = 1 }
+		set_variable = { name = tv_wonder_project_mode value = var:tv_wonder_proposal_mode }
 	}
 }
 
@@ -792,8 +793,7 @@ tv_wonder_complete_concept_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_concept_reason ?= 3 }
-		tv_wonder_refresh_locked_priority_candidate_effect = yes
-		tv_wonder_clear_project_state_core_effect = yes
+		tv_wonder_clear_concept_state_effect = yes
 		if = {
 			limit = { tv_wonder_has_great_engineer_trigger = yes }
 			tv_wonder_rebuild_feasible_deck_effect = yes
@@ -1552,6 +1552,8 @@ tv_wonder_update_logistics_metrics_effect = {
 
 tv_wonder_clear_current_survey_effect = {
 	remove_variable = tv_wonder_resume_project
+	remove_variable = tv_wonder_project_mode
+	remove_variable = tv_wonder_project_base_level
 	remove_variable = tv_wonder_survey_site
 	remove_variable = tv_wonder_survey_active
 	remove_variable = tv_wonder_survey_complete
@@ -1771,6 +1773,10 @@ tv_wonder_select_construction_site_effect = {
 		tv_wonder_update_construction_tiers_from_competence_effect = yes
 		tv_wonder_initialize_construction_parts_effect = yes
 		tv_wonder_restore_locked_wonder_final_building_state_effect = yes
+		if = {
+			limit = { var:tv_wonder_project_mode ?= 2 }
+			set_variable = { name = tv_wonder_project_base_level value = var:tv_wonder_level }
+		}
 		tv_wonder_monthly_construction_effect = yes
 		tv_wonder_apply_survey_site_support_effect = yes
 	}
@@ -2137,6 +2143,84 @@ tv_wonder_complete_finalization_cleanup_effect = {
 	}
 }
 
+tv_wonder_set_current_project_priority_candidate_mode_effect = {
+	remove_variable = tv_wonder_priority_candidate_current_mode
+	if = {
+		limit = {
+			has_variable = tv_wonder_locked
+			tv_wonder_construction_site_selected_trigger = yes
+		}
+		if = {
+			limit = {
+				NOT = { has_variable = tv_wonder_finalized }
+				OR = {
+					AND = {
+						var:tv_wonder_project_mode ?= 2
+						OR = {
+							var:tv_wonder_level > var:tv_wonder_project_base_level
+							var:tv_wonder_foundation_units > var:tv_wonder_level
+							var:tv_wonder_body_units > var:tv_wonder_level
+							var:tv_wonder_function_units > var:tv_wonder_level
+							var:tv_wonder_decoration_units > var:tv_wonder_level
+						}
+					}
+					AND = {
+						NOT = { var:tv_wonder_project_mode ?= 2 }
+						OR = {
+							var:tv_wonder_level ?= { this >= 1 }
+							var:tv_wonder_foundation_units ?= { this >= 1 }
+							var:tv_wonder_body_units ?= { this >= 1 }
+							var:tv_wonder_function_units ?= { this >= 1 }
+							var:tv_wonder_decoration_units ?= { this >= 1 }
+						}
+					}
+				}
+			}
+			set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_variable = tv_wonder_finalized
+					var:tv_wonder_project_mode ?= 2
+				}
+				var:tv_wonder_level ?= { this >= 1 }
+				var:tv_wonder_level ?= { this < 6 }
+				var:tv_wonder_scale_tier > var:tv_wonder_level
+			}
+			set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+		}
+	}
+}
+
+tv_wonder_commit_current_project_priority_candidate_effect = {
+	if = {
+		limit = {
+			has_variable = tv_wonder_locked
+			tv_wonder_construction_site_selected_trigger = yes
+		}
+		save_scope_as = tv_wonder_priority_owner
+		set_variable = { name = tv_wonder_priority_candidate_wonder_id value = var:tv_wonder_locked }
+		var:tv_wonder_site ?= { save_scope_as = tv_wonder_priority_site }
+		if = {
+			limit = { exists = scope:tv_wonder_priority_site }
+			tv_wonder_unregister_current_site_priority_candidate_effect = yes
+			if = {
+				limit = { has_variable = tv_wonder_priority_candidate_current_mode }
+				tv_wonder_register_current_priority_candidate_effect = yes
+			}
+		}
+	}
+	remove_variable = tv_wonder_priority_candidate_valid
+	remove_variable = tv_wonder_priority_candidate_current_mode
+	remove_variable = tv_wonder_priority_candidate_wonder_id
+}
+
+tv_wonder_register_current_project_priority_candidate_from_variables_effect = {
+	tv_wonder_set_current_project_priority_candidate_mode_effect = yes
+	tv_wonder_commit_current_project_priority_candidate_effect = yes
+}
+
 tv_wonder_apply_estate_penalty_10_effect = {
 	if = {
 		limit = { country_has_estate = estate_type:nobles_estate }
@@ -2204,6 +2288,8 @@ tv_wonder_clear_project_state_core_effect = {
 	remove_variable = tv_wonder_priority_found
 	remove_variable = tv_wonder_priority_declined
 	remove_variable = tv_wonder_resume_project
+	remove_variable = tv_wonder_project_mode
+	remove_variable = tv_wonder_project_base_level
 	remove_variable = tv_wonder_locked
 	remove_variable = tv_wonder_debate_ended
 	remove_variable = tv_wonder_nobles_demand
@@ -2310,6 +2396,7 @@ tv_wonder_abandon_effect = {
 	tv_wonder_retire_great_engineer_effect = yes
 	add_prestige = -20
 	hidden_effect = {
+		tv_wonder_register_current_project_priority_candidate_from_variables_effect = yes
 		tv_wonder_clear_project_state_effect = yes
 	}
 }
