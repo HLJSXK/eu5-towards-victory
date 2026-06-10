@@ -28,6 +28,9 @@ T = "\t"
 HELPER_BUILDING_TYPE_MAP = "tv_wonder_id_to_helper_building_type"
 HELPER_BUILDING_TYPE_VAR = "tv_wonder_helper_building_type"
 MODULE_BUILDING_TYPE_VAR = "tv_wonder_module_building_type"
+COMBINE_WONDER_ID_LOCAL = "tv_wonder_module_combine_wonder_id"
+COMBINE_FOUND_VAR = "tv_wonder_modules_combined"
+COMBINE_LOCATION_SCOPE = "tv_wonder_module_combine_location"
 REQUIRED_PROGRESS_MAP = "tv_wonder_id_to_required_progress"
 REQUIRED_PROGRESS_VAR = "tv_wonder_required_progress"
 INTERMEDIATE_BUILDING_WONDER_ID_MAP = "tv_wonder_intermediate_building_type_to_wonder_id"
@@ -100,26 +103,34 @@ def loc_level(building: str, op: str, level: int) -> str:
     return f"location_building_level = {{ building_type = {building_type_ref(building)} value {op} {level} }}"
 
 
-def change_level(building: str, value: int) -> list[str]:
+def change_level(building: str, value: int, owner: str = "prev") -> list[str]:
     return [
         f"{T}change_building_level_in_location = {{",
         f"{T}{T}building = {building_type_ref(building)}",
         f"{T}{T}value = {value}",
-        f"{T}{T}owner = prev",
+        f"{T}{T}owner = {owner}",
         f"{T}}}",
     ]
 
 
-def change_level_by_value(building: str, value_lines: list[str]) -> list[str]:
+def change_level_by_value(building: str, value_lines: list[str], owner: str = "prev") -> list[str]:
     return [
         f"{T}change_building_level_in_location = {{",
         f"{T}{T}building = {building_type_ref(building)}",
         f"{T}{T}value = {{",
         *[f"{T}{T}{T}{line}" for line in value_lines],
         f"{T}{T}}}",
-        f"{T}{T}owner = prev",
+        f"{T}{T}owner = {owner}",
         f"{T}}}",
     ]
+
+
+def construct_building_line(building: str, owner: str | None = None) -> str:
+    owner_clause = f" owner = {owner}" if owner else ""
+    return (
+        f"construct_building = {{ building_type = {building_type_ref(building)}{owner_clause} "
+        f"cost_multiplier = 0 cost_multiplier_reason = \"game_concept_event\" instant = yes }}"
+    )
 
 
 def add_units_from_module_level(part: str, building: str, indent: int = 1) -> list[str]:
@@ -162,7 +173,7 @@ def add_building_level(branch_limit: str, building: str, indent: int = 1) -> lis
         f"{prefix}{T}limit = {{ {branch_limit} }}",
         f"{prefix}{T}if = {{",
         f"{prefix}{T}{T}limit = {{ NOT = {{ has_building = {building_type_ref(building)} }} }}",
-        f"{prefix}{T}{T}construct_building = {{ building_type = {building_type_ref(building)} cost_multiplier = 0 cost_multiplier_reason = \"game_concept_event\" instant = yes }}",
+        f"{prefix}{T}{T}{construct_building_line(building)}",
         f"{prefix}{T}}}",
         f"{prefix}{T}else = {{",
         *[f"{prefix}{T}{line}" for line in change_level(building, 1)],
@@ -176,7 +187,7 @@ def add_building_level_if_missing(branch_limit: str, building: str, indent: int 
     return [
         f"{prefix}if = {{",
         f"{prefix}{T}limit = {{ {branch_limit} NOT = {{ has_building = {building_type_ref(building)} }} }}",
-        f"{prefix}{T}construct_building = {{ building_type = {building_type_ref(building)} cost_multiplier = 0 cost_multiplier_reason = \"game_concept_event\" instant = yes }}",
+        f"{prefix}{T}{construct_building_line(building)}",
         f"{prefix}}}",
     ]
 
@@ -551,6 +562,8 @@ def combine_buildings_to_helper_once(
     helper: str,
     module_names: list[str],
     indent: int,
+    owner: str = "prev",
+    construct_owner: str | None = None,
 ) -> list[str]:
     prefix = T * indent
     lines: list[str] = []
@@ -566,19 +579,17 @@ def combine_buildings_to_helper_once(
         lines.extend(
             [
                 f"{prefix}{T}{line}"
-                for line in change_level(helper, level)
+                for line in change_level(helper, level, owner)
             ]
         )
         lines.append(f"{prefix}{T}}}")
         lines.append(f"{prefix}{T}else = {{")
-        lines.append(
-            f'{prefix}{T}{T}construct_building = {{ building_type = {building_type_ref(helper)} cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }}'
-        )
+        lines.append(f"{prefix}{T}{T}{construct_building_line(helper, construct_owner)}")
         if level > 1:
             lines.extend(
                 [
                     f"{prefix}{T}{line}"
-                    for line in change_level(helper, level - 1)
+                    for line in change_level(helper, level - 1, owner)
                 ]
             )
         lines.append(f"{prefix}{T}}}")
@@ -586,21 +597,25 @@ def combine_buildings_to_helper_once(
             lines.extend(
                 [
                     f"{prefix}{T}{line}"
-                    for line in change_level(module, -level)
+                    for line in change_level(module, -level, owner)
                 ]
             )
         lines.append(f"{prefix}}}")
     return lines
 
 
-def combine_modules_to_helper_once(
-    wonder: dict,
-    parts: list[dict],
-    indent: int,
-) -> list[str]:
-    helper = f"tv_wonder_{wonder['key']}"
-    module_names = [f"tv_wonder_{wonder['key']}_{part['key']}" for part in parts]
-    return combine_buildings_to_helper_once(helper, module_names, indent)
+def combine_mapped_modules_to_helper_once(parts: list[dict], indent: int) -> list[str]:
+    module_vars = [
+        f"local_var:{module_building_type_var_name(part['key'])}"
+        for part in parts
+    ]
+    return combine_buildings_to_helper_once(
+        f"local_var:{HELPER_BUILDING_TYPE_VAR}",
+        module_vars,
+        indent,
+        owner="scope:tv_wonder_module_owner",
+        construct_owner="scope:tv_wonder_module_owner",
+    )
 
 
 def restore_final_building_state_for_style(
@@ -948,8 +963,55 @@ def main() -> None:
     lines.append("")
 
     lines.append("tv_wonder_combine_completed_modules_at_location_effect = {")
-    for wonder in wonders:
-        lines.extend(combine_modules_to_helper_once(wonder, parts, 1))
+    lines.append(f"{T}prev = {{ save_scope_as = tv_wonder_module_owner }}")
+    lines.append(f"{T}save_scope_as = {COMBINE_LOCATION_SCOPE}")
+    lines.append(f"{T}remove_variable = {COMBINE_FOUND_VAR}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_global_variable_map = {HELPER_BUILDING_TYPE_MAP}")
+    for part in parts:
+        lines.append(f"{T}{T}{T}has_global_variable_map = {module_building_type_map_name(part['key'])}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}ordered_key_in_global_variable_map = {{")
+    lines.append(f"{T}{T}{T}variable = {HELPER_BUILDING_TYPE_MAP}")
+    lines.append(f"{T}{T}{T}max = {REVERSE_BUILDING_MAP_SCAN_MAX}")
+    lines.append(f"{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}NOT = {{ scope:{COMBINE_LOCATION_SCOPE} = {{ has_variable = {COMBINE_FOUND_VAR} }} }}")
+    for part in parts:
+        module_map = module_building_type_map_name(part["key"])
+        lines.append(f"{T}{T}{T}{T}is_key_in_global_variable_map = {{ name = {module_map} target = this }}")
+        lines.append(f"{T}{T}{T}{T}{global_map_expr(module_map, 'this')} = {{")
+        lines.append(f"{T}{T}{T}{T}{T}scope:{COMBINE_LOCATION_SCOPE} = {{")
+        lines.append(f"{T}{T}{T}{T}{T}{T}{loc_level('prev', '>=', 1)}")
+        lines.append(f"{T}{T}{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}scope:{COMBINE_LOCATION_SCOPE} = {{")
+    lines.append(f"{T}{T}{T}{T}set_local_variable = {{ name = {COMBINE_WONDER_ID_LOCAL} value = prev }}")
+    lines.extend(capture_global_map_value(
+        HELPER_BUILDING_TYPE_VAR,
+        HELPER_BUILDING_TYPE_MAP,
+        f"local_var:{COMBINE_WONDER_ID_LOCAL}",
+        4,
+    ))
+    for part in parts:
+        part_key = part["key"]
+        lines.extend(capture_global_map_value(
+            module_building_type_var_name(part_key),
+            module_building_type_map_name(part_key),
+            f"local_var:{COMBINE_WONDER_ID_LOCAL}",
+            4,
+        ))
+    lines.extend(combine_mapped_modules_to_helper_once(parts, 4))
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = {COMBINE_FOUND_VAR} value = 1 }}")
+    for part in parts:
+        lines.append(f"{T}{T}{T}{T}remove_local_variable = {module_building_type_var_name(part['key'])}")
+    lines.append(f"{T}{T}{T}{T}remove_local_variable = {HELPER_BUILDING_TYPE_VAR}")
+    lines.append(f"{T}{T}{T}{T}remove_local_variable = {COMBINE_WONDER_ID_LOCAL}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}remove_variable = {COMBINE_FOUND_VAR}")
     lines.append("}")
     lines.append("")
 
