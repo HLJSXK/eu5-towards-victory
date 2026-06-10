@@ -25,6 +25,8 @@ DISPLAY_MODIFIER_PREFIX = "tv_wonder_display_"
 
 
 def fmt_value(value: object) -> str:
+    if isinstance(value, bool):
+        return "yes" if value else "no"
     if isinstance(value, float):
         return f"{value:.3f}".rstrip("0").rstrip(".")
     return str(value)
@@ -33,7 +35,7 @@ def fmt_value(value: object) -> str:
 def scaled_modifiers(base: dict, level: int, multiplier: int | float = 1) -> dict:
     result: dict[str, object] = {}
     for key, value in base.items():
-        if isinstance(value, (int, float)):
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
             result[key] = value * level * multiplier
         else:
             result[key] = value
@@ -43,7 +45,9 @@ def scaled_modifiers(base: dict, level: int, multiplier: int | float = 1) -> dic
 def burden_modifiers(buff: dict) -> dict:
     result: dict[str, object] = {}
     for key, value in buff.items():
-        if isinstance(value, (int, float)):
+        if isinstance(value, bool):
+            result[key] = not value
+        elif isinstance(value, (int, float)):
             result[key] = value * -2
         else:
             result[key] = value
@@ -100,7 +104,7 @@ def generate() -> str:
 
 
 def main() -> None:
-    OUT_FILE.write_text(generate(), encoding="utf-8")
+    OUT_FILE.write_text(generate(), encoding="utf-8-sig")
     print(f"Wrote {OUT_FILE.relative_to(REPO_ROOT)}")
 
 

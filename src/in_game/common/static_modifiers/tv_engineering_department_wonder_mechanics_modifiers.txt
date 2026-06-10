@@ -8664,13 +8664,13 @@ tv_wonder_royal_granary_system_ritual_burden_modifier = {
 }
 
 tv_wonder_imperial_post_road_network_ritual_blessing_modifier = {
-	global_peasants_migration_allowed = True
-	global_laborers_migration_allowed = True
+	global_peasants_migration_allowed = yes
+	global_laborers_migration_allowed = yes
 }
 
 tv_wonder_imperial_post_road_network_ritual_burden_modifier = {
-	global_peasants_migration_allowed = -2
-	global_laborers_migration_allowed = -2
+	global_peasants_migration_allowed = no
+	global_laborers_migration_allowed = no
 }
 
 tv_wonder_canal_hub_city_ritual_blessing_modifier = {

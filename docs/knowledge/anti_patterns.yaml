@@ -589,6 +589,17 @@
   source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:9910; reference_game_files/game/in_game/common/building_types/manpower_buildings.txt:29"
   notes: "EU5 logs Malformed token near the numeric literal when a boolean modifier value is emitted as 1. Generated YAML data must preserve bools and render them as yes/no, not Python True/False or 1/0."
 
+- id: python_boolean_token_in_common_script
+  pattern: '^\s*[A-Za-z0-9_:.]+\s*=\s*(?:True|False)\b'
+  detectability: lint
+  only_in_paths: ['src/in_game/common', 'src/main_menu/common']
+  bad: "Python-style boolean token True/False emitted into an EU5 common script"
+  correction: "Render script booleans as yes or no. In Python generators, handle bool before int/float because bool is an int subclass."
+  category: script
+  scope: any
+  source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:1270; reference_game_files/game/main_menu/common/static_modifiers/country.txt:5603"
+  notes: "YAML true/false loads as Python True/False; str(value) emits malformed tokens in Jomini scripts, as seen with global_peasants_migration_allowed = True."
+
 - id: utf8_bom_mandatory_on_common_scripts
   pattern: ''
   bad: "Saving common/ scripts (static_modifiers, situations, scripted_effects, on_action, etc.) as plain UTF-8 without a byte-order mark"

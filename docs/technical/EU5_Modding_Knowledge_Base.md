@@ -1122,7 +1122,7 @@ building_id = {
 
 **Modifier scope note:** `modifier` and `raw_modifier` are location effects. `capital_country_modifier` is a country modifier only when the building is built in the capital (verified in `reference_official_defines/types/building_types.txt`). For event-created buildings that may appear outside the capital, apply national effects separately with `add_country_modifier` and keep the building's own modifier local.
 
-Boolean modifier types must use `yes` or `no`, not `1` or `0`. For example, `can_recruit_regiment_in_this_location` is declared with `boolean=yes` in modifier type definitions, and vanilla buildings write `can_recruit_regiment_in_this_location = yes`. Emitting `= 1` caused a startup `Malformed token: 1` error in a generated building file.
+Boolean modifier types must use `yes` or `no`, not Python/YAML spillover values like `True`/`False` or numeric `1`/`0`. For example, `can_recruit_regiment_in_this_location`, `global_peasants_migration_allowed`, and `global_laborers_migration_allowed` are declared with `boolean=yes`, and vanilla scripts write these values as `yes` or `no`. In Python generators, handle `bool` before numeric branches because `bool` is an `int` subclass; otherwise `true` YAML values can become malformed `True` tokens or numeric burden values.
 
 ### 10.2 Valid Category Values
 
