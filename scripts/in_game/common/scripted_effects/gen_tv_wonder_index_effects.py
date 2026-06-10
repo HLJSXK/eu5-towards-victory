@@ -9,7 +9,6 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
     PARTS,
-    WONDER_MAP_SCHEMA_VERSION,
     WONDER_RITUAL_COST_TYPE_IDS,
     WONDER_RITUAL_LISTENER_KEYS,
     WONDER_RITUAL_MODE_IDS,
@@ -331,33 +330,6 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
             if row_index > 9:
                 raise ValueError(f"Suitability row key only reserves row 1..9: {wonder['key']} row {row_index}")
 
-    lines.append(f"{T}set_global_variable = {{ name = tv_wonder_map_version value = {WONDER_MAP_SCHEMA_VERSION} }}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_rebuild_if_needed(lines: list[str], first_wonder: dict) -> None:
-    first_key = str(int(first_wonder["id"]))
-    lines.append("tv_wonder_index_rebuild_global_maps_if_needed_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ NOT = {{ has_global_variable = tv_wonder_map_version }} }}")
-    lines.append(f"{T}{T}tv_wonder_index_rebuild_global_maps_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else_if = {{")
-    lines.append(f"{T}{T}limit = {{ NOT = {{ global_var:tv_wonder_map_version = {WONDER_MAP_SCHEMA_VERSION} }} }}")
-    lines.append(f"{T}{T}tv_wonder_index_rebuild_global_maps_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else_if = {{")
-    lines.append(f"{T}{T}limit = {{ NOT = {{ has_global_variable_map = tv_wonder_id_to_is_unique }} }}")
-    lines.append(f"{T}{T}tv_wonder_index_rebuild_global_maps_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else_if = {{")
-    lines.append(
-        f"{T}{T}limit = {{ "
-        f"NOT = {{ is_key_in_global_variable_map = {{ name = tv_wonder_id_to_is_unique target = {first_key} }} }} }}"
-    )
-    lines.append(f"{T}{T}tv_wonder_index_rebuild_global_maps_effect = yes")
-    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
@@ -369,7 +341,6 @@ def generate() -> str:
 
     lines = render_header(SCRIPT_REL)
     append_rebuild_global_maps(lines, wonders, mechanics, source_data)
-    append_rebuild_if_needed(lines, wonders[0])
     append_clear_cache_effect(lines, "tv_wonder_index_clear_locked_wonder_cache_effect", WONDER_CACHE_VARS)
     append_clear_cache_effect(lines, "tv_wonder_index_clear_selected_ritual_cache_effect", RITUAL_CACHE_VARS)
     append_cache_effect(

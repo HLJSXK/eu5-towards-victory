@@ -14616,26 +14616,6 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 51 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 52 }
 	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 52 value = 1 }
-	set_global_variable = { name = tv_wonder_map_version value = 12 }
-}
-
-tv_wonder_index_rebuild_global_maps_if_needed_effect = {
-	if = {
-		limit = { NOT = { has_global_variable = tv_wonder_map_version } }
-		tv_wonder_index_rebuild_global_maps_effect = yes
-	}
-	else_if = {
-		limit = { NOT = { global_var:tv_wonder_map_version = 12 } }
-		tv_wonder_index_rebuild_global_maps_effect = yes
-	}
-	else_if = {
-		limit = { NOT = { has_global_variable_map = tv_wonder_id_to_is_unique } }
-		tv_wonder_index_rebuild_global_maps_effect = yes
-	}
-	else_if = {
-		limit = { NOT = { is_key_in_global_variable_map = { name = tv_wonder_id_to_is_unique target = 1 } } }
-		tv_wonder_index_rebuild_global_maps_effect = yes
-	}
 }
 
 tv_wonder_index_clear_locked_wonder_cache_effect = {

@@ -3332,7 +3332,6 @@ tv_wonder_unregister_current_site_priority_candidate_effect = {
 }
 
 tv_wonder_refresh_locked_priority_candidate_effect = {
-	tv_wonder_index_rebuild_global_maps_if_needed_effect = yes
 	if = {
 		limit = {
 			tv_wonder_construction_site_selected_trigger = yes
@@ -3430,7 +3429,6 @@ tv_wonder_select_saved_priority_proposal_effect = {
 }
 
 tv_wonder_construct_module_for_last_completed_part_effect = {
-	tv_wonder_index_rebuild_global_maps_if_needed_effect = yes
 	if = {
 		limit = {
 			tv_wonder_construction_site_selected_trigger = yes
@@ -4956,7 +4954,6 @@ tv_wonder_restore_locked_wonder_final_building_state_effect = {
 }
 
 tv_wonder_apply_helper_building_to_final_site_effect = {
-	tv_wonder_index_rebuild_global_maps_if_needed_effect = yes
 	if = {
 		limit = {
 			tv_wonder_construction_site_selected_trigger = yes
@@ -5451,7 +5448,6 @@ tv_wonder_apply_helper_building_to_final_site_effect = {
 }
 
 tv_wonder_materialize_module_buildings_from_unit_vars_effect = {
-	tv_wonder_index_rebuild_global_maps_if_needed_effect = yes
 	if = {
 		limit = {
 			tv_wonder_construction_site_selected_trigger = yes

@@ -44,7 +44,10 @@ When a turn includes a handoff summary, compaction summary, or explicit prior-ag
 Towards Victory has not shipped. There are no user save files, published mod versions,
 or public APIs to preserve. Treat every internal data shape, helper function, generated
 schema, variable name, and script entry point as mutable implementation detail unless the
-user explicitly names an external consumer that must keep working.
+user explicitly names an external consumer that must keep working. Performance is one of
+this project's priority constraints: compatibility branches, defensive repair paths, and
+old-state probes add runtime cost and must not be kept when a direct current-state path is
+available.
 
 - Do NOT add old-save migrations, legacy alias variables, duplicate old/new branches,
   compatibility wrappers, defensive fallback paths, or "if old state exists" repair logic.
@@ -105,8 +108,9 @@ For the categories below, you MUST go to Step 2 or 3 before writing any code. No
 - **No defensive map rebuilds on read paths** — `variable_map` / `global_variable_map`
   indexes must be built at lifecycle points: startup, save-load initialization,
   data-change regeneration, or explicit initialization effects. Do not add
-  `*_rebuild_*_maps*_effect` calls to GUI refresh, country cache refresh, tooltip,
-  projection, selection, monthly read, or other hot/read paths as a compatibility fallback.
+  `*_rebuild_*_maps*_effect` calls, including `*_if_needed` rebuild routers, to GUI
+  refresh, country cache refresh, tooltip, projection, selection, monthly read, or other
+  hot/read paths as a compatibility fallback.
   If a map is missing, fix the current lifecycle hook or the call-order bug that reads before
   init; do not add old-schema repair or legacy state preservation.
 - **`select_trigger` pre-evaluation** — EU5 pre-evaluates a generic action's `effect` block at each selection step before the user confirms: after step 1 only the first `target_flag` scope is set; after step 2 the character is set but any variables that would be written by the effect itself (e.g. `tv_governed_area`) do not yet exist on the character. Guard multi-step effects with `if = { limit = { exists = scope:target  exists = scope:target_1 } }` and use `?=` on any variable access that may be absent on a freshly selected character.

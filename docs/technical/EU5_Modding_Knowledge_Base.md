@@ -522,8 +522,10 @@ Do not compensate for missing variable-map data by rebuilding maps from read pat
 map indexes belong to lifecycle effects: startup, save-load initialization,
 data-change regeneration, and explicit initialization. GUI refresh, country cache refresh,
 tooltip/projection effects, selection handlers, and monthly readers are hot paths; adding
-`*_rebuild_*_maps*_effect` calls there hides ordering bugs and makes every read pay for a
-global compatibility check. If a cache read sees an uninitialized map, fix the current
+`*_rebuild_*_maps*_effect` calls there, including `*_if_needed` rebuild routers, hides
+ordering bugs and makes every read pay for a global compatibility check. Performance is a
+project priority, so do not spend hot-path work on obsolete internal states. If a cache read
+sees an uninitialized map, fix the current
 lifecycle hook or move the dependent state write earlier so the existing refresh condition
 is true; do not add old-schema repair or preserve abandoned internal states.
 

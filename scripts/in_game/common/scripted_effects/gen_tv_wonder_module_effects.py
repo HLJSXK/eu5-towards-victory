@@ -438,7 +438,6 @@ def append_priority_candidate_storage_effects(lines: list[str]) -> None:
     lines.append("")
 
     lines.append("tv_wonder_refresh_locked_priority_candidate_effect = {")
-    lines.append(f"{T}tv_wonder_index_rebuild_global_maps_if_needed_effect = yes")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
@@ -712,7 +711,6 @@ def main() -> None:
     append_priority_candidate_storage_effects(lines)
 
     lines.append("tv_wonder_construct_module_for_last_completed_part_effect = {")
-    lines.append(f"{T}tv_wonder_index_rebuild_global_maps_if_needed_effect = yes")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
@@ -919,7 +917,6 @@ def main() -> None:
     lines.append("")
 
     lines.append("tv_wonder_apply_helper_building_to_final_site_effect = {")
-    lines.append(f"{T}tv_wonder_index_rebuild_global_maps_if_needed_effect = yes")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
@@ -946,7 +943,6 @@ def main() -> None:
     lines.append("")
 
     lines.append("tv_wonder_materialize_module_buildings_from_unit_vars_effect = {")
-    lines.append(f"{T}tv_wonder_index_rebuild_global_maps_if_needed_effect = yes")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
