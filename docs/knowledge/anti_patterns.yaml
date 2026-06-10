@@ -502,6 +502,17 @@
   source: "EU5 engine validation (pdx_gui_validation.cpp:62: 'Unsupported property: parentanchor on widgets that are a child of a hbox/vbox. Hboxes/vboxes arrange their children automatically.')"
   notes: "Pattern is empty because static detection requires parsing GUI parent structure. Audit any widget nested inside hbox = { ... } or vbox = { ... } and strip parentanchor. Children of progressbar/widget/window are unaffected."
 
+- id: gui_progressbar_margin_top
+  pattern: '(?ms)^[ \t]*progressbar\s*=\s*\{(?:(?!^[ \t]*\}).)*^[ \t]*margin_top\s*='
+  detectability: lint
+  only_in_paths: ['.gui']
+  bad: "Putting margin_top directly on a progressbar widget"
+  correction: "Wrap the progressbar in a fixed-size widget/layout container, put vertical placement such as parentanchor/widgetanchor on the progressbar inside that wrapper, and leave margin_top off the progressbar itself."
+  category: gui
+  scope: any
+  source: "runtime error.log from gui/panels/organization/tv_engineering_department.gui: Property 'margin_top' not handled for progressbar"
+  notes: "EU5 progressbar does not handle margin_top. Text and container widgets may use margins, but progressbar vertical offset should be expressed through a parent wrapper."
+
 - id: percent_size_under_hbox_vbox
   pattern: ''
   bad: "Setting size with a percentage component on a widget that is a direct child of an hbox or vbox, e.g. size = { 97% 72 } inside organization_custom_content"

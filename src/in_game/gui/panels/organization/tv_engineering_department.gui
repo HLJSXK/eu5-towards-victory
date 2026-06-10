@@ -371,13 +371,16 @@ organization_panel = {
 												size = { 352 20 }
 												spacing = 6
 												text_single = { raw_text = "@adm!" size = { 24 20 } max_width = 24 fontsize = 16 align = center|nobaseline }
-												progressbar = {
-													size = { 248 14 }
-													parentanchor = vcenter
-													widgetanchor = vcenter
-													using = progress_bar_blue_alt
-													max = 100
-													value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_concept_progress').GetValue]"
+												widget = {
+													size = { 248 20 }
+													progressbar = {
+														size = { 248 14 }
+														parentanchor = vcenter
+														widgetanchor = vcenter
+														using = progress_bar_blue_alt
+														max = 100
+														value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_concept_progress').GetValue]"
+													}
 												}
 												text_single = {
 													raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_concept_progress')]"
@@ -6703,14 +6706,18 @@ widget = {
 									texture = "gfx/interface/icons/buildings/tv_wonder_labor_camp.dds"
 									texture_density = 2
 								}
-								progressbar = {
-									size = { 330 16 }
-									margin_top = 7
-									using = progress_bar_blue_alt
-									min = 0
-									max = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap_display').GetValue]"
-									value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_effective_worksite_levels').GetValue]"
-									tooltip = "TV_ENGINEERING_WORKSITE_PROGRESS_TT"
+								widget = {
+									size = { 330 32 }
+									progressbar = {
+										size = { 330 16 }
+										parentanchor = vcenter
+										widgetanchor = vcenter
+										using = progress_bar_blue_alt
+										min = 0
+										max = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap_display').GetValue]"
+										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_effective_worksite_levels').GetValue]"
+										tooltip = "TV_ENGINEERING_WORKSITE_PROGRESS_TT"
+									}
 								}
 								text_single = {
 									size = { 86 22 }
@@ -6785,14 +6792,18 @@ widget = {
 									texture = "gfx/interface/icons/trade_goods/icon_goods_tv_wonder_materials.dds"
 									texture_density = 2
 								}
-								progressbar = {
-									size = { 330 16 }
-									margin_top = 7
-									using = progress_bar_blue_alt
-									min = 0
-									max = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_material_workshop_need_display').GetValue]"
-									value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_effective_material_workshop_levels').GetValue]"
-									tooltip = "TV_ENGINEERING_MATERIAL_WORKSHOP_PROGRESS_TT"
+								widget = {
+									size = { 330 32 }
+									progressbar = {
+										size = { 330 16 }
+										parentanchor = vcenter
+										widgetanchor = vcenter
+										using = progress_bar_blue_alt
+										min = 0
+										max = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_material_workshop_need_display').GetValue]"
+										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_effective_material_workshop_levels').GetValue]"
+										tooltip = "TV_ENGINEERING_MATERIAL_WORKSHOP_PROGRESS_TT"
+									}
 								}
 								text_single = {
 									size = { 86 22 }

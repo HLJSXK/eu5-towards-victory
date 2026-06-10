@@ -119,6 +119,12 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     `if = { limit = { always = no } ... }` that applies every possible country or
     location display modifier through the correct `add_*_modifier` effect.
 
+20. Keep progressbar offsets on a wrapper.
+    `progressbar` does not handle `margin_top`; GUI loading logs an unsupported
+    property error. If a bar needs vertical centering or offset inside an
+    `hbox`/`vbox`, put a fixed-size `widget` in the layout and anchor the
+    `progressbar` inside that wrapper.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover
