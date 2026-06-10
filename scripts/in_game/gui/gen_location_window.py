@@ -31,7 +31,7 @@ PANEL_PREVIEW_HEIGHT = PANEL_ROW_HEIGHT - 8
 TOOLTIP_ROW_WIDTH = 462
 TOOLTIP_TEXT_COLUMN_WIDTH = (TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING) // 2
 TOOLTIP_PREVIEW_COLUMN_WIDTH = TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING - TOOLTIP_TEXT_COLUMN_WIDTH
-TOOLTIP_PREVIEW_HEIGHT = 116
+TOOLTIP_PREVIEW_HEIGHT = 110
 TOOLTIP_ROW_SPACING = 6
 TOOLTIP_EFFECT_MARGIN_X = 8
 TOOLTIP_MODIFIER_COLUMN_SPACING = 8
@@ -367,7 +367,6 @@ def render_tooltip_preview_column(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}vbox = {{",
         f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}margin_top = 6",
         f"{indent}{T}{T}widget = {{",
         f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
         f"{indent}{T}{T}{T}layoutpolicy_vertical = fixed",
