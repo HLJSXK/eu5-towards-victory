@@ -297,40 +297,6 @@ tv_wonder_clear_current_proposal_effect = {
 	remove_variable = tv_wonder_proposal_site
 }
 
-tv_wonder_clear_post_finalization_priority_effect = {
-	remove_variable = tv_wonder_post_finalization_priority_proposal
-	remove_variable = tv_wonder_post_finalization_priority_site
-}
-
-tv_wonder_cache_post_finalization_priority_effect = {
-	tv_wonder_clear_post_finalization_priority_effect = yes
-	if = {
-		limit = {
-			tv_wonder_construction_site_selected_trigger = yes
-			has_variable = tv_wonder_locked
-			has_variable = tv_wonder_level
-			has_variable = tv_wonder_scale_tier
-			var:tv_wonder_scale_tier > var:tv_wonder_level
-		}
-		set_variable = { name = tv_wonder_post_finalization_priority_proposal value = var:tv_wonder_locked }
-		set_variable = { name = tv_wonder_post_finalization_priority_site value = var:tv_wonder_site }
-	}
-}
-
-tv_wonder_apply_post_finalization_priority_effect = {
-	if = {
-		limit = {
-			var:tv_wonder_post_finalization_priority_proposal ?= { this >= 1 }
-			has_variable = tv_wonder_post_finalization_priority_site
-		}
-		set_variable = { name = tv_wonder_proposal value = var:tv_wonder_post_finalization_priority_proposal }
-		set_variable = { name = tv_wonder_proposal_mode value = 2 }
-		set_variable = { name = tv_wonder_priority_found value = 1 }
-		set_variable = { name = tv_wonder_proposal_site value = var:tv_wonder_post_finalization_priority_site }
-	}
-	tv_wonder_clear_post_finalization_priority_effect = yes
-}
-
 tv_wonder_rebuild_feasible_deck_effect = {
 	tv_wonder_clear_feasible_deck_effect = yes
 	tv_wonder_mechanics_rebuild_feasible_deck_effect = yes
@@ -467,17 +433,7 @@ tv_wonder_roll_new_proposal_effect = {
 	tv_wonder_clear_proposal_on_great_engineer_effect = yes
 	tv_wonder_clear_current_proposal_effect = yes
 	remove_variable = tv_wonder_resume_project
-	if = {
-		limit = {
-			var:tv_wonder_post_finalization_priority_proposal ?= { this >= 1 }
-			has_variable = tv_wonder_post_finalization_priority_site
-		}
-		tv_wonder_apply_post_finalization_priority_effect = yes
-	}
-	else = {
-		tv_wonder_clear_post_finalization_priority_effect = yes
-		tv_wonder_scan_priority_proposal_effect = yes
-	}
+	tv_wonder_select_saved_priority_proposal_effect = yes
 	if = {
 		limit = {
 			has_variable = tv_wonder_priority_found
@@ -2261,9 +2217,6 @@ tv_wonder_clear_project_state_effect = {
 		limit = { tv_wonder_has_great_engineer_trigger = yes }
 		tv_wonder_rebuild_feasible_deck_effect = yes
 		tv_wonder_roll_new_proposal_effect = yes
-	}
-	else = {
-		tv_wonder_clear_post_finalization_priority_effect = yes
 	}
 }
 

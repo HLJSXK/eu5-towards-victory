@@ -86,7 +86,6 @@ FINAL_BUILDING_WONDER_ID_MAP = "tv_wonder_final_building_type_to_wonder_id"
 FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style"
 UNIQUE_WONDER_LOCATION_MAP = "tv_wonder_unique_id_to_location"
 UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP = "tv_wonder_unique_id_to_final_building_type"
-PRIORITY_CANDIDATE_WONDER_ID_MAP = "tv_wonder_priority_candidate_wonder_ids"
 
 WONDER_CACHE_MAPS = [
     ("tv_wonder_id_to_is_unique", "tv_wonder_locked_is_unique"),
@@ -252,7 +251,6 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
         helper_building = f"building_type:tv_wonder_{wonder['key']}"
         lines.extend(map_replace_line("tv_wonder_id_to_helper_building_type", key, helper_building))
         lines.extend(map_replace_line(INTERMEDIATE_BUILDING_WONDER_ID_MAP, helper_building, wonder_id))
-        lines.extend(map_replace_line(PRIORITY_CANDIDATE_WONDER_ID_MAP, key, 1))
 
         for part in PARTS:
             module_building = f"building_type:tv_wonder_{wonder['key']}_{part}"

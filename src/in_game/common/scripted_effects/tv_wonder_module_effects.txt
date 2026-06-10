@@ -20,6 +20,3390 @@ tv_wonder_set_required_progress_effect = {
 	}
 }
 
+tv_wonder_validate_priority_candidate_for_saved_wonder_effect = {
+	scope:tv_wonder_priority_owner = {
+		remove_variable = tv_wonder_priority_candidate_valid
+		remove_variable = tv_wonder_priority_candidate_current_mode
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 1 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_sacred_mountain_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_sacred_mountain_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 2 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_triumphal_axis_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_triumphal_axis_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 3 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_great_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_great_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 4 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_giant_necropolis_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_giant_necropolis_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 5 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_great_lighthouse_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_great_lighthouse_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 6 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_hydraulic_workshop_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_hydraulic_workshop_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 7 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_mining_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_mining_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 8 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_giant_observatory_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_giant_observatory_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 9 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_palace_of_nations_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_palace_of_nations_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 10 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_university_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_university_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 11 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_sky_dome_grand_temple_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_sky_dome_grand_temple_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 12 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_giant_tower_temple_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_giant_tower_temple_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 13 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_river_extension_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_river_extension_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 14 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_national_shipyard_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_national_shipyard_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 15 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_star_fortress_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_star_fortress_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 16 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_great_wall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_great_wall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 17 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_giant_armory_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_giant_armory_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 18 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_library_of_nation_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_library_of_nation_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 19 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_large_canal_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_large_canal_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 20 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_mountain_terrace_network_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_mountain_terrace_network_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 21 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_giant_dam_project_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_giant_dam_project_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 22 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_royal_granary_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_royal_granary_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 23 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_imperial_post_road_network_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_imperial_post_road_network_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 24 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_canal_hub_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_canal_hub_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 25 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_frontier_colonization_belt_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_frontier_colonization_belt_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 26 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_coastal_beacon_network_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_coastal_beacon_network_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 27 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_knightly_fortress_order_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_knightly_fortress_order_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 28 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_war_college_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_war_college_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 29 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_great_clock_bell_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_great_clock_bell_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 30 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_royal_art_district_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_royal_art_district_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 31 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_grand_theater_festival_district_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_grand_theater_festival_district_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 32 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_world_embassy_quarter_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_world_embassy_quarter_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 33 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_law_code_stele_project_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_law_code_stele_project_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 34 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_world_market_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_world_market_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 35 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_royal_mint_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_royal_mint_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 36 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_guild_alliance_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_guild_alliance_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 37 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_maritime_trade_station_network_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_maritime_trade_station_network_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 38 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_giant_workshop_complex_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_giant_workshop_complex_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 39 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_world_monument_group_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_world_monument_group_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 40 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_city_expansion_project_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_city_expansion_project_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 41 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_megalithic_circle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_megalithic_circle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 42 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_grand_cathedral_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_grand_cathedral_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 43 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_great_monastery_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_great_monastery_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 44 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_city_great_tower_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_city_great_tower_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 45 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_great_sculpture_group_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_great_sculpture_group_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 46 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_coastal_defense_cannon_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_coastal_defense_cannon_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 47 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_naval_school_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_naval_school_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 48 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_colonial_trade_company_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_colonial_trade_company_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 49 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_great_assembly_hall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_great_assembly_hall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 50 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_mobile_fortress_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_mobile_fortress_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 51 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_ancient_city_ruins_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_ancient_city_ruins_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 52 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_summer_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_summer_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 101 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_pharos_lighthouse_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_pharos_lighthouse_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 102 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_hagia_sophia_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_hagia_sophia_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 103 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_dome_of_the_rock_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_dome_of_the_rock_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 104 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_angkor_wat_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_angkor_wat_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 105 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_potala_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_potala_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 106 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_alhambra_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_alhambra_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 107 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_machu_picchu_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_machu_picchu_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 108 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_himeji_castle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_himeji_castle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 109 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_taj_mahal_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_taj_mahal_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 110 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_forbidden_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_forbidden_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 111 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_topkapi_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_topkapi_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 112 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_st_peters_basilica_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_st_peters_basilica_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 113 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_lalibela_churches_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_lalibela_churches_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 114 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_venetian_arsenal_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_venetian_arsenal_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 115 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_malacca_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_malacca_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 116 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_red_fort_delhi_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_red_fort_delhi_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 117 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_versailles_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_versailles_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 118 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_tenochtitlan_causeways_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_tenochtitlan_causeways_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 119 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_amsterdam_canal_ring_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_amsterdam_canal_ring_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 120 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_mecca_haram_expansion_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_mecca_haram_expansion_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 121 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_ming_great_wall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_ming_great_wall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 122 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_bank_of_saint_george_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_bank_of_saint_george_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 123 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_cahokia_mounds_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_cahokia_mounds_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 124 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_great_zimbabwe_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_great_zimbabwe_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 125 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_isfahan_square_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_isfahan_square_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 126 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_grand_canal_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_grand_canal_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 127 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_inca_royal_road_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_inca_royal_road_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 128 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_roman_aqueducts_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_roman_aqueducts_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 129 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_suez_ancient_canal_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_suez_ancient_canal_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 130 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_kremlin_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_kremlin_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 131 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_teotihuacan_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_teotihuacan_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 132 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_angkor_hydraulic_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_angkor_hydraulic_system_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 133 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_dutch_polders_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_dutch_polders_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 134 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_machu_picchu_terraces_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_machu_picchu_terraces_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 135 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_british_navy_dockyards_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_british_navy_dockyards_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 136 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_spanish_silver_fleet_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_spanish_silver_fleet_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 137 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_ottoman_hajj_road_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_ottoman_hajj_road_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 138 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_persian_qanat_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_persian_qanat_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 139 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_longjiang_shipyard_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_longjiang_shipyard_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 140 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_jerusalem_holy_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_jerusalem_holy_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 141 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_stonehenge_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_stonehenge_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 142 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_tower_of_london_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_tower_of_london_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 143 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_notre_dame_de_paris_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_notre_dame_de_paris_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 144 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_st_basils_cathedral_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_st_basils_cathedral_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 145 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_trinity_lavra_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_trinity_lavra_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 146 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_winter_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_winter_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 147 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_gyeongbokgung_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_gyeongbokgung_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 148 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_changbai_mountain_altar_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_changbai_mountain_altar_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 149 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_belgrade_fortress_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_belgrade_fortress_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 150 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_meteora_monasteries_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_meteora_monasteries_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 151 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_belem_tower_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_belem_tower_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 152 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_iberian_inquisition_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_iberian_inquisition_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 153 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_santa_maria_del_fiore_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_santa_maria_del_fiore_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 154 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_leaning_tower_of_pisa_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_leaning_tower_of_pisa_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 155 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_milan_cathedral_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_milan_cathedral_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 156 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_vatican_archives_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_vatican_archives_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 157 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_temple_of_heaven_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_temple_of_heaven_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 158 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_dujiangyan_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_dujiangyan_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 159 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_porcelain_tower_of_nanjing_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_porcelain_tower_of_nanjing_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 160 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_jingdezhen_imperial_kilns_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_jingdezhen_imperial_kilns_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 161 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_mogao_caves_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_mogao_caves_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 162 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_canton_thirteen_factories_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_canton_thirteen_factories_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 163 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_dardanelles_fortress_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_dardanelles_fortress_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 164 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_escorial_monastery_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_escorial_monastery_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 165 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_toledo_armory_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_toledo_armory_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 166 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_camino_de_santiago_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_camino_de_santiago_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 167 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_sagres_navigation_school_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_sagres_navigation_school_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 168 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_milan_arsenal_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_milan_arsenal_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 169 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_university_of_bologna_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_university_of_bologna_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 170 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_carrara_marble_quarries_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_carrara_marble_quarries_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 171 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_east_india_company_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_east_india_company_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 172 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_peacock_throne_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_peacock_throne_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 173 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_varanasi_ghats_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_varanasi_ghats_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 174 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_brihadishvara_temple_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_brihadishvara_temple_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 175 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_konark_sun_temple_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_konark_sun_temple_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 176 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_fatehpur_sikri_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_fatehpur_sikri_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 177 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_calicut_port_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_calicut_port_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 178 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_wieliczka_salt_mine_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_wieliczka_salt_mine_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 179 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_wawel_castle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_wawel_castle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 180 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_zamosc_ideal_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_zamosc_ideal_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 181 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_gdansk_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_gdansk_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 182 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_malbork_castle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_malbork_castle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 183 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_brest_synagogue_quarter_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_brest_synagogue_quarter_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 184 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_vilnius_university_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_vilnius_university_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 185 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_cave_monastery_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_cave_monastery_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 186 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_zaporizhian_sich_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_zaporizhian_sich_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 187 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_registan_square_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_registan_square_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 188 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_khiva_old_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_khiva_old_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 189 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_bukhara_kalyan_minaret_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_bukhara_kalyan_minaret_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 190 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_ferghana_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_ferghana_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 191 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_tashkent_old_bazaar_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_tashkent_old_bazaar_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 192 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_louvre_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_louvre_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 193 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_fontainebleau_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_fontainebleau_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 194 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_bordeaux_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_bordeaux_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 195 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_marseille_old_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_marseille_old_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 196 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_lyon_silk_workshops_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_lyon_silk_workshops_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 197 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_mont_saint_michel_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_mont_saint_michel_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 198 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_bastille_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_bastille_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 199 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_carcassonne_castle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_carcassonne_castle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 200 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_brest_naval_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_brest_naval_port_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 201 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_colmar_old_town_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_colmar_old_town_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+}
+
+tv_wonder_remove_current_priority_candidate_effect = {
+	remove_from_variable_map = { name = tv_wonder_priority_candidate_site_by_id key = local_var:tv_wonder_priority_candidate_id }
+	remove_from_variable_map = { name = tv_wonder_priority_candidate_wonder_by_id key = local_var:tv_wonder_priority_candidate_id }
+	remove_from_variable_map = { name = tv_wonder_priority_candidate_mode_by_id key = local_var:tv_wonder_priority_candidate_id }
+}
+
+tv_wonder_register_current_priority_candidate_effect = {
+	if = {
+		limit = {
+			exists = scope:tv_wonder_priority_site
+			has_variable = tv_wonder_priority_candidate_wonder_id
+			has_variable = tv_wonder_priority_candidate_current_mode
+		}
+		if = {
+			limit = { NOT = { var:tv_wonder_priority_next_candidate_id ?= { this >= 1 } } }
+			set_variable = { name = tv_wonder_priority_next_candidate_id value = 1 }
+		}
+		set_local_variable = { name = tv_wonder_priority_candidate_id value = var:tv_wonder_priority_next_candidate_id }
+		change_variable = { name = tv_wonder_priority_next_candidate_id add = 1 }
+		remove_from_variable_map = { name = tv_wonder_priority_candidate_site_by_id key = local_var:tv_wonder_priority_candidate_id }
+		remove_from_variable_map = { name = tv_wonder_priority_candidate_wonder_by_id key = local_var:tv_wonder_priority_candidate_id }
+		remove_from_variable_map = { name = tv_wonder_priority_candidate_mode_by_id key = local_var:tv_wonder_priority_candidate_id }
+		add_to_variable_map = { name = tv_wonder_priority_candidate_site_by_id key = local_var:tv_wonder_priority_candidate_id value = scope:tv_wonder_priority_site }
+		add_to_variable_map = { name = tv_wonder_priority_candidate_wonder_by_id key = local_var:tv_wonder_priority_candidate_id value = var:tv_wonder_priority_candidate_wonder_id }
+		add_to_variable_map = { name = tv_wonder_priority_candidate_mode_by_id key = local_var:tv_wonder_priority_candidate_id value = var:tv_wonder_priority_candidate_current_mode }
+		remove_local_variable = tv_wonder_priority_candidate_id
+	}
+}
+
+tv_wonder_unregister_current_site_priority_candidate_effect = {
+	save_scope_as = tv_wonder_priority_owner
+	remove_variable = tv_wonder_priority_candidate_site_matches
+	if = {
+		limit = {
+			exists = scope:tv_wonder_priority_site
+			has_variable = tv_wonder_priority_candidate_wonder_id
+			has_variable_map = tv_wonder_priority_candidate_site_by_id
+			has_variable_map = tv_wonder_priority_candidate_wonder_by_id
+			has_variable_map = tv_wonder_priority_candidate_mode_by_id
+		}
+		every_key_in_variable_map = {
+			variable = tv_wonder_priority_candidate_site_by_id
+			set_local_variable = { name = tv_wonder_priority_candidate_id value = this }
+			if = {
+				limit = {
+					is_key_in_variable_map = { name = tv_wonder_priority_candidate_wonder_by_id target = local_var:tv_wonder_priority_candidate_id }
+					is_key_in_variable_map = { name = tv_wonder_priority_candidate_mode_by_id target = local_var:tv_wonder_priority_candidate_id }
+				}
+				set_local_variable = {
+					name = tv_wonder_priority_saved_candidate_wonder_id
+					value = "variable_map(tv_wonder_priority_candidate_wonder_by_id|local_var:tv_wonder_priority_candidate_id)"
+				}
+				if = {
+					limit = { local_var:tv_wonder_priority_saved_candidate_wonder_id ?= var:tv_wonder_priority_candidate_wonder_id }
+					remove_variable = tv_wonder_priority_candidate_site_matches
+					"variable_map(tv_wonder_priority_candidate_site_by_id|local_var:tv_wonder_priority_candidate_id)" = {
+						if = {
+							limit = { this = scope:tv_wonder_priority_site }
+							scope:tv_wonder_priority_owner = { set_variable = { name = tv_wonder_priority_candidate_site_matches value = 1 } }
+						}
+					}
+					if = {
+						limit = { has_variable = tv_wonder_priority_candidate_site_matches }
+						tv_wonder_remove_current_priority_candidate_effect = yes
+						remove_variable = tv_wonder_priority_candidate_site_matches
+					}
+				}
+				remove_local_variable = tv_wonder_priority_saved_candidate_wonder_id
+			}
+			remove_local_variable = tv_wonder_priority_candidate_id
+		}
+	}
+	remove_variable = tv_wonder_priority_candidate_site_matches
+}
+
+tv_wonder_refresh_locked_priority_candidate_effect = {
+	tv_wonder_index_rebuild_global_maps_if_needed_effect = yes
+	if = {
+		limit = {
+			tv_wonder_construction_site_selected_trigger = yes
+			has_variable = tv_wonder_locked
+		}
+		save_scope_as = tv_wonder_priority_owner
+		set_variable = { name = tv_wonder_priority_candidate_wonder_id value = var:tv_wonder_locked }
+		remove_variable = tv_wonder_priority_candidate_valid
+		remove_variable = tv_wonder_priority_candidate_current_mode
+		var:tv_wonder_site ?= { save_scope_as = tv_wonder_priority_site }
+		if = {
+			limit = { exists = scope:tv_wonder_priority_site }
+			tv_wonder_unregister_current_site_priority_candidate_effect = yes
+			scope:tv_wonder_priority_site = {
+				tv_wonder_validate_priority_candidate_for_saved_wonder_effect = yes
+			}
+			if = {
+				limit = { has_variable = tv_wonder_priority_candidate_valid }
+				tv_wonder_register_current_priority_candidate_effect = yes
+			}
+		}
+	}
+	remove_variable = tv_wonder_priority_candidate_valid
+	remove_variable = tv_wonder_priority_candidate_current_mode
+	remove_variable = tv_wonder_priority_candidate_wonder_id
+}
+
+tv_wonder_select_saved_priority_proposal_effect = {
+	remove_variable = tv_wonder_priority_found
+	remove_variable = tv_wonder_proposal_site
+	remove_variable = tv_wonder_proposal_mode
+	save_scope_as = tv_wonder_priority_owner
+	if = {
+		limit = {
+			NOT = { has_variable = tv_wonder_priority_declined }
+			has_variable_map = tv_wonder_priority_candidate_site_by_id
+			has_variable_map = tv_wonder_priority_candidate_wonder_by_id
+			has_variable_map = tv_wonder_priority_candidate_mode_by_id
+		}
+		ordered_key_in_variable_map = {
+			variable = tv_wonder_priority_candidate_site_by_id
+			max = 10000
+			limit = {
+				NOT = { scope:tv_wonder_priority_owner = { has_variable = tv_wonder_priority_found } }
+				is_key_in_variable_map = { name = tv_wonder_priority_candidate_wonder_by_id target = this }
+				is_key_in_variable_map = { name = tv_wonder_priority_candidate_mode_by_id target = this }
+			}
+			set_local_variable = { name = tv_wonder_priority_candidate_id value = this }
+			set_local_variable = {
+				name = tv_wonder_priority_saved_candidate_wonder_id
+				value = "variable_map(tv_wonder_priority_candidate_wonder_by_id|local_var:tv_wonder_priority_candidate_id)"
+			}
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_wonder_id value = local_var:tv_wonder_priority_saved_candidate_wonder_id }
+				remove_variable = tv_wonder_priority_candidate_valid
+				remove_variable = tv_wonder_priority_candidate_current_mode
+			}
+			"variable_map(tv_wonder_priority_candidate_site_by_id|local_var:tv_wonder_priority_candidate_id)" = {
+				save_scope_as = tv_wonder_priority_site
+				tv_wonder_validate_priority_candidate_for_saved_wonder_effect = yes
+			}
+			if = {
+				limit = { scope:tv_wonder_priority_owner = { has_variable = tv_wonder_priority_candidate_valid } }
+				scope:tv_wonder_priority_owner = {
+					remove_from_variable_map = { name = tv_wonder_priority_candidate_mode_by_id key = local_var:tv_wonder_priority_candidate_id }
+					add_to_variable_map = { name = tv_wonder_priority_candidate_mode_by_id key = local_var:tv_wonder_priority_candidate_id value = var:tv_wonder_priority_candidate_current_mode }
+					set_variable = { name = tv_wonder_proposal value = local_var:tv_wonder_priority_saved_candidate_wonder_id }
+					set_variable = { name = tv_wonder_proposal_mode value = var:tv_wonder_priority_candidate_current_mode }
+					set_variable = { name = tv_wonder_priority_found value = 1 }
+					set_variable = { name = tv_wonder_proposal_site value = scope:tv_wonder_priority_site }
+					tv_wonder_set_proposal_on_great_engineer_effect = yes
+				}
+			}
+			else = {
+				tv_wonder_remove_current_priority_candidate_effect = yes
+			}
+			scope:tv_wonder_priority_owner = {
+				remove_variable = tv_wonder_priority_candidate_valid
+				remove_variable = tv_wonder_priority_candidate_current_mode
+				remove_variable = tv_wonder_priority_candidate_wonder_id
+			}
+			remove_local_variable = tv_wonder_priority_saved_candidate_wonder_id
+			remove_local_variable = tv_wonder_priority_candidate_id
+		}
+	}
+}
+
 tv_wonder_construct_module_for_last_completed_part_effect = {
 	tv_wonder_index_rebuild_global_maps_if_needed_effect = yes
 	if = {
@@ -145,6 +3529,7 @@ tv_wonder_construct_module_for_last_completed_part_effect = {
 			}
 			remove_local_variable = tv_wonder_module_building_type
 		}
+		tv_wonder_refresh_locked_priority_candidate_effect = yes
 	}
 }
 
@@ -2036,6 +5421,7 @@ tv_wonder_apply_helper_building_to_final_site_effect = {
 			}
 		}
 		remove_local_variable = tv_wonder_helper_building_type
+		tv_wonder_refresh_locked_priority_candidate_effect = yes
 	}
 }
 
@@ -4798,6 +8184,7 @@ tv_wonder_materialize_module_buildings_from_unit_vars_effect = {
 			}
 			remove_local_variable = tv_wonder_module_building_type
 		}
+		tv_wonder_refresh_locked_priority_candidate_effect = yes
 	}
 }
 
@@ -48677,134 +52064,4 @@ tv_wonder_destroy_discovered_unique_intermediate_buildings_at_location_effect = 
 tv_wonder_destroy_intermediate_buildings_at_location_effect = {
 	tv_wonder_destroy_discovered_generic_intermediate_buildings_at_location_effect = yes
 	tv_wonder_destroy_discovered_unique_intermediate_buildings_at_location_effect = yes
-}
-
-tv_wonder_scan_priority_proposal_effect = {
-	remove_variable = tv_wonder_priority_found
-	remove_variable = tv_wonder_proposal_site
-	remove_variable = tv_wonder_proposal_mode
-	save_scope_as = tv_wonder_priority_owner
-	if = {
-		limit = { NOT = { has_variable = tv_wonder_priority_declined } }
-		every_owned_location = {
-			limit = { NOT = { scope:tv_wonder_priority_owner = { has_variable = tv_wonder_priority_found } } }
-			save_scope_as = tv_wonder_priority_site
-			if = {
-				limit = {
-					has_global_variable_map = tv_wonder_intermediate_building_type_to_wonder_id
-				}
-				ordered_key_in_global_variable_map = {
-					variable = tv_wonder_intermediate_building_type_to_wonder_id
-					max = 2000
-					limit = {
-						NOT = { scope:tv_wonder_priority_owner = { has_variable = tv_wonder_priority_found } }
-						scope:tv_wonder_priority_site = {
-							NOT = { tv_wonder_location_has_any_wonder_final_building_trigger = yes }
-							has_building = prev
-						}
-					}
-					scope:tv_wonder_priority_site = {
-						set_local_variable = {
-							name = tv_wonder_priority_wonder_id
-							value = "global_variable_map(tv_wonder_intermediate_building_type_to_wonder_id|prev)"
-						}
-						scope:tv_wonder_priority_owner = {
-							set_variable = { name = tv_wonder_proposal value = local_var:tv_wonder_priority_wonder_id }
-							set_variable = { name = tv_wonder_proposal_mode value = 1 }
-							set_variable = { name = tv_wonder_priority_found value = 1 }
-							set_variable = { name = tv_wonder_proposal_site value = scope:tv_wonder_priority_site }
-							tv_wonder_set_proposal_on_great_engineer_effect = yes
-						}
-						remove_local_variable = tv_wonder_priority_wonder_id
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_global_variable_map = tv_wonder_final_building_type_to_wonder_id
-					has_global_variable_map = tv_wonder_final_building_type_to_ritual_style
-				}
-				ordered_key_in_global_variable_map = {
-					variable = tv_wonder_final_building_type_to_wonder_id
-					max = 2000
-					limit = {
-						NOT = { scope:tv_wonder_priority_owner = { has_variable = tv_wonder_priority_found } }
-						is_key_in_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style target = this }
-						scope:tv_wonder_priority_site = { has_building = prev }
-					}
-					scope:tv_wonder_priority_site = {
-						set_local_variable = { name = tv_wonder_priority_building_type value = prev }
-						set_local_variable = {
-							name = tv_wonder_priority_wonder_id
-							value = "global_variable_map(tv_wonder_final_building_type_to_wonder_id|local_var:tv_wonder_priority_building_type)"
-						}
-						remove_variable = tv_wonder_priority_scale_tier
-						if = {
-							limit = {
-								has_variable_map = tv_wonder_survey_scale_tier
-								is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = local_var:tv_wonder_priority_wonder_id }
-							}
-							set_variable = { name = tv_wonder_priority_scale_tier value = "variable_map(tv_wonder_survey_scale_tier|local_var:tv_wonder_priority_wonder_id)" }
-						}
-						if = {
-							limit = {
-								OR = {
-									AND = {
-										location_building_level = { building_type = local_var:tv_wonder_priority_building_type value >= 1 }
-										NOT = { location_building_level = { building_type = local_var:tv_wonder_priority_building_type value >= 2 } }
-										OR = {
-											var:tv_wonder_priority_scale_tier ?= { this >= 2 }
-											NOT = { has_variable = tv_wonder_priority_scale_tier }
-										}
-									}
-									AND = {
-										location_building_level = { building_type = local_var:tv_wonder_priority_building_type value >= 2 }
-										NOT = { location_building_level = { building_type = local_var:tv_wonder_priority_building_type value >= 3 } }
-										OR = {
-											var:tv_wonder_priority_scale_tier ?= { this >= 3 }
-											NOT = { has_variable = tv_wonder_priority_scale_tier }
-										}
-									}
-									AND = {
-										location_building_level = { building_type = local_var:tv_wonder_priority_building_type value >= 3 }
-										NOT = { location_building_level = { building_type = local_var:tv_wonder_priority_building_type value >= 4 } }
-										OR = {
-											var:tv_wonder_priority_scale_tier ?= { this >= 4 }
-											NOT = { has_variable = tv_wonder_priority_scale_tier }
-										}
-									}
-									AND = {
-										location_building_level = { building_type = local_var:tv_wonder_priority_building_type value >= 4 }
-										NOT = { location_building_level = { building_type = local_var:tv_wonder_priority_building_type value >= 5 } }
-										OR = {
-											var:tv_wonder_priority_scale_tier ?= { this >= 5 }
-											NOT = { has_variable = tv_wonder_priority_scale_tier }
-										}
-									}
-									AND = {
-										location_building_level = { building_type = local_var:tv_wonder_priority_building_type value >= 5 }
-										NOT = { location_building_level = { building_type = local_var:tv_wonder_priority_building_type value >= 6 } }
-										OR = {
-											var:tv_wonder_priority_scale_tier ?= { this >= 6 }
-											NOT = { has_variable = tv_wonder_priority_scale_tier }
-										}
-									}
-								}
-							}
-							scope:tv_wonder_priority_owner = {
-								set_variable = { name = tv_wonder_proposal value = local_var:tv_wonder_priority_wonder_id }
-								set_variable = { name = tv_wonder_proposal_mode value = 2 }
-								set_variable = { name = tv_wonder_priority_found value = 1 }
-								set_variable = { name = tv_wonder_proposal_site value = scope:tv_wonder_priority_site }
-								tv_wonder_set_proposal_on_great_engineer_effect = yes
-							}
-						}
-						remove_variable = tv_wonder_priority_scale_tier
-						remove_local_variable = tv_wonder_priority_building_type
-						remove_local_variable = tv_wonder_priority_wonder_id
-					}
-				}
-			}
-		}
-	}
 }

@@ -313,7 +313,7 @@ def append_hidden_effect(lines: list[str], wonder: dict, style: int) -> None:
     lines.append(f"{T}{T}{T}tv_wonder_complete_finalization_cleanup_effect = yes")
     lines.append(f"{T}{T}{T}{destroy_intermediate_effect_name(wonder)} = yes")
     lines.append(f"{T}{T}{T}{broadcast_effect_name(wonder)} = yes")
-    lines.append(f"{T}{T}{T}tv_wonder_cache_post_finalization_priority_effect = yes")
+    lines.append(f"{T}{T}{T}tv_wonder_refresh_locked_priority_candidate_effect = yes")
     lines.append(f"{T}{T}{T}tv_wonder_clear_project_state_effect = yes")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
