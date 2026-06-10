@@ -28,8 +28,6 @@ FEASIBLE_GENERIC_DECK_MAP = "tv_wonder_feasible_generic_deck"
 FEASIBLE_UNIQUE_DECK_MAP = "tv_wonder_feasible_unique_deck"
 LOCATION_SURVEYED_MAP = "tv_wonder_surveyed"
 LOCATION_SURVEY_SCALE_TIER_MAP = "tv_wonder_survey_scale_tier"
-HELPER_BUILDING_TYPE_MAP = "tv_wonder_id_to_helper_building_type"
-MODULE_BUILDING_TYPE_MAPS = [f"tv_wonder_id_to_{part}_module_building_type" for part in PARTS]
 
 
 def trigger_conditions(wonder: dict, mechanics: dict, indent: int = 1) -> list[str]:
@@ -62,14 +60,6 @@ def building_type_ref(building: str) -> str:
 
 def loc_level(building: str, op: str, level: int) -> str:
     return f"location_building_level = {{ building_type = {building_type_ref(building)} value {op} {level} }}"
-
-
-def final_building_type_map_name(style: int) -> str:
-    return f"tv_wonder_id_to_style_{style}_final_building_type"
-
-
-def global_map_scope_link(map_name: str, key: str) -> str:
-    return f"\"global_variable_map({map_name}|{key})\""
 
 
 def final_building_level_exact(building: str, level: int, indent: int) -> list[str]:
@@ -105,49 +95,6 @@ def final_building_below_cap_conditions(wonder: dict, indent: int) -> list[str]:
     return lines
 
 
-def dynamic_final_building_below_cap_conditions(building_type: str, wonder_id: str, indent: int) -> list[str]:
-    prefix = T * indent
-    lines = [f"{prefix}OR = {{"]
-    for level in range(1, 6):
-        lines.append(f"{prefix}{T}AND = {{")
-        lines.extend(stored_tier_can_expand_by_id(wonder_id, building_type, level, indent + 2))
-        lines.append(f"{prefix}{T}}}")
-    lines.append(f"{prefix}}}")
-    return lines
-
-
-def append_global_building_type_map_key_guards(lines: list[str], map_name: str, key: str, indent: int) -> None:
-    prefix = T * indent
-    lines.append(f"{prefix}has_global_variable_map = {map_name}")
-    lines.append(f"{prefix}is_key_in_global_variable_map = {{ name = {map_name} target = {key} }}")
-
-
-def append_mapped_location_has_building(lines: list[str], map_name: str, key: str, indent: int) -> None:
-    prefix = T * indent
-    lines.append(f"{prefix}{global_map_scope_link(map_name, key)} = {{")
-    lines.append(f"{prefix}{T}prev = {{")
-    lines.append(f"{prefix}{T}{T}has_building = prev")
-    lines.append(f"{prefix}{T}}}")
-    lines.append(f"{prefix}}}")
-
-
-def append_mapped_location_has_expandable_final_building(
-    lines: list[str],
-    map_name: str,
-    key: str,
-    indent: int,
-) -> None:
-    prefix = T * indent
-    lines.append(f"{prefix}AND = {{")
-    append_global_building_type_map_key_guards(lines, map_name, key, indent + 1)
-    lines.append(f"{prefix}{T}{global_map_scope_link(map_name, key)} = {{")
-    lines.append(f"{prefix}{T}{T}prev = {{")
-    lines.extend(dynamic_final_building_below_cap_conditions("prev", key, indent + 3))
-    lines.append(f"{prefix}{T}{T}}}")
-    lines.append(f"{prefix}{T}}}")
-    lines.append(f"{prefix}}}")
-
-
 def fresh_site_candidate_conditions(wonder: dict, mechanics: dict, indent: int) -> list[str]:
     del mechanics
     prefix = T * indent
@@ -156,6 +103,23 @@ def fresh_site_candidate_conditions(wonder: dict, mechanics: dict, indent: int) 
     lines.append(f"{prefix}{T}NOT = {{ tv_wonder_location_has_{wonder['key']}_intermediate_building_trigger = yes }}")
     lines.append(f"{prefix}{T}NOT = {{ tv_wonder_location_has_{wonder['key']}_final_building_trigger = yes }}")
     lines.append(f"{prefix}{T}NOT = {{ tv_wonder_location_has_{wonder['key']}_capped_final_building_trigger = yes }}")
+    lines.append(f"{prefix}}}")
+    return lines
+
+
+def host_site_candidate_conditions(wonder: dict, mechanics: dict, indent: int) -> list[str]:
+    del mechanics
+    prefix = T * indent
+    lines = [f"{prefix}AND = {{"]
+    lines.append(f"{prefix}{T}tv_wonder_location_meets_{wonder['key']}_base_site_rules_trigger = yes")
+    lines.append(f"{prefix}{T}NOT = {{ tv_wonder_location_has_{wonder['key']}_intermediate_building_trigger = yes }}")
+    lines.append(f"{prefix}{T}OR = {{")
+    lines.append(f"{prefix}{T}{T}AND = {{")
+    lines.append(f"{prefix}{T}{T}{T}NOT = {{ tv_wonder_location_has_{wonder['key']}_final_building_trigger = yes }}")
+    lines.append(f"{prefix}{T}{T}{T}NOT = {{ tv_wonder_location_has_{wonder['key']}_capped_final_building_trigger = yes }}")
+    lines.append(f"{prefix}{T}{T}}}")
+    lines.append(f"{prefix}{T}{T}tv_wonder_location_has_{wonder['key']}_expandable_final_building_trigger = yes")
+    lines.append(f"{prefix}{T}}}")
     lines.append(f"{prefix}}}")
     return lines
 
@@ -224,30 +188,21 @@ def add_project_occupancy_triggers(lines: list[str], wonders: list[dict], mechan
     lines.append("}")
     lines.append("")
 
-    lines.append("tv_wonder_location_has_locked_wonder_intermediate_building_trigger = {")
-    lines.append(f"{T}has_variable = tv_wonder_locked")
-    for map_name in [HELPER_BUILDING_TYPE_MAP, *MODULE_BUILDING_TYPE_MAPS]:
-        append_global_building_type_map_key_guards(lines, map_name, "var:tv_wonder_locked", 1)
-    lines.append(f"{T}OR = {{")
-    for map_name in [HELPER_BUILDING_TYPE_MAP, *MODULE_BUILDING_TYPE_MAPS]:
-        append_mapped_location_has_building(lines, map_name, "var:tv_wonder_locked", 2)
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
+    append_id_dispatch_trigger(
+        lines,
+        "tv_wonder_location_has_locked_wonder_intermediate_building_trigger",
+        wonders,
+        limit_line=lambda wonder: f"prev = {{ var:tv_wonder_locked ?= {wonder['id']} }}",
+        target_line=lambda wonder: f"tv_wonder_location_has_{wonder['key']}_intermediate_building_trigger = yes",
+    )
 
-    lines.append("tv_wonder_location_has_locked_wonder_expandable_final_building_trigger = {")
-    lines.append(f"{T}has_variable = tv_wonder_locked")
-    lines.append(f"{T}OR = {{")
-    for style in sorted({int(style) for wonder in wonders for style in ceremony_styles(wonder)}):
-        append_mapped_location_has_expandable_final_building(
-            lines,
-            final_building_type_map_name(style),
-            "var:tv_wonder_locked",
-            2,
-        )
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
+    append_id_dispatch_trigger(
+        lines,
+        "tv_wonder_location_has_locked_wonder_expandable_final_building_trigger",
+        wonders,
+        limit_line=lambda wonder: f"prev = {{ var:tv_wonder_locked ?= {wonder['id']} }}",
+        target_line=lambda wonder: f"tv_wonder_location_has_{wonder['key']}_expandable_final_building_trigger = yes",
+    )
 
     append_id_dispatch_trigger(
         lines,
@@ -257,14 +212,13 @@ def add_project_occupancy_triggers(lines: list[str], wonders: list[dict], mechan
         target_line=lambda wonder: f"tv_wonder_location_meets_{wonder['key']}_base_site_rules_trigger = yes",
     )
 
-    lines.append("tv_wonder_location_is_valid_priority_project_for_locked_wonder_trigger = {")
-    lines.append(f"{T}tv_wonder_location_meets_locked_wonder_base_site_rules_trigger = yes")
-    lines.append(f"{T}OR = {{")
-    lines.append(f"{T}{T}tv_wonder_location_has_locked_wonder_intermediate_building_trigger = yes")
-    lines.append(f"{T}{T}tv_wonder_location_has_locked_wonder_expandable_final_building_trigger = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
+    append_id_dispatch_trigger(
+        lines,
+        "tv_wonder_location_is_valid_priority_project_for_locked_wonder_trigger",
+        wonders,
+        limit_line=lambda wonder: f"prev = {{ var:tv_wonder_locked ?= {wonder['id']} }}",
+        target_line=lambda wonder: f"tv_wonder_location_is_valid_priority_project_for_{wonder['key']}_trigger = yes",
+    )
 
 
 def has_any_key_in_map_trigger(map_name: str, indent: int) -> list[str]:
@@ -349,7 +303,7 @@ def append_site_rule_dispatch_triggers(lines: list[str], wonders: list[dict]) ->
         "tv_wonder_site_rule_can_build_locked_wonder_trigger",
         wonders,
         limit_line=lambda wonder: f"var:tv_wonder_locked ?= {wonder['id']}",
-        target_line=lambda wonder: f"tv_wonder_can_build_{wonder['key']}_trigger = yes",
+        target_line=lambda wonder: f"tv_wonder_can_start_project_{wonder['key']}_trigger = yes",
     )
     append_id_dispatch_trigger(
         lines,
@@ -377,10 +331,22 @@ def generate() -> str:
     add_project_occupancy_triggers(lines, all_wonders, mechanics)
     for wonder in all_wonders:
         lines.append(f"tv_wonder_location_can_host_{wonder['key']}_trigger = {{")
-        lines.extend(fresh_site_candidate_conditions(wonder, mechanics, 1))
+        lines.extend(host_site_candidate_conditions(wonder, mechanics, 1))
         lines.append("}")
         lines.append("")
         lines.append(f"tv_wonder_can_build_{wonder['key']}_trigger = {{")
+        if wonder.get("is_unique"):
+            lines.append(f"{T}owns = location:{wonder['location']}")
+            lines.append(f"{T}location:{wonder['location']} = {{")
+            lines.extend(fresh_site_candidate_conditions(wonder, mechanics, 2))
+            lines.append(f"{T}}}")
+        else:
+            lines.append(f"{T}any_owned_location = {{")
+            lines.extend(fresh_site_candidate_conditions(wonder, mechanics, 2))
+            lines.append(f"{T}}}")
+        lines.append("}")
+        lines.append("")
+        lines.append(f"tv_wonder_can_start_project_{wonder['key']}_trigger = {{")
         if wonder.get("is_unique"):
             lines.append(f"{T}owns = location:{wonder['location']}")
             lines.append(f"{T}location:{wonder['location']} = {{")
