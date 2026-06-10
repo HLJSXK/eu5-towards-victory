@@ -53,7 +53,12 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    map key iteration or `random_key_in_variable_map` with generated per-id branches. Save the
    current owner scope before the map callback and write back through that named scope.
 
-9. Keep action title/description localization safe under contextless prefetch.
+9. Run sibling map reads from the saved owner scope inside key iterators.
+   In `every_key_in_variable_map` / `ordered_key_in_variable_map`, the callback scope may be
+   the numeric key itself. Copy `this` into a `local_var`, then run `is_key_in_variable_map`
+   and country-variable reads inside `scope:<saved_owner>` with `target = local_var:<key>`.
+
+10. Keep action title/description localization safe under contextless prefetch.
    Generic action title/description localization can be fetched without a GUI datacontext and
    without a script-scope container, even when the real hover later renders correctly. Do not put
    datacontext-dependent `Country.MakeScope` or container-dependent `SCOPE.sCountry('actor')`
@@ -62,7 +67,7 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    a GUI widget/tooltip with an explicit datacontext when it needs non-player scopes.
    Do not "fix" this class by deleting the dynamic tooltip.
 
-10. Register the action outside the action file.
+11. Register the action outside the action file.
    Every new generic action also needs a `common/generic_action_ai_lists` entry and a
    `PERFORM_<action_id>_ACTION` message type.
 
@@ -125,6 +130,9 @@ rationale.
 - `variable_map_callback_root_in_generic_action` [needs_parser]: A variable-map key callback
   called from a generic-action effect should not rely on `root` to write back to the action actor;
   save the actor/current country as a named scope before the callback.
+- `variable_map_key_iterator_scope_used_for_map_read` [needs_parser]: A key-iterator callback
+  should not run `is_key_in_variable_map` on the current numeric key scope; save the map owner,
+  copy `this` into a local variable, and check sibling maps from the owner scope.
 - `generic_action_loc_uses_gui_country_binding` [advisory]: Action title/description localization
   can be fetched without any data container; avoid `Country`/`SCOPE` reads and preserve dynamic
   player-country features through `Player.MakeScope`, or use an explicitly scoped GUI route for

@@ -1245,6 +1245,16 @@
   source: "Runtime error.log from Engineering Department Great Engineer select-trigger tooltip pre-evaluation, 2026-06-04"
   notes: "Generic action selector hover can pre-evaluate action effects without a usable root event target. A proposal deck helper using random_key_in_variable_map -> root = { set_variable = { value = prev } } logged Event target link 'root' returned an unset scope and left no proposal slots."
 
+- id: variable_map_key_iterator_scope_used_for_map_read
+  pattern: ''
+  detectability: needs_parser
+  bad: "Calling is_key_in_variable_map on the current every_key_in_variable_map/ordered_key_in_variable_map callback scope, especially with target = this"
+  correction: "Save the map-owning scope before the key iterator, copy this into a local variable, and run is_key_in_variable_map inside scope:<saved_owner> with target = local_var:<key>."
+  category: scope
+  scope: variable_map
+  source: "Runtime error.log: common/scripted_effects/tv_wonder_module_effects.txt:3364 via tv_wonder_bribe_proposal generic action, 2026-06-10"
+  notes: "In a key iterator callback the current scope may be the numeric key itself (for example 1.00), which does not support scope-owned variables. Membership checks for sibling country-scoped maps must execute from the saved country/map owner while the key is passed through a local variable."
+
 - id: gui_css_like_fittype_contain
   detectability: advisory
   pattern: 'fittype\s*=\s*contain'

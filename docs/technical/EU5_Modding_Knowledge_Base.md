@@ -540,6 +540,13 @@ every_key_in_variable_map = {
 
 `ordered_key_in_variable_map` selects only one key by default. Add `max = N` when multiple keys should be processed.
 
+When a key iterator reads sibling maps stored on the original country/scope, do not run
+`is_key_in_variable_map` directly from the callback scope. Runtime testing showed the callback
+scope can be the numeric key itself, which logs "This scope doesn't support variables" for
+country-scoped map checks such as `target = this`. Save the map owner before the iterator,
+copy `this` into a local variable inside the callback, then perform the sibling map checks under
+`scope:<saved_owner>` with `target = local_var:<key>`.
+
 When a variable-map key callback is reached from a generic action effect or selector tooltip,
 do not assume `root` is a valid country event target. Save the current country before entering
 the callback, then write through the named scope:
