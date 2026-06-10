@@ -648,17 +648,119 @@ organization_panel = {
 				}
 
 				blockoverride "common_bottom_content" {
-					widget = {
-						size = { 470 56 }
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						size = { 470 152 }
+						margin = { 4 6 }
+						spacing = 8
 
-						text_single = {
-							size = { 470 44 }
-							parentanchor = center
-							widgetanchor = center
-							text = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_LINE"
-							fontsize = 22
-							autoresize = no
-							align = center|nobaseline
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = fixed
+							size = { 462 104 }
+							spacing = 10
+
+							widget = {
+								size = { 76 96 }
+								allow_outside = yes
+
+								portrait_standard_head_button = {
+									using = character_portrait_bg
+									visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
+									parentanchor = center
+									widgetanchor = center
+									size = { 58 72 }
+									datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
+
+									icon = {
+										block "character_frame_texture" {
+											texture = "gfx/interface/component_decoration/character_frames/character_frame_1.dds"
+										}
+										texture_density = 2
+										size = { 100% 100% }
+									}
+								}
+
+								widget = {
+									visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
+									size = { 58 72 }
+									parentanchor = center
+									widgetanchor = center
+									using = bg_circle_piechart
+									text_single = {
+										parentanchor = center
+										size = { 100% 100% }
+										raw_text = "@adm!"
+										fontsize = 22
+										autoresize = no
+										align = center|nobaseline
+									}
+								}
+							}
+
+							widget = {
+								size = { 376 96 }
+								using = bg_text_mask_container_dark_blue
+								vbox = {
+									margin = { 8 8 }
+									layoutpolicy_horizontal = expanding
+									text_multi = {
+										max_width = 360
+										autoresize = yes
+										text = "TV_ACADEMY_PHILOSOPHY_CONCEPT_IN_PROGRESS_TEXT"
+										align = nobaseline|left
+									}
+								}
+							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = fixed
+							size = { 462 22 }
+							spacing = 6
+							text_single = { raw_text = "@adm!" size = { 24 20 } max_width = 24 fontsize = 16 align = center|nobaseline }
+							widget = {
+								size = { 340 16 }
+								parentanchor = vcenter
+								widgetanchor = vcenter
+								progressbar = {
+									visible = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').IsSet]"
+									size = { 340 14 }
+									using = progress_bar_blue_alt
+									min = 0
+									max = 100
+									value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').GetValue]"
+									tooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"
+								}
+								progressbar = {
+									visible = "[Not(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').IsSet)]"
+									size = { 340 14 }
+									using = progress_bar_blue_alt
+									min = 0
+									max = 100
+									value = 0
+									tooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"
+								}
+							}
+							text_single = {
+								visible = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').IsSet]"
+								raw_text = "[Concatenate(ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').GetValue)), '/100')]"
+								size = { 86 20 }
+								max_width = 86
+								fontsize = 13
+								tooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"
+								align = nobaseline|right
+							}
+							text_single = {
+								visible = "[Not(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').IsSet)]"
+								text = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_VALUE"
+								size = { 86 20 }
+								max_width = 86
+								fontsize = 13
+								tooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"
+								align = nobaseline|right
+							}
 						}
 					}
 				}
@@ -872,17 +974,183 @@ organization_panel = {
 				}
 
 				blockoverride "common_bottom_content" {
-					hbox = {
+					vbox = {
 						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						size = { 470 126 }
 						margin = { 4 6 }
+						spacing = 6
 
-						button_regular_diamond = {
-							size = { 470 30 }
-							text = "TV_ACADEMY_PHILOSOPHY_NO_ACTION_BUTTON"
-							tooltip = "TV_ACADEMY_PHILOSOPHY_NO_ACTION_BUTTON"
-							enabled = no
+						hbox = {
+							layoutpolicy_horizontal = fixed
+							size = { 462 112 }
+							spacing = 6
+
+							widget = {
+								size = { 150 112 }
+								widget = {
+									visible = yes
+									size = { 150 112 }
+									button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_1 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+									vbox = {
+										parentanchor = center
+										widgetanchor = center
+										size = { 132 96 }
+										spacing = 8
+										text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_FUNDING" fontsize = 13 align = center|nobaseline }
+										text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+									}
+								}
+								widget = {
+									visible = no
+									size = { 150 112 }
+									button_regular_alt_green = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+									vbox = {
+										parentanchor = center
+										widgetanchor = center
+										size = { 132 96 }
+										spacing = 8
+										text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_PUBLIC_STANCE" fontsize = 13 align = center|nobaseline }
+										text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+									}
+								}
+								widget = {
+									visible = no
+									size = { 150 112 }
+									button_regular_alt_yellow = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+									vbox = {
+										parentanchor = center
+										widgetanchor = center
+										size = { 132 96 }
+										spacing = 8
+										text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_MANIPULATE_EVENTS" fontsize = 13 align = center|nobaseline }
+										text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+									}
+								}
+								widget = {
+									visible = no
+									size = { 150 112 }
+									button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_2 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+									vbox = {
+										parentanchor = center
+										widgetanchor = center
+										size = { 132 96 }
+										spacing = 8
+										text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_COMPROMISE" fontsize = 13 align = center|nobaseline }
+										text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+									}
+								}
+								widget = {
+									visible = no
+									size = { 150 112 }
+									button_regular_alt_red = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+									vbox = {
+										parentanchor = center
+										widgetanchor = center
+										size = { 132 96 }
+										spacing = 8
+										text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_SUPPRESSION" fontsize = 13 align = center|nobaseline }
+										text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+									}
+								}
+								widget = {
+									visible = no
+									size = { 150 112 }
+									button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_4 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+									vbox = {
+										parentanchor = center
+										widgetanchor = center
+										size = { 132 96 }
+										spacing = 8
+										text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_INSTITUTIONAL_REALITY" fontsize = 13 align = center|nobaseline }
+										text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+									}
+								}
+							}
+
+							widget = {
+								size = { 150 112 }
+								widget = {
+									visible = yes
+									size = { 150 112 }
+									button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_1 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" }
+									vbox = {
+										parentanchor = center
+										widgetanchor = center
+										size = { 132 96 }
+										spacing = 8
+										text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_FUNDING" fontsize = 13 align = center|nobaseline }
+										text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline }
+									}
+								}
+								widget = { visible = no size = { 150 112 } button_regular_alt_green = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_PUBLIC_STANCE" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline } } }
+								widget = { visible = no size = { 150 112 } button_regular_alt_yellow = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_MANIPULATE_EVENTS" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline } } }
+								widget = { visible = no size = { 150 112 } button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_2 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_COMPROMISE" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline } } }
+								widget = { visible = no size = { 150 112 } button_regular_alt_red = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_SUPPRESSION" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline } } }
+								widget = { visible = no size = { 150 112 } button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_4 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_INSTITUTIONAL_REALITY" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline } } }
+							}
+
+							widget = {
+								size = { 150 112 }
+								widget = {
+									visible = yes
+									size = { 150 112 }
+									button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_1 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" }
+									vbox = {
+										parentanchor = center
+										widgetanchor = center
+										size = { 132 96 }
+										spacing = 8
+										text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_FUNDING" fontsize = 13 align = center|nobaseline }
+										text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline }
+									}
+								}
+								widget = { visible = no size = { 150 112 } button_regular_alt_green = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_PUBLIC_STANCE" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline } } }
+								widget = { visible = no size = { 150 112 } button_regular_alt_yellow = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_MANIPULATE_EVENTS" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline } } }
+								widget = { visible = no size = { 150 112 } button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_2 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_COMPROMISE" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline } } }
+								widget = { visible = no size = { 150 112 } button_regular_alt_red = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_SUPPRESSION" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline } } }
+								widget = { visible = no size = { 150 112 } button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_4 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_INSTITUTIONAL_REALITY" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline } } }
+							}
 						}
 					}
+				}
+			}
+
+			card_common = {
+				maximumsize = { 500 -1 }
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+				}
+				blockoverride "common_header_text" {
+					text = "TV_ACADEMY_PHILOSOPHY_ACTION_DETAILS_TITLE"
+				}
+				blockoverride "common_bottom_content" {
+					text_multi = { size = { 470 58 } max_width = 454 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_DETAILS_BODY" align = nobaseline|left }
+				}
+			}
+
+			card_common = {
+				maximumsize = { 500 -1 }
+				blockoverride "common_header_icon_texture" {
+					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+				}
+				blockoverride "common_header_text" {
+					text = "TV_ACADEMY_PHILOSOPHY_ACTION_EFFECTS_TITLE"
+				}
+				blockoverride "common_bottom_content" {
+					text_multi = { size = { 470 58 } max_width = 454 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_EFFECTS_BODY" align = nobaseline|left }
+				}
+			}
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				margin = { 4 0 }
+				expand = {}
+				button_regular_diamond = {
+					size = { 235 30 }
+					text = "TV_ACADEMY_PHILOSOPHY_EXECUTE_ACTION_BUTTON"
+					tooltip = "TV_ACADEMY_PHILOSOPHY_EXECUTE_ACTION_TT"
+					enabled = no
 				}
 			}
 
