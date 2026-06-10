@@ -146,15 +146,62 @@ def proposal_slot_var(slot: int) -> str:
     return f"{PLAYER}.GetVariable('tv_wonder_proposal_slot_{slot}')"
 
 
+def action_button_fields(
+    text: str,
+    title: str,
+    description: str,
+    action_name: str,
+) -> str:
+    return (
+        f'text = "{text}" title = "{title}" description = "{description}" '
+        f'actor = "[InternationalOrganizationsView.GetPlayer]" '
+        f'left_action = {{ action_name = "{action_name}" }}'
+    )
+
+
+def green_action_button(
+    visible: str,
+    size: str,
+    text: str,
+    title: str,
+    description: str,
+    action_name: str,
+) -> str:
+    return (
+        f'{T}action_button = {{ visible = "[{visible}]" size = {{ {size} }} '
+        f'using = button_regular_texture_alt_green using = action_button_common_template '
+        f'using = button_common_textobj_template fontsize = 13 '
+        f'{action_button_fields(text, title, description, action_name)} }}'
+    )
+
+
 def proposal_button(slot: int) -> str:
     slot_var = proposal_slot_var(slot)
     slot_id_string = fixed_point_to_int_string(slot_var)
     text = f"[SelectGameConcept({slot_var}.IsSet, Concatenate('tv_wonder_display_', {slot_id_string}), 'tv_wonder_construction')]"
-    return (
-        f'{T}action_button_diamond = {{ size = {{ 152 30 }} visible = "[{slot_var}.IsSet]" '
-        f'text = "{text}" title = "tv_wonder_select_proposal_slot_{slot}" '
-        f'description = "tv_wonder_select_proposal_slot_{slot}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
-        f'left_action = {{ action_name = "tv_wonder_select_proposal_slot_{slot}" }} }}'
+    selected_visible = fold_bool(
+        "And",
+        [
+            f"{slot_var}.IsSet",
+            f"{player_var('tv_wonder_proposal')}.IsSet",
+            (
+                f"EqualTo_CFixedPoint({player_var('tv_wonder_proposal')}.GetValue, "
+                f"{slot_var}.GetValue)"
+            ),
+        ],
+    )
+    title = f"tv_wonder_select_proposal_slot_{slot}"
+    description = f"tv_wonder_select_proposal_slot_{slot}_desc"
+    action_name = f"tv_wonder_select_proposal_slot_{slot}"
+    return "\n".join(
+        [
+            f"widget = {{",
+            f'{T}visible = "[{slot_var}.IsSet]"',
+            f"{T}size = {{ 152 30 }}",
+            f"{T}action_button_diamond = {{ size = {{ 152 30 }} {action_button_fields(text, title, description, action_name)} }}",
+            green_action_button(selected_visible, "152 30", text, title, description, action_name),
+            f"}}",
+        ]
     )
 
 
@@ -185,18 +232,24 @@ def ceremony_select_button(style: int) -> str:
             f"GreaterThanOrEqualTo_CFixedPoint({player_var('tv_wonder_locked_style_count')}.GetValue, '(CFixedPoint){style}.0')",
         ],
     )
-    selected_down = eq("tv_wonder_ceremony_style", style)
+    selected_visible = f"And({player_var('tv_wonder_ceremony_style')}.IsSet, {eq('tv_wonder_ceremony_style', style)})"
     display_var = player_var("tv_wonder_locked_concept_display_id")
     text = (
         f"[SelectGameConcept({display_var}.IsSet, "
         f"{dynamic_ritual_concept_key(style)}, 'tv_wonder_construction')]"
     )
-    return (
-        f'{T}action_button_diamond = {{ visible = "[{locked_visible}]" size = {{ 150 30 }} '
-        f'text = "{text}" '
-        f'down = "[{selected_down}]" title = "tv_wonder_choose_ceremony_style_{style}" '
-        f'description = "tv_wonder_choose_ceremony_style_{style}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
-        f'left_action = {{ action_name = "tv_wonder_choose_ceremony_style_{style}" }} }}'
+    title = f"tv_wonder_choose_ceremony_style_{style}"
+    description = f"tv_wonder_choose_ceremony_style_{style}_desc"
+    action_name = f"tv_wonder_choose_ceremony_style_{style}"
+    return "\n".join(
+        [
+            f"widget = {{",
+            f'{T}visible = "[{locked_visible}]"',
+            f"{T}size = {{ 150 30 }}",
+            f"{T}action_button_diamond = {{ size = {{ 150 30 }} {action_button_fields(text, title, description, action_name)} }}",
+            green_action_button(selected_visible, "150 30", text, title, description, action_name),
+            f"}}",
+        ]
     )
 
 
