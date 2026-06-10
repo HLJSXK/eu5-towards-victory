@@ -538,7 +538,7 @@ every_key_in_variable_map = {
 }
 ```
 
-`ordered_key_in_variable_map` selects only one key by default. Add `max = N` when multiple keys should be processed.
+`ordered_key_in_variable_map` selects only one key by default. Add `max = N` when multiple keys should be processed, but do not use an inflated number as an "all keys" shortcut. Runtime testing showed the engine logs a Script system error when `max` is larger than the current key list, even though it caps the value internally. Use `every_key_in_variable_map` plus a found flag when the current count is not known.
 
 When a key iterator reads sibling maps stored on the original country/scope, do not run
 `is_key_in_variable_map` directly from the callback scope. Runtime testing showed the callback

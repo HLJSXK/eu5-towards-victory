@@ -58,7 +58,11 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    the numeric key itself. Copy `this` into a `local_var`, then run `is_key_in_variable_map`
    and country-variable reads inside `scope:<saved_owner>` with `target = local_var:<key>`.
 
-10. Keep action title/description localization safe under contextless prefetch.
+10. Do not use inflated `ordered_key_in_variable_map` max values.
+   The engine logs an error when `max` is larger than the current key list. Use
+   `every_key_in_variable_map` with a found flag when the live key count is not known.
+
+11. Keep action title/description localization safe under contextless prefetch.
    Generic action title/description localization can be fetched without a GUI datacontext and
    without a script-scope container, even when the real hover later renders correctly. Do not put
    datacontext-dependent `Country.MakeScope` or container-dependent `SCOPE.sCountry('actor')`

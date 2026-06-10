@@ -1255,6 +1255,16 @@
   source: "Runtime error.log: common/scripted_effects/tv_wonder_module_effects.txt:3364 via tv_wonder_bribe_proposal generic action, 2026-06-10"
   notes: "In a key iterator callback the current scope may be the numeric key itself (for example 1.00), which does not support scope-owned variables. Membership checks for sibling country-scoped maps must execute from the saved country/map owner while the key is passed through a local variable."
 
+- id: ordered_key_variable_map_oversized_max
+  pattern: ''
+  detectability: advisory
+  bad: "Using an inflated ordered_key_in_variable_map max value such as 10000 to process every current key"
+  correction: "Use every_key_in_variable_map with a found/stop flag when all keys may need inspection, or set ordered_key_in_variable_map max only to an exact known upper bound that cannot exceed the current map size."
+  category: scope
+  scope: variable_map
+  source: "Runtime error.log: common/scripted_effects/tv_wonder_module_effects.txt:3361 via Engineering Department saved priority proposal selection, 2026-06-10"
+  notes: "EU5 logs a Script system error when ordered_key_in_variable_map max is larger than the current key list, even though it reports that it capped max at the list size. Do not use a huge max as a harmless 'iterate all' shortcut."
+
 - id: gui_css_like_fittype_contain
   detectability: advisory
   pattern: 'fittype\s*=\s*contain'

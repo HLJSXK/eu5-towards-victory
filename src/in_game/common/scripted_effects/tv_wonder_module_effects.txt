@@ -3241,9 +3241,14 @@ tv_wonder_validate_priority_candidate_for_saved_wonder_effect = {
 }
 
 tv_wonder_remove_current_priority_candidate_effect = {
-	remove_from_variable_map = { name = tv_wonder_priority_candidate_site_by_id key = local_var:tv_wonder_priority_candidate_id }
-	remove_from_variable_map = { name = tv_wonder_priority_candidate_wonder_by_id key = local_var:tv_wonder_priority_candidate_id }
-	remove_from_variable_map = { name = tv_wonder_priority_candidate_mode_by_id key = local_var:tv_wonder_priority_candidate_id }
+	if = {
+		limit = { exists = scope:tv_wonder_priority_owner }
+		scope:tv_wonder_priority_owner = {
+			remove_from_variable_map = { name = tv_wonder_priority_candidate_site_by_id key = local_var:tv_wonder_priority_candidate_id }
+			remove_from_variable_map = { name = tv_wonder_priority_candidate_wonder_by_id key = local_var:tv_wonder_priority_candidate_id }
+			remove_from_variable_map = { name = tv_wonder_priority_candidate_mode_by_id key = local_var:tv_wonder_priority_candidate_id }
+		}
+	}
 }
 
 tv_wonder_register_current_priority_candidate_effect = {
@@ -3290,23 +3295,27 @@ tv_wonder_unregister_current_site_priority_candidate_effect = {
 						is_key_in_variable_map = { name = tv_wonder_priority_candidate_mode_by_id target = local_var:tv_wonder_priority_candidate_id }
 					}
 				}
-				set_local_variable = {
-					name = tv_wonder_priority_saved_candidate_wonder_id
-					value = "variable_map(tv_wonder_priority_candidate_wonder_by_id|local_var:tv_wonder_priority_candidate_id)"
+				scope:tv_wonder_priority_owner = {
+					set_local_variable = {
+						name = tv_wonder_priority_saved_candidate_wonder_id
+						value = "variable_map(tv_wonder_priority_candidate_wonder_by_id|local_var:tv_wonder_priority_candidate_id)"
+					}
 				}
 				if = {
 					limit = { local_var:tv_wonder_priority_saved_candidate_wonder_id ?= var:tv_wonder_priority_candidate_wonder_id }
-					remove_variable = tv_wonder_priority_candidate_site_matches
-					"variable_map(tv_wonder_priority_candidate_site_by_id|local_var:tv_wonder_priority_candidate_id)" = {
-						if = {
-							limit = { this = scope:tv_wonder_priority_site }
-							scope:tv_wonder_priority_owner = { set_variable = { name = tv_wonder_priority_candidate_site_matches value = 1 } }
+					scope:tv_wonder_priority_owner = { remove_variable = tv_wonder_priority_candidate_site_matches }
+					scope:tv_wonder_priority_owner = {
+						"variable_map(tv_wonder_priority_candidate_site_by_id|local_var:tv_wonder_priority_candidate_id)" = {
+							if = {
+								limit = { this = scope:tv_wonder_priority_site }
+								scope:tv_wonder_priority_owner = { set_variable = { name = tv_wonder_priority_candidate_site_matches value = 1 } }
+							}
 						}
 					}
 					if = {
-						limit = { has_variable = tv_wonder_priority_candidate_site_matches }
+						limit = { scope:tv_wonder_priority_owner = { has_variable = tv_wonder_priority_candidate_site_matches } }
 						tv_wonder_remove_current_priority_candidate_effect = yes
-						remove_variable = tv_wonder_priority_candidate_site_matches
+						scope:tv_wonder_priority_owner = { remove_variable = tv_wonder_priority_candidate_site_matches }
 					}
 				}
 				remove_local_variable = tv_wonder_priority_saved_candidate_wonder_id
@@ -3358,9 +3367,8 @@ tv_wonder_select_saved_priority_proposal_effect = {
 			has_variable_map = tv_wonder_priority_candidate_wonder_by_id
 			has_variable_map = tv_wonder_priority_candidate_mode_by_id
 		}
-		ordered_key_in_variable_map = {
+		every_key_in_variable_map = {
 			variable = tv_wonder_priority_candidate_site_by_id
-			max = 10000
 			limit = {
 				NOT = { scope:tv_wonder_priority_owner = { has_variable = tv_wonder_priority_found } }
 			}
@@ -3372,18 +3380,22 @@ tv_wonder_select_saved_priority_proposal_effect = {
 						is_key_in_variable_map = { name = tv_wonder_priority_candidate_mode_by_id target = local_var:tv_wonder_priority_candidate_id }
 					}
 				}
-				set_local_variable = {
-					name = tv_wonder_priority_saved_candidate_wonder_id
-					value = "variable_map(tv_wonder_priority_candidate_wonder_by_id|local_var:tv_wonder_priority_candidate_id)"
+				scope:tv_wonder_priority_owner = {
+					set_local_variable = {
+						name = tv_wonder_priority_saved_candidate_wonder_id
+						value = "variable_map(tv_wonder_priority_candidate_wonder_by_id|local_var:tv_wonder_priority_candidate_id)"
+					}
 				}
 				scope:tv_wonder_priority_owner = {
 					set_variable = { name = tv_wonder_priority_candidate_wonder_id value = local_var:tv_wonder_priority_saved_candidate_wonder_id }
 					remove_variable = tv_wonder_priority_candidate_valid
 					remove_variable = tv_wonder_priority_candidate_current_mode
 				}
-				"variable_map(tv_wonder_priority_candidate_site_by_id|local_var:tv_wonder_priority_candidate_id)" = {
-					save_scope_as = tv_wonder_priority_site
-					tv_wonder_validate_priority_candidate_for_saved_wonder_effect = yes
+				scope:tv_wonder_priority_owner = {
+					"variable_map(tv_wonder_priority_candidate_site_by_id|local_var:tv_wonder_priority_candidate_id)" = {
+						save_scope_as = tv_wonder_priority_site
+						tv_wonder_validate_priority_candidate_for_saved_wonder_effect = yes
+					}
 				}
 				if = {
 					limit = { scope:tv_wonder_priority_owner = { has_variable = tv_wonder_priority_candidate_valid } }
