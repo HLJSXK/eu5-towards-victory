@@ -2021,64 +2021,64 @@ tv_wonder_apply_final_support_rewards_effect = {
 tv_wonder_apply_completion_celebration_rewards_effect = {
 	if = {
 		limit = { var:tv_wonder_level ?= 1 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_1 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
 			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_1 years = root.var:tv_wonder_final_completion_local_years mode = add_and_extend }
 			change_prosperity = root.var:tv_wonder_final_completion_prosperity
 		}
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_1 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_level ?= 2 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_2 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
 			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_2 years = root.var:tv_wonder_final_completion_local_years mode = add_and_extend }
 			change_prosperity = root.var:tv_wonder_final_completion_prosperity
 		}
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_2 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_level ?= 3 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_3 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
 			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_3 years = root.var:tv_wonder_final_completion_local_years mode = add_and_extend }
 			change_prosperity = root.var:tv_wonder_final_completion_prosperity
 		}
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_3 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_level ?= 4 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_4 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
 			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_4 years = root.var:tv_wonder_final_completion_local_years mode = add_and_extend }
 			change_prosperity = root.var:tv_wonder_final_completion_prosperity
 		}
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_4 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_level ?= 5 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_5 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
 			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_5 years = root.var:tv_wonder_final_completion_local_years mode = add_and_extend }
 			change_prosperity = root.var:tv_wonder_final_completion_prosperity
 		}
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_5 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_level ?= 6 }
-		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_6 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 		var:tv_wonder_site ?= {
 			add_location_modifier = { modifier = tv_wonder_local_completion_celebration_level_6 years = root.var:tv_wonder_final_completion_local_years mode = add_and_extend }
 			change_prosperity = root.var:tv_wonder_final_completion_prosperity
 		}
+		add_country_modifier = { modifier = tv_wonder_national_completion_celebration_level_6 years = var:tv_wonder_final_completion_country_years mode = add_and_extend }
 	}
 }
 
 tv_wonder_reward_current_ruler_and_engineer_effect = {
-	ruler ?= {
-		add_adm = 5
-		add_dip = 5
-		add_mil = 5
-	}
 	var:tv_great_engineer_char ?= {
 		add_adm = 10
 		add_dip = 10
 		add_mil = 10
+	}
+	ruler ?= {
+		add_adm = 5
+		add_dip = 5
+		add_mil = 5
 	}
 }
 
@@ -2094,8 +2094,10 @@ tv_wonder_finalize_effect = {
 }
 
 tv_wonder_apply_finalization_visible_rewards_effect = {
-	tv_wonder_apply_completion_celebration_rewards_effect = yes
 	tv_wonder_reward_current_ruler_and_engineer_effect = yes
+	custom_tooltip = { text = TV_WONDER_FINAL_LEVEL_REWARD_TT }
+	tv_wonder_apply_completion_celebration_rewards_effect = yes
+	custom_tooltip = { text = TV_WONDER_FINAL_SUPPORT_REWARD_TT }
 	tv_wonder_apply_final_support_rewards_effect = yes
 }
 

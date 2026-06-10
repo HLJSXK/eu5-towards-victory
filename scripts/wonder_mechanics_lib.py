@@ -869,6 +869,10 @@ def finalization_visible_effect_name(wonder: dict) -> str:
     return f"tv_wonder_{wonder['key']}_finalization_visible_effect"
 
 
+def construct_final_building_effect_name(wonder: dict, style: int) -> str:
+    return f"tv_wonder_{wonder['key']}_style_{int(style)}_construct_final_building_effect"
+
+
 def finalization_hidden_effect_name(wonder: dict, style: int) -> str:
     return f"tv_wonder_{wonder['key']}_style_{int(style)}_finalization_hidden_effect"
 

@@ -13,6 +13,7 @@ from wonder_mechanics_lib import (
     PARTS,
     ceremony_modifier_for_style,
     ceremony_styles,
+    construct_final_building_effect_name,
     finalization_event_id,
     finalization_hidden_event_execute_effect_name,
     finalization_hidden_event_id,
@@ -23,6 +24,8 @@ from wonder_mechanics_lib import (
     load_all_wonder_mechanics,
     mechanic_key,
     render_header,
+    ritual_blessing_modifier_name,
+    ritual_plan_for_style,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_finalization_effects.txt"
@@ -106,10 +109,6 @@ def clear_ceremony_effect_name(wonder: dict) -> str:
 
 def apply_ceremony_effect_name(wonder: dict) -> str:
     return f"tv_wonder_{wonder['key']}_apply_finalization_ceremony_modifier_effect"
-
-
-def construct_final_building_effect_name(wonder: dict, style: int) -> str:
-    return f"tv_wonder_{wonder['key']}_style_{int(style)}_construct_final_building_effect"
 
 
 def destroy_intermediate_effect_name(wonder: dict) -> str:
@@ -225,11 +224,45 @@ def append_unique_ceremony_modifier_effects(lines: list[str], wonder: dict, mech
     lines.append("")
 
 
+def append_generic_ritual_blessing_modifier_effects(lines: list[str], wonder: dict, mechanics: dict) -> None:
+    if wonder.get("is_unique"):
+        return
+    ritual_plan = ritual_plan_for_style(wonder, mechanics, 1)
+    if not ritual_plan.get("timed", {}).get("blessing_modifier", {}):
+        return
+
+    modifier_name = ritual_blessing_modifier_name(wonder)
+    lines.append(f"{clear_ceremony_effect_name(wonder)} = {{")
+    lines.append(f"{T}remove_country_modifier = {modifier_name}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append(f"{apply_ceremony_effect_name(wonder)} = {{")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ var:tv_wonder_ceremony_style ?= 1 }}")
+    lines.append(f"{T}{T}add_country_modifier = {{ modifier = {modifier_name} years = -1 mode = add_and_extend }}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def has_visible_ceremony_modifier(wonder: dict, mechanics: dict) -> bool:
+    if unique_ceremony_modifier_names(wonder, mechanics):
+        return True
+    if wonder.get("is_unique"):
+        return False
+    ritual_plan = ritual_plan_for_style(wonder, mechanics, 1)
+    return bool(ritual_plan.get("timed", {}).get("blessing_modifier", {}))
+
+
 def append_construct_final_building_effect(lines: list[str], wonder: dict, style: int) -> None:
     building = wonder["final_buildings"][style]
     lines.append(f"{construct_final_building_effect_name(wonder, style)} = {{")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_finalization_preview_ready")
+    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
+    lines.append(f"{T}{T}{T}var:tv_wonder_ceremony_style ?= {int(style)}")
     lines.append(f"{T}{T}{T}tv_wonder_construction_site_selected_trigger = yes")
     lines.append(f"{T}{T}{T}var:tv_wonder_level ?= {{ this >= 1 }}")
     lines.append(f"{T}{T}{T}var:tv_wonder_level ?= {{ this <= 6 }}")
@@ -289,11 +322,11 @@ def append_visible_effect(lines: list[str], wonder: dict, mechanics: dict) -> No
     lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_finalization_preview_ready var:tv_wonder_locked ?= {wonder['id']} }}")
     lines.append(f"{T}{T}hidden_effect = {{")
     lines.append(f"{T}{T}{T}{clear_base_effect_name(wonder)} = yes")
-    if unique_ceremony_modifier_names(wonder, mechanics):
+    if has_visible_ceremony_modifier(wonder, mechanics):
         lines.append(f"{T}{T}{T}{clear_ceremony_effect_name(wonder)} = yes")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}{apply_base_effect_name(wonder)} = yes")
-    if unique_ceremony_modifier_names(wonder, mechanics):
+    if has_visible_ceremony_modifier(wonder, mechanics):
         lines.append(f"{T}{T}{apply_ceremony_effect_name(wonder)} = yes")
     lines.append(f"{T}{T}tv_wonder_apply_finalization_visible_rewards_effect = yes")
     lines.append(f"{T}}}")
@@ -309,7 +342,6 @@ def append_hidden_effect(lines: list[str], wonder: dict, style: int) -> None:
         f"var:tv_wonder_locked ?= {wonder['id']} var:tv_wonder_ceremony_style ?= {int(style)} }}"
     )
     lines.append(f"{T}{T}hidden_effect = {{")
-    lines.append(f"{T}{T}{T}{construct_final_building_effect_name(wonder, style)} = yes")
     lines.append(f"{T}{T}{T}tv_wonder_complete_finalization_cleanup_effect = yes")
     lines.append(f"{T}{T}{T}{destroy_intermediate_effect_name(wonder)} = yes")
     lines.append(f"{T}{T}{T}{broadcast_effect_name(wonder)} = yes")
@@ -329,6 +361,7 @@ def generate() -> str:
     for wonder in wonders:
         append_clear_base_modifier_effect(lines, wonder, mechanics)
         append_apply_base_modifier_effect(lines, wonder, mechanics)
+        append_generic_ritual_blessing_modifier_effects(lines, wonder, mechanics)
         append_unique_ceremony_modifier_effects(lines, wonder, mechanics)
         for style in ceremony_styles(wonder):
             append_construct_final_building_effect(lines, wonder, style)

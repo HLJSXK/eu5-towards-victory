@@ -29,6 +29,18 @@ tv_engineering_department.5001 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_sacred_mountain_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_sacred_mountain_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_sacred_mountain_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_sacred_mountain_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -60,6 +72,18 @@ tv_engineering_department.5002 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_triumphal_axis_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_triumphal_axis_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_triumphal_axis_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_triumphal_axis_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -91,6 +115,18 @@ tv_engineering_department.5003 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_great_port_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_great_port_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_great_port_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_great_port_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -122,6 +158,18 @@ tv_engineering_department.5004 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_giant_necropolis_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_giant_necropolis_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_giant_necropolis_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_giant_necropolis_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -153,6 +201,18 @@ tv_engineering_department.5005 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_great_lighthouse_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_great_lighthouse_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_great_lighthouse_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_great_lighthouse_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -184,6 +244,18 @@ tv_engineering_department.5006 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_hydraulic_workshop_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_hydraulic_workshop_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_hydraulic_workshop_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_hydraulic_workshop_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -215,6 +287,18 @@ tv_engineering_department.5007 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_mining_city_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_mining_city_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_mining_city_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_mining_city_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -246,6 +330,18 @@ tv_engineering_department.5008 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_giant_observatory_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_giant_observatory_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_giant_observatory_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_giant_observatory_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -277,6 +373,18 @@ tv_engineering_department.5009 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_palace_of_nations_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_palace_of_nations_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_palace_of_nations_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_palace_of_nations_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -308,6 +416,18 @@ tv_engineering_department.5010 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_university_city_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_university_city_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_university_city_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_university_city_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -339,6 +459,18 @@ tv_engineering_department.5011 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_sky_dome_grand_temple_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_sky_dome_grand_temple_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_sky_dome_grand_temple_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_sky_dome_grand_temple_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -370,6 +502,18 @@ tv_engineering_department.5012 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_giant_tower_temple_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_giant_tower_temple_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_giant_tower_temple_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_giant_tower_temple_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -401,6 +545,18 @@ tv_engineering_department.5013 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_river_extension_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_river_extension_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_river_extension_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_river_extension_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -432,6 +588,18 @@ tv_engineering_department.5014 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_national_shipyard_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_national_shipyard_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_national_shipyard_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_national_shipyard_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -463,6 +631,18 @@ tv_engineering_department.5015 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_star_fortress_city_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_star_fortress_city_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_star_fortress_city_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_star_fortress_city_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -494,6 +674,18 @@ tv_engineering_department.5016 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_great_wall_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_great_wall_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_great_wall_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_great_wall_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -525,6 +717,18 @@ tv_engineering_department.5017 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_giant_armory_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_giant_armory_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_giant_armory_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_giant_armory_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -556,6 +760,18 @@ tv_engineering_department.5018 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_library_of_nation_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_library_of_nation_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_library_of_nation_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_library_of_nation_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -587,6 +803,18 @@ tv_engineering_department.5019 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_large_canal_system_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_large_canal_system_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_large_canal_system_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_large_canal_system_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -618,6 +846,18 @@ tv_engineering_department.5020 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_mountain_terrace_network_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_mountain_terrace_network_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_mountain_terrace_network_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_mountain_terrace_network_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -649,6 +889,18 @@ tv_engineering_department.5021 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_giant_dam_project_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_giant_dam_project_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_giant_dam_project_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_giant_dam_project_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -680,6 +932,18 @@ tv_engineering_department.5022 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_royal_granary_system_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_royal_granary_system_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_royal_granary_system_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_royal_granary_system_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -711,6 +975,18 @@ tv_engineering_department.5023 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_imperial_post_road_network_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_imperial_post_road_network_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_imperial_post_road_network_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_imperial_post_road_network_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -742,6 +1018,18 @@ tv_engineering_department.5024 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_canal_hub_city_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_canal_hub_city_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_canal_hub_city_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_canal_hub_city_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -773,6 +1061,18 @@ tv_engineering_department.5025 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_frontier_colonization_belt_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_frontier_colonization_belt_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_frontier_colonization_belt_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_frontier_colonization_belt_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -804,6 +1104,18 @@ tv_engineering_department.5026 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_coastal_beacon_network_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_coastal_beacon_network_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_coastal_beacon_network_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_coastal_beacon_network_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -835,6 +1147,18 @@ tv_engineering_department.5027 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_knightly_fortress_order_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_knightly_fortress_order_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_knightly_fortress_order_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_knightly_fortress_order_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -866,6 +1190,18 @@ tv_engineering_department.5028 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_war_college_system_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_war_college_system_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_war_college_system_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_war_college_system_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -897,6 +1233,18 @@ tv_engineering_department.5029 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_great_clock_bell_system_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_great_clock_bell_system_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_great_clock_bell_system_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_great_clock_bell_system_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -928,6 +1276,18 @@ tv_engineering_department.5030 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_royal_art_district_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_royal_art_district_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_royal_art_district_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_royal_art_district_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -959,6 +1319,18 @@ tv_engineering_department.5031 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_grand_theater_festival_district_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_grand_theater_festival_district_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_grand_theater_festival_district_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_grand_theater_festival_district_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -990,6 +1362,18 @@ tv_engineering_department.5032 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_world_embassy_quarter_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_world_embassy_quarter_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_world_embassy_quarter_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_world_embassy_quarter_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1021,6 +1405,18 @@ tv_engineering_department.5033 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_law_code_stele_project_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_law_code_stele_project_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_law_code_stele_project_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_law_code_stele_project_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1052,6 +1448,18 @@ tv_engineering_department.5034 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_world_market_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_world_market_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_world_market_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_world_market_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1083,6 +1491,18 @@ tv_engineering_department.5035 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_royal_mint_system_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_royal_mint_system_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_royal_mint_system_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_royal_mint_system_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1114,6 +1534,18 @@ tv_engineering_department.5036 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_guild_alliance_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_guild_alliance_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_guild_alliance_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_guild_alliance_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1145,6 +1577,18 @@ tv_engineering_department.5037 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_maritime_trade_station_network_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_maritime_trade_station_network_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_maritime_trade_station_network_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_maritime_trade_station_network_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1176,6 +1620,18 @@ tv_engineering_department.5038 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_giant_workshop_complex_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_giant_workshop_complex_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_giant_workshop_complex_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_giant_workshop_complex_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1207,6 +1663,18 @@ tv_engineering_department.5039 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_world_monument_group_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_world_monument_group_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_world_monument_group_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_world_monument_group_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1238,6 +1706,18 @@ tv_engineering_department.5040 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_city_expansion_project_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_city_expansion_project_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_city_expansion_project_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_city_expansion_project_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1269,6 +1749,18 @@ tv_engineering_department.5041 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_megalithic_circle_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_megalithic_circle_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_megalithic_circle_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_megalithic_circle_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1300,6 +1792,18 @@ tv_engineering_department.5042 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_grand_cathedral_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_grand_cathedral_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_grand_cathedral_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_grand_cathedral_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1331,6 +1835,18 @@ tv_engineering_department.5043 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_great_monastery_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_great_monastery_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_great_monastery_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_great_monastery_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1362,6 +1878,18 @@ tv_engineering_department.5044 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_city_great_tower_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_city_great_tower_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_city_great_tower_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_city_great_tower_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1393,6 +1921,18 @@ tv_engineering_department.5045 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_great_sculpture_group_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_great_sculpture_group_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_great_sculpture_group_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_great_sculpture_group_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1424,6 +1964,18 @@ tv_engineering_department.5046 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_coastal_defense_cannon_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_coastal_defense_cannon_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_coastal_defense_cannon_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_coastal_defense_cannon_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1455,6 +2007,18 @@ tv_engineering_department.5047 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_naval_school_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_naval_school_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_naval_school_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_naval_school_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1486,6 +2050,18 @@ tv_engineering_department.5048 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_colonial_trade_company_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_colonial_trade_company_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_colonial_trade_company_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_colonial_trade_company_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1517,6 +2093,18 @@ tv_engineering_department.5049 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_great_assembly_hall_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_great_assembly_hall_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_great_assembly_hall_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_great_assembly_hall_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1548,6 +2136,18 @@ tv_engineering_department.5050 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_mobile_fortress_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_mobile_fortress_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_mobile_fortress_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_mobile_fortress_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1579,6 +2179,18 @@ tv_engineering_department.5051 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_ancient_city_ruins_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_ancient_city_ruins_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_ancient_city_ruins_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_ancient_city_ruins_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1610,6 +2222,18 @@ tv_engineering_department.5052 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_summer_palace_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_summer_palace_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_summer_palace_style_3_construct_final_building_effect = yes
+		}
 		tv_wonder_summer_palace_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1625,6 +2249,7 @@ tv_engineering_department.5101 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_pharos_lighthouse_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_pharos_lighthouse_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1640,6 +2265,7 @@ tv_engineering_department.5102 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_hagia_sophia_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_hagia_sophia_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1655,6 +2281,7 @@ tv_engineering_department.5103 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_dome_of_the_rock_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_dome_of_the_rock_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1670,6 +2297,7 @@ tv_engineering_department.5104 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_angkor_wat_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_angkor_wat_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1685,6 +2313,7 @@ tv_engineering_department.5105 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_potala_palace_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_potala_palace_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1700,6 +2329,7 @@ tv_engineering_department.5106 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_alhambra_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_alhambra_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1715,6 +2345,7 @@ tv_engineering_department.5107 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_machu_picchu_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_machu_picchu_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1730,6 +2361,7 @@ tv_engineering_department.5108 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_himeji_castle_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_himeji_castle_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1745,6 +2377,7 @@ tv_engineering_department.5109 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_taj_mahal_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_taj_mahal_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1760,6 +2393,7 @@ tv_engineering_department.5110 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_forbidden_city_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_forbidden_city_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1775,6 +2409,7 @@ tv_engineering_department.5111 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_topkapi_palace_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_topkapi_palace_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1790,6 +2425,7 @@ tv_engineering_department.5112 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_st_peters_basilica_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_st_peters_basilica_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1805,6 +2441,7 @@ tv_engineering_department.5113 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_lalibela_churches_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_lalibela_churches_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1820,6 +2457,7 @@ tv_engineering_department.5114 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_venetian_arsenal_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_venetian_arsenal_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1835,6 +2473,7 @@ tv_engineering_department.5115 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_malacca_port_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_malacca_port_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1850,6 +2489,7 @@ tv_engineering_department.5116 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_red_fort_delhi_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_red_fort_delhi_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1865,6 +2505,7 @@ tv_engineering_department.5117 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_versailles_palace_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_versailles_palace_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1880,6 +2521,7 @@ tv_engineering_department.5118 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_tenochtitlan_causeways_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_tenochtitlan_causeways_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1895,6 +2537,7 @@ tv_engineering_department.5119 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_amsterdam_canal_ring_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_amsterdam_canal_ring_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1910,6 +2553,7 @@ tv_engineering_department.5120 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_mecca_haram_expansion_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_mecca_haram_expansion_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1925,6 +2569,7 @@ tv_engineering_department.5121 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_ming_great_wall_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_ming_great_wall_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1940,6 +2585,7 @@ tv_engineering_department.5122 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_bank_of_saint_george_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_bank_of_saint_george_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1955,6 +2601,7 @@ tv_engineering_department.5123 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_cahokia_mounds_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_cahokia_mounds_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1970,6 +2617,7 @@ tv_engineering_department.5124 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_great_zimbabwe_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_great_zimbabwe_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -1985,6 +2633,7 @@ tv_engineering_department.5125 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_isfahan_square_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_isfahan_square_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2000,6 +2649,7 @@ tv_engineering_department.5126 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_grand_canal_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_grand_canal_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2015,6 +2665,7 @@ tv_engineering_department.5127 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_inca_royal_road_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_inca_royal_road_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2030,6 +2681,7 @@ tv_engineering_department.5128 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_roman_aqueducts_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_roman_aqueducts_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2045,6 +2697,7 @@ tv_engineering_department.5129 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_suez_ancient_canal_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_suez_ancient_canal_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2060,6 +2713,7 @@ tv_engineering_department.5130 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_kremlin_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_kremlin_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2075,6 +2729,7 @@ tv_engineering_department.5131 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_teotihuacan_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_teotihuacan_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2090,6 +2745,7 @@ tv_engineering_department.5132 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_angkor_hydraulic_system_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_angkor_hydraulic_system_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2105,6 +2761,7 @@ tv_engineering_department.5133 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_dutch_polders_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_dutch_polders_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2120,6 +2777,7 @@ tv_engineering_department.5134 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_machu_picchu_terraces_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_machu_picchu_terraces_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2135,6 +2793,7 @@ tv_engineering_department.5135 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_british_navy_dockyards_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_british_navy_dockyards_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2150,6 +2809,7 @@ tv_engineering_department.5136 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_spanish_silver_fleet_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_spanish_silver_fleet_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2165,6 +2825,7 @@ tv_engineering_department.5137 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_ottoman_hajj_road_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_ottoman_hajj_road_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2180,6 +2841,7 @@ tv_engineering_department.5138 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_persian_qanat_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_persian_qanat_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2195,6 +2857,7 @@ tv_engineering_department.5139 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_longjiang_shipyard_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_longjiang_shipyard_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2210,6 +2873,7 @@ tv_engineering_department.5140 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_jerusalem_holy_city_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_jerusalem_holy_city_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2225,6 +2889,7 @@ tv_engineering_department.5141 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_stonehenge_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_stonehenge_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2240,6 +2905,7 @@ tv_engineering_department.5142 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_tower_of_london_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_tower_of_london_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2255,6 +2921,7 @@ tv_engineering_department.5143 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_notre_dame_de_paris_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_notre_dame_de_paris_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2270,6 +2937,7 @@ tv_engineering_department.5144 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_st_basils_cathedral_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_st_basils_cathedral_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2285,6 +2953,7 @@ tv_engineering_department.5145 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_trinity_lavra_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_trinity_lavra_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2300,6 +2969,7 @@ tv_engineering_department.5146 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_winter_palace_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_winter_palace_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2315,6 +2985,7 @@ tv_engineering_department.5147 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_gyeongbokgung_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_gyeongbokgung_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2330,6 +3001,7 @@ tv_engineering_department.5148 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_changbai_mountain_altar_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_changbai_mountain_altar_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2345,6 +3017,7 @@ tv_engineering_department.5149 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_belgrade_fortress_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_belgrade_fortress_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2360,6 +3033,7 @@ tv_engineering_department.5150 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_meteora_monasteries_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_meteora_monasteries_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2375,6 +3049,7 @@ tv_engineering_department.5151 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_belem_tower_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_belem_tower_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2390,6 +3065,7 @@ tv_engineering_department.5152 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_iberian_inquisition_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_iberian_inquisition_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2405,6 +3081,7 @@ tv_engineering_department.5153 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_santa_maria_del_fiore_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_santa_maria_del_fiore_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2420,6 +3097,7 @@ tv_engineering_department.5154 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_leaning_tower_of_pisa_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_leaning_tower_of_pisa_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2435,6 +3113,7 @@ tv_engineering_department.5155 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_milan_cathedral_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_milan_cathedral_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2450,6 +3129,7 @@ tv_engineering_department.5156 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_vatican_archives_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_vatican_archives_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2465,6 +3145,7 @@ tv_engineering_department.5157 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_temple_of_heaven_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_temple_of_heaven_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2480,6 +3161,7 @@ tv_engineering_department.5158 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_dujiangyan_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_dujiangyan_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2495,6 +3177,7 @@ tv_engineering_department.5159 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_porcelain_tower_of_nanjing_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_porcelain_tower_of_nanjing_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2510,6 +3193,7 @@ tv_engineering_department.5160 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_jingdezhen_imperial_kilns_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_jingdezhen_imperial_kilns_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2525,6 +3209,7 @@ tv_engineering_department.5161 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_mogao_caves_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_mogao_caves_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2540,6 +3225,7 @@ tv_engineering_department.5162 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_canton_thirteen_factories_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_canton_thirteen_factories_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2555,6 +3241,7 @@ tv_engineering_department.5163 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_dardanelles_fortress_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_dardanelles_fortress_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2570,6 +3257,7 @@ tv_engineering_department.5164 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_escorial_monastery_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_escorial_monastery_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2585,6 +3273,7 @@ tv_engineering_department.5165 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_toledo_armory_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_toledo_armory_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2600,6 +3289,7 @@ tv_engineering_department.5166 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_camino_de_santiago_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_camino_de_santiago_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2615,6 +3305,7 @@ tv_engineering_department.5167 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_sagres_navigation_school_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_sagres_navigation_school_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2630,6 +3321,7 @@ tv_engineering_department.5168 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_milan_arsenal_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_milan_arsenal_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2645,6 +3337,7 @@ tv_engineering_department.5169 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_university_of_bologna_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_university_of_bologna_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2660,6 +3353,7 @@ tv_engineering_department.5170 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_carrara_marble_quarries_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_carrara_marble_quarries_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2675,6 +3369,7 @@ tv_engineering_department.5171 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_east_india_company_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_east_india_company_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2690,6 +3385,7 @@ tv_engineering_department.5172 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_peacock_throne_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_peacock_throne_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2705,6 +3401,7 @@ tv_engineering_department.5173 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_varanasi_ghats_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_varanasi_ghats_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2720,6 +3417,7 @@ tv_engineering_department.5174 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_brihadishvara_temple_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_brihadishvara_temple_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2735,6 +3433,7 @@ tv_engineering_department.5175 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_konark_sun_temple_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_konark_sun_temple_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2750,6 +3449,7 @@ tv_engineering_department.5176 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_fatehpur_sikri_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_fatehpur_sikri_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2765,6 +3465,7 @@ tv_engineering_department.5177 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_calicut_port_city_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_calicut_port_city_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2780,6 +3481,7 @@ tv_engineering_department.5178 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_wieliczka_salt_mine_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_wieliczka_salt_mine_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2795,6 +3497,7 @@ tv_engineering_department.5179 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_wawel_castle_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_wawel_castle_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2810,6 +3513,7 @@ tv_engineering_department.5180 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_zamosc_ideal_city_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_zamosc_ideal_city_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2825,6 +3529,7 @@ tv_engineering_department.5181 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_gdansk_port_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_gdansk_port_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2840,6 +3545,7 @@ tv_engineering_department.5182 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_malbork_castle_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_malbork_castle_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2855,6 +3561,7 @@ tv_engineering_department.5183 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_brest_synagogue_quarter_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_brest_synagogue_quarter_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2870,6 +3577,7 @@ tv_engineering_department.5184 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_vilnius_university_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_vilnius_university_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2885,6 +3593,7 @@ tv_engineering_department.5185 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_cave_monastery_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_cave_monastery_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2900,6 +3609,7 @@ tv_engineering_department.5186 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_zaporizhian_sich_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_zaporizhian_sich_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2915,6 +3625,7 @@ tv_engineering_department.5187 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_registan_square_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_registan_square_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2930,6 +3641,7 @@ tv_engineering_department.5188 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_khiva_old_city_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_khiva_old_city_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2945,6 +3657,7 @@ tv_engineering_department.5189 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_bukhara_kalyan_minaret_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_bukhara_kalyan_minaret_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2960,6 +3673,7 @@ tv_engineering_department.5190 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_ferghana_palace_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_ferghana_palace_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2975,6 +3689,7 @@ tv_engineering_department.5191 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_tashkent_old_bazaar_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_tashkent_old_bazaar_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -2990,6 +3705,7 @@ tv_engineering_department.5192 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_louvre_palace_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_louvre_palace_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -3005,6 +3721,7 @@ tv_engineering_department.5193 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_fontainebleau_palace_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_fontainebleau_palace_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -3020,6 +3737,7 @@ tv_engineering_department.5194 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_bordeaux_port_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_bordeaux_port_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -3035,6 +3753,7 @@ tv_engineering_department.5195 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_marseille_old_port_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_marseille_old_port_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -3050,6 +3769,7 @@ tv_engineering_department.5196 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_lyon_silk_workshops_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_lyon_silk_workshops_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -3065,6 +3785,7 @@ tv_engineering_department.5197 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_mont_saint_michel_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_mont_saint_michel_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -3080,6 +3801,7 @@ tv_engineering_department.5198 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_bastille_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_bastille_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -3095,6 +3817,7 @@ tv_engineering_department.5199 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_carcassonne_castle_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_carcassonne_castle_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -3110,6 +3833,7 @@ tv_engineering_department.5200 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_brest_naval_port_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_brest_naval_port_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes
@@ -3125,6 +3849,7 @@ tv_engineering_department.5201 = {
 
 	option = {
 		name = tv_engineering_department.500.a
+		tv_wonder_unique_colmar_old_town_style_1_construct_final_building_effect = yes
 		tv_wonder_unique_colmar_old_town_finalization_visible_effect = yes
 		hidden_effect = {
 			tv_wonder_trigger_finalization_hidden_event_effect = yes

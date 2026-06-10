@@ -19741,364 +19741,312 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 tv_wonder_mechanics_apply_selected_ritual_completion_effect = {
 	if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 101 }
-		add_country_modifier = { modifier = tv_wonder_sacred_mountain_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 102 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 201 }
-		add_country_modifier = { modifier = tv_wonder_triumphal_axis_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 202 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 301 }
-		add_country_modifier = { modifier = tv_wonder_great_port_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 302 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 401 }
-		add_country_modifier = { modifier = tv_wonder_giant_necropolis_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 402 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 501 }
-		add_country_modifier = { modifier = tv_wonder_great_lighthouse_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 502 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 601 }
-		add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 602 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 701 }
-		add_country_modifier = { modifier = tv_wonder_mining_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 702 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 801 }
-		add_country_modifier = { modifier = tv_wonder_giant_observatory_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 802 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 901 }
-		add_country_modifier = { modifier = tv_wonder_palace_of_nations_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 902 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1001 }
-		add_country_modifier = { modifier = tv_wonder_university_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1002 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1101 }
-		add_country_modifier = { modifier = tv_wonder_sky_dome_grand_temple_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1102 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1201 }
-		add_country_modifier = { modifier = tv_wonder_giant_tower_temple_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1202 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1301 }
-		add_country_modifier = { modifier = tv_wonder_river_extension_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1302 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1401 }
-		add_country_modifier = { modifier = tv_wonder_national_shipyard_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1402 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1501 }
-		add_country_modifier = { modifier = tv_wonder_star_fortress_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1502 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1601 }
-		add_country_modifier = { modifier = tv_wonder_great_wall_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1602 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1701 }
-		add_country_modifier = { modifier = tv_wonder_giant_armory_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1702 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1801 }
-		add_country_modifier = { modifier = tv_wonder_library_of_nation_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1802 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1901 }
-		add_country_modifier = { modifier = tv_wonder_large_canal_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 1902 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2001 }
-		add_country_modifier = { modifier = tv_wonder_mountain_terrace_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2002 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2101 }
-		add_country_modifier = { modifier = tv_wonder_giant_dam_project_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2102 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2201 }
-		add_country_modifier = { modifier = tv_wonder_royal_granary_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2202 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2301 }
-		add_country_modifier = { modifier = tv_wonder_imperial_post_road_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2302 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2401 }
-		add_country_modifier = { modifier = tv_wonder_canal_hub_city_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2402 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2501 }
-		add_country_modifier = { modifier = tv_wonder_frontier_colonization_belt_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2502 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2601 }
-		add_country_modifier = { modifier = tv_wonder_coastal_beacon_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2602 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2701 }
-		add_country_modifier = { modifier = tv_wonder_knightly_fortress_order_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2702 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2801 }
-		add_country_modifier = { modifier = tv_wonder_war_college_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2802 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2901 }
-		add_country_modifier = { modifier = tv_wonder_great_clock_bell_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 2902 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3001 }
-		add_country_modifier = { modifier = tv_wonder_royal_art_district_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3002 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3101 }
-		add_country_modifier = { modifier = tv_wonder_grand_theater_festival_district_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3102 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3201 }
-		add_country_modifier = { modifier = tv_wonder_world_embassy_quarter_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3202 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3301 }
-		add_country_modifier = { modifier = tv_wonder_law_code_stele_project_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3302 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3401 }
-		add_country_modifier = { modifier = tv_wonder_world_market_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3402 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3501 }
-		add_country_modifier = { modifier = tv_wonder_royal_mint_system_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3502 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3601 }
-		add_country_modifier = { modifier = tv_wonder_guild_alliance_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3602 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3701 }
-		add_country_modifier = { modifier = tv_wonder_maritime_trade_station_network_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3702 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3801 }
-		add_country_modifier = { modifier = tv_wonder_giant_workshop_complex_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3802 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3901 }
-		add_country_modifier = { modifier = tv_wonder_world_monument_group_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 3902 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4001 }
-		add_country_modifier = { modifier = tv_wonder_city_expansion_project_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4002 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4101 }
-		add_country_modifier = { modifier = tv_wonder_megalithic_circle_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4102 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4201 }
-		add_country_modifier = { modifier = tv_wonder_grand_cathedral_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4202 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4301 }
-		add_country_modifier = { modifier = tv_wonder_great_monastery_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4302 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4401 }
-		add_country_modifier = { modifier = tv_wonder_city_great_tower_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4402 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4501 }
-		add_country_modifier = { modifier = tv_wonder_great_sculpture_group_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4502 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4601 }
-		add_country_modifier = { modifier = tv_wonder_coastal_defense_cannon_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4602 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4701 }
-		add_country_modifier = { modifier = tv_wonder_naval_school_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4702 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4801 }
-		add_country_modifier = { modifier = tv_wonder_colonial_trade_company_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4802 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4901 }
-		add_country_modifier = { modifier = tv_wonder_great_assembly_hall_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 4902 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 5001 }
-		add_country_modifier = { modifier = tv_wonder_mobile_fortress_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 5002 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 5101 }
-		add_country_modifier = { modifier = tv_wonder_ancient_city_ruins_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 5102 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 5201 }
-		add_country_modifier = { modifier = tv_wonder_summer_palace_ritual_blessing_modifier years = -1 mode = add_and_extend }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 5202 }

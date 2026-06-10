@@ -12,6 +12,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from wonder_localization_lib import load_wonder_localization_data
 from wonder_mechanics_lib import (
     ceremony_styles,
+    construct_final_building_effect_name,
     finalization_event_id,
     finalization_hidden_event_execute_effect_name,
     finalization_hidden_event_id,
@@ -94,9 +95,24 @@ def append_hidden_style_dispatch(lines: list[str], wonder: dict) -> None:
     lines.append(f"{T}{T}}}")
 
 
+def append_visible_construction_dispatch(lines: list[str], wonder: dict) -> None:
+    styles = ceremony_styles(wonder)
+    if len(styles) == 1:
+        lines.append(f"{T}{T}{construct_final_building_effect_name(wonder, styles[0])} = yes")
+        return
+
+    for index, style in enumerate(styles):
+        head = "if" if index == 0 else "else_if"
+        lines.append(f"{T}{T}{head} = {{")
+        lines.append(f"{T}{T}{T}limit = {{ var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}{T}{construct_final_building_effect_name(wonder, style)} = yes")
+        lines.append(f"{T}{T}}}")
+
+
 def append_finalization_option(lines: list[str], wonder: dict) -> None:
     lines.append(f"{T}option = {{")
     lines.append(f"{T}{T}name = tv_engineering_department.500.a")
+    append_visible_construction_dispatch(lines, wonder)
     lines.append(f"{T}{T}{finalization_visible_effect_name(wonder)} = yes")
     append_hidden_style_dispatch(lines, wonder)
     lines.append(f"{T}}}")

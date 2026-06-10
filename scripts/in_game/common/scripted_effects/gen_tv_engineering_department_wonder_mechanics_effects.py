@@ -287,11 +287,13 @@ def progress_ritual_payload_lines(ritual_plan: dict, indent: int) -> list[str]:
     return indent_script_block(ritual_plan.get("progress_effect_script", ""), indent)
 
 
-def completion_ritual_payload_lines(wonder: dict, ritual_plan: dict, indent: int) -> list[str]:
+def completion_ritual_payload_lines(
+    wonder: dict, ritual_plan: dict, indent: int, *, include_blessing_modifier: bool
+) -> list[str]:
     lines: list[str] = []
     timed = ritual_plan.get("timed", {})
     blessing_modifier = timed.get("blessing_modifier", {})
-    if blessing_modifier:
+    if blessing_modifier and include_blessing_modifier:
         lines.append(
             f"{T * indent}add_country_modifier = {{ modifier = {ritual_blessing_modifier_name(wonder)} years = -1 mode = add_and_extend }}"
         )
@@ -372,7 +374,7 @@ def ritual_effect_tooltip_lines(wonder: dict, mechanics: dict, style: int, ritua
 
     mode = ritual_plan["mode"]
     if mode == "timed":
-        return completion_ritual_payload_lines(wonder, ritual_plan, indent)
+        return completion_ritual_payload_lines(wonder, ritual_plan, indent, include_blessing_modifier=True)
     if mode == "auxiliary_building":
         return [
             f"{T * indent}var:tv_wonder_site ?= {{",
@@ -1378,7 +1380,7 @@ def generate() -> str:
         first = False
         lines.append(f"{T}{head} = {{")
         lines.append(f"{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
-        lines.extend(completion_ritual_payload_lines(wonder, ritual_plan, 2))
+        lines.extend(completion_ritual_payload_lines(wonder, ritual_plan, 2, include_blessing_modifier=False))
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
