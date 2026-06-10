@@ -23,7 +23,7 @@ widget = {
 			margin = { 8 5 }
 			text_single = {
 				text = "[Localize(Concatenate('TV_ENGINEERING_WONDER_PREVIEW_LOCATION_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').GetValue))))]"
-				max_width = 484
+				max_width = 454
 				fontsize = 13
 				align = nobaseline|left
 			}
@@ -43,29 +43,29 @@ widget = {
 			margin = { 8 7 }
 			spacing = 4
 			ignoreinvisible = yes
-			text_single = { text = "TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE" max_width = 484 fontsize = 14 align = nobaseline|left }
+			text_single = { text = "TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE" max_width = 454 fontsize = 14 align = nobaseline|left }
 			hbox = {
 				layoutpolicy_horizontal = fixed
 				layoutpolicy_vertical = shrinking
-				size = { 468 -1 }
+				size = { 454 -1 }
 				spacing = 8
 				ignoreinvisible = yes
 				vbox = {
 					layoutpolicy_horizontal = fixed
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 230 -1 }
-					maximumsize = { 230 -1 }
+					minimumsize = { 223 -1 }
+					maximumsize = { 223 -1 }
 					spacing = 2
 					text_single = {
 						text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-						max_width = 230
+						max_width = 223
 						align = left|nobaseline
 						fontsize = 13
 					}
 					TooltipStringPairList = {
 						layoutpolicy_horizontal = fixed
-						maximumsize = { 230 -1 }
-						blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
+						maximumsize = { 223 -1 }
+						blockoverride "tooltip_minimumsize" { minimumsize = { 223 -1 } }
 						blockoverride "field_text_format" {
 							fontsize = 13
 						}
@@ -79,19 +79,19 @@ widget = {
 				vbox = {
 					layoutpolicy_horizontal = fixed
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 230 -1 }
-					maximumsize = { 230 -1 }
+					minimumsize = { 223 -1 }
+					maximumsize = { 223 -1 }
 					spacing = 2
 					text_single = {
 						text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-						max_width = 230
+						max_width = 223
 						align = left|nobaseline
 						fontsize = 13
 					}
 					TooltipStringPairList = {
 						layoutpolicy_horizontal = fixed
-						maximumsize = { 230 -1 }
-						blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
+						maximumsize = { 223 -1 }
+						blockoverride "tooltip_minimumsize" { minimumsize = { 223 -1 } }
 						blockoverride "field_text_format" {
 							fontsize = 13
 						}
@@ -125,7 +125,7 @@ widget = {
 			margin = { 8 5 }
 			text_single = {
 				text = "[Localize(Concatenate('TV_ENGINEERING_WONDER_PREVIEW_LOCATION_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]"
-				max_width = 484
+				max_width = 454
 				fontsize = 13
 				align = nobaseline|left
 			}
@@ -145,29 +145,29 @@ widget = {
 			margin = { 8 7 }
 			spacing = 4
 			ignoreinvisible = yes
-			text_single = { text = "TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE" max_width = 484 fontsize = 14 align = nobaseline|left }
+			text_single = { text = "TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE" max_width = 454 fontsize = 14 align = nobaseline|left }
 			hbox = {
 				layoutpolicy_horizontal = fixed
 				layoutpolicy_vertical = shrinking
-				size = { 468 -1 }
+				size = { 454 -1 }
 				spacing = 8
 				ignoreinvisible = yes
 				vbox = {
 					layoutpolicy_horizontal = fixed
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 230 -1 }
-					maximumsize = { 230 -1 }
+					minimumsize = { 223 -1 }
+					maximumsize = { 223 -1 }
 					spacing = 2
 					text_single = {
 						text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-						max_width = 230
+						max_width = 223
 						align = left|nobaseline
 						fontsize = 13
 					}
 					TooltipStringPairList = {
 						layoutpolicy_horizontal = fixed
-						maximumsize = { 230 -1 }
-						blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
+						maximumsize = { 223 -1 }
+						blockoverride "tooltip_minimumsize" { minimumsize = { 223 -1 } }
 						blockoverride "field_text_format" {
 							fontsize = 13
 						}
@@ -181,19 +181,19 @@ widget = {
 				vbox = {
 					layoutpolicy_horizontal = fixed
 					layoutpolicy_vertical = shrinking
-					minimumsize = { 230 -1 }
-					maximumsize = { 230 -1 }
+					minimumsize = { 223 -1 }
+					maximumsize = { 223 -1 }
 					spacing = 2
 					text_single = {
 						text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-						max_width = 230
+						max_width = 223
 						align = left|nobaseline
 						fontsize = 13
 					}
 					TooltipStringPairList = {
 						layoutpolicy_horizontal = fixed
-						maximumsize = { 230 -1 }
-						blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
+						maximumsize = { 223 -1 }
+						blockoverride "tooltip_minimumsize" { minimumsize = { 223 -1 } }
 						blockoverride "field_text_format" {
 							fontsize = 13
 						}
